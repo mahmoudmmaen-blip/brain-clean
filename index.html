@@ -28,7 +28,10 @@
 
     body {
       font-family: 'Cairo', sans-serif;
-      background: var(--bg);
+      background: #0a0e1a;
+      background-image:
+        radial-gradient(ellipse 120% 80% at 50% -20%, rgba(30, 107, 58, 0.12), transparent 50%),
+        radial-gradient(ellipse 80% 50% at 100% 50%, rgba(74, 144, 217, 0.06), transparent 45%);
       color: var(--text);
       min-height: 100vh;
       line-height: 1.5;
@@ -39,6 +42,12 @@
       max-width: 520px;
       margin: 0 auto;
       padding: 1rem 0.9rem 2.5rem;
+    }
+
+    .dashboard {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
     }
 
     /* ── Dashboard header ── */
@@ -72,11 +81,12 @@
     }
 
     .card {
-      background: var(--card);
-      border: 1px solid var(--border);
+      background: #111827;
+      border: 1px solid #1e2a3a;
       border-radius: var(--radius);
       padding: 1.1rem;
       margin-bottom: 0.75rem;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.28);
     }
 
     .card-label {
@@ -95,28 +105,52 @@
     }
 
     /* Brain Clarity Score */
-    .clarity-card { text-align: center; padding: 1.35rem 1rem; }
+    .clarity-card {
+      text-align: center;
+      padding: 1.5rem 1rem 1.35rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .clarity-card::before {
+      content: '';
+      position: absolute;
+      inset: -40% 10% auto;
+      height: 120px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.18), transparent 70%);
+      pointer-events: none;
+    }
 
     .clarity-title {
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       font-weight: 800;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-      margin-bottom: 0.35rem;
+      letter-spacing: 0.14em;
+      color: #8b95ad;
+      margin-bottom: 0.5rem;
+      position: relative;
+    }
+
+    .clarity-score-wrap {
+      position: relative;
+      display: inline-block;
     }
 
     .clarity-score {
       font-size: 64px;
       font-weight: 800;
       line-height: 1;
-      color: var(--gold);
+      color: #f59e0b;
       font-variant-numeric: tabular-nums;
+      text-shadow: 0 0 40px rgba(245, 158, 11, 0.35);
+      position: relative;
     }
 
     .clarity-score .unit {
-      font-size: 1.75rem;
+      font-size: 1.5rem;
       font-weight: 700;
-      margin-right: 0.15rem;
+      color: #f59e0b;
+      opacity: 0.85;
+      margin-inline-start: 0.1rem;
     }
 
     .clarity-sub {
@@ -138,9 +172,33 @@
     }
 
     /* Weekly bar chart */
+    .chart-legend {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 0.5rem;
+      font-size: 0.65rem;
+      color: var(--muted);
+    }
+
+    .chart-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .chart-legend .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+    }
+
+    .chart-legend .dot.today { background: #f59e0b; }
+    .chart-legend .dot.past { background: #1e6b3a; }
+
     .chart-box {
       position: relative;
-      height: 168px;
+      height: 176px;
       width: 100%;
     }
 
@@ -168,8 +226,8 @@
     }
 
     .counter-unit {
-      background: var(--bg);
-      border: 1px solid var(--border);
+      background: #0a0e1a;
+      border: 1px solid #1e2a3a;
       border-radius: 10px;
       padding: 0.55rem 0.25rem;
       text-align: center;
@@ -219,15 +277,31 @@
     }
 
     .stat-card {
-      background: var(--card);
-      border: 1px solid var(--border);
+      background: #111827;
+      border: 1px solid #1e2a3a;
       border-radius: 12px;
-      padding: 0.75rem 0.45rem;
+      padding: 0.8rem 0.4rem 0.7rem;
       text-align: center;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
     }
 
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+    }
+
+    .stat-card.green::before { background: #22c55e; }
+    .stat-card.gold::before { background: #f59e0b; }
+    .stat-card.blue::before { background: #4a90d9; }
+
     .stat-card .stat-val {
-      font-size: 1.35rem;
+      font-size: 1.4rem;
       font-weight: 800;
       font-variant-numeric: tabular-nums;
       line-height: 1.1;
@@ -236,13 +310,13 @@
     .stat-card .stat-lbl {
       font-size: 0.58rem;
       color: var(--muted);
-      margin-top: 0.2rem;
-      line-height: 1.3;
+      margin-top: 0.25rem;
+      line-height: 1.35;
     }
 
-    .stat-card.green .stat-val { color: var(--green-light); }
-    .stat-card.gold .stat-val { color: var(--gold); }
-    .stat-card.blue .stat-val { color: var(--blue); }
+    .stat-card.green .stat-val { color: #22c55e; }
+    .stat-card.gold .stat-val { color: #f59e0b; }
+    .stat-card.blue .stat-val { color: #4a90d9; }
 
     /* Pomodoro launch */
     .btn-pomo-launch {
@@ -286,8 +360,10 @@
 
     /* AI Coach */
     .coach-card {
-      border-inline-start: 3px solid var(--gold);
+      border-inline-start: 4px solid #f59e0b;
       padding: 1rem 1rem 1rem 0.85rem;
+      background: linear-gradient(90deg, rgba(245, 158, 11, 0.06), #111827 28%);
+      box-shadow: 0 4px 20px rgba(245, 158, 11, 0.08);
     }
 
     .coach-card .coach-tag {
@@ -546,84 +622,92 @@
 </head>
 <body>
   <div class="app">
-    <!-- ═══ DASHBOARD ═══ -->
-    <div class="dash-header">
-      <div>
-        <h1>BrainClean Pro</h1>
-        <p class="sub">لوحة التحكم — رحلة التركيز</p>
-      </div>
-      <span class="badge" id="storageBadge">محلي</span>
-    </div>
-
-    <section class="card clarity-card">
-      <div class="clarity-title">BRAIN CLARITY SCORE</div>
-      <div class="clarity-score" id="clarityScore" aria-live="polite">
-        <span class="unit">%</span>50
-      </div>
-      <p class="clarity-sub" id="claritySub">مؤشر وضوح إدراكي مترابط</p>
-      <span class="clarity-status" id="clarityStatus">تركيز مستقر</span>
-    </section>
-
-    <section class="card">
-      <div class="card-label">جلسات التركيز — آخر 7 أيام</div>
-      <div class="chart-box">
-        <canvas id="weeklyChart" aria-label="رسم أسبوعي لجلسات التركيز"></canvas>
-      </div>
-      <p class="chart-offline" id="chartOffline">يتطلب اتصالاً لتحميل Chart.js</p>
-    </section>
-
-    <section class="card">
-      <p class="streak-label-ar">سلسلة التركيز الحالية</p>
-      <div class="counter-grid">
-        <div class="counter-unit" id="unitDays">
-          <div class="counter-value" id="valDays">00</div>
-          <div class="counter-label">يوم</div>
+    <!-- ═══ DASHBOARD — Dark Premium ═══ -->
+    <main class="dashboard" aria-label="لوحة التحكم">
+      <div class="dash-header">
+        <div>
+          <h1>BrainClean Pro</h1>
+          <p class="sub">لوحة التحكم — رحلة التركيز</p>
         </div>
-        <div class="counter-unit" id="unitHours">
-          <div class="counter-value" id="valHours">00</div>
-          <div class="counter-label">ساعة</div>
-        </div>
-        <div class="counter-unit" id="unitMins">
-          <div class="counter-value" id="valMins">00</div>
-          <div class="counter-label">دقيقة</div>
-        </div>
-        <div class="counter-unit" id="unitSecs">
-          <div class="counter-value" id="valSecs">00</div>
-          <div class="counter-label">ثانية</div>
-        </div>
+        <span class="badge" id="storageBadge">محلي</span>
       </div>
-      <p class="streak-days-line">
-        يوم فعّال: <strong id="streakDaysDisplay">0.00</strong>
-      </p>
-    </section>
 
-    <div class="stat-row">
-      <div class="stat-card green">
-        <div class="stat-val" id="statSessions">0</div>
-        <div class="stat-lbl">جلسات اليوم</div>
-      </div>
-      <div class="stat-card gold">
-        <div class="stat-val" id="statDistractionMins">0</div>
-        <div class="stat-lbl">دقائق التشتت</div>
-      </div>
-      <div class="stat-card blue">
-        <div class="stat-val" id="statPoints">0</div>
-        <div class="stat-lbl">نقاط الالتزام</div>
-      </div>
-    </div>
+      <section class="card clarity-card">
+        <div class="clarity-title">BRAIN CLARITY SCORE</div>
+        <div class="clarity-score-wrap">
+          <div class="clarity-score" id="clarityScore" aria-live="polite">
+            50<span class="unit">%</span>
+          </div>
+        </div>
+        <p class="clarity-sub" id="claritySub">تحديث لحظي · نموذج مترابط</p>
+        <span class="clarity-status" id="clarityStatus">تركيز مستقر</span>
+      </section>
 
-    <button type="button" class="btn-pomo-launch" id="btnPomoLaunch" aria-expanded="false" aria-controls="pomoPanel">
-      <span class="play-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-      </span>
-      <span id="pomoLaunchText">بدء بومودورو — 25 دقيقة</span>
-    </button>
+      <section class="card">
+        <div class="card-label">جلسات التركيز — آخر 7 أيام</div>
+        <div class="chart-box">
+          <canvas id="weeklyChart" aria-label="رسم أعمدة أسبوعي لجلسات التركيز"></canvas>
+        </div>
+        <div class="chart-legend" aria-hidden="true">
+          <span><i class="dot today"></i> اليوم</span>
+          <span><i class="dot past"></i> أيام سابقة</span>
+        </div>
+        <p class="chart-offline" id="chartOffline">يتطلب اتصالاً لتحميل Chart.js</p>
+      </section>
 
-    <section class="card coach-card" aria-label="مدرب ذكي">
-      <div class="coach-tag">AI COACH</div>
-      <p id="coachMessage">ابدأ جلسة تركيز واحدة الآن — الدماغ يستعيد وضوحه خلال 25 دقيقة من التركيز العميق.</p>
-      <p class="coach-meta" id="coachMeta">نصيحة اليوم · محفوظ محلياً</p>
-    </section>
+      <section class="card">
+        <p class="streak-label-ar">سلسلة التركيز الحالية</p>
+        <div class="counter-grid">
+          <div class="counter-unit" id="unitDays">
+            <div class="counter-value" id="valDays">00</div>
+            <div class="counter-label">يوم</div>
+          </div>
+          <div class="counter-unit" id="unitHours">
+            <div class="counter-value" id="valHours">00</div>
+            <div class="counter-label">ساعة</div>
+          </div>
+          <div class="counter-unit" id="unitMins">
+            <div class="counter-value" id="valMins">00</div>
+            <div class="counter-label">دقيقة</div>
+          </div>
+          <div class="counter-unit" id="unitSecs">
+            <div class="counter-value" id="valSecs">00</div>
+            <div class="counter-label">ثانية</div>
+          </div>
+        </div>
+        <p class="streak-days-line">
+          يوم فعّال: <strong id="streakDaysDisplay">0.00</strong>
+        </p>
+      </section>
+
+      <div class="stat-row">
+        <div class="stat-card green">
+          <div class="stat-val" id="statSessions">0</div>
+          <div class="stat-lbl">جلسات اليوم</div>
+        </div>
+        <div class="stat-card gold">
+          <div class="stat-val" id="statDistractionMins">0</div>
+          <div class="stat-lbl">دقائق التشتت</div>
+        </div>
+        <div class="stat-card blue">
+          <div class="stat-val" id="statPoints">0</div>
+          <div class="stat-lbl">نقاط الالتزام</div>
+        </div>
+      </div>
+
+      <button type="button" class="btn-pomo-launch" id="btnPomoLaunch" aria-expanded="false" aria-controls="pomoPanel">
+        <span class="play-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+        <span id="pomoLaunchText">بدء بومودورو — 25 دقيقة</span>
+      </button>
+
+      <section class="card coach-card" aria-label="مدرب ذكي">
+        <div class="coach-tag">AI COACH</div>
+        <p id="coachMessage">ابدأ جلسة تركيز واحدة الآن — الدماغ يستعيد وضوحه خلال 25 دقيقة من التركيز العميق.</p>
+        <p class="coach-meta" id="coachMeta">نصيحة اليوم · محفوظ محلياً</p>
+      </section>
+    </main>
 
     <section class="card pomo-panel" id="pomoPanel">
       <div class="card-label">بومودورو — 25 دقيقة</div>
@@ -948,7 +1032,7 @@
 
         const clarity = calcBrainClarityScore();
         $('clarityScore').innerHTML =
-          '<span class="unit">%</span>' + Math.round(clarity);
+          Math.round(clarity) + '<span class="unit">%</span>';
         $('clarityStatus').textContent = clarityStatusText(clarity);
         $('claritySub').textContent =
           'دين التشتت: ' + state.serenityDebt.toFixed(1) + ' · خصم السلسلة: ' +
