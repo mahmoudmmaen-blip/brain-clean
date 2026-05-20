@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BrainClean Pro — رحلة التركيز</title>
+  <title>BrainClean Pro — Dashboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet" />
@@ -11,16 +11,16 @@
   <style>
     :root {
       --bg: #0a0e1a;
-      --surface: #12182a;
-      --surface2: #1a2035;
+      --card: #111827;
+      --border: #1e2a3a;
       --text: #e8ecf4;
       --muted: #8b95ad;
-      --accent: #4a90d9;
-      --gold: #ffd700;
+      --gold: #f59e0b;
+      --green: #1e6b3a;
+      --green-light: #22c55e;
+      --blue: #4a90d9;
       --danger: #ef4444;
-      --success: #2dd4bf;
-      --violet: #a855f7;
-      --radius: 16px;
+      --radius: 14px;
       --touch: 48px;
     }
 
@@ -32,67 +32,148 @@
       color: var(--text);
       min-height: 100vh;
       line-height: 1.5;
+      direction: rtl;
     }
 
     .app {
       max-width: 520px;
       margin: 0 auto;
-      padding: 1.25rem 1rem 2.5rem;
+      padding: 1rem 0.9rem 2.5rem;
     }
 
-    header { text-align: center; margin-bottom: 1.25rem; }
+    /* ── Dashboard header ── */
+    .dash-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
 
-    header h1 {
-      font-size: 1.45rem;
+    .dash-header h1 {
+      font-size: 1.2rem;
       font-weight: 800;
-      background: linear-gradient(135deg, var(--accent), var(--success));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--text);
     }
 
-    header p { font-size: 0.82rem; color: var(--muted); margin-top: 0.2rem; }
+    .dash-header .sub {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 0.1rem;
+    }
 
     .badge {
-      display: inline-block;
-      margin-top: 0.45rem;
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       font-weight: 600;
-      color: var(--success);
-      background: rgba(45, 212, 191, 0.1);
-      border: 1px solid rgba(45, 212, 191, 0.22);
-      padding: 0.18rem 0.55rem;
+      color: var(--green-light);
+      background: rgba(30, 107, 58, 0.25);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.5rem;
       border-radius: 999px;
     }
 
     .card {
-      background: var(--surface);
-      border: 1px solid rgba(74, 144, 217, 0.12);
+      background: var(--card);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 1.2rem;
-      margin-bottom: 0.9rem;
+      padding: 1.1rem;
+      margin-bottom: 0.75rem;
     }
 
-    .card-title {
-      font-size: 0.78rem;
+    .card-label {
+      font-size: 0.72rem;
       font-weight: 700;
       color: var(--muted);
-      margin-bottom: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.65rem;
+    }
+
+    .card-label.en {
+      font-size: 0.68rem;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+    }
+
+    /* Brain Clarity Score */
+    .clarity-card { text-align: center; padding: 1.35rem 1rem; }
+
+    .clarity-title {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .clarity-score {
+      font-size: 64px;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--gold);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .clarity-score .unit {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-right: 0.15rem;
+    }
+
+    .clarity-sub {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.45rem;
+    }
+
+    .clarity-status {
+      display: inline-block;
+      margin-top: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      color: var(--gold);
+    }
+
+    /* Weekly bar chart */
+    .chart-box {
+      position: relative;
+      height: 168px;
+      width: 100%;
+    }
+
+    .chart-offline {
+      display: none;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      padding: 1.25rem;
+    }
+
+    /* Streak boxes */
+    .streak-label-ar {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.55rem;
       text-align: center;
     }
 
     .counter-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 0.45rem;
-      text-align: center;
+      gap: 0.4rem;
     }
 
     .counter-unit {
-      background: var(--surface2);
-      border-radius: 12px;
-      padding: 0.6rem 0.3rem;
-      min-height: var(--touch);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.55rem 0.25rem;
+      text-align: center;
+      min-height: 56px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -101,215 +182,239 @@
     .counter-unit.pulse { animation: pulse 0.35s ease; }
 
     @keyframes pulse {
-      50% { transform: scale(1.04); }
+      50% { transform: scale(1.05); }
     }
 
     .counter-value {
-      font-size: 1.55rem;
+      font-size: 1.35rem;
       font-weight: 800;
       font-variant-numeric: tabular-nums;
+      color: var(--text);
     }
 
-    .counter-label { font-size: 0.62rem; color: var(--muted); margin-top: 0.15rem; }
+    .counter-label {
+      font-size: 0.6rem;
+      color: var(--muted);
+      margin-top: 0.12rem;
+    }
 
-    .streak-main {
+    .streak-days-line {
       text-align: center;
-      margin-top: 0.85rem;
-      font-size: 2.1rem;
-      font-weight: 800;
-      color: var(--accent);
-      font-variant-numeric: tabular-nums;
-    }
-
-    .streak-main span {
-      display: block;
+      margin-top: 0.65rem;
       font-size: 0.8rem;
       color: var(--muted);
-      font-weight: 600;
-      margin-top: 0.1rem;
     }
 
-    .stats-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.85rem 1.25rem;
-      margin-top: 0.7rem;
-      font-size: 0.78rem;
-      color: var(--muted);
+    .streak-days-line strong {
+      color: var(--gold);
+      font-size: 1rem;
     }
 
-    .stats-row strong { color: var(--text); }
-
-    /* Serenity ring */
-    .serenity-wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    /* Stat cards row */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.45rem;
+      margin-bottom: 0.75rem;
     }
 
-    .serenity-ring {
-      position: relative;
-      width: 178px;
-      height: 178px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: conic-gradient(
-        var(--serenity-color) calc(var(--serenity-pct) * 1%),
-        var(--surface2) 0
-      );
-      transition: box-shadow 0.55s ease, filter 0.55s ease;
-    }
-
-    .serenity-ring::before {
-      content: '';
-      position: absolute;
-      inset: 10px;
-      border-radius: 50%;
-      background: var(--surface);
-    }
-
-    .serenity-inner {
-      position: relative;
-      z-index: 1;
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.75rem 0.45rem;
       text-align: center;
     }
 
-    .serenity-value {
-      font-size: 2.5rem;
+    .stat-card .stat-val {
+      font-size: 1.35rem;
       font-weight: 800;
       font-variant-numeric: tabular-nums;
-      line-height: 1;
+      line-height: 1.1;
     }
 
-    .serenity-value .pct { font-size: 1.1rem; }
-
-    .serenity-status {
-      margin-top: 0.65rem;
-      font-size: 0.82rem;
-      font-weight: 600;
-      padding: 0.3rem 0.75rem;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.05);
-    }
-
-    .formula-hint {
-      font-size: 0.68rem;
+    .stat-card .stat-lbl {
+      font-size: 0.58rem;
       color: var(--muted);
-      text-align: center;
-      margin-top: 0.55rem;
-      line-height: 1.45;
-      padding: 0 0.25rem;
+      margin-top: 0.2rem;
+      line-height: 1.3;
     }
 
-    .chart-box { position: relative; height: 195px; width: 100%; }
+    .stat-card.green .stat-val { color: var(--green-light); }
+    .stat-card.gold .stat-val { color: var(--gold); }
+    .stat-card.blue .stat-val { color: var(--blue); }
 
-    .chart-offline {
-      display: none;
-      text-align: center;
-      font-size: 0.82rem;
+    /* Pomodoro launch */
+    .btn-pomo-launch {
+      width: 100%;
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      background: linear-gradient(135deg, #1e6b3a 0%, #0d3d22 55%, #1a5c34 100%);
+      box-shadow: 0 4px 20px rgba(30, 107, 58, 0.35);
+      margin-bottom: 0.75rem;
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+
+    .btn-pomo-launch:active { transform: scale(0.98); }
+
+    .btn-pomo-launch .play-icon {
+      width: 28px;
+      height: 28px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-pomo-launch .play-icon svg {
+      width: 14px;
+      height: 14px;
+      margin-right: -2px;
+      fill: #fff;
+    }
+
+    /* AI Coach */
+    .coach-card {
+      border-inline-start: 3px solid var(--gold);
+      padding: 1rem 1rem 1rem 0.85rem;
+    }
+
+    .coach-card .coach-tag {
+      font-size: 0.65rem;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: 0.06em;
+      margin-bottom: 0.35rem;
+    }
+
+    .coach-card p {
+      font-size: 0.88rem;
+      line-height: 1.55;
+      color: var(--text);
+    }
+
+    .coach-card .coach-meta {
+      font-size: 0.7rem;
       color: var(--muted);
-      padding: 1.5rem;
+      margin-top: 0.45rem;
     }
 
-    /* Pomodoro */
+    /* Pomodoro panel */
+    .pomo-panel { display: none; }
+    .pomo-panel.open { display: block; }
+
     .pomo-display {
-      font-size: 3rem;
+      font-size: 2.5rem;
       font-weight: 800;
       text-align: center;
       font-variant-numeric: tabular-nums;
       color: var(--gold);
-      letter-spacing: 0.04em;
     }
 
     .pomo-bar {
-      height: 6px;
-      background: var(--surface2);
+      height: 5px;
+      background: var(--bg);
       border-radius: 3px;
-      margin: 0.75rem 0 1rem;
+      margin: 0.65rem 0 0.85rem;
       overflow: hidden;
+      border: 1px solid var(--border);
     }
 
     .pomo-bar-fill {
       height: 100%;
-      background: linear-gradient(90deg, var(--accent), var(--success));
-      border-radius: 3px;
-      transition: width 0.3s linear;
+      background: linear-gradient(90deg, var(--green), var(--green-light));
       width: 0%;
+      transition: width 0.3s linear;
     }
 
     .pomo-actions {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      gap: 0.45rem;
+      gap: 0.4rem;
     }
 
-    .pomo-actions button { font-size: 0.82rem; min-height: 44px; }
-
-    .btn-primary {
-      background: rgba(74, 144, 217, 0.25);
-      color: var(--accent);
-      border: 1px solid rgba(74, 144, 217, 0.4);
+    button {
+      font-family: inherit;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.15s;
     }
 
-    .btn-muted {
-      background: var(--surface2);
+    button:active { transform: scale(0.98); }
+
+    .btn-sm {
+      min-height: 40px;
+      font-size: 0.8rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .btn-sm.primary {
+      background: rgba(30, 107, 58, 0.35);
+      border-color: var(--green);
+      color: var(--green-light);
+    }
+
+    .section-title {
+      font-size: 0.8rem;
+      font-weight: 700;
       color: var(--muted);
+      margin: 1rem 0 0.55rem;
     }
 
-    .btn-success {
-      background: rgba(45, 212, 191, 0.2);
-      color: var(--success);
-      border: 1px solid rgba(45, 212, 191, 0.35);
-    }
-
-    /* Habits */
-    .habits-list { display: flex; flex-direction: column; gap: 0.45rem; }
+    .habits-list { display: flex; flex-direction: column; gap: 0.4rem; }
 
     .habit-row {
       display: flex;
       align-items: center;
-      gap: 0.65rem;
-      background: var(--surface2);
+      gap: 0.6rem;
+      background: var(--card);
+      border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 0.65rem 0.75rem;
+      padding: 0.6rem 0.7rem;
       min-height: var(--touch);
       cursor: pointer;
-      border: 1px solid transparent;
-      transition: border-color 0.2s, background 0.2s;
     }
 
     .habit-row.done {
-      border-color: rgba(45, 212, 191, 0.35);
-      background: rgba(45, 212, 191, 0.08);
+      border-color: rgba(30, 107, 58, 0.5);
+      background: rgba(30, 107, 58, 0.12);
     }
 
     .habit-check {
-      width: 26px;
-      height: 26px;
-      border-radius: 8px;
-      border: 2px solid var(--muted);
+      width: 24px;
+      height: 24px;
+      border-radius: 7px;
+      border: 2px solid var(--border);
       flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.85rem;
-      transition: all 0.2s;
+      font-size: 0.8rem;
     }
 
     .habit-row.done .habit-check {
-      background: var(--success);
-      border-color: var(--success);
+      background: var(--green-light);
+      border-color: var(--green-light);
       color: var(--bg);
     }
 
-    .habit-icon { font-size: 1.2rem; flex-shrink: 0; }
-
-    .habit-name { flex: 1; font-weight: 600; font-size: 0.9rem; }
-
-    .habit-pts { font-size: 0.7rem; color: var(--gold); font-weight: 700; }
+    .habit-name { flex: 1; font-weight: 600; font-size: 0.88rem; }
+    .habit-pts { font-size: 0.68rem; color: var(--gold); font-weight: 700; }
 
     .habit-delete {
       background: none;
@@ -317,108 +422,92 @@
       color: var(--muted);
       font-size: 1.1rem;
       min-height: auto;
-      padding: 0.25rem;
-      cursor: pointer;
-      line-height: 1;
+      padding: 0.2rem;
     }
-
-    .habit-delete:hover { color: var(--danger); }
 
     .add-habit {
       display: flex;
-      gap: 0.45rem;
-      margin-top: 0.65rem;
+      gap: 0.4rem;
+      margin-top: 0.55rem;
     }
 
     .add-habit input {
       flex: 1;
       font-family: inherit;
-      font-size: 0.88rem;
-      padding: 0.65rem 0.75rem;
+      font-size: 0.85rem;
+      padding: 0.6rem 0.7rem;
       border-radius: 10px;
-      border: 1px solid rgba(74, 144, 217, 0.25);
-      background: var(--surface2);
+      border: 1px solid var(--border);
+      background: var(--card);
       color: var(--text);
-      min-height: 44px;
+      min-height: 42px;
     }
 
     .add-habit input:focus {
       outline: none;
-      border-color: var(--accent);
+      border-color: var(--gold);
     }
 
     .add-habit button {
-      min-height: 44px;
-      padding: 0 1rem;
-      white-space: nowrap;
+      min-height: 42px;
+      padding: 0 0.85rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
     }
-
-    /* Actions */
-    button {
-      font-family: inherit;
-      font-weight: 700;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: transform 0.15s, opacity 0.2s;
-    }
-
-    button:active { transform: scale(0.98); }
-
-    .actions { display: flex; flex-direction: column; gap: 0.45rem; margin-bottom: 0.9rem; }
 
     .btn-distraction {
       width: 100%;
       min-height: var(--touch);
-      font-size: 0.95rem;
-      background: rgba(245, 158, 11, 0.15);
-      color: #fbbf24;
-      border: 1px solid rgba(245, 158, 11, 0.4);
+      font-size: 0.9rem;
+      margin-bottom: 0.45rem;
+      background: rgba(245, 158, 11, 0.12);
+      color: var(--gold);
+      border: 1px solid rgba(245, 158, 11, 0.35);
     }
 
     .btn-secondary {
       width: 100%;
-      min-height: 40px;
-      font-size: 0.78rem;
-      background: var(--surface2);
+      min-height: 38px;
+      font-size: 0.75rem;
+      background: var(--card);
+      border: 1px solid var(--border);
       color: var(--muted);
+      margin-bottom: 0.75rem;
     }
 
     .log-list {
       list-style: none;
-      max-height: 200px;
+      max-height: 180px;
       overflow-y: auto;
     }
 
     .log-item {
-      padding: 0.65rem 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-      font-size: 0.82rem;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.8rem;
     }
-
-    .log-item:last-child { border-bottom: none; }
 
     .log-tag {
       font-weight: 700;
-      font-size: 0.72rem;
-      padding: 0.15rem 0.45rem;
-      border-radius: 6px;
-      margin-left: 0.35rem;
+      font-size: 0.68rem;
+      padding: 0.12rem 0.4rem;
+      border-radius: 5px;
+      margin-left: 0.3rem;
     }
 
-    .log-tag.distraction { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
-    .log-tag.pomodoro { background: rgba(45, 212, 191, 0.2); color: var(--success); }
-    .log-tag.habit { background: rgba(74, 144, 217, 0.2); color: var(--accent); }
+    .log-tag.distraction { background: rgba(245, 158, 11, 0.15); color: var(--gold); }
+    .log-tag.pomodoro { background: rgba(30, 107, 58, 0.3); color: var(--green-light); }
+    .log-tag.habit { background: rgba(74, 144, 217, 0.2); color: var(--blue); }
 
-    .log-meta { color: var(--muted); font-size: 0.72rem; margin-top: 0.15rem; }
-
-    .empty-log { text-align: center; color: var(--muted); padding: 1.25rem; font-size: 0.85rem; }
+    .log-meta { color: var(--muted); font-size: 0.68rem; margin-top: 0.1rem; }
+    .empty-log { text-align: center; color: var(--muted); padding: 1rem; font-size: 0.82rem; }
 
     .overlay {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.68);
+      background: rgba(0, 0, 0, 0.72);
       z-index: 200;
       align-items: center;
       justify-content: center;
@@ -428,46 +517,63 @@
     .overlay.open { display: flex; }
 
     .dialog {
-      background: var(--surface);
+      background: var(--card);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 1.4rem;
+      padding: 1.35rem;
       width: 100%;
       max-width: 360px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    .dialog h3 { font-size: 1.05rem; margin-bottom: 0.45rem; }
-
-    .dialog p { font-size: 0.88rem; color: var(--muted); margin-bottom: 1.1rem; }
+    .dialog h3 { font-size: 1rem; margin-bottom: 0.4rem; }
+    .dialog p { font-size: 0.86rem; color: var(--muted); margin-bottom: 1rem; }
 
     .dialog-actions {
       display: flex;
-      gap: 0.45rem;
+      gap: 0.4rem;
       flex-direction: row-reverse;
     }
 
     .dialog-actions button { flex: 1; min-height: 44px; }
-
     .btn-confirm { background: var(--danger); color: #fff; }
     .btn-cancel { background: #3f4659; color: var(--text); }
 
     @media (prefers-reduced-motion: reduce) {
       .counter-unit.pulse { animation: none; }
-      .serenity-ring { transition: none; }
       .pomo-bar-fill { transition: none; }
     }
   </style>
 </head>
 <body>
   <div class="app">
-    <header>
-      <h1>BrainClean Pro</h1>
-      <p>رحلة التركيز — نموذج مترابط للروقان والسلسلة</p>
-      <span class="badge" id="storageBadge">حفظ محلي — localStorage</span>
-    </header>
+    <!-- ═══ DASHBOARD ═══ -->
+    <div class="dash-header">
+      <div>
+        <h1>BrainClean Pro</h1>
+        <p class="sub">لوحة التحكم — رحلة التركيز</p>
+      </div>
+      <span class="badge" id="storageBadge">محلي</span>
+    </div>
+
+    <section class="card clarity-card">
+      <div class="clarity-title">BRAIN CLARITY SCORE</div>
+      <div class="clarity-score" id="clarityScore" aria-live="polite">
+        <span class="unit">%</span>50
+      </div>
+      <p class="clarity-sub" id="claritySub">مؤشر وضوح إدراكي مترابط</p>
+      <span class="clarity-status" id="clarityStatus">تركيز مستقر</span>
+    </section>
 
     <section class="card">
-      <div class="card-title">سلسلة التركيز الحالية</div>
+      <div class="card-label">جلسات التركيز — آخر 7 أيام</div>
+      <div class="chart-box">
+        <canvas id="weeklyChart" aria-label="رسم أسبوعي لجلسات التركيز"></canvas>
+      </div>
+      <p class="chart-offline" id="chartOffline">يتطلب اتصالاً لتحميل Chart.js</p>
+    </section>
+
+    <section class="card">
+      <p class="streak-label-ar">سلسلة التركيز الحالية</p>
       <div class="counter-grid">
         <div class="counter-unit" id="unitDays">
           <div class="counter-value" id="valDays">00</div>
@@ -486,67 +592,63 @@
           <div class="counter-label">ثانية</div>
         </div>
       </div>
-      <div class="streak-main" id="streakDaysDisplay">
-        0.00
-        <span>يوم تركيز فعّال (بعد خصومات التشتت الجزئية)</span>
-      </div>
-      <div class="stats-row">
-        <span>نقاط الالتزام: <strong id="statPoints">0</strong></span>
-        <span>تشتتات اليوم: <strong id="statDistractionsToday">0</strong></span>
-        <span>جلسات بومودورو: <strong id="statPomosToday">0</strong></span>
-      </div>
-    </section>
-
-    <section class="card">
-      <div class="card-title">مؤشر روقان ونظافة الدماغ %</div>
-      <div class="serenity-wrap">
-        <div class="serenity-ring" id="serenityRing" style="--serenity-pct: 50; --serenity-color: #2dd4bf;">
-          <div class="serenity-inner">
-            <div class="serenity-value" id="serenityValue">50<span class="pct">%</span></div>
-          </div>
-        </div>
-        <div class="serenity-status" id="serenityStatus">توازن عصبي مستقر</div>
-      </div>
-      <p class="formula-hint" id="formulaHint">
-        الروقان = أساس + زمن التركيز + عادات اليوم + بومودورو − دين التشتت (جزئي، لا إعادة ضبط كاملة)
+      <p class="streak-days-line">
+        يوم فعّال: <strong id="streakDaysDisplay">0.00</strong>
       </p>
     </section>
 
-    <section class="card">
-      <div class="card-title">اتجاه الروقان — آخر 14 يوماً</div>
-      <div class="chart-box">
-        <canvas id="serenityChart" aria-label="رسم بياني للروقان"></canvas>
+    <div class="stat-row">
+      <div class="stat-card green">
+        <div class="stat-val" id="statSessions">0</div>
+        <div class="stat-lbl">جلسات اليوم</div>
       </div>
-      <p class="chart-offline" id="chartOffline">يتطلب اتصالاً لمرة واحدة لتحميل Chart.js</p>
+      <div class="stat-card gold">
+        <div class="stat-val" id="statDistractionMins">0</div>
+        <div class="stat-lbl">دقائق التشتت</div>
+      </div>
+      <div class="stat-card blue">
+        <div class="stat-val" id="statPoints">0</div>
+        <div class="stat-lbl">نقاط الالتزام</div>
+      </div>
+    </div>
+
+    <button type="button" class="btn-pomo-launch" id="btnPomoLaunch" aria-expanded="false" aria-controls="pomoPanel">
+      <span class="play-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <span id="pomoLaunchText">بدء بومودورو — 25 دقيقة</span>
+    </button>
+
+    <section class="card coach-card" aria-label="مدرب ذكي">
+      <div class="coach-tag">AI COACH</div>
+      <p id="coachMessage">ابدأ جلسة تركيز واحدة الآن — الدماغ يستعيد وضوحه خلال 25 دقيقة من التركيز العميق.</p>
+      <p class="coach-meta" id="coachMeta">نصيحة اليوم · محفوظ محلياً</p>
     </section>
 
-    <section class="card">
-      <div class="card-title">بومودورو — جلسة تركيز 25 دقيقة</div>
+    <section class="card pomo-panel" id="pomoPanel">
+      <div class="card-label">بومودورو — 25 دقيقة</div>
       <div class="pomo-display" id="pomoDisplay">25:00</div>
       <div class="pomo-bar"><div class="pomo-bar-fill" id="pomoBarFill"></div></div>
       <div class="pomo-actions">
-        <button type="button" class="btn-primary" id="pomoStart">بدء</button>
-        <button type="button" class="btn-muted" id="pomoPause">إيقاف</button>
-        <button type="button" class="btn-muted" id="pomoReset">إعادة</button>
+        <button type="button" class="btn-sm primary" id="pomoStart">بدء</button>
+        <button type="button" class="btn-sm" id="pomoPause">إيقاف</button>
+        <button type="button" class="btn-sm" id="pomoReset">إعادة</button>
       </div>
     </section>
 
-    <section class="card">
-      <div class="card-title">العادات الحيوية — +3% روقان و +5 نقاط لكل عادة</div>
-      <div class="habits-list" id="habitsList"></div>
-      <div class="add-habit">
-        <input type="text" id="customHabitInput" placeholder="عادة مخصصة جديدة..." maxlength="40" aria-label="اسم عادة مخصصة" />
-        <button type="button" class="btn-primary" id="btnAddHabit">إضافة</button>
-      </div>
-    </section>
-
-    <div class="actions">
-      <button type="button" class="btn-distraction" id="btnDistraction">تشتت مؤقت</button>
-      <button type="button" class="btn-secondary" id="btnSetStart">تعيين بداية السلسلة = الآن</button>
+    <!-- ═══ باقي الشاشة ═══ -->
+    <p class="section-title">العادات الحيوية</p>
+    <div class="habits-list" id="habitsList"></div>
+    <div class="add-habit">
+      <input type="text" id="customHabitInput" placeholder="عادة مخصصة..." maxlength="40" aria-label="عادة مخصصة" />
+      <button type="button" id="btnAddHabit">إضافة</button>
     </div>
 
-    <section class="card">
-      <div class="card-title">سجل الرحلة</div>
+    <button type="button" class="btn-distraction" id="btnDistraction" style="margin-top:0.85rem">تشتت مؤقت</button>
+    <button type="button" class="btn-secondary" id="btnSetStart">تعيين بداية السلسلة = الآن</button>
+
+    <p class="section-title">سجل الرحلة</p>
+    <section class="card" style="padding:0.75rem 1rem">
       <ul class="log-list" id="logList"></ul>
     </section>
   </div>
@@ -568,25 +670,34 @@
 
       const STORAGE_KEY = 'brainclean_focus_v3';
       const DATA_VERSION = 3;
-
-      /* ── معادلات النموذج المترابط (جزئية لا تصفير) ── */
       const POMO_SECONDS = 25 * 60;
       const DISTRACTION_STREAK_PENALTY = 0.14;
-      const DISTRACTION_SERENITY_DEBT = 4.2;
+      const CLARITY_DEBT_PER_DISTRACTION = 4.2;
+      const DISTRACTION_MINUTES = 8;
       const DISTRACTION_POINTS_LOSS = 3;
-      const SERENITY_BASE = 42;
-      const STREAK_TO_SERENITY = 1.85;
-      const HABIT_SERENITY = 3;
+      const CLARITY_BASE = 42;
+      const STREAK_TO_CLARITY = 1.85;
+      const HABIT_CLARITY = 3;
       const HABIT_POINTS = 5;
-      const POMO_SERENITY = 2.8;
+      const POMO_CLARITY = 2.8;
       const POMO_POINTS = 12;
-      const MAX_SERENITY_DEBT = 55;
+      const MAX_CLARITY_DEBT = 55;
+      const BAR_GREEN = '#1E6B3A';
+      const BAR_GOLD = '#F59E0B';
 
       const BUILTIN_HABITS = [
         { id: 'sleep', name: 'النوم الكافي', icon: '🌙' },
         { id: 'reading', name: 'القراءة', icon: '📖' },
         { id: 'walk', name: 'الخروج والمشي', icon: '🚶' },
         { id: 'work_focus', name: 'التركيز في العمل', icon: '💼' },
+      ];
+
+      const COACH_TIPS = [
+        'ابدأ جلسة تركيز واحدة الآن — الدماغ يستعيد وضوحه خلال 25 دقيقة من التركيز العميق.',
+        'أكمل عادتين حيويتين قبل الظهر لرفع Brain Clarity Score بشكل ملحوظ.',
+        'التشتت المؤقت يخصم جزئياً فقط — عد فوراً لجلسة بومودورو لاستعادة الوضوح.',
+        'سلسلة التركيز تُبنى بالثواني — لا تكسرها بتصفير كامل، بل بالعودة السريعة.',
+        'النوم الكافي يرفع نقاط الالتزام ويُثبّت جلسات الغد.',
       ];
 
       let state = null;
@@ -596,14 +707,9 @@
       let pendingAction = null;
       let lastDisplayed = { d: -1, h: -1, m: -1, s: -1 };
       let lastSnapshotDay = '';
-      let lastSnapshotSerenity = -1;
+      let lastSnapshotClarity = -1;
       let saveTimer = null;
-
-      let pomo = {
-        remaining: POMO_SECONDS,
-        running: false,
-        startedAt: null,
-      };
+      let pomo = { remaining: POMO_SECONDS, running: false, startedAt: null };
 
       const $ = (id) => document.getElementById(id);
 
@@ -612,7 +718,6 @@
       }
 
       function defaultState() {
-        const today = todayKey();
         const habitDone = {};
         BUILTIN_HABITS.forEach((h) => { habitDone[h.id] = {}; });
         return {
@@ -630,6 +735,7 @@
           customHabits: [],
           pomodorosByDay: {},
           distractionsByDay: {},
+          distractionMinutesByDay: {},
         };
       }
 
@@ -640,7 +746,7 @@
           version: DATA_VERSION,
           startDate: typeof raw.startDate === 'string' ? raw.startDate : base.startDate,
           streakPenaltyDays: Number(raw.streakPenaltyDays) || 0,
-          serenityDebt: Math.min(MAX_SERENITY_DEBT, Number(raw.serenityDebt) || 0),
+          serenityDebt: Math.min(MAX_CLARITY_DEBT, Number(raw.serenityDebt) || 0),
           commitmentPoints: Math.max(0, Number(raw.commitmentPoints) || 0),
           distractionTotal: Number(raw.distractionTotal) || 0,
           pomodorosTotal: Number(raw.pomodorosTotal) || 0,
@@ -663,6 +769,10 @@
             raw.distractionsByDay && typeof raw.distractionsByDay === 'object'
               ? raw.distractionsByDay
               : {},
+          distractionMinutesByDay:
+            raw.distractionMinutesByDay && typeof raw.distractionMinutesByDay === 'object'
+              ? raw.distractionMinutesByDay
+              : {},
         };
       }
 
@@ -679,9 +789,9 @@
       function saveState() {
         try {
           localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-          $('storageBadge').textContent = 'محفوظ — ' + state.commitmentPoints + ' نقطة التزام';
+          $('storageBadge').textContent = state.commitmentPoints + ' نقطة';
         } catch (e) {
-          $('storageBadge').textContent = 'تعذّر الحفظ المحلي';
+          $('storageBadge').textContent = '!';
         }
       }
 
@@ -726,58 +836,37 @@
         return state.pomodorosByDay[todayKey()] || 0;
       }
 
-      function distractionsToday() {
-        return state.distractionsByDay[todayKey()] || 0;
+      function distractionMinutesToday() {
+        const day = todayKey();
+        if (state.distractionMinutesByDay[day] !== undefined) {
+          return state.distractionMinutesByDay[day];
+        }
+        return (state.distractionsByDay[day] || 0) * DISTRACTION_MINUTES;
       }
 
-      /** سلسلة التركيز: زمن فعلي − خصومات جزئية متراكمة */
       function calcEffectiveStreakDays() {
         const start = new Date(state.startDate).getTime();
         const elapsedDays = Math.max(0, (Date.now() - start) / 86400000);
         return Math.max(0, elapsedDays - state.streakPenaltyDays);
       }
 
-      /**
-       * مؤشر الروقان % — مترابط مع السلسلة والعادات والبومودورو ودين التشتت
-       * لا يُصفَّر بالكامل؛ التشتت يزيد الدين ويخصم من السلسلة جزئياً
-       */
-      function calcSerenityIndex() {
+      function calcBrainClarityScore() {
         const streakDays = calcEffectiveStreakDays();
         const habits = countHabitsDoneToday();
         const pomos = pomodorosToday();
         const raw =
-          SERENITY_BASE +
-          Math.min(28, streakDays * STREAK_TO_SERENITY) +
-          habits * HABIT_SERENITY +
-          Math.min(18, pomos * POMO_SERENITY) -
+          CLARITY_BASE +
+          Math.min(28, streakDays * STREAK_TO_CLARITY) +
+          habits * HABIT_CLARITY +
+          Math.min(18, pomos * POMO_CLARITY) -
           state.serenityDebt;
         return Math.round(Math.min(100, Math.max(0, raw)) * 10) / 10;
       }
 
-      function serenityColor(pct) {
-        if (pct >= 75) return '#2dd4bf';
-        if (pct >= 55) return '#5ba4f5';
-        if (pct >= 35) return '#f59e0b';
-        return '#ef4444';
-      }
-
-      function serenityGlow(pct) {
-        const c = serenityColor(pct);
-        const spread = 6 + pct * 0.35;
-        const a = 0.2 + (pct / 100) * 0.45;
-        const rgb = hexToRgb(c);
-        return `0 0 ${spread}px rgba(${rgb}, ${a}), 0 0 ${spread * 1.8}px rgba(${rgb}, ${a * 0.35})`;
-      }
-
-      function hexToRgb(hex) {
-        const n = parseInt(hex.slice(1), 16);
-        return `${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}`;
-      }
-
-      function serenityLabel(pct) {
-        if (pct >= 80) return 'روقان عالٍ — تركيز عميق';
-        if (pct >= 60) return 'توازن عصبي مستقر';
-        if (pct >= 40) return 'استعد لجلسة بومودورو';
+      function clarityStatusText(pct) {
+        if (pct >= 80) return 'وضوح عالٍ — تركيز عميق';
+        if (pct >= 60) return 'تركيز مستقر';
+        if (pct >= 40) return 'جلسة بومودورو ترفع الوضوح';
         if (pct >= 20) return 'تشتت متراكم — عد للعادات';
         return 'إنذار: أعد ضبط الانتباه';
       }
@@ -793,28 +882,36 @@
         el.classList.add('pulse');
       }
 
-      function logEvent(type, note, meta) {
+      function logEvent(type, note) {
         state.events.push({
           id: state.nextEventId++,
           type,
           createdAt: new Date().toISOString(),
           note: note || null,
-          meta: meta || null,
         });
         if (state.events.length > 500) state.events = state.events.slice(-500);
         scheduleSave();
       }
 
-      function saveDailySnapshot(serenity) {
+      function saveDailySnapshot(clarity) {
         const day = todayKey();
-        if (day === lastSnapshotDay && Math.abs(serenity - lastSnapshotSerenity) < 0.05) return;
+        if (day === lastSnapshotDay && Math.abs(clarity - lastSnapshotClarity) < 0.05) return;
         lastSnapshotDay = day;
-        lastSnapshotSerenity = serenity;
-        state.dailySnapshots[day] = serenity;
+        lastSnapshotClarity = clarity;
+        state.dailySnapshots[day] = clarity;
         scheduleSave();
       }
 
-      function updateMainUI() {
+      function updateCoachTip() {
+        const clarity = calcBrainClarityScore();
+        let idx = Math.floor(clarity / 20) % COACH_TIPS.length;
+        if (pomodorosToday() === 0) idx = 0;
+        $('coachMessage').textContent = COACH_TIPS[idx];
+        $('coachMeta').textContent =
+          'Brain Clarity ' + clarity + '% · ' + new Date().toLocaleDateString('ar-EG');
+      }
+
+      function updateDashboard() {
         const start = new Date(state.startDate).getTime();
         const elapsed = Math.max(0, Date.now() - start);
         const totalSec = Math.floor(elapsed / 1000);
@@ -844,108 +941,105 @@
           lastDisplayed.s = secs;
         }
 
-        const streakDays = calcEffectiveStreakDays();
-        $('streakDaysDisplay').firstChild.textContent = streakDays.toFixed(2);
+        $('streakDaysDisplay').textContent = calcEffectiveStreakDays().toFixed(2);
+        $('statSessions').textContent = String(pomodorosToday());
+        $('statDistractionMins').textContent = String(distractionMinutesToday());
         $('statPoints').textContent = String(state.commitmentPoints);
-        $('statDistractionsToday').textContent = String(distractionsToday());
-        $('statPomosToday').textContent = String(pomodorosToday());
 
-        const serenity = calcSerenityIndex();
-        const color = serenityColor(serenity);
-        const ring = $('serenityRing');
-        ring.style.setProperty('--serenity-pct', String(serenity));
-        ring.style.setProperty('--serenity-color', color);
-        ring.style.boxShadow = serenityGlow(serenity);
-        $('serenityValue').innerHTML = `${serenity}<span class="pct">%</span>`;
-        $('serenityStatus').textContent = serenityLabel(serenity);
-        $('serenityStatus').style.color = color;
+        const clarity = calcBrainClarityScore();
+        $('clarityScore').innerHTML =
+          '<span class="unit">%</span>' + Math.round(clarity);
+        $('clarityStatus').textContent = clarityStatusText(clarity);
+        $('claritySub').textContent =
+          'دين التشتت: ' + state.serenityDebt.toFixed(1) + ' · خصم السلسلة: ' +
+          state.streakPenaltyDays.toFixed(2) + ' يوم';
 
-        $('formulaHint').textContent =
-          `دين التشتت: ${state.serenityDebt.toFixed(1)} | خصم السلسلة: ${state.streakPenaltyDays.toFixed(2)} يوم`;
-
-        saveDailySnapshot(serenity);
+        saveDailySnapshot(clarity);
+        updateCoachTip();
       }
 
-      function getChartData() {
+      function getWeeklyChartData() {
         const labels = [];
         const data = [];
         const today = new Date();
-        let last = calcSerenityIndex();
-        for (let i = 13; i >= 0; i--) {
+        const todayStr = todayKey();
+
+        for (let i = 6; i >= 0; i--) {
           const d = new Date(today);
           d.setDate(d.getDate() - i);
           const key = d.toISOString().slice(0, 10);
           labels.push(
-            d.toLocaleDateString('ar-EG', { weekday: 'short', day: 'numeric' })
+            d.toLocaleDateString('ar-EG', { weekday: 'short' })
           );
-          const snap = state.dailySnapshots[key];
-          if (snap !== undefined) last = snap;
-          data.push(snap !== undefined ? snap : last);
+          data.push({
+            value: state.pomodorosByDay[key] || 0,
+            isToday: key === todayStr,
+          });
         }
-        return { labels, data };
+
+        return {
+          labels,
+          values: data.map((x) => x.value),
+          colors: data.map((x) => (x.isToday ? BAR_GOLD : BAR_GREEN)),
+        };
       }
 
       function initChart() {
         if (typeof Chart === 'undefined') {
-          $('serenityChart').style.display = 'none';
+          $('weeklyChart').style.display = 'none';
           $('chartOffline').style.display = 'block';
           return;
         }
-        $('serenityChart').style.display = 'block';
+        $('weeklyChart').style.display = 'block';
         $('chartOffline').style.display = 'none';
-        const ctx = $('serenityChart').getContext('2d');
-        const { labels, data } = getChartData();
-        const gradient = ctx.createLinearGradient(0, 0, 0, 195);
-        gradient.addColorStop(0, 'rgba(74, 144, 217, 0.4)');
-        gradient.addColorStop(1, 'rgba(74, 144, 217, 0)');
+
+        const ctx = $('weeklyChart').getContext('2d');
+        const { labels, values, colors } = getWeeklyChartData();
 
         if (chart) chart.destroy();
         chart = new Chart(ctx, {
-          type: 'line',
+          type: 'bar',
           data: {
             labels,
             datasets: [{
-              label: 'روقان %',
-              data,
-              borderColor: '#4a90d9',
-              backgroundColor: gradient,
-              fill: true,
-              tension: 0.45,
-              cubicInterpolationMode: 'monotone',
-              pointRadius: 3,
-              pointHoverRadius: 6,
-              pointBackgroundColor: '#ffd700',
-              borderWidth: 2.5,
+              label: 'جلسات',
+              data: values,
+              backgroundColor: colors,
+              borderColor: colors,
+              borderWidth: 0,
+              borderRadius: 6,
+              borderSkipped: false,
+              maxBarThickness: 36,
             }],
           },
           options: {
             responsive: true,
             maintainAspectRatio: false,
-            animation: { duration: 750, easing: 'easeInOutQuart' },
-            interaction: { intersect: false, mode: 'index' },
+            animation: { duration: 650, easing: 'easeInOutQuart' },
             plugins: {
               legend: { display: false },
               tooltip: {
                 rtl: true,
                 titleFont: { family: 'Cairo' },
                 bodyFont: { family: 'Cairo' },
-                callbacks: { label: (c) => ` ${c.parsed.y}% روقان` },
+                callbacks: {
+                  label: (c) => ' ' + c.parsed.y + ' جلسة تركيز',
+                },
               },
             },
             scales: {
               x: {
-                grid: { color: 'rgba(255,255,255,0.05)' },
+                grid: { display: false },
                 ticks: { color: '#8b95ad', font: { family: 'Cairo', size: 10 } },
               },
               y: {
-                min: 0,
-                max: 100,
-                grid: { color: 'rgba(255,255,255,0.05)' },
+                beginAtZero: true,
                 ticks: {
+                  stepSize: 1,
                   color: '#8b95ad',
                   font: { family: 'Cairo', size: 10 },
-                  callback: (v) => v + '%',
                 },
+                grid: { color: 'rgba(30, 42, 58, 0.6)' },
               },
             },
           },
@@ -958,9 +1052,11 @@
           initChart();
           return;
         }
-        const { labels, data } = getChartData();
+        const { labels, values, colors } = getWeeklyChartData();
         chart.data.labels = labels;
-        chart.data.datasets[0].data = data;
+        chart.data.datasets[0].data = values;
+        chart.data.datasets[0].backgroundColor = colors;
+        chart.data.datasets[0].borderColor = colors;
         chart.update('active');
       }
 
@@ -969,9 +1065,9 @@
         list.innerHTML = '';
         const events = [...state.events]
           .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-          .slice(0, 25);
+          .slice(0, 20);
         if (!events.length) {
-          list.innerHTML = '<li class="empty-log">لا أحداث بعد — ابدأ بومودورو أو سجّل عادة</li>';
+          list.innerHTML = '<li class="empty-log">لا أحداث بعد</li>';
           return;
         }
         const labels = {
@@ -983,11 +1079,10 @@
           const li = document.createElement('li');
           li.className = 'log-item';
           const dt = new Date(ev.createdAt);
-          li.innerHTML = `
-            <span class="log-tag ${ev.type}">${labels[ev.type] || ev.type}</span>
-            ${ev.note ? escapeHtml(ev.note) : ''}
-            <div class="log-meta">${dt.toLocaleString('ar-EG')}</div>
-          `;
+          li.innerHTML =
+            '<span class="log-tag ' + ev.type + '">' + (labels[ev.type] || ev.type) + '</span>' +
+            (ev.note ? escapeHtml(ev.note) : '') +
+            '<div class="log-meta">' + dt.toLocaleString('ar-EG') + '</div>';
           list.appendChild(li);
         });
       }
@@ -1007,14 +1102,12 @@
           row.className = 'habit-row' + (done ? ' done' : '');
           row.setAttribute('role', 'button');
           row.setAttribute('tabindex', '0');
-          row.setAttribute('aria-pressed', done ? 'true' : 'false');
-          row.innerHTML = `
-            <div class="habit-check" aria-hidden="true">${done ? '✓' : ''}</div>
-            <span class="habit-icon" aria-hidden="true">${h.icon}</span>
-            <span class="habit-name">${escapeHtml(h.name)}</span>
-            <span class="habit-pts">+${HABIT_POINTS}</span>
-            ${h.custom ? '<button type="button" class="habit-delete" aria-label="حذف">×</button>' : ''}
-          `;
+          row.innerHTML =
+            '<div class="habit-check">' + (done ? '✓' : '') + '</div>' +
+            '<span>' + h.icon + '</span>' +
+            '<span class="habit-name">' + escapeHtml(h.name) + '</span>' +
+            '<span class="habit-pts">+' + HABIT_POINTS + '</span>' +
+            (h.custom ? '<button type="button" class="habit-delete" aria-label="حذف">×</button>' : '');
           const toggle = () => toggleHabit(h.id, h.name);
           row.addEventListener('click', (e) => {
             if (e.target.classList.contains('habit-delete')) return;
@@ -1052,7 +1145,7 @@
         }
         flushSave();
         renderHabits();
-        updateMainUI();
+        updateDashboard();
         renderLog();
         refreshChart();
       }
@@ -1079,8 +1172,8 @@
         const day = todayKey();
         state.streakPenaltyDays += DISTRACTION_STREAK_PENALTY;
         state.serenityDebt = Math.min(
-          MAX_SERENITY_DEBT,
-          state.serenityDebt + DISTRACTION_SERENITY_DEBT
+          MAX_CLARITY_DEBT,
+          state.serenityDebt + CLARITY_DEBT_PER_DISTRACTION
         );
         state.commitmentPoints = Math.max(
           0,
@@ -1088,27 +1181,39 @@
         );
         state.distractionTotal += 1;
         state.distractionsByDay[day] = (state.distractionsByDay[day] || 0) + 1;
+        state.distractionMinutesByDay[day] =
+          (state.distractionMinutesByDay[day] || 0) + DISTRACTION_MINUTES;
         logEvent(
           'distraction',
-          `−${DISTRACTION_SERENITY_DEBT}% روقان، −${DISTRACTION_STREAK_PENALTY} يوم سلسلة (جزئي)`
+          '−' + CLARITY_DEBT_PER_DISTRACTION + '% وضوح، −' + DISTRACTION_STREAK_PENALTY + ' يوم سلسلة، +' + DISTRACTION_MINUTES + ' د'
         );
         lastDisplayed = { d: -1, h: -1, m: -1, s: -1 };
         flushSave();
-        updateMainUI();
+        updateDashboard();
         renderLog();
         refreshChart();
       }
 
       function formatPomo(sec) {
-        const m = Math.floor(sec / 60);
-        const s = sec % 60;
-        return `${pad2(m)}:${pad2(s)}`;
+        return pad2(Math.floor(sec / 60)) + ':' + pad2(sec % 60);
       }
 
       function updatePomoUI() {
         $('pomoDisplay').textContent = formatPomo(pomo.remaining);
-        const pct = ((POMO_SECONDS - pomo.remaining) / POMO_SECONDS) * 100;
-        $('pomoBarFill').style.width = pct + '%';
+        $('pomoBarFill').style.width =
+          ((POMO_SECONDS - pomo.remaining) / POMO_SECONDS) * 100 + '%';
+        const running = pomo.running;
+        $('pomoLaunchText').textContent = running
+          ? 'جلسة جارية — ' + formatPomo(pomo.remaining)
+          : 'بدء بومودورو — 25 دقيقة';
+      }
+
+      function togglePomoPanel(open) {
+        const panel = $('pomoPanel');
+        const launch = $('btnPomoLaunch');
+        const show = open !== undefined ? open : !panel.classList.contains('open');
+        panel.classList.toggle('open', show);
+        launch.setAttribute('aria-expanded', show ? 'true' : 'false');
       }
 
       function completePomodoro() {
@@ -1120,14 +1225,12 @@
         state.pomodorosTotal += 1;
         state.serenityDebt = Math.max(0, state.serenityDebt - 1.2);
         state.commitmentPoints += POMO_POINTS;
-        logEvent('pomodoro', `+${POMO_SERENITY}% روقان تقريبي، +${POMO_POINTS} نقطة`);
+        logEvent('pomodoro', '+' + POMO_CLARITY + '% وضوح، +' + POMO_POINTS + ' نقطة');
         updatePomoUI();
         flushSave();
-        updateMainUI();
+        updateDashboard();
         renderLog();
         refreshChart();
-        $('pomoDisplay').classList.add('pulse');
-        setTimeout(() => $('pomoDisplay').classList.remove('pulse'), 400);
       }
 
       function tickPomodoro() {
@@ -1143,13 +1246,16 @@
         if (pomo.remaining <= 0) pomo.remaining = POMO_SECONDS;
         pomo.running = true;
         pomo.startedAt = Date.now() - (POMO_SECONDS - pomo.remaining) * 1000;
+        togglePomoPanel(true);
         pomoInterval = setInterval(tickPomodoro, 250);
+        updatePomoUI();
       }
 
       function pausePomo() {
         if (!pomo.running) return;
         stopPomoTimer();
         pomo.running = false;
+        updatePomoUI();
       }
 
       function stopPomoTimer() {
@@ -1190,7 +1296,7 @@
         $('btnDistraction').addEventListener('click', () => {
           showConfirm(
             'تأكيد تشتت مؤقت',
-            `سيُخصم ${DISTRACTION_SERENITY_DEBT}% من مؤشر الروقان و${DISTRACTION_STREAK_PENALTY} يوم من السلسلة فقط (بدون تصفير كامل). هل تتابع؟`,
+            'خصم جزئي من Brain Clarity و' + DISTRACTION_MINUTES + ' دقيقة تشتت — بدون تصفير السلسلة. متابعة؟',
             applyDistraction
           );
         });
@@ -1198,12 +1304,12 @@
         $('btnSetStart').addEventListener('click', () => {
           showConfirm(
             'بداية سلسلة جديدة',
-            'ضبط نقطة البداية إلى الآن مع الإبقاء على السجل والعادات. هل تتابع؟',
+            'ضبط نقطة البداية إلى الآن مع الإبقاء على السجل. متابعة؟',
             () => {
               state.startDate = new Date().toISOString();
               lastDisplayed = { d: -1, h: -1, m: -1, s: -1 };
               flushSave();
-              updateMainUI();
+              updateDashboard();
               refreshChart();
             }
           );
@@ -1212,6 +1318,14 @@
         $('btnAddHabit').addEventListener('click', addCustomHabit);
         $('customHabitInput').addEventListener('keydown', (e) => {
           if (e.key === 'Enter') addCustomHabit();
+        });
+
+        $('btnPomoLaunch').addEventListener('click', () => {
+          togglePomoPanel();
+          if (!pomo.running && pomo.remaining === POMO_SECONDS) startPomo();
+          else if (!pomo.running) {
+            togglePomoPanel(true);
+          }
         });
 
         $('pomoStart').addEventListener('click', startPomo);
@@ -1234,10 +1348,10 @@
         renderHabits();
         renderLog();
         updatePomoUI();
-        updateMainUI();
+        updateDashboard();
 
         tickInterval = setInterval(() => {
-          updateMainUI();
+          updateDashboard();
           if (pomo.running) tickPomodoro();
           if (new Date().getSeconds() === 0) refreshChart();
         }, 1000);
