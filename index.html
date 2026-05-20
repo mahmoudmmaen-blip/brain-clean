@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BrainClean Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.12.0/sql-wasm.js"></script>
+  <style>
+    :root {
+      --bg: #0a0e1a;
+      --surface: #12182a;
+      --surface2: #1a2035;
+      --text: #e8ecf4;
+      --muted: #8b95ad;
+      --accent: #4a90d9;
+      --gold: #ffd700;
+      --danger: #ef4444;
+      --success: #2dd4bf;
+      --radius: 16px;
+      --touch: 48px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    .app {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 1.25rem 1rem 2rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--accent), var(--success));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    header p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid rgba(74, 144, 217, 0.12);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .card-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+      text-align: center;
+    }
+
+    /* Digital counter */
+    .counter-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
+      text-align: center;
+    }
+
+    .counter-unit {
+      background: var(--surface2);
+      border-radius: 12px;
+      padding: 0.65rem 0.35rem;
+      min-height: var(--touch);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: transform 0.2s ease;
+    }
+
+    .counter-unit.pulse {
+      animation: counterPulse 0.35s ease;
+    }
+
+    @keyframes counterPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+
+    .counter-value {
+      font-size: 1.65rem;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      color: var(--text);
+      line-height: 1.1;
+    }
+
+    .counter-label {
+      font-size: 0.65rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    .clean-days {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 2.25rem;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      color: var(--success);
+    }
+
+    .clean-days span {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 600;
+      display: block;
+      margin-top: 0.15rem;
+    }
+
+    /* Brain rot gauge */
+    .rot-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0.5rem 0;
+    }
+
+    .rot-ring {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: conic-gradient(
+        var(--rot-color) calc(var(--rot-pct) * 1%),
+        var(--surface2) 0
+      );
+      transition: box-shadow 0.6s ease, filter 0.6s ease;
+    }
+
+    .rot-ring::before {
+      content: '';
+      position: absolute;
+      inset: 10px;
+      border-radius: 50%;
+      background: var(--surface);
+    }
+
+    .rot-inner {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .rot-value {
+      font-size: 2.75rem;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+    }
+
+    .rot-value .pct {
+      font-size: 1.25rem;
+      font-weight: 700;
+      opacity: 0.9;
+    }
+
+    .rot-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+
+    .rot-status {
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Chart */
+    .chart-box {
+      position: relative;
+      height: 200px;
+      width: 100%;
+    }
+
+    /* Actions */
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 700;
+      min-height: var(--touch);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+
+    button:active { transform: scale(0.98); }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .btn-lapse {
+      background: rgba(74, 144, 217, 0.2);
+      color: var(--accent);
+      border: 1px solid rgba(74, 144, 217, 0.35);
+    }
+
+    .btn-relapse {
+      grid-column: 1 / -1;
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+    }
+
+    .btn-reset-start {
+      grid-column: 1 / -1;
+      background: var(--surface2);
+      color: var(--muted);
+      font-size: 0.8rem;
+      min-height: 40px;
+    }
+
+    /* Relapse log */
+    .log-list {
+      list-style: none;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+
+    .log-list::-webkit-scrollbar { width: 6px; }
+    .log-list::-webkit-scrollbar-thumb {
+      background: var(--surface2);
+      border-radius: 3px;
+    }
+
+    .log-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.85rem;
+    }
+
+    .log-item:last-child { border-bottom: none; }
+
+    .log-type {
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .log-type.lapse { background: rgba(74, 144, 217, 0.2); color: var(--accent); }
+    .log-type.relapse { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+
+    .log-meta { color: var(--muted); font-size: 0.75rem; margin-top: 0.15rem; }
+
+    .empty-log {
+      text-align: center;
+      color: var(--muted);
+      padding: 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    /* Dialog */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .overlay.open { display: flex; }
+
+    .dialog {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      width: 100%;
+      max-width: 360px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .dialog h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .dialog p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .dialog-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-direction: row-reverse;
+    }
+
+    .dialog-actions button { flex: 1; }
+
+    .btn-confirm {
+      background: var(--danger);
+      color: #fff;
+    }
+
+    .btn-cancel {
+      background: #3f4659;
+      color: var(--text);
+    }
+
+    .loading {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--muted);
+    }
+
+    .stats-row {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 0.75rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .stats-row strong { color: var(--text); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .counter-unit.pulse { animation: none; }
+      .rot-ring { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div id="loading" class="loading">جاري تحميل قاعدة البيانات...</div>
+
+  <div id="app" class="app" hidden>
+    <header>
+      <h1>BrainClean Pro</h1>
+      <p>تعافي رقمي — عداد لحظي ومؤشر تعفن الدماغ</p>
+    </header>
+
+    <section class="card" aria-label="العداد اللحظي">
+      <div class="card-title">الوقت النظيف منذ البداية</div>
+      <div class="counter-grid" id="counterGrid">
+        <div class="counter-unit" id="unitDays">
+          <div class="counter-value" id="valDays">0</div>
+          <div class="counter-label">يوم</div>
+        </div>
+        <div class="counter-unit" id="unitHours">
+          <div class="counter-value" id="valHours">0</div>
+          <div class="counter-label">ساعة</div>
+        </div>
+        <div class="counter-unit" id="unitMins">
+          <div class="counter-value" id="valMins">0</div>
+          <div class="counter-label">دقيقة</div>
+        </div>
+        <div class="counter-unit" id="unitSecs">
+          <div class="counter-value" id="valSecs">0</div>
+          <div class="counter-label">ثانية</div>
+        </div>
+      </div>
+      <div class="clean-days" id="cleanDaysDisplay">
+        0.00
+        <span>يوم نظيف (بعد الخصومات)</span>
+      </div>
+      <div class="stats-row">
+        <span>هفوات: <strong id="statLapses">0</strong></span>
+        <span>ذلات: <strong id="statSlips">0</strong></span>
+        <span>خصم: <strong id="statDeductions">0</strong></span>
+      </div>
+    </section>
+
+    <section class="card" aria-label="مؤشر تعفن الدماغ">
+      <div class="card-title">مؤشر تعفن الدماغ</div>
+      <div class="rot-wrap">
+        <div class="rot-ring" id="rotRing" style="--rot-pct: 0; --rot-color: #2dd4bf;">
+          <div class="rot-inner">
+            <div class="rot-value" id="rotValue">0<span class="pct">%</span></div>
+            <div class="rot-label">تعفن نشط</div>
+          </div>
+        </div>
+        <div class="rot-status" id="rotStatus">دماغ نظيف</div>
+      </div>
+    </section>
+
+    <section class="card" aria-label="الرسم البياني">
+      <div class="card-title">اتجاه التعفن — آخر 14 يوماً</div>
+      <div class="chart-box">
+        <canvas id="rotChart" aria-label="رسم بياني لتعفن الدماغ"></canvas>
+      </div>
+    </section>
+
+    <div class="actions">
+      <button type="button" class="btn-lapse" id="btnLapse" aria-label="تسجيل هفوة">هفوة (−0.5)</button>
+      <button type="button" class="btn-lapse" id="btnSlip" aria-label="تسجيل ذلة">ذلة (−2)</button>
+      <button type="button" class="btn-relapse" id="btnRelapse" aria-label="تسجيل انتكاسة">انتكاسة — إعادة ضبط</button>
+      <button type="button" class="btn-reset-start" id="btnSetStart" aria-label="تعيين تاريخ البداية">تعيين البداية = الآن</button>
+    </div>
+
+    <section class="card" aria-label="سجل الانتكاسات">
+      <div class="card-title">سجل الأحداث (SQLite WASM)</div>
+      <ul class="log-list" id="logList"></ul>
+    </section>
+  </div>
+
+  <div class="overlay" id="confirmOverlay" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
+    <div class="dialog">
+      <h3 id="dialogTitle">تأكيد</h3>
+      <p id="dialogMessage"></p>
+      <div class="dialog-actions">
+        <button type="button" class="btn-confirm" id="dialogConfirm">تأكيد</button>
+        <button type="button" class="btn-cancel" id="dialogCancel">إلغاء</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const STORAGE_KEY = 'brainclean_sqlite_v1';
+      const LAPSE_DEDUCT = 0.5;
+      const SLIP_DEDUCT = 2.0;
+      const LAPSES_PER_SLIP = 3;
+      const SLIPS_PER_RELAPSE = 3;
+
+      let db = null;
+      let chart = null;
+      let tickInterval = null;
+      let pendingAction = null;
+      let lastDisplayed = { d: -1, h: -1, m: -1, s: -1 };
+      let lastSnapshotDay = '';
+      let lastSnapshotRot = -1;
+      let persistTimer = null;
+
+      const $ = (id) => document.getElementById(id);
+
+      function runQuery(sql, params = []) {
+        const stmt = db.prepare(sql);
+        try {
+          if (params.length) stmt.bind(params);
+          const rows = [];
+          while (stmt.step()) rows.push(stmt.getAsObject());
+          return rows;
+        } finally {
+          stmt.free();
+        }
+      }
+
+      function runExec(sql, params = []) {
+        db.run(sql, params);
+        schedulePersist();
+      }
+
+      function persistDb() {
+        try {
+          const data = db.export();
+          const b64 = btoa(String.fromCharCode(...new Uint8Array(data)));
+          localStorage.setItem(STORAGE_KEY, b64);
+        } catch (e) {
+          console.error('persist', e);
+        }
+      }
+
+      function schedulePersist() {
+        if (persistTimer) return;
+        persistTimer = setTimeout(() => {
+          persistTimer = null;
+          persistDb();
+        }, 1200);
+      }
+
+      function initSchema() {
+        db.run(`
+          CREATE TABLE IF NOT EXISTS settings (
+            key TEXT PRIMARY KEY,
+            value TEXT NOT NULL
+          );
+          CREATE TABLE IF NOT EXISTS events (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            type TEXT NOT NULL,
+            created_at TEXT NOT NULL,
+            note TEXT
+          );
+          CREATE TABLE IF NOT EXISTS daily_snapshots (
+            day TEXT PRIMARY KEY,
+            rot_pct REAL NOT NULL
+          );
+        `);
+        const row = runQuery("SELECT value FROM settings WHERE key = 'start_date'");
+        if (!row.length) {
+          runExec(
+            "INSERT INTO settings (key, value) VALUES ('start_date', ?)",
+            [new Date().toISOString()]
+          );
+        }
+        ensureCounters();
+        persistDb();
+      }
+
+      function getSetting(key, fallback) {
+        const rows = runQuery('SELECT value FROM settings WHERE key = ?', [key]);
+        return rows.length ? rows[0].value : fallback;
+      }
+
+      function setSetting(key, value) {
+        runExec(
+          "INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value",
+          [key, value]
+        );
+      }
+
+      function ensureCounters() {
+        if (!getSetting('lapse_count', null)) setSetting('lapse_count', '0');
+        if (!getSetting('slip_count', null)) setSetting('slip_count', '0');
+        if (!getSetting('total_deductions', null)) setSetting('total_deductions', '0');
+      }
+
+      function getCounters() {
+        return {
+          lapseCount: parseInt(getSetting('lapse_count', '0'), 10) || 0,
+          slipCount: parseInt(getSetting('slip_count', '0'), 10) || 0,
+          totalDeductions: parseFloat(getSetting('total_deductions', '0')) || 0,
+          startDate: new Date(getSetting('start_date', new Date().toISOString())),
+        };
+      }
+
+      function calcCleanDays(c) {
+        const minutes = (Date.now() - c.startDate.getTime()) / 60000;
+        const raw = minutes / 1440.0;
+        return Math.max(0, raw - c.totalDeductions);
+      }
+
+      function calcBrainRot(c, cleanDays) {
+        const lapseW = c.lapseCount * 4;
+        const slipW = c.slipCount * 12;
+        const decay = Math.min(35, cleanDays * 1.8);
+        const rot = lapseW + slipW + 18 - decay;
+        return Math.round(Math.min(100, Math.max(0, rot)) * 10) / 10;
+      }
+
+      function rotColor(pct) {
+        if (pct < 25) return '#2dd4bf';
+        if (pct < 50) return '#5ba4f5';
+        if (pct < 75) return '#f59e0b';
+        return '#ef4444';
+      }
+
+      function rotGlow(pct) {
+        const c = rotColor(pct);
+        const spread = 8 + pct * 0.45;
+        const alpha = 0.25 + (pct / 100) * 0.55;
+        return `0 0 ${spread}px rgba(${hexToRgb(c)}, ${alpha}), 0 0 ${spread * 2}px rgba(${hexToRgb(c)}, ${alpha * 0.4})`;
+      }
+
+      function hexToRgb(hex) {
+        const n = parseInt(hex.slice(1), 16);
+        return `${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}`;
+      }
+
+      function rotStatusText(pct) {
+        if (pct < 15) return 'دماغ نظيف';
+        if (pct < 35) return 'تعافٍ جيد';
+        if (pct < 55) return 'انتباه مطلوب';
+        if (pct < 75) return 'تعفن متوسط';
+        return 'تعفن حاد — توقف فوراً';
+      }
+
+      function pad2(n) {
+        return String(Math.floor(n)).padStart(2, '0');
+      }
+
+      function pulseUnit(id) {
+        const el = $(id);
+        el.classList.remove('pulse');
+        void el.offsetWidth;
+        el.classList.add('pulse');
+      }
+
+      function updateCounterUI() {
+        const c = getCounters();
+        const cleanDays = calcCleanDays(c);
+        const elapsed = Math.max(0, Date.now() - c.startDate.getTime());
+        const totalSec = Math.floor(elapsed / 1000);
+        const days = Math.floor(totalSec / 86400);
+        const hours = Math.floor((totalSec % 86400) / 3600);
+        const mins = Math.floor((totalSec % 3600) / 60);
+        const secs = totalSec % 60;
+
+        if (lastDisplayed.d !== days) {
+          $('valDays').textContent = pad2(days);
+          pulseUnit('unitDays');
+          lastDisplayed.d = days;
+        }
+        if (lastDisplayed.h !== hours) {
+          $('valHours').textContent = pad2(hours);
+          pulseUnit('unitHours');
+          lastDisplayed.h = hours;
+        }
+        if (lastDisplayed.m !== mins) {
+          $('valMins').textContent = pad2(mins);
+          pulseUnit('unitMins');
+          lastDisplayed.m = mins;
+        }
+        if (lastDisplayed.s !== secs) {
+          $('valSecs').textContent = pad2(secs);
+          pulseUnit('unitSecs');
+          lastDisplayed.s = secs;
+        }
+
+        $('cleanDaysDisplay').firstChild.textContent = cleanDays.toFixed(2);
+        $('statLapses').textContent = String(c.lapseCount);
+        $('statSlips').textContent = String(c.slipCount);
+        $('statDeductions').textContent = cleanDays === 0 && c.totalDeductions > 0
+          ? c.totalDeductions.toFixed(1)
+          : c.totalDeductions.toFixed(1);
+
+        const rot = calcBrainRot(c, cleanDays);
+        const color = rotColor(rot);
+        const ring = $('rotRing');
+        ring.style.setProperty('--rot-pct', String(rot));
+        ring.style.setProperty('--rot-color', color);
+        ring.style.boxShadow = rotGlow(rot);
+        ring.style.filter = rot > 60 ? `saturate(${1 + rot / 200})` : 'none';
+        $('rotValue').innerHTML = `${rot}<span class="pct">%</span>`;
+        $('rotStatus').textContent = rotStatusText(rot);
+        $('rotStatus').style.color = color;
+
+        saveDailySnapshot(rot);
+        return { cleanDays, rot, c };
+      }
+
+      function saveDailySnapshot(rot) {
+        const day = new Date().toISOString().slice(0, 10);
+        if (day === lastSnapshotDay && Math.abs(rot - lastSnapshotRot) < 0.05) return;
+        lastSnapshotDay = day;
+        lastSnapshotRot = rot;
+        db.run(
+          `INSERT INTO daily_snapshots (day, rot_pct) VALUES (?, ?)
+           ON CONFLICT(day) DO UPDATE SET rot_pct = excluded.rot_pct`,
+          [day, rot]
+        );
+        schedulePersist();
+      }
+
+      function getChartData() {
+        const rows = runQuery(
+          `SELECT day, rot_pct FROM daily_snapshots
+           ORDER BY day DESC LIMIT 14`
+        );
+        rows.reverse();
+        const labels = [];
+        const data = [];
+        const today = new Date();
+        for (let i = 13; i >= 0; i--) {
+          const d = new Date(today);
+          d.setDate(d.getDate() - i);
+          const key = d.toISOString().slice(0, 10);
+          const found = rows.find((r) => r.day === key);
+          labels.push(
+            d.toLocaleDateString('ar-EG', { weekday: 'short', day: 'numeric' })
+          );
+          data.push(found ? found.rot_pct : null);
+        }
+        let last = 0;
+        return {
+          labels,
+          data: data.map((v) => {
+            if (v !== null) last = v;
+            return v !== null ? v : last;
+          }),
+        };
+      }
+
+      function initChart() {
+        const ctx = $('rotChart').getContext('2d');
+        const { labels, data } = getChartData();
+        const gradient = ctx.createLinearGradient(0, 0, 0, 200);
+        gradient.addColorStop(0, 'rgba(45, 212, 191, 0.35)');
+        gradient.addColorStop(1, 'rgba(45, 212, 191, 0)');
+
+        if (chart) chart.destroy();
+        chart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels,
+            datasets: [{
+              label: 'تعفن %',
+              data,
+              borderColor: '#4a90d9',
+              backgroundColor: gradient,
+              fill: true,
+              tension: 0.45,
+              cubicInterpolationMode: 'monotone',
+              pointRadius: 3,
+              pointHoverRadius: 6,
+              pointBackgroundColor: '#ffd700',
+              borderWidth: 2.5,
+            }],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: {
+              duration: 800,
+              easing: 'easeInOutQuart',
+            },
+            interaction: { intersect: false, mode: 'index' },
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                rtl: true,
+                titleFont: { family: 'Cairo' },
+                bodyFont: { family: 'Cairo' },
+                callbacks: {
+                  label: (ctx) => ` ${ctx.parsed.y}% تعفن`,
+                },
+              },
+            },
+            scales: {
+              x: {
+                grid: { color: 'rgba(255,255,255,0.05)' },
+                ticks: { color: '#8b95ad', font: { family: 'Cairo', size: 10 } },
+              },
+              y: {
+                min: 0,
+                max: 100,
+                grid: { color: 'rgba(255,255,255,0.05)' },
+                ticks: {
+                  color: '#8b95ad',
+                  font: { family: 'Cairo', size: 10 },
+                  callback: (v) => v + '%',
+                },
+              },
+            },
+          },
+        });
+      }
+
+      function refreshChart() {
+        if (!chart) {
+          initChart();
+          return;
+        }
+        const { labels, data } = getChartData();
+        chart.data.labels = labels;
+        chart.data.datasets[0].data = data;
+        chart.update('active');
+      }
+
+      function renderLog() {
+        const events = runQuery(
+          `SELECT id, type, created_at, note FROM events ORDER BY created_at DESC LIMIT 30`
+        );
+        const list = $('logList');
+        list.innerHTML = '';
+        if (!events.length) {
+          list.innerHTML = '<li class="empty-log">لا أحداث بعد — سجّل هفوة أو انتكاسة</li>';
+          return;
+        }
+        const typeLabel = { lapse: 'هفوة', slip: 'ذلة', relapse: 'انتكاسة' };
+        events.forEach((ev) => {
+          const li = document.createElement('li');
+          li.className = 'log-item';
+          const dt = new Date(ev.created_at);
+          li.innerHTML = `
+            <div>
+              <span class="log-type ${ev.type}">${typeLabel[ev.type] || ev.type}</span>
+              <div class="log-meta">${dt.toLocaleString('ar-EG')}</div>
+              ${ev.note ? `<div class="log-meta">${escapeHtml(ev.note)}</div>` : ''}
+            </div>
+          `;
+          list.appendChild(li);
+        });
+      }
+
+      function escapeHtml(s) {
+        const d = document.createElement('div');
+        d.textContent = s;
+        return d.innerHTML;
+      }
+
+      function logEvent(type, note) {
+        runExec(
+          'INSERT INTO events (type, created_at, note) VALUES (?, ?, ?)',
+          [type, new Date().toISOString(), note || null]
+        );
+      }
+
+      function showConfirm(title, message, onConfirm) {
+        $('dialogTitle').textContent = title;
+        $('dialogMessage').textContent = message;
+        pendingAction = onConfirm;
+        $('confirmOverlay').classList.add('open');
+      }
+
+      function hideConfirm() {
+        $('confirmOverlay').classList.remove('open');
+        pendingAction = null;
+      }
+
+      function applyLapse() {
+        let c = getCounters();
+        c.lapseCount += 1;
+        c.totalDeductions += LAPSE_DEDUCT;
+        if (c.lapseCount >= LAPSES_PER_SLIP) {
+          c.lapseCount = 0;
+          c.slipCount += 1;
+          c.totalDeductions += SLIP_DEDUCT;
+          logEvent('slip', 'تحويل تلقائي: 3 هفوات → ذلة');
+        }
+        setSetting('lapse_count', String(c.lapseCount));
+        setSetting('slip_count', String(c.slipCount));
+        setSetting('total_deductions', String(c.totalDeductions));
+        logEvent('lapse', 'خصم 0.5 يوم');
+        refreshAll();
+      }
+
+      function applySlip() {
+        let c = getCounters();
+        c.slipCount += 1;
+        c.totalDeductions += SLIP_DEDUCT;
+        if (c.slipCount >= SLIPS_PER_RELAPSE) {
+          applyRelapse(true);
+          return;
+        }
+        setSetting('slip_count', String(c.slipCount));
+        setSetting('total_deductions', String(c.totalDeductions));
+        logEvent('slip', 'خصم 2 يوم');
+        refreshAll();
+      }
+
+      function applyRelapse(fromAuto) {
+        setSetting('start_date', new Date().toISOString());
+        setSetting('lapse_count', '0');
+        setSetting('slip_count', '0');
+        setSetting('total_deductions', '0');
+        logEvent('relapse', fromAuto ? 'تحويل تلقائي: 3 ذلات' : 'إعادة ضبط كاملة');
+        lastDisplayed = { d: -1, h: -1, m: -1, s: -1 };
+        refreshAll();
+      }
+
+      function refreshAll() {
+        updateCounterUI();
+        refreshChart();
+        renderLog();
+      }
+
+      function bindUI() {
+        $('dialogCancel').addEventListener('click', hideConfirm);
+        $('dialogConfirm').addEventListener('click', () => {
+          if (pendingAction) pendingAction();
+          hideConfirm();
+        });
+        $('confirmOverlay').addEventListener('click', (e) => {
+          if (e.target === $('confirmOverlay')) hideConfirm();
+        });
+
+        $('btnLapse').addEventListener('click', () => {
+          showConfirm(
+            'تأكيد هفوة',
+            'سيتم خصم 0.5 يوم. عند 3 هفوات تُسجَّل ذلة تلقائياً. هل تتابع؟',
+            applyLapse
+          );
+        });
+
+        $('btnSlip').addEventListener('click', () => {
+          showConfirm(
+            'تأكيد ذلة',
+            'سيتم خصم 2 يوم. عند 3 ذلات تُسجَّل انتكاسة تلقائياً. هل تتابع؟',
+            applySlip
+          );
+        });
+
+        $('btnRelapse').addEventListener('click', () => {
+          showConfirm(
+            'تأكيد انتكاسة',
+            'إعادة ضبط العداد والهفوات والذلات إلى الصفر. لا يمكن التراجع. هل تتابع؟',
+            () => applyRelapse(false)
+          );
+        });
+
+        $('btnSetStart').addEventListener('click', () => {
+          showConfirm(
+            'تعيين تاريخ البداية',
+            'سيتم ضبط نقطة البداية إلى الآن مع الإبقاء على السجل. هل تتابع؟',
+            () => {
+              setSetting('start_date', new Date().toISOString());
+              lastDisplayed = { d: -1, h: -1, m: -1, s: -1 };
+              refreshAll();
+            }
+          );
+        });
+      }
+
+      async function loadDatabase() {
+        const SQL = await initSqlJs({
+          locateFile: (file) =>
+            `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.12.0/${file}`,
+        });
+
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          try {
+            const binary = Uint8Array.from(atob(saved), (c) => c.charCodeAt(0));
+            db = new SQL.Database(binary);
+          } catch (e) {
+            console.warn('load saved db failed', e);
+            db = new SQL.Database();
+          }
+        } else {
+          db = new SQL.Database();
+        }
+
+        initSchema();
+      }
+
+      async function boot() {
+        try {
+          await loadDatabase();
+          $('loading').hidden = true;
+          $('app').hidden = false;
+          bindUI();
+          initChart();
+          renderLog();
+          updateCounterUI();
+          tickInterval = setInterval(() => {
+            updateCounterUI();
+            if (new Date().getSeconds() === 0) refreshChart();
+          }, 1000);
+        } catch (err) {
+          $('loading').textContent =
+            'تعذّر تحميل SQLite WASM. تحقق من الاتصال بالإنترنت.';
+          console.error(err);
+        }
+      }
+
+      boot();
+    })();
+  </script>
+</body>
+</html>

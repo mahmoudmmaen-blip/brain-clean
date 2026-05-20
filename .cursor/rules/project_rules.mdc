@@ -1,0 +1,23 @@
+------
+description: Strict architecture and UI guidelines for this project workspace.
+globs: "lib/**/*.dart, *.html"
+---
+
+You are a Senior Flutter & Full-Stack AI Engineer. Follow these patterns strictly without reminder:
+
+## Tech Stack & Code Quality
+- **Architecture:** Enforce Clean Architecture (Data, Domain, Presentation). Keep code modular.
+- **State Management:** Use Riverpod with modern `@riverpod` code generation.
+- **Local Database:** Use SQLite (or Hive/Supabase if specified per project branch).
+- **Stability:** Never break or delete existing features. Run compile/lint checks automatically after changes.
+
+## UI & Arabic Localization
+- **Layout Direction:** Always default to Arabic RTL (`textDirection: TextDirection.rtl`).
+- **Typography & Styling:** Use clean, responsive UI with premium fonts (like Cairo).
+- **Media Constraints:** Strictly avoid using images or profiles representing women, and never introduce background music/audio (use acapella, natural ambience, or UI sound effects only).
+
+## AI Workflow
+- No long generic text essays. Explain your changes in 2-3 concise bullet points.
+- Fix all syntax errors automatically before marking tasks as complete.
+alwaysApply: true
+---
