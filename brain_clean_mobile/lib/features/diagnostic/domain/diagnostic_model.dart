@@ -1,40 +1,33 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'diagnostic_model.freezed.dart';
+part 'diagnostic_model.g.dart';
 
-/// Six-point neuro-diagnostic input (each metric range 1–10).
 @freezed
 class DiagnosticMetrics with _$DiagnosticMetrics {
   const factory DiagnosticMetrics({
-    /// S1 — sleep quality
-    @Default(0) int sleepQuality,
-    /// A2 — sustained attention
-    @Default(0) int sustainedAttention,
-    /// F3 — fragmentation
-    @Default(0) int fragmentation,
-    /// D4 — dopamine seeking
-    @Default(0) int dopamineSeeking,
-    /// T5 — task switching
-    @Default(0) int taskSwitching,
-    /// B6 — burnout
-    @Default(0) int burnout,
+    @Default(5) int sleepQuality,
+    @Default(5) int sustainedAttention,
+    @Default(5) int fragmentation,
+    @Default(5) int dopamineSeeking,
+    @Default(5) int taskSwitching,
+    @Default(5) int burnout,
   }) = _DiagnosticMetrics;
 
-  const DiagnosticMetrics._();
+  factory DiagnosticMetrics.fromJson(Map<String, dynamic> json) =>
+      _$DiagnosticMetricsFromJson(json);
+}
 
-  static const double _minRaw = -29.0;
-  static const double _maxRaw = 26.8;
-
-  /// Neuro-scientific focus score normalized to \[0, 100\].
-  double calculateFocusScore() {
-    final rawScore = ((sleepQuality + sustainedAttention) * 1.5) -
-        ((fragmentation +
-                dopamineSeeking +
-                taskSwitching +
-                burnout) *
-            0.8);
-    final normalized =
-        ((rawScore - _minRaw) / (_maxRaw - _minRaw)) * 100.0;
-    return normalized.clamp(0.0, 100.0);
+extension DiagnosticMetricsX on DiagnosticMetrics {
+  double get focusScorePercentage {
+    // 1. حساب الـ rawScore بناءً على المعادلة السلوكية الصارمة
+    double rawScore = ((sleepQuality + sustainedAttention) * 1.5) - 
+                      ((fragmentation + dopamineSeeking + taskSwitching + burnout) * 0.8);
+    
+    // 2. النطاق العلمي المحدد: الحد الأدنى المطلق -29.0 والحد الأقصى 26.8 (الإجمالي 55.8)
+    double normalizedPercentage = ((rawScore + 29.0) / 55.8) * 100.0;
+    
+    // 3. حصر النسبة بدقة (Clamping) بين 0% و 100% لمنع الأخطاء البرمجية
+    return normalizedPercentage.clamp(0.0, 100.0);
   }
 }
