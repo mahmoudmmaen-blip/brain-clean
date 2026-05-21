@@ -14,25 +14,21 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+DiagnosticMetrics _$DiagnosticMetricsFromJson(Map<String, dynamic> json) {
+  return _DiagnosticMetrics.fromJson(json);
+}
+
 /// @nodoc
 mixin _$DiagnosticMetrics {
-  /// S1 — sleep quality
   int get sleepQuality => throw _privateConstructorUsedError;
-
-  /// A2 — sustained attention
   int get sustainedAttention => throw _privateConstructorUsedError;
-
-  /// F3 — fragmentation
   int get fragmentation => throw _privateConstructorUsedError;
-
-  /// D4 — dopamine seeking
   int get dopamineSeeking => throw _privateConstructorUsedError;
-
-  /// T5 — task switching
   int get taskSwitching => throw _privateConstructorUsedError;
-
-  /// B6 — burnout
   int get burnout => throw _privateConstructorUsedError;
+
+  /// Serializes this DiagnosticMetrics to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
   /// Create a copy of DiagnosticMetrics
   /// with the given fields replaced by the non-null parameter values.
@@ -174,43 +170,34 @@ class __$$DiagnosticMetricsImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-class _$DiagnosticMetricsImpl extends _DiagnosticMetrics {
+@JsonSerializable()
+class _$DiagnosticMetricsImpl implements _DiagnosticMetrics {
   const _$DiagnosticMetricsImpl(
-      {this.sleepQuality = 0,
-      this.sustainedAttention = 0,
-      this.fragmentation = 0,
-      this.dopamineSeeking = 0,
-      this.taskSwitching = 0,
-      this.burnout = 0})
-      : super._();
+      {this.sleepQuality = 5,
+      this.sustainedAttention = 5,
+      this.fragmentation = 5,
+      this.dopamineSeeking = 5,
+      this.taskSwitching = 5,
+      this.burnout = 5});
 
-  /// S1 — sleep quality
+  factory _$DiagnosticMetricsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DiagnosticMetricsImplFromJson(json);
+
   @override
   @JsonKey()
   final int sleepQuality;
-
-  /// A2 — sustained attention
   @override
   @JsonKey()
   final int sustainedAttention;
-
-  /// F3 — fragmentation
   @override
   @JsonKey()
   final int fragmentation;
-
-  /// D4 — dopamine seeking
   @override
   @JsonKey()
   final int dopamineSeeking;
-
-  /// T5 — task switching
   @override
   @JsonKey()
   final int taskSwitching;
-
-  /// B6 — burnout
   @override
   @JsonKey()
   final int burnout;
@@ -238,6 +225,7 @@ class _$DiagnosticMetricsImpl extends _DiagnosticMetrics {
             (identical(other.burnout, burnout) || other.burnout == burnout));
   }
 
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, sleepQuality, sustainedAttention,
       fragmentation, dopamineSeeking, taskSwitching, burnout);
@@ -250,9 +238,16 @@ class _$DiagnosticMetricsImpl extends _DiagnosticMetrics {
   _$$DiagnosticMetricsImplCopyWith<_$DiagnosticMetricsImpl> get copyWith =>
       __$$DiagnosticMetricsImplCopyWithImpl<_$DiagnosticMetricsImpl>(
           this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$DiagnosticMetricsImplToJson(
+      this,
+    );
+  }
 }
 
-abstract class _DiagnosticMetrics extends DiagnosticMetrics {
+abstract class _DiagnosticMetrics implements DiagnosticMetrics {
   const factory _DiagnosticMetrics(
       {final int sleepQuality,
       final int sustainedAttention,
@@ -260,29 +255,20 @@ abstract class _DiagnosticMetrics extends DiagnosticMetrics {
       final int dopamineSeeking,
       final int taskSwitching,
       final int burnout}) = _$DiagnosticMetricsImpl;
-  const _DiagnosticMetrics._() : super._();
 
-  /// S1 — sleep quality
+  factory _DiagnosticMetrics.fromJson(Map<String, dynamic> json) =
+      _$DiagnosticMetricsImpl.fromJson;
+
   @override
   int get sleepQuality;
-
-  /// A2 — sustained attention
   @override
   int get sustainedAttention;
-
-  /// F3 — fragmentation
   @override
   int get fragmentation;
-
-  /// D4 — dopamine seeking
   @override
   int get dopamineSeeking;
-
-  /// T5 — task switching
   @override
   int get taskSwitching;
-
-  /// B6 — burnout
   @override
   int get burnout;
 
