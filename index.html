@@ -166,9 +166,72 @@
       font-weight: 600;
       padding: 0.25rem 0.65rem;
       border-radius: 999px;
-      background: rgba(245, 158, 11, 0.1);
-      border: 1px solid rgba(245, 158, 11, 0.25);
-      color: var(--gold);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: color 0.35s ease, border-color 0.35s ease;
+    }
+
+    .clarity-score.counting {
+      animation: scorePop 0.45s ease;
+    }
+
+    @keyframes scorePop {
+      0% { transform: scale(1); }
+      40% { transform: scale(1.06); }
+      100% { transform: scale(1); }
+    }
+
+    .clarity-score.tier-high {
+      text-shadow: 0 0 48px rgba(15, 110, 86, 0.55);
+    }
+
+    /* BC_score breakdown */
+    .bc-breakdown {
+      margin-top: 1rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid #1e2a3a;
+      text-align: right;
+    }
+
+    .bc-breakdown-title {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 0.55rem;
+      text-align: center;
+    }
+
+    .bc-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      padding: 0.35rem 0;
+      gap: 0.5rem;
+    }
+
+    .bc-row .bc-label { color: var(--muted); }
+
+    .bc-row .bc-val {
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--text);
+    }
+
+    .bc-row.bc-penalty .bc-val { color: #ef4444; }
+
+    .bc-bar-track {
+      height: 3px;
+      background: #0a0e1a;
+      border-radius: 2px;
+      margin-top: 0.2rem;
+      overflow: hidden;
+    }
+
+    .bc-bar-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 0.4s ease;
     }
 
     /* Weekly bar chart */
@@ -639,8 +702,31 @@
             50<span class="unit">%</span>
           </div>
         </div>
-        <p class="clarity-sub" id="claritySub">تحديث لحظي · نموذج مترابط</p>
+        <p class="clarity-sub" id="claritySub">محرك BC_score · تحديث لحظي</p>
         <span class="clarity-status" id="clarityStatus">تركيز مستقر</span>
+
+        <div class="bc-breakdown" aria-label="تفصيل نقاط Brain Clarity">
+          <div class="bc-breakdown-title">تفصيل المعادلة العلمية</div>
+          <div class="bc-row">
+            <span class="bc-label">نقاط العداد</span>
+            <span class="bc-val" id="bcS">0/40 (40%)</span>
+          </div>
+          <div class="bc-bar-track"><div class="bc-bar-fill" id="bcSBar" style="width:0%;background:#4a90d9"></div></div>
+          <div class="bc-row">
+            <span class="bc-label">نقاط العادات</span>
+            <span class="bc-val" id="bcH">0/30 (30%)</span>
+          </div>
+          <div class="bc-bar-track"><div class="bc-bar-fill" id="bcHBar" style="width:0%;background:#10b981"></div></div>
+          <div class="bc-row">
+            <span class="bc-label">نقاط البومودورو</span>
+            <span class="bc-val" id="bcP">0/30 (30%)</span>
+          </div>
+          <div class="bc-bar-track"><div class="bc-bar-fill" id="bcPBar" style="width:0%;background:#1e6b3a"></div></div>
+          <div class="bc-row bc-penalty">
+            <span class="bc-label">خصم التشتت</span>
+            <span class="bc-val" id="bcD">-0</span>
+          </div>
+        </div>
       </section>
 
       <section class="card">
@@ -752,22 +838,38 @@
     (function () {
       'use strict';
 
-      const STORAGE_KEY = 'brainclean_focus_v3';
-      const DATA_VERSION = 3;
+      const STORAGE_KEY = 'brainclean_focus_v4';
+      const LS_CLARITY = 'brainClarityData';
+      const LS_STREAK = 'streakStartTime';
+      const LS_HABITS = 'dailyHabits';
+      const DATA_VERSION = 4;
       const POMO_SECONDS = 25 * 60;
-      const DISTRACTION_STREAK_PENALTY = 0.14;
-      const CLARITY_DEBT_PER_DISTRACTION = 4.2;
+
+      /* ── BC_score scientific engine ── */
+      const S_POINTS_PER_DAY = 5.71;
+      const S_POINTS_MAX = 40;
+      const S_STREAK_CAP_DAYS = 7;
+      const H_POINTS_MAX = 30;
+      const P_POINTS_PER_SESSION = 3;
+      const P_POINTS_MAX = 30;
+      const P_SESSIONS_CAP = 10;
+      const D_PENALTY_PER_DISTRACTION = 15;
+      const WEIGHT_S = 0.4;
+      const WEIGHT_H = 0.3;
+      const WEIGHT_P = 0.3;
+
       const DISTRACTION_MINUTES = 8;
-      const DISTRACTION_POINTS_LOSS = 3;
-      const CLARITY_BASE = 42;
-      const STREAK_TO_CLARITY = 1.85;
-      const HABIT_CLARITY = 3;
       const HABIT_POINTS = 5;
-      const POMO_CLARITY = 2.8;
-      const POMO_POINTS = 12;
-      const MAX_CLARITY_DEBT = 55;
+      const POMO_COMMITMENT_POINTS = 12;
       const BAR_GREEN = '#1E6B3A';
       const BAR_GOLD = '#F59E0B';
+
+      const CLARITY_COLORS = {
+        low: '#EF4444',
+        mid: '#F59E0B',
+        good: '#10B981',
+        peak: '#0F6E56',
+      };
 
       const BUILTIN_HABITS = [
         { id: 'sleep', name: 'النوم الكافي', icon: '🌙' },
@@ -794,6 +896,9 @@
       let lastSnapshotClarity = -1;
       let saveTimer = null;
       let pomo = { remaining: POMO_SECONDS, running: false, startedAt: null };
+      let displayedBcScore = 0;
+      let countUpFrame = null;
+      let lastBcResult = null;
 
       const $ = (id) => document.getElementById(id);
 
@@ -802,13 +907,13 @@
       }
 
       function defaultState() {
+        const now = Date.now();
         const habitDone = {};
         BUILTIN_HABITS.forEach((h) => { habitDone[h.id] = {}; });
         return {
           version: DATA_VERSION,
-          startDate: new Date().toISOString(),
-          streakPenaltyDays: 0,
-          serenityDebt: 0,
+          streakStartTime: now,
+          startDate: new Date(now).toISOString(),
           commitmentPoints: 0,
           distractionTotal: 0,
           pomodorosTotal: 0,
@@ -820,17 +925,30 @@
           pomodorosByDay: {},
           distractionsByDay: {},
           distractionMinutesByDay: {},
+          brainClarityData: {
+            sPoints: 0,
+            hPoints: 0,
+            pPoints: 0,
+            dPenalty: 0,
+            bcScore: 0,
+            lastUpdated: new Date().toISOString(),
+          },
+          dailyHabitsByDay: {},
         };
       }
 
       function normalizeState(raw) {
         const base = defaultState();
         if (!raw || typeof raw !== 'object') return base;
+        const streakTs = raw.streakStartTime != null
+          ? Number(raw.streakStartTime)
+          : (raw.startDate ? new Date(raw.startDate).getTime() : base.streakStartTime);
         return {
           version: DATA_VERSION,
-          startDate: typeof raw.startDate === 'string' ? raw.startDate : base.startDate,
-          streakPenaltyDays: Number(raw.streakPenaltyDays) || 0,
-          serenityDebt: Math.min(MAX_CLARITY_DEBT, Number(raw.serenityDebt) || 0),
+          streakStartTime: streakTs,
+          startDate: typeof raw.startDate === 'string'
+            ? raw.startDate
+            : new Date(streakTs).toISOString(),
           commitmentPoints: Math.max(0, Number(raw.commitmentPoints) || 0),
           distractionTotal: Number(raw.distractionTotal) || 0,
           pomodorosTotal: Number(raw.pomodorosTotal) || 0,
@@ -857,21 +975,84 @@
             raw.distractionMinutesByDay && typeof raw.distractionMinutesByDay === 'object'
               ? raw.distractionMinutesByDay
               : {},
+          brainClarityData:
+            raw.brainClarityData && typeof raw.brainClarityData === 'object'
+              ? raw.brainClarityData
+              : base.brainClarityData,
+          dailyHabitsByDay:
+            raw.dailyHabitsByDay && typeof raw.dailyHabitsByDay === 'object'
+              ? raw.dailyHabitsByDay
+              : {},
         };
       }
 
       function loadState() {
         try {
+          let merged = null;
           const raw = localStorage.getItem(STORAGE_KEY);
-          if (raw) return normalizeState(JSON.parse(raw));
+          if (raw) merged = normalizeState(JSON.parse(raw));
+
+          const streakLs = localStorage.getItem(LS_STREAK);
+          const clarityLs = localStorage.getItem(LS_CLARITY);
+          const habitsLs = localStorage.getItem(LS_HABITS);
+
+          if (!merged) merged = defaultState();
+          if (streakLs) merged.streakStartTime = Number(streakLs) || merged.streakStartTime;
+          if (clarityLs) {
+            try {
+              merged.brainClarityData = JSON.parse(clarityLs);
+            } catch (e) { /* ignore */ }
+          }
+          if (habitsLs) {
+            try {
+              const parsed = JSON.parse(habitsLs);
+              if (parsed && typeof parsed === 'object') {
+                if (Array.isArray(parsed)) {
+                  merged.dailyHabitsByDay[todayKey()] = parsed;
+                } else {
+                  merged.dailyHabitsByDay = parsed;
+                }
+              }
+            } catch (e) { /* ignore */ }
+          }
+          return merged;
         } catch (e) {
           console.warn('loadState', e);
         }
         return defaultState();
       }
 
+      function syncDailyHabitsArray() {
+        const day = todayKey();
+        const habits = allHabits();
+        state.dailyHabitsByDay[day] = habits.map((h) => ({
+          id: h.id,
+          name: h.name,
+          icon: h.icon,
+          done: isHabitDoneToday(h.id),
+          custom: !!h.custom,
+        }));
+      }
+
+      function persistDedicatedKeys() {
+        const bc = lastBcResult || calculateBCScore();
+        localStorage.setItem(LS_STREAK, String(state.streakStartTime));
+        localStorage.setItem(LS_CLARITY, JSON.stringify({
+          sPoints: bc.sPoints,
+          hPoints: bc.hPoints,
+          pPoints: bc.pPoints,
+          dPenalty: bc.dPenalty,
+          bcScore: bc.bcScore,
+          lastUpdated: new Date().toISOString(),
+        }));
+        syncDailyHabitsArray();
+        localStorage.setItem(LS_HABITS, JSON.stringify(state.dailyHabitsByDay[todayKey()] || []));
+      }
+
       function saveState() {
         try {
+          calculateBCScore();
+          persistDedicatedKeys();
           localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
           $('storageBadge').textContent = state.commitmentPoints + ' نقطة';
         } catch (e) {
@@ -928,31 +1109,123 @@
         return (state.distractionsByDay[day] || 0) * DISTRACTION_MINUTES;
       }
 
-      function calcEffectiveStreakDays() {
-        const start = new Date(state.startDate).getTime();
-        const elapsedDays = Math.max(0, (Date.now() - start) / 86400000);
-        return Math.max(0, elapsedDays - state.streakPenaltyDays);
+      /** أيام الصمود المستمرة — بدون تصفير عند التشتت */
+      function getStreakElapsedDays() {
+        const elapsed = Math.max(0, (Date.now() - state.streakStartTime) / 86400000);
+        return elapsed;
       }
 
-      function calcBrainClarityScore() {
-        const streakDays = calcEffectiveStreakDays();
-        const habits = countHabitsDoneToday();
-        const pomos = pomodorosToday();
-        const raw =
-          CLARITY_BASE +
-          Math.min(28, streakDays * STREAK_TO_CLARITY) +
-          habits * HABIT_CLARITY +
-          Math.min(18, pomos * POMO_CLARITY) -
-          state.serenityDebt;
-        return Math.round(Math.min(100, Math.max(0, raw)) * 10) / 10;
+      /**
+       * BC_score = (S×0.40) + (H×0.30) + (P×0.30) − D
+       * حيث S,H,P على مقياس 40/30/30 ≡ الجمع المباشر بعد التطبيع
+       */
+      function calculateBCScore() {
+        const streakDays = getStreakElapsedDays();
+        const cappedDays = Math.min(S_STREAK_CAP_DAYS, streakDays);
+        const sPoints = Math.round(Math.min(S_POINTS_MAX, cappedDays * S_POINTS_PER_DAY) * 100) / 100;
+
+        const totalH = allHabits().length;
+        const doneH = countHabitsDoneToday();
+        const hPoints = totalH === 0
+          ? 0
+          : Math.round((doneH / totalH) * H_POINTS_MAX * 100) / 100;
+
+        const sessions = Math.min(P_SESSIONS_CAP, pomodorosToday());
+        const pPoints = Math.min(P_POINTS_MAX, sessions * P_POINTS_PER_SESSION);
+
+        const distractions = distractionsToday();
+        const dPenalty = distractions * D_PENALTY_PER_DISTRACTION;
+
+        /* S+H+P = 100 عند الاكتمال (40+30+30) ≡ (S×0.40)+(H×0.30)+(P×0.30) على المقياس الكامل */
+        const bcRaw = sPoints + hPoints + pPoints - dPenalty;
+        const bcScore = Math.round(Math.min(100, Math.max(0, bcRaw)) * 10) / 10;
+
+        const result = {
+          sPoints,
+          hPoints,
+          pPoints,
+          dPenalty,
+          bcScore,
+          streakDays,
+          distractions,
+        };
+
+        state.brainClarityData = {
+          sPoints,
+          hPoints,
+          pPoints,
+          dPenalty,
+          bcScore,
+          lastUpdated: new Date().toISOString(),
+        };
+        lastBcResult = result;
+        return result;
+      }
+
+      function clarityColorForScore(pct) {
+        if (pct <= 30) return CLARITY_COLORS.low;
+        if (pct <= 60) return CLARITY_COLORS.mid;
+        if (pct <= 85) return CLARITY_COLORS.good;
+        return CLARITY_COLORS.peak;
       }
 
       function clarityStatusText(pct) {
-        if (pct >= 80) return 'وضوح عالٍ — تركيز عميق';
-        if (pct >= 60) return 'تركيز مستقر';
-        if (pct >= 40) return 'جلسة بومودورو ترفع الوضوح';
-        if (pct >= 20) return 'تشتت متراكم — عد للعادات';
-        return 'إنذار: أعد ضبط الانتباه';
+        if (pct >= 86) return 'وضوح ذروة — أداء استثنائي';
+        if (pct >= 61) return 'تركيز مستقر';
+        if (pct >= 31) return 'تحسّن تدريجي — واصل';
+        return 'إنذار: عزّز العادات والبومودورو';
+      }
+
+      function animateClarityScore(target) {
+        if (countUpFrame) cancelAnimationFrame(countUpFrame);
+        const el = $('clarityScore');
+        const start = displayedBcScore;
+        const diff = target - start;
+        if (Math.abs(diff) < 0.5) {
+          displayedBcScore = target;
+          renderClarityScoreDisplay(target);
+          return;
+        }
+        el.classList.add('counting');
+        const t0 = performance.now();
+        const duration = 420;
+
+        function step(now) {
+          const p = Math.min(1, (now - t0) / duration);
+          const eased = 1 - Math.pow(1 - p, 3);
+          const current = Math.round(start + diff * eased);
+          displayedBcScore = current;
+          renderClarityScoreDisplay(current);
+          if (p < 1) {
+            countUpFrame = requestAnimationFrame(step);
+          } else {
+            displayedBcScore = Math.round(target);
+            renderClarityScoreDisplay(displayedBcScore);
+            el.classList.remove('counting');
+            countUpFrame = null;
+          }
+        }
+        countUpFrame = requestAnimationFrame(step);
+      }
+
+      function renderClarityScoreDisplay(value) {
+        const color = clarityColorForScore(value);
+        const el = $('clarityScore');
+        el.innerHTML = Math.round(value) + '<span class="unit">%</span>';
+        el.style.color = color;
+        el.classList.toggle('tier-high', value >= 86);
+        $('clarityStatus').style.color = color;
+        $('clarityStatus').style.borderColor = color + '44';
+      }
+
+      function updateBCBreakdownUI(bc) {
+        $('bcS').textContent = bc.sPoints.toFixed(1) + '/40 (40%)';
+        $('bcH').textContent = bc.hPoints.toFixed(1) + '/30 (30%)';
+        $('bcP').textContent = bc.pPoints + '/30 (30%)';
+        $('bcD').textContent = '-' + bc.dPenalty;
+        $('bcSBar').style.width = (bc.sPoints / S_POINTS_MAX * 100) + '%';
+        $('bcHBar').style.width = (bc.hPoints / H_POINTS_MAX * 100) + '%';
+        $('bcPBar').style.width = (bc.pPoints / P_POINTS_MAX * 100) + '%';
       }
 
       function pad2(n) {
@@ -987,16 +1260,16 @@
       }
 
       function updateCoachTip() {
-        const clarity = calcBrainClarityScore();
-        let idx = Math.floor(clarity / 20) % COACH_TIPS.length;
+        const bc = calculateBCScore();
+        let idx = Math.floor(bc.bcScore / 20) % COACH_TIPS.length;
         if (pomodorosToday() === 0) idx = 0;
         $('coachMessage').textContent = COACH_TIPS[idx];
         $('coachMeta').textContent =
-          'Brain Clarity ' + clarity + '% · ' + new Date().toLocaleDateString('ar-EG');
+          'BC_score ' + bc.bcScore + '% · ' + new Date().toLocaleDateString('ar-EG');
       }
 
       function updateDashboard() {
-        const start = new Date(state.startDate).getTime();
+        const start = state.streakStartTime;
         const elapsed = Math.max(0, Date.now() - start);
         const totalSec = Math.floor(elapsed / 1000);
         const days = Math.floor(totalSec / 86400);
@@ -1025,20 +1298,24 @@
           lastDisplayed.s = secs;
         }
 
-        $('streakDaysDisplay').textContent = calcEffectiveStreakDays().toFixed(2);
+        $('streakDaysDisplay').textContent = getStreakElapsedDays().toFixed(2);
         $('statSessions').textContent = String(pomodorosToday());
         $('statDistractionMins').textContent = String(distractionMinutesToday());
         $('statPoints').textContent = String(state.commitmentPoints);
 
-        const clarity = calcBrainClarityScore();
-        $('clarityScore').innerHTML =
-          Math.round(clarity) + '<span class="unit">%</span>';
-        $('clarityStatus').textContent = clarityStatusText(clarity);
+        const bc = calculateBCScore();
+        updateBCBreakdownUI(bc);
+        if (Math.abs(bc.bcScore - displayedBcScore) >= 0.5) {
+          animateClarityScore(bc.bcScore);
+        } else {
+          displayedBcScore = Math.round(bc.bcScore);
+          renderClarityScoreDisplay(bc.bcScore);
+        }
+        $('clarityStatus').textContent = clarityStatusText(bc.bcScore);
         $('claritySub').textContent =
-          'دين التشتت: ' + state.serenityDebt.toFixed(1) + ' · خصم السلسلة: ' +
-          state.streakPenaltyDays.toFixed(2) + ' يوم';
+          'BC = (S×40%)+(H×30%)+(P×30%) − D · ' + bc.distractions + ' تشتت اليوم';
 
-        saveDailySnapshot(clarity);
+        saveDailySnapshot(bc.bcScore);
         updateCoachTip();
       }
 
@@ -1227,6 +1504,7 @@
           state.commitmentPoints += HABIT_POINTS;
           logEvent('habit', 'إنجاز: ' + habitName);
         }
+        calculateBCScore();
         flushSave();
         renderHabits();
         updateDashboard();
@@ -1254,24 +1532,15 @@
 
       function applyDistraction() {
         const day = todayKey();
-        state.streakPenaltyDays += DISTRACTION_STREAK_PENALTY;
-        state.serenityDebt = Math.min(
-          MAX_CLARITY_DEBT,
-          state.serenityDebt + CLARITY_DEBT_PER_DISTRACTION
-        );
-        state.commitmentPoints = Math.max(
-          0,
-          state.commitmentPoints - DISTRACTION_POINTS_LOSS
-        );
         state.distractionTotal += 1;
         state.distractionsByDay[day] = (state.distractionsByDay[day] || 0) + 1;
         state.distractionMinutesByDay[day] =
           (state.distractionMinutesByDay[day] || 0) + DISTRACTION_MINUTES;
         logEvent(
           'distraction',
-          '−' + CLARITY_DEBT_PER_DISTRACTION + '% وضوح، −' + DISTRACTION_STREAK_PENALTY + ' يوم سلسلة، +' + DISTRACTION_MINUTES + ' د'
+          'خصم BC: -' + D_PENALTY_PER_DISTRACTION + ' · +' + DISTRACTION_MINUTES + ' د تشتت (السلسلة لم تُصفَّر)'
         );
-        lastDisplayed = { d: -1, h: -1, m: -1, s: -1 };
+        calculateBCScore();
         flushSave();
         updateDashboard();
         renderLog();
@@ -1307,9 +1576,9 @@
         const day = todayKey();
         state.pomodorosByDay[day] = (state.pomodorosByDay[day] || 0) + 1;
         state.pomodorosTotal += 1;
-        state.serenityDebt = Math.max(0, state.serenityDebt - 1.2);
-        state.commitmentPoints += POMO_POINTS;
-        logEvent('pomodoro', '+' + POMO_CLARITY + '% وضوح، +' + POMO_POINTS + ' نقطة');
+        state.commitmentPoints += POMO_COMMITMENT_POINTS;
+        logEvent('pomodoro', '+3 نقاط بومودورو · +' + POMO_COMMITMENT_POINTS + ' التزام');
+        calculateBCScore();
         updatePomoUI();
         flushSave();
         updateDashboard();
@@ -1380,7 +1649,7 @@
         $('btnDistraction').addEventListener('click', () => {
           showConfirm(
             'تأكيد تشتت مؤقت',
-            'خصم جزئي من Brain Clarity و' + DISTRACTION_MINUTES + ' دقيقة تشتت — بدون تصفير السلسلة. متابعة؟',
+            'خصم ' + D_PENALTY_PER_DISTRACTION + ' من BC_score و+' + DISTRACTION_MINUTES + ' د تشتت — العداد يستمر دون تصفير. متابعة؟',
             applyDistraction
           );
         });
@@ -1390,8 +1659,10 @@
             'بداية سلسلة جديدة',
             'ضبط نقطة البداية إلى الآن مع الإبقاء على السجل. متابعة؟',
             () => {
+              state.streakStartTime = Date.now();
               state.startDate = new Date().toISOString();
               lastDisplayed = { d: -1, h: -1, m: -1, s: -1 };
+              calculateBCScore();
               flushSave();
               updateDashboard();
               refreshChart();
@@ -1427,11 +1698,20 @@
         BUILTIN_HABITS.forEach((h) => {
           if (!state.habitDone[h.id]) state.habitDone[h.id] = {};
         });
+        if (!state.streakStartTime) {
+          state.streakStartTime = state.startDate
+            ? new Date(state.startDate).getTime()
+            : Date.now();
+        }
+        const bc = calculateBCScore();
+        displayedBcScore = Math.round(bc.bcScore);
         bindUI();
         initChart();
         renderHabits();
         renderLog();
         updatePomoUI();
+        updateBCBreakdownUI(bc);
+        renderClarityScoreDisplay(bc.bcScore);
         updateDashboard();
 
         tickInterval = setInterval(() => {
