@@ -617,30 +617,70 @@
 
     .log-list {
       list-style: none;
-      max-height: 180px;
+      max-height: 320px;
       overflow-y: auto;
     }
 
     .log-item {
-      padding: 0.55rem 0;
-      border-bottom: 1px solid var(--border);
+      padding: 0.65rem 0.55rem;
+      margin-bottom: 0.4rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      border-inline-start-width: 3px;
       font-size: 0.8rem;
+      background: #0a0e1a;
+    }
+
+    .log-item.type-distraction {
+      border-inline-start-color: var(--gold);
+      background: rgba(245, 158, 11, 0.06);
+    }
+
+    .log-item.type-pomodoro {
+      border-inline-start-color: var(--green-light);
+      background: rgba(30, 107, 58, 0.08);
+    }
+
+    .log-item.type-habit {
+      border-inline-start-color: var(--blue);
+      background: rgba(74, 144, 217, 0.06);
+    }
+
+    .log-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.2rem;
     }
 
     .log-tag {
       font-weight: 700;
       font-size: 0.68rem;
-      padding: 0.12rem 0.4rem;
+      padding: 0.15rem 0.45rem;
       border-radius: 5px;
-      margin-left: 0.3rem;
     }
 
-    .log-tag.distraction { background: rgba(245, 158, 11, 0.15); color: var(--gold); }
-    .log-tag.pomodoro { background: rgba(30, 107, 58, 0.3); color: var(--green-light); }
-    .log-tag.habit { background: rgba(74, 144, 217, 0.2); color: var(--blue); }
+    .log-tag.distraction { background: rgba(245, 158, 11, 0.2); color: var(--gold); }
+    .log-tag.pomodoro { background: rgba(30, 107, 58, 0.35); color: var(--green-light); }
+    .log-tag.habit { background: rgba(74, 144, 217, 0.25); color: var(--blue); }
 
-    .log-meta { color: var(--muted); font-size: 0.68rem; margin-top: 0.1rem; }
+    .log-time {
+      font-size: 0.65rem;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .log-detail { color: var(--text); line-height: 1.45; font-size: 0.78rem; }
+    .log-meta { color: var(--muted); font-size: 0.68rem; margin-top: 0.15rem; }
     .empty-log { text-align: center; color: var(--muted); padding: 1rem; font-size: 0.82rem; }
+
+    .log-section-hint {
+      font-size: 0.68rem;
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
 
     .overlay {
       display: none;
@@ -675,11 +715,105 @@
 
     .dialog-actions button { flex: 1; min-height: 44px; }
     .btn-confirm { background: var(--danger); color: #fff; }
+    .btn-confirm:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
     .btn-cancel { background: #3f4659; color: var(--text); }
+
+    /* Distraction modal */
+    .dialog-distraction { max-width: 400px; }
+
+    .form-group {
+      margin-bottom: 0.85rem;
+      text-align: right;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+    }
+
+    .form-group label .req { color: var(--danger); }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      font-family: inherit;
+      font-size: 0.88rem;
+      padding: 0.65rem 0.75rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #0a0e1a;
+      color: var(--text);
+      min-height: 44px;
+    }
+
+    .form-group textarea {
+      min-height: 72px;
+      resize: vertical;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    .form-hint {
+      font-size: 0.68rem;
+      color: var(--muted);
+      margin-top: 0.35rem;
+      line-height: 1.4;
+    }
+
+    .distraction-penalty-preview {
+      font-size: 0.72rem;
+      color: var(--gold);
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+      border-radius: 8px;
+      padding: 0.5rem 0.65rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .toast-debounce {
+      display: none;
+      position: fixed;
+      bottom: 1.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 340px;
+      width: calc(100% - 2rem);
+      z-index: 300;
+      background: #111827;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 0.85rem 1rem;
+      border-radius: 12px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+      animation: toastIn 0.35s ease;
+    }
+
+    .toast-debounce.show { display: block; }
+
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
 
     @media (prefers-reduced-motion: reduce) {
       .counter-unit.pulse { animation: none; }
       .pomo-bar-fill { transition: none; }
+      .toast-debounce { animation: none; }
     }
   </style>
 </head>
@@ -819,8 +953,40 @@
 
     <p class="section-title">سجل الرحلة</p>
     <section class="card" style="padding:0.75rem 1rem">
+      <p class="log-section-hint">آخر 10 أحداث — تشتت · بومودورو · عادات</p>
       <ul class="log-list" id="logList"></ul>
     </section>
+  </div>
+
+  <div class="toast-debounce" id="debounceToast" role="alert" aria-live="assertive">
+    مهلاً! خذ نفساً عميقاً... هل هذا ضروري حقاً؟
+  </div>
+
+  <div class="overlay" id="distractionOverlay" role="dialog" aria-modal="true" aria-labelledby="distractionTitle">
+    <div class="dialog dialog-distraction">
+      <h3 id="distractionTitle">ملاحظة التشتت</h3>
+      <p class="form-hint" style="margin-bottom:0.75rem">سجّل سبب التشتت بوعي — يُطبَّق خصم −15 BC وتراجع 12 ساعة من السلسلة.</p>
+      <div class="distraction-penalty-preview">
+        −15 نقطة BC_score · −12 ساعة من سلسلة التركيز
+      </div>
+      <div class="form-group">
+        <label for="distractionReason">ما سبب تشتتك الحالي؟ <span class="req">*</span></label>
+        <textarea id="distractionReason" rows="2" placeholder="مثال: إشعار هاتف، ملل، إرهاق..." maxlength="200" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="distractionActivity">ما النشاط الذي ستفعله بدلاً من ذلك؟</label>
+        <select id="distractionActivity" aria-required="true">
+          <option value="browsing">تصفح عشوائي</option>
+          <option value="video">مشاهدة فيديو</option>
+          <option value="chat">دردشة</option>
+          <option value="other">أخرى</option>
+        </select>
+      </div>
+      <div class="dialog-actions">
+        <button type="button" class="btn-confirm" id="btnDistractionConfirm" disabled>تأكيد التشتت</button>
+        <button type="button" class="btn-cancel" id="btnDistractionCancel">تراجع — سأستمر</button>
+      </div>
+    </div>
   </div>
 
   <div class="overlay" id="confirmOverlay" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
@@ -859,6 +1025,14 @@
       const WEIGHT_P = 0.3;
 
       const DISTRACTION_MINUTES = 8;
+      const DISTRACTION_DEBOUNCE_MS = 60000;
+      const STREAK_ROLLBACK_MS = 12 * 60 * 60 * 1000;
+      const ACTIVITY_LABELS = {
+        browsing: 'تصفح عشوائي',
+        video: 'مشاهدة فيديو',
+        chat: 'دردشة',
+        other: 'أخرى',
+      };
       const HABIT_POINTS = 5;
       const POMO_COMMITMENT_POINTS = 12;
       const BAR_GREEN = '#1E6B3A';
@@ -925,6 +1099,7 @@
           pomodorosByDay: {},
           distractionsByDay: {},
           distractionMinutesByDay: {},
+          lastDistractionAt: 0,
           brainClarityData: {
             sPoints: 0,
             hPoints: 0,
@@ -975,6 +1150,7 @@
             raw.distractionMinutesByDay && typeof raw.distractionMinutesByDay === 'object'
               ? raw.distractionMinutesByDay
               : {},
+          lastDistractionAt: Number(raw.lastDistractionAt) || 0,
           brainClarityData:
             raw.brainClarityData && typeof raw.brainClarityData === 'object'
               ? raw.brainClarityData
@@ -1239,12 +1415,13 @@
         el.classList.add('pulse');
       }
 
-      function logEvent(type, note) {
+      function logEvent(type, note, meta) {
         state.events.push({
           id: state.nextEventId++,
           type,
           createdAt: new Date().toISOString(),
           note: note || null,
+          meta: meta || null,
         });
         if (state.events.length > 500) state.events = state.events.slice(-500);
         scheduleSave();
@@ -1426,7 +1603,7 @@
         list.innerHTML = '';
         const events = [...state.events]
           .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-          .slice(0, 20);
+          .slice(0, 10);
         if (!events.length) {
           list.innerHTML = '<li class="empty-log">لا أحداث بعد</li>';
           return;
@@ -1438,12 +1615,28 @@
         };
         events.forEach((ev) => {
           const li = document.createElement('li');
-          li.className = 'log-item';
+          li.className = 'log-item type-' + ev.type;
           const dt = new Date(ev.createdAt);
+          let detail = ev.note ? escapeHtml(ev.note) : '';
+          if (ev.type === 'distraction' && ev.meta) {
+            detail = escapeHtml(ev.meta.reason || ev.note || '');
+            if (ev.meta.activity) {
+              detail += '<div class="log-meta">بدلاً من: ' + escapeHtml(ev.meta.activity) + '</div>';
+            }
+            if (ev.meta.penalty != null) {
+              detail += '<div class="log-meta">−' + ev.meta.penalty + ' BC · −' + (ev.meta.streakHours || 12) + ' س سلسلة</div>';
+            }
+          } else if (ev.type === 'pomodoro') {
+            detail = detail || 'جلسة تركيز 25 دقيقة مكتملة';
+          } else if (ev.type === 'habit' && !detail) {
+            detail = 'تحديث عادة حيوية';
+          }
           li.innerHTML =
+            '<div class="log-head">' +
             '<span class="log-tag ' + ev.type + '">' + (labels[ev.type] || ev.type) + '</span>' +
-            (ev.note ? escapeHtml(ev.note) : '') +
-            '<div class="log-meta">' + dt.toLocaleString('ar-EG') + '</div>';
+            '<span class="log-time">' + dt.toLocaleString('ar-EG', { hour: '2-digit', minute: '2-digit', day: 'numeric', month: 'short' }) + '</span>' +
+            '</div>' +
+            '<div class="log-detail">' + detail + '</div>';
           list.appendChild(li);
         });
       }
@@ -1530,18 +1723,64 @@
         renderHabits();
       }
 
-      function applyDistraction() {
+      function canDistractionNow() {
+        const elapsed = Date.now() - (state.lastDistractionAt || 0);
+        return elapsed >= DISTRACTION_DEBOUNCE_MS;
+      }
+
+      function showDebounceToast() {
+        const toast = $('debounceToast');
+        toast.classList.add('show');
+        clearTimeout(showDebounceToast._t);
+        showDebounceToast._t = setTimeout(() => toast.classList.remove('show'), 4000);
+      }
+
+      function updateDistractionConfirmState() {
+        const reason = $('distractionReason').value.trim();
+        $('btnDistractionConfirm').disabled = reason.length < 2;
+      }
+
+      function openDistractionModal() {
+        if (!canDistractionNow()) {
+          showDebounceToast();
+          return;
+        }
+        $('distractionReason').value = '';
+        $('distractionActivity').value = 'browsing';
+        updateDistractionConfirmState();
+        $('distractionOverlay').classList.add('open');
+        setTimeout(() => $('distractionReason').focus(), 120);
+      }
+
+      function closeDistractionModal() {
+        $('distractionOverlay').classList.remove('open');
+      }
+
+      function applyDistraction(reason, activityKey) {
         const day = todayKey();
+        const activityLabel = ACTIVITY_LABELS[activityKey] || activityKey;
+
+        state.streakStartTime += STREAK_ROLLBACK_MS;
+        state.startDate = new Date(state.streakStartTime).toISOString();
+        localStorage.setItem(LS_STREAK, String(state.streakStartTime));
+
         state.distractionTotal += 1;
         state.distractionsByDay[day] = (state.distractionsByDay[day] || 0) + 1;
         state.distractionMinutesByDay[day] =
           (state.distractionMinutesByDay[day] || 0) + DISTRACTION_MINUTES;
-        logEvent(
-          'distraction',
-          'خصم BC: -' + D_PENALTY_PER_DISTRACTION + ' · +' + DISTRACTION_MINUTES + ' د تشتت (السلسلة لم تُصفَّر)'
-        );
+        state.lastDistractionAt = Date.now();
+
+        logEvent('distraction', reason, {
+          reason,
+          activity: activityLabel,
+          penalty: D_PENALTY_PER_DISTRACTION,
+          streakHours: 12,
+        });
+
+        lastDisplayed = { d: -1, h: -1, m: -1, s: -1 };
         calculateBCScore();
         flushSave();
+        closeDistractionModal();
         updateDashboard();
         renderLog();
         refreshChart();
@@ -1646,12 +1885,23 @@
           if (e.target === $('confirmOverlay')) hideConfirm();
         });
 
-        $('btnDistraction').addEventListener('click', () => {
-          showConfirm(
-            'تأكيد تشتت مؤقت',
-            'خصم ' + D_PENALTY_PER_DISTRACTION + ' من BC_score و+' + DISTRACTION_MINUTES + ' د تشتت — العداد يستمر دون تصفير. متابعة؟',
-            applyDistraction
-          );
+        $('btnDistraction').addEventListener('click', openDistractionModal);
+
+        $('distractionReason').addEventListener('input', updateDistractionConfirmState);
+        $('btnDistractionCancel').addEventListener('click', closeDistractionModal);
+        $('btnDistractionConfirm').addEventListener('click', () => {
+          if (!canDistractionNow()) {
+            closeDistractionModal();
+            showDebounceToast();
+            return;
+          }
+          const reason = $('distractionReason').value.trim();
+          if (reason.length < 2) return;
+          const activity = $('distractionActivity').value;
+          applyDistraction(reason, activity);
+        });
+        $('distractionOverlay').addEventListener('click', (e) => {
+          if (e.target === $('distractionOverlay')) closeDistractionModal();
         });
 
         $('btnSetStart').addEventListener('click', () => {
