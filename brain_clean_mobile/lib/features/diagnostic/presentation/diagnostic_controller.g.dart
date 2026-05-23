@@ -7,7 +7,7 @@ part of 'diagnostic_controller.dart';
 // **************************************************************************
 
 String _$diagnosticControllerHash() =>
-    r'c842d6c8f4d4b8cbac140b6fc945c9c5fae3527d';
+    r'0f6f199163401a4db1f41ac6f0f9e65add2052d2';
 
 /// See also [DiagnosticController].
 @ProviderFor(DiagnosticController)
