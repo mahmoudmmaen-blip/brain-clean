@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/theme/app_theme.dart';
+import 'bc_score_provider.dart';
 import 'diagnostic_controller.dart';
+import 'widgets/bc_score_breakdown.dart';
 import 'widgets/diagnostic_metric_slider.dart';
 
 class DiagnosticScreen extends ConsumerWidget {
@@ -12,7 +14,7 @@ class DiagnosticScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final metrics = ref.watch(diagnosticControllerProvider);
     final controller = ref.read(diagnosticControllerProvider.notifier);
-    final focusScore = metrics.calculateFocusScore();
+    final bcLive = ref.watch(bcScoreLiveProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -22,7 +24,8 @@ class DiagnosticScreen extends ConsumerWidget {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            _FocusScorePreview(score: focusScore),
+            _FocusScorePreview(score: bcLive.bcScore),
+            BcScoreBreakdown(result: bcLive),
             const SizedBox(height: 8),
             const Text(
               'Rate each dimension from 1 (low) to 10 (high).',
@@ -118,8 +121,11 @@ class _FocusScorePreview extends StatelessWidget {
             ),
             const SizedBox(height: 6),
             Text(
-              'Live focus index (neuro formula)',
-              style: TextStyle(fontSize: 12, color: Colors.white.withValues(alpha: 0.5)),
+              'Live · updates on every slider move',
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.white.withValues(alpha: 0.5),
+              ),
             ),
           ],
         ),

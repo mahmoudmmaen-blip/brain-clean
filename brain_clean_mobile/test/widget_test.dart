@@ -7,9 +7,11 @@ void main() {
     await tester.pumpWidget(
       const ProviderScope(child: BrainCleanApp()),
     );
-    await tester.pumpAndSettle();
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 100));
 
     expect(find.text('Diagnostic 6-Point Test'), findsOneWidget);
-    expect(find.text('Start Brain Clean'), findsOneWidget);
+    expect(find.text('BRAIN CLARITY SCORE'), findsOneWidget);
+    expect(find.textContaining('Live'), findsOneWidget);
   });
 }
