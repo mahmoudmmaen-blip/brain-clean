@@ -1,5 +1,5 @@
 import 'package:brain_clean_mobile/features/diagnostic/domain/bc_score_engine.dart';
-import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
+import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_metrics.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

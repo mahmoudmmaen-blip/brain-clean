@@ -1,6 +1,6 @@
 import '../../../core/constants/bc_score_constants.dart';
 import 'bc_score_result.dart';
-import 'diagnostic_model.dart';
+import 'diagnostic_metrics.dart';
 
 /// Pure domain engine — no Flutter / Riverpod dependencies.
 abstract final class BcScoreEngine {

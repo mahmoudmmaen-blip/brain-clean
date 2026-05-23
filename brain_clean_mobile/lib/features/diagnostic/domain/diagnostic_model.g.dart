@@ -6,24 +6,18 @@ part of 'diagnostic_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$DiagnosticMetricsImpl _$$DiagnosticMetricsImplFromJson(
-        Map<String, dynamic> json) =>
-    _$DiagnosticMetricsImpl(
-      sleepQuality: (json['sleepQuality'] as num?)?.toInt() ?? 5,
-      sustainedAttention: (json['sustainedAttention'] as num?)?.toInt() ?? 5,
-      fragmentation: (json['fragmentation'] as num?)?.toInt() ?? 5,
-      dopamineSeeking: (json['dopamineSeeking'] as num?)?.toInt() ?? 5,
-      taskSwitching: (json['taskSwitching'] as num?)?.toInt() ?? 5,
-      burnout: (json['burnout'] as num?)?.toInt() ?? 5,
+DiagnosticModel _$DiagnosticModelFromJson(Map<String, dynamic> json) =>
+    DiagnosticModel(
+      brainPerformance: (json['brainPerformance'] as num).toDouble(),
+      digitalDiscipline: (json['digitalDiscipline'] as num).toDouble(),
+      healthyHabits: (json['healthyHabits'] as num).toDouble(),
+      consistency: (json['consistency'] as num).toDouble(),
     );
 
-Map<String, dynamic> _$$DiagnosticMetricsImplToJson(
-        _$DiagnosticMetricsImpl instance) =>
+Map<String, dynamic> _$DiagnosticModelToJson(DiagnosticModel instance) =>
     <String, dynamic>{
-      'sleepQuality': instance.sleepQuality,
-      'sustainedAttention': instance.sustainedAttention,
-      'fragmentation': instance.fragmentation,
-      'dopamineSeeking': instance.dopamineSeeking,
-      'taskSwitching': instance.taskSwitching,
-      'burnout': instance.burnout,
+      'brainPerformance': instance.brainPerformance,
+      'digitalDiscipline': instance.digitalDiscipline,
+      'healthyHabits': instance.healthyHabits,
+      'consistency': instance.consistency,
     };

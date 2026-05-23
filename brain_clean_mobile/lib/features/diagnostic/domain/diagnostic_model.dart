@@ -1,30 +1,45 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-import 'bc_score_engine.dart';
-import 'bc_score_result.dart';
-
-part 'diagnostic_model.freezed.dart';
 part 'diagnostic_model.g.dart';
 
-@freezed
-class DiagnosticMetrics with _$DiagnosticMetrics {
-  const factory DiagnosticMetrics({
-    @Default(5) int sleepQuality,
-    @Default(5) int sustainedAttention,
-    @Default(5) int fragmentation,
-    @Default(5) int dopamineSeeking,
-    @Default(5) int taskSwitching,
-    @Default(5) int burnout,
-  }) = _DiagnosticMetrics;
+/// BHI pillars (0–100 each) for weighted Brain Clarity Score.
+@JsonSerializable()
+class DiagnosticModel {
+  const DiagnosticModel({
+    required this.brainPerformance,
+    required this.digitalDiscipline,
+    required this.healthyHabits,
+    required this.consistency,
+  });
 
-  factory DiagnosticMetrics.fromJson(Map<String, dynamic> json) =>
-      _$DiagnosticMetricsFromJson(json);
-}
+  /// 0–100
+  final double brainPerformance;
 
-extension DiagnosticMetricsX on DiagnosticMetrics {
-  /// Live BC_score percentage (delegates to [BcScoreEngine]).
-  double get focusScorePercentage => BcScoreEngine.calculate(this).bcScore;
+  /// 0–100
+  final double digitalDiscipline;
 
-  /// Full breakdown for UI / persistence.
-  BcScoreResult get bcScoreResult => BcScoreEngine.calculate(this);
+  /// 0–100
+  final double healthyHabits;
+
+  /// 0–100
+  final double consistency;
+
+  /// Brain Clarity Score (BHI) — weighted pillars with relapse floor.
+  ///
+  /// Weights: 35% performance, 30% digital discipline, 25% habits, 10% consistency.
+  double calculateBcScore() {
+    final score = (brainPerformance * 0.35) +
+        (digitalDiscipline * 0.30) +
+        (healthyHabits * 0.25) +
+        (consistency * 0.10);
+
+    // Theoretical range floor (26.8) for behavioral gradient stability.
+    if (score < 26.8) return 26.8;
+    return score.clamp(0.0, 100.0);
+  }
+
+  factory DiagnosticModel.fromJson(Map<String, dynamic> json) =>
+      _$DiagnosticModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DiagnosticModelToJson(this);
 }
