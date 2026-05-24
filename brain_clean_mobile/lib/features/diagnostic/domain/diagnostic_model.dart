@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../../core/constants/bc_score_constants.dart';
+
 part 'diagnostic_model.g.dart';
 
 /// BHI pillars (0–100 each) for weighted Brain Clarity Score.
@@ -33,13 +35,14 @@ class DiagnosticModel {
   ///
   /// Weights: 35% performance, 30% digital discipline, 25% habits, 10% consistency.
   double calculateBcScore() {
-    final score = (brainPerformance * 0.35) +
-        (digitalDiscipline * 0.30) +
-        (healthyHabits * 0.25) +
-        (consistency * 0.10);
+    final score = (brainPerformance * BcScoreConstants.brainPerformanceWeight) +
+        (digitalDiscipline * BcScoreConstants.digitalDisciplineWeight) +
+        (healthyHabits * BcScoreConstants.healthyHabitsWeight) +
+        (consistency * BcScoreConstants.consistencyWeight);
 
-    // Theoretical range floor (26.8) for behavioral gradient stability.
-    if (score < 26.8) return 26.8;
+    if (score < BcScoreConstants.bhiScoreFloor) {
+      return BcScoreConstants.bhiScoreFloor;
+    }
     return score.clamp(0.0, 100.0);
   }
 

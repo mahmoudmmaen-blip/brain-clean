@@ -1,3 +1,4 @@
+import 'package:brain_clean_mobile/core/constants/bc_score_constants.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -20,7 +21,7 @@ void main() {
         healthyHabits: 0,
         consistency: 0,
       );
-      expect(model.calculateBcScore(), 26.8);
+      expect(model.calculateBcScore(), BcScoreConstants.bhiScoreFloor);
     });
 
     test('json round-trip', () {
