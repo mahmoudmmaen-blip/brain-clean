@@ -6,13 +6,13 @@ part of 'bc_score_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$bcScoreLiveHash() => r'b05c88233684b33192035c661addc9a83010a4c2';
+String _$bcScoreLiveHash() => r'4c18cf7caf5a9dce017ee3ed7cd8b1d57f0157bf';
 
-/// Recomputes whenever any of the 6 diagnostic sliders changes.
+/// Recomputes BHI pillars whenever any of the 6 diagnostic sliders changes.
 ///
 /// Copied from [bcScoreLive].
 @ProviderFor(bcScoreLive)
-final bcScoreLiveProvider = AutoDisposeProvider<BcScoreResult>.internal(
+final bcScoreLiveProvider = AutoDisposeProvider<DiagnosticModel>.internal(
   bcScoreLive,
   name: r'bcScoreLiveProvider',
   debugGetCreateSourceHash:
@@ -23,15 +23,15 @@ final bcScoreLiveProvider = AutoDisposeProvider<BcScoreResult>.internal(
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef BcScoreLiveRef = AutoDisposeProviderRef<BcScoreResult>;
-String _$bcScoreSessionHash() => r'11ee1de0a8ce3949d6196e589b5d69eb608cccc7';
+typedef BcScoreLiveRef = AutoDisposeProviderRef<DiagnosticModel>;
+String _$bcScoreSessionHash() => r'd95bbeb89aa082dce8163e1d35c6c5d602a20ea9';
 
 /// Snapshot saved on diagnostic submit — shown on dashboard.
 ///
 /// Copied from [BcScoreSession].
 @ProviderFor(BcScoreSession)
 final bcScoreSessionProvider =
-    AutoDisposeNotifierProvider<BcScoreSession, BcScoreResult?>.internal(
+    AutoDisposeNotifierProvider<BcScoreSession, DiagnosticSession?>.internal(
   BcScoreSession.new,
   name: r'bcScoreSessionProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -41,6 +41,6 @@ final bcScoreSessionProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$BcScoreSession = AutoDisposeNotifier<BcScoreResult?>;
+typedef _$BcScoreSession = AutoDisposeNotifier<DiagnosticSession?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
