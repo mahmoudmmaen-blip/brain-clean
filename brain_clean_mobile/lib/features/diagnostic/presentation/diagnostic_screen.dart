@@ -13,8 +13,8 @@ class DiagnosticScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final metrics = ref.watch(diagnosticControllerProvider);
+    final bhiLive = ref.watch(bcScoreLiveProvider);
     final controller = ref.read(diagnosticControllerProvider.notifier);
-    final bcLive = ref.watch(bcScoreLiveProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -24,8 +24,8 @@ class DiagnosticScreen extends ConsumerWidget {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            _FocusScorePreview(score: bcLive.bcScore),
-            BcScoreBreakdown(result: bcLive),
+            _FocusScorePreview(score: bhiLive.bcScore),
+            BcScoreBreakdown(model: bhiLive),
             const SizedBox(height: 8),
             const Text(
               'Rate each dimension from 1 (low) to 10 (high).',

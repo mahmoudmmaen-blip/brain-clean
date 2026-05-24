@@ -38,22 +38,22 @@ class DashboardScreen extends ConsumerWidget {
                       const SizedBox(height: 8),
                       Text(
                         '${session.bcScoreRounded}%',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 48,
                           fontWeight: FontWeight.w800,
-                          color: AppTheme.gold,
+                          color: _scoreColor(session.bcScore),
                         ),
                       ),
                       const SizedBox(height: 6),
                       Text(
-                        'Committed ${session.calculatedAt.toLocal().toString().substring(0, 16)}',
+                        'Committed ${session.committedAt.toLocal().toString().substring(0, 16)}',
                         style: const TextStyle(fontSize: 11, color: Colors.white54),
                       ),
                     ],
                   ),
                 ),
               ),
-              BcScoreBreakdown(result: session),
+              BcScoreBreakdown(model: session.model),
             ] else
               const Card(
                 child: Padding(
@@ -74,5 +74,12 @@ class DashboardScreen extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  static Color _scoreColor(double score) {
+    if (score <= 30) return const Color(0xFFEF4444);
+    if (score <= 60) return AppTheme.gold;
+    if (score <= 85) return AppTheme.success;
+    return const Color(0xFF0F6E56);
   }
 }

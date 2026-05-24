@@ -24,6 +24,11 @@ class DiagnosticModel {
   /// 0–100
   final double consistency;
 
+  /// Normalized Brain Clarity Score \[0, 100\] with 26.8 floor.
+  double get bcScore => calculateBcScore();
+
+  int get bcScoreRounded => bcScore.round();
+
   /// Brain Clarity Score (BHI) — weighted pillars with relapse floor.
   ///
   /// Weights: 35% performance, 30% digital discipline, 25% habits, 10% consistency.

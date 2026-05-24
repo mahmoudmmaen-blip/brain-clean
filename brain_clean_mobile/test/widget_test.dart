@@ -13,5 +13,6 @@ void main() {
     expect(find.text('Diagnostic 6-Point Test'), findsOneWidget);
     expect(find.text('BRAIN CLARITY SCORE'), findsOneWidget);
     expect(find.textContaining('Live'), findsOneWidget);
+    expect(find.text('BHI · BC_score breakdown'), findsOneWidget);
   });
 }

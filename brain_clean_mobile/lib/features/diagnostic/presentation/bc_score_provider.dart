@@ -1,26 +1,30 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../domain/bc_score_engine.dart';
-import '../domain/bc_score_result.dart';
+import '../domain/diagnostic_metrics_mapper.dart';
+import '../domain/diagnostic_model.dart';
+import '../domain/diagnostic_session.dart';
 import 'diagnostic_controller.dart';
 
 part 'bc_score_provider.g.dart';
 
-/// Recomputes whenever any of the 6 diagnostic sliders changes.
+/// Recomputes BHI pillars whenever any of the 6 diagnostic sliders changes.
 @riverpod
-BcScoreResult bcScoreLive(BcScoreLiveRef ref) {
+DiagnosticModel bcScoreLive(BcScoreLiveRef ref) {
   final metrics = ref.watch(diagnosticControllerProvider);
-  return BcScoreEngine.calculate(metrics);
+  return DiagnosticMetricsMapper.fromMetrics(metrics);
 }
 
 /// Snapshot saved on diagnostic submit — shown on dashboard.
 @riverpod
 class BcScoreSession extends _$BcScoreSession {
   @override
-  BcScoreResult? build() => null;
+  DiagnosticSession? build() => null;
 
-  void commit(BcScoreResult result) {
-    state = result;
+  void commit(DiagnosticModel model) {
+    state = DiagnosticSession(
+      model: model,
+      committedAt: DateTime.now(),
+    );
   }
 
   void clear() => state = null;
