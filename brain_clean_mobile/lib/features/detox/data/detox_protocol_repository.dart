@@ -43,12 +43,13 @@ class DetoxProtocolRepository {
         DiagnosticModelJsonKeys.bodyActivatedCamel: state.bodyActivated,
       });
 
-  /// Data Transformation Layer: Ensures strict Firestore compliance by
-  /// converting local camelCase model fields to required snake_case database
-  /// keys (`boredom_befriended`, `delayed_gratification_count`, `body_activated`).
+  /// Data Transformation Layer: Ensures strict Firestore compliance by converting
+  /// local camelCase model fields to required snake_case database keys, preventing
+  /// data corruption and ensuring synchronization integrity.
   ///
-  /// Accepts [localData] keyed in camelCase and/or snake_case; snake_case
-  /// values take precedence when both are present.
+  /// Enforces conversion to exactly:
+  /// `boredom_befriended`, `delayed_gratification_count`, `body_activated`.
+  /// Snake_case values take precedence when both key formats are present.
   Map<String, dynamic> _toFirestorePayload(Map<String, dynamic> localData) {
     final boredom = _readBool(
       localData,
@@ -99,11 +100,14 @@ class DetoxProtocolRepository {
     }
   }
 
-  /// Upserts today's habit check-ins — transforms local state to snake_case first.
+  /// Upserts today's habit check-ins — transforms local camelCase to snake_case first.
   Future<void> upsert(DetoxProtocolState state) async {
-    await upsertSnakeCasePayload(
-      transformLocalMetricsToFirestorePayload(state),
-    );
+    await upsertSnakeCasePayload({
+      DiagnosticModelJsonKeys.boredomBefriendedCamel: state.boredomBefriended,
+      DiagnosticModelJsonKeys.delayedGratificationCountCamel:
+          state.delayedGratificationCount,
+      DiagnosticModelJsonKeys.bodyActivatedCamel: state.bodyActivated,
+    });
   }
 
   /// Loads the latest remote check-ins for the signed-in user.

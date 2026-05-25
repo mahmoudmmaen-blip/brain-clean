@@ -43,21 +43,39 @@ class _CapturingRepository extends DetoxProtocolRepository {
   }
 }
 
-void expectExactSnakeCasePayload(
+/// Payload Validation Suite — asserts ONLY snake_case keys with exact values.
+void expectStrictFirestorePayload(
   Map<String, dynamic>? payload, {
   required bool boredom,
   required int delayed,
   required bool body,
 }) {
   expect(payload, isNotNull);
-  DetoxFirestorePayload.assertSnakeCaseOnly(payload!);
-  expect(payload.keys, DetoxFirestorePayload.allowedHabitKeys);
-  expect(payload['boredom_befriended'], boredom);
-  expect(payload['delayed_gratification_count'], delayed);
-  expect(payload['body_activated'], body);
+
+  // ONLY the three required snake_case keys — no extras, no camelCase.
+  expect(payload!.length, 3);
+  expect(payload.keys, equals(DetoxFirestorePayload.allowedHabitKeys));
+  DetoxFirestorePayload.assertSnakeCaseOnly(payload);
+
+  expect(payload.containsKey('boredom_befriended'), isTrue);
+  expect(payload.containsKey('delayed_gratification_count'), isTrue);
+  expect(payload.containsKey('body_activated'), isTrue);
+
   expect(payload.containsKey('boredomBefriended'), isFalse);
   expect(payload.containsKey('delayedGratificationCount'), isFalse);
   expect(payload.containsKey('bodyActivated'), isFalse);
+  expect(payload.containsKey(DiagnosticModelJsonKeys.boredomBefriendedCamel),
+      isFalse);
+  expect(
+      payload.containsKey(DiagnosticModelJsonKeys.delayedGratificationCountCamel),
+      isFalse);
+  expect(payload.containsKey(DiagnosticModelJsonKeys.bodyActivatedCamel),
+      isFalse);
+
+  // Exact value mapping.
+  expect(payload['boredom_befriended'], boredom);
+  expect(payload['delayed_gratification_count'], delayed);
+  expect(payload['body_activated'], body);
 }
 
 void main() {
@@ -76,7 +94,7 @@ void main() {
 
       final payload = repository.transformLocalMetricsToFirestorePayload(state);
 
-      expectExactSnakeCasePayload(
+      expectStrictFirestorePayload(
         payload,
         boredom: true,
         delayed: 5,
@@ -93,7 +111,7 @@ void main() {
         ),
       );
 
-      expectExactSnakeCasePayload(
+      expectStrictFirestorePayload(
         repository.lastTransformedPayload,
         boredom: false,
         delayed: 3,
@@ -108,7 +126,7 @@ void main() {
         DiagnosticModelJsonKeys.bodyActivatedCamel: false,
       });
 
-      expectExactSnakeCasePayload(
+      expectStrictFirestorePayload(
         repository.lastTransformedPayload,
         boredom: true,
         delayed: 2,
@@ -127,11 +145,88 @@ void main() {
         DiagnosticModelJsonKeys.bodyActivatedCamel: false,
       });
 
-      expectExactSnakeCasePayload(
+      expectStrictFirestorePayload(
         repository.lastTransformedPayload,
         boredom: false,
         delayed: 7,
         body: true,
+      );
+    });
+  });
+
+  group('DetoxProtocolRepository — Payload Validation Suite', () {
+    late _CapturingRepository repository;
+
+    setUp(() => repository = _CapturingRepository());
+
+    test('output contains ONLY snake_case keys with zero camelCase leakage',
+        () async {
+      await repository.upsert(
+        const DetoxProtocolState(
+          boredomBefriended: true,
+          delayedGratificationCount: 4,
+          bodyActivated: true,
+        ),
+      );
+
+      final payload = repository.lastTransformedPayload!;
+      expect(payload.length, 3);
+      expect(payload.keys.toList(), containsAll([
+        'boredom_befriended',
+        'delayed_gratification_count',
+        'body_activated',
+      ]));
+      for (final key in payload.keys) {
+        expect(key.contains(RegExp(r'[A-Z]')), isFalse,
+            reason: 'Key "$key" is not snake_case');
+      }
+    });
+
+    test('camelCase local fields map to exact snake_case values', () async {
+      await repository.upsertSnakeCasePayload({
+        'boredomBefriended': false,
+        'delayedGratificationCount': 6,
+        'bodyActivated': true,
+      });
+
+      expectStrictFirestorePayload(
+        repository.lastTransformedPayload,
+        boredom: false,
+        delayed: 6,
+        body: true,
+      );
+    });
+
+    test('default values applied when local metrics are absent', () {
+      final payload =
+          repository.transformLocalMetricsToFirestorePayload(
+        const DetoxProtocolState(),
+      );
+
+      expectStrictFirestorePayload(
+        payload,
+        boredom: false,
+        delayed: 0,
+        body: false,
+      );
+    });
+
+    test('full habit metric round-trip preserves values through transformation',
+        () async {
+      const state = DetoxProtocolState(
+        boredomBefriended: true,
+        delayedGratificationCount: 7,
+        bodyActivated: false,
+        detoxHabitScore: 85,
+      );
+
+      await repository.upsert(state);
+
+      expectStrictFirestorePayload(
+        repository.lastTransformedPayload,
+        boredom: state.boredomBefriended,
+        delayed: state.delayedGratificationCount,
+        body: state.bodyActivated,
       );
     });
   });
