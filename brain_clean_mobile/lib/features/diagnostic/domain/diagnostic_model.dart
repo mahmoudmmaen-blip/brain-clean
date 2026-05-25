@@ -4,6 +4,46 @@ import '../../../core/constants/bc_score_constants.dart';
 
 part 'diagnostic_model.g.dart';
 
+/// Firestore + legacy camelCase JSON keys for detox habit metrics.
+abstract final class DiagnosticModelJsonKeys {
+  static const boredomBefriendedSnake = 'boredom_befriended';
+  static const boredomBefriendedCamel = 'boredomBefriended';
+  static const delayedGratificationCountSnake = 'delayed_gratification_count';
+  static const delayedGratificationCountCamel = 'delayedGratificationCount';
+  static const bodyActivatedSnake = 'body_activated';
+  static const bodyActivatedCamel = 'bodyActivated';
+}
+
+Object? _readBoredomBefriended(Map<dynamic, dynamic> json, String key) {
+  if (json.containsKey(DiagnosticModelJsonKeys.boredomBefriendedSnake)) {
+    return json[DiagnosticModelJsonKeys.boredomBefriendedSnake];
+  }
+  if (json.containsKey(DiagnosticModelJsonKeys.boredomBefriendedCamel)) {
+    return json[DiagnosticModelJsonKeys.boredomBefriendedCamel];
+  }
+  return null;
+}
+
+Object? _readDelayedGratificationCount(Map<dynamic, dynamic> json, String key) {
+  if (json.containsKey(DiagnosticModelJsonKeys.delayedGratificationCountSnake)) {
+    return json[DiagnosticModelJsonKeys.delayedGratificationCountSnake];
+  }
+  if (json.containsKey(DiagnosticModelJsonKeys.delayedGratificationCountCamel)) {
+    return json[DiagnosticModelJsonKeys.delayedGratificationCountCamel];
+  }
+  return null;
+}
+
+Object? _readBodyActivated(Map<dynamic, dynamic> json, String key) {
+  if (json.containsKey(DiagnosticModelJsonKeys.bodyActivatedSnake)) {
+    return json[DiagnosticModelJsonKeys.bodyActivatedSnake];
+  }
+  if (json.containsKey(DiagnosticModelJsonKeys.bodyActivatedCamel)) {
+    return json[DiagnosticModelJsonKeys.bodyActivatedCamel];
+  }
+  return null;
+}
+
 /// BHI pillars (0–100 each) plus 7-Day Dopamine Detox Protocol habit metrics.
 @JsonSerializable()
 class DiagnosticModel {
@@ -30,15 +70,27 @@ class DiagnosticModel {
   final double consistency;
 
   /// Day habit: user sat with boredom without reaching for a screen.
-  @JsonKey(name: 'boredom_befriended', defaultValue: false)
+  @JsonKey(
+    name: DiagnosticModelJsonKeys.boredomBefriendedSnake,
+    defaultValue: false,
+    readValue: _readBoredomBefriended,
+  )
   final bool boredomBefriended;
 
   /// Cumulative delayed-gratification wins during the 7-day protocol.
-  @JsonKey(name: 'delayed_gratification_count', defaultValue: 0)
+  @JsonKey(
+    name: DiagnosticModelJsonKeys.delayedGratificationCountSnake,
+    defaultValue: 0,
+    readValue: _readDelayedGratificationCount,
+  )
   final int delayedGratificationCount;
 
   /// Day habit: physical movement / body activation completed.
-  @JsonKey(name: 'body_activated', defaultValue: false)
+  @JsonKey(
+    name: DiagnosticModelJsonKeys.bodyActivatedSnake,
+    defaultValue: false,
+    readValue: _readBodyActivated,
+  )
   final bool bodyActivated;
 
   /// Normalized Brain Clarity Score \[0, 100\] with 26.8 floor.
