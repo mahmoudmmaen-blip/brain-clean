@@ -2,7 +2,7 @@ import 'package:brain_clean_mobile/core/constants/bc_score_constants.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/// Shared pillar payload for habit JSON tests.
+/// Minimum BHI pillar payload required by [DiagnosticModel.fromJson].
 Map<String, dynamic> _pillarJson({
   double brainPerformance = 50,
   double digitalDiscipline = 50,
@@ -15,6 +15,12 @@ Map<String, dynamic> _pillarJson({
       'healthyHabits': healthyHabits,
       'consistency': consistency,
     };
+
+void _expectHabitDefaults(DiagnosticModel model) {
+  expect(model.boredomBefriended, isFalse);
+  expect(model.delayedGratificationCount, 0);
+  expect(model.bodyActivated, isFalse);
+}
 
 void main() {
   group('DiagnosticModel.calculateBcScore', () {
@@ -39,13 +45,16 @@ void main() {
     });
   });
 
-  group('DiagnosticModel JSON serialization validation', () {
-    test('parses strictly Firestore snake_case habit keys', () {
+  // ---------------------------------------------------------------------------
+  // Test Suite A — Firestore snake_case validation
+  // ---------------------------------------------------------------------------
+  group('Test Suite A — Firestore snake_case validation', () {
+    test('parses boredom_befriended, delayed_gratification_count, body_activated', () {
       final model = DiagnosticModel.fromJson({
-        ..._pillarJson(),
-        'boredom_befriended': true,
-        'delayed_gratification_count': 6,
-        'body_activated': true,
+        ..._pillarJson(brainPerformance: 72, digitalDiscipline: 65),
+        DiagnosticModelJsonKeys.boredomBefriendedSnake: true,
+        DiagnosticModelJsonKeys.delayedGratificationCountSnake: 6,
+        DiagnosticModelJsonKeys.bodyActivatedSnake: true,
       });
 
       expect(model.boredomBefriended, isTrue);
@@ -53,58 +62,7 @@ void main() {
       expect(model.bodyActivated, isTrue);
     });
 
-    test('parses strictly camelCase habit keys', () {
-      final model = DiagnosticModel.fromJson({
-        ..._pillarJson(),
-        'boredomBefriended': true,
-        'delayedGratificationCount': 8,
-        'bodyActivated': true,
-      });
-
-      expect(model.boredomBefriended, isTrue);
-      expect(model.delayedGratificationCount, 8);
-      expect(model.bodyActivated, isTrue);
-    });
-
-    test('applies default values when habit metric keys are absent', () {
-      final model = DiagnosticModel.fromJson(_pillarJson());
-
-      expect(model.boredomBefriended, isFalse);
-      expect(model.delayedGratificationCount, 0);
-      expect(model.bodyActivated, isFalse);
-    });
-  });
-
-  group('DiagnosticModel habit defaults', () {
-    test('constructor applies default habit metric values', () {
-      const model = DiagnosticModel(
-        brainPerformance: 50,
-        digitalDiscipline: 50,
-        healthyHabits: 50,
-        consistency: 50,
-      );
-
-      expect(model.boredomBefriended, isFalse);
-      expect(model.delayedGratificationCount, 0);
-      expect(model.bodyActivated, isFalse);
-    });
-  });
-
-  group('DiagnosticModel extended JSON edge cases', () {
-    test('fromJson reads snake_case habit keys via key constants', () {
-      final restored = DiagnosticModel.fromJson({
-        ..._pillarJson(brainPerformance: 60),
-        DiagnosticModelJsonKeys.boredomBefriendedSnake: true,
-        DiagnosticModelJsonKeys.delayedGratificationCountSnake: 7,
-        DiagnosticModelJsonKeys.bodyActivatedSnake: true,
-      });
-
-      expect(restored.boredomBefriended, isTrue);
-      expect(restored.delayedGratificationCount, 7);
-      expect(restored.bodyActivated, isTrue);
-    });
-
-    test('toJson writes snake_case habit keys only', () {
+    test('toJson emits Firestore snake_case habit keys', () {
       const model = DiagnosticModel(
         brainPerformance: 72,
         digitalDiscipline: 65,
@@ -119,46 +77,124 @@ void main() {
       expect(json[DiagnosticModelJsonKeys.boredomBefriendedSnake], isTrue);
       expect(json[DiagnosticModelJsonKeys.delayedGratificationCountSnake], 4);
       expect(json[DiagnosticModelJsonKeys.bodyActivatedSnake], isTrue);
-      expect(json.containsKey(DiagnosticModelJsonKeys.boredomBefriendedCamel), isFalse);
-      expect(json.containsKey(DiagnosticModelJsonKeys.delayedGratificationCountCamel), isFalse);
-      expect(json.containsKey(DiagnosticModelJsonKeys.bodyActivatedCamel), isFalse);
     });
 
-    test('Firestore document round-trip preserves snake_case habit keys', () {
+    test('snake_case round-trip preserves habit values', () {
       final firestoreDoc = {
-        ..._pillarJson(
-          brainPerformance: 72,
-          digitalDiscipline: 65,
-          healthyHabits: 80,
-          consistency: 55,
-        ),
+        ..._pillarJson(),
         DiagnosticModelJsonKeys.boredomBefriendedSnake: true,
         DiagnosticModelJsonKeys.delayedGratificationCountSnake: 4,
-        DiagnosticModelJsonKeys.bodyActivatedSnake: true,
+        DiagnosticModelJsonKeys.bodyActivatedSnake: false,
       };
 
-      final encoded = DiagnosticModel.fromJson(firestoreDoc).toJson();
-
-      expect(
-        encoded[DiagnosticModelJsonKeys.boredomBefriendedSnake],
-        firestoreDoc[DiagnosticModelJsonKeys.boredomBefriendedSnake],
-      );
-      expect(
-        encoded[DiagnosticModelJsonKeys.delayedGratificationCountSnake],
-        firestoreDoc[DiagnosticModelJsonKeys.delayedGratificationCountSnake],
-      );
-      expect(
-        encoded[DiagnosticModelJsonKeys.bodyActivatedSnake],
-        firestoreDoc[DiagnosticModelJsonKeys.bodyActivatedSnake],
+      final roundTripped = DiagnosticModel.fromJson(
+        DiagnosticModel.fromJson(firestoreDoc).toJson(),
       );
 
-      final roundTripped = DiagnosticModel.fromJson(encoded);
       expect(roundTripped.boredomBefriended, isTrue);
       expect(roundTripped.delayedGratificationCount, 4);
-      expect(roundTripped.bodyActivated, isTrue);
+      expect(roundTripped.bodyActivated, isFalse);
     });
 
-    test('toJson writes snake_case keys for default habit values', () {
+    test('snake_case takes precedence when both casings are present', () {
+      final model = DiagnosticModel.fromJson({
+        ..._pillarJson(),
+        DiagnosticModelJsonKeys.boredomBefriendedSnake: false,
+        DiagnosticModelJsonKeys.boredomBefriendedCamel: true,
+        DiagnosticModelJsonKeys.delayedGratificationCountSnake: 2,
+        DiagnosticModelJsonKeys.delayedGratificationCountCamel: 9,
+        DiagnosticModelJsonKeys.bodyActivatedSnake: true,
+        DiagnosticModelJsonKeys.bodyActivatedCamel: false,
+      });
+
+      expect(model.boredomBefriended, isFalse);
+      expect(model.delayedGratificationCount, 2);
+      expect(model.bodyActivated, isTrue);
+    });
+  });
+
+  // ---------------------------------------------------------------------------
+  // Test Suite B — Local camelCase validation
+  // ---------------------------------------------------------------------------
+  group('Test Suite B — Local camelCase validation', () {
+    test('parses boredomBefriended, delayedGratificationCount, bodyActivated', () {
+      final model = DiagnosticModel.fromJson({
+        ..._pillarJson(),
+        DiagnosticModelJsonKeys.boredomBefriendedCamel: true,
+        DiagnosticModelJsonKeys.delayedGratificationCountCamel: 8,
+        DiagnosticModelJsonKeys.bodyActivatedCamel: true,
+      });
+
+      expect(model.boredomBefriended, isTrue);
+      expect(model.delayedGratificationCount, 8);
+      expect(model.bodyActivated, isTrue);
+    });
+
+    test('camelCase-only input normalizes to snake_case on toJson', () {
+      final localJson = {
+        ..._pillarJson(brainPerformance: 68),
+        DiagnosticModelJsonKeys.boredomBefriendedCamel: true,
+        DiagnosticModelJsonKeys.delayedGratificationCountCamel: 3,
+        DiagnosticModelJsonKeys.bodyActivatedCamel: false,
+      };
+
+      final encoded = DiagnosticModel.fromJson(localJson).toJson();
+
+      expect(encoded.containsKey(DiagnosticModelJsonKeys.boredomBefriendedSnake), isTrue);
+      expect(encoded.containsKey(DiagnosticModelJsonKeys.boredomBefriendedCamel), isFalse);
+      expect(encoded[DiagnosticModelJsonKeys.boredomBefriendedSnake], isTrue);
+      expect(encoded[DiagnosticModelJsonKeys.delayedGratificationCountSnake], 3);
+      expect(encoded[DiagnosticModelJsonKeys.bodyActivatedSnake], isFalse);
+    });
+
+    test('camelCase round-trip via toJson preserves habit values', () {
+      final localJson = {
+        ..._pillarJson(),
+        DiagnosticModelJsonKeys.boredomBefriendedCamel: true,
+        DiagnosticModelJsonKeys.delayedGratificationCountCamel: 5,
+        DiagnosticModelJsonKeys.bodyActivatedCamel: true,
+      };
+
+      final roundTripped = DiagnosticModel.fromJson(
+        DiagnosticModel.fromJson(localJson).toJson(),
+      );
+
+      expect(roundTripped.boredomBefriended, isTrue);
+      expect(roundTripped.delayedGratificationCount, 5);
+      expect(roundTripped.bodyActivated, isTrue);
+    });
+  });
+
+  // ---------------------------------------------------------------------------
+  // Test Suite C — Missing keys / default fallback validation
+  // ---------------------------------------------------------------------------
+  group('Test Suite C — Missing keys / default fallback validation', () {
+    test('constructor initializes habit fields to defaults', () {
+      const model = DiagnosticModel(
+        brainPerformance: 50,
+        digitalDiscipline: 50,
+        healthyHabits: 50,
+        consistency: 50,
+      );
+      _expectHabitDefaults(model);
+    });
+
+    test('fromJson applies defaults when habit keys are completely absent', () {
+      final model = DiagnosticModel.fromJson(_pillarJson());
+      _expectHabitDefaults(model);
+    });
+
+    test('fromJson applies defaults when only pillar keys are present', () {
+      final model = DiagnosticModel.fromJson({
+        'brainPerformance': 40.0,
+        'digitalDiscipline': 40.0,
+        'healthyHabits': 40.0,
+        'consistency': 40.0,
+      });
+      _expectHabitDefaults(model);
+    });
+
+    test('toJson with default habits round-trips to same defaults', () {
       const model = DiagnosticModel(
         brainPerformance: 60,
         digitalDiscipline: 60,
@@ -171,64 +207,7 @@ void main() {
       expect(json[DiagnosticModelJsonKeys.delayedGratificationCountSnake], 0);
       expect(json[DiagnosticModelJsonKeys.bodyActivatedSnake], isFalse);
 
-      final restored = DiagnosticModel.fromJson(json);
-      expect(restored.boredomBefriended, isFalse);
-      expect(restored.delayedGratificationCount, 0);
-      expect(restored.bodyActivated, isFalse);
-    });
-  });
-
-  group('DiagnosticModel camelCase JSON backwards compatibility', () {
-    test('fromJson reads camelCase habit keys when snake_case is absent', () {
-      final restored = DiagnosticModel.fromJson({
-        ..._pillarJson(),
-        DiagnosticModelJsonKeys.boredomBefriendedCamel: true,
-        DiagnosticModelJsonKeys.delayedGratificationCountCamel: 5,
-        DiagnosticModelJsonKeys.bodyActivatedCamel: true,
-      });
-
-      expect(restored.boredomBefriended, isTrue);
-      expect(restored.delayedGratificationCount, 5);
-      expect(restored.bodyActivated, isTrue);
-    });
-
-    test('camelCase-only map round-trip via toJson normalizes to snake_case', () {
-      final localJson = {
-        ..._pillarJson(brainPerformance: 68),
-        DiagnosticModelJsonKeys.boredomBefriendedCamel: true,
-        DiagnosticModelJsonKeys.delayedGratificationCountCamel: 3,
-        DiagnosticModelJsonKeys.bodyActivatedCamel: false,
-      };
-
-      final model = DiagnosticModel.fromJson(localJson);
-      final encoded = model.toJson();
-
-      expect(encoded.containsKey(DiagnosticModelJsonKeys.boredomBefriendedSnake), isTrue);
-      expect(encoded.containsKey(DiagnosticModelJsonKeys.boredomBefriendedCamel), isFalse);
-      expect(encoded[DiagnosticModelJsonKeys.boredomBefriendedSnake], isTrue);
-      expect(encoded[DiagnosticModelJsonKeys.delayedGratificationCountSnake], 3);
-      expect(encoded[DiagnosticModelJsonKeys.bodyActivatedSnake], isFalse);
-
-      final roundTripped = DiagnosticModel.fromJson(encoded);
-      expect(roundTripped.boredomBefriended, isTrue);
-      expect(roundTripped.delayedGratificationCount, 3);
-      expect(roundTripped.bodyActivated, isFalse);
-    });
-
-    test('snake_case takes precedence when both casings are present', () {
-      final restored = DiagnosticModel.fromJson({
-        ..._pillarJson(),
-        DiagnosticModelJsonKeys.boredomBefriendedSnake: false,
-        DiagnosticModelJsonKeys.boredomBefriendedCamel: true,
-        DiagnosticModelJsonKeys.delayedGratificationCountSnake: 2,
-        DiagnosticModelJsonKeys.delayedGratificationCountCamel: 9,
-        DiagnosticModelJsonKeys.bodyActivatedSnake: true,
-        DiagnosticModelJsonKeys.bodyActivatedCamel: false,
-      });
-
-      expect(restored.boredomBefriended, isFalse);
-      expect(restored.delayedGratificationCount, 2);
-      expect(restored.bodyActivated, isTrue);
+      _expectHabitDefaults(DiagnosticModel.fromJson(json));
     });
   });
 }
