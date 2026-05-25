@@ -100,9 +100,13 @@ class DiagnosticModel {
 
   int get bcScoreRounded => bcScore.round();
 
+  /// Habits pillar slice of BHI (25% weight), after detox integration.
+  double get habitsPillarContribution =>
+      healthyHabits * BcScoreConstants.healthyHabitsWeight;
+
   /// Brain Clarity Score (BHI) — weighted pillars with relapse floor.
   ///
-  /// Weights: 35% performance, 30% digital discipline, 25% habits, 10% consistency.
+  /// Weights: 35% performance, 30% digital discipline, 25% habits (detox-aware), 10% consistency.
   double calculateBcScore() {
     final score = (brainPerformance * BcScoreConstants.brainPerformanceWeight) +
         (digitalDiscipline * BcScoreConstants.digitalDisciplineWeight) +
