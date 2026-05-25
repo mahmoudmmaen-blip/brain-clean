@@ -12,10 +12,15 @@ DiagnosticModel _$DiagnosticModelFromJson(Map<String, dynamic> json) =>
       digitalDiscipline: (json['digitalDiscipline'] as num).toDouble(),
       healthyHabits: (json['healthyHabits'] as num).toDouble(),
       consistency: (json['consistency'] as num).toDouble(),
-      boredomBefriended: json['boredom_befriended'] as bool? ?? false,
+      boredomBefriended:
+          _readBoredomBefriended(json, 'boredom_befriended') as bool? ?? false,
       delayedGratificationCount:
-          (json['delayed_gratification_count'] as num?)?.toInt() ?? 0,
-      bodyActivated: json['body_activated'] as bool? ?? false,
+          (_readDelayedGratificationCount(json, 'delayed_gratification_count')
+                      as num?)
+                  ?.toInt() ??
+              0,
+      bodyActivated:
+          _readBodyActivated(json, 'body_activated') as bool? ?? false,
     );
 
 Map<String, dynamic> _$DiagnosticModelToJson(DiagnosticModel instance) =>
