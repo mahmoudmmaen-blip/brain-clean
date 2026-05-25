@@ -14,6 +14,8 @@ abstract final class DiagnosticModelJsonKeys {
   static const bodyActivatedCamel = 'bodyActivated';
 }
 
+/// Reads habit booleans/counts from Firestore snake_case first, then camelCase.
+/// Returns null when absent so [@JsonKey.defaultValue] applies on deserialization.
 Object? _readBoredomBefriended(Map<dynamic, dynamic> json, String key) {
   if (json.containsKey(DiagnosticModelJsonKeys.boredomBefriendedSnake)) {
     return json[DiagnosticModelJsonKeys.boredomBefriendedSnake];

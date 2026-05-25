@@ -39,6 +39,42 @@ void main() {
     });
   });
 
+  group('DiagnosticModel JSON serialization validation', () {
+    test('parses strictly Firestore snake_case habit keys', () {
+      final model = DiagnosticModel.fromJson({
+        ..._pillarJson(),
+        'boredom_befriended': true,
+        'delayed_gratification_count': 6,
+        'body_activated': true,
+      });
+
+      expect(model.boredomBefriended, isTrue);
+      expect(model.delayedGratificationCount, 6);
+      expect(model.bodyActivated, isTrue);
+    });
+
+    test('parses strictly camelCase habit keys', () {
+      final model = DiagnosticModel.fromJson({
+        ..._pillarJson(),
+        'boredomBefriended': true,
+        'delayedGratificationCount': 8,
+        'bodyActivated': true,
+      });
+
+      expect(model.boredomBefriended, isTrue);
+      expect(model.delayedGratificationCount, 8);
+      expect(model.bodyActivated, isTrue);
+    });
+
+    test('applies default values when habit metric keys are absent', () {
+      final model = DiagnosticModel.fromJson(_pillarJson());
+
+      expect(model.boredomBefriended, isFalse);
+      expect(model.delayedGratificationCount, 0);
+      expect(model.bodyActivated, isFalse);
+    });
+  });
+
   group('DiagnosticModel habit defaults', () {
     test('constructor applies default habit metric values', () {
       const model = DiagnosticModel(
@@ -52,18 +88,10 @@ void main() {
       expect(model.delayedGratificationCount, 0);
       expect(model.bodyActivated, isFalse);
     });
-
-    test('fromJson applies defaults when all habit keys are missing', () {
-      final restored = DiagnosticModel.fromJson(_pillarJson());
-
-      expect(restored.boredomBefriended, isFalse);
-      expect(restored.delayedGratificationCount, 0);
-      expect(restored.bodyActivated, isFalse);
-    });
   });
 
-  group('DiagnosticModel Firestore snake_case JSON', () {
-    test('fromJson reads snake_case habit keys', () {
+  group('DiagnosticModel extended JSON edge cases', () {
+    test('fromJson reads snake_case habit keys via key constants', () {
       final restored = DiagnosticModel.fromJson({
         ..._pillarJson(brainPerformance: 60),
         DiagnosticModelJsonKeys.boredomBefriendedSnake: true,
