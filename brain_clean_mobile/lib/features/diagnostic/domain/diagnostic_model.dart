@@ -14,37 +14,51 @@ abstract final class DiagnosticModelJsonKeys {
   static const bodyActivatedCamel = 'bodyActivated';
 }
 
-/// Reads a habit field from Firestore [snakeKey] first, then [camelKey] fallback.
-/// Returns null when neither key exists so [@JsonKey.defaultValue] applies.
-Object? _readDualFormatKey(
+/// Parses a detox habit field: Firestore snake_case → camelCase → [defaultValue].
+T _parseHabitMetric<T>(
   Map<dynamic, dynamic> json, {
   required String snakeKey,
   required String camelKey,
+  required T defaultValue,
 }) {
-  if (json.containsKey(snakeKey)) return json[snakeKey];
-  if (json.containsKey(camelKey)) return json[camelKey];
-  return null;
+  if (json.containsKey(snakeKey)) {
+    return _coerceHabitValue(json[snakeKey], defaultValue);
+  }
+  if (json.containsKey(camelKey)) {
+    return _coerceHabitValue(json[camelKey], defaultValue);
+  }
+  return defaultValue;
+}
+
+T _coerceHabitValue<T>(Object? raw, T defaultValue) {
+  if (raw == null) return defaultValue;
+  if (defaultValue is bool) return (raw as bool) as T;
+  if (defaultValue is int) return (raw as num).toInt() as T;
+  return raw as T;
 }
 
 Object? _readBoredomBefriended(Map<dynamic, dynamic> json, String key) =>
-    _readDualFormatKey(
+    _parseHabitMetric<bool>(
       json,
       snakeKey: DiagnosticModelJsonKeys.boredomBefriendedSnake,
       camelKey: DiagnosticModelJsonKeys.boredomBefriendedCamel,
+      defaultValue: false,
     );
 
 Object? _readDelayedGratificationCount(Map<dynamic, dynamic> json, String key) =>
-    _readDualFormatKey(
+    _parseHabitMetric<int>(
       json,
       snakeKey: DiagnosticModelJsonKeys.delayedGratificationCountSnake,
       camelKey: DiagnosticModelJsonKeys.delayedGratificationCountCamel,
+      defaultValue: 0,
     );
 
 Object? _readBodyActivated(Map<dynamic, dynamic> json, String key) =>
-    _readDualFormatKey(
+    _parseHabitMetric<bool>(
       json,
       snakeKey: DiagnosticModelJsonKeys.bodyActivatedSnake,
       camelKey: DiagnosticModelJsonKeys.bodyActivatedCamel,
+      defaultValue: false,
     );
 
 /// BHI pillars (0–100 each) plus 7-Day Dopamine Detox Protocol habit metrics.
