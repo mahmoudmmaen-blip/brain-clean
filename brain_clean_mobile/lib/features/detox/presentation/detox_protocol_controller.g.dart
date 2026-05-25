@@ -27,7 +27,7 @@ final detoxProtocolDataProvider =
 // ignore: unused_element
 typedef DetoxProtocolDataRef = AutoDisposeProviderRef<DetoxProtocolState>;
 String _$detoxProtocolControllerHash() =>
-    r'e7f27239354aa15525230c2ef414af8ade740cf6';
+    r'f32b3075421c240ae0d8e570decfbd585f673e0f';
 
 /// Orchestrates the 7-Day Dopamine Detox protocol for Brain Clean.
 ///
@@ -36,9 +36,17 @@ String _$detoxProtocolControllerHash() =>
 /// ```
 /// User Input (DailyCheckInInput)
 ///   → DetoxHabitScorer (via DetoxProtocolState.fromDailyCheckIn)
-///   → Firestore upsert (snake_case: boredom_befriended, delayed_gratification_count, body_activated)
+///   → Repository Transformation Layer (snake_case conversion)
+///   → Firestore Write
 ///   → BC_score Update (bcScoreLiveProvider via detoxProtocolDataProvider)
 /// ```
+///
+/// ## Transformation Layer
+///
+/// The controller never writes camelCase keys to Firestore. After local scoring,
+/// [DetoxProtocolRepository.transformLocalMetricsToFirestorePayload] acts as
+/// the final gatekeeper — converting Dart field names to `boredom_befriended`,
+/// `delayed_gratification_count`, and `body_activated` before any remote upsert.
 ///
 /// ## Remote data handling (prevents stale state)
 ///
