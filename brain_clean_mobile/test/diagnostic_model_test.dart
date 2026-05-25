@@ -102,6 +102,49 @@ void main() {
       expect(restored.bodyActivated, isTrue);
     });
 
+    test('fromJson ignores camelCase habit keys and applies defaults', () {
+      final restored = DiagnosticModel.fromJson({
+        'brainPerformance': 50.0,
+        'digitalDiscipline': 50.0,
+        'healthyHabits': 50.0,
+        'consistency': 50.0,
+        'boredomBefriended': true,
+        'delayedGratificationCount': 5,
+        'bodyActivated': true,
+      });
+
+      expect(restored.boredomBefriended, isFalse);
+      expect(restored.delayedGratificationCount, 0);
+      expect(restored.bodyActivated, isFalse);
+    });
+
+    test('Firestore map round-trip matches input document exactly for habit keys', () {
+      const firestoreDoc = {
+        'brainPerformance': 72.0,
+        'digitalDiscipline': 65.0,
+        'healthyHabits': 80.0,
+        'consistency': 55.0,
+        'boredom_befriended': true,
+        'delayed_gratification_count': 4,
+        'body_activated': true,
+      };
+
+      final model = DiagnosticModel.fromJson(firestoreDoc);
+      final encoded = model.toJson();
+
+      expect(encoded['boredom_befriended'], firestoreDoc['boredom_befriended']);
+      expect(
+        encoded['delayed_gratification_count'],
+        firestoreDoc['delayed_gratification_count'],
+      );
+      expect(encoded['body_activated'], firestoreDoc['body_activated']);
+
+      final roundTripped = DiagnosticModel.fromJson(encoded);
+      expect(roundTripped.boredomBefriended, isTrue);
+      expect(roundTripped.delayedGratificationCount, 4);
+      expect(roundTripped.bodyActivated, isTrue);
+    });
+
     test('toJson writes Firestore snake_case keys for default habit values', () {
       const model = DiagnosticModel(
         brainPerformance: 60,
