@@ -1,8 +1,21 @@
 import 'package:brain_clean_mobile/features/detox/data/detox_protocol_repository.dart';
-import 'package:brain_clean_mobile/features/detox/domain/detox_protocol_firestore.dart';
 import 'package:brain_clean_mobile/features/detox/domain/detox_protocol_state.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+/// The ONLY keys permitted in a Firestore habit payload.
+const allowedSnakeCaseKeys = [
+  'boredom_befriended',
+  'delayed_gratification_count',
+  'body_activated',
+];
+
+/// camelCase equivalents that must never appear as payload keys.
+const forbiddenCamelCaseKeys = [
+  'boredomBefriended',
+  'delayedGratificationCount',
+  'bodyActivated',
+];
 
 /// Captures transformed payloads without hitting Supabase.
 class _CapturingRepository extends DetoxProtocolRepository {
@@ -43,26 +56,34 @@ class _CapturingRepository extends DetoxProtocolRepository {
   }
 }
 
-/// Strict Firestore payload validation — keys must be snake_case, never camelCase.
+/// Exhaustive Firestore payload validation — ONLY snake_case keys allowed.
 void expectStrictFirestorePayload(
-  Map<String, dynamic>? payload, {
+  Map<String, dynamic> payload, {
   required bool boredom,
   required int delayed,
   required bool body,
 }) {
-  const camelBoredom = 'boredomBefriended';
-  const camelDelayed = 'delayedGratificationCount';
-  const camelBody = 'bodyActivated';
-  const snakeBoredom = 'boredom_befriended';
-  const snakeDelayed = 'delayed_gratification_count';
-  const snakeBody = 'body_activated';
+  // Exhaustive key check: payload contains ONLY the three snake_case keys.
+  expect(
+    payload.keys.toSet(),
+    equals(allowedSnakeCaseKeys.toSet()),
+    reason: 'Payload must contain exactly '
+        "['boredom_befriended', 'delayed_gratification_count', 'body_activated']",
+  );
+  expect(payload.length, 3);
 
-  expect(payload, isNotNull);
+  for (final key in allowedSnakeCaseKeys) {
+    expect(payload.containsKey(key), isTrue, reason: 'Missing required key: $key');
+  }
 
-  // Keys must NOT be camelCase.
-  expect(payload!.containsKey(camelBoredom), isFalse);
-  expect(payload.containsKey(camelDelayed), isFalse);
-  expect(payload.containsKey(camelBody), isFalse);
+  // Explicit camelCase leakage guard — no camelCase equivalents in map keys.
+  for (final camelKey in forbiddenCamelCaseKeys) {
+    expect(
+      payload.containsKey(camelKey),
+      isFalse,
+      reason: 'camelCase key leaked into Firestore payload: $camelKey',
+    );
+  }
   expect(payload.containsKey(DiagnosticModelJsonKeys.boredomBefriendedCamel),
       isFalse);
   expect(
@@ -71,20 +92,19 @@ void expectStrictFirestorePayload(
   expect(payload.containsKey(DiagnosticModelJsonKeys.bodyActivatedCamel),
       isFalse);
 
-  // Keys MUST be snake_case.
-  expect(payload.containsKey(snakeBoredom), isTrue);
-  expect(payload.containsKey(snakeDelayed), isTrue);
-  expect(payload.containsKey(snakeBody), isTrue);
+  // No uppercase characters in any key (catches any future camelCase leakage).
+  for (final key in payload.keys) {
+    expect(
+      key.contains(RegExp(r'[A-Z]')),
+      isFalse,
+      reason: 'Non-snake_case key detected: $key',
+    );
+  }
 
-  // ONLY the three required snake_case keys.
-  expect(payload.length, 3);
-  expect(payload.keys, equals(DetoxFirestorePayload.allowedHabitKeys));
-  DetoxFirestorePayload.assertSnakeCaseOnly(payload);
-
-  // Exact value mapping.
-  expect(payload[snakeBoredom], boredom);
-  expect(payload[snakeDelayed], delayed);
-  expect(payload[snakeBody], body);
+  // Exact value mapping after local model fields were stripped/transformed.
+  expect(payload['boredom_befriended'], boredom);
+  expect(payload['delayed_gratification_count'], delayed);
+  expect(payload['body_activated'], body);
 }
 
 void main() {
@@ -93,25 +113,28 @@ void main() {
 
     setUp(() => repository = _CapturingRepository());
 
-    test('transformLocalMetricsToFirestorePayload maps camelCase to snake_case',
-        () {
-      const state = DetoxProtocolState(
-        boredomBefriended: true,
-        delayedGratificationCount: 5,
-        bodyActivated: false,
-      );
+    test(
+      'transformLocalMetricsToFirestorePayload strips camelCase model fields',
+      () {
+        const state = DetoxProtocolState(
+          boredomBefriended: true,
+          delayedGratificationCount: 5,
+          bodyActivated: false,
+        );
 
-      final payload = repository.transformLocalMetricsToFirestorePayload(state);
+        final payload =
+            repository.transformLocalMetricsToFirestorePayload(state);
 
-      expectStrictFirestorePayload(
-        payload,
-        boredom: true,
-        delayed: 5,
-        body: false,
-      );
-    });
+        expectStrictFirestorePayload(
+          payload,
+          boredom: true,
+          delayed: 5,
+          body: false,
+        );
+      },
+    );
 
-    test('upsert applies transformation before Firestore write', () async {
+    test('upsert transforms local model before Firestore write', () async {
       await repository.upsert(
         const DetoxProtocolState(
           boredomBefriended: false,
@@ -121,14 +144,15 @@ void main() {
       );
 
       expectStrictFirestorePayload(
-        repository.lastTransformedPayload,
+        repository.lastTransformedPayload!,
         boredom: false,
         delayed: 3,
         body: true,
       );
     });
 
-    test('upsertSnakeCasePayload transforms camelCase input map', () async {
+    test('upsertSnakeCasePayload transforms camelCase input before write',
+        () async {
       await repository.upsertSnakeCasePayload({
         DiagnosticModelJsonKeys.boredomBefriendedCamel: true,
         DiagnosticModelJsonKeys.delayedGratificationCountCamel: 2,
@@ -136,7 +160,7 @@ void main() {
       });
 
       expectStrictFirestorePayload(
-        repository.lastTransformedPayload,
+        repository.lastTransformedPayload!,
         boredom: true,
         delayed: 2,
         body: false,
@@ -155,7 +179,7 @@ void main() {
       });
 
       expectStrictFirestorePayload(
-        repository.lastTransformedPayload,
+        repository.lastTransformedPayload!,
         boredom: false,
         delayed: 7,
         body: true,
@@ -179,14 +203,15 @@ void main() {
       );
 
       expectStrictFirestorePayload(
-        repository.lastTransformedPayload,
+        repository.lastTransformedPayload!,
         boredom: true,
         delayed: 4,
         body: true,
       );
     });
 
-    test('camelCase local fields map to exact snake_case values', () async {
+    test('camelCase local fields are stripped and mapped to snake_case values',
+        () async {
       await repository.upsertSnakeCasePayload({
         'boredomBefriended': false,
         'delayedGratificationCount': 6,
@@ -194,7 +219,7 @@ void main() {
       });
 
       expectStrictFirestorePayload(
-        repository.lastTransformedPayload,
+        repository.lastTransformedPayload!,
         boredom: false,
         delayed: 6,
         body: true,
@@ -202,8 +227,7 @@ void main() {
     });
 
     test('default values applied when local metrics are absent', () {
-      final payload =
-          repository.transformLocalMetricsToFirestorePayload(
+      final payload = repository.transformLocalMetricsToFirestorePayload(
         const DetoxProtocolState(),
       );
 
@@ -227,7 +251,7 @@ void main() {
       await repository.upsert(state);
 
       expectStrictFirestorePayload(
-        repository.lastTransformedPayload,
+        repository.lastTransformedPayload!,
         boredom: state.boredomBefriended,
         delayed: state.delayedGratificationCount,
         body: state.bodyActivated,
