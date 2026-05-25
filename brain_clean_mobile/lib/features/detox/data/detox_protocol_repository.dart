@@ -7,6 +7,11 @@ import '../domain/detox_protocol_firestore.dart';
 import '../domain/detox_protocol_state.dart';
 
 /// Persists detox habit metrics using Firestore-compatible snake_case keys.
+///
+/// All writes go through [upsertSnakeCasePayload], which validates that only
+/// `boredom_befriended`, `delayed_gratification_count`, and `body_activated`
+/// (via [DetoxFirestorePayload]) are transmitted — preventing stale or
+/// mismatched key formats from reaching the backend.
 class DetoxProtocolRepository {
   DetoxProtocolRepository({SupabaseClient? client})
       : _clientOverride = client;
@@ -23,8 +28,13 @@ class DetoxProtocolRepository {
     return SupabaseConfig.client;
   }
 
-  /// Atomic upsert of habit metrics using pre-mapped snake_case [payload].
+  /// Atomic upsert of habit metrics using validated snake_case [payload].
+  ///
+  /// Rejects payloads containing camelCase or unknown keys before any network
+  /// call via [DetoxFirestorePayload.assertSnakeCaseOnly].
   Future<void> upsertSnakeCasePayload(Map<String, dynamic> payload) async {
+    DetoxFirestorePayload.assertSnakeCaseOnly(payload);
+
     try {
       final client = _client;
       if (client == null) return;
@@ -38,6 +48,7 @@ class DetoxProtocolRepository {
         'updated_at': DateTime.now().toUtc().toIso8601String(),
       });
     } catch (e) {
+      if (e is ArgumentError) rethrow;
       throw DetoxProtocolSyncException(
         'Could not save detox check-ins. Please try again.',
       );
@@ -50,6 +61,9 @@ class DetoxProtocolRepository {
   }
 
   /// Loads the latest remote check-ins for the signed-in user.
+  ///
+  /// Reads exclusively via [DiagnosticModelJsonKeys] snake_case fields so
+  /// Firestore data overrides any stale local cache on hydration.
   Future<DetoxProtocolState?> fetchLatest() async {
     try {
       final client = _client;
