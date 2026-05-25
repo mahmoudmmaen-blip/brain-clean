@@ -14,37 +14,38 @@ abstract final class DiagnosticModelJsonKeys {
   static const bodyActivatedCamel = 'bodyActivated';
 }
 
-/// Reads habit booleans/counts from Firestore snake_case first, then camelCase.
-/// Returns null when absent so [@JsonKey.defaultValue] applies on deserialization.
-Object? _readBoredomBefriended(Map<dynamic, dynamic> json, String key) {
-  if (json.containsKey(DiagnosticModelJsonKeys.boredomBefriendedSnake)) {
-    return json[DiagnosticModelJsonKeys.boredomBefriendedSnake];
-  }
-  if (json.containsKey(DiagnosticModelJsonKeys.boredomBefriendedCamel)) {
-    return json[DiagnosticModelJsonKeys.boredomBefriendedCamel];
-  }
+/// Reads a habit field from Firestore [snakeKey] first, then [camelKey] fallback.
+/// Returns null when neither key exists so [@JsonKey.defaultValue] applies.
+Object? _readDualFormatKey(
+  Map<dynamic, dynamic> json, {
+  required String snakeKey,
+  required String camelKey,
+}) {
+  if (json.containsKey(snakeKey)) return json[snakeKey];
+  if (json.containsKey(camelKey)) return json[camelKey];
   return null;
 }
 
-Object? _readDelayedGratificationCount(Map<dynamic, dynamic> json, String key) {
-  if (json.containsKey(DiagnosticModelJsonKeys.delayedGratificationCountSnake)) {
-    return json[DiagnosticModelJsonKeys.delayedGratificationCountSnake];
-  }
-  if (json.containsKey(DiagnosticModelJsonKeys.delayedGratificationCountCamel)) {
-    return json[DiagnosticModelJsonKeys.delayedGratificationCountCamel];
-  }
-  return null;
-}
+Object? _readBoredomBefriended(Map<dynamic, dynamic> json, String key) =>
+    _readDualFormatKey(
+      json,
+      snakeKey: DiagnosticModelJsonKeys.boredomBefriendedSnake,
+      camelKey: DiagnosticModelJsonKeys.boredomBefriendedCamel,
+    );
 
-Object? _readBodyActivated(Map<dynamic, dynamic> json, String key) {
-  if (json.containsKey(DiagnosticModelJsonKeys.bodyActivatedSnake)) {
-    return json[DiagnosticModelJsonKeys.bodyActivatedSnake];
-  }
-  if (json.containsKey(DiagnosticModelJsonKeys.bodyActivatedCamel)) {
-    return json[DiagnosticModelJsonKeys.bodyActivatedCamel];
-  }
-  return null;
-}
+Object? _readDelayedGratificationCount(Map<dynamic, dynamic> json, String key) =>
+    _readDualFormatKey(
+      json,
+      snakeKey: DiagnosticModelJsonKeys.delayedGratificationCountSnake,
+      camelKey: DiagnosticModelJsonKeys.delayedGratificationCountCamel,
+    );
+
+Object? _readBodyActivated(Map<dynamic, dynamic> json, String key) =>
+    _readDualFormatKey(
+      json,
+      snakeKey: DiagnosticModelJsonKeys.bodyActivatedSnake,
+      camelKey: DiagnosticModelJsonKeys.bodyActivatedCamel,
+    );
 
 /// BHI pillars (0–100 each) plus 7-Day Dopamine Detox Protocol habit metrics.
 @JsonSerializable()
