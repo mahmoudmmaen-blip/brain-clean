@@ -24,15 +24,38 @@ void main() {
       expect(model.calculateBcScore(), BcScoreConstants.bhiScoreFloor);
     });
 
-    test('json round-trip', () {
+    test('json round-trip preserves detox habit metrics', () {
       const model = DiagnosticModel(
         brainPerformance: 72,
         digitalDiscipline: 65,
         healthyHabits: 80,
         consistency: 55,
+        boredomBefriended: true,
+        delayedGratificationCount: 4,
+        bodyActivated: true,
       );
-      final restored = DiagnosticModel.fromJson(model.toJson());
+      final json = model.toJson();
+      expect(json['boredom_befriended'], isTrue);
+      expect(json['delayed_gratification_count'], 4);
+      expect(json['body_activated'], isTrue);
+
+      final restored = DiagnosticModel.fromJson(json);
+      expect(restored.boredomBefriended, isTrue);
+      expect(restored.delayedGratificationCount, 4);
+      expect(restored.bodyActivated, isTrue);
       expect(restored.calculateBcScore(), model.calculateBcScore());
+    });
+
+    test('json defaults detox habits when keys are absent', () {
+      final restored = DiagnosticModel.fromJson({
+        'brainPerformance': 50.0,
+        'digitalDiscipline': 50.0,
+        'healthyHabits': 50.0,
+        'consistency': 50.0,
+      });
+      expect(restored.boredomBefriended, isFalse);
+      expect(restored.delayedGratificationCount, 0);
+      expect(restored.bodyActivated, isFalse);
     });
   });
 }
