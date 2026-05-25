@@ -4,7 +4,6 @@ import '../../../core/constants/bc_score_constants.dart';
 import '../data/detox_protocol_repository.dart';
 import '../data/detox_protocol_repository_provider.dart';
 import '../domain/daily_check_in_input.dart';
-import '../domain/detox_protocol_firestore.dart';
 import '../domain/detox_protocol_scoring.dart';
 import '../domain/detox_protocol_state.dart';
 
@@ -17,9 +16,17 @@ part 'detox_protocol_controller.g.dart';
 /// ```
 /// User Input (DailyCheckInInput)
 ///   → DetoxHabitScorer (via DetoxProtocolState.fromDailyCheckIn)
-///   → Firestore upsert (snake_case: boredom_befriended, delayed_gratification_count, body_activated)
+///   → Repository Transformation Layer (snake_case conversion)
+///   → Firestore Write
 ///   → BC_score Update (bcScoreLiveProvider via detoxProtocolDataProvider)
 /// ```
+///
+/// ## Transformation Layer
+///
+/// The controller never writes camelCase keys to Firestore. After local scoring,
+/// [DetoxProtocolRepository.transformLocalMetricsToFirestorePayload] acts as
+/// the final gatekeeper — converting Dart field names to `boredom_befriended`,
+/// `delayed_gratification_count`, and `body_activated` before any remote upsert.
 ///
 /// ## Remote data handling (prevents stale state)
 ///
@@ -82,7 +89,8 @@ class DetoxProtocolController extends _$DetoxProtocolController {
   /// [DetoxHabitScorer]) *before* any Firestore write. The remote payload is
   /// built exclusively with [DetoxFirestorePayload.fromScoredState].
   Future<void> processDailyCheckIn(DailyCheckInInput checkIn) async {
-    // Step 1 — Score via DetoxHabitScorer before any persistence.
+    // Flow: [Local Metrics] → [DetoxHabitScorer] → [Repository Transformation
+    // (snake_case conversion)] → [Firestore Write] → [BC_score refresh].
     final scored = DetoxProtocolState.fromDailyCheckIn(
       current: _currentData,
       checkIn: checkIn,
@@ -94,14 +102,12 @@ class DetoxProtocolController extends _$DetoxProtocolController {
     // response, preventing stale data from lingering after sync completes.
     state = AsyncValue.data(scored);
 
-    final firestorePayload = DetoxFirestorePayload.fromScoredState(scored);
-
     state = const AsyncValue<DetoxProtocolState>.loading().copyWithPrevious(
           AsyncValue.data(scored),
         );
 
     state = await AsyncValue.guard(() async {
-      await _repository.upsertSnakeCasePayload(firestorePayload);
+      await _repository.upsert(scored);
       final reconciled = await _repository.fetchLatest();
       return reconciled ?? scored.copyWith(lastSyncedAt: DateTime.now());
     });

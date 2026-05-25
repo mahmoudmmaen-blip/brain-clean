@@ -5,11 +5,16 @@ import 'detox_protocol_state.dart';
 abstract final class DetoxFirestorePayload {
   DetoxFirestorePayload._();
 
-  /// Canonical snake_case keys aligned with [DiagnosticModelJsonKeys].
-  static const boredomBefriended = DiagnosticModelJsonKeys.boredomBefriendedSnake;
-  static const delayedGratificationCount =
+  /// Literal snake_case keys required by Firestore / [DiagnosticModel].
+  static const boredomBefriended = 'boredom_befriended';
+  static const delayedGratificationCount = 'delayed_gratification_count';
+  static const bodyActivated = 'body_activated';
+
+  /// Canonical keys aligned with [DiagnosticModelJsonKeys].
+  static const boredomBefriendedKey = DiagnosticModelJsonKeys.boredomBefriendedSnake;
+  static const delayedGratificationCountKey =
       DiagnosticModelJsonKeys.delayedGratificationCountSnake;
-  static const bodyActivated = DiagnosticModelJsonKeys.bodyActivatedSnake;
+  static const bodyActivatedKey = DiagnosticModelJsonKeys.bodyActivatedSnake;
 
   static const allowedHabitKeys = {
     boredomBefriended,
@@ -17,19 +22,49 @@ abstract final class DetoxFirestorePayload {
     bodyActivated,
   };
 
-  /// Builds a Firestore-ready payload from a [DetoxHabitScorer]-scored state.
+  /// Transformation Layer — maps local [DetoxProtocolState] fields (Dart
+  /// camelCase property names) to a Firestore `Map<String, dynamic>` using
+  /// strictly snake_case keys.
   ///
-  /// Enforces [DiagnosticModelJsonKeys] snake_case keys exclusively —
-  /// no camelCase aliases are emitted.
-  static Map<String, dynamic> fromScoredState(DetoxProtocolState scored) {
+  /// Any camelCase key present in [metrics] is normalized to its snake_case
+  /// equivalent during this phase.
+  static Map<String, dynamic> transformToSnakeCase({
+    required DetoxProtocolState state,
+    Map<String, dynamic>? metrics,
+  }) {
+    final source = metrics ?? const <String, dynamic>{};
+
+    final boredom = _readBool(
+      source,
+      snakeKey: boredomBefriended,
+      camelKey: DiagnosticModelJsonKeys.boredomBefriendedCamel,
+      fallback: state.boredomBefriended,
+    );
+    final delayed = _readInt(
+      source,
+      snakeKey: delayedGratificationCount,
+      camelKey: DiagnosticModelJsonKeys.delayedGratificationCountCamel,
+      fallback: state.delayedGratificationCount,
+    );
+    final body = _readBool(
+      source,
+      snakeKey: bodyActivated,
+      camelKey: DiagnosticModelJsonKeys.bodyActivatedCamel,
+      fallback: state.bodyActivated,
+    );
+
     final payload = <String, dynamic>{
-      boredomBefriended: scored.boredomBefriended,
-      delayedGratificationCount: scored.delayedGratificationCount,
-      bodyActivated: scored.bodyActivated,
+      boredomBefriended: boredom,
+      delayedGratificationCount: delayed,
+      bodyActivated: body,
     };
     assertSnakeCaseOnly(payload);
     return payload;
   }
+
+  /// Builds a Firestore-ready payload from a [DetoxHabitScorer]-scored state.
+  static Map<String, dynamic> fromScoredState(DetoxProtocolState scored) =>
+      transformToSnakeCase(state: scored);
 
   /// Guards against accidental camelCase or unknown keys in remote writes.
   static void assertSnakeCaseOnly(Map<String, dynamic> payload) {
@@ -40,6 +75,32 @@ abstract final class DetoxFirestorePayload {
         );
       }
     }
+  }
+
+  static bool _readBool(
+    Map<String, dynamic> source, {
+    required String snakeKey,
+    required String camelKey,
+    required bool fallback,
+  }) {
+    if (source.containsKey(snakeKey)) return source[snakeKey] as bool;
+    if (source.containsKey(camelKey)) return source[camelKey] as bool;
+    return fallback;
+  }
+
+  static int _readInt(
+    Map<String, dynamic> source, {
+    required String snakeKey,
+    required String camelKey,
+    required int fallback,
+  }) {
+    if (source.containsKey(snakeKey)) {
+      return (source[snakeKey] as num).toInt();
+    }
+    if (source.containsKey(camelKey)) {
+      return (source[camelKey] as num).toInt();
+    }
+    return fallback;
   }
 }
 

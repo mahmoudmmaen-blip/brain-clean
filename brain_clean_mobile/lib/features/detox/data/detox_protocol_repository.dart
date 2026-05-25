@@ -8,10 +8,20 @@ import '../domain/detox_protocol_state.dart';
 
 /// Persists detox habit metrics using Firestore-compatible snake_case keys.
 ///
-/// All writes go through [upsertSnakeCasePayload], which validates that only
-/// `boredom_befriended`, `delayed_gratification_count`, and `body_activated`
-/// (via [DetoxFirestorePayload]) are transmitted — preventing stale or
-/// mismatched key formats from reaching the backend.
+/// ## Transformation Layer
+///
+/// This repository is the **final gatekeeper** for all outgoing remote traffic.
+/// Local habit metrics use Dart camelCase property names internally; every
+/// write passes through [transformLocalMetricsToFirestorePayload], which
+/// produces a `Map<String, dynamic>` with strictly:
+///
+/// - `boredom_befriended`
+/// - `delayed_gratification_count`
+/// - `body_activated`
+///
+/// Any camelCase keys encountered during mapping are converted to snake_case
+/// before the payload reaches Firestore. [DetoxFirestorePayload.assertSnakeCaseOnly]
+/// rejects invalid keys as a last line of defense.
 class DetoxProtocolRepository {
   DetoxProtocolRepository({SupabaseClient? client})
       : _clientOverride = client;
@@ -28,10 +38,13 @@ class DetoxProtocolRepository {
     return SupabaseConfig.client;
   }
 
+  /// Transformation Layer — maps local [DetoxProtocolState] to Firestore snake_case.
+  Map<String, dynamic> transformLocalMetricsToFirestorePayload(
+    DetoxProtocolState state,
+  ) =>
+      DetoxFirestorePayload.transformToSnakeCase(state: state);
+
   /// Atomic upsert of habit metrics using validated snake_case [payload].
-  ///
-  /// Rejects payloads containing camelCase or unknown keys before any network
-  /// call via [DetoxFirestorePayload.assertSnakeCaseOnly].
   Future<void> upsertSnakeCasePayload(Map<String, dynamic> payload) async {
     DetoxFirestorePayload.assertSnakeCaseOnly(payload);
 
@@ -55,9 +68,10 @@ class DetoxProtocolRepository {
     }
   }
 
-  /// Upserts today's habit check-ins for the signed-in user.
+  /// Upserts today's habit check-ins — transforms local state to snake_case first.
   Future<void> upsert(DetoxProtocolState state) async {
-    await upsertSnakeCasePayload(state.toFirestoreHabitPayload());
+    final firestorePayload = transformLocalMetricsToFirestorePayload(state);
+    await upsertSnakeCasePayload(firestorePayload);
   }
 
   /// Loads the latest remote check-ins for the signed-in user.

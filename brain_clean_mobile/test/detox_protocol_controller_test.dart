@@ -61,6 +61,11 @@ void expectStrictSnakeCasePayload(Map<String, dynamic>? payload) {
   DetoxFirestorePayload.assertSnakeCaseOnly(payload!);
   expect(payload.keys, DetoxFirestorePayload.allowedHabitKeys);
 
+  // Literal snake_case strings required by Firestore.
+  expect(payload.containsKey('boredom_befriended'), isTrue);
+  expect(payload.containsKey('delayed_gratification_count'), isTrue);
+  expect(payload.containsKey('body_activated'), isTrue);
+
   // No camelCase aliases from DiagnosticModel.
   expect(payload.containsKey(DiagnosticModelJsonKeys.boredomBefriendedCamel),
       isFalse);
@@ -265,5 +270,31 @@ void main() {
         throwsArgumentError,
       );
     });
+
+    test(
+      'repository transformation layer converts camelCase metrics to snake_case',
+      () {
+        const state = DetoxProtocolState(
+          boredomBefriended: true,
+          delayedGratificationCount: 4,
+          bodyActivated: false,
+          detoxHabitScore: 50,
+        );
+
+        final payload = DetoxFirestorePayload.transformToSnakeCase(
+          state: state,
+          metrics: {
+            DiagnosticModelJsonKeys.boredomBefriendedCamel: false,
+            DiagnosticModelJsonKeys.delayedGratificationCountCamel: 9,
+            DiagnosticModelJsonKeys.bodyActivatedCamel: true,
+          },
+        );
+
+        expectStrictSnakeCasePayload(payload);
+        expect(payload['boredom_befriended'], isFalse);
+        expect(payload['delayed_gratification_count'], 9);
+        expect(payload['body_activated'], isTrue);
+      },
+    );
   });
 }
