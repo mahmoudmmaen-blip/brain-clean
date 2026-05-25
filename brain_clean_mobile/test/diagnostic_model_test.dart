@@ -110,7 +110,7 @@ void main() {
       expectHabitMetrics(model, boredom: true, delayed: 8, body: true);
     });
 
-    test('Combined Keys Precedence — snake_case wins over camelCase', () {
+    test('Precedence Test — snake_case key is prioritized over camelCase', () {
       final model = parseModel({
         ...pillarJson(),
         ...habitJsonSnake(boredom: false, delayed: 2, body: true),
