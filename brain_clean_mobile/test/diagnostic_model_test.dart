@@ -110,6 +110,7 @@ void main() {
       expectHabitMetrics(model, boredom: true, delayed: 8, body: true);
     });
 
+    // Combined Keys Precedence
     test(
       'Verifies that Firestore snake_case keys are strictly prioritized over '
       'local camelCase keys when both are present in the JSON payload.',

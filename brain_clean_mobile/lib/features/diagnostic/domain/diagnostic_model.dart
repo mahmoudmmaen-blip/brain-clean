@@ -14,8 +14,7 @@ abstract final class DiagnosticModelJsonKeys {
   static const bodyActivatedCamel = 'bodyActivated';
 }
 
-/// Parses habit metric with strict Firestore snake_case precedence over local
-/// camelCase. Falls back to defaultValue if both keys are missing.
+/// Parses habit metric with strict Firestore snake_case precedence over local camelCase. Falls back to defaultValue if both keys are missing.
 dynamic _parseMetric(
   Map<String, dynamic> json,
   String snakeKey,
