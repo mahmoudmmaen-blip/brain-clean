@@ -43,27 +43,26 @@ class _CapturingRepository extends DetoxProtocolRepository {
   }
 }
 
-/// Payload Validation Suite — asserts ONLY snake_case keys with exact values.
+/// Strict Firestore payload validation — keys must be snake_case, never camelCase.
 void expectStrictFirestorePayload(
   Map<String, dynamic>? payload, {
   required bool boredom,
   required int delayed,
   required bool body,
 }) {
+  const camelBoredom = 'boredomBefriended';
+  const camelDelayed = 'delayedGratificationCount';
+  const camelBody = 'bodyActivated';
+  const snakeBoredom = 'boredom_befriended';
+  const snakeDelayed = 'delayed_gratification_count';
+  const snakeBody = 'body_activated';
+
   expect(payload, isNotNull);
 
-  // ONLY the three required snake_case keys — no extras, no camelCase.
-  expect(payload!.length, 3);
-  expect(payload.keys, equals(DetoxFirestorePayload.allowedHabitKeys));
-  DetoxFirestorePayload.assertSnakeCaseOnly(payload);
-
-  expect(payload.containsKey('boredom_befriended'), isTrue);
-  expect(payload.containsKey('delayed_gratification_count'), isTrue);
-  expect(payload.containsKey('body_activated'), isTrue);
-
-  expect(payload.containsKey('boredomBefriended'), isFalse);
-  expect(payload.containsKey('delayedGratificationCount'), isFalse);
-  expect(payload.containsKey('bodyActivated'), isFalse);
+  // Keys must NOT be camelCase.
+  expect(payload!.containsKey(camelBoredom), isFalse);
+  expect(payload.containsKey(camelDelayed), isFalse);
+  expect(payload.containsKey(camelBody), isFalse);
   expect(payload.containsKey(DiagnosticModelJsonKeys.boredomBefriendedCamel),
       isFalse);
   expect(
@@ -72,10 +71,20 @@ void expectStrictFirestorePayload(
   expect(payload.containsKey(DiagnosticModelJsonKeys.bodyActivatedCamel),
       isFalse);
 
+  // Keys MUST be snake_case.
+  expect(payload.containsKey(snakeBoredom), isTrue);
+  expect(payload.containsKey(snakeDelayed), isTrue);
+  expect(payload.containsKey(snakeBody), isTrue);
+
+  // ONLY the three required snake_case keys.
+  expect(payload.length, 3);
+  expect(payload.keys, equals(DetoxFirestorePayload.allowedHabitKeys));
+  DetoxFirestorePayload.assertSnakeCaseOnly(payload);
+
   // Exact value mapping.
-  expect(payload['boredom_befriended'], boredom);
-  expect(payload['delayed_gratification_count'], delayed);
-  expect(payload['body_activated'], body);
+  expect(payload[snakeBoredom], boredom);
+  expect(payload[snakeDelayed], delayed);
+  expect(payload[snakeBody], body);
 }
 
 void main() {
@@ -169,17 +178,12 @@ void main() {
         ),
       );
 
-      final payload = repository.lastTransformedPayload!;
-      expect(payload.length, 3);
-      expect(payload.keys.toList(), containsAll([
-        'boredom_befriended',
-        'delayed_gratification_count',
-        'body_activated',
-      ]));
-      for (final key in payload.keys) {
-        expect(key.contains(RegExp(r'[A-Z]')), isFalse,
-            reason: 'Key "$key" is not snake_case');
-      }
+      expectStrictFirestorePayload(
+        repository.lastTransformedPayload,
+        boredom: true,
+        delayed: 4,
+        body: true,
+      );
     });
 
     test('camelCase local fields map to exact snake_case values', () async {
