@@ -14,55 +14,34 @@ abstract final class DiagnosticModelJsonKeys {
   static const bodyActivatedCamel = 'bodyActivated';
 }
 
-/// Parses a detox habit field: Firestore snake_case → camelCase → [defaultValue].
-T _parseHabitMetric<T>(
-  Map<dynamic, dynamic> json, {
-  required String snakeKey,
-  required String camelKey,
-  required T defaultValue,
-}) {
-  if (json.containsKey(snakeKey)) {
-    return _coerceHabitValue(json[snakeKey], defaultValue);
-  }
-  if (json.containsKey(camelKey)) {
-    return _coerceHabitValue(json[camelKey], defaultValue);
-  }
+/// Strict precedence: [snakeKey] → [camelKey] → [defaultValue].
+dynamic _parseMetric(
+  Map<String, dynamic> json,
+  String snakeKey,
+  String camelKey,
+  dynamic defaultValue,
+) {
+  if (json.containsKey(snakeKey)) return json[snakeKey];
+  if (json.containsKey(camelKey)) return json[camelKey];
   return defaultValue;
 }
 
-T _coerceHabitValue<T>(Object? raw, T defaultValue) {
-  if (raw == null) return defaultValue;
-  if (defaultValue is bool) return (raw as bool) as T;
-  if (defaultValue is int) return (raw as num).toInt() as T;
-  return raw as T;
-}
+bool _parseBoolMetric(
+  Map<String, dynamic> json,
+  String snakeKey,
+  String camelKey,
+) =>
+    _parseMetric(json, snakeKey, camelKey, false) as bool;
 
-Object? _readBoredomBefriended(Map<dynamic, dynamic> json, String key) =>
-    _parseHabitMetric<bool>(
-      json,
-      snakeKey: DiagnosticModelJsonKeys.boredomBefriendedSnake,
-      camelKey: DiagnosticModelJsonKeys.boredomBefriendedCamel,
-      defaultValue: false,
-    );
-
-Object? _readDelayedGratificationCount(Map<dynamic, dynamic> json, String key) =>
-    _parseHabitMetric<int>(
-      json,
-      snakeKey: DiagnosticModelJsonKeys.delayedGratificationCountSnake,
-      camelKey: DiagnosticModelJsonKeys.delayedGratificationCountCamel,
-      defaultValue: 0,
-    );
-
-Object? _readBodyActivated(Map<dynamic, dynamic> json, String key) =>
-    _parseHabitMetric<bool>(
-      json,
-      snakeKey: DiagnosticModelJsonKeys.bodyActivatedSnake,
-      camelKey: DiagnosticModelJsonKeys.bodyActivatedCamel,
-      defaultValue: false,
-    );
+int _parseIntMetric(
+  Map<String, dynamic> json,
+  String snakeKey,
+  String camelKey,
+) =>
+    (_parseMetric(json, snakeKey, camelKey, 0) as num).toInt();
 
 /// BHI pillars (0–100 each) plus 7-Day Dopamine Detox Protocol habit metrics.
-@JsonSerializable()
+@JsonSerializable(createFactory: false)
 class DiagnosticModel {
   const DiagnosticModel({
     required this.brainPerformance,
@@ -87,35 +66,26 @@ class DiagnosticModel {
   final double consistency;
 
   /// Day habit: user sat with boredom without reaching for a screen.
-  @JsonKey(
-    name: DiagnosticModelJsonKeys.boredomBefriendedSnake,
-    defaultValue: false,
-    readValue: _readBoredomBefriended,
-  )
+  @JsonKey(name: DiagnosticModelJsonKeys.boredomBefriendedSnake)
   final bool boredomBefriended;
 
   /// Cumulative delayed-gratification wins during the 7-day protocol.
-  @JsonKey(
-    name: DiagnosticModelJsonKeys.delayedGratificationCountSnake,
-    defaultValue: 0,
-    readValue: _readDelayedGratificationCount,
-  )
+  @JsonKey(name: DiagnosticModelJsonKeys.delayedGratificationCountSnake)
   final int delayedGratificationCount;
 
   /// Day habit: physical movement / body activation completed.
-  @JsonKey(
-    name: DiagnosticModelJsonKeys.bodyActivatedSnake,
-    defaultValue: false,
-    readValue: _readBodyActivated,
-  )
+  @JsonKey(name: DiagnosticModelJsonKeys.bodyActivatedSnake)
   final bool bodyActivated;
 
   /// Normalized Brain Clarity Score \[0, 100\] with 26.8 floor.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   double get bcScore => calculateBcScore();
 
+  @JsonKey(includeFromJson: false, includeToJson: false)
   int get bcScoreRounded => bcScore.round();
 
   /// Habits pillar slice of BHI (25% weight), after detox integration.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   double get habitsPillarContribution =>
       healthyHabits * BcScoreConstants.healthyHabitsWeight;
 
@@ -134,8 +104,29 @@ class DiagnosticModel {
     return score.clamp(0.0, 100.0);
   }
 
-  factory DiagnosticModel.fromJson(Map<String, dynamic> json) =>
-      _$DiagnosticModelFromJson(json);
+  factory DiagnosticModel.fromJson(Map<String, dynamic> json) {
+    return DiagnosticModel(
+      brainPerformance: (json['brainPerformance'] as num).toDouble(),
+      digitalDiscipline: (json['digitalDiscipline'] as num).toDouble(),
+      healthyHabits: (json['healthyHabits'] as num).toDouble(),
+      consistency: (json['consistency'] as num).toDouble(),
+      boredomBefriended: _parseBoolMetric(
+        json,
+        DiagnosticModelJsonKeys.boredomBefriendedSnake,
+        DiagnosticModelJsonKeys.boredomBefriendedCamel,
+      ),
+      delayedGratificationCount: _parseIntMetric(
+        json,
+        DiagnosticModelJsonKeys.delayedGratificationCountSnake,
+        DiagnosticModelJsonKeys.delayedGratificationCountCamel,
+      ),
+      bodyActivated: _parseBoolMetric(
+        json,
+        DiagnosticModelJsonKeys.bodyActivatedSnake,
+        DiagnosticModelJsonKeys.bodyActivatedCamel,
+      ),
+    );
+  }
 
   Map<String, dynamic> toJson() => _$DiagnosticModelToJson(this);
 }

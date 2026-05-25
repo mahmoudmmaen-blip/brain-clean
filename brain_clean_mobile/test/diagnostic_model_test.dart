@@ -51,7 +51,6 @@ Map<String, dynamic> habitJsonCamel({
   return json;
 }
 
-/// Asserts detox habit metrics on [model]; omitted params check defaults.
 void expectHabitMetrics(
   DiagnosticModel model, {
   bool? boredom,
@@ -92,7 +91,7 @@ void main() {
     });
   });
 
-  group('DiagnosticModel habit metrics JSON serialization', () {
+  group('DiagnosticModel habit metrics', () {
     test('parses Firestore snake_case keys', () {
       final model = parseModel({
         ...pillarJson(brainPerformance: 72, digitalDiscipline: 65),
@@ -102,7 +101,7 @@ void main() {
       expectHabitMetrics(model, boredom: true, delayed: 6, body: true);
     });
 
-    test('parses local camelCase keys when snake_case is absent', () {
+    test('falls back to camelCase keys when snake_case is absent', () {
       final model = parseModel({
         ...pillarJson(),
         ...habitJsonCamel(boredom: true, delayed: 8, body: true),
@@ -111,7 +110,7 @@ void main() {
       expectHabitMetrics(model, boredom: true, delayed: 8, body: true);
     });
 
-    test('snake_case takes precedence when both casings are present', () {
+    test('Combined Keys Precedence — snake_case wins over camelCase', () {
       final model = parseModel({
         ...pillarJson(),
         ...habitJsonSnake(boredom: false, delayed: 2, body: true),
@@ -121,7 +120,7 @@ void main() {
       expectHabitMetrics(model, boredom: false, delayed: 2, body: true);
     });
 
-    test('missing habit keys default to false, 0, false', () {
+    test('missing keys default to false, 0, false', () {
       expectHabitMetrics(parseModel(pillarJson()));
       expectHabitMetrics(
         const DiagnosticModel(
@@ -148,7 +147,10 @@ void main() {
       expect(json[DiagnosticModelJsonKeys.boredomBefriendedSnake], isTrue);
       expect(json[DiagnosticModelJsonKeys.delayedGratificationCountSnake], 4);
       expect(json[DiagnosticModelJsonKeys.bodyActivatedSnake], isFalse);
-      expect(json.containsKey(DiagnosticModelJsonKeys.boredomBefriendedCamel), isFalse);
+      expect(
+        json.containsKey(DiagnosticModelJsonKeys.boredomBefriendedCamel),
+        isFalse,
+      );
 
       expectHabitMetrics(roundTrip(model), boredom: true, delayed: 4, body: false);
     });
