@@ -18,4 +18,13 @@ abstract final class BcScoreConstants {
 
   /// Minimum BC_score floor for behavioral gradient stability.
   static const double bhiScoreFloor = 26.8;
+
+  // 7-Day Dopamine Detox Protocol
+  static const int detoxProtocolDayCount = 7;
+  static const int maxDelayedGratificationCount = 7;
+  static const double detoxBoredomHabitPoints = 35.0;
+  static const double detoxBodyHabitPoints = 35.0;
+  static const double detoxDelayedHabitPoints = 30.0;
+  static const double diagnosticHabitBlendWeight = 0.55;
+  static const double detoxHabitBlendWeight = 0.45;
 }
