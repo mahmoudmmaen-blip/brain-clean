@@ -19,8 +19,10 @@ mixin _$DetoxProtocolState {
   bool get boredomBefriended => throw _privateConstructorUsedError;
   int get delayedGratificationCount => throw _privateConstructorUsedError;
   bool get bodyActivated => throw _privateConstructorUsedError;
-  bool get isSyncing => throw _privateConstructorUsedError;
-  String? get syncError => throw _privateConstructorUsedError;
+
+  /// Weighted detox habit score (0–100), recalculated via [DetoxHabitScorer]
+  /// on every check-in before state is committed.
+  double get detoxHabitScore => throw _privateConstructorUsedError;
   DateTime? get lastSyncedAt => throw _privateConstructorUsedError;
 
   /// Create a copy of DetoxProtocolState
@@ -40,8 +42,7 @@ abstract class $DetoxProtocolStateCopyWith<$Res> {
       {bool boredomBefriended,
       int delayedGratificationCount,
       bool bodyActivated,
-      bool isSyncing,
-      String? syncError,
+      double detoxHabitScore,
       DateTime? lastSyncedAt});
 }
 
@@ -63,8 +64,7 @@ class _$DetoxProtocolStateCopyWithImpl<$Res, $Val extends DetoxProtocolState>
     Object? boredomBefriended = null,
     Object? delayedGratificationCount = null,
     Object? bodyActivated = null,
-    Object? isSyncing = null,
-    Object? syncError = freezed,
+    Object? detoxHabitScore = null,
     Object? lastSyncedAt = freezed,
   }) {
     return _then(_value.copyWith(
@@ -80,14 +80,10 @@ class _$DetoxProtocolStateCopyWithImpl<$Res, $Val extends DetoxProtocolState>
           ? _value.bodyActivated
           : bodyActivated // ignore: cast_nullable_to_non_nullable
               as bool,
-      isSyncing: null == isSyncing
-          ? _value.isSyncing
-          : isSyncing // ignore: cast_nullable_to_non_nullable
-              as bool,
-      syncError: freezed == syncError
-          ? _value.syncError
-          : syncError // ignore: cast_nullable_to_non_nullable
-              as String?,
+      detoxHabitScore: null == detoxHabitScore
+          ? _value.detoxHabitScore
+          : detoxHabitScore // ignore: cast_nullable_to_non_nullable
+              as double,
       lastSyncedAt: freezed == lastSyncedAt
           ? _value.lastSyncedAt
           : lastSyncedAt // ignore: cast_nullable_to_non_nullable
@@ -108,8 +104,7 @@ abstract class _$$DetoxProtocolStateImplCopyWith<$Res>
       {bool boredomBefriended,
       int delayedGratificationCount,
       bool bodyActivated,
-      bool isSyncing,
-      String? syncError,
+      double detoxHabitScore,
       DateTime? lastSyncedAt});
 }
 
@@ -129,8 +124,7 @@ class __$$DetoxProtocolStateImplCopyWithImpl<$Res>
     Object? boredomBefriended = null,
     Object? delayedGratificationCount = null,
     Object? bodyActivated = null,
-    Object? isSyncing = null,
-    Object? syncError = freezed,
+    Object? detoxHabitScore = null,
     Object? lastSyncedAt = freezed,
   }) {
     return _then(_$DetoxProtocolStateImpl(
@@ -146,14 +140,10 @@ class __$$DetoxProtocolStateImplCopyWithImpl<$Res>
           ? _value.bodyActivated
           : bodyActivated // ignore: cast_nullable_to_non_nullable
               as bool,
-      isSyncing: null == isSyncing
-          ? _value.isSyncing
-          : isSyncing // ignore: cast_nullable_to_non_nullable
-              as bool,
-      syncError: freezed == syncError
-          ? _value.syncError
-          : syncError // ignore: cast_nullable_to_non_nullable
-              as String?,
+      detoxHabitScore: null == detoxHabitScore
+          ? _value.detoxHabitScore
+          : detoxHabitScore // ignore: cast_nullable_to_non_nullable
+              as double,
       lastSyncedAt: freezed == lastSyncedAt
           ? _value.lastSyncedAt
           : lastSyncedAt // ignore: cast_nullable_to_non_nullable
@@ -169,8 +159,7 @@ class _$DetoxProtocolStateImpl implements _DetoxProtocolState {
       {this.boredomBefriended = false,
       this.delayedGratificationCount = 0,
       this.bodyActivated = false,
-      this.isSyncing = false,
-      this.syncError,
+      this.detoxHabitScore = 0.0,
       this.lastSyncedAt});
 
   @override
@@ -182,17 +171,18 @@ class _$DetoxProtocolStateImpl implements _DetoxProtocolState {
   @override
   @JsonKey()
   final bool bodyActivated;
+
+  /// Weighted detox habit score (0–100), recalculated via [DetoxHabitScorer]
+  /// on every check-in before state is committed.
   @override
   @JsonKey()
-  final bool isSyncing;
-  @override
-  final String? syncError;
+  final double detoxHabitScore;
   @override
   final DateTime? lastSyncedAt;
 
   @override
   String toString() {
-    return 'DetoxProtocolState(boredomBefriended: $boredomBefriended, delayedGratificationCount: $delayedGratificationCount, bodyActivated: $bodyActivated, isSyncing: $isSyncing, syncError: $syncError, lastSyncedAt: $lastSyncedAt)';
+    return 'DetoxProtocolState(boredomBefriended: $boredomBefriended, delayedGratificationCount: $delayedGratificationCount, bodyActivated: $bodyActivated, detoxHabitScore: $detoxHabitScore, lastSyncedAt: $lastSyncedAt)';
   }
 
   @override
@@ -207,23 +197,15 @@ class _$DetoxProtocolStateImpl implements _DetoxProtocolState {
                 other.delayedGratificationCount == delayedGratificationCount) &&
             (identical(other.bodyActivated, bodyActivated) ||
                 other.bodyActivated == bodyActivated) &&
-            (identical(other.isSyncing, isSyncing) ||
-                other.isSyncing == isSyncing) &&
-            (identical(other.syncError, syncError) ||
-                other.syncError == syncError) &&
+            (identical(other.detoxHabitScore, detoxHabitScore) ||
+                other.detoxHabitScore == detoxHabitScore) &&
             (identical(other.lastSyncedAt, lastSyncedAt) ||
                 other.lastSyncedAt == lastSyncedAt));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      boredomBefriended,
-      delayedGratificationCount,
-      bodyActivated,
-      isSyncing,
-      syncError,
-      lastSyncedAt);
+  int get hashCode => Object.hash(runtimeType, boredomBefriended,
+      delayedGratificationCount, bodyActivated, detoxHabitScore, lastSyncedAt);
 
   /// Create a copy of DetoxProtocolState
   /// with the given fields replaced by the non-null parameter values.
@@ -240,8 +222,7 @@ abstract class _DetoxProtocolState implements DetoxProtocolState {
       {final bool boredomBefriended,
       final int delayedGratificationCount,
       final bool bodyActivated,
-      final bool isSyncing,
-      final String? syncError,
+      final double detoxHabitScore,
       final DateTime? lastSyncedAt}) = _$DetoxProtocolStateImpl;
 
   @override
@@ -250,10 +231,11 @@ abstract class _DetoxProtocolState implements DetoxProtocolState {
   int get delayedGratificationCount;
   @override
   bool get bodyActivated;
+
+  /// Weighted detox habit score (0–100), recalculated via [DetoxHabitScorer]
+  /// on every check-in before state is committed.
   @override
-  bool get isSyncing;
-  @override
-  String? get syncError;
+  double get detoxHabitScore;
   @override
   DateTime? get lastSyncedAt;
 

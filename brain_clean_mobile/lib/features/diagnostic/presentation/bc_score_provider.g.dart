@@ -6,7 +6,7 @@ part of 'bc_score_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$bcScoreLiveHash() => r'c544c049f66c66f7e8954bafef4f97a96bea9bd3';
+String _$bcScoreLiveHash() => r'4b596247ee2a8ebc0dff196ced30e3b6bf324e91';
 
 /// Recomputes BHI pillars whenever sliders or detox check-ins change.
 ///
