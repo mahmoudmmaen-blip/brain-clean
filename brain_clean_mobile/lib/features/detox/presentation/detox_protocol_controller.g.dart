@@ -27,28 +27,38 @@ final detoxProtocolDataProvider =
 // ignore: unused_element
 typedef DetoxProtocolDataRef = AutoDisposeProviderRef<DetoxProtocolState>;
 String _$detoxProtocolControllerHash() =>
-    r'ad630ab0abb550d3831359ed27eb3c3c4a48b654';
+    r'ece63e0b78bd99fefc1c4a7290ae54573830d596';
 
 /// Orchestrates the 7-Day Dopamine Detox protocol for Brain Clean.
 ///
-/// **Local check-ins → scoring → remote sync**
+/// ## Lifecycle
 ///
-/// 1. Accepts daily habit toggles ([DailyCheckInInput]).
-/// 2. Recalculates the habits component through [DetoxHabitScorer] before
-///    committing local state.
-/// 3. Persists to Supabase using Firestore-compatible **snake_case** keys
-///    (`boredom_befriended`, `delayed_gratification_count`, `body_activated`)
-///    via [DetoxProtocolRepository.upsert].
-/// 4. Hydrates from remote on startup so Firestore data overrides stale cache.
-/// 5. Invalidates [bcScoreLiveProvider] after every successful local or remote
-///    update so BC_score reflects new habit metrics immediately.
+/// 1. **Receive** — UI submits partial daily metrics via [DailyCheckInInput].
+/// 2. **Score** — [DetoxProtocolState.fromDailyCheckIn] merges inputs, clamps
+///    values, and invokes [DetoxHabitScorer] to recalculate
+///    [DetoxProtocolState.detoxHabitScore] *before* any state commit.
+/// 3. **Commit local** — Optimistic [AsyncValue.data] so widgets and
+///    [bcScoreLiveProvider] (via [detoxProtocolDataProvider]) refresh
+///    immediately.
+/// 4. **Sync remote** — Maps scored state to [DiagnosticModelJsonKeys]
+///    snake_case fields (`boredom_befriended`, `delayed_gratification_count`,
+///    `body_activated`) through [DetoxProtocolState.toFirestoreHabitPayload]
+///    and performs an atomic upsert via [DetoxProtocolRepository.upsertSnakeCasePayload].
 ///
-/// Sync lifecycle is exposed as [AsyncValue] (`loading` / `error` / `data`).
+/// ## Local ↔ remote consistency
+///
+/// - **Startup:** [build] hydrates from Firestore; remote values override cache.
+/// - **Write path:** Every check-in writes the same snake_case keys the
+///   [DiagnosticModel] uses, keeping backend and BHI scoring aligned.
+/// - **Error path:** Failed upserts preserve optimistic local data via
+///   [AsyncValue.copyWithPrevious] so the user never loses check-in progress.
+///
+/// Implemented as an [AsyncNotifier] — UI observes `loading → data | error`.
 ///
 /// Copied from [DetoxProtocolController].
 @ProviderFor(DetoxProtocolController)
-final detoxProtocolControllerProvider = AutoDisposeNotifierProvider<
-    DetoxProtocolController, AsyncValue<DetoxProtocolState>>.internal(
+final detoxProtocolControllerProvider = AutoDisposeAsyncNotifierProvider<
+    DetoxProtocolController, DetoxProtocolState>.internal(
   DetoxProtocolController.new,
   name: r'detoxProtocolControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -59,6 +69,6 @@ final detoxProtocolControllerProvider = AutoDisposeNotifierProvider<
 );
 
 typedef _$DetoxProtocolController
-    = AutoDisposeNotifier<AsyncValue<DetoxProtocolState>>;
+    = AutoDisposeAsyncNotifier<DetoxProtocolState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
