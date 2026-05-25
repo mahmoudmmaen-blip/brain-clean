@@ -111,9 +111,8 @@ void main() {
     });
 
     test(
-      'Combined Keys Precedence — Verifies that Firestore snake_case keys are '
-      'strictly prioritized over local camelCase keys when both are present '
-      'in the JSON payload.',
+      'Verifies that Firestore snake_case keys are strictly prioritized over '
+      'local camelCase keys when both are present in the JSON payload.',
       () {
         final model = parseModel({
           ...pillarJson(),
