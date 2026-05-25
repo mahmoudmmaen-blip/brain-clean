@@ -30,12 +30,15 @@ class DiagnosticModel {
   final double consistency;
 
   /// Day habit: user sat with boredom without reaching for a screen.
+  @JsonKey(name: 'boredom_befriended', defaultValue: false)
   final bool boredomBefriended;
 
   /// Cumulative delayed-gratification wins during the 7-day protocol.
+  @JsonKey(name: 'delayed_gratification_count', defaultValue: 0)
   final int delayedGratificationCount;
 
   /// Day habit: physical movement / body activation completed.
+  @JsonKey(name: 'body_activated', defaultValue: false)
   final bool bodyActivated;
 
   /// Normalized Brain Clarity Score \[0, 100\] with 26.8 floor.

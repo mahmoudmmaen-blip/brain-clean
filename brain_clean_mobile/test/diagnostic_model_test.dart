@@ -39,7 +39,7 @@ void main() {
       expect(model.bodyActivated, isFalse);
     });
 
-    test('round-trip preserves all fields including habit metrics', () {
+    test('round-trip preserves habit metrics via Firestore json keys', () {
       const model = DiagnosticModel(
         brainPerformance: 72,
         digitalDiscipline: 65,
@@ -55,9 +55,12 @@ void main() {
       expect(json['digitalDiscipline'], 65);
       expect(json['healthyHabits'], 80);
       expect(json['consistency'], 55);
-      expect(json['boredomBefriended'], isTrue);
-      expect(json['delayedGratificationCount'], 4);
-      expect(json['bodyActivated'], isTrue);
+      expect(json['boredom_befriended'], isTrue);
+      expect(json['delayed_gratification_count'], 4);
+      expect(json['body_activated'], isTrue);
+      expect(json.containsKey('boredomBefriended'), isFalse);
+      expect(json.containsKey('delayedGratificationCount'), isFalse);
+      expect(json.containsKey('bodyActivated'), isFalse);
 
       final restored = DiagnosticModel.fromJson(json);
       expect(restored.brainPerformance, model.brainPerformance);
@@ -70,7 +73,7 @@ void main() {
       expect(restored.calculateBcScore(), model.calculateBcScore());
     });
 
-    test('fromJson defaults habit metrics when keys are absent', () {
+    test('fromJson applies defaults when Firestore habit keys are missing', () {
       final restored = DiagnosticModel.fromJson({
         'brainPerformance': 50.0,
         'digitalDiscipline': 50.0,
@@ -83,7 +86,23 @@ void main() {
       expect(restored.bodyActivated, isFalse);
     });
 
-    test('toJson omits no habit keys when values are defaults', () {
+    test('fromJson reads Firestore snake_case keys into camelCase fields', () {
+      final restored = DiagnosticModel.fromJson({
+        'brainPerformance': 60.0,
+        'digitalDiscipline': 60.0,
+        'healthyHabits': 60.0,
+        'consistency': 60.0,
+        'boredom_befriended': true,
+        'delayed_gratification_count': 7,
+        'body_activated': true,
+      });
+
+      expect(restored.boredomBefriended, isTrue);
+      expect(restored.delayedGratificationCount, 7);
+      expect(restored.bodyActivated, isTrue);
+    });
+
+    test('toJson writes Firestore snake_case keys for default habit values', () {
       const model = DiagnosticModel(
         brainPerformance: 60,
         digitalDiscipline: 60,
@@ -92,12 +111,12 @@ void main() {
       );
 
       final json = model.toJson();
-      expect(json.containsKey('boredomBefriended'), isTrue);
-      expect(json.containsKey('delayedGratificationCount'), isTrue);
-      expect(json.containsKey('bodyActivated'), isTrue);
-      expect(json['boredomBefriended'], isFalse);
-      expect(json['delayedGratificationCount'], 0);
-      expect(json['bodyActivated'], isFalse);
+      expect(json.containsKey('boredom_befriended'), isTrue);
+      expect(json.containsKey('delayed_gratification_count'), isTrue);
+      expect(json.containsKey('body_activated'), isTrue);
+      expect(json['boredom_befriended'], isFalse);
+      expect(json['delayed_gratification_count'], 0);
+      expect(json['body_activated'], isFalse);
 
       final restored = DiagnosticModel.fromJson(json);
       expect(restored.boredomBefriended, isFalse);
