@@ -4,6 +4,7 @@ import '../../../core/constants/bc_score_constants.dart';
 import '../data/detox_protocol_repository.dart';
 import '../data/detox_protocol_repository_provider.dart';
 import '../domain/daily_check_in_input.dart';
+import '../domain/detox_protocol_firestore.dart';
 import '../domain/detox_protocol_scoring.dart';
 import '../domain/detox_protocol_state.dart';
 
@@ -11,31 +12,39 @@ part 'detox_protocol_controller.g.dart';
 
 /// Orchestrates the 7-Day Dopamine Detox protocol for Brain Clean.
 ///
-/// **Local check-ins → scoring → remote sync**
+/// ## Lifecycle
 ///
-/// 1. Accepts daily habit toggles ([DailyCheckInInput]).
-/// 2. Recalculates the habits component through [DetoxHabitScorer] before
-///    committing local state.
-/// 3. Persists to Supabase using Firestore-compatible **snake_case** keys
-///    (`boredom_befriended`, `delayed_gratification_count`, `body_activated`)
-///    via [DetoxProtocolRepository.upsert].
-/// 4. Hydrates from remote on startup so Firestore data overrides stale cache.
-/// 5. Downstream providers ([bcScoreLiveProvider], [detoxProtocolDataProvider])
-///    recompute automatically via `ref.watch` whenever this controller's
-///    [AsyncValue] transitions to new data.
+/// 1. **Receive** — UI submits partial daily metrics via [DailyCheckInInput].
+/// 2. **Score** — [DetoxProtocolState.fromDailyCheckIn] merges inputs, clamps
+///    values, and invokes [DetoxHabitScorer] to recalculate
+///    [DetoxProtocolState.detoxHabitScore] *before* any state commit.
+/// 3. **Commit local** — Optimistic [AsyncValue.data] so widgets and
+///    [bcScoreLiveProvider] (via [detoxProtocolDataProvider]) refresh
+///    immediately.
+/// 4. **Sync remote** — Maps scored state to [DiagnosticModelJsonKeys]
+///    snake_case fields (`boredom_befriended`, `delayed_gratification_count`,
+///    `body_activated`) through [DetoxProtocolState.toFirestoreHabitPayload]
+///    and performs an atomic upsert via [DetoxProtocolRepository.upsertSnakeCasePayload].
 ///
-/// Sync lifecycle is exposed as [AsyncValue] (`loading` / `error` / `data`).
+/// ## Local ↔ remote consistency
+///
+/// - **Startup:** [build] hydrates from Firestore; remote values override cache.
+/// - **Write path:** Every check-in writes the same snake_case keys the
+///   [DiagnosticModel] uses, keeping backend and BHI scoring aligned.
+/// - **Error path:** Failed upserts preserve optimistic local data via
+///   [AsyncValue.copyWithPrevious] so the user never loses check-in progress.
+///
+/// Implemented as an [AsyncNotifier] — UI observes `loading → data | error`.
 @riverpod
 class DetoxProtocolController extends _$DetoxProtocolController {
-  static const _saveErrorMessage =
-      'Could not save detox check-ins. Please try again.';
-  static const _loadErrorMessage =
-      'Could not load detox check-ins. Please try again.';
-
   @override
-  AsyncValue<DetoxProtocolState> build() {
-    Future.microtask(loadFromRemote);
-    return const AsyncValue.data(DetoxProtocolState());
+  Future<DetoxProtocolState> build() async {
+    try {
+      final remote = await ref.read(detoxProtocolRepositoryProvider).fetchLatest();
+      return remote ?? const DetoxProtocolState();
+    } on DetoxProtocolSyncException {
+      return const DetoxProtocolState();
+    }
   }
 
   DetoxProtocolRepository get _repository =>
@@ -55,23 +64,16 @@ class DetoxProtocolController extends _$DetoxProtocolController {
   DetoxHabitSubScores get currentSubScores => _currentData.subScores;
 
   // ---------------------------------------------------------------------------
-  // Remote sync (AsyncValue lifecycle)
+  // Remote sync
   // ---------------------------------------------------------------------------
 
-  /// Pulls the latest habit metrics from Supabase (snake_case keys).
+  /// Re-fetches habit metrics from Firestore (snake_case keys).
   Future<void> loadFromRemote() async {
     state = const AsyncValue<DetoxProtocolState>.loading().copyWithPrevious(state);
-    try {
+    state = await AsyncValue.guard(() async {
       final remote = await _repository.fetchLatest();
-      final next = remote ?? const DetoxProtocolState();
-      state = AsyncValue.data(next);
-    } on DetoxProtocolSyncException catch (e, st) {
-      state = AsyncValue<DetoxProtocolState>.error(e.message, st)
-          .copyWithPrevious(state);
-    } catch (e, st) {
-      state = AsyncValue<DetoxProtocolState>.error(_loadErrorMessage, st)
-          .copyWithPrevious(state);
-    }
+      return remote ?? const DetoxProtocolState();
+    });
   }
 
   // ---------------------------------------------------------------------------
@@ -80,32 +82,29 @@ class DetoxProtocolController extends _$DetoxProtocolController {
 
   /// Unified entry point for daily habit updates.
   ///
-  /// Merges [checkIn], recalculates [DetoxProtocolState.detoxHabitScore] via
-  /// [DetoxHabitScorer], optimistically updates local state, then upserts
-  /// snake_case fields to remote storage.
+  /// 1. Merges [checkIn] and runs [DetoxHabitScorer] via [DetoxProtocolState.fromDailyCheckIn].
+  /// 2. Commits optimistic local [AsyncValue.data] (triggers [bcScoreLiveProvider]).
+  /// 3. Transitions to `loading` while upserting snake_case payload to Firestore.
+  /// 4. Resolves to `data` with [DetoxProtocolState.lastSyncedAt] or `error`.
   Future<void> processDailyCheckIn(DailyCheckInInput checkIn) async {
     final scored = DetoxProtocolState.fromDailyCheckIn(
       current: _currentData,
       checkIn: checkIn,
     );
 
+    // Immediate local commit — downstream providers refresh via ref.watch.
     state = AsyncValue.data(scored);
+
+    final firestorePayload = scored.toFirestoreHabitPayload();
 
     state = const AsyncValue<DetoxProtocolState>.loading().copyWithPrevious(
           AsyncValue.data(scored),
         );
 
-    try {
-      await _repository.upsert(scored);
-      final synced = scored.copyWith(lastSyncedAt: DateTime.now());
-      state = AsyncValue.data(synced);
-    } on DetoxProtocolSyncException catch (e, st) {
-      state = AsyncValue<DetoxProtocolState>.error(e.message, st)
-          .copyWithPrevious(AsyncValue.data(scored));
-    } catch (e, st) {
-      state = AsyncValue<DetoxProtocolState>.error(_saveErrorMessage, st)
-          .copyWithPrevious(AsyncValue.data(scored));
-    }
+    state = await AsyncValue.guard(() async {
+      await _repository.upsertSnakeCasePayload(firestorePayload);
+      return scored.copyWith(lastSyncedAt: DateTime.now());
+    });
   }
 
   Future<void> setBoredomBefriended(bool value) => processDailyCheckIn(
@@ -136,7 +135,6 @@ class DetoxProtocolController extends _$DetoxProtocolController {
           bodyActivated: false,
         ),
       );
-
 }
 
 /// Convenience accessor for habit data when sync [AsyncValue] is in error/loading.

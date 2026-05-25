@@ -3,6 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../core/network/supabase_client.dart';
 import '../../diagnostic/domain/diagnostic_model.dart';
 import '../domain/daily_check_in_input.dart';
+import '../domain/detox_protocol_firestore.dart';
 import '../domain/detox_protocol_state.dart';
 
 /// Persists detox habit metrics using Firestore-compatible snake_case keys.
@@ -22,8 +23,8 @@ class DetoxProtocolRepository {
     return SupabaseConfig.client;
   }
 
-  /// Upserts today's habit check-ins for the signed-in user.
-  Future<void> upsert(DetoxProtocolState state) async {
+  /// Atomic upsert of habit metrics using pre-mapped snake_case [payload].
+  Future<void> upsertSnakeCasePayload(Map<String, dynamic> payload) async {
     try {
       final client = _client;
       if (client == null) return;
@@ -33,10 +34,7 @@ class DetoxProtocolRepository {
 
       await client.from(table).upsert({
         'user_id': userId,
-        DiagnosticModelJsonKeys.boredomBefriendedSnake: state.boredomBefriended,
-        DiagnosticModelJsonKeys.delayedGratificationCountSnake:
-            state.delayedGratificationCount,
-        DiagnosticModelJsonKeys.bodyActivatedSnake: state.bodyActivated,
+        ...payload,
         'updated_at': DateTime.now().toUtc().toIso8601String(),
       });
     } catch (e) {
@@ -44,6 +42,11 @@ class DetoxProtocolRepository {
         'Could not save detox check-ins. Please try again.',
       );
     }
+  }
+
+  /// Upserts today's habit check-ins for the signed-in user.
+  Future<void> upsert(DetoxProtocolState state) async {
+    await upsertSnakeCasePayload(state.toFirestoreHabitPayload());
   }
 
   /// Loads the latest remote check-ins for the signed-in user.
