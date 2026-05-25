@@ -2,6 +2,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../core/network/supabase_client.dart';
 import '../../diagnostic/domain/diagnostic_model.dart';
+import '../domain/daily_check_in_input.dart';
 import '../domain/detox_protocol_state.dart';
 
 /// Persists detox habit metrics using Firestore-compatible snake_case keys.
@@ -62,17 +63,19 @@ class DetoxProtocolRepository {
 
       if (row == null) return null;
 
-      return DetoxProtocolState(
-        boredomBefriended:
-            row[DiagnosticModelJsonKeys.boredomBefriendedSnake] as bool? ??
-                false,
-        delayedGratificationCount: (row[
-                    DiagnosticModelJsonKeys.delayedGratificationCountSnake]
-                as num?)
-            ?.toInt() ??
-            0,
-        bodyActivated:
-            row[DiagnosticModelJsonKeys.bodyActivatedSnake] as bool? ?? false,
+      return DetoxProtocolState.fromDailyCheckIn(
+        current: const DetoxProtocolState(),
+        checkIn: DailyCheckInInput(
+          boredomBefriended:
+              row[DiagnosticModelJsonKeys.boredomBefriendedSnake] as bool?,
+          delayedGratificationCount: (row[
+                      DiagnosticModelJsonKeys.delayedGratificationCountSnake]
+                  as num?)
+              ?.toInt(),
+          bodyActivated:
+              row[DiagnosticModelJsonKeys.bodyActivatedSnake] as bool?,
+        ),
+      ).copyWith(
         lastSyncedAt: DateTime.tryParse(row['updated_at'] as String? ?? ''),
       );
     } catch (e) {

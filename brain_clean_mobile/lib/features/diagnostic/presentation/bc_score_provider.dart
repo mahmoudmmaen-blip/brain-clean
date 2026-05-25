@@ -13,7 +13,7 @@ part 'bc_score_provider.g.dart';
 @riverpod
 DiagnosticModel bcScoreLive(BcScoreLiveRef ref) {
   final metrics = ref.watch(diagnosticControllerProvider);
-  final detox = ref.watch(detoxProtocolControllerProvider);
+  final detox = ref.watch(detoxProtocolDataProvider);
   final base = DiagnosticMetricsMapper.fromMetrics(metrics);
 
   return DetoxHabitScorer.applyDetoxToModel(
