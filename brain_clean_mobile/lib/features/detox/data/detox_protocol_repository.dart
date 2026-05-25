@@ -8,25 +8,19 @@ import '../domain/detox_protocol_state.dart';
 
 /// Persists detox habit metrics using Firestore-compatible snake_case keys.
 ///
-/// ## Transformation Layer
-///
-/// This repository is the **final gatekeeper** for all outgoing remote traffic.
-/// Local habit metrics use Dart camelCase property names internally; every
-/// write passes through [transformLocalMetricsToFirestorePayload], which
-/// produces a `Map<String, dynamic>` with strictly:
-///
-/// - `boredom_befriended`
-/// - `delayed_gratification_count`
-/// - `body_activated`
-///
-/// Any camelCase keys encountered during mapping are converted to snake_case
-/// before the payload reaches Firestore. [DetoxFirestorePayload.assertSnakeCaseOnly]
-/// rejects invalid keys as a last line of defense.
+/// **Data Transformation Layer:** Ensures strict Firestore compliance by
+/// converting local camelCase model fields to required snake_case database
+/// keys. Every write passes through [_toFirestorePayload] before reaching
+/// the backend.
 class DetoxProtocolRepository {
   DetoxProtocolRepository({SupabaseClient? client})
       : _clientOverride = client;
 
   static const table = 'detox_protocol';
+
+  static const _keyBoredomSnake = 'boredom_befriended';
+  static const _keyDelayedSnake = 'delayed_gratification_count';
+  static const _keyBodySnake = 'body_activated';
 
   final SupabaseClient? _clientOverride;
 
@@ -38,15 +32,52 @@ class DetoxProtocolRepository {
     return SupabaseConfig.client;
   }
 
-  /// Transformation Layer — maps local [DetoxProtocolState] to Firestore snake_case.
+  /// Maps a scored [DetoxProtocolState] to camelCase local data, then transforms.
   Map<String, dynamic> transformLocalMetricsToFirestorePayload(
     DetoxProtocolState state,
   ) =>
-      DetoxFirestorePayload.transformToSnakeCase(state: state);
+      _toFirestorePayload({
+        DiagnosticModelJsonKeys.boredomBefriendedCamel: state.boredomBefriended,
+        DiagnosticModelJsonKeys.delayedGratificationCountCamel:
+            state.delayedGratificationCount,
+        DiagnosticModelJsonKeys.bodyActivatedCamel: state.bodyActivated,
+      });
 
-  /// Atomic upsert of habit metrics using validated snake_case [payload].
-  Future<void> upsertSnakeCasePayload(Map<String, dynamic> payload) async {
+  /// Data Transformation Layer: Ensures strict Firestore compliance by
+  /// converting local camelCase model fields to required snake_case database
+  /// keys (`boredom_befriended`, `delayed_gratification_count`, `body_activated`).
+  ///
+  /// Accepts [localData] keyed in camelCase and/or snake_case; snake_case
+  /// values take precedence when both are present.
+  Map<String, dynamic> _toFirestorePayload(Map<String, dynamic> localData) {
+    final boredom = _readBool(
+      localData,
+      snakeKey: _keyBoredomSnake,
+      camelKey: DiagnosticModelJsonKeys.boredomBefriendedCamel,
+    );
+    final delayed = _readInt(
+      localData,
+      snakeKey: _keyDelayedSnake,
+      camelKey: DiagnosticModelJsonKeys.delayedGratificationCountCamel,
+    );
+    final body = _readBool(
+      localData,
+      snakeKey: _keyBodySnake,
+      camelKey: DiagnosticModelJsonKeys.bodyActivatedCamel,
+    );
+
+    final payload = <String, dynamic>{
+      _keyBoredomSnake: boredom,
+      _keyDelayedSnake: delayed,
+      _keyBodySnake: body,
+    };
     DetoxFirestorePayload.assertSnakeCaseOnly(payload);
+    return payload;
+  }
+
+  /// Atomic upsert — [payload] is always transformed before Firestore write.
+  Future<void> upsertSnakeCasePayload(Map<String, dynamic> payload) async {
+    final firestorePayload = _toFirestorePayload(payload);
 
     try {
       final client = _client;
@@ -57,7 +88,7 @@ class DetoxProtocolRepository {
 
       await client.from(table).upsert({
         'user_id': userId,
-        ...payload,
+        ...firestorePayload,
         'updated_at': DateTime.now().toUtc().toIso8601String(),
       });
     } catch (e) {
@@ -70,14 +101,12 @@ class DetoxProtocolRepository {
 
   /// Upserts today's habit check-ins — transforms local state to snake_case first.
   Future<void> upsert(DetoxProtocolState state) async {
-    final firestorePayload = transformLocalMetricsToFirestorePayload(state);
-    await upsertSnakeCasePayload(firestorePayload);
+    await upsertSnakeCasePayload(
+      transformLocalMetricsToFirestorePayload(state),
+    );
   }
 
   /// Loads the latest remote check-ins for the signed-in user.
-  ///
-  /// Reads exclusively via [DiagnosticModelJsonKeys] snake_case fields so
-  /// Firestore data overrides any stale local cache on hydration.
   Future<DetoxProtocolState?> fetchLatest() async {
     try {
       final client = _client;
@@ -114,6 +143,30 @@ class DetoxProtocolRepository {
         'Could not load detox check-ins. Please try again.',
       );
     }
+  }
+
+  bool _readBool(
+    Map<String, dynamic> source, {
+    required String snakeKey,
+    required String camelKey,
+  }) {
+    if (source.containsKey(snakeKey)) return source[snakeKey] as bool;
+    if (source.containsKey(camelKey)) return source[camelKey] as bool;
+    return false;
+  }
+
+  int _readInt(
+    Map<String, dynamic> source, {
+    required String snakeKey,
+    required String camelKey,
+  }) {
+    if (source.containsKey(snakeKey)) {
+      return (source[snakeKey] as num).toInt();
+    }
+    if (source.containsKey(camelKey)) {
+      return (source[camelKey] as num).toInt();
+    }
+    return 0;
   }
 }
 

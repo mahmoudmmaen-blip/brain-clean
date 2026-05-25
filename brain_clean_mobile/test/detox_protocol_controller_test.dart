@@ -41,7 +41,8 @@ class _FakeDetoxRepository extends DetoxProtocolRepository {
 
   @override
   Future<void> upsert(DetoxProtocolState state) async {
-    await upsertSnakeCasePayload(state.toFirestoreHabitPayload());
+    final payload = transformLocalMetricsToFirestorePayload(state);
+    await upsertSnakeCasePayload(payload);
   }
 
   @override
@@ -55,24 +56,31 @@ Future<void> waitForControllerReady(ProviderContainer container) async {
   await container.read(detoxProtocolControllerProvider.future);
 }
 
-/// Verifies Firestore payload uses strictly snake_case habit keys.
-void expectStrictSnakeCasePayload(Map<String, dynamic>? payload) {
+/// Verifies Firestore payload uses strictly snake_case keys with exact values.
+void expectStrictSnakeCasePayload(
+  Map<String, dynamic>? payload, {
+  bool? boredom,
+  int? delayed,
+  bool? body,
+}) {
   expect(payload, isNotNull);
   DetoxFirestorePayload.assertSnakeCaseOnly(payload!);
   expect(payload.keys, DetoxFirestorePayload.allowedHabitKeys);
 
-  // Literal snake_case strings required by Firestore.
   expect(payload.containsKey('boredom_befriended'), isTrue);
   expect(payload.containsKey('delayed_gratification_count'), isTrue);
   expect(payload.containsKey('body_activated'), isTrue);
 
-  // No camelCase aliases from DiagnosticModel.
   expect(payload.containsKey(DiagnosticModelJsonKeys.boredomBefriendedCamel),
       isFalse);
   expect(
       payload.containsKey(DiagnosticModelJsonKeys.delayedGratificationCountCamel),
       isFalse);
   expect(payload.containsKey(DiagnosticModelJsonKeys.bodyActivatedCamel), isFalse);
+
+  if (boredom != null) expect(payload['boredom_befriended'], boredom);
+  if (delayed != null) expect(payload['delayed_gratification_count'], delayed);
+  if (body != null) expect(payload['body_activated'], body);
 }
 
 void main() {
@@ -112,10 +120,9 @@ void main() {
 
       final data = readData(container);
       expect(data.boredomBefriended, isTrue);
-      expectStrictSnakeCasePayload(fakeRepository.lastSnakeCasePayload);
-      expect(
-        fakeRepository.lastSnakeCasePayload![DetoxFirestorePayload.boredomBefriended],
-        isTrue,
+      expectStrictSnakeCasePayload(
+        fakeRepository.lastSnakeCasePayload,
+        boredom: true,
       );
     });
 
@@ -201,20 +208,11 @@ void main() {
 
         // Firestore payload strictly snake_case — no camelCase keys.
         expect(fakeRepository.upsertCallCount, 1);
-        expectStrictSnakeCasePayload(fakeRepository.lastSnakeCasePayload);
-        expect(
-          fakeRepository.lastSnakeCasePayload![
-              DetoxFirestorePayload.boredomBefriended],
-          isTrue,
-        );
-        expect(
-          fakeRepository.lastSnakeCasePayload![
-              DetoxFirestorePayload.delayedGratificationCount],
-          7,
-        );
-        expect(
-          fakeRepository.lastSnakeCasePayload![DetoxFirestorePayload.bodyActivated],
-          isTrue,
+        expectStrictSnakeCasePayload(
+          fakeRepository.lastSnakeCasePayload,
+          boredom: true,
+          delayed: 7,
+          body: true,
         );
 
         // Reconciled with server — final AsyncValue is data.
