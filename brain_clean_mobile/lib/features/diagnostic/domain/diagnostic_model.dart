@@ -14,7 +14,8 @@ abstract final class DiagnosticModelJsonKeys {
   static const bodyActivatedCamel = 'bodyActivated';
 }
 
-/// Strict precedence: [snakeKey] → [camelKey] → [defaultValue].
+/// Parses habit metric with snake_case key precedence over camelCase,
+/// falling back to [defaultValue] if both are missing.
 dynamic _parseMetric(
   Map<String, dynamic> json,
   String snakeKey,

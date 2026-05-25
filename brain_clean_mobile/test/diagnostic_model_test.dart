@@ -110,15 +110,20 @@ void main() {
       expectHabitMetrics(model, boredom: true, delayed: 8, body: true);
     });
 
-    test('Precedence Test — snake_case key is prioritized over camelCase', () {
-      final model = parseModel({
-        ...pillarJson(),
-        ...habitJsonSnake(boredom: false, delayed: 2, body: true),
-        ...habitJsonCamel(boredom: true, delayed: 9, body: false),
-      });
+    test(
+      'Combined Keys Precedence — Verifies that Firestore snake_case keys are '
+      'strictly prioritized over local camelCase keys when both are present '
+      'in the JSON payload.',
+      () {
+        final model = parseModel({
+          ...pillarJson(),
+          ...habitJsonSnake(boredom: false, delayed: 2, body: true),
+          ...habitJsonCamel(boredom: true, delayed: 9, body: false),
+        });
 
-      expectHabitMetrics(model, boredom: false, delayed: 2, body: true);
-    });
+        expectHabitMetrics(model, boredom: false, delayed: 2, body: true);
+      },
+    );
 
     test('missing keys default to false, 0, false', () {
       expectHabitMetrics(parseModel(pillarJson()));
