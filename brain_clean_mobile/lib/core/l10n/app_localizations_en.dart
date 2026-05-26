@@ -130,6 +130,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get detoxReset => 'Reset today';
 
   @override
+  String get detoxRetry => 'Retry';
+
+  @override
   String get detoxSyncing => 'Syncing…';
 
   @override

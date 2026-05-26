@@ -129,6 +129,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get detoxReset => 'إعادة ضبط اليوم';
 
   @override
+  String get detoxRetry => 'إعادة المحاولة';
+
+  @override
   String get detoxSyncing => 'جارٍ المزامنة…';
 
   @override

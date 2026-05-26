@@ -320,6 +320,12 @@ abstract class AppLocalizations {
   /// **'Reset today'**
   String get detoxReset;
 
+  /// No description provided for @detoxRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get detoxRetry;
+
   /// No description provided for @detoxSyncing.
   ///
   /// In en, this message translates to:
