@@ -56,8 +56,22 @@ class _CapturingRepository extends DetoxProtocolRepository {
   }
 }
 
+/// Dedicated validator — rejects forbidden camelCase keys immediately.
+///
+/// Throws a clear [StateError] if any of these keys are present:
+/// `boredomBefriended`, `delayedGratificationCount`, `bodyActivated`.
+void rejectForbiddenKeys(Map<String, dynamic> payload) {
+  for (final camelKey in forbiddenCamelCaseKeys) {
+    if (payload.containsKey(camelKey)) {
+      throw StateError('Firestore payload must not contain camelCase key: $camelKey');
+    }
+  }
+}
+
 /// Throws if [payload] contains any key other than the three allowed snake_case keys.
 void _rejectForbiddenPayloadKeys(Map<String, dynamic> payload) {
+  rejectForbiddenKeys(payload);
+
   const allForbidden = [
     ...forbiddenCamelCaseKeys,
     DiagnosticModelJsonKeys.boredomBefriendedCamel,
@@ -97,6 +111,7 @@ void expectStrictFirestorePayload(
   required int delayed,
   required bool body,
 }) {
+  rejectForbiddenKeys(payload);
   _rejectForbiddenPayloadKeys(payload);
 
   // EXACTLY and ONLY the three required snake_case keys.
@@ -248,6 +263,20 @@ void main() {
         body: false,
       );
     });
+
+    test(
+      'Negative Test Case — rejectForbiddenKeys throws on camelCase payload keys',
+      () {
+        expect(
+          () => rejectForbiddenKeys({
+            'boredomBefriended': true,
+            'delayedGratificationCount': 1,
+            'bodyActivated': false,
+          }),
+          throwsStateError,
+        );
+      },
+    );
 
     test(
       'throws when camelCase keys leak into transformed payload',
