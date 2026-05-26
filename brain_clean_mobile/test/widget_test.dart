@@ -19,7 +19,7 @@ void main() {
   group('Diagnostic UI', () {
     testWidgets('diagnostic screen loads with live BC_score', (tester) async {
       await tester.pumpWidget(
-        localizedProviderTestApp(child: const DiagnosticScreen()),
+        createLocalizedProviderTestWidget(const DiagnosticScreen()),
       );
       await tester.pump();
 
@@ -35,14 +35,43 @@ void main() {
 
     testWidgets('dashboard shows empty state without session', (tester) async {
       await tester.pumpWidget(
-        localizedProviderTestApp(child: const DashboardScreen()),
+        createLocalizedProviderTestWidget(const DashboardScreen()),
       );
       await tester.pump();
 
       expect(find.text(en.dashboardTitle), findsOneWidget);
       expect(find.text(en.dashboardEmptyDiagnosticPrompt), findsOneWidget);
+
+      final detoxTile = find.byKey(const Key('dashboard_detox_check_in_tile'));
+      expect(detoxTile, findsOneWidget);
       expect(find.text(en.dashboardOpenDetoxCheckIn), findsOneWidget);
-      expect(find.byType(ListTile), findsOneWidget);
+      expect(find.text(en.dashboardOpenDetoxCheckInSubtitle), findsOneWidget);
+      expect(
+        find.descendant(
+          of: detoxTile,
+          matching: find.byIcon(Icons.chevron_right),
+        ),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('dashboard detox ListTile navigates to detox check-in', (tester) async {
+      await tester.pumpWidget(
+        createLocalizedRouterTestWidget(
+          router: createDashboardDetoxTestRouter(),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final detoxTile = find.byKey(const Key('dashboard_detox_check_in_tile'));
+      expect(detoxTile, findsOneWidget);
+      expect(find.text(en.dashboardOpenDetoxCheckIn), findsOneWidget);
+
+      await tester.tap(detoxTile);
+      await tester.pumpAndSettle();
+
+      expect(find.text(en.detoxTitle), findsOneWidget);
+      expect(find.byKey(const Key('dashboard_detox_check_in_tile')), findsNothing);
     });
 
     testWidgets('dashboard shows committed BC_score with breakdown', (tester) async {
@@ -58,13 +87,13 @@ void main() {
       );
 
       await tester.pumpWidget(
-        localizedProviderTestApp(
+        createLocalizedProviderTestWidget(
+          const DashboardScreen(),
           overrides: [
             bcScoreSessionProvider.overrideWith(
               () => _FixedSession(session),
             ),
           ],
-          child: const DashboardScreen(),
         ),
       );
       await tester.pump();
@@ -81,6 +110,7 @@ void main() {
         find.textContaining(DiagnosticUiExpectations.committedSubtitlePrefix),
         findsOneWidget,
       );
+      expect(find.byKey(const Key('dashboard_detox_check_in_tile')), findsOneWidget);
     });
   });
 

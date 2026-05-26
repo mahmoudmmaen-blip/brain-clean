@@ -8,6 +8,7 @@ import '../../diagnostic/presentation/bc_score_provider.dart';
 import '../../diagnostic/presentation/widgets/bc_score_breakdown.dart';
 import '../../diagnostic/presentation/widgets/bc_score_hero_card.dart';
 
+/// Pushes the 7-day detox check-in screen onto the navigation stack.
 void _navigateToDetoxCheckIn(BuildContext context) {
   context.push(AppRoutes.detox);
 }
@@ -49,6 +50,7 @@ class DashboardScreen extends ConsumerWidget {
             Card(
               clipBehavior: Clip.antiAlias,
               child: ListTile(
+                key: const Key('dashboard_detox_check_in_tile'),
                 title: Text(loc.dashboardOpenDetoxCheckIn),
                 subtitle: Text(loc.dashboardOpenDetoxCheckInSubtitle),
                 trailing: const Icon(Icons.chevron_right),
