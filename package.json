@@ -1,0 +1,13 @@
+{
+  "name": "brain-clean",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Brain Clean — web dashboard + AI coach pipeline",
+  "scripts": {
+    "test:ai-pipeline": "node --test test/test-ai-pipeline.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
