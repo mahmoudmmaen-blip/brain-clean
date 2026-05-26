@@ -26,6 +26,63 @@ class AppLocalizationsEn extends AppLocalizations {
       'Log daily habits and boost your live BC_score';
 
   @override
+  String dashboardCommittedAt(String date) {
+    return 'Committed $date';
+  }
+
+  @override
+  String get diagnosticTitle => 'Diagnostic 6-Point Test';
+
+  @override
+  String get diagnosticLiveSubtitle => 'Live · updates on every slider move';
+
+  @override
+  String get diagnosticInstructions =>
+      'Rate each dimension from 1 (low) to 10 (high).';
+
+  @override
+  String get diagnosticStart => 'Start Brain Clean';
+
+  @override
+  String get diagnosticSleepQuality => 'Sleep Quality';
+
+  @override
+  String get diagnosticSustainedAttention => 'Sustained Attention';
+
+  @override
+  String get diagnosticFragmentation => 'Fragmentation';
+
+  @override
+  String get diagnosticDopamineSeeking => 'Dopamine Seeking';
+
+  @override
+  String get diagnosticTaskSwitching => 'Task Switching';
+
+  @override
+  String get diagnosticBurnout => 'Burnout';
+
+  @override
+  String get bcScoreHeroLabel => 'BRAIN CLARITY SCORE';
+
+  @override
+  String get bcScoreBreakdownTitle => 'BHI · BC_score breakdown';
+
+  @override
+  String get bcScorePillarBrainPerformance => 'Brain performance';
+
+  @override
+  String get bcScorePillarDigitalDiscipline => 'Digital discipline';
+
+  @override
+  String get bcScorePillarHealthyHabits => 'Healthy habits';
+
+  @override
+  String get bcScorePillarConsistency => 'Consistency';
+
+  @override
+  String get bcScoreLabel => 'BC_score';
+
+  @override
   String get detoxTitle => '7-Day Dopamine Detox';
 
   @override

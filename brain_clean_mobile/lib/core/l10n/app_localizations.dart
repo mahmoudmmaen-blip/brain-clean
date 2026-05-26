@@ -128,6 +128,114 @@ abstract class AppLocalizations {
   /// **'Log daily habits and boost your live BC_score'**
   String get dashboardOpenDetoxCheckInSubtitle;
 
+  /// No description provided for @dashboardCommittedAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Committed {date}'**
+  String dashboardCommittedAt(String date);
+
+  /// No description provided for @diagnosticTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Diagnostic 6-Point Test'**
+  String get diagnosticTitle;
+
+  /// No description provided for @diagnosticLiveSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Live · updates on every slider move'**
+  String get diagnosticLiveSubtitle;
+
+  /// No description provided for @diagnosticInstructions.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate each dimension from 1 (low) to 10 (high).'**
+  String get diagnosticInstructions;
+
+  /// No description provided for @diagnosticStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Brain Clean'**
+  String get diagnosticStart;
+
+  /// No description provided for @diagnosticSleepQuality.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep Quality'**
+  String get diagnosticSleepQuality;
+
+  /// No description provided for @diagnosticSustainedAttention.
+  ///
+  /// In en, this message translates to:
+  /// **'Sustained Attention'**
+  String get diagnosticSustainedAttention;
+
+  /// No description provided for @diagnosticFragmentation.
+  ///
+  /// In en, this message translates to:
+  /// **'Fragmentation'**
+  String get diagnosticFragmentation;
+
+  /// No description provided for @diagnosticDopamineSeeking.
+  ///
+  /// In en, this message translates to:
+  /// **'Dopamine Seeking'**
+  String get diagnosticDopamineSeeking;
+
+  /// No description provided for @diagnosticTaskSwitching.
+  ///
+  /// In en, this message translates to:
+  /// **'Task Switching'**
+  String get diagnosticTaskSwitching;
+
+  /// No description provided for @diagnosticBurnout.
+  ///
+  /// In en, this message translates to:
+  /// **'Burnout'**
+  String get diagnosticBurnout;
+
+  /// No description provided for @bcScoreHeroLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'BRAIN CLARITY SCORE'**
+  String get bcScoreHeroLabel;
+
+  /// No description provided for @bcScoreBreakdownTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'BHI · BC_score breakdown'**
+  String get bcScoreBreakdownTitle;
+
+  /// No description provided for @bcScorePillarBrainPerformance.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain performance'**
+  String get bcScorePillarBrainPerformance;
+
+  /// No description provided for @bcScorePillarDigitalDiscipline.
+  ///
+  /// In en, this message translates to:
+  /// **'Digital discipline'**
+  String get bcScorePillarDigitalDiscipline;
+
+  /// No description provided for @bcScorePillarHealthyHabits.
+  ///
+  /// In en, this message translates to:
+  /// **'Healthy habits'**
+  String get bcScorePillarHealthyHabits;
+
+  /// No description provided for @bcScorePillarConsistency.
+  ///
+  /// In en, this message translates to:
+  /// **'Consistency'**
+  String get bcScorePillarConsistency;
+
+  /// No description provided for @bcScoreLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'BC_score'**
+  String get bcScoreLabel;
+
   /// No description provided for @detoxTitle.
   ///
   /// In en, this message translates to:

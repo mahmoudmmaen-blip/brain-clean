@@ -26,6 +26,63 @@ class AppLocalizationsAr extends AppLocalizations {
       'سجّل عاداتك اليومية وارفع نقاطك المباشرة';
 
   @override
+  String dashboardCommittedAt(String date) {
+    return 'تم التثبيت $date';
+  }
+
+  @override
+  String get diagnosticTitle => 'اختبار التشخيص (6 نقاط)';
+
+  @override
+  String get diagnosticLiveSubtitle => 'مباشر · يتغير مع كل تعديل';
+
+  @override
+  String get diagnosticInstructions =>
+      'قيّم كل بُعد من 1 (منخفض) إلى 10 (مرتفع).';
+
+  @override
+  String get diagnosticStart => 'ابدأ Brain Clean';
+
+  @override
+  String get diagnosticSleepQuality => 'جودة النوم';
+
+  @override
+  String get diagnosticSustainedAttention => 'الانتباه المستمر';
+
+  @override
+  String get diagnosticFragmentation => 'التشتت';
+
+  @override
+  String get diagnosticDopamineSeeking => 'البحث عن الدوبامين';
+
+  @override
+  String get diagnosticTaskSwitching => 'التنقل بين المهام';
+
+  @override
+  String get diagnosticBurnout => 'الإرهاق';
+
+  @override
+  String get bcScoreHeroLabel => 'نقاط صفاء الدماغ';
+
+  @override
+  String get bcScoreBreakdownTitle => 'تفصيل BHI · BC_score';
+
+  @override
+  String get bcScorePillarBrainPerformance => 'أداء الدماغ';
+
+  @override
+  String get bcScorePillarDigitalDiscipline => 'الانضباط الرقمي';
+
+  @override
+  String get bcScorePillarHealthyHabits => 'العادات الصحية';
+
+  @override
+  String get bcScorePillarConsistency => 'الاستمرارية';
+
+  @override
+  String get bcScoreLabel => 'BC_score';
+
+  @override
   String get detoxTitle => 'بروتوكول الدوبامين (7 أيام)';
 
   @override
