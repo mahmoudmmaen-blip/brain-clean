@@ -1,0 +1,34 @@
+{
+  "@@locale": "ar",
+  "detoxTitle": "بروتوكول الدوبامين (7 أيام)",
+  "detoxSubtitle": "تسجيل يومي",
+  "detoxLiveBcScoreTitle": "النقاط المباشرة",
+  "detoxLiveBcScoreSubtitle": "تتغير فورًا عند تسجيل العادات",
+  "detoxBoredomTitle": "مُصاحبة الملل",
+  "detoxBoredomSubtitle": "جلست مع الملل بدون اللجوء للشاشة",
+  "detoxDelayedTitle": "تأخير المكافأة",
+  "detoxDelayedSubtitle": "الانتصارات اليوم (الحد الأقصى {max})",
+  "@detoxDelayedSubtitle": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "detoxBodyTitle": "تنشيط الجسد",
+  "detoxBodySubtitle": "شمس الصباح + دش بارد",
+  "detoxCount": "{count}",
+  "@detoxCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "detoxIncrement": "زيادة",
+  "detoxDecrement": "تقليل",
+  "detoxReset": "إعادة ضبط اليوم",
+  "detoxSyncing": "جارٍ المزامنة…",
+  "detoxSyncError": "تعذرت المزامنة. تم حفظ تسجيلك محليًا."
+}
+

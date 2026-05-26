@@ -4,6 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../features/dashboard/presentation/dashboard_screen.dart';
 import '../../features/diagnostic/presentation/diagnostic_screen.dart';
+import '../../features/detox/presentation/detox_protocol_screen.dart';
 import '../constants/app_routes.dart';
 
 part 'app_router.g.dart';
@@ -23,6 +24,11 @@ GoRouter goRouter(GoRouterRef ref) {
         path: AppRoutes.dashboard,
         name: 'dashboard',
         builder: (context, state) => const DashboardScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.detox,
+        name: 'detox',
+        builder: (context, state) => const DetoxProtocolScreen(),
       ),
     ],
     errorBuilder: (context, state) => Scaffold(

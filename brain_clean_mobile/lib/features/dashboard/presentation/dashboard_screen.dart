@@ -44,6 +44,11 @@ class DashboardScreen extends ConsumerWidget {
               onPressed: () => context.go(AppRoutes.diagnostic),
               child: const Text('Retake Diagnostic'),
             ),
+            const SizedBox(height: 12),
+            FilledButton(
+              onPressed: () => context.go(AppRoutes.detox),
+              child: const Text('Open Detox Check-in'),
+            ),
           ],
         ),
       ),

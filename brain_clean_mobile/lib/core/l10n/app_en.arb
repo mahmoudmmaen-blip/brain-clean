@@ -1,0 +1,34 @@
+{
+  "@@locale": "en",
+  "detoxTitle": "7-Day Dopamine Detox",
+  "detoxSubtitle": "Daily check-in",
+  "detoxLiveBcScoreTitle": "Live BC_score",
+  "detoxLiveBcScoreSubtitle": "Updates instantly as you log habits",
+  "detoxBoredomTitle": "Boredom Befriended",
+  "detoxBoredomSubtitle": "Sat with boredom without reaching for a screen",
+  "detoxDelayedTitle": "Delayed Gratification",
+  "detoxDelayedSubtitle": "Wins today (capped at {max})",
+  "@detoxDelayedSubtitle": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "detoxBodyTitle": "Body Activated",
+  "detoxBodySubtitle": "Morning sun + cold shower completed",
+  "detoxCount": "{count}",
+  "@detoxCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "detoxIncrement": "Increase",
+  "detoxDecrement": "Decrease",
+  "detoxReset": "Reset today",
+  "detoxSyncing": "Syncing…",
+  "detoxSyncError": "Could not sync. Your check-in is saved locally."
+}
+
