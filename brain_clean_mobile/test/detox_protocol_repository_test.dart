@@ -56,52 +56,62 @@ class _CapturingRepository extends DetoxProtocolRepository {
   }
 }
 
-/// Exhaustive Firestore payload validation — ONLY snake_case keys allowed.
+/// Throws if [payload] contains any key other than the three allowed snake_case keys.
+void _rejectForbiddenPayloadKeys(Map<String, dynamic> payload) {
+  const allForbidden = [
+    ...forbiddenCamelCaseKeys,
+    DiagnosticModelJsonKeys.boredomBefriendedCamel,
+    DiagnosticModelJsonKeys.delayedGratificationCountCamel,
+    DiagnosticModelJsonKeys.bodyActivatedCamel,
+  ];
+
+  for (final key in payload.keys) {
+    if (allForbidden.contains(key)) {
+      throw StateError(
+        'Firestore payload must not contain camelCase key: $key',
+      );
+    }
+    if (key.contains(RegExp(r'[A-Z]'))) {
+      throw StateError(
+        'Firestore payload must not contain non-snake_case key: $key',
+      );
+    }
+    if (!allowedSnakeCaseKeys.contains(key)) {
+      throw StateError(
+        'Firestore payload contains unexpected key: $key. '
+        "Allowed keys ONLY: $allowedSnakeCaseKeys",
+      );
+    }
+  }
+}
+
+/// Exhaustive Firestore payload validation — EXACTLY and ONLY snake_case keys.
+///
+/// Key compliance: ONLY `['boredom_befriended', 'delayed_gratification_count',
+/// 'body_activated']`. Throws on any camelCase or extra key.
+///
+/// Value compliance: loss-less — expected values must match after transformation.
 void expectStrictFirestorePayload(
   Map<String, dynamic> payload, {
   required bool boredom,
   required int delayed,
   required bool body,
 }) {
-  // Exhaustive key check: payload contains ONLY the three snake_case keys.
+  _rejectForbiddenPayloadKeys(payload);
+
+  // EXACTLY and ONLY the three required snake_case keys.
   expect(
-    payload.keys.toSet(),
-    equals(allowedSnakeCaseKeys.toSet()),
-    reason: 'Payload must contain exactly '
-        "['boredom_befriended', 'delayed_gratification_count', 'body_activated']",
+    payload.keys.toList()..sort(),
+    equals(List<String>.from(allowedSnakeCaseKeys)..sort()),
+    reason: 'Payload keys must be EXACTLY and ONLY $allowedSnakeCaseKeys',
   );
-  expect(payload.length, 3);
+  expect(payload.length, allowedSnakeCaseKeys.length);
 
   for (final key in allowedSnakeCaseKeys) {
     expect(payload.containsKey(key), isTrue, reason: 'Missing required key: $key');
   }
 
-  // Explicit camelCase leakage guard — no camelCase equivalents in map keys.
-  for (final camelKey in forbiddenCamelCaseKeys) {
-    expect(
-      payload.containsKey(camelKey),
-      isFalse,
-      reason: 'camelCase key leaked into Firestore payload: $camelKey',
-    );
-  }
-  expect(payload.containsKey(DiagnosticModelJsonKeys.boredomBefriendedCamel),
-      isFalse);
-  expect(
-      payload.containsKey(DiagnosticModelJsonKeys.delayedGratificationCountCamel),
-      isFalse);
-  expect(payload.containsKey(DiagnosticModelJsonKeys.bodyActivatedCamel),
-      isFalse);
-
-  // No uppercase characters in any key (catches any future camelCase leakage).
-  for (final key in payload.keys) {
-    expect(
-      key.contains(RegExp(r'[A-Z]')),
-      isFalse,
-      reason: 'Non-snake_case key detected: $key',
-    );
-  }
-
-  // Exact value mapping after local model fields were stripped/transformed.
+  // Loss-less value mapping — keys are strict, values are preserved.
   expect(payload['boredom_befriended'], boredom);
   expect(payload['delayed_gratification_count'], delayed);
   expect(payload['body_activated'], body);
@@ -239,8 +249,23 @@ void main() {
       );
     });
 
-    test('full habit metric round-trip preserves values through transformation',
-        () async {
+    test(
+      'throws when camelCase keys leak into transformed payload',
+      () {
+        expect(
+          () => _rejectForbiddenPayloadKeys({
+            'boredomBefriended': true,
+            'delayed_gratification_count': 1,
+            'body_activated': false,
+          }),
+          throwsStateError,
+        );
+      },
+    );
+
+    test(
+      'full habit metric round-trip is loss-less on values and strict on keys',
+      () async {
       const state = DetoxProtocolState(
         boredomBefriended: true,
         delayedGratificationCount: 7,
