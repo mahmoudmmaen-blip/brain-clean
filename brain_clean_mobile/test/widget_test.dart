@@ -1,4 +1,4 @@
-import 'package:brain_clean_mobile/core/l10n/app_localizations.dart';
+import 'package:brain_clean_mobile/core/l10n/app_localization_config.dart';
 import 'package:brain_clean_mobile/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_session.dart';
@@ -7,19 +7,14 @@ import 'package:brain_clean_mobile/features/diagnostic/presentation/diagnostic_s
 import 'package:brain_clean_mobile/features/diagnostic/presentation/widgets/bc_score_hero_card.dart';
 import 'package:brain_clean_mobile/main.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Widget localizedTestApp({required Widget home}) {
   return MaterialApp(
-    localizationsDelegates: const [
-      GlobalMaterialLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-      AppLocalizations.delegate,
-    ],
+    localizationsDelegates: appLocalizationsDelegates,
     supportedLocales: supportedLocales,
+    localeResolutionCallback: resolveAppLocale,
     home: home,
   );
 }

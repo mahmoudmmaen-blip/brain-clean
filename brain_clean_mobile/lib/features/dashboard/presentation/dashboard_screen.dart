@@ -11,6 +11,10 @@ import '../../diagnostic/presentation/widgets/bc_score_hero_card.dart';
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
 
+  void _openDetoxCheckIn(BuildContext context) {
+    context.push(AppRoutes.detox);
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = AppLocalizations.of(context)!;
@@ -44,42 +48,30 @@ class DashboardScreen extends ConsumerWidget {
             const SizedBox(height: 24),
             Card(
               clipBehavior: Clip.antiAlias,
-              child: InkWell(
-                onTap: () => context.go(AppRoutes.detox),
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.spa_outlined,
-                        color: Theme.of(context).colorScheme.primary,
-                        size: 32,
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              loc.dashboardOpenDetoxCheckIn,
-                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              loc.dashboardOpenDetoxCheckInSubtitle,
-                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                    color: Colors.white54,
-                                  ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const Icon(Icons.chevron_right, color: Colors.white38),
-                    ],
-                  ),
+              child: ListTile(
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
                 ),
+                leading: Icon(
+                  Icons.spa_outlined,
+                  color: Theme.of(context).colorScheme.primary,
+                  size: 32,
+                ),
+                title: Text(
+                  loc.dashboardOpenDetoxCheckIn,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                ),
+                subtitle: Text(
+                  loc.dashboardOpenDetoxCheckInSubtitle,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: Colors.white54,
+                      ),
+                ),
+                trailing: const Icon(Icons.chevron_right, color: Colors.white38),
+                onTap: () => _openDetoxCheckIn(context),
               ),
             ),
             const SizedBox(height: 12),
