@@ -1,5 +1,6 @@
 import 'package:brain_clean_mobile/core/constants/app_routes.dart';
 import 'package:brain_clean_mobile/core/l10n/app_localization_config.dart';
+import 'package:brain_clean_mobile/core/theme/app_theme.dart';
 import 'package:brain_clean_mobile/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:brain_clean_mobile/features/detox/presentation/detox_protocol_screen.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,9 @@ Widget createLocalizedTestWidget(
   Locale locale = const Locale('en'),
 }) {
   return MaterialApp(
+    title: 'Brain Clean',
+    debugShowCheckedModeBanner: false,
+    theme: AppTheme.dark,
     locale: locale,
     localizationsDelegates: appLocalizationsDelegates,
     supportedLocales: supportedLocales,

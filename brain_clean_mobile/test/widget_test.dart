@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'helpers/diagnostic_ui_expectations.dart';
 import 'helpers/localized_test_app.dart';
 import 'helpers/test_l10n.dart';
 
@@ -24,13 +23,13 @@ void main() {
       );
       await tester.pump();
 
-      expect(find.text(DiagnosticUiExpectations.appBarTitle), findsOneWidget);
-      expect(find.text(DiagnosticUiExpectations.heroLabel), findsOneWidget);
+      expect(find.text(en.diagnosticTitle), findsOneWidget);
+      expect(find.text(en.bcScoreHeroLabel), findsOneWidget);
       expect(
-        find.textContaining(DiagnosticUiExpectations.liveSubtitleFragment),
+        find.text(en.diagnosticLiveSubtitle),
         findsOneWidget,
       );
-      expect(find.text(DiagnosticUiExpectations.breakdownHeader), findsOneWidget);
+      expect(find.text(en.bcScoreBreakdownTitle), findsOneWidget);
       expect(find.byType(LinearProgressIndicator), findsNWidgets(4));
     });
 
@@ -99,6 +98,11 @@ void main() {
       );
       await tester.pump();
 
+      final expectedCommittedAt = session.committedAt
+          .toLocal()
+          .toString()
+          .substring(0, 16);
+
       expect(
         find.descendant(
           of: find.byType(BcScoreHeroCard),
@@ -106,11 +110,8 @@ void main() {
         ),
         findsOneWidget,
       );
-      expect(find.text(DiagnosticUiExpectations.breakdownHeader), findsOneWidget);
-      expect(
-        find.textContaining(DiagnosticUiExpectations.committedSubtitlePrefix),
-        findsOneWidget,
-      );
+      expect(find.text(en.bcScoreBreakdownTitle), findsOneWidget);
+      expect(find.text(en.dashboardCommittedAt(expectedCommittedAt)), findsOneWidget);
       expect(find.byKey(dashboardDetoxCheckInTileKey), findsOneWidget);
     });
   });
@@ -122,8 +123,8 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 100));
 
-    expect(find.text(DiagnosticUiExpectations.appBarTitle), findsOneWidget);
-    expect(find.text(DiagnosticUiExpectations.heroLabel), findsOneWidget);
+    expect(find.text(en.diagnosticTitle), findsOneWidget);
+    expect(find.text(en.bcScoreHeroLabel), findsOneWidget);
   });
 }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/l10n/app_localizations.dart';
 import 'bc_score_colors.dart';
 
 /// Large BC_score display card used on diagnostic and dashboard screens.
@@ -17,13 +18,14 @@ class BcScoreHeroCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     return Card(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
         child: Column(
           children: [
-            const Text(
-              'BRAIN CLARITY SCORE',
+            Text(
+              loc.bcScoreHeroLabel,
               style: TextStyle(
                 fontSize: 11,
                 fontWeight: FontWeight.w800,

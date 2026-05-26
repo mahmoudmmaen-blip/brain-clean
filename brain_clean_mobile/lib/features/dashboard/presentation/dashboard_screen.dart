@@ -13,6 +13,7 @@ const dashboardDetoxCheckInTileKey = Key('dashboard_detox_check_in_tile');
 
 /// Pushes the 7-day detox check-in screen onto the navigation stack.
 void _navigateToDetoxCheckIn(BuildContext context) {
+  if (!context.mounted) return;
   context.push(AppRoutes.detox);
 }
 
@@ -28,6 +29,9 @@ class DashboardScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = AppLocalizations.of(context)!;
     final session = ref.watch(bcScoreSessionProvider);
+    final committedAt = session == null
+        ? null
+        : session.committedAt.toLocal().toString().substring(0, 16);
 
     return Scaffold(
       appBar: AppBar(title: Text(loc.dashboardTitle)),
@@ -39,8 +43,7 @@ class DashboardScreen extends ConsumerWidget {
               BcScoreHeroCard(
                 score: session.bcScore,
                 fontSize: 48,
-                subtitle:
-                    'Committed ${session.committedAt.toLocal().toString().substring(0, 16)}',
+                subtitle: loc.dashboardCommittedAt(committedAt!),
               ),
               BcScoreBreakdown(model: session.model),
             ] else

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/bc_score_constants.dart';
+import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../domain/diagnostic_model.dart';
 import 'bc_score_colors.dart';
@@ -10,29 +11,6 @@ class BcScoreBreakdown extends StatelessWidget {
 
   final DiagnosticModel model;
 
-  static const _pillars = <({String label, double Function(DiagnosticModel m) value, double weight})>[
-    (
-      label: 'Brain performance',
-      value: _brainPerformance,
-      weight: BcScoreConstants.brainPerformanceWeight,
-    ),
-    (
-      label: 'Digital discipline',
-      value: _digitalDiscipline,
-      weight: BcScoreConstants.digitalDisciplineWeight,
-    ),
-    (
-      label: 'Healthy habits',
-      value: _healthyHabits,
-      weight: BcScoreConstants.healthyHabitsWeight,
-    ),
-    (
-      label: 'Consistency',
-      value: _consistency,
-      weight: BcScoreConstants.consistencyWeight,
-    ),
-  ];
-
   static double _brainPerformance(DiagnosticModel m) => m.brainPerformance;
   static double _digitalDiscipline(DiagnosticModel m) => m.digitalDiscipline;
   static double _healthyHabits(DiagnosticModel m) => m.healthyHabits;
@@ -40,7 +18,30 @@ class BcScoreBreakdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     final bcScore = model.bcScore;
+    final pillars = <({String label, double Function(DiagnosticModel m) value, double weight})>[
+      (
+        label: loc.bcScorePillarBrainPerformance,
+        value: _brainPerformance,
+        weight: BcScoreConstants.brainPerformanceWeight,
+      ),
+      (
+        label: loc.bcScorePillarDigitalDiscipline,
+        value: _digitalDiscipline,
+        weight: BcScoreConstants.digitalDisciplineWeight,
+      ),
+      (
+        label: loc.bcScorePillarHealthyHabits,
+        value: _healthyHabits,
+        weight: BcScoreConstants.healthyHabitsWeight,
+      ),
+      (
+        label: loc.bcScorePillarConsistency,
+        value: _consistency,
+        weight: BcScoreConstants.consistencyWeight,
+      ),
+    ];
 
     return Card(
       child: Padding(
@@ -48,17 +49,17 @@ class BcScoreBreakdown extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text(
-              'BHI · BC_score breakdown',
+            Text(
+              loc.bcScoreBreakdownTitle,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 11,
                 fontWeight: FontWeight.w700,
                 color: Colors.white54,
               ),
             ),
             const SizedBox(height: 10),
-            for (final pillar in _pillars)
+            for (final pillar in pillars)
               _PillarRow(
                 label: '${pillar.label} (${(pillar.weight * 100).round()}%)',
                 pillarScore: pillar.value(model),
@@ -66,7 +67,7 @@ class BcScoreBreakdown extends StatelessWidget {
               ),
             const Divider(height: 20, color: AppTheme.border),
             _SummaryRow(
-              label: 'BC_score',
+              label: loc.bcScoreLabel,
               value: '${bcScore.round()}%',
               color: BcScoreColors.forScore(bcScore),
             ),

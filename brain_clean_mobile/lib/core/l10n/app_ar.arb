@@ -5,6 +5,31 @@
   "dashboardRetakeDiagnostic": "إعادة التشخيص",
   "dashboardOpenDetoxCheckIn": "تسجيل بروتوكول الديتوكس (7 أيام)",
   "dashboardOpenDetoxCheckInSubtitle": "سجّل عاداتك اليومية وارفع نقاطك المباشرة",
+  "dashboardCommittedAt": "تم التثبيت {date}",
+  "@dashboardCommittedAt": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "diagnosticTitle": "اختبار التشخيص (6 نقاط)",
+  "diagnosticLiveSubtitle": "مباشر · يتغير مع كل تعديل",
+  "diagnosticInstructions": "قيّم كل بُعد من 1 (منخفض) إلى 10 (مرتفع).",
+  "diagnosticStart": "ابدأ Brain Clean",
+  "diagnosticSleepQuality": "جودة النوم",
+  "diagnosticSustainedAttention": "الانتباه المستمر",
+  "diagnosticFragmentation": "التشتت",
+  "diagnosticDopamineSeeking": "البحث عن الدوبامين",
+  "diagnosticTaskSwitching": "التنقل بين المهام",
+  "diagnosticBurnout": "الإرهاق",
+  "bcScoreHeroLabel": "نقاط صفاء الدماغ",
+  "bcScoreBreakdownTitle": "تفصيل BHI · BC_score",
+  "bcScorePillarBrainPerformance": "أداء الدماغ",
+  "bcScorePillarDigitalDiscipline": "الانضباط الرقمي",
+  "bcScorePillarHealthyHabits": "العادات الصحية",
+  "bcScorePillarConsistency": "الاستمرارية",
+  "bcScoreLabel": "BC_score",
   "detoxTitle": "بروتوكول الدوبامين (7 أيام)",
   "detoxSubtitle": "تسجيل يومي",
   "detoxLiveBcScoreTitle": "النقاط المباشرة",

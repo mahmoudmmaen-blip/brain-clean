@@ -5,6 +5,31 @@
   "dashboardRetakeDiagnostic": "Retake Diagnostic",
   "dashboardOpenDetoxCheckIn": "7-Day Detox Check-in",
   "dashboardOpenDetoxCheckInSubtitle": "Log daily habits and boost your live BC_score",
+  "dashboardCommittedAt": "Committed {date}",
+  "@dashboardCommittedAt": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "diagnosticTitle": "Diagnostic 6-Point Test",
+  "diagnosticLiveSubtitle": "Live · updates on every slider move",
+  "diagnosticInstructions": "Rate each dimension from 1 (low) to 10 (high).",
+  "diagnosticStart": "Start Brain Clean",
+  "diagnosticSleepQuality": "Sleep Quality",
+  "diagnosticSustainedAttention": "Sustained Attention",
+  "diagnosticFragmentation": "Fragmentation",
+  "diagnosticDopamineSeeking": "Dopamine Seeking",
+  "diagnosticTaskSwitching": "Task Switching",
+  "diagnosticBurnout": "Burnout",
+  "bcScoreHeroLabel": "BRAIN CLARITY SCORE",
+  "bcScoreBreakdownTitle": "BHI · BC_score breakdown",
+  "bcScorePillarBrainPerformance": "Brain performance",
+  "bcScorePillarDigitalDiscipline": "Digital discipline",
+  "bcScorePillarHealthyHabits": "Healthy habits",
+  "bcScorePillarConsistency": "Consistency",
+  "bcScoreLabel": "BC_score",
   "detoxTitle": "7-Day Dopamine Detox",
   "detoxSubtitle": "Daily check-in",
   "detoxLiveBcScoreTitle": "Live BC_score",
