@@ -6,10 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-/// Wraps [child] in a [MaterialApp] using production localization delegates and locales.
+/// Wraps [child] in a [MaterialApp] using the same localization setup as production.
 ///
-/// Delegates: [GlobalMaterialLocalizations], [GlobalWidgetsLocalizations],
-/// [GlobalCupertinoLocalizations], and [AppLocalizations].
+/// Uses [appLocalizationsDelegates] from production config:
+/// - [GlobalMaterialLocalizations.delegate]
+/// - [GlobalWidgetsLocalizations.delegate]
+/// - [GlobalCupertinoLocalizations.delegate]
+/// - [AppLocalizations.delegate]
 Widget createLocalizedTestWidget(
   Widget child, {
   Locale locale = const Locale('en'),

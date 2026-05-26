@@ -1,4 +1,5 @@
-import 'package:brain_clean_mobile/features/dashboard/presentation/dashboard_screen.dart';
+import 'package:brain_clean_mobile/features/dashboard/presentation/dashboard_screen.dart'
+    show DashboardScreen, dashboardDetoxCheckInTileKey;
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_session.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/bc_score_provider.dart';
@@ -42,7 +43,7 @@ void main() {
       expect(find.text(en.dashboardTitle), findsOneWidget);
       expect(find.text(en.dashboardEmptyDiagnosticPrompt), findsOneWidget);
 
-      final detoxTile = find.byKey(const Key('dashboard_detox_check_in_tile'));
+      final detoxTile = find.byKey(dashboardDetoxCheckInTileKey);
       expect(detoxTile, findsOneWidget);
       expect(find.text(en.dashboardOpenDetoxCheckIn), findsOneWidget);
       expect(find.text(en.dashboardOpenDetoxCheckInSubtitle), findsOneWidget);
@@ -63,7 +64,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      final detoxTile = find.byKey(const Key('dashboard_detox_check_in_tile'));
+      final detoxTile = find.byKey(dashboardDetoxCheckInTileKey);
       expect(detoxTile, findsOneWidget);
       expect(find.text(en.dashboardOpenDetoxCheckIn), findsOneWidget);
 
@@ -71,7 +72,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text(en.detoxTitle), findsOneWidget);
-      expect(find.byKey(const Key('dashboard_detox_check_in_tile')), findsNothing);
+      expect(find.byKey(dashboardDetoxCheckInTileKey), findsNothing);
     });
 
     testWidgets('dashboard shows committed BC_score with breakdown', (tester) async {
@@ -110,7 +111,7 @@ void main() {
         find.textContaining(DiagnosticUiExpectations.committedSubtitlePrefix),
         findsOneWidget,
       );
-      expect(find.byKey(const Key('dashboard_detox_check_in_tile')), findsOneWidget);
+      expect(find.byKey(dashboardDetoxCheckInTileKey), findsOneWidget);
     });
   });
 

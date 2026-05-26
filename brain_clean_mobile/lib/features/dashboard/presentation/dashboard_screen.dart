@@ -8,9 +8,17 @@ import '../../diagnostic/presentation/bc_score_provider.dart';
 import '../../diagnostic/presentation/widgets/bc_score_breakdown.dart';
 import '../../diagnostic/presentation/widgets/bc_score_hero_card.dart';
 
+/// Stable widget-test anchor for the detox check-in [ListTile].
+const dashboardDetoxCheckInTileKey = Key('dashboard_detox_check_in_tile');
+
 /// Pushes the 7-day detox check-in screen onto the navigation stack.
 void _navigateToDetoxCheckIn(BuildContext context) {
   context.push(AppRoutes.detox);
+}
+
+/// Replaces the stack with the diagnostic flow entry screen.
+void _navigateToDiagnostic(BuildContext context) {
+  context.go(AppRoutes.diagnostic);
 }
 
 class DashboardScreen extends ConsumerWidget {
@@ -50,7 +58,7 @@ class DashboardScreen extends ConsumerWidget {
             Card(
               clipBehavior: Clip.antiAlias,
               child: ListTile(
-                key: const Key('dashboard_detox_check_in_tile'),
+                key: dashboardDetoxCheckInTileKey,
                 title: Text(loc.dashboardOpenDetoxCheckIn),
                 subtitle: Text(loc.dashboardOpenDetoxCheckInSubtitle),
                 trailing: const Icon(Icons.chevron_right),
@@ -59,7 +67,7 @@ class DashboardScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 12),
             OutlinedButton(
-              onPressed: () => context.go(AppRoutes.diagnostic),
+              onPressed: () => _navigateToDiagnostic(context),
               child: Text(loc.dashboardRetakeDiagnostic),
             ),
           ],
