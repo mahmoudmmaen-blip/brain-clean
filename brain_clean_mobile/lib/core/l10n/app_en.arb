@@ -1,5 +1,10 @@
 {
   "@@locale": "en",
+  "dashboardTitle": "Brain Clean Dashboard",
+  "dashboardEmptyDiagnosticPrompt": "Complete the diagnostic to see your BC_score.",
+  "dashboardRetakeDiagnostic": "Retake Diagnostic",
+  "dashboardOpenDetoxCheckIn": "7-Day Detox Check-in",
+  "dashboardOpenDetoxCheckInSubtitle": "Log daily habits and boost your live BC_score",
   "detoxTitle": "7-Day Dopamine Detox",
   "detoxSubtitle": "Daily check-in",
   "detoxLiveBcScoreTitle": "Live BC_score",

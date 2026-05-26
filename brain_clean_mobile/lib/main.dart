@@ -7,6 +7,12 @@ import 'core/routing/app_router.dart';
 import 'core/theme/app_theme.dart';
 import 'core/l10n/app_localizations.dart';
 
+/// Supported app locales — English (LTR) and Arabic (RTL).
+const supportedLocales = <Locale>[
+  Locale('en'),
+  Locale('ar'),
+];
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SupabaseConfig.initialize();
@@ -23,13 +29,13 @@ class BrainCleanApp extends ConsumerWidget {
       title: 'Brain Clean',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.dark,
-      localizationsDelegates: [
-        AppLocalizations.delegate,
+      localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
+        AppLocalizations.delegate,
       ],
-      supportedLocales: AppLocalizations.supportedLocales,
+      supportedLocales: supportedLocales,
       routerConfig: router,
     );
   }

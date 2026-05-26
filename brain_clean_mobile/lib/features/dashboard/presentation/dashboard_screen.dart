@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/app_routes.dart';
+import '../../../core/l10n/app_localizations.dart';
 import '../../diagnostic/presentation/bc_score_provider.dart';
 import '../../diagnostic/presentation/widgets/bc_score_breakdown.dart';
 import '../../diagnostic/presentation/widgets/bc_score_hero_card.dart';
@@ -12,10 +13,11 @@ class DashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final loc = AppLocalizations.of(context)!;
     final session = ref.watch(bcScoreSessionProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Brain Clean Dashboard')),
+      appBar: AppBar(title: Text(loc.dashboardTitle)),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(16),
@@ -29,25 +31,61 @@ class DashboardScreen extends ConsumerWidget {
               ),
               BcScoreBreakdown(model: session.model),
             ] else
-              const Card(
+              Card(
                 child: Padding(
-                  padding: EdgeInsets.all(24),
+                  padding: const EdgeInsets.all(24),
                   child: Text(
-                    'Complete the diagnostic to see your BC_score.',
+                    loc.dashboardEmptyDiagnosticPrompt,
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white54),
+                    style: const TextStyle(color: Colors.white54),
                   ),
                 ),
               ),
             const SizedBox(height: 24),
-            OutlinedButton(
-              onPressed: () => context.go(AppRoutes.diagnostic),
-              child: const Text('Retake Diagnostic'),
+            Card(
+              clipBehavior: Clip.antiAlias,
+              child: InkWell(
+                onTap: () => context.go(AppRoutes.detox),
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.spa_outlined,
+                        color: Theme.of(context).colorScheme.primary,
+                        size: 32,
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              loc.dashboardOpenDetoxCheckIn,
+                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              loc.dashboardOpenDetoxCheckInSubtitle,
+                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    color: Colors.white54,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Icon(Icons.chevron_right, color: Colors.white38),
+                    ],
+                  ),
+                ),
+              ),
             ),
             const SizedBox(height: 12),
-            FilledButton(
-              onPressed: () => context.go(AppRoutes.detox),
-              child: const Text('Open Detox Check-in'),
+            OutlinedButton(
+              onPressed: () => context.go(AppRoutes.diagnostic),
+              child: Text(loc.dashboardRetakeDiagnostic),
             ),
           ],
         ),

@@ -1,5 +1,10 @@
 {
   "@@locale": "ar",
+  "dashboardTitle": "لوحة Brain Clean",
+  "dashboardEmptyDiagnosticPrompt": "أكمل التشخيص لعرض نقاط BC_score.",
+  "dashboardRetakeDiagnostic": "إعادة التشخيص",
+  "dashboardOpenDetoxCheckIn": "تسجيل بروتوكول الديتوكس (7 أيام)",
+  "dashboardOpenDetoxCheckInSubtitle": "سجّل عاداتك اليومية وارفع نقاطك المباشرة",
   "detoxTitle": "بروتوكول الدوبامين (7 أيام)",
   "detoxSubtitle": "تسجيل يومي",
   "detoxLiveBcScoreTitle": "النقاط المباشرة",

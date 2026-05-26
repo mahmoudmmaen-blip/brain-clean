@@ -1,3 +1,4 @@
+import 'package:brain_clean_mobile/core/l10n/app_localizations.dart';
 import 'package:brain_clean_mobile/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_session.dart';
@@ -6,8 +7,22 @@ import 'package:brain_clean_mobile/features/diagnostic/presentation/diagnostic_s
 import 'package:brain_clean_mobile/features/diagnostic/presentation/widgets/bc_score_hero_card.dart';
 import 'package:brain_clean_mobile/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+Widget localizedTestApp({required Widget home}) {
+  return MaterialApp(
+    localizationsDelegates: const [
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+      AppLocalizations.delegate,
+    ],
+    supportedLocales: supportedLocales,
+    home: home,
+  );
+}
 
 void main() {
   group('Diagnostic UI', () {
@@ -26,7 +41,7 @@ void main() {
 
     testWidgets('dashboard shows empty state without session', (tester) async {
       await tester.pumpWidget(
-        const ProviderScope(child: MaterialApp(home: DashboardScreen())),
+        ProviderScope(child: localizedTestApp(home: const DashboardScreen())),
       );
       await tester.pump();
 
@@ -35,6 +50,7 @@ void main() {
         find.text('Complete the diagnostic to see your BC_score.'),
         findsOneWidget,
       );
+      expect(find.text('7-Day Detox Check-in'), findsOneWidget);
     });
 
     testWidgets('dashboard shows committed BC_score with breakdown', (tester) async {
@@ -56,7 +72,7 @@ void main() {
               () => _FixedSession(session),
             ),
           ],
-          child: const MaterialApp(home: DashboardScreen()),
+          child: localizedTestApp(home: const DashboardScreen()),
         ),
       );
       await tester.pump();
