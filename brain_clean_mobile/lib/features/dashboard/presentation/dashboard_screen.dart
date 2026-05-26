@@ -8,12 +8,12 @@ import '../../diagnostic/presentation/bc_score_provider.dart';
 import '../../diagnostic/presentation/widgets/bc_score_breakdown.dart';
 import '../../diagnostic/presentation/widgets/bc_score_hero_card.dart';
 
+void _navigateToDetoxCheckIn(BuildContext context) {
+  context.push(AppRoutes.detox);
+}
+
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
-
-  void _openDetoxCheckIn(BuildContext context) {
-    context.push(AppRoutes.detox);
-  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -49,29 +49,10 @@ class DashboardScreen extends ConsumerWidget {
             Card(
               clipBehavior: Clip.antiAlias,
               child: ListTile(
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 8,
-                ),
-                leading: Icon(
-                  Icons.spa_outlined,
-                  color: Theme.of(context).colorScheme.primary,
-                  size: 32,
-                ),
-                title: Text(
-                  loc.dashboardOpenDetoxCheckIn,
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
-                ),
-                subtitle: Text(
-                  loc.dashboardOpenDetoxCheckInSubtitle,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Colors.white54,
-                      ),
-                ),
-                trailing: const Icon(Icons.chevron_right, color: Colors.white38),
-                onTap: () => _openDetoxCheckIn(context),
+                title: Text(loc.dashboardOpenDetoxCheckIn),
+                subtitle: Text(loc.dashboardOpenDetoxCheckInSubtitle),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => _navigateToDetoxCheckIn(context),
               ),
             ),
             const SizedBox(height: 12),

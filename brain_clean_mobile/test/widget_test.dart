@@ -1,4 +1,3 @@
-import 'package:brain_clean_mobile/core/l10n/app_localization_config.dart';
 import 'package:brain_clean_mobile/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_session.dart';
@@ -10,42 +9,40 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-Widget localizedTestApp({required Widget home}) {
-  return MaterialApp(
-    localizationsDelegates: appLocalizationsDelegates,
-    supportedLocales: supportedLocales,
-    localeResolutionCallback: resolveAppLocale,
-    home: home,
-  );
-}
+import 'helpers/diagnostic_ui_expectations.dart';
+import 'helpers/localized_test_app.dart';
+import 'helpers/test_l10n.dart';
 
 void main() {
+  final en = testL10n;
+
   group('Diagnostic UI', () {
     testWidgets('diagnostic screen loads with live BC_score', (tester) async {
       await tester.pumpWidget(
-        const ProviderScope(child: MaterialApp(home: DiagnosticScreen())),
+        localizedProviderTestApp(child: const DiagnosticScreen()),
       );
       await tester.pump();
 
-      expect(find.text('Diagnostic 6-Point Test'), findsOneWidget);
-      expect(find.text('BRAIN CLARITY SCORE'), findsOneWidget);
-      expect(find.textContaining('Live'), findsOneWidget);
-      expect(find.text('BHI · BC_score breakdown'), findsOneWidget);
+      expect(find.text(DiagnosticUiExpectations.appBarTitle), findsOneWidget);
+      expect(find.text(DiagnosticUiExpectations.heroLabel), findsOneWidget);
+      expect(
+        find.textContaining(DiagnosticUiExpectations.liveSubtitleFragment),
+        findsOneWidget,
+      );
+      expect(find.text(DiagnosticUiExpectations.breakdownHeader), findsOneWidget);
       expect(find.byType(LinearProgressIndicator), findsNWidgets(4));
     });
 
     testWidgets('dashboard shows empty state without session', (tester) async {
       await tester.pumpWidget(
-        ProviderScope(child: localizedTestApp(home: const DashboardScreen())),
+        localizedProviderTestApp(child: const DashboardScreen()),
       );
       await tester.pump();
 
-      expect(find.text('Brain Clean Dashboard'), findsOneWidget);
-      expect(
-        find.text('Complete the diagnostic to see your BC_score.'),
-        findsOneWidget,
-      );
-      expect(find.text('7-Day Detox Check-in'), findsOneWidget);
+      expect(find.text(en.dashboardTitle), findsOneWidget);
+      expect(find.text(en.dashboardEmptyDiagnosticPrompt), findsOneWidget);
+      expect(find.text(en.dashboardOpenDetoxCheckIn), findsOneWidget);
+      expect(find.byType(ListTile), findsOneWidget);
     });
 
     testWidgets('dashboard shows committed BC_score with breakdown', (tester) async {
@@ -61,13 +58,13 @@ void main() {
       );
 
       await tester.pumpWidget(
-        ProviderScope(
+        localizedProviderTestApp(
           overrides: [
             bcScoreSessionProvider.overrideWith(
               () => _FixedSession(session),
             ),
           ],
-          child: localizedTestApp(home: const DashboardScreen()),
+          child: const DashboardScreen(),
         ),
       );
       await tester.pump();
@@ -79,8 +76,11 @@ void main() {
         ),
         findsOneWidget,
       );
-      expect(find.text('BHI · BC_score breakdown'), findsOneWidget);
-      expect(find.textContaining('Committed'), findsOneWidget);
+      expect(find.text(DiagnosticUiExpectations.breakdownHeader), findsOneWidget);
+      expect(
+        find.textContaining(DiagnosticUiExpectations.committedSubtitlePrefix),
+        findsOneWidget,
+      );
     });
   });
 
@@ -91,8 +91,8 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 100));
 
-    expect(find.text('Diagnostic 6-Point Test'), findsOneWidget);
-    expect(find.text('BRAIN CLARITY SCORE'), findsOneWidget);
+    expect(find.text(DiagnosticUiExpectations.appBarTitle), findsOneWidget);
+    expect(find.text(DiagnosticUiExpectations.heroLabel), findsOneWidget);
   });
 }
 
