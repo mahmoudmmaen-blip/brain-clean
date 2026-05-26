@@ -58,6 +58,7 @@
   "detoxIncrement": "زيادة",
   "detoxDecrement": "تقليل",
   "detoxReset": "إعادة ضبط اليوم",
+  "detoxRetry": "إعادة المحاولة",
   "detoxSyncing": "جارٍ المزامنة…",
   "detoxSyncError": "تعذرت المزامنة. تم حفظ تسجيلك محليًا."
 }

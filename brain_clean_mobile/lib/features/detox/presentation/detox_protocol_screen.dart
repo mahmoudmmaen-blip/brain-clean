@@ -25,58 +25,191 @@ class DetoxProtocolScreen extends ConsumerWidget {
         title: Text(loc.detoxTitle),
       ),
       body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.all(16),
-          children: [
-            _DetoxLiveScoreCard(
-              liveBcScore: live.bcScore,
-              detoxHabitScore: data.detoxHabitScore,
+        child: async.when(
+          data: (_) => _DetoxProtocolBody(
+            liveBcScore: live.bcScore,
+            detoxHabitScore: data.detoxHabitScore,
+            boredomBefriended: data.boredomBefriended,
+            delayedGratificationCount: data.delayedGratificationCount,
+            bodyActivated: data.bodyActivated,
+            isSyncing: async.isLoading,
+            hasSyncError: async.hasError,
+            onRetry: controller.loadFromRemote,
+            onBoredomChanged: controller.setBoredomBefriended,
+            onIncrementDelayed: controller.recordDelayedGratificationWin,
+            onDecrementDelayed: () => controller.processDailyCheckIn(
+              DailyCheckInInput(
+                delayedGratificationCount: data.delayedGratificationCount - 1,
+              ),
             ),
-            if (async.isLoading) ...[
-              const SizedBox(height: 12),
-              const LinearProgressIndicator(minHeight: 2),
-            ],
-            if (async.hasError) ...[
-              const SizedBox(height: 12),
-              Text(
-                loc.detoxSyncError,
-                textAlign: TextAlign.center,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(color: Colors.orangeAccent),
-              ),
-            ] else if (async.isLoading && async.hasValue) ...[
-              const SizedBox(height: 8),
-              Text(
-                loc.detoxSyncing,
-                textAlign: TextAlign.center,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(color: Colors.white54),
-              ),
-            ],
-            const SizedBox(height: 20),
-            _DetoxHabitCheckInCard(
-              boredomBefriended: data.boredomBefriended,
-              delayedGratificationCount: data.delayedGratificationCount,
-              bodyActivated: data.bodyActivated,
-              onBoredomChanged: controller.setBoredomBefriended,
-              onBodyActivatedChanged: controller.setBodyActivated,
-              onIncrementDelayed: controller.recordDelayedGratificationWin,
-              onDecrementDelayed: () => controller.processDailyCheckIn(
-                DailyCheckInInput(
-                  delayedGratificationCount: data.delayedGratificationCount - 1,
+            onBodyActivatedChanged: controller.setBodyActivated,
+            onReset: controller.resetDailyCheckIns,
+          ),
+          error: (e, st) => _DetoxProtocolError(
+            message: loc.detoxSyncError,
+            onRetry: controller.loadFromRemote,
+          ),
+          loading: () => const _DetoxProtocolLoading(),
+        ),
+      ),
+    );
+  }
+}
+
+class _DetoxProtocolBody extends StatelessWidget {
+  const _DetoxProtocolBody({
+    required this.liveBcScore,
+    required this.detoxHabitScore,
+    required this.boredomBefriended,
+    required this.delayedGratificationCount,
+    required this.bodyActivated,
+    required this.isSyncing,
+    required this.hasSyncError,
+    required this.onRetry,
+    required this.onBoredomChanged,
+    required this.onIncrementDelayed,
+    required this.onDecrementDelayed,
+    required this.onBodyActivatedChanged,
+    required this.onReset,
+  });
+
+  final double liveBcScore;
+  final double detoxHabitScore;
+  final bool boredomBefriended;
+  final int delayedGratificationCount;
+  final bool bodyActivated;
+  final bool isSyncing;
+  final bool hasSyncError;
+
+  final VoidCallback onRetry;
+  final ValueChanged<bool> onBoredomChanged;
+  final VoidCallback onIncrementDelayed;
+  final VoidCallback onDecrementDelayed;
+  final ValueChanged<bool> onBodyActivatedChanged;
+  final VoidCallback onReset;
+
+  @override
+  Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+
+    return ListView(
+      padding: const EdgeInsets.all(16),
+      children: [
+        _DetoxLiveScoreCard(
+          liveBcScore: liveBcScore,
+          detoxHabitScore: detoxHabitScore,
+        ),
+        const SizedBox(height: 12),
+        if (isSyncing)
+          const Center(child: CircularProgressIndicator())
+        else if (hasSyncError)
+          _DetoxInlineErrorCard(message: loc.detoxSyncError, onRetry: onRetry),
+        const SizedBox(height: 12),
+        _HabitSwitchCard(
+          title: loc.detoxBoredomTitle,
+          subtitle: loc.detoxBoredomSubtitle,
+          value: boredomBefriended,
+          onChanged: onBoredomChanged,
+        ),
+        const SizedBox(height: 12),
+        _HabitCounterCard(
+          title: loc.detoxDelayedTitle,
+          subtitle: loc.detoxDelayedSubtitle(
+            BcScoreConstants.maxDelayedGratificationCount,
+          ),
+          count: delayedGratificationCount,
+          onIncrement: onIncrementDelayed,
+          onDecrement: onDecrementDelayed,
+        ),
+        const SizedBox(height: 12),
+        _HabitSwitchCard(
+          title: loc.detoxBodyTitle,
+          subtitle: loc.detoxBodySubtitle,
+          value: bodyActivated,
+          onChanged: onBodyActivatedChanged,
+        ),
+        const SizedBox(height: 16),
+        OutlinedButton(
+          onPressed: isSyncing ? null : onReset,
+          child: Text(loc.detoxReset),
+        ),
+      ],
+    );
+  }
+}
+
+class _DetoxProtocolLoading extends StatelessWidget {
+  const _DetoxProtocolLoading();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Padding(
+        padding: EdgeInsets.all(24),
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
+}
+
+class _DetoxProtocolError extends StatelessWidget {
+  const _DetoxProtocolError({required this.message, required this.onRetry});
+
+  final String message;
+  final VoidCallback onRetry;
+
+  @override
+  Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  message,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
-              ),
+                const SizedBox(height: 12),
+                FilledButton(
+                  onPressed: onRetry,
+                  child: Text(loc.detoxRetry),
+                ),
+              ],
             ),
-            const SizedBox(height: 16),
-            OutlinedButton(
-              onPressed: async.isLoading ? null : controller.resetDailyCheckIns,
-              child: Text(loc.detoxReset),
-            ),
-          ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _DetoxInlineErrorCard extends StatelessWidget {
+  const _DetoxInlineErrorCard({required this.message, required this.onRetry});
+
+  final String message;
+  final VoidCallback onRetry;
+
+  @override
+  Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+    return Card(
+      child: ListTile(
+        title: Text(
+          message,
+          style: Theme.of(context)
+              .textTheme
+              .bodySmall
+              ?.copyWith(color: Colors.orangeAccent),
+        ),
+        trailing: TextButton(
+          onPressed: onRetry,
+          child: Text(loc.detoxRetry),
         ),
       ),
     );
@@ -122,14 +255,21 @@ class _DetoxLiveScoreCard extends StatelessWidget {
                   ?.copyWith(color: Colors.white38),
             ),
             const SizedBox(height: 16),
-            Text(
-              '${liveBcScore.round()}%',
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                    fontWeight: FontWeight.w800,
-                    color: scoreColor,
-                    height: 1,
-                  ),
+            TweenAnimationBuilder<double>(
+              tween: Tween<double>(end: liveBcScore),
+              duration: const Duration(milliseconds: 250),
+              curve: Curves.easeOutCubic,
+              builder: (context, value, child) {
+                return Text(
+                  '${value.round()}%',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                        fontWeight: FontWeight.w800,
+                        color: scoreColor,
+                        height: 1,
+                      ),
+                );
+              },
             ),
             const SizedBox(height: 10),
             Text(
@@ -147,77 +287,81 @@ class _DetoxLiveScoreCard extends StatelessWidget {
   }
 }
 
-/// Three habit pillars: boredom, delayed gratification, body activation.
-class _DetoxHabitCheckInCard extends StatelessWidget {
-  const _DetoxHabitCheckInCard({
-    required this.boredomBefriended,
-    required this.delayedGratificationCount,
-    required this.bodyActivated,
-    required this.onBoredomChanged,
-    required this.onBodyActivatedChanged,
-    required this.onIncrementDelayed,
-    required this.onDecrementDelayed,
+class _HabitSwitchCard extends StatelessWidget {
+  const _HabitSwitchCard({
+    required this.title,
+    required this.subtitle,
+    required this.value,
+    required this.onChanged,
   });
 
-  final bool boredomBefriended;
-  final int delayedGratificationCount;
-  final bool bodyActivated;
-  final ValueChanged<bool> onBoredomChanged;
-  final ValueChanged<bool> onBodyActivatedChanged;
-  final VoidCallback onIncrementDelayed;
-  final VoidCallback onDecrementDelayed;
+  final String title;
+  final String subtitle;
+  final bool value;
+  final ValueChanged<bool> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      child: SwitchListTile(
+        value: value,
+        onChanged: onChanged,
+        title: Text(title),
+        subtitle: Text(subtitle),
+      ),
+    );
+  }
+}
+
+class _HabitCounterCard extends StatelessWidget {
+  const _HabitCounterCard({
+    required this.title,
+    required this.subtitle,
+    required this.count,
+    required this.onIncrement,
+    required this.onDecrement,
+  });
+
+  final String title;
+  final String subtitle;
+  final int count;
+  final VoidCallback onIncrement;
+  final VoidCallback onDecrement;
 
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     const maxDelayed = BcScoreConstants.maxDelayedGratificationCount;
-    final atMin = delayedGratificationCount <= 0;
-    final atMax = delayedGratificationCount >= maxDelayed;
+    final atMin = count <= 0;
+    final atMax = count >= maxDelayed;
 
     return Card(
       clipBehavior: Clip.antiAlias,
-      child: Column(
-        children: [
-          SwitchListTile(
-            value: boredomBefriended,
-            onChanged: onBoredomChanged,
-            title: Text(loc.detoxBoredomTitle),
-            subtitle: Text(loc.detoxBoredomSubtitle),
-          ),
-          const Divider(height: 1),
-          ListTile(
-            title: Text(loc.detoxDelayedTitle),
-            subtitle: Text(loc.detoxDelayedSubtitle(maxDelayed)),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  tooltip: loc.detoxDecrement,
-                  onPressed: atMin ? null : onDecrementDelayed,
-                  icon: const Icon(Icons.remove_circle_outline),
-                ),
-                Text(
-                  loc.detoxCount(delayedGratificationCount),
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
-                ),
-                IconButton(
-                  tooltip: loc.detoxIncrement,
-                  onPressed: atMax ? null : onIncrementDelayed,
-                  icon: const Icon(Icons.add_circle_outline),
-                ),
-              ],
+      child: ListTile(
+        title: Text(title),
+        subtitle: Text(subtitle),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              tooltip: loc.detoxDecrement,
+              onPressed: atMin ? null : onDecrement,
+              icon: const Icon(Icons.remove_circle_outline),
             ),
-          ),
-          const Divider(height: 1),
-          SwitchListTile(
-            value: bodyActivated,
-            onChanged: onBodyActivatedChanged,
-            title: Text(loc.detoxBodyTitle),
-            subtitle: Text(loc.detoxBodySubtitle),
-          ),
-        ],
+            Text(
+              loc.detoxCount(count),
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
+            ),
+            IconButton(
+              tooltip: loc.detoxIncrement,
+              onPressed: atMax ? null : onIncrement,
+              icon: const Icon(Icons.add_circle_outline),
+            ),
+          ],
+        ),
       ),
     );
   }

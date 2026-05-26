@@ -58,6 +58,7 @@
   "detoxIncrement": "Increase",
   "detoxDecrement": "Decrease",
   "detoxReset": "Reset today",
+  "detoxRetry": "Retry",
   "detoxSyncing": "Syncing…",
   "detoxSyncError": "Could not sync. Your check-in is saved locally."
 }
