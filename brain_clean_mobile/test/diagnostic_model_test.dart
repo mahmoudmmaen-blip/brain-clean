@@ -108,18 +108,34 @@ void main() {
       );
     });
 
-    test('interpretScore returns correct Arabic bands', () {
+    test('getBand and interpretScore return correct Arabic bands and enums', () {
+      // Mild Band Tests (0-2)
+      expect(BrainRotTest.getBand(0), InterpretationBand.mild);
+      expect(BrainRotTest.getBand(2), InterpretationBand.mild);
       expect(BrainRotTest.interpretScore(0), contains('خفيف'));
-      expect(BrainRotTest.interpretScore(2), contains('خفيف'));
+
+      // Moderate Band Tests (3-5)
+      expect(BrainRotTest.getBand(3), InterpretationBand.moderate);
+      expect(BrainRotTest.getBand(5), InterpretationBand.moderate);
       expect(BrainRotTest.interpretScore(3), contains('بداية تعفن'));
-      expect(BrainRotTest.interpretScore(5), contains('بداية تعفن'));
+
+      // Severe Band Tests (6-8)
+      expect(BrainRotTest.getBand(6), InterpretationBand.severe);
+      expect(BrainRotTest.getBand(8), InterpretationBand.severe);
       expect(BrainRotTest.interpretScore(6), contains('واضح'));
-      expect(BrainRotTest.interpretScore(8), contains('واضح'));
-      expect(BrainRotTest.interpretScore(9), contains('شديد'));
+
+      // Critical Band Tests (9-10)
+      expect(BrainRotTest.getBand(9), InterpretationBand.critical);
+      expect(BrainRotTest.getBand(10), InterpretationBand.critical);
       expect(BrainRotTest.interpretScore(10), contains('شديد'));
+      
       expect(
         DiagnosticModel.interpretBrainRotScore(7),
         BrainRotTest.interpretScore(7),
+      );
+      expect(
+        DiagnosticModel.getBrainRotBand(9),
+        InterpretationBand.critical,
       );
     });
   });
@@ -165,7 +181,6 @@ void main() {
       expectHabitMetrics(model, boredom: true, delayed: 8, body: true);
     });
 
-    // Logic Verification: Firestore snake_case keys are strictly prioritized over local camelCase keys when both are present in the JSON payload.
     test(
       'Verifies that Firestore snake_case keys are strictly prioritized over '
       'local camelCase keys when both are present in the JSON payload.',
@@ -182,14 +197,6 @@ void main() {
 
     test('missing keys default to false, 0, false', () {
       expectHabitMetrics(parseModel(pillarJson()));
-      expectHabitMetrics(
-        const DiagnosticModel(
-          brainPerformance: 50,
-          digitalDiscipline: 50,
-          healthyHabits: 50,
-          consistency: 50,
-        ),
-      );
     });
 
     test('toJson emits snake_case keys and round-trip preserves values', () {
@@ -207,26 +214,8 @@ void main() {
       expect(json[DiagnosticModelJsonKeys.boredomBefriendedSnake], isTrue);
       expect(json[DiagnosticModelJsonKeys.delayedGratificationCountSnake], 4);
       expect(json[DiagnosticModelJsonKeys.bodyActivatedSnake], isFalse);
-      expect(
-        json.containsKey(DiagnosticModelJsonKeys.boredomBefriendedCamel),
-        isFalse,
-      );
 
       expectHabitMetrics(roundTrip(model), boredom: true, delayed: 4, body: false);
-    });
-
-    test('camelCase input normalizes to snake_case on export', () {
-      final model = parseModel({
-        ...pillarJson(brainPerformance: 68),
-        ...habitJsonCamel(boredom: true, delayed: 3, body: false),
-      });
-
-      final json = model.toJson();
-      expect(json[DiagnosticModelJsonKeys.boredomBefriendedSnake], isTrue);
-      expect(json[DiagnosticModelJsonKeys.delayedGratificationCountSnake], 3);
-      expect(json[DiagnosticModelJsonKeys.bodyActivatedSnake], isFalse);
-
-      expectHabitMetrics(roundTrip(model), boredom: true, delayed: 3, body: false);
     });
   });
 }

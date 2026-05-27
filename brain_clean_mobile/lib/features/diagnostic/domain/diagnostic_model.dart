@@ -1,197 +1,221 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:brain_clean_mobile/core/constants/bc_score_constants.dart';
+import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
+import 'package:flutter_test/flutter_test.dart';
 
-import '../../../core/constants/bc_score_constants.dart';
+Map<String, dynamic> pillarJson({
+  double brainPerformance = 50,
+  double digitalDiscipline = 50,
+  double healthyHabits = 50,
+  double consistency = 50,
+}) =>
+    {
+      'brainPerformance': brainPerformance,
+      'digitalDiscipline': digitalDiscipline,
+      'healthyHabits': healthyHabits,
+      'consistency': consistency,
+    };
 
-part 'diagnostic_model.g.dart';
+Map<String, dynamic> habitJsonSnake({
+  bool? boredom,
+  int? delayed,
+  bool? body,
+}) {
+  final json = <String, dynamic>{};
+  if (boredom != null) {
+    json[DiagnosticModelJsonKeys.boredomBefriendedSnake] = boredom;
+  }
+  if (delayed != null) {
+    json[DiagnosticModelJsonKeys.delayedGratificationCountSnake] = delayed;
+  }
+  if (body != null) {
+    json[DiagnosticModelJsonKeys.bodyActivatedSnake] = body;
+  }
+  return json;
+}
 
-/// Dr. Moneam's Brain Rot (تعفن الدماغ) self-assessment — 10 yes/no items.
-///
-/// Each affirmative answer counts as 1 point; total score is 0–10.
-abstract final class BrainRotTest {
-  BrainRotTest._();
+Map<String, dynamic> habitJsonCamel({
+  bool? boredom,
+  int? delayed,
+  bool? body,
+}) {
+  final json = <String, dynamic>{};
+  if (boredom != null) {
+    json[DiagnosticModelJsonKeys.boredomBefriendedCamel] = boredom;
+  }
+  if (delayed != null) {
+    json[DiagnosticModelJsonKeys.delayedGratificationCountCamel] = delayed;
+  }
+  if (body != null) {
+    json[DiagnosticModelJsonKeys.bodyActivatedCamel] = body;
+  }
+  return json;
+}
 
-  static const int questionCount = 10;
+void expectHabitMetrics(
+  DiagnosticModel model, {
+  bool? boredom,
+  int? delayed,
+  bool? body,
+}) {
+  expect(model.boredomBefriended, boredom ?? false);
+  expect(model.delayedGratificationCount, delayed ?? 0);
+  expect(model.bodyActivated, body ?? false);
+}
 
-  /// Arabic prompts shown in the diagnostic flow (yes = symptom present).
-  static const List<String> questionsAr = [
-    'أشعر أن ذاكرتي قصيرة المدى ضعفت (أنسى ما قيل لي مؤخراً).',
-    'أواجه صعوبة في التركيز على مهمة واحدة لفترة كافية.',
-    'يبدو لي أن تفكيري بطيء مقارنة بما كنت عليه من قبل.',
-    'أصاب بحالة "تشويش ذهني" أو أجد صعوبة في تنظيم أفكاري.',
-    'أشعر بتعب ذهني بعد فترات قصيرة من التفكير أو العمل الذهني.',
-    'أجد صعوبة في العثور على الكلمات المناسبة عند التحدث أو الكتابة.',
-    'أشعر بأنني "مشتت" أو أن أفكاري تقفز من فكرة لأخرى بسرعة.',
-    'يصبح من الصعب علي اتخاذ قرارات بسيطة أو التخطيط لمهام.',
-    'أجد نفسي أعمل ببطء أكثر من المعتاد، أو أحتاج إلى وقت أطول لإنجاز نفس المهام.',
-    'هذه الأعراض تؤثر على حياتي اليومية (في العمل أو الدراسة أو العلاقات).',
-  ];
+DiagnosticModel parseModel(Map<String, dynamic> json) =>
+    DiagnosticModel.fromJson(json);
 
-  /// Sums affirmative answers (symptom present = true → +1).
-  ///
-  /// [answers] must contain exactly [questionCount] entries in question order.
-  static int calculateScore(List<bool> answers) {
-    if (answers.length != questionCount) {
-      throw ArgumentError.value(
-        answers,
-        'answers',
-        'Brain Rot test requires exactly $questionCount yes/no answers.',
+DiagnosticModel roundTrip(DiagnosticModel model) =>
+    DiagnosticModel.fromJson(model.toJson());
+
+void main() {
+  group('BrainRotTest (Dr. Moneam protocol)', () {
+    test('exposes 10 Arabic questions', () {
+      expect(BrainRotTest.questionsAr, hasLength(10));
+      expect(DiagnosticModel.brainRotQuestionsAr, BrainRotTest.questionsAr);
+    });
+
+    test('calculateScore sums affirmative answers', () {
+      expect(
+        BrainRotTest.calculateScore(List<bool>.filled(10, false)),
+        0,
       );
-    }
-    return answers.where((a) => a).length;
-  }
+      expect(
+        BrainRotTest.calculateScore(List<bool>.filled(10, true)),
+        10,
+      );
+      expect(
+        DiagnosticModel.calculateBrainRotScore([
+          true,
+          true,
+          false,
+          false,
+          true,
+          false,
+          false,
+          false,
+          false,
+          false,
+        ]),
+        3,
+      );
+    });
 
-  /// Clinical interpretation bands per Dr. Moneam's protocol.
-  static String interpretScore(int score) {
-    final s = score.clamp(0, questionCount);
-    if (s <= 2) {
-      return 'ضباب دماغي خفيف أو شبه معدوم';
-    }
-    if (s <= 5) {
-      return 'بداية تعفن دماغ وبعض التأثير على الحياة اليومية';
-    }
-    if (s <= 8) {
-      return 'تعفن دماغ واضح يؤثر على التركيز والإنتاجية';
-    }
-    return 'تعفن دماغ شديد ينصح بمراجعة طبيب أو مختص';
-  }
-}
+    test('calculateScore requires exactly 10 answers', () {
+      expect(
+        () => BrainRotTest.calculateScore([true, false]),
+        throwsArgumentError,
+      );
+    });
 
-/// Firestore + legacy camelCase JSON keys for detox habit metrics.
-abstract final class DiagnosticModelJsonKeys {
-  static const boredomBefriendedSnake = 'boredom_befriended';
-  static const boredomBefriendedCamel = 'boredomBefriended';
-  static const delayedGratificationCountSnake = 'delayed_gratification_count';
-  static const delayedGratificationCountCamel = 'delayedGratificationCount';
-  static const bodyActivatedSnake = 'body_activated';
-  static const bodyActivatedCamel = 'bodyActivated';
-}
+    test('getBand and interpretScore return correct Arabic bands and enums', () {
+      // Mild Band Tests (0-2)
+      expect(BrainRotTest.getBand(0), InterpretationBand.mild);
+      expect(BrainRotTest.getBand(2), InterpretationBand.mild);
+      expect(BrainRotTest.interpretScore(0), contains('خفيف'));
 
-/// Parses habit metric with strict Firestore snake_case precedence over local
-/// camelCase. Falls back to defaultValue if both keys are missing. This ensures
-/// Firestore data overrides local cache.
-dynamic _parseMetric(
-  Map<String, dynamic> json,
-  String snakeKey,
-  String camelKey,
-  dynamic defaultValue,
-) {
-  if (json.containsKey(snakeKey)) return json[snakeKey];
-  if (json.containsKey(camelKey)) return json[camelKey];
-  return defaultValue;
-}
+      // Moderate Band Tests (3-5)
+      expect(BrainRotTest.getBand(3), InterpretationBand.moderate);
+      expect(BrainRotTest.getBand(5), InterpretationBand.moderate);
+      expect(BrainRotTest.interpretScore(3), contains('بداية تعفن'));
 
-bool _parseBoolMetric(
-  Map<String, dynamic> json,
-  String snakeKey,
-  String camelKey,
-) =>
-    _parseMetric(json, snakeKey, camelKey, false) as bool;
+      // Severe Band Tests (6-8)
+      expect(BrainRotTest.getBand(6), InterpretationBand.severe);
+      expect(BrainRotTest.getBand(8), InterpretationBand.severe);
+      expect(BrainRotTest.interpretScore(6), contains('واضح'));
 
-int _parseIntMetric(
-  Map<String, dynamic> json,
-  String snakeKey,
-  String camelKey,
-) =>
-    (_parseMetric(json, snakeKey, camelKey, 0) as num).toInt();
-
-/// BHI pillars (0–100 each) plus 7-Day Dopamine Detox Protocol habit metrics.
-@JsonSerializable(createFactory: false)
-class DiagnosticModel {
-  const DiagnosticModel({
-    required this.brainPerformance,
-    required this.digitalDiscipline,
-    required this.healthyHabits,
-    required this.consistency,
-    this.boredomBefriended = false,
-    this.delayedGratificationCount = 0,
-    this.bodyActivated = false,
+      // Critical Band Tests (9-10)
+      expect(BrainRotTest.getBand(9), InterpretationBand.critical);
+      expect(BrainRotTest.getBand(10), InterpretationBand.critical);
+      expect(BrainRotTest.interpretScore(10), contains('شديد'));
+      
+      expect(
+        DiagnosticModel.interpretBrainRotScore(7),
+        BrainRotTest.interpretScore(7),
+      );
+      expect(
+        DiagnosticModel.getBrainRotBand(9),
+        InterpretationBand.critical,
+      );
+    });
   });
 
-  /// 0–100
-  final double brainPerformance;
+  group('DiagnosticModel.calculateBcScore', () {
+    test('applies weighted pillars correctly at maximum', () {
+      const model = DiagnosticModel(
+        brainPerformance: 100,
+        digitalDiscipline: 100,
+        healthyHabits: 100,
+        consistency: 100,
+      );
+      expect(model.calculateBcScore(), 100);
+    });
 
-  /// 0–100
-  final double digitalDiscipline;
+    test('enforces 26.8 floor for low scores', () {
+      const model = DiagnosticModel(
+        brainPerformance: 0,
+        digitalDiscipline: 0,
+        healthyHabits: 0,
+        consistency: 0,
+      );
+      expect(model.calculateBcScore(), BcScoreConstants.bhiScoreFloor);
+    });
+  });
 
-  /// 0–100
-  final double healthyHabits;
+  group('DiagnosticModel habit metrics', () {
+    test('parses Firestore snake_case keys', () {
+      final model = parseModel({
+        ...pillarJson(brainPerformance: 72, digitalDiscipline: 65),
+        ...habitJsonSnake(boredom: true, delayed: 6, body: true),
+      });
 
-  /// 0–100
-  final double consistency;
+      expectHabitMetrics(model, boredom: true, delayed: 6, body: true);
+    });
 
-  /// Day habit: user sat with boredom without reaching for a screen.
-  @JsonKey(name: DiagnosticModelJsonKeys.boredomBefriendedSnake)
-  final bool boredomBefriended;
+    test('falls back to camelCase keys when snake_case is absent', () {
+      final model = parseModel({
+        ...pillarJson(),
+        ...habitJsonCamel(boredom: true, delayed: 8, body: true),
+      });
 
-  /// Cumulative delayed-gratification wins during the 7-day protocol.
-  @JsonKey(name: DiagnosticModelJsonKeys.delayedGratificationCountSnake)
-  final int delayedGratificationCount;
+      expectHabitMetrics(model, boredom: true, delayed: 8, body: true);
+    });
 
-  /// Day habit: physical movement / body activation completed.
-  @JsonKey(name: DiagnosticModelJsonKeys.bodyActivatedSnake)
-  final bool bodyActivated;
+    test(
+      'Verifies that Firestore snake_case keys are strictly prioritized over '
+      'local camelCase keys when both are present in the JSON payload.',
+      () {
+        final model = parseModel({
+          ...pillarJson(),
+          ...habitJsonSnake(boredom: false, delayed: 2, body: true),
+          ...habitJsonCamel(boredom: true, delayed: 9, body: false),
+        });
 
-  /// Normalized Brain Clarity Score \[0, 100\] with 26.8 floor.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  double get bcScore => calculateBcScore();
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  int get bcScoreRounded => bcScore.round();
-
-  /// Habits pillar slice of BHI (25% weight), after detox integration.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  double get habitsPillarContribution =>
-      healthyHabits * BcScoreConstants.healthyHabitsWeight;
-
-  /// Dr. Moneam Brain Rot questions (Arabic).
-  static const List<String> brainRotQuestionsAr = BrainRotTest.questionsAr;
-
-  /// Brain Rot score from yes/no answers (0–10).
-  static int calculateBrainRotScore(List<bool> answers) =>
-      BrainRotTest.calculateScore(answers);
-
-  /// Interprets a Brain Rot score (0–10) into an Arabic severity label.
-  static String interpretBrainRotScore(int score) =>
-      BrainRotTest.interpretScore(score);
-
-  /// Brain Clarity Score (BHI) — weighted pillars with relapse floor.
-  ///
-  /// Weights: 35% performance, 30% digital discipline, 25% habits (detox-aware), 10% consistency.
-  double calculateBcScore() {
-    final score = (brainPerformance * BcScoreConstants.brainPerformanceWeight) +
-        (digitalDiscipline * BcScoreConstants.digitalDisciplineWeight) +
-        (healthyHabits * BcScoreConstants.healthyHabitsWeight) +
-        (consistency * BcScoreConstants.consistencyWeight);
-
-    if (score < BcScoreConstants.bhiScoreFloor) {
-      return BcScoreConstants.bhiScoreFloor;
-    }
-    return score.clamp(0.0, 100.0);
-  }
-
-  factory DiagnosticModel.fromJson(Map<String, dynamic> json) {
-    return DiagnosticModel(
-      brainPerformance: (json['brainPerformance'] as num).toDouble(),
-      digitalDiscipline: (json['digitalDiscipline'] as num).toDouble(),
-      healthyHabits: (json['healthyHabits'] as num).toDouble(),
-      consistency: (json['consistency'] as num).toDouble(),
-      boredomBefriended: _parseBoolMetric(
-        json,
-        DiagnosticModelJsonKeys.boredomBefriendedSnake,
-        DiagnosticModelJsonKeys.boredomBefriendedCamel,
-      ),
-      delayedGratificationCount: _parseIntMetric(
-        json,
-        DiagnosticModelJsonKeys.delayedGratificationCountSnake,
-        DiagnosticModelJsonKeys.delayedGratificationCountCamel,
-      ),
-      bodyActivated: _parseBoolMetric(
-        json,
-        DiagnosticModelJsonKeys.bodyActivatedSnake,
-        DiagnosticModelJsonKeys.bodyActivatedCamel,
-      ),
+        expectHabitMetrics(model, boredom: false, delayed: 2, body: true);
+      },
     );
-  }
 
-  Map<String, dynamic> toJson() => _$DiagnosticModelToJson(this);
+    test('missing keys default to false, 0, false', () {
+      expectHabitMetrics(parseModel(pillarJson()));
+    });
+
+    test('toJson emits snake_case keys and round-trip preserves values', () {
+      const model = DiagnosticModel(
+        brainPerformance: 72,
+        digitalDiscipline: 65,
+        healthyHabits: 80,
+        consistency: 55,
+        boredomBefriended: true,
+        delayedGratificationCount: 4,
+        bodyActivated: false,
+      );
+
+      final json = model.toJson();
+      expect(json[DiagnosticModelJsonKeys.boredomBefriendedSnake], isTrue);
+      expect(json[DiagnosticModelJsonKeys.delayedGratificationCountSnake], 4);
+      expect(json[DiagnosticModelJsonKeys.bodyActivatedSnake], isFalse);
+
+      expectHabitMetrics(roundTrip(model), boredom: true, delayed: 4, body: false);
+    });
+  });
 }
