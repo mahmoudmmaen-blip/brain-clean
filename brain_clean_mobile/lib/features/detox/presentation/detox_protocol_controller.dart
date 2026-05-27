@@ -1,11 +1,13 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../core/constants/bc_score_constants.dart';
+import '../../diagnostic/presentation/bc_score_provider.dart';
 import '../data/detox_protocol_repository.dart';
 import '../data/detox_protocol_repository_provider.dart';
 import '../domain/daily_check_in_input.dart';
 import '../domain/detox_protocol_scoring.dart';
 import '../domain/detox_protocol_state.dart';
+import 'detox_ai_coach_insight_provider.dart';
 
 part 'detox_protocol_controller.g.dart';
 
@@ -88,7 +90,14 @@ class DetoxProtocolController extends _$DetoxProtocolController {
   /// Scoring runs through [DetoxProtocolState.fromDailyCheckIn] (which calls
   /// [DetoxHabitScorer]) *before* any Firestore write. The remote payload is
   /// built exclusively with [DetoxFirestorePayload.fromScoredState].
-  Future<void> processDailyCheckIn(DailyCheckInInput checkIn) async {
+  ///
+  /// When [requestAiCoaching] is true, optionally invokes [DetoxAiCoachService]
+  /// after a successful save (never blocks check-in on AI failure).
+  Future<void> processDailyCheckIn(
+    DailyCheckInInput checkIn, {
+    bool requestAiCoaching = false,
+    String locale = 'ar',
+  }) async {
     // Flow: [Local Metrics] → [DetoxHabitScorer] → [Repository Transformation
     // (snake_case conversion)] → [Firestore Write] → [BC_score refresh].
     final scored = DetoxProtocolState.fromDailyCheckIn(
@@ -109,8 +118,35 @@ class DetoxProtocolController extends _$DetoxProtocolController {
     state = await AsyncValue.guard(() async {
       await _repository.upsert(scored);
       final reconciled = await _repository.fetchLatest();
-      return reconciled ?? scored.copyWith(lastSyncedAt: DateTime.now());
+      final finalState =
+          reconciled ?? scored.copyWith(lastSyncedAt: DateTime.now());
+
+      if (requestAiCoaching) {
+        await _maybeFetchAiCoachingInsight(
+          finalState,
+          locale: locale,
+        );
+      }
+
+      return finalState;
     });
+  }
+
+  /// Optional AI coaching — failures are swallowed so check-in sync is preserved.
+  Future<void> _maybeFetchAiCoachingInsight(
+    DetoxProtocolState detoxState, {
+    required String locale,
+  }) async {
+    try {
+      final bcScore = ref.read(bcScoreLiveProvider).bcScore;
+      await ref.read(detoxAiCoachInsightProvider.notifier).fetchForCheckIn(
+            detoxState: detoxState,
+            bcScore: bcScore,
+            locale: locale,
+          );
+    } catch (_) {
+      // AI insight is optional; check-in data remains authoritative.
+    }
   }
 
   Future<void> setBoredomBefriended(bool value) => processDailyCheckIn(
