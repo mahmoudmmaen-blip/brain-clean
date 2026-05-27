@@ -7,7 +7,7 @@ part of 'detox_ai_coach_insight_provider.dart';
 // **************************************************************************
 
 String _$detoxAiCoachInsightHash() =>
-    r'4758ead9e66c8419d39d2e849dc1ba2bd87ca7d2';
+    r'494dd77723a376fde89118ede82ac28a130cc80c';
 
 /// Latest machine-readable AI coaching insight after a detox check-in.
 ///
