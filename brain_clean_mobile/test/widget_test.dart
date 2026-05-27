@@ -1,5 +1,6 @@
 import 'package:brain_clean_mobile/features/dashboard/presentation/dashboard_screen.dart'
     show DashboardScreen, dashboardDetoxCheckInTileKey;
+import 'package:brain_clean_mobile/features/detox/presentation/detox_protocol_screen.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_session.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/bc_score_provider.dart';
@@ -53,6 +54,20 @@ void main() {
         ),
         findsOneWidget,
       );
+    });
+
+    testWidgets('detox screen shows live score and habit check-in cards', (tester) async {
+      await tester.pumpWidget(
+        createLocalizedProviderTestWidget(const DetoxProtocolScreen()),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text(en.detoxTitle), findsOneWidget);
+      expect(find.text(en.detoxLiveBcScoreTitle), findsOneWidget);
+      expect(find.text(en.detoxBoredomTitle), findsOneWidget);
+      expect(find.text(en.detoxDelayedTitle), findsOneWidget);
+      expect(find.text(en.detoxBodyTitle), findsOneWidget);
+      expect(find.byType(SwitchListTile), findsNWidgets(2));
     });
 
     testWidgets('dashboard detox ListTile navigates to detox check-in', (tester) async {
