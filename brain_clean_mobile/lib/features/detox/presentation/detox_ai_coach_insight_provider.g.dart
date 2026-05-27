@@ -7,9 +7,11 @@ part of 'detox_ai_coach_insight_provider.dart';
 // **************************************************************************
 
 String _$detoxAiCoachInsightHash() =>
-    r'fa26df2ffbf25c7b58ea19a91fcb8dd928522ca8';
+    r'4758ead9e66c8419d39d2e849dc1ba2bd87ca7d2';
 
 /// Latest machine-readable AI coaching insight after a detox check-in.
+///
+/// Updated asynchronously by [DetoxProtocolController] — never blocks habit sync.
 ///
 /// Copied from [DetoxAiCoachInsight].
 @ProviderFor(DetoxAiCoachInsight)

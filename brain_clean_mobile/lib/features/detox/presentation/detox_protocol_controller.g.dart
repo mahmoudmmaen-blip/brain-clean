@@ -8,9 +8,7 @@ part of 'detox_protocol_controller.dart';
 
 String _$detoxProtocolDataHash() => r'ca009e7c085fbea9c520920f798229b4d9634c08';
 
-/// Convenience accessor for habit data when sync [AsyncValue] is in error/loading.
-///
-/// Copied from [detoxProtocolData].
+/// See also [detoxProtocolData].
 @ProviderFor(detoxProtocolData)
 final detoxProtocolDataProvider =
     AutoDisposeProvider<DetoxProtocolState>.internal(
@@ -27,37 +25,23 @@ final detoxProtocolDataProvider =
 // ignore: unused_element
 typedef DetoxProtocolDataRef = AutoDisposeProviderRef<DetoxProtocolState>;
 String _$detoxProtocolControllerHash() =>
-    r'10011d9ef0bd55d7e33ee909bfe138aa097ce1c1';
+    r'd21889f52f34d75668e9c5bacb39f86da9e9485e';
 
 /// Orchestrates the 7-Day Dopamine Detox protocol for Brain Clean.
 ///
-/// ## Data flow
+/// ## Core pipeline (blocking)
 ///
 /// ```
-/// User Input (DailyCheckInInput)
-///   → DetoxHabitScorer (via DetoxProtocolState.fromDailyCheckIn)
-///   → Repository Transformation Layer (snake_case conversion)
-///   → Firestore Write
-///   → BC_score Update (bcScoreLiveProvider via detoxProtocolDataProvider)
+/// User Input → DetoxHabitScorer → snake_case Firestore upsert → UI refresh
 /// ```
 ///
-/// ## Transformation Layer
+/// ## Optional AI pipeline (non-blocking)
 ///
-/// The controller never writes camelCase keys to Firestore. After local scoring,
-/// [DetoxProtocolRepository.transformLocalMetricsToFirestorePayload] acts as
-/// the final gatekeeper — converting Dart field names to `boredom_befriended`,
-/// `delayed_gratification_count`, and `body_activated` before any remote upsert.
+/// ```
+/// After successful sync → unawaited DetoxAiCoachService → detoxAiCoachInsightProvider
+/// ```
 ///
-/// ## Remote data handling (prevents stale state)
-///
-/// - **Startup:** [build] hydrates from Firestore; remote snake_case values
-///   override any stale local cache.
-/// - **Write path:** [processDailyCheckIn] scores locally, upserts validated
-///   snake_case payload, then re-fetches from server to reconcile.
-/// - **Error path:** Failed upserts preserve optimistic local data via
-///   [AsyncValue.copyWithPrevious] so check-in progress is never lost.
-///
-/// Implemented as an [AsyncNotifier] — UI observes `loading → data | error`.
+/// AI failures never affect habit state or Firestore sync.
 ///
 /// Copied from [DetoxProtocolController].
 @ProviderFor(DetoxProtocolController)
