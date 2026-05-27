@@ -165,6 +165,14 @@ class DetoxAiCoachService {
       );
     }
   }
+
+  /// Preferred entrypoint (naming) for fetching machine-readable insights.
+  ///
+  /// Kept as a thin wrapper for readability at callsites.
+  Future<AiCoachPipelineResponse> fetchInsights(
+    AiCoachDynamicContext context,
+  ) =>
+      fetchCoachingInsight(context);
 }
 
 /// User-friendly failure — never surfaces raw parser/HTTP exceptions.

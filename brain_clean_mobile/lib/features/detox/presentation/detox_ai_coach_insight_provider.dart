@@ -8,6 +8,9 @@ import '../domain/detox_protocol_state.dart';
 
 part 'detox_ai_coach_insight_provider.g.dart';
 
+/// Alias for the feature-level insights slot (preferred naming).
+final detoxAiInsightsProvider = detoxAiCoachInsightProvider;
+
 /// Latest machine-readable AI coaching insight after a detox check-in.
 ///
 /// Updated asynchronously by [DetoxProtocolController] — never blocks habit sync.
@@ -36,7 +39,7 @@ class DetoxAiCoachInsight extends _$DetoxAiCoachInsight {
           'detoxHabitScore': detoxState.detoxHabitScore,
         },
       );
-      final result = await service.fetchCoachingInsight(context);
+      final result = await service.fetchInsights(context);
       publishInsight(result);
     } catch (error) {
       assert(() {

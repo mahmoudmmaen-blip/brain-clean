@@ -6,8 +6,11 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../core/constants/bc_score_constants.dart';
 import '../../diagnostic/domain/diagnostic_metrics_mapper.dart';
 import '../../diagnostic/presentation/diagnostic_controller.dart';
+import '../data/detox_ai_coach_service_provider.dart';
 import '../data/detox_protocol_repository.dart';
 import '../data/detox_protocol_repository_provider.dart';
+import '../domain/ai_coach/ai_coach_dynamic_context.dart';
+import '../domain/ai_coach/ai_coach_pipeline_response.dart';
 import '../domain/daily_check_in_input.dart';
 import '../domain/detox_habit_scorer.dart';
 import '../domain/detox_protocol_scoring.dart';
@@ -75,16 +78,25 @@ class DetoxProtocolController extends _$DetoxProtocolController {
       checkIn: checkIn,
     );
 
+    // Optimistic update so UI reflects user intent immediately.
     state = AsyncValue.data(scored);
 
-    state = const AsyncValue<DetoxProtocolState>.loading().copyWithPrevious(
-          AsyncValue.data(scored),
-        );
+    // Await Firestore sync only — never block on AI/LLM latency.
+    state = const AsyncLoading<DetoxProtocolState>().copyWithPrevious(
+      AsyncValue.data(scored),
+    );
+    try {
+      final reconciled = await _syncCheckInToRemote(scored);
+      state = AsyncValue.data(reconciled);
 
-    state = await AsyncValue.guard(() => _syncCheckInToRemote(scored));
-
-    if (requestAiCoaching && state.hasValue) {
-      _scheduleBackgroundAiCoaching(state.requireValue, locale: locale);
+      if (requestAiCoaching) {
+        _startBackgroundAiCoaching(reconciled, locale: locale);
+      }
+    } catch (error, stackTrace) {
+      state = AsyncValue<DetoxProtocolState>.error(
+        error,
+        stackTrace,
+      ).copyWithPrevious(AsyncValue.data(scored));
     }
   }
 
@@ -98,17 +110,40 @@ class DetoxProtocolController extends _$DetoxProtocolController {
   }
 
   /// Fires AI insight retrieval without blocking the check-in return path.
-  void _scheduleBackgroundAiCoaching(
+  ///
+  /// This is intentionally "fire-and-forget" — all errors are swallowed and
+  /// never affect the habit tracking pipeline.
+  void _startBackgroundAiCoaching(
     DetoxProtocolState detoxState, {
     required String locale,
   }) {
     final bcScore = _computeLiveBcScore(detoxState);
+    final notifier = ref.read(detoxAiInsightsProvider.notifier);
+    notifier.publishLoading();
+
+    // Future(() async {}) ensures synchronous exceptions are isolated too.
     unawaited(
-      _fetchAiCoachingInsightSafely(
-        detoxState,
-        bcScore: bcScore,
-        locale: locale,
-      ),
+      Future<void>(() async {
+        try {
+          final service = ref.read(detoxAiCoachServiceProvider);
+          final context = _buildAiContext(
+            detoxState: detoxState,
+            bcScore: bcScore,
+            locale: locale,
+          );
+          final AiCoachPipelineResponse result = await service
+              .fetchInsights(context)
+              .timeout(const Duration(seconds: 12));
+          notifier.publishInsight(result);
+        } catch (error, stackTrace) {
+          assert(() {
+            debugPrint('DetoxAiCoach: background insight failed — $error');
+            debugPrint('$stackTrace');
+            return true;
+          }());
+          notifier.publishInsight(null);
+        }
+      }),
     );
   }
 
@@ -124,25 +159,22 @@ class DetoxProtocolController extends _$DetoxProtocolController {
     ).bcScore;
   }
 
-  /// Optional AI layer — errors are swallowed so habit tracking never crashes.
-  Future<void> _fetchAiCoachingInsightSafely(
-    DetoxProtocolState detoxState, {
+  AiCoachDynamicContext _buildAiContext({
+    required DetoxProtocolState detoxState,
     required double bcScore,
     required String locale,
-  }) async {
-    try {
-      await ref.read(detoxAiCoachInsightProvider.notifier).fetchForCheckIn(
-            detoxState: detoxState,
-            bcScore: bcScore,
-            locale: locale,
-          );
-    } catch (error, stackTrace) {
-      assert(() {
-        debugPrint('DetoxAiCoach: background insight failed — $error');
-        debugPrint('$stackTrace');
-        return true;
-      }());
-    }
+  }) {
+    return AiCoachDynamicContext(
+      userMessage: 'Daily detox check-in saved',
+      locale: locale,
+      bcScore: bcScore,
+      variables: <String, Object?>{
+        'boredomBefriended': detoxState.boredomBefriended,
+        'delayedGratificationCount': detoxState.delayedGratificationCount,
+        'bodyActivated': detoxState.bodyActivated,
+        'detoxHabitScore': detoxState.detoxHabitScore,
+      },
+    );
   }
 
   Future<void> setBoredomBefriended(bool value) => processDailyCheckIn(
