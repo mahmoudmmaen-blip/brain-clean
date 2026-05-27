@@ -4,6 +4,58 @@ import '../../../core/constants/bc_score_constants.dart';
 
 part 'diagnostic_model.g.dart';
 
+/// Dr. Moneam's Brain Rot (تعفن الدماغ) self-assessment — 10 yes/no items.
+///
+/// Each affirmative answer counts as 1 point; total score is 0–10.
+abstract final class BrainRotTest {
+  BrainRotTest._();
+
+  static const int questionCount = 10;
+
+  /// Arabic prompts shown in the diagnostic flow (yes = symptom present).
+  static const List<String> questionsAr = [
+    'أشعر أن ذاكرتي قصيرة المدى ضعفت (أنسى ما قيل لي مؤخراً).',
+    'أواجه صعوبة في التركيز على مهمة واحدة لفترة كافية.',
+    'يبدو لي أن تفكيري بطيء مقارنة بما كنت عليه من قبل.',
+    'أصاب بحالة "تشويش ذهني" أو أجد صعوبة في تنظيم أفكاري.',
+    'أشعر بتعب ذهني بعد فترات قصيرة من التفكير أو العمل الذهني.',
+    'أجد صعوبة في العثور على الكلمات المناسبة عند التحدث أو الكتابة.',
+    'أشعر بأنني "مشتت" أو أن أفكاري تقفز من فكرة لأخرى بسرعة.',
+    'يصبح من الصعب علي اتخاذ قرارات بسيطة أو التخطيط لمهام.',
+    'أجد نفسي أعمل ببطء أكثر من المعتاد، أو أحتاج إلى وقت أطول لإنجاز نفس المهام.',
+    'هذه الأعراض تؤثر على حياتي اليومية (في العمل أو الدراسة أو العلاقات).',
+  ];
+
+  /// Sums affirmative answers (symptom present = true → +1).
+  ///
+  /// [answers] must contain exactly [questionCount] entries in question order.
+  static int calculateScore(List<bool> answers) {
+    if (answers.length != questionCount) {
+      throw ArgumentError.value(
+        answers,
+        'answers',
+        'Brain Rot test requires exactly $questionCount yes/no answers.',
+      );
+    }
+    return answers.where((a) => a).length;
+  }
+
+  /// Clinical interpretation bands per Dr. Moneam's protocol.
+  static String interpretScore(int score) {
+    final s = score.clamp(0, questionCount);
+    if (s <= 2) {
+      return 'ضباب دماغي خفيف أو شبه معدوم';
+    }
+    if (s <= 5) {
+      return 'بداية تعفن دماغ وبعض التأثير على الحياة اليومية';
+    }
+    if (s <= 8) {
+      return 'تعفن دماغ واضح يؤثر على التركيز والإنتاجية';
+    }
+    return 'تعفن دماغ شديد ينصح بمراجعة طبيب أو مختص';
+  }
+}
+
 /// Firestore + legacy camelCase JSON keys for detox habit metrics.
 abstract final class DiagnosticModelJsonKeys {
   static const boredomBefriendedSnake = 'boredom_befriended';
@@ -90,6 +142,17 @@ class DiagnosticModel {
   @JsonKey(includeFromJson: false, includeToJson: false)
   double get habitsPillarContribution =>
       healthyHabits * BcScoreConstants.healthyHabitsWeight;
+
+  /// Dr. Moneam Brain Rot questions (Arabic).
+  static const List<String> brainRotQuestionsAr = BrainRotTest.questionsAr;
+
+  /// Brain Rot score from yes/no answers (0–10).
+  static int calculateBrainRotScore(List<bool> answers) =>
+      BrainRotTest.calculateScore(answers);
+
+  /// Interprets a Brain Rot score (0–10) into an Arabic severity label.
+  static String interpretBrainRotScore(int score) =>
+      BrainRotTest.interpretScore(score);
 
   /// Brain Clarity Score (BHI) — weighted pillars with relapse floor.
   ///

@@ -69,6 +69,61 @@ DiagnosticModel roundTrip(DiagnosticModel model) =>
     DiagnosticModel.fromJson(model.toJson());
 
 void main() {
+  group('BrainRotTest (Dr. Moneam protocol)', () {
+    test('exposes 10 Arabic questions', () {
+      expect(BrainRotTest.questionsAr, hasLength(10));
+      expect(DiagnosticModel.brainRotQuestionsAr, BrainRotTest.questionsAr);
+    });
+
+    test('calculateScore sums affirmative answers', () {
+      expect(
+        BrainRotTest.calculateScore(List<bool>.filled(10, false)),
+        0,
+      );
+      expect(
+        BrainRotTest.calculateScore(List<bool>.filled(10, true)),
+        10,
+      );
+      expect(
+        DiagnosticModel.calculateBrainRotScore([
+          true,
+          true,
+          false,
+          false,
+          true,
+          false,
+          false,
+          false,
+          false,
+          false,
+        ]),
+        3,
+      );
+    });
+
+    test('calculateScore requires exactly 10 answers', () {
+      expect(
+        () => BrainRotTest.calculateScore([true, false]),
+        throwsArgumentError,
+      );
+    });
+
+    test('interpretScore returns correct Arabic bands', () {
+      expect(BrainRotTest.interpretScore(0), contains('خفيف'));
+      expect(BrainRotTest.interpretScore(2), contains('خفيف'));
+      expect(BrainRotTest.interpretScore(3), contains('بداية تعفن'));
+      expect(BrainRotTest.interpretScore(5), contains('بداية تعفن'));
+      expect(BrainRotTest.interpretScore(6), contains('واضح'));
+      expect(BrainRotTest.interpretScore(8), contains('واضح'));
+      expect(BrainRotTest.interpretScore(9), contains('شديد'));
+      expect(BrainRotTest.interpretScore(10), contains('شديد'));
+      expect(
+        DiagnosticModel.interpretBrainRotScore(7),
+        BrainRotTest.interpretScore(7),
+      );
+    });
+  });
+
   group('DiagnosticModel.calculateBcScore', () {
     test('applies weighted pillars correctly at maximum', () {
       const model = DiagnosticModel(
