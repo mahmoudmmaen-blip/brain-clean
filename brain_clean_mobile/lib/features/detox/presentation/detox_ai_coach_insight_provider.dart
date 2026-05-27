@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../data/detox_ai_coach_service_provider.dart';
@@ -8,19 +9,21 @@ import '../domain/detox_protocol_state.dart';
 part 'detox_ai_coach_insight_provider.g.dart';
 
 /// Latest machine-readable AI coaching insight after a detox check-in.
+///
+/// Updated asynchronously by [DetoxProtocolController] — never blocks habit sync.
 @riverpod
 class DetoxAiCoachInsight extends _$DetoxAiCoachInsight {
   @override
   Future<AiCoachPipelineResponse?> build() async => null;
 
-  /// Fetches coaching insight for a saved check-in (optional UX enhancement).
+  /// Fetches coaching insight for a saved check-in (background-safe).
   Future<void> fetchForCheckIn({
     required DetoxProtocolState detoxState,
     required double bcScore,
     String locale = 'ar',
   }) async {
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
+    publishLoading();
+    try {
       final service = ref.read(detoxAiCoachServiceProvider);
       final context = AiCoachDynamicContext(
         userMessage: 'Daily detox check-in saved',
@@ -33,8 +36,23 @@ class DetoxAiCoachInsight extends _$DetoxAiCoachInsight {
           'detoxHabitScore': detoxState.detoxHabitScore,
         },
       );
-      return service.fetchCoachingInsight(context);
-    });
+      final result = await service.fetchCoachingInsight(context);
+      publishInsight(result);
+    } catch (error) {
+      assert(() {
+        debugPrint('DetoxAiCoachInsight: $error');
+        return true;
+      }());
+      publishInsight(null);
+    }
+  }
+
+  void publishLoading() {
+    state = const AsyncValue.loading();
+  }
+
+  void publishInsight(AiCoachPipelineResponse? insight) {
+    state = AsyncData(insight);
   }
 
   void clear() {

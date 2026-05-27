@@ -1,10 +1,17 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:brain_clean_mobile/core/constants/bc_score_constants.dart';
+import 'package:brain_clean_mobile/features/detox/data/detox_ai_coach_service.dart';
+import 'package:brain_clean_mobile/features/detox/data/detox_ai_coach_service_provider.dart';
 import 'package:brain_clean_mobile/features/detox/data/detox_protocol_repository.dart';
 import 'package:brain_clean_mobile/features/detox/data/detox_protocol_repository_provider.dart';
+import 'package:brain_clean_mobile/features/detox/domain/ai_coach/ai_coach_pipeline_response.dart';
 import 'package:brain_clean_mobile/features/detox/domain/daily_check_in_input.dart';
 import 'package:brain_clean_mobile/features/detox/domain/detox_habit_scorer.dart';
 import 'package:brain_clean_mobile/features/detox/domain/detox_protocol_firestore.dart';
 import 'package:brain_clean_mobile/features/detox/domain/detox_protocol_state.dart';
+import 'package:brain_clean_mobile/features/detox/presentation/detox_ai_coach_insight_provider.dart';
 import 'package:brain_clean_mobile/features/detox/presentation/detox_protocol_controller.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/bc_score_provider.dart';
@@ -47,6 +54,43 @@ class _FakeDetoxRepository extends DetoxProtocolRepository {
 
   @override
   Future<DetoxProtocolState?> fetchLatest() async => stored;
+}
+
+/// Simulates a slow LLM backend to verify non-blocking AI integration.
+class _SlowDetoxAiCoachBackend implements DetoxAiCoachBackend {
+  _SlowDetoxAiCoachBackend({this.delay = const Duration(milliseconds: 400)});
+
+  final Duration delay;
+  var completeCallCount = 0;
+
+  @override
+  Future<String> complete({
+    required String system,
+    required String user,
+  }) async {
+    completeCallCount++;
+    await Future<void>.delayed(delay);
+    return jsonEncode({
+      'status': 'complete',
+      'message': 'Background coaching ready.',
+      'context': {
+        'intent': 'detox_check_in',
+        'action': 'continue_detox_protocol',
+        'assembledVariables': {'bcScore': 70},
+      },
+    });
+  }
+}
+
+/// Backend that always throws — habit sync must still succeed.
+class _FailingDetoxAiCoachBackend implements DetoxAiCoachBackend {
+  @override
+  Future<String> complete({
+    required String system,
+    required String user,
+  }) async {
+    throw StateError('AI service unavailable');
+  }
 }
 
 DetoxProtocolState readData(ProviderContainer container) =>
@@ -259,6 +303,94 @@ void main() {
         BcScoreConstants.maxDelayedGratificationCount,
       );
     });
+
+    test(
+      'processDailyCheckIn completes immediately while AI coaching runs in background',
+      () async {
+        final slowBackend = _SlowDetoxAiCoachBackend();
+        container.dispose();
+        container = ProviderContainer(
+          overrides: [
+            detoxProtocolRepositoryProvider.overrideWithValue(fakeRepository),
+            detoxAiCoachServiceProvider.overrideWithValue(
+              DetoxAiCoachService(backend: slowBackend),
+            ),
+          ],
+        );
+        await waitForControllerReady(container);
+        container.listen(
+          detoxAiCoachInsightProvider,
+          (_, __) {},
+          fireImmediately: true,
+        );
+
+        final stopwatch = Stopwatch()..start();
+        await container
+            .read(detoxProtocolControllerProvider.notifier)
+            .processDailyCheckIn(
+              const DailyCheckInInput(boredomBefriended: true),
+              requestAiCoaching: true,
+            );
+        stopwatch.stop();
+
+        // Firestore path only — must not wait for the 400ms AI delay.
+        expect(stopwatch.elapsed, lessThan(const Duration(milliseconds: 300)));
+        expect(readData(container).boredomBefriended, isTrue);
+        expect(
+          container.read(detoxProtocolControllerProvider).hasValue,
+          isTrue,
+        );
+
+        // Background AI resolves after the check-in method returned.
+        await Future<void>.delayed(const Duration(milliseconds: 500));
+        expect(slowBackend.completeCallCount, 1);
+
+        AiCoachPipelineResponse? insight;
+        for (var i = 0; i < 20; i++) {
+          final async = container.read(detoxAiCoachInsightProvider);
+          if (async.hasValue && async.value is AiCoachCompleteResponse) {
+            insight = async.value;
+            break;
+          }
+          await Future<void>.delayed(const Duration(milliseconds: 50));
+        }
+        expect(insight, isA<AiCoachCompleteResponse>());
+      },
+    );
+
+    test(
+      'processDailyCheckIn succeeds when AI coaching fails in background',
+      () async {
+        container.dispose();
+        container = ProviderContainer(
+          overrides: [
+            detoxProtocolRepositoryProvider.overrideWithValue(fakeRepository),
+            detoxAiCoachServiceProvider.overrideWithValue(
+              DetoxAiCoachService(backend: _FailingDetoxAiCoachBackend()),
+            ),
+          ],
+        );
+        await waitForControllerReady(container);
+
+        await container
+            .read(detoxProtocolControllerProvider.notifier)
+            .processDailyCheckIn(
+              const DailyCheckInInput(bodyActivated: true),
+              requestAiCoaching: true,
+            );
+
+        expect(readData(container).bodyActivated, isTrue);
+        expect(
+          container.read(detoxProtocolControllerProvider).hasError,
+          isFalse,
+        );
+
+        await Future<void>.delayed(const Duration(milliseconds: 50));
+        final insight = container.read(detoxAiCoachInsightProvider);
+        expect(insight.hasError, isFalse);
+        expect(insight.value, isNull);
+      },
+    );
 
     test('DetoxFirestorePayload rejects camelCase keys', () {
       expect(
