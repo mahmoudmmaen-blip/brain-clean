@@ -17,7 +17,6 @@ class DetoxProtocolScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = AppLocalizations.of(context)!;
     final async = ref.watch(detoxProtocolControllerProvider);
-    final controller = ref.read(detoxProtocolControllerProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(title: Text(loc.detoxTitle)),
@@ -25,73 +24,29 @@ class DetoxProtocolScreen extends ConsumerWidget {
         child: async.when(
           data: (_) => _buildContent(context, ref),
           loading: () => _buildLoadingState(context),
-          error: (_, __) => _buildErrorState(
-            context,
-            onRetry: controller.loadFromRemote,
-          ),
+          error: (_, __) => _buildErrorState(context, ref),
         ),
       ),
     );
   }
 
   Widget _buildLoadingState(BuildContext context) {
-    final loc = AppLocalizations.of(context)!;
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const CircularProgressIndicator(),
-            const SizedBox(height: 16),
-            Text(
-              loc.detoxSyncing,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Colors.white54,
-                  ),
-            ),
-          ],
-        ),
-      ),
+    return const _DetoxProtocolLoadingView();
+  }
+
+  Widget _buildErrorState(BuildContext context, WidgetRef ref) {
+    return _DetoxProtocolErrorView(
+      onRetry: () => _retryDetoxSync(ref, invalidateProvider: true),
     );
   }
 
-  Widget _buildErrorState(
-    BuildContext context, {
-    required Future<void> Function() onRetry,
-  }) {
-    final loc = AppLocalizations.of(context)!;
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Card(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  Icons.cloud_off_outlined,
-                  size: 40,
-                  color: Theme.of(context).colorScheme.error.withValues(alpha: 0.8),
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  loc.detoxSyncError,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-                const SizedBox(height: 16),
-                FilledButton(
-                  onPressed: () => onRetry(),
-                  child: Text(loc.detoxRetry),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+  /// Fatal error → invalidate controller; inline error → soft [loadFromRemote].
+  void _retryDetoxSync(WidgetRef ref, {required bool invalidateProvider}) {
+    if (invalidateProvider) {
+      ref.invalidate(detoxProtocolControllerProvider);
+      return;
+    }
+    ref.read(detoxProtocolControllerProvider.notifier).loadFromRemote();
   }
 
   Widget _buildContent(BuildContext context, WidgetRef ref) {
@@ -111,30 +66,11 @@ class DetoxProtocolScreen extends ConsumerWidget {
         ),
         const SizedBox(height: 12),
         if (isSyncing)
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  width: 18,
-                  height: 18,
-                  child: CircularProgressIndicator(strokeWidth: 2),
-                ),
-                const SizedBox(width: 10),
-                Text(
-                  loc.detoxSyncing,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Colors.white54,
-                      ),
-                ),
-              ],
-            ),
-          )
+          const _DetoxSyncingBanner()
         else if (async.hasError)
           _DetoxInlineErrorCard(
             message: loc.detoxSyncError,
-            onRetry: controller.loadFromRemote,
+            onRetry: () => _retryDetoxSync(ref, invalidateProvider: false),
           ),
         const SizedBox(height: 12),
         _HabitSwitchCard(
@@ -173,6 +109,120 @@ class DetoxProtocolScreen extends ConsumerWidget {
           child: Text(loc.detoxReset),
         ),
       ],
+    );
+  }
+}
+
+/// Full-screen loading while the detox controller hydrates from remote.
+class _DetoxProtocolLoadingView extends StatelessWidget {
+  const _DetoxProtocolLoadingView();
+
+  @override
+  Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const CircularProgressIndicator(),
+            const SizedBox(height: 16),
+            Text(
+              loc.detoxSyncing,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Colors.white54,
+                  ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Full-screen fatal sync error with localized [detoxRetry].
+class _DetoxProtocolErrorView extends StatelessWidget {
+  const _DetoxProtocolErrorView({required this.onRetry});
+
+  final VoidCallback onRetry;
+
+  @override
+  Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.cloud_off_outlined,
+                  size: 40,
+                  color: Theme.of(context).colorScheme.error.withValues(alpha: 0.8),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  loc.detoxSyncError,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 16),
+                _DetoxRetryButton(onRetry: onRetry),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Localized retry — invalidates or soft-refreshes detox sync (non-blocking).
+class _DetoxRetryButton extends StatelessWidget {
+  const _DetoxRetryButton({required this.onRetry});
+
+  final VoidCallback onRetry;
+
+  @override
+  Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+    return FilledButton(
+      onPressed: onRetry,
+      child: Text(loc.detoxRetry),
+    );
+  }
+}
+
+/// Inline sync indicator while a habit write is in flight.
+class _DetoxSyncingBanner extends StatelessWidget {
+  const _DetoxSyncingBanner();
+
+  @override
+  Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const SizedBox(
+            width: 18,
+            height: 18,
+            child: CircularProgressIndicator(strokeWidth: 2),
+          ),
+          const SizedBox(width: 10),
+          Text(
+            loc.detoxSyncing,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Colors.white54,
+                ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -257,7 +307,7 @@ class _DetoxInlineErrorCard extends StatelessWidget {
   });
 
   final String message;
-  final Future<void> Function() onRetry;
+  final VoidCallback onRetry;
 
   @override
   Widget build(BuildContext context) {
@@ -273,7 +323,7 @@ class _DetoxInlineErrorCard extends StatelessWidget {
           style: Theme.of(context).textTheme.bodySmall,
         ),
         trailing: TextButton(
-          onPressed: () => onRetry(),
+          onPressed: onRetry,
           child: Text(loc.detoxRetry),
         ),
       ),

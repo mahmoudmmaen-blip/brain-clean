@@ -108,35 +108,55 @@ void main() {
       );
     });
 
-    test('getBand and interpretScore return correct Arabic bands and enums', () {
-      // Mild Band Tests (0-2)
-      expect(BrainRotTest.getBand(0), InterpretationBand.mild);
-      expect(BrainRotTest.getBand(2), InterpretationBand.mild);
-      expect(BrainRotTest.interpretScore(0), contains('خفيف'));
+    test('getBand and interpretScore map all scores to four protocol bands', () {
+      const expectedBands = <int, InterpretationBand>{
+        0: InterpretationBand.mild,
+        1: InterpretationBand.mild,
+        2: InterpretationBand.mild,
+        3: InterpretationBand.moderate,
+        4: InterpretationBand.moderate,
+        5: InterpretationBand.moderate,
+        6: InterpretationBand.severe,
+        7: InterpretationBand.severe,
+        8: InterpretationBand.severe,
+        9: InterpretationBand.critical,
+        10: InterpretationBand.critical,
+      };
 
-      // Moderate Band Tests (3-5)
-      expect(BrainRotTest.getBand(3), InterpretationBand.moderate);
-      expect(BrainRotTest.getBand(5), InterpretationBand.moderate);
-      expect(BrainRotTest.interpretScore(3), contains('بداية تعفن'));
+      for (final entry in expectedBands.entries) {
+        expect(BrainRotTest.getBand(entry.key), entry.value);
+        expect(
+          BrainRotTest.interpretScore(entry.key),
+          BrainRotTest.interpretationLabelsAr[entry.value],
+        );
+        expect(
+          DiagnosticModel.interpretBrainRotScore(entry.key),
+          BrainRotTest.interpretationLabelsAr[entry.value],
+        );
+        expect(DiagnosticModel.getBrainRotBand(entry.key), entry.value);
+      }
+    });
 
-      // Severe Band Tests (6-8)
-      expect(BrainRotTest.getBand(6), InterpretationBand.severe);
-      expect(BrainRotTest.getBand(8), InterpretationBand.severe);
-      expect(BrainRotTest.interpretScore(6), contains('واضح'));
-
-      // Critical Band Tests (9-10)
-      expect(BrainRotTest.getBand(9), InterpretationBand.critical);
-      expect(BrainRotTest.getBand(10), InterpretationBand.critical);
-      expect(BrainRotTest.interpretScore(10), contains('شديد'));
-      
+    test('interpretation labels match Dr. Moneam Arabic copy exactly', () {
+      expect(BrainRotTest.labelMildAr, BrainRotTest.interpretationLabelsAr[InterpretationBand.mild]);
+      expect(BrainRotTest.labelModerateAr, BrainRotTest.interpretationLabelsAr[InterpretationBand.moderate]);
+      expect(BrainRotTest.labelSevereAr, BrainRotTest.interpretationLabelsAr[InterpretationBand.severe]);
+      expect(BrainRotTest.labelCriticalAr, BrainRotTest.interpretationLabelsAr[InterpretationBand.critical]);
+      expect(DiagnosticModel.brainRotInterpretationLabelsAr, BrainRotTest.interpretationLabelsAr);
       expect(
-        DiagnosticModel.interpretBrainRotScore(7),
-        BrainRotTest.interpretScore(7),
+        DiagnosticModel.brainRotInterpretationLabelAr(InterpretationBand.severe),
+        BrainRotTest.labelSevereAr,
       );
-      expect(
-        DiagnosticModel.getBrainRotBand(9),
-        InterpretationBand.critical,
+    });
+
+    test('evaluate returns centralized Arabic label without UI hardcoding', () {
+      final result = DiagnosticModel.evaluateBrainRot(
+        List<bool>.filled(10, true),
       );
+      expect(result.score, 10);
+      expect(result.band, InterpretationBand.critical);
+      expect(result.interpretationAr, BrainRotTest.labelCriticalAr);
+      expect(result.interpretationAr, DiagnosticModel.interpretBrainRotScore(10));
     });
   });
 

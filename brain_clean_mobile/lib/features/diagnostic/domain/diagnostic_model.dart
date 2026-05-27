@@ -6,10 +6,32 @@ part 'diagnostic_model.g.dart';
 
 /// Severity bands for Dr. Moneam's Brain Rot score (0–10).
 enum InterpretationBand {
+  /// 0–2 affirmative answers.
   mild,
+
+  /// 3–5 affirmative answers.
   moderate,
+
+  /// 6–8 affirmative answers.
   severe,
+
+  /// 9–10 affirmative answers.
   critical,
+}
+
+/// Machine-readable Brain Rot outcome — UI reads [interpretationAr] only.
+class BrainRotInterpretation {
+  const BrainRotInterpretation({
+    required this.score,
+    required this.band,
+    required this.interpretationAr,
+  });
+
+  final int score;
+  final InterpretationBand band;
+
+  /// Exact Arabic band copy from Dr. Moneam's protocol (never hardcode in UI).
+  final String interpretationAr;
 }
 
 /// Dr. Moneam's Brain Rot (تعفن الدماغ) self-assessment — 10 yes/no items.
@@ -19,6 +41,29 @@ abstract final class BrainRotTest {
   BrainRotTest._();
 
   static const int questionCount = 10;
+
+  /// Band 0–2 — Dr. Moneam protocol.
+  static const String labelMildAr = 'ضباب دماغي خفيف أو شبه معدوم';
+
+  /// Band 3–5 — Dr. Moneam protocol.
+  static const String labelModerateAr =
+      'بداية تعفن دماغ وبعض التأثير على الحياة اليومية';
+
+  /// Band 6–8 — Dr. Moneam protocol.
+  static const String labelSevereAr =
+      'تعفن دماغ واضح يؤثر على التركيز والإنتاجية';
+
+  /// Band 9–10 — Dr. Moneam protocol.
+  static const String labelCriticalAr =
+      'تعفن دماغ شديد ينصح بمراجعة طبيب أو مختص';
+
+  /// All four Arabic interpretation bands — single source of truth for UI/tests.
+  static const Map<InterpretationBand, String> interpretationLabelsAr = {
+    InterpretationBand.mild: labelMildAr,
+    InterpretationBand.moderate: labelModerateAr,
+    InterpretationBand.severe: labelSevereAr,
+    InterpretationBand.critical: labelCriticalAr,
+  };
 
   /// Arabic prompts shown in the diagnostic flow (yes = symptom present).
   static const List<String> questionsAr = [
@@ -54,18 +99,23 @@ abstract final class BrainRotTest {
     return InterpretationBand.critical;
   }
 
-  /// Clinical interpretation bands per Dr. Moneam's protocol.
-  static String interpretScore(int score) {
-    switch (getBand(score)) {
-      case InterpretationBand.mild:
-        return 'ضباب دماغي خفيف أو شبه معدوم';
-      case InterpretationBand.moderate:
-        return 'بداية تعفن دماغ وبعض التأثير على الحياة اليومية';
-      case InterpretationBand.severe:
-        return 'تعفن دماغ واضح يؤثر على التركيز والإنتاجية';
-      case InterpretationBand.critical:
-        return 'تعفن دماغ شديد ينصح بمراجعة طبيب أو مختص';
-    }
+  /// Exact Arabic label for [band] — use instead of hardcoding strings in widgets.
+  static String interpretationLabelAr(InterpretationBand band) =>
+      interpretationLabelsAr[band]!;
+
+  /// Clinical interpretation bands per Dr. Moneam's protocol (0–2 / 3–5 / 6–8 / 9–10).
+  static String interpretScore(int score) =>
+      interpretationLabelAr(getBand(score));
+
+  /// Full scoring pipeline: count → band → centralized Arabic label.
+  static BrainRotInterpretation evaluate(List<bool> answers) {
+    final score = calculateScore(answers);
+    final band = getBand(score);
+    return BrainRotInterpretation(
+      score: score,
+      band: band,
+      interpretationAr: interpretationLabelAr(band),
+    );
   }
 }
 
@@ -141,7 +191,11 @@ class DiagnosticModel {
   double get habitsPillarContribution =>
       healthyHabits * BcScoreConstants.healthyHabitsWeight;
 
+  /// Centralized Brain Rot copy — questions + four interpretation bands.
   static const List<String> brainRotQuestionsAr = BrainRotTest.questionsAr;
+
+  static const Map<InterpretationBand, String> brainRotInterpretationLabelsAr =
+      BrainRotTest.interpretationLabelsAr;
 
   static int calculateBrainRotScore(List<bool> answers) =>
       BrainRotTest.calculateScore(answers);
@@ -149,8 +203,14 @@ class DiagnosticModel {
   static String interpretBrainRotScore(int score) =>
       BrainRotTest.interpretScore(score);
 
+  static String brainRotInterpretationLabelAr(InterpretationBand band) =>
+      BrainRotTest.interpretationLabelAr(band);
+
   static InterpretationBand getBrainRotBand(int score) =>
       BrainRotTest.getBand(score);
+
+  static BrainRotInterpretation evaluateBrainRot(List<bool> answers) =>
+      BrainRotTest.evaluate(answers);
 
   double calculateBcScore() {
     final score = (brainPerformance * BcScoreConstants.brainPerformanceWeight) +
