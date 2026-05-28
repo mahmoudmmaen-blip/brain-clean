@@ -349,4 +349,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get recoveryStorageReset => 'Start fresh protocol';
+
+  @override
+  String get recoveryStorageMigratedNotice =>
+      'Your saved progress was upgraded to the latest format.';
+
+  @override
+  String get recoveryStorageRecoveredNotice =>
+      'Local data was reset because it could not be read. A new protocol has started.';
 }

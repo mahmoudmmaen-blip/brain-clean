@@ -345,4 +345,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get recoveryStorageReset => 'بدء بروتوكول جديد';
+
+  @override
+  String get recoveryStorageMigratedNotice =>
+      'تم ترقية تقدمك المحفوظ إلى التنسيق الأحدث.';
+
+  @override
+  String get recoveryStorageRecoveredNotice =>
+      'تم إعادة ضبط البيانات المحلية لأنها لم تُقرأ بشكل صحيح. بدأ بروتوكول جديد.';
 }

@@ -679,6 +679,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Start fresh protocol'**
   String get recoveryStorageReset;
+
+  /// No description provided for @recoveryStorageMigratedNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'Your saved progress was upgraded to the latest format.'**
+  String get recoveryStorageMigratedNotice;
+
+  /// No description provided for @recoveryStorageRecoveredNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'Local data was reset because it could not be read. A new protocol has started.'**
+  String get recoveryStorageRecoveredNotice;
 }
 
 class _AppLocalizationsDelegate
