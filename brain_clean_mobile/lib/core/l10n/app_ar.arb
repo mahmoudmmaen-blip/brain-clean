@@ -89,6 +89,7 @@
   "diagnosticContinueToBhi": "متابعة تقييم BHI",
   "diagnosticReviewAnswers": "مراجعة إجاباتي",
   "diagnosticBrainRotIncomplete": "أكمل الأسئلة العشرة أولاً.",
+  "diagnosticBrainRotScoring": "جاري حساب نتيجة تعفن الدماغ…",
   "diagnosticSyncError": "تعذر حفظ التشخيص. حاول مرة أخرى.",
   "diagnosticBrainRotQ1": "أشعر أن ذاكرتي قصيرة المدى ضعفت (أنسى ما قيل لي مؤخراً).",
   "diagnosticBrainRotQ2": "أواجه صعوبة في التركيز على مهمة واحدة لفترة كافية.",

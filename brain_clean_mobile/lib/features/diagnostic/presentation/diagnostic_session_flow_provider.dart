@@ -52,7 +52,10 @@ class DiagnosticSessionFlow extends _$DiagnosticSessionFlow {
 
     if (!allDone) {
       _commitSnapshot(
-        nextSnapshot.copyWith(phase: BrainRotFlowPhase.questions),
+        nextSnapshot.copyWith(
+          phase: BrainRotFlowPhase.questions,
+          pendingResultsTransition: false,
+        ),
       );
       return;
     }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -5,6 +7,9 @@ import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/theme/app_design_constants.dart';
 import '../../../../core/theme/theme_extensions.dart';
 import '../../domain/diagnostic_model.dart';
+
+/// Duration of the question-card [AnimatedSwitcher] — buttons stay locked until done.
+const Duration kBrainRotQuestionSlideDuration = Duration(milliseconds: 400);
 
 /// Single Brain Rot question — نعم / لا with directional slide transitions.
 class BrainRotQuestionPage extends StatefulWidget {
@@ -36,6 +41,12 @@ class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
   late double _displayedProgress;
   late final AnimationController _progressController;
   late final Animation<double> _progressAnimation;
+  Timer? _slideLockTimer;
+  bool _slideAnimating = false;
+  bool _localAnswerLocked = false;
+
+  bool get _canInteract =>
+      widget.answersEnabled && !_slideAnimating && !_localAnswerLocked;
 
   @override
   void initState() {
@@ -58,16 +69,30 @@ class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
   void didUpdateWidget(BrainRotQuestionPage oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.questionIndex != widget.questionIndex) {
+      _localAnswerLocked = false;
       _displayedProgress =
           (oldWidget.questionIndex + 1) / BrainRotTest.questionCount;
       _progressController
         ..reset()
         ..forward();
+      _lockForSlideAnimation();
     }
+    if (!oldWidget.answersEnabled && widget.answersEnabled) {
+      _localAnswerLocked = false;
+    }
+  }
+
+  void _lockForSlideAnimation() {
+    _slideLockTimer?.cancel();
+    setState(() => _slideAnimating = true);
+    _slideLockTimer = Timer(kBrainRotQuestionSlideDuration, () {
+      if (mounted) setState(() => _slideAnimating = false);
+    });
   }
 
   @override
   void dispose() {
+    _slideLockTimer?.cancel();
     _progressController.dispose();
     super.dispose();
   }
@@ -115,7 +140,7 @@ class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
         const SizedBox(height: 32),
         Expanded(
           child: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 400),
+            duration: kBrainRotQuestionSlideDuration,
             switchInCurve: Curves.easeOutCubic,
             switchOutCurve: Curves.easeInCubic,
             layoutBuilder: (current, previous) => Stack(
@@ -164,7 +189,7 @@ class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
                 icon: Icons.check_rounded,
                 filled: true,
                 accent: theme.colorScheme.error,
-                enabled: widget.answersEnabled,
+                enabled: _canInteract,
                 onPressed: () => _handleAnswer(true),
               ),
             ),
@@ -175,7 +200,7 @@ class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
                 icon: Icons.close_rounded,
                 filled: false,
                 accent: context.brandPrimary,
-                enabled: widget.answersEnabled,
+                enabled: _canInteract,
                 onPressed: () => _handleAnswer(false),
               ),
             ),
@@ -184,7 +209,7 @@ class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
         if (widget.onBack != null && widget.questionIndex > 0) ...[
           const SizedBox(height: 14),
           TextButton.icon(
-            onPressed: widget.onBack,
+            onPressed: _canInteract ? widget.onBack : null,
             icon: Icon(
               Icons.arrow_back_rounded,
               size: 18,
@@ -198,7 +223,8 @@ class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
   }
 
   void _handleAnswer(bool yes) {
-    if (!widget.answersEnabled) return;
+    if (!_canInteract) return;
+    setState(() => _localAnswerLocked = true);
     HapticFeedback.lightImpact();
     widget.onAnswer(yes);
   }

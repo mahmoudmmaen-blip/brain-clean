@@ -89,6 +89,7 @@
   "diagnosticContinueToBhi": "Continue to BHI assessment",
   "diagnosticReviewAnswers": "Review my answers",
   "diagnosticBrainRotIncomplete": "Complete all 10 questions first.",
+  "diagnosticBrainRotScoring": "Calculating your Brain Rot score…",
   "diagnosticSyncError": "Could not save your diagnostic. Please try again.",
   "diagnosticBrainRotQ1": "I feel my short-term memory has weakened (I forget what was said to me recently).",
   "diagnosticBrainRotQ2": "I have difficulty focusing on one task for long enough.",
