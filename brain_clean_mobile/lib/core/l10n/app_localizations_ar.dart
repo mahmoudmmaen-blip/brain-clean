@@ -136,4 +136,184 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get detoxSyncError => 'تعذرت المزامنة. تم حفظ تسجيلك محليًا.';
+
+  @override
+  String get diagnosticBrainRotTitle => 'اختبار تعفن الدماغ';
+
+  @override
+  String get diagnosticBhiTitle => 'تقييم BHI (6 نقاط)';
+
+  @override
+  String get diagnosticYes => 'نعم';
+
+  @override
+  String get diagnosticNo => 'لا';
+
+  @override
+  String get diagnosticPreviousQuestion => 'السؤال السابق';
+
+  @override
+  String diagnosticBrainRotProgress(int current, int total) {
+    return 'السؤال $current من $total';
+  }
+
+  @override
+  String get diagnosticBrainRotScoreTitle => 'نتيجة تعفن الدماغ';
+
+  @override
+  String diagnosticBrainRotScoreOutOf(int max) {
+    return 'من $max';
+  }
+
+  @override
+  String diagnosticBrainRotBandRange(int min, int max) {
+    return 'نطاق الشدة: $min–$max';
+  }
+
+  @override
+  String get diagnosticBrainRotInterpretationTitle => 'التفسير السريري';
+
+  @override
+  String get diagnosticContinueToBhi => 'متابعة تقييم BHI';
+
+  @override
+  String get diagnosticReviewAnswers => 'مراجعة إجاباتي';
+
+  @override
+  String get diagnosticBrainRotIncomplete => 'أكمل الأسئلة العشرة أولاً.';
+
+  @override
+  String get diagnosticSyncError => 'تعذر حفظ التشخيص. حاول مرة أخرى.';
+
+  @override
+  String get diagnosticBrainRotQ1 =>
+      'أشعر أن ذاكرتي قصيرة المدى ضعفت (أنسى ما قيل لي مؤخراً).';
+
+  @override
+  String get diagnosticBrainRotQ2 =>
+      'أواجه صعوبة في التركيز على مهمة واحدة لفترة كافية.';
+
+  @override
+  String get diagnosticBrainRotQ3 =>
+      'يبدو لي أن تفكيري بطيء مقارنة بما كنت عليه من قبل.';
+
+  @override
+  String get diagnosticBrainRotQ4 =>
+      'أصاب بحالة \"تشويش ذهني\" أو أجد صعوبة في تنظيم أفكاري.';
+
+  @override
+  String get diagnosticBrainRotQ5 =>
+      'أشعر بتعب ذهني بعد فترات قصيرة من التفكير أو العمل الذهني.';
+
+  @override
+  String get diagnosticBrainRotQ6 =>
+      'أجد صعوبة في العثور على الكلمات المناسبة عند التحدث أو الكتابة.';
+
+  @override
+  String get diagnosticBrainRotQ7 =>
+      'أشعر بأنني \"مشتت\" أو أن أفكاري تقفز من فكرة لأخرى بسرعة.';
+
+  @override
+  String get diagnosticBrainRotQ8 =>
+      'يصبح من الصعب علي اتخاذ قرارات بسيطة أو التخطيط لمهام.';
+
+  @override
+  String get diagnosticBrainRotQ9 =>
+      'أجد نفسي أعمل ببطء أكثر من المعتاد، أو أحتاج إلى وقت أطول لإنجاز نفس المهام.';
+
+  @override
+  String get diagnosticBrainRotQ10 =>
+      'هذه الأعراض تؤثر على حياتي اليومية (في العمل أو الدراسة أو العلاقات).';
+
+  @override
+  String dashboardBrainRotSummary(int score) {
+    return 'تعفن الدماغ: $score/10';
+  }
+
+  @override
+  String get dashboardOpenRecoveryGrid => 'شبكة التعافي (30 يوماً)';
+
+  @override
+  String get dashboardOpenRecoveryGridSubtitle =>
+      'خمس عادات يومية · صندوق العقابات عند التقصير';
+
+  @override
+  String get recoveryGridTitle => 'التعافي — 30 يوماً';
+
+  @override
+  String get recoveryGridSubtitle =>
+      'اختر يوماً لتسجيل العادات الخمس الإلزامية.';
+
+  @override
+  String recoveryDayTasksTitle(int day) {
+    return 'عادات اليوم $day';
+  }
+
+  @override
+  String get recoveryTaskBoredomTitle => 'مُصاحبة الملل';
+
+  @override
+  String get recoveryTaskBoredomSubtitle => '10 دقائق صمت بدون شاشة';
+
+  @override
+  String get recoveryTaskDelayedTitle => 'تأخير المكافأة';
+
+  @override
+  String get recoveryTaskDelayedSubtitle => 'انتصار واحد مقصود على الأقل اليوم';
+
+  @override
+  String get recoveryTaskBodyTitle => 'تنشيط الجسد';
+
+  @override
+  String get recoveryTaskBodySubtitle => 'شمس الصباح + دش بارد';
+
+  @override
+  String get recoveryTaskDigitalTitle => 'الانضباط الرقمي';
+
+  @override
+  String get recoveryTaskDigitalSubtitle => 'إكمال فترة بدون تمرير عشوائي';
+
+  @override
+  String get recoveryTaskFocusTitle => 'جلسة تركيز عميق';
+
+  @override
+  String get recoveryTaskFocusSubtitle => 'بومودورو 25 دقيقة بدون تشتت';
+
+  @override
+  String get recoveryDayComplete => 'اكتملت العادات الخمس لهذا اليوم.';
+
+  @override
+  String get recoveryMissedHabitsTitle => 'تسجيل غير مكتمل';
+
+  @override
+  String get recoveryMissedHabitsSubtitle =>
+      'فاتتك بعض العادات. افتح صندوق العقابات لتسجيل المساءلة.';
+
+  @override
+  String get recoveryOpenPenaltyBox => 'صندوق العقابات';
+
+  @override
+  String get recoveryDayEmptyHint => 'ضع علامة على كل عادة عند إنجازها اليوم.';
+
+  @override
+  String recoveryPenaltyCount(int count) {
+    return 'عقوبات مسجّلة: $count';
+  }
+
+  @override
+  String get recoveryPenaltyBoxTitle => 'صندوق العقابات';
+
+  @override
+  String recoveryPenaltyBoxMessage(int deduction) {
+    return 'التأكيد يسجّل خصم −$deduction نقطة BC_score لمساءلة العادات الفائتة اليوم.';
+  }
+
+  @override
+  String get recoveryPenaltyConfirm => 'تأكيد العقوبة';
+
+  @override
+  String get recoveryPenaltyCancel => 'إلغاء';
+
+  @override
+  String get recoveryPenaltyApplied => 'تم تسجيل العقوبة لهذا اليوم.';
 }

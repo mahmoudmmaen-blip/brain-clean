@@ -138,4 +138,189 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get detoxSyncError =>
       'Could not sync. Your check-in is saved locally.';
+
+  @override
+  String get diagnosticBrainRotTitle => 'Brain Rot Test';
+
+  @override
+  String get diagnosticBhiTitle => 'BHI 6-Point Assessment';
+
+  @override
+  String get diagnosticYes => 'Yes';
+
+  @override
+  String get diagnosticNo => 'No';
+
+  @override
+  String get diagnosticPreviousQuestion => 'Previous question';
+
+  @override
+  String diagnosticBrainRotProgress(int current, int total) {
+    return 'Question $current of $total';
+  }
+
+  @override
+  String get diagnosticBrainRotScoreTitle => 'Brain Rot Score';
+
+  @override
+  String diagnosticBrainRotScoreOutOf(int max) {
+    return 'out of $max';
+  }
+
+  @override
+  String diagnosticBrainRotBandRange(int min, int max) {
+    return 'Severity band: $min–$max';
+  }
+
+  @override
+  String get diagnosticBrainRotInterpretationTitle => 'Clinical interpretation';
+
+  @override
+  String get diagnosticContinueToBhi => 'Continue to BHI assessment';
+
+  @override
+  String get diagnosticReviewAnswers => 'Review my answers';
+
+  @override
+  String get diagnosticBrainRotIncomplete => 'Complete all 10 questions first.';
+
+  @override
+  String get diagnosticSyncError =>
+      'Could not save your diagnostic. Please try again.';
+
+  @override
+  String get diagnosticBrainRotQ1 =>
+      'I feel my short-term memory has weakened (I forget what was said to me recently).';
+
+  @override
+  String get diagnosticBrainRotQ2 =>
+      'I have difficulty focusing on one task for long enough.';
+
+  @override
+  String get diagnosticBrainRotQ3 =>
+      'My thinking feels slower compared to before.';
+
+  @override
+  String get diagnosticBrainRotQ4 =>
+      'I experience \"brain fog\" or have trouble organizing my thoughts.';
+
+  @override
+  String get diagnosticBrainRotQ5 =>
+      'I feel mental fatigue after short periods of thinking or mental work.';
+
+  @override
+  String get diagnosticBrainRotQ6 =>
+      'I have trouble finding the right words when speaking or writing.';
+
+  @override
+  String get diagnosticBrainRotQ7 =>
+      'I feel scattered or my thoughts jump quickly from idea to idea.';
+
+  @override
+  String get diagnosticBrainRotQ8 =>
+      'Simple decisions or planning tasks have become harder.';
+
+  @override
+  String get diagnosticBrainRotQ9 =>
+      'I work slower than usual or need more time for the same tasks.';
+
+  @override
+  String get diagnosticBrainRotQ10 =>
+      'These symptoms affect my daily life (work, study, or relationships).';
+
+  @override
+  String dashboardBrainRotSummary(int score) {
+    return 'Brain Rot: $score/10';
+  }
+
+  @override
+  String get dashboardOpenRecoveryGrid => '30-Day Recovery Grid';
+
+  @override
+  String get dashboardOpenRecoveryGridSubtitle =>
+      'Five daily habits · penalty box for missed check-ins';
+
+  @override
+  String get recoveryGridTitle => '30-Day Recovery';
+
+  @override
+  String get recoveryGridSubtitle =>
+      'Tap a day to log the five mandatory habits.';
+
+  @override
+  String recoveryDayTasksTitle(int day) {
+    return 'Day $day habits';
+  }
+
+  @override
+  String get recoveryTaskBoredomTitle => 'Befriend boredom';
+
+  @override
+  String get recoveryTaskBoredomSubtitle =>
+      '10 minutes of silence without a screen';
+
+  @override
+  String get recoveryTaskDelayedTitle => 'Delayed gratification';
+
+  @override
+  String get recoveryTaskDelayedSubtitle =>
+      'At least one intentional delay win today';
+
+  @override
+  String get recoveryTaskBodyTitle => 'Body activation';
+
+  @override
+  String get recoveryTaskBodySubtitle => 'Morning sun + cold shower';
+
+  @override
+  String get recoveryTaskDigitalTitle => 'Digital discipline';
+
+  @override
+  String get recoveryTaskDigitalSubtitle => 'No doom-scrolling block completed';
+
+  @override
+  String get recoveryTaskFocusTitle => 'Deep focus session';
+
+  @override
+  String get recoveryTaskFocusSubtitle =>
+      'One 25-minute pomodoro without distraction';
+
+  @override
+  String get recoveryDayComplete => 'All five habits completed for this day.';
+
+  @override
+  String get recoveryMissedHabitsTitle => 'Incomplete check-in';
+
+  @override
+  String get recoveryMissedHabitsSubtitle =>
+      'Some habits were missed. Open the penalty box to record accountability.';
+
+  @override
+  String get recoveryOpenPenaltyBox => 'Open Penalty Box';
+
+  @override
+  String get recoveryDayEmptyHint =>
+      'Check off each habit as you complete it today.';
+
+  @override
+  String recoveryPenaltyCount(int count) {
+    return 'Penalties recorded: $count';
+  }
+
+  @override
+  String get recoveryPenaltyBoxTitle => 'Penalty Box';
+
+  @override
+  String recoveryPenaltyBoxMessage(int deduction) {
+    return 'Confirming applies a −$deduction BC_score accountability entry for missed habits today.';
+  }
+
+  @override
+  String get recoveryPenaltyConfirm => 'Confirm penalty';
+
+  @override
+  String get recoveryPenaltyCancel => 'Cancel';
+
+  @override
+  String get recoveryPenaltyApplied => 'Penalty recorded for today.';
 }

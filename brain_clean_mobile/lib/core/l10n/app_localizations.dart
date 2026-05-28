@@ -337,6 +337,312 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not sync. Your check-in is saved locally.'**
   String get detoxSyncError;
+
+  /// No description provided for @diagnosticBrainRotTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Rot Test'**
+  String get diagnosticBrainRotTitle;
+
+  /// No description provided for @diagnosticBhiTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'BHI 6-Point Assessment'**
+  String get diagnosticBhiTitle;
+
+  /// No description provided for @diagnosticYes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get diagnosticYes;
+
+  /// No description provided for @diagnosticNo.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get diagnosticNo;
+
+  /// No description provided for @diagnosticPreviousQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous question'**
+  String get diagnosticPreviousQuestion;
+
+  /// No description provided for @diagnosticBrainRotProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Question {current} of {total}'**
+  String diagnosticBrainRotProgress(int current, int total);
+
+  /// No description provided for @diagnosticBrainRotScoreTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Rot Score'**
+  String get diagnosticBrainRotScoreTitle;
+
+  /// No description provided for @diagnosticBrainRotScoreOutOf.
+  ///
+  /// In en, this message translates to:
+  /// **'out of {max}'**
+  String diagnosticBrainRotScoreOutOf(int max);
+
+  /// No description provided for @diagnosticBrainRotBandRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Severity band: {min}–{max}'**
+  String diagnosticBrainRotBandRange(int min, int max);
+
+  /// No description provided for @diagnosticBrainRotInterpretationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Clinical interpretation'**
+  String get diagnosticBrainRotInterpretationTitle;
+
+  /// No description provided for @diagnosticContinueToBhi.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue to BHI assessment'**
+  String get diagnosticContinueToBhi;
+
+  /// No description provided for @diagnosticReviewAnswers.
+  ///
+  /// In en, this message translates to:
+  /// **'Review my answers'**
+  String get diagnosticReviewAnswers;
+
+  /// No description provided for @diagnosticBrainRotIncomplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete all 10 questions first.'**
+  String get diagnosticBrainRotIncomplete;
+
+  /// No description provided for @diagnosticSyncError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save your diagnostic. Please try again.'**
+  String get diagnosticSyncError;
+
+  /// No description provided for @diagnosticBrainRotQ1.
+  ///
+  /// In en, this message translates to:
+  /// **'I feel my short-term memory has weakened (I forget what was said to me recently).'**
+  String get diagnosticBrainRotQ1;
+
+  /// No description provided for @diagnosticBrainRotQ2.
+  ///
+  /// In en, this message translates to:
+  /// **'I have difficulty focusing on one task for long enough.'**
+  String get diagnosticBrainRotQ2;
+
+  /// No description provided for @diagnosticBrainRotQ3.
+  ///
+  /// In en, this message translates to:
+  /// **'My thinking feels slower compared to before.'**
+  String get diagnosticBrainRotQ3;
+
+  /// No description provided for @diagnosticBrainRotQ4.
+  ///
+  /// In en, this message translates to:
+  /// **'I experience \"brain fog\" or have trouble organizing my thoughts.'**
+  String get diagnosticBrainRotQ4;
+
+  /// No description provided for @diagnosticBrainRotQ5.
+  ///
+  /// In en, this message translates to:
+  /// **'I feel mental fatigue after short periods of thinking or mental work.'**
+  String get diagnosticBrainRotQ5;
+
+  /// No description provided for @diagnosticBrainRotQ6.
+  ///
+  /// In en, this message translates to:
+  /// **'I have trouble finding the right words when speaking or writing.'**
+  String get diagnosticBrainRotQ6;
+
+  /// No description provided for @diagnosticBrainRotQ7.
+  ///
+  /// In en, this message translates to:
+  /// **'I feel scattered or my thoughts jump quickly from idea to idea.'**
+  String get diagnosticBrainRotQ7;
+
+  /// No description provided for @diagnosticBrainRotQ8.
+  ///
+  /// In en, this message translates to:
+  /// **'Simple decisions or planning tasks have become harder.'**
+  String get diagnosticBrainRotQ8;
+
+  /// No description provided for @diagnosticBrainRotQ9.
+  ///
+  /// In en, this message translates to:
+  /// **'I work slower than usual or need more time for the same tasks.'**
+  String get diagnosticBrainRotQ9;
+
+  /// No description provided for @diagnosticBrainRotQ10.
+  ///
+  /// In en, this message translates to:
+  /// **'These symptoms affect my daily life (work, study, or relationships).'**
+  String get diagnosticBrainRotQ10;
+
+  /// No description provided for @dashboardBrainRotSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Rot: {score}/10'**
+  String dashboardBrainRotSummary(int score);
+
+  /// No description provided for @dashboardOpenRecoveryGrid.
+  ///
+  /// In en, this message translates to:
+  /// **'30-Day Recovery Grid'**
+  String get dashboardOpenRecoveryGrid;
+
+  /// No description provided for @dashboardOpenRecoveryGridSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Five daily habits · penalty box for missed check-ins'**
+  String get dashboardOpenRecoveryGridSubtitle;
+
+  /// No description provided for @recoveryGridTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'30-Day Recovery'**
+  String get recoveryGridTitle;
+
+  /// No description provided for @recoveryGridSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap a day to log the five mandatory habits.'**
+  String get recoveryGridSubtitle;
+
+  /// No description provided for @recoveryDayTasksTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Day {day} habits'**
+  String recoveryDayTasksTitle(int day);
+
+  /// No description provided for @recoveryTaskBoredomTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Befriend boredom'**
+  String get recoveryTaskBoredomTitle;
+
+  /// No description provided for @recoveryTaskBoredomSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'10 minutes of silence without a screen'**
+  String get recoveryTaskBoredomSubtitle;
+
+  /// No description provided for @recoveryTaskDelayedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delayed gratification'**
+  String get recoveryTaskDelayedTitle;
+
+  /// No description provided for @recoveryTaskDelayedSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'At least one intentional delay win today'**
+  String get recoveryTaskDelayedSubtitle;
+
+  /// No description provided for @recoveryTaskBodyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Body activation'**
+  String get recoveryTaskBodyTitle;
+
+  /// No description provided for @recoveryTaskBodySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Morning sun + cold shower'**
+  String get recoveryTaskBodySubtitle;
+
+  /// No description provided for @recoveryTaskDigitalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Digital discipline'**
+  String get recoveryTaskDigitalTitle;
+
+  /// No description provided for @recoveryTaskDigitalSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No doom-scrolling block completed'**
+  String get recoveryTaskDigitalSubtitle;
+
+  /// No description provided for @recoveryTaskFocusTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Deep focus session'**
+  String get recoveryTaskFocusTitle;
+
+  /// No description provided for @recoveryTaskFocusSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'One 25-minute pomodoro without distraction'**
+  String get recoveryTaskFocusSubtitle;
+
+  /// No description provided for @recoveryDayComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'All five habits completed for this day.'**
+  String get recoveryDayComplete;
+
+  /// No description provided for @recoveryMissedHabitsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Incomplete check-in'**
+  String get recoveryMissedHabitsTitle;
+
+  /// No description provided for @recoveryMissedHabitsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Some habits were missed. Open the penalty box to record accountability.'**
+  String get recoveryMissedHabitsSubtitle;
+
+  /// No description provided for @recoveryOpenPenaltyBox.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Penalty Box'**
+  String get recoveryOpenPenaltyBox;
+
+  /// No description provided for @recoveryDayEmptyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Check off each habit as you complete it today.'**
+  String get recoveryDayEmptyHint;
+
+  /// No description provided for @recoveryPenaltyCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Penalties recorded: {count}'**
+  String recoveryPenaltyCount(int count);
+
+  /// No description provided for @recoveryPenaltyBoxTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Penalty Box'**
+  String get recoveryPenaltyBoxTitle;
+
+  /// No description provided for @recoveryPenaltyBoxMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirming applies a −{deduction} BC_score accountability entry for missed habits today.'**
+  String recoveryPenaltyBoxMessage(int deduction);
+
+  /// No description provided for @recoveryPenaltyConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm penalty'**
+  String get recoveryPenaltyConfirm;
+
+  /// No description provided for @recoveryPenaltyCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get recoveryPenaltyCancel;
+
+  /// No description provided for @recoveryPenaltyApplied.
+  ///
+  /// In en, this message translates to:
+  /// **'Penalty recorded for today.'**
+  String get recoveryPenaltyApplied;
 }
 
 class _AppLocalizationsDelegate
