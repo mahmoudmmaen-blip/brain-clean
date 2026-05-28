@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../data/diagnostic_local_repository_provider.dart';
 import '../domain/brain_rot_questionnaire_snapshot.dart';
 import '../domain/diagnostic_metrics.dart';
 import '../domain/diagnostic_model.dart';
@@ -104,10 +105,18 @@ class DiagnosticSessionFlow extends _$DiagnosticSessionFlow {
     );
   }
 
+  void restoreFromPersistence(BrainRotQuestionnaireSnapshot snapshot) {
+    _resultsTransitionTimer?.cancel();
+    state = snapshot;
+  }
+
   void reset() {
     _resultsTransitionTimer?.cancel();
     _resultsTransitionGeneration++;
     state = const BrainRotQuestionnaireSnapshot();
+    ref.read(diagnosticLocalRepositoryProvider).saveDraft(
+          questionnaire: state,
+        );
   }
 
   BrainRotInterpretation? get result => state.interpretation;
@@ -143,6 +152,9 @@ class DiagnosticSessionFlow extends _$DiagnosticSessionFlow {
     bool validateAsync = false,
   }) {
     state = snapshot;
+    ref.read(diagnosticLocalRepositoryProvider).saveDraft(
+          questionnaire: snapshot,
+        );
     if (!validateAsync) {
       buildInProgressSession(
         questionnaire: snapshot,

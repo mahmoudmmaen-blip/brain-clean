@@ -27,7 +27,7 @@ void _navigateToRecoveryGrid(BuildContext context) {
 
 /// Replaces the stack with the diagnostic flow entry screen.
 void _navigateToDiagnostic(BuildContext context) {
-  context.go(AppRoutes.diagnostic);
+  context.push(AppRoutes.diagnostic);
 }
 
 class DashboardScreen extends ConsumerWidget {

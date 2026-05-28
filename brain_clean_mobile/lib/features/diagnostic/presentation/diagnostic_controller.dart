@@ -5,6 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../core/constants/app_routes.dart';
 import '../../../core/routing/app_router.dart';
+import '../data/diagnostic_local_repository_provider.dart';
 import '../data/diagnostic_repository.dart';
 import '../data/diagnostic_repository_provider.dart';
 import '../domain/diagnostic_metrics.dart';
@@ -20,9 +21,21 @@ class DiagnosticController extends _$DiagnosticController {
     return const DiagnosticMetrics();
   }
 
+  void restoreFromPersistence(DiagnosticMetrics metrics) {
+    state = AsyncData(metrics);
+  }
+
+  void _persistDraft() {
+    if (!state.hasValue) return;
+    ref.read(diagnosticLocalRepositoryProvider).saveDraft(
+          metrics: state.value!,
+        );
+  }
+
   void updateSleepQuality(int value) {
     if (state.hasValue) {
       state = AsyncData(state.value!.copyWith(sleepQuality: _clampMetric(value)));
+      _persistDraft();
     }
   }
 
@@ -31,12 +44,14 @@ class DiagnosticController extends _$DiagnosticController {
       state = AsyncData(
         state.value!.copyWith(sustainedAttention: _clampMetric(value)),
       );
+      _persistDraft();
     }
   }
 
   void updateFragmentation(int value) {
     if (state.hasValue) {
       state = AsyncData(state.value!.copyWith(fragmentation: _clampMetric(value)));
+      _persistDraft();
     }
   }
 
@@ -45,18 +60,21 @@ class DiagnosticController extends _$DiagnosticController {
       state = AsyncData(
         state.value!.copyWith(dopamineSeeking: _clampMetric(value)),
       );
+      _persistDraft();
     }
   }
 
   void updateTaskSwitching(int value) {
     if (state.hasValue) {
       state = AsyncData(state.value!.copyWith(taskSwitching: _clampMetric(value)));
+      _persistDraft();
     }
   }
 
   void updateBurnout(int value) {
     if (state.hasValue) {
       state = AsyncData(state.value!.copyWith(burnout: _clampMetric(value)));
+      _persistDraft();
     }
   }
 
@@ -93,6 +111,7 @@ class DiagnosticController extends _$DiagnosticController {
       session.ensurePillarBoundCoherence();
 
       ref.read(bcScoreSessionProvider.notifier).commit(session);
+      await ref.read(diagnosticLocalRepositoryProvider).clearDraft();
 
       await ref.read(diagnosticRepositoryProvider).upsertSession(
             session: session,
@@ -107,7 +126,7 @@ class DiagnosticController extends _$DiagnosticController {
       _invalidateAndResyncDetox();
 
       state = AsyncData(currentMetrics);
-      ref.read(goRouterProvider).go(AppRoutes.dashboard);
+      ref.read(goRouterProvider).go(AppRoutes.home);
     } on DiagnosticSyncException catch (error, stackTrace) {
       state = AsyncError<DiagnosticMetrics>(error, stackTrace).copyWithPrevious(
         AsyncData(currentMetrics),

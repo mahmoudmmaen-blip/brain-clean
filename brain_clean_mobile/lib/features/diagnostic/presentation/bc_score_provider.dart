@@ -2,6 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../detox/domain/detox_habit_scorer.dart';
 import '../../detox/presentation/detox_protocol_controller.dart';
+import '../data/diagnostic_local_repository_provider.dart';
 import '../domain/diagnostic_metrics.dart';
 import '../domain/diagnostic_metrics_mapper.dart';
 import '../domain/diagnostic_model.dart';
@@ -35,7 +36,11 @@ class BcScoreSession extends _$BcScoreSession {
   void commit(DiagnosticSession session) {
     session.ensurePillarBoundCoherence();
     state = session;
+    ref.read(diagnosticLocalRepositoryProvider).saveCommittedSession(session);
   }
 
-  void clear() => state = null;
+  void clear() {
+    state = null;
+    ref.read(diagnosticLocalRepositoryProvider).clearCommittedSession();
+  }
 }

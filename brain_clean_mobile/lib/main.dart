@@ -10,6 +10,7 @@ import 'core/theme/theme_provider.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await HiveBootstrap.initialize();
+  await HiveBootstrap.warmUpPersistentBoxes();
   await SupabaseConfig.initialize();
   runApp(const ProviderScope(child: BrainCleanApp()));
 }

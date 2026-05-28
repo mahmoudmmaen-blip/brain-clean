@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/l10n/app_localizations.dart';
 import '../../domain/recovery_protocol_constants.dart';
 
-/// Confirmation dialog for صندوق العقابات — red confirm, gray cancel.
+/// Confirmation dialog for غرفة المسؤولية — red confirm, gray cancel.
 Future<bool> showPenaltyBoxDialog(BuildContext context) async {
   final loc = AppLocalizations.of(context)!;
   final result = await showDialog<bool>(

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import 'hive_boxes.dart';
 import '../../features/recovery/data/adapters/recovery_day_record_adapter.dart';
 import '../../features/recovery/data/adapters/recovery_protocol_state_adapter.dart';
 
@@ -14,6 +15,18 @@ abstract final class HiveBootstrap {
     await Hive.initFlutter();
     _registerRecoveryAdapters();
     _initialized = true;
+  }
+
+  /// Opens all durable boxes before UI hydration (cold-start safety).
+  static Future<void> warmUpPersistentBoxes() async {
+    await initialize();
+    await _openBoxIfNeeded(HiveBoxes.recoveryProtocol);
+    await _openBoxIfNeeded(HiveBoxes.diagnosticPersistence);
+  }
+
+  static Future<Box<dynamic>> _openBoxIfNeeded(String name) async {
+    if (Hive.isBoxOpen(name)) return Hive.box<dynamic>(name);
+    return Hive.openBox<dynamic>(name);
   }
 
   static void _registerRecoveryAdapters() {

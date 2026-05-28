@@ -13,6 +13,8 @@ import 'package:brain_clean_mobile/features/recovery/data/recovery_protocol_hive
 import 'package:brain_clean_mobile/features/recovery/data/recovery_protocol_storage_provider.dart';
 import 'package:brain_clean_mobile/features/recovery/presentation/recovery_grid_screen.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/widgets/bc_score_hero_card.dart';
+import 'package:brain_clean_mobile/core/bootstrap/app_hydration_provider.dart';
+import 'package:brain_clean_mobile/features/home/presentation/home_screen.dart';
 import 'package:brain_clean_mobile/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -173,16 +175,31 @@ void main() {
     });
   });
 
-  testWidgets('BrainCleanApp boots inside ProviderScope', (tester) async {
+  testWidgets('BrainCleanApp hydrates then routes to home', (tester) async {
     await tester.pumpWidget(
-      const ProviderScope(child: BrainCleanApp()),
+      ProviderScope(
+        overrides: [
+          appHydrationProvider.overrideWith(_InstantHydration.new),
+        ],
+        child: const BrainCleanApp(),
+      ),
     );
     await tester.pump();
-    await tester.pump(const Duration(milliseconds: 100));
+    await tester.pumpAndSettle();
 
-    expect(find.text(en.diagnosticBrainRotTitle), findsOneWidget);
-    expect(find.text(en.diagnosticBrainRotQ1), findsOneWidget);
+    expect(find.text(en.homeTitle), findsOneWidget);
+    expect(find.byType(HomeScreen), findsOneWidget);
   });
+}
+
+class _InstantHydration extends AppHydration {
+  @override
+  Future<AppHydrationSnapshot> build() async {
+    return const AppHydrationSnapshot(
+      hasCommittedSession: false,
+      hasDraftProgress: false,
+    );
+  }
 }
 
 class _BhiPhaseFlow extends DiagnosticSessionFlow {
