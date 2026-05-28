@@ -127,6 +127,7 @@ class _PillarRow extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(4),
             child: LinearProgressIndicator(
+              key: ValueKey<int>(pillarScore.round()),
               value: pillarScore / 100,
               minHeight: 4,
               backgroundColor: context.diagnosticProgressTrack,

@@ -160,15 +160,25 @@ class DiagnosticScreen extends ConsumerWidget {
           ),
         );
       case BrainRotFlowPhase.bhiSliders:
+        final evaluation = session.pillarEvaluation;
+        final scoreKey = ValueKey<int>(evaluation.bcScore.round());
         return ListView(
           key: key,
           padding: const EdgeInsets.all(AppDesignConstants.radiusCard + 2),
           children: [
-            BcScoreHeroCard.fromSession(
-              session: session,
-              subtitle: loc.diagnosticLiveSubtitle,
+            RepaintBoundary(
+              child: BcScoreHeroCard(
+                key: scoreKey,
+                score: evaluation.bcScore,
+                subtitle: loc.diagnosticLiveSubtitle,
+              ),
             ),
-            BcScoreBreakdown.fromSession(session: session),
+            RepaintBoundary(
+              child: BcScoreBreakdown(
+                key: ValueKey<String>('breakdown_${scoreKey.value}'),
+                evaluation: evaluation,
+              ),
+            ),
             const SizedBox(height: 8),
             Text(
               loc.diagnosticInstructions,

@@ -102,7 +102,7 @@ class DiagnosticSession {
     DateTime? snapshotAt,
   }) {
     final at = snapshotAt ?? DateTime.now();
-    return DiagnosticSession(
+    final session = DiagnosticSession(
       bhi: DiagnosticBhiSnapshot.compose(
         metrics: metrics,
         model: model,
@@ -111,6 +111,8 @@ class DiagnosticSession {
       committedAt: at,
       questionnaire: questionnaire,
     );
+    session.ensurePillarBoundCoherence();
+    return session;
   }
 
   /// Builds a committed session from live assessment inputs (no field loss).
@@ -132,7 +134,7 @@ class DiagnosticSession {
           phase: BrainRotFlowPhase.bhiSliders,
         );
 
-    return DiagnosticSession(
+    final session = DiagnosticSession(
       bhi: DiagnosticBhiSnapshot.compose(
         metrics: metrics,
         model: model,
@@ -146,10 +148,15 @@ class DiagnosticSession {
       ),
       questionnaire: questionnaireSnapshot,
     );
+    session.ensurePillarBoundCoherence();
+    return session;
   }
 
-  factory DiagnosticSession.fromJson(Map<String, dynamic> json) =>
-      _$DiagnosticSessionFromJson(json);
+  factory DiagnosticSession.fromJson(Map<String, dynamic> json) {
+    final session = _$DiagnosticSessionFromJson(json);
+    session.ensurePillarBoundCoherence();
+    return session;
+  }
 
   Map<String, dynamic> toJson() => _$DiagnosticSessionToJson(this);
 

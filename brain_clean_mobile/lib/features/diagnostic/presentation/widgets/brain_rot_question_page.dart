@@ -41,17 +41,13 @@ class BrainRotQuestionPage extends StatelessWidget {
         const SizedBox(height: 14),
         ClipRRect(
           borderRadius: BorderRadius.circular(6),
-          child: TweenAnimationBuilder<double>(
-            tween: Tween<double>(end: progress),
-            duration: const Duration(milliseconds: 450),
-            curve: Curves.easeOutCubic,
-            builder: (context, value, _) => LinearProgressIndicator(
-              value: value,
-              minHeight: 8,
-              backgroundColor: context.diagnosticProgressTrack,
-              color: context.brandPrimary,
-              borderRadius: BorderRadius.circular(6),
-            ),
+          child: LinearProgressIndicator(
+            key: ValueKey<double>(progress),
+            value: progress,
+            minHeight: 8,
+            backgroundColor: context.diagnosticProgressTrack,
+            color: context.brandPrimary,
+            borderRadius: BorderRadius.circular(6),
           ),
         ),
         const SizedBox(height: 32),

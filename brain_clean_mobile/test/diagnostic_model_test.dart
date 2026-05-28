@@ -250,6 +250,20 @@ void main() {
   });
 
   group('PillarBoundEvaluation', () {
+    test('fromFrozen normalizes incoherent stored bcScore', () {
+      final bad = BhiPillarFrozenSnapshot(
+        brainPerformance: 50,
+        digitalDiscipline: 50,
+        healthyHabits: 50,
+        consistency: 50,
+        bcScore: 999,
+        frozenAt: DateTime.utc(2026, 1, 1),
+      );
+      final evaluation = PillarBoundEvaluation.fromFrozen(bad);
+      expect(evaluation.isCoherent, isTrue);
+      expect(evaluation.bcScore, isNot(999));
+    });
+
     test('matrix contributions align with frozen bcScore formula', () {
       const model = DiagnosticModel(
         brainPerformance: 72,

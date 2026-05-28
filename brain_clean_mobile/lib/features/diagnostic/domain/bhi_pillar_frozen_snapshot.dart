@@ -55,13 +55,15 @@ class BhiPillarFrozenSnapshot {
         consistency: consistency,
       );
 
-  bool get isCoherent => (recomputedBcScore - bcScore).abs() < 0.001;
+  bool get isCoherent =>
+      (recomputedBcScore - bcScore).abs() < PillarBoundEvaluation.coherenceEpsilon;
 
-  factory BhiPillarFrozenSnapshot.freeze(
-    DiagnosticModel model, {
+  /// Emits frozen pillars from a validated [PillarBoundEvaluation] matrix.
+  factory BhiPillarFrozenSnapshot.fromEvaluation(
+    PillarBoundEvaluation evaluation, {
     DateTime? moment,
   }) {
-    final evaluation = PillarBoundEvaluation.fromModel(model);
+    evaluation.ensureCoherent();
     return BhiPillarFrozenSnapshot(
       brainPerformance: evaluation.brainPerformance,
       digitalDiscipline: evaluation.digitalDiscipline,
@@ -71,6 +73,15 @@ class BhiPillarFrozenSnapshot {
       frozenAt: moment ?? DateTime.now(),
     );
   }
+
+  factory BhiPillarFrozenSnapshot.freeze(
+    DiagnosticModel model, {
+    DateTime? moment,
+  }) =>
+      BhiPillarFrozenSnapshot.fromEvaluation(
+        PillarBoundEvaluation.fromModel(model),
+        moment: moment,
+      );
 
   DiagnosticModel toModel() => DiagnosticModel(
         brainPerformance: brainPerformance,
@@ -84,19 +95,16 @@ class BhiPillarFrozenSnapshot {
     final digitalDiscipline = (json['digital_discipline'] as num).toDouble();
     final healthyHabits = (json['healthy_habits'] as num).toDouble();
     final consistency = (json['consistency'] as num).toDouble();
+    final frozenAt = DateTime.parse(json['frozen_at'] as String);
 
-    return BhiPillarFrozenSnapshot(
-      brainPerformance: brainPerformance,
-      digitalDiscipline: digitalDiscipline,
-      healthyHabits: healthyHabits,
-      consistency: consistency,
-      bcScore: computeBcScore(
+    return BhiPillarFrozenSnapshot.fromEvaluation(
+      PillarBoundEvaluation.coherent(
         brainPerformance: brainPerformance,
         digitalDiscipline: digitalDiscipline,
         healthyHabits: healthyHabits,
         consistency: consistency,
       ),
-      frozenAt: DateTime.parse(json['frozen_at'] as String),
+      moment: frozenAt,
     );
   }
 

@@ -13,6 +13,9 @@ class PillarBoundEvaluation {
     required this.bcScore,
   });
 
+  /// Maximum allowed drift between stored and recomputed BC_score.
+  static const double coherenceEpsilon = 0.001;
+
   final double brainPerformance;
   final double digitalDiscipline;
   final double healthyHabits;
@@ -49,35 +52,55 @@ class PillarBoundEvaluation {
         consistency: consistency,
       );
 
-  bool get isCoherent => (bcScore - recomputedBcScore).abs() < 0.001;
+  bool get isCoherent => (bcScore - recomputedBcScore).abs() < coherenceEpsilon;
 
-  factory PillarBoundEvaluation.fromModel(DiagnosticModel model) {
-    final brainPerformance = model.brainPerformance;
-    final digitalDiscipline = model.digitalDiscipline;
-    final healthyHabits = model.healthyHabits;
-    final consistency = model.consistency;
+  /// Builds a matrix with [bcScore] derived strictly from pillar boundaries.
+  factory PillarBoundEvaluation.coherent({
+    required double brainPerformance,
+    required double digitalDiscipline,
+    required double healthyHabits,
+    required double consistency,
+  }) {
+    final score = computeBcScore(
+      brainPerformance: brainPerformance,
+      digitalDiscipline: digitalDiscipline,
+      healthyHabits: healthyHabits,
+      consistency: consistency,
+    );
     return PillarBoundEvaluation(
       brainPerformance: brainPerformance,
       digitalDiscipline: digitalDiscipline,
       healthyHabits: healthyHabits,
       consistency: consistency,
-      bcScore: computeBcScore(
-        brainPerformance: brainPerformance,
-        digitalDiscipline: digitalDiscipline,
-        healthyHabits: healthyHabits,
-        consistency: consistency,
-      ),
+      bcScore: score,
     );
   }
 
+  factory PillarBoundEvaluation.fromModel(DiagnosticModel model) =>
+      PillarBoundEvaluation.coherent(
+        brainPerformance: model.brainPerformance,
+        digitalDiscipline: model.digitalDiscipline,
+        healthyHabits: model.healthyHabits,
+        consistency: model.consistency,
+      );
+
+  /// Recomputes [bcScore] from frozen pillars (ignores stale stored score).
   factory PillarBoundEvaluation.fromFrozen(BhiPillarFrozenSnapshot frozen) =>
-      PillarBoundEvaluation(
+      PillarBoundEvaluation.coherent(
         brainPerformance: frozen.brainPerformance,
         digitalDiscipline: frozen.digitalDiscipline,
         healthyHabits: frozen.healthyHabits,
         consistency: frozen.consistency,
-        bcScore: frozen.bcScore,
       );
+
+  void ensureCoherent() {
+    if (!isCoherent) {
+      throw StateError(
+        'PillarBoundEvaluation coherence failed: '
+        'stored=$bcScore recomputed=$recomputedBcScore',
+      );
+    }
+  }
 
   DiagnosticModel toPillarModel() => DiagnosticModel(
         brainPerformance: brainPerformance,

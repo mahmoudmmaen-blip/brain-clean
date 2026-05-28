@@ -48,12 +48,30 @@ class DashboardScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(16),
           children: [
             if (session != null) ...[
-              BcScoreHeroCard.fromSession(
-                session: session,
-                fontSize: 48,
-                subtitle: loc.dashboardCommittedAt(committedAt!),
+              Builder(
+                builder: (context) {
+                  final evaluation = session.pillarEvaluation;
+                  final scoreKey = ValueKey<int>(evaluation.bcScore.round());
+                  return Column(
+                    children: [
+                      RepaintBoundary(
+                        child: BcScoreHeroCard(
+                          key: scoreKey,
+                          score: evaluation.bcScore,
+                          fontSize: 48,
+                          subtitle: loc.dashboardCommittedAt(committedAt!),
+                        ),
+                      ),
+                      RepaintBoundary(
+                        child: BcScoreBreakdown(
+                          key: ValueKey<String>('dash_breakdown_$scoreKey'),
+                          evaluation: evaluation,
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
-              BcScoreBreakdown.fromSession(session: session),
               if (session.brainRot != null) ...[
                 const SizedBox(height: 12),
                 Card(
