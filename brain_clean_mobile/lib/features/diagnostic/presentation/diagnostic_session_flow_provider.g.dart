@@ -7,7 +7,7 @@ part of 'diagnostic_session_flow_provider.dart';
 // **************************************************************************
 
 String _$diagnosticSessionFlowHash() =>
-    r'fedf4d55141365d04d894628aaea1eb0f439818d';
+    r'f6aeaaa253bce312f8f1d2f658fb27f65eeeaec8';
 
 /// Unified questionnaire + phase state for [DiagnosticScreen].
 ///
