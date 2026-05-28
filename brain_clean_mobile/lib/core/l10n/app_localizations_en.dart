@@ -83,18 +83,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get bcScoreLabel => 'BC_score';
 
   @override
-  String bcScoreRecoveryPenaltyAdjustment(int deduction) {
+  String get accountabilityAdjustment => 'ACCOUNTABILITY ADJUSTMENT';
+
+  @override
+  String get bhiScoreLabel => 'Base BHI score';
+
+  @override
+  String get finalBcScoreLabel => 'Final BC_score';
+
+  @override
+  String accountabilityDeduction(int deduction) {
     return 'Recovery accountability (−$deduction)';
   }
-
-  @override
-  String get bcScorePenaltyEquationTitle => 'ACCOUNTABILITY ADJUSTMENT';
-
-  @override
-  String get bcScoreBaseBhiLabel => 'Base BHI score';
-
-  @override
-  String get bcScoreFinalBcScoreLabel => 'Final BC_score';
 
   @override
   String get detoxTitle => '7-Day Dopamine Detox';

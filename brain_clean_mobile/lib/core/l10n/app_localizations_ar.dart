@@ -83,18 +83,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String get bcScoreLabel => 'BC_score';
 
   @override
-  String bcScoreRecoveryPenaltyAdjustment(int deduction) {
-    return 'مساءلة التعافي (−$deduction)';
+  String get accountabilityAdjustment => 'بند المساءلة السريرية';
+
+  @override
+  String get bhiScoreLabel => 'مؤشر BHI الأساسي';
+
+  @override
+  String get finalBcScoreLabel => 'BC_score بعد المساءلة';
+
+  @override
+  String accountabilityDeduction(int deduction) {
+    return 'خصم مساءلة التعافي (−$deduction)';
   }
-
-  @override
-  String get bcScorePenaltyEquationTitle => 'تعديل المساءلة';
-
-  @override
-  String get bcScoreBaseBhiLabel => 'درجة BHI الأساسية';
-
-  @override
-  String get bcScoreFinalBcScoreLabel => 'BC_score النهائي';
 
   @override
   String get detoxTitle => 'بروتوكول الدوبامين (7 أيام)';
