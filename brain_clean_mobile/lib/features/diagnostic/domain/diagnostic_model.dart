@@ -19,6 +19,20 @@ enum InterpretationBand {
   critical,
 }
 
+/// Typed access to centralized Arabic band copy — no widget-level translation.
+extension InterpretationBandLabels on InterpretationBand {
+  /// Exact Dr. Moneam severity label for this band.
+  String get labelAr => BrainRotTest.interpretationLabelAr(this);
+
+  /// Inclusive score range for this band on the 0–10 Brain Rot scale.
+  (int min, int max) get scoreRange => switch (this) {
+        InterpretationBand.mild => (0, 2),
+        InterpretationBand.moderate => (3, 5),
+        InterpretationBand.severe => (6, 8),
+        InterpretationBand.critical => (9, 10),
+      };
+}
+
 /// Machine-readable Brain Rot outcome — UI reads [interpretationAr] only.
 class BrainRotInterpretation {
   const BrainRotInterpretation({
@@ -203,14 +217,19 @@ class DiagnosticModel {
   static String interpretBrainRotScore(int score) =>
       BrainRotTest.interpretScore(score);
 
+  /// Arabic severity label for [band] — prefer [InterpretationBand.labelAr].
   static String brainRotInterpretationLabelAr(InterpretationBand band) =>
-      BrainRotTest.interpretationLabelAr(band);
+      band.labelAr;
 
   static InterpretationBand getBrainRotBand(int score) =>
       BrainRotTest.getBand(score);
 
   static BrainRotInterpretation evaluateBrainRot(List<bool> answers) =>
       BrainRotTest.evaluate(answers);
+
+  /// Score → band → Arabic label (single entry for result screens).
+  static String brainRotInterpretationForScore(int score) =>
+      getBrainRotBand(score).labelAr;
 
   double calculateBcScore() {
     final score = (brainPerformance * BcScoreConstants.brainPerformanceWeight) +

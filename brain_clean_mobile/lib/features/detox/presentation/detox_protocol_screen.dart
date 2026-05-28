@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -23,30 +24,33 @@ class DetoxProtocolScreen extends ConsumerWidget {
       body: SafeArea(
         child: async.when(
           data: (_) => _buildContent(context, ref),
-          loading: () => _buildLoadingState(context),
-          error: (_, __) => _buildErrorState(context, ref),
+          loading: () => _buildLoadingView(context),
+          error: (error, stack) => _buildErrorView(context, ref, error, stack),
         ),
       ),
     );
   }
 
-  Widget _buildLoadingState(BuildContext context) {
+  Widget _buildLoadingView(BuildContext context) {
     return const _DetoxProtocolLoadingView();
   }
 
-  Widget _buildErrorState(BuildContext context, WidgetRef ref) {
+  Widget _buildErrorView(
+    BuildContext context,
+    WidgetRef ref,
+    Object error,
+    StackTrace stack,
+  ) {
     return _DetoxProtocolErrorView(
-      onRetry: () => _retryDetoxSync(ref, invalidateProvider: true),
+      error: error,
+      stackTrace: stack,
+      onRetry: () => _invalidateAndResyncDetox(ref),
     );
   }
 
-  /// Fatal error → invalidate controller; inline error → soft [loadFromRemote].
-  void _retryDetoxSync(WidgetRef ref, {required bool invalidateProvider}) {
-    if (invalidateProvider) {
-      ref.invalidate(detoxProtocolControllerProvider);
-      return;
-    }
-    ref.read(detoxProtocolControllerProvider.notifier).loadFromRemote();
+  /// Restarts the detox sync lifecycle via provider invalidation (non-blocking).
+  void _invalidateAndResyncDetox(WidgetRef ref) {
+    ref.invalidate(detoxProtocolControllerProvider);
   }
 
   Widget _buildContent(BuildContext context, WidgetRef ref) {
@@ -70,7 +74,7 @@ class DetoxProtocolScreen extends ConsumerWidget {
         else if (async.hasError)
           _DetoxInlineErrorCard(
             message: loc.detoxSyncError,
-            onRetry: () => _retryDetoxSync(ref, invalidateProvider: false),
+            onRetry: () => _invalidateAndResyncDetox(ref),
           ),
         const SizedBox(height: 12),
         _HabitSwitchCard(
@@ -143,12 +147,22 @@ class _DetoxProtocolLoadingView extends StatelessWidget {
 
 /// Full-screen fatal sync error with localized [detoxRetry].
 class _DetoxProtocolErrorView extends StatelessWidget {
-  const _DetoxProtocolErrorView({required this.onRetry});
+  const _DetoxProtocolErrorView({
+    required this.error,
+    required this.stackTrace,
+    required this.onRetry,
+  });
 
+  final Object error;
+  final StackTrace stackTrace;
   final VoidCallback onRetry;
 
   @override
   Widget build(BuildContext context) {
+    assert(() {
+      debugPrint('DetoxProtocol sync error: $error\n$stackTrace');
+      return true;
+    }());
     final loc = AppLocalizations.of(context)!;
     return Center(
       child: Padding(
@@ -170,6 +184,17 @@ class _DetoxProtocolErrorView extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
+                if (kDebugMode) ...[
+                  const SizedBox(height: 8),
+                  Text(
+                    '$error',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: Colors.white38,
+                          fontSize: 11,
+                        ),
+                  ),
+                ],
                 const SizedBox(height: 16),
                 _DetoxRetryButton(onRetry: onRetry),
               ],
@@ -181,7 +206,7 @@ class _DetoxProtocolErrorView extends StatelessWidget {
   }
 }
 
-/// Localized retry — invalidates or soft-refreshes detox sync (non-blocking).
+/// Localized retry — invalidates [detoxProtocolControllerProvider] (non-blocking).
 class _DetoxRetryButton extends StatelessWidget {
   const _DetoxRetryButton({required this.onRetry});
 

@@ -143,10 +143,13 @@ void main() {
       expect(BrainRotTest.labelSevereAr, BrainRotTest.interpretationLabelsAr[InterpretationBand.severe]);
       expect(BrainRotTest.labelCriticalAr, BrainRotTest.interpretationLabelsAr[InterpretationBand.critical]);
       expect(DiagnosticModel.brainRotInterpretationLabelsAr, BrainRotTest.interpretationLabelsAr);
+      expect(InterpretationBand.severe.labelAr, BrainRotTest.labelSevereAr);
       expect(
-        DiagnosticModel.brainRotInterpretationLabelAr(InterpretationBand.severe),
-        BrainRotTest.labelSevereAr,
+        DiagnosticModel.brainRotInterpretationForScore(7),
+        InterpretationBand.severe.labelAr,
       );
+      expect(InterpretationBand.mild.scoreRange, (0, 2));
+      expect(InterpretationBand.critical.scoreRange, (9, 10));
     });
 
     test('evaluate returns centralized Arabic label without UI hardcoding', () {
