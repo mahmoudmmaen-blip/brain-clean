@@ -58,7 +58,12 @@ class BhiPillarFrozenSnapshot {
   bool get isCoherent =>
       PillarBoundEvaluation.scoresMatch(bcScore, recomputedBcScore);
 
-  /// Committed / serialized state from a validated evaluation matrix.
+  void ensureCoherent() => PillarBoundEvaluation.requireScoresMatch(
+        stored: bcScore,
+        recomputed: recomputedBcScore,
+        layer: 'BhiPillarFrozenSnapshot',
+      );
+
   factory BhiPillarFrozenSnapshot.fromEvaluation(
     PillarBoundEvaluation evaluation, {
     DateTime? moment,
@@ -74,7 +79,6 @@ class BhiPillarFrozenSnapshot {
     );
   }
 
-  /// Freezes live model pillars at [moment] via [PillarBoundEvaluation.fromModel].
   factory BhiPillarFrozenSnapshot.freeze(
     DiagnosticModel model, {
     DateTime? moment,
@@ -91,24 +95,16 @@ class BhiPillarFrozenSnapshot {
         consistency: consistency,
       );
 
-  /// Deserializes pillars and re-derives [bcScore] through [PillarBoundEvaluation].
-  factory BhiPillarFrozenSnapshot.fromJson(Map<String, dynamic> json) {
-    final brainPerformance = (json['brain_performance'] as num).toDouble();
-    final digitalDiscipline = (json['digital_discipline'] as num).toDouble();
-    final healthyHabits = (json['healthy_habits'] as num).toDouble();
-    final consistency = (json['consistency'] as num).toDouble();
-    final frozenAt = DateTime.parse(json['frozen_at'] as String);
-
-    return BhiPillarFrozenSnapshot.fromEvaluation(
-      PillarBoundEvaluation.coherent(
-        brainPerformance: brainPerformance,
-        digitalDiscipline: digitalDiscipline,
-        healthyHabits: healthyHabits,
-        consistency: consistency,
-      ),
-      moment: frozenAt,
-    );
-  }
+  factory BhiPillarFrozenSnapshot.fromJson(Map<String, dynamic> json) =>
+      BhiPillarFrozenSnapshot.fromEvaluation(
+        PillarBoundEvaluation.coherent(
+          brainPerformance: (json['brain_performance'] as num).toDouble(),
+          digitalDiscipline: (json['digital_discipline'] as num).toDouble(),
+          healthyHabits: (json['healthy_habits'] as num).toDouble(),
+          consistency: (json['consistency'] as num).toDouble(),
+        ),
+        moment: DateTime.parse(json['frozen_at'] as String),
+      );
 
   Map<String, dynamic> toJson() => _$BhiPillarFrozenSnapshotToJson(this);
 }

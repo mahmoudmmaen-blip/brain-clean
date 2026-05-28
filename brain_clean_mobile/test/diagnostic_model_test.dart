@@ -250,16 +250,11 @@ void main() {
   });
 
   group('PillarBoundEvaluation', () {
-    test('scoresMatch uses coherenceEpsilon for float drift', () {
-      expect(
-        PillarBoundEvaluation.scoresMatch(50.0, 50.0 + 1e-6),
-        isTrue,
-      );
-      expect(
-        PillarBoundEvaluation.scoresMatch(50.0, 50.0 + 1e-3),
-        isFalse,
-      );
-      expect(PillarBoundEvaluation.coherenceEpsilon, 1e-5);
+    test('scoresMatch uses high-precision coherenceEpsilon', () {
+      expect(PillarBoundEvaluation.coherenceEpsilon, 1e-7);
+      expect(PillarBoundEvaluation.scoresMatch(50.0, 50.0 + 1e-8), isTrue);
+      expect(PillarBoundEvaluation.scoresMatch(50.0, 50.0 + 1e-6), isFalse);
+      expect(PillarBoundEvaluation.scoresMatch(50.0, 50.0 + 1e-3), isFalse);
     });
 
     test('fromFrozen normalizes incoherent stored bcScore', () {

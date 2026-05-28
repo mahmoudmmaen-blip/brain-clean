@@ -68,13 +68,11 @@ class DiagnosticSession {
   void ensurePillarBoundCoherence() {
     bhi.ensurePillarBoundCoherence();
     pillarEvaluation.ensureCoherent();
-    if (!PillarBoundEvaluation.scoresMatch(bcScore, frozenPillars.recomputedBcScore)) {
-      throw StateError(
-        'DiagnosticSession coherence failed (ε=${PillarBoundEvaluation.coherenceEpsilon}): '
-        'session=$bcScore frozen=${frozenPillars.bcScore} '
-        'recomputed=${frozenPillars.recomputedBcScore}',
-      );
-    }
+    PillarBoundEvaluation.requireScoresMatch(
+      stored: bcScore,
+      recomputed: frozenPillars.recomputedBcScore,
+      layer: 'DiagnosticSession',
+    );
   }
 
   int? get brainRotScore => brainRot?.score;

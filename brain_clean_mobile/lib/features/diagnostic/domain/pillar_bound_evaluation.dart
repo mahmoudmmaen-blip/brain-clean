@@ -13,8 +13,8 @@ class PillarBoundEvaluation {
     required this.bcScore,
   });
 
-  /// Tolerance for stored vs. recomputed BC_score (floating-point safe).
-  static const double coherenceEpsilon = 1e-5;
+  /// High-precision tolerance for stored vs. recomputed BC_score (IEEE-754 safe).
+  static const double coherenceEpsilon = 1e-7;
 
   final double brainPerformance;
   final double digitalDiscipline;
@@ -27,9 +27,22 @@ class PillarBoundEvaluation {
   static const double habitsWeight = BcScoreConstants.healthyHabitsWeight;
   static const double consistencyWeight = BcScoreConstants.consistencyWeight;
 
-  /// True when [stored] and [recomputed] agree within [coherenceEpsilon].
   static bool scoresMatch(double stored, double recomputed) =>
       (stored - recomputed).abs() < coherenceEpsilon;
+
+  /// Uniform guard used across snapshot, BHI, and session layers.
+  static void requireScoresMatch({
+    required double stored,
+    required double recomputed,
+    required String layer,
+  }) {
+    if (!scoresMatch(stored, recomputed)) {
+      throw StateError(
+        '$layer coherence failed (ε=$coherenceEpsilon): '
+        'stored=$stored recomputed=$recomputed',
+      );
+    }
+  }
 
   double get brainContribution => brainPerformance * brainWeight;
   double get digitalContribution => digitalDiscipline * digitalWeight;
@@ -58,7 +71,6 @@ class PillarBoundEvaluation {
 
   bool get isCoherent => scoresMatch(bcScore, recomputedBcScore);
 
-  /// Declarative matrix: pillars in → [bcScore] from [BhiScoreFormula] only.
   factory PillarBoundEvaluation.coherent({
     required double brainPerformance,
     required double digitalDiscipline,
@@ -78,7 +90,6 @@ class PillarBoundEvaluation {
         ),
       );
 
-  /// Live assessment → coherent evaluation (in-progress / compose).
   factory PillarBoundEvaluation.fromModel(DiagnosticModel model) =>
       PillarBoundEvaluation.coherent(
         brainPerformance: model.brainPerformance,
@@ -87,7 +98,6 @@ class PillarBoundEvaluation {
         consistency: model.consistency,
       );
 
-  /// Historical frozen pillars → coherent evaluation (ignores stale [bcScore]).
   factory PillarBoundEvaluation.fromFrozen(BhiPillarFrozenSnapshot frozen) =>
       PillarBoundEvaluation.coherent(
         brainPerformance: frozen.brainPerformance,
@@ -96,14 +106,11 @@ class PillarBoundEvaluation {
         consistency: frozen.consistency,
       );
 
-  void ensureCoherent() {
-    if (!isCoherent) {
-      throw StateError(
-        'PillarBoundEvaluation coherence failed (ε=$coherenceEpsilon): '
-        'stored=$bcScore recomputed=$recomputedBcScore',
+  void ensureCoherent() => requireScoresMatch(
+        stored: bcScore,
+        recomputed: recomputedBcScore,
+        layer: 'PillarBoundEvaluation',
       );
-    }
-  }
 
   DiagnosticModel toPillarModel() => DiagnosticModel(
         brainPerformance: brainPerformance,
