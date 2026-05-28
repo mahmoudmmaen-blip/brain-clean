@@ -15,34 +15,39 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('SlideLockMechanism', () {
-    test('acquire blocks until slide duration elapses', () {
-      fakeAsync((async) {
-        final lock = SlideLockMechanism(
-          slideDuration: const Duration(milliseconds: 400),
-        );
-        var rebuilds = 0;
+    test('bindToTransition locks on animation ticks between 0 and 1', () {
+      final lock = SlideLockMechanism(
+        slideDuration: const Duration(milliseconds: 400),
+      );
+      final controller = AnimationController(
+        vsync: const _TestVsync(),
+        duration: const Duration(milliseconds: 400),
+      );
+      var rebuilds = 0;
 
-        lock.acquire(() => rebuilds++);
+      lock.bindToTransition(controller, () => rebuilds++);
+      expect(lock.isLocked, isFalse);
 
-        expect(lock.isLocked, isTrue);
-        expect(rebuilds, 1);
+      controller.value = 0.5;
+      expect(lock.isLocked, isTrue);
 
-        async.elapse(const Duration(milliseconds: 399));
-        expect(lock.isLocked, isTrue);
+      controller.value = 1.0;
+      expect(lock.isLocked, isFalse);
 
-        async.elapse(const Duration(milliseconds: 1));
-        expect(lock.isLocked, isFalse);
-        expect(rebuilds, 2);
-
-        lock.dispose();
-      });
+      controller.dispose();
+      lock.dispose();
     });
 
     test('layoutBuilder shields children while locked', () {
       final lock = SlideLockMechanism(
         slideDuration: const Duration(milliseconds: 400),
       );
-      lock.acquire(() {});
+      final controller = AnimationController(
+        vsync: const _TestVsync(),
+        duration: const Duration(milliseconds: 400),
+      );
+      lock.bindToTransition(controller, () {});
+      controller.value = 0.4;
 
       final stack = lock.layoutBuilder(
         currentChild: const Text('current'),
@@ -51,48 +56,27 @@ void main() {
 
       expect(stack, isA<Stack>());
       expect(lock.isLocked, isTrue);
+      controller.dispose();
       lock.dispose();
     });
 
-    test('acquireForAnimation releases when controller completes', () {
+    test('release detaches listeners immediately', () {
       fakeAsync((async) {
         final lock = SlideLockMechanism(
           slideDuration: const Duration(milliseconds: 400),
         );
-        final controller = AnimationController(
-          vsync: const _TestVsync(),
-          duration: const Duration(milliseconds: 400),
-        );
         var rebuilds = 0;
 
-        lock.acquireForAnimation(controller, () => rebuilds++);
+        lock.bindToTransition(
+          AlwaysStoppedAnimation<double>(0.5),
+          () => rebuilds++,
+        );
         expect(lock.isLocked, isTrue);
 
-        controller.forward();
-        async.elapse(const Duration(milliseconds: 450));
-        expect(lock.isLocked, isFalse);
-        expect(rebuilds, greaterThanOrEqualTo(2));
-
-        controller.dispose();
-        lock.dispose();
-      });
-    });
-
-    test('release cancels pending timer immediately', () {
-      fakeAsync((async) {
-        final lock = SlideLockMechanism(
-          slideDuration: const Duration(milliseconds: 400),
-        );
-        var rebuilds = 0;
-
-        lock.acquire(() => rebuilds++);
         lock.release(() => rebuilds++);
-
         expect(lock.isLocked, isFalse);
-        expect(rebuilds, 2);
 
         async.elapse(const Duration(seconds: 1));
-        expect(lock.isLocked, isFalse);
         expect(rebuilds, 2);
 
         lock.dispose();

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/theme/app_design_constants.dart';
 import '../../../../core/theme/theme_extensions.dart';
 
-/// Lightweight full-screen veil while coherence checks run after Q10.
-///
-/// Renders on the first frame when [visible] becomes true (no fade-in delay).
+/// Full-screen veil while coherence checks run after the 10th Brain Rot answer.
 class BrainRotScoringLoadingOverlay extends StatefulWidget {
   const BrainRotScoringLoadingOverlay({
     super.key,
@@ -19,17 +18,29 @@ class BrainRotScoringLoadingOverlay extends StatefulWidget {
       _BrainRotScoringLoadingOverlayState();
 }
 
-class _BrainRotScoringLoadingOverlayState
-    extends State<BrainRotScoringLoadingOverlay> {
-  static const _hideDuration = Duration(milliseconds: 180);
+class _BrainRotScoringLoadingOverlayState extends State<BrainRotScoringLoadingOverlay>
+    with SingleTickerProviderStateMixin {
+  static const _fadeDuration = Duration(milliseconds: 260);
 
-  bool _showContent = false;
+  late final AnimationController _fadeController;
+  late final Animation<double> _fadeAnimation;
+  bool _mountedInTree = false;
 
   @override
   void initState() {
     super.initState();
+    _fadeController = AnimationController(
+      vsync: this,
+      duration: _fadeDuration,
+    );
+    _fadeAnimation = CurvedAnimation(
+      parent: _fadeController,
+      curve: Curves.easeOutCubic,
+      reverseCurve: Curves.easeInCubic,
+    );
+    _mountedInTree = widget.visible;
     if (widget.visible) {
-      _showContent = true;
+      _fadeController.value = 1;
     }
   }
 
@@ -37,37 +48,48 @@ class _BrainRotScoringLoadingOverlayState
   void didUpdateWidget(BrainRotScoringLoadingOverlay oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.visible && !oldWidget.visible) {
-      setState(() => _showContent = true);
+      setState(() => _mountedInTree = true);
+      _fadeController.forward(from: _fadeController.value);
     } else if (!widget.visible && oldWidget.visible) {
-      Future<void>.delayed(_hideDuration, () {
+      _fadeController.reverse().then((_) {
         if (mounted && !widget.visible) {
-          setState(() => _showContent = false);
+          setState(() => _mountedInTree = false);
         }
       });
     }
   }
 
   @override
+  void dispose() {
+    _fadeController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (!_showContent && !widget.visible) {
-      return const SizedBox.shrink();
-    }
+    if (!_mountedInTree) return const SizedBox.shrink();
 
     return Positioned.fill(
       child: RepaintBoundary(
         child: IgnorePointer(
-          ignoring: !widget.visible,
-          child: AnimatedOpacity(
-            opacity: widget.visible ? 1 : 0,
-            duration: widget.visible ? Duration.zero : _hideDuration,
-            curve: Curves.easeOut,
+          ignoring: _fadeAnimation.value < 0.05,
+          child: FadeTransition(
+            opacity: _fadeAnimation,
             child: ColoredBox(
               color: Theme.of(context)
                   .colorScheme
                   .surface
                   .withValues(alpha: 0.9),
-              child: const Center(
-                child: _ScoringIndicatorCard(),
+              child: Center(
+                child: ScaleTransition(
+                  scale: Tween<double>(begin: 0.96, end: 1).animate(
+                    CurvedAnimation(
+                      parent: _fadeController,
+                      curve: Curves.easeOutCubic,
+                    ),
+                  ),
+                  child: const _ScoringIndicatorCard(),
+                ),
               ),
             ),
           ),
@@ -77,7 +99,7 @@ class _BrainRotScoringLoadingOverlayState
   }
 }
 
-/// Isolated repaint island — spinner + label only.
+/// Isolated repaint island — spinner + Arabic analysis label.
 class _ScoringIndicatorCard extends StatelessWidget {
   const _ScoringIndicatorCard();
 

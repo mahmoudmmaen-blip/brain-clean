@@ -34,15 +34,10 @@ class BrainRotQuestionPage extends StatefulWidget {
   State<BrainRotQuestionPage> createState() => _BrainRotQuestionPageState();
 }
 
-class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
-    with TickerProviderStateMixin {
-  late final SlideLockMechanism _slideLockMechanism;
-  late final AnimationController _slideMotionController;
-  late final AnimationController _progressMotionController;
-  late Animation<double> _progressMotion;
-
-  double _progressFrom = 0;
-  double _progressTo = 0;
+class _BrainRotQuestionPageState extends State<BrainRotQuestionPage> {
+  final SlideLockMechanism _slideLockMechanism = SlideLockMechanism(
+    slideDuration: kBrainRotQuestionSlideDuration,
+  );
   bool _localAnswerLocked = false;
 
   bool get _canInteract =>
@@ -51,50 +46,10 @@ class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
       !_localAnswerLocked;
 
   @override
-  void initState() {
-    super.initState();
-    _slideLockMechanism = SlideLockMechanism(
-      slideDuration: kBrainRotQuestionSlideDuration,
-    );
-    _progressTo = _targetProgress;
-    _progressFrom = _progressTo;
-
-    _slideMotionController = AnimationController(
-      vsync: this,
-      duration: kBrainRotQuestionSlideDuration,
-    );
-    _progressMotionController = AnimationController(
-      vsync: this,
-      duration: kBrainRotQuestionSlideDuration,
-    );
-    _progressMotion = CurvedAnimation(
-      parent: _progressMotionController,
-      curve: Curves.easeOutCubic,
-    );
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) return;
-      _progressMotionController.forward();
-    });
-  }
-
-  @override
   void didUpdateWidget(BrainRotQuestionPage oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.questionIndex != widget.questionIndex) {
       _localAnswerLocked = false;
-      _progressFrom = (oldWidget.questionIndex + 1) / BrainRotTest.questionCount;
-      _progressTo = _targetProgress;
-      _progressMotionController
-        ..reset()
-        ..forward();
-      _slideMotionController
-        ..reset()
-        ..forward();
-      _slideLockMechanism.acquireForAnimation(
-        _slideMotionController,
-        () => setState(() {}),
-      );
     }
     if (!oldWidget.answersEnabled && widget.answersEnabled) {
       _localAnswerLocked = false;
@@ -107,16 +62,8 @@ class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
   @override
   void dispose() {
     _slideLockMechanism.dispose();
-    _slideMotionController.dispose();
-    _progressMotionController.dispose();
     super.dispose();
   }
-
-  double get _targetProgress =>
-      (widget.questionIndex + 1) / BrainRotTest.questionCount;
-
-  double get _animatedProgress =>
-      _progressFrom + (_progressTo - _progressFrom) * _progressMotion.value;
 
   @override
   Widget build(BuildContext context) {
@@ -132,9 +79,10 @@ class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
         _buildProgressHeader(loc),
         const SizedBox(height: 14),
         BrainRotDirectionalProgressBar(
-          value: _animatedProgress,
-          horizontalSign: horizontalSign,
-          animation: _progressMotion,
+          key: ValueKey<int>(widget.questionIndex),
+          questionIndex: widget.questionIndex,
+          slideDirection: widget.slideDirection,
+          duration: kBrainRotQuestionSlideDuration,
         ),
         const SizedBox(height: 32),
         Expanded(child: _buildQuestionSlideSwitcher(horizontalSign)),
@@ -170,12 +118,12 @@ class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
       layoutBuilder: (current, previous) => _slideLockMechanism.layoutBuilder(
         currentChild: current,
         previousChildren: previous,
-        forceShield: _slideLockMechanism.isLocked,
       ),
       transitionBuilder: (child, animation) =>
           _slideLockMechanism.transitionBuilder(
         child: child,
         animation: animation,
+        onLockChanged: () => setState(() {}),
         build: (transitionChild, transitionAnimation) =>
             buildBrainRotSlideTransition(
           child: transitionChild,
