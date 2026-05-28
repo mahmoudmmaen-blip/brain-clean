@@ -4,7 +4,7 @@ import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/theme/app_design_constants.dart';
 import '../../../../core/theme/theme_extensions.dart';
 
-/// Full-screen veil while coherence checks run after the 10th Brain Rot answer.
+/// Full-screen veil while coherence / ε validation runs after the 10th answer.
 class BrainRotScoringLoadingOverlay extends StatefulWidget {
   const BrainRotScoringLoadingOverlay({
     super.key,
@@ -18,13 +18,19 @@ class BrainRotScoringLoadingOverlay extends StatefulWidget {
       _BrainRotScoringLoadingOverlayState();
 }
 
+enum _OverlayVisibility { detached, fadingIn, shown, fadingOut }
+
 class _BrainRotScoringLoadingOverlayState extends State<BrainRotScoringLoadingOverlay>
     with SingleTickerProviderStateMixin {
-  static const _fadeDuration = Duration(milliseconds: 260);
+  static const _fadeDuration = Duration(milliseconds: 280);
 
   late final AnimationController _fadeController;
   late final Animation<double> _fadeAnimation;
-  bool _mountedInTree = false;
+  late final Animation<double> _scaleAnimation;
+
+  _OverlayVisibility _phase = _OverlayVisibility.detached;
+
+  bool get _isInTree => _phase != _OverlayVisibility.detached;
 
   @override
   void initState() {
@@ -38,8 +44,16 @@ class _BrainRotScoringLoadingOverlayState extends State<BrainRotScoringLoadingOv
       curve: Curves.easeOutCubic,
       reverseCurve: Curves.easeInCubic,
     );
-    _mountedInTree = widget.visible;
+    _scaleAnimation = Tween<double>(begin: 0.96, end: 1).animate(
+      CurvedAnimation(
+        parent: _fadeController,
+        curve: Curves.easeOutCubic,
+        reverseCurve: Curves.easeInCubic,
+      ),
+    );
+
     if (widget.visible) {
+      _phase = _OverlayVisibility.shown;
       _fadeController.value = 1;
     }
   }
@@ -47,15 +61,28 @@ class _BrainRotScoringLoadingOverlayState extends State<BrainRotScoringLoadingOv
   @override
   void didUpdateWidget(BrainRotScoringLoadingOverlay oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.visible && !oldWidget.visible) {
-      setState(() => _mountedInTree = true);
-      _fadeController.forward(from: _fadeController.value);
-    } else if (!widget.visible && oldWidget.visible) {
-      _fadeController.reverse().then((_) {
-        if (mounted && !widget.visible) {
-          setState(() => _mountedInTree = false);
-        }
-      });
+    if (widget.visible == oldWidget.visible) return;
+
+    if (widget.visible) {
+      setState(() => _phase = _OverlayVisibility.fadingIn);
+      _fadeController.forward(from: 0).whenComplete(_onFadeInComplete);
+    } else {
+      setState(() => _phase = _OverlayVisibility.fadingOut);
+      _fadeController.reverse().whenComplete(_onFadeOutComplete);
+    }
+  }
+
+  void _onFadeInComplete() {
+    if (!mounted || !widget.visible) return;
+    if (_phase == _OverlayVisibility.fadingIn) {
+      setState(() => _phase = _OverlayVisibility.shown);
+    }
+  }
+
+  void _onFadeOutComplete() {
+    if (!mounted || widget.visible) return;
+    if (_phase == _OverlayVisibility.fadingOut) {
+      setState(() => _phase = _OverlayVisibility.detached);
     }
   }
 
@@ -67,29 +94,28 @@ class _BrainRotScoringLoadingOverlayState extends State<BrainRotScoringLoadingOv
 
   @override
   Widget build(BuildContext context) {
-    if (!_mountedInTree) return const SizedBox.shrink();
+    if (!_isInTree) return const SizedBox.shrink();
 
     return Positioned.fill(
       child: RepaintBoundary(
-        child: IgnorePointer(
-          ignoring: _fadeAnimation.value < 0.05,
-          child: FadeTransition(
-            opacity: _fadeAnimation,
-            child: ColoredBox(
-              color: Theme.of(context)
-                  .colorScheme
-                  .surface
-                  .withValues(alpha: 0.9),
-              child: Center(
-                child: ScaleTransition(
-                  scale: Tween<double>(begin: 0.96, end: 1).animate(
-                    CurvedAnimation(
-                      parent: _fadeController,
-                      curve: Curves.easeOutCubic,
-                    ),
-                  ),
-                  child: const _ScoringIndicatorCard(),
-                ),
+        child: AnimatedBuilder(
+          animation: _fadeController,
+          builder: (context, child) => IgnorePointer(
+            ignoring: _fadeAnimation.value < 0.05,
+            child: Opacity(
+              opacity: _fadeAnimation.value,
+              child: child,
+            ),
+          ),
+          child: ColoredBox(
+            color: Theme.of(context)
+                .colorScheme
+                .surface
+                .withValues(alpha: 0.9),
+            child: Center(
+              child: ScaleTransition(
+                scale: _scaleAnimation,
+                child: const _ScoringIndicatorCard(),
               ),
             ),
           ),

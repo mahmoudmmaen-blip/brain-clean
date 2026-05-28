@@ -4,7 +4,8 @@ import 'package:flutter/widgets.dart';
 
 /// Blocks questionnaire taps while a slide transition animation is active.
 ///
-/// Lock state is driven by per-frame [Animation] ticks (not wall-clock timers alone).
+/// Lock state is driven by per-frame [Animation] ticks and [AnimationStatus]
+/// changes — not wall-clock timers alone (fallback timer is a safety net).
 final class SlideLockMechanism {
   SlideLockMechanism({required Duration slideDuration})
       : _slideDuration = slideDuration;
@@ -13,18 +14,29 @@ final class SlideLockMechanism {
   Timer? _fallbackTimer;
   Animation<double>? _boundAnimation;
   VoidCallback? _tickListener;
+  AnimationStatusListener? _statusListener;
   void Function()? _onLockChanged;
   bool _locked = false;
 
   /// True while a slide transition is running — all answer taps must be ignored.
   bool get isLocked => _locked;
 
-  /// Binds lock state to [animation] lifecycle: locked on every tick until completed.
+  /// Whether [animation] represents an in-flight transition (shared tick logic).
+  static bool isTransitionActive(Animation<double> animation) {
+    final statusActive = animation.status == AnimationStatus.forward ||
+        animation.status == AnimationStatus.reverse;
+    final midFrame = animation.value > 0.0 && animation.value < 1.0;
+    return statusActive || midFrame;
+  }
+
+  /// Binds lock state to [animation] lifecycle on every tick and status change.
   void bindToTransition(
     Animation<double> animation,
     void Function() onLockChanged,
   ) {
-    if (identical(_boundAnimation, animation) && _tickListener != null) {
+    if (identical(_boundAnimation, animation) &&
+        _tickListener != null &&
+        _statusListener != null) {
       _onLockChanged = onLockChanged;
       _applyLockFromAnimation(animation);
       return;
@@ -37,19 +49,33 @@ final class SlideLockMechanism {
     void tick() => _applyLockFromAnimation(animation);
     _tickListener = tick;
     animation.addListener(tick);
+
+    void onStatus(AnimationStatus status) {
+      if (status == AnimationStatus.completed ||
+          status == AnimationStatus.dismissed) {
+        _fallbackTimer?.cancel();
+        _fallbackTimer = null;
+      }
+      _applyLockFromAnimation(animation);
+    }
+
+    _statusListener = onStatus;
+    animation.addStatusListener(onStatus);
     tick();
 
+    _scheduleFallbackRelease();
+  }
+
+  void _applyLockFromAnimation(Animation<double> animation) {
+    _setLocked(isTransitionActive(animation));
+  }
+
+  void _scheduleFallbackRelease() {
+    _fallbackTimer?.cancel();
     _fallbackTimer = Timer(
       _slideDuration + const Duration(milliseconds: 48),
       () => _setLocked(false),
     );
-  }
-
-  void _applyLockFromAnimation(Animation<double> animation) {
-    final statusActive = animation.status == AnimationStatus.forward ||
-        animation.status == AnimationStatus.reverse;
-    final midFrame = animation.value > 0.0 && animation.value < 1.0;
-    _setLocked(statusActive || midFrame);
   }
 
   void _setLocked(bool value) {
@@ -75,12 +101,17 @@ final class SlideLockMechanism {
     _fallbackTimer?.cancel();
     _fallbackTimer = null;
     final animation = _boundAnimation;
-    final listener = _tickListener;
-    if (animation != null && listener != null) {
-      animation.removeListener(listener);
+    final tick = _tickListener;
+    final status = _statusListener;
+    if (animation != null && tick != null) {
+      animation.removeListener(tick);
+    }
+    if (animation != null && status != null) {
+      animation.removeStatusListener(status);
     }
     _boundAnimation = null;
     _tickListener = null;
+    _statusListener = null;
   }
 
   /// [AnimatedSwitcher.layoutBuilder] — blocks gestures on stacked slide layers.
@@ -109,7 +140,7 @@ final class SlideLockMechanism {
     bindToTransition(animation, onLockChanged);
     return _gestureShield(
       build(child, animation),
-      block: isLocked || animation.status != AnimationStatus.completed,
+      block: isLocked || isTransitionActive(animation),
     );
   }
 

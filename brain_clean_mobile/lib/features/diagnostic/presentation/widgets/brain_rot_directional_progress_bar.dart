@@ -3,6 +3,17 @@ import 'package:flutter/material.dart';
 import '../../../../core/theme/theme_extensions.dart';
 import '../../domain/diagnostic_model.dart';
 
+/// Resolves fill origin from RTL layout and questionnaire navigation direction.
+bool brainRotProgressGrowFromStart(
+  BuildContext context,
+  int slideDirection,
+) {
+  final isRtl = Directionality.of(context) == TextDirection.rtl;
+  final sign = slideDirection >= 0 ? 1.0 : -1.0;
+  final horizontalSign = isRtl ? -sign : sign;
+  return horizontalSign >= 0;
+}
+
 /// Upper questionnaire progress — fill width animates forward/back with navigation.
 class BrainRotDirectionalProgressBar extends StatefulWidget {
   const BrainRotDirectionalProgressBar({
@@ -29,17 +40,16 @@ class _BrainRotDirectionalProgressBarState
 
   double _from = 0;
   double _to = 0;
-  late bool _growFromStart;
+  bool _growFromStart = true;
 
-  static double _progressForIndex(int index) =>
+  static double fillWidthForQuestionIndex(int index) =>
       (index + 1) / BrainRotTest.questionCount;
 
   @override
   void initState() {
     super.initState();
-    _to = _progressForIndex(widget.questionIndex);
+    _to = fillWidthForQuestionIndex(widget.questionIndex);
     _from = _to;
-    _growFromStart = true;
 
     _controller = AnimationController(vsync: this, duration: widget.duration);
     _fillAnimation = CurvedAnimation(
@@ -56,17 +66,25 @@ class _BrainRotDirectionalProgressBarState
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _growFromStart = _resolveGrowFromStart(context, widget.slideDirection);
+    _growFromStart = brainRotProgressGrowFromStart(
+      context,
+      widget.slideDirection,
+    );
   }
 
   @override
   void didUpdateWidget(BrainRotDirectionalProgressBar oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.questionIndex != widget.questionIndex ||
-        oldWidget.slideDirection != widget.slideDirection) {
+    final indexChanged = oldWidget.questionIndex != widget.questionIndex;
+    final directionChanged = oldWidget.slideDirection != widget.slideDirection;
+
+    if (indexChanged || directionChanged) {
       _from = _displayedFill;
-      _to = _progressForIndex(widget.questionIndex);
-      _growFromStart = _resolveGrowFromStart(context, widget.slideDirection);
+      _to = fillWidthForQuestionIndex(widget.questionIndex);
+      _growFromStart = brainRotProgressGrowFromStart(
+        context,
+        widget.slideDirection,
+      );
       _controller
         ..reset()
         ..forward();
@@ -80,13 +98,6 @@ class _BrainRotDirectionalProgressBarState
   }
 
   double get _displayedFill => _from + (_to - _from) * _fillAnimation.value;
-
-  bool _resolveGrowFromStart(BuildContext context, int slideDirection) {
-    final isRtl = Directionality.of(context) == TextDirection.rtl;
-    final sign = slideDirection >= 0 ? 1.0 : -1.0;
-    final horizontalSign = isRtl ? -sign : sign;
-    return horizontalSign >= 0;
-  }
 
   @override
   Widget build(BuildContext context) {

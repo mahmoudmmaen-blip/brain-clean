@@ -15,6 +15,18 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('SlideLockMechanism', () {
+    test('isTransitionActive mirrors tick lock semantics', () {
+      final controller = AnimationController(
+        vsync: const _TestVsync(),
+        duration: const Duration(milliseconds: 400),
+      );
+      controller.value = 0.5;
+      expect(SlideLockMechanism.isTransitionActive(controller), isTrue);
+      controller.value = 1.0;
+      expect(SlideLockMechanism.isTransitionActive(controller), isFalse);
+      controller.dispose();
+    });
+
     test('bindToTransition locks on animation ticks between 0 and 1', () {
       final lock = SlideLockMechanism(
         slideDuration: const Duration(milliseconds: 400),
