@@ -518,65 +518,77 @@ abstract class AppLocalizations {
   /// **'Day {day} habits'**
   String recoveryDayTasksTitle(int day);
 
-  /// No description provided for @recoveryTaskBoredomTitle.
+  /// No description provided for @recoveryProgressSummary.
   ///
   /// In en, this message translates to:
-  /// **'Befriend boredom'**
-  String get recoveryTaskBoredomTitle;
+  /// **'{completed} of {total} protocol days complete'**
+  String recoveryProgressSummary(int completed, int total);
 
-  /// No description provided for @recoveryTaskBoredomSubtitle.
+  /// No description provided for @recoveryDayTasksProgress.
   ///
   /// In en, this message translates to:
-  /// **'10 minutes of silence without a screen'**
-  String get recoveryTaskBoredomSubtitle;
+  /// **'{done} of {total} habits logged today'**
+  String recoveryDayTasksProgress(int done, int total);
 
-  /// No description provided for @recoveryTaskDelayedTitle.
+  /// No description provided for @recoveryTaskSleepTitle.
   ///
   /// In en, this message translates to:
-  /// **'Delayed gratification'**
-  String get recoveryTaskDelayedTitle;
+  /// **'Regulated sleep'**
+  String get recoveryTaskSleepTitle;
 
-  /// No description provided for @recoveryTaskDelayedSubtitle.
+  /// No description provided for @recoveryTaskSleepSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'At least one intentional delay win today'**
-  String get recoveryTaskDelayedSubtitle;
+  /// **'Consistent sleep window and wind-down routine'**
+  String get recoveryTaskSleepSubtitle;
 
-  /// No description provided for @recoveryTaskBodyTitle.
+  /// No description provided for @recoveryTaskNutritionTitle.
   ///
   /// In en, this message translates to:
-  /// **'Body activation'**
-  String get recoveryTaskBodyTitle;
+  /// **'Anti-inflammatory nutrition'**
+  String get recoveryTaskNutritionTitle;
 
-  /// No description provided for @recoveryTaskBodySubtitle.
+  /// No description provided for @recoveryTaskNutritionSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Morning sun + cold shower'**
-  String get recoveryTaskBodySubtitle;
+  /// **'Brain-supportive meals without inflammatory triggers'**
+  String get recoveryTaskNutritionSubtitle;
 
-  /// No description provided for @recoveryTaskDigitalTitle.
+  /// No description provided for @recoveryTaskMovementTitle.
   ///
   /// In en, this message translates to:
-  /// **'Digital discipline'**
-  String get recoveryTaskDigitalTitle;
+  /// **'20 minutes of movement'**
+  String get recoveryTaskMovementTitle;
 
-  /// No description provided for @recoveryTaskDigitalSubtitle.
+  /// No description provided for @recoveryTaskMovementSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'No doom-scrolling block completed'**
-  String get recoveryTaskDigitalSubtitle;
+  /// **'Walk, stretch, or light exercise for at least 20 minutes'**
+  String get recoveryTaskMovementSubtitle;
 
-  /// No description provided for @recoveryTaskFocusTitle.
+  /// No description provided for @recoveryTaskDistractionTitle.
   ///
   /// In en, this message translates to:
-  /// **'Deep focus session'**
-  String get recoveryTaskFocusTitle;
+  /// **'Distraction management protocol'**
+  String get recoveryTaskDistractionTitle;
 
-  /// No description provided for @recoveryTaskFocusSubtitle.
+  /// No description provided for @recoveryTaskDistractionSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'One 25-minute pomodoro without distraction'**
-  String get recoveryTaskFocusSubtitle;
+  /// **'Completed your daily focus-protection routine'**
+  String get recoveryTaskDistractionSubtitle;
+
+  /// No description provided for @recoveryTaskMentalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Mental support'**
+  String get recoveryTaskMentalTitle;
+
+  /// No description provided for @recoveryTaskMentalSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Journaling, breathwork, or guided recovery check-in'**
+  String get recoveryTaskMentalSubtitle;
 
   /// No description provided for @recoveryDayComplete.
   ///

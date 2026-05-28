@@ -250,34 +250,49 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get recoveryTaskBoredomTitle => 'مُصاحبة الملل';
+  String recoveryProgressSummary(int completed, int total) {
+    return '$completed من $total يوماً مكتمل في البروتوكول';
+  }
 
   @override
-  String get recoveryTaskBoredomSubtitle => '10 دقائق صمت بدون شاشة';
+  String recoveryDayTasksProgress(int done, int total) {
+    return '$done من $total عادات مسجّلة اليوم';
+  }
 
   @override
-  String get recoveryTaskDelayedTitle => 'تأخير المكافأة';
+  String get recoveryTaskSleepTitle => 'نوم منظم';
 
   @override
-  String get recoveryTaskDelayedSubtitle => 'انتصار واحد مقصود على الأقل اليوم';
+  String get recoveryTaskSleepSubtitle =>
+      'نافذة نوم ثابتة وروتين استرخاء قبل النوم';
 
   @override
-  String get recoveryTaskBodyTitle => 'تنشيط الجسد';
+  String get recoveryTaskNutritionTitle => 'تغذية مضادة للالتهاب';
 
   @override
-  String get recoveryTaskBodySubtitle => 'شمس الصباح + دش بارد';
+  String get recoveryTaskNutritionSubtitle =>
+      'وجبات داعمة للدماغ دون محفزات التهاب';
 
   @override
-  String get recoveryTaskDigitalTitle => 'الانضباط الرقمي';
+  String get recoveryTaskMovementTitle => '20 دقيقة حركة';
 
   @override
-  String get recoveryTaskDigitalSubtitle => 'إكمال فترة بدون تمرير عشوائي';
+  String get recoveryTaskMovementSubtitle =>
+      'مشي أو تمدد أو نشاط خفيف لمدة 20 دقيقة على الأقل';
 
   @override
-  String get recoveryTaskFocusTitle => 'جلسة تركيز عميق';
+  String get recoveryTaskDistractionTitle => 'بروتوكول إدارة التشتت';
 
   @override
-  String get recoveryTaskFocusSubtitle => 'بومودورو 25 دقيقة بدون تشتت';
+  String get recoveryTaskDistractionSubtitle =>
+      'إكمال روتين حماية التركيز اليومي';
+
+  @override
+  String get recoveryTaskMentalTitle => 'دعم ذهني';
+
+  @override
+  String get recoveryTaskMentalSubtitle =>
+      'تدوين أو تنفس موجّه أو جلسة دعم للتعافي';
 
   @override
   String get recoveryDayComplete => 'اكتملت العادات الخمس لهذا اليوم.';

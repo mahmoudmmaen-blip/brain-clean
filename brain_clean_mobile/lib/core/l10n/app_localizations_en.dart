@@ -253,37 +253,49 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get recoveryTaskBoredomTitle => 'Befriend boredom';
+  String recoveryProgressSummary(int completed, int total) {
+    return '$completed of $total protocol days complete';
+  }
 
   @override
-  String get recoveryTaskBoredomSubtitle =>
-      '10 minutes of silence without a screen';
+  String recoveryDayTasksProgress(int done, int total) {
+    return '$done of $total habits logged today';
+  }
 
   @override
-  String get recoveryTaskDelayedTitle => 'Delayed gratification';
+  String get recoveryTaskSleepTitle => 'Regulated sleep';
 
   @override
-  String get recoveryTaskDelayedSubtitle =>
-      'At least one intentional delay win today';
+  String get recoveryTaskSleepSubtitle =>
+      'Consistent sleep window and wind-down routine';
 
   @override
-  String get recoveryTaskBodyTitle => 'Body activation';
+  String get recoveryTaskNutritionTitle => 'Anti-inflammatory nutrition';
 
   @override
-  String get recoveryTaskBodySubtitle => 'Morning sun + cold shower';
+  String get recoveryTaskNutritionSubtitle =>
+      'Brain-supportive meals without inflammatory triggers';
 
   @override
-  String get recoveryTaskDigitalTitle => 'Digital discipline';
+  String get recoveryTaskMovementTitle => '20 minutes of movement';
 
   @override
-  String get recoveryTaskDigitalSubtitle => 'No doom-scrolling block completed';
+  String get recoveryTaskMovementSubtitle =>
+      'Walk, stretch, or light exercise for at least 20 minutes';
 
   @override
-  String get recoveryTaskFocusTitle => 'Deep focus session';
+  String get recoveryTaskDistractionTitle => 'Distraction management protocol';
 
   @override
-  String get recoveryTaskFocusSubtitle =>
-      'One 25-minute pomodoro without distraction';
+  String get recoveryTaskDistractionSubtitle =>
+      'Completed your daily focus-protection routine';
+
+  @override
+  String get recoveryTaskMentalTitle => 'Mental support';
+
+  @override
+  String get recoveryTaskMentalSubtitle =>
+      'Journaling, breathwork, or guided recovery check-in';
 
   @override
   String get recoveryDayComplete => 'All five habits completed for this day.';
