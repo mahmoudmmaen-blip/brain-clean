@@ -7,6 +7,7 @@ import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.d
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_session.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/bc_score_provider.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/brain_rot_questionnaire_snapshot.dart';
+import 'package:brain_clean_mobile/features/diagnostic/presentation/diagnostic_controller.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/diagnostic_session_flow_provider.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/diagnostic_screen.dart';
 import 'package:brain_clean_mobile/features/recovery/data/recovery_protocol_hive_repository.dart';
@@ -29,9 +30,16 @@ void main() {
   group('Diagnostic UI', () {
     testWidgets('diagnostic screen starts Brain Rot questionnaire', (tester) async {
       await tester.pumpWidget(
-        createLocalizedProviderTestWidget(const DiagnosticScreen()),
+        createLocalizedProviderTestWidget(
+          const DiagnosticScreen(),
+          overrides: [
+            diagnosticControllerProvider.overrideWith(
+              _InstantDiagnosticController.new,
+            ),
+          ],
+        ),
       );
-      await tester.pump();
+      await tester.pumpAndSettle();
 
       expect(find.text(en.diagnosticBrainRotTitle), findsOneWidget);
       expect(find.text(en.diagnosticYes), findsOneWidget);
@@ -44,11 +52,14 @@ void main() {
         createLocalizedProviderTestWidget(
           const DiagnosticScreen(),
           overrides: [
+            diagnosticControllerProvider.overrideWith(
+              _InstantDiagnosticController.new,
+            ),
             diagnosticSessionFlowProvider.overrideWith(_BhiPhaseFlow.new),
           ],
         ),
       );
-      await tester.pump();
+      await tester.pumpAndSettle();
 
       expect(find.text(en.diagnosticBhiTitle), findsOneWidget);
       expect(find.text(en.bcScoreHeroLabel), findsOneWidget);
@@ -200,6 +211,11 @@ class _InstantHydration extends AppHydration {
       hasDraftProgress: false,
     );
   }
+}
+
+class _InstantDiagnosticController extends DiagnosticController {
+  @override
+  Future<DiagnosticMetrics> build() async => const DiagnosticMetrics();
 }
 
 class _BhiPhaseFlow extends DiagnosticSessionFlow {

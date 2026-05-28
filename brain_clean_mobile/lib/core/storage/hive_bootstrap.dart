@@ -18,10 +18,15 @@ abstract final class HiveBootstrap {
   }
 
   /// Opens all durable boxes before UI hydration (cold-start safety).
+  ///
+  /// Recovery: typed adapters + camelCase JSON envelope (`protocol_state`).
+  /// Diagnostic: JSON maps (`committed_session`, `draft_metrics`, `draft_questionnaire`).
   static Future<void> warmUpPersistentBoxes() async {
     await initialize();
-    await _openBoxIfNeeded(HiveBoxes.recoveryProtocol);
-    await _openBoxIfNeeded(HiveBoxes.diagnosticPersistence);
+    await Future.wait([
+      _openBoxIfNeeded(HiveBoxes.recoveryProtocol),
+      _openBoxIfNeeded(HiveBoxes.diagnosticPersistence),
+    ]);
   }
 
   static Future<Box<dynamic>> _openBoxIfNeeded(String name) async {

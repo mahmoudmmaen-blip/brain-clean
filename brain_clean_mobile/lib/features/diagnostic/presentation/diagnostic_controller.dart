@@ -5,6 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../core/constants/app_routes.dart';
 import '../../../core/routing/app_router.dart';
+import '../../detox/presentation/detox_protocol_controller.dart';
 import '../data/diagnostic_local_repository_provider.dart';
 import '../data/diagnostic_repository.dart';
 import '../data/diagnostic_repository_provider.dart';
@@ -14,15 +15,26 @@ import 'diagnostic_session_flow_provider.dart';
 
 part 'diagnostic_controller.g.dart';
 
-@riverpod
+/// Slider metrics — keepAlive + Hive draft sync so cold start never wipes answers.
+@Riverpod(keepAlive: true)
 class DiagnosticController extends _$DiagnosticController {
   @override
-  FutureOr<DiagnosticMetrics> build() {
-    return const DiagnosticMetrics();
+  Future<DiagnosticMetrics> build() async {
+    try {
+      final bundle =
+          await ref.read(diagnosticLocalRepositoryProvider).loadBundle();
+      return bundle.metrics ?? const DiagnosticMetrics();
+    } catch (e, stackTrace) {
+      debugPrint('DiagnosticController: Hive hydrate failed: $e');
+      debugPrint('$stackTrace');
+      return const DiagnosticMetrics();
+    }
   }
 
   void restoreFromPersistence(DiagnosticMetrics metrics) {
-    state = AsyncData(metrics);
+    if (!state.hasValue || state.value != metrics) {
+      state = AsyncData(metrics);
+    }
   }
 
   void _persistDraft() {
@@ -81,6 +93,7 @@ class DiagnosticController extends _$DiagnosticController {
   int _clampMetric(int value) => value.clamp(1, 10);
 
   void _invalidateAndResyncDetox() {
+    ref.invalidate(detoxProtocolControllerProvider);
     debugPrint('[BrainClean] Detox resync lifecycle triggered successfully.');
   }
 

@@ -15,6 +15,7 @@ import '../constants/app_routes.dart';
 
 part 'app_router.g.dart';
 
+/// App shell — splash hydrates Hive first, then home or in-progress diagnostic.
 @riverpod
 GoRouter goRouter(GoRouterRef ref) {
   return GoRouter(
