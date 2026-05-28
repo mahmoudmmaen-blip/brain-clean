@@ -185,6 +185,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get diagnosticBrainRotIncomplete => 'Complete all 10 questions first.';
 
   @override
+  String get diagnosticBrainRotScoring => 'Calculating your Brain Rot score…';
+
+  @override
   String get diagnosticSyncError =>
       'Could not save your diagnostic. Please try again.';
 

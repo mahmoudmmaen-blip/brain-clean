@@ -416,6 +416,12 @@ abstract class AppLocalizations {
   /// **'Complete all 10 questions first.'**
   String get diagnosticBrainRotIncomplete;
 
+  /// No description provided for @diagnosticBrainRotScoring.
+  ///
+  /// In en, this message translates to:
+  /// **'Calculating your Brain Rot score…'**
+  String get diagnosticBrainRotScoring;
+
   /// No description provided for @diagnosticSyncError.
   ///
   /// In en, this message translates to:

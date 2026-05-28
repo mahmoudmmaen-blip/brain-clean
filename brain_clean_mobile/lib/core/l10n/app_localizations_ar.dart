@@ -183,6 +183,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get diagnosticBrainRotIncomplete => 'أكمل الأسئلة العشرة أولاً.';
 
   @override
+  String get diagnosticBrainRotScoring => 'جاري حساب نتيجة تعفن الدماغ…';
+
+  @override
   String get diagnosticSyncError => 'تعذر حفظ التشخيص. حاول مرة أخرى.';
 
   @override
