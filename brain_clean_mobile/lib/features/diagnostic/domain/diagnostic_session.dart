@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'bhi_pillar_frozen_snapshot.dart';
+import 'bhi_pillar_json_keys.dart';
 import 'brain_rot_assessment.dart';
 import 'brain_rot_questionnaire_snapshot.dart';
 import 'diagnostic_bhi_snapshot.dart';
@@ -224,14 +225,28 @@ class DiagnosticSession {
   }
 
   factory DiagnosticSession.fromJson(Map<String, dynamic> json) {
-    final session = _$DiagnosticSessionFromJson(json);
+    final normalized = BhiPillarJsonKeys.normalizeIncoming(json);
+    final session = _$DiagnosticSessionFromJson(normalized);
+    final rootPenalty = BhiPillarJsonKeys.readPenalty(normalized);
+    if (rootPenalty > 0) {
+      PillarBoundEvaluation.requireScoresMatch(
+        stored: rootPenalty,
+        recomputed: session.recoveryPenaltyDeduction,
+        layer: 'DiagnosticSession.recoveryPenaltyDeduction',
+      );
+    }
     session.ensurePillarBoundCoherence();
     return session;
   }
 
   Map<String, dynamic> toJson() {
     ensurePillarBoundCoherence();
-    return _$DiagnosticSessionToJson(this);
+    final map = _$DiagnosticSessionToJson(this);
+    map[BhiPillarJsonKeys.recoveryPenaltyDeduction] = recoveryPenaltyDeduction;
+    map[BhiPillarJsonKeys.pillarMatrixBcScore] = pillarMatrixBcScore;
+    map[BhiPillarJsonKeys.bcScore] = bcScore;
+    map[BhiPillarJsonKeys.boundBcScore] = bcScore;
+    return map;
   }
 
   /// Lossless snake_case payload for [DiagnosticRepository].

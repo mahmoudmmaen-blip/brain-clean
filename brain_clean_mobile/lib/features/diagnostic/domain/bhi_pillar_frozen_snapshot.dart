@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../core/constants/bc_score_constants.dart';
+import 'bhi_pillar_json_keys.dart';
 import 'diagnostic_model.dart';
 import 'pillar_bound_evaluation.dart';
 
@@ -19,25 +20,29 @@ class BhiPillarFrozenSnapshot {
     this.recoveryPenaltyDeduction = 0,
   });
 
-  @JsonKey(name: 'brain_performance')
+  @JsonKey(name: BhiPillarJsonKeys.brainPerformance)
   final double brainPerformance;
 
-  @JsonKey(name: 'digital_discipline')
+  @JsonKey(name: BhiPillarJsonKeys.digitalDiscipline)
   final double digitalDiscipline;
 
-  @JsonKey(name: 'healthy_habits')
+  @JsonKey(name: BhiPillarJsonKeys.healthyHabits)
   final double healthyHabits;
 
+  @JsonKey(name: BhiPillarJsonKeys.consistency)
   final double consistency;
 
-  @JsonKey(name: 'bc_score')
+  @JsonKey(name: BhiPillarJsonKeys.bcScore)
   final double bcScore;
 
-  @JsonKey(name: 'frozen_at')
+  @JsonKey(name: BhiPillarJsonKeys.frozenAt)
   final DateTime frozenAt;
 
   /// Cumulative BC_score accountability from 30-day recovery penalty box (−15 each).
-  @JsonKey(name: 'recovery_penalty_deduction', defaultValue: 0)
+  @JsonKey(
+    name: BhiPillarJsonKeys.recoveryPenaltyDeduction,
+    defaultValue: 0,
+  )
   final double recoveryPenaltyDeduction;
 
   bool get hasRecoveryPenalty => recoveryPenaltyDeduction > 0;
@@ -177,12 +182,16 @@ class BhiPillarFrozenSnapshot {
       );
 
   factory BhiPillarFrozenSnapshot.fromJson(Map<String, dynamic> json) {
-    final penalty = (json['recovery_penalty_deduction'] as num?)?.toDouble() ?? 0;
+    final normalized = BhiPillarJsonKeys.normalizeIncoming(json);
+    final penalty = BhiPillarJsonKeys.readPenalty(normalized);
     final evaluation = PillarBoundEvaluation.coherent(
-      brainPerformance: (json['brain_performance'] as num).toDouble(),
-      digitalDiscipline: (json['digital_discipline'] as num).toDouble(),
-      healthyHabits: (json['healthy_habits'] as num).toDouble(),
-      consistency: (json['consistency'] as num).toDouble(),
+      brainPerformance:
+          (normalized[BhiPillarJsonKeys.brainPerformance] as num).toDouble(),
+      digitalDiscipline:
+          (normalized[BhiPillarJsonKeys.digitalDiscipline] as num).toDouble(),
+      healthyHabits:
+          (normalized[BhiPillarJsonKeys.healthyHabits] as num).toDouble(),
+      consistency: (normalized[BhiPillarJsonKeys.consistency] as num).toDouble(),
     );
     final effective = effectiveBcScore(
       brainPerformance: evaluation.brainPerformance,
@@ -191,7 +200,8 @@ class BhiPillarFrozenSnapshot {
       consistency: evaluation.consistency,
       recoveryPenaltyDeduction: penalty,
     );
-    final storedBc = (json['bc_score'] as num?)?.toDouble() ?? effective;
+    final storedBc =
+        (normalized[BhiPillarJsonKeys.bcScore] as num?)?.toDouble() ?? effective;
     PillarBoundEvaluation.requireScoresMatch(
       stored: storedBc,
       recomputed: effective,
@@ -199,7 +209,7 @@ class BhiPillarFrozenSnapshot {
     );
     return BhiPillarFrozenSnapshot.fromEvaluation(
       evaluation,
-      moment: DateTime.parse(json['frozen_at'] as String),
+      moment: DateTime.parse(normalized[BhiPillarJsonKeys.frozenAt] as String),
       recoveryPenaltyDeduction: penalty,
     );
   }

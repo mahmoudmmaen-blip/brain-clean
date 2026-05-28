@@ -38,6 +38,9 @@
       }
     }
   },
+  "bcScorePenaltyEquationTitle": "تعديل المساءلة",
+  "bcScoreBaseBhiLabel": "درجة BHI الأساسية",
+  "bcScoreFinalBcScoreLabel": "BC_score النهائي",
   "detoxTitle": "بروتوكول الدوبامين (7 أيام)",
   "detoxSubtitle": "تسجيل يومي",
   "detoxLiveBcScoreTitle": "النقاط المباشرة",

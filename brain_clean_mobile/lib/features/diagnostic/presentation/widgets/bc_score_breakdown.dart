@@ -6,6 +6,7 @@ import '../../../../core/theme/theme_extensions.dart';
 import '../../domain/diagnostic_session.dart';
 import '../../domain/pillar_bound_evaluation.dart';
 import 'bc_score_colors.dart';
+import 'bc_score_penalty_equation.dart';
 
 /// Four-pillar BC_score breakdown — bound to [PillarBoundEvaluation] snapshot.
 class BcScoreBreakdown extends StatelessWidget {
@@ -13,6 +14,7 @@ class BcScoreBreakdown extends StatelessWidget {
     super.key,
     required this.evaluation,
     required this.displayBcScore,
+    this.pillarMatrixBcScore,
     this.recoveryPenaltyDeduction = 0,
   });
 
@@ -25,12 +27,17 @@ class BcScoreBreakdown extends StatelessWidget {
         key: key,
         evaluation: session.pillarEvaluation,
         displayBcScore: session.bcScore,
+        pillarMatrixBcScore: session.pillarMatrixBcScore,
         recoveryPenaltyDeduction: session.recoveryPenaltyDeduction,
       );
 
   final PillarBoundEvaluation evaluation;
   final double displayBcScore;
+  final double? pillarMatrixBcScore;
   final double recoveryPenaltyDeduction;
+
+  double get _baseBhiScore =>
+      pillarMatrixBcScore ?? evaluation.recomputedBcScore;
 
   @override
   Widget build(BuildContext context) {
@@ -72,13 +79,11 @@ class BcScoreBreakdown extends StatelessWidget {
                 weight: row.weight,
               ),
             if (recoveryPenaltyDeduction > 0) ...[
-              Divider(height: 16, color: context.borderMuted),
-              _SummaryRow(
-                label: loc.bcScoreRecoveryPenaltyAdjustment(
-                  recoveryPenaltyDeduction.round(),
-                ),
-                value: '−${recoveryPenaltyDeduction.round()}',
-                color: Theme.of(context).colorScheme.error,
+              const SizedBox(height: 12),
+              BcScorePenaltyEquation(
+                baseBhiScore: _baseBhiScore,
+                penaltyDeduction: recoveryPenaltyDeduction,
+                finalBcScore: displayBcScore,
               ),
             ],
             Divider(height: 20, color: context.borderMuted),

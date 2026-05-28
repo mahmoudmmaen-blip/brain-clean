@@ -38,6 +38,9 @@
       }
     }
   },
+  "bcScorePenaltyEquationTitle": "ACCOUNTABILITY ADJUSTMENT",
+  "bcScoreBaseBhiLabel": "Base BHI score",
+  "bcScoreFinalBcScoreLabel": "Final BC_score",
   "detoxTitle": "7-Day Dopamine Detox",
   "detoxSubtitle": "Daily check-in",
   "detoxLiveBcScoreTitle": "Live BC_score",

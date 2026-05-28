@@ -339,6 +339,28 @@ void main() {
       expect(evaluation.pillarRows, hasLength(4));
     });
 
+    test('frozen snapshot round-trips camelCase JSON and migrates legacy snake_case', () {
+      const model = DiagnosticModel(
+        brainPerformance: 80,
+        digitalDiscipline: 75,
+        healthyHabits: 70,
+        consistency: 65,
+      );
+      final frozen = BhiPillarFrozenSnapshot.freeze(model).copyWith(
+        recoveryPenaltyDeduction: 15,
+      );
+      final camel = frozen.toJson();
+      expect(camel.containsKey('recoveryPenaltyDeduction'), isTrue);
+      expect(camel.containsKey('recovery_penalty_deduction'), isFalse);
+
+      final legacy = Map<String, dynamic>.from(camel)
+        ..remove('recoveryPenaltyDeduction')
+        ..['recovery_penalty_deduction'] = 15;
+      final migrated = BhiPillarFrozenSnapshot.fromJson(legacy);
+      expect(migrated.recoveryPenaltyDeduction, 15);
+      expect(migrated.isCoherent, isTrue);
+    });
+
     test('frozen snapshot with recovery penalty round-trips JSON coherently', () {
       const model = DiagnosticModel(
         brainPerformance: 80,
@@ -484,11 +506,17 @@ void main() {
       expect(payload['bc_score'], session.bcScore);
       expect(payload['pillar_matrix_bc_score'], session.pillarMatrixBcScore);
 
-      final roundTrip = DiagnosticSession.fromJson(
-        payload['session_json'] as Map<String, dynamic>,
-      );
+      final sessionJson = session.toJson();
+      expect(sessionJson['recoveryPenaltyDeduction'], 15);
+      expect(sessionJson['bcScore'], session.bcScore);
+
+      final roundTrip = DiagnosticSession.fromJson(sessionJson);
       expect(roundTrip.recoveryPenaltyDeduction, 15);
       expect(roundTrip.bcScore, session.bcScore);
+
+      final bhiJson = session.bhi.toJson();
+      expect(bhiJson['recoveryPenaltyDeduction'], 15);
+      expect(bhiJson['frozenPillars'], isA<Map<String, dynamic>>());
     });
 
     test('frozen pillars remain stable after model mutation post-commit', () {
