@@ -43,21 +43,24 @@ void main() {
     });
 
     testWidgets('diagnostic BHI sliders after questionnaire override', (tester) async {
+      const liveModel = DiagnosticModel(
+        brainPerformance: 72,
+        digitalDiscipline: 68,
+        healthyHabits: 70,
+        consistency: 66,
+      );
+      final questionnaire = BrainRotQuestionnaireSnapshot(
+        answers: List<bool?>.filled(10, false),
+        currentIndex: 9,
+        phase: BrainRotFlowPhase.bhiSliders,
+      );
+
       await tester.pumpWidget(
         createLocalizedProviderTestWidget(
           const DiagnosticScreen(),
           overrides: diagnosticWidgetTestOverrides(
-            questionnaireFlow: BrainRotQuestionnaireSnapshot(
-              answers: List<bool?>.filled(10, false),
-              currentIndex: 9,
-              phase: BrainRotFlowPhase.bhiSliders,
-            ),
-            liveModel: const DiagnosticModel(
-              brainPerformance: 72,
-              digitalDiscipline: 68,
-              healthyHabits: 70,
-              consistency: 66,
-            ),
+            questionnaireFlow: questionnaire,
+            liveModel: liveModel,
           ),
         ),
       );

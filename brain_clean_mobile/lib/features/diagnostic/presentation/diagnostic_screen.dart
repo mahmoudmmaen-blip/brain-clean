@@ -6,9 +6,8 @@ import '../../../core/theme/app_design_constants.dart';
 import '../../../core/theme/theme_extensions.dart';
 import '../domain/brain_rot_questionnaire_snapshot.dart';
 import '../domain/diagnostic_session.dart';
-import 'diagnostic_in_progress_session_provider.dart';
-import 'diagnostic_session_flow_provider.dart';
 import 'diagnostic_controller.dart';
+import 'diagnostic_session_flow_provider.dart';
 import 'widgets/bc_score_breakdown.dart';
 import 'widgets/bc_score_hero_card.dart';
 import 'widgets/brain_rot_questionnaire_view.dart';
@@ -19,7 +18,7 @@ import 'widgets/diagnostic_metric_slider.dart';
 /// Full diagnostic flow — questionnaire, results, and BHI sliders.
 ///
 /// Live state is always [DiagnosticSession.inProgress] via
-/// [diagnosticInProgressSessionProvider].
+/// [diagnosticLiveSessionProvider].
 class DiagnosticScreen extends ConsumerWidget {
   const DiagnosticScreen({super.key});
 
@@ -27,7 +26,7 @@ class DiagnosticScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = AppLocalizations.of(context)!;
     final asyncMetrics = ref.watch(diagnosticControllerProvider);
-    final session = ref.watch(diagnosticInProgressSessionProvider);
+    final session = ref.watch(diagnosticLiveSessionProvider);
 
     return Scaffold(
       backgroundColor: context.isLightTheme

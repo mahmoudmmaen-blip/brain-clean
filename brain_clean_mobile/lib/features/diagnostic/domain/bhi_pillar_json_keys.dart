@@ -178,6 +178,26 @@ abstract final class BhiPillarJsonKeys {
     return null;
   }
 
+  /// Parses [committedAt] after [normalizeIncoming] (ISO-8601 camelCase).
+  static DateTime parseCommittedAt(Map<String, dynamic> json) {
+    final normalized = normalizeIncoming(json);
+    final raw = normalized[committedAt];
+    if (raw is! String) {
+      throw FormatException(
+        'BhiPillarJsonKeys: missing or invalid "$committedAt"',
+      );
+    }
+    return DateTime.parse(raw);
+  }
+
+  /// Returns the nested BHI map or throws — never reads snake_case root keys.
+  static Map<String, dynamic> requireBhiMap(Map<String, dynamic> json) {
+    final normalized = normalizeIncoming(json);
+    final bhiMap = readBhiMap(normalized);
+    if (bhiMap != null) return bhiMap;
+    throw FormatException('BhiPillarJsonKeys: missing "$bhi" envelope');
+  }
+
   /// Embeds recovery accountability fields on a BHI or session JSON map.
   static void writePenaltyEnvelope(
     Map<String, dynamic> target, {

@@ -217,11 +217,9 @@ class DiagnosticSession {
     final normalized = BhiPillarJsonKeys.normalizeIncoming(json);
     final session = DiagnosticSession(
       bhi: DiagnosticBhiSnapshot.fromJson(
-        BhiPillarJsonKeys.requireMap(normalized, BhiPillarJsonKeys.bhi),
+        BhiPillarJsonKeys.requireBhiMap(normalized),
       ),
-      committedAt: DateTime.parse(
-        normalized[BhiPillarJsonKeys.committedAt] as String,
-      ),
+      committedAt: BhiPillarJsonKeys.parseCommittedAt(normalized),
       brainRotAssessment: _readBrainRotAssessment(normalized),
       questionnaire: _readQuestionnaire(normalized),
     );

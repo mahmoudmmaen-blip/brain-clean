@@ -5,7 +5,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../data/diagnostic_local_repository_provider.dart';
 import '../domain/brain_rot_questionnaire_snapshot.dart';
 import '../domain/diagnostic_model.dart';
-import '../domain/diagnostic_session.dart';
 import 'diagnostic_controller.dart';
 
 part 'diagnostic_session_flow_provider.g.dart';
@@ -123,16 +122,6 @@ class DiagnosticSessionFlow extends _$DiagnosticSessionFlow {
 
   bool get isComplete => state.isComplete;
 
-  /// Latest validated in-progress session (mirrors [diagnosticInProgressSessionProvider]).
-  DiagnosticSession buildInProgressSession({
-    BrainRotQuestionnaireSnapshot? questionnaire,
-    bool requireComplete = false,
-  }) =>
-      ref.read(diagnosticControllerProvider.notifier).buildInProgressSession(
-            questionnaire: questionnaire ?? state,
-            requireComplete: requireComplete,
-          );
-
   void _commitSnapshot(
     BrainRotQuestionnaireSnapshot snapshot, {
     bool requireComplete = false,
@@ -142,8 +131,9 @@ class DiagnosticSessionFlow extends _$DiagnosticSessionFlow {
     ref.read(diagnosticLocalRepositoryProvider).saveDraft(
           questionnaire: snapshot,
         );
+    final controller = ref.read(diagnosticControllerProvider.notifier);
     if (!validateAsync) {
-      buildInProgressSession(
+      controller.validateLiveSession(
         questionnaire: snapshot,
         requireComplete: requireComplete,
       );
@@ -152,14 +142,10 @@ class DiagnosticSessionFlow extends _$DiagnosticSessionFlow {
     final generation = _resultsTransitionGeneration;
     scheduleMicrotask(() {
       if (generation != _resultsTransitionGeneration) return;
-      buildInProgressSession(
+      controller.validateLiveSession(
         questionnaire: state,
         requireComplete: requireComplete,
       );
     });
   }
-
-  /// Packages flow + live inputs into a committed [DiagnosticSession].
-  DiagnosticSession buildCommittedSession() =>
-      ref.read(diagnosticControllerProvider.notifier).buildCommittedSession();
 }

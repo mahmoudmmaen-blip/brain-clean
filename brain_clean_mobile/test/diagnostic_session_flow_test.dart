@@ -7,7 +7,6 @@ import 'package:brain_clean_mobile/features/diagnostic/domain/brain_rot_question
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_metrics.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/diagnostic_controller.dart';
-import 'package:brain_clean_mobile/features/diagnostic/presentation/diagnostic_in_progress_session_provider.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/diagnostic_session_flow_provider.dart';
 import 'package:brain_clean_mobile/features/recovery/data/recovery_protocol_hive_repository.dart';
 import 'package:brain_clean_mobile/features/recovery/data/recovery_protocol_storage_provider.dart';
@@ -69,7 +68,7 @@ void main() {
       final flow = container.read(diagnosticSessionFlowProvider.notifier);
       flow.answerQuestion(0, true);
 
-      final session = container.read(diagnosticInProgressSessionProvider);
+      final session = container.read(diagnosticLiveSessionProvider);
       expect(session.questionnaire.answers[0], isTrue);
       expect(session.isPillarBoundCoherent, isTrue);
       expect(session.questionnairePhase, BrainRotFlowPhase.questions);
@@ -94,7 +93,7 @@ void main() {
           BrainRotFlowPhase.questions,
         );
 
-        final pending = container.read(diagnosticInProgressSessionProvider);
+        final pending = container.read(diagnosticLiveSessionProvider);
         pending.ensureDiagnosticCoherence();
         expect(pending.brainRotScore, 1);
 
@@ -104,7 +103,7 @@ void main() {
         expect(snapshot.pendingResultsTransition, isFalse);
         expect(snapshot.phase, BrainRotFlowPhase.results);
 
-        final session = container.read(diagnosticInProgressSessionProvider);
+        final session = container.read(diagnosticLiveSessionProvider);
         expect(session.brainRotScore, 1);
         expect(session.questionnairePhase, BrainRotFlowPhase.results);
         session.ensureDiagnosticCoherence();

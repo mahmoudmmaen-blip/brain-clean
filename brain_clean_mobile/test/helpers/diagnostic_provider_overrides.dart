@@ -14,32 +14,33 @@ import 'hive_test_fixtures.dart';
 
 /// Standard Riverpod overrides for diagnostic UI widget tests.
 ///
-/// Mocks the Hive persistence layer via [InMemoryHiveBox] or an injected [Box]
-/// so rendering never touches native storage.
+/// Mocks Hive via [InMemoryHiveBox] and seeds [DiagnosticController] +
+/// [diagnosticLiveSessionProvider] so the grid never touches native I/O.
 List<Override> diagnosticWidgetTestOverrides({
   DiagnosticMetrics metrics = const DiagnosticMetrics(),
   DiagnosticModel? liveModel,
   BrainRotQuestionnaireSnapshot? questionnaireFlow,
   DiagnosticSession? committedSession,
+  DiagnosticSession? liveSession,
   Box<dynamic>? diagnosticBox,
 }) {
   final box = diagnosticBox ?? InMemoryHiveBox();
+  final model = liveModel ??
+      const DiagnosticModel(
+        brainPerformance: 50,
+        digitalDiscipline: 50,
+        healthyHabits: 50,
+        consistency: 50,
+      );
+
   final overrides = <Override>[
     diagnosticLocalRepositoryProvider.overrideWithValue(
       DiagnosticLocalRepository(box: box),
     ),
     diagnosticControllerProvider.overrideWith(
-      () => _SeededDiagnosticController(metrics),
+      () => _SeededDiagnosticController(metrics, model),
     ),
-    diagnosticLiveModelProvider.overrideWithValue(
-      liveModel ??
-          const DiagnosticModel(
-            brainPerformance: 50,
-            digitalDiscipline: 50,
-            healthyHabits: 50,
-            consistency: 50,
-          ),
-    ),
+    diagnosticLiveModelProvider.overrideWithValue(model),
   ];
 
   if (questionnaireFlow != null) {
@@ -47,6 +48,12 @@ List<Override> diagnosticWidgetTestOverrides({
       diagnosticSessionFlowProvider.overrideWith(
         () => _FixedQuestionnaireFlow(questionnaireFlow),
       ),
+    );
+  }
+
+  if (liveSession != null) {
+    overrides.add(
+      diagnosticLiveSessionProvider.overrideWithValue(liveSession),
     );
   }
 
@@ -62,12 +69,16 @@ List<Override> diagnosticWidgetTestOverrides({
 }
 
 class _SeededDiagnosticController extends DiagnosticController {
-  _SeededDiagnosticController(this._metrics);
+  _SeededDiagnosticController(this._metrics, this._liveModel);
 
   final DiagnosticMetrics _metrics;
+  final DiagnosticModel _liveModel;
 
   @override
   Future<DiagnosticMetrics> build() async => _metrics;
+
+  @override
+  DiagnosticModel computeLiveModel() => _liveModel;
 }
 
 class _FixedQuestionnaireFlow extends DiagnosticSessionFlow {

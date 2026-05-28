@@ -106,30 +106,28 @@ class DiagnosticBhiSnapshot {
 
   factory DiagnosticBhiSnapshot.fromJson(Map<String, dynamic> json) {
     final normalized = BhiPillarJsonKeys.normalizeIncoming(json);
+    final metricsJson =
+        BhiPillarJsonKeys.requireMap(normalized, BhiPillarJsonKeys.metrics);
+    final modelJson =
+        BhiPillarJsonKeys.requireMap(normalized, BhiPillarJsonKeys.model);
     final frozenRaw = BhiPillarJsonKeys.readFrozenPillarsMap(normalized);
     if (frozenRaw != null) {
-      final frozen = BhiPillarFrozenSnapshot.fromJson(frozenRaw);
+      final frozen = BhiPillarFrozenSnapshot.fromJson(
+        BhiPillarJsonKeys.normalizeIncoming(frozenRaw),
+      );
       _assertEmbeddedPenaltyMatchesRoot(
         json: normalized,
         embeddedPenalty: frozen.recoveryPenaltyDeduction,
       );
       return DiagnosticBhiSnapshot._coherent(
-        metrics: DiagnosticMetrics.fromJson(
-          BhiPillarJsonKeys.requireMap(normalized, BhiPillarJsonKeys.metrics),
-        ),
-        model: DiagnosticModel.fromJson(
-          BhiPillarJsonKeys.requireMap(normalized, BhiPillarJsonKeys.model),
-        ),
+        metrics: DiagnosticMetrics.fromJson(metricsJson),
+        model: DiagnosticModel.fromJson(modelJson),
         frozenPillars: frozen,
       );
     }
     return DiagnosticBhiSnapshot.compose(
-      metrics: DiagnosticMetrics.fromJson(
-        BhiPillarJsonKeys.requireMap(normalized, BhiPillarJsonKeys.metrics),
-      ),
-      model: DiagnosticModel.fromJson(
-        BhiPillarJsonKeys.requireMap(normalized, BhiPillarJsonKeys.model),
-      ),
+      metrics: DiagnosticMetrics.fromJson(metricsJson),
+      model: DiagnosticModel.fromJson(modelJson),
       recoveryPenaltyDeduction: BhiPillarJsonKeys.readPenalty(normalized),
     );
   }

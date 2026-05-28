@@ -6,6 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../core/constants/app_routes.dart';
 import '../../../core/routing/app_router.dart';
 import '../../detox/presentation/detox_protocol_controller.dart';
+import '../../recovery/presentation/recovery_bc_penalty_provider.dart';
 import '../data/diagnostic_local_repository_provider.dart';
 import '../data/diagnostic_repository.dart';
 import '../data/diagnostic_repository_provider.dart';
@@ -20,24 +21,33 @@ import 'diagnostic_session_flow_provider.dart';
 
 part 'diagnostic_controller.g.dart';
 
-/// Live four-pillar model — recomputes when sliders or detox habits change.
+/// Synchronous live BHI projection — sliders + detox recomputed on every watch.
 @Riverpod(keepAlive: true)
 DiagnosticModel diagnosticLiveModel(DiagnosticLiveModelRef ref) {
-  final metrics =
-      ref.watch(diagnosticControllerProvider).value ?? const DiagnosticMetrics();
-  final detox = ref.watch(detoxProtocolDataProvider);
-  return DiagnosticSessionComposer.resolveLiveModel(
-    metrics: metrics,
-    boredomBefriended: detox.boredomBefriended,
-    delayedGratificationCount: detox.delayedGratificationCount,
-    bodyActivated: detox.bodyActivated,
-  );
+  ref.watch(diagnosticControllerProvider);
+  ref.watch(detoxProtocolDataProvider);
+  return ref.read(diagnosticControllerProvider.notifier).computeLiveModel();
 }
 
-/// Slider metrics, BHI composition, and session packaging (single orchestrator).
+/// Unified in-progress [DiagnosticSession] for diagnostic UI and breakdown widgets.
 ///
-/// Persistence: drafts written on every slider change; committed sessions flow
-/// through [BcScoreSession.commit] → [DiagnosticLocalRepository].
+/// Rebuilds when metrics (async hydrate), questionnaire, live model, or penalties change.
+@Riverpod(keepAlive: true)
+DiagnosticSession diagnosticLiveSession(DiagnosticLiveSessionRef ref) {
+  ref.watch(diagnosticControllerProvider);
+  ref.watch(diagnosticSessionFlowProvider);
+  ref.watch(diagnosticLiveModelProvider);
+
+  final penaltyTotal = ref.watch(recoveryBcPenaltyTotalProvider);
+  return ref.read(diagnosticControllerProvider.notifier).buildLiveSession(
+        recoveryPenaltyTotal: penaltyTotal,
+      );
+}
+
+/// Slider metrics, live model, and session packaging — single orchestrator.
+///
+/// - **Async**: [build] hydrates slider metrics from Hive (cold start).
+/// - **Sync**: [computeLiveModel] / [buildLiveSession] project immediately on UI edits.
 @Riverpod(keepAlive: true)
 class DiagnosticController extends _$DiagnosticController {
   @override
@@ -53,11 +63,23 @@ class DiagnosticController extends _$DiagnosticController {
     }
   }
 
+  /// Hydrated slider inputs (sync after [build] completes).
   DiagnosticMetrics get currentMetrics =>
       state.value ?? const DiagnosticMetrics();
 
-  /// Live detox-adjusted model for the active diagnostic flow.
-  DiagnosticModel get liveModel => ref.read(diagnosticLiveModelProvider);
+  /// Whether metrics are still loading from Hive on first mount.
+  bool get isMetricsLoading => state.isLoading;
+
+  /// Synchronous live four-pillar model — safe to call during slider updates.
+  DiagnosticModel computeLiveModel() {
+    final detox = ref.read(detoxProtocolDataProvider);
+    return DiagnosticSessionComposer.resolveLiveModel(
+      metrics: currentMetrics,
+      boredomBefriended: detox.boredomBefriended,
+      delayedGratificationCount: detox.delayedGratificationCount,
+      bodyActivated: detox.bodyActivated,
+    );
+  }
 
   void restoreFromPersistence(DiagnosticMetrics metrics) {
     if (!state.hasValue || state.value != metrics) {
@@ -65,34 +87,43 @@ class DiagnosticController extends _$DiagnosticController {
     }
   }
 
-  /// Freezes current slider + live model into a coherent [DiagnosticBhiSnapshot].
   DiagnosticBhiSnapshot composeLiveBhiSnapshot({
     double recoveryPenaltyDeduction = 0,
     DateTime? frozenAt,
   }) =>
       DiagnosticSessionComposer.composeLiveBhiSnapshot(
         metrics: currentMetrics,
-        model: liveModel,
+        model: computeLiveModel(),
         frozenAt: frozenAt,
         recoveryPenaltyDeduction: recoveryPenaltyDeduction,
       );
 
-  /// Unified in-progress [DiagnosticSession] for UI and coherence validation.
-  DiagnosticSession buildInProgressSession({
+  /// Authoritative in-progress session for the diagnostic grid and breakdown.
+  DiagnosticSession buildLiveSession({
     BrainRotQuestionnaireSnapshot? questionnaire,
     double recoveryPenaltyTotal = 0,
     bool requireComplete = false,
   }) =>
       DiagnosticSessionComposer.buildInProgressSession(
         metrics: currentMetrics,
-        model: liveModel,
+        model: computeLiveModel(),
         questionnaire:
             questionnaire ?? ref.read(diagnosticSessionFlowProvider),
         recoveryPenaltyTotal: recoveryPenaltyTotal,
         requireComplete: requireComplete,
       );
 
-  /// Packages questionnaire + BHI into a committed [DiagnosticSession].
+  /// Runs pillar + Brain Rot coherence checks (used after questionnaire commits).
+  void validateLiveSession({
+    BrainRotQuestionnaireSnapshot? questionnaire,
+    bool requireComplete = false,
+  }) {
+    buildLiveSession(
+      questionnaire: questionnaire,
+      requireComplete: requireComplete,
+    );
+  }
+
   DiagnosticSession buildCommittedSession() {
     final flow = ref.read(diagnosticSessionFlowProvider);
     final interpretation = flow.interpretation;
@@ -100,7 +131,7 @@ class DiagnosticController extends _$DiagnosticController {
       throw StateError('Brain Rot questionnaire is incomplete.');
     }
     return DiagnosticSessionComposer.buildCommittedSession(
-      model: liveModel,
+      model: computeLiveModel(),
       metrics: currentMetrics,
       brainRot: interpretation,
       brainRotAnswers: flow.resolvedAnswers,
@@ -115,49 +146,54 @@ class DiagnosticController extends _$DiagnosticController {
         );
   }
 
+  void _applyMetricUpdate(DiagnosticMetrics next) {
+    state = AsyncData(next);
+    _persistDraft();
+  }
+
   void updateSleepQuality(int value) {
     if (state.hasValue) {
-      state = AsyncData(state.value!.copyWith(sleepQuality: _clampMetric(value)));
-      _persistDraft();
+      _applyMetricUpdate(
+        state.value!.copyWith(sleepQuality: _clampMetric(value)),
+      );
     }
   }
 
   void updateSustainedAttention(int value) {
     if (state.hasValue) {
-      state = AsyncData(
+      _applyMetricUpdate(
         state.value!.copyWith(sustainedAttention: _clampMetric(value)),
       );
-      _persistDraft();
     }
   }
 
   void updateFragmentation(int value) {
     if (state.hasValue) {
-      state = AsyncData(state.value!.copyWith(fragmentation: _clampMetric(value)));
-      _persistDraft();
+      _applyMetricUpdate(
+        state.value!.copyWith(fragmentation: _clampMetric(value)),
+      );
     }
   }
 
   void updateDopamineSeeking(int value) {
     if (state.hasValue) {
-      state = AsyncData(
+      _applyMetricUpdate(
         state.value!.copyWith(dopamineSeeking: _clampMetric(value)),
       );
-      _persistDraft();
     }
   }
 
   void updateTaskSwitching(int value) {
     if (state.hasValue) {
-      state = AsyncData(state.value!.copyWith(taskSwitching: _clampMetric(value)));
-      _persistDraft();
+      _applyMetricUpdate(
+        state.value!.copyWith(taskSwitching: _clampMetric(value)),
+      );
     }
   }
 
   void updateBurnout(int value) {
     if (state.hasValue) {
-      state = AsyncData(state.value!.copyWith(burnout: _clampMetric(value)));
-      _persistDraft();
+      _applyMetricUpdate(state.value!.copyWith(burnout: _clampMetric(value)));
     }
   }
 
