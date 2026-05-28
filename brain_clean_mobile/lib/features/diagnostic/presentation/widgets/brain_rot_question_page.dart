@@ -6,84 +6,155 @@ import '../../../../core/theme/app_design_constants.dart';
 import '../../../../core/theme/theme_extensions.dart';
 import '../../domain/diagnostic_model.dart';
 
-/// Single Brain Rot question with styled نعم / لا actions and tap feedback.
-class BrainRotQuestionPage extends StatelessWidget {
+/// Single Brain Rot question — نعم / لا with directional slide transitions.
+class BrainRotQuestionPage extends StatefulWidget {
   const BrainRotQuestionPage({
     super.key,
     required this.questionIndex,
     required this.questionText,
     required this.onAnswer,
+    this.slideDirection = 1,
     this.onBack,
   });
 
   final int questionIndex;
   final String questionText;
+
+  /// +1 next question, −1 previous (used for slide axis).
+  final int slideDirection;
   final void Function(bool yes) onAnswer;
   final VoidCallback? onBack;
+
+  @override
+  State<BrainRotQuestionPage> createState() => _BrainRotQuestionPageState();
+}
+
+class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
+    with SingleTickerProviderStateMixin {
+  late double _displayedProgress;
+  late final AnimationController _progressController;
+  late final Animation<double> _progressAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _displayedProgress = _targetProgress;
+    _progressController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 380),
+    );
+    _progressAnimation = CurvedAnimation(
+      parent: _progressController,
+      curve: Curves.easeOutCubic,
+    );
+  }
+
+  @override
+  void didUpdateWidget(BrainRotQuestionPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.questionIndex != widget.questionIndex) {
+      _progressController
+        ..reset()
+        ..forward();
+    }
+  }
+
+  @override
+  void dispose() {
+    _progressController.dispose();
+    super.dispose();
+  }
+
+  double get _targetProgress =>
+      (widget.questionIndex + 1) / BrainRotTest.questionCount;
 
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    final progress = (questionIndex + 1) / BrainRotTest.questionCount;
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
+    final slideSign = widget.slideDirection >= 0 ? 1.0 : -1.0;
+    final horizontalSign = isRtl ? -slideSign : slideSign;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
           loc.diagnosticBrainRotProgress(
-            questionIndex + 1,
+            widget.questionIndex + 1,
             BrainRotTest.questionCount,
           ),
           textAlign: TextAlign.center,
           style: context.arabicLabelStyle,
         ),
         const SizedBox(height: 14),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(6),
-          child: LinearProgressIndicator(
-            key: ValueKey<double>(progress),
-            value: progress,
-            minHeight: 8,
-            backgroundColor: context.diagnosticProgressTrack,
-            color: context.brandPrimary,
-            borderRadius: BorderRadius.circular(6),
-          ),
+        AnimatedBuilder(
+          animation: _progressAnimation,
+          builder: (context, _) {
+            final value = _displayedProgress +
+                (_targetProgress - _displayedProgress) * _progressAnimation.value;
+            return ClipRRect(
+              borderRadius: BorderRadius.circular(6),
+              child: LinearProgressIndicator(
+                value: value,
+                minHeight: 8,
+                backgroundColor: context.diagnosticProgressTrack,
+                color: context.brandPrimary,
+                borderRadius: BorderRadius.circular(6),
+              ),
+            );
+          },
         ),
         const SizedBox(height: 32),
         Expanded(
           child: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 360),
+            duration: const Duration(milliseconds: 400),
             switchInCurve: Curves.easeOutCubic,
             switchOutCurve: Curves.easeInCubic,
-            layoutBuilder: (currentChild, previousChildren) => Stack(
+            layoutBuilder: (current, previous) => Stack(
               alignment: Alignment.center,
+              fit: StackFit.expand,
               children: [
-                ...previousChildren,
-                if (currentChild != null) currentChild,
+                ...previous,
+                if (current != null) current,
               ],
             ),
             transitionBuilder: (child, animation) {
-              final offset = Tween<Offset>(
-                begin: const Offset(0.14, 0.02),
+              final enterOffset = Tween<Offset>(
+                begin: Offset(horizontalSign * 0.22, 0.03),
                 end: Offset.zero,
               ).animate(CurvedAnimation(
                 parent: animation,
                 curve: Curves.easeOutCubic,
               ));
-              return FadeTransition(
-                opacity: animation,
-                child: SlideTransition(position: offset, child: child),
+              final exitOffset = Tween<Offset>(
+                begin: Offset.zero,
+                end: Offset(-horizontalSign * 0.14, -0.02),
+              ).animate(CurvedAnimation(
+                parent: animation,
+                curve: Curves.easeInCubic,
+              ));
+
+              final isEntering = animation.status == AnimationStatus.forward ||
+                  animation.value > 0.5;
+
+              return SlideTransition(
+                position: isEntering ? enterOffset : exitOffset,
+                child: FadeTransition(
+                  opacity: animation,
+                  child: child,
+                ),
               );
             },
             child: SingleChildScrollView(
-              key: ValueKey<int>(questionIndex),
+              key: ValueKey<int>(widget.questionIndex),
               child: Container(
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
                 decoration: context.diagnosticQuestionCardDecoration,
                 child: Text(
-                  questionText,
+                  widget.questionText,
                   textAlign: TextAlign.center,
                   style: context.arabicQuestionStyle,
                 ),
@@ -115,11 +186,15 @@ class BrainRotQuestionPage extends StatelessWidget {
             ),
           ],
         ),
-        if (onBack != null && questionIndex > 0) ...[
+        if (onBack != null && widget.questionIndex > 0) ...[
           const SizedBox(height: 14),
           TextButton.icon(
-            onPressed: onBack,
-            icon: Icon(Icons.arrow_back_rounded, size: 18, color: context.brandPrimary),
+            onPressed: widget.onBack,
+            icon: Icon(
+              Icons.arrow_back_rounded,
+              size: 18,
+              color: context.brandPrimary,
+            ),
             label: Text(loc.diagnosticPreviousQuestion),
           ),
         ],
@@ -129,7 +204,7 @@ class BrainRotQuestionPage extends StatelessWidget {
 
   void _handleAnswer(bool yes) {
     HapticFeedback.lightImpact();
-    onAnswer(yes);
+    widget.onAnswer(yes);
   }
 }
 
@@ -202,7 +277,7 @@ class _AnswerButtonState extends State<_AnswerButton>
     return ScaleTransition(
       scale: _pulse,
       child: AnimatedOpacity(
-        opacity: _pressed ? 0.9 : 1,
+        opacity: _pressed ? 0.88 : 1,
         duration: const Duration(milliseconds: 80),
         child: widget.filled
             ? FilledButton(
