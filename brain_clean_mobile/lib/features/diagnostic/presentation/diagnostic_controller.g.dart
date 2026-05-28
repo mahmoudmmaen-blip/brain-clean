@@ -7,9 +7,9 @@ part of 'diagnostic_controller.dart';
 // **************************************************************************
 
 String _$diagnosticLiveModelHash() =>
-    r'7a05ef9607981721ebaf6f18170b5a5db11f9fc7';
+    r'15af5cb4a02d506b548e3adaf54c26258126e5a6';
 
-/// Live four-pillar model — recomputes when sliders or detox habits change.
+/// Synchronous live BHI projection — sliders + detox recomputed on every watch.
 ///
 /// Copied from [diagnosticLiveModel].
 @ProviderFor(diagnosticLiveModel)
@@ -26,13 +26,35 @@ final diagnosticLiveModelProvider = Provider<DiagnosticModel>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef DiagnosticLiveModelRef = ProviderRef<DiagnosticModel>;
-String _$diagnosticControllerHash() =>
-    r'f927437b8fc3daec1c57b404e6bb7d75ade8538d';
+String _$diagnosticLiveSessionHash() =>
+    r'868f14593ee23605f89e73a2ef5be8f197bc6fd9';
 
-/// Slider metrics, BHI composition, and session packaging (single orchestrator).
+/// Unified in-progress [DiagnosticSession] for diagnostic UI and breakdown widgets.
 ///
-/// Persistence: drafts written on every slider change; committed sessions flow
-/// through [BcScoreSession.commit] → [DiagnosticLocalRepository].
+/// Rebuilds when metrics (async hydrate), questionnaire, live model, or penalties change.
+///
+/// Copied from [diagnosticLiveSession].
+@ProviderFor(diagnosticLiveSession)
+final diagnosticLiveSessionProvider = Provider<DiagnosticSession>.internal(
+  diagnosticLiveSession,
+  name: r'diagnosticLiveSessionProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$diagnosticLiveSessionHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef DiagnosticLiveSessionRef = ProviderRef<DiagnosticSession>;
+String _$diagnosticControllerHash() =>
+    r'0694ccfb95896c22c7469eaf85154ceb0182bbbf';
+
+/// Slider metrics, live model, and session packaging — single orchestrator.
+///
+/// - **Async**: [build] hydrates slider metrics from Hive (cold start).
+/// - **Sync**: [computeLiveModel] / [buildLiveSession] project immediately on UI edits.
 ///
 /// Copied from [DiagnosticController].
 @ProviderFor(DiagnosticController)
