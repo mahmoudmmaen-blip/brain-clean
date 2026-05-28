@@ -269,8 +269,11 @@ void main() {
       );
 
       expect(draft.isCommitted, isFalse);
+      expect(draft.isInProgress, isTrue);
       expect(draft.brainRotAssessment, isNull);
       expect(draft.brainRotScore, 2);
+      expect(draft.bcScore, draft.frozenPillars.bcScore);
+      expect(draft.pillarModel.brainPerformance, draft.frozenBrainPerformance);
       expect(draft.metrics.sleepQuality, 8);
       expect(draft.questionnairePhase, BrainRotFlowPhase.results);
     });
@@ -315,6 +318,8 @@ void main() {
       expect(restored.frozenHealthyHabits, 70);
       expect(restored.frozenConsistency, 60);
       expect(restored.frozenPillars.bcScore, session.frozenPillars.bcScore);
+      expect(restored.bcScore, restored.frozenPillars.bcScore);
+      expect(restored.pillarModel.consistency, 60);
 
       final payload = session.toRepositoryPayload();
       expect(payload['brain_rot_score'], 2);

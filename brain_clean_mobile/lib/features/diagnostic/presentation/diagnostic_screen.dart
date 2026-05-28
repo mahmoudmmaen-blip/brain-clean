@@ -112,7 +112,7 @@ class DiagnosticScreen extends ConsumerWidget {
   }) {
     final questionnaire = session.questionnaire;
     final metrics = session.metrics;
-    final bhiLive = session.model;
+    final pillarModel = session.pillarModel;
 
     switch (questionnaire.phase) {
       case BrainRotFlowPhase.questions:
@@ -170,7 +170,7 @@ class DiagnosticScreen extends ConsumerWidget {
               score: session.bcScore,
               subtitle: loc.diagnosticLiveSubtitle,
             ),
-            BcScoreBreakdown(model: bhiLive),
+            BcScoreBreakdown(model: pillarModel),
             const SizedBox(height: 8),
             Text(
               loc.diagnosticInstructions,

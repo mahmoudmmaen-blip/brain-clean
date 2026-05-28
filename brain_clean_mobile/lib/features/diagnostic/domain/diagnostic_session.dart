@@ -30,11 +30,17 @@ class DiagnosticSession {
 
   final BrainRotQuestionnaireSnapshot questionnaire;
 
-  /// Centralized BHI model (alias for repository / dashboard consumers).
+  /// Live fluid model (detox/habits may change). Prefer [pillarModel] for scoring UI.
   DiagnosticModel get model => bhi.model;
+
+  /// Immutable pillar-bound model — authoritative for BC_score and breakdowns.
+  DiagnosticModel get pillarModel => bhi.pillarModel;
 
   /// Slider input metrics (alias).
   DiagnosticMetrics get metrics => bhi.metrics;
+
+  /// Active questionnaire flow (not yet submitted to [bcScoreSessionProvider]).
+  bool get isInProgress => !isCommitted;
 
   /// Pillar values frozen at session save (committed sessions are authoritative).
   BhiPillarFrozenSnapshot get frozenPillars => bhi.frozenPillars;
@@ -47,8 +53,8 @@ class DiagnosticSession {
 
   double get frozenConsistency => frozenPillars.consistency;
 
-  double get bcScore =>
-      isCommitted ? frozenPillars.bcScore : model.calculateBcScore();
+  /// Always derived from [frozenPillars] — live sliders re-freeze via [inProgress].
+  double get bcScore => frozenPillars.bcScore;
 
   int get bcScoreRounded => bcScore.round();
 
@@ -72,15 +78,21 @@ class DiagnosticSession {
   /// True after [DiagnosticSession.fromAssessment] submit (persisted bundle).
   bool get isCommitted => brainRotAssessment != null;
 
-  /// Live diagnostic bundle for [DiagnosticScreen] (not yet submitted).
+  /// Ongoing diagnostic — re-freezes pillars on each provider rebuild while sliders move.
   factory DiagnosticSession.inProgress({
     required DiagnosticMetrics metrics,
     required DiagnosticModel model,
     required BrainRotQuestionnaireSnapshot questionnaire,
+    DateTime? snapshotAt,
   }) {
+    final at = snapshotAt ?? DateTime.now();
     return DiagnosticSession(
-      bhi: DiagnosticBhiSnapshot.compose(metrics: metrics, model: model),
-      committedAt: DateTime.now(),
+      bhi: DiagnosticBhiSnapshot.compose(
+        metrics: metrics,
+        model: model,
+        frozenAt: at,
+      ),
+      committedAt: at,
       questionnaire: questionnaire,
     );
   }

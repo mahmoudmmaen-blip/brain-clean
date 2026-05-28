@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
+import '../../../core/theme/theme_extensions.dart';
 import '../../diagnostic/presentation/bc_score_provider.dart';
 import '../../diagnostic/presentation/widgets/bc_score_breakdown.dart';
 import '../../diagnostic/presentation/widgets/bc_score_hero_card.dart';
@@ -52,7 +53,7 @@ class DashboardScreen extends ConsumerWidget {
                 fontSize: 48,
                 subtitle: loc.dashboardCommittedAt(committedAt!),
               ),
-              BcScoreBreakdown(model: session.model),
+              BcScoreBreakdown(model: session.pillarModel),
               if (session.brainRot != null) ...[
                 const SizedBox(height: 12),
                 Card(
@@ -75,7 +76,7 @@ class DashboardScreen extends ConsumerWidget {
                   child: Text(
                     loc.dashboardEmptyDiagnosticPrompt,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(color: Colors.white54),
+                    style: context.arabicBodyStyle.copyWith(color: context.textMuted),
                   ),
                 ),
               ),

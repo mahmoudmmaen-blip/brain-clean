@@ -32,6 +32,9 @@ class DiagnosticBhiSnapshot {
 
   double get frozenBcScore => frozenPillars.bcScore;
 
+  /// Pillar values bound to [frozenPillars] — never reads fluid [model] fields.
+  DiagnosticModel get pillarModel => frozenPillars.toModel();
+
   factory DiagnosticBhiSnapshot.compose({
     required DiagnosticMetrics metrics,
     required DiagnosticModel model,
