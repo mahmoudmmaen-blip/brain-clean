@@ -661,6 +661,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Penalty recorded for today.'**
   String get recoveryPenaltyApplied;
+
+  /// No description provided for @recoveryStorageLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load your recovery progress from local storage.'**
+  String get recoveryStorageLoadError;
+
+  /// No description provided for @recoveryStorageSaveError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save your latest check-in. Your changes are kept on screen — try again.'**
+  String get recoveryStorageSaveError;
+
+  /// No description provided for @recoveryStorageReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Start fresh protocol'**
+  String get recoveryStorageReset;
 }
 
 class _AppLocalizationsDelegate

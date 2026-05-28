@@ -338,4 +338,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get recoveryPenaltyApplied => 'Penalty recorded for today.';
+
+  @override
+  String get recoveryStorageLoadError =>
+      'Could not load your recovery progress from local storage.';
+
+  @override
+  String get recoveryStorageSaveError =>
+      'Could not save your latest check-in. Your changes are kept on screen — try again.';
+
+  @override
+  String get recoveryStorageReset => 'Start fresh protocol';
 }

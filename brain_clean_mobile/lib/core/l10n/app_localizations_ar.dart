@@ -334,4 +334,15 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get recoveryPenaltyApplied => 'تم تسجيل العقوبة لهذا اليوم.';
+
+  @override
+  String get recoveryStorageLoadError =>
+      'تعذّر تحميل تقدمك في التعافي من التخزين المحلي.';
+
+  @override
+  String get recoveryStorageSaveError =>
+      'تعذّر حفظ آخر تحديث. تغييراتك ما زالت على الشاشة — حاول مرة أخرى.';
+
+  @override
+  String get recoveryStorageReset => 'بدء بروتوكول جديد';
 }
