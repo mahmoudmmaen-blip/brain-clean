@@ -47,12 +47,17 @@ class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
       parent: _progressController,
       curve: Curves.easeOutCubic,
     );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _progressController.forward();
+    });
   }
 
   @override
   void didUpdateWidget(BrainRotQuestionPage oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.questionIndex != widget.questionIndex) {
+      _displayedProgress =
+          (oldWidget.questionIndex + 1) / BrainRotTest.questionCount;
       _progressController
         ..reset()
         ..forward();
@@ -120,30 +125,16 @@ class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
               ],
             ),
             transitionBuilder: (child, animation) {
-              final enterOffset = Tween<Offset>(
+              final offset = Tween<Offset>(
                 begin: Offset(horizontalSign * 0.22, 0.03),
                 end: Offset.zero,
               ).animate(CurvedAnimation(
                 parent: animation,
                 curve: Curves.easeOutCubic,
               ));
-              final exitOffset = Tween<Offset>(
-                begin: Offset.zero,
-                end: Offset(-horizontalSign * 0.14, -0.02),
-              ).animate(CurvedAnimation(
-                parent: animation,
-                curve: Curves.easeInCubic,
-              ));
-
-              final isEntering = animation.status == AnimationStatus.forward ||
-                  animation.value > 0.5;
-
               return SlideTransition(
-                position: isEntering ? enterOffset : exitOffset,
-                child: FadeTransition(
-                  opacity: animation,
-                  child: child,
-                ),
+                position: offset,
+                child: FadeTransition(opacity: animation, child: child),
               );
             },
             child: SingleChildScrollView(
@@ -186,7 +177,7 @@ class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
             ),
           ],
         ),
-        if (onBack != null && widget.questionIndex > 0) ...[
+        if (widget.onBack != null && widget.questionIndex > 0) ...[
           const SizedBox(height: 14),
           TextButton.icon(
             onPressed: widget.onBack,

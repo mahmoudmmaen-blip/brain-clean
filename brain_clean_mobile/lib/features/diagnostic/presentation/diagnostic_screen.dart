@@ -5,19 +5,20 @@ import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/app_design_constants.dart';
 import '../../../core/theme/theme_extensions.dart';
 import '../domain/brain_rot_questionnaire_snapshot.dart';
-import '../domain/diagnostic_model.dart';
 import '../domain/diagnostic_session.dart';
-import 'brain_rot_localization.dart';
 import 'diagnostic_in_progress_session_provider.dart';
 import 'diagnostic_session_flow_provider.dart';
 import 'diagnostic_controller.dart';
 import 'widgets/bc_score_breakdown.dart';
 import 'widgets/bc_score_hero_card.dart';
-import 'widgets/brain_rot_question_page.dart';
+import 'widgets/brain_rot_questionnaire_view.dart';
 import 'widgets/brain_rot_score_dashboard.dart';
-import 'widgets/brain_rot_step_indicator.dart';
 import 'widgets/diagnostic_metric_slider.dart';
 
+/// Full diagnostic flow — questionnaire, results, and BHI sliders.
+///
+/// Live state is always [DiagnosticSession.inProgress] via
+/// [diagnosticInProgressSessionProvider].
 class DiagnosticScreen extends ConsumerWidget {
   const DiagnosticScreen({super.key});
 
@@ -26,23 +27,13 @@ class DiagnosticScreen extends ConsumerWidget {
     final loc = AppLocalizations.of(context)!;
     final asyncMetrics = ref.watch(diagnosticControllerProvider);
     final session = ref.watch(diagnosticInProgressSessionProvider);
-    final flowNotifier = ref.read(diagnosticSessionFlowProvider.notifier);
-    final controller = ref.read(diagnosticControllerProvider.notifier);
-
-    final questionnaire = session.questionnaire;
-    final phase = questionnaire.phase;
-    final result = questionnaire.interpretation;
 
     return Scaffold(
       backgroundColor: context.isLightTheme
           ? AppDesignConstants.lightBackground
           : AppDesignConstants.darkBackground,
       appBar: AppBar(
-        title: Text(
-          phase == BrainRotFlowPhase.bhiSliders
-              ? loc.diagnosticBhiTitle
-              : loc.diagnosticBrainRotTitle,
-        ),
+        title: Text(_titleForPhase(loc, session.questionnairePhase)),
         actions: [
           if (asyncMetrics.isLoading)
             Padding(
@@ -65,190 +56,208 @@ class DiagnosticScreen extends ConsumerWidget {
           loading: () => const Center(child: CircularProgressIndicator()),
           error: (error, _) => _DiagnosticErrorView(
             message: loc.diagnosticSyncError,
-            onRetry: controller.submitDiagnostic,
+            onRetry: () =>
+                ref.read(diagnosticControllerProvider.notifier).submitDiagnostic(),
           ),
-          data: (_) => AnimatedSwitcher(
-            duration: const Duration(milliseconds: 420),
-            switchInCurve: Curves.easeOutCubic,
-            switchOutCurve: Curves.easeIn,
-            transitionBuilder: (child, animation) => FadeTransition(
-              opacity: animation,
-              child: SlideTransition(
-                position: Tween<Offset>(
-                  begin: const Offset(0, 0.05),
-                  end: Offset.zero,
-                ).animate(CurvedAnimation(
-                  parent: animation,
-                  curve: Curves.easeOutCubic,
-                )),
-                child: child,
-              ),
-            ),
-            child: _buildPhase(
-              context,
-              key: ValueKey('${phase}_${questionnaire.currentIndex}'),
-              session: session,
-              flowNotifier: flowNotifier,
-              result: result,
-              asyncMetricsLoading: asyncMetrics.isLoading,
-              controller: controller,
-              loc: loc,
-            ),
-          ),
+          data: (_) => _InProgressSessionBody(session: session),
         ),
       ),
     );
   }
 
-  Widget _buildPhase(
-    BuildContext context, {
-    required Key key,
-    required DiagnosticSession session,
-    required DiagnosticSessionFlow flowNotifier,
-    required BrainRotInterpretation? result,
-    required bool asyncMetricsLoading,
-    required DiagnosticController controller,
-    required AppLocalizations loc,
-  }) {
-    final questionnaire = session.questionnaire;
-    final metrics = session.metrics;
-    switch (questionnaire.phase) {
-      case BrainRotFlowPhase.questions:
-        final index = questionnaire.currentIndex;
-        return Padding(
-          key: key,
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppDesignConstants.radiusCard + 6,
-            vertical: 16,
+  static String _titleForPhase(
+    AppLocalizations loc,
+    BrainRotFlowPhase phase,
+  ) =>
+      phase == BrainRotFlowPhase.bhiSliders
+          ? loc.diagnosticBhiTitle
+          : loc.diagnosticBrainRotTitle;
+}
+
+/// Renders the active [DiagnosticSession.inProgress] phase with animated handoff.
+class _InProgressSessionBody extends ConsumerWidget {
+  const _InProgressSessionBody({required this.session});
+
+  final DiagnosticSession session;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final phase = session.questionnairePhase;
+
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 450),
+      switchInCurve: Curves.easeOutCubic,
+      switchOutCurve: Curves.easeInCubic,
+      transitionBuilder: (child, animation) => FadeTransition(
+        opacity: animation,
+        child: SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(0, 0.06),
+            end: Offset.zero,
+          ).animate(CurvedAnimation(
+            parent: animation,
+            curve: Curves.easeOutCubic,
+          )),
+          child: child,
+        ),
+      ),
+      child: switch (phase) {
+        BrainRotFlowPhase.questions => BrainRotQuestionnaireView(
+          key: const ValueKey('brain_rot_questions'),
+          session: session,
+        ),
+        BrainRotFlowPhase.results => _BrainRotResultsPhase(
+          key: ValueKey('brain_rot_results_${session.brainRotScore}'),
+          session: session,
+        ),
+        BrainRotFlowPhase.bhiSliders => _BhiSlidersPhase(
+          key: ValueKey(
+            'bhi_${session.pillarEvaluation.bcScore.round()}',
           ),
-          child: Column(
-            children: [
-              BrainRotStepIndicator(
-                currentIndex: index,
-                answers: questionnaire.answers,
-              ),
-              const SizedBox(height: 20),
-              Expanded(
-                child: BrainRotQuestionPage(
-                  questionIndex: index,
-                  questionText: brainRotQuestionFor(context, loc, index),
-                  onAnswer: (yes) => flowNotifier.answerQuestion(index, yes),
-                  onBack:
-                      index > 0 ? () => flowNotifier.goToQuestion(index - 1) : null,
-                ),
-              ),
-            ],
-          ),
-        );
-      case BrainRotFlowPhase.results:
-        if (result == null) {
-          return Center(
-            key: key,
-            child: Text(
-              loc.diagnosticBrainRotIncomplete,
-              style: context.arabicBodyStyle,
-            ),
-          );
-        }
-        return Padding(
-          key: key,
-          padding: const EdgeInsets.all(AppDesignConstants.radiusCard + 2),
-          child: BrainRotScoreDashboard(
-            interpretation: result,
-            onContinue: flowNotifier.continueToBhiSliders,
-            onReviewAnswers: () => flowNotifier.goToQuestion(0),
-          ),
-        );
-      case BrainRotFlowPhase.bhiSliders:
-        final evaluation = session.pillarEvaluation;
-        final scoreKey = ValueKey<int>(evaluation.bcScore.round());
-        return ListView(
-          key: key,
-          padding: const EdgeInsets.all(AppDesignConstants.radiusCard + 2),
-          children: [
-            RepaintBoundary(
-              child: BcScoreHeroCard(
-                key: scoreKey,
-                score: evaluation.bcScore,
-                subtitle: loc.diagnosticLiveSubtitle,
-              ),
-            ),
-            RepaintBoundary(
-              child: BcScoreBreakdown(
-                key: ValueKey<String>('breakdown_${scoreKey.value}'),
-                evaluation: evaluation,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              loc.diagnosticInstructions,
-              textAlign: TextAlign.center,
-              style: context.arabicLabelStyle,
-            ),
-            const SizedBox(height: 16),
-            DiagnosticMetricSlider(
-              code: 'S1',
-              label: loc.diagnosticSleepQuality,
-              value: metrics.sleepQuality,
-              onChanged: controller.updateSleepQuality,
-            ),
-            DiagnosticMetricSlider(
-              code: 'A2',
-              label: loc.diagnosticSustainedAttention,
-              value: metrics.sustainedAttention,
-              onChanged: controller.updateSustainedAttention,
-            ),
-            DiagnosticMetricSlider(
-              code: 'F3',
-              label: loc.diagnosticFragmentation,
-              value: metrics.fragmentation,
-              onChanged: controller.updateFragmentation,
-            ),
-            DiagnosticMetricSlider(
-              code: 'D4',
-              label: loc.diagnosticDopamineSeeking,
-              value: metrics.dopamineSeeking,
-              onChanged: controller.updateDopamineSeeking,
-            ),
-            DiagnosticMetricSlider(
-              code: 'T5',
-              label: loc.diagnosticTaskSwitching,
-              value: metrics.taskSwitching,
-              onChanged: controller.updateTaskSwitching,
-            ),
-            DiagnosticMetricSlider(
-              code: 'B6',
-              label: loc.diagnosticBurnout,
-              value: metrics.burnout,
-              onChanged: controller.updateBurnout,
-            ),
-            const SizedBox(height: 24),
-            FilledButton(
-              style: FilledButton.styleFrom(
-                minimumSize: const Size.fromHeight(
-                  AppDesignConstants.minTouchTarget + 4,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                    AppDesignConstants.radiusButton,
-                  ),
-                ),
-              ),
-              onPressed: asyncMetricsLoading ? null : controller.submitDiagnostic,
-              child: asyncMetricsLoading
-                  ? SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        color: Theme.of(context).colorScheme.onPrimary,
-                      ),
-                    )
-                  : Text(loc.diagnosticStart),
-            ),
-          ],
-        );
+          session: session,
+        ),
+      },
+    );
+  }
+}
+
+class _BrainRotResultsPhase extends ConsumerWidget {
+  const _BrainRotResultsPhase({
+    super.key,
+    required this.session,
+  });
+
+  final DiagnosticSession session;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final loc = AppLocalizations.of(context)!;
+    final flow = ref.read(diagnosticSessionFlowProvider.notifier);
+    final interpretation = session.brainRot;
+
+    if (interpretation == null) {
+      return Center(
+        child: Text(
+          loc.diagnosticBrainRotIncomplete,
+          style: context.arabicBodyStyle,
+        ),
+      );
     }
+
+    return Padding(
+      padding: const EdgeInsets.all(AppDesignConstants.radiusCard + 2),
+      child: BrainRotScoreDashboard(
+        interpretation: interpretation,
+        onContinue: flow.continueToBhiSliders,
+        onReviewAnswers: () => flow.goToQuestion(0),
+      ),
+    );
+  }
+}
+
+class _BhiSlidersPhase extends ConsumerWidget {
+  const _BhiSlidersPhase({
+    super.key,
+    required this.session,
+  });
+
+  final DiagnosticSession session;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final loc = AppLocalizations.of(context)!;
+    final asyncMetrics = ref.watch(diagnosticControllerProvider);
+    final controller = ref.read(diagnosticControllerProvider.notifier);
+    final evaluation = session.pillarEvaluation;
+    final metrics = session.metrics;
+    final scoreKey = ValueKey<int>(evaluation.bcScore.round());
+
+    return ListView(
+      padding: const EdgeInsets.all(AppDesignConstants.radiusCard + 2),
+      children: [
+        RepaintBoundary(
+          child: BcScoreHeroCard(
+            key: scoreKey,
+            score: evaluation.bcScore,
+            subtitle: loc.diagnosticLiveSubtitle,
+          ),
+        ),
+        RepaintBoundary(
+          child: BcScoreBreakdown(
+            key: ValueKey<String>('breakdown_$scoreKey'),
+            evaluation: evaluation,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          loc.diagnosticInstructions,
+          textAlign: TextAlign.center,
+          style: context.arabicLabelStyle,
+        ),
+        const SizedBox(height: 16),
+        DiagnosticMetricSlider(
+          code: 'S1',
+          label: loc.diagnosticSleepQuality,
+          value: metrics.sleepQuality,
+          onChanged: controller.updateSleepQuality,
+        ),
+        DiagnosticMetricSlider(
+          code: 'A2',
+          label: loc.diagnosticSustainedAttention,
+          value: metrics.sustainedAttention,
+          onChanged: controller.updateSustainedAttention,
+        ),
+        DiagnosticMetricSlider(
+          code: 'F3',
+          label: loc.diagnosticFragmentation,
+          value: metrics.fragmentation,
+          onChanged: controller.updateFragmentation,
+        ),
+        DiagnosticMetricSlider(
+          code: 'D4',
+          label: loc.diagnosticDopamineSeeking,
+          value: metrics.dopamineSeeking,
+          onChanged: controller.updateDopamineSeeking,
+        ),
+        DiagnosticMetricSlider(
+          code: 'T5',
+          label: loc.diagnosticTaskSwitching,
+          value: metrics.taskSwitching,
+          onChanged: controller.updateTaskSwitching,
+        ),
+        DiagnosticMetricSlider(
+          code: 'B6',
+          label: loc.diagnosticBurnout,
+          value: metrics.burnout,
+          onChanged: controller.updateBurnout,
+        ),
+        const SizedBox(height: 24),
+        FilledButton(
+          style: FilledButton.styleFrom(
+            minimumSize: const Size.fromHeight(
+              AppDesignConstants.minTouchTarget + 4,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                AppDesignConstants.radiusButton,
+              ),
+            ),
+          ),
+          onPressed:
+              asyncMetrics.isLoading ? null : controller.submitDiagnostic,
+          child: asyncMetrics.isLoading
+              ? SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                )
+              : Text(loc.diagnosticStart),
+        ),
+      ],
+    );
   }
 }
 
