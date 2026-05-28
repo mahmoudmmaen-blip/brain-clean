@@ -4,6 +4,7 @@ import '../data/recovery_protocol_storage.dart';
 import '../data/recovery_protocol_storage_provider.dart';
 import '../domain/recovery_daily_task.dart';
 import '../domain/recovery_day_record.dart';
+import '../domain/recovery_persistence_exception.dart';
 import '../domain/recovery_protocol_constants.dart';
 import '../domain/recovery_protocol_state.dart';
 
@@ -19,9 +20,12 @@ class RecoveryProtocolController extends _$RecoveryProtocolController {
     try {
       final saved = await _storage.load();
       if (saved != null) return saved;
+    } on RecoveryPersistenceException {
+      rethrow;
     } catch (_) {
-      // Fall through to fresh protocol start.
+      // Corrupt box — start a fresh protocol below.
     }
+
     final initial = RecoveryProtocolState(protocolStartDate: DateTime.now());
     await _persistQuietly(initial);
     return initial;
@@ -67,8 +71,20 @@ class RecoveryProtocolController extends _$RecoveryProtocolController {
   }
 
   Future<void> reloadFromStorage() async {
-    state = const AsyncLoading();
     ref.invalidateSelf();
+  }
+
+  /// Resets local protocol storage and starts day 1 (used from error recovery UI).
+  Future<void> resetProtocolStorage() async {
+    try {
+      await _storage.clear();
+    } catch (_) {
+      // Best-effort clear before fresh state.
+    }
+    state = AsyncValue.data(
+      RecoveryProtocolState(protocolStartDate: DateTime.now()),
+    );
+    await _persistQuietly(state.requireValue);
   }
 
   Future<void> _commit(RecoveryProtocolState next) async {
@@ -76,7 +92,10 @@ class RecoveryProtocolController extends _$RecoveryProtocolController {
     try {
       await _storage.save(next);
     } catch (error, stackTrace) {
-      state = AsyncValue.error(error, stackTrace);
+      state = AsyncValue<RecoveryProtocolState>.error(
+        error,
+        stackTrace,
+      ).copyWithPrevious(AsyncValue.data(next));
     }
   }
 

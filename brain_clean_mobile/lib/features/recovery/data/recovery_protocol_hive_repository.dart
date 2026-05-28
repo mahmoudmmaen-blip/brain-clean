@@ -2,10 +2,12 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../core/storage/hive_bootstrap.dart';
 import '../../../core/storage/hive_boxes.dart';
+import '../domain/recovery_hive_payload.dart';
+import '../domain/recovery_persistence_exception.dart';
 import '../domain/recovery_protocol_state.dart';
 import 'recovery_protocol_storage.dart';
 
-/// Hive box adapter for [RecoveryProtocolState] (Map JSON in a single box key).
+/// Hive box adapter for [RecoveryProtocolState] with typed adapters + camelCase JSON.
 class RecoveryProtocolHiveRepository implements RecoveryProtocolStorage {
   RecoveryProtocolHiveRepository({Box<dynamic>? box}) : _boxOverride = box;
 
@@ -24,12 +26,20 @@ class RecoveryProtocolHiveRepository implements RecoveryProtocolStorage {
 
   @override
   Future<RecoveryProtocolState?> load() async {
+    final box = await _openBox();
+    final raw = box.get(_stateKey);
+    if (raw == null) return null;
+
     try {
-      final box = await _openBox();
-      final raw = box.get(_stateKey);
-      if (raw == null) return null;
-      if (raw is! Map) return null;
-      return RecoveryProtocolState.fromJson(Map<String, dynamic>.from(raw));
+      if (raw is RecoveryProtocolState) return raw;
+      if (raw is Map) {
+        return RecoveryHivePayload.decodeState(
+          Map<String, dynamic>.from(raw),
+        );
+      }
+      return null;
+    } on RecoveryPersistenceException {
+      rethrow;
     } catch (_) {
       return null;
     }
@@ -37,22 +47,15 @@ class RecoveryProtocolHiveRepository implements RecoveryProtocolStorage {
 
   @override
   Future<void> save(RecoveryProtocolState state) async {
-    try {
-      final box = await _openBox();
-      await box.put(_stateKey, state.toJson());
-    } catch (_) {
-      rethrow;
-    }
+    final box = await _openBox();
+    final encoded = RecoveryHivePayload.encodeState(state);
+    await box.put(_stateKey, encoded);
   }
 
   @override
   Future<void> clear() async {
-    try {
-      final box = await _openBox();
-      await box.delete(_stateKey);
-    } catch (_) {
-      rethrow;
-    }
+    final box = await _openBox();
+    await box.delete(_stateKey);
   }
 }
 
@@ -65,7 +68,7 @@ class RecoveryProtocolMemoryRepository implements RecoveryProtocolStorage {
 
   @override
   Future<void> save(RecoveryProtocolState state) async {
-    _cached = state;
+    _cached = RecoveryProtocolState.fromJson(state.toJson());
   }
 
   @override

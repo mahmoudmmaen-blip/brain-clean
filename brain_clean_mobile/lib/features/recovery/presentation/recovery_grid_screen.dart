@@ -24,18 +24,121 @@ class RecoveryGridScreen extends ConsumerWidget {
     final loc = AppLocalizations.of(context)!;
     final asyncState = ref.watch(recoveryProtocolControllerProvider);
 
+    ref.listen(recoveryProtocolControllerProvider, (previous, next) {
+      if (!next.hasValue || !next.hasError) return;
+      if (previous?.hasValue == true && previous!.hasError) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(loc.recoveryStorageSaveError),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    });
+
     return Scaffold(
       appBar: AppBar(title: Text(loc.recoveryGridTitle)),
       body: SafeArea(
         child: asyncState.when(
-          loading: () => const Center(child: CircularProgressIndicator()),
-          error: (error, _) => _RecoveryLoadError(
-            message: loc.diagnosticSyncError,
-            onRetry: () => ref
-                .read(recoveryProtocolControllerProvider.notifier)
-                .reloadFromStorage(),
-          ),
+          loading: () => const _RecoveryLoadingView(),
+          error: (error, _) {
+            final cached = asyncState.valueOrNull;
+            if (cached != null) {
+              return Column(
+                children: [
+                  _RecoveryPersistenceBanner(
+                    message: loc.recoveryStorageSaveError,
+                    onRetry: () => ref
+                        .read(recoveryProtocolControllerProvider.notifier)
+                        .reloadFromStorage(),
+                  ),
+                  Expanded(child: _RecoveryGridBody(state: cached)),
+                ],
+              );
+            }
+            return _RecoveryLoadError(
+              message: loc.recoveryStorageLoadError,
+              onRetry: () => ref
+                  .read(recoveryProtocolControllerProvider.notifier)
+                  .reloadFromStorage(),
+              onReset: () => ref
+                  .read(recoveryProtocolControllerProvider.notifier)
+                  .resetProtocolStorage(),
+              resetLabel: loc.recoveryStorageReset,
+            );
+          },
           data: (state) => _RecoveryGridBody(state: state),
+        ),
+      ),
+    );
+  }
+}
+
+class _RecoveryLoadingView extends StatelessWidget {
+  const _RecoveryLoadingView();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const SizedBox(
+            width: 36,
+            height: 36,
+            child: CircularProgressIndicator(strokeWidth: 2.5),
+          ),
+          const SizedBox(height: 20),
+          Text(
+            AppLocalizations.of(context)!.recoveryGridTitle,
+            style: theme.textTheme.titleSmall?.copyWith(
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _RecoveryPersistenceBanner extends StatelessWidget {
+  const _RecoveryPersistenceBanner({
+    required this.message,
+    required this.onRetry,
+  });
+
+  final String message;
+  final VoidCallback onRetry;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Material(
+      color: theme.colorScheme.errorContainer.withValues(alpha: 0.95),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        child: Row(
+          children: [
+            Icon(
+              Icons.cloud_off_outlined,
+              color: theme.colorScheme.onErrorContainer,
+              size: 22,
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Text(
+                message,
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: theme.colorScheme.onErrorContainer,
+                  height: 1.35,
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: onRetry,
+              child: Text(AppLocalizations.of(context)!.detoxRetry),
+            ),
+          ],
         ),
       ),
     );
@@ -46,10 +149,14 @@ class _RecoveryLoadError extends StatelessWidget {
   const _RecoveryLoadError({
     required this.message,
     required this.onRetry,
+    required this.onReset,
+    required this.resetLabel,
   });
 
   final String message;
   final VoidCallback onRetry;
+  final VoidCallback onReset;
+  final String resetLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -66,12 +173,21 @@ class _RecoveryLoadError extends StatelessWidget {
               color: Theme.of(context).colorScheme.error,
             ),
             const SizedBox(height: 16),
-            Text(message, textAlign: TextAlign.center),
+            Text(
+              message,
+              textAlign: TextAlign.center,
+              style: context.arabicBodyStyle,
+            ),
             const SizedBox(height: 20),
             FilledButton.icon(
               onPressed: onRetry,
               icon: const Icon(Icons.refresh),
               label: Text(loc.detoxRetry),
+            ),
+            const SizedBox(height: 10),
+            OutlinedButton(
+              onPressed: onReset,
+              child: Text(resetLabel),
             ),
           ],
         ),

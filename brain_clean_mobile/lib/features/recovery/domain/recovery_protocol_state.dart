@@ -1,5 +1,7 @@
 import 'recovery_day_record.dart';
+import 'recovery_hive_payload.dart';
 import 'recovery_protocol_constants.dart';
+import 'recovery_protocol_json_keys.dart';
 
 /// Persisted 30-day recovery tracker (local-first via Hive).
 class RecoveryProtocolState {
@@ -45,16 +47,17 @@ class RecoveryProtocolState {
   }
 
   Map<String, dynamic> toJson() => {
-        'protocol_start_date': protocolStartDate?.toIso8601String(),
-        'selected_day_index': selectedDayIndex,
-        'total_penalty_count': totalPenaltyCount,
-        'days': days.map(
+        RecoveryProtocolJsonKeys.protocolStartDate:
+            protocolStartDate?.toIso8601String(),
+        RecoveryProtocolJsonKeys.selectedDayIndex: selectedDayIndex,
+        RecoveryProtocolJsonKeys.totalPenaltyCount: totalPenaltyCount,
+        RecoveryProtocolJsonKeys.days: days.map(
           (key, value) => MapEntry(key.toString(), value.toJson()),
         ),
       };
 
   factory RecoveryProtocolState.fromJson(Map<String, dynamic> json) {
-    final daysRaw = json['days'];
+    final daysRaw = json[RecoveryProtocolJsonKeys.days];
     final parsedDays = <int, RecoveryDayRecord>{};
     if (daysRaw is Map) {
       for (final entry in daysRaw.entries) {
@@ -68,7 +71,7 @@ class RecoveryProtocolState {
       }
     }
 
-    final startRaw = json['protocol_start_date'];
+    final startRaw = json[RecoveryProtocolJsonKeys.protocolStartDate];
     DateTime? startDate;
     if (startRaw is String) {
       startDate = DateTime.tryParse(startRaw);
@@ -76,9 +79,17 @@ class RecoveryProtocolState {
 
     return RecoveryProtocolState(
       protocolStartDate: startDate,
-      selectedDayIndex: json['selected_day_index'] as int? ?? 1,
+      selectedDayIndex:
+          json[RecoveryProtocolJsonKeys.selectedDayIndex] as int? ?? 1,
       days: parsedDays,
-      totalPenaltyCount: json['total_penalty_count'] as int? ?? 0,
+      totalPenaltyCount:
+          json[RecoveryProtocolJsonKeys.totalPenaltyCount] as int? ?? 0,
     );
   }
+
+  /// Parses persisted JSON with drift-key rejection and legacy normalization.
+  factory RecoveryProtocolState.fromPersistenceJson(
+    Map<String, dynamic> json,
+  ) =>
+      RecoveryHivePayload.decodeState(json);
 }

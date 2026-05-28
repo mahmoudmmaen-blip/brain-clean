@@ -1,5 +1,6 @@
 import 'recovery_daily_task.dart';
 import 'recovery_protocol_constants.dart';
+import 'recovery_protocol_json_keys.dart';
 
 /// Check-in state for one protocol day (1–30).
 class RecoveryDayRecord {
@@ -50,20 +51,17 @@ class RecoveryDayRecord {
   }
 
   Map<String, dynamic> toJson() => {
-        'day_index': dayIndex,
-        'task_completed': taskCompleted,
-        'penalty_applied': penaltyApplied,
+        RecoveryProtocolJsonKeys.dayIndex: dayIndex,
+        RecoveryProtocolJsonKeys.taskCompleted: taskCompleted,
+        RecoveryProtocolJsonKeys.penaltyApplied: penaltyApplied,
       };
 
   factory RecoveryDayRecord.fromJson(Map<String, dynamic> json) {
-    final rawTasks = json['task_completed'];
-    final tasks = <bool>[
+    final rawTasks = json[RecoveryProtocolJsonKeys.taskCompleted];
+    final tasks = List<bool>.filled(
+      RecoveryProtocolConstants.mandatoryTaskCount,
       false,
-      false,
-      false,
-      false,
-      false,
-    ];
+    );
     if (rawTasks is List) {
       for (var i = 0; i < RecoveryProtocolConstants.mandatoryTaskCount; i++) {
         if (i < rawTasks.length) {
@@ -73,9 +71,10 @@ class RecoveryDayRecord {
     }
 
     return RecoveryDayRecord(
-      dayIndex: json['day_index'] as int? ?? 1,
+      dayIndex: json[RecoveryProtocolJsonKeys.dayIndex] as int? ?? 1,
       taskCompleted: tasks,
-      penaltyApplied: json['penalty_applied'] as bool? ?? false,
+      penaltyApplied:
+          json[RecoveryProtocolJsonKeys.penaltyApplied] as bool? ?? false,
     );
   }
 }

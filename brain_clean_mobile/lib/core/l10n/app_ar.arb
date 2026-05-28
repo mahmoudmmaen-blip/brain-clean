@@ -153,6 +153,9 @@
   },
   "recoveryPenaltyConfirm": "تأكيد العقوبة",
   "recoveryPenaltyCancel": "إلغاء",
-  "recoveryPenaltyApplied": "تم تسجيل العقوبة لهذا اليوم."
+  "recoveryPenaltyApplied": "تم تسجيل العقوبة لهذا اليوم.",
+  "recoveryStorageLoadError": "تعذّر تحميل تقدمك في التعافي من التخزين المحلي.",
+  "recoveryStorageSaveError": "تعذّر حفظ آخر تحديث. تغييراتك ما زالت على الشاشة — حاول مرة أخرى.",
+  "recoveryStorageReset": "بدء بروتوكول جديد"
 }
 

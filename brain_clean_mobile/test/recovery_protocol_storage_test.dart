@@ -1,16 +1,20 @@
 import 'dart:io';
 
+import 'package:brain_clean_mobile/core/storage/hive_bootstrap.dart';
 import 'package:brain_clean_mobile/core/storage/hive_boxes.dart';
 import 'package:brain_clean_mobile/features/recovery/data/recovery_protocol_hive_repository.dart';
 import 'package:brain_clean_mobile/features/recovery/domain/recovery_daily_task.dart';
 import 'package:brain_clean_mobile/features/recovery/domain/recovery_day_record.dart';
+import 'package:brain_clean_mobile/features/recovery/domain/recovery_hive_payload.dart';
+import 'package:brain_clean_mobile/features/recovery/domain/recovery_persistence_exception.dart';
+import 'package:brain_clean_mobile/features/recovery/domain/recovery_protocol_json_keys.dart';
 import 'package:brain_clean_mobile/features/recovery/domain/recovery_protocol_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 
 void main() {
   group('RecoveryProtocolState serialization', () {
-    test('round-trips days, penalties, and start date', () {
+    test('round-trips days, penalties, and start date with camelCase keys', () {
       final original = RecoveryProtocolState(
         protocolStartDate: DateTime(2026, 1, 15),
         selectedDayIndex: 3,
@@ -28,14 +32,56 @@ void main() {
         },
       );
 
-      final restored =
-          RecoveryProtocolState.fromJson(original.toJson());
+      final json = original.toJson();
+      expect(
+        json.containsKey(RecoveryProtocolJsonKeys.protocolStartDate),
+        isTrue,
+      );
+      expect(json.containsKey('protocol_start_date'), isFalse);
+
+      final restored = RecoveryProtocolState.fromJson(json);
 
       expect(restored.selectedDayIndex, 3);
       expect(restored.totalPenaltyCount, 2);
       expect(restored.days[1]!.allTasksComplete, isTrue);
       expect(restored.days[2]!.penaltyApplied, isTrue);
       expect(restored.days[2]!.completedCount, 1);
+    });
+
+    test('rejects forbidden snake_case drift keys', () {
+      expect(
+        () => RecoveryHivePayload.assertCamelCaseOnly({
+          'protocol_start_date': DateTime.now().toIso8601String(),
+          'selected_day_index': 1,
+          'total_penalty_count': 0,
+          'days': <String, dynamic>{},
+        }),
+        throwsA(isA<RecoveryPersistenceException>()),
+      );
+    });
+
+    test('normalizes legacy snake_case then encodes strict camelCase', () {
+      final legacy = {
+        'protocol_start_date': '2026-03-01T00:00:00.000',
+        'selected_day_index': 2,
+        'total_penalty_count': 1,
+        'days': {
+          '2': {
+            'day_index': 2,
+            'task_completed': [true, false, false, false, false],
+            'penalty_applied': false,
+          },
+        },
+      };
+
+      final state = RecoveryHivePayload.decodeState(legacy);
+      final encoded = state.toJson();
+
+      expect(encoded.containsKey('protocol_start_date'), isFalse);
+      expect(
+        encoded[RecoveryProtocolJsonKeys.selectedDayIndex],
+        2,
+      );
     });
 
     test('toggleTask updates indexed habit', () {
@@ -54,6 +100,7 @@ void main() {
     setUp(() async {
       tempDir = await Directory.systemTemp.createTemp('recovery_hive_test');
       Hive.init(tempDir.path);
+      HiveBootstrap.registerRecoveryAdaptersForTests();
       box = await Hive.openBox<dynamic>(HiveBoxes.recoveryProtocol);
     });
 
