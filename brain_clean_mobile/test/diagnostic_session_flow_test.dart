@@ -50,9 +50,10 @@ void main() {
         for (var i = 0; i < 9; i++) {
           flow.answerQuestion(i, false);
         }
-        flow.answerQuestion(9, true);
+      flow.answerQuestion(9, true);
+      async.flushMicrotasks();
 
-        expect(
+      expect(
           container.read(diagnosticSessionFlowProvider).pendingResultsTransition,
           isTrue,
         );

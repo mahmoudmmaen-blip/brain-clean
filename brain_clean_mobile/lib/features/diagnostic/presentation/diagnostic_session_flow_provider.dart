@@ -65,7 +65,11 @@ class DiagnosticSessionFlow extends _$DiagnosticSessionFlow {
       phase: BrainRotFlowPhase.questions,
       pendingResultsTransition: true,
     );
-    _commitSnapshot(pending, requireComplete: true);
+    _commitSnapshot(
+      pending,
+      requireComplete: true,
+      validateAsync: true,
+    );
 
     final generation = ++_resultsTransitionGeneration;
     _resultsTransitionTimer = Timer(kBrainRotResultsTransitionDelay, () {
@@ -136,12 +140,24 @@ class DiagnosticSessionFlow extends _$DiagnosticSessionFlow {
   void _commitSnapshot(
     BrainRotQuestionnaireSnapshot snapshot, {
     bool requireComplete = false,
+    bool validateAsync = false,
   }) {
-    buildInProgressSession(
-      questionnaire: snapshot,
-      requireComplete: requireComplete,
-    );
     state = snapshot;
+    if (!validateAsync) {
+      buildInProgressSession(
+        questionnaire: snapshot,
+        requireComplete: requireComplete,
+      );
+      return;
+    }
+    final generation = _resultsTransitionGeneration;
+    scheduleMicrotask(() {
+      if (generation != _resultsTransitionGeneration) return;
+      buildInProgressSession(
+        questionnaire: state,
+        requireComplete: requireComplete,
+      );
+    });
   }
 
   /// Packages flow + live inputs into a committed [DiagnosticSession].

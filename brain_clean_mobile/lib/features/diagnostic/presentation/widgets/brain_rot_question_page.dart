@@ -5,6 +5,7 @@ import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/theme/app_design_constants.dart';
 import '../../../../core/theme/theme_extensions.dart';
 import '../../domain/diagnostic_model.dart';
+import 'brain_rot_directional_progress_bar.dart';
 import 'slide_lock_mechanism.dart';
 
 /// Duration of the question-card [AnimatedSwitcher] — must match [SlideLockMechanism].
@@ -34,11 +35,14 @@ class BrainRotQuestionPage extends StatefulWidget {
 }
 
 class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
-    with SingleTickerProviderStateMixin {
-  late double _displayedProgress;
-  late final AnimationController _progressController;
-  late final Animation<double> _progressAnimation;
+    with TickerProviderStateMixin {
   late final SlideLockMechanism _slideLockMechanism;
+  late final AnimationController _slideMotionController;
+  late final AnimationController _progressMotionController;
+  late Animation<double> _progressMotion;
+
+  double _progressFrom = 0;
+  double _progressTo = 0;
   bool _localAnswerLocked = false;
 
   bool get _canInteract =>
@@ -52,17 +56,25 @@ class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
     _slideLockMechanism = SlideLockMechanism(
       slideDuration: kBrainRotQuestionSlideDuration,
     );
-    _displayedProgress = _targetProgress;
-    _progressController = AnimationController(
+    _progressTo = _targetProgress;
+    _progressFrom = _progressTo;
+
+    _slideMotionController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 380),
+      duration: kBrainRotQuestionSlideDuration,
     );
-    _progressAnimation = CurvedAnimation(
-      parent: _progressController,
+    _progressMotionController = AnimationController(
+      vsync: this,
+      duration: kBrainRotQuestionSlideDuration,
+    );
+    _progressMotion = CurvedAnimation(
+      parent: _progressMotionController,
       curve: Curves.easeOutCubic,
     );
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) _progressController.forward();
+      if (!mounted) return;
+      _progressMotionController.forward();
     });
   }
 
@@ -71,12 +83,18 @@ class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
     super.didUpdateWidget(oldWidget);
     if (oldWidget.questionIndex != widget.questionIndex) {
       _localAnswerLocked = false;
-      _displayedProgress =
-          (oldWidget.questionIndex + 1) / BrainRotTest.questionCount;
-      _progressController
+      _progressFrom = (oldWidget.questionIndex + 1) / BrainRotTest.questionCount;
+      _progressTo = _targetProgress;
+      _progressMotionController
         ..reset()
         ..forward();
-      _slideLockMechanism.acquire(() => setState(() {}));
+      _slideMotionController
+        ..reset()
+        ..forward();
+      _slideLockMechanism.acquireForAnimation(
+        _slideMotionController,
+        () => setState(() {}),
+      );
     }
     if (!oldWidget.answersEnabled && widget.answersEnabled) {
       _localAnswerLocked = false;
@@ -89,12 +107,16 @@ class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
   @override
   void dispose() {
     _slideLockMechanism.dispose();
-    _progressController.dispose();
+    _slideMotionController.dispose();
+    _progressMotionController.dispose();
     super.dispose();
   }
 
   double get _targetProgress =>
       (widget.questionIndex + 1) / BrainRotTest.questionCount;
+
+  double get _animatedProgress =>
+      _progressFrom + (_progressTo - _progressFrom) * _progressMotion.value;
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +131,11 @@ class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
       children: [
         _buildProgressHeader(loc),
         const SizedBox(height: 14),
-        _buildProgressBar(),
+        BrainRotDirectionalProgressBar(
+          value: _animatedProgress,
+          horizontalSign: horizontalSign,
+          animation: _progressMotion,
+        ),
         const SizedBox(height: 32),
         Expanded(child: _buildQuestionSlideSwitcher(horizontalSign)),
         const SizedBox(height: 24),
@@ -121,33 +147,18 @@ class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
   }
 
   Widget _buildProgressHeader(AppLocalizations loc) {
-    return Text(
-      loc.diagnosticBrainRotProgress(
-        widget.questionIndex + 1,
-        BrainRotTest.questionCount,
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 280),
+      switchInCurve: Curves.easeOutCubic,
+      child: Text(
+        loc.diagnosticBrainRotProgress(
+          widget.questionIndex + 1,
+          BrainRotTest.questionCount,
+        ),
+        key: ValueKey<int>(widget.questionIndex),
+        textAlign: TextAlign.center,
+        style: context.arabicLabelStyle,
       ),
-      textAlign: TextAlign.center,
-      style: context.arabicLabelStyle,
-    );
-  }
-
-  Widget _buildProgressBar() {
-    return AnimatedBuilder(
-      animation: _progressAnimation,
-      builder: (context, _) {
-        final value = _displayedProgress +
-            (_targetProgress - _displayedProgress) * _progressAnimation.value;
-        return ClipRRect(
-          borderRadius: BorderRadius.circular(6),
-          child: LinearProgressIndicator(
-            value: value,
-            minHeight: 8,
-            backgroundColor: context.diagnosticProgressTrack,
-            color: context.brandPrimary,
-            borderRadius: BorderRadius.circular(6),
-          ),
-        );
-      },
     );
   }
 
@@ -159,27 +170,18 @@ class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
       layoutBuilder: (current, previous) => _slideLockMechanism.layoutBuilder(
         currentChild: current,
         previousChildren: previous,
+        forceShield: _slideLockMechanism.isLocked,
       ),
       transitionBuilder: (child, animation) =>
           _slideLockMechanism.transitionBuilder(
         child: child,
         animation: animation,
-        build: (transitionChild, transitionAnimation) {
-          final offset = Tween<Offset>(
-            begin: Offset(horizontalSign * 0.22, 0.03),
-            end: Offset.zero,
-          ).animate(CurvedAnimation(
-            parent: transitionAnimation,
-            curve: Curves.easeOutCubic,
-          ));
-          return SlideTransition(
-            position: offset,
-            child: FadeTransition(
-              opacity: transitionAnimation,
-              child: transitionChild,
-            ),
-          );
-        },
+        build: (transitionChild, transitionAnimation) =>
+            buildBrainRotSlideTransition(
+          child: transitionChild,
+          animation: transitionAnimation,
+          horizontalSign: horizontalSign,
+        ),
       ),
       child: _buildQuestionCard(),
     );
