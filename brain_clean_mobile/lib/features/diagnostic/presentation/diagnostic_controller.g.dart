@@ -29,7 +29,7 @@ typedef DiagnosticLiveModelRef = ProviderRef<DiagnosticModel>;
 String _$diagnosticLiveSessionHash() =>
     r'868f14593ee23605f89e73a2ef5be8f197bc6fd9';
 
-/// Unified in-progress [DiagnosticSession] for diagnostic UI and breakdown widgets.
+/// Reactive live [DiagnosticSession] for diagnostic UI and breakdown widgets.
 ///
 /// Rebuilds when metrics (async hydrate), questionnaire, live model, or penalties change.
 ///
@@ -49,7 +49,7 @@ final diagnosticLiveSessionProvider = Provider<DiagnosticSession>.internal(
 // ignore: unused_element
 typedef DiagnosticLiveSessionRef = ProviderRef<DiagnosticSession>;
 String _$diagnosticControllerHash() =>
-    r'0694ccfb95896c22c7469eaf85154ceb0182bbbf';
+    r'973a25f1e2902c6d2a1956e9e8142d26ee74449d';
 
 /// Slider metrics, live model, and session packaging — single orchestrator.
 ///
