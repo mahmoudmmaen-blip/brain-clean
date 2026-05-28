@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
+
 import '../../../core/constants/bc_score_constants.dart';
+import 'bhi_pillar_json_keys.dart';
 
 part 'diagnostic_model.g.dart';
 
@@ -268,11 +270,18 @@ class DiagnosticModel {
   }
 
   factory DiagnosticModel.fromJson(Map<String, dynamic> json) {
+    final normalized = BhiPillarJsonKeys.normalizeIncoming(json);
+    // Habit keys: read from the raw map so Firestore snake_case wins over camelCase
+    // when both are present (remote boundary). Pillars use [normalized] only.
     return DiagnosticModel(
-      brainPerformance: (json['brainPerformance'] as num).toDouble(),
-      digitalDiscipline: (json['digitalDiscipline'] as num).toDouble(),
-      healthyHabits: (json['healthyHabits'] as num).toDouble(),
-      consistency: (json['consistency'] as num).toDouble(),
+      brainPerformance:
+          (normalized[BhiPillarJsonKeys.brainPerformance] as num).toDouble(),
+      digitalDiscipline:
+          (normalized[BhiPillarJsonKeys.digitalDiscipline] as num).toDouble(),
+      healthyHabits:
+          (normalized[BhiPillarJsonKeys.healthyHabits] as num).toDouble(),
+      consistency:
+          (normalized[BhiPillarJsonKeys.consistency] as num).toDouble(),
       boredomBefriended: _parseBoolMetric(
         json,
         DiagnosticModelJsonKeys.boredomBefriendedSnake,

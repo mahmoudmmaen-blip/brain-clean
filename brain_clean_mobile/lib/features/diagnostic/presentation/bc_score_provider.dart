@@ -1,10 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../detox/domain/detox_habit_scorer.dart';
-import '../../detox/presentation/detox_protocol_controller.dart';
 import '../data/diagnostic_local_repository_provider.dart';
-import '../domain/diagnostic_metrics.dart';
-import '../domain/diagnostic_metrics_mapper.dart';
 import '../domain/diagnostic_model.dart';
 import '../domain/diagnostic_session.dart';
 import 'diagnostic_controller.dart';
@@ -12,20 +8,12 @@ import 'diagnostic_controller.dart';
 part 'bc_score_provider.g.dart';
 
 /// Recomputes BHI pillars whenever sliders or detox check-ins change.
+///
+/// Delegates to [diagnosticLiveModelProvider] — authoritative path is
+/// [DiagnosticSessionComposer.resolveLiveModel].
 @riverpod
-DiagnosticModel bcScoreLive(BcScoreLiveRef ref) {
-  final metricsAsync = ref.watch(diagnosticControllerProvider);
-  final metrics = metricsAsync.value ?? const DiagnosticMetrics();
-  final detox = ref.watch(detoxProtocolDataProvider);
-  final base = DiagnosticMetricsMapper.fromMetrics(metrics);
-
-  return DetoxHabitScorer.applyDetoxToModel(
-    base,
-    boredomBefriended: detox.boredomBefriended,
-    delayedGratificationCount: detox.delayedGratificationCount,
-    bodyActivated: detox.bodyActivated,
-  );
-}
+DiagnosticModel bcScoreLive(BcScoreLiveRef ref) =>
+    ref.watch(diagnosticLiveModelProvider);
 
 /// Snapshot saved on diagnostic submit — shown on dashboard.
 @riverpod

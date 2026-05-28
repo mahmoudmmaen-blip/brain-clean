@@ -5,8 +5,29 @@ import 'hive_boxes.dart';
 import '../../features/recovery/data/adapters/recovery_day_record_adapter.dart';
 import '../../features/recovery/data/adapters/recovery_protocol_state_adapter.dart';
 
-/// Initializes Hive once for the app lifecycle (supports non-ASCII paths on Windows
-/// when combined with [android.overridePathCheck] in Gradle).
+/// Hive cold-start bootstrap for Brain Clean local-first persistence.
+///
+/// ## Warm-up sequencing (call from [main] before [runApp])
+/// 1. [initialize] — `Hive.initFlutter()` once per process + register type adapters.
+/// 2. [warmUpPersistentBoxes] — eagerly open every durable box so splash hydration
+///    never races box creation on first read.
+///
+/// ## Box layout
+/// | Box | Keys | Format |
+/// |-----|------|--------|
+/// | [HiveBoxes.recoveryProtocol] | `protocol_state` | camelCase JSON envelope via [RecoveryHivePayload]; legacy snake_case auto-migrated on read |
+/// | [HiveBoxes.diagnosticPersistence] | `committed_session`, `draft_metrics`, `draft_questionnaire` | camelCase JSON maps normalized through [BhiPillarJsonKeys] |
+///
+/// ## Recovery fallback protocol
+/// - **Missing key** → fresh [RecoveryProtocolState] seeded in the controller.
+/// - **Legacy snake_case** → [RecoveryHivePayload.normalizeIncoming] + silent re-save as camelCase.
+/// - **Corrupt / non-map payload** → key deleted, [RecoveryProtocolLoadResult.corrupt], UI starts fresh (non-fatal).
+///
+/// ## Diagnostic fallback protocol
+/// - Parse failures log and return empty [DiagnosticLocalBundle] (never crash cold start).
+/// - [Map<dynamic,dynamic>] from Hive is deep-cast to `Map<String,dynamic>` before JSON parsers run.
+///
+/// Windows non-ASCII install paths: pair with `android.overridePathCheck=true` in Gradle.
 abstract final class HiveBootstrap {
   static bool _initialized = false;
 
@@ -18,9 +39,6 @@ abstract final class HiveBootstrap {
   }
 
   /// Opens all durable boxes before UI hydration (cold-start safety).
-  ///
-  /// Recovery: typed adapters + camelCase JSON envelope (`protocol_state`).
-  /// Diagnostic: JSON maps (`committed_session`, `draft_metrics`, `draft_questionnaire`).
   static Future<void> warmUpPersistentBoxes() async {
     await initialize();
     await Future.wait([

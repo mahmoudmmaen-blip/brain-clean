@@ -5,10 +5,8 @@ import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_bhi_sna
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_metrics.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_session.dart';
-import 'package:brain_clean_mobile/features/diagnostic/presentation/bc_score_provider.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/brain_rot_questionnaire_snapshot.dart';
-import 'package:brain_clean_mobile/features/diagnostic/presentation/diagnostic_controller.dart';
-import 'package:brain_clean_mobile/features/diagnostic/presentation/diagnostic_session_flow_provider.dart';
+import 'package:brain_clean_mobile/features/diagnostic/presentation/bc_score_provider.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/diagnostic_screen.dart';
 import 'package:brain_clean_mobile/features/recovery/data/recovery_protocol_hive_repository.dart';
 import 'package:brain_clean_mobile/features/recovery/data/recovery_protocol_storage_provider.dart';
@@ -21,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'helpers/diagnostic_provider_overrides.dart';
 import 'helpers/localized_test_app.dart';
 import 'helpers/test_l10n.dart';
 
@@ -32,11 +31,7 @@ void main() {
       await tester.pumpWidget(
         createLocalizedProviderTestWidget(
           const DiagnosticScreen(),
-          overrides: [
-            diagnosticControllerProvider.overrideWith(
-              _InstantDiagnosticController.new,
-            ),
-          ],
+          overrides: diagnosticWidgetTestOverrides(),
         ),
       );
       await tester.pumpAndSettle();
@@ -51,12 +46,19 @@ void main() {
       await tester.pumpWidget(
         createLocalizedProviderTestWidget(
           const DiagnosticScreen(),
-          overrides: [
-            diagnosticControllerProvider.overrideWith(
-              _InstantDiagnosticController.new,
+          overrides: diagnosticWidgetTestOverrides(
+            questionnaireFlow: BrainRotQuestionnaireSnapshot(
+              answers: List<bool?>.filled(10, false),
+              currentIndex: 9,
+              phase: BrainRotFlowPhase.bhiSliders,
             ),
-            diagnosticSessionFlowProvider.overrideWith(_BhiPhaseFlow.new),
-          ],
+            liveModel: const DiagnosticModel(
+              brainPerformance: 72,
+              digitalDiscipline: 68,
+              healthyHabits: 70,
+              consistency: 66,
+            ),
+          ),
         ),
       );
       await tester.pumpAndSettle();
@@ -88,7 +90,10 @@ void main() {
 
     testWidgets('dashboard shows empty state without session', (tester) async {
       await tester.pumpWidget(
-        createLocalizedProviderTestWidget(const DashboardScreen()),
+        createLocalizedProviderTestWidget(
+          const DashboardScreen(),
+          overrides: diagnosticWidgetTestOverrides(),
+        ),
       );
       await tester.pump();
 
@@ -110,7 +115,10 @@ void main() {
 
     testWidgets('detox screen shows live score and habit check-in cards', (tester) async {
       await tester.pumpWidget(
-        createLocalizedProviderTestWidget(const DetoxProtocolScreen()),
+        createLocalizedProviderTestWidget(
+          const DetoxProtocolScreen(),
+          overrides: diagnosticWidgetTestOverrides(),
+        ),
       );
       await tester.pumpAndSettle();
 
@@ -126,6 +134,7 @@ void main() {
       await tester.pumpWidget(
         createLocalizedRouterTestWidget(
           router: createDashboardDetoxTestRouter(),
+          overrides: diagnosticWidgetTestOverrides(),
         ),
       );
       await tester.pumpAndSettle();
@@ -159,11 +168,9 @@ void main() {
       await tester.pumpWidget(
         createLocalizedProviderTestWidget(
           const DashboardScreen(),
-          overrides: [
-            bcScoreSessionProvider.overrideWith(
-              () => _FixedSession(session),
-            ),
-          ],
+          overrides: diagnosticWidgetTestOverrides(
+            committedSession: session,
+          ),
         ),
       );
       await tester.pump();
@@ -191,6 +198,7 @@ void main() {
       ProviderScope(
         overrides: [
           appHydrationProvider.overrideWith(_InstantHydration.new),
+          ...diagnosticWidgetTestOverrides(),
         ],
         child: const BrainCleanApp(),
       ),
@@ -211,27 +219,4 @@ class _InstantHydration extends AppHydration {
       hasDraftProgress: false,
     );
   }
-}
-
-class _InstantDiagnosticController extends DiagnosticController {
-  @override
-  Future<DiagnosticMetrics> build() async => const DiagnosticMetrics();
-}
-
-class _BhiPhaseFlow extends DiagnosticSessionFlow {
-  @override
-  BrainRotQuestionnaireSnapshot build() => BrainRotQuestionnaireSnapshot(
-        answers: List<bool?>.filled(10, false),
-        currentIndex: 9,
-        phase: BrainRotFlowPhase.bhiSliders,
-      );
-}
-
-class _FixedSession extends BcScoreSession {
-  _FixedSession(this._session);
-
-  final DiagnosticSession _session;
-
-  @override
-  DiagnosticSession? build() => _session;
 }

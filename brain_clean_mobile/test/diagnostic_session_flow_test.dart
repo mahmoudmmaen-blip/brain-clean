@@ -6,7 +6,6 @@ import 'package:brain_clean_mobile/features/diagnostic/data/diagnostic_local_rep
 import 'package:brain_clean_mobile/features/diagnostic/domain/brain_rot_questionnaire_snapshot.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_metrics.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
-import 'package:brain_clean_mobile/features/diagnostic/presentation/bc_score_provider.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/diagnostic_controller.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/diagnostic_in_progress_session_provider.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/diagnostic_session_flow_provider.dart';
@@ -36,7 +35,7 @@ void main() {
           diagnosticControllerProvider.overrideWith(
             () => _TestDiagnosticController(),
           ),
-          bcScoreLiveProvider.overrideWithValue(
+          diagnosticLiveModelProvider.overrideWithValue(
             const DiagnosticModel(
               brainPerformance: 50,
               digitalDiscipline: 50,

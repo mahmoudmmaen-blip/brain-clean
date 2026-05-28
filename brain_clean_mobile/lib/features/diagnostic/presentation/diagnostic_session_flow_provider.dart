@@ -4,10 +4,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../data/diagnostic_local_repository_provider.dart';
 import '../domain/brain_rot_questionnaire_snapshot.dart';
-import '../domain/diagnostic_metrics.dart';
 import '../domain/diagnostic_model.dart';
 import '../domain/diagnostic_session.dart';
-import 'bc_score_provider.dart';
 import 'diagnostic_controller.dart';
 
 part 'diagnostic_session_flow_provider.g.dart';
@@ -129,22 +127,11 @@ class DiagnosticSessionFlow extends _$DiagnosticSessionFlow {
   DiagnosticSession buildInProgressSession({
     BrainRotQuestionnaireSnapshot? questionnaire,
     bool requireComplete = false,
-  }) {
-    final q = questionnaire ?? state;
-    final metrics = ref.read(diagnosticControllerProvider).value ??
-        const DiagnosticMetrics();
-    final model = ref.read(bcScoreLiveProvider);
-    final session = DiagnosticSession.inProgress(
-      metrics: metrics,
-      model: model,
-      questionnaire: q,
-    );
-    session.ensurePillarBoundCoherence();
-    if (requireComplete || q.isComplete) {
-      session.ensureBrainRotQuestionnaireCoherence();
-    }
-    return session;
-  }
+  }) =>
+      ref.read(diagnosticControllerProvider.notifier).buildInProgressSession(
+            questionnaire: questionnaire ?? state,
+            requireComplete: requireComplete,
+          );
 
   void _commitSnapshot(
     BrainRotQuestionnaireSnapshot snapshot, {
@@ -173,20 +160,6 @@ class DiagnosticSessionFlow extends _$DiagnosticSessionFlow {
   }
 
   /// Packages flow + live inputs into a committed [DiagnosticSession].
-  DiagnosticSession buildCommittedSession({
-    required DiagnosticModel model,
-    required DiagnosticMetrics metrics,
-  }) {
-    final interpretation = result;
-    if (interpretation == null) {
-      throw StateError('Brain Rot questionnaire is incomplete.');
-    }
-    return DiagnosticSession.fromAssessment(
-      model: model,
-      metrics: metrics,
-      brainRot: interpretation,
-      brainRotAnswers: resolvedAnswers,
-      questionnaire: state,
-    );
-  }
+  DiagnosticSession buildCommittedSession() =>
+      ref.read(diagnosticControllerProvider.notifier).buildCommittedSession();
 }
