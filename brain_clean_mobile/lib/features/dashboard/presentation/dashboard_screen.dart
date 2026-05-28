@@ -63,10 +63,9 @@ class DashboardScreen extends ConsumerWidget {
                         ),
                       ),
                       RepaintBoundary(
-                        child: BcScoreBreakdown(
+                        child: BcScoreBreakdown.fromSession(
                           key: ValueKey<String>('dash_breakdown_$scoreKey'),
-                          evaluation: evaluation,
-                          displayBcScore: session.bcScore,
+                          session: session,
                         ),
                       ),
                     ],

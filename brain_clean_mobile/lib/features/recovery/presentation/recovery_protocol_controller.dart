@@ -25,13 +25,20 @@ class RecoveryProtocolController extends _$RecoveryProtocolController {
           recoveredFromCorruption: loadResult.recoveredFromCorruption,
         );
 
+    final RecoveryProtocolState loaded;
     if (loadResult.hasState) {
-      return loadResult.state!;
+      loaded = loadResult.state!;
+    } else {
+      loaded = RecoveryProtocolState(protocolStartDate: DateTime.now());
+      await _persistQuietly(loaded);
     }
 
-    final initial = RecoveryProtocolState(protocolStartDate: DateTime.now());
-    await _persistQuietly(initial);
-    return initial;
+    Future.microtask(
+      () => ref
+          .read(recoveryDiagnosticPenaltySyncProvider.notifier)
+          .syncFromRecoveryGrid(),
+    );
+    return loaded;
   }
 
   Future<void> selectDay(int dayIndex) async {

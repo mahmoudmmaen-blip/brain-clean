@@ -34,6 +34,12 @@ class DiagnosticBhiSnapshot {
   /// Authoritative BC_score including recovery accountability deductions.
   double get boundBcScore => frozenPillars.bcScore;
 
+  double get pillarMatrixBcScore => frozenPillars.pillarMatrixBcScore;
+
+  double get recoveryPenaltyDeduction => frozenPillars.recoveryPenaltyDeduction;
+
+  bool get hasRecoveryPenalty => frozenPillars.hasRecoveryPenalty;
+
   bool get isPillarBoundCoherent =>
       frozenPillars.isCoherent && pillarEvaluation.isCoherent;
 

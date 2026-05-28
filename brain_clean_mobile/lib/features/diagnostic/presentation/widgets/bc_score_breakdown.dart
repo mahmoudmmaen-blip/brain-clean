@@ -13,6 +13,7 @@ class BcScoreBreakdown extends StatelessWidget {
     super.key,
     required this.evaluation,
     required this.displayBcScore,
+    this.recoveryPenaltyDeduction = 0,
   });
 
   /// Reads frozen pillars and bound score from [session] snapshot only.
@@ -24,10 +25,12 @@ class BcScoreBreakdown extends StatelessWidget {
         key: key,
         evaluation: session.pillarEvaluation,
         displayBcScore: session.bcScore,
+        recoveryPenaltyDeduction: session.recoveryPenaltyDeduction,
       );
 
   final PillarBoundEvaluation evaluation;
   final double displayBcScore;
+  final double recoveryPenaltyDeduction;
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +71,16 @@ class BcScoreBreakdown extends StatelessWidget {
                 pillarScore: row.score,
                 weight: row.weight,
               ),
+            if (recoveryPenaltyDeduction > 0) ...[
+              Divider(height: 16, color: context.borderMuted),
+              _SummaryRow(
+                label: loc.bcScoreRecoveryPenaltyAdjustment(
+                  recoveryPenaltyDeduction.round(),
+                ),
+                value: '−${recoveryPenaltyDeduction.round()}',
+                color: Theme.of(context).colorScheme.error,
+              ),
+            ],
             Divider(height: 20, color: context.borderMuted),
             _SummaryRow(
               label: loc.bcScoreLabel,

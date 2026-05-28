@@ -60,6 +60,14 @@ class DiagnosticSession {
   /// Pillar-bound BC_score — includes recovery-grid penalties when present.
   double get bcScore => frozenPillars.bcScore;
 
+  /// Weighted four-pillar matrix before recovery accountability deductions.
+  double get pillarMatrixBcScore => frozenPillars.pillarMatrixBcScore;
+
+  /// Cumulative points deducted via recovery penalty box confirmations.
+  double get recoveryPenaltyDeduction => frozenPillars.recoveryPenaltyDeduction;
+
+  bool get hasRecoveryPenalty => frozenPillars.hasRecoveryPenalty;
+
   int get bcScoreRounded => bcScore.round();
 
   /// Confirms frozen pillars and stored score cannot drift.
@@ -237,6 +245,8 @@ class DiagnosticSession {
 
     return {
       'bc_score': bcScore,
+      'pillar_matrix_bc_score': frozen.pillarMatrixBcScore,
+      'recovery_penalty_deduction': frozen.recoveryPenaltyDeduction,
       'committed_at': committedAt.toUtc().toIso8601String(),
       'brain_performance': frozen.brainPerformance,
       'digital_discipline': frozen.digitalDiscipline,

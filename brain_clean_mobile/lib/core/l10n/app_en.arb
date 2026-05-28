@@ -30,6 +30,14 @@
   "bcScorePillarHealthyHabits": "Healthy habits",
   "bcScorePillarConsistency": "Consistency",
   "bcScoreLabel": "BC_score",
+  "bcScoreRecoveryPenaltyAdjustment": "Recovery accountability (−{deduction})",
+  "@bcScoreRecoveryPenaltyAdjustment": {
+    "placeholders": {
+      "deduction": {
+        "type": "int"
+      }
+    }
+  },
   "detoxTitle": "7-Day Dopamine Detox",
   "detoxSubtitle": "Daily check-in",
   "detoxLiveBcScoreTitle": "Live BC_score",

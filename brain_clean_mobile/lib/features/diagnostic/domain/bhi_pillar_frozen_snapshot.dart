@@ -40,6 +40,8 @@ class BhiPillarFrozenSnapshot {
   @JsonKey(name: 'recovery_penalty_deduction', defaultValue: 0)
   final double recoveryPenaltyDeduction;
 
+  bool get hasRecoveryPenalty => recoveryPenaltyDeduction > 0;
+
   static double computeBcScore({
     required double brainPerformance,
     required double digitalDiscipline,

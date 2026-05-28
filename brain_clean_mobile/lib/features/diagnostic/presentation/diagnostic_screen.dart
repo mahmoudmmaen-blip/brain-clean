@@ -205,10 +205,9 @@ class _BhiSlidersPhase extends ConsumerWidget {
           ),
         ),
         RepaintBoundary(
-          child: BcScoreBreakdown(
+          child: BcScoreBreakdown.fromSession(
             key: ValueKey<String>('breakdown_$scoreKey'),
-            evaluation: evaluation,
-            displayBcScore: session.bcScore,
+            session: session,
           ),
         ),
         const SizedBox(height: 8),

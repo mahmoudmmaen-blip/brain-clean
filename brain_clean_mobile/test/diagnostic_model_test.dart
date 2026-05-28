@@ -338,6 +338,25 @@ void main() {
       expect(evaluation.bcScore, greaterThanOrEqualTo(sum - 0.01));
       expect(evaluation.pillarRows, hasLength(4));
     });
+
+    test('frozen snapshot with recovery penalty round-trips JSON coherently', () {
+      const model = DiagnosticModel(
+        brainPerformance: 80,
+        digitalDiscipline: 75,
+        healthyHabits: 70,
+        consistency: 65,
+      );
+      final frozen = BhiPillarFrozenSnapshot.freeze(model).copyWith(
+        recoveryPenaltyDeduction: 30,
+      );
+      final json = frozen.toJson();
+      final restored = BhiPillarFrozenSnapshot.fromJson(json);
+
+      expect(restored.recoveryPenaltyDeduction, 30);
+      expect(restored.hasRecoveryPenalty, isTrue);
+      expect(restored.bcScore, closeTo(restored.pillarMatrixBcScore - 30, 1e-9));
+      expect(restored.isCoherent, isTrue);
+    });
   });
 
   group('DiagnosticSession serialization', () {
@@ -439,6 +458,37 @@ void main() {
       expect(payload['bhi_frozen_snapshot'], isA<Map<String, dynamic>>());
       expect(payload['questionnaire_json'], isA<Map<String, dynamic>>());
       expect(payload['brain_performance'], 72);
+      expect(payload['recovery_penalty_deduction'], 0);
+      expect(payload['pillar_matrix_bc_score'], session.pillarMatrixBcScore);
+    });
+
+    test('penalized session serializes recovery fields in repository payload', () {
+      const model = DiagnosticModel(
+        brainPerformance: 80,
+        digitalDiscipline: 75,
+        healthyHabits: 70,
+        consistency: 65,
+      );
+      final session = DiagnosticSession.fromAssessment(
+        model: model,
+        metrics: const DiagnosticMetrics(),
+        brainRot: DiagnosticModel.evaluateBrainRot(List<bool>.filled(10, false)),
+        brainRotAnswers: List<bool>.filled(10, false),
+      ).withRecoveryPenaltyTotal(15);
+
+      expect(session.hasRecoveryPenalty, isTrue);
+      expect(session.bcScore, closeTo(session.pillarMatrixBcScore - 15, 1e-9));
+
+      final payload = session.toRepositoryPayload();
+      expect(payload['recovery_penalty_deduction'], 15);
+      expect(payload['bc_score'], session.bcScore);
+      expect(payload['pillar_matrix_bc_score'], session.pillarMatrixBcScore);
+
+      final roundTrip = DiagnosticSession.fromJson(
+        payload['session_json'] as Map<String, dynamic>,
+      );
+      expect(roundTrip.recoveryPenaltyDeduction, 15);
+      expect(roundTrip.bcScore, session.bcScore);
     });
 
     test('frozen pillars remain stable after model mutation post-commit', () {
