@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -7,8 +5,9 @@ import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/theme/app_design_constants.dart';
 import '../../../../core/theme/theme_extensions.dart';
 import '../../domain/diagnostic_model.dart';
+import 'slide_lock_mechanism.dart';
 
-/// Duration of the question-card [AnimatedSwitcher] — buttons stay locked until done.
+/// Duration of the question-card [AnimatedSwitcher] — must match [SlideLockMechanism].
 const Duration kBrainRotQuestionSlideDuration = Duration(milliseconds: 400);
 
 /// Single Brain Rot question — نعم / لا with directional slide transitions.
@@ -41,16 +40,20 @@ class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
   late double _displayedProgress;
   late final AnimationController _progressController;
   late final Animation<double> _progressAnimation;
-  Timer? _slideLockTimer;
-  bool _slideAnimating = false;
+  late final SlideLockMechanism _slideLockMechanism;
   bool _localAnswerLocked = false;
 
   bool get _canInteract =>
-      widget.answersEnabled && !_slideAnimating && !_localAnswerLocked;
+      widget.answersEnabled &&
+      !_slideLockMechanism.isLocked &&
+      !_localAnswerLocked;
 
   @override
   void initState() {
     super.initState();
+    _slideLockMechanism = SlideLockMechanism(
+      slideDuration: kBrainRotQuestionSlideDuration,
+    );
     _displayedProgress = _targetProgress;
     _progressController = AnimationController(
       vsync: this,
@@ -75,24 +78,19 @@ class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
       _progressController
         ..reset()
         ..forward();
-      _lockForSlideAnimation();
+      _slideLockMechanism.acquire(() => setState(() {}));
     }
     if (!oldWidget.answersEnabled && widget.answersEnabled) {
       _localAnswerLocked = false;
     }
-  }
-
-  void _lockForSlideAnimation() {
-    _slideLockTimer?.cancel();
-    setState(() => _slideAnimating = true);
-    _slideLockTimer = Timer(kBrainRotQuestionSlideDuration, () {
-      if (mounted) setState(() => _slideAnimating = false);
-    });
+    if (oldWidget.answersEnabled && !widget.answersEnabled) {
+      _localAnswerLocked = true;
+    }
   }
 
   @override
   void dispose() {
-    _slideLockTimer?.cancel();
+    _slideLockMechanism.dispose();
     _progressController.dispose();
     super.dispose();
   }
@@ -107,123 +105,130 @@ class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
     final isRtl = Directionality.of(context) == TextDirection.rtl;
     final slideSign = widget.slideDirection >= 0 ? 1.0 : -1.0;
     final horizontalSign = isRtl ? -slideSign : slideSign;
+    final interactionBlocked = !_canInteract;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Text(
-          loc.diagnosticBrainRotProgress(
-            widget.questionIndex + 1,
-            BrainRotTest.questionCount,
-          ),
-          textAlign: TextAlign.center,
-          style: context.arabicLabelStyle,
-        ),
-        const SizedBox(height: 14),
-        AnimatedBuilder(
-          animation: _progressAnimation,
-          builder: (context, _) {
-            final value = _displayedProgress +
-                (_targetProgress - _displayedProgress) * _progressAnimation.value;
-            return ClipRRect(
-              borderRadius: BorderRadius.circular(6),
-              child: LinearProgressIndicator(
-                value: value,
-                minHeight: 8,
-                backgroundColor: context.diagnosticProgressTrack,
-                color: context.brandPrimary,
-                borderRadius: BorderRadius.circular(6),
-              ),
-            );
-          },
-        ),
-        const SizedBox(height: 32),
-        Expanded(
-          child: AnimatedSwitcher(
-            duration: kBrainRotQuestionSlideDuration,
-            switchInCurve: Curves.easeOutCubic,
-            switchOutCurve: Curves.easeInCubic,
-            layoutBuilder: (current, previous) => Stack(
-              alignment: Alignment.center,
-              fit: StackFit.expand,
-              children: [
-                ...previous,
-                if (current != null) current,
-              ],
+    return AbsorbPointer(
+      absorbing: interactionBlocked,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            loc.diagnosticBrainRotProgress(
+              widget.questionIndex + 1,
+              BrainRotTest.questionCount,
             ),
-            transitionBuilder: (child, animation) {
-              final offset = Tween<Offset>(
-                begin: Offset(horizontalSign * 0.22, 0.03),
-                end: Offset.zero,
-              ).animate(CurvedAnimation(
-                parent: animation,
-                curve: Curves.easeOutCubic,
-              ));
-              return SlideTransition(
-                position: offset,
-                child: FadeTransition(opacity: animation, child: child),
+            textAlign: TextAlign.center,
+            style: context.arabicLabelStyle,
+          ),
+          const SizedBox(height: 14),
+          AnimatedBuilder(
+            animation: _progressAnimation,
+            builder: (context, _) {
+              final value = _displayedProgress +
+                  (_targetProgress - _displayedProgress) *
+                      _progressAnimation.value;
+              return ClipRRect(
+                borderRadius: BorderRadius.circular(6),
+                child: LinearProgressIndicator(
+                  value: value,
+                  minHeight: 8,
+                  backgroundColor: context.diagnosticProgressTrack,
+                  color: context.brandPrimary,
+                  borderRadius: BorderRadius.circular(6),
+                ),
               );
             },
-            child: SingleChildScrollView(
-              key: ValueKey<int>(widget.questionIndex),
-              child: Container(
-                width: double.infinity,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-                decoration: context.diagnosticQuestionCardDecoration,
-                child: Text(
-                  widget.questionText,
-                  textAlign: TextAlign.center,
-                  style: context.arabicQuestionStyle,
+          ),
+          const SizedBox(height: 32),
+          Expanded(
+            child: AnimatedSwitcher(
+              duration: kBrainRotQuestionSlideDuration,
+              switchInCurve: Curves.easeOutCubic,
+              switchOutCurve: Curves.easeInCubic,
+              layoutBuilder: (current, previous) => Stack(
+                alignment: Alignment.center,
+                fit: StackFit.expand,
+                children: [
+                  ...previous,
+                  if (current != null) current,
+                ],
+              ),
+              transitionBuilder: (child, animation) {
+                final offset = Tween<Offset>(
+                  begin: Offset(horizontalSign * 0.22, 0.03),
+                  end: Offset.zero,
+                ).animate(CurvedAnimation(
+                  parent: animation,
+                  curve: Curves.easeOutCubic,
+                ));
+                return SlideTransition(
+                  position: offset,
+                  child: FadeTransition(opacity: animation, child: child),
+                );
+              },
+              child: SingleChildScrollView(
+                key: ValueKey<int>(widget.questionIndex),
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 24,
+                  ),
+                  decoration: context.diagnosticQuestionCardDecoration,
+                  child: Text(
+                    widget.questionText,
+                    textAlign: TextAlign.center,
+                    style: context.arabicQuestionStyle,
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        const SizedBox(height: 24),
-        Row(
-          children: [
-            Expanded(
-              child: _AnswerButton(
-                label: loc.diagnosticYes,
-                icon: Icons.check_rounded,
-                filled: true,
-                accent: theme.colorScheme.error,
-                enabled: _canInteract,
-                onPressed: () => _handleAnswer(true),
+          const SizedBox(height: 24),
+          Row(
+            children: [
+              Expanded(
+                child: _AnswerButton(
+                  label: loc.diagnosticYes,
+                  icon: Icons.check_rounded,
+                  filled: true,
+                  accent: theme.colorScheme.error,
+                  enabled: _canInteract,
+                  onPressed: () => _handleAnswer(true),
+                ),
               ),
-            ),
-            const SizedBox(width: 14),
-            Expanded(
-              child: _AnswerButton(
-                label: loc.diagnosticNo,
-                icon: Icons.close_rounded,
-                filled: false,
-                accent: context.brandPrimary,
-                enabled: _canInteract,
-                onPressed: () => _handleAnswer(false),
+              const SizedBox(width: 14),
+              Expanded(
+                child: _AnswerButton(
+                  label: loc.diagnosticNo,
+                  icon: Icons.close_rounded,
+                  filled: false,
+                  accent: context.brandPrimary,
+                  enabled: _canInteract,
+                  onPressed: () => _handleAnswer(false),
+                ),
               ),
+            ],
+          ),
+          if (widget.onBack != null && widget.questionIndex > 0) ...[
+            const SizedBox(height: 14),
+            TextButton.icon(
+              onPressed: _canInteract ? widget.onBack : null,
+              icon: Icon(
+                Icons.arrow_back_rounded,
+                size: 18,
+                color: context.brandPrimary,
+              ),
+              label: Text(loc.diagnosticPreviousQuestion),
             ),
           ],
-        ),
-        if (widget.onBack != null && widget.questionIndex > 0) ...[
-          const SizedBox(height: 14),
-          TextButton.icon(
-            onPressed: _canInteract ? widget.onBack : null,
-            icon: Icon(
-              Icons.arrow_back_rounded,
-              size: 18,
-              color: context.brandPrimary,
-            ),
-            label: Text(loc.diagnosticPreviousQuestion),
-          ),
         ],
-      ],
+      ),
     );
   }
 
   void _handleAnswer(bool yes) {
-    if (!_canInteract) return;
+    if (!_canInteract || _slideLockMechanism.isLocked) return;
     setState(() => _localAnswerLocked = true);
     HapticFeedback.lightImpact();
     widget.onAnswer(yes);
@@ -280,6 +285,7 @@ class _AnswerButtonState extends State<_AnswerButton>
     HapticFeedback.selectionClick();
     setState(() => _pressed = true);
     await _pulseController.reverse(from: 1);
+    if (!widget.enabled) return;
     widget.onPressed();
     if (mounted) setState(() => _pressed = false);
     _pulseController.forward();

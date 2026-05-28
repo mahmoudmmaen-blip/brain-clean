@@ -3,11 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/theme/app_design_constants.dart';
-import '../../../../core/theme/theme_extensions.dart';
 import '../../domain/diagnostic_session.dart';
 import '../brain_rot_localization.dart';
 import '../diagnostic_session_flow_provider.dart';
 import 'brain_rot_question_page.dart';
+import 'brain_rot_scoring_loading_overlay.dart';
 import 'brain_rot_step_indicator.dart';
 
 /// Brain Rot 10-question flow — driven by [DiagnosticSession.inProgress].
@@ -59,38 +59,7 @@ class BrainRotQuestionnaireView extends ConsumerWidget {
               ),
             ],
           ),
-          if (pendingResults)
-            Positioned.fill(
-              child: IgnorePointer(
-                child: ColoredBox(
-                  color: Theme.of(context)
-                      .colorScheme
-                      .surface
-                      .withValues(alpha: 0.72),
-                  child: Center(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SizedBox(
-                          width: 36,
-                          height: 36,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2.5,
-                            color: context.brandPrimary,
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          loc.diagnosticBrainRotScoring,
-                          textAlign: TextAlign.center,
-                          style: context.arabicLabelStyle,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
+          BrainRotScoringLoadingOverlay(visible: pendingResults),
         ],
       ),
     );
