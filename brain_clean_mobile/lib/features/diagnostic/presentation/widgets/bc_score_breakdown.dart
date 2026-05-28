@@ -42,14 +42,19 @@ class BcScoreBreakdown extends StatelessWidget {
 
   bool get _hasPenalty => recoveryPenaltyDeduction > 0;
 
-  static Map<String, String> _pillarLabels(AppLocalizations loc) => {
-        BhiPillarJsonKeys.pillarRowBrainPerformance:
-            loc.bcScorePillarBrainPerformance,
-        BhiPillarJsonKeys.pillarRowDigitalDiscipline:
-            loc.bcScorePillarDigitalDiscipline,
-        BhiPillarJsonKeys.pillarRowHealthyHabits: loc.bcScorePillarHealthyHabits,
-        BhiPillarJsonKeys.pillarRowConsistency: loc.bcScorePillarConsistency,
-      };
+  static Map<String, String> _pillarLabels(AppLocalizations loc) {
+    final keys = BhiPillarJsonKeys.pillarRowLocalizationKeys();
+    return {
+      keys[BhiPillarJsonKeys.pillarRowBrainPerformance]!:
+          loc.bcScorePillarBrainPerformance,
+      keys[BhiPillarJsonKeys.pillarRowDigitalDiscipline]!:
+          loc.bcScorePillarDigitalDiscipline,
+      keys[BhiPillarJsonKeys.pillarRowHealthyHabits]!:
+          loc.bcScorePillarHealthyHabits,
+      keys[BhiPillarJsonKeys.pillarRowConsistency]!:
+          loc.bcScorePillarConsistency,
+    };
+  }
 
   @override
   Widget build(BuildContext context) {

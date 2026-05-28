@@ -9,7 +9,7 @@ import '../diagnostic_session_flow_provider.dart';
 import 'brain_rot_question_page.dart';
 import 'brain_rot_step_indicator.dart';
 
-/// Brain Rot 10-question flow — driven by [DiagnosticSession.inProgress].
+/// Brain Rot 10-question flow — driven by live [DiagnosticSession] from [diagnosticLiveSessionProvider].
 class BrainRotQuestionnaireView extends ConsumerWidget {
   const BrainRotQuestionnaireView({
     super.key,

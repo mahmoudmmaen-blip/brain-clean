@@ -17,8 +17,7 @@ import 'widgets/diagnostic_metric_slider.dart';
 
 /// Full diagnostic flow — questionnaire, results, and BHI sliders.
 ///
-/// Live state is always [DiagnosticSession.inProgress] via
-/// [diagnosticLiveSessionProvider].
+/// Live state flows through [diagnosticLiveSessionProvider] (reactive, keepAlive).
 class DiagnosticScreen extends ConsumerWidget {
   const DiagnosticScreen({super.key});
 
@@ -59,7 +58,7 @@ class DiagnosticScreen extends ConsumerWidget {
             onRetry: () =>
                 ref.read(diagnosticControllerProvider.notifier).submitDiagnostic(),
           ),
-          data: (_) => _InProgressSessionBody(session: session),
+          data: (_) => _LiveSessionBody(session: session),
         ),
       ),
     );
@@ -74,9 +73,9 @@ class DiagnosticScreen extends ConsumerWidget {
           : loc.diagnosticBrainRotTitle;
 }
 
-/// Renders the active [DiagnosticSession.inProgress] phase with animated handoff.
-class _InProgressSessionBody extends ConsumerWidget {
-  const _InProgressSessionBody({required this.session});
+/// Renders the active live [DiagnosticSession] phase with animated handoff.
+class _LiveSessionBody extends ConsumerWidget {
+  const _LiveSessionBody({required this.session});
 
   final DiagnosticSession session;
 

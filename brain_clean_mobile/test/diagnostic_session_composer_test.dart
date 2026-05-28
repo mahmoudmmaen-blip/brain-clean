@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('DiagnosticSessionComposer', () {
-    test('buildInProgressSession is pillar-bound coherent', () {
+    test('buildLiveSession is pillar-bound coherent', () {
       const metrics = DiagnosticMetrics(sleepQuality: 8);
       const model = DiagnosticModel(
         brainPerformance: 60,
@@ -20,14 +20,14 @@ void main() {
         phase: BrainRotFlowPhase.results,
       );
 
-      final session = DiagnosticSessionComposer.buildInProgressSession(
+      final session = DiagnosticSessionComposer.buildLiveSession(
         metrics: metrics,
         model: model,
         questionnaire: questionnaire,
         requireComplete: true,
       );
 
-      expect(session.isInProgress, isTrue);
+      expect(session.isLive, isTrue);
       session.ensureDiagnosticCoherence();
       expect(session.brainRotScore, 5);
     });

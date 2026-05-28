@@ -30,8 +30,8 @@ class DiagnosticSession {
   /// Slider input metrics (alias).
   DiagnosticMetrics get metrics => bhi.metrics;
 
-  /// Active questionnaire flow (not yet submitted to [bcScoreSessionProvider]).
-  bool get isInProgress => !isCommitted;
+  /// Live diagnostic flow (not yet submitted to [bcScoreSessionProvider]).
+  bool get isLive => !isCommitted;
 
   /// Pillar values frozen at session save (committed sessions are authoritative).
   BhiPillarFrozenSnapshot get frozenPillars => bhi.frozenPillars;
@@ -147,8 +147,8 @@ class DiagnosticSession {
   /// True after [DiagnosticSession.fromAssessment] submit (persisted bundle).
   bool get isCommitted => brainRotAssessment != null;
 
-  /// In-progress diagnostic (questionnaire active, not yet committed).
-  factory DiagnosticSession.inProgress({
+  /// Live diagnostic session (questionnaire active, not yet committed).
+  factory DiagnosticSession.live({
     required DiagnosticMetrics metrics,
     required DiagnosticModel model,
     required BrainRotQuestionnaireSnapshot questionnaire,
@@ -239,9 +239,9 @@ class DiagnosticSession {
     Map<String, dynamic> json,
   ) {
     final raw = json[BhiPillarJsonKeys.brainRot];
-    if (raw == null) return null;
+    if (raw is! Map) return null;
     return BrainRotAssessment.fromJson(
-      BhiPillarJsonKeys.normalizeIncoming(raw as Map<String, dynamic>),
+      BhiPillarJsonKeys.normalizeIncoming(BhiPillarJsonKeys.decodeHiveMap(raw)),
     );
   }
 
@@ -249,9 +249,9 @@ class DiagnosticSession {
     Map<String, dynamic> json,
   ) {
     final raw = json[BhiPillarJsonKeys.questionnaire];
-    if (raw == null) return const BrainRotQuestionnaireSnapshot();
+    if (raw is! Map) return const BrainRotQuestionnaireSnapshot();
     return BrainRotQuestionnaireSnapshot.fromJson(
-      BhiPillarJsonKeys.normalizeIncoming(raw as Map<String, dynamic>),
+      BhiPillarJsonKeys.normalizeIncoming(BhiPillarJsonKeys.decodeHiveMap(raw)),
     );
   }
 

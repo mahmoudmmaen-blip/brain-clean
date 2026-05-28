@@ -43,8 +43,8 @@ abstract final class DiagnosticSessionComposer {
         recoveryPenaltyDeduction: recoveryPenaltyDeduction,
       );
 
-  /// Active diagnostic flow — questionnaire may still be in progress.
-  static DiagnosticSession buildInProgressSession({
+  /// Reactive live session — questionnaire may still be completing.
+  static DiagnosticSession buildLiveSession({
     required DiagnosticMetrics metrics,
     required DiagnosticModel model,
     required BrainRotQuestionnaireSnapshot questionnaire,
@@ -52,7 +52,7 @@ abstract final class DiagnosticSessionComposer {
     bool requireComplete = false,
     DateTime? snapshotAt,
   }) {
-    var session = DiagnosticSession.inProgress(
+    var session = DiagnosticSession.live(
       metrics: metrics,
       model: model,
       questionnaire: questionnaire,

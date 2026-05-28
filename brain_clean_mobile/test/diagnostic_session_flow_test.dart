@@ -64,7 +64,7 @@ void main() {
       }
     });
 
-    test('each answer updates coherent in-progress session', () {
+    test('each answer updates coherent live session', () {
       final flow = container.read(diagnosticSessionFlowProvider.notifier);
       flow.answerQuestion(0, true);
 

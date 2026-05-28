@@ -29,7 +29,7 @@ DiagnosticModel diagnosticLiveModel(DiagnosticLiveModelRef ref) {
   return ref.read(diagnosticControllerProvider.notifier).computeLiveModel();
 }
 
-/// Unified in-progress [DiagnosticSession] for diagnostic UI and breakdown widgets.
+/// Reactive live [DiagnosticSession] for diagnostic UI and breakdown widgets.
 ///
 /// Rebuilds when metrics (async hydrate), questionnaire, live model, or penalties change.
 @Riverpod(keepAlive: true)
@@ -98,13 +98,13 @@ class DiagnosticController extends _$DiagnosticController {
         recoveryPenaltyDeduction: recoveryPenaltyDeduction,
       );
 
-  /// Authoritative in-progress session for the diagnostic grid and breakdown.
+  /// Authoritative live session for the diagnostic grid and breakdown.
   DiagnosticSession buildLiveSession({
     BrainRotQuestionnaireSnapshot? questionnaire,
     double recoveryPenaltyTotal = 0,
     bool requireComplete = false,
   }) =>
-      DiagnosticSessionComposer.buildInProgressSession(
+      DiagnosticSessionComposer.buildLiveSession(
         metrics: currentMetrics,
         model: computeLiveModel(),
         questionnaire:

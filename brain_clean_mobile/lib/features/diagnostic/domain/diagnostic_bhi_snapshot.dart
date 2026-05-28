@@ -113,7 +113,9 @@ class DiagnosticBhiSnapshot {
     final frozenRaw = BhiPillarJsonKeys.readFrozenPillarsMap(normalized);
     if (frozenRaw != null) {
       final frozen = BhiPillarFrozenSnapshot.fromJson(
-        BhiPillarJsonKeys.normalizeIncoming(frozenRaw),
+        BhiPillarJsonKeys.normalizeIncoming(
+          BhiPillarJsonKeys.decodeHiveMap(frozenRaw),
+        ),
       );
       _assertEmbeddedPenaltyMatchesRoot(
         json: normalized,

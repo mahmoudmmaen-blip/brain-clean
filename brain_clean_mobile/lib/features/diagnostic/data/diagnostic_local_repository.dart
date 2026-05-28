@@ -25,7 +25,7 @@ class DiagnosticLocalBundle {
       (questionnaire != null && questionnaire!.answeredCount > 0);
 }
 
-/// Hive persistence for committed sessions and in-progress diagnostic drafts.
+/// Hive persistence for committed sessions and live diagnostic drafts.
 class DiagnosticLocalRepository {
   DiagnosticLocalRepository({Box<dynamic>? box}) : _boxOverride = box;
 
@@ -105,7 +105,9 @@ class DiagnosticLocalRepository {
     if (raw is! Map) return null;
     try {
       return DiagnosticSession.fromJson(
-        BhiPillarJsonKeys.normalizeIncoming(_deepStringKeyMap(raw)),
+        BhiPillarJsonKeys.normalizeIncoming(
+          BhiPillarJsonKeys.decodeHiveMap(Map<dynamic, dynamic>.from(raw)),
+        ),
       );
     } catch (e) {
       debugPrint('DiagnosticLocalRepository: corrupt session: $e');
@@ -117,7 +119,9 @@ class DiagnosticLocalRepository {
     if (raw is! Map) return null;
     try {
       return DiagnosticMetrics.fromJson(
-        BhiPillarJsonKeys.normalizeIncoming(_deepStringKeyMap(raw)),
+        BhiPillarJsonKeys.normalizeIncoming(
+          BhiPillarJsonKeys.decodeHiveMap(Map<dynamic, dynamic>.from(raw)),
+        ),
       );
     } catch (e) {
       debugPrint('DiagnosticLocalRepository: corrupt metrics: $e');
@@ -129,28 +133,13 @@ class DiagnosticLocalRepository {
     if (raw is! Map) return null;
     try {
       return BrainRotQuestionnaireSnapshot.fromJson(
-        BhiPillarJsonKeys.normalizeIncoming(_deepStringKeyMap(raw)),
+        BhiPillarJsonKeys.normalizeIncoming(
+          BhiPillarJsonKeys.decodeHiveMap(Map<dynamic, dynamic>.from(raw)),
+        ),
       );
     } catch (e) {
       debugPrint('DiagnosticLocalRepository: corrupt questionnaire: $e');
       return null;
     }
-  }
-
-  /// Hive returns [Map<dynamic, dynamic>]; JSON parsers require string keys.
-  static Map<String, dynamic> _deepStringKeyMap(Map<dynamic, dynamic> source) {
-    return source.map(
-      (key, value) => MapEntry(key.toString(), _deepCastValue(value)),
-    );
-  }
-
-  static dynamic _deepCastValue(dynamic value) {
-    if (value is Map) {
-      return _deepStringKeyMap(Map<dynamic, dynamic>.from(value));
-    }
-    if (value is List) {
-      return value.map(_deepCastValue).toList();
-    }
-    return value;
   }
 }

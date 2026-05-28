@@ -22,7 +22,7 @@ abstract final class BhiPillarJsonKeys {
   static const brainRot = 'brainRot';
   static const questionnaire = 'questionnaire';
 
-  // —— Brain Rot questionnaire (in-progress tracking) ——
+  // —— Brain Rot questionnaire (live session tracking) ——
   static const answers = 'answers';
   static const currentIndex = 'currentIndex';
   static const phase = 'phase';
@@ -132,14 +132,44 @@ abstract final class BhiPillarJsonKeys {
     for (final entry in raw.entries) {
       final key = _legacyToCamel[entry.key] ?? entry.key;
       final value = entry.value;
-      if (value is Map<String, dynamic>) {
-        out[key] = normalizeIncoming(value);
+      if (value is Map) {
+        out[key] = normalizeIncoming(decodeHiveMap(value));
+      } else if (value is List) {
+        out[key] = decodeHiveList(value);
       } else {
         out[key] = value;
       }
     }
     return out;
   }
+
+  /// Coerces Hive [Map<dynamic,dynamic>] into string-key maps for JSON parsers.
+  static Map<String, dynamic> decodeHiveMap(Map source) {
+    return source.map(
+      (key, value) => MapEntry(key.toString(), decodeHiveValue(value)),
+    );
+  }
+
+  static List<dynamic> decodeHiveList(List<dynamic> source) =>
+      source.map(decodeHiveValue).toList();
+
+  static dynamic decodeHiveValue(dynamic value) {
+    if (value is Map) {
+      return decodeHiveMap(Map<dynamic, dynamic>.from(value));
+    }
+    if (value is List) {
+      return decodeHiveList(value);
+    }
+    return value;
+  }
+
+  /// RTL-safe pillar row keys → localized label lookup (AR/EN breakdown widgets).
+  static Map<String, String> pillarRowLocalizationKeys() => {
+        pillarRowBrainPerformance: pillarRowBrainPerformance,
+        pillarRowDigitalDiscipline: pillarRowDigitalDiscipline,
+        pillarRowHealthyHabits: pillarRowHealthyHabits,
+        pillarRowConsistency: pillarRowConsistency,
+      };
 
   static Map<String, dynamic> requireMap(
     Map<String, dynamic> json,

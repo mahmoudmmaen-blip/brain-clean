@@ -389,7 +389,7 @@ void main() {
   });
 
   group('DiagnosticSession serialization', () {
-    test('inProgress exposes live BHI and questionnaire without commit', () {
+    test('live session exposes BHI and questionnaire without commit', () {
       const model = DiagnosticModel(
         brainPerformance: 50,
         digitalDiscipline: 50,
@@ -403,14 +403,14 @@ void main() {
         phase: BrainRotFlowPhase.results,
       );
 
-      final draft = DiagnosticSession.inProgress(
+      final draft = DiagnosticSession.live(
         metrics: metrics,
         model: model,
         questionnaire: questionnaire,
       );
 
       expect(draft.isCommitted, isFalse);
-      expect(draft.isInProgress, isTrue);
+      expect(draft.isLive, isTrue);
       expect(draft.brainRotAssessment, isNull);
       expect(draft.brainRotScore, 2);
       expect(draft.bcScore, draft.frozenPillars.bcScore);

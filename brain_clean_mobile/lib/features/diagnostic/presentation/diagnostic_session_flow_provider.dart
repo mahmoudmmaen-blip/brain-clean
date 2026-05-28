@@ -27,7 +27,7 @@ class DiagnosticSessionFlow extends _$DiagnosticSessionFlow {
     return const BrainRotQuestionnaireSnapshot();
   }
 
-  /// Records نعم/لا, rebuilds a coherent [DiagnosticSession.inProgress], and
+  /// Records نعم/لا, validates via [DiagnosticController.validateLiveSession], and
   /// on the 10th answer schedules a smooth handoff to the results dashboard.
   void answerQuestion(int index, bool yes) {
     if (state.isInteractionLocked) return;
