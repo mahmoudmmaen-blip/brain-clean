@@ -131,7 +131,7 @@ class _InProgressSessionBody extends ConsumerWidget {
             ),
             BrainRotFlowPhase.bhiSliders => _BhiSlidersPhase(
               key: ValueKey(
-                'bhi_${session.pillarEvaluation.bcScore.round()}',
+                'bhi_${session.bcScore.round()}',
               ),
               session: session,
             ),
@@ -192,7 +192,7 @@ class _BhiSlidersPhase extends ConsumerWidget {
     final controller = ref.read(diagnosticControllerProvider.notifier);
     final evaluation = session.pillarEvaluation;
     final metrics = session.metrics;
-    final scoreKey = ValueKey<int>(evaluation.bcScore.round());
+    final scoreKey = ValueKey<int>(session.bcScore.round());
 
     return ListView(
       padding: const EdgeInsets.all(AppDesignConstants.radiusCard + 2),
@@ -200,7 +200,7 @@ class _BhiSlidersPhase extends ConsumerWidget {
         RepaintBoundary(
           child: BcScoreHeroCard(
             key: scoreKey,
-            score: evaluation.bcScore,
+            score: session.bcScore,
             subtitle: loc.diagnosticLiveSubtitle,
           ),
         ),
@@ -208,6 +208,7 @@ class _BhiSlidersPhase extends ConsumerWidget {
           child: BcScoreBreakdown(
             key: ValueKey<String>('breakdown_$scoreKey'),
             evaluation: evaluation,
+            displayBcScore: session.bcScore,
           ),
         ),
         const SizedBox(height: 8),

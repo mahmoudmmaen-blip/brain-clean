@@ -2,6 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../domain/diagnostic_metrics.dart';
 import '../domain/diagnostic_session.dart';
+import '../../recovery/presentation/recovery_bc_penalty_provider.dart';
 import 'bc_score_provider.dart';
 import 'diagnostic_controller.dart';
 import 'diagnostic_session_flow_provider.dart';
@@ -19,9 +20,14 @@ DiagnosticSession diagnosticInProgressSession(DiagnosticInProgressSessionRef ref
   final questionnaire = ref.watch(diagnosticSessionFlowProvider);
   final liveModel = ref.watch(bcScoreLiveProvider);
 
-  return DiagnosticSession.inProgress(
+  final session = DiagnosticSession.inProgress(
     metrics: metrics,
     model: liveModel,
     questionnaire: questionnaire,
   );
+
+  final penaltyTotal = ref.watch(recoveryBcPenaltyTotalProvider);
+  if (penaltyTotal <= 0) return session;
+
+  return session.withRecoveryPenaltyTotal(penaltyTotal);
 }

@@ -15,7 +15,7 @@ class BcScoreHeroCard extends StatelessWidget {
     this.fontSize = 56,
   });
 
-  /// Binds hero display to [session.pillarEvaluation.bcScore].
+  /// Binds hero display to [session.bcScore] (frozen snapshot, incl. penalties).
   factory BcScoreHeroCard.fromSession({
     Key? key,
     required DiagnosticSession session,
@@ -24,7 +24,7 @@ class BcScoreHeroCard extends StatelessWidget {
   }) =>
       BcScoreHeroCard(
         key: key,
-        score: session.pillarEvaluation.bcScore,
+        score: session.bcScore,
         subtitle: subtitle,
         fontSize: fontSize,
       );

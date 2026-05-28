@@ -421,8 +421,11 @@ void main() {
       expect(restored.frozenHealthyHabits, 70);
       expect(restored.frozenConsistency, 60);
       expect(restored.frozenPillars.bcScore, session.frozenPillars.bcScore);
-      expect(restored.bcScore, restored.pillarEvaluation.bcScore);
       expect(restored.bcScore, restored.frozenPillars.bcScore);
+      expect(
+        restored.pillarEvaluation.bcScore,
+        restored.frozenPillars.pillarMatrixBcScore,
+      );
       expect(restored.pillarModel.consistency, 60);
       expect(restored.pillarEvaluation.isCoherent, isTrue);
 

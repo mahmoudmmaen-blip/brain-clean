@@ -2,6 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../data/recovery_protocol_storage.dart';
 import '../data/recovery_protocol_storage_provider.dart';
+import 'recovery_bc_penalty_provider.dart';
 import '../domain/recovery_daily_task.dart';
 import '../domain/recovery_day_record.dart';
 import '../domain/recovery_protocol_constants.dart';
@@ -63,6 +64,9 @@ class RecoveryProtocolController extends _$RecoveryProtocolController {
         totalPenaltyCount: current.totalPenaltyCount + 1,
       ),
     );
+    await ref
+        .read(recoveryDiagnosticPenaltySyncProvider.notifier)
+        .syncFromRecoveryGrid();
   }
 
   bool selectedDayNeedsPenalty() {

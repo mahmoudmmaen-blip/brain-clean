@@ -57,8 +57,8 @@ class DiagnosticSession {
   /// Authoritative pillar matrix for all diagnostic UI score widgets.
   PillarBoundEvaluation get pillarEvaluation => bhi.pillarEvaluation;
 
-  /// Pillar-bound BC_score — identical on screen, dashboard, and repository.
-  double get bcScore => pillarEvaluation.bcScore;
+  /// Pillar-bound BC_score — includes recovery-grid penalties when present.
+  double get bcScore => frozenPillars.bcScore;
 
   int get bcScoreRounded => bcScore.round();
 
@@ -103,6 +103,30 @@ class DiagnosticSession {
   void ensureDiagnosticCoherence() {
     ensurePillarBoundCoherence();
     ensureBrainRotQuestionnaireCoherence();
+  }
+
+  /// Applies cumulative recovery-grid accountability to the frozen BHI snapshot.
+  DiagnosticSession withRecoveryPenaltyTotal(double totalRecoveryPenaltyDeduction) {
+    final frozen = bhi.frozenPillars;
+    final nextFrozen = frozen.copyWith(
+      recoveryPenaltyDeduction: totalRecoveryPenaltyDeduction,
+    );
+    nextFrozen.ensureCoherent();
+
+    final nextBhi = DiagnosticBhiSnapshot.withFrozenPillars(
+      metrics: metrics,
+      model: model,
+      frozenPillars: nextFrozen,
+    );
+
+    final next = DiagnosticSession(
+      bhi: nextBhi,
+      committedAt: committedAt,
+      brainRotAssessment: brainRotAssessment,
+      questionnaire: questionnaire,
+    );
+    next.ensureDiagnosticCoherence();
+    return next;
   }
 
   int? get brainRotScore => brainRot?.score;

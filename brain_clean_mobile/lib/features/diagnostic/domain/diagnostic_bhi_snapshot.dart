@@ -31,7 +31,8 @@ class DiagnosticBhiSnapshot {
 
   DiagnosticModel get pillarModel => pillarEvaluation.toPillarModel();
 
-  double get boundBcScore => pillarEvaluation.bcScore;
+  /// Authoritative BC_score including recovery accountability deductions.
+  double get boundBcScore => frozenPillars.bcScore;
 
   bool get isPillarBoundCoherent =>
       frozenPillars.isCoherent && pillarEvaluation.isCoherent;
@@ -40,11 +41,28 @@ class DiagnosticBhiSnapshot {
     required DiagnosticMetrics metrics,
     required DiagnosticModel model,
     DateTime? frozenAt,
+    double recoveryPenaltyDeduction = 0,
   }) =>
       DiagnosticBhiSnapshot._coherent(
         metrics: metrics,
         model: model,
-        frozenPillars: BhiPillarFrozenSnapshot.freeze(model, moment: frozenAt),
+        frozenPillars: BhiPillarFrozenSnapshot.freeze(
+          model,
+          moment: frozenAt,
+          recoveryPenaltyDeduction: recoveryPenaltyDeduction,
+        ),
+      );
+
+  /// Rebuilds a coherent snapshot when frozen pillars are updated (e.g. penalties).
+  factory DiagnosticBhiSnapshot.withFrozenPillars({
+    required DiagnosticMetrics metrics,
+    required DiagnosticModel model,
+    required BhiPillarFrozenSnapshot frozenPillars,
+  }) =>
+      DiagnosticBhiSnapshot._coherent(
+        metrics: metrics,
+        model: model,
+        frozenPillars: frozenPillars,
       );
 
   factory DiagnosticBhiSnapshot._coherent({
@@ -63,13 +81,14 @@ class DiagnosticBhiSnapshot {
 
   void ensurePillarBoundCoherence() {
     frozenPillars.ensureCoherent();
-    final evaluation = pillarEvaluation;
-    evaluation.ensureCoherent();
-    PillarBoundEvaluation.requireScoresMatch(
-      stored: frozenPillars.bcScore,
-      recomputed: evaluation.bcScore,
-      layer: 'DiagnosticBhiSnapshot',
-    );
+    pillarEvaluation.ensureCoherent();
+    if (frozenPillars.recoveryPenaltyDeduction == 0) {
+      PillarBoundEvaluation.requireScoresMatch(
+        stored: frozenPillars.bcScore,
+        recomputed: pillarEvaluation.bcScore,
+        layer: 'DiagnosticBhiSnapshot',
+      );
+    }
   }
 
   factory DiagnosticBhiSnapshot.fromJson(Map<String, dynamic> json) {

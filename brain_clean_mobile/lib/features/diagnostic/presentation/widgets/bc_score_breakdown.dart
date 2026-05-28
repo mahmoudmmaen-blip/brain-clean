@@ -12,6 +12,7 @@ class BcScoreBreakdown extends StatelessWidget {
   const BcScoreBreakdown({
     super.key,
     required this.evaluation,
+    required this.displayBcScore,
   });
 
   /// Reads frozen pillars and bound score from [session] snapshot only.
@@ -22,9 +23,11 @@ class BcScoreBreakdown extends StatelessWidget {
       BcScoreBreakdown(
         key: key,
         evaluation: session.pillarEvaluation,
+        displayBcScore: session.bcScore,
       );
 
   final PillarBoundEvaluation evaluation;
+  final double displayBcScore;
 
   @override
   Widget build(BuildContext context) {
@@ -68,8 +71,8 @@ class BcScoreBreakdown extends StatelessWidget {
             Divider(height: 20, color: context.borderMuted),
             _SummaryRow(
               label: loc.bcScoreLabel,
-              value: '${evaluation.bcScore.round()}%',
-              color: BcScoreColors.forScore(evaluation.bcScore),
+              value: '${displayBcScore.round()}%',
+              color: BcScoreColors.forScore(displayBcScore),
             ),
           ],
         ),

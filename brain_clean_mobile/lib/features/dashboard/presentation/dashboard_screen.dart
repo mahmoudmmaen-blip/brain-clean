@@ -51,13 +51,13 @@ class DashboardScreen extends ConsumerWidget {
               Builder(
                 builder: (context) {
                   final evaluation = session.pillarEvaluation;
-                  final scoreKey = ValueKey<int>(evaluation.bcScore.round());
+                  final scoreKey = ValueKey<int>(session.bcScore.round());
                   return Column(
                     children: [
                       RepaintBoundary(
                         child: BcScoreHeroCard(
                           key: scoreKey,
-                          score: evaluation.bcScore,
+                          score: session.bcScore,
                           fontSize: 48,
                           subtitle: loc.dashboardCommittedAt(committedAt!),
                         ),
@@ -66,6 +66,7 @@ class DashboardScreen extends ConsumerWidget {
                         child: BcScoreBreakdown(
                           key: ValueKey<String>('dash_breakdown_$scoreKey'),
                           evaluation: evaluation,
+                          displayBcScore: session.bcScore,
                         ),
                       ),
                     ],

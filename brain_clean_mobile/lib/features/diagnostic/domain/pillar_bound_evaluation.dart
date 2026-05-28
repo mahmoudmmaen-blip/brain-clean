@@ -98,6 +98,8 @@ class PillarBoundEvaluation {
         consistency: model.consistency,
       );
 
+  /// Pillar-matrix evaluation only — ignores stored [BhiPillarFrozenSnapshot.bcScore]
+  /// when it drifted; recovery penalties live on the frozen snapshot, not here.
   factory PillarBoundEvaluation.fromFrozen(BhiPillarFrozenSnapshot frozen) =>
       PillarBoundEvaluation.coherent(
         brainPerformance: frozen.brainPerformance,
