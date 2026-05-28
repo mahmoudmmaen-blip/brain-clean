@@ -24,8 +24,6 @@ class BrainRotQuestionPage extends StatefulWidget {
 
   final int questionIndex;
   final String questionText;
-
-  /// +1 next question, −1 previous (used for slide axis).
   final int slideDirection;
   final bool answersEnabled;
   final void Function(bool yes) onAnswer;
@@ -105,124 +103,149 @@ class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
     final isRtl = Directionality.of(context) == TextDirection.rtl;
     final slideSign = widget.slideDirection >= 0 ? 1.0 : -1.0;
     final horizontalSign = isRtl ? -slideSign : slideSign;
-    final interactionBlocked = !_canInteract;
 
-    return AbsorbPointer(
-      absorbing: interactionBlocked,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        _buildProgressHeader(loc),
+        const SizedBox(height: 14),
+        _buildProgressBar(),
+        const SizedBox(height: 32),
+        Expanded(child: _buildQuestionSlideSwitcher(horizontalSign)),
+        const SizedBox(height: 24),
+        _buildAnswerActions(loc, theme),
+        if (widget.onBack != null && widget.questionIndex > 0)
+          _buildBackButton(loc),
+      ],
+    );
+  }
+
+  Widget _buildProgressHeader(AppLocalizations loc) {
+    return Text(
+      loc.diagnosticBrainRotProgress(
+        widget.questionIndex + 1,
+        BrainRotTest.questionCount,
+      ),
+      textAlign: TextAlign.center,
+      style: context.arabicLabelStyle,
+    );
+  }
+
+  Widget _buildProgressBar() {
+    return AnimatedBuilder(
+      animation: _progressAnimation,
+      builder: (context, _) {
+        final value = _displayedProgress +
+            (_targetProgress - _displayedProgress) * _progressAnimation.value;
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(6),
+          child: LinearProgressIndicator(
+            value: value,
+            minHeight: 8,
+            backgroundColor: context.diagnosticProgressTrack,
+            color: context.brandPrimary,
+            borderRadius: BorderRadius.circular(6),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildQuestionSlideSwitcher(double horizontalSign) {
+    return AnimatedSwitcher(
+      duration: kBrainRotQuestionSlideDuration,
+      switchInCurve: Curves.easeOutCubic,
+      switchOutCurve: Curves.easeInCubic,
+      layoutBuilder: (current, previous) => _slideLockMechanism.layoutBuilder(
+        currentChild: current,
+        previousChildren: previous,
+      ),
+      transitionBuilder: (child, animation) =>
+          _slideLockMechanism.transitionBuilder(
+        child: child,
+        animation: animation,
+        build: (transitionChild, transitionAnimation) {
+          final offset = Tween<Offset>(
+            begin: Offset(horizontalSign * 0.22, 0.03),
+            end: Offset.zero,
+          ).animate(CurvedAnimation(
+            parent: transitionAnimation,
+            curve: Curves.easeOutCubic,
+          ));
+          return SlideTransition(
+            position: offset,
+            child: FadeTransition(
+              opacity: transitionAnimation,
+              child: transitionChild,
+            ),
+          );
+        },
+      ),
+      child: _buildQuestionCard(),
+    );
+  }
+
+  Widget _buildQuestionCard() {
+    return SingleChildScrollView(
+      key: ValueKey<int>(widget.questionIndex),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+        decoration: context.diagnosticQuestionCardDecoration,
+        child: Text(
+          widget.questionText,
+          textAlign: TextAlign.center,
+          style: context.arabicQuestionStyle,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAnswerActions(AppLocalizations loc, ThemeData theme) {
+    return _slideLockMechanism.shieldInteractions(
+      extraLocked: !widget.answersEnabled || _localAnswerLocked,
+      child: Row(
         children: [
-          Text(
-            loc.diagnosticBrainRotProgress(
-              widget.questionIndex + 1,
-              BrainRotTest.questionCount,
-            ),
-            textAlign: TextAlign.center,
-            style: context.arabicLabelStyle,
-          ),
-          const SizedBox(height: 14),
-          AnimatedBuilder(
-            animation: _progressAnimation,
-            builder: (context, _) {
-              final value = _displayedProgress +
-                  (_targetProgress - _displayedProgress) *
-                      _progressAnimation.value;
-              return ClipRRect(
-                borderRadius: BorderRadius.circular(6),
-                child: LinearProgressIndicator(
-                  value: value,
-                  minHeight: 8,
-                  backgroundColor: context.diagnosticProgressTrack,
-                  color: context.brandPrimary,
-                  borderRadius: BorderRadius.circular(6),
-                ),
-              );
-            },
-          ),
-          const SizedBox(height: 32),
           Expanded(
-            child: AnimatedSwitcher(
-              duration: kBrainRotQuestionSlideDuration,
-              switchInCurve: Curves.easeOutCubic,
-              switchOutCurve: Curves.easeInCubic,
-              layoutBuilder: (current, previous) => Stack(
-                alignment: Alignment.center,
-                fit: StackFit.expand,
-                children: [
-                  ...previous,
-                  if (current != null) current,
-                ],
-              ),
-              transitionBuilder: (child, animation) {
-                final offset = Tween<Offset>(
-                  begin: Offset(horizontalSign * 0.22, 0.03),
-                  end: Offset.zero,
-                ).animate(CurvedAnimation(
-                  parent: animation,
-                  curve: Curves.easeOutCubic,
-                ));
-                return SlideTransition(
-                  position: offset,
-                  child: FadeTransition(opacity: animation, child: child),
-                );
-              },
-              child: SingleChildScrollView(
-                key: ValueKey<int>(widget.questionIndex),
-                child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 24,
-                  ),
-                  decoration: context.diagnosticQuestionCardDecoration,
-                  child: Text(
-                    widget.questionText,
-                    textAlign: TextAlign.center,
-                    style: context.arabicQuestionStyle,
-                  ),
-                ),
-              ),
+            child: _AnswerButton(
+              label: loc.diagnosticYes,
+              icon: Icons.check_rounded,
+              filled: true,
+              accent: theme.colorScheme.error,
+              enabled: _canInteract,
+              onPressed: () => _handleAnswer(true),
             ),
           ),
-          const SizedBox(height: 24),
-          Row(
-            children: [
-              Expanded(
-                child: _AnswerButton(
-                  label: loc.diagnosticYes,
-                  icon: Icons.check_rounded,
-                  filled: true,
-                  accent: theme.colorScheme.error,
-                  enabled: _canInteract,
-                  onPressed: () => _handleAnswer(true),
-                ),
-              ),
-              const SizedBox(width: 14),
-              Expanded(
-                child: _AnswerButton(
-                  label: loc.diagnosticNo,
-                  icon: Icons.close_rounded,
-                  filled: false,
-                  accent: context.brandPrimary,
-                  enabled: _canInteract,
-                  onPressed: () => _handleAnswer(false),
-                ),
-              ),
-            ],
-          ),
-          if (widget.onBack != null && widget.questionIndex > 0) ...[
-            const SizedBox(height: 14),
-            TextButton.icon(
-              onPressed: _canInteract ? widget.onBack : null,
-              icon: Icon(
-                Icons.arrow_back_rounded,
-                size: 18,
-                color: context.brandPrimary,
-              ),
-              label: Text(loc.diagnosticPreviousQuestion),
+          const SizedBox(width: 14),
+          Expanded(
+            child: _AnswerButton(
+              label: loc.diagnosticNo,
+              icon: Icons.close_rounded,
+              filled: false,
+              accent: context.brandPrimary,
+              enabled: _canInteract,
+              onPressed: () => _handleAnswer(false),
             ),
-          ],
+          ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildBackButton(AppLocalizations loc) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 14),
+      child: _slideLockMechanism.shieldInteractions(
+        extraLocked: !widget.answersEnabled || _localAnswerLocked,
+        child: TextButton.icon(
+          onPressed: _canInteract ? widget.onBack : null,
+          icon: Icon(
+            Icons.arrow_back_rounded,
+            size: 18,
+            color: context.brandPrimary,
+          ),
+          label: Text(loc.diagnosticPreviousQuestion),
+        ),
       ),
     );
   }

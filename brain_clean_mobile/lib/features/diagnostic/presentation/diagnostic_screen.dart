@@ -12,6 +12,7 @@ import 'diagnostic_controller.dart';
 import 'widgets/bc_score_breakdown.dart';
 import 'widgets/bc_score_hero_card.dart';
 import 'widgets/brain_rot_questionnaire_view.dart';
+import 'widgets/brain_rot_scoring_loading_overlay.dart';
 import 'widgets/brain_rot_score_dashboard.dart';
 import 'widgets/diagnostic_metric_slider.dart';
 
@@ -85,50 +86,59 @@ class _InProgressSessionBody extends ConsumerWidget {
     final phase = session.questionnairePhase;
 
     final enteringResults =
-        phase == BrainRotFlowPhase.results && !session.questionnaire.pendingResultsTransition;
+        phase == BrainRotFlowPhase.results &&
+            !session.questionnaire.pendingResultsTransition;
+    final scoringOverlayVisible =
+        session.questionnaire.pendingResultsTransition;
 
-    return AnimatedSwitcher(
-      duration: enteringResults
-          ? const Duration(milliseconds: 520)
-          : const Duration(milliseconds: 450),
-      switchInCurve: Curves.easeOutCubic,
-      switchOutCurve: Curves.easeInCubic,
-      transitionBuilder: (child, animation) {
-        final slideBegin = enteringResults
-            ? const Offset(0, 0.12)
-            : const Offset(0, 0.06);
-        return FadeTransition(
-          opacity: animation,
-          child: SlideTransition(
-            position: Tween<Offset>(
-              begin: slideBegin,
-              end: Offset.zero,
-            ).animate(CurvedAnimation(
-              parent: animation,
-              curve: Curves.easeOutCubic,
-            )),
-            child: child,
-          ),
-        );
-      },
-      child: switch (phase) {
-        BrainRotFlowPhase.questions => BrainRotQuestionnaireView(
-          key: const ValueKey('brain_rot_questions'),
-          session: session,
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        AnimatedSwitcher(
+          duration: enteringResults
+              ? const Duration(milliseconds: 520)
+              : const Duration(milliseconds: 450),
+          switchInCurve: Curves.easeOutCubic,
+          switchOutCurve: Curves.easeInCubic,
+          transitionBuilder: (child, animation) {
+            final slideBegin = enteringResults
+                ? const Offset(0, 0.12)
+                : const Offset(0, 0.06);
+            return FadeTransition(
+              opacity: animation,
+              child: SlideTransition(
+                position: Tween<Offset>(
+                  begin: slideBegin,
+                  end: Offset.zero,
+                ).animate(CurvedAnimation(
+                  parent: animation,
+                  curve: Curves.easeOutCubic,
+                )),
+                child: child,
+              ),
+            );
+          },
+          child: switch (phase) {
+            BrainRotFlowPhase.questions => BrainRotQuestionnaireView(
+              key: const ValueKey('brain_rot_questions'),
+              session: session,
+            ),
+            BrainRotFlowPhase.results => _BrainRotResultsPhase(
+              key: ValueKey(
+                'brain_rot_results_${session.brainRotScore}_${session.brainRotBand?.name}',
+              ),
+              session: session,
+            ),
+            BrainRotFlowPhase.bhiSliders => _BhiSlidersPhase(
+              key: ValueKey(
+                'bhi_${session.pillarEvaluation.bcScore.round()}',
+              ),
+              session: session,
+            ),
+          },
         ),
-        BrainRotFlowPhase.results => _BrainRotResultsPhase(
-          key: ValueKey(
-            'brain_rot_results_${session.brainRotScore}_${session.brainRotBand?.name}',
-          ),
-          session: session,
-        ),
-        BrainRotFlowPhase.bhiSliders => _BhiSlidersPhase(
-          key: ValueKey(
-            'bhi_${session.pillarEvaluation.bcScore.round()}',
-          ),
-          session: session,
-        ),
-      },
+        BrainRotScoringLoadingOverlay(visible: scoringOverlayVisible),
+      ],
     );
   }
 }
