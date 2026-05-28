@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-
 import '../../../core/constants/bc_score_constants.dart';
 
 part 'diagnostic_model.g.dart';
@@ -31,6 +30,12 @@ extension InterpretationBandLabels on InterpretationBand {
         InterpretationBand.severe => (6, 8),
         InterpretationBand.critical => (9, 10),
       };
+
+  /// Dynamic helper to check if a score belongs to this band range.
+  bool contains(int score) {
+    final range = scoreRange;
+    return score >= range.$1 && score <= range.$2;
+  }
 }
 
 /// Machine-readable Brain Rot outcome — UI reads [interpretationAr] only.
@@ -107,10 +112,11 @@ abstract final class BrainRotTest {
 
   static InterpretationBand getBand(int score) {
     final s = score.clamp(0, questionCount);
-    if (s <= 2) return InterpretationBand.mild;
-    if (s <= 5) return InterpretationBand.moderate;
-    if (s <= 8) return InterpretationBand.severe;
-    return InterpretationBand.critical;
+    // تم التحديث للاعتماد على الـ Score Ranges البرمجية النظيفة من الـ Enum مباشرة
+    return InterpretationBand.values.firstWhere(
+      (band) => band.contains(s),
+      orElse: () => InterpretationBand.mild,
+    );
   }
 
   /// Exact Arabic label for [band] — use instead of hardcoding strings in widgets.
@@ -268,4 +274,25 @@ class DiagnosticModel {
   }
 
   Map<String, dynamic> toJson() => _$DiagnosticModelToJson(this);
+
+  // دالة الـ CopyWith المضافة لتمكين الـ Controller من عمل تحديثات الحالات بسلاسة
+  DiagnosticModel copyWith({
+    double? brainPerformance,
+    double? digitalDiscipline,
+    double? healthyHabits,
+    double? consistency,
+    bool? boredomBefriended,
+    int? delayedGratificationCount,
+    bool? bodyActivated,
+  }) {
+    return DiagnosticModel(
+      brainPerformance: brainPerformance ?? this.brainPerformance,
+      digitalDiscipline: digitalDiscipline ?? this.digitalDiscipline,
+      healthyHabits: healthyHabits ?? this.healthyHabits,
+      consistency: consistency ?? this.consistency,
+      boredomBefriended: boredomBefriended ?? this.boredomBefriended,
+      delayedGratificationCount: delayedGratificationCount ?? this.delayedGratificationCount,
+      bodyActivated: bodyActivated ?? this.bodyActivated,
+    );
+  }
 }
