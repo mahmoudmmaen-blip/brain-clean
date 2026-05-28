@@ -72,7 +72,8 @@ class DiagnosticController extends _$DiagnosticController {
 
     final currentMetrics = state.value!;
     final bhi = ref.read(bcScoreLiveProvider);
-    final brainRot = ref.read(brainRotQuestionnaireProvider.notifier).result;
+    final questionnaire = ref.read(brainRotQuestionnaireProvider.notifier);
+    final brainRot = questionnaire.result;
 
     if (brainRot == null) {
       state = AsyncError<DiagnosticMetrics>(
@@ -87,25 +88,22 @@ class DiagnosticController extends _$DiagnosticController {
     );
 
     try {
-      final session = DiagnosticSession(
+      final session = DiagnosticSession.fromAssessment(
         model: bhi,
-        committedAt: DateTime.now(),
+        metrics: currentMetrics,
         brainRot: brainRot,
+        brainRotAnswers: questionnaire.resolvedAnswers,
       );
 
-      ref.read(bcScoreSessionProvider.notifier).commit(
-            bhi,
-            brainRot: brainRot,
-          );
+      ref.read(bcScoreSessionProvider.notifier).commit(session);
 
       await ref.read(diagnosticRepositoryProvider).upsertSession(
             session: session,
-            metrics: currentMetrics,
           );
 
       debugPrint(
-        '[BrainClean] Brain Rot ${brainRot.score}/10 · band ${brainRot.band.name} · '
-        'BC_score ${bhi.bcScore.toStringAsFixed(1)}%',
+        '[BrainClean] Session committed · Brain Rot ${brainRot.score}/10 '
+        '(${brainRot.band.name}) · BC_score ${session.bcScore.toStringAsFixed(1)}%',
       );
 
       _invalidateAndResyncDetox();

@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/l10n/app_localization_config.dart';
 import 'core/network/supabase_client.dart';
 import 'core/routing/app_router.dart';
-import 'core/theme/app_theme.dart';
+import 'core/theme/theme_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,12 +18,14 @@ class BrainCleanApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(goRouterProvider);
+    final themeMode = ref.watch(appThemeModeProvider);
+
     return MaterialApp.router(
       title: 'Brain Clean',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.light,
-      darkTheme: AppTheme.dark,
-      themeMode: ThemeMode.system,
+      theme: ref.watch(appLightThemeProvider),
+      darkTheme: ref.watch(appDarkThemeProvider),
+      themeMode: themeMode,
       localizationsDelegates: appLocalizationsDelegates,
       supportedLocales: supportedLocales,
       localeResolutionCallback: resolveAppLocale,

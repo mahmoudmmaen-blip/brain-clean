@@ -1,6 +1,7 @@
 import 'package:brain_clean_mobile/features/dashboard/presentation/dashboard_screen.dart'
     show DashboardScreen, dashboardDetoxCheckInTileKey;
 import 'package:brain_clean_mobile/features/detox/presentation/detox_protocol_screen.dart';
+import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_metrics.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_session.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/bc_score_provider.dart';
@@ -124,6 +125,7 @@ void main() {
       );
       final session = DiagnosticSession(
         model: model,
+        metrics: const DiagnosticMetrics(),
         committedAt: DateTime(2026, 5, 20, 12, 30),
       );
 

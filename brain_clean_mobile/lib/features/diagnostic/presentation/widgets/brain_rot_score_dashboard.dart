@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/l10n/app_localizations.dart';
+import '../../../../core/theme/app_design_constants.dart';
 import '../../../../core/theme/theme_extensions.dart';
 import '../../domain/diagnostic_model.dart';
 import 'brain_rot_colors.dart';
 
-/// Brain Rot results — score, [BrainRotTest.interpretScore], and band color.
+/// Brain Rot results — optimized for light (brand green) and dark themes.
 class BrainRotScoreDashboard extends StatelessWidget {
   const BrainRotScoreDashboard({
     super.key,
@@ -22,39 +23,45 @@ class BrainRotScoreDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
+    final isLight = theme.brightness == Brightness.light;
     final bandColor = BrainRotColors.forBand(interpretation.band);
     final range = interpretation.band.scoreRange;
-    final clinicalText =
-        BrainRotTest.interpretScore(interpretation.score);
+    final clinicalText = BrainRotTest.interpretScore(interpretation.score);
 
     return ListView(
       padding: const EdgeInsets.symmetric(vertical: 8),
       children: [
         Card(
           clipBehavior: Clip.antiAlias,
+          elevation: isLight ? 2 : 0,
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(14),
-              border: Border.all(color: bandColor.withValues(alpha: 0.55)),
+              borderRadius:
+                  BorderRadius.circular(AppDesignConstants.radiusCard),
+              border: Border.all(
+                color: bandColor.withValues(alpha: isLight ? 0.45 : 0.55),
+                width: isLight ? 1.5 : 1,
+              ),
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  bandColor.withValues(alpha: 0.2),
-                  bandColor.withValues(alpha: 0.04),
+                  bandColor.withValues(alpha: isLight ? 0.12 : 0.2),
+                  theme.cardTheme.color ?? theme.colorScheme.surface,
                 ],
               ),
             ),
             padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 20),
             child: Column(
               children: [
-                Icon(Icons.psychology_alt_outlined, color: bandColor, size: 36),
+                Icon(Icons.psychology_alt_outlined, color: bandColor, size: 40),
                 const SizedBox(height: 12),
                 Text(
                   loc.diagnosticBrainRotScoreTitle,
                   style: theme.textTheme.labelLarge?.copyWith(
                     color: context.textMuted,
                     letterSpacing: 0.6,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -72,13 +79,16 @@ class BrainRotScoreDashboard extends StatelessWidget {
                     color: context.textSubtle,
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 12),
                 Container(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                   decoration: BoxDecoration(
-                    color: bandColor.withValues(alpha: 0.15),
-                    borderRadius: BorderRadius.circular(20),
+                    color: bandColor.withValues(alpha: isLight ? 0.12 : 0.18),
+                    borderRadius: BorderRadius.circular(24),
+                    border: Border.all(
+                      color: bandColor.withValues(alpha: 0.35),
+                    ),
                   ),
                   child: Text(
                     loc.diagnosticBrainRotBandRange(range.$1, range.$2),
@@ -94,6 +104,7 @@ class BrainRotScoreDashboard extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         Card(
+          elevation: isLight ? 1 : 0,
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
@@ -102,7 +113,9 @@ class BrainRotScoreDashboard extends StatelessWidget {
                 Text(
                   loc.diagnosticBrainRotInterpretationTitle,
                   style: theme.textTheme.titleSmall?.copyWith(
-                    color: bandColor,
+                    color: isLight
+                        ? AppDesignConstants.brandGreen
+                        : bandColor,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -110,8 +123,9 @@ class BrainRotScoreDashboard extends StatelessWidget {
                 Text(
                   clinicalText,
                   style: theme.textTheme.bodyLarge?.copyWith(
-                    height: 1.55,
+                    height: 1.6,
                     color: theme.colorScheme.onSurface,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],

@@ -32,16 +32,7 @@ class BcScoreSession extends _$BcScoreSession {
   @override
   DiagnosticSession? build() => null;
 
-  void commit(
-    DiagnosticModel model, {
-    BrainRotInterpretation? brainRot,
-  }) {
-    state = DiagnosticSession(
-      model: model,
-      committedAt: DateTime.now(),
-      brainRot: brainRot,
-    );
-  }
+  void commit(DiagnosticSession session) => state = session;
 
   void clear() => state = null;
 }

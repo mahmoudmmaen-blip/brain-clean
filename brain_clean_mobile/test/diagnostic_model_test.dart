@@ -1,5 +1,8 @@
 import 'package:brain_clean_mobile/core/constants/bc_score_constants.dart';
+import 'package:brain_clean_mobile/features/diagnostic/domain/brain_rot_assessment.dart';
+import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_metrics.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
+import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_session.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Map<String, dynamic> pillarJson({
@@ -239,6 +242,49 @@ void main() {
       expect(json[DiagnosticModelJsonKeys.bodyActivatedSnake], isFalse);
 
       expectHabitMetrics(roundTrip(model), boredom: true, delayed: 4, body: false);
+    });
+  });
+
+  group('DiagnosticSession serialization', () {
+    test('round-trips model, metrics, and Brain Rot assessment', () {
+      const model = DiagnosticModel(
+        brainPerformance: 72,
+        digitalDiscipline: 68,
+        healthyHabits: 70,
+        consistency: 60,
+      );
+      const metrics = DiagnosticMetrics(
+        sleepQuality: 7,
+        sustainedAttention: 6,
+        fragmentation: 5,
+        dopamineSeeking: 4,
+        taskSwitching: 5,
+        burnout: 6,
+      );
+      final interpretation = DiagnosticModel.evaluateBrainRot(
+        [true, false, true, false, false, false, false, false, false, false],
+      );
+      final session = DiagnosticSession.fromAssessment(
+        model: model,
+        metrics: metrics,
+        brainRot: interpretation,
+        brainRotAnswers: interpretation.score > 0
+            ? [true, false, true, false, false, false, false, false, false, false]
+            : List<bool>.filled(10, false),
+        committedAt: DateTime.utc(2026, 5, 20, 9, 30),
+      );
+
+      final restored = DiagnosticSession.fromJson(session.toJson());
+      expect(restored.bcScoreRounded, session.bcScoreRounded);
+      expect(restored.brainRotScore, 2);
+      expect(restored.brainRotBand, InterpretationBand.mild);
+      expect(restored.brainRotAnswers, hasLength(10));
+
+      final payload = session.toRepositoryPayload();
+      expect(payload['brain_rot_score'], 2);
+      expect(payload['interpretation_band'], 'mild');
+      expect(payload['sleep_quality'], 7);
+      expect(payload['brain_rot_answers'], isA<List<dynamic>>());
     });
   });
 }
