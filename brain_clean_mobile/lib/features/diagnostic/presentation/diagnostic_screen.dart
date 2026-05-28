@@ -84,30 +84,42 @@ class _InProgressSessionBody extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final phase = session.questionnairePhase;
 
+    final enteringResults =
+        phase == BrainRotFlowPhase.results && !session.questionnaire.pendingResultsTransition;
+
     return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 450),
+      duration: enteringResults
+          ? const Duration(milliseconds: 520)
+          : const Duration(milliseconds: 450),
       switchInCurve: Curves.easeOutCubic,
       switchOutCurve: Curves.easeInCubic,
-      transitionBuilder: (child, animation) => FadeTransition(
-        opacity: animation,
-        child: SlideTransition(
-          position: Tween<Offset>(
-            begin: const Offset(0, 0.06),
-            end: Offset.zero,
-          ).animate(CurvedAnimation(
-            parent: animation,
-            curve: Curves.easeOutCubic,
-          )),
-          child: child,
-        ),
-      ),
+      transitionBuilder: (child, animation) {
+        final slideBegin = enteringResults
+            ? const Offset(0, 0.12)
+            : const Offset(0, 0.06);
+        return FadeTransition(
+          opacity: animation,
+          child: SlideTransition(
+            position: Tween<Offset>(
+              begin: slideBegin,
+              end: Offset.zero,
+            ).animate(CurvedAnimation(
+              parent: animation,
+              curve: Curves.easeOutCubic,
+            )),
+            child: child,
+          ),
+        );
+      },
       child: switch (phase) {
         BrainRotFlowPhase.questions => BrainRotQuestionnaireView(
           key: const ValueKey('brain_rot_questions'),
           session: session,
         ),
         BrainRotFlowPhase.results => _BrainRotResultsPhase(
-          key: ValueKey('brain_rot_results_${session.brainRotScore}'),
+          key: ValueKey(
+            'brain_rot_results_${session.brainRotScore}_${session.brainRotBand?.name}',
+          ),
           session: session,
         ),
         BrainRotFlowPhase.bhiSliders => _BhiSlidersPhase(

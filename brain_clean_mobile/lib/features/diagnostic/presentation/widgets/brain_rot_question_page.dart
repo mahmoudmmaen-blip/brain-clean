@@ -14,6 +14,7 @@ class BrainRotQuestionPage extends StatefulWidget {
     required this.questionText,
     required this.onAnswer,
     this.slideDirection = 1,
+    this.answersEnabled = true,
     this.onBack,
   });
 
@@ -22,6 +23,7 @@ class BrainRotQuestionPage extends StatefulWidget {
 
   /// +1 next question, −1 previous (used for slide axis).
   final int slideDirection;
+  final bool answersEnabled;
   final void Function(bool yes) onAnswer;
   final VoidCallback? onBack;
 
@@ -162,6 +164,7 @@ class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
                 icon: Icons.check_rounded,
                 filled: true,
                 accent: theme.colorScheme.error,
+                enabled: widget.answersEnabled,
                 onPressed: () => _handleAnswer(true),
               ),
             ),
@@ -172,6 +175,7 @@ class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
                 icon: Icons.close_rounded,
                 filled: false,
                 accent: context.brandPrimary,
+                enabled: widget.answersEnabled,
                 onPressed: () => _handleAnswer(false),
               ),
             ),
@@ -194,6 +198,7 @@ class _BrainRotQuestionPageState extends State<BrainRotQuestionPage>
   }
 
   void _handleAnswer(bool yes) {
+    if (!widget.answersEnabled) return;
     HapticFeedback.lightImpact();
     widget.onAnswer(yes);
   }
@@ -206,12 +211,14 @@ class _AnswerButton extends StatefulWidget {
     required this.filled,
     required this.accent,
     required this.onPressed,
+    this.enabled = true,
   });
 
   final String label;
   final IconData icon;
   final bool filled;
   final Color accent;
+  final bool enabled;
   final VoidCallback onPressed;
 
   @override
@@ -243,6 +250,7 @@ class _AnswerButtonState extends State<_AnswerButton>
   }
 
   Future<void> _onTap() async {
+    if (!widget.enabled) return;
     HapticFeedback.selectionClick();
     setState(() => _pressed = true);
     await _pulseController.reverse(from: 1);
@@ -272,7 +280,7 @@ class _AnswerButtonState extends State<_AnswerButton>
         duration: const Duration(milliseconds: 80),
         child: widget.filled
             ? FilledButton(
-                onPressed: _onTap,
+                onPressed: widget.enabled ? _onTap : null,
                 style: FilledButton.styleFrom(
                   backgroundColor: widget.accent,
                   foregroundColor: Theme.of(context).colorScheme.onError,
@@ -289,7 +297,7 @@ class _AnswerButtonState extends State<_AnswerButton>
                 child: child,
               )
             : OutlinedButton(
-                onPressed: _onTap,
+                onPressed: widget.enabled ? _onTap : null,
                 style: OutlinedButton.styleFrom(
                   foregroundColor: widget.accent,
                   side: BorderSide(

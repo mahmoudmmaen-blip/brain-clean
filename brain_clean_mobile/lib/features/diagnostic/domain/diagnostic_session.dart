@@ -75,6 +75,36 @@ class DiagnosticSession {
     );
   }
 
+  /// Validates questionnaire interpretation against Dr. Moneam scoring rules.
+  void ensureBrainRotQuestionnaireCoherence() {
+    if (!questionnaire.isComplete) return;
+    final interpretation = questionnaire.interpretation;
+    if (interpretation == null) {
+      throw StateError(
+        'DiagnosticSession: questionnaire complete but interpretation is null.',
+      );
+    }
+    BrainRotTest.requireInterpretationMatch(
+      stored: interpretation,
+      answers: questionnaire.resolvedAnswers,
+      layer: 'DiagnosticSession.questionnaire',
+    );
+    final live = brainRot;
+    if (live != null) {
+      BrainRotTest.requireInterpretationMatch(
+        stored: live,
+        answers: questionnaire.resolvedAnswers,
+        layer: 'DiagnosticSession.brainRot',
+      );
+    }
+  }
+
+  /// Pillar ε-check plus Brain Rot interpretation when the questionnaire is done.
+  void ensureDiagnosticCoherence() {
+    ensurePillarBoundCoherence();
+    ensureBrainRotQuestionnaireCoherence();
+  }
+
   int? get brainRotScore => brainRot?.score;
 
   InterpretationBand? get brainRotBand => brainRot?.band;
@@ -157,7 +187,7 @@ class DiagnosticSession {
       brainRotAssessment: brainRotAssessment,
       questionnaire: questionnaire,
     );
-    session.ensurePillarBoundCoherence();
+    session.ensureDiagnosticCoherence();
     return session;
   }
 

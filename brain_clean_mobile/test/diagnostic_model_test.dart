@@ -168,6 +168,22 @@ void main() {
       expect(result.interpretationAr, BrainRotTest.labelCriticalAr);
       expect(result.interpretationAr, DiagnosticModel.interpretBrainRotScore(10));
     });
+
+    test('requireInterpretationMatch rejects drifted stored interpretation', () {
+      final answers = List<bool>.filled(10, false);
+      final expected = BrainRotTest.evaluate(answers);
+      expect(
+        () => BrainRotTest.requireInterpretationMatch(
+          stored: BrainRotInterpretation(
+            score: expected.score + 1,
+            band: expected.band,
+            interpretationAr: expected.interpretationAr,
+          ),
+          answers: answers,
+        ),
+        throwsStateError,
+      );
+    });
   });
 
   group('DiagnosticModel.calculateBcScore', () {

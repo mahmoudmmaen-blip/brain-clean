@@ -25,6 +25,7 @@ class BrainRotQuestionnaireView extends ConsumerWidget {
     final questionnaire = session.questionnaire;
     final index = questionnaire.currentIndex;
     final slideDirection = flow.questionSlideDirection;
+    final answersEnabled = !questionnaire.isInteractionLocked;
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -44,8 +45,11 @@ class BrainRotQuestionnaireView extends ConsumerWidget {
               questionIndex: index,
               questionText: brainRotQuestionFor(context, loc, index),
               slideDirection: slideDirection,
+              answersEnabled: answersEnabled,
               onAnswer: (yes) => flow.answerQuestion(index, yes),
-              onBack: index > 0 ? () => flow.goToQuestion(index - 1) : null,
+              onBack: answersEnabled && index > 0
+                  ? () => flow.goToQuestion(index - 1)
+                  : null,
             ),
           ),
         ],

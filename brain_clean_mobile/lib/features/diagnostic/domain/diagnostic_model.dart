@@ -137,6 +137,24 @@ abstract final class BrainRotTest {
       interpretationAr: interpretationLabelAr(band),
     );
   }
+
+  /// Ensures [stored] matches a fresh evaluation from [answers].
+  static void requireInterpretationMatch({
+    required BrainRotInterpretation stored,
+    required List<bool> answers,
+    String layer = 'BrainRotTest',
+  }) {
+    final expected = evaluate(answers);
+    if (stored.score != expected.score ||
+        stored.band != expected.band ||
+        stored.interpretationAr != expected.interpretationAr) {
+      throw StateError(
+        '$layer interpretation coherence failed: '
+        'stored score=${stored.score} band=${stored.band.name} '
+        'recomputed score=${expected.score} band=${expected.band.name}',
+      );
+    }
+  }
 }
 
 /// Firestore + legacy camelCase JSON keys for detox habit metrics.

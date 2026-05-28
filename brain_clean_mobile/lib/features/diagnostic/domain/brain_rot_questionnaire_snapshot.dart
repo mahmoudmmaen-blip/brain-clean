@@ -22,6 +22,7 @@ class BrainRotQuestionnaireSnapshot {
     ],
     this.currentIndex = 0,
     this.phase = BrainRotFlowPhase.questions,
+    this.pendingResultsTransition = false,
   });
 
   final List<bool?> answers;
@@ -29,6 +30,12 @@ class BrainRotQuestionnaireSnapshot {
 
   @JsonKey(name: 'phase')
   final BrainRotFlowPhase phase;
+
+  /// UI-only: last question answered; results phase animates in next frame.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  final bool pendingResultsTransition;
+
+  bool get isInteractionLocked => pendingResultsTransition;
 
   int get answeredCount => answers.where((a) => a != null).length;
 
@@ -46,11 +53,14 @@ class BrainRotQuestionnaireSnapshot {
     List<bool?>? answers,
     int? currentIndex,
     BrainRotFlowPhase? phase,
+    bool? pendingResultsTransition,
   }) {
     return BrainRotQuestionnaireSnapshot(
       answers: answers ?? List<bool?>.from(this.answers),
       currentIndex: currentIndex ?? this.currentIndex,
       phase: phase ?? this.phase,
+      pendingResultsTransition:
+          pendingResultsTransition ?? this.pendingResultsTransition,
     );
   }
 
