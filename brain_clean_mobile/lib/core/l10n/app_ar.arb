@@ -156,6 +156,8 @@
   "recoveryPenaltyApplied": "تم تسجيل العقوبة لهذا اليوم.",
   "recoveryStorageLoadError": "تعذّر تحميل تقدمك في التعافي من التخزين المحلي.",
   "recoveryStorageSaveError": "تعذّر حفظ آخر تحديث. تغييراتك ما زالت على الشاشة — حاول مرة أخرى.",
-  "recoveryStorageReset": "بدء بروتوكول جديد"
+  "recoveryStorageReset": "بدء بروتوكول جديد",
+  "recoveryStorageMigratedNotice": "تم ترقية تقدمك المحفوظ إلى التنسيق الأحدث.",
+  "recoveryStorageRecoveredNotice": "تم إعادة ضبط البيانات المحلية لأنها لم تُقرأ بشكل صحيح. بدأ بروتوكول جديد."
 }
 

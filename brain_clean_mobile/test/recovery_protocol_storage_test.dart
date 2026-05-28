@@ -48,7 +48,7 @@ void main() {
       expect(restored.days[2]!.completedCount, 1);
     });
 
-    test('rejects forbidden snake_case drift keys', () {
+    test('assertCamelCaseOnly rejects forbidden snake_case drift keys', () {
       expect(
         () => RecoveryHivePayload.assertCamelCaseOnly({
           'protocol_start_date': DateTime.now().toIso8601String(),
@@ -60,7 +60,18 @@ void main() {
       );
     });
 
-    test('normalizes legacy snake_case then encodes strict camelCase', () {
+    test('assertCamelCaseOnly rejects unexpected root keys', () {
+      expect(
+        () => RecoveryHivePayload.assertCamelCaseOnly({
+          RecoveryProtocolJsonKeys.selectedDayIndex: 1,
+          'unexpectedKey': true,
+          RecoveryProtocolJsonKeys.days: <String, dynamic>{},
+        }),
+        throwsA(isA<RecoveryPersistenceException>()),
+      );
+    });
+
+    test('tryParsePersisted migrates legacy snake_case without throwing', () {
       final legacy = {
         'protocol_start_date': '2026-03-01T00:00:00.000',
         'selected_day_index': 2,
@@ -74,14 +85,21 @@ void main() {
         },
       };
 
-      final state = RecoveryHivePayload.decodeState(legacy);
-      final encoded = state.toJson();
+      final result = RecoveryHivePayload.tryParsePersisted(legacy);
 
-      expect(encoded.containsKey('protocol_start_date'), isFalse);
+      expect(result.hasState, isTrue);
+      expect(result.migratedFromLegacy, isTrue);
       expect(
-        encoded[RecoveryProtocolJsonKeys.selectedDayIndex],
-        2,
+        result.state!.toJson().containsKey('protocol_start_date'),
+        isFalse,
       );
+      expect(result.state!.selectedDayIndex, 2);
+    });
+
+    test('tryParsePersisted returns corrupt for non-map payloads', () {
+      final result = RecoveryHivePayload.tryParsePersisted('invalid');
+      expect(result.recoveredFromCorruption, isTrue);
+      expect(result.hasState, isFalse);
     });
 
     test('toggleTask updates indexed habit', () {
@@ -127,12 +145,44 @@ void main() {
       );
 
       await repo.save(state);
-      final loaded = await repo.load();
+      final loaded = await repo.loadResult();
 
-      expect(loaded, isNotNull);
-      expect(loaded!.selectedDayIndex, 7);
-      expect(loaded.days[7]!.completedCount, 3);
-      expect(loaded.totalPenaltyCount, 1);
+      expect(loaded.hasState, isTrue);
+      expect(loaded.state!.selectedDayIndex, 7);
+      expect(loaded.state!.days[7]!.completedCount, 3);
+      expect(loaded.state!.totalPenaltyCount, 1);
+    });
+
+    test('loadResult migrates legacy snake_case in box', () async {
+      final repo = RecoveryProtocolHiveRepository(box: box);
+      await box.put('protocol_state', {
+        'protocol_start_date': '2026-04-01T00:00:00.000',
+        'selected_day_index': 4,
+        'total_penalty_count': 0,
+        'days': <String, dynamic>{},
+      });
+
+      final loaded = await repo.loadResult();
+
+      expect(loaded.hasState, isTrue);
+      expect(loaded.migratedFromLegacy, isTrue);
+      final stored = box.get('protocol_state');
+      expect(stored, isA<Map>());
+      expect(
+        (stored as Map).containsKey(RecoveryProtocolJsonKeys.protocolStartDate),
+        isTrue,
+      );
+    });
+
+    test('loadResult clears corrupt payloads', () async {
+      final repo = RecoveryProtocolHiveRepository(box: box);
+      await box.put('protocol_state', 'not-a-map');
+
+      final loaded = await repo.loadResult();
+
+      expect(loaded.recoveredFromCorruption, isTrue);
+      expect(box.get('protocol_state'), isNull);
+      expect(await repo.load(), isNull);
     });
 
     test('clear removes stored state', () async {

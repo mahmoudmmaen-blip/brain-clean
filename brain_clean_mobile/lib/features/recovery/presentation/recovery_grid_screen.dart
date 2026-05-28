@@ -9,6 +9,7 @@ import '../domain/recovery_daily_task.dart';
 import '../domain/recovery_day_record.dart';
 import '../domain/recovery_protocol_constants.dart';
 import '../domain/recovery_protocol_state.dart';
+import 'recovery_load_meta_provider.dart';
 import 'recovery_protocol_controller.dart';
 import 'widgets/penalty_box_dialog.dart';
 import 'widgets/recovery_day_grid.dart';
@@ -56,7 +57,8 @@ class RecoveryGridScreen extends ConsumerWidget {
               );
             }
             return _RecoveryLoadError(
-              message: loc.recoveryStorageLoadError,
+              title: loc.recoveryStorageLoadError,
+              subtitle: loc.recoveryStorageRecoveredNotice,
               onRetry: () => ref
                   .read(recoveryProtocolControllerProvider.notifier)
                   .reloadFromStorage(),
@@ -64,9 +66,66 @@ class RecoveryGridScreen extends ConsumerWidget {
                   .read(recoveryProtocolControllerProvider.notifier)
                   .resetProtocolStorage(),
               resetLabel: loc.recoveryStorageReset,
+              retryLabel: loc.detoxRetry,
             );
           },
-          data: (state) => _RecoveryGridBody(state: state),
+          data: (state) => Column(
+            children: [
+              const _RecoveryLoadNoticeBanner(),
+              Expanded(child: _RecoveryGridBody(state: state)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Info banner after legacy migration or corrupt-payload recovery.
+class _RecoveryLoadNoticeBanner extends ConsumerWidget {
+  const _RecoveryLoadNoticeBanner();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final meta = ref.watch(recoveryLoadMetaNotifierProvider);
+    if (!meta.showNotice) return const SizedBox.shrink();
+
+    final loc = AppLocalizations.of(context)!;
+    final message = meta.recoveredFromCorruption
+        ? loc.recoveryStorageRecoveredNotice
+        : loc.recoveryStorageMigratedNotice;
+    final theme = Theme.of(context);
+
+    return Material(
+      color: theme.colorScheme.primaryContainer.withValues(alpha: 0.92),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(
+              Icons.info_outline,
+              color: theme.colorScheme.onPrimaryContainer,
+              size: 22,
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Text(
+                message,
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: theme.colorScheme.onPrimaryContainer,
+                  height: 1.35,
+                ),
+              ),
+            ),
+            IconButton(
+              icon: const Icon(Icons.close, size: 20),
+              color: theme.colorScheme.onPrimaryContainer,
+              onPressed: () => ref
+                  .read(recoveryLoadMetaNotifierProvider.notifier)
+                  .clearNotice(),
+            ),
+          ],
         ),
       ),
     );
@@ -147,49 +206,77 @@ class _RecoveryPersistenceBanner extends StatelessWidget {
 
 class _RecoveryLoadError extends StatelessWidget {
   const _RecoveryLoadError({
-    required this.message,
+    required this.title,
+    required this.subtitle,
     required this.onRetry,
     required this.onReset,
     required this.resetLabel,
+    required this.retryLabel,
   });
 
-  final String message;
+  final String title;
+  final String subtitle;
   final VoidCallback onRetry;
   final VoidCallback onReset;
   final String resetLabel;
+  final String retryLabel;
 
   @override
   Widget build(BuildContext context) {
-    final loc = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.storage_outlined,
-              size: 48,
-              color: Theme.of(context).colorScheme.error,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              message,
-              textAlign: TextAlign.center,
-              style: context.arabicBodyStyle,
-            ),
-            const SizedBox(height: 20),
-            FilledButton.icon(
-              onPressed: onRetry,
-              icon: const Icon(Icons.refresh),
-              label: Text(loc.detoxRetry),
-            ),
-            const SizedBox(height: 10),
-            OutlinedButton(
-              onPressed: onReset,
-              child: Text(resetLabel),
-            ),
-          ],
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 400),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.storage_outlined,
+                size: 52,
+                color: theme.colorScheme.error,
+              ),
+              const SizedBox(height: 20),
+              Text(
+                title,
+                textAlign: TextAlign.center,
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                subtitle,
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: context.textMuted,
+                  height: 1.4,
+                ),
+              ),
+              const SizedBox(height: 28),
+              FilledButton.icon(
+                onPressed: onRetry,
+                icon: const Icon(Icons.refresh),
+                style: FilledButton.styleFrom(
+                  minimumSize: const Size.fromHeight(
+                    AppDesignConstants.minTouchTarget + 4,
+                  ),
+                ),
+                label: Text(retryLabel),
+              ),
+              const SizedBox(height: 10),
+              OutlinedButton(
+                onPressed: onReset,
+                style: OutlinedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(
+                    AppDesignConstants.minTouchTarget + 4,
+                  ),
+                ),
+                child: Text(resetLabel),
+              ),
+            ],
+          ),
         ),
       ),
     );

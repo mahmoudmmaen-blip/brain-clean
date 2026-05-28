@@ -46,6 +46,7 @@ class RecoveryProtocolState {
     );
   }
 
+  /// camelCase JSON for Hive persistence (write path).
   Map<String, dynamic> toJson() => {
         RecoveryProtocolJsonKeys.protocolStartDate:
             protocolStartDate?.toIso8601String(),
@@ -56,6 +57,7 @@ class RecoveryProtocolState {
         ),
       };
 
+  /// camelCase JSON after [RecoveryHivePayload] normalization (read path).
   factory RecoveryProtocolState.fromJson(Map<String, dynamic> json) {
     final daysRaw = json[RecoveryProtocolJsonKeys.days];
     final parsedDays = <int, RecoveryDayRecord>{};
@@ -77,17 +79,25 @@ class RecoveryProtocolState {
       startDate = DateTime.tryParse(startRaw);
     }
 
+    final selected = json[RecoveryProtocolJsonKeys.selectedDayIndex];
+    final penalties = json[RecoveryProtocolJsonKeys.totalPenaltyCount];
+
     return RecoveryProtocolState(
       protocolStartDate: startDate,
-      selectedDayIndex:
-          json[RecoveryProtocolJsonKeys.selectedDayIndex] as int? ?? 1,
+      selectedDayIndex: selected is int
+          ? selected.clamp(1, RecoveryProtocolConstants.dayCount)
+          : (selected is num ? selected.round() : 1).clamp(
+              1,
+              RecoveryProtocolConstants.dayCount,
+            ),
       days: parsedDays,
-      totalPenaltyCount:
-          json[RecoveryProtocolJsonKeys.totalPenaltyCount] as int? ?? 0,
+      totalPenaltyCount: penalties is int
+          ? penalties
+          : (penalties is num ? penalties.round() : 0),
     );
   }
 
-  /// Parses persisted JSON with drift-key rejection and legacy normalization.
+  /// Safe Hive read — legacy migration + drift normalization.
   factory RecoveryProtocolState.fromPersistenceJson(
     Map<String, dynamic> json,
   ) =>

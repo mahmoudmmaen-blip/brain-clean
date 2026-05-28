@@ -4,9 +4,9 @@ import '../data/recovery_protocol_storage.dart';
 import '../data/recovery_protocol_storage_provider.dart';
 import '../domain/recovery_daily_task.dart';
 import '../domain/recovery_day_record.dart';
-import '../domain/recovery_persistence_exception.dart';
 import '../domain/recovery_protocol_constants.dart';
 import '../domain/recovery_protocol_state.dart';
+import 'recovery_load_meta_provider.dart';
 
 part 'recovery_protocol_controller.g.dart';
 
@@ -17,13 +17,15 @@ class RecoveryProtocolController extends _$RecoveryProtocolController {
 
   @override
   Future<RecoveryProtocolState> build() async {
-    try {
-      final saved = await _storage.load();
-      if (saved != null) return saved;
-    } on RecoveryPersistenceException {
-      rethrow;
-    } catch (_) {
-      // Corrupt box — start a fresh protocol below.
+    final loadResult = await _storage.loadResult();
+
+    ref.read(recoveryLoadMetaNotifierProvider.notifier).apply(
+          migratedFromLegacy: loadResult.migratedFromLegacy,
+          recoveredFromCorruption: loadResult.recoveredFromCorruption,
+        );
+
+    if (loadResult.hasState) {
+      return loadResult.state!;
     }
 
     final initial = RecoveryProtocolState(protocolStartDate: DateTime.now());
@@ -81,6 +83,7 @@ class RecoveryProtocolController extends _$RecoveryProtocolController {
     } catch (_) {
       // Best-effort clear before fresh state.
     }
+    ref.read(recoveryLoadMetaNotifierProvider.notifier).clearNotice();
     state = AsyncValue.data(
       RecoveryProtocolState(protocolStartDate: DateTime.now()),
     );

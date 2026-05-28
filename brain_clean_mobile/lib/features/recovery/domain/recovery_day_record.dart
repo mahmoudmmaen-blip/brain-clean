@@ -50,12 +50,14 @@ class RecoveryDayRecord {
     return copyWith(taskCompleted: next);
   }
 
+  /// camelCase JSON for Hive persistence (write path).
   Map<String, dynamic> toJson() => {
         RecoveryProtocolJsonKeys.dayIndex: dayIndex,
-        RecoveryProtocolJsonKeys.taskCompleted: taskCompleted,
+        RecoveryProtocolJsonKeys.taskCompleted: List<bool>.from(taskCompleted),
         RecoveryProtocolJsonKeys.penaltyApplied: penaltyApplied,
       };
 
+  /// camelCase JSON after [RecoveryHivePayload] normalization (read path).
   factory RecoveryDayRecord.fromJson(Map<String, dynamic> json) {
     final rawTasks = json[RecoveryProtocolJsonKeys.taskCompleted];
     final tasks = List<bool>.filled(
@@ -70,11 +72,18 @@ class RecoveryDayRecord {
       }
     }
 
+    final index = json[RecoveryProtocolJsonKeys.dayIndex];
     return RecoveryDayRecord(
-      dayIndex: json[RecoveryProtocolJsonKeys.dayIndex] as int? ?? 1,
+      dayIndex: index is int
+          ? index.clamp(1, RecoveryProtocolConstants.dayCount)
+          : (index is num ? index.round() : 1).clamp(
+              1,
+              RecoveryProtocolConstants.dayCount,
+            ),
       taskCompleted: tasks,
       penaltyApplied:
-          json[RecoveryProtocolJsonKeys.penaltyApplied] as bool? ?? false,
+          json[RecoveryProtocolJsonKeys.penaltyApplied] == true,
     );
   }
+
 }

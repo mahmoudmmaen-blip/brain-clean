@@ -156,6 +156,8 @@
   "recoveryPenaltyApplied": "Penalty recorded for today.",
   "recoveryStorageLoadError": "Could not load your recovery progress from local storage.",
   "recoveryStorageSaveError": "Could not save your latest check-in. Your changes are kept on screen — try again.",
-  "recoveryStorageReset": "Start fresh protocol"
+  "recoveryStorageReset": "Start fresh protocol",
+  "recoveryStorageMigratedNotice": "Your saved progress was upgraded to the latest format.",
+  "recoveryStorageRecoveredNotice": "Local data was reset because it could not be read. A new protocol has started."
 }
 
