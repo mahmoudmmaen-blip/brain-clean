@@ -7,12 +7,14 @@ part of 'diagnostic_controller.dart';
 // **************************************************************************
 
 String _$diagnosticControllerHash() =>
-    r'606f13e2a11e533c7e80efcbb9498e025b0a0e72';
+    r'585d9bdbd62c41665dafae4d63b5eaa05323e566';
 
-/// See also [DiagnosticController].
+/// Slider metrics — keepAlive + Hive draft sync so cold start never wipes answers.
+///
+/// Copied from [DiagnosticController].
 @ProviderFor(DiagnosticController)
-final diagnosticControllerProvider = AutoDisposeAsyncNotifierProvider<
-    DiagnosticController, DiagnosticMetrics>.internal(
+final diagnosticControllerProvider =
+    AsyncNotifierProvider<DiagnosticController, DiagnosticMetrics>.internal(
   DiagnosticController.new,
   name: r'diagnosticControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,6 +24,6 @@ final diagnosticControllerProvider = AutoDisposeAsyncNotifierProvider<
   allTransitiveDependencies: null,
 );
 
-typedef _$DiagnosticController = AutoDisposeAsyncNotifier<DiagnosticMetrics>;
+typedef _$DiagnosticController = AsyncNotifier<DiagnosticMetrics>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

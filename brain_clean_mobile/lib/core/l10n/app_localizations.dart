@@ -527,8 +527,128 @@ abstract class AppLocalizations {
   /// No description provided for @dashboardOpenRecoveryGridSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Five daily habits · penalty box for missed check-ins'**
+  /// **'Five daily habits · accountability room for missed check-ins'**
   String get dashboardOpenRecoveryGridSubtitle;
+
+  /// No description provided for @splashTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Clean'**
+  String get splashTitle;
+
+  /// No description provided for @splashHydrationRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Restoring your progress…'**
+  String get splashHydrationRetry;
+
+  /// No description provided for @homeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Clean Home'**
+  String get homeTitle;
+
+  /// No description provided for @homeEmptyDiagnosticPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete the diagnostic to unlock your live BC_score tracker.'**
+  String get homeEmptyDiagnosticPrompt;
+
+  /// No description provided for @homeChallengeProgressTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'30-day recovery challenge'**
+  String get homeChallengeProgressTitle;
+
+  /// No description provided for @homeChallengeProgressPercent.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% complete'**
+  String homeChallengeProgressPercent(int percent);
+
+  /// No description provided for @homeOpenDiagnostic.
+  ///
+  /// In en, this message translates to:
+  /// **'Diagnostic assessment'**
+  String get homeOpenDiagnostic;
+
+  /// No description provided for @homeOpenDiagnosticSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Rot questionnaire + BHI sliders'**
+  String get homeOpenDiagnosticSubtitle;
+
+  /// No description provided for @homeOpenCognitiveHub.
+  ///
+  /// In en, this message translates to:
+  /// **'Cognitive assessments'**
+  String get homeOpenCognitiveHub;
+
+  /// No description provided for @homeOpenCognitiveHubSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Visual attention test and memory mini-games'**
+  String get homeOpenCognitiveHubSubtitle;
+
+  /// No description provided for @homeOpenFullDashboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Full clinical dashboard'**
+  String get homeOpenFullDashboard;
+
+  /// No description provided for @cognitiveHubTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Cognitive assessments'**
+  String get cognitiveHubTitle;
+
+  /// No description provided for @cognitiveHubSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Interactive modules that refine your brain performance pillar.'**
+  String get cognitiveHubSubtitle;
+
+  /// No description provided for @cognitiveVisualTestTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Visual Cognitive Image Test'**
+  String get cognitiveVisualTestTitle;
+
+  /// No description provided for @cognitiveVisualTestSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Attention and pattern recognition (coming soon)'**
+  String get cognitiveVisualTestSubtitle;
+
+  /// No description provided for @cognitiveMemoryGameTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Memory mini-games'**
+  String get cognitiveMemoryGameTitle;
+
+  /// No description provided for @cognitiveMemoryGameSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Working-memory sequence tasks (coming soon)'**
+  String get cognitiveMemoryGameSubtitle;
+
+  /// No description provided for @cognitivePlaceholderBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This module is scaffolded for the unified BHI evaluation engine. Complete the placeholder run to verify navigation.'**
+  String get cognitivePlaceholderBody;
+
+  /// No description provided for @cognitivePlaceholderComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Record placeholder result'**
+  String get cognitivePlaceholderComplete;
+
+  /// No description provided for @cognitivePlaceholderRecorded.
+  ///
+  /// In en, this message translates to:
+  /// **'Placeholder score recorded: {score}%'**
+  String cognitivePlaceholderRecorded(int score);
 
   /// No description provided for @recoveryGridTitle.
   ///
@@ -635,13 +755,13 @@ abstract class AppLocalizations {
   /// No description provided for @recoveryMissedHabitsSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Some habits were missed. Open the penalty box to record accountability.'**
+  /// **'Some habits were missed. Open the accountability room to record responsibility.'**
   String get recoveryMissedHabitsSubtitle;
 
   /// No description provided for @recoveryOpenPenaltyBox.
   ///
   /// In en, this message translates to:
-  /// **'Open Penalty Box'**
+  /// **'Open accountability room'**
   String get recoveryOpenPenaltyBox;
 
   /// No description provided for @recoveryDayEmptyHint.
@@ -653,13 +773,13 @@ abstract class AppLocalizations {
   /// No description provided for @recoveryPenaltyCount.
   ///
   /// In en, this message translates to:
-  /// **'Penalties recorded: {count}'**
+  /// **'Accountability entries: {count}'**
   String recoveryPenaltyCount(int count);
 
   /// No description provided for @recoveryPenaltyBoxTitle.
   ///
   /// In en, this message translates to:
-  /// **'Penalty Box'**
+  /// **'Accountability room'**
   String get recoveryPenaltyBoxTitle;
 
   /// No description provided for @recoveryPenaltyBoxMessage.
@@ -671,7 +791,7 @@ abstract class AppLocalizations {
   /// No description provided for @recoveryPenaltyConfirm.
   ///
   /// In en, this message translates to:
-  /// **'Confirm penalty'**
+  /// **'Confirm accountability'**
   String get recoveryPenaltyConfirm;
 
   /// No description provided for @recoveryPenaltyCancel.
@@ -683,7 +803,7 @@ abstract class AppLocalizations {
   /// No description provided for @recoveryPenaltyApplied.
   ///
   /// In en, this message translates to:
-  /// **'Penalty recorded for today.'**
+  /// **'Accountability recorded for today.'**
   String get recoveryPenaltyApplied;
 
   /// No description provided for @recoveryStorageLoadError.

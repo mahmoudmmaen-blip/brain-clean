@@ -6,9 +6,11 @@ part of 'app_router.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$goRouterHash() => r'b54edce4e9d6831a9e6ac09230f875f7711a58ad';
+String _$goRouterHash() => r'a0ab5bf00170dd3a2da94e5ff247766ac08ddc57';
 
-/// See also [goRouter].
+/// App shell — splash hydrates Hive first, then home or in-progress diagnostic.
+///
+/// Copied from [goRouter].
 @ProviderFor(goRouter)
 final goRouterProvider = AutoDisposeProvider<GoRouter>.internal(
   goRouter,

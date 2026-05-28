@@ -24,7 +24,7 @@ final bcScoreLiveProvider = AutoDisposeProvider<DiagnosticModel>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef BcScoreLiveRef = AutoDisposeProviderRef<DiagnosticModel>;
-String _$bcScoreSessionHash() => r'6f980d8872492a0d619ac90d0fa003b00d0c69d0';
+String _$bcScoreSessionHash() => r'7f5374fc39284b658211a39566eef7eac64178f8';
 
 /// Snapshot saved on diagnostic submit — shown on dashboard.
 ///

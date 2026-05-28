@@ -255,7 +255,78 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dashboardOpenRecoveryGridSubtitle =>
-      'Five daily habits · penalty box for missed check-ins';
+      'Five daily habits · accountability room for missed check-ins';
+
+  @override
+  String get splashTitle => 'Brain Clean';
+
+  @override
+  String get splashHydrationRetry => 'Restoring your progress…';
+
+  @override
+  String get homeTitle => 'Brain Clean Home';
+
+  @override
+  String get homeEmptyDiagnosticPrompt =>
+      'Complete the diagnostic to unlock your live BC_score tracker.';
+
+  @override
+  String get homeChallengeProgressTitle => '30-day recovery challenge';
+
+  @override
+  String homeChallengeProgressPercent(int percent) {
+    return '$percent% complete';
+  }
+
+  @override
+  String get homeOpenDiagnostic => 'Diagnostic assessment';
+
+  @override
+  String get homeOpenDiagnosticSubtitle =>
+      'Brain Rot questionnaire + BHI sliders';
+
+  @override
+  String get homeOpenCognitiveHub => 'Cognitive assessments';
+
+  @override
+  String get homeOpenCognitiveHubSubtitle =>
+      'Visual attention test and memory mini-games';
+
+  @override
+  String get homeOpenFullDashboard => 'Full clinical dashboard';
+
+  @override
+  String get cognitiveHubTitle => 'Cognitive assessments';
+
+  @override
+  String get cognitiveHubSubtitle =>
+      'Interactive modules that refine your brain performance pillar.';
+
+  @override
+  String get cognitiveVisualTestTitle => 'Visual Cognitive Image Test';
+
+  @override
+  String get cognitiveVisualTestSubtitle =>
+      'Attention and pattern recognition (coming soon)';
+
+  @override
+  String get cognitiveMemoryGameTitle => 'Memory mini-games';
+
+  @override
+  String get cognitiveMemoryGameSubtitle =>
+      'Working-memory sequence tasks (coming soon)';
+
+  @override
+  String get cognitivePlaceholderBody =>
+      'This module is scaffolded for the unified BHI evaluation engine. Complete the placeholder run to verify navigation.';
+
+  @override
+  String get cognitivePlaceholderComplete => 'Record placeholder result';
+
+  @override
+  String cognitivePlaceholderRecorded(int score) {
+    return 'Placeholder score recorded: $score%';
+  }
 
   @override
   String get recoveryGridTitle => '30-Day Recovery';
@@ -322,10 +393,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get recoveryMissedHabitsSubtitle =>
-      'Some habits were missed. Open the penalty box to record accountability.';
+      'Some habits were missed. Open the accountability room to record responsibility.';
 
   @override
-  String get recoveryOpenPenaltyBox => 'Open Penalty Box';
+  String get recoveryOpenPenaltyBox => 'Open accountability room';
 
   @override
   String get recoveryDayEmptyHint =>
@@ -333,11 +404,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String recoveryPenaltyCount(int count) {
-    return 'Penalties recorded: $count';
+    return 'Accountability entries: $count';
   }
 
   @override
-  String get recoveryPenaltyBoxTitle => 'Penalty Box';
+  String get recoveryPenaltyBoxTitle => 'Accountability room';
 
   @override
   String recoveryPenaltyBoxMessage(int deduction) {
@@ -345,13 +416,13 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get recoveryPenaltyConfirm => 'Confirm penalty';
+  String get recoveryPenaltyConfirm => 'Confirm accountability';
 
   @override
   String get recoveryPenaltyCancel => 'Cancel';
 
   @override
-  String get recoveryPenaltyApplied => 'Penalty recorded for today.';
+  String get recoveryPenaltyApplied => 'Accountability recorded for today.';
 
   @override
   String get recoveryStorageLoadError =>

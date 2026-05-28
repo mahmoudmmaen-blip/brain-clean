@@ -252,7 +252,75 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get dashboardOpenRecoveryGridSubtitle =>
-      'خمس عادات يومية · صندوق العقابات عند التقصير';
+      'خمس عادات يومية · غرفة المسؤولية عند التقصير';
+
+  @override
+  String get splashTitle => 'Brain Clean';
+
+  @override
+  String get splashHydrationRetry => 'جارٍ استعادة تقدمك…';
+
+  @override
+  String get homeTitle => 'الرئيسية — Brain Clean';
+
+  @override
+  String get homeEmptyDiagnosticPrompt =>
+      'أكمل التشخيص لتفعيل متتبع BC_score المباشر.';
+
+  @override
+  String get homeChallengeProgressTitle => 'تحدي التعافي — 30 يوماً';
+
+  @override
+  String homeChallengeProgressPercent(int percent) {
+    return '$percent% مكتمل';
+  }
+
+  @override
+  String get homeOpenDiagnostic => 'التشخيص السريري';
+
+  @override
+  String get homeOpenDiagnosticSubtitle => 'استبيان تعفن الدماغ + مقاييس BHI';
+
+  @override
+  String get homeOpenCognitiveHub => 'التقييمات المعرفية';
+
+  @override
+  String get homeOpenCognitiveHubSubtitle => 'اختبار بصري وألعاب ذاكرة قصيرة';
+
+  @override
+  String get homeOpenFullDashboard => 'لوحة التحكم الكاملة';
+
+  @override
+  String get cognitiveHubTitle => 'التقييمات المعرفية';
+
+  @override
+  String get cognitiveHubSubtitle =>
+      'وحدات تفاعلية تُحسّن عمود الأداء الدماغي في BHI.';
+
+  @override
+  String get cognitiveVisualTestTitle => 'اختبار الإدراك البصري';
+
+  @override
+  String get cognitiveVisualTestSubtitle => 'انتباه وتمييز أنماط (قريباً)';
+
+  @override
+  String get cognitiveMemoryGameTitle => 'ألعاب الذاكرة';
+
+  @override
+  String get cognitiveMemoryGameSubtitle =>
+      'مهام تسلسل الذاكرة العاملة (قريباً)';
+
+  @override
+  String get cognitivePlaceholderBody =>
+      'هذه الوحدة مُهيّأة لمحرك تقييم BHI الموحّد. أكمل التشغيل التجريبي للتحقق من المسار.';
+
+  @override
+  String get cognitivePlaceholderComplete => 'تسجيل نتيجة تجريبية';
+
+  @override
+  String cognitivePlaceholderRecorded(int score) {
+    return 'تم تسجيل نتيجة تجريبية: $score%';
+  }
 
   @override
   String get recoveryGridTitle => 'التعافي — 30 يوماً';
@@ -319,21 +387,21 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get recoveryMissedHabitsSubtitle =>
-      'فاتتك بعض العادات. افتح صندوق العقابات لتسجيل المساءلة.';
+      'فاتتك بعض العادات. افتح غرفة المسؤولية لتسجيل المساءلة.';
 
   @override
-  String get recoveryOpenPenaltyBox => 'صندوق العقابات';
+  String get recoveryOpenPenaltyBox => 'غرفة المسؤولية';
 
   @override
   String get recoveryDayEmptyHint => 'ضع علامة على كل عادة عند إنجازها اليوم.';
 
   @override
   String recoveryPenaltyCount(int count) {
-    return 'عقوبات مسجّلة: $count';
+    return 'سجلات مساءلة: $count';
   }
 
   @override
-  String get recoveryPenaltyBoxTitle => 'صندوق العقابات';
+  String get recoveryPenaltyBoxTitle => 'غرفة المسؤولية';
 
   @override
   String recoveryPenaltyBoxMessage(int deduction) {
@@ -341,13 +409,13 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get recoveryPenaltyConfirm => 'تأكيد العقوبة';
+  String get recoveryPenaltyConfirm => 'تأكيد المساءلة';
 
   @override
   String get recoveryPenaltyCancel => 'إلغاء';
 
   @override
-  String get recoveryPenaltyApplied => 'تم تسجيل العقوبة لهذا اليوم.';
+  String get recoveryPenaltyApplied => 'تم تسجيل المساءلة لهذا اليوم.';
 
   @override
   String get recoveryStorageLoadError =>
