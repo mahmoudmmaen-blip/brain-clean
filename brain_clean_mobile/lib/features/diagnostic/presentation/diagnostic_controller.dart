@@ -7,9 +7,7 @@ import '../../../core/constants/app_routes.dart';
 import '../../../core/routing/app_router.dart';
 import '../data/diagnostic_repository.dart';
 import '../data/diagnostic_repository_provider.dart';
-import '../domain/brain_rot_questionnaire_snapshot.dart';
 import '../domain/diagnostic_metrics.dart';
-import '../domain/diagnostic_session.dart';
 import 'bc_score_provider.dart';
 import 'diagnostic_session_flow_provider.dart';
 
@@ -74,10 +72,8 @@ class DiagnosticController extends _$DiagnosticController {
     final currentMetrics = state.value!;
     final bhi = ref.read(bcScoreLiveProvider);
     final flow = ref.read(diagnosticSessionFlowProvider.notifier);
-    final questionnaire = ref.read(diagnosticSessionFlowProvider);
-    final brainRot = flow.result;
 
-    if (brainRot == null) {
+    if (!flow.isComplete) {
       state = AsyncError<DiagnosticMetrics>(
         StateError('Complete the Brain Rot questionnaire before submitting.'),
         StackTrace.current,
@@ -90,12 +86,9 @@ class DiagnosticController extends _$DiagnosticController {
     );
 
     try {
-      final session = DiagnosticSession.fromAssessment(
+      final session = flow.buildCommittedSession(
         model: bhi,
         metrics: currentMetrics,
-        brainRot: brainRot,
-        brainRotAnswers: flow.resolvedAnswers,
-        questionnaire: questionnaire,
       );
 
       ref.read(bcScoreSessionProvider.notifier).commit(session);
@@ -104,6 +97,7 @@ class DiagnosticController extends _$DiagnosticController {
             session: session,
           );
 
+      final brainRot = session.brainRot!;
       debugPrint(
         '[BrainClean] Session committed · Brain Rot ${brainRot.score}/10 '
         '(${brainRot.band.name}) · BC_score ${session.bcScore.toStringAsFixed(1)}%',

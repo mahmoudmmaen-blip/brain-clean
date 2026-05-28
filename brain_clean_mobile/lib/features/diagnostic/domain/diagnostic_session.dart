@@ -39,18 +39,38 @@ class DiagnosticSession {
 
   int get bcScoreRounded => bcScore.round();
 
-  int? get brainRotScore => brainRotAssessment?.score;
+  int? get brainRotScore => brainRot?.score;
 
-  InterpretationBand? get brainRotBand => brainRotAssessment?.band;
+  InterpretationBand? get brainRotBand => brainRot?.band;
 
-  String? get brainRotInterpretationAr => brainRotAssessment?.interpretationAr;
+  String? get brainRotInterpretationAr =>
+      brainRotAssessment?.interpretationAr ?? brainRot?.interpretationAr;
 
-  List<bool>? get brainRotAnswers => brainRotAssessment?.answers;
+  List<bool>? get brainRotAnswers =>
+      brainRotAssessment?.answers ??
+      (questionnaire.isComplete ? questionnaire.resolvedAnswers : null);
 
+  /// Committed assessment, or live questionnaire interpretation while in flow.
   BrainRotInterpretation? get brainRot =>
-      brainRotAssessment?.toInterpretation();
+      brainRotAssessment?.toInterpretation() ?? questionnaire.interpretation;
 
   BrainRotFlowPhase get questionnairePhase => questionnaire.phase;
+
+  /// True after [DiagnosticSession.fromAssessment] submit (persisted bundle).
+  bool get isCommitted => brainRotAssessment != null;
+
+  /// Live diagnostic bundle for [DiagnosticScreen] (not yet submitted).
+  factory DiagnosticSession.inProgress({
+    required DiagnosticMetrics metrics,
+    required DiagnosticModel model,
+    required BrainRotQuestionnaireSnapshot questionnaire,
+  }) {
+    return DiagnosticSession(
+      bhi: DiagnosticBhiSnapshot.compose(metrics: metrics, model: model),
+      committedAt: DateTime.now(),
+      questionnaire: questionnaire,
+    );
+  }
 
   /// Builds a committed session from live assessment inputs (no field loss).
   factory DiagnosticSession.fromAssessment({

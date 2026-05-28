@@ -4,16 +4,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/theme_extensions.dart';
 import '../domain/brain_rot_questionnaire_snapshot.dart';
-import '../domain/diagnostic_metrics.dart';
 import '../domain/diagnostic_model.dart';
+import '../domain/diagnostic_session.dart';
 import 'brain_rot_localization.dart';
+import 'diagnostic_in_progress_session_provider.dart';
 import 'diagnostic_session_flow_provider.dart';
-import 'bc_score_provider.dart';
 import 'diagnostic_controller.dart';
 import 'widgets/bc_score_breakdown.dart';
 import 'widgets/bc_score_hero_card.dart';
 import 'widgets/brain_rot_question_page.dart';
 import 'widgets/brain_rot_score_dashboard.dart';
+import 'widgets/brain_rot_step_indicator.dart';
 import 'widgets/diagnostic_metric_slider.dart';
 
 class DiagnosticScreen extends ConsumerWidget {
@@ -23,16 +24,18 @@ class DiagnosticScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = AppLocalizations.of(context)!;
     final asyncMetrics = ref.watch(diagnosticControllerProvider);
-    final flow = ref.watch(diagnosticSessionFlowProvider);
+    final session = ref.watch(diagnosticInProgressSessionProvider);
     final flowNotifier = ref.read(diagnosticSessionFlowProvider.notifier);
-    final bhiLive = ref.watch(bcScoreLiveProvider);
     final controller = ref.read(diagnosticControllerProvider.notifier);
-    final result = flow.interpretation;
+
+    final questionnaire = session.questionnaire;
+    final phase = questionnaire.phase;
+    final result = questionnaire.interpretation;
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          flow.phase == BrainRotFlowPhase.bhiSliders
+          phase == BrainRotFlowPhase.bhiSliders
               ? loc.diagnosticBhiTitle
               : loc.diagnosticBrainRotTitle,
         ),
@@ -60,7 +63,7 @@ class DiagnosticScreen extends ConsumerWidget {
             message: loc.diagnosticSyncError,
             onRetry: controller.submitDiagnostic,
           ),
-          data: (metrics) => AnimatedSwitcher(
+          data: (_) => AnimatedSwitcher(
             duration: const Duration(milliseconds: 420),
             switchInCurve: Curves.easeOutCubic,
             switchOutCurve: Curves.easeIn,
@@ -79,16 +82,13 @@ class DiagnosticScreen extends ConsumerWidget {
             ),
             child: _buildPhase(
               context,
-              ref,
-              key: ValueKey('${flow.phase}_${flow.currentIndex}'),
-              phase: flow.phase,
-              flow: flow,
+              key: ValueKey('${phase}_${questionnaire.currentIndex}'),
+              session: session,
               flowNotifier: flowNotifier,
-              metrics: metrics,
-              bhiLive: bhiLive,
               result: result,
               asyncMetricsLoading: asyncMetrics.isLoading,
               controller: controller,
+              loc: loc,
             ),
           ),
         ),
@@ -97,31 +97,42 @@ class DiagnosticScreen extends ConsumerWidget {
   }
 
   Widget _buildPhase(
-    BuildContext context,
-    WidgetRef ref, {
+    BuildContext context, {
     required Key key,
-    required BrainRotFlowPhase phase,
-    required BrainRotQuestionnaireSnapshot flow,
+    required DiagnosticSession session,
     required DiagnosticSessionFlow flowNotifier,
-    required DiagnosticMetrics metrics,
-    required DiagnosticModel bhiLive,
     required BrainRotInterpretation? result,
     required bool asyncMetricsLoading,
     required DiagnosticController controller,
+    required AppLocalizations loc,
   }) {
-    final loc = AppLocalizations.of(context)!;
+    final questionnaire = session.questionnaire;
+    final metrics = session.metrics;
+    final bhiLive = session.model;
 
-    switch (phase) {
+    switch (questionnaire.phase) {
       case BrainRotFlowPhase.questions:
-        final index = flow.currentIndex;
+        final index = questionnaire.currentIndex;
         return Padding(
           key: key,
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-          child: BrainRotQuestionPage(
-            questionIndex: index,
-            questionText: brainRotQuestionFor(context, loc, index),
-            onAnswer: (yes) => flowNotifier.answerQuestion(index, yes),
-            onBack: index > 0 ? () => flowNotifier.goToQuestion(index - 1) : null,
+          child: Column(
+            children: [
+              BrainRotStepIndicator(
+                currentIndex: index,
+                answers: questionnaire.answers,
+              ),
+              const SizedBox(height: 20),
+              Expanded(
+                child: BrainRotQuestionPage(
+                  questionIndex: index,
+                  questionText: brainRotQuestionFor(context, loc, index),
+                  onAnswer: (yes) => flowNotifier.answerQuestion(index, yes),
+                  onBack:
+                      index > 0 ? () => flowNotifier.goToQuestion(index - 1) : null,
+                ),
+              ),
+            ],
           ),
         );
       case BrainRotFlowPhase.results:

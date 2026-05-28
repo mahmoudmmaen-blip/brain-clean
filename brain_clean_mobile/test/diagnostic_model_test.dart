@@ -248,6 +248,33 @@ void main() {
   });
 
   group('DiagnosticSession serialization', () {
+    test('inProgress exposes live BHI and questionnaire without commit', () {
+      const model = DiagnosticModel(
+        brainPerformance: 50,
+        digitalDiscipline: 50,
+        healthyHabits: 50,
+        consistency: 50,
+      );
+      const metrics = DiagnosticMetrics(sleepQuality: 8);
+      const questionnaire = BrainRotQuestionnaireSnapshot(
+        answers: [true, false, true, false, false, false, false, false, false, false],
+        currentIndex: 9,
+        phase: BrainRotFlowPhase.results,
+      );
+
+      final draft = DiagnosticSession.inProgress(
+        metrics: metrics,
+        model: model,
+        questionnaire: questionnaire,
+      );
+
+      expect(draft.isCommitted, isFalse);
+      expect(draft.brainRotAssessment, isNull);
+      expect(draft.brainRotScore, 2);
+      expect(draft.metrics.sleepQuality, 8);
+      expect(draft.questionnairePhase, BrainRotFlowPhase.results);
+    });
+
     test('round-trips model, metrics, and Brain Rot assessment', () {
       const model = DiagnosticModel(
         brainPerformance: 72,
