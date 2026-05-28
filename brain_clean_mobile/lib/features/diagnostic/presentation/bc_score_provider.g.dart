@@ -6,9 +6,12 @@ part of 'bc_score_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$bcScoreLiveHash() => r'bf0e531862f20c385f3c2dd407c5248e1dd16c06';
+String _$bcScoreLiveHash() => r'a9f6727781b6811613e98d2105f2a897156d8e49';
 
 /// Recomputes BHI pillars whenever sliders or detox check-ins change.
+///
+/// Delegates to [diagnosticLiveModelProvider] — authoritative path is
+/// [DiagnosticSessionComposer.resolveLiveModel].
 ///
 /// Copied from [bcScoreLive].
 @ProviderFor(bcScoreLive)

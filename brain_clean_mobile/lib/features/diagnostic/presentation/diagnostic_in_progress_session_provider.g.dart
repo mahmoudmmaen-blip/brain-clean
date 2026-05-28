@@ -7,12 +7,11 @@ part of 'diagnostic_in_progress_session_provider.dart';
 // **************************************************************************
 
 String _$diagnosticInProgressSessionHash() =>
-    r'8c19a3ce8680e7bed6ede726cdc4bf660aa4fca0';
+    r'e380ae786b681f61f98204364abbd2d017f60c1a';
 
 /// Unified [DiagnosticSession] view for the active diagnostic flow.
 ///
-/// Merges BHI snapshot, slider metrics, and questionnaire state so UI layers
-/// consume one model instead of multiple providers.
+/// Built exclusively via [DiagnosticController.buildInProgressSession].
 ///
 /// Copied from [diagnosticInProgressSession].
 @ProviderFor(diagnosticInProgressSession)

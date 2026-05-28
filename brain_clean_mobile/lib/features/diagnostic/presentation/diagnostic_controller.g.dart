@@ -6,10 +6,33 @@ part of 'diagnostic_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$diagnosticControllerHash() =>
-    r'585d9bdbd62c41665dafae4d63b5eaa05323e566';
+String _$diagnosticLiveModelHash() =>
+    r'7a05ef9607981721ebaf6f18170b5a5db11f9fc7';
 
-/// Slider metrics — keepAlive + Hive draft sync so cold start never wipes answers.
+/// Live four-pillar model — recomputes when sliders or detox habits change.
+///
+/// Copied from [diagnosticLiveModel].
+@ProviderFor(diagnosticLiveModel)
+final diagnosticLiveModelProvider = Provider<DiagnosticModel>.internal(
+  diagnosticLiveModel,
+  name: r'diagnosticLiveModelProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$diagnosticLiveModelHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef DiagnosticLiveModelRef = ProviderRef<DiagnosticModel>;
+String _$diagnosticControllerHash() =>
+    r'f927437b8fc3daec1c57b404e6bb7d75ade8538d';
+
+/// Slider metrics, BHI composition, and session packaging (single orchestrator).
+///
+/// Persistence: drafts written on every slider change; committed sessions flow
+/// through [BcScoreSession.commit] → [DiagnosticLocalRepository].
 ///
 /// Copied from [DiagnosticController].
 @ProviderFor(DiagnosticController)
