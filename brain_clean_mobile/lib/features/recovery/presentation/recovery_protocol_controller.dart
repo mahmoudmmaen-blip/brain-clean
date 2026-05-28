@@ -1,5 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../data/recovery_protocol_storage.dart';
+import '../data/recovery_protocol_storage_provider.dart';
 import '../domain/recovery_daily_task.dart';
 import '../domain/recovery_day_record.dart';
 import '../domain/recovery_protocol_constants.dart';
@@ -7,49 +9,82 @@ import '../domain/recovery_protocol_state.dart';
 
 part 'recovery_protocol_controller.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class RecoveryProtocolController extends _$RecoveryProtocolController {
+  RecoveryProtocolStorage get _storage =>
+      ref.read(recoveryProtocolStorageProvider);
+
   @override
-  RecoveryProtocolState build() {
-    return RecoveryProtocolState(
-      protocolStartDate: DateTime.now(),
-    );
+  Future<RecoveryProtocolState> build() async {
+    try {
+      final saved = await _storage.load();
+      if (saved != null) return saved;
+    } catch (_) {
+      // Fall through to fresh protocol start.
+    }
+    final initial = RecoveryProtocolState(protocolStartDate: DateTime.now());
+    await _persistQuietly(initial);
+    return initial;
   }
 
-  void selectDay(int dayIndex) {
+  Future<void> selectDay(int dayIndex) async {
     if (dayIndex < 1 || dayIndex > RecoveryProtocolConstants.dayCount) {
       return;
     }
-    state = state.copyWith(selectedDayIndex: dayIndex);
+    final current = state.requireValue;
+    await _commit(current.copyWith(selectedDayIndex: dayIndex));
   }
 
-  void toggleTask(RecoveryDailyTask task, bool completed) {
-    final dayIndex = state.selectedDayIndex;
-    final record = state.dayRecord(dayIndex).toggleTask(task, completed);
-    final nextDays = Map<int, RecoveryDayRecord>.from(state.days)
+  Future<void> toggleTask(RecoveryDailyTask task, bool completed) async {
+    final current = state.requireValue;
+    final dayIndex = current.selectedDayIndex;
+    final record = current.dayRecord(dayIndex).toggleTask(task, completed);
+    final nextDays = Map<int, RecoveryDayRecord>.from(current.days)
       ..[dayIndex] = record;
-    state = state.copyWith(days: nextDays);
+    await _commit(current.copyWith(days: nextDays));
   }
 
   /// Applies penalty for missed habits on the selected day (requires confirmation in UI).
-  void applyPenaltyForSelectedDay() {
-    final dayIndex = state.selectedDayIndex;
-    final record = state.dayRecord(dayIndex).copyWith(penaltyApplied: true);
-    final nextDays = Map<int, RecoveryDayRecord>.from(state.days)
+  Future<void> applyPenaltyForSelectedDay() async {
+    final current = state.requireValue;
+    final dayIndex = current.selectedDayIndex;
+    final record = current.dayRecord(dayIndex).copyWith(penaltyApplied: true);
+    final nextDays = Map<int, RecoveryDayRecord>.from(current.days)
       ..[dayIndex] = record;
-    state = state.copyWith(
-      days: nextDays,
-      totalPenaltyCount: state.totalPenaltyCount + 1,
+    await _commit(
+      current.copyWith(
+        days: nextDays,
+        totalPenaltyCount: current.totalPenaltyCount + 1,
+      ),
     );
   }
 
   bool selectedDayNeedsPenalty() {
-    final record = state.dayRecord(state.selectedDayIndex);
+    final current = state.valueOrNull;
+    if (current == null) return false;
+    final record = current.dayRecord(current.selectedDayIndex);
     return record.hasMissedHabit && !record.penaltyApplied;
   }
-}
 
-@riverpod
-RecoveryProtocolState recoveryProtocolData(RecoveryProtocolDataRef ref) {
-  return ref.watch(recoveryProtocolControllerProvider);
+  Future<void> reloadFromStorage() async {
+    state = const AsyncLoading();
+    ref.invalidateSelf();
+  }
+
+  Future<void> _commit(RecoveryProtocolState next) async {
+    state = AsyncValue.data(next);
+    try {
+      await _storage.save(next);
+    } catch (error, stackTrace) {
+      state = AsyncValue.error(error, stackTrace);
+    }
+  }
+
+  Future<void> _persistQuietly(RecoveryProtocolState next) async {
+    try {
+      await _storage.save(next);
+    } catch (_) {
+      // First-run save is best-effort; UI still shows fresh state.
+    }
+  }
 }

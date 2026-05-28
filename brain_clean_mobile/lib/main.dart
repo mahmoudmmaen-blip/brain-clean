@@ -4,10 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/l10n/app_localization_config.dart';
 import 'core/network/supabase_client.dart';
 import 'core/routing/app_router.dart';
+import 'core/storage/hive_bootstrap.dart';
 import 'core/theme/theme_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await HiveBootstrap.initialize();
   await SupabaseConfig.initialize();
   runApp(const ProviderScope(child: BrainCleanApp()));
 }

@@ -9,6 +9,8 @@ import 'package:brain_clean_mobile/features/diagnostic/presentation/bc_score_pro
 import 'package:brain_clean_mobile/features/diagnostic/domain/brain_rot_questionnaire_snapshot.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/diagnostic_session_flow_provider.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/diagnostic_screen.dart';
+import 'package:brain_clean_mobile/features/recovery/data/recovery_protocol_hive_repository.dart';
+import 'package:brain_clean_mobile/features/recovery/data/recovery_protocol_storage_provider.dart';
 import 'package:brain_clean_mobile/features/recovery/presentation/recovery_grid_screen.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/widgets/bc_score_hero_card.dart';
 import 'package:brain_clean_mobile/main.dart';
@@ -54,9 +56,17 @@ void main() {
 
     testWidgets('recovery grid shows 30-day layout and five tasks', (tester) async {
       await tester.pumpWidget(
-        createLocalizedProviderTestWidget(const RecoveryGridScreen()),
+        createLocalizedProviderTestWidget(
+          const RecoveryGridScreen(),
+          overrides: [
+            recoveryProtocolStorageProvider.overrideWithValue(
+              RecoveryProtocolMemoryRepository(),
+            ),
+          ],
+        ),
       );
-      await tester.pumpAndSettle();
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
 
       expect(find.text(en.recoveryGridTitle), findsOneWidget);
       expect(find.byKey(const Key('recovery_day_tasks_header')), findsOneWidget);
