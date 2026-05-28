@@ -1,72 +1,40 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/constants/bc_score_constants.dart';
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/theme/app_design_constants.dart';
 import '../../../../core/theme/theme_extensions.dart';
 import '../../domain/diagnostic_session.dart';
+import '../../domain/pillar_bound_evaluation.dart';
 import 'bc_score_colors.dart';
 
-/// Four-pillar BC_score breakdown — pillar values and total from session snapshot.
+/// Four-pillar BC_score breakdown — bound to [PillarBoundEvaluation] snapshot.
 class BcScoreBreakdown extends StatelessWidget {
   const BcScoreBreakdown({
     super.key,
-    required this.brainPerformance,
-    required this.digitalDiscipline,
-    required this.healthyHabits,
-    required this.consistency,
-    required this.boundBcScore,
+    required this.evaluation,
   });
 
-  /// Reads frozen pillars and bound score directly from [session].
+  /// Reads frozen pillars and bound score from [session] snapshot only.
   factory BcScoreBreakdown.fromSession({
     Key? key,
     required DiagnosticSession session,
   }) =>
       BcScoreBreakdown(
         key: key,
-        brainPerformance: session.frozenBrainPerformance,
-        digitalDiscipline: session.frozenDigitalDiscipline,
-        healthyHabits: session.frozenHealthyHabits,
-        consistency: session.frozenConsistency,
-        boundBcScore: session.bcScore,
+        evaluation: session.pillarEvaluation,
       );
 
-  final double brainPerformance;
-  final double digitalDiscipline;
-  final double healthyHabits;
-  final double consistency;
-  final double boundBcScore;
+  final PillarBoundEvaluation evaluation;
 
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
-    final pillars = <({
-      String label,
-      double score,
-      double weight,
-    })>[
-      (
-        label: loc.bcScorePillarBrainPerformance,
-        score: brainPerformance,
-        weight: BcScoreConstants.brainPerformanceWeight,
-      ),
-      (
-        label: loc.bcScorePillarDigitalDiscipline,
-        score: digitalDiscipline,
-        weight: BcScoreConstants.digitalDisciplineWeight,
-      ),
-      (
-        label: loc.bcScorePillarHealthyHabits,
-        score: healthyHabits,
-        weight: BcScoreConstants.healthyHabitsWeight,
-      ),
-      (
-        label: loc.bcScorePillarConsistency,
-        score: consistency,
-        weight: BcScoreConstants.consistencyWeight,
-      ),
-    ];
+    final labels = <String, String>{
+      'brain_performance': loc.bcScorePillarBrainPerformance,
+      'digital_discipline': loc.bcScorePillarDigitalDiscipline,
+      'healthy_habits': loc.bcScorePillarHealthyHabits,
+      'consistency': loc.bcScorePillarConsistency,
+    };
 
     return Card(
       elevation: context.isLightTheme ? 2 : 0,
@@ -90,17 +58,18 @@ class BcScoreBreakdown extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            for (final pillar in pillars)
+            for (final row in evaluation.pillarRows)
               _PillarRow(
-                label: '${pillar.label} (${(pillar.weight * 100).round()}%)',
-                pillarScore: pillar.score,
-                weight: pillar.weight,
+                label:
+                    '${labels[row.key]!} (${(row.weight * 100).round()}%)',
+                pillarScore: row.score,
+                weight: row.weight,
               ),
             Divider(height: 20, color: context.borderMuted),
             _SummaryRow(
               label: loc.bcScoreLabel,
-              value: '${boundBcScore.round()}%',
-              color: BcScoreColors.forScore(boundBcScore),
+              value: '${evaluation.bcScore.round()}%',
+              color: BcScoreColors.forScore(evaluation.bcScore),
             ),
           ],
         ),

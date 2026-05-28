@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/theme/app_theme.dart';
+import '../../../../core/theme/app_design_constants.dart';
+import '../../../../core/theme/theme_extensions.dart';
 
 class DiagnosticMetricSlider extends StatelessWidget {
   const DiagnosticMetricSlider({
@@ -19,7 +20,14 @@ class DiagnosticMetricSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final displayValue = value < 1 ? 1 : value;
+    final gold = context.diagnosticAccentGold;
+
     return Card(
+      elevation: context.isLightTheme ? 1 : 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
+        side: BorderSide(color: context.borderMuted),
+      ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         child: Column(
@@ -28,19 +36,24 @@ class DiagnosticMetricSlider extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  '$code · $label',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 14,
+                Expanded(
+                  child: Text(
+                    '$code · $label',
+                    style: AppDesignConstants.cairo(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      color: Theme.of(context).colorScheme.onSurface,
+                      height: 1.35,
+                    ),
                   ),
                 ),
                 Text(
                   '$displayValue',
-                  style: const TextStyle(
-                    color: AppTheme.gold,
-                    fontWeight: FontWeight.w800,
+                  style: AppDesignConstants.cairo(
                     fontSize: 16,
+                    fontWeight: FontWeight.w800,
+                    color: gold,
+                    height: 1.2,
                   ),
                 ),
               ],
@@ -51,6 +64,7 @@ class DiagnosticMetricSlider extends StatelessWidget {
               max: 10,
               divisions: 9,
               label: '$displayValue',
+              activeColor: context.brandPrimary,
               onChanged: (v) => onChanged(v.round()),
             ),
           ],

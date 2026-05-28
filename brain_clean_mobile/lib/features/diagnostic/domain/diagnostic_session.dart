@@ -6,6 +6,7 @@ import 'brain_rot_questionnaire_snapshot.dart';
 import 'diagnostic_bhi_snapshot.dart';
 import 'diagnostic_metrics.dart';
 import 'diagnostic_model.dart';
+import 'pillar_bound_evaluation.dart';
 
 part 'diagnostic_session.g.dart';
 
@@ -61,8 +62,11 @@ class DiagnosticSession {
   /// Confirms frozen pillars and stored score cannot drift.
   bool get isPillarBoundCoherent => bhi.isPillarBoundCoherent;
 
+  /// Authoritative pillar matrix for all diagnostic UI score widgets.
+  PillarBoundEvaluation get pillarEvaluation => bhi.pillarEvaluation;
+
   void ensurePillarBoundCoherence() {
-    if (!isPillarBoundCoherent) {
+    if (!isPillarBoundCoherent || !pillarEvaluation.isCoherent) {
       throw StateError(
         'DiagnosticSession pillar-bound score mismatch: '
         'stored=${frozenPillars.bcScore} recomputed=${frozenPillars.recomputedBcScore}',

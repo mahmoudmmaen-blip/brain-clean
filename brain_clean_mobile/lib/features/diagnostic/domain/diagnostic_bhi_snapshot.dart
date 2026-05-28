@@ -4,6 +4,7 @@ import 'bhi_pillar_frozen_snapshot.dart';
 import 'diagnostic_metrics.dart';
 import 'diagnostic_metrics_mapper.dart';
 import 'diagnostic_model.dart';
+import 'pillar_bound_evaluation.dart';
 
 part 'diagnostic_bhi_snapshot.g.dart';
 
@@ -41,6 +42,10 @@ class DiagnosticBhiSnapshot {
   /// True when stored [bcScore] matches recomputation from frozen pillars.
   bool get isPillarBoundCoherent => frozenPillars.isCoherent;
 
+  /// Strict pillar-bound matrix for UI and repository consumers.
+  PillarBoundEvaluation get pillarEvaluation =>
+      PillarBoundEvaluation.fromFrozen(frozenPillars);
+
   factory DiagnosticBhiSnapshot.compose({
     required DiagnosticMetrics metrics,
     required DiagnosticModel model,
@@ -53,16 +58,38 @@ class DiagnosticBhiSnapshot {
       );
 
   factory DiagnosticBhiSnapshot.fromJson(Map<String, dynamic> json) {
+    final DiagnosticBhiSnapshot snapshot;
     if (json['frozen_pillars'] != null) {
-      return _$DiagnosticBhiSnapshotFromJson(json);
+      snapshot = _$DiagnosticBhiSnapshotFromJson(json);
+    } else {
+      final model =
+          DiagnosticModel.fromJson(json['model'] as Map<String, dynamic>);
+      snapshot = DiagnosticBhiSnapshot(
+        metrics: DiagnosticMetrics.fromJson(
+          json['metrics'] as Map<String, dynamic>,
+        ),
+        model: model,
+        frozenPillars: BhiPillarFrozenSnapshot.freeze(model),
+      );
     }
-    final model = DiagnosticModel.fromJson(json['model'] as Map<String, dynamic>);
+    return snapshot._withCoherentFrozenPillars();
+  }
+
+  /// Re-derives [bcScore] from frozen pillar boundaries after deserialization.
+  DiagnosticBhiSnapshot _withCoherentFrozenPillars() {
+    final f = frozenPillars;
+    final coherent = BhiPillarFrozenSnapshot(
+      brainPerformance: f.brainPerformance,
+      digitalDiscipline: f.digitalDiscipline,
+      healthyHabits: f.healthyHabits,
+      consistency: f.consistency,
+      bcScore: f.recomputedBcScore,
+      frozenAt: f.frozenAt,
+    );
     return DiagnosticBhiSnapshot(
-      metrics: DiagnosticMetrics.fromJson(
-        json['metrics'] as Map<String, dynamic>,
-      ),
+      metrics: metrics,
       model: model,
-      frozenPillars: BhiPillarFrozenSnapshot.freeze(model),
+      frozenPillars: coherent,
     );
   }
 

@@ -6,7 +6,7 @@ import '../../../../core/theme/theme_extensions.dart';
 import '../../domain/diagnostic_session.dart';
 import 'bc_score_colors.dart';
 
-/// Large BC_score display card — always driven by session-bound pillar score.
+/// Large BC_score card — score always from session pillar evaluation.
 class BcScoreHeroCard extends StatelessWidget {
   const BcScoreHeroCard({
     super.key,
@@ -15,7 +15,7 @@ class BcScoreHeroCard extends StatelessWidget {
     this.fontSize = 56,
   });
 
-  /// Uses [DiagnosticSession.bcScore] from frozen pillars (never fluid model).
+  /// Binds hero display to [session.pillarEvaluation.bcScore].
   factory BcScoreHeroCard.fromSession({
     Key? key,
     required DiagnosticSession session,
@@ -24,7 +24,7 @@ class BcScoreHeroCard extends StatelessWidget {
   }) =>
       BcScoreHeroCard(
         key: key,
-        score: session.bcScore,
+        score: session.pillarEvaluation.bcScore,
         subtitle: subtitle,
         fontSize: fontSize,
       );

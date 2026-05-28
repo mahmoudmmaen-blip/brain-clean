@@ -1,5 +1,6 @@
 import 'package:brain_clean_mobile/core/constants/bc_score_constants.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/bhi_pillar_frozen_snapshot.dart';
+import 'package:brain_clean_mobile/features/diagnostic/domain/pillar_bound_evaluation.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/brain_rot_assessment.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/brain_rot_questionnaire_snapshot.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_bhi_snapshot.dart';
@@ -245,6 +246,28 @@ void main() {
       expect(json[DiagnosticModelJsonKeys.bodyActivatedSnake], isFalse);
 
       expectHabitMetrics(roundTrip(model), boredom: true, delayed: 4, body: false);
+    });
+  });
+
+  group('PillarBoundEvaluation', () {
+    test('matrix contributions align with frozen bcScore formula', () {
+      const model = DiagnosticModel(
+        brainPerformance: 72,
+        digitalDiscipline: 68,
+        healthyHabits: 70,
+        consistency: 60,
+      );
+      final frozen = BhiPillarFrozenSnapshot.freeze(model);
+      final evaluation = PillarBoundEvaluation.fromFrozen(frozen);
+
+      expect(evaluation.isCoherent, isTrue);
+      expect(evaluation.bcScore, frozen.bcScore);
+      final sum = evaluation.brainContribution +
+          evaluation.digitalContribution +
+          evaluation.habitsContribution +
+          evaluation.consistencyContribution;
+      expect(evaluation.bcScore, greaterThanOrEqualTo(sum - 0.01));
+      expect(evaluation.pillarRows, hasLength(4));
     });
   });
 

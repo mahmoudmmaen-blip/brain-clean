@@ -213,7 +213,7 @@ class _AnswerButtonState extends State<_AnswerButton>
                 onPressed: _onTap,
                 style: FilledButton.styleFrom(
                   backgroundColor: widget.accent,
-                  foregroundColor: Colors.white,
+                  foregroundColor: Theme.of(context).colorScheme.onError,
                   minimumSize: const Size.fromHeight(
                     AppDesignConstants.minTouchTarget + 8,
                   ),
