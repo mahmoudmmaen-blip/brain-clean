@@ -90,6 +90,7 @@ class DiagnosticController extends _$DiagnosticController {
         model: bhi,
         metrics: currentMetrics,
       );
+      session.ensurePillarBoundCoherence();
 
       ref.read(bcScoreSessionProvider.notifier).commit(session);
 

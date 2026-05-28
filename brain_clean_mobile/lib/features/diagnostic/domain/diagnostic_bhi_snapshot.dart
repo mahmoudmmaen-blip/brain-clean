@@ -35,6 +35,12 @@ class DiagnosticBhiSnapshot {
   /// Pillar values bound to [frozenPillars] — never reads fluid [model] fields.
   DiagnosticModel get pillarModel => frozenPillars.toModel();
 
+  /// Pillar-bound BC_score — matches [frozenPillars.bcScore] when coherent.
+  double get boundBcScore => frozenPillars.bcScore;
+
+  /// True when stored [bcScore] matches recomputation from frozen pillars.
+  bool get isPillarBoundCoherent => frozenPillars.isCoherent;
+
   factory DiagnosticBhiSnapshot.compose({
     required DiagnosticMetrics metrics,
     required DiagnosticModel model,

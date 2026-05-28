@@ -4,46 +4,66 @@ import '../../../../core/constants/bc_score_constants.dart';
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/theme/app_design_constants.dart';
 import '../../../../core/theme/theme_extensions.dart';
-import '../../domain/diagnostic_model.dart';
+import '../../domain/diagnostic_session.dart';
 import 'bc_score_colors.dart';
 
+/// Four-pillar BC_score breakdown — pillar values and total from session snapshot.
 class BcScoreBreakdown extends StatelessWidget {
-  const BcScoreBreakdown({super.key, required this.model});
+  const BcScoreBreakdown({
+    super.key,
+    required this.brainPerformance,
+    required this.digitalDiscipline,
+    required this.healthyHabits,
+    required this.consistency,
+    required this.boundBcScore,
+  });
 
-  final DiagnosticModel model;
+  /// Reads frozen pillars and bound score directly from [session].
+  factory BcScoreBreakdown.fromSession({
+    Key? key,
+    required DiagnosticSession session,
+  }) =>
+      BcScoreBreakdown(
+        key: key,
+        brainPerformance: session.frozenBrainPerformance,
+        digitalDiscipline: session.frozenDigitalDiscipline,
+        healthyHabits: session.frozenHealthyHabits,
+        consistency: session.frozenConsistency,
+        boundBcScore: session.bcScore,
+      );
 
-  static double _brainPerformance(DiagnosticModel m) => m.brainPerformance;
-  static double _digitalDiscipline(DiagnosticModel m) => m.digitalDiscipline;
-  static double _healthyHabits(DiagnosticModel m) => m.healthyHabits;
-  static double _consistency(DiagnosticModel m) => m.consistency;
+  final double brainPerformance;
+  final double digitalDiscipline;
+  final double healthyHabits;
+  final double consistency;
+  final double boundBcScore;
 
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
-    final bcScore = model.bcScore;
     final pillars = <({
       String label,
-      double Function(DiagnosticModel m) value,
-      double weight
+      double score,
+      double weight,
     })>[
       (
         label: loc.bcScorePillarBrainPerformance,
-        value: _brainPerformance,
+        score: brainPerformance,
         weight: BcScoreConstants.brainPerformanceWeight,
       ),
       (
         label: loc.bcScorePillarDigitalDiscipline,
-        value: _digitalDiscipline,
+        score: digitalDiscipline,
         weight: BcScoreConstants.digitalDisciplineWeight,
       ),
       (
         label: loc.bcScorePillarHealthyHabits,
-        value: _healthyHabits,
+        score: healthyHabits,
         weight: BcScoreConstants.healthyHabitsWeight,
       ),
       (
         label: loc.bcScorePillarConsistency,
-        value: _consistency,
+        score: consistency,
         weight: BcScoreConstants.consistencyWeight,
       ),
     ];
@@ -73,14 +93,14 @@ class BcScoreBreakdown extends StatelessWidget {
             for (final pillar in pillars)
               _PillarRow(
                 label: '${pillar.label} (${(pillar.weight * 100).round()}%)',
-                pillarScore: pillar.value(model),
+                pillarScore: pillar.score,
                 weight: pillar.weight,
               ),
             Divider(height: 20, color: context.borderMuted),
             _SummaryRow(
               label: loc.bcScoreLabel,
-              value: '${bcScore.round()}%',
-              color: BcScoreColors.forScore(bcScore),
+              value: '${boundBcScore.round()}%',
+              color: BcScoreColors.forScore(boundBcScore),
             ),
           ],
         ),

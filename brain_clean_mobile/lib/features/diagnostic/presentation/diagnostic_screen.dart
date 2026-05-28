@@ -112,8 +112,6 @@ class DiagnosticScreen extends ConsumerWidget {
   }) {
     final questionnaire = session.questionnaire;
     final metrics = session.metrics;
-    final pillarModel = session.pillarModel;
-
     switch (questionnaire.phase) {
       case BrainRotFlowPhase.questions:
         final index = questionnaire.currentIndex;
@@ -166,11 +164,11 @@ class DiagnosticScreen extends ConsumerWidget {
           key: key,
           padding: const EdgeInsets.all(AppDesignConstants.radiusCard + 2),
           children: [
-            BcScoreHeroCard(
-              score: session.bcScore,
+            BcScoreHeroCard.fromSession(
+              session: session,
               subtitle: loc.diagnosticLiveSubtitle,
             ),
-            BcScoreBreakdown(model: pillarModel),
+            BcScoreBreakdown.fromSession(session: session),
             const SizedBox(height: 8),
             Text(
               loc.diagnosticInstructions,

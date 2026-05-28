@@ -53,10 +53,22 @@ class DiagnosticSession {
 
   double get frozenConsistency => frozenPillars.consistency;
 
-  /// Always derived from [frozenPillars] — live sliders re-freeze via [inProgress].
-  double get bcScore => frozenPillars.bcScore;
+  /// Pillar-bound BC_score — identical on screen, dashboard, and repository.
+  double get bcScore => bhi.boundBcScore;
 
   int get bcScoreRounded => bcScore.round();
+
+  /// Confirms frozen pillars and stored score cannot drift.
+  bool get isPillarBoundCoherent => bhi.isPillarBoundCoherent;
+
+  void ensurePillarBoundCoherence() {
+    if (!isPillarBoundCoherent) {
+      throw StateError(
+        'DiagnosticSession pillar-bound score mismatch: '
+        'stored=${frozenPillars.bcScore} recomputed=${frozenPillars.recomputedBcScore}',
+      );
+    }
+  }
 
   int? get brainRotScore => brainRot?.score;
 

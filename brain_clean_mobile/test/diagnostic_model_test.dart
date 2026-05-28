@@ -1,4 +1,5 @@
 import 'package:brain_clean_mobile/core/constants/bc_score_constants.dart';
+import 'package:brain_clean_mobile/features/diagnostic/domain/bhi_pillar_frozen_snapshot.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/brain_rot_assessment.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/brain_rot_questionnaire_snapshot.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_bhi_snapshot.dart';
@@ -274,6 +275,16 @@ void main() {
       expect(draft.brainRotScore, 2);
       expect(draft.bcScore, draft.frozenPillars.bcScore);
       expect(draft.pillarModel.brainPerformance, draft.frozenBrainPerformance);
+      expect(draft.isPillarBoundCoherent, isTrue);
+      expect(
+        draft.frozenPillars.recomputedBcScore,
+        BhiPillarFrozenSnapshot.computeBcScore(
+          brainPerformance: draft.frozenBrainPerformance,
+          digitalDiscipline: draft.frozenDigitalDiscipline,
+          healthyHabits: draft.frozenHealthyHabits,
+          consistency: draft.frozenConsistency,
+        ),
+      );
       expect(draft.metrics.sleepQuality, 8);
       expect(draft.questionnairePhase, BrainRotFlowPhase.results);
     });

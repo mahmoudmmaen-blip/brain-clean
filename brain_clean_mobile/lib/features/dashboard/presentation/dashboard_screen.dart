@@ -48,12 +48,12 @@ class DashboardScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(16),
           children: [
             if (session != null) ...[
-              BcScoreHeroCard(
-                score: session.bcScore,
+              BcScoreHeroCard.fromSession(
+                session: session,
                 fontSize: 48,
                 subtitle: loc.dashboardCommittedAt(committedAt!),
               ),
-              BcScoreBreakdown(model: session.pillarModel),
+              BcScoreBreakdown.fromSession(session: session),
               if (session.brainRot != null) ...[
                 const SizedBox(height: 12),
                 Card(
