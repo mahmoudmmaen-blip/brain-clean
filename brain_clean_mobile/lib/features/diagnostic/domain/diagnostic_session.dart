@@ -54,16 +54,16 @@ class DiagnosticSession {
 
   double get frozenConsistency => frozenPillars.consistency;
 
+  /// Authoritative pillar matrix for all diagnostic UI score widgets.
+  PillarBoundEvaluation get pillarEvaluation => bhi.pillarEvaluation;
+
   /// Pillar-bound BC_score — identical on screen, dashboard, and repository.
-  double get bcScore => bhi.boundBcScore;
+  double get bcScore => pillarEvaluation.bcScore;
 
   int get bcScoreRounded => bcScore.round();
 
   /// Confirms frozen pillars and stored score cannot drift.
   bool get isPillarBoundCoherent => bhi.isPillarBoundCoherent;
-
-  /// Authoritative pillar matrix for all diagnostic UI score widgets.
-  PillarBoundEvaluation get pillarEvaluation => bhi.pillarEvaluation;
 
   void ensurePillarBoundCoherence() {
     if (!isPillarBoundCoherent || !pillarEvaluation.isCoherent) {

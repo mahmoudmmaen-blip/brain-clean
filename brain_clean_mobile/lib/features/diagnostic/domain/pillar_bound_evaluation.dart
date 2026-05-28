@@ -1,5 +1,7 @@
 import '../../../core/constants/bc_score_constants.dart';
 import 'bhi_pillar_frozen_snapshot.dart';
+import 'bhi_score_formula.dart';
+import 'diagnostic_model.dart';
 
 /// Strict four-pillar evaluation matrix — single path for score + contributions.
 class PillarBoundEvaluation {
@@ -27,7 +29,20 @@ class PillarBoundEvaluation {
   double get habitsContribution => healthyHabits * habitsWeight;
   double get consistencyContribution => consistency * consistencyWeight;
 
-  double get recomputedBcScore => BhiPillarFrozenSnapshot.computeBcScore(
+  static double computeBcScore({
+    required double brainPerformance,
+    required double digitalDiscipline,
+    required double healthyHabits,
+    required double consistency,
+  }) =>
+      BhiScoreFormula.compute(
+        brainPerformance: brainPerformance,
+        digitalDiscipline: digitalDiscipline,
+        healthyHabits: healthyHabits,
+        consistency: consistency,
+      );
+
+  double get recomputedBcScore => computeBcScore(
         brainPerformance: brainPerformance,
         digitalDiscipline: digitalDiscipline,
         healthyHabits: healthyHabits,
@@ -36,6 +51,25 @@ class PillarBoundEvaluation {
 
   bool get isCoherent => (bcScore - recomputedBcScore).abs() < 0.001;
 
+  factory PillarBoundEvaluation.fromModel(DiagnosticModel model) {
+    final brainPerformance = model.brainPerformance;
+    final digitalDiscipline = model.digitalDiscipline;
+    final healthyHabits = model.healthyHabits;
+    final consistency = model.consistency;
+    return PillarBoundEvaluation(
+      brainPerformance: brainPerformance,
+      digitalDiscipline: digitalDiscipline,
+      healthyHabits: healthyHabits,
+      consistency: consistency,
+      bcScore: computeBcScore(
+        brainPerformance: brainPerformance,
+        digitalDiscipline: digitalDiscipline,
+        healthyHabits: healthyHabits,
+        consistency: consistency,
+      ),
+    );
+  }
+
   factory PillarBoundEvaluation.fromFrozen(BhiPillarFrozenSnapshot frozen) =>
       PillarBoundEvaluation(
         brainPerformance: frozen.brainPerformance,
@@ -43,6 +77,13 @@ class PillarBoundEvaluation {
         healthyHabits: frozen.healthyHabits,
         consistency: frozen.consistency,
         bcScore: frozen.bcScore,
+      );
+
+  DiagnosticModel toPillarModel() => DiagnosticModel(
+        brainPerformance: brainPerformance,
+        digitalDiscipline: digitalDiscipline,
+        healthyHabits: healthyHabits,
+        consistency: consistency,
       );
 
   List<({String key, double score, double weight, double contribution})>

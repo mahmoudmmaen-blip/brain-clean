@@ -1,7 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../core/constants/bc_score_constants.dart';
+import 'bhi_score_formula.dart';
 import 'diagnostic_model.dart';
+import 'pillar_bound_evaluation.dart';
 
 part 'bhi_pillar_frozen_snapshot.g.dart';
 
@@ -34,25 +35,19 @@ class BhiPillarFrozenSnapshot {
   @JsonKey(name: 'frozen_at')
   final DateTime frozenAt;
 
-  /// Single source of truth — BC_score from the four frozen pillars only.
   static double computeBcScore({
     required double brainPerformance,
     required double digitalDiscipline,
     required double healthyHabits,
     required double consistency,
-  }) {
-    final raw = (brainPerformance * BcScoreConstants.brainPerformanceWeight) +
-        (digitalDiscipline * BcScoreConstants.digitalDisciplineWeight) +
-        (healthyHabits * BcScoreConstants.healthyHabitsWeight) +
-        (consistency * BcScoreConstants.consistencyWeight);
+  }) =>
+      BhiScoreFormula.compute(
+        brainPerformance: brainPerformance,
+        digitalDiscipline: digitalDiscipline,
+        healthyHabits: healthyHabits,
+        consistency: consistency,
+      );
 
-    if (raw < BcScoreConstants.bhiScoreFloor) {
-      return BcScoreConstants.bhiScoreFloor;
-    }
-    return raw.clamp(0.0, 100.0);
-  }
-
-  /// Recomputes [bcScore] from stored pillars (coherence validation).
   double get recomputedBcScore => computeBcScore(
         brainPerformance: brainPerformance,
         digitalDiscipline: digitalDiscipline,
@@ -62,29 +57,18 @@ class BhiPillarFrozenSnapshot {
 
   bool get isCoherent => (recomputedBcScore - bcScore).abs() < 0.001;
 
-  /// Locks pillars then derives [bcScore] strictly from those values.
   factory BhiPillarFrozenSnapshot.freeze(
     DiagnosticModel model, {
     DateTime? moment,
   }) {
-    final at = moment ?? DateTime.now();
-    final brainPerformance = model.brainPerformance;
-    final digitalDiscipline = model.digitalDiscipline;
-    final healthyHabits = model.healthyHabits;
-    final consistency = model.consistency;
-
+    final evaluation = PillarBoundEvaluation.fromModel(model);
     return BhiPillarFrozenSnapshot(
-      brainPerformance: brainPerformance,
-      digitalDiscipline: digitalDiscipline,
-      healthyHabits: healthyHabits,
-      consistency: consistency,
-      bcScore: computeBcScore(
-        brainPerformance: brainPerformance,
-        digitalDiscipline: digitalDiscipline,
-        healthyHabits: healthyHabits,
-        consistency: consistency,
-      ),
-      frozenAt: at,
+      brainPerformance: evaluation.brainPerformance,
+      digitalDiscipline: evaluation.digitalDiscipline,
+      healthyHabits: evaluation.healthyHabits,
+      consistency: evaluation.consistency,
+      bcScore: evaluation.bcScore,
+      frozenAt: moment ?? DateTime.now(),
     );
   }
 

@@ -352,8 +352,10 @@ void main() {
       expect(restored.frozenHealthyHabits, 70);
       expect(restored.frozenConsistency, 60);
       expect(restored.frozenPillars.bcScore, session.frozenPillars.bcScore);
+      expect(restored.bcScore, restored.pillarEvaluation.bcScore);
       expect(restored.bcScore, restored.frozenPillars.bcScore);
       expect(restored.pillarModel.consistency, 60);
+      expect(restored.pillarEvaluation.isCoherent, isTrue);
 
       final payload = session.toRepositoryPayload();
       expect(payload['brain_rot_score'], 2);

@@ -31,31 +31,44 @@ class DiagnosticBhiSnapshot {
   DiagnosticModel get mappedFromMetrics =>
       DiagnosticMetricsMapper.fromMetrics(metrics);
 
-  double get frozenBcScore => frozenPillars.bcScore;
-
   /// Pillar values bound to [frozenPillars] — never reads fluid [model] fields.
-  DiagnosticModel get pillarModel => frozenPillars.toModel();
+  DiagnosticModel get pillarModel => pillarEvaluation.toPillarModel();
 
-  /// Pillar-bound BC_score — matches [frozenPillars.bcScore] when coherent.
-  double get boundBcScore => frozenPillars.bcScore;
-
-  /// True when stored [bcScore] matches recomputation from frozen pillars.
-  bool get isPillarBoundCoherent => frozenPillars.isCoherent;
-
-  /// Strict pillar-bound matrix for UI and repository consumers.
+  /// Strict pillar-bound matrix — single source for score and pillar UI.
   PillarBoundEvaluation get pillarEvaluation =>
       PillarBoundEvaluation.fromFrozen(frozenPillars);
+
+  /// Pillar-bound BC_score (screen, dashboard, repository).
+  double get boundBcScore => pillarEvaluation.bcScore;
+
+  double get frozenBcScore => boundBcScore;
+
+  /// True when stored [bcScore] matches recomputation from frozen pillars.
+  bool get isPillarBoundCoherent =>
+      frozenPillars.isCoherent && pillarEvaluation.isCoherent;
 
   factory DiagnosticBhiSnapshot.compose({
     required DiagnosticMetrics metrics,
     required DiagnosticModel model,
     DateTime? frozenAt,
-  }) =>
-      DiagnosticBhiSnapshot(
-        metrics: metrics,
-        model: model,
-        frozenPillars: BhiPillarFrozenSnapshot.freeze(model, moment: frozenAt),
+  }) {
+    final snapshot = DiagnosticBhiSnapshot(
+      metrics: metrics,
+      model: model,
+      frozenPillars: BhiPillarFrozenSnapshot.freeze(model, moment: frozenAt),
+    );
+    snapshot.ensurePillarBoundCoherence();
+    return snapshot;
+  }
+
+  void ensurePillarBoundCoherence() {
+    if (!isPillarBoundCoherent) {
+      throw StateError(
+        'DiagnosticBhiSnapshot pillar-bound mismatch: '
+        'stored=${frozenPillars.bcScore} recomputed=${pillarEvaluation.recomputedBcScore}',
       );
+    }
+  }
 
   factory DiagnosticBhiSnapshot.fromJson(Map<String, dynamic> json) {
     final DiagnosticBhiSnapshot snapshot;
@@ -75,22 +88,24 @@ class DiagnosticBhiSnapshot {
     return snapshot._withCoherentFrozenPillars();
   }
 
-  /// Re-derives [bcScore] from frozen pillar boundaries after deserialization.
+  /// Re-derives [bcScore] from [PillarBoundEvaluation] after deserialization.
   DiagnosticBhiSnapshot _withCoherentFrozenPillars() {
-    final f = frozenPillars;
+    final evaluation = PillarBoundEvaluation.fromFrozen(frozenPillars);
     final coherent = BhiPillarFrozenSnapshot(
-      brainPerformance: f.brainPerformance,
-      digitalDiscipline: f.digitalDiscipline,
-      healthyHabits: f.healthyHabits,
-      consistency: f.consistency,
-      bcScore: f.recomputedBcScore,
-      frozenAt: f.frozenAt,
+      brainPerformance: evaluation.brainPerformance,
+      digitalDiscipline: evaluation.digitalDiscipline,
+      healthyHabits: evaluation.healthyHabits,
+      consistency: evaluation.consistency,
+      bcScore: evaluation.recomputedBcScore,
+      frozenAt: frozenPillars.frozenAt,
     );
-    return DiagnosticBhiSnapshot(
+    final snapshot = DiagnosticBhiSnapshot(
       metrics: metrics,
       model: model,
       frozenPillars: coherent,
     );
+    snapshot.ensurePillarBoundCoherence();
+    return snapshot;
   }
 
   Map<String, dynamic> toJson() => _$DiagnosticBhiSnapshotToJson(this);
