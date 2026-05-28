@@ -1,37 +1,61 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'bhi_pillar_frozen_snapshot.dart';
 import 'diagnostic_metrics.dart';
 import 'diagnostic_metrics_mapper.dart';
 import 'diagnostic_model.dart';
 
 part 'diagnostic_bhi_snapshot.g.dart';
 
-/// Slider inputs mapped to the centralized [DiagnosticModel] BHI pillars.
+/// Slider inputs, live model, and frozen pillar snapshot for a diagnostic session.
 @JsonSerializable(explicitToJson: true)
 class DiagnosticBhiSnapshot {
   const DiagnosticBhiSnapshot({
     required this.metrics,
     required this.model,
+    required this.frozenPillars,
   });
 
   /// Six-point slider source (1–10 per axis).
   final DiagnosticMetrics metrics;
 
-  /// Committed BHI pillar values (may include live detox weighting at submit).
+  /// Full BHI model at compose/commit time (habits + pillars).
   final DiagnosticModel model;
 
-  /// Pure mapper output from [metrics] — used to verify coherence at commit.
+  /// Frozen four pillars + BC_score at save (immutable historical record).
+  @JsonKey(name: 'frozen_pillars')
+  final BhiPillarFrozenSnapshot frozenPillars;
+
+  /// Pure mapper output from [metrics] — coherence check at commit.
   DiagnosticModel get mappedFromMetrics =>
       DiagnosticMetricsMapper.fromMetrics(metrics);
+
+  double get frozenBcScore => frozenPillars.bcScore;
 
   factory DiagnosticBhiSnapshot.compose({
     required DiagnosticMetrics metrics,
     required DiagnosticModel model,
+    DateTime? frozenAt,
   }) =>
-      DiagnosticBhiSnapshot(metrics: metrics, model: model);
+      DiagnosticBhiSnapshot(
+        metrics: metrics,
+        model: model,
+        frozenPillars: BhiPillarFrozenSnapshot.freeze(model, moment: frozenAt),
+      );
 
-  factory DiagnosticBhiSnapshot.fromJson(Map<String, dynamic> json) =>
-      _$DiagnosticBhiSnapshotFromJson(json);
+  factory DiagnosticBhiSnapshot.fromJson(Map<String, dynamic> json) {
+    if (json['frozen_pillars'] != null) {
+      return _$DiagnosticBhiSnapshotFromJson(json);
+    }
+    final model = DiagnosticModel.fromJson(json['model'] as Map<String, dynamic>);
+    return DiagnosticBhiSnapshot(
+      metrics: DiagnosticMetrics.fromJson(
+        json['metrics'] as Map<String, dynamic>,
+      ),
+      model: model,
+      frozenPillars: BhiPillarFrozenSnapshot.freeze(model),
+    );
+  }
 
   Map<String, dynamic> toJson() => _$DiagnosticBhiSnapshotToJson(this);
 }

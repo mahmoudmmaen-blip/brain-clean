@@ -43,6 +43,36 @@ extension AppThemeContext on BuildContext {
     );
   }
 
+  /// Diagnostic question card — elevated surface with brand border.
+  BoxDecoration get diagnosticQuestionCardDecoration {
+    final scheme = Theme.of(this).colorScheme;
+    return BoxDecoration(
+      color: scheme.surfaceContainerHighest.withValues(
+        alpha: isLightTheme ? 0.55 : 0.35,
+      ),
+      borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
+      border: Border.all(
+        color: isLightTheme
+            ? AppDesignConstants.lightBorder
+            : AppDesignConstants.darkBorder,
+        width: 1,
+      ),
+      boxShadow: isLightTheme
+          ? [
+              BoxShadow(
+                color: AppDesignConstants.brandGreen.withValues(alpha: 0.06),
+                blurRadius: 12,
+                offset: const Offset(0, 4),
+              ),
+            ]
+          : null,
+    );
+  }
+
+  Color get diagnosticProgressTrack => surfaceMuted;
+
+  Color get diagnosticAccentGold => AppDesignConstants.accentGold;
+
   /// Progress / step labels above questions.
   TextStyle get arabicLabelStyle {
     return AppDesignConstants.cairo(

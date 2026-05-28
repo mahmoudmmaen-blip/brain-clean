@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/bc_score_constants.dart';
 import '../../../../core/l10n/app_localizations.dart';
-import '../../../../core/theme/app_theme.dart';
+import '../../../../core/theme/app_design_constants.dart';
+import '../../../../core/theme/theme_extensions.dart';
 import '../../domain/diagnostic_model.dart';
 import 'bc_score_colors.dart';
 
@@ -20,7 +21,11 @@ class BcScoreBreakdown extends StatelessWidget {
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final bcScore = model.bcScore;
-    final pillars = <({String label, double Function(DiagnosticModel m) value, double weight})>[
+    final pillars = <({
+      String label,
+      double Function(DiagnosticModel m) value,
+      double weight
+    })>[
       (
         label: loc.bcScorePillarBrainPerformance,
         value: _brainPerformance,
@@ -44,6 +49,11 @@ class BcScoreBreakdown extends StatelessWidget {
     ];
 
     return Card(
+      elevation: context.isLightTheme ? 2 : 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
+        side: BorderSide(color: context.borderMuted),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(14),
         child: Column(
@@ -52,10 +62,11 @@ class BcScoreBreakdown extends StatelessWidget {
             Text(
               loc.bcScoreBreakdownTitle,
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: AppDesignConstants.cairo(
                 fontSize: 11,
                 fontWeight: FontWeight.w700,
-                color: Colors.white54,
+                color: context.textMuted,
+                height: 1.3,
               ),
             ),
             const SizedBox(height: 10),
@@ -65,7 +76,7 @@ class BcScoreBreakdown extends StatelessWidget {
                 pillarScore: pillar.value(model),
                 weight: pillar.weight,
               ),
-            const Divider(height: 20, color: AppTheme.border),
+            Divider(height: 20, color: context.borderMuted),
             _SummaryRow(
               label: loc.bcScoreLabel,
               value: '${bcScore.round()}%',
@@ -92,6 +103,7 @@ class _PillarRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final contribution = pillarScore * weight;
+    final gold = context.diagnosticAccentGold;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Column(
@@ -103,18 +115,21 @@ class _PillarRow extends StatelessWidget {
               Flexible(
                 child: Text(
                   label,
-                  style: TextStyle(
+                  style: AppDesignConstants.cairo(
                     fontSize: 12,
-                    color: Colors.white.withValues(alpha: 0.65),
+                    fontWeight: FontWeight.w500,
+                    color: context.textMuted,
+                    height: 1.35,
                   ),
                 ),
               ),
               Text(
                 '${pillarScore.round()}% → +${contribution.toStringAsFixed(1)}',
-                style: const TextStyle(
+                style: AppDesignConstants.cairo(
                   fontSize: 13,
                   fontWeight: FontWeight.w700,
-                  color: AppTheme.gold,
+                  color: gold,
+                  height: 1.2,
                 ),
               ),
             ],
@@ -125,8 +140,8 @@ class _PillarRow extends StatelessWidget {
             child: LinearProgressIndicator(
               value: pillarScore / 100,
               minHeight: 4,
-              backgroundColor: Colors.white.withValues(alpha: 0.08),
-              color: AppTheme.gold.withValues(alpha: 0.85),
+              backgroundColor: context.diagnosticProgressTrack,
+              color: gold.withValues(alpha: 0.9),
             ),
           ),
         ],
@@ -156,18 +171,21 @@ class _SummaryRow extends StatelessWidget {
           Flexible(
             child: Text(
               label,
-              style: TextStyle(
+              style: AppDesignConstants.cairo(
                 fontSize: 12,
-                color: Colors.white.withValues(alpha: 0.65),
+                fontWeight: FontWeight.w500,
+                color: context.textMuted,
+                height: 1.35,
               ),
             ),
           ),
           Text(
             value,
-            style: TextStyle(
+            style: AppDesignConstants.cairo(
               fontSize: 15,
               fontWeight: FontWeight.w800,
               color: color,
+              height: 1.2,
             ),
           ),
         ],

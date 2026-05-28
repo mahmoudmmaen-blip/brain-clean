@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'bhi_pillar_frozen_snapshot.dart';
 import 'brain_rot_assessment.dart';
 import 'brain_rot_questionnaire_snapshot.dart';
 import 'diagnostic_bhi_snapshot.dart';
@@ -35,7 +36,19 @@ class DiagnosticSession {
   /// Slider input metrics (alias).
   DiagnosticMetrics get metrics => bhi.metrics;
 
-  double get bcScore => model.calculateBcScore();
+  /// Pillar values frozen at session save (committed sessions are authoritative).
+  BhiPillarFrozenSnapshot get frozenPillars => bhi.frozenPillars;
+
+  double get frozenBrainPerformance => frozenPillars.brainPerformance;
+
+  double get frozenDigitalDiscipline => frozenPillars.digitalDiscipline;
+
+  double get frozenHealthyHabits => frozenPillars.healthyHabits;
+
+  double get frozenConsistency => frozenPillars.consistency;
+
+  double get bcScore =>
+      isCommitted ? frozenPillars.bcScore : model.calculateBcScore();
 
   int get bcScoreRounded => bcScore.round();
 
@@ -92,7 +105,11 @@ class DiagnosticSession {
         );
 
     return DiagnosticSession(
-      bhi: DiagnosticBhiSnapshot.compose(metrics: metrics, model: model),
+      bhi: DiagnosticBhiSnapshot.compose(
+        metrics: metrics,
+        model: model,
+        frozenAt: committed,
+      ),
       committedAt: committed,
       brainRotAssessment: BrainRotAssessment.fromInterpretation(
         interpretation: brainRot,
@@ -110,18 +127,23 @@ class DiagnosticSession {
 
   /// Lossless snake_case payload for [DiagnosticRepository].
   Map<String, dynamic> toRepositoryPayload() {
-    final m = model;
     final input = metrics;
     final assessment = brainRotAssessment;
     final q = questionnaire;
 
+    final frozen = frozenPillars;
+
     return {
       'bc_score': bcScore,
       'committed_at': committedAt.toUtc().toIso8601String(),
-      'brain_performance': m.brainPerformance,
-      'digital_discipline': m.digitalDiscipline,
-      'healthy_habits': m.healthyHabits,
-      'consistency': m.consistency,
+      'brain_performance': frozen.brainPerformance,
+      'digital_discipline': frozen.digitalDiscipline,
+      'healthy_habits': frozen.healthyHabits,
+      'consistency': frozen.consistency,
+      'bhi_frozen_at': frozen.frozenAt.toUtc().toIso8601String(),
+      'bhi_frozen_bc_score': frozen.bcScore,
+      'bhi_frozen_snapshot': frozen.toJson(),
+      'questionnaire_json': q.toJson(),
       'mapped_brain_performance': bhi.mappedFromMetrics.brainPerformance,
       'mapped_digital_discipline': bhi.mappedFromMetrics.digitalDiscipline,
       'mapped_healthy_habits': bhi.mappedFromMetrics.healthyHabits,

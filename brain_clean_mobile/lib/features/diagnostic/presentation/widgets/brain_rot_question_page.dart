@@ -48,7 +48,7 @@ class BrainRotQuestionPage extends StatelessWidget {
             builder: (context, value, _) => LinearProgressIndicator(
               value: value,
               minHeight: 8,
-              backgroundColor: context.surfaceMuted,
+              backgroundColor: context.diagnosticProgressTrack,
               color: context.brandPrimary,
               borderRadius: BorderRadius.circular(6),
             ),
@@ -82,8 +82,10 @@ class BrainRotQuestionPage extends StatelessWidget {
             },
             child: SingleChildScrollView(
               key: ValueKey<int>(questionIndex),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+                decoration: context.diagnosticQuestionCardDecoration,
                 child: Text(
                   questionText,
                   textAlign: TextAlign.center,
@@ -165,11 +167,11 @@ class _AnswerButtonState extends State<_AnswerButton>
     super.initState();
     _pulseController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 120),
-      lowerBound: 0.96,
+      duration: const Duration(milliseconds: 90),
+      lowerBound: 0.94,
       upperBound: 1,
     );
-    _pulse = _pulseController.drive(Tween<double>(begin: 1, end: 0.96));
+    _pulse = _pulseController.drive(Tween<double>(begin: 1, end: 0.94));
   }
 
   @override
@@ -179,6 +181,7 @@ class _AnswerButtonState extends State<_AnswerButton>
   }
 
   Future<void> _onTap() async {
+    HapticFeedback.selectionClick();
     setState(() => _pressed = true);
     await _pulseController.reverse(from: 1);
     widget.onPressed();

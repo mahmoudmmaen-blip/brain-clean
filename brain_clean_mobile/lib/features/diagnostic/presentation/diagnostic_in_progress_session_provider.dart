@@ -1,7 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../domain/diagnostic_metrics.dart';
-import '../domain/diagnostic_model.dart';
 import '../domain/diagnostic_session.dart';
 import 'bc_score_provider.dart';
 import 'diagnostic_controller.dart';

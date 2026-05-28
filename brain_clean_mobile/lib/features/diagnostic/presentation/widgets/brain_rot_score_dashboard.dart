@@ -26,7 +26,7 @@ class BrainRotScoreDashboard extends StatelessWidget {
     final isLight = context.isLightTheme;
     final bandColor = BrainRotColors.forBand(interpretation.band);
     final range = interpretation.band.scoreRange;
-    final clinicalText = BrainRotTest.interpretScore(interpretation.score);
+    final clinicalText = interpretation.interpretationAr;
 
     return ListView(
       padding: const EdgeInsets.symmetric(vertical: 8),
@@ -103,6 +103,14 @@ class BrainRotScoreDashboard extends StatelessWidget {
         const SizedBox(height: 16),
         Card(
           elevation: isLight ? 1 : 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
+            side: BorderSide(
+              color: isLight
+                  ? AppDesignConstants.lightBorder
+                  : AppDesignConstants.darkBorder,
+            ),
+          ),
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
@@ -131,6 +139,16 @@ class BrainRotScoreDashboard extends StatelessWidget {
         ),
         const SizedBox(height: 28),
         FilledButton(
+          style: FilledButton.styleFrom(
+            minimumSize: const Size.fromHeight(
+              AppDesignConstants.minTouchTarget + 4,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                AppDesignConstants.radiusButton,
+              ),
+            ),
+          ),
           onPressed: onContinue,
           child: Text(loc.diagnosticContinueToBhi),
         ),

@@ -310,6 +310,11 @@ void main() {
       expect(restored.brainRotAnswers, hasLength(10));
       expect(restored.bhi.metrics.sleepQuality, 7);
       expect(restored.questionnaire.phase, BrainRotFlowPhase.bhiSliders);
+      expect(restored.frozenBrainPerformance, 72);
+      expect(restored.frozenDigitalDiscipline, 68);
+      expect(restored.frozenHealthyHabits, 70);
+      expect(restored.frozenConsistency, 60);
+      expect(restored.frozenPillars.bcScore, session.frozenPillars.bcScore);
 
       final payload = session.toRepositoryPayload();
       expect(payload['brain_rot_score'], 2);
@@ -318,6 +323,36 @@ void main() {
       expect(payload['brain_rot_answers'], isA<List<dynamic>>());
       expect(payload['mapped_brain_performance'], isA<double>());
       expect(payload['questionnaire_phase'], 'bhiSliders');
+      expect(payload['bhi_frozen_snapshot'], isA<Map<String, dynamic>>());
+      expect(payload['questionnaire_json'], isA<Map<String, dynamic>>());
+      expect(payload['brain_performance'], 72);
+    });
+
+    test('frozen pillars remain stable after model mutation post-commit', () {
+      const model = DiagnosticModel(
+        brainPerformance: 80,
+        digitalDiscipline: 75,
+        healthyHabits: 70,
+        consistency: 65,
+      );
+      const metrics = DiagnosticMetrics();
+      final session = DiagnosticSession.fromAssessment(
+        model: model,
+        metrics: metrics,
+        brainRot: DiagnosticModel.evaluateBrainRot(
+          List<bool>.filled(10, false),
+        ),
+        brainRotAnswers: List<bool>.filled(10, false),
+      );
+
+      final mutatedJson = session.toJson();
+      final modelMap = mutatedJson['bhi'] as Map<String, dynamic>;
+      final innerModel = modelMap['model'] as Map<String, dynamic>;
+      innerModel['brainPerformance'] = 10.0;
+
+      final restored = DiagnosticSession.fromJson(mutatedJson);
+      expect(restored.frozenBrainPerformance, 80);
+      expect(restored.model.brainPerformance, 10);
     });
   });
 }

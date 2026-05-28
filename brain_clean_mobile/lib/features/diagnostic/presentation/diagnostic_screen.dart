@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/l10n/app_localizations.dart';
+import '../../../core/theme/app_design_constants.dart';
 import '../../../core/theme/theme_extensions.dart';
 import '../domain/brain_rot_questionnaire_snapshot.dart';
 import '../domain/diagnostic_model.dart';
@@ -33,6 +34,9 @@ class DiagnosticScreen extends ConsumerWidget {
     final result = questionnaire.interpretation;
 
     return Scaffold(
+      backgroundColor: context.isLightTheme
+          ? AppDesignConstants.lightBackground
+          : AppDesignConstants.darkBackground,
       appBar: AppBar(
         title: Text(
           phase == BrainRotFlowPhase.bhiSliders
@@ -115,7 +119,10 @@ class DiagnosticScreen extends ConsumerWidget {
         final index = questionnaire.currentIndex;
         return Padding(
           key: key,
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppDesignConstants.radiusCard + 6,
+            vertical: 16,
+          ),
           child: Column(
             children: [
               BrainRotStepIndicator(
@@ -147,7 +154,7 @@ class DiagnosticScreen extends ConsumerWidget {
         }
         return Padding(
           key: key,
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(AppDesignConstants.radiusCard + 2),
           child: BrainRotScoreDashboard(
             interpretation: result,
             onContinue: flowNotifier.continueToBhiSliders,
@@ -157,10 +164,10 @@ class DiagnosticScreen extends ConsumerWidget {
       case BrainRotFlowPhase.bhiSliders:
         return ListView(
           key: key,
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(AppDesignConstants.radiusCard + 2),
           children: [
             BcScoreHeroCard(
-              score: bhiLive.bcScore,
+              score: session.bcScore,
               subtitle: loc.diagnosticLiveSubtitle,
             ),
             BcScoreBreakdown(model: bhiLive),
@@ -209,6 +216,16 @@ class DiagnosticScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 24),
             FilledButton(
+              style: FilledButton.styleFrom(
+                minimumSize: const Size.fromHeight(
+                  AppDesignConstants.minTouchTarget + 4,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                    AppDesignConstants.radiusButton,
+                  ),
+                ),
+              ),
               onPressed: asyncMetricsLoading ? null : controller.submitDiagnostic,
               child: asyncMetricsLoading
                   ? SizedBox(
