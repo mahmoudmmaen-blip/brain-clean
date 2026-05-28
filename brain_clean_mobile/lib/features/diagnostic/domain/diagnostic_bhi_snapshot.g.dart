@@ -13,7 +13,7 @@ DiagnosticBhiSnapshot _$DiagnosticBhiSnapshotFromJson(
           DiagnosticMetrics.fromJson(json['metrics'] as Map<String, dynamic>),
       model: DiagnosticModel.fromJson(json['model'] as Map<String, dynamic>),
       frozenPillars: BhiPillarFrozenSnapshot.fromJson(
-          json['frozen_pillars'] as Map<String, dynamic>),
+          json['frozenPillars'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$DiagnosticBhiSnapshotToJson(
@@ -21,5 +21,5 @@ Map<String, dynamic> _$DiagnosticBhiSnapshotToJson(
     <String, dynamic>{
       'metrics': instance.metrics.toJson(),
       'model': instance.model.toJson(),
-      'frozen_pillars': instance.frozenPillars.toJson(),
+      'frozenPillars': instance.frozenPillars.toJson(),
     };

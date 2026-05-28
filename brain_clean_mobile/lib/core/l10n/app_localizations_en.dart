@@ -88,6 +88,15 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get bcScorePenaltyEquationTitle => 'ACCOUNTABILITY ADJUSTMENT';
+
+  @override
+  String get bcScoreBaseBhiLabel => 'Base BHI score';
+
+  @override
+  String get bcScoreFinalBcScoreLabel => 'Final BC_score';
+
+  @override
   String get detoxTitle => '7-Day Dopamine Detox';
 
   @override

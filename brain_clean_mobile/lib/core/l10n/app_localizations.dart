@@ -242,6 +242,24 @@ abstract class AppLocalizations {
   /// **'Recovery accountability (−{deduction})'**
   String bcScoreRecoveryPenaltyAdjustment(int deduction);
 
+  /// No description provided for @bcScorePenaltyEquationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'ACCOUNTABILITY ADJUSTMENT'**
+  String get bcScorePenaltyEquationTitle;
+
+  /// No description provided for @bcScoreBaseBhiLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Base BHI score'**
+  String get bcScoreBaseBhiLabel;
+
+  /// No description provided for @bcScoreFinalBcScoreLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Final BC_score'**
+  String get bcScoreFinalBcScoreLabel;
+
   /// No description provided for @detoxTitle.
   ///
   /// In en, this message translates to:

@@ -9,24 +9,24 @@ part of 'bhi_pillar_frozen_snapshot.dart';
 BhiPillarFrozenSnapshot _$BhiPillarFrozenSnapshotFromJson(
         Map<String, dynamic> json) =>
     BhiPillarFrozenSnapshot(
-      brainPerformance: (json['brain_performance'] as num).toDouble(),
-      digitalDiscipline: (json['digital_discipline'] as num).toDouble(),
-      healthyHabits: (json['healthy_habits'] as num).toDouble(),
+      brainPerformance: (json['brainPerformance'] as num).toDouble(),
+      digitalDiscipline: (json['digitalDiscipline'] as num).toDouble(),
+      healthyHabits: (json['healthyHabits'] as num).toDouble(),
       consistency: (json['consistency'] as num).toDouble(),
-      bcScore: (json['bc_score'] as num).toDouble(),
-      frozenAt: DateTime.parse(json['frozen_at'] as String),
+      bcScore: (json['bcScore'] as num).toDouble(),
+      frozenAt: DateTime.parse(json['frozenAt'] as String),
       recoveryPenaltyDeduction:
-          (json['recovery_penalty_deduction'] as num?)?.toDouble() ?? 0,
+          (json['recoveryPenaltyDeduction'] as num?)?.toDouble() ?? 0,
     );
 
 Map<String, dynamic> _$BhiPillarFrozenSnapshotToJson(
         BhiPillarFrozenSnapshot instance) =>
     <String, dynamic>{
-      'brain_performance': instance.brainPerformance,
-      'digital_discipline': instance.digitalDiscipline,
-      'healthy_habits': instance.healthyHabits,
+      'brainPerformance': instance.brainPerformance,
+      'digitalDiscipline': instance.digitalDiscipline,
+      'healthyHabits': instance.healthyHabits,
       'consistency': instance.consistency,
-      'bc_score': instance.bcScore,
-      'frozen_at': instance.frozenAt.toIso8601String(),
-      'recovery_penalty_deduction': instance.recoveryPenaltyDeduction,
+      'bcScore': instance.bcScore,
+      'frozenAt': instance.frozenAt.toIso8601String(),
+      'recoveryPenaltyDeduction': instance.recoveryPenaltyDeduction,
     };

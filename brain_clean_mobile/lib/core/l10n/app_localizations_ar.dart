@@ -88,6 +88,15 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get bcScorePenaltyEquationTitle => 'تعديل المساءلة';
+
+  @override
+  String get bcScoreBaseBhiLabel => 'درجة BHI الأساسية';
+
+  @override
+  String get bcScoreFinalBcScoreLabel => 'BC_score النهائي';
+
+  @override
   String get detoxTitle => 'بروتوكول الدوبامين (7 أيام)';
 
   @override
