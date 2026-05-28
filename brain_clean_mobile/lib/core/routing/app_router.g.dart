@@ -8,7 +8,7 @@ part of 'app_router.dart';
 
 String _$goRouterHash() => r'a0ab5bf00170dd3a2da94e5ff247766ac08ddc57';
 
-/// App shell — splash hydrates Hive first, then home or in-progress diagnostic.
+/// App shell — splash hydrates Hive first, then home or live diagnostic draft resume.
 ///
 /// Copied from [goRouter].
 @ProviderFor(goRouter)
