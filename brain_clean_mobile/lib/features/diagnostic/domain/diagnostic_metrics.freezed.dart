@@ -20,11 +20,17 @@ DiagnosticMetrics _$DiagnosticMetricsFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$DiagnosticMetrics {
+  @JsonKey(name: BhiPillarJsonKeys.sleepQuality)
   int get sleepQuality => throw _privateConstructorUsedError;
+  @JsonKey(name: BhiPillarJsonKeys.sustainedAttention)
   int get sustainedAttention => throw _privateConstructorUsedError;
+  @JsonKey(name: BhiPillarJsonKeys.fragmentation)
   int get fragmentation => throw _privateConstructorUsedError;
+  @JsonKey(name: BhiPillarJsonKeys.dopamineSeeking)
   int get dopamineSeeking => throw _privateConstructorUsedError;
+  @JsonKey(name: BhiPillarJsonKeys.taskSwitching)
   int get taskSwitching => throw _privateConstructorUsedError;
+  @JsonKey(name: BhiPillarJsonKeys.burnout)
   int get burnout => throw _privateConstructorUsedError;
 
   /// Serializes this DiagnosticMetrics to a JSON map.
@@ -44,12 +50,13 @@ abstract class $DiagnosticMetricsCopyWith<$Res> {
       _$DiagnosticMetricsCopyWithImpl<$Res, DiagnosticMetrics>;
   @useResult
   $Res call(
-      {int sleepQuality,
+      {@JsonKey(name: BhiPillarJsonKeys.sleepQuality) int sleepQuality,
+      @JsonKey(name: BhiPillarJsonKeys.sustainedAttention)
       int sustainedAttention,
-      int fragmentation,
-      int dopamineSeeking,
-      int taskSwitching,
-      int burnout});
+      @JsonKey(name: BhiPillarJsonKeys.fragmentation) int fragmentation,
+      @JsonKey(name: BhiPillarJsonKeys.dopamineSeeking) int dopamineSeeking,
+      @JsonKey(name: BhiPillarJsonKeys.taskSwitching) int taskSwitching,
+      @JsonKey(name: BhiPillarJsonKeys.burnout) int burnout});
 }
 
 /// @nodoc
@@ -112,12 +119,13 @@ abstract class _$$DiagnosticMetricsImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int sleepQuality,
+      {@JsonKey(name: BhiPillarJsonKeys.sleepQuality) int sleepQuality,
+      @JsonKey(name: BhiPillarJsonKeys.sustainedAttention)
       int sustainedAttention,
-      int fragmentation,
-      int dopamineSeeking,
-      int taskSwitching,
-      int burnout});
+      @JsonKey(name: BhiPillarJsonKeys.fragmentation) int fragmentation,
+      @JsonKey(name: BhiPillarJsonKeys.dopamineSeeking) int dopamineSeeking,
+      @JsonKey(name: BhiPillarJsonKeys.taskSwitching) int taskSwitching,
+      @JsonKey(name: BhiPillarJsonKeys.burnout) int burnout});
 }
 
 /// @nodoc
@@ -173,33 +181,35 @@ class __$$DiagnosticMetricsImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$DiagnosticMetricsImpl implements _DiagnosticMetrics {
   const _$DiagnosticMetricsImpl(
-      {this.sleepQuality = 5,
+      {@JsonKey(name: BhiPillarJsonKeys.sleepQuality) this.sleepQuality = 5,
+      @JsonKey(name: BhiPillarJsonKeys.sustainedAttention)
       this.sustainedAttention = 5,
-      this.fragmentation = 5,
+      @JsonKey(name: BhiPillarJsonKeys.fragmentation) this.fragmentation = 5,
+      @JsonKey(name: BhiPillarJsonKeys.dopamineSeeking)
       this.dopamineSeeking = 5,
-      this.taskSwitching = 5,
-      this.burnout = 5});
+      @JsonKey(name: BhiPillarJsonKeys.taskSwitching) this.taskSwitching = 5,
+      @JsonKey(name: BhiPillarJsonKeys.burnout) this.burnout = 5});
 
   factory _$DiagnosticMetricsImpl.fromJson(Map<String, dynamic> json) =>
       _$$DiagnosticMetricsImplFromJson(json);
 
   @override
-  @JsonKey()
+  @JsonKey(name: BhiPillarJsonKeys.sleepQuality)
   final int sleepQuality;
   @override
-  @JsonKey()
+  @JsonKey(name: BhiPillarJsonKeys.sustainedAttention)
   final int sustainedAttention;
   @override
-  @JsonKey()
+  @JsonKey(name: BhiPillarJsonKeys.fragmentation)
   final int fragmentation;
   @override
-  @JsonKey()
+  @JsonKey(name: BhiPillarJsonKeys.dopamineSeeking)
   final int dopamineSeeking;
   @override
-  @JsonKey()
+  @JsonKey(name: BhiPillarJsonKeys.taskSwitching)
   final int taskSwitching;
   @override
-  @JsonKey()
+  @JsonKey(name: BhiPillarJsonKeys.burnout)
   final int burnout;
 
   @override
@@ -249,27 +259,36 @@ class _$DiagnosticMetricsImpl implements _DiagnosticMetrics {
 
 abstract class _DiagnosticMetrics implements DiagnosticMetrics {
   const factory _DiagnosticMetrics(
-      {final int sleepQuality,
+      {@JsonKey(name: BhiPillarJsonKeys.sleepQuality) final int sleepQuality,
+      @JsonKey(name: BhiPillarJsonKeys.sustainedAttention)
       final int sustainedAttention,
-      final int fragmentation,
+      @JsonKey(name: BhiPillarJsonKeys.fragmentation) final int fragmentation,
+      @JsonKey(name: BhiPillarJsonKeys.dopamineSeeking)
       final int dopamineSeeking,
-      final int taskSwitching,
+      @JsonKey(name: BhiPillarJsonKeys.taskSwitching) final int taskSwitching,
+      @JsonKey(name: BhiPillarJsonKeys.burnout)
       final int burnout}) = _$DiagnosticMetricsImpl;
 
   factory _DiagnosticMetrics.fromJson(Map<String, dynamic> json) =
       _$DiagnosticMetricsImpl.fromJson;
 
   @override
+  @JsonKey(name: BhiPillarJsonKeys.sleepQuality)
   int get sleepQuality;
   @override
+  @JsonKey(name: BhiPillarJsonKeys.sustainedAttention)
   int get sustainedAttention;
   @override
+  @JsonKey(name: BhiPillarJsonKeys.fragmentation)
   int get fragmentation;
   @override
+  @JsonKey(name: BhiPillarJsonKeys.dopamineSeeking)
   int get dopamineSeeking;
   @override
+  @JsonKey(name: BhiPillarJsonKeys.taskSwitching)
   int get taskSwitching;
   @override
+  @JsonKey(name: BhiPillarJsonKeys.burnout)
   int get burnout;
 
   /// Create a copy of DiagnosticMetrics
