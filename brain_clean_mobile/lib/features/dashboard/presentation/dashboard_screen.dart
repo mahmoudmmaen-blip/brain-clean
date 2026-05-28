@@ -7,14 +7,21 @@ import '../../../core/l10n/app_localizations.dart';
 import '../../diagnostic/presentation/bc_score_provider.dart';
 import '../../diagnostic/presentation/widgets/bc_score_breakdown.dart';
 import '../../diagnostic/presentation/widgets/bc_score_hero_card.dart';
+import '../../diagnostic/presentation/widgets/brain_rot_colors.dart';
 
 /// Stable widget-test anchor for the detox check-in [ListTile].
 const dashboardDetoxCheckInTileKey = Key('dashboard_detox_check_in_tile');
+const dashboardRecoveryGridTileKey = Key('dashboard_recovery_grid_tile');
 
 /// Pushes the 7-day detox check-in screen onto the navigation stack.
 void _navigateToDetoxCheckIn(BuildContext context) {
   if (!context.mounted) return;
   context.push(AppRoutes.detox);
+}
+
+void _navigateToRecoveryGrid(BuildContext context) {
+  if (!context.mounted) return;
+  context.push(AppRoutes.recovery);
 }
 
 /// Replaces the stack with the diagnostic flow entry screen.
@@ -46,6 +53,21 @@ class DashboardScreen extends ConsumerWidget {
                 subtitle: loc.dashboardCommittedAt(committedAt!),
               ),
               BcScoreBreakdown(model: session.model),
+              if (session.brainRot != null) ...[
+                const SizedBox(height: 12),
+                Card(
+                  child: ListTile(
+                    title: Text(
+                      loc.dashboardBrainRotSummary(session.brainRot!.score),
+                    ),
+                    subtitle: Text(session.brainRot!.interpretationAr),
+                    leading: Icon(
+                      Icons.psychology_outlined,
+                      color: BrainRotColors.forBand(session.brainRot!.band),
+                    ),
+                  ),
+                ),
+              ],
             ] else
               Card(
                 child: Padding(
@@ -66,6 +88,17 @@ class DashboardScreen extends ConsumerWidget {
                 subtitle: Text(loc.dashboardOpenDetoxCheckInSubtitle),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () => _navigateToDetoxCheckIn(context),
+              ),
+            ),
+            const SizedBox(height: 12),
+            Card(
+              clipBehavior: Clip.antiAlias,
+              child: ListTile(
+                key: dashboardRecoveryGridTileKey,
+                title: Text(loc.dashboardOpenRecoveryGrid),
+                subtitle: Text(loc.dashboardOpenRecoveryGridSubtitle),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => _navigateToRecoveryGrid(context),
               ),
             ),
             const SizedBox(height: 12),

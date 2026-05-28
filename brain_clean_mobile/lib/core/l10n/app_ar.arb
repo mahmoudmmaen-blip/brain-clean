@@ -60,6 +60,84 @@
   "detoxReset": "إعادة ضبط اليوم",
   "detoxRetry": "إعادة المحاولة",
   "detoxSyncing": "جارٍ المزامنة…",
-  "detoxSyncError": "تعذرت المزامنة. تم حفظ تسجيلك محليًا."
+  "detoxSyncError": "تعذرت المزامنة. تم حفظ تسجيلك محليًا.",
+  "diagnosticBrainRotTitle": "اختبار تعفن الدماغ",
+  "diagnosticBhiTitle": "تقييم BHI (6 نقاط)",
+  "diagnosticYes": "نعم",
+  "diagnosticNo": "لا",
+  "diagnosticPreviousQuestion": "السؤال السابق",
+  "diagnosticBrainRotProgress": "السؤال {current} من {total}",
+  "@diagnosticBrainRotProgress": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "diagnosticBrainRotScoreTitle": "نتيجة تعفن الدماغ",
+  "diagnosticBrainRotScoreOutOf": "من {max}",
+  "@diagnosticBrainRotScoreOutOf": {
+    "placeholders": { "max": { "type": "int" } }
+  },
+  "diagnosticBrainRotBandRange": "نطاق الشدة: {min}–{max}",
+  "@diagnosticBrainRotBandRange": {
+    "placeholders": {
+      "min": { "type": "int" },
+      "max": { "type": "int" }
+    }
+  },
+  "diagnosticBrainRotInterpretationTitle": "التفسير السريري",
+  "diagnosticContinueToBhi": "متابعة تقييم BHI",
+  "diagnosticReviewAnswers": "مراجعة إجاباتي",
+  "diagnosticBrainRotIncomplete": "أكمل الأسئلة العشرة أولاً.",
+  "diagnosticSyncError": "تعذر حفظ التشخيص. حاول مرة أخرى.",
+  "diagnosticBrainRotQ1": "أشعر أن ذاكرتي قصيرة المدى ضعفت (أنسى ما قيل لي مؤخراً).",
+  "diagnosticBrainRotQ2": "أواجه صعوبة في التركيز على مهمة واحدة لفترة كافية.",
+  "diagnosticBrainRotQ3": "يبدو لي أن تفكيري بطيء مقارنة بما كنت عليه من قبل.",
+  "diagnosticBrainRotQ4": "أصاب بحالة \"تشويش ذهني\" أو أجد صعوبة في تنظيم أفكاري.",
+  "diagnosticBrainRotQ5": "أشعر بتعب ذهني بعد فترات قصيرة من التفكير أو العمل الذهني.",
+  "diagnosticBrainRotQ6": "أجد صعوبة في العثور على الكلمات المناسبة عند التحدث أو الكتابة.",
+  "diagnosticBrainRotQ7": "أشعر بأنني \"مشتت\" أو أن أفكاري تقفز من فكرة لأخرى بسرعة.",
+  "diagnosticBrainRotQ8": "يصبح من الصعب علي اتخاذ قرارات بسيطة أو التخطيط لمهام.",
+  "diagnosticBrainRotQ9": "أجد نفسي أعمل ببطء أكثر من المعتاد، أو أحتاج إلى وقت أطول لإنجاز نفس المهام.",
+  "diagnosticBrainRotQ10": "هذه الأعراض تؤثر على حياتي اليومية (في العمل أو الدراسة أو العلاقات).",
+  "dashboardBrainRotSummary": "تعفن الدماغ: {score}/10",
+  "@dashboardBrainRotSummary": {
+    "placeholders": { "score": { "type": "int" } }
+  },
+  "dashboardOpenRecoveryGrid": "شبكة التعافي (30 يوماً)",
+  "dashboardOpenRecoveryGridSubtitle": "خمس عادات يومية · صندوق العقابات عند التقصير",
+  "recoveryGridTitle": "التعافي — 30 يوماً",
+  "recoveryGridSubtitle": "اختر يوماً لتسجيل العادات الخمس الإلزامية.",
+  "recoveryDayTasksTitle": "عادات اليوم {day}",
+  "@recoveryDayTasksTitle": {
+    "placeholders": { "day": { "type": "int" } }
+  },
+  "recoveryTaskBoredomTitle": "مُصاحبة الملل",
+  "recoveryTaskBoredomSubtitle": "10 دقائق صمت بدون شاشة",
+  "recoveryTaskDelayedTitle": "تأخير المكافأة",
+  "recoveryTaskDelayedSubtitle": "انتصار واحد مقصود على الأقل اليوم",
+  "recoveryTaskBodyTitle": "تنشيط الجسد",
+  "recoveryTaskBodySubtitle": "شمس الصباح + دش بارد",
+  "recoveryTaskDigitalTitle": "الانضباط الرقمي",
+  "recoveryTaskDigitalSubtitle": "إكمال فترة بدون تمرير عشوائي",
+  "recoveryTaskFocusTitle": "جلسة تركيز عميق",
+  "recoveryTaskFocusSubtitle": "بومودورو 25 دقيقة بدون تشتت",
+  "recoveryDayComplete": "اكتملت العادات الخمس لهذا اليوم.",
+  "recoveryMissedHabitsTitle": "تسجيل غير مكتمل",
+  "recoveryMissedHabitsSubtitle": "فاتتك بعض العادات. افتح صندوق العقابات لتسجيل المساءلة.",
+  "recoveryOpenPenaltyBox": "صندوق العقابات",
+  "recoveryDayEmptyHint": "ضع علامة على كل عادة عند إنجازها اليوم.",
+  "recoveryPenaltyCount": "عقوبات مسجّلة: {count}",
+  "@recoveryPenaltyCount": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "recoveryPenaltyBoxTitle": "صندوق العقابات",
+  "recoveryPenaltyBoxMessage": "التأكيد يسجّل خصم −{deduction} نقطة BC_score لمساءلة العادات الفائتة اليوم.",
+  "@recoveryPenaltyBoxMessage": {
+    "placeholders": { "deduction": { "type": "int" } }
+  },
+  "recoveryPenaltyConfirm": "تأكيد العقوبة",
+  "recoveryPenaltyCancel": "إلغاء",
+  "recoveryPenaltyApplied": "تم تسجيل العقوبة لهذا اليوم."
 }
 

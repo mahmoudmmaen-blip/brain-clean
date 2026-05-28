@@ -2,6 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../detox/domain/detox_habit_scorer.dart';
 import '../../detox/presentation/detox_protocol_controller.dart';
+import '../domain/diagnostic_metrics.dart';
 import '../domain/diagnostic_metrics_mapper.dart';
 import '../domain/diagnostic_model.dart';
 import '../domain/diagnostic_session.dart';
@@ -12,7 +13,8 @@ part 'bc_score_provider.g.dart';
 /// Recomputes BHI pillars whenever sliders or detox check-ins change.
 @riverpod
 DiagnosticModel bcScoreLive(BcScoreLiveRef ref) {
-  final metrics = ref.watch(diagnosticControllerProvider);
+  final metricsAsync = ref.watch(diagnosticControllerProvider);
+  final metrics = metricsAsync.value ?? const DiagnosticMetrics();
   final detox = ref.watch(detoxProtocolDataProvider);
   final base = DiagnosticMetricsMapper.fromMetrics(metrics);
 
@@ -30,10 +32,14 @@ class BcScoreSession extends _$BcScoreSession {
   @override
   DiagnosticSession? build() => null;
 
-  void commit(DiagnosticModel model) {
+  void commit(
+    DiagnosticModel model, {
+    BrainRotInterpretation? brainRot,
+  }) {
     state = DiagnosticSession(
       model: model,
       committedAt: DateTime.now(),
+      brainRot: brainRot,
     );
   }
 

@@ -60,6 +60,84 @@
   "detoxReset": "Reset today",
   "detoxRetry": "Retry",
   "detoxSyncing": "Syncing…",
-  "detoxSyncError": "Could not sync. Your check-in is saved locally."
+  "detoxSyncError": "Could not sync. Your check-in is saved locally.",
+  "diagnosticBrainRotTitle": "Brain Rot Test",
+  "diagnosticBhiTitle": "BHI 6-Point Assessment",
+  "diagnosticYes": "Yes",
+  "diagnosticNo": "No",
+  "diagnosticPreviousQuestion": "Previous question",
+  "diagnosticBrainRotProgress": "Question {current} of {total}",
+  "@diagnosticBrainRotProgress": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "diagnosticBrainRotScoreTitle": "Brain Rot Score",
+  "diagnosticBrainRotScoreOutOf": "out of {max}",
+  "@diagnosticBrainRotScoreOutOf": {
+    "placeholders": { "max": { "type": "int" } }
+  },
+  "diagnosticBrainRotBandRange": "Severity band: {min}–{max}",
+  "@diagnosticBrainRotBandRange": {
+    "placeholders": {
+      "min": { "type": "int" },
+      "max": { "type": "int" }
+    }
+  },
+  "diagnosticBrainRotInterpretationTitle": "Clinical interpretation",
+  "diagnosticContinueToBhi": "Continue to BHI assessment",
+  "diagnosticReviewAnswers": "Review my answers",
+  "diagnosticBrainRotIncomplete": "Complete all 10 questions first.",
+  "diagnosticSyncError": "Could not save your diagnostic. Please try again.",
+  "diagnosticBrainRotQ1": "I feel my short-term memory has weakened (I forget what was said to me recently).",
+  "diagnosticBrainRotQ2": "I have difficulty focusing on one task for long enough.",
+  "diagnosticBrainRotQ3": "My thinking feels slower compared to before.",
+  "diagnosticBrainRotQ4": "I experience \"brain fog\" or have trouble organizing my thoughts.",
+  "diagnosticBrainRotQ5": "I feel mental fatigue after short periods of thinking or mental work.",
+  "diagnosticBrainRotQ6": "I have trouble finding the right words when speaking or writing.",
+  "diagnosticBrainRotQ7": "I feel scattered or my thoughts jump quickly from idea to idea.",
+  "diagnosticBrainRotQ8": "Simple decisions or planning tasks have become harder.",
+  "diagnosticBrainRotQ9": "I work slower than usual or need more time for the same tasks.",
+  "diagnosticBrainRotQ10": "These symptoms affect my daily life (work, study, or relationships).",
+  "dashboardBrainRotSummary": "Brain Rot: {score}/10",
+  "@dashboardBrainRotSummary": {
+    "placeholders": { "score": { "type": "int" } }
+  },
+  "dashboardOpenRecoveryGrid": "30-Day Recovery Grid",
+  "dashboardOpenRecoveryGridSubtitle": "Five daily habits · penalty box for missed check-ins",
+  "recoveryGridTitle": "30-Day Recovery",
+  "recoveryGridSubtitle": "Tap a day to log the five mandatory habits.",
+  "recoveryDayTasksTitle": "Day {day} habits",
+  "@recoveryDayTasksTitle": {
+    "placeholders": { "day": { "type": "int" } }
+  },
+  "recoveryTaskBoredomTitle": "Befriend boredom",
+  "recoveryTaskBoredomSubtitle": "10 minutes of silence without a screen",
+  "recoveryTaskDelayedTitle": "Delayed gratification",
+  "recoveryTaskDelayedSubtitle": "At least one intentional delay win today",
+  "recoveryTaskBodyTitle": "Body activation",
+  "recoveryTaskBodySubtitle": "Morning sun + cold shower",
+  "recoveryTaskDigitalTitle": "Digital discipline",
+  "recoveryTaskDigitalSubtitle": "No doom-scrolling block completed",
+  "recoveryTaskFocusTitle": "Deep focus session",
+  "recoveryTaskFocusSubtitle": "One 25-minute pomodoro without distraction",
+  "recoveryDayComplete": "All five habits completed for this day.",
+  "recoveryMissedHabitsTitle": "Incomplete check-in",
+  "recoveryMissedHabitsSubtitle": "Some habits were missed. Open the penalty box to record accountability.",
+  "recoveryOpenPenaltyBox": "Open Penalty Box",
+  "recoveryDayEmptyHint": "Check off each habit as you complete it today.",
+  "recoveryPenaltyCount": "Penalties recorded: {count}",
+  "@recoveryPenaltyCount": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "recoveryPenaltyBoxTitle": "Penalty Box",
+  "recoveryPenaltyBoxMessage": "Confirming applies a −{deduction} BC_score accountability entry for missed habits today.",
+  "@recoveryPenaltyBoxMessage": {
+    "placeholders": { "deduction": { "type": "int" } }
+  },
+  "recoveryPenaltyConfirm": "Confirm penalty",
+  "recoveryPenaltyCancel": "Cancel",
+  "recoveryPenaltyApplied": "Penalty recorded for today."
 }
 

@@ -6,6 +6,7 @@ import '../../../core/constants/app_routes.dart';
 import '../../../core/routing/app_router.dart';
 import '../domain/diagnostic_metrics.dart';
 import 'bc_score_provider.dart';
+import 'brain_rot_questionnaire_controller.dart';
 
 part 'diagnostic_controller.g.dart';
 
@@ -73,7 +74,8 @@ class DiagnosticController extends _$DiagnosticController {
 
     try {
       // 1. تثبيت الجلسة محلياً (Commit Session)
-      ref.read(bcScoreSessionProvider.notifier).commit(bhi);
+      final brainRot = ref.read(brainRotQuestionnaireProvider.notifier).result;
+      ref.read(bcScoreSessionProvider.notifier).commit(bhi, brainRot: brainRot);
 
       debugPrint(
         '[BrainClean] BHI BC_score: ${bhi.bcScore.toStringAsFixed(1)}% '

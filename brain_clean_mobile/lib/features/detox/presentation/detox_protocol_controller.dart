@@ -5,6 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../core/constants/bc_score_constants.dart';
 import '../../diagnostic/domain/diagnostic_metrics_mapper.dart';
+import '../../diagnostic/domain/diagnostic_metrics.dart';
 import '../../diagnostic/presentation/diagnostic_controller.dart';
 import '../data/detox_ai_coach_service_provider.dart';
 import '../data/detox_protocol_repository.dart';
@@ -149,7 +150,8 @@ class DetoxProtocolController extends _$DetoxProtocolController {
 
   /// Mirrors [bcScoreLiveProvider] without creating a Riverpod circular dependency.
   double _computeLiveBcScore(DetoxProtocolState detox) {
-    final metrics = ref.read(diagnosticControllerProvider);
+    final metricsAsync = ref.read(diagnosticControllerProvider);
+    final metrics = metricsAsync.value ?? const DiagnosticMetrics();
     final base = DiagnosticMetricsMapper.fromMetrics(metrics);
     return DetoxHabitScorer.applyDetoxToModel(
       base,

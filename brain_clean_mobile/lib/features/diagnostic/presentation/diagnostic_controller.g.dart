@@ -7,11 +7,11 @@ part of 'diagnostic_controller.dart';
 // **************************************************************************
 
 String _$diagnosticControllerHash() =>
-    r'233cb5c8765b24083699fbec6469e1e4886d15d6';
+    r'f5173ba6b52b7938f8347c891a6a88911cbf7d2e';
 
 /// See also [DiagnosticController].
 @ProviderFor(DiagnosticController)
-final diagnosticControllerProvider = AutoDisposeNotifierProvider<
+final diagnosticControllerProvider = AutoDisposeAsyncNotifierProvider<
     DiagnosticController, DiagnosticMetrics>.internal(
   DiagnosticController.new,
   name: r'diagnosticControllerProvider',
@@ -22,6 +22,6 @@ final diagnosticControllerProvider = AutoDisposeNotifierProvider<
   allTransitiveDependencies: null,
 );
 
-typedef _$DiagnosticController = AutoDisposeNotifier<DiagnosticMetrics>;
+typedef _$DiagnosticController = AutoDisposeAsyncNotifier<DiagnosticMetrics>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

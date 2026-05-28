@@ -4,7 +4,9 @@ import 'package:brain_clean_mobile/features/detox/presentation/detox_protocol_sc
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_session.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/bc_score_provider.dart';
+import 'package:brain_clean_mobile/features/diagnostic/presentation/brain_rot_questionnaire_controller.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/diagnostic_screen.dart';
+import 'package:brain_clean_mobile/features/recovery/presentation/recovery_grid_screen.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/widgets/bc_score_hero_card.dart';
 import 'package:brain_clean_mobile/main.dart';
 import 'package:flutter/material.dart';
@@ -18,20 +20,44 @@ void main() {
   final en = testL10n;
 
   group('Diagnostic UI', () {
-    testWidgets('diagnostic screen loads with live BC_score', (tester) async {
+    testWidgets('diagnostic screen starts Brain Rot questionnaire', (tester) async {
       await tester.pumpWidget(
         createLocalizedProviderTestWidget(const DiagnosticScreen()),
       );
       await tester.pump();
 
-      expect(find.text(en.diagnosticTitle), findsOneWidget);
-      expect(find.text(en.bcScoreHeroLabel), findsOneWidget);
-      expect(
-        find.text(en.diagnosticLiveSubtitle),
-        findsOneWidget,
+      expect(find.text(en.diagnosticBrainRotTitle), findsOneWidget);
+      expect(find.text(en.diagnosticYes), findsOneWidget);
+      expect(find.text(en.diagnosticNo), findsOneWidget);
+      expect(find.text(en.diagnosticBrainRotQ1), findsOneWidget);
+    });
+
+    testWidgets('diagnostic BHI sliders after questionnaire override', (tester) async {
+      await tester.pumpWidget(
+        createLocalizedProviderTestWidget(
+          const DiagnosticScreen(),
+          overrides: [
+            brainRotQuestionnaireProvider.overrideWith(_BhiPhaseQuestionnaire.new),
+          ],
+        ),
       );
+      await tester.pump();
+
+      expect(find.text(en.diagnosticBhiTitle), findsOneWidget);
+      expect(find.text(en.bcScoreHeroLabel), findsOneWidget);
       expect(find.text(en.bcScoreBreakdownTitle), findsOneWidget);
       expect(find.byType(LinearProgressIndicator), findsNWidgets(4));
+    });
+
+    testWidgets('recovery grid shows 30-day layout and five tasks', (tester) async {
+      await tester.pumpWidget(
+        createLocalizedProviderTestWidget(const RecoveryGridScreen()),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text(en.recoveryGridTitle), findsOneWidget);
+      expect(find.byKey(const Key('recovery_day_tasks_header')), findsOneWidget);
+      expect(find.byType(CheckboxListTile), findsNWidgets(5));
     });
 
     testWidgets('dashboard shows empty state without session', (tester) async {
@@ -138,9 +164,18 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 100));
 
-    expect(find.text(en.diagnosticTitle), findsOneWidget);
-    expect(find.text(en.bcScoreHeroLabel), findsOneWidget);
+    expect(find.text(en.diagnosticBrainRotTitle), findsOneWidget);
+    expect(find.text(en.diagnosticBrainRotQ1), findsOneWidget);
   });
+}
+
+class _BhiPhaseQuestionnaire extends BrainRotQuestionnaire {
+  @override
+  BrainRotQuestionnaireState build() => BrainRotQuestionnaireState(
+        answers: List<bool?>.filled(10, false),
+        currentIndex: 9,
+        phase: BrainRotFlowPhase.bhiSliders,
+      );
 }
 
 class _FixedSession extends BcScoreSession {

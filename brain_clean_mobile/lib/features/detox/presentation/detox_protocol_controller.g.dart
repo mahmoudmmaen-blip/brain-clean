@@ -25,7 +25,7 @@ final detoxProtocolDataProvider =
 // ignore: unused_element
 typedef DetoxProtocolDataRef = AutoDisposeProviderRef<DetoxProtocolState>;
 String _$detoxProtocolControllerHash() =>
-    r'21f517f318fc6362fda659fe2a99298e08304032';
+    r'0ca1adc0bb7642f9b17f645ad8f178e90e6dde94';
 
 /// Orchestrates the 7-Day Dopamine Detox protocol for Brain Clean.
 ///
