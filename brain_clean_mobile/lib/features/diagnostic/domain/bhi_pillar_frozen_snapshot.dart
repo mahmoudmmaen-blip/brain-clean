@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'bhi_score_formula.dart';
 import 'diagnostic_model.dart';
 import 'pillar_bound_evaluation.dart';
 
@@ -41,7 +40,7 @@ class BhiPillarFrozenSnapshot {
     required double healthyHabits,
     required double consistency,
   }) =>
-      BhiScoreFormula.compute(
+      PillarBoundEvaluation.computeBcScore(
         brainPerformance: brainPerformance,
         digitalDiscipline: digitalDiscipline,
         healthyHabits: healthyHabits,
@@ -95,16 +94,29 @@ class BhiPillarFrozenSnapshot {
         consistency: consistency,
       );
 
-  factory BhiPillarFrozenSnapshot.fromJson(Map<String, dynamic> json) =>
-      BhiPillarFrozenSnapshot.fromEvaluation(
-        PillarBoundEvaluation.coherent(
-          brainPerformance: (json['brain_performance'] as num).toDouble(),
-          digitalDiscipline: (json['digital_discipline'] as num).toDouble(),
-          healthyHabits: (json['healthy_habits'] as num).toDouble(),
-          consistency: (json['consistency'] as num).toDouble(),
-        ),
-        moment: DateTime.parse(json['frozen_at'] as String),
+  factory BhiPillarFrozenSnapshot.fromJson(Map<String, dynamic> json) {
+    final evaluation = PillarBoundEvaluation.coherent(
+      brainPerformance: (json['brain_performance'] as num).toDouble(),
+      digitalDiscipline: (json['digital_discipline'] as num).toDouble(),
+      healthyHabits: (json['healthy_habits'] as num).toDouble(),
+      consistency: (json['consistency'] as num).toDouble(),
+    );
+    final storedBc = (json['bc_score'] as num?)?.toDouble();
+    if (storedBc != null) {
+      PillarBoundEvaluation.requireScoresMatch(
+        stored: storedBc,
+        recomputed: evaluation.bcScore,
+        layer: 'BhiPillarFrozenSnapshot.fromJson',
       );
+    }
+    return BhiPillarFrozenSnapshot.fromEvaluation(
+      evaluation,
+      moment: DateTime.parse(json['frozen_at'] as String),
+    );
+  }
 
-  Map<String, dynamic> toJson() => _$BhiPillarFrozenSnapshotToJson(this);
+  Map<String, dynamic> toJson() {
+    ensureCoherent();
+    return _$BhiPillarFrozenSnapshotToJson(this);
+  }
 }

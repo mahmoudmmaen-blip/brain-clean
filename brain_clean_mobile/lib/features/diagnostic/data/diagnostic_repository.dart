@@ -24,6 +24,7 @@ class DiagnosticRepository {
       session.toRepositoryPayload();
 
   Future<void> upsertSession({required DiagnosticSession session}) async {
+    session.ensurePillarBoundCoherence();
     try {
       final client = _client;
       if (client == null) return;

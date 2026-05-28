@@ -167,10 +167,14 @@ class DiagnosticSession {
     return session;
   }
 
-  Map<String, dynamic> toJson() => _$DiagnosticSessionToJson(this);
+  Map<String, dynamic> toJson() {
+    ensurePillarBoundCoherence();
+    return _$DiagnosticSessionToJson(this);
+  }
 
   /// Lossless snake_case payload for [DiagnosticRepository].
   Map<String, dynamic> toRepositoryPayload() {
+    ensurePillarBoundCoherence();
     final input = metrics;
     final assessment = brainRotAssessment;
     final q = questionnaire;

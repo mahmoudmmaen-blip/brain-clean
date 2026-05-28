@@ -92,5 +92,8 @@ class DiagnosticBhiSnapshot {
     );
   }
 
-  Map<String, dynamic> toJson() => _$DiagnosticBhiSnapshotToJson(this);
+  Map<String, dynamic> toJson() {
+    ensurePillarBoundCoherence();
+    return _$DiagnosticBhiSnapshotToJson(this);
+  }
 }

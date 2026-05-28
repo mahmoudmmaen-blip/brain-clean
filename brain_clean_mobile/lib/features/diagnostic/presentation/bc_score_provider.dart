@@ -32,7 +32,10 @@ class BcScoreSession extends _$BcScoreSession {
   @override
   DiagnosticSession? build() => null;
 
-  void commit(DiagnosticSession session) => state = session;
+  void commit(DiagnosticSession session) {
+    session.ensurePillarBoundCoherence();
+    state = session;
+  }
 
   void clear() => state = null;
 }

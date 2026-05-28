@@ -271,6 +271,38 @@ void main() {
       expect(evaluation.bcScore, isNot(999));
     });
 
+    test('fromJson rejects bc_score drift beyond coherenceEpsilon', () {
+      const model = DiagnosticModel(
+        brainPerformance: 50,
+        digitalDiscipline: 50,
+        healthyHabits: 50,
+        consistency: 50,
+      );
+      final json = BhiPillarFrozenSnapshot.freeze(model).toJson();
+      json['bc_score'] = model.calculateBcScore() + 1e-5;
+      expect(
+        () => BhiPillarFrozenSnapshot.fromJson(json),
+        throwsA(isA<StateError>()),
+      );
+    });
+
+    test('fromJson accepts bc_score within coherenceEpsilon', () {
+      const model = DiagnosticModel(
+        brainPerformance: 72,
+        digitalDiscipline: 68,
+        healthyHabits: 70,
+        consistency: 60,
+      );
+      final frozen = BhiPillarFrozenSnapshot.freeze(model);
+      final json = frozen.toJson();
+      json['bc_score'] = frozen.bcScore + 1e-8;
+      final restored = BhiPillarFrozenSnapshot.fromJson(json);
+      expect(
+        PillarBoundEvaluation.scoresMatch(restored.bcScore, frozen.bcScore),
+        isTrue,
+      );
+    });
+
     test('matrix contributions align with frozen bcScore formula', () {
       const model = DiagnosticModel(
         brainPerformance: 72,
