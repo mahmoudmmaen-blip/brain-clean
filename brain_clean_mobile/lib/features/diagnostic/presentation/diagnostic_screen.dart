@@ -198,9 +198,9 @@ class _BhiSlidersPhase extends ConsumerWidget {
       padding: const EdgeInsets.all(AppDesignConstants.radiusCard + 2),
       children: [
         RepaintBoundary(
-          child: BcScoreHeroCard(
+          child: BcScoreHeroCard.fromSession(
             key: scoreKey,
-            score: session.bcScore,
+            session: session,
             subtitle: loc.diagnosticLiveSubtitle,
           ),
         ),

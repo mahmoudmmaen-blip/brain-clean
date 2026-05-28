@@ -55,9 +55,9 @@ class DashboardScreen extends ConsumerWidget {
                   return Column(
                     children: [
                       RepaintBoundary(
-                        child: BcScoreHeroCard(
+                        child: BcScoreHeroCard.fromSession(
                           key: scoreKey,
-                          score: session.bcScore,
+                          session: session,
                           fontSize: 48,
                           subtitle: loc.dashboardCommittedAt(committedAt!),
                         ),

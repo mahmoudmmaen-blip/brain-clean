@@ -21,13 +21,13 @@ class DiagnosticSession {
     this.questionnaire = const BrainRotQuestionnaireSnapshot(),
   });
 
-  @JsonKey(name: 'bhi')
+  @JsonKey(name: BhiPillarJsonKeys.bhi)
   final DiagnosticBhiSnapshot bhi;
 
-  @JsonKey(name: 'committed_at')
+  @JsonKey(name: BhiPillarJsonKeys.committedAt)
   final DateTime committedAt;
 
-  @JsonKey(name: 'brain_rot')
+  @JsonKey(name: BhiPillarJsonKeys.brainRot)
   final BrainRotAssessment? brainRotAssessment;
 
   final BrainRotQuestionnaireSnapshot questionnaire;
@@ -265,36 +265,43 @@ class DiagnosticSession {
       BhiPillarJsonKeys.pillarMatrixBcScoreSnake: frozen.pillarMatrixBcScore,
       BhiPillarJsonKeys.recoveryPenaltyDeductionSnake:
           frozen.recoveryPenaltyDeduction,
-      'committed_at': committedAt.toUtc().toIso8601String(),
+      BhiPillarJsonKeys.committedAtSnake:
+          committedAt.toUtc().toIso8601String(),
       BhiPillarJsonKeys.brainPerformanceSnake: frozen.brainPerformance,
       BhiPillarJsonKeys.digitalDisciplineSnake: frozen.digitalDiscipline,
       BhiPillarJsonKeys.healthyHabitsSnake: frozen.healthyHabits,
-      'consistency': frozen.consistency,
-      'bhi_frozen_at': frozen.frozenAt.toUtc().toIso8601String(),
-      'bhi_frozen_bc_score': frozen.bcScore,
+      BhiPillarJsonKeys.consistencySnake: frozen.consistency,
+      BhiPillarJsonKeys.bhiFrozenAtSnake:
+          frozen.frozenAt.toUtc().toIso8601String(),
+      BhiPillarJsonKeys.bhiFrozenBcScoreSnake: frozen.bcScore,
       BhiPillarJsonKeys.bhiFrozenSnapshotSnake: frozen.toJson(),
-      'questionnaire_json': q.toJson(),
-      'mapped_brain_performance': bhi.mappedFromMetrics.brainPerformance,
-      'mapped_digital_discipline': bhi.mappedFromMetrics.digitalDiscipline,
-      'mapped_healthy_habits': bhi.mappedFromMetrics.healthyHabits,
-      'mapped_consistency': bhi.mappedFromMetrics.consistency,
-      'sleep_quality': input.sleepQuality,
-      'sustained_attention': input.sustainedAttention,
-      'fragmentation': input.fragmentation,
-      'dopamine_seeking': input.dopamineSeeking,
-      'task_switching': input.taskSwitching,
-      'burnout': input.burnout,
-      'questionnaire_phase': q.phase.name,
-      'questionnaire_current_index': q.currentIndex,
-      'questionnaire_answered_count': q.answeredCount,
-      'session_json': toJson(),
+      BhiPillarJsonKeys.questionnaireJsonSnake: q.toJson(),
+      BhiPillarJsonKeys.mappedBrainPerformanceSnake:
+          bhi.mappedFromMetrics.brainPerformance,
+      BhiPillarJsonKeys.mappedDigitalDisciplineSnake:
+          bhi.mappedFromMetrics.digitalDiscipline,
+      BhiPillarJsonKeys.mappedHealthyHabitsSnake:
+          bhi.mappedFromMetrics.healthyHabits,
+      BhiPillarJsonKeys.mappedConsistencySnake:
+          bhi.mappedFromMetrics.consistency,
+      BhiPillarJsonKeys.sleepQualitySnake: input.sleepQuality,
+      BhiPillarJsonKeys.sustainedAttentionSnake: input.sustainedAttention,
+      BhiPillarJsonKeys.fragmentationSnake: input.fragmentation,
+      BhiPillarJsonKeys.dopamineSeekingSnake: input.dopamineSeeking,
+      BhiPillarJsonKeys.taskSwitchingSnake: input.taskSwitching,
+      BhiPillarJsonKeys.burnoutSnake: input.burnout,
+      BhiPillarJsonKeys.questionnairePhaseSnake: q.phase.name,
+      BhiPillarJsonKeys.questionnaireCurrentIndexSnake: q.currentIndex,
+      BhiPillarJsonKeys.questionnaireAnsweredCountSnake: q.answeredCount,
+      BhiPillarJsonKeys.sessionJsonSnake: toJson(),
       if (assessment != null) ...{
-        'brain_rot_score': assessment.score,
-        'interpretation_band': assessment.interpretationBand,
-        'interpretation_ar': assessment.interpretationAr,
-        'brain_rot_answers': assessment.answers,
+        BhiPillarJsonKeys.brainRotScoreSnake: assessment.score,
+        BhiPillarJsonKeys.interpretationBandSnake: assessment.interpretationBand,
+        BhiPillarJsonKeys.interpretationArSnake: assessment.interpretationAr,
+        BhiPillarJsonKeys.brainRotAnswersSnake: assessment.answers,
         if (assessment.questionnaireCompletedAt != null)
-          'questionnaire_completed_at': assessment.questionnaireCompletedAt,
+          BhiPillarJsonKeys.questionnaireCompletedAtSnake:
+              assessment.questionnaireCompletedAt,
       },
     };
   }

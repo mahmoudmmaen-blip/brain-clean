@@ -1,4 +1,4 @@
-/// Canonical camelCase keys for BHI frozen pillar, snapshot, and session JSON.
+/// Canonical camelCase keys for BHI frozen pillar, snapshot, session, and API JSON.
 abstract final class BhiPillarJsonKeys {
   // —— Frozen pillar fields ——
   static const brainPerformance = 'brainPerformance';
@@ -16,6 +16,26 @@ abstract final class BhiPillarJsonKeys {
   static const pillarMatrixBcScore = 'pillarMatrixBcScore';
   static const boundBcScore = 'boundBcScore';
 
+  // —— DiagnosticSession envelope ——
+  static const bhi = 'bhi';
+  static const committedAt = 'committedAt';
+  static const brainRot = 'brainRot';
+  static const questionnaire = 'questionnaire';
+
+  // —— PillarBoundEvaluation row identifiers (UI + breakdown maps) ——
+  static const pillarRowBrainPerformance = 'brain_performance';
+  static const pillarRowDigitalDiscipline = 'digital_discipline';
+  static const pillarRowHealthyHabits = 'healthy_habits';
+  static const pillarRowConsistency = 'consistency';
+
+  // —— DiagnosticMetrics (6-point slider) camelCase ——
+  static const sleepQuality = 'sleepQuality';
+  static const sustainedAttention = 'sustainedAttention';
+  static const fragmentation = 'fragmentation';
+  static const dopamineSeeking = 'dopamineSeeking';
+  static const taskSwitching = 'taskSwitching';
+  static const burnout = 'burnout';
+
   // —— Firestore / remote repository (snake_case boundary only) ——
   static const recoveryPenaltyDeductionSnake = 'recovery_penalty_deduction';
   static const pillarMatrixBcScoreSnake = 'pillar_matrix_bc_score';
@@ -23,19 +43,51 @@ abstract final class BhiPillarJsonKeys {
   static const brainPerformanceSnake = 'brain_performance';
   static const digitalDisciplineSnake = 'digital_discipline';
   static const healthyHabitsSnake = 'healthy_habits';
+  static const consistencySnake = 'consistency';
   static const bhiFrozenSnapshotSnake = 'bhi_frozen_snapshot';
+  static const bhiFrozenAtSnake = 'bhi_frozen_at';
+  static const bhiFrozenBcScoreSnake = 'bhi_frozen_bc_score';
+  static const committedAtSnake = 'committed_at';
+  static const sessionJsonSnake = 'session_json';
+  static const questionnaireJsonSnake = 'questionnaire_json';
+  static const mappedBrainPerformanceSnake = 'mapped_brain_performance';
+  static const mappedDigitalDisciplineSnake = 'mapped_digital_discipline';
+  static const mappedHealthyHabitsSnake = 'mapped_healthy_habits';
+  static const mappedConsistencySnake = 'mapped_consistency';
+  static const sleepQualitySnake = 'sleep_quality';
+  static const sustainedAttentionSnake = 'sustained_attention';
+  static const fragmentationSnake = 'fragmentation';
+  static const dopamineSeekingSnake = 'dopamine_seeking';
+  static const taskSwitchingSnake = 'task_switching';
+  static const burnoutSnake = 'burnout';
+  static const questionnairePhaseSnake = 'questionnaire_phase';
+  static const questionnaireCurrentIndexSnake = 'questionnaire_current_index';
+  static const questionnaireAnsweredCountSnake = 'questionnaire_answered_count';
+  static const brainRotScoreSnake = 'brain_rot_score';
+  static const interpretationBandSnake = 'interpretation_band';
+  static const interpretationArSnake = 'interpretation_ar';
+  static const brainRotAnswersSnake = 'brain_rot_answers';
+  static const questionnaireCompletedAtSnake = 'questionnaire_completed_at';
 
   /// Legacy snake_case → camelCase (read-once migration).
   static const Map<String, String> _legacyToCamel = {
     brainPerformanceSnake: brainPerformance,
     digitalDisciplineSnake: digitalDiscipline,
     healthyHabitsSnake: healthyHabits,
+    consistencySnake: consistency,
     bcScoreSnake: bcScore,
+    bhiFrozenAtSnake: frozenAt,
     'frozen_at': frozenAt,
     recoveryPenaltyDeductionSnake: recoveryPenaltyDeduction,
     'frozen_pillars': frozenPillars,
     pillarMatrixBcScoreSnake: pillarMatrixBcScore,
     'bound_bc_score': boundBcScore,
+    committedAtSnake: committedAt,
+    'brain_rot': brainRot,
+    sleepQualitySnake: sleepQuality,
+    sustainedAttentionSnake: sustainedAttention,
+    dopamineSeekingSnake: dopamineSeeking,
+    taskSwitchingSnake: taskSwitching,
   };
 
   /// Normalizes legacy snake_case keys to camelCase without mutating unknown keys.
@@ -67,6 +119,12 @@ abstract final class BhiPillarJsonKeys {
 
   static Map<String, dynamic>? readFrozenPillarsMap(Map<String, dynamic> json) {
     final raw = json[frozenPillars];
+    if (raw is Map<String, dynamic>) return raw;
+    return null;
+  }
+
+  static Map<String, dynamic>? readBhiMap(Map<String, dynamic> json) {
+    final raw = json[bhi];
     if (raw is Map<String, dynamic>) return raw;
     return null;
   }

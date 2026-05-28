@@ -3,6 +3,7 @@ import 'package:brain_clean_mobile/features/diagnostic/domain/bhi_pillar_json_ke
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_bhi_snapshot.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_metrics.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
+import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_session.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -64,6 +65,27 @@ void main() {
         15,
       );
       final restored = DiagnosticBhiSnapshot.fromJson(json);
+      expect(restored.recoveryPenaltyDeduction, 15);
+    });
+
+    test('DiagnosticSession toJson uses centralized session envelope keys', () {
+      final session = DiagnosticSession.fromAssessment(
+        model: model,
+        metrics: const DiagnosticMetrics(),
+        brainRot: DiagnosticModel.evaluateBrainRot(List<bool>.filled(10, false)),
+        brainRotAnswers: List<bool>.filled(10, false),
+      ).withRecoveryPenaltyTotal(15);
+
+      final json = session.toJson();
+      expect(json.containsKey(BhiPillarJsonKeys.bhi), isTrue);
+      expect(json.containsKey(BhiPillarJsonKeys.committedAt), isTrue);
+      expect(json.containsKey(BhiPillarJsonKeys.recoveryPenaltyDeduction), isTrue);
+      expect(json.containsKey(BhiPillarJsonKeys.committedAtSnake), isFalse);
+
+      final legacy = Map<String, dynamic>.from(json)
+        ..[BhiPillarJsonKeys.committedAtSnake] =
+            json.remove(BhiPillarJsonKeys.committedAt);
+      final restored = DiagnosticSession.fromJson(legacy);
       expect(restored.recoveryPenaltyDeduction, 15);
     });
 

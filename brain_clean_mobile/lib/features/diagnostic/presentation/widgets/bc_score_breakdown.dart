@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/theme/app_design_constants.dart';
 import '../../../../core/theme/theme_extensions.dart';
+import '../../domain/bhi_pillar_json_keys.dart';
 import '../../domain/diagnostic_session.dart';
 import '../../domain/pillar_bound_evaluation.dart';
 import 'bc_score_colors.dart';
@@ -39,15 +40,22 @@ class BcScoreBreakdown extends StatelessWidget {
   double get _baseBhiScore =>
       pillarMatrixBcScore ?? evaluation.recomputedBcScore;
 
+  bool get _hasPenalty => recoveryPenaltyDeduction > 0;
+
+  static Map<String, String> _pillarLabels(AppLocalizations loc) => {
+        BhiPillarJsonKeys.pillarRowBrainPerformance:
+            loc.bcScorePillarBrainPerformance,
+        BhiPillarJsonKeys.pillarRowDigitalDiscipline:
+            loc.bcScorePillarDigitalDiscipline,
+        BhiPillarJsonKeys.pillarRowHealthyHabits: loc.bcScorePillarHealthyHabits,
+        BhiPillarJsonKeys.pillarRowConsistency: loc.bcScorePillarConsistency,
+      };
+
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
-    final labels = <String, String>{
-      'brain_performance': loc.bcScorePillarBrainPerformance,
-      'digital_discipline': loc.bcScorePillarDigitalDiscipline,
-      'healthy_habits': loc.bcScorePillarHealthyHabits,
-      'consistency': loc.bcScorePillarConsistency,
-    };
+    final labels = _pillarLabels(loc);
+    final textDirection = Directionality.of(context);
 
     return Card(
       elevation: context.isLightTheme ? 2 : 0,
@@ -77,8 +85,9 @@ class BcScoreBreakdown extends StatelessWidget {
                     '${labels[row.key]!} (${(row.weight * 100).round()}%)',
                 pillarScore: row.score,
                 weight: row.weight,
+                textDirection: textDirection,
               ),
-            if (recoveryPenaltyDeduction > 0) ...[
+            if (_hasPenalty) ...[
               const SizedBox(height: 12),
               BcScorePenaltyEquation(
                 baseBhiScore: _baseBhiScore,
@@ -88,9 +97,10 @@ class BcScoreBreakdown extends StatelessWidget {
             ],
             Divider(height: 20, color: context.borderMuted),
             _SummaryRow(
-              label: loc.bcScoreLabel,
+              label: _hasPenalty ? loc.finalBcScoreLabel : loc.bcScoreLabel,
               value: '${displayBcScore.round()}%',
               color: BcScoreColors.forScore(displayBcScore),
+              textDirection: textDirection,
             ),
           ],
         ),
@@ -104,11 +114,13 @@ class _PillarRow extends StatelessWidget {
     required this.label,
     required this.pillarScore,
     required this.weight,
+    required this.textDirection,
   });
 
   final String label;
   final double pillarScore;
   final double weight;
+  final TextDirection textDirection;
 
   @override
   Widget build(BuildContext context) {
@@ -120,11 +132,14 @@ class _PillarRow extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Row(
+            textDirection: textDirection,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Flexible(
                 child: Text(
                   label,
+                  textDirection: textDirection,
+                  softWrap: true,
                   style: AppDesignConstants.cairo(
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
@@ -133,8 +148,10 @@ class _PillarRow extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(width: 8),
               Text(
                 '${pillarScore.round()}% → +${contribution.toStringAsFixed(1)}',
+                textDirection: textDirection,
                 style: AppDesignConstants.cairo(
                   fontSize: 13,
                   fontWeight: FontWeight.w700,
@@ -166,22 +183,27 @@ class _SummaryRow extends StatelessWidget {
     required this.label,
     required this.value,
     required this.color,
+    required this.textDirection,
   });
 
   final String label;
   final String value;
   final Color color;
+  final TextDirection textDirection;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
+        textDirection: textDirection,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Flexible(
             child: Text(
               label,
+              textDirection: textDirection,
+              softWrap: true,
               style: AppDesignConstants.cairo(
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
@@ -190,8 +212,10 @@ class _SummaryRow extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(width: 8),
           Text(
             value,
+            textDirection: textDirection,
             style: AppDesignConstants.cairo(
               fontSize: 15,
               fontWeight: FontWeight.w800,

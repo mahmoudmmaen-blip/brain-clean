@@ -1,5 +1,6 @@
 import '../../../core/constants/bc_score_constants.dart';
 import 'bhi_pillar_frozen_snapshot.dart';
+import 'bhi_pillar_json_keys.dart';
 import 'bhi_score_formula.dart';
 import 'diagnostic_model.dart';
 
@@ -124,25 +125,25 @@ class PillarBoundEvaluation {
   List<({String key, double score, double weight, double contribution})>
       get pillarRows => [
             (
-              key: 'brain_performance',
+              key: BhiPillarJsonKeys.pillarRowBrainPerformance,
               score: brainPerformance,
               weight: brainWeight,
               contribution: brainContribution,
             ),
             (
-              key: 'digital_discipline',
+              key: BhiPillarJsonKeys.pillarRowDigitalDiscipline,
               score: digitalDiscipline,
               weight: digitalWeight,
               contribution: digitalContribution,
             ),
             (
-              key: 'healthy_habits',
+              key: BhiPillarJsonKeys.pillarRowHealthyHabits,
               score: healthyHabits,
               weight: habitsWeight,
               contribution: habitsContribution,
             ),
             (
-              key: 'consistency',
+              key: BhiPillarJsonKeys.pillarRowConsistency,
               score: consistency,
               weight: consistencyWeight,
               contribution: consistencyContribution,
