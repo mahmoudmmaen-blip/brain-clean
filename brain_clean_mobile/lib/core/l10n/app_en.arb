@@ -30,17 +30,17 @@
   "bcScorePillarHealthyHabits": "Healthy habits",
   "bcScorePillarConsistency": "Consistency",
   "bcScoreLabel": "BC_score",
-  "bcScoreRecoveryPenaltyAdjustment": "Recovery accountability (−{deduction})",
-  "@bcScoreRecoveryPenaltyAdjustment": {
+  "accountabilityAdjustment": "ACCOUNTABILITY ADJUSTMENT",
+  "bhiScoreLabel": "Base BHI score",
+  "finalBcScoreLabel": "Final BC_score",
+  "accountabilityDeduction": "Recovery accountability (−{deduction})",
+  "@accountabilityDeduction": {
     "placeholders": {
       "deduction": {
         "type": "int"
       }
     }
   },
-  "bcScorePenaltyEquationTitle": "ACCOUNTABILITY ADJUSTMENT",
-  "bcScoreBaseBhiLabel": "Base BHI score",
-  "bcScoreFinalBcScoreLabel": "Final BC_score",
   "detoxTitle": "7-Day Dopamine Detox",
   "detoxSubtitle": "Daily check-in",
   "detoxLiveBcScoreTitle": "Live BC_score",

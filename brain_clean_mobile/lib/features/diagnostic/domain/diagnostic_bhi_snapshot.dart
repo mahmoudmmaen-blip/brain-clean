@@ -18,7 +18,10 @@ class DiagnosticBhiSnapshot {
     required this.frozenPillars,
   });
 
+  @JsonKey(name: BhiPillarJsonKeys.metrics)
   final DiagnosticMetrics metrics;
+
+  @JsonKey(name: BhiPillarJsonKeys.model)
   final DiagnosticModel model;
 
   @JsonKey(name: BhiPillarJsonKeys.frozenPillars)
@@ -107,14 +110,14 @@ class DiagnosticBhiSnapshot {
     PillarBoundEvaluation.requireScoresMatch(
       stored: rootPenalty,
       recomputed: embeddedPenalty,
-      layer: 'DiagnosticBhiSnapshot.recoveryPenaltyDeduction',
+      layer: 'DiagnosticBhiSnapshot.${BhiPillarJsonKeys.recoveryPenaltyDeduction}',
     );
   }
 
   factory DiagnosticBhiSnapshot.fromJson(Map<String, dynamic> json) {
     final normalized = BhiPillarJsonKeys.normalizeIncoming(json);
-    final frozenRaw = normalized[BhiPillarJsonKeys.frozenPillars];
-    if (frozenRaw is Map<String, dynamic>) {
+    final frozenRaw = BhiPillarJsonKeys.readFrozenPillarsMap(normalized);
+    if (frozenRaw != null) {
       final frozen = BhiPillarFrozenSnapshot.fromJson(frozenRaw);
       _assertEmbeddedPenaltyMatchesRoot(
         json: normalized,
@@ -122,20 +125,20 @@ class DiagnosticBhiSnapshot {
       );
       return DiagnosticBhiSnapshot._coherent(
         metrics: DiagnosticMetrics.fromJson(
-          normalized['metrics'] as Map<String, dynamic>,
+          normalized[BhiPillarJsonKeys.metrics] as Map<String, dynamic>,
         ),
         model: DiagnosticModel.fromJson(
-          normalized['model'] as Map<String, dynamic>,
+          normalized[BhiPillarJsonKeys.model] as Map<String, dynamic>,
         ),
         frozenPillars: frozen,
       );
     }
     return DiagnosticBhiSnapshot.compose(
       metrics: DiagnosticMetrics.fromJson(
-        normalized['metrics'] as Map<String, dynamic>,
+        normalized[BhiPillarJsonKeys.metrics] as Map<String, dynamic>,
       ),
       model: DiagnosticModel.fromJson(
-        normalized['model'] as Map<String, dynamic>,
+        normalized[BhiPillarJsonKeys.model] as Map<String, dynamic>,
       ),
       recoveryPenaltyDeduction: BhiPillarJsonKeys.readPenalty(normalized),
     );
@@ -144,9 +147,12 @@ class DiagnosticBhiSnapshot {
   Map<String, dynamic> toJson() {
     ensurePillarBoundCoherence();
     final map = _$DiagnosticBhiSnapshotToJson(this);
-    map[BhiPillarJsonKeys.recoveryPenaltyDeduction] = recoveryPenaltyDeduction;
-    map[BhiPillarJsonKeys.pillarMatrixBcScore] = pillarMatrixBcScore;
-    map[BhiPillarJsonKeys.boundBcScore] = boundBcScore;
+    BhiPillarJsonKeys.writePenaltyEnvelope(
+      map,
+      recoveryPenaltyDeduction: recoveryPenaltyDeduction,
+      pillarMatrixBcScore: pillarMatrixBcScore,
+      boundBcScore: boundBcScore,
+    );
     return map;
   }
 }

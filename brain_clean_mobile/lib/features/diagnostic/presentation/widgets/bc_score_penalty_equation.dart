@@ -41,7 +41,7 @@ class BcScorePenaltyEquation extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            loc.bcScorePenaltyEquationTitle,
+            loc.accountabilityAdjustment,
             textAlign: TextAlign.center,
             style: AppDesignConstants.cairo(
               fontSize: 10,
@@ -53,7 +53,7 @@ class BcScorePenaltyEquation extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           _EquationRow(
-            label: loc.bcScoreBaseBhiLabel,
+            label: loc.bhiScoreLabel,
             value: '${baseBhiScore.round()}%',
             valueColor: baseColor,
             muted: muted,
@@ -68,9 +68,7 @@ class BcScorePenaltyEquation extends StatelessWidget {
                 const SizedBox(width: 6),
                 Flexible(
                   child: Text(
-                    loc.bcScoreRecoveryPenaltyAdjustment(
-                      penaltyDeduction.round(),
-                    ),
+                    loc.accountabilityDeduction(penaltyDeduction.round()),
                     textAlign: TextAlign.center,
                     style: AppDesignConstants.cairo(
                       fontSize: 11,
@@ -85,7 +83,7 @@ class BcScorePenaltyEquation extends StatelessWidget {
           ),
           Divider(height: 12, color: severity.withValues(alpha: 0.25)),
           _EquationRow(
-            label: loc.bcScoreFinalBcScoreLabel,
+            label: loc.finalBcScoreLabel,
             value: '${finalBcScore.round()}%',
             valueColor: finalColor,
             muted: muted,

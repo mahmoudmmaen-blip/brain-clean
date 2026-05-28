@@ -242,10 +242,12 @@ class DiagnosticSession {
   Map<String, dynamic> toJson() {
     ensurePillarBoundCoherence();
     final map = _$DiagnosticSessionToJson(this);
-    map[BhiPillarJsonKeys.recoveryPenaltyDeduction] = recoveryPenaltyDeduction;
-    map[BhiPillarJsonKeys.pillarMatrixBcScore] = pillarMatrixBcScore;
-    map[BhiPillarJsonKeys.bcScore] = bcScore;
-    map[BhiPillarJsonKeys.boundBcScore] = bcScore;
+    BhiPillarJsonKeys.writePenaltyEnvelope(
+      map,
+      recoveryPenaltyDeduction: recoveryPenaltyDeduction,
+      pillarMatrixBcScore: pillarMatrixBcScore,
+      boundBcScore: bcScore,
+    );
     return map;
   }
 
@@ -259,17 +261,18 @@ class DiagnosticSession {
     final frozen = frozenPillars;
 
     return {
-      'bc_score': bcScore,
-      'pillar_matrix_bc_score': frozen.pillarMatrixBcScore,
-      'recovery_penalty_deduction': frozen.recoveryPenaltyDeduction,
+      BhiPillarJsonKeys.bcScoreSnake: bcScore,
+      BhiPillarJsonKeys.pillarMatrixBcScoreSnake: frozen.pillarMatrixBcScore,
+      BhiPillarJsonKeys.recoveryPenaltyDeductionSnake:
+          frozen.recoveryPenaltyDeduction,
       'committed_at': committedAt.toUtc().toIso8601String(),
-      'brain_performance': frozen.brainPerformance,
-      'digital_discipline': frozen.digitalDiscipline,
-      'healthy_habits': frozen.healthyHabits,
+      BhiPillarJsonKeys.brainPerformanceSnake: frozen.brainPerformance,
+      BhiPillarJsonKeys.digitalDisciplineSnake: frozen.digitalDiscipline,
+      BhiPillarJsonKeys.healthyHabitsSnake: frozen.healthyHabits,
       'consistency': frozen.consistency,
       'bhi_frozen_at': frozen.frozenAt.toUtc().toIso8601String(),
       'bhi_frozen_bc_score': frozen.bcScore,
-      'bhi_frozen_snapshot': frozen.toJson(),
+      BhiPillarJsonKeys.bhiFrozenSnapshotSnake: frozen.toJson(),
       'questionnaire_json': q.toJson(),
       'mapped_brain_performance': bhi.mappedFromMetrics.brainPerformance,
       'mapped_digital_discipline': bhi.mappedFromMetrics.digitalDiscipline,

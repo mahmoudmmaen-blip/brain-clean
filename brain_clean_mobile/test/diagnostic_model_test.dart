@@ -1,5 +1,6 @@
 import 'package:brain_clean_mobile/core/constants/bc_score_constants.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/bhi_pillar_frozen_snapshot.dart';
+import 'package:brain_clean_mobile/features/diagnostic/domain/bhi_pillar_json_keys.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/pillar_bound_evaluation.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/brain_rot_assessment.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/brain_rot_questionnaire_snapshot.dart';
@@ -350,12 +351,18 @@ void main() {
         recoveryPenaltyDeduction: 15,
       );
       final camel = frozen.toJson();
-      expect(camel.containsKey('recoveryPenaltyDeduction'), isTrue);
-      expect(camel.containsKey('recovery_penalty_deduction'), isFalse);
+      expect(
+        camel.containsKey(BhiPillarJsonKeys.recoveryPenaltyDeduction),
+        isTrue,
+      );
+      expect(
+        camel.containsKey(BhiPillarJsonKeys.recoveryPenaltyDeductionSnake),
+        isFalse,
+      );
 
       final legacy = Map<String, dynamic>.from(camel)
-        ..remove('recoveryPenaltyDeduction')
-        ..['recovery_penalty_deduction'] = 15;
+        ..remove(BhiPillarJsonKeys.recoveryPenaltyDeduction)
+        ..[BhiPillarJsonKeys.recoveryPenaltyDeductionSnake] = 15;
       final migrated = BhiPillarFrozenSnapshot.fromJson(legacy);
       expect(migrated.recoveryPenaltyDeduction, 15);
       expect(migrated.isCoherent, isTrue);
@@ -480,8 +487,14 @@ void main() {
       expect(payload['bhi_frozen_snapshot'], isA<Map<String, dynamic>>());
       expect(payload['questionnaire_json'], isA<Map<String, dynamic>>());
       expect(payload['brain_performance'], 72);
-      expect(payload['recovery_penalty_deduction'], 0);
-      expect(payload['pillar_matrix_bc_score'], session.pillarMatrixBcScore);
+      expect(
+        payload[BhiPillarJsonKeys.recoveryPenaltyDeductionSnake],
+        0,
+      );
+      expect(
+        payload[BhiPillarJsonKeys.pillarMatrixBcScoreSnake],
+        session.pillarMatrixBcScore,
+      );
     });
 
     test('penalized session serializes recovery fields in repository payload', () {
@@ -502,21 +515,27 @@ void main() {
       expect(session.bcScore, closeTo(session.pillarMatrixBcScore - 15, 1e-9));
 
       final payload = session.toRepositoryPayload();
-      expect(payload['recovery_penalty_deduction'], 15);
+      expect(payload[BhiPillarJsonKeys.recoveryPenaltyDeductionSnake], 15);
       expect(payload['bc_score'], session.bcScore);
       expect(payload['pillar_matrix_bc_score'], session.pillarMatrixBcScore);
 
       final sessionJson = session.toJson();
-      expect(sessionJson['recoveryPenaltyDeduction'], 15);
-      expect(sessionJson['bcScore'], session.bcScore);
+      expect(
+        sessionJson[BhiPillarJsonKeys.recoveryPenaltyDeduction],
+        15,
+      );
+      expect(sessionJson[BhiPillarJsonKeys.bcScore], session.bcScore);
 
       final roundTrip = DiagnosticSession.fromJson(sessionJson);
       expect(roundTrip.recoveryPenaltyDeduction, 15);
       expect(roundTrip.bcScore, session.bcScore);
 
       final bhiJson = session.bhi.toJson();
-      expect(bhiJson['recoveryPenaltyDeduction'], 15);
-      expect(bhiJson['frozenPillars'], isA<Map<String, dynamic>>());
+      expect(bhiJson[BhiPillarJsonKeys.recoveryPenaltyDeduction], 15);
+      expect(
+        bhiJson[BhiPillarJsonKeys.frozenPillars],
+        isA<Map<String, dynamic>>(),
+      );
     });
 
     test('frozen pillars remain stable after model mutation post-commit', () {
