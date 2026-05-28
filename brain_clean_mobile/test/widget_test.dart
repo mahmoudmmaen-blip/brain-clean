@@ -27,6 +27,30 @@ void main() {
   final en = testL10n;
 
   group('Diagnostic UI', () {
+    testWidgets('diagnostic live session drives questionnaire via provider', (tester) async {
+      await tester.pumpWidget(
+        createLocalizedProviderTestWidget(
+          const DiagnosticScreen(),
+          overrides: diagnosticWidgetTestOverrides(
+            liveSession: DiagnosticSession.live(
+              metrics: const DiagnosticMetrics(),
+              model: const DiagnosticModel(
+                brainPerformance: 50,
+                digitalDiscipline: 50,
+                healthyHabits: 50,
+                consistency: 50,
+              ),
+              questionnaire: const BrainRotQuestionnaireSnapshot(),
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text(en.diagnosticBrainRotTitle), findsOneWidget);
+      expect(find.text(en.diagnosticYes), findsOneWidget);
+    });
+
     testWidgets('diagnostic screen starts Brain Rot questionnaire', (tester) async {
       await tester.pumpWidget(
         createLocalizedProviderTestWidget(

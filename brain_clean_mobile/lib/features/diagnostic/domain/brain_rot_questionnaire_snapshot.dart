@@ -5,7 +5,7 @@ import 'diagnostic_model.dart';
 
 part 'brain_rot_questionnaire_snapshot.g.dart';
 
-/// Serializable in-progress / committed Brain Rot questionnaire state.
+/// Serializable live / committed Brain Rot questionnaire state.
 @JsonSerializable()
 class BrainRotQuestionnaireSnapshot {
   const BrainRotQuestionnaireSnapshot({

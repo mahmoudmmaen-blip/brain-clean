@@ -15,6 +15,38 @@ void main() {
       consistency: 65,
     );
 
+    test('decodeHiveMap coerces dynamic keys without cast errors', () {
+      final hiveRaw = <dynamic, dynamic>{
+        BhiPillarJsonKeys.metrics: <dynamic, dynamic>{
+          BhiPillarJsonKeys.sleepQuality: 7,
+        },
+        BhiPillarJsonKeys.bhi: <dynamic, dynamic>{
+          BhiPillarJsonKeys.metrics: <dynamic, dynamic>{
+            BhiPillarJsonKeys.sleepQuality: 6,
+          },
+          BhiPillarJsonKeys.model: <dynamic, dynamic>{
+            BhiPillarJsonKeys.brainPerformance: 70.0,
+            BhiPillarJsonKeys.digitalDiscipline: 65.0,
+            BhiPillarJsonKeys.healthyHabits: 60.0,
+            BhiPillarJsonKeys.consistency: 55.0,
+          },
+        },
+        BhiPillarJsonKeys.committedAt: '2026-05-20T12:00:00.000',
+        BhiPillarJsonKeys.questionnaire: <dynamic, dynamic>{
+          BhiPillarJsonKeys.currentIndex: 0,
+          BhiPillarJsonKeys.phase: 'questions',
+        },
+      };
+
+      final session = DiagnosticSession.fromJson(
+        BhiPillarJsonKeys.normalizeIncoming(
+          BhiPillarJsonKeys.decodeHiveMap(hiveRaw),
+        ),
+      );
+      expect(session.metrics.sleepQuality, 6);
+      expect(session.isLive, isTrue);
+    });
+
     test('normalizeIncoming migrates legacy snake_case pillar keys', () {
       final legacy = {
         BhiPillarJsonKeys.brainPerformanceSnake: 80,
