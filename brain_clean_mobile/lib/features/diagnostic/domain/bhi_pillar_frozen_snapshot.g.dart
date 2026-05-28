@@ -15,6 +15,8 @@ BhiPillarFrozenSnapshot _$BhiPillarFrozenSnapshotFromJson(
       consistency: (json['consistency'] as num).toDouble(),
       bcScore: (json['bc_score'] as num).toDouble(),
       frozenAt: DateTime.parse(json['frozen_at'] as String),
+      recoveryPenaltyDeduction:
+          (json['recovery_penalty_deduction'] as num?)?.toDouble() ?? 0,
     );
 
 Map<String, dynamic> _$BhiPillarFrozenSnapshotToJson(
@@ -26,4 +28,5 @@ Map<String, dynamic> _$BhiPillarFrozenSnapshotToJson(
       'consistency': instance.consistency,
       'bc_score': instance.bcScore,
       'frozen_at': instance.frozenAt.toIso8601String(),
+      'recovery_penalty_deduction': instance.recoveryPenaltyDeduction,
     };

@@ -83,6 +83,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get bcScoreLabel => 'BC_score';
 
   @override
+  String bcScoreRecoveryPenaltyAdjustment(int deduction) {
+    return 'Recovery accountability (−$deduction)';
+  }
+
+  @override
   String get detoxTitle => '7-Day Dopamine Detox';
 
   @override

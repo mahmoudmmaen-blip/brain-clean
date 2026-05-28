@@ -7,7 +7,7 @@ part of 'diagnostic_in_progress_session_provider.dart';
 // **************************************************************************
 
 String _$diagnosticInProgressSessionHash() =>
-    r'364665f94c10c1c9030c4dfb0b7a842ea7a340c8';
+    r'8c19a3ce8680e7bed6ede726cdc4bf660aa4fca0';
 
 /// Unified [DiagnosticSession] view for the active diagnostic flow.
 ///
