@@ -21,7 +21,8 @@ Widget createLocalizedTestWidget(
   return MaterialApp(
     title: 'Brain Clean',
     debugShowCheckedModeBanner: false,
-    theme: AppTheme.dark,
+    theme: AppTheme.light,
+    darkTheme: AppTheme.dark,
     locale: locale,
     localizationsDelegates: appLocalizationsDelegates,
     supportedLocales: supportedLocales,
@@ -55,6 +56,8 @@ Widget createLocalizedRouterTestWidget({
       localizationsDelegates: appLocalizationsDelegates,
       supportedLocales: supportedLocales,
       localeResolutionCallback: resolveAppLocale,
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
       routerConfig: router,
     ),
   );

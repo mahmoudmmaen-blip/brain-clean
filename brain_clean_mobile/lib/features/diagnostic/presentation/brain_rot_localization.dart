@@ -1,7 +1,25 @@
-import '../../../core/l10n/app_localizations.dart';
+import 'package:flutter/material.dart';
 
-/// Maps question index (0–9) to localized Brain Rot prompt text.
-String brainRotQuestionText(AppLocalizations loc, int index) => switch (index) {
+import '../../../core/l10n/app_localizations.dart';
+import '../domain/diagnostic_model.dart';
+
+/// Arabic locale uses [BrainRotTest.questionsAr]; English uses ARB strings.
+String brainRotQuestionFor(
+  BuildContext context,
+  AppLocalizations loc,
+  int index,
+) {
+  if (index < 0 || index >= BrainRotTest.questionCount) {
+    return '';
+  }
+  final isArabic = Localizations.localeOf(context).languageCode == 'ar';
+  if (isArabic) {
+    return BrainRotTest.questionsAr[index];
+  }
+  return _englishQuestion(loc, index);
+}
+
+String _englishQuestion(AppLocalizations loc, int index) => switch (index) {
       0 => loc.diagnosticBrainRotQ1,
       1 => loc.diagnosticBrainRotQ2,
       2 => loc.diagnosticBrainRotQ3,

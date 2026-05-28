@@ -8,6 +8,26 @@ abstract final class AppTheme {
   static const Color gold = Color(0xFFF59E0B);
   static const Color success = Color(0xFF10B981);
 
+  static const Color lightBackground = Color(0xFFF4F6FA);
+  static const Color lightSurface = Color(0xFFFFFFFF);
+  static const Color lightBorder = Color(0xFFE2E8F0);
+
+  static ThemeData get light {
+    final base = ThemeData(
+      useMaterial3: true,
+      brightness: Brightness.light,
+      scaffoldBackgroundColor: lightBackground,
+      colorScheme: const ColorScheme.light(
+        surface: lightSurface,
+        primary: Color(0xFFB45309),
+        secondary: success,
+        error: Color(0xFFDC2626),
+        onSurface: Color(0xFF0F172A),
+      ),
+    );
+    return _applyShared(base, surface: lightSurface, border: lightBorder);
+  }
+
   static ThemeData get dark {
     final base = ThemeData(
       useMaterial3: true,
@@ -20,22 +40,34 @@ abstract final class AppTheme {
         error: Color(0xFFEF4444),
       ),
     );
+    return _applyShared(base, surface: surface, border: border);
+  }
+
+  static ThemeData _applyShared(
+    ThemeData base, {
+    required Color surface,
+    required Color border,
+  }) {
+    final isDark = base.brightness == Brightness.dark;
     return base.copyWith(
       textTheme: GoogleFonts.cairoTextTheme(base.textTheme),
-      appBarTheme: const AppBarTheme(
-        backgroundColor: background,
+      appBarTheme: AppBarTheme(
+        backgroundColor: base.scaffoldBackgroundColor,
+        foregroundColor: base.colorScheme.onSurface,
         elevation: 0,
         centerTitle: true,
       ),
       cardTheme: CardThemeData(
         color: surface,
-        elevation: 0,
+        elevation: isDark ? 0 : 1,
+        shadowColor: Colors.black.withValues(alpha: isDark ? 0 : 0.08),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(14),
-          side: const BorderSide(color: border),
+          side: BorderSide(color: border),
         ),
       ),
-      sliderTheme: const SliderThemeData(
+      dividerColor: border,
+      sliderTheme: SliderThemeData(
         activeTrackColor: gold,
         thumbColor: gold,
         inactiveTrackColor: border,

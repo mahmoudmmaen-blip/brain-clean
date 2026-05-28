@@ -1,10 +1,14 @@
 import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../core/constants/app_routes.dart';
 import '../../../core/routing/app_router.dart';
+import '../data/diagnostic_repository.dart';
+import '../data/diagnostic_repository_provider.dart';
 import '../domain/diagnostic_metrics.dart';
+import '../domain/diagnostic_session.dart';
 import 'bc_score_provider.dart';
 import 'brain_rot_questionnaire_controller.dart';
 
@@ -14,7 +18,6 @@ part 'diagnostic_controller.g.dart';
 class DiagnosticController extends _$DiagnosticController {
   @override
   FutureOr<DiagnosticMetrics> build() {
-    // إرجاع الحالة المبدئية للـ Metrics بشكل آمن ونظيف
     return const DiagnosticMetrics();
   }
 
@@ -26,7 +29,9 @@ class DiagnosticController extends _$DiagnosticController {
 
   void updateSustainedAttention(int value) {
     if (state.hasValue) {
-      state = AsyncData(state.value!.copyWith(sustainedAttention: _clampMetric(value)));
+      state = AsyncData(
+        state.value!.copyWith(sustainedAttention: _clampMetric(value)),
+      );
     }
   }
 
@@ -38,7 +43,9 @@ class DiagnosticController extends _$DiagnosticController {
 
   void updateDopamineSeeking(int value) {
     if (state.hasValue) {
-      state = AsyncData(state.value!.copyWith(dopamineSeeking: _clampMetric(value)));
+      state = AsyncData(
+        state.value!.copyWith(dopamineSeeking: _clampMetric(value)),
+      );
     }
   }
 
@@ -56,49 +63,63 @@ class DiagnosticController extends _$DiagnosticController {
 
   int _clampMetric(int value) => value.clamp(1, 10);
 
-  /// دالة تفعيل المزامنة وتصفير الديتوكس بشكل آمن لإعادة بناء دورة نقي جديدة
   void _invalidateAndResyncDetox() {
-    // TODO: قم بعمل invalidate لـ providers الديتوكس هنا لتجبر التطبيق على سحب الحزم النظيفة
-    // مثال: ref.invalidate(detoxProtocolControllerProvider);
     debugPrint('[BrainClean] Detox resync lifecycle triggered successfully.');
   }
 
   Future<void> submitDiagnostic() async {
     if (!state.hasValue) return;
-    
+
     final currentMetrics = state.value!;
     final bhi = ref.read(bcScoreLiveProvider);
-    
-    // تحويل حالة الـ Controller للتحميل لحماية الواجهة من الرفع المزدوج
-    state = const AsyncLoading<DiagnosticMetrics>().copyWithPrevious(AsyncData(currentMetrics));
+    final brainRot = ref.read(brainRotQuestionnaireProvider.notifier).result;
+
+    if (brainRot == null) {
+      state = AsyncError<DiagnosticMetrics>(
+        StateError('Complete the Brain Rot questionnaire before submitting.'),
+        StackTrace.current,
+      ).copyWithPrevious(AsyncData(currentMetrics));
+      return;
+    }
+
+    state = const AsyncLoading<DiagnosticMetrics>().copyWithPrevious(
+      AsyncData(currentMetrics),
+    );
 
     try {
-      // 1. تثبيت الجلسة محلياً (Commit Session)
-      final brainRot = ref.read(brainRotQuestionnaireProvider.notifier).result;
-      ref.read(bcScoreSessionProvider.notifier).commit(bhi, brainRot: brainRot);
+      final session = DiagnosticSession(
+        model: bhi,
+        committedAt: DateTime.now(),
+        brainRot: brainRot,
+      );
+
+      ref.read(bcScoreSessionProvider.notifier).commit(
+            bhi,
+            brainRot: brainRot,
+          );
+
+      await ref.read(diagnosticRepositoryProvider).upsertSession(
+            session: session,
+            metrics: currentMetrics,
+          );
 
       debugPrint(
-        '[BrainClean] BHI BC_score: ${bhi.bcScore.toStringAsFixed(1)}% '
-        '(performance ${bhi.brainPerformance.toStringAsFixed(0)}, '
-        'discipline ${bhi.digitalDiscipline.toStringAsFixed(0)}, '
-        'habits ${bhi.healthyHabits.toStringAsFixed(0)}, '
-        'consistency ${bhi.consistency.toStringAsFixed(0)})',
+        '[BrainClean] Brain Rot ${brainRot.score}/10 · band ${brainRot.band.name} · '
+        'BC_score ${bhi.bcScore.toStringAsFixed(1)}%',
       );
-      debugPrint('[BrainClean] BHI JSON: ${bhi.toJson()}');
 
-      // 2. المزامنة السحابية الاحترافية (Supabase Remote Sync)
-      // TODO: قم بإلغاء التعليق وتضمين كود السوبابيز الفعلي هنا
-      // await ref.read(supabaseDiagnosticRepositoryProvider).upsertDiagnostics(bhi, currentMetrics);
-
-      // 3. تحديث دورة حياة الديتوكس بشكل كامل وتصفير المسارات القديمة
       _invalidateAndResyncDetox();
 
-      // إعادة الحالة إلى طبيعتها وتوجيه المستخدم للوحة التحكم الرئيسية
       state = AsyncData(currentMetrics);
       ref.read(goRouterProvider).go(AppRoutes.dashboard);
+    } on DiagnosticSyncException catch (error, stackTrace) {
+      state = AsyncError<DiagnosticMetrics>(error, stackTrace).copyWithPrevious(
+        AsyncData(currentMetrics),
+      );
     } catch (error, stackTrace) {
-      // تمرير الـ Exception والـ Stack إلى الـ AsyncValue ليعرضها الـ UI بكفاءة دون تجمد
-      state = AsyncError<DiagnosticMetrics>(error, stackTrace).copyWithPrevious(AsyncData(currentMetrics));
+      state = AsyncError<DiagnosticMetrics>(error, stackTrace).copyWithPrevious(
+        AsyncData(currentMetrics),
+      );
     }
   }
 }

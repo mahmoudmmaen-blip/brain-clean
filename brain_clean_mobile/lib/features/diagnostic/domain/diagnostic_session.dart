@@ -15,4 +15,10 @@ class DiagnosticSession {
   double get bcScore => model.calculateBcScore();
 
   int get bcScoreRounded => bcScore.round();
+
+  int? get brainRotScore => brainRot?.score;
+
+  InterpretationBand? get brainRotBand => brainRot?.band;
+
+  String? get brainRotInterpretationAr => brainRot?.interpretationAr;
 }

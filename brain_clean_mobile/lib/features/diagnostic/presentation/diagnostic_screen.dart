@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/l10n/app_localizations.dart';
+import '../../../core/theme/theme_extensions.dart';
 import '../domain/diagnostic_metrics.dart';
 import '../domain/diagnostic_model.dart';
 import 'brain_rot_localization.dart';
@@ -101,7 +102,7 @@ class DiagnosticScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(20),
           child: BrainRotQuestionPage(
             questionIndex: index,
-            questionText: brainRotQuestionText(loc, index),
+            questionText: brainRotQuestionFor(context, loc, index),
             onAnswer: (yes) => flowNotifier.answerQuestion(index, yes),
             onBack: index > 0 ? () => flowNotifier.goToQuestion(index - 1) : null,
           ),
@@ -134,7 +135,7 @@ class DiagnosticScreen extends ConsumerWidget {
               loc.diagnosticInstructions,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Colors.white54,
+                    color: context.textMuted,
                   ),
             ),
             const SizedBox(height: 16),

@@ -19,13 +19,12 @@ Future<bool> showPenaltyBoxDialog(BuildContext context) async {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(ctx).pop(false),
-          style: TextButton.styleFrom(foregroundColor: Colors.white54),
           child: Text(loc.recoveryPenaltyCancel),
         ),
         FilledButton(
           onPressed: () => Navigator.of(ctx).pop(true),
           style: FilledButton.styleFrom(
-            backgroundColor: const Color(0xFFEF4444),
+            backgroundColor: Theme.of(ctx).colorScheme.error,
           ),
           child: Text(loc.recoveryPenaltyConfirm),
         ),

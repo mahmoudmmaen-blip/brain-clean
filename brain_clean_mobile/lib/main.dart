@@ -21,7 +21,9 @@ class BrainCleanApp extends ConsumerWidget {
     return MaterialApp.router(
       title: 'Brain Clean',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.dark,
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
+      themeMode: ThemeMode.system,
       localizationsDelegates: appLocalizationsDelegates,
       supportedLocales: supportedLocales,
       localeResolutionCallback: resolveAppLocale,

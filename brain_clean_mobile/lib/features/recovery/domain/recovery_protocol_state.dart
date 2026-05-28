@@ -26,6 +26,12 @@ class RecoveryProtocolState {
     return elapsed.clamp(1, RecoveryProtocolConstants.dayCount);
   }
 
+  int get completedDaysCount =>
+      days.values.where((d) => d.allTasksComplete).length;
+
+  double get progressRatio =>
+      completedDaysCount / RecoveryProtocolConstants.dayCount;
+
   RecoveryProtocolState copyWith({
     DateTime? protocolStartDate,
     int? selectedDayIndex,

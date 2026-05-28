@@ -1,10 +1,10 @@
-/// Five mandatory daily habits in the 30-day recovery grid.
+/// Five official daily habits in Dr. Moneam's 30-day recovery protocol.
 enum RecoveryDailyTask {
-  boredomSilence,
-  delayedGratification,
-  bodyActivation,
-  digitalDiscipline,
-  deepFocus,
+  regulatedSleep,
+  antiInflammatoryNutrition,
+  movementTwentyMinutes,
+  distractionManagement,
+  mentalSupport,
 }
 
 extension RecoveryDailyTaskIndex on RecoveryDailyTask {

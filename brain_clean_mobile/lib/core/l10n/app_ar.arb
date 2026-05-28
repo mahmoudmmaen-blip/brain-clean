@@ -112,16 +112,30 @@
   "@recoveryDayTasksTitle": {
     "placeholders": { "day": { "type": "int" } }
   },
-  "recoveryTaskBoredomTitle": "مُصاحبة الملل",
-  "recoveryTaskBoredomSubtitle": "10 دقائق صمت بدون شاشة",
-  "recoveryTaskDelayedTitle": "تأخير المكافأة",
-  "recoveryTaskDelayedSubtitle": "انتصار واحد مقصود على الأقل اليوم",
-  "recoveryTaskBodyTitle": "تنشيط الجسد",
-  "recoveryTaskBodySubtitle": "شمس الصباح + دش بارد",
-  "recoveryTaskDigitalTitle": "الانضباط الرقمي",
-  "recoveryTaskDigitalSubtitle": "إكمال فترة بدون تمرير عشوائي",
-  "recoveryTaskFocusTitle": "جلسة تركيز عميق",
-  "recoveryTaskFocusSubtitle": "بومودورو 25 دقيقة بدون تشتت",
+  "recoveryProgressSummary": "{completed} من {total} يوماً مكتمل في البروتوكول",
+  "@recoveryProgressSummary": {
+    "placeholders": {
+      "completed": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "recoveryDayTasksProgress": "{done} من {total} عادات مسجّلة اليوم",
+  "@recoveryDayTasksProgress": {
+    "placeholders": {
+      "done": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "recoveryTaskSleepTitle": "نوم منظم",
+  "recoveryTaskSleepSubtitle": "نافذة نوم ثابتة وروتين استرخاء قبل النوم",
+  "recoveryTaskNutritionTitle": "تغذية مضادة للالتهاب",
+  "recoveryTaskNutritionSubtitle": "وجبات داعمة للدماغ دون محفزات التهاب",
+  "recoveryTaskMovementTitle": "20 دقيقة حركة",
+  "recoveryTaskMovementSubtitle": "مشي أو تمدد أو نشاط خفيف لمدة 20 دقيقة على الأقل",
+  "recoveryTaskDistractionTitle": "بروتوكول إدارة التشتت",
+  "recoveryTaskDistractionSubtitle": "إكمال روتين حماية التركيز اليومي",
+  "recoveryTaskMentalTitle": "دعم ذهني",
+  "recoveryTaskMentalSubtitle": "تدوين أو تنفس موجّه أو جلسة دعم للتعافي",
   "recoveryDayComplete": "اكتملت العادات الخمس لهذا اليوم.",
   "recoveryMissedHabitsTitle": "تسجيل غير مكتمل",
   "recoveryMissedHabitsSubtitle": "فاتتك بعض العادات. افتح صندوق العقابات لتسجيل المساءلة.",

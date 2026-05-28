@@ -112,16 +112,30 @@
   "@recoveryDayTasksTitle": {
     "placeholders": { "day": { "type": "int" } }
   },
-  "recoveryTaskBoredomTitle": "Befriend boredom",
-  "recoveryTaskBoredomSubtitle": "10 minutes of silence without a screen",
-  "recoveryTaskDelayedTitle": "Delayed gratification",
-  "recoveryTaskDelayedSubtitle": "At least one intentional delay win today",
-  "recoveryTaskBodyTitle": "Body activation",
-  "recoveryTaskBodySubtitle": "Morning sun + cold shower",
-  "recoveryTaskDigitalTitle": "Digital discipline",
-  "recoveryTaskDigitalSubtitle": "No doom-scrolling block completed",
-  "recoveryTaskFocusTitle": "Deep focus session",
-  "recoveryTaskFocusSubtitle": "One 25-minute pomodoro without distraction",
+  "recoveryProgressSummary": "{completed} of {total} protocol days complete",
+  "@recoveryProgressSummary": {
+    "placeholders": {
+      "completed": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "recoveryDayTasksProgress": "{done} of {total} habits logged today",
+  "@recoveryDayTasksProgress": {
+    "placeholders": {
+      "done": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "recoveryTaskSleepTitle": "Regulated sleep",
+  "recoveryTaskSleepSubtitle": "Consistent sleep window and wind-down routine",
+  "recoveryTaskNutritionTitle": "Anti-inflammatory nutrition",
+  "recoveryTaskNutritionSubtitle": "Brain-supportive meals without inflammatory triggers",
+  "recoveryTaskMovementTitle": "20 minutes of movement",
+  "recoveryTaskMovementSubtitle": "Walk, stretch, or light exercise for at least 20 minutes",
+  "recoveryTaskDistractionTitle": "Distraction management protocol",
+  "recoveryTaskDistractionSubtitle": "Completed your daily focus-protection routine",
+  "recoveryTaskMentalTitle": "Mental support",
+  "recoveryTaskMentalSubtitle": "Journaling, breathwork, or guided recovery check-in",
   "recoveryDayComplete": "All five habits completed for this day.",
   "recoveryMissedHabitsTitle": "Incomplete check-in",
   "recoveryMissedHabitsSubtitle": "Some habits were missed. Open the penalty box to record accountability.",
