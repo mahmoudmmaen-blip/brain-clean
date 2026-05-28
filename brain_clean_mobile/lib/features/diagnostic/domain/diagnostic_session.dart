@@ -66,10 +66,13 @@ class DiagnosticSession {
   bool get isPillarBoundCoherent => bhi.isPillarBoundCoherent;
 
   void ensurePillarBoundCoherence() {
-    if (!isPillarBoundCoherent || !pillarEvaluation.isCoherent) {
+    bhi.ensurePillarBoundCoherence();
+    pillarEvaluation.ensureCoherent();
+    if (!PillarBoundEvaluation.scoresMatch(bcScore, frozenPillars.recomputedBcScore)) {
       throw StateError(
-        'DiagnosticSession pillar-bound score mismatch: '
-        'stored=${frozenPillars.bcScore} recomputed=${frozenPillars.recomputedBcScore}',
+        'DiagnosticSession coherence failed (ε=${PillarBoundEvaluation.coherenceEpsilon}): '
+        'session=$bcScore frozen=${frozenPillars.bcScore} '
+        'recomputed=${frozenPillars.recomputedBcScore}',
       );
     }
   }
@@ -94,28 +97,21 @@ class DiagnosticSession {
   /// True after [DiagnosticSession.fromAssessment] submit (persisted bundle).
   bool get isCommitted => brainRotAssessment != null;
 
-  /// Ongoing diagnostic — re-freezes pillars on each provider rebuild while sliders move.
+  /// In-progress diagnostic (questionnaire active, not yet committed).
   factory DiagnosticSession.inProgress({
     required DiagnosticMetrics metrics,
     required DiagnosticModel model,
     required BrainRotQuestionnaireSnapshot questionnaire,
     DateTime? snapshotAt,
-  }) {
-    final at = snapshotAt ?? DateTime.now();
-    final session = DiagnosticSession(
-      bhi: DiagnosticBhiSnapshot.compose(
+  }) =>
+      DiagnosticSession._validated(
         metrics: metrics,
         model: model,
-        frozenAt: at,
-      ),
-      committedAt: at,
-      questionnaire: questionnaire,
-    );
-    session.ensurePillarBoundCoherence();
-    return session;
-  }
+        questionnaire: questionnaire,
+        committedAt: snapshotAt ?? DateTime.now(),
+      );
 
-  /// Builds a committed session from live assessment inputs (no field loss).
+  /// Committed diagnostic after Brain Rot + BHI submit.
   factory DiagnosticSession.fromAssessment({
     required DiagnosticModel model,
     required DiagnosticMetrics metrics,
@@ -125,28 +121,43 @@ class DiagnosticSession {
     DateTime? committedAt,
   }) {
     final committed = committedAt ?? DateTime.now();
-    final questionnaireSnapshot = questionnaire ??
-        BrainRotQuestionnaireSnapshot(
-          answers: brainRotAnswers
-              .map<bool?>((a) => a)
-              .toList(growable: false),
-          currentIndex: BrainRotTest.questionCount - 1,
-          phase: BrainRotFlowPhase.bhiSliders,
-        );
-
-    final session = DiagnosticSession(
-      bhi: DiagnosticBhiSnapshot.compose(
-        metrics: metrics,
-        model: model,
-        frozenAt: committed,
-      ),
+    return DiagnosticSession._validated(
+      metrics: metrics,
+      model: model,
       committedAt: committed,
+      questionnaire: questionnaire ??
+          BrainRotQuestionnaireSnapshot(
+            answers: brainRotAnswers
+                .map<bool?>((a) => a)
+                .toList(growable: false),
+            currentIndex: BrainRotTest.questionCount - 1,
+            phase: BrainRotFlowPhase.bhiSliders,
+          ),
       brainRotAssessment: BrainRotAssessment.fromInterpretation(
         interpretation: brainRot,
         answers: brainRotAnswers,
         completedAt: committed,
       ),
-      questionnaire: questionnaireSnapshot,
+    );
+  }
+
+  /// Shared emit path: coherent BHI snapshot → session → ε-validated.
+  factory DiagnosticSession._validated({
+    required DiagnosticMetrics metrics,
+    required DiagnosticModel model,
+    required BrainRotQuestionnaireSnapshot questionnaire,
+    required DateTime committedAt,
+    BrainRotAssessment? brainRotAssessment,
+  }) {
+    final session = DiagnosticSession(
+      bhi: DiagnosticBhiSnapshot.compose(
+        metrics: metrics,
+        model: model,
+        frozenAt: committedAt,
+      ),
+      committedAt: committedAt,
+      brainRotAssessment: brainRotAssessment,
+      questionnaire: questionnaire,
     );
     session.ensurePillarBoundCoherence();
     return session;

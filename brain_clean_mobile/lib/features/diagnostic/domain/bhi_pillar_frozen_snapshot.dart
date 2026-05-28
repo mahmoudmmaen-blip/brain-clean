@@ -56,9 +56,9 @@ class BhiPillarFrozenSnapshot {
       );
 
   bool get isCoherent =>
-      (recomputedBcScore - bcScore).abs() < PillarBoundEvaluation.coherenceEpsilon;
+      PillarBoundEvaluation.scoresMatch(bcScore, recomputedBcScore);
 
-  /// Emits frozen pillars from a validated [PillarBoundEvaluation] matrix.
+  /// Committed / serialized state from a validated evaluation matrix.
   factory BhiPillarFrozenSnapshot.fromEvaluation(
     PillarBoundEvaluation evaluation, {
     DateTime? moment,
@@ -74,6 +74,7 @@ class BhiPillarFrozenSnapshot {
     );
   }
 
+  /// Freezes live model pillars at [moment] via [PillarBoundEvaluation.fromModel].
   factory BhiPillarFrozenSnapshot.freeze(
     DiagnosticModel model, {
     DateTime? moment,
@@ -90,6 +91,7 @@ class BhiPillarFrozenSnapshot {
         consistency: consistency,
       );
 
+  /// Deserializes pillars and re-derives [bcScore] through [PillarBoundEvaluation].
   factory BhiPillarFrozenSnapshot.fromJson(Map<String, dynamic> json) {
     final brainPerformance = (json['brain_performance'] as num).toDouble();
     final digitalDiscipline = (json['digital_discipline'] as num).toDouble();

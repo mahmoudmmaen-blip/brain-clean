@@ -250,6 +250,18 @@ void main() {
   });
 
   group('PillarBoundEvaluation', () {
+    test('scoresMatch uses coherenceEpsilon for float drift', () {
+      expect(
+        PillarBoundEvaluation.scoresMatch(50.0, 50.0 + 1e-6),
+        isTrue,
+      );
+      expect(
+        PillarBoundEvaluation.scoresMatch(50.0, 50.0 + 1e-3),
+        isFalse,
+      );
+      expect(PillarBoundEvaluation.coherenceEpsilon, 1e-5);
+    });
+
     test('fromFrozen normalizes incoherent stored bcScore', () {
       final bad = BhiPillarFrozenSnapshot(
         brainPerformance: 50,

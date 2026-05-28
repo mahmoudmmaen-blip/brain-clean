@@ -13,8 +13,8 @@ class PillarBoundEvaluation {
     required this.bcScore,
   });
 
-  /// Maximum allowed drift between stored and recomputed BC_score.
-  static const double coherenceEpsilon = 0.001;
+  /// Tolerance for stored vs. recomputed BC_score (floating-point safe).
+  static const double coherenceEpsilon = 1e-5;
 
   final double brainPerformance;
   final double digitalDiscipline;
@@ -26,6 +26,10 @@ class PillarBoundEvaluation {
   static const double digitalWeight = BcScoreConstants.digitalDisciplineWeight;
   static const double habitsWeight = BcScoreConstants.healthyHabitsWeight;
   static const double consistencyWeight = BcScoreConstants.consistencyWeight;
+
+  /// True when [stored] and [recomputed] agree within [coherenceEpsilon].
+  static bool scoresMatch(double stored, double recomputed) =>
+      (stored - recomputed).abs() < coherenceEpsilon;
 
   double get brainContribution => brainPerformance * brainWeight;
   double get digitalContribution => digitalDiscipline * digitalWeight;
@@ -52,30 +56,29 @@ class PillarBoundEvaluation {
         consistency: consistency,
       );
 
-  bool get isCoherent => (bcScore - recomputedBcScore).abs() < coherenceEpsilon;
+  bool get isCoherent => scoresMatch(bcScore, recomputedBcScore);
 
-  /// Builds a matrix with [bcScore] derived strictly from pillar boundaries.
+  /// Declarative matrix: pillars in → [bcScore] from [BhiScoreFormula] only.
   factory PillarBoundEvaluation.coherent({
     required double brainPerformance,
     required double digitalDiscipline,
     required double healthyHabits,
     required double consistency,
-  }) {
-    final score = computeBcScore(
-      brainPerformance: brainPerformance,
-      digitalDiscipline: digitalDiscipline,
-      healthyHabits: healthyHabits,
-      consistency: consistency,
-    );
-    return PillarBoundEvaluation(
-      brainPerformance: brainPerformance,
-      digitalDiscipline: digitalDiscipline,
-      healthyHabits: healthyHabits,
-      consistency: consistency,
-      bcScore: score,
-    );
-  }
+  }) =>
+      PillarBoundEvaluation(
+        brainPerformance: brainPerformance,
+        digitalDiscipline: digitalDiscipline,
+        healthyHabits: healthyHabits,
+        consistency: consistency,
+        bcScore: computeBcScore(
+          brainPerformance: brainPerformance,
+          digitalDiscipline: digitalDiscipline,
+          healthyHabits: healthyHabits,
+          consistency: consistency,
+        ),
+      );
 
+  /// Live assessment → coherent evaluation (in-progress / compose).
   factory PillarBoundEvaluation.fromModel(DiagnosticModel model) =>
       PillarBoundEvaluation.coherent(
         brainPerformance: model.brainPerformance,
@@ -84,7 +87,7 @@ class PillarBoundEvaluation {
         consistency: model.consistency,
       );
 
-  /// Recomputes [bcScore] from frozen pillars (ignores stale stored score).
+  /// Historical frozen pillars → coherent evaluation (ignores stale [bcScore]).
   factory PillarBoundEvaluation.fromFrozen(BhiPillarFrozenSnapshot frozen) =>
       PillarBoundEvaluation.coherent(
         brainPerformance: frozen.brainPerformance,
@@ -96,7 +99,7 @@ class PillarBoundEvaluation {
   void ensureCoherent() {
     if (!isCoherent) {
       throw StateError(
-        'PillarBoundEvaluation coherence failed: '
+        'PillarBoundEvaluation coherence failed (ε=$coherenceEpsilon): '
         'stored=$bcScore recomputed=$recomputedBcScore',
       );
     }
