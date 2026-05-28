@@ -22,7 +22,7 @@ void main() {
         BhiPillarJsonKeys.healthyHabitsSnake: 70,
         BhiPillarJsonKeys.consistency: 65,
         BhiPillarJsonKeys.bcScoreSnake: 74.5,
-        'frozen_at': '2026-01-01T00:00:00.000Z',
+        BhiPillarJsonKeys.frozenAtLegacy: '2026-01-01T00:00:00.000Z',
         BhiPillarJsonKeys.recoveryPenaltyDeductionSnake: 15,
       };
       final normalized = BhiPillarJsonKeys.normalizeIncoming(legacy);
@@ -80,6 +80,8 @@ void main() {
       expect(json.containsKey(BhiPillarJsonKeys.bhi), isTrue);
       expect(json.containsKey(BhiPillarJsonKeys.committedAt), isTrue);
       expect(json.containsKey(BhiPillarJsonKeys.recoveryPenaltyDeduction), isTrue);
+      expect(json[BhiPillarJsonKeys.hasRecoveryPenalty], isTrue);
+      expect(json[BhiPillarJsonKeys.accountabilityDeductionTotal], 15);
       expect(json.containsKey(BhiPillarJsonKeys.committedAtSnake), isFalse);
 
       final legacy = Map<String, dynamic>.from(json)
@@ -87,6 +89,22 @@ void main() {
             json.remove(BhiPillarJsonKeys.committedAt);
       final restored = DiagnosticSession.fromJson(legacy);
       expect(restored.recoveryPenaltyDeduction, 15);
+    });
+
+    test('DiagnosticMetrics fromJson migrates snake_case slider keys', () {
+      final legacy = {
+        BhiPillarJsonKeys.sleepQualitySnake: 8,
+        BhiPillarJsonKeys.sustainedAttentionSnake: 7,
+        BhiPillarJsonKeys.fragmentationSnake: 6,
+        BhiPillarJsonKeys.dopamineSeekingSnake: 5,
+        BhiPillarJsonKeys.taskSwitchingSnake: 4,
+        BhiPillarJsonKeys.burnoutSnake: 3,
+      };
+      final metrics = DiagnosticMetrics.fromJson(legacy);
+      expect(metrics.sleepQuality, 8);
+      expect(metrics.burnout, 3);
+      final json = metrics.toJson();
+      expect(json[BhiPillarJsonKeys.sleepQuality], 8);
     });
 
     test('frozen snapshot toJson emits camelCase keys exclusively', () {

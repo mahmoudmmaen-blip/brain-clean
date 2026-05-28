@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'bhi_pillar_json_keys.dart';
 import 'diagnostic_model.dart';
 
 part 'brain_rot_questionnaire_snapshot.g.dart';
@@ -25,10 +26,13 @@ class BrainRotQuestionnaireSnapshot {
     this.pendingResultsTransition = false,
   });
 
+  @JsonKey(name: BhiPillarJsonKeys.answers)
   final List<bool?> answers;
+
+  @JsonKey(name: BhiPillarJsonKeys.currentIndex)
   final int currentIndex;
 
-  @JsonKey(name: 'phase')
+  @JsonKey(name: BhiPillarJsonKeys.phase)
   final BrainRotFlowPhase phase;
 
   /// UI-only: last question answered; results phase animates in next frame.
@@ -65,7 +69,9 @@ class BrainRotQuestionnaireSnapshot {
   }
 
   factory BrainRotQuestionnaireSnapshot.fromJson(Map<String, dynamic> json) =>
-      _$BrainRotQuestionnaireSnapshotFromJson(json);
+      _$BrainRotQuestionnaireSnapshotFromJson(
+        BhiPillarJsonKeys.normalizeIncoming(json),
+      );
 
   Map<String, dynamic> toJson() => _$BrainRotQuestionnaireSnapshotToJson(this);
 }

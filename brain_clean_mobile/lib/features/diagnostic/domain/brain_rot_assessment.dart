@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'bhi_pillar_json_keys.dart';
 import 'diagnostic_model.dart';
 
 part 'brain_rot_assessment.g.dart';
@@ -15,18 +16,20 @@ class BrainRotAssessment {
     this.questionnaireCompletedAt,
   });
 
+  @JsonKey(name: BhiPillarJsonKeys.score)
   final int score;
 
-  @JsonKey(name: 'interpretation_band')
+  @JsonKey(name: BhiPillarJsonKeys.interpretationBand)
   final String interpretationBand;
 
-  @JsonKey(name: 'interpretation_ar')
+  @JsonKey(name: BhiPillarJsonKeys.interpretationAr)
   final String interpretationAr;
 
   /// Exactly 10 entries — `true` = symptom present (نعم).
+  @JsonKey(name: BhiPillarJsonKeys.answers)
   final List<bool> answers;
 
-  @JsonKey(name: 'questionnaire_completed_at')
+  @JsonKey(name: BhiPillarJsonKeys.questionnaireCompletedAt)
   final String? questionnaireCompletedAt;
 
   InterpretationBand get band => InterpretationBand.values.firstWhere(
@@ -55,7 +58,9 @@ class BrainRotAssessment {
       );
 
   factory BrainRotAssessment.fromJson(Map<String, dynamic> json) =>
-      _$BrainRotAssessmentFromJson(json);
+      _$BrainRotAssessmentFromJson(
+        BhiPillarJsonKeys.normalizeIncoming(json),
+      );
 
   Map<String, dynamic> toJson() => _$BrainRotAssessmentToJson(this);
 }

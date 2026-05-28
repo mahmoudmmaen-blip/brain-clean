@@ -22,6 +22,22 @@ abstract final class BhiPillarJsonKeys {
   static const brainRot = 'brainRot';
   static const questionnaire = 'questionnaire';
 
+  // —— Brain Rot questionnaire (in-progress tracking) ——
+  static const answers = 'answers';
+  static const currentIndex = 'currentIndex';
+  static const phase = 'phase';
+
+  // —— Brain Rot assessment (committed outcome) ——
+  static const score = 'score';
+  static const interpretationBand = 'interpretationBand';
+  static const interpretationAr = 'interpretationAr';
+  static const questionnaireCompletedAt = 'questionnaireCompletedAt';
+
+  // —— DiagnosticModel habit persistence (camelCase local) ——
+  static const boredomBefriended = 'boredomBefriended';
+  static const delayedGratificationCount = 'delayedGratificationCount';
+  static const bodyActivated = 'bodyActivated';
+
   // —— PillarBoundEvaluation row identifiers (UI + breakdown maps) ——
   static const pillarRowBrainPerformance = 'brain_performance';
   static const pillarRowDigitalDiscipline = 'digital_discipline';
@@ -35,6 +51,10 @@ abstract final class BhiPillarJsonKeys {
   static const dopamineSeeking = 'dopamineSeeking';
   static const taskSwitching = 'taskSwitching';
   static const burnout = 'burnout';
+
+  // —— Session accountability metadata (serialized alongside penalties) ——
+  static const hasRecoveryPenalty = 'hasRecoveryPenalty';
+  static const accountabilityDeductionTotal = 'accountabilityDeductionTotal';
 
   // —— Firestore / remote repository (snake_case boundary only) ——
   static const recoveryPenaltyDeductionSnake = 'recovery_penalty_deduction';
@@ -68,6 +88,15 @@ abstract final class BhiPillarJsonKeys {
   static const interpretationArSnake = 'interpretation_ar';
   static const brainRotAnswersSnake = 'brain_rot_answers';
   static const questionnaireCompletedAtSnake = 'questionnaire_completed_at';
+  static const boredomBefriendedSnake = 'boredom_befriended';
+  static const delayedGratificationCountSnake = 'delayed_gratification_count';
+  static const bodyActivatedSnake = 'body_activated';
+
+  // —— Legacy aliases (read-once migration) ——
+  static const frozenAtLegacy = 'frozen_at';
+  static const frozenPillarsLegacy = 'frozen_pillars';
+  static const boundBcScoreLegacy = 'bound_bc_score';
+  static const brainRotLegacy = 'brain_rot';
 
   /// Legacy snake_case → camelCase (read-once migration).
   static const Map<String, String> _legacyToCamel = {
@@ -77,17 +106,24 @@ abstract final class BhiPillarJsonKeys {
     consistencySnake: consistency,
     bcScoreSnake: bcScore,
     bhiFrozenAtSnake: frozenAt,
-    'frozen_at': frozenAt,
+    frozenAtLegacy: frozenAt,
     recoveryPenaltyDeductionSnake: recoveryPenaltyDeduction,
-    'frozen_pillars': frozenPillars,
+    frozenPillarsLegacy: frozenPillars,
     pillarMatrixBcScoreSnake: pillarMatrixBcScore,
-    'bound_bc_score': boundBcScore,
+    boundBcScoreLegacy: boundBcScore,
     committedAtSnake: committedAt,
-    'brain_rot': brainRot,
+    brainRotLegacy: brainRot,
     sleepQualitySnake: sleepQuality,
     sustainedAttentionSnake: sustainedAttention,
     dopamineSeekingSnake: dopamineSeeking,
     taskSwitchingSnake: taskSwitching,
+    interpretationBandSnake: interpretationBand,
+    interpretationArSnake: interpretationAr,
+    questionnaireCompletedAtSnake: questionnaireCompletedAt,
+    boredomBefriendedSnake: boredomBefriended,
+    delayedGratificationCountSnake: delayedGratificationCount,
+    bodyActivatedSnake: bodyActivated,
+    accountabilityDeductionTotal: accountabilityDeductionTotal,
   };
 
   /// Normalizes legacy snake_case keys to camelCase without mutating unknown keys.
@@ -105,8 +141,21 @@ abstract final class BhiPillarJsonKeys {
     return out;
   }
 
+  static Map<String, dynamic> requireMap(
+    Map<String, dynamic> json,
+    String key,
+  ) {
+    final raw = json[key];
+    if (raw is! Map<String, dynamic>) {
+      throw FormatException('BhiPillarJsonKeys: missing map for "$key"');
+    }
+    return raw;
+  }
+
   static double readPenalty(Map<String, dynamic> json) =>
-      (json[recoveryPenaltyDeduction] as num?)?.toDouble() ?? 0;
+      (json[recoveryPenaltyDeduction] as num?)?.toDouble() ??
+      (json[accountabilityDeductionTotal] as num?)?.toDouble() ??
+      0;
 
   static double readBcScore(Map<String, dynamic> json) =>
       (json[bcScore] as num?)?.toDouble() ?? 0;
@@ -140,5 +189,33 @@ abstract final class BhiPillarJsonKeys {
     target[BhiPillarJsonKeys.pillarMatrixBcScore] = pillarMatrixBcScore;
     target[BhiPillarJsonKeys.boundBcScore] = boundBcScore;
     target[BhiPillarJsonKeys.bcScore] = boundBcScore;
+    target[BhiPillarJsonKeys.hasRecoveryPenalty] = recoveryPenaltyDeduction > 0;
+    target[BhiPillarJsonKeys.accountabilityDeductionTotal] =
+        recoveryPenaltyDeduction;
+  }
+
+  /// Full session JSON map using only [BhiPillarJsonKeys] field names.
+  static Map<String, dynamic> sessionToJson({
+    required Map<String, dynamic> bhiJson,
+    required DateTime committedAt,
+    required Map<String, dynamic> questionnaireJson,
+    Map<String, dynamic>? brainRotJson,
+    required double recoveryPenaltyDeduction,
+    required double pillarMatrixBcScore,
+    required double boundBcScore,
+  }) {
+    final map = <String, dynamic>{
+      bhi: bhiJson,
+      BhiPillarJsonKeys.committedAt: committedAt.toIso8601String(),
+      questionnaire: questionnaireJson,
+      if (brainRotJson != null) brainRot: brainRotJson,
+    };
+    writePenaltyEnvelope(
+      map,
+      recoveryPenaltyDeduction: recoveryPenaltyDeduction,
+      pillarMatrixBcScore: pillarMatrixBcScore,
+      boundBcScore: boundBcScore,
+    );
+    return map;
   }
 }

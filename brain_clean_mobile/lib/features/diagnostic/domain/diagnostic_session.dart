@@ -1,5 +1,3 @@
-import 'package:json_annotation/json_annotation.dart';
-
 import 'bhi_pillar_frozen_snapshot.dart';
 import 'bhi_pillar_json_keys.dart';
 import 'brain_rot_assessment.dart';
@@ -9,10 +7,7 @@ import 'diagnostic_metrics.dart';
 import 'diagnostic_model.dart';
 import 'pillar_bound_evaluation.dart';
 
-part 'diagnostic_session.g.dart';
-
 /// Full diagnostic commit — BHI snapshot, questionnaire, and Brain Rot outcome.
-@JsonSerializable(explicitToJson: true)
 class DiagnosticSession {
   const DiagnosticSession({
     required this.bhi,
@@ -21,15 +16,9 @@ class DiagnosticSession {
     this.questionnaire = const BrainRotQuestionnaireSnapshot(),
   });
 
-  @JsonKey(name: BhiPillarJsonKeys.bhi)
   final DiagnosticBhiSnapshot bhi;
-
-  @JsonKey(name: BhiPillarJsonKeys.committedAt)
   final DateTime committedAt;
-
-  @JsonKey(name: BhiPillarJsonKeys.brainRot)
   final BrainRotAssessment? brainRotAssessment;
-
   final BrainRotQuestionnaireSnapshot questionnaire;
 
   /// Live fluid model (detox/habits may change). Prefer [pillarModel] for scoring UI.
@@ -226,29 +215,59 @@ class DiagnosticSession {
 
   factory DiagnosticSession.fromJson(Map<String, dynamic> json) {
     final normalized = BhiPillarJsonKeys.normalizeIncoming(json);
-    final session = _$DiagnosticSessionFromJson(normalized);
+    final session = DiagnosticSession(
+      bhi: DiagnosticBhiSnapshot.fromJson(
+        BhiPillarJsonKeys.requireMap(normalized, BhiPillarJsonKeys.bhi),
+      ),
+      committedAt: DateTime.parse(
+        normalized[BhiPillarJsonKeys.committedAt] as String,
+      ),
+      brainRotAssessment: _readBrainRotAssessment(normalized),
+      questionnaire: _readQuestionnaire(normalized),
+    );
     final rootPenalty = BhiPillarJsonKeys.readPenalty(normalized);
     if (rootPenalty > 0) {
       PillarBoundEvaluation.requireScoresMatch(
         stored: rootPenalty,
         recomputed: session.recoveryPenaltyDeduction,
-        layer: 'DiagnosticSession.recoveryPenaltyDeduction',
+        layer: 'DiagnosticSession.${BhiPillarJsonKeys.recoveryPenaltyDeduction}',
       );
     }
     session.ensurePillarBoundCoherence();
     return session;
   }
 
+  static BrainRotAssessment? _readBrainRotAssessment(
+    Map<String, dynamic> json,
+  ) {
+    final raw = json[BhiPillarJsonKeys.brainRot];
+    if (raw == null) return null;
+    return BrainRotAssessment.fromJson(
+      BhiPillarJsonKeys.normalizeIncoming(raw as Map<String, dynamic>),
+    );
+  }
+
+  static BrainRotQuestionnaireSnapshot _readQuestionnaire(
+    Map<String, dynamic> json,
+  ) {
+    final raw = json[BhiPillarJsonKeys.questionnaire];
+    if (raw == null) return const BrainRotQuestionnaireSnapshot();
+    return BrainRotQuestionnaireSnapshot.fromJson(
+      BhiPillarJsonKeys.normalizeIncoming(raw as Map<String, dynamic>),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     ensurePillarBoundCoherence();
-    final map = _$DiagnosticSessionToJson(this);
-    BhiPillarJsonKeys.writePenaltyEnvelope(
-      map,
+    return BhiPillarJsonKeys.sessionToJson(
+      bhiJson: bhi.toJson(),
+      committedAt: committedAt,
+      questionnaireJson: questionnaire.toJson(),
+      brainRotJson: brainRotAssessment?.toJson(),
       recoveryPenaltyDeduction: recoveryPenaltyDeduction,
       pillarMatrixBcScore: pillarMatrixBcScore,
       boundBcScore: bcScore,
     );
-    return map;
   }
 
   /// Lossless snake_case payload for [DiagnosticRepository].
