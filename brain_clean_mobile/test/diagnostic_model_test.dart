@@ -1,5 +1,7 @@
 import 'package:brain_clean_mobile/core/constants/bc_score_constants.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/brain_rot_assessment.dart';
+import 'package:brain_clean_mobile/features/diagnostic/domain/brain_rot_questionnaire_snapshot.dart';
+import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_bhi_snapshot.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_metrics.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_session.dart';
@@ -279,12 +281,16 @@ void main() {
       expect(restored.brainRotScore, 2);
       expect(restored.brainRotBand, InterpretationBand.mild);
       expect(restored.brainRotAnswers, hasLength(10));
+      expect(restored.bhi.metrics.sleepQuality, 7);
+      expect(restored.questionnaire.phase, BrainRotFlowPhase.bhiSliders);
 
       final payload = session.toRepositoryPayload();
       expect(payload['brain_rot_score'], 2);
       expect(payload['interpretation_band'], 'mild');
       expect(payload['sleep_quality'], 7);
       expect(payload['brain_rot_answers'], isA<List<dynamic>>());
+      expect(payload['mapped_brain_performance'], isA<double>());
+      expect(payload['questionnaire_phase'], 'bhiSliders');
     });
   });
 }

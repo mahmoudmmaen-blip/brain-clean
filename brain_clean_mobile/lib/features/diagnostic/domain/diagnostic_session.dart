@@ -1,29 +1,39 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'brain_rot_assessment.dart';
+import 'brain_rot_questionnaire_snapshot.dart';
+import 'diagnostic_bhi_snapshot.dart';
 import 'diagnostic_metrics.dart';
 import 'diagnostic_model.dart';
 
 part 'diagnostic_session.g.dart';
 
-/// Committed diagnostic snapshot — BHI model, sliders, and Brain Rot payload.
+/// Full diagnostic commit — BHI snapshot, questionnaire, and Brain Rot outcome.
 @JsonSerializable(explicitToJson: true)
 class DiagnosticSession {
   const DiagnosticSession({
-    required this.model,
-    required this.metrics,
+    required this.bhi,
     required this.committedAt,
     this.brainRotAssessment,
+    this.questionnaire = const BrainRotQuestionnaireSnapshot(),
   });
 
-  final DiagnosticModel model;
-  final DiagnosticMetrics metrics;
+  @JsonKey(name: 'bhi')
+  final DiagnosticBhiSnapshot bhi;
 
   @JsonKey(name: 'committed_at')
   final DateTime committedAt;
 
   @JsonKey(name: 'brain_rot')
   final BrainRotAssessment? brainRotAssessment;
+
+  final BrainRotQuestionnaireSnapshot questionnaire;
+
+  /// Centralized BHI model (alias for repository / dashboard consumers).
+  DiagnosticModel get model => bhi.model;
+
+  /// Slider input metrics (alias).
+  DiagnosticMetrics get metrics => bhi.metrics;
 
   double get bcScore => model.calculateBcScore();
 
@@ -40,23 +50,36 @@ class DiagnosticSession {
   BrainRotInterpretation? get brainRot =>
       brainRotAssessment?.toInterpretation();
 
-  /// Builds a complete session from live assessment inputs.
+  BrainRotFlowPhase get questionnairePhase => questionnaire.phase;
+
+  /// Builds a committed session from live assessment inputs (no field loss).
   factory DiagnosticSession.fromAssessment({
     required DiagnosticModel model,
     required DiagnosticMetrics metrics,
     required BrainRotInterpretation brainRot,
     required List<bool> brainRotAnswers,
+    BrainRotQuestionnaireSnapshot? questionnaire,
     DateTime? committedAt,
   }) {
+    final committed = committedAt ?? DateTime.now();
+    final questionnaireSnapshot = questionnaire ??
+        BrainRotQuestionnaireSnapshot(
+          answers: brainRotAnswers
+              .map<bool?>((a) => a)
+              .toList(growable: false),
+          currentIndex: BrainRotTest.questionCount - 1,
+          phase: BrainRotFlowPhase.bhiSliders,
+        );
+
     return DiagnosticSession(
-      model: model,
-      metrics: metrics,
-      committedAt: committedAt ?? DateTime.now(),
+      bhi: DiagnosticBhiSnapshot.compose(metrics: metrics, model: model),
+      committedAt: committed,
       brainRotAssessment: BrainRotAssessment.fromInterpretation(
         interpretation: brainRot,
         answers: brainRotAnswers,
-        completedAt: committedAt ?? DateTime.now(),
+        completedAt: committed,
       ),
+      questionnaire: questionnaireSnapshot,
     );
   }
 
@@ -65,34 +88,42 @@ class DiagnosticSession {
 
   Map<String, dynamic> toJson() => _$DiagnosticSessionToJson(this);
 
-  /// Flat snake_case map for [DiagnosticRepository] — no dropped fields.
+  /// Lossless snake_case payload for [DiagnosticRepository].
   Map<String, dynamic> toRepositoryPayload() {
-    final payload = <String, dynamic>{
+    final m = model;
+    final input = metrics;
+    final assessment = brainRotAssessment;
+    final q = questionnaire;
+
+    return {
       'bc_score': bcScore,
       'committed_at': committedAt.toUtc().toIso8601String(),
-      'brain_performance': model.brainPerformance,
-      'digital_discipline': model.digitalDiscipline,
-      'healthy_habits': model.healthyHabits,
-      'consistency': model.consistency,
-      'sleep_quality': metrics.sleepQuality,
-      'sustained_attention': metrics.sustainedAttention,
-      'fragmentation': metrics.fragmentation,
-      'dopamine_seeking': metrics.dopamineSeeking,
-      'task_switching': metrics.taskSwitching,
-      'burnout': metrics.burnout,
+      'brain_performance': m.brainPerformance,
+      'digital_discipline': m.digitalDiscipline,
+      'healthy_habits': m.healthyHabits,
+      'consistency': m.consistency,
+      'mapped_brain_performance': bhi.mappedFromMetrics.brainPerformance,
+      'mapped_digital_discipline': bhi.mappedFromMetrics.digitalDiscipline,
+      'mapped_healthy_habits': bhi.mappedFromMetrics.healthyHabits,
+      'mapped_consistency': bhi.mappedFromMetrics.consistency,
+      'sleep_quality': input.sleepQuality,
+      'sustained_attention': input.sustainedAttention,
+      'fragmentation': input.fragmentation,
+      'dopamine_seeking': input.dopamineSeeking,
+      'task_switching': input.taskSwitching,
+      'burnout': input.burnout,
+      'questionnaire_phase': q.phase.name,
+      'questionnaire_current_index': q.currentIndex,
+      'questionnaire_answered_count': q.answeredCount,
       'session_json': toJson(),
-    };
-    final assessment = brainRotAssessment;
-    if (assessment != null) {
-      payload.addAll({
+      if (assessment != null) ...{
         'brain_rot_score': assessment.score,
         'interpretation_band': assessment.interpretationBand,
         'interpretation_ar': assessment.interpretationAr,
         'brain_rot_answers': assessment.answers,
         if (assessment.questionnaireCompletedAt != null)
           'questionnaire_completed_at': assessment.questionnaireCompletedAt,
-      });
-    }
-    return payload;
+      },
+    };
   }
 }

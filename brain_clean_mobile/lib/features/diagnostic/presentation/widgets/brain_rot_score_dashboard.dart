@@ -6,7 +6,7 @@ import '../../../../core/theme/theme_extensions.dart';
 import '../../domain/diagnostic_model.dart';
 import 'brain_rot_colors.dart';
 
-/// Brain Rot results — optimized for light (brand green) and dark themes.
+/// Brain Rot results — optimized for brand green light/dark themes.
 class BrainRotScoreDashboard extends StatelessWidget {
   const BrainRotScoreDashboard({
     super.key,
@@ -23,7 +23,7 @@ class BrainRotScoreDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    final isLight = theme.brightness == Brightness.light;
+    final isLight = context.isLightTheme;
     final bandColor = BrainRotColors.forBand(interpretation.band);
     final range = interpretation.band.scoreRange;
     final clinicalText = BrainRotTest.interpretScore(interpretation.score);
@@ -46,7 +46,7 @@ class BrainRotScoreDashboard extends StatelessWidget {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  bandColor.withValues(alpha: isLight ? 0.12 : 0.2),
+                  bandColor.withValues(alpha: isLight ? 0.1 : 0.2),
                   theme.cardTheme.color ?? theme.colorScheme.surface,
                 ],
               ),
@@ -58,11 +58,7 @@ class BrainRotScoreDashboard extends StatelessWidget {
                 const SizedBox(height: 12),
                 Text(
                   loc.diagnosticBrainRotScoreTitle,
-                  style: theme.textTheme.labelLarge?.copyWith(
-                    color: context.textMuted,
-                    letterSpacing: 0.6,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: context.arabicLabelStyle,
                 ),
                 const SizedBox(height: 12),
                 Text(
@@ -92,9 +88,11 @@ class BrainRotScoreDashboard extends StatelessWidget {
                   ),
                   child: Text(
                     loc.diagnosticBrainRotBandRange(range.$1, range.$2),
-                    style: theme.textTheme.labelMedium?.copyWith(
-                      color: bandColor,
+                    style: AppDesignConstants.cairo(
+                      fontSize: 13,
                       fontWeight: FontWeight.w700,
+                      color: bandColor,
+                      height: 1.3,
                     ),
                   ),
                 ),
@@ -112,20 +110,19 @@ class BrainRotScoreDashboard extends StatelessWidget {
               children: [
                 Text(
                   loc.diagnosticBrainRotInterpretationTitle,
-                  style: theme.textTheme.titleSmall?.copyWith(
-                    color: isLight
-                        ? AppDesignConstants.brandGreen
-                        : bandColor,
+                  style: AppDesignConstants.cairo(
+                    fontSize: 15,
                     fontWeight: FontWeight.w700,
+                    color: context.brandPrimary,
+                    height: 1.35,
                   ),
                 ),
                 const SizedBox(height: 12),
                 Text(
                   clinicalText,
-                  style: theme.textTheme.bodyLarge?.copyWith(
-                    height: 1.6,
-                    color: theme.colorScheme.onSurface,
-                    fontWeight: FontWeight.w500,
+                  style: context.arabicBodyStyle.copyWith(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ],

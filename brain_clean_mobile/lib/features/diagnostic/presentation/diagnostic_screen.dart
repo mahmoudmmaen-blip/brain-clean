@@ -3,10 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/theme_extensions.dart';
+import '../domain/brain_rot_questionnaire_snapshot.dart';
 import '../domain/diagnostic_metrics.dart';
 import '../domain/diagnostic_model.dart';
 import 'brain_rot_localization.dart';
-import 'brain_rot_questionnaire_controller.dart';
+import 'diagnostic_session_flow_provider.dart';
 import 'bc_score_provider.dart';
 import 'diagnostic_controller.dart';
 import 'widgets/bc_score_breakdown.dart';
@@ -22,11 +23,11 @@ class DiagnosticScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = AppLocalizations.of(context)!;
     final asyncMetrics = ref.watch(diagnosticControllerProvider);
-    final flow = ref.watch(brainRotQuestionnaireProvider);
-    final flowNotifier = ref.read(brainRotQuestionnaireProvider.notifier);
+    final flow = ref.watch(diagnosticSessionFlowProvider);
+    final flowNotifier = ref.read(diagnosticSessionFlowProvider.notifier);
     final bhiLive = ref.watch(bcScoreLiveProvider);
     final controller = ref.read(diagnosticControllerProvider.notifier);
-    final result = flowNotifier.result;
+    final result = flow.interpretation;
 
     return Scaffold(
       appBar: AppBar(
@@ -37,13 +38,16 @@ class DiagnosticScreen extends ConsumerWidget {
         ),
         actions: [
           if (asyncMetrics.isLoading)
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Center(
                 child: SizedBox(
                   width: 18,
                   height: 18,
-                  child: CircularProgressIndicator(strokeWidth: 2),
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
                 ),
               ),
             ),
@@ -57,23 +61,26 @@ class DiagnosticScreen extends ConsumerWidget {
             onRetry: controller.submitDiagnostic,
           ),
           data: (metrics) => AnimatedSwitcher(
-            duration: const Duration(milliseconds: 400),
+            duration: const Duration(milliseconds: 420),
             switchInCurve: Curves.easeOutCubic,
             switchOutCurve: Curves.easeIn,
             transitionBuilder: (child, animation) => FadeTransition(
               opacity: animation,
               child: SlideTransition(
                 position: Tween<Offset>(
-                  begin: const Offset(0, 0.04),
+                  begin: const Offset(0, 0.05),
                   end: Offset.zero,
-                ).animate(animation),
+                ).animate(CurvedAnimation(
+                  parent: animation,
+                  curve: Curves.easeOutCubic,
+                )),
                 child: child,
               ),
             ),
             child: _buildPhase(
               context,
               ref,
-              key: ValueKey(flow.phase),
+              key: ValueKey('${flow.phase}_${flow.currentIndex}'),
               phase: flow.phase,
               flow: flow,
               flowNotifier: flowNotifier,
@@ -94,8 +101,8 @@ class DiagnosticScreen extends ConsumerWidget {
     WidgetRef ref, {
     required Key key,
     required BrainRotFlowPhase phase,
-    required BrainRotQuestionnaireState flow,
-    required BrainRotQuestionnaire flowNotifier,
+    required BrainRotQuestionnaireSnapshot flow,
+    required DiagnosticSessionFlow flowNotifier,
     required DiagnosticMetrics metrics,
     required DiagnosticModel bhiLive,
     required BrainRotInterpretation? result,
@@ -109,7 +116,7 @@ class DiagnosticScreen extends ConsumerWidget {
         final index = flow.currentIndex;
         return Padding(
           key: key,
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
           child: BrainRotQuestionPage(
             questionIndex: index,
             questionText: brainRotQuestionFor(context, loc, index),
@@ -119,7 +126,13 @@ class DiagnosticScreen extends ConsumerWidget {
         );
       case BrainRotFlowPhase.results:
         if (result == null) {
-          return Center(key: key, child: Text(loc.diagnosticBrainRotIncomplete));
+          return Center(
+            key: key,
+            child: Text(
+              loc.diagnosticBrainRotIncomplete,
+              style: context.arabicBodyStyle,
+            ),
+          );
         }
         return Padding(
           key: key,
@@ -144,9 +157,7 @@ class DiagnosticScreen extends ConsumerWidget {
             Text(
               loc.diagnosticInstructions,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: context.textMuted,
-                  ),
+              style: context.arabicLabelStyle,
             ),
             const SizedBox(height: 16),
             DiagnosticMetricSlider(
@@ -189,10 +200,13 @@ class DiagnosticScreen extends ConsumerWidget {
             FilledButton(
               onPressed: asyncMetricsLoading ? null : controller.submitDiagnostic,
               child: asyncMetricsLoading
-                  ? const SizedBox(
+                  ? SizedBox(
                       width: 20,
                       height: 20,
-                      child: CircularProgressIndicator(strokeWidth: 2),
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
                     )
                   : Text(loc.diagnosticStart),
             ),
@@ -226,7 +240,11 @@ class _DiagnosticErrorView extends StatelessWidget {
               color: Theme.of(context).colorScheme.error,
             ),
             const SizedBox(height: 16),
-            Text(message, textAlign: TextAlign.center),
+            Text(
+              message,
+              textAlign: TextAlign.center,
+              style: context.arabicBodyStyle,
+            ),
             const SizedBox(height: 20),
             FilledButton.icon(
               onPressed: onRetry,

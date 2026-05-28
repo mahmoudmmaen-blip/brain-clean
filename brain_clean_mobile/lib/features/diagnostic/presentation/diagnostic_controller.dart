@@ -7,10 +7,11 @@ import '../../../core/constants/app_routes.dart';
 import '../../../core/routing/app_router.dart';
 import '../data/diagnostic_repository.dart';
 import '../data/diagnostic_repository_provider.dart';
+import '../domain/brain_rot_questionnaire_snapshot.dart';
 import '../domain/diagnostic_metrics.dart';
 import '../domain/diagnostic_session.dart';
 import 'bc_score_provider.dart';
-import 'brain_rot_questionnaire_controller.dart';
+import 'diagnostic_session_flow_provider.dart';
 
 part 'diagnostic_controller.g.dart';
 
@@ -72,8 +73,9 @@ class DiagnosticController extends _$DiagnosticController {
 
     final currentMetrics = state.value!;
     final bhi = ref.read(bcScoreLiveProvider);
-    final questionnaire = ref.read(brainRotQuestionnaireProvider.notifier);
-    final brainRot = questionnaire.result;
+    final flow = ref.read(diagnosticSessionFlowProvider.notifier);
+    final questionnaire = ref.read(diagnosticSessionFlowProvider);
+    final brainRot = flow.result;
 
     if (brainRot == null) {
       state = AsyncError<DiagnosticMetrics>(
@@ -92,7 +94,8 @@ class DiagnosticController extends _$DiagnosticController {
         model: bhi,
         metrics: currentMetrics,
         brainRot: brainRot,
-        brainRotAnswers: questionnaire.resolvedAnswers,
+        brainRotAnswers: flow.resolvedAnswers,
+        questionnaire: questionnaire,
       );
 
       ref.read(bcScoreSessionProvider.notifier).commit(session);

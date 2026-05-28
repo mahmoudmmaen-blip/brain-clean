@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import 'app_design_constants.dart';
 import 'app_theme.dart';
 
 part 'theme_provider.g.dart';
@@ -33,3 +34,17 @@ ThemeData appLightTheme(AppLightThemeRef ref) => AppTheme.light;
 
 @riverpod
 ThemeData appDarkTheme(AppDarkThemeRef ref) => AppTheme.dark;
+
+/// Brand tokens exposed to widgets without importing constants directly.
+@riverpod
+AppDesignTokens appDesignTokens(AppDesignTokensRef ref) =>
+    const AppDesignTokens();
+
+/// Read-only view of [AppDesignConstants] for component libraries.
+class AppDesignTokens {
+  const AppDesignTokens();
+
+  Color get brandGreen => AppDesignConstants.brandGreen;
+  Color get brandGreenLight => AppDesignConstants.brandGreenLight;
+  Color get brandGreenDark => AppDesignConstants.brandGreenDark;
+}

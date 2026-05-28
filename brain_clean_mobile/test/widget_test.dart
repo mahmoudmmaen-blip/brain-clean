@@ -1,11 +1,13 @@
 import 'package:brain_clean_mobile/features/dashboard/presentation/dashboard_screen.dart'
     show DashboardScreen, dashboardDetoxCheckInTileKey;
 import 'package:brain_clean_mobile/features/detox/presentation/detox_protocol_screen.dart';
+import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_bhi_snapshot.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_metrics.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_session.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/bc_score_provider.dart';
-import 'package:brain_clean_mobile/features/diagnostic/presentation/brain_rot_questionnaire_controller.dart';
+import 'package:brain_clean_mobile/features/diagnostic/domain/brain_rot_questionnaire_snapshot.dart';
+import 'package:brain_clean_mobile/features/diagnostic/presentation/diagnostic_session_flow_provider.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/diagnostic_screen.dart';
 import 'package:brain_clean_mobile/features/recovery/presentation/recovery_grid_screen.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/widgets/bc_score_hero_card.dart';
@@ -38,7 +40,7 @@ void main() {
         createLocalizedProviderTestWidget(
           const DiagnosticScreen(),
           overrides: [
-            brainRotQuestionnaireProvider.overrideWith(_BhiPhaseQuestionnaire.new),
+            diagnosticSessionFlowProvider.overrideWith(_BhiPhaseFlow.new),
           ],
         ),
       );
@@ -124,8 +126,10 @@ void main() {
         consistency: 65,
       );
       final session = DiagnosticSession(
-        model: model,
-        metrics: const DiagnosticMetrics(),
+        bhi: DiagnosticBhiSnapshot.compose(
+          metrics: const DiagnosticMetrics(),
+          model: model,
+        ),
         committedAt: DateTime(2026, 5, 20, 12, 30),
       );
 
@@ -171,9 +175,9 @@ void main() {
   });
 }
 
-class _BhiPhaseQuestionnaire extends BrainRotQuestionnaire {
+class _BhiPhaseFlow extends DiagnosticSessionFlow {
   @override
-  BrainRotQuestionnaireState build() => BrainRotQuestionnaireState(
+  BrainRotQuestionnaireSnapshot build() => BrainRotQuestionnaireSnapshot(
         answers: List<bool?>.filled(10, false),
         currentIndex: 9,
         phase: BrainRotFlowPhase.bhiSliders,

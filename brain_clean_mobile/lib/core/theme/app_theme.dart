@@ -6,97 +6,105 @@ import 'app_design_constants.dart';
 abstract final class AppTheme {
   static const Color gold = AppDesignConstants.accentGold;
   static const Color success = AppDesignConstants.accentSuccess;
+  static const Color brandGreen = AppDesignConstants.brandGreen;
 
   /// Legacy aliases used across diagnostic widgets.
   static const Color background = AppDesignConstants.darkBackground;
   static const Color surface = AppDesignConstants.darkSurface;
   static const Color border = AppDesignConstants.darkBorder;
 
-  static ThemeData get light {
-    const primary = AppDesignConstants.brandGreen;
-    final base = ThemeData(
-      useMaterial3: true,
-      brightness: Brightness.light,
-      scaffoldBackgroundColor: AppDesignConstants.lightBackground,
-      colorScheme: const ColorScheme.light(
-        primary: primary,
+  static ThemeData get light => _buildTheme(
+        brightness: Brightness.light,
+        scaffold: AppDesignConstants.lightBackground,
+        surface: AppDesignConstants.lightSurface,
+        border: AppDesignConstants.lightBorder,
+        onSurface: AppDesignConstants.lightOnSurface,
+        primary: AppDesignConstants.brandGreen,
         onPrimary: Colors.white,
-        primaryContainer: Color(0xFFD1E7DD),
+        primaryContainer: AppDesignConstants.brandGreenContainer,
         onPrimaryContainer: AppDesignConstants.brandGreenDark,
         secondary: AppDesignConstants.brandGreenLight,
-        onSecondary: Colors.white,
-        surface: AppDesignConstants.lightSurface,
-        onSurface: AppDesignConstants.lightOnSurface,
-        error: AppDesignConstants.accentError,
-        onError: Colors.white,
-      ),
-    );
-    return _applyShared(
-      base,
-      surface: AppDesignConstants.lightSurface,
-      border: AppDesignConstants.lightBorder,
-      primaryButton: primary,
-      appBarBackground: primary,
-      appBarForeground: Colors.white,
-      sliderActive: primary,
-    );
-  }
+        appBarBg: AppDesignConstants.brandGreen,
+        appBarFg: Colors.white,
+        sliderActive: AppDesignConstants.brandGreen,
+        filledButton: AppDesignConstants.brandGreen,
+      );
 
-  static ThemeData get dark {
-    final base = ThemeData(
-      useMaterial3: true,
-      brightness: Brightness.dark,
-      scaffoldBackgroundColor: AppDesignConstants.darkBackground,
-      colorScheme: const ColorScheme.dark(
-        primary: gold,
-        onPrimary: AppDesignConstants.darkBackground,
-        secondary: success,
-        onSecondary: Colors.white,
+  static ThemeData get dark => _buildTheme(
+        brightness: Brightness.dark,
+        scaffold: AppDesignConstants.darkBackground,
         surface: AppDesignConstants.darkSurface,
-        onSurface: Colors.white,
-        error: Color(0xFFEF4444),
-        onError: Colors.white,
-      ),
-    );
-    return _applyShared(
-      base,
-      surface: AppDesignConstants.darkSurface,
-      border: AppDesignConstants.darkBorder,
-      primaryButton: success,
-      appBarBackground: AppDesignConstants.darkBackground,
-      appBarForeground: Colors.white,
-      sliderActive: gold,
-    );
-  }
+        border: AppDesignConstants.darkBorder,
+        onSurface: AppDesignConstants.darkOnSurface,
+        primary: AppDesignConstants.brandGreenLight,
+        onPrimary: AppDesignConstants.darkBackground,
+        primaryContainer: AppDesignConstants.brandGreenDark,
+        onPrimaryContainer: Colors.white,
+        secondary: AppDesignConstants.accentSuccess,
+        appBarBg: AppDesignConstants.brandGreenDark,
+        appBarFg: Colors.white,
+        sliderActive: AppDesignConstants.brandGreenLight,
+        filledButton: AppDesignConstants.brandGreen,
+      );
 
-  static ThemeData _applyShared(
-    ThemeData base, {
+  static ThemeData _buildTheme({
+    required Brightness brightness,
+    required Color scaffold,
     required Color surface,
     required Color border,
-    required Color primaryButton,
-    required Color appBarBackground,
-    required Color appBarForeground,
+    required Color onSurface,
+    required Color primary,
+    required Color onPrimary,
+    required Color primaryContainer,
+    required Color onPrimaryContainer,
+    required Color secondary,
+    required Color appBarBg,
+    required Color appBarFg,
     required Color sliderActive,
+    required Color filledButton,
   }) {
-    final isDark = base.brightness == Brightness.dark;
+    final isDark = brightness == Brightness.dark;
+    final colorScheme = (isDark ? const ColorScheme.dark() : const ColorScheme.light())
+        .copyWith(
+      primary: primary,
+      onPrimary: onPrimary,
+      primaryContainer: primaryContainer,
+      onPrimaryContainer: onPrimaryContainer,
+      secondary: secondary,
+      onSecondary: Colors.white,
+      error: AppDesignConstants.accentError,
+      onError: Colors.white,
+      surface: surface,
+      onSurface: onSurface,
+    );
+
+    final base = ThemeData(
+      useMaterial3: true,
+      brightness: brightness,
+      scaffoldBackgroundColor: scaffold,
+      colorScheme: colorScheme,
+    );
+
     final textTheme = GoogleFonts.cairoTextTheme(base.textTheme).apply(
-      bodyColor: base.colorScheme.onSurface,
-      displayColor: base.colorScheme.onSurface,
+      bodyColor: onSurface,
+      displayColor: onSurface,
     );
 
     return base.copyWith(
       textTheme: textTheme,
       primaryTextTheme: textTheme,
       appBarTheme: AppBarTheme(
-        backgroundColor: appBarBackground,
-        foregroundColor: appBarForeground,
+        backgroundColor: appBarBg,
+        foregroundColor: appBarFg,
         elevation: isDark ? 0 : 0.5,
         shadowColor: Colors.black.withValues(alpha: isDark ? 0 : 0.12),
         centerTitle: true,
-        iconTheme: IconThemeData(color: appBarForeground),
-        titleTextStyle: textTheme.titleLarge?.copyWith(
-          color: appBarForeground,
+        iconTheme: IconThemeData(color: appBarFg),
+        titleTextStyle: AppDesignConstants.cairo(
+          fontSize: 18,
           fontWeight: FontWeight.w700,
+          color: appBarFg,
+          height: 1.3,
         ),
       ),
       cardTheme: CardThemeData(
@@ -110,8 +118,8 @@ abstract final class AppTheme {
       ),
       dividerColor: border,
       progressIndicatorTheme: ProgressIndicatorThemeData(
-        color: base.colorScheme.primary,
-        linearTrackColor: base.colorScheme.onSurface.withValues(alpha: 0.12),
+        color: primary,
+        linearTrackColor: onSurface.withValues(alpha: 0.12),
       ),
       sliderTheme: SliderThemeData(
         activeTrackColor: sliderActive,
@@ -120,7 +128,7 @@ abstract final class AppTheme {
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
-          backgroundColor: primaryButton,
+          backgroundColor: filledButton,
           foregroundColor: Colors.white,
           minimumSize: const Size.fromHeight(AppDesignConstants.minTouchTarget),
           shape: RoundedRectangleBorder(
@@ -131,8 +139,8 @@ abstract final class AppTheme {
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          foregroundColor: base.colorScheme.onSurface,
-          side: BorderSide(color: border, width: 1.5),
+          foregroundColor: primary,
+          side: BorderSide(color: primary.withValues(alpha: 0.55), width: 1.5),
           minimumSize: const Size.fromHeight(AppDesignConstants.minTouchTarget),
           shape: RoundedRectangleBorder(
             borderRadius:
@@ -141,9 +149,7 @@ abstract final class AppTheme {
         ),
       ),
       textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(
-          foregroundColor: base.colorScheme.primary,
-        ),
+        style: TextButton.styleFrom(foregroundColor: primary),
       ),
     );
   }
