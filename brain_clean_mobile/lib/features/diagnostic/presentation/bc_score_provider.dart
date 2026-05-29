@@ -42,6 +42,29 @@ class BcScoreSession extends _$BcScoreSession {
       ),
     );
   }
+
+  /// Applies emotion-wheel impact as a fraction of current BC_score.
+  void applyEmotionImpact(double impactFraction) {
+    final current = state;
+    if (current == null || impactFraction == 0) return;
+    final delta = current.bcScore * impactFraction.abs();
+    if (impactFraction < 0) {
+      applyPenalty(delta);
+      return;
+    }
+    final reducedPenalty =
+        (current.recoveryPenaltyDeduction - delta).clamp(0.0, double.infinity);
+    commit(current.withRecoveryPenaltyTotal(reducedPenalty));
+  }
+
+  /// Grants a focus-challenge bonus (+[amount] BC_score).
+  void applyBonus(double amount) {
+    final current = state;
+    if (current == null || amount <= 0) return;
+    final reducedPenalty =
+        (current.recoveryPenaltyDeduction - amount).clamp(0.0, double.infinity);
+    commit(current.withRecoveryPenaltyTotal(reducedPenalty));
+  }
 }
 
 /// Alias for accountability UI — maps to [bcScoreSessionProvider].

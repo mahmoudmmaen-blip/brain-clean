@@ -12,12 +12,16 @@ import '../../accountability/accountability_box_modal.dart';
 import 'widgets/distraction_safeguard_button.dart';
 import 'widgets/global_progress_tracker.dart';
 import 'widgets/home_streak_timer_grid.dart';
+import 'home_streak_provider.dart';
 
 const homeDiagnosticTileKey = Key('home_diagnostic_tile');
 const homeCognitiveHubTileKey = Key('home_cognitive_hub_tile');
 const homeRecoveryTileKey = Key('home_recovery_tile');
 const homeDetoxTileKey = Key('home_detox_tile');
 const homeAccountabilityButtonKey = Key('home_accountability_button');
+const homeEmotionWheelKey = Key('home_emotion_wheel_entry');
+const homeSingleTaskKey = Key('home_single_task_entry');
+const homeDelayedGratificationKey = Key('home_delayed_gratification_entry');
 
 /// Definitive app entry after splash hydration.
 class HomeScreen extends ConsumerWidget {
@@ -30,6 +34,7 @@ class HomeScreen extends ConsumerWidget {
     final recoveryAsync = ref.watch(recoveryProtocolControllerProvider);
 
     final bcScore = session?.bcScore ?? 0;
+    final streakDays = ref.watch(homeStreakSnapshotProvider).days;
     final challengeProgress = recoveryAsync.maybeWhen(
       data: (state) => state.progressRatio,
       orElse: () => 0.0,
@@ -48,6 +53,99 @@ class HomeScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 16),
             const HomeStreakTimerGrid(),
+            const SizedBox(height: 12),
+            Card(
+              color: const Color(0xFF161B22),
+              child: ListTile(
+                key: homeEmotionWheelKey,
+                leading: const Icon(
+                  Icons.psychology_outlined,
+                  color: Color(0xFF8B949E),
+                ),
+                title: const Text(
+                  'كيف تشعر الآن؟ 💭',
+                  style: TextStyle(
+                    color: Color(0xFFE6EDF3),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                trailing: const Icon(
+                  Icons.chevron_left,
+                  color: Color(0xFF8B949E),
+                ),
+                onTap: () => context.push(AppRoutes.emotionWheel),
+              ),
+            ),
+            const SizedBox(height: 12),
+            Card(
+              color: const Color(0xFF161B22),
+              child: ListTile(
+                key: homeSingleTaskKey,
+                leading: const Icon(
+                  Icons.track_changes,
+                  color: Color(0xFF1D9E75),
+                ),
+                title: const Text(
+                  'قوة التركيز 🎯',
+                  style: TextStyle(
+                    color: Color(0xFFE6EDF3),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                trailing: const Icon(
+                  Icons.chevron_left,
+                  color: Color(0xFF8B949E),
+                ),
+                onTap: () => context.push(AppRoutes.singleTask),
+              ),
+            ),
+            const SizedBox(height: 12),
+            Card(
+              color: const Color(0xFF161B22),
+              child: ListTile(
+                key: homeDelayedGratificationKey,
+                leading: const Icon(
+                  Icons.hourglass_top,
+                  color: Color(0xFFF59E0B),
+                ),
+                title: const Text(
+                  'تأخير الإشباع ⏳',
+                  style: TextStyle(
+                    color: Color(0xFFE6EDF3),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                trailing: const Icon(
+                  Icons.chevron_left,
+                  color: Color(0xFF8B949E),
+                ),
+                onTap: () => context.push(AppRoutes.delayedGratification),
+              ),
+            ),
+            const SizedBox(height: 12),
+            Card(
+              color: const Color(0xFF161B22),
+              child: ListTile(
+                leading: const Icon(
+                  Icons.volume_off_outlined,
+                  color: Color(0xFF8B949E),
+                ),
+                title: const Text(
+                  'تحدي الصمت 🤫',
+                  style: TextStyle(
+                    color: Color(0xFFE6EDF3),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                trailing: const Icon(
+                  Icons.chevron_left,
+                  color: Color(0xFF8B949E),
+                ),
+                onTap: () => context.push(
+                  '/silence-challenge/$streakDays',
+                ),
+              ),
+            ),
             const SizedBox(height: 12),
             const DistractionSafeguardButton(),
             const SizedBox(height: 12),

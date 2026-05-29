@@ -8,13 +8,60 @@ import '../../features/cognitive_tests/presentation/visual_cognitive_test_screen
 import '../../features/dashboard/presentation/dashboard_screen.dart';
 import '../../features/detox/presentation/detox_protocol_screen.dart';
 import '../../features/diagnostic/presentation/diagnostic_screen.dart';
+import '../../features/emotions/presentation/emotion_wheel_screen.dart';
 import '../../features/focus/breathing_friction_screen.dart';
+import '../../features/focus/delayed_gratification_screen.dart';
+import '../../features/focus/silence_challenge_screen.dart';
+import '../../features/focus/single_task_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
 import '../../features/recovery/presentation/recovery_grid_screen.dart';
 import '../../features/splash/presentation/splash_screen.dart';
 import '../constants/app_routes.dart';
+import 'app_navigator_key.dart';
 
 part 'app_router.g.dart';
+
+/// Typed route for the emotion feelings wheel.
+class EmotionWheelRoute {
+  const EmotionWheelRoute();
+
+  static const name = 'emotionWheel';
+  static const path = AppRoutes.emotionWheel;
+
+  static String get location => AppRoutes.emotionWheel;
+}
+
+/// Typed route for silence challenge with path param [streakDays].
+class SilenceChallengeRoute {
+  const SilenceChallengeRoute({required this.streakDays});
+
+  final int streakDays;
+
+  static const name = 'silenceChallenge';
+  static const path = '/silence-challenge/:streakDays';
+
+  static String location(int streakDays) => '/silence-challenge/$streakDays';
+}
+
+/// Typed route for single-tasking focus mode.
+class SingleTaskRoute {
+  const SingleTaskRoute();
+
+  static const name = 'singleTask';
+  static const path = AppRoutes.singleTask;
+
+  static String get location => AppRoutes.singleTask;
+}
+
+/// Typed route for delayed gratification timer.
+class DelayedGratificationRoute {
+  const DelayedGratificationRoute();
+
+  static const name = 'delayedGratification';
+  static const path = AppRoutes.delayedGratification;
+
+  static String get location => AppRoutes.delayedGratification;
+}
 
 /// Typed route for breathing friction with path param [currentBhi].
 class BreathingFrictionRoute {
@@ -37,6 +84,7 @@ class BreathingFrictionRoute {
 @riverpod
 GoRouter goRouter(GoRouterRef ref) {
   return GoRouter(
+    navigatorKey: appNavigatorKey,
     initialLocation: AppRoutes.splash,
     debugLogDiagnostics: true,
     routes: [
@@ -85,6 +133,30 @@ GoRouter goRouter(GoRouterRef ref) {
         path: AppRoutes.cognitiveMemory,
         name: 'cognitiveMemory',
         builder: (context, state) => const MemoryMiniGameScreen(),
+      ),
+      GoRoute(
+        path: EmotionWheelRoute.path,
+        name: EmotionWheelRoute.name,
+        builder: (context, state) => const EmotionWheelScreen(),
+      ),
+      GoRoute(
+        path: SilenceChallengeRoute.path,
+        name: SilenceChallengeRoute.name,
+        builder: (context, state) {
+          final daysParam = state.pathParameters['streakDays'];
+          final streakDays = int.tryParse(daysParam ?? '') ?? 0;
+          return SilenceChallengeScreen(streakDays: streakDays);
+        },
+      ),
+      GoRoute(
+        path: SingleTaskRoute.path,
+        name: SingleTaskRoute.name,
+        builder: (context, state) => const SingleTaskScreen(),
+      ),
+      GoRoute(
+        path: DelayedGratificationRoute.path,
+        name: DelayedGratificationRoute.name,
+        builder: (context, state) => const DelayedGratificationScreen(),
       ),
       GoRoute(
         path: BreathingFrictionRoute.path,
