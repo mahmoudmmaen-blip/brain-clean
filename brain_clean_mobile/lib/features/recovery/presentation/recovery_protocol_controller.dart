@@ -58,6 +58,19 @@ class RecoveryProtocolController extends _$RecoveryProtocolController {
     await _commit(current.copyWith(days: nextDays));
   }
 
+  /// Records an accountability-room penalty (−15 BC_score).
+  Future<void> applyAccountabilityPenalty() async {
+    final current = state.requireValue;
+    await _commit(
+      current.copyWith(
+        totalPenaltyCount: current.totalPenaltyCount + 1,
+      ),
+    );
+    await ref
+        .read(recoveryDiagnosticPenaltySyncProvider.notifier)
+        .syncFromRecoveryGrid();
+  }
+
   /// Applies penalty for missed habits on the selected day (requires confirmation in UI).
   Future<void> applyPenaltyForSelectedDay() async {
     final current = state.requireValue;

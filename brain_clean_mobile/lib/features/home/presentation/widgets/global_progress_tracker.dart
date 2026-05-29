@@ -4,10 +4,11 @@ import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/theme/app_design_constants.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/theme_extensions.dart';
+import '../../../diagnostic/domain/pillar_bound_evaluation.dart';
 import '../../../diagnostic/presentation/widgets/bc_score_colors.dart';
 
 /// Premium dual-ring tracker: live BC_score + 30-day challenge completion.
-class GlobalProgressTracker extends StatelessWidget {
+class GlobalProgressTracker extends StatefulWidget {
   const GlobalProgressTracker({
     super.key,
     required this.bcScore,
@@ -20,12 +21,62 @@ class GlobalProgressTracker extends StatelessWidget {
   final bool hasSession;
 
   @override
+  State<GlobalProgressTracker> createState() => _GlobalProgressTrackerState();
+}
+
+class _GlobalProgressTrackerState extends State<GlobalProgressTracker>
+    with SingleTickerProviderStateMixin {
+  AnimationController? _glowController;
+
+  static double clampBcsProgress(double bcScore) {
+    final raw = bcScore / 100;
+    const eps = PillarBoundEvaluation.coherenceEpsilon;
+    if (raw <= eps) return 0.0;
+    if (raw >= 1.0 - eps) return 1.0;
+    return raw.clamp(0.0, 1.0);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _syncGlowController();
+  }
+
+  @override
+  void didUpdateWidget(GlobalProgressTracker oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _syncGlowController();
+  }
+
+  void _syncGlowController() {
+    final shouldGlow = widget.hasSession && widget.bcScore > 80;
+    if (shouldGlow && _glowController == null) {
+      _glowController = AnimationController(
+        vsync: this,
+        duration: const Duration(seconds: 2),
+      )..repeat(reverse: true);
+    } else if (!shouldGlow && _glowController != null) {
+      _glowController!.dispose();
+      _glowController = null;
+    }
+  }
+
+  @override
+  void dispose() {
+    _glowController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
-    final scoreColor = hasSession
-        ? BcScoreColors.forScore(bcScore)
+    final scoreColor = widget.hasSession
+        ? BcScoreColors.forScore(widget.bcScore)
         : context.textMuted;
-    final challengePct = (challengeProgress.clamp(0, 1) * 100).round();
+    final challengePct =
+        (widget.challengeProgress.clamp(0, 1) * 100).round();
+    final targetProgress = clampBcsProgress(widget.bcScore);
+    final showGlow = widget.hasSession && widget.bcScore > 80;
 
     return Card(
       elevation: context.isLightTheme ? 2 : 0,
@@ -41,24 +92,51 @@ class GlobalProgressTracker extends StatelessWidget {
               width: 120,
               height: 120,
               child: TweenAnimationBuilder<double>(
-                tween: Tween(begin: 0, end: bcScore.clamp(0, 100) / 100),
+                tween: Tween(begin: 0, end: targetProgress),
                 duration: const Duration(milliseconds: 900),
                 curve: Curves.easeOutCubic,
                 builder: (context, value, _) {
+                  Widget ring = CircularProgressIndicator(
+                    value: value,
+                    strokeWidth: 10,
+                    backgroundColor: context.surfaceMuted,
+                    color: scoreColor,
+                  );
+
+                  if (showGlow && _glowController != null) {
+                    ring = AnimatedBuilder(
+                      animation: _glowController!,
+                      builder: (context, child) {
+                        final glow = 0.35 + 0.25 * _glowController!.value;
+                        return Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(
+                                color: scoreColor.withValues(alpha: glow),
+                                blurRadius: 18 + 8 * _glowController!.value,
+                                spreadRadius: 2 * _glowController!.value,
+                              ),
+                            ],
+                          ),
+                          child: child,
+                        );
+                      },
+                      child: ring,
+                    );
+                  }
+
                   return Stack(
                     alignment: Alignment.center,
                     children: [
-                      CircularProgressIndicator(
-                        value: value,
-                        strokeWidth: 10,
-                        backgroundColor: context.surfaceMuted,
-                        color: scoreColor,
-                      ),
+                      ring,
                       Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            hasSession ? '${bcScore.round()}%' : '—',
+                            widget.hasSession
+                                ? '${widget.bcScore.round()}%'
+                                : '—',
                             style: AppDesignConstants.cairo(
                               fontSize: 28,
                               fontWeight: FontWeight.w800,
@@ -97,7 +175,7 @@ class GlobalProgressTracker extends StatelessWidget {
                   TweenAnimationBuilder<double>(
                     tween: Tween(
                       begin: 0,
-                      end: challengeProgress.clamp(0, 1),
+                      end: widget.challengeProgress.clamp(0, 1),
                     ),
                     duration: const Duration(milliseconds: 900),
                     curve: Curves.easeOutCubic,

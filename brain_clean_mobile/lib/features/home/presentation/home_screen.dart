@@ -8,12 +8,16 @@ import '../../../core/theme/theme_extensions.dart';
 import '../../diagnostic/presentation/bc_score_provider.dart';
 import '../../diagnostic/presentation/widgets/bc_score_breakdown.dart';
 import '../../recovery/presentation/recovery_protocol_controller.dart';
+import '../../recovery/presentation/widgets/accountability_box_modal.dart';
+import 'widgets/distraction_safeguard_button.dart';
 import 'widgets/global_progress_tracker.dart';
+import 'widgets/home_streak_timer_grid.dart';
 
 const homeDiagnosticTileKey = Key('home_diagnostic_tile');
 const homeCognitiveHubTileKey = Key('home_cognitive_hub_tile');
 const homeRecoveryTileKey = Key('home_recovery_tile');
 const homeDetoxTileKey = Key('home_detox_tile');
+const homeAccountabilityButtonKey = Key('home_accountability_button');
 
 /// Definitive app entry after splash hydration.
 class HomeScreen extends ConsumerWidget {
@@ -41,6 +45,20 @@ class HomeScreen extends ConsumerWidget {
               bcScore: bcScore,
               challengeProgress: challengeProgress,
               hasSession: session != null,
+            ),
+            const SizedBox(height: 16),
+            const HomeStreakTimerGrid(),
+            const SizedBox(height: 12),
+            const DistractionSafeguardButton(),
+            const SizedBox(height: 12),
+            FilledButton.icon(
+              key: homeAccountabilityButtonKey,
+              onPressed: () => showAccountabilityBoxModal(context),
+              icon: const Icon(Icons.gavel_outlined),
+              label: Text(loc.homeOpenAccountability),
+              style: FilledButton.styleFrom(
+                minimumSize: const Size.fromHeight(48),
+              ),
             ),
             if (session != null) ...[
               const SizedBox(height: 16),

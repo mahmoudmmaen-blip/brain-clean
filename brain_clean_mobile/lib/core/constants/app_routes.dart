@@ -9,4 +9,5 @@ abstract final class AppRoutes {
   static const cognitiveHub = '/cognitive';
   static const cognitiveVisual = '/cognitive/visual';
   static const cognitiveMemory = '/cognitive/memory';
+  static const breathingFriction = '/breathing-friction';
 }

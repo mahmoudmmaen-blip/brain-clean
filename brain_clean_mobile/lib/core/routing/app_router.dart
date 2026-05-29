@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../features/breathing/presentation/breathing_friction_screen.dart';
 import '../../features/cognitive_tests/presentation/cognitive_hub_screen.dart';
 import '../../features/cognitive_tests/presentation/memory_mini_game_screen.dart';
 import '../../features/cognitive_tests/presentation/visual_cognitive_test_screen.dart';
@@ -72,6 +73,15 @@ GoRouter goRouter(GoRouterRef ref) {
         path: AppRoutes.cognitiveMemory,
         name: 'cognitiveMemory',
         builder: (context, state) => const MemoryMiniGameScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.breathingFriction,
+        name: 'breathingFriction',
+        builder: (context, state) {
+          final bhiParam = state.uri.queryParameters['bhi'];
+          final bhi = double.tryParse(bhiParam ?? '') ?? 50.0;
+          return BreathingFrictionScreen(currentBhi: bhi);
+        },
       ),
     ],
     errorBuilder: (context, state) => Scaffold(
