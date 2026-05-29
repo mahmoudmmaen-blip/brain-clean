@@ -8,6 +8,7 @@ abstract final class AppRoutes {
   static const recovery = '/recovery';
   static const cognitiveHub = '/cognitive';
   static const cognitiveVisual = '/cognitive/visual';
+  static const cognitiveTest = '/cognitive-test';
   static const cognitiveMemory = '/cognitive/memory';
   static const breathingFriction = '/breathing-friction';
   static const emotionWheel = '/emotion-wheel';

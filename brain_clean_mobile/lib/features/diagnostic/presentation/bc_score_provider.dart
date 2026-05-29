@@ -65,6 +65,9 @@ class BcScoreSession extends _$BcScoreSession {
         (current.recoveryPenaltyDeduction - amount).clamp(0.0, double.infinity);
     commit(current.withRecoveryPenaltyTotal(reducedPenalty));
   }
+
+  /// Grants cognitive test bonus (+[amount] BC_score).
+  void applyCognitiveBonus(double amount) => applyBonus(amount);
 }
 
 /// Alias for accountability UI — maps to [bcScoreSessionProvider].

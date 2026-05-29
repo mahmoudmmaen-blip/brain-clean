@@ -7,6 +7,7 @@ import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/theme_extensions.dart';
 import '../../diagnostic/presentation/bc_score_provider.dart';
 import '../../diagnostic/presentation/widgets/bc_score_breakdown.dart';
+import '../../dashboard/presentation/seven_day_chart_widget.dart';
 import '../../recovery/presentation/recovery_protocol_controller.dart';
 import '../../accountability/accountability_box_modal.dart';
 import 'widgets/distraction_safeguard_button.dart';
@@ -51,6 +52,8 @@ class HomeScreen extends ConsumerWidget {
               challengeProgress: challengeProgress,
               hasSession: session != null,
             ),
+            const SizedBox(height: 16),
+            const SevenDayChartWidget(),
             const SizedBox(height: 16),
             const HomeStreakTimerGrid(),
             const SizedBox(height: 12),

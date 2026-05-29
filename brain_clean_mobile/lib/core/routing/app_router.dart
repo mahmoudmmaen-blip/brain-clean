@@ -8,6 +8,8 @@ import '../../features/cognitive_tests/presentation/visual_cognitive_test_screen
 import '../../features/dashboard/presentation/dashboard_screen.dart';
 import '../../features/detox/presentation/detox_protocol_screen.dart';
 import '../../features/diagnostic/presentation/diagnostic_screen.dart';
+import '../../features/diagnostic/presentation/visual_cognitive_test_screen.dart'
+    as diagnostic_visual;
 import '../../features/emotions/presentation/emotion_wheel_screen.dart';
 import '../../features/focus/breathing_friction_screen.dart';
 import '../../features/focus/delayed_gratification_screen.dart';
@@ -20,6 +22,16 @@ import '../constants/app_routes.dart';
 import 'app_navigator_key.dart';
 
 part 'app_router.g.dart';
+
+/// Typed route for the visual cognitive odd-one-out test.
+class VisualCognitiveTestRoute {
+  const VisualCognitiveTestRoute();
+
+  static const name = 'cognitiveTest';
+  static const path = AppRoutes.cognitiveTest;
+
+  static String get location => AppRoutes.cognitiveTest;
+}
 
 /// Typed route for the emotion feelings wheel.
 class EmotionWheelRoute {
@@ -133,6 +145,12 @@ GoRouter goRouter(GoRouterRef ref) {
         path: AppRoutes.cognitiveMemory,
         name: 'cognitiveMemory',
         builder: (context, state) => const MemoryMiniGameScreen(),
+      ),
+      GoRoute(
+        path: VisualCognitiveTestRoute.path,
+        name: VisualCognitiveTestRoute.name,
+        builder: (context, state) =>
+            const diagnostic_visual.VisualCognitiveTestScreen(),
       ),
       GoRoute(
         path: EmotionWheelRoute.path,

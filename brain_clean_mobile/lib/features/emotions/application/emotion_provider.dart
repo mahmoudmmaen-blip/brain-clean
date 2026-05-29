@@ -2,8 +2,10 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../diagnostic/presentation/bc_score_provider.dart';
 import '../data/emotion_log_repository.dart';
+import '../domain/emotion_log_entry.dart';
 import '../domain/emotion_model.dart';
 import 'emotion_notification_service.dart';
+import '../../../core/services/cloud_sync_service.dart';
 
 part 'emotion_provider.g.dart';
 
@@ -91,10 +93,18 @@ class EmotionNotifier extends _$EmotionNotifier {
     ref.read(bcScoreProvider.notifier).applyEmotionImpact(impact);
 
     try {
+      final timestamp = DateTime.now();
       await ref.read(emotionLogRepositoryProvider).append(
             emotion: emotion,
             appliedImpact: impact,
-            timestamp: DateTime.now(),
+            timestamp: timestamp,
+          );
+      await ref.read(cloudSyncServiceProvider).syncEmotionLog(
+            EmotionLogEntry.fromEmotion(
+              emotion: emotion,
+              appliedImpact: impact,
+              timestamp: timestamp,
+            ),
           );
     } catch (_) {
       // Logging is best-effort; BCS update remains authoritative.

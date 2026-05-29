@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../core/constants/app_routes.dart';
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/theme/app_design_constants.dart';
 import '../../../../core/theme/theme_extensions.dart';
@@ -106,6 +108,17 @@ class BrainRotScoreDashboard extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 28),
+        OutlinedButton.icon(
+          onPressed: () => context.push(AppRoutes.cognitiveTest),
+          icon: const Icon(Icons.center_focus_strong_outlined),
+          label: const Text('اختبر تركيزك 🎯'),
+          style: OutlinedButton.styleFrom(
+            minimumSize: const Size.fromHeight(48),
+            foregroundColor: const Color(0xFF1D9E75),
+            side: const BorderSide(color: Color(0xFF1D9E75)),
+          ),
+        ),
+        const SizedBox(height: 12),
         BhiShimmerCtaButton(
           label: loc.diagnosticContinueToBhi,
           onPressed: onContinue,

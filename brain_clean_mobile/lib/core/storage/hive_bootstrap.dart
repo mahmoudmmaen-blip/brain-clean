@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'hive_boxes.dart';
+import '../../features/dashboard/domain/daily_snapshot.dart';
 import '../../features/recovery/data/adapters/recovery_day_record_adapter.dart';
 import '../../features/recovery/data/adapters/recovery_protocol_state_adapter.dart';
 
@@ -35,6 +36,7 @@ abstract final class HiveBootstrap {
     if (_initialized) return;
     await Hive.initFlutter();
     _registerRecoveryAdapters();
+    _registerDashboardAdapters();
     _initialized = true;
   }
 
@@ -45,12 +47,20 @@ abstract final class HiveBootstrap {
       _openBoxIfNeeded(HiveBoxes.recoveryProtocol),
       _openBoxIfNeeded(HiveBoxes.diagnosticPersistence),
       _openBoxIfNeeded(HiveBoxes.emotionLog),
+      _openBoxIfNeeded(HiveBoxes.dailySnapshots),
+      _openBoxIfNeeded(HiveBoxes.appMeta),
     ]);
   }
 
   static Future<Box<dynamic>> _openBoxIfNeeded(String name) async {
     if (Hive.isBoxOpen(name)) return Hive.box<dynamic>(name);
     return Hive.openBox<dynamic>(name);
+  }
+
+  static void _registerDashboardAdapters() {
+    if (!Hive.isAdapterRegistered(DailySnapshotAdapter().typeId)) {
+      Hive.registerAdapter(DailySnapshotAdapter());
+    }
   }
 
   static void _registerRecoveryAdapters() {
@@ -66,6 +76,7 @@ abstract final class HiveBootstrap {
   @visibleForTesting
   static void registerRecoveryAdaptersForTests() {
     _registerRecoveryAdapters();
+    _registerDashboardAdapters();
   }
 
   /// Test-only: reset guard so each test file can call [initialize] with a temp dir.
