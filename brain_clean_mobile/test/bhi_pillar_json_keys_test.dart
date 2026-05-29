@@ -81,6 +81,103 @@ void main() {
       expect(map.containsKey('recovery_penalty_deduction'), isFalse);
     });
 
+    group('DiagnosticBhiSnapshot', () {
+      const fullMetrics = DiagnosticMetrics(
+        sleepQuality: 8,
+        sustainedAttention: 7,
+        fragmentation: 6,
+        dopamineSeeking: 5,
+        taskSwitching: 4,
+        burnout: 3,
+      );
+      const fullModel = DiagnosticModel(
+        brainPerformance: 82,
+        digitalDiscipline: 76,
+        healthyHabits: 71,
+        consistency: 68,
+        boredomBefriended: true,
+        delayedGratificationCount: 2,
+        bodyActivated: true,
+      );
+      final frozenAt = DateTime.utc(2026, 5, 20, 14, 30);
+
+      test('fully populated snapshot round-trips with exact field parity', () {
+        final original = DiagnosticBhiSnapshot.compose(
+          metrics: fullMetrics,
+          model: fullModel,
+          frozenAt: frozenAt,
+          recoveryPenaltyDeduction: 12,
+        );
+        final json = original.toJson();
+
+        for (final key in json.keys) {
+          expect(
+            key.contains('_'),
+            isFalse,
+            reason: 'Unexpected non-camelCase root key: $key',
+          );
+        }
+        expect(json.containsKey(BhiPillarJsonKeys.metrics), isTrue);
+        expect(json.containsKey(BhiPillarJsonKeys.model), isTrue);
+        expect(json.containsKey(BhiPillarJsonKeys.frozenPillars), isTrue);
+        expect(
+          json.containsKey(BhiPillarJsonKeys.recoveryPenaltyDeduction),
+          isTrue,
+        );
+        expect(json.containsKey(BhiPillarJsonKeys.pillarMatrixBcScore), isTrue);
+        expect(json.containsKey(BhiPillarJsonKeys.boundBcScore), isTrue);
+        expect(json.containsKey(BhiPillarJsonKeys.bcScore), isTrue);
+
+        final restored = DiagnosticBhiSnapshot.fromJson(json);
+        expect(restored.metrics, fullMetrics);
+        expect(restored.model.brainPerformance, fullModel.brainPerformance);
+        expect(restored.model.digitalDiscipline, fullModel.digitalDiscipline);
+        expect(restored.model.healthyHabits, fullModel.healthyHabits);
+        expect(restored.model.consistency, fullModel.consistency);
+        expect(restored.model.boredomBefriended, fullModel.boredomBefriended);
+        expect(
+          restored.model.delayedGratificationCount,
+          fullModel.delayedGratificationCount,
+        );
+        expect(restored.model.bodyActivated, fullModel.bodyActivated);
+        expect(restored.recoveryPenaltyDeduction, 12);
+        expect(restored.boundBcScore, original.boundBcScore);
+        expect(restored.pillarMatrixBcScore, original.pillarMatrixBcScore);
+        expect(
+          restored.frozenPillars.frozenAt.toUtc(),
+          frozenAt.toUtc(),
+        );
+        expect(
+          restored.frozenPillars.brainPerformance,
+          original.frozenPillars.brainPerformance,
+        );
+        expect(
+          restored.frozenPillars.digitalDiscipline,
+          original.frozenPillars.digitalDiscipline,
+        );
+        expect(restored.isPillarBoundCoherent, isTrue);
+      });
+
+      test('missing optional fields fall back without throwing', () {
+        final minimal = <String, dynamic>{
+          BhiPillarJsonKeys.metrics: <String, dynamic>{},
+          BhiPillarJsonKeys.model: <String, dynamic>{
+            BhiPillarJsonKeys.brainPerformance: 60.0,
+            BhiPillarJsonKeys.digitalDiscipline: 55.0,
+            BhiPillarJsonKeys.healthyHabits: 50.0,
+            BhiPillarJsonKeys.consistency: 45.0,
+          },
+        };
+
+        final restored = DiagnosticBhiSnapshot.fromJson(minimal);
+        expect(restored.metrics.sleepQuality, 5);
+        expect(restored.metrics.burnout, 5);
+        expect(restored.recoveryPenaltyDeduction, 0);
+        expect(restored.hasRecoveryPenalty, isFalse);
+        expect(restored.isPillarBoundCoherent, isTrue);
+      });
+    });
+
     test('DiagnosticBhiSnapshot live compose round-trips camelCase JSON', () {
       const metrics = DiagnosticMetrics(sleepQuality: 7);
       const model = DiagnosticModel(

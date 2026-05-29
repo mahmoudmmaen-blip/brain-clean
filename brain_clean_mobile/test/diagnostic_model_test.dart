@@ -8,6 +8,7 @@ import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_bhi_sna
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_metrics.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_session.dart';
+import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_session_composer.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Map<String, dynamic> pillarJson({
@@ -389,6 +390,85 @@ void main() {
   });
 
   group('DiagnosticSession serialization', () {
+    test('live session JSON round-trip preserves all core fields', () {
+      const model = DiagnosticModel(
+        brainPerformance: 72,
+        digitalDiscipline: 68,
+        healthyHabits: 70,
+        consistency: 66,
+      );
+      const metrics = DiagnosticMetrics(
+        sleepQuality: 7,
+        sustainedAttention: 6,
+        fragmentation: 5,
+        dopamineSeeking: 4,
+        taskSwitching: 5,
+        burnout: 6,
+      );
+      final questionnaire = BrainRotQuestionnaireSnapshot(
+        answers: [true, false, true, false, false, false, false, false, false, false],
+        currentIndex: 9,
+        phase: BrainRotFlowPhase.results,
+      );
+      final original = DiagnosticSessionComposer.buildLiveSession(
+        metrics: metrics,
+        model: model,
+        questionnaire: questionnaire,
+        snapshotAt: DateTime.utc(2026, 5, 21, 8, 15),
+      );
+
+      final restored = DiagnosticSession.fromJson(original.toJson());
+      expect(restored.isLive, isTrue);
+      expect(restored.isCommitted, isFalse);
+      expect(restored.metrics, metrics);
+      expect(restored.model.brainPerformance, model.brainPerformance);
+      expect(restored.questionnaire.currentIndex, questionnaire.currentIndex);
+      expect(restored.questionnaire.phase, questionnaire.phase);
+      expect(restored.questionnaire.answers, questionnaire.answers);
+      expect(restored.brainRotScore, original.brainRotScore);
+      expect(restored.bcScore, original.bcScore);
+      expect(restored.committedAt.toUtc(), original.committedAt.toUtc());
+      expect(restored.isPillarBoundCoherent, isTrue);
+    });
+
+    test('mid-flow live session restores without questionnaire drift', () {
+      const model = DiagnosticModel(
+        brainPerformance: 50,
+        digitalDiscipline: 50,
+        healthyHabits: 50,
+        consistency: 50,
+      );
+      const metrics = DiagnosticMetrics(sleepQuality: 9);
+      final midFlowQuestionnaire = BrainRotQuestionnaireSnapshot(
+        answers: [true, false, null, null, null, null, null, null, null, null],
+        currentIndex: 2,
+        phase: BrainRotFlowPhase.questions,
+      );
+      final original = DiagnosticSessionComposer.buildLiveSession(
+        metrics: metrics,
+        model: model,
+        questionnaire: midFlowQuestionnaire,
+        snapshotAt: DateTime.utc(2026, 5, 22, 10, 0),
+      );
+
+      final json = original.toJson();
+      expect(json.containsKey(BhiPillarJsonKeys.bhi), isTrue);
+      expect(json.containsKey(BhiPillarJsonKeys.questionnaire), isTrue);
+      expect(json.containsKey(BhiPillarJsonKeys.brainRot), isFalse);
+
+      final restored = DiagnosticSession.fromJson(json);
+      expect(restored.isLive, isTrue);
+      expect(restored.questionnaire.currentIndex, 2);
+      expect(restored.questionnaire.answers[0], isTrue);
+      expect(restored.questionnaire.answers[1], isFalse);
+      expect(restored.questionnaire.answers[2], isNull);
+      expect(restored.questionnairePhase, BrainRotFlowPhase.questions);
+      expect(restored.metrics.sleepQuality, 9);
+      expect(restored.brainRotAssessment, isNull);
+      expect(restored.bcScore, original.bcScore);
+      expect(restored.frozenBrainPerformance, original.frozenBrainPerformance);
+    });
+
     test('live session exposes BHI and questionnaire without commit', () {
       const model = DiagnosticModel(
         brainPerformance: 50,

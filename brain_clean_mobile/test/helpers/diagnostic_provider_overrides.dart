@@ -41,16 +41,38 @@ List<Override> diagnosticInteractiveOverrides({
   ];
 }
 
+/// Committed session for widget tests — built via [DiagnosticSessionComposer] only.
+DiagnosticSession composeWidgetTestCommittedSession({
+  required DiagnosticModel model,
+  DiagnosticMetrics metrics = const DiagnosticMetrics(),
+  List<bool>? brainRotAnswers,
+  DateTime? committedAt,
+}) {
+  final answers = brainRotAnswers ?? List<bool>.filled(10, false);
+  final interpretation = DiagnosticModel.evaluateBrainRot(answers);
+  return DiagnosticSessionComposer.buildCommittedSession(
+    model: model,
+    metrics: metrics,
+    brainRot: interpretation,
+    brainRotAnswers: answers,
+    questionnaire: BrainRotQuestionnaireSnapshot(
+      answers: answers.map<bool?>((a) => a).toList(growable: false),
+      currentIndex: BrainRotTest.questionCount - 1,
+      phase: BrainRotFlowPhase.bhiSliders,
+    ),
+    committedAt: committedAt ?? DateTime(2026, 5, 20, 12, 30),
+  );
+}
+
 /// Standard Riverpod overrides for diagnostic UI widget tests.
 ///
-/// Mocks Hive via [InMemoryHiveBox] and wires [diagnosticLiveSessionProvider]
-/// so the grid never touches native I/O; live session is always pre-wired.
+/// Live session is resolved only through [DiagnosticController.buildLiveSession]
+/// via [diagnosticLiveSessionProvider] (no frozen session stub).
 List<Override> diagnosticWidgetTestOverrides({
   DiagnosticMetrics metrics = const DiagnosticMetrics(),
   DiagnosticModel? liveModel,
   BrainRotQuestionnaireSnapshot? questionnaireFlow,
   DiagnosticSession? committedSession,
-  DiagnosticSession? liveSession,
   Box<dynamic>? diagnosticBox,
 }) {
   final box = diagnosticBox ?? InMemoryHiveBox();
@@ -63,13 +85,6 @@ List<Override> diagnosticWidgetTestOverrides({
       );
   final flow = questionnaireFlow ?? const BrainRotQuestionnaireSnapshot();
 
-  final resolvedLiveSession = liveSession ??
-      DiagnosticSessionComposer.buildLiveSession(
-        metrics: metrics,
-        model: model,
-        questionnaire: flow,
-      );
-
   return [
     diagnosticLocalRepositoryProvider.overrideWithValue(
       DiagnosticLocalRepository(box: box),
@@ -77,11 +92,10 @@ List<Override> diagnosticWidgetTestOverrides({
     diagnosticControllerProvider.overrideWith(
       () => _SeededDiagnosticController(metrics, model, flowOverride: flow),
     ),
-    diagnosticLiveModelProvider.overrideWithValue(model),
     diagnosticSessionFlowProvider.overrideWith(
       () => _FixedQuestionnaireFlow(flow),
     ),
-    diagnosticLiveSessionProvider.overrideWithValue(resolvedLiveSession),
+    recoveryBcPenaltyTotalProvider.overrideWith((ref) => 0),
     if (committedSession != null)
       bcScoreSessionProvider.overrideWith(
         () => _FixedCommittedSession(committedSession),

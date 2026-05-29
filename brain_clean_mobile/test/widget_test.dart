@@ -1,12 +1,9 @@
 import 'package:brain_clean_mobile/features/dashboard/presentation/dashboard_screen.dart'
     show DashboardScreen, dashboardDetoxCheckInTileKey;
 import 'package:brain_clean_mobile/features/detox/presentation/detox_protocol_screen.dart';
-import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_bhi_snapshot.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_metrics.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
-import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_session.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/brain_rot_questionnaire_snapshot.dart';
-import 'package:brain_clean_mobile/features/diagnostic/presentation/bc_score_provider.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/diagnostic_screen.dart';
 import 'package:brain_clean_mobile/features/recovery/data/recovery_protocol_hive_repository.dart';
 import 'package:brain_clean_mobile/features/recovery/data/recovery_protocol_storage_provider.dart';
@@ -27,30 +24,6 @@ void main() {
   final en = testL10n;
 
   group('Diagnostic UI', () {
-    testWidgets('diagnostic live session drives questionnaire via provider', (tester) async {
-      await tester.pumpWidget(
-        createLocalizedProviderTestWidget(
-          const DiagnosticScreen(),
-          overrides: diagnosticWidgetTestOverrides(
-            liveSession: DiagnosticSession.live(
-              metrics: const DiagnosticMetrics(),
-              model: const DiagnosticModel(
-                brainPerformance: 50,
-                digitalDiscipline: 50,
-                healthyHabits: 50,
-                consistency: 50,
-              ),
-              questionnaire: const BrainRotQuestionnaireSnapshot(),
-            ),
-          ),
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      expect(find.text(en.diagnosticBrainRotTitle), findsOneWidget);
-      expect(find.text(en.diagnosticYes), findsOneWidget);
-    });
-
     testWidgets('diagnostic screen starts Brain Rot questionnaire', (tester) async {
       await tester.pumpWidget(
         createLocalizedProviderTestWidget(
@@ -184,11 +157,8 @@ void main() {
         healthyHabits: 75,
         consistency: 65,
       );
-      final session = DiagnosticSession(
-        bhi: DiagnosticBhiSnapshot.compose(
-          metrics: const DiagnosticMetrics(),
-          model: model,
-        ),
+      final committed = composeWidgetTestCommittedSession(
+        model: model,
         committedAt: DateTime(2026, 5, 20, 12, 30),
       );
 
@@ -196,13 +166,13 @@ void main() {
         createLocalizedProviderTestWidget(
           const DashboardScreen(),
           overrides: diagnosticWidgetTestOverrides(
-            committedSession: session,
+            committedSession: committed,
           ),
         ),
       );
       await tester.pump();
 
-      final expectedCommittedAt = session.committedAt
+      final expectedCommittedAt = committed.committedAt
           .toLocal()
           .toString()
           .substring(0, 16);
@@ -210,7 +180,7 @@ void main() {
       expect(
         find.descendant(
           of: find.byType(BcScoreHeroCard),
-          matching: find.text('${session.bcScoreRounded}%'),
+          matching: find.text('${committed.bcScoreRounded}%'),
         ),
         findsOneWidget,
       );
