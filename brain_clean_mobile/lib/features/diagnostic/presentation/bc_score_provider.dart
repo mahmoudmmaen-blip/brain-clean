@@ -31,4 +31,18 @@ class BcScoreSession extends _$BcScoreSession {
     state = null;
     ref.read(diagnosticLocalRepositoryProvider).clearCommittedSession();
   }
+
+  /// Applies an accountability-room penalty (−[amount] BC_score).
+  void applyPenalty(double amount) {
+    final current = state;
+    if (current == null) return;
+    commit(
+      current.withRecoveryPenaltyTotal(
+        current.recoveryPenaltyDeduction + amount,
+      ),
+    );
+  }
 }
+
+/// Alias for accountability UI — maps to [bcScoreSessionProvider].
+final bcScoreProvider = bcScoreSessionProvider;

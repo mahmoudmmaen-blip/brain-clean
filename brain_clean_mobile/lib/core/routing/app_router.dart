@@ -2,19 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../features/breathing/presentation/breathing_friction_screen.dart';
 import '../../features/cognitive_tests/presentation/cognitive_hub_screen.dart';
 import '../../features/cognitive_tests/presentation/memory_mini_game_screen.dart';
 import '../../features/cognitive_tests/presentation/visual_cognitive_test_screen.dart';
 import '../../features/dashboard/presentation/dashboard_screen.dart';
 import '../../features/detox/presentation/detox_protocol_screen.dart';
 import '../../features/diagnostic/presentation/diagnostic_screen.dart';
+import '../../features/focus/breathing_friction_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
 import '../../features/recovery/presentation/recovery_grid_screen.dart';
 import '../../features/splash/presentation/splash_screen.dart';
 import '../constants/app_routes.dart';
 
 part 'app_router.g.dart';
+
+/// Typed route for breathing friction with path param [currentBhi].
+class BreathingFrictionRoute {
+  const BreathingFrictionRoute({required this.currentBhi});
+
+  final int currentBhi;
+
+  static const name = 'breathingFriction';
+  static const path = '/breathing-friction/:currentBhi';
+
+  static String location(int currentBhi) => '/breathing-friction/$currentBhi';
+}
 
 /// App shell — splash hydrates Hive, then routes to home or **live session** resume.
 ///
@@ -75,11 +87,11 @@ GoRouter goRouter(GoRouterRef ref) {
         builder: (context, state) => const MemoryMiniGameScreen(),
       ),
       GoRoute(
-        path: AppRoutes.breathingFriction,
-        name: 'breathingFriction',
+        path: BreathingFrictionRoute.path,
+        name: BreathingFrictionRoute.name,
         builder: (context, state) {
-          final bhiParam = state.uri.queryParameters['bhi'];
-          final bhi = double.tryParse(bhiParam ?? '') ?? 50.0;
+          final bhiParam = state.pathParameters['currentBhi'];
+          final bhi = int.tryParse(bhiParam ?? '') ?? 50;
           return BreathingFrictionScreen(currentBhi: bhi);
         },
       ),

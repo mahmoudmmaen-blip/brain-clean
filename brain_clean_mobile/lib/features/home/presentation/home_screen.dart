@@ -8,7 +8,7 @@ import '../../../core/theme/theme_extensions.dart';
 import '../../diagnostic/presentation/bc_score_provider.dart';
 import '../../diagnostic/presentation/widgets/bc_score_breakdown.dart';
 import '../../recovery/presentation/recovery_protocol_controller.dart';
-import '../../recovery/presentation/widgets/accountability_box_modal.dart';
+import '../../accountability/accountability_box_modal.dart';
 import 'widgets/distraction_safeguard_button.dart';
 import 'widgets/global_progress_tracker.dart';
 import 'widgets/home_streak_timer_grid.dart';
@@ -53,7 +53,14 @@ class HomeScreen extends ConsumerWidget {
             const SizedBox(height: 12),
             FilledButton.icon(
               key: homeAccountabilityButtonKey,
-              onPressed: () => showAccountabilityBoxModal(context),
+              onPressed: () {
+                showModalBottomSheet<void>(
+                  context: context,
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  builder: (_) => const AccountabilityBoxModal(),
+                );
+              },
               icon: const Icon(Icons.gavel_outlined),
               label: Text(loc.homeOpenAccountability),
               style: FilledButton.styleFrom(

@@ -16,6 +16,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:brain_clean_mobile/features/accountability/accountability_box_modal.dart';
+import 'package:brain_clean_mobile/features/diagnostic/presentation/bc_score_provider.dart';
+import 'package:brain_clean_mobile/features/focus/breathing_friction_screen.dart';
+import 'package:brain_clean_mobile/features/home/presentation/home_streak_provider.dart';
+
 import 'helpers/diagnostic_provider_overrides.dart';
 import 'helpers/localized_test_app.dart';
 import 'helpers/test_l10n.dart';
@@ -195,6 +200,7 @@ void main() {
       ProviderScope(
         overrides: [
           appHydrationProvider.overrideWith(_InstantHydration.new),
+          homeStreakTickerProvider.overrideWith((ref) => Stream<int>.value(0)),
           ...diagnosticWidgetTestOverrides(),
         ],
         child: const BrainCleanApp(),
@@ -205,6 +211,71 @@ void main() {
 
     expect(find.text(en.homeTitle), findsOneWidget);
     expect(find.byType(HomeScreen), findsOneWidget);
+  });
+
+  testWidgets('accountability modal applies −15 BCS from home', (tester) async {
+    const liveModel = DiagnosticModel(
+      brainPerformance: 70,
+      digitalDiscipline: 70,
+      healthyHabits: 70,
+      consistency: 70,
+    );
+    final committed = composeWidgetTestCommittedSession(model: liveModel);
+
+    await tester.binding.setSurfaceSize(const Size(800, 1200));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+
+    await tester.pumpWidget(
+      createLocalizedProviderTestWidget(
+        const HomeScreen(),
+        locale: const Locale('ar'),
+        overrides: [
+          recoveryProtocolStorageProvider.overrideWithValue(
+            RecoveryProtocolMemoryRepository(),
+          ),
+          ...diagnosticWidgetTestOverrides(
+            liveModel: liveModel,
+            committedSession: committed,
+          ),
+        ],
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    final container =
+        ProviderScope.containerOf(tester.element(find.byType(HomeScreen)));
+    final before = container.read(bcScoreSessionProvider)!.bcScore;
+
+    await tester.tap(find.byKey(homeAccountabilityButtonKey));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(AccountabilityBoxModal), findsOneWidget);
+
+    await tester.tap(find.text('اللياقة البدنية'));
+    await tester.pumpAndSettle();
+
+    final firstPenalty = find.text('تمرين 30 دقيقة');
+    await tester.ensureVisible(firstPenalty);
+    await tester.tap(firstPenalty);
+    await tester.pumpAndSettle();
+
+    final after = container.read(bcScoreSessionProvider)!.bcScore;
+    expect(before - after, 15);
+    expect(find.text('تم تسجيل العقوبة ✓'), findsOneWidget);
+  });
+
+  testWidgets('breathing friction screen shows inhale phase and countdown',
+      (tester) async {
+    await tester.pumpWidget(
+      createLocalizedTestWidget(
+        const BreathingFrictionScreen(currentBhi: 70),
+        locale: const Locale('ar'),
+      ),
+    );
+    await tester.pump();
+
+    expect(find.textContaining('استنشق'), findsOneWidget);
+    expect(find.byType(LinearProgressIndicator), findsOneWidget);
   });
 }
 
