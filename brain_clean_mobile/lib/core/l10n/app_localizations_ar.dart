@@ -435,4 +435,127 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get recoveryStorageRecoveredNotice =>
       'تم إعادة ضبط البيانات المحلية لأنها لم تُقرأ بشكل صحيح. بدأ بروتوكول جديد.';
+
+  @override
+  String get homeStreakDays => 'أيام';
+
+  @override
+  String get homeStreakHours => 'ساعات';
+
+  @override
+  String get homeStreakMinutes => 'دقائق';
+
+  @override
+  String get homeStreakSeconds => 'ثوانٍ';
+
+  @override
+  String get homeDistractionButton => 'تشتت مؤقت';
+
+  @override
+  String get homeDistractionConfirmTitle => 'تأكيد التشتت';
+
+  @override
+  String get homeDistractionConfirmMessage =>
+      'هل أنت متأكد؟ سيتم خصم 12 ساعة من streak.';
+
+  @override
+  String get homeDistractionConfirm => 'تأكيد';
+
+  @override
+  String get homeDistractionCancel => 'إلغاء';
+
+  @override
+  String get homeOpenAccountability => 'غرفة المساءلة الرقمية';
+
+  @override
+  String get accountabilityRoomTitle => 'غرفة المساءلة الرقمية';
+
+  @override
+  String get accountabilityPenaltyRecorded => 'تم تسجيل العقوبة ✓';
+
+  @override
+  String get accountabilityCatPhysical => 'جسدية';
+
+  @override
+  String get accountabilityCatNutritional => 'غذائية';
+
+  @override
+  String get accountabilityCatAltruistic => 'إيثارية';
+
+  @override
+  String get accountabilityCatMental => 'ذهنية';
+
+  @override
+  String get accountabilityPenPhysical1 => 'تخطي جلسة الحركة';
+
+  @override
+  String get accountabilityPenPhysical2 => 'إهمال نظافة النوم';
+
+  @override
+  String get accountabilityPenPhysical3 => 'عودة للخمول';
+
+  @override
+  String get accountabilityPenPhysical4 => 'تفويت مشي التعافي';
+
+  @override
+  String get accountabilityPenPhysical5 => 'تخطي تفعيل الجسم';
+
+  @override
+  String get accountabilityPenNutritional1 => 'وجبة ملتهبة';
+
+  @override
+  String get accountabilityPenNutritional2 => 'تخطي وجبة دعم الدماغ';
+
+  @override
+  String get accountabilityPenNutritional3 => 'إفراط في السكر';
+
+  @override
+  String get accountabilityPenNutritional4 => 'إهمال الترطيب';
+
+  @override
+  String get accountabilityPenNutritional5 => 'أكل متأخر ليلاً';
+
+  @override
+  String get accountabilityPenAltruistic1 => 'تفويت عمل لطيف';
+
+  @override
+  String get accountabilityPenAltruistic2 => 'انطواء اجتماعي';
+
+  @override
+  String get accountabilityPenAltruistic3 => 'تجاهل طلب دعم';
+
+  @override
+  String get accountabilityPenAltruistic4 => 'تركيز ذاتي مفرط';
+
+  @override
+  String get accountabilityPenAltruistic5 => 'تخطي متابعة المجتمع';
+
+  @override
+  String get accountabilityPenMental1 => 'تخطي تمارين التنفس';
+
+  @override
+  String get accountabilityPenMental2 => 'تجنب التدوين';
+
+  @override
+  String get accountabilityPenMental3 => 'حلقة أفكار سلبية';
+
+  @override
+  String get accountabilityPenMental4 => 'تفويت فحص ذهني';
+
+  @override
+  String get accountabilityPenMental5 => 'إدمان شاشة متصاعد';
+
+  @override
+  String get breathingInhale => 'استنشق...';
+
+  @override
+  String get breathingHold => 'احتبس...';
+
+  @override
+  String get breathingExhale => 'أخرج...';
+
+  @override
+  String breathingCountdownSeconds(int seconds) {
+    return 'متبقي $seconds ثانية';
+  }
 }

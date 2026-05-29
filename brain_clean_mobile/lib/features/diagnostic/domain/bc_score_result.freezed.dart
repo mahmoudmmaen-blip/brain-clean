@@ -27,9 +27,7 @@ mixin _$BcScoreResult {
   double get negativeArm => throw _privateConstructorUsedError;
   DateTime get calculatedAt => throw _privateConstructorUsedError;
 
-  /// Create a copy of BcScoreResult
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $BcScoreResultCopyWith<BcScoreResult> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -58,8 +56,6 @@ class _$BcScoreResultCopyWithImpl<$Res, $Val extends BcScoreResult>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of BcScoreResult
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -118,8 +114,6 @@ class __$$BcScoreResultImplCopyWithImpl<$Res>
       _$BcScoreResultImpl _value, $Res Function(_$BcScoreResultImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of BcScoreResult
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -206,9 +200,7 @@ class _$BcScoreResultImpl extends _BcScoreResult {
   int get hashCode => Object.hash(
       runtimeType, bcScore, rawScore, positiveArm, negativeArm, calculatedAt);
 
-  /// Create a copy of BcScoreResult
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$BcScoreResultImplCopyWith<_$BcScoreResultImpl> get copyWith =>
@@ -224,26 +216,24 @@ abstract class _BcScoreResult extends BcScoreResult {
       required final DateTime calculatedAt}) = _$BcScoreResultImpl;
   const _BcScoreResult._() : super._();
 
-  /// Normalized Brain Clarity / Focus score \[0, 100\].
   @override
+
+  /// Normalized Brain Clarity / Focus score \[0, 100\].
   double get bcScore;
   @override
   double get rawScore;
+  @override
 
   /// (S1 + A2) × 1.5
-  @override
   double get positiveArm;
+  @override
 
   /// (F3 + D4 + T5 + B6) × 0.8
-  @override
   double get negativeArm;
   @override
   DateTime get calculatedAt;
-
-  /// Create a copy of BcScoreResult
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$BcScoreResultImplCopyWith<_$BcScoreResultImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

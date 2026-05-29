@@ -24,10 +24,8 @@ final bcScoreLiveProvider = AutoDisposeProvider<DiagnosticModel>.internal(
   allTransitiveDependencies: null,
 );
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
 typedef BcScoreLiveRef = AutoDisposeProviderRef<DiagnosticModel>;
-String _$bcScoreSessionHash() => r'7f5374fc39284b658211a39566eef7eac64178f8';
+String _$bcScoreSessionHash() => r'923a04c3689b9ec1b8493d530eb55c0e4fecb541';
 
 /// Snapshot saved on diagnostic submit — shown on dashboard.
 ///
@@ -46,4 +44,4 @@ final bcScoreSessionProvider =
 
 typedef _$BcScoreSession = AutoDisposeNotifier<DiagnosticSession?>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

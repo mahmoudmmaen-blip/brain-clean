@@ -7,7 +7,7 @@ part of 'recovery_protocol_controller.dart';
 // **************************************************************************
 
 String _$recoveryProtocolControllerHash() =>
-    r'a6ef3807a97f5424e978619071cbd658c1710f2a';
+    r'8a0ed4adc27ba96b09f2754331479214bc44de17';
 
 /// See also [RecoveryProtocolController].
 @ProviderFor(RecoveryProtocolController)
@@ -24,4 +24,4 @@ final recoveryProtocolControllerProvider = AsyncNotifierProvider<
 
 typedef _$RecoveryProtocolController = AsyncNotifier<RecoveryProtocolState>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

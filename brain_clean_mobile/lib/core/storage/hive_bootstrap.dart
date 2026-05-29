@@ -44,6 +44,7 @@ abstract final class HiveBootstrap {
     await Future.wait([
       _openBoxIfNeeded(HiveBoxes.recoveryProtocol),
       _openBoxIfNeeded(HiveBoxes.diagnosticPersistence),
+      _openBoxIfNeeded(HiveBoxes.emotionLog),
     ]);
   }
 

@@ -442,4 +442,127 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get recoveryStorageRecoveredNotice =>
       'Local data was reset because it could not be read. A new protocol has started.';
+
+  @override
+  String get homeStreakDays => 'Days';
+
+  @override
+  String get homeStreakHours => 'Hours';
+
+  @override
+  String get homeStreakMinutes => 'Min';
+
+  @override
+  String get homeStreakSeconds => 'Sec';
+
+  @override
+  String get homeDistractionButton => 'Temporary distraction';
+
+  @override
+  String get homeDistractionConfirmTitle => 'Confirm distraction';
+
+  @override
+  String get homeDistractionConfirmMessage =>
+      'Are you sure? 12 hours will be deducted from your streak.';
+
+  @override
+  String get homeDistractionConfirm => 'Confirm';
+
+  @override
+  String get homeDistractionCancel => 'Cancel';
+
+  @override
+  String get homeOpenAccountability => 'Digital accountability room';
+
+  @override
+  String get accountabilityRoomTitle => 'Digital accountability room';
+
+  @override
+  String get accountabilityPenaltyRecorded => 'Penalty recorded ✓';
+
+  @override
+  String get accountabilityCatPhysical => 'Physical';
+
+  @override
+  String get accountabilityCatNutritional => 'Nutritional';
+
+  @override
+  String get accountabilityCatAltruistic => 'Altruistic';
+
+  @override
+  String get accountabilityCatMental => 'Mental';
+
+  @override
+  String get accountabilityPenPhysical1 => 'Skipped movement block';
+
+  @override
+  String get accountabilityPenPhysical2 => 'Poor sleep hygiene';
+
+  @override
+  String get accountabilityPenPhysical3 => 'Sedentary relapse';
+
+  @override
+  String get accountabilityPenPhysical4 => 'Missed recovery walk';
+
+  @override
+  String get accountabilityPenPhysical5 => 'Body activation skipped';
+
+  @override
+  String get accountabilityPenNutritional1 => 'Inflammatory meal';
+
+  @override
+  String get accountabilityPenNutritional2 => 'Skipped brain-support meal';
+
+  @override
+  String get accountabilityPenNutritional3 => 'Excess sugar intake';
+
+  @override
+  String get accountabilityPenNutritional4 => 'Hydration neglect';
+
+  @override
+  String get accountabilityPenNutritional5 => 'Late-night eating';
+
+  @override
+  String get accountabilityPenAltruistic1 => 'Missed kindness act';
+
+  @override
+  String get accountabilityPenAltruistic2 => 'Social withdrawal';
+
+  @override
+  String get accountabilityPenAltruistic3 => 'Ignored support request';
+
+  @override
+  String get accountabilityPenAltruistic4 => 'Self-focused relapse';
+
+  @override
+  String get accountabilityPenAltruistic5 => 'Community check-in skipped';
+
+  @override
+  String get accountabilityPenMental1 => 'Skipped breathwork';
+
+  @override
+  String get accountabilityPenMental2 => 'Avoided journaling';
+
+  @override
+  String get accountabilityPenMental3 => 'Rumination spiral';
+
+  @override
+  String get accountabilityPenMental4 => 'Missed mental check-in';
+
+  @override
+  String get accountabilityPenMental5 => 'Escalated screen binge';
+
+  @override
+  String get breathingInhale => 'Inhale…';
+
+  @override
+  String get breathingHold => 'Hold…';
+
+  @override
+  String get breathingExhale => 'Exhale…';
+
+  @override
+  String breathingCountdownSeconds(int seconds) {
+    return '$seconds seconds remaining';
+  }
 }

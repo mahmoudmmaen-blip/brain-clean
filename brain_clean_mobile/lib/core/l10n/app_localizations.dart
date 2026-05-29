@@ -835,6 +835,246 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Local data was reset because it could not be read. A new protocol has started.'**
   String get recoveryStorageRecoveredNotice;
+
+  /// No description provided for @homeStreakDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Days'**
+  String get homeStreakDays;
+
+  /// No description provided for @homeStreakHours.
+  ///
+  /// In en, this message translates to:
+  /// **'Hours'**
+  String get homeStreakHours;
+
+  /// No description provided for @homeStreakMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'Min'**
+  String get homeStreakMinutes;
+
+  /// No description provided for @homeStreakSeconds.
+  ///
+  /// In en, this message translates to:
+  /// **'Sec'**
+  String get homeStreakSeconds;
+
+  /// No description provided for @homeDistractionButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Temporary distraction'**
+  String get homeDistractionButton;
+
+  /// No description provided for @homeDistractionConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm distraction'**
+  String get homeDistractionConfirmTitle;
+
+  /// No description provided for @homeDistractionConfirmMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure? 12 hours will be deducted from your streak.'**
+  String get homeDistractionConfirmMessage;
+
+  /// No description provided for @homeDistractionConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get homeDistractionConfirm;
+
+  /// No description provided for @homeDistractionCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get homeDistractionCancel;
+
+  /// No description provided for @homeOpenAccountability.
+  ///
+  /// In en, this message translates to:
+  /// **'Digital accountability room'**
+  String get homeOpenAccountability;
+
+  /// No description provided for @accountabilityRoomTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Digital accountability room'**
+  String get accountabilityRoomTitle;
+
+  /// No description provided for @accountabilityPenaltyRecorded.
+  ///
+  /// In en, this message translates to:
+  /// **'Penalty recorded ✓'**
+  String get accountabilityPenaltyRecorded;
+
+  /// No description provided for @accountabilityCatPhysical.
+  ///
+  /// In en, this message translates to:
+  /// **'Physical'**
+  String get accountabilityCatPhysical;
+
+  /// No description provided for @accountabilityCatNutritional.
+  ///
+  /// In en, this message translates to:
+  /// **'Nutritional'**
+  String get accountabilityCatNutritional;
+
+  /// No description provided for @accountabilityCatAltruistic.
+  ///
+  /// In en, this message translates to:
+  /// **'Altruistic'**
+  String get accountabilityCatAltruistic;
+
+  /// No description provided for @accountabilityCatMental.
+  ///
+  /// In en, this message translates to:
+  /// **'Mental'**
+  String get accountabilityCatMental;
+
+  /// No description provided for @accountabilityPenPhysical1.
+  ///
+  /// In en, this message translates to:
+  /// **'Skipped movement block'**
+  String get accountabilityPenPhysical1;
+
+  /// No description provided for @accountabilityPenPhysical2.
+  ///
+  /// In en, this message translates to:
+  /// **'Poor sleep hygiene'**
+  String get accountabilityPenPhysical2;
+
+  /// No description provided for @accountabilityPenPhysical3.
+  ///
+  /// In en, this message translates to:
+  /// **'Sedentary relapse'**
+  String get accountabilityPenPhysical3;
+
+  /// No description provided for @accountabilityPenPhysical4.
+  ///
+  /// In en, this message translates to:
+  /// **'Missed recovery walk'**
+  String get accountabilityPenPhysical4;
+
+  /// No description provided for @accountabilityPenPhysical5.
+  ///
+  /// In en, this message translates to:
+  /// **'Body activation skipped'**
+  String get accountabilityPenPhysical5;
+
+  /// No description provided for @accountabilityPenNutritional1.
+  ///
+  /// In en, this message translates to:
+  /// **'Inflammatory meal'**
+  String get accountabilityPenNutritional1;
+
+  /// No description provided for @accountabilityPenNutritional2.
+  ///
+  /// In en, this message translates to:
+  /// **'Skipped brain-support meal'**
+  String get accountabilityPenNutritional2;
+
+  /// No description provided for @accountabilityPenNutritional3.
+  ///
+  /// In en, this message translates to:
+  /// **'Excess sugar intake'**
+  String get accountabilityPenNutritional3;
+
+  /// No description provided for @accountabilityPenNutritional4.
+  ///
+  /// In en, this message translates to:
+  /// **'Hydration neglect'**
+  String get accountabilityPenNutritional4;
+
+  /// No description provided for @accountabilityPenNutritional5.
+  ///
+  /// In en, this message translates to:
+  /// **'Late-night eating'**
+  String get accountabilityPenNutritional5;
+
+  /// No description provided for @accountabilityPenAltruistic1.
+  ///
+  /// In en, this message translates to:
+  /// **'Missed kindness act'**
+  String get accountabilityPenAltruistic1;
+
+  /// No description provided for @accountabilityPenAltruistic2.
+  ///
+  /// In en, this message translates to:
+  /// **'Social withdrawal'**
+  String get accountabilityPenAltruistic2;
+
+  /// No description provided for @accountabilityPenAltruistic3.
+  ///
+  /// In en, this message translates to:
+  /// **'Ignored support request'**
+  String get accountabilityPenAltruistic3;
+
+  /// No description provided for @accountabilityPenAltruistic4.
+  ///
+  /// In en, this message translates to:
+  /// **'Self-focused relapse'**
+  String get accountabilityPenAltruistic4;
+
+  /// No description provided for @accountabilityPenAltruistic5.
+  ///
+  /// In en, this message translates to:
+  /// **'Community check-in skipped'**
+  String get accountabilityPenAltruistic5;
+
+  /// No description provided for @accountabilityPenMental1.
+  ///
+  /// In en, this message translates to:
+  /// **'Skipped breathwork'**
+  String get accountabilityPenMental1;
+
+  /// No description provided for @accountabilityPenMental2.
+  ///
+  /// In en, this message translates to:
+  /// **'Avoided journaling'**
+  String get accountabilityPenMental2;
+
+  /// No description provided for @accountabilityPenMental3.
+  ///
+  /// In en, this message translates to:
+  /// **'Rumination spiral'**
+  String get accountabilityPenMental3;
+
+  /// No description provided for @accountabilityPenMental4.
+  ///
+  /// In en, this message translates to:
+  /// **'Missed mental check-in'**
+  String get accountabilityPenMental4;
+
+  /// No description provided for @accountabilityPenMental5.
+  ///
+  /// In en, this message translates to:
+  /// **'Escalated screen binge'**
+  String get accountabilityPenMental5;
+
+  /// No description provided for @breathingInhale.
+  ///
+  /// In en, this message translates to:
+  /// **'Inhale…'**
+  String get breathingInhale;
+
+  /// No description provided for @breathingHold.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold…'**
+  String get breathingHold;
+
+  /// No description provided for @breathingExhale.
+  ///
+  /// In en, this message translates to:
+  /// **'Exhale…'**
+  String get breathingExhale;
+
+  /// No description provided for @breathingCountdownSeconds.
+  ///
+  /// In en, this message translates to:
+  /// **'{seconds} seconds remaining'**
+  String breathingCountdownSeconds(int seconds);
 }
 
 class _AppLocalizationsDelegate

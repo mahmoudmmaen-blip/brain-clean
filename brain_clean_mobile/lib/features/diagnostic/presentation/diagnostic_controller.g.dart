@@ -23,8 +23,6 @@ final diagnosticLiveModelProvider = Provider<DiagnosticModel>.internal(
   allTransitiveDependencies: null,
 );
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
 typedef DiagnosticLiveModelRef = ProviderRef<DiagnosticModel>;
 String _$diagnosticLiveSessionHash() =>
     r'868f14593ee23605f89e73a2ef5be8f197bc6fd9';
@@ -45,8 +43,6 @@ final diagnosticLiveSessionProvider = Provider<DiagnosticSession>.internal(
   allTransitiveDependencies: null,
 );
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
 typedef DiagnosticLiveSessionRef = ProviderRef<DiagnosticSession>;
 String _$diagnosticControllerHash() =>
     r'973a25f1e2902c6d2a1956e9e8142d26ee74449d';
@@ -71,4 +67,4 @@ final diagnosticControllerProvider =
 
 typedef _$DiagnosticController = AsyncNotifier<DiagnosticMetrics>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

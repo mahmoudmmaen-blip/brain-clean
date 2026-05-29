@@ -33,12 +33,8 @@ mixin _$DiagnosticMetrics {
   @JsonKey(name: BhiPillarJsonKeys.burnout)
   int get burnout => throw _privateConstructorUsedError;
 
-  /// Serializes this DiagnosticMetrics to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of DiagnosticMetrics
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $DiagnosticMetricsCopyWith<DiagnosticMetrics> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -69,8 +65,6 @@ class _$DiagnosticMetricsCopyWithImpl<$Res, $Val extends DiagnosticMetrics>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of DiagnosticMetrics
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -136,8 +130,6 @@ class __$$DiagnosticMetricsImplCopyWithImpl<$Res>
       $Res Function(_$DiagnosticMetricsImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of DiagnosticMetrics
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -235,14 +227,12 @@ class _$DiagnosticMetricsImpl implements _DiagnosticMetrics {
             (identical(other.burnout, burnout) || other.burnout == burnout));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, sleepQuality, sustainedAttention,
       fragmentation, dopamineSeeking, taskSwitching, burnout);
 
-  /// Create a copy of DiagnosticMetrics
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$DiagnosticMetricsImplCopyWith<_$DiagnosticMetricsImpl> get copyWith =>
@@ -290,11 +280,8 @@ abstract class _DiagnosticMetrics implements DiagnosticMetrics {
   @override
   @JsonKey(name: BhiPillarJsonKeys.burnout)
   int get burnout;
-
-  /// Create a copy of DiagnosticMetrics
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$DiagnosticMetricsImplCopyWith<_$DiagnosticMetricsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

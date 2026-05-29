@@ -23,8 +23,6 @@ final recoveryBcPenaltyTotalProvider = Provider<double>.internal(
   allTransitiveDependencies: null,
 );
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
 typedef RecoveryBcPenaltyTotalRef = ProviderRef<double>;
 String _$recoveryDiagnosticPenaltySyncHash() =>
     r'27b182646af642f73550eeb43b282024a2e45b07';
@@ -46,4 +44,4 @@ final recoveryDiagnosticPenaltySyncProvider =
 
 typedef _$RecoveryDiagnosticPenaltySync = Notifier<void>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

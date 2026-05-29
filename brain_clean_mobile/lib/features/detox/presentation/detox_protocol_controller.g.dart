@@ -21,8 +21,6 @@ final detoxProtocolDataProvider =
   allTransitiveDependencies: null,
 );
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
 typedef DetoxProtocolDataRef = AutoDisposeProviderRef<DetoxProtocolState>;
 String _$detoxProtocolControllerHash() =>
     r'0ca1adc0bb7642f9b17f645ad8f178e90e6dde94';
@@ -59,4 +57,4 @@ final detoxProtocolControllerProvider = AutoDisposeAsyncNotifierProvider<
 typedef _$DetoxProtocolController
     = AutoDisposeAsyncNotifier<DetoxProtocolState>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

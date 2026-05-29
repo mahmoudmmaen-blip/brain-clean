@@ -25,9 +25,7 @@ mixin _$DetoxProtocolState {
   double get detoxHabitScore => throw _privateConstructorUsedError;
   DateTime? get lastSyncedAt => throw _privateConstructorUsedError;
 
-  /// Create a copy of DetoxProtocolState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $DetoxProtocolStateCopyWith<DetoxProtocolState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -56,8 +54,6 @@ class _$DetoxProtocolStateCopyWithImpl<$Res, $Val extends DetoxProtocolState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of DetoxProtocolState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -116,8 +112,6 @@ class __$$DetoxProtocolStateImplCopyWithImpl<$Res>
       $Res Function(_$DetoxProtocolStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of DetoxProtocolState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -207,9 +201,7 @@ class _$DetoxProtocolStateImpl implements _DetoxProtocolState {
   int get hashCode => Object.hash(runtimeType, boredomBefriended,
       delayedGratificationCount, bodyActivated, detoxHabitScore, lastSyncedAt);
 
-  /// Create a copy of DetoxProtocolState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$DetoxProtocolStateImplCopyWith<_$DetoxProtocolStateImpl> get copyWith =>
@@ -231,18 +223,15 @@ abstract class _DetoxProtocolState implements DetoxProtocolState {
   int get delayedGratificationCount;
   @override
   bool get bodyActivated;
+  @override
 
   /// Weighted detox habit score (0–100), recalculated via [DetoxHabitScorer]
   /// on every check-in before state is committed.
-  @override
   double get detoxHabitScore;
   @override
   DateTime? get lastSyncedAt;
-
-  /// Create a copy of DetoxProtocolState
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$DetoxProtocolStateImplCopyWith<_$DetoxProtocolStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
