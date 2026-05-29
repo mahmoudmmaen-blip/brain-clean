@@ -8,7 +8,12 @@ part of 'app_router.dart';
 
 String _$goRouterHash() => r'a0ab5bf00170dd3a2da94e5ff247766ac08ddc57';
 
-/// App shell — splash hydrates Hive first, then home or live diagnostic draft resume.
+/// App shell — splash hydrates Hive, then routes to home or **live session** resume.
+///
+/// Live session routing ([AppRoutes.diagnostic]): when Hive holds draft metrics or
+/// questionnaire state without a committed BC_score, [SplashScreen] opens
+/// [DiagnosticScreen], which reads [diagnosticLiveSessionProvider] (not a stale
+/// in-memory draft). Committed sessions land on [HomeScreen] / dashboard.
 ///
 /// Copied from [goRouter].
 @ProviderFor(goRouter)
