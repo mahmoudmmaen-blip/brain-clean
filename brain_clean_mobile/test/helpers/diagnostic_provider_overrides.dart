@@ -8,10 +8,38 @@ import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_session
 import 'package:brain_clean_mobile/features/diagnostic/presentation/bc_score_provider.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/diagnostic_controller.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/diagnostic_session_flow_provider.dart';
+import 'package:brain_clean_mobile/features/recovery/presentation/recovery_bc_penalty_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 
 import 'hive_test_fixtures.dart';
+
+/// Interactive overrides: real [diagnosticSessionFlowProvider] + reactive
+/// [diagnosticLiveSessionProvider] (no frozen live-session stub).
+List<Override> diagnosticInteractiveOverrides({
+  DiagnosticMetrics metrics = const DiagnosticMetrics(),
+  DiagnosticModel? liveModel,
+  Box<dynamic>? diagnosticBox,
+}) {
+  final box = diagnosticBox ?? InMemoryHiveBox();
+  final model = liveModel ??
+      const DiagnosticModel(
+        brainPerformance: 50,
+        digitalDiscipline: 50,
+        healthyHabits: 50,
+        consistency: 50,
+      );
+
+  return [
+    diagnosticLocalRepositoryProvider.overrideWithValue(
+      DiagnosticLocalRepository(box: box),
+    ),
+    diagnosticControllerProvider.overrideWith(
+      () => _SeededDiagnosticController(metrics, model),
+    ),
+    recoveryBcPenaltyTotalProvider.overrideWith((ref) => 0),
+  ];
+}
 
 /// Standard Riverpod overrides for diagnostic UI widget tests.
 ///
@@ -47,7 +75,7 @@ List<Override> diagnosticWidgetTestOverrides({
       DiagnosticLocalRepository(box: box),
     ),
     diagnosticControllerProvider.overrideWith(
-      () => _SeededDiagnosticController(metrics, model, flow),
+      () => _SeededDiagnosticController(metrics, model, flowOverride: flow),
     ),
     diagnosticLiveModelProvider.overrideWithValue(model),
     diagnosticSessionFlowProvider.overrideWith(
@@ -62,17 +90,28 @@ List<Override> diagnosticWidgetTestOverrides({
 }
 
 class _SeededDiagnosticController extends DiagnosticController {
-  _SeededDiagnosticController(this._metrics, this._liveModel, this._flow);
+  _SeededDiagnosticController(
+    this._metrics,
+    this._liveModel, {
+    this.flowOverride,
+  });
 
   final DiagnosticMetrics _metrics;
   final DiagnosticModel _liveModel;
-  final BrainRotQuestionnaireSnapshot _flow;
+  final BrainRotQuestionnaireSnapshot? flowOverride;
 
   @override
   Future<DiagnosticMetrics> build() async => _metrics;
 
   @override
   DiagnosticModel computeLiveModel() => _liveModel;
+
+  BrainRotQuestionnaireSnapshot _resolveQuestionnaire(
+    BrainRotQuestionnaireSnapshot? questionnaire,
+  ) =>
+      questionnaire ??
+      flowOverride ??
+      ref.read(diagnosticSessionFlowProvider);
 
   @override
   DiagnosticSession buildLiveSession({
@@ -83,7 +122,7 @@ class _SeededDiagnosticController extends DiagnosticController {
       DiagnosticSessionComposer.buildLiveSession(
         metrics: _metrics,
         model: _liveModel,
-        questionnaire: questionnaire ?? _flow,
+        questionnaire: _resolveQuestionnaire(questionnaire),
         recoveryPenaltyTotal: recoveryPenaltyTotal,
         requireComplete: requireComplete,
       );

@@ -7,7 +7,7 @@ import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/app_theme.dart';
 
-/// Cold-start gate: hydrates Hive + Riverpod before routing to [HomeScreen].
+/// Cold-start gate: hydrates Hive + Riverpod, then home or **live session** resume.
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
@@ -34,9 +34,10 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     }
     if (!mounted) return;
 
-    final resumeDiagnostic =
+    // Draft metrics/questionnaire without commit → resume live session flow.
+    final resumeLiveSession =
         snapshot.hasDraftProgress && !snapshot.hasCommittedSession;
-    context.go(resumeDiagnostic ? AppRoutes.diagnostic : AppRoutes.home);
+    context.go(resumeLiveSession ? AppRoutes.diagnostic : AppRoutes.home);
   }
 
   @override

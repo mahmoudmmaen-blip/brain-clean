@@ -5,7 +5,12 @@ import 'diagnostic_metrics_mapper.dart';
 import 'diagnostic_model.dart';
 import 'pillar_bound_evaluation.dart';
 
-/// Slider inputs, live model, and frozen pillar snapshot for a diagnostic session.
+/// BHI envelope for a [DiagnosticSession] — metrics, live model, frozen pillars.
+///
+/// **Live session** ([DiagnosticSession.isLive]): [compose] freezes pillars at
+/// [frozenAt] while [model] may still track detox-driven drift until commit.
+/// **Committed session**: [fromJson]/[toJson] bind exclusively via [BhiPillarJsonKeys]
+/// (camelCase; [normalizeIncoming] migrates legacy snake_case from Hive/Firestore).
 class DiagnosticBhiSnapshot {
   const DiagnosticBhiSnapshot({
     required this.metrics,

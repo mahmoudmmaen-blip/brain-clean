@@ -15,7 +15,12 @@ import '../constants/app_routes.dart';
 
 part 'app_router.g.dart';
 
-/// App shell — splash hydrates Hive first, then home or live diagnostic draft resume.
+/// App shell — splash hydrates Hive, then routes to home or **live session** resume.
+///
+/// Live session routing ([AppRoutes.diagnostic]): when Hive holds draft metrics or
+/// questionnaire state without a committed BC_score, [SplashScreen] opens
+/// [DiagnosticScreen], which reads [diagnosticLiveSessionProvider] (not a stale
+/// in-memory draft). Committed sessions land on [HomeScreen] / dashboard.
 @riverpod
 GoRouter goRouter(GoRouterRef ref) {
   return GoRouter(
@@ -32,6 +37,7 @@ GoRouter goRouter(GoRouterRef ref) {
         name: 'home',
         builder: (context, state) => const HomeScreen(),
       ),
+      /// Live diagnostic session entry — questionnaire → results → BHI sliders.
       GoRoute(
         path: AppRoutes.diagnostic,
         name: 'diagnostic',

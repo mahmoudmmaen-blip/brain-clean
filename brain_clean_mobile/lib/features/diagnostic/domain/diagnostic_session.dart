@@ -30,7 +30,8 @@ class DiagnosticSession {
   /// Slider input metrics (alias).
   DiagnosticMetrics get metrics => bhi.metrics;
 
-  /// Live diagnostic flow (not yet submitted to [bcScoreSessionProvider]).
+  /// **Live session** — questionnaire/BHI draft not yet committed to Hive
+  /// [bcScoreSessionProvider]. Structural mirror: [DiagnosticSession.live] factory.
   bool get isLive => !isCommitted;
 
   /// Pillar values frozen at session save (committed sessions are authoritative).

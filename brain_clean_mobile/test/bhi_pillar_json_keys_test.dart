@@ -1,3 +1,4 @@
+import 'package:brain_clean_mobile/features/diagnostic/domain/brain_rot_questionnaire_snapshot.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/bhi_pillar_frozen_snapshot.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/bhi_pillar_json_keys.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_bhi_snapshot.dart';
@@ -80,6 +81,28 @@ void main() {
       expect(map.containsKey('recovery_penalty_deduction'), isFalse);
     });
 
+    test('DiagnosticBhiSnapshot live compose round-trips camelCase JSON', () {
+      const metrics = DiagnosticMetrics(sleepQuality: 7);
+      const model = DiagnosticModel(
+        brainPerformance: 72,
+        digitalDiscipline: 68,
+        healthyHabits: 70,
+        consistency: 66,
+      );
+      final bhi = DiagnosticBhiSnapshot.compose(metrics: metrics, model: model);
+      final json = bhi.toJson();
+      expect(json[BhiPillarJsonKeys.metrics], isA<Map<String, dynamic>>());
+      expect(json[BhiPillarJsonKeys.model], isA<Map<String, dynamic>>());
+      expect(json[BhiPillarJsonKeys.frozenPillars], isA<Map<String, dynamic>>());
+      expect(json.containsKey(BhiPillarJsonKeys.recoveryPenaltyDeductionSnake),
+          isFalse);
+
+      final restored = DiagnosticBhiSnapshot.fromJson(json);
+      expect(restored.metrics.sleepQuality, 7);
+      expect(restored.boundBcScore, bhi.boundBcScore);
+      expect(restored.isPillarBoundCoherent, isTrue);
+    });
+
     test('DiagnosticBhiSnapshot toJson embeds penalty via key gateway', () {
       final bhi = DiagnosticBhiSnapshot.compose(
         metrics: const DiagnosticMetrics(),
@@ -121,6 +144,22 @@ void main() {
             json.remove(BhiPillarJsonKeys.committedAt);
       final restored = DiagnosticSession.fromJson(legacy);
       expect(restored.recoveryPenaltyDeduction, 15);
+      expect(restored.isLive, isFalse);
+    });
+
+    test('DiagnosticSession.live round-trips without brainRot commit envelope', () {
+      final session = DiagnosticSession.live(
+        metrics: const DiagnosticMetrics(),
+        model: model,
+        questionnaire: const BrainRotQuestionnaireSnapshot(),
+      );
+      expect(session.isLive, isTrue);
+
+      final json = session.toJson();
+      final restored = DiagnosticSession.fromJson(json);
+      expect(restored.isLive, isTrue);
+      expect(restored.isPillarBoundCoherent, isTrue);
+      expect(json[BhiPillarJsonKeys.bhi], isA<Map<String, dynamic>>());
     });
 
     test('DiagnosticMetrics fromJson migrates snake_case slider keys', () {
