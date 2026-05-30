@@ -7,6 +7,9 @@ import '../../core/presentation/async_state_views.dart';
 import '../../core/theme/app_colors.dart';
 import '../diagnostic/presentation/bc_score_provider.dart';
 import '../home/presentation/home_streak_provider.dart';
+import '../../core/presentation/language_toggle_button.dart';
+import '../gamification/level_progress_widget.dart';
+import '../share/share_card_generator.dart';
 import 'application/profile_emotions_provider.dart';
 
 const profileStatsRowKey = Key('profile_stats_row');
@@ -70,6 +73,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         backgroundColor: AppColors.background,
         title: Text(displayName, style: const TextStyle(color: AppColors.textPrimary)),
         iconTheme: const IconThemeData(color: AppColors.textSecondary),
+        actions: const [LanguageToggleButton()],
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
@@ -109,6 +113,11 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               ),
             ],
           ),
+          const SizedBox(height: 20),
+          const LevelProgressWidget(),
+          const SizedBox(height: 16),
+          const ShareButton(),
+          const ShareCardCapture(),
           const SizedBox(height: 24),
           Text(
             loc.profileRecentEmotions,

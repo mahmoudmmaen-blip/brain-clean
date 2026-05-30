@@ -6,6 +6,7 @@ import 'package:hive/hive.dart';
 import '../../core/application/app_preferences_provider.dart';
 import '../../core/constants/app_routes.dart';
 import '../../core/l10n/app_localizations.dart';
+import '../../core/services/smart_notification_service.dart';
 import '../../core/storage/hive_boxes.dart';
 
 const settingsProTileKey = Key('settings_pro_tile');
@@ -106,9 +107,12 @@ class SettingsScreen extends ConsumerWidget {
             ),
             value: prefs.emotionNotificationsEnabled,
             activeThumbColor: const Color(0xFF1D9E75),
-            onChanged: (v) => ref
-                .read(appPreferencesProvider.notifier)
-                .setEmotionNotifications(v),
+            onChanged: (v) async {
+              await ref
+                  .read(appPreferencesProvider.notifier)
+                  .setEmotionNotifications(v);
+              await ref.read(smartNotificationServiceProvider).rescheduleAll();
+            },
           ),
           SwitchListTile(
             title: Text(
@@ -117,9 +121,12 @@ class SettingsScreen extends ConsumerWidget {
             ),
             value: prefs.dailyFocusReminderEnabled,
             activeThumbColor: const Color(0xFF1D9E75),
-            onChanged: (v) => ref
-                .read(appPreferencesProvider.notifier)
-                .setDailyFocusReminder(v),
+            onChanged: (v) async {
+              await ref
+                  .read(appPreferencesProvider.notifier)
+                  .setDailyFocusReminder(v);
+              await ref.read(smartNotificationServiceProvider).rescheduleAll();
+            },
           ),
           const Divider(color: Color(0xFF30363D)),
           _SectionHeader(loc.settingsDataSection),

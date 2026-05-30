@@ -410,5 +410,19 @@
   "breathingExhaleFull": "أخرج الهواء...",
   "asyncErrorRetry": "حدث خطأ، حاول مجدداً",
   "chartEmptyState": "لا توجد بيانات بعد، ابدأ رحلتك اليوم",
-  "homeStreakMotivation": "ابدأ أول جلسة تركيز الآن 🚀"
+  "homeStreakMotivation": "ابدأ أول جلسة تركيز الآن 🚀",
+  "dailyQuoteSource": "علم الأعصاب",
+  "streakFreezeConfirm": "هل تريد تجميد الـ Streak؟ متاح مرة أسبوعياً",
+  "shareProgressLabel": "شارك تقدمك",
+  "levelPointsToNext": "{points} نقطة للمستوى التالي",
+  "@levelPointsToNext": {
+    "placeholders": {
+      "points": {"type": "int"}
+    }
+  },
+  "weeklyReportTitle": "تقرير الأسبوع",
+  "weeklyReportStreakDays": "أيام التركيز هذا الأسبوع",
+  "weeklyReportAvgBcs": "متوسط BCS",
+  "weeklyReportBestEmotion": "أبرز إحساس",
+  "weeklyReportChallenges": "التحديات المكتملة"
 }

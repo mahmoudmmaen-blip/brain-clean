@@ -19,4 +19,5 @@ abstract final class AppRoutes {
   static const proPaywall = '/pro-paywall';
   static const settings = '/settings';
   static const profile = '/profile';
+  static const weeklyReport = '/weekly-report';
 }

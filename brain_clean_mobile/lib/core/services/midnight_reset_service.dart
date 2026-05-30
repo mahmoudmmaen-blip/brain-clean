@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/constants/hive_meta_keys.dart';
+import '../../features/home/application/streak_freeze_provider.dart';
+import '../../core/services/app_notification_service.dart';
 import '../../core/data/app_meta_box_provider.dart';
 import '../../core/services/cloud_sync_service.dart';
 import '../../features/dashboard/application/habit_state_provider.dart';
@@ -48,6 +50,29 @@ class MidnightResetService with WidgetsBindingObserver {
       }
 
       _read(habitStateProvider.notifier).resetAll();
+
+      final freeze = _read(streakFreezeControllerProvider);
+      if (freeze.isFrozen) {
+        await _read(streakFreezeControllerProvider.notifier).consumeFrozenDay();
+        try {
+          final isArabic = (_read(appMetaBoxProvider)
+                  .get(HiveMetaKeys.locale, defaultValue: 'ar') as String) ==
+              'ar';
+          await _read(appNotificationServiceProvider).showSimple(
+            id: 6001,
+            title: isArabic ? 'تجميد Streak ❄️' : 'Streak Freeze ❄️',
+            body: isArabic
+                ? 'تم استخدام تجميد الـ Streak ❄️'
+                : 'Streak freeze used ❄️',
+          );
+        } catch (_) {}
+      }
+
+      if (today.weekday == DateTime.monday) {
+        await _read(streakFreezeControllerProvider.notifier)
+            .resetWeeklyAllowance();
+      }
+
       await meta.put(HiveMetaKeys.lastResetDate, formatDate(today));
     } catch (_) {
       // Hive boxes may be unavailable in tests or during cold start races.

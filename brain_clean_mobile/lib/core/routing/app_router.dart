@@ -21,6 +21,7 @@ import '../../features/onboarding/onboarding_screen.dart';
 import '../../features/pro/pro_paywall_screen.dart';
 import '../../features/recovery/presentation/recovery_grid_screen.dart';
 import '../../features/profile/profile_screen.dart';
+import '../../features/reports/weekly_report_screen.dart';
 import '../../features/settings/settings_screen.dart';
 import '../../features/splash/presentation/splash_screen.dart';
 import '../constants/app_routes.dart';
@@ -142,6 +143,16 @@ class BreathingFrictionRoute {
   static String location(int currentBhi) => '/breathing-friction/$currentBhi';
 }
 
+/// Typed route for weekly progress report.
+class WeeklyReportRoute {
+  const WeeklyReportRoute();
+
+  static const name = 'weeklyReport';
+  static const path = AppRoutes.weeklyReport;
+
+  static String get location => AppRoutes.weeklyReport;
+}
+
 /// App shell — splash hydrates Hive, then routes to home or **live session** resume.
 @riverpod
 GoRouter goRouter(GoRouterRef ref) {
@@ -189,6 +200,11 @@ GoRouter goRouter(GoRouterRef ref) {
         path: AppRoutes.profile,
         name: ProfileRoute.name,
         builder: (context, state) => const ProfileScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.weeklyReport,
+        name: WeeklyReportRoute.name,
+        builder: (context, state) => const WeeklyReportScreen(),
       ),
       GoRoute(
         path: AppRoutes.diagnostic,

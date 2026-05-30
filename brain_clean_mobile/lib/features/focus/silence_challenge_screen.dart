@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import 'ambient_sound_player.dart';
+import 'widgets/ambient_sound_widgets.dart';
 import '../../core/application/app_preferences_provider.dart';
 import '../../core/l10n/app_localizations.dart';
 import '../diagnostic/presentation/bc_score_provider.dart';
@@ -53,6 +55,11 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
     _totalSeconds = _targetMinutes * 60;
     _remainingSeconds = _totalSeconds;
     _startTicker();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref
+          .read(ambientSoundControllerProvider.notifier)
+          .play(AmbientSound.rain);
+    });
   }
 
   void _startTicker() {
@@ -191,6 +198,10 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
             padding: const EdgeInsets.all(24),
             child: Column(
               children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: AmbientSoundToggleButton(),
+                ),
                 Text(
                   loc.silenceChallengeTitle,
                   style: const TextStyle(

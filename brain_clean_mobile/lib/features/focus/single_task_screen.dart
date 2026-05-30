@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/l10n/app_localizations.dart';
+import 'ambient_sound_player.dart';
+import 'widgets/ambient_sound_widgets.dart';
 import 'application/single_task_provider.dart';
 
 const singleTaskInputKey = Key('single_task_input');
@@ -18,6 +20,16 @@ class SingleTaskScreen extends ConsumerStatefulWidget {
 class _SingleTaskScreenState extends ConsumerState<SingleTaskScreen> {
   static const _bg = Color(0xFF0D1117);
   final _controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref
+          .read(ambientSoundControllerProvider.notifier)
+          .play(AmbientSound.rain);
+    });
+  }
 
   @override
   void dispose() {
@@ -76,6 +88,7 @@ class _SingleTaskScreenState extends ConsumerState<SingleTaskScreen> {
             style: const TextStyle(color: Color(0xFFE6EDF3)),
           ),
           iconTheme: const IconThemeData(color: Color(0xFF8B949E)),
+          actions: const [AmbientSoundToggleButton()],
         ),
         body: SafeArea(
           child: Padding(

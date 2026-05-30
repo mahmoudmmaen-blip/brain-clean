@@ -6,7 +6,11 @@ import '../../../core/application/app_preferences_provider.dart';
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/presentation/async_state_views.dart';
+import '../../../core/presentation/language_toggle_button.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../focus/widgets/ambient_sound_widgets.dart';
+import '../widgets/daily_quote_card.dart';
+import '../widgets/streak_freeze_button.dart';
 import '../../accountability/accountability_box_modal.dart';
 import '../../diagnostic/presentation/bc_score_provider.dart';
 import '../../diagnostic/domain/diagnostic_session.dart';
@@ -57,6 +61,7 @@ class HomeScreen extends ConsumerWidget {
         backgroundColor: AppColors.background,
         title: Text(loc.homeTitle),
         actions: [
+          const LanguageToggleButton(),
           IconButton(
             key: homeProfileButtonKey,
             icon: const Icon(Icons.person_outline),
@@ -69,16 +74,27 @@ class HomeScreen extends ConsumerWidget {
           ),
         ],
       ),
+      bottomNavigationBar: const AmbientMiniPlayer(),
       body: SafeArea(
         child: recoveryAsync.when(
           loading: () => AsyncStateViews.loading(),
           error: (_, __) => AsyncStateViews.error(context),
-          data: (_) => _HomeBody(
-            loc: loc,
-            session: session,
-            isPro: isPro,
-            streakDays: streakDays,
-            challengeProgress: challengeProgress,
+          data: (_) => Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
+                child: DailyQuoteCard(),
+              ),
+              Expanded(
+                child: _HomeBody(
+                  loc: loc,
+                  session: session,
+                  isPro: isPro,
+                  streakDays: streakDays,
+                  challengeProgress: challengeProgress,
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -115,6 +131,11 @@ class _HomeBody extends ConsumerWidget {
         ),
         const SizedBox(height: 20),
         const HomeStreakTimerGrid(),
+        const SizedBox(height: 12),
+        const Align(
+          alignment: Alignment.center,
+          child: StreakFreezeButton(),
+        ),
         if (streakDays == 0) ...[
           const SizedBox(height: 12),
           Text(

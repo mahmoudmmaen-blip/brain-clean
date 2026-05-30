@@ -11,4 +11,9 @@ abstract final class HiveMetaKeys {
   static const singleTaskActiveId = 'singleTaskActiveId';
   static const singleTaskActiveLabel = 'singleTaskActiveLabel';
   static const singleTaskIsLocked = 'singleTaskIsLocked';
+  static const locale = 'locale';
+  static const streakFreezesAvailable = 'streakFreezesAvailable';
+  static const streakLastFreezeUsedDate = 'streakLastFreezeUsedDate';
+  static const streakIsFrozen = 'streakIsFrozen';
+  static const lastKnownBrainLevel = 'lastKnownBrainLevel';
 }

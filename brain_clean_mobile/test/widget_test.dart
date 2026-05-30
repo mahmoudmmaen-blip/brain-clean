@@ -1,7 +1,6 @@
 import 'package:brain_clean_mobile/features/dashboard/presentation/dashboard_screen.dart'
     show DashboardScreen, dashboardDetoxCheckInTileKey;
 import 'package:brain_clean_mobile/features/detox/presentation/detox_protocol_screen.dart';
-import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_metrics.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/brain_rot_questionnaire_snapshot.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/diagnostic_screen.dart';
@@ -10,6 +9,7 @@ import 'package:brain_clean_mobile/features/recovery/data/recovery_protocol_stor
 import 'package:brain_clean_mobile/features/recovery/presentation/recovery_grid_screen.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/widgets/bc_score_hero_card.dart';
 import 'package:brain_clean_mobile/core/bootstrap/app_hydration_provider.dart';
+import 'package:brain_clean_mobile/core/providers/locale_provider.dart';
 import 'package:brain_clean_mobile/features/home/presentation/home_screen.dart';
 import 'package:brain_clean_mobile/main.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +17,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:brain_clean_mobile/features/accountability/accountability_box_modal.dart';
-import 'package:brain_clean_mobile/features/recovery/data/recovery_protocol_hive_repository.dart';
-import 'package:brain_clean_mobile/features/recovery/data/recovery_protocol_storage_provider.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/bc_score_provider.dart';
 import 'package:brain_clean_mobile/features/focus/breathing_friction_screen.dart';
 import 'package:brain_clean_mobile/features/home/presentation/home_streak_provider.dart';
@@ -202,6 +200,7 @@ void main() {
       ProviderScope(
         overrides: [
           appHydrationProvider.overrideWith(_InstantHydration.new),
+          localeProvider.overrideWith((ref) => const Locale('en')),
           homeStreakTickerProvider.overrideWith((ref) => Stream<int>.value(0)),
           recoveryProtocolStorageProvider.overrideWithValue(
             RecoveryProtocolMemoryRepository(),

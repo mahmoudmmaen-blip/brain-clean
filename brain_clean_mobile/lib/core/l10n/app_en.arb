@@ -410,6 +410,20 @@
   "breathingExhaleFull": "Exhale fully…",
   "asyncErrorRetry": "Something went wrong. Please try again.",
   "chartEmptyState": "No data yet — start your journey today",
-  "homeStreakMotivation": "Start your first focus session now 🚀"
+  "homeStreakMotivation": "Start your first focus session now 🚀",
+  "dailyQuoteSource": "Neuroscience",
+  "streakFreezeConfirm": "Use streak freeze? Available once per week",
+  "shareProgressLabel": "Share Progress",
+  "levelPointsToNext": "{points} points to next level",
+  "@levelPointsToNext": {
+    "placeholders": {
+      "points": {"type": "int"}
+    }
+  },
+  "weeklyReportTitle": "Weekly Report",
+  "weeklyReportStreakDays": "Focus days this week",
+  "weeklyReportAvgBcs": "Average BCS",
+  "weeklyReportBestEmotion": "Top emotion",
+  "weeklyReportChallenges": "Challenges completed"
 }
 
