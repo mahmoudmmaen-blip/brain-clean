@@ -120,7 +120,7 @@ class BrainRotScoreDashboard extends ConsumerWidget {
             AppRoutes.cognitiveTest,
           ),
           icon: const Icon(Icons.center_focus_strong_outlined),
-          label: const Text('اختبر تركيزك 🎯'),
+          label: Text(loc.diagnosticCognitiveTestButton),
           style: OutlinedButton.styleFrom(
             minimumSize: const Size.fromHeight(48),
             foregroundColor: const Color(0xFF1D9E75),

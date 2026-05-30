@@ -132,5 +132,8 @@ class _FreeUserPreferences extends AppPreferences {
         isProUser: false,
         emotionNotificationsEnabled: true,
         dailyFocusReminderEnabled: true,
+        profileDisplayName: '',
+        silenceWinsCount: 0,
+        singleTasksCompletedCount: 0,
       );
 }

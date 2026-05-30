@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/l10n/app_localizations.dart';
 import '../diagnostic/presentation/bc_score_provider.dart';
 
 const accountabilityModalKey = Key('accountability_box_modal');
@@ -38,52 +39,56 @@ enum _AccountabilityCategory {
   mental,
 }
 
-extension on _AccountabilityCategory {
-  String get label => switch (this) {
-        _AccountabilityCategory.physical => 'اللياقة البدنية',
-        _AccountabilityCategory.nutritional => 'التغذية الصحية',
-        _AccountabilityCategory.altruistic => 'العمل الخيري',
-        _AccountabilityCategory.mental => 'التحدي الذهني',
-      };
+String _categoryLabel(AppLocalizations loc, _AccountabilityCategory cat) =>
+    switch (cat) {
+      _AccountabilityCategory.physical => loc.accountabilityModalCatPhysical,
+      _AccountabilityCategory.nutritional =>
+        loc.accountabilityModalCatNutritional,
+      _AccountabilityCategory.altruistic => loc.accountabilityModalCatAltruistic,
+      _AccountabilityCategory.mental => loc.accountabilityModalCatMental,
+    };
 
-  IconData get icon => switch (this) {
-        _AccountabilityCategory.physical => Icons.fitness_center,
-        _AccountabilityCategory.nutritional => Icons.restaurant,
-        _AccountabilityCategory.altruistic => Icons.volunteer_activism,
-        _AccountabilityCategory.mental => Icons.psychology,
-      };
+IconData _categoryIcon(_AccountabilityCategory cat) => switch (cat) {
+      _AccountabilityCategory.physical => Icons.fitness_center,
+      _AccountabilityCategory.nutritional => Icons.restaurant,
+      _AccountabilityCategory.altruistic => Icons.volunteer_activism,
+      _AccountabilityCategory.mental => Icons.psychology,
+    };
 
-  List<String> get penalties => switch (this) {
-        _AccountabilityCategory.physical => const [
-            'تمرين 30 دقيقة',
-            'تمارين قوة',
-            'مشي 5000 خطوة',
-            'تمدد صباحي',
-            'نشاط خارجي',
-          ],
-        _AccountabilityCategory.nutritional => const [
-            'تجنب السكر',
-            'وجبة متوازنة',
-            'شرب 2 لتر ماء',
-            'تقليل الكافيين',
-            'وجبة بروtein',
-          ],
-        _AccountabilityCategory.altruistic => const [
-            'مساعدة جار',
-            'تبرع صغير',
-            'رسالة شكر',
-            'خدمة مجتمعية',
-            'دعم صديق',
-          ],
-        _AccountabilityCategory.mental => const [
-            'قراءة 20 دقيقة',
-            'حل لغز',
-            'تعلم كلمة جديدة',
-            'تأمل موجّه',
-            'كتابة يوميات',
-          ],
-      };
-}
+List<String> _categoryPenalties(
+  AppLocalizations loc,
+  _AccountabilityCategory cat,
+) =>
+    switch (cat) {
+      _AccountabilityCategory.physical => [
+          loc.accountabilityModalPenPhysical1,
+          loc.accountabilityModalPenPhysical2,
+          loc.accountabilityModalPenPhysical3,
+          loc.accountabilityModalPenPhysical4,
+          loc.accountabilityModalPenPhysical5,
+        ],
+      _AccountabilityCategory.nutritional => [
+          loc.accountabilityModalPenNutritional1,
+          loc.accountabilityModalPenNutritional2,
+          loc.accountabilityModalPenNutritional3,
+          loc.accountabilityModalPenNutritional4,
+          loc.accountabilityModalPenNutritional5,
+        ],
+      _AccountabilityCategory.altruistic => [
+          loc.accountabilityModalPenAltruistic1,
+          loc.accountabilityModalPenAltruistic2,
+          loc.accountabilityModalPenAltruistic3,
+          loc.accountabilityModalPenAltruistic4,
+          loc.accountabilityModalPenAltruistic5,
+        ],
+      _AccountabilityCategory.mental => [
+          loc.accountabilityModalPenMental1,
+          loc.accountabilityModalPenMental2,
+          loc.accountabilityModalPenMental3,
+          loc.accountabilityModalPenMental4,
+          loc.accountabilityModalPenMental5,
+        ],
+    };
 
 class _AccountabilityBoxBody extends ConsumerStatefulWidget {
   const _AccountabilityBoxBody({required this.scrollController});
@@ -105,17 +110,20 @@ class _AccountabilityBoxBodyState extends ConsumerState<_AccountabilityBoxBody> 
   Future<void> _selectPenalty(String label) async {
     ref.read(bcScoreProvider.notifier).applyPenalty(15);
     if (!mounted) return;
+    final loc = AppLocalizations.of(context)!;
     Navigator.of(context).pop();
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('تم تسجيل العقوبة ✓'),
-        backgroundColor: Color(0xFF1D9E75),
+      SnackBar(
+        content: Text(loc.accountabilityPenaltyRecorded),
+        backgroundColor: const Color(0xFF1D9E75),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+
     return Container(
       decoration: const BoxDecoration(
         color: _bg,
@@ -138,10 +146,10 @@ class _AccountabilityBoxBodyState extends ConsumerState<_AccountabilityBoxBody> 
             padding: const EdgeInsets.fromLTRB(20, 16, 8, 8),
             child: Row(
               children: [
-                const Expanded(
+                Expanded(
                   child: Text(
-                    'غرفة المساءلة الرقمية',
-                    style: TextStyle(
+                    loc.accountabilityRoomTitle,
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Color(0xFFE6EDF3),
@@ -188,13 +196,13 @@ class _AccountabilityBoxBodyState extends ConsumerState<_AccountabilityBoxBody> 
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(
-                                  cat.icon,
+                                  _categoryIcon(cat),
                                   color: const Color(0xFF1D9E75),
                                   size: 28,
                                 ),
                                 const SizedBox(height: 8),
                                 Text(
-                                  cat.label,
+                                  _categoryLabel(loc, cat),
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(
                                     color: Color(0xFFE6EDF3),
@@ -215,22 +223,28 @@ class _AccountabilityBoxBodyState extends ConsumerState<_AccountabilityBoxBody> 
                       child: Column(
                         children: [
                           const SizedBox(height: 16),
-                          ...List.generate(_expanded!.penalties.length, (i) {
-                            final label = _expanded!.penalties[i];
-                            return ListTile(
-                              leading: Radio<int>(
-                                value: i,
-                                groupValue: _selectedOptionIndex,
-                                activeColor: const Color(0xFF1D9E75),
-                                onChanged: (_) => _selectPenalty(label),
-                              ),
-                              title: Text(
-                                label,
-                                style: const TextStyle(color: Color(0xFFE6EDF3)),
-                              ),
-                              onTap: () => _selectPenalty(label),
-                            );
-                          }),
+                          ...List.generate(
+                            _categoryPenalties(loc, _expanded!).length,
+                            (i) {
+                              final label =
+                                  _categoryPenalties(loc, _expanded!)[i];
+                              return ListTile(
+                                leading: Radio<int>(
+                                  value: i,
+                                  groupValue: _selectedOptionIndex,
+                                  activeColor: const Color(0xFF1D9E75),
+                                  onChanged: (_) => _selectPenalty(label),
+                                ),
+                                title: Text(
+                                  label,
+                                  style: const TextStyle(
+                                    color: Color(0xFFE6EDF3),
+                                  ),
+                                ),
+                                onTap: () => _selectPenalty(label),
+                              );
+                            },
+                          ),
                         ],
                       ),
                     ),

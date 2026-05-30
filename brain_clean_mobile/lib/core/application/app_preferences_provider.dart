@@ -11,18 +11,27 @@ class AppPreferencesState {
     required this.isProUser,
     required this.emotionNotificationsEnabled,
     required this.dailyFocusReminderEnabled,
+    required this.profileDisplayName,
+    required this.silenceWinsCount,
+    required this.singleTasksCompletedCount,
   });
 
   final bool hasSeenOnboarding;
   final bool isProUser;
   final bool emotionNotificationsEnabled;
   final bool dailyFocusReminderEnabled;
+  final String profileDisplayName;
+  final int silenceWinsCount;
+  final int singleTasksCompletedCount;
 
   static const firstLaunch = AppPreferencesState(
     hasSeenOnboarding: false,
     isProUser: false,
     emotionNotificationsEnabled: true,
     dailyFocusReminderEnabled: true,
+    profileDisplayName: '',
+    silenceWinsCount: 0,
+    singleTasksCompletedCount: 0,
   );
 
   /// Used when Hive is unavailable (widget tests).
@@ -31,6 +40,9 @@ class AppPreferencesState {
     isProUser: true,
     emotionNotificationsEnabled: true,
     dailyFocusReminderEnabled: true,
+    profileDisplayName: '',
+    silenceWinsCount: 0,
+    singleTasksCompletedCount: 0,
   );
 
   AppPreferencesState copyWith({
@@ -38,6 +50,9 @@ class AppPreferencesState {
     bool? isProUser,
     bool? emotionNotificationsEnabled,
     bool? dailyFocusReminderEnabled,
+    String? profileDisplayName,
+    int? silenceWinsCount,
+    int? singleTasksCompletedCount,
   }) {
     return AppPreferencesState(
       hasSeenOnboarding: hasSeenOnboarding ?? this.hasSeenOnboarding,
@@ -46,6 +61,10 @@ class AppPreferencesState {
           emotionNotificationsEnabled ?? this.emotionNotificationsEnabled,
       dailyFocusReminderEnabled:
           dailyFocusReminderEnabled ?? this.dailyFocusReminderEnabled,
+      profileDisplayName: profileDisplayName ?? this.profileDisplayName,
+      silenceWinsCount: silenceWinsCount ?? this.silenceWinsCount,
+      singleTasksCompletedCount:
+          singleTasksCompletedCount ?? this.singleTasksCompletedCount,
     );
   }
 }
@@ -72,6 +91,18 @@ class AppPreferences extends _$AppPreferences {
               defaultValue: true,
             )
             as bool,
+        profileDisplayName: box.get(
+              HiveMetaKeys.profileDisplayName,
+              defaultValue: '',
+            )
+            as String,
+        silenceWinsCount:
+            box.get(HiveMetaKeys.silenceWinsCount, defaultValue: 0) as int,
+        singleTasksCompletedCount: box.get(
+              HiveMetaKeys.singleTasksCompletedCount,
+              defaultValue: 0,
+            )
+            as int,
       );
     } catch (_) {
       return AppPreferencesState.testDefaults;
@@ -97,6 +128,12 @@ class AppPreferences extends _$AppPreferences {
         state.copyWith(emotionNotificationsEnabled: value as bool),
       HiveMetaKeys.dailyFocusReminderEnabled =>
         state.copyWith(dailyFocusReminderEnabled: value as bool),
+      HiveMetaKeys.profileDisplayName =>
+        state.copyWith(profileDisplayName: value as String),
+      HiveMetaKeys.silenceWinsCount =>
+        state.copyWith(silenceWinsCount: value as int),
+      HiveMetaKeys.singleTasksCompletedCount =>
+        state.copyWith(singleTasksCompletedCount: value as int),
       _ => state,
     };
   }
@@ -112,6 +149,17 @@ class AppPreferences extends _$AppPreferences {
 
   Future<void> setDailyFocusReminder(bool value) =>
       _persist(HiveMetaKeys.dailyFocusReminderEnabled, value);
+
+  Future<void> setProfileDisplayName(String name) =>
+      _persist(HiveMetaKeys.profileDisplayName, name.trim());
+
+  Future<void> incrementSilenceWin() =>
+      _persist(HiveMetaKeys.silenceWinsCount, state.silenceWinsCount + 1);
+
+  Future<void> incrementSingleTaskComplete() => _persist(
+        HiveMetaKeys.singleTasksCompletedCount,
+        state.singleTasksCompletedCount + 1,
+      );
 }
 
 /// Convenience read-only aliases for pro/onboarding gates.

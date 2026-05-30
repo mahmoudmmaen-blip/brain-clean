@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 
 import '../../core/application/app_preferences_provider.dart';
 import '../../core/constants/app_routes.dart';
+import '../../core/l10n/app_localizations.dart';
 import '../../core/storage/hive_boxes.dart';
 
 const settingsProTileKey = Key('settings_pro_tile');
@@ -15,28 +16,29 @@ class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
 
   Future<void> _confirmReset(BuildContext context, WidgetRef ref) async {
+    final loc = AppLocalizations.of(context)!;
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: const Color(0xFF161B22),
-        title: const Text(
-          'إعادة تعيين البيانات',
-          style: TextStyle(color: Color(0xFFE6EDF3)),
+        title: Text(
+          loc.settingsResetDataConfirmTitle,
+          style: const TextStyle(color: Color(0xFFE6EDF3)),
         ),
-        content: const Text(
-          'سيتم حذف جميع بياناتك المحلية. هل أنت متأكد؟',
-          style: TextStyle(color: Color(0xFF8B949E)),
+        content: Text(
+          loc.settingsResetDataConfirmBody,
+          style: const TextStyle(color: Color(0xFF8B949E)),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('إلغاء'),
+            child: Text(loc.commonCancel),
           ),
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(true),
-            child: const Text(
-              'تأكيد',
-              style: TextStyle(color: Color(0xFFEF4444)),
+            child: Text(
+              loc.commonConfirm,
+              style: const TextStyle(color: Color(0xFFEF4444)),
             ),
           ),
         ],
@@ -61,25 +63,26 @@ class SettingsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final loc = AppLocalizations.of(context)!;
     final prefs = ref.watch(appPreferencesProvider);
 
     return Scaffold(
       backgroundColor: const Color(0xFF0D1117),
       appBar: AppBar(
         backgroundColor: const Color(0xFF0D1117),
-        title: const Text(
-          'الإعدادات',
-          style: TextStyle(color: Color(0xFFE6EDF3)),
+        title: Text(
+          loc.settingsTitle,
+          style: const TextStyle(color: Color(0xFFE6EDF3)),
         ),
         iconTheme: const IconThemeData(color: Color(0xFF8B949E)),
       ),
       body: ListView(
         children: [
-          _SectionHeader('الحساب'),
+          _SectionHeader(loc.settingsAccountSection),
           ListTile(
             key: settingsProTileKey,
             title: Text(
-              prefs.isProUser ? 'Brain Clean Pro ✓' : 'ترقية إلى Pro',
+              prefs.isProUser ? loc.settingsProActive : loc.settingsUpgradeToPro,
               style: TextStyle(
                 color: prefs.isProUser
                     ? const Color(0xFF1D9E75)
@@ -95,11 +98,11 @@ class SettingsScreen extends ConsumerWidget {
                 : () => context.push(AppRoutes.proPaywall),
           ),
           const Divider(color: Color(0xFF30363D)),
-          _SectionHeader('الإشعارات'),
+          _SectionHeader(loc.settingsNotificationsSection),
           SwitchListTile(
-            title: const Text(
-              'تنبيهات الأحاسيس السلبية',
-              style: TextStyle(color: Color(0xFFE6EDF3)),
+            title: Text(
+              loc.settingsEmotionNotifications,
+              style: const TextStyle(color: Color(0xFFE6EDF3)),
             ),
             value: prefs.emotionNotificationsEnabled,
             activeThumbColor: const Color(0xFF1D9E75),
@@ -108,9 +111,9 @@ class SettingsScreen extends ConsumerWidget {
                 .setEmotionNotifications(v),
           ),
           SwitchListTile(
-            title: const Text(
-              'تذكير يومي بالتركيز',
-              style: TextStyle(color: Color(0xFFE6EDF3)),
+            title: Text(
+              loc.settingsDailyFocusReminder,
+              style: const TextStyle(color: Color(0xFFE6EDF3)),
             ),
             value: prefs.dailyFocusReminderEnabled,
             activeThumbColor: const Color(0xFF1D9E75),
@@ -119,43 +122,49 @@ class SettingsScreen extends ConsumerWidget {
                 .setDailyFocusReminder(v),
           ),
           const Divider(color: Color(0xFF30363D)),
-          _SectionHeader('البيانات'),
+          _SectionHeader(loc.settingsDataSection),
           ListTile(
             key: settingsResetKey,
-            title: const Text(
-              'إعادة تعيين البيانات',
-              style: TextStyle(color: Color(0xFFEF4444)),
+            title: Text(
+              loc.settingsResetData,
+              style: const TextStyle(color: Color(0xFFEF4444)),
             ),
             onTap: () => _confirmReset(context, ref),
           ),
           ListTile(
-            title: const Text(
-              'تصدير بياناتي',
-              style: TextStyle(color: Color(0xFFE6EDF3)),
+            title: Text(
+              loc.settingsExportData,
+              style: const TextStyle(color: Color(0xFFE6EDF3)),
             ),
             onTap: () {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('قريباً...')),
+                SnackBar(content: Text(loc.settingsComingSoon)),
               );
             },
           ),
           const Divider(color: Color(0xFF30363D)),
-          _SectionHeader('حول التطبيق'),
-          const ListTile(
-            title: Text('الإصدار', style: TextStyle(color: Color(0xFFE6EDF3))),
-            trailing: Text('1.0.0', style: TextStyle(color: Color(0xFF8B949E))),
+          _SectionHeader(loc.settingsAboutSection),
+          ListTile(
+            title: Text(
+              loc.settingsVersion,
+              style: const TextStyle(color: Color(0xFFE6EDF3)),
+            ),
+            trailing: const Text(
+              '1.0.0',
+              style: TextStyle(color: Color(0xFF8B949E)),
+            ),
           ),
           ListTile(
-            title: const Text(
-              'سياسة الخصوصية',
-              style: TextStyle(color: Color(0xFFE6EDF3)),
+            title: Text(
+              loc.settingsPrivacyPolicy,
+              style: const TextStyle(color: Color(0xFFE6EDF3)),
             ),
             onTap: () {},
           ),
           ListTile(
-            title: const Text(
-              'تواصل معنا',
-              style: TextStyle(color: Color(0xFFE6EDF3)),
+            title: Text(
+              loc.settingsContactUs,
+              style: const TextStyle(color: Color(0xFFE6EDF3)),
             ),
             onTap: () {},
           ),

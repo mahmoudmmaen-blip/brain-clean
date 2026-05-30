@@ -1,5 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../core/application/app_preferences_provider.dart';
 import '../../diagnostic/presentation/bc_score_provider.dart';
 
 part 'single_task_provider.g.dart';
@@ -36,6 +37,7 @@ class SingleTaskController extends _$SingleTaskController {
   void completeTask() {
     if (!state.isLocked) return;
     ref.read(bcScoreProvider.notifier).applyBonus(10);
+    ref.read(appPreferencesProvider.notifier).incrementSingleTaskComplete();
     state = SingleTaskState.idle;
   }
 

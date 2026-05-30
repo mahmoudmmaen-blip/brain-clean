@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/l10n/app_localizations.dart';
 import '../application/seven_day_provider.dart';
 
 /// 7-day BCS line chart for the home dashboard.
@@ -12,19 +13,21 @@ class SevenDayChartWidget extends ConsumerWidget {
   static const _line = Color(0xFF1D9E75);
   static const _grid = Color(0xFF30363D);
 
-  static const _xLabels = [
-    'السبت',
-    'الأحد',
-    'الاثنين',
-    'الثلاثاء',
-    'الأربعاء',
-    'الخميس',
-    'الجمعة',
-  ];
+  static List<String> _dayLabels(AppLocalizations loc) => [
+        loc.chartDaySat,
+        loc.chartDaySun,
+        loc.chartDayMon,
+        loc.chartDayTue,
+        loc.chartDayWed,
+        loc.chartDayThu,
+        loc.chartDayFri,
+      ];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final loc = AppLocalizations.of(context)!;
     final snapshots = ref.watch(sevenDaySnapshotsProvider);
+    final xLabels = _dayLabels(loc);
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -35,8 +38,8 @@ class SevenDayChartWidget extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text(
-            'تقدمك خلال 7 أيام',
+          Text(
+            loc.chartSevenDayTitle,
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -95,13 +98,13 @@ class SevenDayChartWidget extends ConsumerWidget {
                       reservedSize: 28,
                       getTitlesWidget: (value, meta) {
                         final i = value.toInt();
-                        if (i < 0 || i >= _xLabels.length) {
+                        if (i < 0 || i >= xLabels.length) {
                           return const SizedBox.shrink();
                         }
                         return Padding(
                           padding: const EdgeInsets.only(top: 6),
                           child: Text(
-                            _xLabels[i],
+                            xLabels[i],
                             style: const TextStyle(
                               color: Color(0xFF8B949E),
                               fontSize: 10,

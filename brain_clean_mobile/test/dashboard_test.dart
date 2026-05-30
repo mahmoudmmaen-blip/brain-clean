@@ -125,8 +125,9 @@ void main() {
         overrides: [
           dailySnapshotsBoxProvider.overrideWithValue(InMemoryHiveBox()),
         ],
-        child: const MaterialApp(
-          home: Scaffold(body: SevenDayChartWidget()),
+        child: createLocalizedTestWidget(
+          const Scaffold(body: SevenDayChartWidget()),
+          locale: const Locale('ar'),
         ),
       ),
     );

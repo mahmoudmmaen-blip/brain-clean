@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/application/app_preferences_provider.dart';
+import '../../core/l10n/app_localizations.dart';
 
 const proPaywallKey = Key('pro_paywall_screen');
 const proSubscribeKey = Key('pro_subscribe_button');
@@ -11,21 +12,14 @@ const proSubscribeKey = Key('pro_subscribe_button');
 class ProPaywallScreen extends ConsumerWidget {
   const ProPaywallScreen({super.key});
 
-  static const _features = [
-    'محرك Brain Clarity Score المتقدم',
-    'مخطط التقدم 7 أيام',
-    'دائرة الأحاسيس والتأثير على التعافي',
-    'تحديات التركيز المتقدمة',
-    'مزامنة سحابية آمنة',
-  ];
-
   Future<void> _activatePro(BuildContext context, WidgetRef ref) async {
     await ref.read(appPreferencesProvider.notifier).setProUser(true);
     if (!context.mounted) return;
+    final loc = AppLocalizations.of(context)!;
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('مرحباً بك في Pro! 🎉'),
-        backgroundColor: Color(0xFF1D9E75),
+      SnackBar(
+        content: Text(loc.proWelcomeSnack),
+        backgroundColor: const Color(0xFF1D9E75),
       ),
     );
     context.pop();
@@ -33,6 +27,15 @@ class ProPaywallScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final loc = AppLocalizations.of(context)!;
+    final features = [
+      loc.proFeatureAdvancedBcs,
+      loc.proFeatureSevenDayChart,
+      loc.proFeatureEmotionWheel,
+      loc.proFeatureFocusChallenges,
+      loc.proFeatureCloudSync,
+    ];
+
     return Scaffold(
       key: proPaywallKey,
       body: Container(
@@ -60,23 +63,23 @@ class ProPaywallScreen extends ConsumerWidget {
                 color: Color(0xFFF59E0B),
               ),
               const SizedBox(height: 16),
-              const Text(
-                'Brain Clean Pro',
+              Text(
+                loc.proPaywallTitle,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFFE6EDF3),
                 ),
               ),
               const SizedBox(height: 8),
-              const Text(
-                'افتح كامل قدرات عقلك',
+              Text(
+                loc.proPaywallSubtitle,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16, color: Color(0xFF8B949E)),
+                style: const TextStyle(fontSize: 16, color: Color(0xFF8B949E)),
               ),
               const SizedBox(height: 32),
-              ..._features.map(
+              ...features.map(
                 (f) => Padding(
                   padding: const EdgeInsets.only(bottom: 12),
                   child: Row(
@@ -107,21 +110,21 @@ class ProPaywallScreen extends ConsumerWidget {
                   color: const Color(0xFF161B22),
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: const Column(
+                child: Column(
                   children: [
                     Text(
-                      '19 ريال سعودي / شهرياً',
+                      loc.proPriceMonthly,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFFE6EDF3),
                       ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text(
-                      'أقل من وجبة واحدة',
-                      style: TextStyle(color: Color(0xFF8B949E)),
+                      loc.proPriceHint,
+                      style: const TextStyle(color: Color(0xFF8B949E)),
                     ),
                   ],
                 ),
@@ -145,9 +148,9 @@ class ProPaywallScreen extends ConsumerWidget {
                       borderRadius: BorderRadius.circular(14),
                     ),
                   ),
-                  child: const Text(
-                    'اشترك الآن',
-                    style: TextStyle(
+                  child: Text(
+                    loc.proSubscribeNow,
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
@@ -158,9 +161,9 @@ class ProPaywallScreen extends ConsumerWidget {
               const SizedBox(height: 8),
               TextButton(
                 onPressed: () => _activatePro(context, ref),
-                child: const Text(
-                  'استعادة الاشتراك',
-                  style: TextStyle(color: Color(0xFF8B949E)),
+                child: Text(
+                  loc.proRestorePurchase,
+                  style: const TextStyle(color: Color(0xFF8B949E)),
                 ),
               ),
             ],

@@ -37,6 +37,7 @@ class _DistractionSafeguardButtonState
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (ctx) {
+        final loc = AppLocalizations.of(ctx)!;
         return Directionality(
           textDirection: TextDirection.rtl,
           child: Padding(
@@ -45,20 +46,20 @@ class _DistractionSafeguardButtonState
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const Text(
-                  'تأكيد التشتت',
+                Text(
+                  loc.homeDistractionConfirmTitle,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 12),
-                const Text(
-                  'سيتم خصم 12 ساعة من تركيزك المتواصل.',
+                Text(
+                  loc.homeDistractionConfirmMessage,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 14,
                     color: Color(0xFF8B949E),
                     height: 1.4,
@@ -70,9 +71,9 @@ class _DistractionSafeguardButtonState
                     Expanded(
                       child: TextButton(
                         onPressed: () => Navigator.of(ctx).pop(false),
-                        child: const Text(
-                          'إلغاء',
-                          style: TextStyle(color: Color(0xFF8B949E)),
+                        child: Text(
+                          loc.homeDistractionCancel,
+                          style: const TextStyle(color: Color(0xFF8B949E)),
                         ),
                       ),
                     ),
@@ -87,7 +88,7 @@ class _DistractionSafeguardButtonState
                           ),
                           minimumSize: const Size.fromHeight(48),
                         ),
-                        child: const Text('تأكيد التشتت'),
+                        child: Text(loc.homeDistractionConfirmAction),
                       ),
                     ),
                   ],

@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 
 import '../../../core/storage/hive_boxes.dart';
+import '../domain/emotion_log_entry.dart';
 import '../domain/emotion_model.dart';
 
 /// Persists emotion log entries to Hive box [emotion_log].
@@ -23,6 +24,33 @@ class EmotionLogRepository {
       'appliedImpact': appliedImpact,
       'timestamp': timestamp.toIso8601String(),
     });
+  }
+
+  int get count => _box.length;
+
+  List<EmotionLogEntry> recentEntries({int limit = 5}) {
+    final entries = <EmotionLogEntry>[];
+    for (final key in _box.keys) {
+      final raw = _box.get(key);
+      if (raw is! Map) continue;
+      final map = Map<String, dynamic>.from(raw);
+      final label = map['label'] as String?;
+      final category = map['category'] as String?;
+      final impact = map['appliedImpact'];
+      final ts = map['timestamp'] as String?;
+      if (label == null || category == null || ts == null) continue;
+      entries.add(
+        EmotionLogEntry(
+          label: label,
+          category: category,
+          recoveryImpact: (impact as num?)?.toDouble() ?? 0,
+          timestamp: DateTime.tryParse(ts) ?? DateTime.now(),
+        ),
+      );
+    }
+    entries.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+    if (entries.length <= limit) return entries;
+    return entries.sublist(0, limit);
   }
 }
 

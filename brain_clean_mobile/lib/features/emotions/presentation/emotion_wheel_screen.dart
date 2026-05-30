@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/l10n/app_localizations.dart';
 import '../application/emotion_provider.dart';
 import '../domain/emotion_model.dart';
 
@@ -20,13 +21,14 @@ class EmotionWheelScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final loc = AppLocalizations.of(context)!;
     final emotionState = ref.watch(emotionNotifierProvider);
 
     ref.listen(emotionNotifierProvider, (prev, next) {
       if (next.isAwaitingConfirmation &&
           next.selectedEmotion != null &&
           (prev?.isAwaitingConfirmation != true)) {
-        _showConfirmationDialog(context, ref, next);
+        _showConfirmationDialog(context, ref, next, loc);
       }
     });
 
@@ -34,9 +36,9 @@ class EmotionWheelScreen extends ConsumerWidget {
       backgroundColor: _bg,
       appBar: AppBar(
         backgroundColor: _bg,
-        title: const Text(
-          'عجلة المشاعر',
-          style: TextStyle(color: Color(0xFFE6EDF3)),
+        title: Text(
+          loc.emotionWheelTitle,
+          style: const TextStyle(color: Color(0xFFE6EDF3)),
         ),
         iconTheme: const IconThemeData(color: Color(0xFF8B949E)),
       ),
@@ -45,6 +47,9 @@ class EmotionWheelScreen extends ConsumerWidget {
         children: [
           if (emotionState.moodGate == null)
             _MoodGateStep(
+              negativeLabel: loc.emotionGateNegative,
+              neutralLabel: loc.emotionGateNeutral,
+              positiveLabel: loc.emotionGatePositive,
               onNegative: () => ref
                   .read(emotionNotifierProvider.notifier)
                   .selectMoodGate(EmotionMoodGate.negative),
@@ -58,6 +63,7 @@ class EmotionWheelScreen extends ConsumerWidget {
           else ...[
             if (emotionState.selectedCategory == null)
               _CategoryStep(
+                backLabel: loc.commonBack,
                 categories: ref.watch(filteredEmotionCategoriesProvider),
                 onSelect: (cat) => ref
                     .read(emotionNotifierProvider.notifier)
@@ -67,6 +73,7 @@ class EmotionWheelScreen extends ConsumerWidget {
               )
             else
               _EmotionGridStep(
+                backLabel: loc.commonBack,
                 category: emotionState.selectedCategory!,
                 onSelect: (e) => ref
                     .read(emotionNotifierProvider.notifier)
@@ -85,21 +92,22 @@ class EmotionWheelScreen extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
     EmotionState state,
+    AppLocalizations loc,
   ) async {
     final emotion = state.selectedEmotion!;
     final impact = state.pendingImpact;
     final pct = (impact.abs() * 100).toStringAsFixed(0);
     final body = impact < 0
-        ? 'الشعور بـ ${emotion.label} سيقلل نسبة تعافيك بمقدار $pct%\nهل تريد تسجيله؟'
-        : 'الشعور بـ ${emotion.label} سيحسّن نسبة تعافيك بمقدار $pct%\nهل تريد تسجيله؟';
+        ? loc.emotionImpactNegative(emotion.label, pct)
+        : loc.emotionImpactPositive(emotion.label, pct);
 
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: _card,
-        title: const Text(
-          'تأثير هذا الشعور على تعافيك',
-          style: TextStyle(color: Color(0xFFE6EDF3)),
+        title: Text(
+          loc.emotionImpactDialogTitle,
+          style: const TextStyle(color: Color(0xFFE6EDF3)),
         ),
         content: Text(
           body,
@@ -108,9 +116,9 @@ class EmotionWheelScreen extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text(
-              'لا، تجاهل',
-              style: TextStyle(color: Color(0xFF8B949E)),
+            child: Text(
+              loc.emotionIgnore,
+              style: const TextStyle(color: Color(0xFF8B949E)),
             ),
           ),
           ElevatedButton(
@@ -120,7 +128,7 @@ class EmotionWheelScreen extends ConsumerWidget {
                   ? const Color(0xFFEF4444)
                   : const Color(0xFF1D9E75),
             ),
-            child: const Text('نعم، سجّل'),
+            child: Text(loc.emotionConfirmLog),
           ),
         ],
       ),
@@ -136,11 +144,17 @@ class EmotionWheelScreen extends ConsumerWidget {
 
 class _MoodGateStep extends StatelessWidget {
   const _MoodGateStep({
+    required this.negativeLabel,
+    required this.neutralLabel,
+    required this.positiveLabel,
     required this.onNegative,
     required this.onNeutral,
     required this.onPositive,
   });
 
+  final String negativeLabel;
+  final String neutralLabel;
+  final String positiveLabel;
   final VoidCallback onNegative;
   final VoidCallback onNeutral;
   final VoidCallback onPositive;
@@ -151,7 +165,7 @@ class _MoodGateStep extends StatelessWidget {
       children: [
         _MoodCard(
           key: emotionMoodNegativeKey,
-          label: 'أشعر بشيء سلبي',
+          label: negativeLabel,
           icon: Icons.sentiment_dissatisfied,
           color: const Color(0xFFEF4444),
           onTap: onNegative,
@@ -159,7 +173,7 @@ class _MoodGateStep extends StatelessWidget {
         const SizedBox(height: 12),
         _MoodCard(
           key: emotionMoodNeutralKey,
-          label: 'أشعر بشيء محايد',
+          label: neutralLabel,
           icon: Icons.sentiment_neutral,
           color: const Color(0xFFF59E0B),
           onTap: onNeutral,
@@ -167,7 +181,7 @@ class _MoodGateStep extends StatelessWidget {
         const SizedBox(height: 12),
         _MoodCard(
           key: emotionMoodPositiveKey,
-          label: 'أشعر بشيء إيجابي',
+          label: positiveLabel,
           icon: Icons.sentiment_satisfied,
           color: const Color(0xFF1D9E75),
           onTap: onPositive,
@@ -226,11 +240,13 @@ class _MoodCard extends StatelessWidget {
 
 class _CategoryStep extends StatelessWidget {
   const _CategoryStep({
+    required this.backLabel,
     required this.categories,
     required this.onSelect,
     required this.onBack,
   });
 
+  final String backLabel;
   final List<EmotionCategory> categories;
   final ValueChanged<EmotionCategory> onSelect;
   final VoidCallback onBack;
@@ -245,9 +261,9 @@ class _CategoryStep extends StatelessWidget {
           child: TextButton.icon(
             onPressed: onBack,
             icon: const Icon(Icons.arrow_back, color: Color(0xFF8B949E)),
-            label: const Text(
-              'رجوع',
-              style: TextStyle(color: Color(0xFF8B949E)),
+            label: Text(
+              backLabel,
+              style: const TextStyle(color: Color(0xFF8B949E)),
             ),
           ),
         ),
@@ -280,11 +296,13 @@ class _CategoryStep extends StatelessWidget {
 
 class _EmotionGridStep extends StatelessWidget {
   const _EmotionGridStep({
+    required this.backLabel,
     required this.category,
     required this.onSelect,
     required this.onBack,
   });
 
+  final String backLabel;
   final EmotionCategory category;
   final ValueChanged<EmotionModel> onSelect;
   final VoidCallback onBack;
@@ -309,9 +327,9 @@ class _EmotionGridStep extends StatelessWidget {
           child: TextButton.icon(
             onPressed: onBack,
             icon: const Icon(Icons.arrow_back, color: Color(0xFF8B949E)),
-            label: const Text(
-              'رجوع',
-              style: TextStyle(color: Color(0xFF8B949E)),
+            label: Text(
+              backLabel,
+              style: const TextStyle(color: Color(0xFF8B949E)),
             ),
           ),
         ),

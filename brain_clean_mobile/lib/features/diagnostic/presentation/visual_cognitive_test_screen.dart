@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/l10n/app_localizations.dart';
 import 'bc_score_provider.dart';
 import 'visual_cognitive_scorer.dart';
 
@@ -120,6 +121,7 @@ class _VisualCognitiveTestScreenState
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     if (_showResults) {
       final color = VisualCognitiveScorer.resultColor(_score);
       return Scaffold(
@@ -154,7 +156,7 @@ class _VisualCognitiveTestScreenState
                     backgroundColor: color,
                     minimumSize: const Size.fromHeight(48),
                   ),
-                  child: const Text('العودة'),
+                  child: Text(loc.visualCognitiveBack),
                 ),
               ],
             ),
@@ -168,7 +170,7 @@ class _VisualCognitiveTestScreenState
       appBar: AppBar(
         backgroundColor: _bg,
         title: Text(
-          'الجولة $_round / 5',
+          loc.visualCognitiveRound(_round),
           style: const TextStyle(color: Color(0xFFE6EDF3)),
         ),
         iconTheme: const IconThemeData(color: Color(0xFF8B949E)),
@@ -177,9 +179,9 @@ class _VisualCognitiveTestScreenState
         padding: const EdgeInsets.all(24),
         child: Column(
           children: [
-            const Text(
-              'اضغط على المربع مختلف اللون',
-              style: TextStyle(color: Color(0xFF8B949E), fontSize: 16),
+            Text(
+              loc.visualCognitiveInstruction,
+              style: const TextStyle(color: Color(0xFF8B949E), fontSize: 16),
             ),
             const SizedBox(height: 24),
             Expanded(
@@ -207,7 +209,7 @@ class _VisualCognitiveTestScreenState
               ),
             ),
             Text(
-              'النقاط: $_score',
+              loc.visualCognitiveScore(_score),
               style: const TextStyle(
                 color: Color(0xFFE6EDF3),
                 fontSize: 18,

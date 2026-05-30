@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/l10n/app_localizations.dart';
+
 /// Full-screen breathing friction — duration scales inversely with BHI.
 class BreathingFrictionScreen extends StatefulWidget {
   const BreathingFrictionScreen({
@@ -91,10 +93,10 @@ class _BreathingFrictionScreenState extends State<BreathingFrictionScreen> {
     });
   }
 
-  String get _phaseLabel => switch (_phase) {
-        _BreathPhase.inhale => 'استنشق ببطء...',
-        _BreathPhase.hold => 'احتبس...',
-        _BreathPhase.exhale => 'أخرج الهواء...',
+  String _phaseLabel(AppLocalizations loc) => switch (_phase) {
+        _BreathPhase.inhale => loc.breathingInhaleSlow,
+        _BreathPhase.hold => loc.breathingHold,
+        _BreathPhase.exhale => loc.breathingExhaleFull,
       };
 
   double get _countdownProgress {
@@ -111,6 +113,8 @@ class _BreathingFrictionScreenState extends State<BreathingFrictionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+    final phaseLabel = _phaseLabel(loc);
     return Scaffold(
       backgroundColor: _bg,
       body: SafeArea(
@@ -120,8 +124,8 @@ class _BreathingFrictionScreenState extends State<BreathingFrictionScreen> {
             AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),
               child: Text(
-                _phaseLabel,
-                key: ValueKey(_phaseLabel),
+                phaseLabel,
+                key: ValueKey(phaseLabel),
                 style: const TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,

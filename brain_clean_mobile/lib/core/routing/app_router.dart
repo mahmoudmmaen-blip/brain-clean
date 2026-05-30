@@ -20,6 +20,7 @@ import '../../features/home/presentation/home_screen.dart';
 import '../../features/onboarding/onboarding_screen.dart';
 import '../../features/pro/pro_paywall_screen.dart';
 import '../../features/recovery/presentation/recovery_grid_screen.dart';
+import '../../features/profile/profile_screen.dart';
 import '../../features/settings/settings_screen.dart';
 import '../../features/splash/presentation/splash_screen.dart';
 import '../constants/app_routes.dart';
@@ -65,6 +66,16 @@ class SettingsRoute {
   static const path = AppRoutes.settings;
 
   static String get location => AppRoutes.settings;
+}
+
+/// Typed route for user profile.
+class ProfileRoute {
+  const ProfileRoute();
+
+  static const name = 'profile';
+  static const path = AppRoutes.profile;
+
+  static String get location => AppRoutes.profile;
 }
 
 /// Typed route for the visual cognitive odd-one-out test.
@@ -173,6 +184,11 @@ GoRouter goRouter(GoRouterRef ref) {
         path: AppRoutes.settings,
         name: SettingsRoute.name,
         builder: (context, state) => const SettingsScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.profile,
+        name: ProfileRoute.name,
+        builder: (context, state) => const ProfileScreen(),
       ),
       GoRoute(
         path: AppRoutes.diagnostic,

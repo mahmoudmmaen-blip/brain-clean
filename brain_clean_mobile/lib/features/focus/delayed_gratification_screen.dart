@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/l10n/app_localizations.dart';
 import '../diagnostic/presentation/bc_score_provider.dart';
 
 const delayedGratificationTitleKey = Key('delayed_gratification_title');
@@ -43,39 +44,40 @@ class _DelayedGratificationScreenState
     );
   }
 
-  String _quoteForElapsed() {
+  String _quoteForElapsed(AppLocalizations loc) {
     final elapsed = DelayedGratificationScreen.totalSeconds - _remainingSeconds;
     final minutes = elapsed ~/ 60;
-    if (minutes < 5) return 'الصبر مفتاح الفرج';
-    if (minutes < 10) return 'دماغك يشكرك الآن';
-    if (minutes < 15) return 'أنت أقوى من خوارزمية';
-    return 'لحظات وتنتهي، استمر';
+    if (minutes < 5) return loc.delayedGratQuoteUnder5;
+    if (minutes < 10) return loc.delayedGratQuoteUnder10;
+    if (minutes < 15) return loc.delayedGratQuoteUnder15;
+    return loc.delayedGratQuoteDefault;
   }
 
   Future<bool> _confirmAbandon() async {
+    final loc = AppLocalizations.of(context)!;
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: const Color(0xFF161B22),
-        title: const Text(
-          'الاستسلام',
-          style: TextStyle(color: Color(0xFFE6EDF3)),
+        title: Text(
+          loc.delayedGratGiveUpTitle,
+          style: const TextStyle(color: Color(0xFFE6EDF3)),
         ),
-        content: const Text(
-          'هل تريد الاستسلام؟ لن تحصل على المكافأة.',
-          style: TextStyle(color: Color(0xFF8B949E)),
+        content: Text(
+          loc.delayedGratGiveUpBody,
+          style: const TextStyle(color: Color(0xFF8B949E)),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text(
-              'إلغاء',
-              style: TextStyle(color: Color(0xFF8B949E)),
+            child: Text(
+              loc.commonCancel,
+              style: const TextStyle(color: Color(0xFF8B949E)),
             ),
           ),
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(true),
-            child: const Text('استسلام'),
+            child: Text(loc.delayedGratGiveUpButton),
           ),
         ],
       ),
@@ -92,18 +94,19 @@ class _DelayedGratificationScreenState
     ref.read(bcScoreProvider.notifier).applyBonus(25);
 
     if (!mounted) return;
+    final loc = AppLocalizations.of(context)!;
     await showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (ctx) => AlertDialog(
         backgroundColor: const Color(0xFF161B22),
-        title: const Text(
-          'انتصرت على نفسك! 🏆',
-          style: TextStyle(color: Color(0xFFE6EDF3)),
+        title: Text(
+          loc.delayedGratVictoryTitle,
+          style: const TextStyle(color: Color(0xFFE6EDF3)),
         ),
-        content: const Text(
-          '+25 نقطة أضيفت لتركيزك.',
-          style: TextStyle(color: Color(0xFF8B949E)),
+        content: Text(
+          loc.delayedGratVictoryBody,
+          style: const TextStyle(color: Color(0xFF8B949E)),
         ),
         actions: [
           TextButton(
@@ -111,7 +114,7 @@ class _DelayedGratificationScreenState
               Navigator.of(ctx).pop();
               if (context.mounted) context.pop();
             },
-            child: const Text('رائع'),
+            child: Text(loc.commonGreat),
           ),
         ],
       ),
@@ -137,6 +140,7 @@ class _DelayedGratificationScreenState
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) async {
@@ -161,18 +165,18 @@ class _DelayedGratificationScreenState
             padding: const EdgeInsets.all(24),
             child: Column(
               children: [
-                const Text(
-                  'تأخير الإشباع',
+                Text(
+                  loc.delayedGratTitle,
                   key: delayedGratificationTitleKey,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFFE6EDF3),
                   ),
                 ),
                 const SizedBox(height: 8),
-                const Text(
-                  'اصمد 20 دقيقة قبل فتح السوشيال ميديا',
+                Text(
+                  loc.delayedGratSubtitle,
                   style: TextStyle(fontSize: 14, color: Color(0xFF8B949E)),
                 ),
                 const Spacer(),
@@ -196,7 +200,7 @@ class _DelayedGratificationScreenState
                 ),
                 const Spacer(),
                 Text(
-                  _quoteForElapsed(),
+                  _quoteForElapsed(loc),
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 18,

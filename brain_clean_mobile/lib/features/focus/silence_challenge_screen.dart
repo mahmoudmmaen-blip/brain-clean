@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/application/app_preferences_provider.dart';
+import '../../core/l10n/app_localizations.dart';
 import '../diagnostic/presentation/bc_score_provider.dart';
 
 const silenceCountdownKey = Key('silence_countdown');
@@ -96,18 +98,19 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
 
   Future<void> _showFailDialog() async {
     if (!mounted) return;
+    final loc = AppLocalizations.of(context)!;
     await showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (ctx) => AlertDialog(
         backgroundColor: const Color(0xFF161B22),
-        title: const Text(
-          'فشل التحدي',
-          style: TextStyle(color: Color(0xFFE6EDF3)),
+        title: Text(
+          loc.silenceChallengeFailedTitle,
+          style: const TextStyle(color: Color(0xFFE6EDF3)),
         ),
-        content: const Text(
-          'لمست الشاشة أو خرجت من التطبيق.',
-          style: TextStyle(color: Color(0xFF8B949E)),
+        content: Text(
+          loc.silenceChallengeFailedBody,
+          style: const TextStyle(color: Color(0xFF8B949E)),
         ),
         actions: [
           TextButton(
@@ -115,7 +118,7 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
               Navigator.of(ctx).pop();
               if (context.mounted) context.pop();
             },
-            child: const Text('حسناً'),
+            child: Text(loc.commonOk),
           ),
         ],
       ),
@@ -124,27 +127,31 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
 
   Future<void> _showSuccessDialog() async {
     if (!mounted) return;
+    final loc = AppLocalizations.of(context)!;
     await showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (ctx) => AlertDialog(
         backgroundColor: const Color(0xFF161B22),
-        title: const Text(
-          'أحسنت! 🎉',
-          style: TextStyle(color: Color(0xFFE6EDF3)),
+        title: Text(
+          loc.silenceChallengeSuccessTitle,
+          style: const TextStyle(color: Color(0xFFE6EDF3)),
         ),
-        content: const Text(
-          'اجتزت تحدي الصمت بنجاح.',
-          style: TextStyle(color: Color(0xFF8B949E)),
+        content: Text(
+          loc.silenceChallengeSuccessBody,
+          style: const TextStyle(color: Color(0xFF8B949E)),
         ),
         actions: [
           TextButton(
-            onPressed: () {
+            onPressed: () async {
               ref.read(bcScoreProvider.notifier).applyBonus(20);
-              Navigator.of(ctx).pop();
+              await ref
+                  .read(appPreferencesProvider.notifier)
+                  .incrementSilenceWin();
+              if (ctx.mounted) Navigator.of(ctx).pop();
               if (context.mounted) context.pop();
             },
-            child: const Text('رائع'),
+            child: Text(loc.commonGreat),
           ),
         ],
       ),
@@ -171,6 +178,7 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     return GestureDetector(
       onTap: _onFail,
       onPanStart: (_) => _onFail(),
@@ -183,9 +191,9 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
             padding: const EdgeInsets.all(24),
             child: Column(
               children: [
-                const Text(
-                  'تحدي الصمت',
-                  style: TextStyle(
+                Text(
+                  loc.silenceChallengeTitle,
+                  style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFFE6EDF3),
@@ -193,7 +201,7 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'لا تلمس الشاشة لمدة $_targetMinutes دقيقة',
+                  loc.silenceChallengeSubtitle(_targetMinutes),
                   style: const TextStyle(
                     fontSize: 14,
                     color: Color(0xFF8B949E),
@@ -224,7 +232,7 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
                 ),
                 const Spacer(),
                 Text(
-                  'المستوى $_level — $_targetMinutes دقيقة مطلوبة',
+                  loc.silenceChallengeLevel(_level, _targetMinutes),
                   key: silenceLevelLabelKey,
                   style: const TextStyle(
                     fontSize: 16,

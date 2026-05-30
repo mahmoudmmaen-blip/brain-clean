@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/application/app_preferences_provider.dart';
 import '../../core/constants/app_routes.dart';
+import '../../core/l10n/app_localizations.dart';
 
 const onboardingPageViewKey = Key('onboarding_page_view');
 const onboardingSkipKey = Key('onboarding_skip_button');
@@ -19,7 +20,6 @@ class OnboardingScreen extends ConsumerStatefulWidget {
 
 class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   static const _bg = Color(0xFF0D1117);
-  static const _text = Color(0xFFE6EDF3);
 
   final _controller = PageController();
   int _page = 0;
@@ -38,6 +38,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+
     return Scaffold(
       backgroundColor: _bg,
       body: SafeArea(
@@ -48,9 +50,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               child: TextButton(
                 key: onboardingSkipKey,
                 onPressed: () => _finish(destination: AppRoutes.home),
-                child: const Text(
-                  'تخطي',
-                  style: TextStyle(color: Color(0xFF8B949E)),
+                child: Text(
+                  loc.onboardingSkip,
+                  style: const TextStyle(color: Color(0xFF8B949E)),
                 ),
               ),
             ),
@@ -59,24 +61,24 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 key: onboardingPageViewKey,
                 controller: _controller,
                 onPageChanged: (i) => setState(() => _page = i),
-                children: const [
+                children: [
                   _OnboardingPage(
                     icon: Icons.psychology_outlined,
-                    iconColor: Color(0xFF1D9E75),
-                    title: 'مرحباً بك في Brain Clean',
-                    body: 'استعد وعيك الرقمي في 21 يوماً',
+                    iconColor: const Color(0xFF1D9E75),
+                    title: loc.onboardingPage1Title,
+                    body: loc.onboardingPage1Body,
                   ),
                   _OnboardingPage(
                     icon: Icons.track_changes,
-                    iconColor: Color(0xFF3B82F6),
-                    title: 'تتبع تركيزك يومياً',
-                    body: 'معادلات علمية حقيقية لقياس صحة دماغك',
+                    iconColor: const Color(0xFF3B82F6),
+                    title: loc.onboardingPage2Title,
+                    body: loc.onboardingPage2Body,
                   ),
                   _OnboardingPage(
                     icon: Icons.emoji_events,
-                    iconColor: Color(0xFFF59E0B),
-                    title: 'ابدأ رحلتك الآن',
-                    body: 'أجب على 10 أسئلة لتحديد مستوى تعفن دماغك',
+                    iconColor: const Color(0xFFF59E0B),
+                    title: loc.onboardingPage3Title,
+                    body: loc.onboardingPage3Body,
                     showStartButton: true,
                   ),
                 ],
@@ -114,7 +116,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     style: FilledButton.styleFrom(
                       backgroundColor: const Color(0xFF1D9E75),
                     ),
-                    child: const Text('ابدأ التقييم'),
+                    child: Text(loc.onboardingStartQuiz),
                   ),
                 ),
               )

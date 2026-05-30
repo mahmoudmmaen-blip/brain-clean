@@ -9,15 +9,15 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'helpers/diagnostic_provider_overrides.dart';
 import 'helpers/localized_test_app.dart';
+import 'helpers/test_l10n.dart';
 
 void main() {
   group('Silence Challenge', () {
     testWidgets('shows countdown and level label', (tester) async {
       await tester.pumpWidget(
-        const ProviderScope(
-          child: MaterialApp(
-            home: SilenceChallengeScreen(streakDays: 7),
-          ),
+        createLocalizedProviderTestWidget(
+          const SilenceChallengeScreen(streakDays: 7),
+          locale: const Locale('ar'),
         ),
       );
       await tester.pump();
@@ -83,7 +83,7 @@ void main() {
       await tester.pump();
 
       expect(find.byKey(delayedGratificationTitleKey), findsOneWidget);
-      expect(find.text('تأخير الإشباع'), findsOneWidget);
+      expect(find.text(testL10nAr.delayedGratTitle), findsOneWidget);
       expect(find.byType(LinearProgressIndicator), findsOneWidget);
     });
   });

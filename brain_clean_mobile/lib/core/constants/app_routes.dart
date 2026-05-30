@@ -18,4 +18,5 @@ abstract final class AppRoutes {
   static const onboarding = '/onboarding';
   static const proPaywall = '/pro-paywall';
   static const settings = '/settings';
+  static const profile = '/profile';
 }

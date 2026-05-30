@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/l10n/app_localizations.dart';
 import 'application/single_task_provider.dart';
 
 const singleTaskInputKey = Key('single_task_input');
@@ -25,29 +26,30 @@ class _SingleTaskScreenState extends ConsumerState<SingleTaskScreen> {
   }
 
   Future<void> _confirmAbandon() async {
+    final loc = AppLocalizations.of(context)!;
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: const Color(0xFF161B22),
-        title: const Text(
-          'إيقاف مؤقت',
-          style: TextStyle(color: Color(0xFFE6EDF3)),
+        title: Text(
+          loc.singleTaskPauseTitle,
+          style: const TextStyle(color: Color(0xFFE6EDF3)),
         ),
-        content: const Text(
-          'هل تريد إيقاف المهمة الحالية؟ لن تحصل على مكافأة.',
-          style: TextStyle(color: Color(0xFF8B949E)),
+        content: Text(
+          loc.singleTaskPauseBody,
+          style: const TextStyle(color: Color(0xFF8B949E)),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text(
-              'إلغاء',
-              style: TextStyle(color: Color(0xFF8B949E)),
+            child: Text(
+              loc.commonCancel,
+              style: const TextStyle(color: Color(0xFF8B949E)),
             ),
           ),
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(true),
-            child: const Text('تأكيد'),
+            child: Text(loc.commonConfirm),
           ),
         ],
       ),
@@ -59,6 +61,7 @@ class _SingleTaskScreenState extends ConsumerState<SingleTaskScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     final taskState = ref.watch(singleTaskControllerProvider);
 
     return PopScope(
@@ -68,9 +71,9 @@ class _SingleTaskScreenState extends ConsumerState<SingleTaskScreen> {
         appBar: AppBar(
           backgroundColor: _bg,
           automaticallyImplyLeading: !taskState.isLocked,
-          title: const Text(
-            'وضع المهمة الواحدة',
-            style: TextStyle(color: Color(0xFFE6EDF3)),
+          title: Text(
+            loc.singleTaskModeTitle,
+            style: const TextStyle(color: Color(0xFFE6EDF3)),
           ),
           iconTheme: const IconThemeData(color: Color(0xFF8B949E)),
         ),
@@ -80,12 +83,15 @@ class _SingleTaskScreenState extends ConsumerState<SingleTaskScreen> {
             child: taskState.isLocked
                 ? _ActiveTaskView(
                     label: taskState.activeTaskLabel!,
+                    loc: loc,
                     onComplete: () {
-                      ref.read(singleTaskControllerProvider.notifier).completeTask();
+                      ref
+                          .read(singleTaskControllerProvider.notifier)
+                          .completeTask();
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('أحسنت! +10 نقاط تركيز'),
-                          backgroundColor: Color(0xFF1D9E75),
+                        SnackBar(
+                          content: Text(loc.singleTaskFocusRewardSnack),
+                          backgroundColor: const Color(0xFF1D9E75),
                         ),
                       );
                     },
@@ -93,6 +99,7 @@ class _SingleTaskScreenState extends ConsumerState<SingleTaskScreen> {
                   )
                 : _IdleTaskView(
                     controller: _controller,
+                    loc: loc,
                     onStart: () {
                       ref
                           .read(singleTaskControllerProvider.notifier)
@@ -109,10 +116,12 @@ class _SingleTaskScreenState extends ConsumerState<SingleTaskScreen> {
 class _IdleTaskView extends StatelessWidget {
   const _IdleTaskView({
     required this.controller,
+    required this.loc,
     required this.onStart,
   });
 
   final TextEditingController controller;
+  final AppLocalizations loc;
   final VoidCallback onStart;
 
   @override
@@ -120,9 +129,9 @@ class _IdleTaskView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Text(
-          'وضع المهمة الواحدة',
-          style: TextStyle(
+        Text(
+          loc.singleTaskModeTitle,
+          style: const TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,
             color: Color(0xFFE6EDF3),
@@ -134,7 +143,7 @@ class _IdleTaskView extends StatelessWidget {
           controller: controller,
           style: const TextStyle(color: Color(0xFFE6EDF3)),
           decoration: InputDecoration(
-            hintText: 'اكتب مهمتك الآن...',
+            hintText: loc.singleTaskHint,
             hintStyle: const TextStyle(color: Color(0xFF8B949E)),
             filled: true,
             fillColor: const Color(0xFF161B22),
@@ -163,7 +172,7 @@ class _IdleTaskView extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
-            child: const Text('ابدأ التركيز'),
+            child: Text(loc.singleTaskStartFocus),
           ),
         ),
       ],
@@ -174,11 +183,13 @@ class _IdleTaskView extends StatelessWidget {
 class _ActiveTaskView extends StatefulWidget {
   const _ActiveTaskView({
     required this.label,
+    required this.loc,
     required this.onComplete,
     required this.onAbandon,
   });
 
   final String label;
+  final AppLocalizations loc;
   final VoidCallback onComplete;
   final VoidCallback onAbandon;
 
@@ -235,9 +246,9 @@ class _ActiveTaskViewState extends State<_ActiveTaskView>
               ),
             ),
             const SizedBox(width: 8),
-            const Text(
-              'جارٍ التركيز...',
-              style: TextStyle(color: Color(0xFF1D9E75), fontSize: 16),
+            Text(
+              widget.loc.singleTaskFocusing,
+              style: const TextStyle(color: Color(0xFF1D9E75), fontSize: 16),
             ),
           ],
         ),
@@ -248,7 +259,7 @@ class _ActiveTaskViewState extends State<_ActiveTaskView>
             backgroundColor: const Color(0xFF1D9E75),
             minimumSize: const Size.fromHeight(52),
           ),
-          child: const Text('أنهيت المهمة ✓'),
+          child: Text(widget.loc.singleTaskCompleted),
         ),
         const SizedBox(height: 12),
         OutlinedButton(
@@ -258,7 +269,7 @@ class _ActiveTaskViewState extends State<_ActiveTaskView>
             side: const BorderSide(color: Color(0xFF8B949E)),
             minimumSize: const Size.fromHeight(48),
           ),
-          child: const Text('إيقاف مؤقت'),
+          child: Text(widget.loc.singleTaskPauseButton),
         ),
       ],
     );

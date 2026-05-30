@@ -78,8 +78,8 @@ class _StreakColumn extends StatelessWidget {
               children: [
                 Text(
                   value,
-                  style: TextStyle(
-                    color: HomeStreakTimerGrid._valueColor,
+                  style: const TextStyle(
+                    color: Colors.white,
                     fontSize: 28,
                     fontWeight: FontWeight.w800,
                     height: 1.1,
@@ -88,8 +88,8 @@ class _StreakColumn extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   label,
-                  style: TextStyle(
-                    color: HomeStreakTimerGrid._labelColor,
+                  style: const TextStyle(
+                    color: Color(0xFF8B949E),
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
                   ),
@@ -102,7 +102,7 @@ class _StreakColumn extends StatelessWidget {
             Container(
               width: 1,
               height: 44,
-              color: HomeStreakTimerGrid._dividerColor,
+              color: const Color(0xFF30363D),
             ),
         ],
       ),
