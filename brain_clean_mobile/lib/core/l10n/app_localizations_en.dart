@@ -565,4 +565,451 @@ class AppLocalizationsEn extends AppLocalizations {
   String breathingCountdownSeconds(int seconds) {
     return '$seconds seconds remaining';
   }
+
+  @override
+  String get commonCancel => 'Cancel';
+
+  @override
+  String get commonConfirm => 'Confirm';
+
+  @override
+  String get commonOk => 'OK';
+
+  @override
+  String get commonGreat => 'Great';
+
+  @override
+  String get commonBack => 'Back';
+
+  @override
+  String get onboardingSkip => 'Skip';
+
+  @override
+  String get onboardingPage1Title => 'Welcome to Brain Clean';
+
+  @override
+  String get onboardingPage1Body => 'Restore your digital awareness in 21 days';
+
+  @override
+  String get onboardingPage2Title => 'Track your focus daily';
+
+  @override
+  String get onboardingPage2Body =>
+      'Real science-based formulas to measure brain health';
+
+  @override
+  String get onboardingPage3Title => 'Start your journey now';
+
+  @override
+  String get onboardingPage3Body =>
+      'Answer 10 questions to assess your brain rot level';
+
+  @override
+  String get onboardingStartQuiz => 'Start assessment';
+
+  @override
+  String get proPaywallTitle => 'Brain Clean Pro';
+
+  @override
+  String get proPaywallSubtitle => 'Unlock your mind\'s full potential';
+
+  @override
+  String get proFeatureAdvancedBcs => 'Advanced Brain Clarity Score engine';
+
+  @override
+  String get proFeatureSevenDayChart => '7-day progress chart';
+
+  @override
+  String get proFeatureEmotionWheel => 'Emotion wheel & recovery impact';
+
+  @override
+  String get proFeatureFocusChallenges => 'Advanced focus challenges';
+
+  @override
+  String get proFeatureCloudSync => 'Secure cloud sync';
+
+  @override
+  String get proWelcomeSnack => 'Welcome to Pro! 🎉';
+
+  @override
+  String get proPriceMonthly => 'SAR 19 / month';
+
+  @override
+  String get proPriceHint => 'Less than one meal';
+
+  @override
+  String get proSubscribeNow => 'Subscribe now';
+
+  @override
+  String get proRestorePurchase => 'Restore purchase';
+
+  @override
+  String get proBadgeLabel => 'Pro';
+
+  @override
+  String get settingsTitle => 'Settings';
+
+  @override
+  String get settingsAccountSection => 'Account';
+
+  @override
+  String get settingsProActive => 'Brain Clean Pro ✓';
+
+  @override
+  String get settingsUpgradeToPro => 'Upgrade to Pro';
+
+  @override
+  String get settingsNotificationsSection => 'Notifications';
+
+  @override
+  String get settingsEmotionNotifications => 'Negative emotion alerts';
+
+  @override
+  String get settingsDailyFocusReminder => 'Daily focus reminder';
+
+  @override
+  String get settingsDataSection => 'Data';
+
+  @override
+  String get settingsResetData => 'Reset all data';
+
+  @override
+  String get settingsResetDataConfirmTitle => 'Reset all data';
+
+  @override
+  String get settingsResetDataConfirmBody =>
+      'All local data will be deleted. Are you sure?';
+
+  @override
+  String get settingsExportData => 'Export my data';
+
+  @override
+  String get settingsComingSoon => 'Coming soon…';
+
+  @override
+  String get settingsAboutSection => 'About';
+
+  @override
+  String get settingsVersion => 'Version';
+
+  @override
+  String get settingsPrivacyPolicy => 'Privacy policy';
+
+  @override
+  String get settingsContactUs => 'Contact us';
+
+  @override
+  String get emotionWheelTitle => 'Emotion wheel';
+
+  @override
+  String get emotionImpactDialogTitle => 'Impact on your recovery';
+
+  @override
+  String emotionImpactNegative(String emotion, String pct) {
+    return 'Feeling $emotion will reduce your recovery by $pct%.\nLog it?';
+  }
+
+  @override
+  String emotionImpactPositive(String emotion, String pct) {
+    return 'Feeling $emotion will improve your recovery by $pct%.\nLog it?';
+  }
+
+  @override
+  String get emotionIgnore => 'No, ignore';
+
+  @override
+  String get emotionConfirmLog => 'Yes, log it';
+
+  @override
+  String get emotionGateNegative => 'I feel something negative';
+
+  @override
+  String get emotionGateNeutral => 'I feel something neutral';
+
+  @override
+  String get emotionGatePositive => 'I feel something positive';
+
+  @override
+  String get silenceChallengeTitle => 'Silence challenge';
+
+  @override
+  String silenceChallengeSubtitle(int minutes) {
+    return 'Don\'t touch the screen for $minutes minutes';
+  }
+
+  @override
+  String silenceChallengeLevel(int level, int minutes) {
+    return 'Level $level — $minutes minutes required';
+  }
+
+  @override
+  String get silenceChallengeFailedTitle => 'Challenge failed';
+
+  @override
+  String get silenceChallengeFailedBody =>
+      'You touched the screen or left the app.';
+
+  @override
+  String get silenceChallengeSuccessTitle => 'Well done! 🎉';
+
+  @override
+  String get silenceChallengeSuccessBody =>
+      'You completed the silence challenge.';
+
+  @override
+  String get singleTaskPauseTitle => 'Pause task';
+
+  @override
+  String get singleTaskPauseBody =>
+      'Stop the current task? You won\'t earn a reward.';
+
+  @override
+  String get singleTaskModeTitle => 'Single-task mode';
+
+  @override
+  String get singleTaskFocusRewardSnack => 'Great! +10 focus points';
+
+  @override
+  String get singleTaskHint => 'Write your task now…';
+
+  @override
+  String get singleTaskStartFocus => 'Start focus';
+
+  @override
+  String get singleTaskFocusing => 'Focusing…';
+
+  @override
+  String get singleTaskCompleted => 'Task done ✓';
+
+  @override
+  String get singleTaskPauseButton => 'Pause';
+
+  @override
+  String get delayedGratTitle => 'Delayed gratification';
+
+  @override
+  String get delayedGratSubtitle =>
+      'Hold 20 minutes before opening social media';
+
+  @override
+  String get delayedGratQuoteUnder5 => 'Patience is the key to relief';
+
+  @override
+  String get delayedGratQuoteUnder10 => 'Your brain thanks you now';
+
+  @override
+  String get delayedGratQuoteUnder15 => 'You\'re stronger than the algorithm';
+
+  @override
+  String get delayedGratQuoteDefault => 'Almost there — keep going';
+
+  @override
+  String get delayedGratGiveUpTitle => 'Give up';
+
+  @override
+  String get delayedGratGiveUpBody =>
+      'Give up now? You won\'t earn the reward.';
+
+  @override
+  String get delayedGratGiveUpButton => 'Give up';
+
+  @override
+  String get delayedGratVictoryTitle => 'You beat yourself! 🏆';
+
+  @override
+  String get delayedGratVictoryBody => '+25 focus points added.';
+
+  @override
+  String get chartSevenDayTitle => 'Your 7-day progress';
+
+  @override
+  String get chartDaySat => 'Sat';
+
+  @override
+  String get chartDaySun => 'Sun';
+
+  @override
+  String get chartDayMon => 'Mon';
+
+  @override
+  String get chartDayTue => 'Tue';
+
+  @override
+  String get chartDayWed => 'Wed';
+
+  @override
+  String get chartDayThu => 'Thu';
+
+  @override
+  String get chartDayFri => 'Fri';
+
+  @override
+  String get proGatedChartTitle => '7-day progress chart';
+
+  @override
+  String get proGatedChartSubtitle => 'Available in Brain Clean Pro';
+
+  @override
+  String get visualCognitiveBack => 'Back';
+
+  @override
+  String visualCognitiveRound(int round) {
+    return 'Round $round / 5';
+  }
+
+  @override
+  String get visualCognitiveInstruction =>
+      'Tap the square with a different color';
+
+  @override
+  String visualCognitiveScore(int score) {
+    return 'Score: $score';
+  }
+
+  @override
+  String get diagnosticCognitiveTestButton => 'Test your focus 🎯';
+
+  @override
+  String get homeQuickEmotion => 'How do you feel? 💭';
+
+  @override
+  String get homeQuickSilence => 'Silence challenge 🔇';
+
+  @override
+  String get homeQuickSingleTask => 'Single task 🎯';
+
+  @override
+  String get homeQuickDelayedGrat => 'Delayed gratification ⏳';
+
+  @override
+  String get homeQuickCognitiveTest => 'Test your focus 🧪';
+
+  @override
+  String get homeAccountabilityBox => 'Accountability box';
+
+  @override
+  String get homeDistractionConfirmAction => 'Confirm distraction';
+
+  @override
+  String get splashSubtitle => 'Reset your brain';
+
+  @override
+  String get profileDefaultName => 'Brain Clean user';
+
+  @override
+  String get profileProBadge => 'Pro ⭐';
+
+  @override
+  String get profileStatFocusDays => 'focus days';
+
+  @override
+  String get profileStatBcs => 'BCS';
+
+  @override
+  String get profileStatEmotions => 'emotions';
+
+  @override
+  String get profileRecentEmotions => 'Recent emotions';
+
+  @override
+  String get profileNoEmotionsYet => 'No emotions logged yet';
+
+  @override
+  String get profileAchievements => 'Your achievements';
+
+  @override
+  String get profileBadgeStreak7 => '7-day streak';
+
+  @override
+  String get profileBadgeCleanBrain => 'Clean brain';
+
+  @override
+  String get profileBadgeSilenceHero => 'Silence hero';
+
+  @override
+  String get profileBadgeSingleTask => 'Single task';
+
+  @override
+  String get profileBadgeEmotionAwake => 'Emotion aware';
+
+  @override
+  String get profileBadgeProMember => 'Pro Member';
+
+  @override
+  String get accountabilityModalCatPhysical => 'Physical fitness';
+
+  @override
+  String get accountabilityModalCatNutritional => 'Healthy nutrition';
+
+  @override
+  String get accountabilityModalCatAltruistic => 'Altruistic acts';
+
+  @override
+  String get accountabilityModalCatMental => 'Mental challenge';
+
+  @override
+  String get accountabilityModalPenPhysical1 => '30-minute workout';
+
+  @override
+  String get accountabilityModalPenPhysical2 => 'Strength training';
+
+  @override
+  String get accountabilityModalPenPhysical3 => '5,000 steps walk';
+
+  @override
+  String get accountabilityModalPenPhysical4 => 'Morning stretch';
+
+  @override
+  String get accountabilityModalPenPhysical5 => 'Outdoor activity';
+
+  @override
+  String get accountabilityModalPenNutritional1 => 'Avoid sugar';
+
+  @override
+  String get accountabilityModalPenNutritional2 => 'Balanced meal';
+
+  @override
+  String get accountabilityModalPenNutritional3 => 'Drink 2L water';
+
+  @override
+  String get accountabilityModalPenNutritional4 => 'Reduce caffeine';
+
+  @override
+  String get accountabilityModalPenNutritional5 => 'Protein meal';
+
+  @override
+  String get accountabilityModalPenAltruistic1 => 'Help a neighbor';
+
+  @override
+  String get accountabilityModalPenAltruistic2 => 'Small donation';
+
+  @override
+  String get accountabilityModalPenAltruistic3 => 'Thank-you message';
+
+  @override
+  String get accountabilityModalPenAltruistic4 => 'Community service';
+
+  @override
+  String get accountabilityModalPenAltruistic5 => 'Support a friend';
+
+  @override
+  String get accountabilityModalPenMental1 => 'Read 20 minutes';
+
+  @override
+  String get accountabilityModalPenMental2 => 'Solve a puzzle';
+
+  @override
+  String get accountabilityModalPenMental3 => 'Learn a new word';
+
+  @override
+  String get accountabilityModalPenMental4 => 'Guided meditation';
+
+  @override
+  String get accountabilityModalPenMental5 => 'Journal writing';
+
+  @override
+  String get breathingInhaleSlow => 'Inhale slowly…';
+
+  @override
+  String get breathingExhaleFull => 'Exhale fully…';
 }

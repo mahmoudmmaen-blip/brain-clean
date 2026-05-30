@@ -1075,6 +1075,858 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{seconds} seconds remaining'**
   String breathingCountdownSeconds(int seconds);
+
+  /// No description provided for @commonCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get commonCancel;
+
+  /// No description provided for @commonConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get commonConfirm;
+
+  /// No description provided for @commonOk.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get commonOk;
+
+  /// No description provided for @commonGreat.
+  ///
+  /// In en, this message translates to:
+  /// **'Great'**
+  String get commonGreat;
+
+  /// No description provided for @commonBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get commonBack;
+
+  /// No description provided for @onboardingSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get onboardingSkip;
+
+  /// No description provided for @onboardingPage1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to Brain Clean'**
+  String get onboardingPage1Title;
+
+  /// No description provided for @onboardingPage1Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore your digital awareness in 21 days'**
+  String get onboardingPage1Body;
+
+  /// No description provided for @onboardingPage2Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Track your focus daily'**
+  String get onboardingPage2Title;
+
+  /// No description provided for @onboardingPage2Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Real science-based formulas to measure brain health'**
+  String get onboardingPage2Body;
+
+  /// No description provided for @onboardingPage3Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Start your journey now'**
+  String get onboardingPage3Title;
+
+  /// No description provided for @onboardingPage3Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer 10 questions to assess your brain rot level'**
+  String get onboardingPage3Body;
+
+  /// No description provided for @onboardingStartQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Start assessment'**
+  String get onboardingStartQuiz;
+
+  /// No description provided for @proPaywallTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Clean Pro'**
+  String get proPaywallTitle;
+
+  /// No description provided for @proPaywallSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock your mind\'s full potential'**
+  String get proPaywallSubtitle;
+
+  /// No description provided for @proFeatureAdvancedBcs.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced Brain Clarity Score engine'**
+  String get proFeatureAdvancedBcs;
+
+  /// No description provided for @proFeatureSevenDayChart.
+  ///
+  /// In en, this message translates to:
+  /// **'7-day progress chart'**
+  String get proFeatureSevenDayChart;
+
+  /// No description provided for @proFeatureEmotionWheel.
+  ///
+  /// In en, this message translates to:
+  /// **'Emotion wheel & recovery impact'**
+  String get proFeatureEmotionWheel;
+
+  /// No description provided for @proFeatureFocusChallenges.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced focus challenges'**
+  String get proFeatureFocusChallenges;
+
+  /// No description provided for @proFeatureCloudSync.
+  ///
+  /// In en, this message translates to:
+  /// **'Secure cloud sync'**
+  String get proFeatureCloudSync;
+
+  /// No description provided for @proWelcomeSnack.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to Pro! 🎉'**
+  String get proWelcomeSnack;
+
+  /// No description provided for @proPriceMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'SAR 19 / month'**
+  String get proPriceMonthly;
+
+  /// No description provided for @proPriceHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Less than one meal'**
+  String get proPriceHint;
+
+  /// No description provided for @proSubscribeNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribe now'**
+  String get proSubscribeNow;
+
+  /// No description provided for @proRestorePurchase.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore purchase'**
+  String get proRestorePurchase;
+
+  /// No description provided for @proBadgeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Pro'**
+  String get proBadgeLabel;
+
+  /// No description provided for @settingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settingsTitle;
+
+  /// No description provided for @settingsAccountSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get settingsAccountSection;
+
+  /// No description provided for @settingsProActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Clean Pro ✓'**
+  String get settingsProActive;
+
+  /// No description provided for @settingsUpgradeToPro.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade to Pro'**
+  String get settingsUpgradeToPro;
+
+  /// No description provided for @settingsNotificationsSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get settingsNotificationsSection;
+
+  /// No description provided for @settingsEmotionNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Negative emotion alerts'**
+  String get settingsEmotionNotifications;
+
+  /// No description provided for @settingsDailyFocusReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily focus reminder'**
+  String get settingsDailyFocusReminder;
+
+  /// No description provided for @settingsDataSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Data'**
+  String get settingsDataSection;
+
+  /// No description provided for @settingsResetData.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset all data'**
+  String get settingsResetData;
+
+  /// No description provided for @settingsResetDataConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset all data'**
+  String get settingsResetDataConfirmTitle;
+
+  /// No description provided for @settingsResetDataConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'All local data will be deleted. Are you sure?'**
+  String get settingsResetDataConfirmBody;
+
+  /// No description provided for @settingsExportData.
+  ///
+  /// In en, this message translates to:
+  /// **'Export my data'**
+  String get settingsExportData;
+
+  /// No description provided for @settingsComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming soon…'**
+  String get settingsComingSoon;
+
+  /// No description provided for @settingsAboutSection.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get settingsAboutSection;
+
+  /// No description provided for @settingsVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'Version'**
+  String get settingsVersion;
+
+  /// No description provided for @settingsPrivacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy policy'**
+  String get settingsPrivacyPolicy;
+
+  /// No description provided for @settingsContactUs.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact us'**
+  String get settingsContactUs;
+
+  /// No description provided for @emotionWheelTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Emotion wheel'**
+  String get emotionWheelTitle;
+
+  /// No description provided for @emotionImpactDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Impact on your recovery'**
+  String get emotionImpactDialogTitle;
+
+  /// No description provided for @emotionImpactNegative.
+  ///
+  /// In en, this message translates to:
+  /// **'Feeling {emotion} will reduce your recovery by {pct}%.\nLog it?'**
+  String emotionImpactNegative(String emotion, String pct);
+
+  /// No description provided for @emotionImpactPositive.
+  ///
+  /// In en, this message translates to:
+  /// **'Feeling {emotion} will improve your recovery by {pct}%.\nLog it?'**
+  String emotionImpactPositive(String emotion, String pct);
+
+  /// No description provided for @emotionIgnore.
+  ///
+  /// In en, this message translates to:
+  /// **'No, ignore'**
+  String get emotionIgnore;
+
+  /// No description provided for @emotionConfirmLog.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes, log it'**
+  String get emotionConfirmLog;
+
+  /// No description provided for @emotionGateNegative.
+  ///
+  /// In en, this message translates to:
+  /// **'I feel something negative'**
+  String get emotionGateNegative;
+
+  /// No description provided for @emotionGateNeutral.
+  ///
+  /// In en, this message translates to:
+  /// **'I feel something neutral'**
+  String get emotionGateNeutral;
+
+  /// No description provided for @emotionGatePositive.
+  ///
+  /// In en, this message translates to:
+  /// **'I feel something positive'**
+  String get emotionGatePositive;
+
+  /// No description provided for @silenceChallengeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Silence challenge'**
+  String get silenceChallengeTitle;
+
+  /// No description provided for @silenceChallengeSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t touch the screen for {minutes} minutes'**
+  String silenceChallengeSubtitle(int minutes);
+
+  /// No description provided for @silenceChallengeLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Level {level} — {minutes} minutes required'**
+  String silenceChallengeLevel(int level, int minutes);
+
+  /// No description provided for @silenceChallengeFailedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Challenge failed'**
+  String get silenceChallengeFailedTitle;
+
+  /// No description provided for @silenceChallengeFailedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You touched the screen or left the app.'**
+  String get silenceChallengeFailedBody;
+
+  /// No description provided for @silenceChallengeSuccessTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Well done! 🎉'**
+  String get silenceChallengeSuccessTitle;
+
+  /// No description provided for @silenceChallengeSuccessBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You completed the silence challenge.'**
+  String get silenceChallengeSuccessBody;
+
+  /// No description provided for @singleTaskPauseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause task'**
+  String get singleTaskPauseTitle;
+
+  /// No description provided for @singleTaskPauseBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop the current task? You won\'t earn a reward.'**
+  String get singleTaskPauseBody;
+
+  /// No description provided for @singleTaskModeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Single-task mode'**
+  String get singleTaskModeTitle;
+
+  /// No description provided for @singleTaskFocusRewardSnack.
+  ///
+  /// In en, this message translates to:
+  /// **'Great! +10 focus points'**
+  String get singleTaskFocusRewardSnack;
+
+  /// No description provided for @singleTaskHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write your task now…'**
+  String get singleTaskHint;
+
+  /// No description provided for @singleTaskStartFocus.
+  ///
+  /// In en, this message translates to:
+  /// **'Start focus'**
+  String get singleTaskStartFocus;
+
+  /// No description provided for @singleTaskFocusing.
+  ///
+  /// In en, this message translates to:
+  /// **'Focusing…'**
+  String get singleTaskFocusing;
+
+  /// No description provided for @singleTaskCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Task done ✓'**
+  String get singleTaskCompleted;
+
+  /// No description provided for @singleTaskPauseButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get singleTaskPauseButton;
+
+  /// No description provided for @delayedGratTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delayed gratification'**
+  String get delayedGratTitle;
+
+  /// No description provided for @delayedGratSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold 20 minutes before opening social media'**
+  String get delayedGratSubtitle;
+
+  /// No description provided for @delayedGratQuoteUnder5.
+  ///
+  /// In en, this message translates to:
+  /// **'Patience is the key to relief'**
+  String get delayedGratQuoteUnder5;
+
+  /// No description provided for @delayedGratQuoteUnder10.
+  ///
+  /// In en, this message translates to:
+  /// **'Your brain thanks you now'**
+  String get delayedGratQuoteUnder10;
+
+  /// No description provided for @delayedGratQuoteUnder15.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re stronger than the algorithm'**
+  String get delayedGratQuoteUnder15;
+
+  /// No description provided for @delayedGratQuoteDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Almost there — keep going'**
+  String get delayedGratQuoteDefault;
+
+  /// No description provided for @delayedGratGiveUpTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Give up'**
+  String get delayedGratGiveUpTitle;
+
+  /// No description provided for @delayedGratGiveUpBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Give up now? You won\'t earn the reward.'**
+  String get delayedGratGiveUpBody;
+
+  /// No description provided for @delayedGratGiveUpButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Give up'**
+  String get delayedGratGiveUpButton;
+
+  /// No description provided for @delayedGratVictoryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You beat yourself! 🏆'**
+  String get delayedGratVictoryTitle;
+
+  /// No description provided for @delayedGratVictoryBody.
+  ///
+  /// In en, this message translates to:
+  /// **'+25 focus points added.'**
+  String get delayedGratVictoryBody;
+
+  /// No description provided for @chartSevenDayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your 7-day progress'**
+  String get chartSevenDayTitle;
+
+  /// No description provided for @chartDaySat.
+  ///
+  /// In en, this message translates to:
+  /// **'Sat'**
+  String get chartDaySat;
+
+  /// No description provided for @chartDaySun.
+  ///
+  /// In en, this message translates to:
+  /// **'Sun'**
+  String get chartDaySun;
+
+  /// No description provided for @chartDayMon.
+  ///
+  /// In en, this message translates to:
+  /// **'Mon'**
+  String get chartDayMon;
+
+  /// No description provided for @chartDayTue.
+  ///
+  /// In en, this message translates to:
+  /// **'Tue'**
+  String get chartDayTue;
+
+  /// No description provided for @chartDayWed.
+  ///
+  /// In en, this message translates to:
+  /// **'Wed'**
+  String get chartDayWed;
+
+  /// No description provided for @chartDayThu.
+  ///
+  /// In en, this message translates to:
+  /// **'Thu'**
+  String get chartDayThu;
+
+  /// No description provided for @chartDayFri.
+  ///
+  /// In en, this message translates to:
+  /// **'Fri'**
+  String get chartDayFri;
+
+  /// No description provided for @proGatedChartTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'7-day progress chart'**
+  String get proGatedChartTitle;
+
+  /// No description provided for @proGatedChartSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Available in Brain Clean Pro'**
+  String get proGatedChartSubtitle;
+
+  /// No description provided for @visualCognitiveBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get visualCognitiveBack;
+
+  /// No description provided for @visualCognitiveRound.
+  ///
+  /// In en, this message translates to:
+  /// **'Round {round} / 5'**
+  String visualCognitiveRound(int round);
+
+  /// No description provided for @visualCognitiveInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the square with a different color'**
+  String get visualCognitiveInstruction;
+
+  /// No description provided for @visualCognitiveScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Score: {score}'**
+  String visualCognitiveScore(int score);
+
+  /// No description provided for @diagnosticCognitiveTestButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Test your focus 🎯'**
+  String get diagnosticCognitiveTestButton;
+
+  /// No description provided for @homeQuickEmotion.
+  ///
+  /// In en, this message translates to:
+  /// **'How do you feel? 💭'**
+  String get homeQuickEmotion;
+
+  /// No description provided for @homeQuickSilence.
+  ///
+  /// In en, this message translates to:
+  /// **'Silence challenge 🔇'**
+  String get homeQuickSilence;
+
+  /// No description provided for @homeQuickSingleTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Single task 🎯'**
+  String get homeQuickSingleTask;
+
+  /// No description provided for @homeQuickDelayedGrat.
+  ///
+  /// In en, this message translates to:
+  /// **'Delayed gratification ⏳'**
+  String get homeQuickDelayedGrat;
+
+  /// No description provided for @homeQuickCognitiveTest.
+  ///
+  /// In en, this message translates to:
+  /// **'Test your focus 🧪'**
+  String get homeQuickCognitiveTest;
+
+  /// No description provided for @homeAccountabilityBox.
+  ///
+  /// In en, this message translates to:
+  /// **'Accountability box'**
+  String get homeAccountabilityBox;
+
+  /// No description provided for @homeDistractionConfirmAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm distraction'**
+  String get homeDistractionConfirmAction;
+
+  /// No description provided for @splashSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset your brain'**
+  String get splashSubtitle;
+
+  /// No description provided for @profileDefaultName.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Clean user'**
+  String get profileDefaultName;
+
+  /// No description provided for @profileProBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Pro ⭐'**
+  String get profileProBadge;
+
+  /// No description provided for @profileStatFocusDays.
+  ///
+  /// In en, this message translates to:
+  /// **'focus days'**
+  String get profileStatFocusDays;
+
+  /// No description provided for @profileStatBcs.
+  ///
+  /// In en, this message translates to:
+  /// **'BCS'**
+  String get profileStatBcs;
+
+  /// No description provided for @profileStatEmotions.
+  ///
+  /// In en, this message translates to:
+  /// **'emotions'**
+  String get profileStatEmotions;
+
+  /// No description provided for @profileRecentEmotions.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent emotions'**
+  String get profileRecentEmotions;
+
+  /// No description provided for @profileNoEmotionsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No emotions logged yet'**
+  String get profileNoEmotionsYet;
+
+  /// No description provided for @profileAchievements.
+  ///
+  /// In en, this message translates to:
+  /// **'Your achievements'**
+  String get profileAchievements;
+
+  /// No description provided for @profileBadgeStreak7.
+  ///
+  /// In en, this message translates to:
+  /// **'7-day streak'**
+  String get profileBadgeStreak7;
+
+  /// No description provided for @profileBadgeCleanBrain.
+  ///
+  /// In en, this message translates to:
+  /// **'Clean brain'**
+  String get profileBadgeCleanBrain;
+
+  /// No description provided for @profileBadgeSilenceHero.
+  ///
+  /// In en, this message translates to:
+  /// **'Silence hero'**
+  String get profileBadgeSilenceHero;
+
+  /// No description provided for @profileBadgeSingleTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Single task'**
+  String get profileBadgeSingleTask;
+
+  /// No description provided for @profileBadgeEmotionAwake.
+  ///
+  /// In en, this message translates to:
+  /// **'Emotion aware'**
+  String get profileBadgeEmotionAwake;
+
+  /// No description provided for @profileBadgeProMember.
+  ///
+  /// In en, this message translates to:
+  /// **'Pro Member'**
+  String get profileBadgeProMember;
+
+  /// No description provided for @accountabilityModalCatPhysical.
+  ///
+  /// In en, this message translates to:
+  /// **'Physical fitness'**
+  String get accountabilityModalCatPhysical;
+
+  /// No description provided for @accountabilityModalCatNutritional.
+  ///
+  /// In en, this message translates to:
+  /// **'Healthy nutrition'**
+  String get accountabilityModalCatNutritional;
+
+  /// No description provided for @accountabilityModalCatAltruistic.
+  ///
+  /// In en, this message translates to:
+  /// **'Altruistic acts'**
+  String get accountabilityModalCatAltruistic;
+
+  /// No description provided for @accountabilityModalCatMental.
+  ///
+  /// In en, this message translates to:
+  /// **'Mental challenge'**
+  String get accountabilityModalCatMental;
+
+  /// No description provided for @accountabilityModalPenPhysical1.
+  ///
+  /// In en, this message translates to:
+  /// **'30-minute workout'**
+  String get accountabilityModalPenPhysical1;
+
+  /// No description provided for @accountabilityModalPenPhysical2.
+  ///
+  /// In en, this message translates to:
+  /// **'Strength training'**
+  String get accountabilityModalPenPhysical2;
+
+  /// No description provided for @accountabilityModalPenPhysical3.
+  ///
+  /// In en, this message translates to:
+  /// **'5,000 steps walk'**
+  String get accountabilityModalPenPhysical3;
+
+  /// No description provided for @accountabilityModalPenPhysical4.
+  ///
+  /// In en, this message translates to:
+  /// **'Morning stretch'**
+  String get accountabilityModalPenPhysical4;
+
+  /// No description provided for @accountabilityModalPenPhysical5.
+  ///
+  /// In en, this message translates to:
+  /// **'Outdoor activity'**
+  String get accountabilityModalPenPhysical5;
+
+  /// No description provided for @accountabilityModalPenNutritional1.
+  ///
+  /// In en, this message translates to:
+  /// **'Avoid sugar'**
+  String get accountabilityModalPenNutritional1;
+
+  /// No description provided for @accountabilityModalPenNutritional2.
+  ///
+  /// In en, this message translates to:
+  /// **'Balanced meal'**
+  String get accountabilityModalPenNutritional2;
+
+  /// No description provided for @accountabilityModalPenNutritional3.
+  ///
+  /// In en, this message translates to:
+  /// **'Drink 2L water'**
+  String get accountabilityModalPenNutritional3;
+
+  /// No description provided for @accountabilityModalPenNutritional4.
+  ///
+  /// In en, this message translates to:
+  /// **'Reduce caffeine'**
+  String get accountabilityModalPenNutritional4;
+
+  /// No description provided for @accountabilityModalPenNutritional5.
+  ///
+  /// In en, this message translates to:
+  /// **'Protein meal'**
+  String get accountabilityModalPenNutritional5;
+
+  /// No description provided for @accountabilityModalPenAltruistic1.
+  ///
+  /// In en, this message translates to:
+  /// **'Help a neighbor'**
+  String get accountabilityModalPenAltruistic1;
+
+  /// No description provided for @accountabilityModalPenAltruistic2.
+  ///
+  /// In en, this message translates to:
+  /// **'Small donation'**
+  String get accountabilityModalPenAltruistic2;
+
+  /// No description provided for @accountabilityModalPenAltruistic3.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank-you message'**
+  String get accountabilityModalPenAltruistic3;
+
+  /// No description provided for @accountabilityModalPenAltruistic4.
+  ///
+  /// In en, this message translates to:
+  /// **'Community service'**
+  String get accountabilityModalPenAltruistic4;
+
+  /// No description provided for @accountabilityModalPenAltruistic5.
+  ///
+  /// In en, this message translates to:
+  /// **'Support a friend'**
+  String get accountabilityModalPenAltruistic5;
+
+  /// No description provided for @accountabilityModalPenMental1.
+  ///
+  /// In en, this message translates to:
+  /// **'Read 20 minutes'**
+  String get accountabilityModalPenMental1;
+
+  /// No description provided for @accountabilityModalPenMental2.
+  ///
+  /// In en, this message translates to:
+  /// **'Solve a puzzle'**
+  String get accountabilityModalPenMental2;
+
+  /// No description provided for @accountabilityModalPenMental3.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn a new word'**
+  String get accountabilityModalPenMental3;
+
+  /// No description provided for @accountabilityModalPenMental4.
+  ///
+  /// In en, this message translates to:
+  /// **'Guided meditation'**
+  String get accountabilityModalPenMental4;
+
+  /// No description provided for @accountabilityModalPenMental5.
+  ///
+  /// In en, this message translates to:
+  /// **'Journal writing'**
+  String get accountabilityModalPenMental5;
+
+  /// No description provided for @breathingInhaleSlow.
+  ///
+  /// In en, this message translates to:
+  /// **'Inhale slowly…'**
+  String get breathingInhaleSlow;
+
+  /// No description provided for @breathingExhaleFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Exhale fully…'**
+  String get breathingExhaleFull;
 }
 
 class _AppLocalizationsDelegate

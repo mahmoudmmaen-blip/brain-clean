@@ -558,4 +558,445 @@ class AppLocalizationsAr extends AppLocalizations {
   String breathingCountdownSeconds(int seconds) {
     return 'متبقي $seconds ثانية';
   }
+
+  @override
+  String get commonCancel => 'إلغاء';
+
+  @override
+  String get commonConfirm => 'تأكيد';
+
+  @override
+  String get commonOk => 'حسناً';
+
+  @override
+  String get commonGreat => 'رائع';
+
+  @override
+  String get commonBack => 'رجوع';
+
+  @override
+  String get onboardingSkip => 'تخطي';
+
+  @override
+  String get onboardingPage1Title => 'مرحباً بك في Brain Clean';
+
+  @override
+  String get onboardingPage1Body => 'استعد وعيك الرقمي في 21 يوماً';
+
+  @override
+  String get onboardingPage2Title => 'تتبع تركيزك يومياً';
+
+  @override
+  String get onboardingPage2Body => 'معادلات علمية حقيقية لقياس صحة دماغك';
+
+  @override
+  String get onboardingPage3Title => 'ابدأ رحلتك الآن';
+
+  @override
+  String get onboardingPage3Body => 'أجب على 10 أسئلة لتحديد مستوى تعفن دماغك';
+
+  @override
+  String get onboardingStartQuiz => 'ابدأ التقييم';
+
+  @override
+  String get proPaywallTitle => 'Brain Clean Pro';
+
+  @override
+  String get proPaywallSubtitle => 'افتح كامل قدرات عقلك';
+
+  @override
+  String get proFeatureAdvancedBcs => 'محرك Brain Clarity Score المتقدم';
+
+  @override
+  String get proFeatureSevenDayChart => 'مخطط التقدم 7 أيام';
+
+  @override
+  String get proFeatureEmotionWheel => 'دائرة الأحاسيس والتأثير على التعافي';
+
+  @override
+  String get proFeatureFocusChallenges => 'تحديات التركيز المتقدمة';
+
+  @override
+  String get proFeatureCloudSync => 'مزامنة سحابية آمنة';
+
+  @override
+  String get proWelcomeSnack => 'مرحباً بك في Pro! 🎉';
+
+  @override
+  String get proPriceMonthly => '19 ريال سعودي / شهرياً';
+
+  @override
+  String get proPriceHint => 'أقل من وجبة واحدة';
+
+  @override
+  String get proSubscribeNow => 'اشترك الآن';
+
+  @override
+  String get proRestorePurchase => 'استعادة الاشتراك';
+
+  @override
+  String get proBadgeLabel => 'Pro';
+
+  @override
+  String get settingsTitle => 'الإعدادات';
+
+  @override
+  String get settingsAccountSection => 'الحساب';
+
+  @override
+  String get settingsProActive => 'Brain Clean Pro ✓';
+
+  @override
+  String get settingsUpgradeToPro => 'ترقية إلى Pro';
+
+  @override
+  String get settingsNotificationsSection => 'الإشعارات';
+
+  @override
+  String get settingsEmotionNotifications => 'تنبيهات الأحاسيس السلبية';
+
+  @override
+  String get settingsDailyFocusReminder => 'تذكير يومي بالتركيز';
+
+  @override
+  String get settingsDataSection => 'البيانات';
+
+  @override
+  String get settingsResetData => 'إعادة تعيين البيانات';
+
+  @override
+  String get settingsResetDataConfirmTitle => 'إعادة تعيين البيانات';
+
+  @override
+  String get settingsResetDataConfirmBody =>
+      'سيتم حذف جميع بياناتك المحلية. هل أنت متأكد؟';
+
+  @override
+  String get settingsExportData => 'تصدير بياناتي';
+
+  @override
+  String get settingsComingSoon => 'قريباً...';
+
+  @override
+  String get settingsAboutSection => 'حول التطبيق';
+
+  @override
+  String get settingsVersion => 'الإصدار';
+
+  @override
+  String get settingsPrivacyPolicy => 'سياسة الخصوصية';
+
+  @override
+  String get settingsContactUs => 'تواصل معنا';
+
+  @override
+  String get emotionWheelTitle => 'عجلة المشاعر';
+
+  @override
+  String get emotionImpactDialogTitle => 'تأثير هذا الشعور على تعافيك';
+
+  @override
+  String emotionImpactNegative(String emotion, String pct) {
+    return 'الشعور بـ $emotion سيقلل نسبة تعافيك بمقدار $pct%\nهل تريد تسجيله؟';
+  }
+
+  @override
+  String emotionImpactPositive(String emotion, String pct) {
+    return 'الشعور بـ $emotion سيحسّن نسبة تعافيك بمقدار $pct%\nهل تريد تسجيله؟';
+  }
+
+  @override
+  String get emotionIgnore => 'لا، تجاهل';
+
+  @override
+  String get emotionConfirmLog => 'نعم، سجّل';
+
+  @override
+  String get emotionGateNegative => 'أشعر بشيء سلبي';
+
+  @override
+  String get emotionGateNeutral => 'أشعر بشيء محايد';
+
+  @override
+  String get emotionGatePositive => 'أشعر بشيء إيجابي';
+
+  @override
+  String get silenceChallengeTitle => 'تحدي الصمت';
+
+  @override
+  String silenceChallengeSubtitle(int minutes) {
+    return 'لا تلمس الشاشة لمدة $minutes دقيقة';
+  }
+
+  @override
+  String silenceChallengeLevel(int level, int minutes) {
+    return 'المستوى $level — $minutes دقيقة مطلوبة';
+  }
+
+  @override
+  String get silenceChallengeFailedTitle => 'فشل التحدي';
+
+  @override
+  String get silenceChallengeFailedBody => 'لمست الشاشة أو خرجت من التطبيق.';
+
+  @override
+  String get silenceChallengeSuccessTitle => 'أحسنت! 🎉';
+
+  @override
+  String get silenceChallengeSuccessBody => 'اجتزت تحدي الصمت بنجاح.';
+
+  @override
+  String get singleTaskPauseTitle => 'إيقاف مؤقت';
+
+  @override
+  String get singleTaskPauseBody =>
+      'هل تريد إيقاف المهمة الحالية؟ لن تحصل على مكافأة.';
+
+  @override
+  String get singleTaskModeTitle => 'وضع المهمة الواحدة';
+
+  @override
+  String get singleTaskFocusRewardSnack => 'أحسنت! +10 نقاط تركيز';
+
+  @override
+  String get singleTaskHint => 'اكتب مهمتك الآن...';
+
+  @override
+  String get singleTaskStartFocus => 'ابدأ التركيز';
+
+  @override
+  String get singleTaskFocusing => 'جارٍ التركيز...';
+
+  @override
+  String get singleTaskCompleted => 'أنهيت المهمة ✓';
+
+  @override
+  String get singleTaskPauseButton => 'إيقاف مؤقت';
+
+  @override
+  String get delayedGratTitle => 'تأخير الإشباع';
+
+  @override
+  String get delayedGratSubtitle => 'اصمد 20 دقيقة قبل فتح السوشيال ميديا';
+
+  @override
+  String get delayedGratQuoteUnder5 => 'الصبر مفتاح الفرج';
+
+  @override
+  String get delayedGratQuoteUnder10 => 'دماغك يشكرك الآن';
+
+  @override
+  String get delayedGratQuoteUnder15 => 'أنت أقوى من خوارزمية';
+
+  @override
+  String get delayedGratQuoteDefault => 'لحظات وتنتهي، استمر';
+
+  @override
+  String get delayedGratGiveUpTitle => 'الاستسلام';
+
+  @override
+  String get delayedGratGiveUpBody =>
+      'هل تريد الاستسلام؟ لن تحصل على المكافأة.';
+
+  @override
+  String get delayedGratGiveUpButton => 'استسلام';
+
+  @override
+  String get delayedGratVictoryTitle => 'انتصرت على نفسك! 🏆';
+
+  @override
+  String get delayedGratVictoryBody => '+25 نقطة أضيفت لتركيزك.';
+
+  @override
+  String get chartSevenDayTitle => 'تقدمك خلال 7 أيام';
+
+  @override
+  String get chartDaySat => 'السبت';
+
+  @override
+  String get chartDaySun => 'الأحد';
+
+  @override
+  String get chartDayMon => 'الاثنين';
+
+  @override
+  String get chartDayTue => 'الثلاثاء';
+
+  @override
+  String get chartDayWed => 'الأربعاء';
+
+  @override
+  String get chartDayThu => 'الخميس';
+
+  @override
+  String get chartDayFri => 'الجمعة';
+
+  @override
+  String get proGatedChartTitle => 'مخطط التقدم 7 أيام';
+
+  @override
+  String get proGatedChartSubtitle => 'متاح في Brain Clean Pro';
+
+  @override
+  String get visualCognitiveBack => 'العودة';
+
+  @override
+  String visualCognitiveRound(int round) {
+    return 'الجولة $round / 5';
+  }
+
+  @override
+  String get visualCognitiveInstruction => 'اضغط على المربع مختلف اللون';
+
+  @override
+  String visualCognitiveScore(int score) {
+    return 'النقاط: $score';
+  }
+
+  @override
+  String get diagnosticCognitiveTestButton => 'اختبر تركيزك 🎯';
+
+  @override
+  String get homeQuickEmotion => 'كيف تشعر؟ 💭';
+
+  @override
+  String get homeQuickSilence => 'تحدي الصمت 🔇';
+
+  @override
+  String get homeQuickSingleTask => 'مهمة واحدة 🎯';
+
+  @override
+  String get homeQuickDelayedGrat => 'تأخير الإشباع ⏳';
+
+  @override
+  String get homeQuickCognitiveTest => 'اختبر تركيزك 🧪';
+
+  @override
+  String get homeAccountabilityBox => 'صندوق المساءلة';
+
+  @override
+  String get homeDistractionConfirmAction => 'تأكيد التشتت';
+
+  @override
+  String get splashSubtitle => 'أعد ضبط دماغك';
+
+  @override
+  String get profileDefaultName => 'مستخدم Brain Clean';
+
+  @override
+  String get profileProBadge => 'Pro ⭐';
+
+  @override
+  String get profileStatFocusDays => 'يوم تركيز';
+
+  @override
+  String get profileStatBcs => 'BCS';
+
+  @override
+  String get profileStatEmotions => 'إحساس';
+
+  @override
+  String get profileRecentEmotions => 'أحاسيسك الأخيرة';
+
+  @override
+  String get profileNoEmotionsYet => 'لم تسجل أي أحاسيس بعد';
+
+  @override
+  String get profileAchievements => 'إنجازاتك';
+
+  @override
+  String get profileBadgeStreak7 => '7 أيام متواصلة';
+
+  @override
+  String get profileBadgeCleanBrain => 'دماغ نظيف';
+
+  @override
+  String get profileBadgeSilenceHero => 'بطل الصمت';
+
+  @override
+  String get profileBadgeSingleTask => 'مهمة واحدة';
+
+  @override
+  String get profileBadgeEmotionAwake => 'صاحي المشاعر';
+
+  @override
+  String get profileBadgeProMember => 'Pro Member';
+
+  @override
+  String get accountabilityModalCatPhysical => 'اللياقة البدنية';
+
+  @override
+  String get accountabilityModalCatNutritional => 'التغذية الصحية';
+
+  @override
+  String get accountabilityModalCatAltruistic => 'العمل الخيري';
+
+  @override
+  String get accountabilityModalCatMental => 'التحدي الذهني';
+
+  @override
+  String get accountabilityModalPenPhysical1 => 'تمرين 30 دقيقة';
+
+  @override
+  String get accountabilityModalPenPhysical2 => 'تمارين قوة';
+
+  @override
+  String get accountabilityModalPenPhysical3 => 'مشي 5000 خطوة';
+
+  @override
+  String get accountabilityModalPenPhysical4 => 'تمدد صباحي';
+
+  @override
+  String get accountabilityModalPenPhysical5 => 'نشاط خارجي';
+
+  @override
+  String get accountabilityModalPenNutritional1 => 'تجنب السكر';
+
+  @override
+  String get accountabilityModalPenNutritional2 => 'وجبة متوازنة';
+
+  @override
+  String get accountabilityModalPenNutritional3 => 'شرب 2 لتر ماء';
+
+  @override
+  String get accountabilityModalPenNutritional4 => 'تقليل الكافيين';
+
+  @override
+  String get accountabilityModalPenNutritional5 => 'وجبة بروtein';
+
+  @override
+  String get accountabilityModalPenAltruistic1 => 'مساعدة جار';
+
+  @override
+  String get accountabilityModalPenAltruistic2 => 'تبرع صغير';
+
+  @override
+  String get accountabilityModalPenAltruistic3 => 'رسالة شكر';
+
+  @override
+  String get accountabilityModalPenAltruistic4 => 'خدمة مجتمعية';
+
+  @override
+  String get accountabilityModalPenAltruistic5 => 'دعم صديق';
+
+  @override
+  String get accountabilityModalPenMental1 => 'قراءة 20 دقيقة';
+
+  @override
+  String get accountabilityModalPenMental2 => 'حل لغز';
+
+  @override
+  String get accountabilityModalPenMental3 => 'تعلم كلمة جديدة';
+
+  @override
+  String get accountabilityModalPenMental4 => 'تأمل موجّه';
+
+  @override
+  String get accountabilityModalPenMental5 => 'كتابة يوميات';
+
+  @override
+  String get breathingInhaleSlow => 'استنشق ببطء...';
+
+  @override
+  String get breathingExhaleFull => 'أخرج الهواء...';
 }
