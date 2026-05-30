@@ -424,5 +424,167 @@
   "weeklyReportStreakDays": "أيام التركيز هذا الأسبوع",
   "weeklyReportAvgBcs": "متوسط BCS",
   "weeklyReportBestEmotion": "أبرز إحساس",
-  "weeklyReportChallenges": "التحديات المكتملة"
+  "weeklyReportChallenges": "التحديات المكتملة",
+  "pomodoroTitle": "بومودورو",
+  "pomodoroPhaseFocus": "وقت التركيز 🎯",
+  "pomodoroPhaseShortBreak": "استراحة قصيرة ☕",
+  "pomodoroPhaseLongBreak": "استراحة طويلة 🌿",
+  "pomodoroReset": "إعادة",
+  "pomodoroSkip": "تخطي",
+  "pomodoroSessionsToday": "جلسات اليوم: {count}",
+  "@pomodoroSessionsToday": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "homeQuickPomodoro": "بومودورو ⏱️",
+  "homeQuickGames": "ألعاب 🎮",
+  "taskCategoryMental": "🧠 ذهني",
+  "taskCategoryPhysical": "💪 بدني",
+  "taskCategoryCreative": "🎨 إبداعي",
+  "taskCategoryEducational": "📚 تعليمي",
+  "taskCategoryHousehold": "🏠 منزلي",
+  "singleTaskEstimatedBonus": "إنجاز هذه المهمة سيضيف +{points} نقطة",
+  "@singleTaskEstimatedBonus": {
+    "placeholders": {
+      "points": {"type": "String"}
+    }
+  },
+  "singleTaskFocusRewardSnackBonus": "أحسنت! +{points} نقاط تركيز",
+  "@singleTaskFocusRewardSnackBonus": {
+    "placeholders": {
+      "points": {"type": "String"}
+    }
+  },
+  "singleTaskAbandonSnack": "المهمة غير المكتملة تضعف التركيز قليلاً",
+  "gamesHubTitle": "ألعاب الذاكرة 🎮",
+  "gamePatternMatchTitle": "مطابقة الأنماط",
+  "gamePatternMatchDesc": "احفظ النمط وأعد رسمه من الذاكرة",
+  "gameNumberMemoryTitle": "ذاكرة الأرقام",
+  "gameNumberMemoryDesc": "تذكر تسلسل أرقام متزايد",
+  "gameColorWordTitle": "كلمة اللون",
+  "gameColorWordDesc": "اضغط لون الحبر وليس الكلمة",
+  "gamesBestScore": "أفضل نتيجة: {score}",
+  "@gamesBestScore": {
+    "placeholders": {
+      "score": {"type": "int"}
+    }
+  },
+  "gamesBestDigits": "أطول تسلسل: {digits}",
+  "@gamesBestDigits": {
+    "placeholders": {
+      "digits": {"type": "int"}
+    }
+  },
+  "gameRoundLabel": "الجولة {current} / {total}",
+  "@gameRoundLabel": {
+    "placeholders": {
+      "current": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "gameFinalScore": "النتيجة: {score}",
+  "@gameFinalScore": {
+    "placeholders": {
+      "score": {"type": "int"}
+    }
+  },
+  "gameSubmitRound": "تأكيد",
+  "gameEnterSequence": "أدخل التسلسل الذي رأيته",
+  "gameNumberMemoryResult": "أطول تسلسل: {digits} أرقام",
+  "@gameNumberMemoryResult": {
+    "placeholders": {
+      "digits": {"type": "int"}
+    }
+  },
+  "gameColorWordPrompt": "اضغط لون الحبر",
+  "focusedThinkingTitle": "تحدي التفكير المركّز",
+  "focusedThinkingSubtitle": "اختر موضوعاً واحداً فقط وفكر فيه بعمق",
+  "focusedThinkingDurationLabel": "المدة",
+  "focusedThinkingStart": "ابدأ التفكير",
+  "focusedThinkingGuideTitle": "دليل التفكير",
+  "focusedThinkingStillThinking": "هل لا تزال تفكر في {topic}؟",
+  "@focusedThinkingStillThinking": {
+    "placeholders": {
+      "topic": {"type": "String"}
+    }
+  },
+  "focusedThinkingYes": "نعم ✓",
+  "focusedThinkingNo": "شردت ✗",
+  "focusedThinkingFocusScore": "{percent}% من الوقت كنت مركزاً",
+  "@focusedThinkingFocusScore": {
+    "placeholders": {
+      "percent": {"type": "int"}
+    }
+  },
+  "focusedThinkingDistractions": "تشتت مسجّل: {count}",
+  "@focusedThinkingDistractions": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "focusedThinkingInsightsSaved": "أفكار محفوظة: {count}",
+  "@focusedThinkingInsightsSaved": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "focusedThinkingInsightsHint": "سجّل أبرز أفكارك",
+  "focusedThinkingSaveInsight": "حفظ الفكرة",
+  "homeQuickFocusedThinking": "تفكير عميق 🧠",
+  "homeQuickCrossword": "كلمات متقاطعة ✏️",
+  "crosswordTitle": "كلمات متقاطعة",
+  "crosswordDesc": "ألغاز عربية عن الدماغ والتركيز",
+  "crosswordPlayNow": "العب الآن",
+  "crosswordTabAcross": "أفقي ↔",
+  "crosswordTabDown": "عمودي ↕",
+  "crosswordEnterLetter": "أدخل الحرف",
+  "gameNBackTitle": "N-Back 🧠",
+  "gameNBackDesc": "الأقوى علمياً لتحسين الذاكرة العاملة",
+  "gameNBackIntro": "هذه اللعبة تُعدّ الأقوى علمياً لتحسين الذاكرة العاملة",
+  "gameNBackLevel": "N={n} — {current}/{total}",
+  "@gameNBackLevel": {
+    "placeholders": {
+      "n": {"type": "int"},
+      "current": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "gameNBackMatch": "تطابق!",
+  "gameNBackResult": "أعلى N: {n}",
+  "@gameNBackResult": {
+    "placeholders": {
+      "n": {"type": "int"}
+    }
+  },
+  "gameNBackBonus": "+{points} نقطة BCS",
+  "@gameNBackBonus": {
+    "placeholders": {
+      "points": {"type": "String"}
+    }
+  },
+  "gamesBestNLevel": "أفضل N: {n}",
+  "@gamesBestNLevel": {
+    "placeholders": {
+      "n": {"type": "int"}
+    }
+  },
+  "gameSpeedSortTitle": "الترتيب السريع",
+  "gameSpeedSortDesc": "صنّف الأرقام الساقطة زوجي/فردي",
+  "gameSpeedSortEven": "زوجي",
+  "gameSpeedSortOdd": "فردي",
+  "gameSpeedSortCorrect": "صحيح: {count}",
+  "@gameSpeedSortCorrect": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "gameSpeedSortResult": "انتهى! {correct} صحيح، {wrong} خطأ",
+  "@gameSpeedSortResult": {
+    "placeholders": {
+      "correct": {"type": "int"},
+      "wrong": {"type": "int"}
+    }
+  },
+  "gameStart": "ابدأ"
 }

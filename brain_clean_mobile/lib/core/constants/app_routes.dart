@@ -20,4 +20,8 @@ abstract final class AppRoutes {
   static const settings = '/settings';
   static const profile = '/profile';
   static const weeklyReport = '/weekly-report';
+  static const pomodoro = '/pomodoro';
+  static const games = '/games';
+  static const focusedThinking = '/focused-thinking';
+  static const crossword = '/crossword';
 }

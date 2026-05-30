@@ -33,6 +33,10 @@ const homeSingleTaskKey = Key('home_single_task_entry');
 const homeDelayedGratificationKey = Key('home_delayed_gratification_entry');
 const homeSilenceChallengeKey = Key('home_silence_challenge_entry');
 const homeCognitiveTestKey = Key('home_cognitive_test_entry');
+const homePomodoroKey = Key('home_pomodoro_entry');
+const homeGamesKey = Key('home_games_entry');
+const homeFocusedThinkingKey = Key('home_focused_thinking_entry');
+const homeCrosswordKey = Key('home_crossword_entry');
 const homeSettingsButtonKey = Key('home_settings_button');
 const homeProfileButtonKey = Key('home_profile_button');
 const homeQuickActionsKey = Key('home_quick_actions_row');
@@ -192,6 +196,50 @@ class _HomeBody extends ConsumerWidget {
                 iconColor: AppColors.primary,
                 label: loc.homeQuickSingleTask,
                 onTap: () => context.push(AppRoutes.singleTask),
+              ),
+              const SizedBox(width: 12),
+              _QuickActionCard(
+                key: homePomodoroKey,
+                icon: Icons.timer_outlined,
+                iconColor: AppColors.primary,
+                label: loc.homeQuickPomodoro,
+                onTap: () => context.push(AppRoutes.pomodoro),
+              ),
+              const SizedBox(width: 12),
+              _QuickActionCard(
+                key: homeFocusedThinkingKey,
+                icon: Icons.psychology,
+                iconColor: AppColors.primary,
+                label: loc.homeQuickFocusedThinking,
+                onTap: () => context.push(AppRoutes.focusedThinking),
+              ),
+              const SizedBox(width: 12),
+              _QuickActionCard(
+                key: homeCrosswordKey,
+                icon: Icons.grid_on_outlined,
+                iconColor: AppColors.info,
+                label: loc.homeQuickCrossword,
+                proGated: !isPro,
+                proBadge: loc.proBadgeLabel,
+                onTap: () => navigateWithProGate(
+                  context,
+                  ref,
+                  AppRoutes.crossword,
+                ),
+              ),
+              const SizedBox(width: 12),
+              _QuickActionCard(
+                key: homeGamesKey,
+                icon: Icons.videogame_asset_outlined,
+                iconColor: AppColors.info,
+                label: loc.homeQuickGames,
+                proGated: !isPro,
+                proBadge: loc.proBadgeLabel,
+                onTap: () => navigateWithProGate(
+                  context,
+                  ref,
+                  AppRoutes.games,
+                ),
               ),
               const SizedBox(width: 12),
               _QuickActionCard(

@@ -424,6 +424,168 @@
   "weeklyReportStreakDays": "Focus days this week",
   "weeklyReportAvgBcs": "Average BCS",
   "weeklyReportBestEmotion": "Top emotion",
-  "weeklyReportChallenges": "Challenges completed"
+  "weeklyReportChallenges": "Challenges completed",
+  "pomodoroTitle": "Pomodoro",
+  "pomodoroPhaseFocus": "Focus Time 🎯",
+  "pomodoroPhaseShortBreak": "Short Break ☕",
+  "pomodoroPhaseLongBreak": "Long Break 🌿",
+  "pomodoroReset": "Reset",
+  "pomodoroSkip": "Skip",
+  "pomodoroSessionsToday": "Today's sessions: {count}",
+  "@pomodoroSessionsToday": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "homeQuickPomodoro": "Pomodoro ⏱️",
+  "homeQuickGames": "Games 🎮",
+  "taskCategoryMental": "🧠 Mental",
+  "taskCategoryPhysical": "💪 Physical",
+  "taskCategoryCreative": "🎨 Creative",
+  "taskCategoryEducational": "📚 Educational",
+  "taskCategoryHousehold": "🏠 Household",
+  "singleTaskEstimatedBonus": "Completing this task adds +{points} points",
+  "@singleTaskEstimatedBonus": {
+    "placeholders": {
+      "points": {"type": "String"}
+    }
+  },
+  "singleTaskFocusRewardSnackBonus": "Great! +{points} focus points",
+  "@singleTaskFocusRewardSnackBonus": {
+    "placeholders": {
+      "points": {"type": "String"}
+    }
+  },
+  "singleTaskAbandonSnack": "Incomplete tasks slightly weaken focus",
+  "gamesHubTitle": "Brain Games 🎮",
+  "gamePatternMatchTitle": "Pattern Match",
+  "gamePatternMatchDesc": "Memorize and recreate the grid pattern",
+  "gameNumberMemoryTitle": "Number Memory",
+  "gameNumberMemoryDesc": "Remember growing digit sequences",
+  "gameColorWordTitle": "Color Word",
+  "gameColorWordDesc": "Tap the ink color, not the word",
+  "gamesBestScore": "Best score: {score}",
+  "@gamesBestScore": {
+    "placeholders": {
+      "score": {"type": "int"}
+    }
+  },
+  "gamesBestDigits": "Best digits: {digits}",
+  "@gamesBestDigits": {
+    "placeholders": {
+      "digits": {"type": "int"}
+    }
+  },
+  "gameRoundLabel": "Round {current} / {total}",
+  "@gameRoundLabel": {
+    "placeholders": {
+      "current": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "gameFinalScore": "Score: {score}",
+  "@gameFinalScore": {
+    "placeholders": {
+      "score": {"type": "int"}
+    }
+  },
+  "gameSubmitRound": "Submit",
+  "gameEnterSequence": "Enter the sequence you saw",
+  "gameNumberMemoryResult": "Max digits reached: {digits}",
+  "@gameNumberMemoryResult": {
+    "placeholders": {
+      "digits": {"type": "int"}
+    }
+  },
+  "gameColorWordPrompt": "Tap the color of the ink",
+  "focusedThinkingTitle": "Focused Thinking Challenge",
+  "focusedThinkingSubtitle": "Pick one topic and think about it deeply",
+  "focusedThinkingDurationLabel": "Duration",
+  "focusedThinkingStart": "Start thinking",
+  "focusedThinkingGuideTitle": "Thinking Guide",
+  "focusedThinkingStillThinking": "Still thinking about {topic}?",
+  "@focusedThinkingStillThinking": {
+    "placeholders": {
+      "topic": {"type": "String"}
+    }
+  },
+  "focusedThinkingYes": "Yes ✓",
+  "focusedThinkingNo": "Drifted ✗",
+  "focusedThinkingFocusScore": "{percent}% of the time you stayed focused",
+  "@focusedThinkingFocusScore": {
+    "placeholders": {
+      "percent": {"type": "int"}
+    }
+  },
+  "focusedThinkingDistractions": "Distractions logged: {count}",
+  "@focusedThinkingDistractions": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "focusedThinkingInsightsSaved": "Insights saved: {count}",
+  "@focusedThinkingInsightsSaved": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "focusedThinkingInsightsHint": "Note your key insights",
+  "focusedThinkingSaveInsight": "Save insight",
+  "homeQuickFocusedThinking": "Deep thinking 🧠",
+  "homeQuickCrossword": "Crossword ✏️",
+  "crosswordTitle": "Crossword",
+  "crosswordDesc": "Brain-themed Arabic crossword puzzles",
+  "crosswordPlayNow": "Play now",
+  "crosswordTabAcross": "Across ↔",
+  "crosswordTabDown": "Down ↕",
+  "crosswordEnterLetter": "Enter letter",
+  "gameNBackTitle": "N-Back 🧠",
+  "gameNBackDesc": "Strongest science-backed working memory training",
+  "gameNBackIntro": "This is scientifically the strongest game for working memory",
+  "gameNBackLevel": "N={n} — {current}/{total}",
+  "@gameNBackLevel": {
+    "placeholders": {
+      "n": {"type": "int"},
+      "current": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "gameNBackMatch": "Match!",
+  "gameNBackResult": "Max N reached: {n}",
+  "@gameNBackResult": {
+    "placeholders": {
+      "n": {"type": "int"}
+    }
+  },
+  "gameNBackBonus": "+{points} BCS earned",
+  "@gameNBackBonus": {
+    "placeholders": {
+      "points": {"type": "String"}
+    }
+  },
+  "gamesBestNLevel": "Best N: {n}",
+  "@gamesBestNLevel": {
+    "placeholders": {
+      "n": {"type": "int"}
+    }
+  },
+  "gameSpeedSortTitle": "Speed Sort",
+  "gameSpeedSortDesc": "Sort falling numbers into even/odd buckets",
+  "gameSpeedSortEven": "Even",
+  "gameSpeedSortOdd": "Odd",
+  "gameSpeedSortCorrect": "Correct: {count}",
+  "@gameSpeedSortCorrect": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "gameSpeedSortResult": "Done! {correct} correct, {wrong} wrong",
+  "@gameSpeedSortResult": {
+    "placeholders": {
+      "correct": {"type": "int"},
+      "wrong": {"type": "int"}
+    }
+  },
+  "gameStart": "Start"
 }
 

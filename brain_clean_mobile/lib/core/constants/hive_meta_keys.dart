@@ -16,4 +16,14 @@ abstract final class HiveMetaKeys {
   static const streakLastFreezeUsedDate = 'streakLastFreezeUsedDate';
   static const streakIsFrozen = 'streakIsFrozen';
   static const lastKnownBrainLevel = 'lastKnownBrainLevel';
+  static const pomodoroSessionsToday = 'pomodoroSessionsToday';
+  static const pomodoroSessionsDate = 'pomodoroSessionsDate';
+  static const singleTaskCategory = 'singleTaskCategory';
+  static const singleTaskDifficulty = 'singleTaskDifficulty';
+  static const gameBestPatternMatch = 'gameBestPatternMatch';
+  static const gameBestNumberMemory = 'gameBestNumberMemory';
+  static const gameBestColorWord = 'gameBestColorWord';
+  static const thinkingLog = 'thinking_log';
+  static const gameBestNBack = 'gameBestNBack';
+  static const gameBestSpeedSort = 'gameBestSpeedSort';
 }

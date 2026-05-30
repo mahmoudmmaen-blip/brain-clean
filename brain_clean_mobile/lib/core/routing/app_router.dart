@@ -15,8 +15,12 @@ import '../../features/emotions/presentation/emotion_wheel_screen.dart';
 import '../../features/focus/breathing_friction_screen.dart';
 import '../../features/focus/delayed_gratification_screen.dart';
 import '../../features/focus/silence_challenge_screen.dart';
+import '../../features/focus/focused_thinking_screen.dart';
 import '../../features/focus/single_task_screen.dart';
+import '../../features/games/crossword/crossword_screen.dart';
+import '../../features/games/games_hub_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
+import '../../features/pomodoro/pomodoro_screen.dart';
 import '../../features/onboarding/onboarding_screen.dart';
 import '../../features/pro/pro_paywall_screen.dart';
 import '../../features/recovery/presentation/recovery_grid_screen.dart';
@@ -143,6 +147,46 @@ class BreathingFrictionRoute {
   static String location(int currentBhi) => '/breathing-friction/$currentBhi';
 }
 
+/// Typed route for Pomodoro focus timer.
+class PomodoroRoute {
+  const PomodoroRoute();
+
+  static const name = 'pomodoro';
+  static const path = AppRoutes.pomodoro;
+
+  static String get location => AppRoutes.pomodoro;
+}
+
+/// Typed route for focused thinking challenge.
+class FocusedThinkingRoute {
+  const FocusedThinkingRoute();
+
+  static const name = 'focusedThinking';
+  static const path = AppRoutes.focusedThinking;
+
+  static String get location => AppRoutes.focusedThinking;
+}
+
+/// Typed route for Arabic crossword.
+class CrosswordRoute {
+  const CrosswordRoute();
+
+  static const name = 'crossword';
+  static const path = AppRoutes.crossword;
+
+  static String get location => AppRoutes.crossword;
+}
+
+/// Typed route for brain games hub.
+class GamesHubRoute {
+  const GamesHubRoute();
+
+  static const name = 'gamesHub';
+  static const path = AppRoutes.games;
+
+  static String get location => AppRoutes.games;
+}
+
 /// Typed route for weekly progress report.
 class WeeklyReportRoute {
   const WeeklyReportRoute();
@@ -265,6 +309,26 @@ GoRouter goRouter(GoRouterRef ref) {
         path: SingleTaskRoute.path,
         name: SingleTaskRoute.name,
         builder: (context, state) => const SingleTaskScreen(),
+      ),
+      GoRoute(
+        path: PomodoroRoute.path,
+        name: PomodoroRoute.name,
+        builder: (context, state) => const PomodoroScreen(),
+      ),
+      GoRoute(
+        path: GamesHubRoute.path,
+        name: GamesHubRoute.name,
+        builder: (context, state) => const GamesHubScreen(),
+      ),
+      GoRoute(
+        path: FocusedThinkingRoute.path,
+        name: FocusedThinkingRoute.name,
+        builder: (context, state) => const FocusedThinkingScreen(),
+      ),
+      GoRoute(
+        path: CrosswordRoute.path,
+        name: CrosswordRoute.name,
+        builder: (context, state) => const CrosswordScreen(),
       ),
       GoRoute(
         path: DelayedGratificationRoute.path,
