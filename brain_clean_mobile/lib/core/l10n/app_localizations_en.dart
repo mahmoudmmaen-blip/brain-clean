@@ -1051,4 +1051,247 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get weeklyReportChallenges => 'Challenges completed';
+
+  @override
+  String get pomodoroTitle => 'Pomodoro';
+
+  @override
+  String get pomodoroPhaseFocus => 'Focus Time 🎯';
+
+  @override
+  String get pomodoroPhaseShortBreak => 'Short Break ☕';
+
+  @override
+  String get pomodoroPhaseLongBreak => 'Long Break 🌿';
+
+  @override
+  String get pomodoroReset => 'Reset';
+
+  @override
+  String get pomodoroSkip => 'Skip';
+
+  @override
+  String pomodoroSessionsToday(int count) {
+    return 'Today\'s sessions: $count';
+  }
+
+  @override
+  String get homeQuickPomodoro => 'Pomodoro ⏱️';
+
+  @override
+  String get homeQuickGames => 'Games 🎮';
+
+  @override
+  String get taskCategoryMental => '🧠 Mental';
+
+  @override
+  String get taskCategoryPhysical => '💪 Physical';
+
+  @override
+  String get taskCategoryCreative => '🎨 Creative';
+
+  @override
+  String get taskCategoryEducational => '📚 Educational';
+
+  @override
+  String get taskCategoryHousehold => '🏠 Household';
+
+  @override
+  String singleTaskEstimatedBonus(String points) {
+    return 'Completing this task adds +$points points';
+  }
+
+  @override
+  String singleTaskFocusRewardSnackBonus(String points) {
+    return 'Great! +$points focus points';
+  }
+
+  @override
+  String get singleTaskAbandonSnack => 'Incomplete tasks slightly weaken focus';
+
+  @override
+  String get gamesHubTitle => 'Brain Games 🎮';
+
+  @override
+  String get gamePatternMatchTitle => 'Pattern Match';
+
+  @override
+  String get gamePatternMatchDesc => 'Memorize and recreate the grid pattern';
+
+  @override
+  String get gameNumberMemoryTitle => 'Number Memory';
+
+  @override
+  String get gameNumberMemoryDesc => 'Remember growing digit sequences';
+
+  @override
+  String get gameColorWordTitle => 'Color Word';
+
+  @override
+  String get gameColorWordDesc => 'Tap the ink color, not the word';
+
+  @override
+  String gamesBestScore(int score) {
+    return 'Best score: $score';
+  }
+
+  @override
+  String gamesBestDigits(int digits) {
+    return 'Best digits: $digits';
+  }
+
+  @override
+  String gameRoundLabel(int current, int total) {
+    return 'Round $current / $total';
+  }
+
+  @override
+  String gameFinalScore(int score) {
+    return 'Score: $score';
+  }
+
+  @override
+  String get gameSubmitRound => 'Submit';
+
+  @override
+  String get gameEnterSequence => 'Enter the sequence you saw';
+
+  @override
+  String gameNumberMemoryResult(int digits) {
+    return 'Max digits reached: $digits';
+  }
+
+  @override
+  String get gameColorWordPrompt => 'Tap the color of the ink';
+
+  @override
+  String get focusedThinkingTitle => 'Focused Thinking Challenge';
+
+  @override
+  String get focusedThinkingSubtitle =>
+      'Pick one topic and think about it deeply';
+
+  @override
+  String get focusedThinkingDurationLabel => 'Duration';
+
+  @override
+  String get focusedThinkingStart => 'Start thinking';
+
+  @override
+  String get focusedThinkingGuideTitle => 'Thinking Guide';
+
+  @override
+  String focusedThinkingStillThinking(String topic) {
+    return 'Still thinking about $topic?';
+  }
+
+  @override
+  String get focusedThinkingYes => 'Yes ✓';
+
+  @override
+  String get focusedThinkingNo => 'Drifted ✗';
+
+  @override
+  String focusedThinkingFocusScore(int percent) {
+    return '$percent% of the time you stayed focused';
+  }
+
+  @override
+  String focusedThinkingDistractions(int count) {
+    return 'Distractions logged: $count';
+  }
+
+  @override
+  String focusedThinkingInsightsSaved(int count) {
+    return 'Insights saved: $count';
+  }
+
+  @override
+  String get focusedThinkingInsightsHint => 'Note your key insights';
+
+  @override
+  String get focusedThinkingSaveInsight => 'Save insight';
+
+  @override
+  String get homeQuickFocusedThinking => 'Deep thinking 🧠';
+
+  @override
+  String get homeQuickCrossword => 'Crossword ✏️';
+
+  @override
+  String get crosswordTitle => 'Crossword';
+
+  @override
+  String get crosswordDesc => 'Brain-themed Arabic crossword puzzles';
+
+  @override
+  String get crosswordPlayNow => 'Play now';
+
+  @override
+  String get crosswordTabAcross => 'Across ↔';
+
+  @override
+  String get crosswordTabDown => 'Down ↕';
+
+  @override
+  String get crosswordEnterLetter => 'Enter letter';
+
+  @override
+  String get gameNBackTitle => 'N-Back 🧠';
+
+  @override
+  String get gameNBackDesc =>
+      'Strongest science-backed working memory training';
+
+  @override
+  String get gameNBackIntro =>
+      'This is scientifically the strongest game for working memory';
+
+  @override
+  String gameNBackLevel(int n, int current, int total) {
+    return 'N=$n — $current/$total';
+  }
+
+  @override
+  String get gameNBackMatch => 'Match!';
+
+  @override
+  String gameNBackResult(int n) {
+    return 'Max N reached: $n';
+  }
+
+  @override
+  String gameNBackBonus(String points) {
+    return '+$points BCS earned';
+  }
+
+  @override
+  String gamesBestNLevel(int n) {
+    return 'Best N: $n';
+  }
+
+  @override
+  String get gameSpeedSortTitle => 'Speed Sort';
+
+  @override
+  String get gameSpeedSortDesc => 'Sort falling numbers into even/odd buckets';
+
+  @override
+  String get gameSpeedSortEven => 'Even';
+
+  @override
+  String get gameSpeedSortOdd => 'Odd';
+
+  @override
+  String gameSpeedSortCorrect(int count) {
+    return 'Correct: $count';
+  }
+
+  @override
+  String gameSpeedSortResult(int correct, int wrong) {
+    return 'Done! $correct correct, $wrong wrong';
+  }
+
+  @override
+  String get gameStart => 'Start';
 }

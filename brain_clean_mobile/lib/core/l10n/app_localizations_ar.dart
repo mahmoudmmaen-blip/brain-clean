@@ -1038,4 +1038,246 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get weeklyReportChallenges => 'التحديات المكتملة';
+
+  @override
+  String get pomodoroTitle => 'بومودورو';
+
+  @override
+  String get pomodoroPhaseFocus => 'وقت التركيز 🎯';
+
+  @override
+  String get pomodoroPhaseShortBreak => 'استراحة قصيرة ☕';
+
+  @override
+  String get pomodoroPhaseLongBreak => 'استراحة طويلة 🌿';
+
+  @override
+  String get pomodoroReset => 'إعادة';
+
+  @override
+  String get pomodoroSkip => 'تخطي';
+
+  @override
+  String pomodoroSessionsToday(int count) {
+    return 'جلسات اليوم: $count';
+  }
+
+  @override
+  String get homeQuickPomodoro => 'بومودورو ⏱️';
+
+  @override
+  String get homeQuickGames => 'ألعاب 🎮';
+
+  @override
+  String get taskCategoryMental => '🧠 ذهني';
+
+  @override
+  String get taskCategoryPhysical => '💪 بدني';
+
+  @override
+  String get taskCategoryCreative => '🎨 إبداعي';
+
+  @override
+  String get taskCategoryEducational => '📚 تعليمي';
+
+  @override
+  String get taskCategoryHousehold => '🏠 منزلي';
+
+  @override
+  String singleTaskEstimatedBonus(String points) {
+    return 'إنجاز هذه المهمة سيضيف +$points نقطة';
+  }
+
+  @override
+  String singleTaskFocusRewardSnackBonus(String points) {
+    return 'أحسنت! +$points نقاط تركيز';
+  }
+
+  @override
+  String get singleTaskAbandonSnack =>
+      'المهمة غير المكتملة تضعف التركيز قليلاً';
+
+  @override
+  String get gamesHubTitle => 'ألعاب الذاكرة 🎮';
+
+  @override
+  String get gamePatternMatchTitle => 'مطابقة الأنماط';
+
+  @override
+  String get gamePatternMatchDesc => 'احفظ النمط وأعد رسمه من الذاكرة';
+
+  @override
+  String get gameNumberMemoryTitle => 'ذاكرة الأرقام';
+
+  @override
+  String get gameNumberMemoryDesc => 'تذكر تسلسل أرقام متزايد';
+
+  @override
+  String get gameColorWordTitle => 'كلمة اللون';
+
+  @override
+  String get gameColorWordDesc => 'اضغط لون الحبر وليس الكلمة';
+
+  @override
+  String gamesBestScore(int score) {
+    return 'أفضل نتيجة: $score';
+  }
+
+  @override
+  String gamesBestDigits(int digits) {
+    return 'أطول تسلسل: $digits';
+  }
+
+  @override
+  String gameRoundLabel(int current, int total) {
+    return 'الجولة $current / $total';
+  }
+
+  @override
+  String gameFinalScore(int score) {
+    return 'النتيجة: $score';
+  }
+
+  @override
+  String get gameSubmitRound => 'تأكيد';
+
+  @override
+  String get gameEnterSequence => 'أدخل التسلسل الذي رأيته';
+
+  @override
+  String gameNumberMemoryResult(int digits) {
+    return 'أطول تسلسل: $digits أرقام';
+  }
+
+  @override
+  String get gameColorWordPrompt => 'اضغط لون الحبر';
+
+  @override
+  String get focusedThinkingTitle => 'تحدي التفكير المركّز';
+
+  @override
+  String get focusedThinkingSubtitle => 'اختر موضوعاً واحداً فقط وفكر فيه بعمق';
+
+  @override
+  String get focusedThinkingDurationLabel => 'المدة';
+
+  @override
+  String get focusedThinkingStart => 'ابدأ التفكير';
+
+  @override
+  String get focusedThinkingGuideTitle => 'دليل التفكير';
+
+  @override
+  String focusedThinkingStillThinking(String topic) {
+    return 'هل لا تزال تفكر في $topic؟';
+  }
+
+  @override
+  String get focusedThinkingYes => 'نعم ✓';
+
+  @override
+  String get focusedThinkingNo => 'شردت ✗';
+
+  @override
+  String focusedThinkingFocusScore(int percent) {
+    return '$percent% من الوقت كنت مركزاً';
+  }
+
+  @override
+  String focusedThinkingDistractions(int count) {
+    return 'تشتت مسجّل: $count';
+  }
+
+  @override
+  String focusedThinkingInsightsSaved(int count) {
+    return 'أفكار محفوظة: $count';
+  }
+
+  @override
+  String get focusedThinkingInsightsHint => 'سجّل أبرز أفكارك';
+
+  @override
+  String get focusedThinkingSaveInsight => 'حفظ الفكرة';
+
+  @override
+  String get homeQuickFocusedThinking => 'تفكير عميق 🧠';
+
+  @override
+  String get homeQuickCrossword => 'كلمات متقاطعة ✏️';
+
+  @override
+  String get crosswordTitle => 'كلمات متقاطعة';
+
+  @override
+  String get crosswordDesc => 'ألغاز عربية عن الدماغ والتركيز';
+
+  @override
+  String get crosswordPlayNow => 'العب الآن';
+
+  @override
+  String get crosswordTabAcross => 'أفقي ↔';
+
+  @override
+  String get crosswordTabDown => 'عمودي ↕';
+
+  @override
+  String get crosswordEnterLetter => 'أدخل الحرف';
+
+  @override
+  String get gameNBackTitle => 'N-Back 🧠';
+
+  @override
+  String get gameNBackDesc => 'الأقوى علمياً لتحسين الذاكرة العاملة';
+
+  @override
+  String get gameNBackIntro =>
+      'هذه اللعبة تُعدّ الأقوى علمياً لتحسين الذاكرة العاملة';
+
+  @override
+  String gameNBackLevel(int n, int current, int total) {
+    return 'N=$n — $current/$total';
+  }
+
+  @override
+  String get gameNBackMatch => 'تطابق!';
+
+  @override
+  String gameNBackResult(int n) {
+    return 'أعلى N: $n';
+  }
+
+  @override
+  String gameNBackBonus(String points) {
+    return '+$points نقطة BCS';
+  }
+
+  @override
+  String gamesBestNLevel(int n) {
+    return 'أفضل N: $n';
+  }
+
+  @override
+  String get gameSpeedSortTitle => 'الترتيب السريع';
+
+  @override
+  String get gameSpeedSortDesc => 'صنّف الأرقام الساقطة زوجي/فردي';
+
+  @override
+  String get gameSpeedSortEven => 'زوجي';
+
+  @override
+  String get gameSpeedSortOdd => 'فردي';
+
+  @override
+  String gameSpeedSortCorrect(int count) {
+    return 'صحيح: $count';
+  }
+
+  @override
+  String gameSpeedSortResult(int correct, int wrong) {
+    return 'انتهى! $correct صحيح، $wrong خطأ';
+  }
+
+  @override
+  String get gameStart => 'ابدأ';
 }

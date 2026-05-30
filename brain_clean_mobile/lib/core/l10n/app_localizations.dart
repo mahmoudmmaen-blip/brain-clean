@@ -1999,6 +1999,414 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Challenges completed'**
   String get weeklyReportChallenges;
+
+  /// No description provided for @pomodoroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pomodoro'**
+  String get pomodoroTitle;
+
+  /// No description provided for @pomodoroPhaseFocus.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus Time 🎯'**
+  String get pomodoroPhaseFocus;
+
+  /// No description provided for @pomodoroPhaseShortBreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Short Break ☕'**
+  String get pomodoroPhaseShortBreak;
+
+  /// No description provided for @pomodoroPhaseLongBreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Long Break 🌿'**
+  String get pomodoroPhaseLongBreak;
+
+  /// No description provided for @pomodoroReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get pomodoroReset;
+
+  /// No description provided for @pomodoroSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get pomodoroSkip;
+
+  /// No description provided for @pomodoroSessionsToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s sessions: {count}'**
+  String pomodoroSessionsToday(int count);
+
+  /// No description provided for @homeQuickPomodoro.
+  ///
+  /// In en, this message translates to:
+  /// **'Pomodoro ⏱️'**
+  String get homeQuickPomodoro;
+
+  /// No description provided for @homeQuickGames.
+  ///
+  /// In en, this message translates to:
+  /// **'Games 🎮'**
+  String get homeQuickGames;
+
+  /// No description provided for @taskCategoryMental.
+  ///
+  /// In en, this message translates to:
+  /// **'🧠 Mental'**
+  String get taskCategoryMental;
+
+  /// No description provided for @taskCategoryPhysical.
+  ///
+  /// In en, this message translates to:
+  /// **'💪 Physical'**
+  String get taskCategoryPhysical;
+
+  /// No description provided for @taskCategoryCreative.
+  ///
+  /// In en, this message translates to:
+  /// **'🎨 Creative'**
+  String get taskCategoryCreative;
+
+  /// No description provided for @taskCategoryEducational.
+  ///
+  /// In en, this message translates to:
+  /// **'📚 Educational'**
+  String get taskCategoryEducational;
+
+  /// No description provided for @taskCategoryHousehold.
+  ///
+  /// In en, this message translates to:
+  /// **'🏠 Household'**
+  String get taskCategoryHousehold;
+
+  /// No description provided for @singleTaskEstimatedBonus.
+  ///
+  /// In en, this message translates to:
+  /// **'Completing this task adds +{points} points'**
+  String singleTaskEstimatedBonus(String points);
+
+  /// No description provided for @singleTaskFocusRewardSnackBonus.
+  ///
+  /// In en, this message translates to:
+  /// **'Great! +{points} focus points'**
+  String singleTaskFocusRewardSnackBonus(String points);
+
+  /// No description provided for @singleTaskAbandonSnack.
+  ///
+  /// In en, this message translates to:
+  /// **'Incomplete tasks slightly weaken focus'**
+  String get singleTaskAbandonSnack;
+
+  /// No description provided for @gamesHubTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Games 🎮'**
+  String get gamesHubTitle;
+
+  /// No description provided for @gamePatternMatchTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pattern Match'**
+  String get gamePatternMatchTitle;
+
+  /// No description provided for @gamePatternMatchDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Memorize and recreate the grid pattern'**
+  String get gamePatternMatchDesc;
+
+  /// No description provided for @gameNumberMemoryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Number Memory'**
+  String get gameNumberMemoryTitle;
+
+  /// No description provided for @gameNumberMemoryDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Remember growing digit sequences'**
+  String get gameNumberMemoryDesc;
+
+  /// No description provided for @gameColorWordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Color Word'**
+  String get gameColorWordTitle;
+
+  /// No description provided for @gameColorWordDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the ink color, not the word'**
+  String get gameColorWordDesc;
+
+  /// No description provided for @gamesBestScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Best score: {score}'**
+  String gamesBestScore(int score);
+
+  /// No description provided for @gamesBestDigits.
+  ///
+  /// In en, this message translates to:
+  /// **'Best digits: {digits}'**
+  String gamesBestDigits(int digits);
+
+  /// No description provided for @gameRoundLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Round {current} / {total}'**
+  String gameRoundLabel(int current, int total);
+
+  /// No description provided for @gameFinalScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Score: {score}'**
+  String gameFinalScore(int score);
+
+  /// No description provided for @gameSubmitRound.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit'**
+  String get gameSubmitRound;
+
+  /// No description provided for @gameEnterSequence.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the sequence you saw'**
+  String get gameEnterSequence;
+
+  /// No description provided for @gameNumberMemoryResult.
+  ///
+  /// In en, this message translates to:
+  /// **'Max digits reached: {digits}'**
+  String gameNumberMemoryResult(int digits);
+
+  /// No description provided for @gameColorWordPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the color of the ink'**
+  String get gameColorWordPrompt;
+
+  /// No description provided for @focusedThinkingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Focused Thinking Challenge'**
+  String get focusedThinkingTitle;
+
+  /// No description provided for @focusedThinkingSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick one topic and think about it deeply'**
+  String get focusedThinkingSubtitle;
+
+  /// No description provided for @focusedThinkingDurationLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Duration'**
+  String get focusedThinkingDurationLabel;
+
+  /// No description provided for @focusedThinkingStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start thinking'**
+  String get focusedThinkingStart;
+
+  /// No description provided for @focusedThinkingGuideTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Thinking Guide'**
+  String get focusedThinkingGuideTitle;
+
+  /// No description provided for @focusedThinkingStillThinking.
+  ///
+  /// In en, this message translates to:
+  /// **'Still thinking about {topic}?'**
+  String focusedThinkingStillThinking(String topic);
+
+  /// No description provided for @focusedThinkingYes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes ✓'**
+  String get focusedThinkingYes;
+
+  /// No description provided for @focusedThinkingNo.
+  ///
+  /// In en, this message translates to:
+  /// **'Drifted ✗'**
+  String get focusedThinkingNo;
+
+  /// No description provided for @focusedThinkingFocusScore.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% of the time you stayed focused'**
+  String focusedThinkingFocusScore(int percent);
+
+  /// No description provided for @focusedThinkingDistractions.
+  ///
+  /// In en, this message translates to:
+  /// **'Distractions logged: {count}'**
+  String focusedThinkingDistractions(int count);
+
+  /// No description provided for @focusedThinkingInsightsSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Insights saved: {count}'**
+  String focusedThinkingInsightsSaved(int count);
+
+  /// No description provided for @focusedThinkingInsightsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Note your key insights'**
+  String get focusedThinkingInsightsHint;
+
+  /// No description provided for @focusedThinkingSaveInsight.
+  ///
+  /// In en, this message translates to:
+  /// **'Save insight'**
+  String get focusedThinkingSaveInsight;
+
+  /// No description provided for @homeQuickFocusedThinking.
+  ///
+  /// In en, this message translates to:
+  /// **'Deep thinking 🧠'**
+  String get homeQuickFocusedThinking;
+
+  /// No description provided for @homeQuickCrossword.
+  ///
+  /// In en, this message translates to:
+  /// **'Crossword ✏️'**
+  String get homeQuickCrossword;
+
+  /// No description provided for @crosswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Crossword'**
+  String get crosswordTitle;
+
+  /// No description provided for @crosswordDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain-themed Arabic crossword puzzles'**
+  String get crosswordDesc;
+
+  /// No description provided for @crosswordPlayNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Play now'**
+  String get crosswordPlayNow;
+
+  /// No description provided for @crosswordTabAcross.
+  ///
+  /// In en, this message translates to:
+  /// **'Across ↔'**
+  String get crosswordTabAcross;
+
+  /// No description provided for @crosswordTabDown.
+  ///
+  /// In en, this message translates to:
+  /// **'Down ↕'**
+  String get crosswordTabDown;
+
+  /// No description provided for @crosswordEnterLetter.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter letter'**
+  String get crosswordEnterLetter;
+
+  /// No description provided for @gameNBackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'N-Back 🧠'**
+  String get gameNBackTitle;
+
+  /// No description provided for @gameNBackDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Strongest science-backed working memory training'**
+  String get gameNBackDesc;
+
+  /// No description provided for @gameNBackIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'This is scientifically the strongest game for working memory'**
+  String get gameNBackIntro;
+
+  /// No description provided for @gameNBackLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'N={n} — {current}/{total}'**
+  String gameNBackLevel(int n, int current, int total);
+
+  /// No description provided for @gameNBackMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Match!'**
+  String get gameNBackMatch;
+
+  /// No description provided for @gameNBackResult.
+  ///
+  /// In en, this message translates to:
+  /// **'Max N reached: {n}'**
+  String gameNBackResult(int n);
+
+  /// No description provided for @gameNBackBonus.
+  ///
+  /// In en, this message translates to:
+  /// **'+{points} BCS earned'**
+  String gameNBackBonus(String points);
+
+  /// No description provided for @gamesBestNLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Best N: {n}'**
+  String gamesBestNLevel(int n);
+
+  /// No description provided for @gameSpeedSortTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed Sort'**
+  String get gameSpeedSortTitle;
+
+  /// No description provided for @gameSpeedSortDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Sort falling numbers into even/odd buckets'**
+  String get gameSpeedSortDesc;
+
+  /// No description provided for @gameSpeedSortEven.
+  ///
+  /// In en, this message translates to:
+  /// **'Even'**
+  String get gameSpeedSortEven;
+
+  /// No description provided for @gameSpeedSortOdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Odd'**
+  String get gameSpeedSortOdd;
+
+  /// No description provided for @gameSpeedSortCorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct: {count}'**
+  String gameSpeedSortCorrect(int count);
+
+  /// No description provided for @gameSpeedSortResult.
+  ///
+  /// In en, this message translates to:
+  /// **'Done! {correct} correct, {wrong} wrong'**
+  String gameSpeedSortResult(int correct, int wrong);
+
+  /// No description provided for @gameStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get gameStart;
 }
 
 class _AppLocalizationsDelegate

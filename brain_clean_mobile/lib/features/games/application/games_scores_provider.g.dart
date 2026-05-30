@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'single_task_provider.dart';
+part of 'games_scores_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$singleTaskControllerHash() =>
-    r'542a9bec2c3ce646a59086b16bf44762a718deb1';
+String _$gamesBestScoresControllerHash() =>
+    r'cf9e58b21dc1a16c0319fbb66874140994213f28';
 
-/// See also [SingleTaskController].
-@ProviderFor(SingleTaskController)
-final singleTaskControllerProvider =
-    NotifierProvider<SingleTaskController, SingleTaskState>.internal(
-  SingleTaskController.new,
-  name: r'singleTaskControllerProvider',
+/// See also [GamesBestScoresController].
+@ProviderFor(GamesBestScoresController)
+final gamesBestScoresControllerProvider =
+    NotifierProvider<GamesBestScoresController, GamesBestScores>.internal(
+  GamesBestScoresController.new,
+  name: r'gamesBestScoresControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$singleTaskControllerHash,
+      : _$gamesBestScoresControllerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$SingleTaskController = Notifier<SingleTaskState>;
+typedef _$GamesBestScoresController = Notifier<GamesBestScores>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
