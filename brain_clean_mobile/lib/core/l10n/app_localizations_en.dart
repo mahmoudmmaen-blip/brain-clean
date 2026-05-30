@@ -1012,4 +1012,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get breathingExhaleFull => 'Exhale fully…';
+
+  @override
+  String get asyncErrorRetry => 'Something went wrong. Please try again.';
+
+  @override
+  String get chartEmptyState => 'No data yet — start your journey today';
+
+  @override
+  String get homeStreakMotivation => 'Start your first focus session now 🚀';
 }

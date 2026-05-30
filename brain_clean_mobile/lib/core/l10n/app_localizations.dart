@@ -1927,6 +1927,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Exhale fully…'**
   String get breathingExhaleFull;
+
+  /// No description provided for @asyncErrorRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Please try again.'**
+  String get asyncErrorRetry;
+
+  /// No description provided for @chartEmptyState.
+  ///
+  /// In en, this message translates to:
+  /// **'No data yet — start your journey today'**
+  String get chartEmptyState;
+
+  /// No description provided for @homeStreakMotivation.
+  ///
+  /// In en, this message translates to:
+  /// **'Start your first focus session now 🚀'**
+  String get homeStreakMotivation;
 }
 
 class _AppLocalizationsDelegate

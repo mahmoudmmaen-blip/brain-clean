@@ -999,4 +999,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get breathingExhaleFull => 'أخرج الهواء...';
+
+  @override
+  String get asyncErrorRetry => 'حدث خطأ، حاول مجدداً';
+
+  @override
+  String get chartEmptyState => 'لا توجد بيانات بعد، ابدأ رحلتك اليوم';
+
+  @override
+  String get homeStreakMotivation => 'ابدأ أول جلسة تركيز الآن 🚀';
 }

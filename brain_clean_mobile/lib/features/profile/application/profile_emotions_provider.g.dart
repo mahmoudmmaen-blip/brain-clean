@@ -1,27 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'single_task_provider.dart';
+part of 'profile_emotions_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$singleTaskControllerHash() =>
-    r'4884dcf17a5473945cd6d717f7af673e0e4ff404';
+String _$profileEmotionsHash() => r'297915761904fa45d9c9b8868886186135047792';
 
-/// See also [SingleTaskController].
-@ProviderFor(SingleTaskController)
-final singleTaskControllerProvider =
-    NotifierProvider<SingleTaskController, SingleTaskState>.internal(
-  SingleTaskController.new,
-  name: r'singleTaskControllerProvider',
+/// See also [profileEmotions].
+@ProviderFor(profileEmotions)
+final profileEmotionsProvider =
+    AutoDisposeFutureProvider<ProfileEmotionsData>.internal(
+  profileEmotions,
+  name: r'profileEmotionsProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$singleTaskControllerHash,
+      : _$profileEmotionsHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$SingleTaskController = Notifier<SingleTaskState>;
+typedef ProfileEmotionsRef = AutoDisposeFutureProviderRef<ProfileEmotionsData>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

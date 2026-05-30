@@ -25,7 +25,7 @@ final bcScoreLiveProvider = AutoDisposeProvider<DiagnosticModel>.internal(
 );
 
 typedef BcScoreLiveRef = AutoDisposeProviderRef<DiagnosticModel>;
-String _$bcScoreSessionHash() => r'6a1940afa03c7506dcb2f4bfb94631f1554f037e';
+String _$bcScoreSessionHash() => r'18c588e319d66b3b9489d9f9d9a7e4a9946693e7';
 
 /// Snapshot saved on diagnostic submit — shown on dashboard.
 ///
