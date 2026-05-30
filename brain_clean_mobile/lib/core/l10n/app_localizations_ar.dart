@@ -1008,4 +1008,34 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get homeStreakMotivation => 'ابدأ أول جلسة تركيز الآن 🚀';
+
+  @override
+  String get dailyQuoteSource => 'علم الأعصاب';
+
+  @override
+  String get streakFreezeConfirm =>
+      'هل تريد تجميد الـ Streak؟ متاح مرة أسبوعياً';
+
+  @override
+  String get shareProgressLabel => 'شارك تقدمك';
+
+  @override
+  String levelPointsToNext(int points) {
+    return '$points نقطة للمستوى التالي';
+  }
+
+  @override
+  String get weeklyReportTitle => 'تقرير الأسبوع';
+
+  @override
+  String get weeklyReportStreakDays => 'أيام التركيز هذا الأسبوع';
+
+  @override
+  String get weeklyReportAvgBcs => 'متوسط BCS';
+
+  @override
+  String get weeklyReportBestEmotion => 'أبرز إحساس';
+
+  @override
+  String get weeklyReportChallenges => 'التحديات المكتملة';
 }

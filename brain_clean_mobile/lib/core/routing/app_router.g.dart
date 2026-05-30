@@ -6,7 +6,7 @@ part of 'app_router.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$goRouterHash() => r'a7daefb47de48cb53603648df719cef7c6621d51';
+String _$goRouterHash() => r'5c8a5419e8c94f2e09391863b3b481316e7906ff';
 
 /// App shell — splash hydrates Hive, then routes to home or **live session** resume.
 ///

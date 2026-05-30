@@ -1945,6 +1945,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Start your first focus session now 🚀'**
   String get homeStreakMotivation;
+
+  /// No description provided for @dailyQuoteSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Neuroscience'**
+  String get dailyQuoteSource;
+
+  /// No description provided for @streakFreezeConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Use streak freeze? Available once per week'**
+  String get streakFreezeConfirm;
+
+  /// No description provided for @shareProgressLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Share Progress'**
+  String get shareProgressLabel;
+
+  /// No description provided for @levelPointsToNext.
+  ///
+  /// In en, this message translates to:
+  /// **'{points} points to next level'**
+  String levelPointsToNext(int points);
+
+  /// No description provided for @weeklyReportTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Report'**
+  String get weeklyReportTitle;
+
+  /// No description provided for @weeklyReportStreakDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus days this week'**
+  String get weeklyReportStreakDays;
+
+  /// No description provided for @weeklyReportAvgBcs.
+  ///
+  /// In en, this message translates to:
+  /// **'Average BCS'**
+  String get weeklyReportAvgBcs;
+
+  /// No description provided for @weeklyReportBestEmotion.
+  ///
+  /// In en, this message translates to:
+  /// **'Top emotion'**
+  String get weeklyReportBestEmotion;
+
+  /// No description provided for @weeklyReportChallenges.
+  ///
+  /// In en, this message translates to:
+  /// **'Challenges completed'**
+  String get weeklyReportChallenges;
 }
 
 class _AppLocalizationsDelegate

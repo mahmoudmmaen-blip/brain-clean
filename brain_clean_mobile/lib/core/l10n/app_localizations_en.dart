@@ -1021,4 +1021,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeStreakMotivation => 'Start your first focus session now 🚀';
+
+  @override
+  String get dailyQuoteSource => 'Neuroscience';
+
+  @override
+  String get streakFreezeConfirm =>
+      'Use streak freeze? Available once per week';
+
+  @override
+  String get shareProgressLabel => 'Share Progress';
+
+  @override
+  String levelPointsToNext(int points) {
+    return '$points points to next level';
+  }
+
+  @override
+  String get weeklyReportTitle => 'Weekly Report';
+
+  @override
+  String get weeklyReportStreakDays => 'Focus days this week';
+
+  @override
+  String get weeklyReportAvgBcs => 'Average BCS';
+
+  @override
+  String get weeklyReportBestEmotion => 'Top emotion';
+
+  @override
+  String get weeklyReportChallenges => 'Challenges completed';
 }
