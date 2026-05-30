@@ -407,6 +407,9 @@
   "accountabilityModalPenMental4": "Guided meditation",
   "accountabilityModalPenMental5": "Journal writing",
   "breathingInhaleSlow": "Inhale slowly…",
-  "breathingExhaleFull": "Exhale fully…"
+  "breathingExhaleFull": "Exhale fully…",
+  "asyncErrorRetry": "Something went wrong. Please try again.",
+  "chartEmptyState": "No data yet — start your journey today",
+  "homeStreakMotivation": "Start your first focus session now 🚀"
 }
 

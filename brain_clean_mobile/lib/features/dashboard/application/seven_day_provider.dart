@@ -6,11 +6,11 @@ import '../domain/daily_snapshot.dart';
 part 'seven_day_provider.g.dart';
 
 @riverpod
-List<DailySnapshot> sevenDaySnapshots(SevenDaySnapshotsRef ref) {
+Future<List<DailySnapshot>> sevenDaySnapshots(SevenDaySnapshotsRef ref) async {
   try {
     final stored = ref.watch(dailySnapshotsRepositoryProvider).loadAll();
     return padSevenDaySnapshots(stored);
-  } catch (_) {
-    return padSevenDaySnapshots(const []);
+  } catch (error, _) {
+    throw Exception(error);
   }
 }

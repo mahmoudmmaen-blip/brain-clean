@@ -22,7 +22,7 @@ import 'helpers/localized_test_app.dart';
 
 void main() {
   group('sevenDaySnapshotsProvider', () {
-    test('pads to 7 with leading zeros when Hive has 3 snapshots', () {
+    test('pads to 7 with leading zeros when Hive has 3 snapshots', () async {
       final box = InMemoryHiveBox();
       final now = DateTime(2026, 5, 20);
       box.put('a', DailySnapshot(date: now.subtract(const Duration(days: 2)), bcsValue: 60));
@@ -36,7 +36,7 @@ void main() {
       );
       addTearDown(container.dispose);
 
-      final result = container.read(sevenDaySnapshotsProvider);
+      final result = await container.read(sevenDaySnapshotsProvider.future);
       expect(result.length, 7);
       expect(result.take(4).every((s) => s.bcsValue == 0), isTrue);
       expect(result.last.bcsValue, 70);
@@ -132,7 +132,9 @@ void main() {
       ),
     );
     await tester.pump();
+    await tester.pumpAndSettle();
 
     expect(find.text('تقدمك خلال 7 أيام'), findsOneWidget);
+    expect(find.byKey(chartEmptyStateKey), findsOneWidget);
   });
 }

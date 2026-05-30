@@ -8,4 +8,7 @@ abstract final class HiveMetaKeys {
   static const profileDisplayName = 'profileDisplayName';
   static const silenceWinsCount = 'silenceWinsCount';
   static const singleTasksCompletedCount = 'singleTasksCompletedCount';
+  static const singleTaskActiveId = 'singleTaskActiveId';
+  static const singleTaskActiveLabel = 'singleTaskActiveLabel';
+  static const singleTaskIsLocked = 'singleTaskIsLocked';
 }

@@ -3,9 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/application/app_preferences_provider.dart';
 import '../../core/l10n/app_localizations.dart';
+import '../../core/presentation/async_state_views.dart';
+import '../../core/theme/app_colors.dart';
 import '../diagnostic/presentation/bc_score_provider.dart';
-import '../emotions/data/emotion_log_repository.dart';
 import '../home/presentation/home_streak_provider.dart';
+import 'application/profile_emotions_provider.dart';
 
 const profileStatsRowKey = Key('profile_stats_row');
 const profileBadgeStreak7Key = Key('profile_badge_streak_7');
@@ -21,12 +23,6 @@ class ProfileScreen extends ConsumerStatefulWidget {
 }
 
 class _ProfileScreenState extends ConsumerState<ProfileScreen> {
-  static const _bg = Color(0xFF0D1117);
-  static const _card = Color(0xFF161B22);
-  static const _text = Color(0xFFE6EDF3);
-  static const _muted = Color(0xFF8B949E);
-  static const _accent = Color(0xFF1D9E75);
-
   bool _editingName = false;
   late TextEditingController _nameController;
 
@@ -47,22 +43,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     return stored.isEmpty ? loc.profileDefaultName : stored;
   }
 
-  int _emotionCount() {
-    try {
-      return ref.read(emotionLogRepositoryProvider).count;
-    } catch (_) {
-      return 0;
-    }
-  }
-
-  List<dynamic> _recentEmotions() {
-    try {
-      return ref.read(emotionLogRepositoryProvider).recentEntries(limit: 5);
-    } catch (_) {
-      return const [];
-    }
-  }
-
   Future<void> _saveName() async {
     await ref
         .read(appPreferencesProvider.notifier)
@@ -75,9 +55,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     final loc = AppLocalizations.of(context)!;
     final prefs = ref.watch(appPreferencesProvider);
     final streakDays = ref.watch(homeStreakSnapshotProvider).days;
-    final bcScore = ref.watch(bcScoreSessionProvider)?.bcScore ?? 0;
-    final emotionCount = _emotionCount();
-    final recent = _recentEmotions();
+    final bcScore =
+        (ref.watch(bcScoreSessionProvider)?.bcScore ?? 0.0).clamp(0.0, 100.0);
+    final emotionsAsync = ref.watch(profileEmotionsProvider);
     final displayName = _displayName(loc, prefs);
 
     if (!_editingName && _nameController.text != displayName) {
@@ -85,11 +65,11 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     }
 
     return Scaffold(
-      backgroundColor: _bg,
+      backgroundColor: AppColors.background,
       appBar: AppBar(
-        backgroundColor: _bg,
-        title: Text(displayName, style: const TextStyle(color: _text)),
-        iconTheme: const IconThemeData(color: _muted),
+        backgroundColor: AppColors.background,
+        title: Text(displayName, style: const TextStyle(color: AppColors.textPrimary)),
+        iconTheme: const IconThemeData(color: AppColors.textSecondary),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
@@ -113,14 +93,17 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   label: loc.profileStatFocusDays,
                 ),
               ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: _StatCard(value: '$bcScore', label: loc.profileStatBcs),
-              ),
-              const SizedBox(width: 10),
+              const SizedBox(width: 12),
               Expanded(
                 child: _StatCard(
-                  value: '$emotionCount',
+                  value: '${bcScore.round()}',
+                  label: loc.profileStatBcs,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: _StatCard(
+                  value: '${emotionsAsync.maybeWhen(data: (d) => d.count, orElse: () => 0)}',
                   label: loc.profileStatEmotions,
                 ),
               ),
@@ -132,40 +115,51 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: _text,
+              color: AppColors.textPrimary,
             ),
           ),
           const SizedBox(height: 12),
-          if (recent.isEmpty)
-            Text(
-              loc.profileNoEmotionsYet,
-              key: profileEmptyEmotionsKey,
-              style: const TextStyle(color: _muted),
-            )
-          else
-            SizedBox(
+          emotionsAsync.when(
+            loading: () => const SizedBox(
               height: 40,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemCount: recent.length,
-                separatorBuilder: (_, __) => const SizedBox(width: 8),
-                itemBuilder: (_, i) {
-                  final entry = recent[i];
-                  return Chip(
-                    label: Text(entry.label),
-                    backgroundColor: _card,
-                    labelStyle: const TextStyle(color: _text),
-                  );
-                },
+              child: Center(
+                child: CircularProgressIndicator(color: AppColors.primary),
               ),
             ),
+            error: (_, __) => AsyncStateViews.error(context),
+            data: (emotions) {
+              if (emotions.recent.isEmpty) {
+                return Text(
+                  loc.profileNoEmotionsYet,
+                  key: profileEmptyEmotionsKey,
+                  style: const TextStyle(color: AppColors.textSecondary),
+                );
+              }
+              return SizedBox(
+                height: 40,
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: emotions.recent.length,
+                  separatorBuilder: (_, __) => const SizedBox(width: 8),
+                  itemBuilder: (_, i) {
+                    final entry = emotions.recent[i];
+                    return Chip(
+                      label: Text(entry.label),
+                      backgroundColor: AppColors.card,
+                      labelStyle: const TextStyle(color: AppColors.textPrimary),
+                    );
+                  },
+                ),
+              );
+            },
+          ),
           const SizedBox(height: 24),
           Text(
             loc.profileAchievements,
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: _text,
+              color: AppColors.textPrimary,
             ),
           ),
           const SizedBox(height: 12),
@@ -201,7 +195,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               _BadgeCard(
                 emoji: '💚',
                 label: loc.profileBadgeEmotionAwake,
-                unlocked: emotionCount >= 5,
+                unlocked: emotionsAsync.maybeWhen(
+                  data: (d) => d.count >= 5,
+                  orElse: () => false,
+                ),
               ),
               _BadgeCard(
                 emoji: '🌟',

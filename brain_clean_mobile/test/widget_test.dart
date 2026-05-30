@@ -17,6 +17,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:brain_clean_mobile/features/accountability/accountability_box_modal.dart';
+import 'package:brain_clean_mobile/features/recovery/data/recovery_protocol_hive_repository.dart';
+import 'package:brain_clean_mobile/features/recovery/data/recovery_protocol_storage_provider.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/bc_score_provider.dart';
 import 'package:brain_clean_mobile/features/focus/breathing_friction_screen.dart';
 import 'package:brain_clean_mobile/features/home/presentation/home_streak_provider.dart';
@@ -201,6 +203,9 @@ void main() {
         overrides: [
           appHydrationProvider.overrideWith(_InstantHydration.new),
           homeStreakTickerProvider.overrideWith((ref) => Stream<int>.value(0)),
+          recoveryProtocolStorageProvider.overrideWithValue(
+            RecoveryProtocolMemoryRepository(),
+          ),
           ...diagnosticWidgetTestOverrides(),
         ],
         child: const BrainCleanApp(),
@@ -208,7 +213,7 @@ void main() {
     );
     await tester.pump();
     await tester.pump(const Duration(seconds: 3));
-    await tester.pumpAndSettle();
+    await tester.pump();
 
     expect(find.text(en.homeTitle), findsOneWidget);
     expect(find.byType(HomeScreen), findsOneWidget);

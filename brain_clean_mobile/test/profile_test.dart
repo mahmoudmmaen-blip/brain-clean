@@ -2,6 +2,7 @@ import 'package:brain_clean_mobile/core/application/app_preferences_provider.dar
 import 'package:brain_clean_mobile/core/data/app_meta_box_provider.dart';
 import 'package:brain_clean_mobile/features/emotions/data/emotion_log_repository.dart';
 import 'package:brain_clean_mobile/features/home/presentation/home_streak_provider.dart';
+import 'package:brain_clean_mobile/features/profile/application/profile_emotions_provider.dart';
 import 'package:brain_clean_mobile/features/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -106,16 +107,17 @@ List<Override> _baseOverrides() {
     appMetaBoxProvider.overrideWithValue(InMemoryHiveBox()),
     emotionLogBoxProvider.overrideWithValue(InMemoryHiveBox()),
     homeStreakTickerProvider.overrideWith((ref) => Stream<int>.value(0)),
+    profileEmotionsProvider.overrideWith(
+      (ref) async => const ProfileEmotionsData(count: 0, recent: []),
+    ),
     ...diagnosticWidgetTestOverrides(),
   ];
 }
 
 Widget _profileTestApp({required List<Override> overrides}) {
-  return ProviderScope(
+  return createLocalizedProviderTestWidget(
+    const ProfileScreen(),
+    locale: const Locale('ar'),
     overrides: overrides,
-    child: createLocalizedProviderTestWidget(
-      const ProfileScreen(),
-      locale: const Locale('ar'),
-    ),
   );
 }

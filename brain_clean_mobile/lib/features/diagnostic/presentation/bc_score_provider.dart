@@ -50,11 +50,25 @@ class BcScoreSession extends _$BcScoreSession {
     final delta = current.bcScore * impactFraction.abs();
     if (impactFraction < 0) {
       applyPenalty(delta);
-      return;
+    } else {
+      final reducedPenalty =
+          (current.recoveryPenaltyDeduction - delta).clamp(0.0, double.infinity);
+      commit(current.withRecoveryPenaltyTotal(reducedPenalty));
     }
-    final reducedPenalty =
-        (current.recoveryPenaltyDeduction - delta).clamp(0.0, double.infinity);
-    commit(current.withRecoveryPenaltyTotal(reducedPenalty));
+    _ensureBcsInRange();
+  }
+
+  void _ensureBcsInRange() {
+    final current = state;
+    if (current == null) return;
+    final clamped = current.bcScore.clamp(0.0, 100.0);
+    if ((current.bcScore - clamped).abs() < 0.001) return;
+    final adjustment = current.bcScore - clamped;
+    commit(
+      current.withRecoveryPenaltyTotal(
+        current.recoveryPenaltyDeduction + adjustment,
+      ),
+    );
   }
 
   /// Grants a focus-challenge bonus (+[amount] BC_score).

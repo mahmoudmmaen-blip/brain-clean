@@ -3,15 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/l10n/app_localizations.dart';
+import '../../../core/presentation/async_state_views.dart';
+import '../../../core/theme/app_colors.dart';
 import '../application/seven_day_provider.dart';
+import '../domain/daily_snapshot.dart';
+
+const chartEmptyStateKey = Key('chart_empty_state');
 
 /// 7-day BCS line chart for the home dashboard.
 class SevenDayChartWidget extends ConsumerWidget {
   const SevenDayChartWidget({super.key});
-
-  static const _card = Color(0xFF161B22);
-  static const _line = Color(0xFF1D9E75);
-  static const _grid = Color(0xFF30363D);
 
   static List<String> _dayLabels(AppLocalizations loc) => [
         loc.chartDaySat,
@@ -23,27 +24,125 @@ class SevenDayChartWidget extends ConsumerWidget {
         loc.chartDayFri,
       ];
 
+  static bool _isEmptyChart(List<DailySnapshot> snapshots) =>
+      snapshots.every((s) => s.bcsValue == 0);
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = AppLocalizations.of(context)!;
-    final snapshots = ref.watch(sevenDaySnapshotsProvider);
-    final xLabels = _dayLabels(loc);
+    final snapshotsAsync = ref.watch(sevenDaySnapshotsProvider);
 
+    return snapshotsAsync.when(
+      loading: () => _CardShell(
+        title: loc.chartSevenDayTitle,
+        child: AsyncStateViews.loading(),
+      ),
+      error: (_, __) => _CardShell(
+        title: loc.chartSevenDayTitle,
+        child: AsyncStateViews.error(context),
+      ),
+      data: (snapshots) {
+        if (_isEmptyChart(snapshots)) {
+          return _CardShell(
+            title: loc.chartSevenDayTitle,
+            child: Column(
+              key: chartEmptyStateKey,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.show_chart,
+                  size: 48,
+                  color: AppColors.textSecondary,
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  loc.chartEmptyState,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: AppColors.textSecondary,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+
+        return RepaintBoundary(
+          child: _ChartBody(
+            snapshots: snapshots,
+            xLabels: _dayLabels(loc),
+            title: loc.chartSevenDayTitle,
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _CardShell extends StatelessWidget {
+  const _CardShell({required this.title, required this.child});
+
+  final String title;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: _card,
+        color: AppColors.card,
         borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.border),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            loc.chartSevenDayTitle,
-            style: TextStyle(
+            title,
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: Color(0xFFE6EDF3),
+              color: AppColors.textPrimary,
+            ),
+          ),
+          const SizedBox(height: 16),
+          SizedBox(height: 200, child: child),
+        ],
+      ),
+    );
+  }
+}
+
+class _ChartBody extends StatelessWidget {
+  const _ChartBody({
+    required this.snapshots,
+    required this.xLabels,
+    required this.title,
+  });
+
+  final List<DailySnapshot> snapshots;
+  final List<String> xLabels;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: AppColors.card,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.border),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: AppColors.textPrimary,
             ),
           ),
           const SizedBox(height: 16),
@@ -57,7 +156,7 @@ class SevenDayChartWidget extends ConsumerWidget {
                   show: true,
                   drawVerticalLine: false,
                   getDrawingHorizontalLine: (_) => FlLine(
-                    color: _grid,
+                    color: AppColors.border,
                     strokeWidth: 1,
                     dashArray: [4, 4],
                   ),
@@ -83,7 +182,7 @@ class SevenDayChartWidget extends ConsumerWidget {
                           return Text(
                             value.toInt().toString(),
                             style: const TextStyle(
-                              color: Color(0xFF8B949E),
+                              color: AppColors.textSecondary,
                               fontSize: 11,
                             ),
                           );
@@ -106,7 +205,7 @@ class SevenDayChartWidget extends ConsumerWidget {
                           child: Text(
                             xLabels[i],
                             style: const TextStyle(
-                              color: Color(0xFF8B949E),
+                              color: AppColors.textSecondary,
                               fontSize: 10,
                             ),
                           ),
@@ -138,7 +237,7 @@ class SevenDayChartWidget extends ConsumerWidget {
                         FlSpot(i.toDouble(), snapshots[i].bcsValue),
                     ],
                     isCurved: true,
-                    color: _line,
+                    color: AppColors.primary,
                     barWidth: 2.5,
                     dotData: const FlDotData(show: true),
                     belowBarData: BarAreaData(
@@ -147,8 +246,8 @@ class SevenDayChartWidget extends ConsumerWidget {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          _line.withValues(alpha: 0.2),
-                          _line.withValues(alpha: 0),
+                          AppColors.primary.withValues(alpha: 0.2),
+                          AppColors.primary.withValues(alpha: 0),
                         ],
                       ),
                     ),

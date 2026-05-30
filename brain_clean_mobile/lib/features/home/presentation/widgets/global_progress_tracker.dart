@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/l10n/app_localizations.dart';
+import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_design_constants.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/theme_extensions.dart';
 import '../../../diagnostic/domain/pillar_bound_evaluation.dart';
 import '../../../diagnostic/presentation/widgets/bc_score_colors.dart';
+
+const globalProgressTrackerKey = Key('global_progress_tracker');
 
 /// Premium dual-ring tracker: live BC_score + 30-day challenge completion.
 class GlobalProgressTracker extends StatefulWidget {
@@ -70,15 +73,17 @@ class _GlobalProgressTrackerState extends State<GlobalProgressTracker>
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final clampedBcs = widget.bcScore.clamp(0.0, 100.0);
     final scoreColor = widget.hasSession
-        ? BcScoreColors.forScore(widget.bcScore)
+        ? BcScoreColors.forScore(clampedBcs)
         : context.textMuted;
     final challengePct =
         (widget.challengeProgress.clamp(0, 1) * 100).round();
-    final targetProgress = clampBcsProgress(widget.bcScore);
-    final showGlow = widget.hasSession && widget.bcScore > 80;
+    final targetProgress = clampBcsProgress(clampedBcs);
+    final showGlow = widget.hasSession && clampedBcs > 80;
 
     return Card(
+      key: globalProgressTrackerKey,
       elevation: context.isLightTheme ? 2 : 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
@@ -135,7 +140,7 @@ class _GlobalProgressTrackerState extends State<GlobalProgressTracker>
                         children: [
                           Text(
                             widget.hasSession
-                                ? '${widget.bcScore.round()}%'
+                                ? '${clampedBcs.round()}%'
                                 : '—',
                             style: AppDesignConstants.cairo(
                               fontSize: 28,

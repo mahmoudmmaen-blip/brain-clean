@@ -407,5 +407,8 @@
   "accountabilityModalPenMental4": "تأمل موجّه",
   "accountabilityModalPenMental5": "كتابة يوميات",
   "breathingInhaleSlow": "استنشق ببطء...",
-  "breathingExhaleFull": "أخرج الهواء..."
+  "breathingExhaleFull": "أخرج الهواء...",
+  "asyncErrorRetry": "حدث خطأ، حاول مجدداً",
+  "chartEmptyState": "لا توجد بيانات بعد، ابدأ رحلتك اليوم",
+  "homeStreakMotivation": "ابدأ أول جلسة تركيز الآن 🚀"
 }

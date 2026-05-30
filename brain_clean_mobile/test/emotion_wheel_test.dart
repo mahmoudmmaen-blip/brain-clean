@@ -1,3 +1,4 @@
+import 'package:brain_clean_mobile/core/bootstrap/app_hydration_provider.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/bc_score_provider.dart';
 import 'package:brain_clean_mobile/features/emotions/application/emotion_notification_service.dart';
@@ -108,6 +109,9 @@ void main() {
   testWidgets('mood gate negative shows category chips', (tester) async {
     await tester.pumpWidget(
       ProviderScope(
+        overrides: [
+          appHydrationProvider.overrideWith(_InstantHydration.new),
+        ],
         child: createLocalizedTestWidget(
           const EmotionWheelScreen(),
           locale: const Locale('ar'),
@@ -128,4 +132,14 @@ void main() {
     expect(find.byKey(emotionCategoryChipKey(EmotionCategory.disgust)),
         findsOneWidget);
   });
+}
+
+class _InstantHydration extends AppHydration {
+  @override
+  Future<AppHydrationSnapshot> build() async {
+    return const AppHydrationSnapshot(
+      hasCommittedSession: false,
+      hasDraftProgress: false,
+    );
+  }
 }
