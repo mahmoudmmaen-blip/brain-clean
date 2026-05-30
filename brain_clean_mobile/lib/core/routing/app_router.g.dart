@@ -6,14 +6,9 @@ part of 'app_router.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$goRouterHash() => r'24a8a79dc9ac35f3fe81aeb0e8ff0351d6e42206';
+String _$goRouterHash() => r'6e48b2e69d5c18769647f5d4748550f9fd4f8611';
 
 /// App shell — splash hydrates Hive, then routes to home or **live session** resume.
-///
-/// Live session routing ([AppRoutes.diagnostic]): when Hive holds draft metrics or
-/// questionnaire state without a committed BC_score, [SplashScreen] opens
-/// [DiagnosticScreen], which reads [diagnosticLiveSessionProvider] (not a stale
-/// in-memory draft). Committed sessions land on [HomeScreen] / dashboard.
 ///
 /// Copied from [goRouter].
 @ProviderFor(goRouter)
