@@ -7,7 +7,8 @@ import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/theme_extensions.dart';
 import '../../diagnostic/presentation/bc_score_provider.dart';
 import '../../diagnostic/presentation/widgets/bc_score_breakdown.dart';
-import '../../dashboard/presentation/seven_day_chart_widget.dart';
+import '../../dashboard/presentation/pro_gated_seven_day_chart.dart';
+import '../../pro/pro_gate.dart';
 import '../../recovery/presentation/recovery_protocol_controller.dart';
 import '../../accountability/accountability_box_modal.dart';
 import 'widgets/distraction_safeguard_button.dart';
@@ -23,6 +24,8 @@ const homeAccountabilityButtonKey = Key('home_accountability_button');
 const homeEmotionWheelKey = Key('home_emotion_wheel_entry');
 const homeSingleTaskKey = Key('home_single_task_entry');
 const homeDelayedGratificationKey = Key('home_delayed_gratification_entry');
+const homeSilenceChallengeKey = Key('home_silence_challenge_entry');
+const homeSettingsButtonKey = Key('home_settings_button');
 
 /// Definitive app entry after splash hydration.
 class HomeScreen extends ConsumerWidget {
@@ -42,7 +45,16 @@ class HomeScreen extends ConsumerWidget {
     );
 
     return Scaffold(
-      appBar: AppBar(title: Text(loc.homeTitle)),
+      appBar: AppBar(
+        title: Text(loc.homeTitle),
+        actions: [
+          IconButton(
+            key: homeSettingsButtonKey,
+            icon: const Icon(Icons.settings_outlined),
+            onPressed: () => context.push(AppRoutes.settings),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(16),
@@ -53,7 +65,7 @@ class HomeScreen extends ConsumerWidget {
               hasSession: session != null,
             ),
             const SizedBox(height: 16),
-            const SevenDayChartWidget(),
+            const ProGatedSevenDayChart(),
             const SizedBox(height: 16),
             const HomeStreakTimerGrid(),
             const SizedBox(height: 12),
@@ -76,7 +88,11 @@ class HomeScreen extends ConsumerWidget {
                   Icons.chevron_left,
                   color: Color(0xFF8B949E),
                 ),
-                onTap: () => context.push(AppRoutes.emotionWheel),
+                onTap: () => navigateWithProGate(
+                  context,
+                  ref,
+                  AppRoutes.emotionWheel,
+                ),
               ),
             ),
             const SizedBox(height: 12),
@@ -129,6 +145,7 @@ class HomeScreen extends ConsumerWidget {
             Card(
               color: const Color(0xFF161B22),
               child: ListTile(
+                key: homeSilenceChallengeKey,
                 leading: const Icon(
                   Icons.volume_off_outlined,
                   color: Color(0xFF8B949E),
@@ -144,8 +161,10 @@ class HomeScreen extends ConsumerWidget {
                   Icons.chevron_left,
                   color: Color(0xFF8B949E),
                 ),
-                onTap: () => context.push(
-                  '/silence-challenge/$streakDays',
+                onTap: () => navigateSilenceWithProGate(
+                  context,
+                  ref,
+                  streakDays,
                 ),
               ),
             ),

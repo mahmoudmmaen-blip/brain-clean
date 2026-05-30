@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_routes.dart';
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/theme/app_design_constants.dart';
 import '../../../../core/theme/theme_extensions.dart';
+import '../../../pro/pro_gate.dart';
 import '../../domain/diagnostic_model.dart';
 import 'bhi_shimmer_cta_button.dart';
 import 'brain_rot_animated_score_ring.dart';
 import 'brain_rot_score_ring_colors.dart';
 
+const brainRotCognitiveTestKey = Key('brain_rot_cognitive_test_button');
+
 /// Brain Rot results — animated score ring, frosted severity card, shimmer CTA.
-class BrainRotScoreDashboard extends StatelessWidget {
+class BrainRotScoreDashboard extends ConsumerWidget {
   const BrainRotScoreDashboard({
     super.key,
     required this.interpretation,
@@ -24,7 +28,7 @@ class BrainRotScoreDashboard extends StatelessWidget {
   final VoidCallback? onReviewAnswers;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final loc = AppLocalizations.of(context)!;
     final isRtl = Directionality.of(context) == TextDirection.rtl;
     final ringColor = BrainRotScoreRingColors.forScore(interpretation.score);
@@ -109,7 +113,12 @@ class BrainRotScoreDashboard extends StatelessWidget {
         ),
         const SizedBox(height: 28),
         OutlinedButton.icon(
-          onPressed: () => context.push(AppRoutes.cognitiveTest),
+          key: brainRotCognitiveTestKey,
+          onPressed: () => navigateWithProGate(
+            context,
+            ref,
+            AppRoutes.cognitiveTest,
+          ),
           icon: const Icon(Icons.center_focus_strong_outlined),
           label: const Text('اختبر تركيزك 🎯'),
           style: OutlinedButton.styleFrom(

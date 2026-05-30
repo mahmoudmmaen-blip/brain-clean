@@ -6,6 +6,7 @@ import '../domain/emotion_log_entry.dart';
 import '../domain/emotion_model.dart';
 import 'emotion_notification_service.dart';
 import '../../../core/services/cloud_sync_service.dart';
+import '../../../core/application/app_preferences_provider.dart';
 
 part 'emotion_provider.g.dart';
 
@@ -113,9 +114,13 @@ class EmotionNotifier extends _$EmotionNotifier {
     final sessionAfter = ref.read(bcScoreSessionProvider);
     final newBcs = sessionAfter?.bcScoreRounded ?? previousBcs;
     if (sessionAfter != null && newBcs < previousBcs) {
-      await ref
-          .read(emotionNotificationServiceProvider)
-          .showRecoveryDecline(newBcsRounded: newBcs);
+      final notificationsOn =
+          ref.read(appPreferencesProvider).emotionNotificationsEnabled;
+      if (notificationsOn) {
+        await ref
+            .read(emotionNotificationServiceProvider)
+            .showRecoveryDecline(newBcsRounded: newBcs);
+      }
     }
 
     state = EmotionState.initial;

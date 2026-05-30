@@ -15,4 +15,7 @@ abstract final class AppRoutes {
   static const silenceChallenge = '/silence-challenge';
   static const singleTask = '/single-task';
   static const delayedGratification = '/delayed-gratification';
+  static const onboarding = '/onboarding';
+  static const proPaywall = '/pro-paywall';
+  static const settings = '/settings';
 }

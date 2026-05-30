@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../core/application/app_preferences_provider.dart';
 import '../../features/cognitive_tests/presentation/cognitive_hub_screen.dart';
 import '../../features/cognitive_tests/presentation/memory_mini_game_screen.dart';
 import '../../features/cognitive_tests/presentation/visual_cognitive_test_screen.dart';
@@ -16,12 +17,55 @@ import '../../features/focus/delayed_gratification_screen.dart';
 import '../../features/focus/silence_challenge_screen.dart';
 import '../../features/focus/single_task_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
+import '../../features/onboarding/onboarding_screen.dart';
+import '../../features/pro/pro_paywall_screen.dart';
 import '../../features/recovery/presentation/recovery_grid_screen.dart';
+import '../../features/settings/settings_screen.dart';
 import '../../features/splash/presentation/splash_screen.dart';
 import '../constants/app_routes.dart';
 import 'app_navigator_key.dart';
 
 part 'app_router.g.dart';
+
+/// Typed route for Brain Rot quiz (diagnostic questionnaire).
+class BrainRotQuizRoute {
+  const BrainRotQuizRoute();
+
+  static const name = 'brainRotQuiz';
+  static const path = AppRoutes.diagnostic;
+
+  static String get location => AppRoutes.diagnostic;
+}
+
+/// Typed route for onboarding.
+class OnboardingRoute {
+  const OnboardingRoute();
+
+  static const name = 'onboarding';
+  static const path = AppRoutes.onboarding;
+
+  static String get location => AppRoutes.onboarding;
+}
+
+/// Typed route for Pro paywall.
+class ProPaywallRoute {
+  const ProPaywallRoute();
+
+  static const name = 'proPaywall';
+  static const path = AppRoutes.proPaywall;
+
+  static String get location => AppRoutes.proPaywall;
+}
+
+/// Typed route for settings.
+class SettingsRoute {
+  const SettingsRoute();
+
+  static const name = 'settings';
+  static const path = AppRoutes.settings;
+
+  static String get location => AppRoutes.settings;
+}
 
 /// Typed route for the visual cognitive odd-one-out test.
 class VisualCognitiveTestRoute {
@@ -88,17 +132,22 @@ class BreathingFrictionRoute {
 }
 
 /// App shell — splash hydrates Hive, then routes to home or **live session** resume.
-///
-/// Live session routing ([AppRoutes.diagnostic]): when Hive holds draft metrics or
-/// questionnaire state without a committed BC_score, [SplashScreen] opens
-/// [DiagnosticScreen], which reads [diagnosticLiveSessionProvider] (not a stale
-/// in-memory draft). Committed sessions land on [HomeScreen] / dashboard.
 @riverpod
 GoRouter goRouter(GoRouterRef ref) {
+  final prefs = ref.watch(appPreferencesProvider);
+
   return GoRouter(
     navigatorKey: appNavigatorKey,
     initialLocation: AppRoutes.splash,
     debugLogDiagnostics: true,
+    redirect: (context, state) {
+      final location = state.uri.path;
+      if (location == AppRoutes.splash) return null;
+      if (!prefs.hasSeenOnboarding && location != AppRoutes.onboarding) {
+        return AppRoutes.onboarding;
+      }
+      return null;
+    },
     routes: [
       GoRoute(
         path: AppRoutes.splash,
@@ -106,11 +155,25 @@ GoRouter goRouter(GoRouterRef ref) {
         builder: (context, state) => const SplashScreen(),
       ),
       GoRoute(
+        path: AppRoutes.onboarding,
+        name: OnboardingRoute.name,
+        builder: (context, state) => const OnboardingScreen(),
+      ),
+      GoRoute(
         path: AppRoutes.home,
         name: 'home',
         builder: (context, state) => const HomeScreen(),
       ),
-      /// Live diagnostic session entry — questionnaire → results → BHI sliders.
+      GoRoute(
+        path: AppRoutes.proPaywall,
+        name: ProPaywallRoute.name,
+        builder: (context, state) => const ProPaywallScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.settings,
+        name: SettingsRoute.name,
+        builder: (context, state) => const SettingsScreen(),
+      ),
       GoRoute(
         path: AppRoutes.diagnostic,
         name: 'diagnostic',

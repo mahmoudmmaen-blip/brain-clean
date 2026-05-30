@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/bootstrap/app_hydration_provider.dart';
+import '../../../core/application/app_preferences_provider.dart';
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/app_theme.dart';
@@ -33,6 +34,12 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
       // Local Hive remains authoritative; route using defaults below.
     }
     if (!mounted) return;
+
+    final hasSeen = ref.read(hasSeenOnboardingProvider);
+    if (!hasSeen) {
+      context.go(AppRoutes.onboarding);
+      return;
+    }
 
     // Draft metrics/questionnaire without commit → resume live session flow.
     final resumeLiveSession =
