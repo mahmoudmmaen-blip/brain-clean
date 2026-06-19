@@ -1,0 +1,29 @@
+/// Keys stored in the [HiveBoxes.appMeta] box.
+abstract final class HiveMetaKeys {
+  static const lastResetDate = 'lastResetDate';
+  static const hasSeenOnboarding = 'hasSeenOnboarding';
+  static const isProUser = 'isProUser';
+  static const emotionNotificationsEnabled = 'emotionNotificationsEnabled';
+  static const dailyFocusReminderEnabled = 'dailyFocusReminderEnabled';
+  static const profileDisplayName = 'profileDisplayName';
+  static const silenceWinsCount = 'silenceWinsCount';
+  static const singleTasksCompletedCount = 'singleTasksCompletedCount';
+  static const singleTaskActiveId = 'singleTaskActiveId';
+  static const singleTaskActiveLabel = 'singleTaskActiveLabel';
+  static const singleTaskIsLocked = 'singleTaskIsLocked';
+  static const locale = 'locale';
+  static const streakFreezesAvailable = 'streakFreezesAvailable';
+  static const streakLastFreezeUsedDate = 'streakLastFreezeUsedDate';
+  static const streakIsFrozen = 'streakIsFrozen';
+  static const lastKnownBrainLevel = 'lastKnownBrainLevel';
+  static const pomodoroSessionsToday = 'pomodoroSessionsToday';
+  static const pomodoroSessionsDate = 'pomodoroSessionsDate';
+  static const singleTaskCategory = 'singleTaskCategory';
+  static const singleTaskDifficulty = 'singleTaskDifficulty';
+  static const gameBestPatternMatch = 'gameBestPatternMatch';
+  static const gameBestNumberMemory = 'gameBestNumberMemory';
+  static const gameBestColorWord = 'gameBestColorWord';
+  static const thinkingLog = 'thinking_log';
+  static const gameBestNBack = 'gameBestNBack';
+  static const gameBestSpeedSort = 'gameBestSpeedSort';
+}

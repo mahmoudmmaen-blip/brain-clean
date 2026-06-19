@@ -1,0 +1,590 @@
+{
+  "@@locale": "ar",
+  "dashboardTitle": "لوحة Brain Clean",
+  "dashboardEmptyDiagnosticPrompt": "أكمل التشخيص لعرض نقاط BC_score.",
+  "dashboardRetakeDiagnostic": "إعادة التشخيص",
+  "dashboardOpenDetoxCheckIn": "تسجيل بروتوكول الديتوكس (7 أيام)",
+  "dashboardOpenDetoxCheckInSubtitle": "سجّل عاداتك اليومية وارفع نقاطك المباشرة",
+  "dashboardCommittedAt": "تم التثبيت {date}",
+  "@dashboardCommittedAt": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "diagnosticTitle": "اختبار التشخيص (6 نقاط)",
+  "diagnosticLiveSubtitle": "مباشر · يتغير مع كل تعديل",
+  "diagnosticInstructions": "قيّم كل بُعد من 1 (منخفض) إلى 10 (مرتفع).",
+  "diagnosticStart": "ابدأ Brain Clean",
+  "diagnosticSleepQuality": "جودة النوم",
+  "diagnosticSustainedAttention": "الانتباه المستمر",
+  "diagnosticFragmentation": "التشتت",
+  "diagnosticDopamineSeeking": "البحث عن الدوبامين",
+  "diagnosticTaskSwitching": "التنقل بين المهام",
+  "diagnosticBurnout": "الإرهاق",
+  "bcScoreHeroLabel": "نقاط صفاء الدماغ",
+  "bcScoreBreakdownTitle": "تفصيل BHI · BC_score",
+  "bcScorePillarBrainPerformance": "أداء الدماغ",
+  "bcScorePillarDigitalDiscipline": "الانضباط الرقمي",
+  "bcScorePillarHealthyHabits": "العادات الصحية",
+  "bcScorePillarConsistency": "الاستمرارية",
+  "bcScoreLabel": "BC_score",
+  "accountabilityAdjustment": "بند المساءلة السريرية",
+  "bhiScoreLabel": "مؤشر BHI الأساسي",
+  "finalBcScoreLabel": "BC_score بعد المساءلة",
+  "accountabilityDeduction": "خصم مساءلة التعافي (−{deduction})",
+  "@accountabilityDeduction": {
+    "placeholders": {
+      "deduction": {
+        "type": "int"
+      }
+    }
+  },
+  "detoxTitle": "بروتوكول الدوبامين (7 أيام)",
+  "detoxSubtitle": "تسجيل يومي",
+  "detoxLiveBcScoreTitle": "النقاط المباشرة",
+  "detoxLiveBcScoreSubtitle": "تتغير فورًا عند تسجيل العادات",
+  "detoxBoredomTitle": "مُصاحبة الملل",
+  "detoxBoredomSubtitle": "جلست مع الملل بدون اللجوء للشاشة",
+  "detoxDelayedTitle": "تأخير المكافأة",
+  "detoxDelayedSubtitle": "الانتصارات اليوم (الحد الأقصى {max})",
+  "@detoxDelayedSubtitle": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "detoxBodyTitle": "تنشيط الجسد",
+  "detoxBodySubtitle": "شمس الصباح + دش بارد",
+  "detoxCount": "{count}",
+  "@detoxCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "detoxIncrement": "زيادة",
+  "detoxDecrement": "تقليل",
+  "detoxReset": "إعادة ضبط اليوم",
+  "detoxRetry": "إعادة المحاولة",
+  "detoxSyncing": "جارٍ المزامنة…",
+  "detoxSyncError": "تعذرت المزامنة. تم حفظ تسجيلك محليًا.",
+  "diagnosticBrainRotTitle": "اختبار تعفن الدماغ",
+  "diagnosticBhiTitle": "تقييم BHI (6 نقاط)",
+  "diagnosticYes": "نعم",
+  "diagnosticNo": "لا",
+  "diagnosticPreviousQuestion": "السؤال السابق",
+  "diagnosticBrainRotProgress": "السؤال {current} من {total}",
+  "@diagnosticBrainRotProgress": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "diagnosticBrainRotScoreTitle": "نتيجة تعفن الدماغ",
+  "diagnosticBrainRotScoreOutOf": "من {max}",
+  "@diagnosticBrainRotScoreOutOf": {
+    "placeholders": { "max": { "type": "int" } }
+  },
+  "diagnosticBrainRotBandRange": "نطاق الشدة: {min}–{max}",
+  "@diagnosticBrainRotBandRange": {
+    "placeholders": {
+      "min": { "type": "int" },
+      "max": { "type": "int" }
+    }
+  },
+  "diagnosticBrainRotInterpretationTitle": "التفسير السريري",
+  "diagnosticContinueToBhi": "متابعة تقييم BHI",
+  "diagnosticReviewAnswers": "مراجعة إجاباتي",
+  "diagnosticBrainRotIncomplete": "أكمل الأسئلة العشرة أولاً.",
+  "diagnosticBrainRotScoring": "جاري حساب نتيجة تعفن الدماغ…",
+  "diagnosticSyncError": "تعذر حفظ التشخيص. حاول مرة أخرى.",
+  "diagnosticBrainRotQ1": "أشعر أن ذاكرتي قصيرة المدى ضعفت (أنسى ما قيل لي مؤخراً).",
+  "diagnosticBrainRotQ2": "أواجه صعوبة في التركيز على مهمة واحدة لفترة كافية.",
+  "diagnosticBrainRotQ3": "يبدو لي أن تفكيري بطيء مقارنة بما كنت عليه من قبل.",
+  "diagnosticBrainRotQ4": "أصاب بحالة \"تشويش ذهني\" أو أجد صعوبة في تنظيم أفكاري.",
+  "diagnosticBrainRotQ5": "أشعر بتعب ذهني بعد فترات قصيرة من التفكير أو العمل الذهني.",
+  "diagnosticBrainRotQ6": "أجد صعوبة في العثور على الكلمات المناسبة عند التحدث أو الكتابة.",
+  "diagnosticBrainRotQ7": "أشعر بأنني \"مشتت\" أو أن أفكاري تقفز من فكرة لأخرى بسرعة.",
+  "diagnosticBrainRotQ8": "يصبح من الصعب علي اتخاذ قرارات بسيطة أو التخطيط لمهام.",
+  "diagnosticBrainRotQ9": "أجد نفسي أعمل ببطء أكثر من المعتاد، أو أحتاج إلى وقت أطول لإنجاز نفس المهام.",
+  "diagnosticBrainRotQ10": "هذه الأعراض تؤثر على حياتي اليومية (في العمل أو الدراسة أو العلاقات).",
+  "dashboardBrainRotSummary": "تعفن الدماغ: {score}/10",
+  "@dashboardBrainRotSummary": {
+    "placeholders": { "score": { "type": "int" } }
+  },
+  "dashboardOpenRecoveryGrid": "شبكة التعافي (30 يوماً)",
+  "dashboardOpenRecoveryGridSubtitle": "خمس عادات يومية · غرفة المسؤولية عند التقصير",
+  "splashTitle": "Brain Clean",
+  "splashHydrationRetry": "جارٍ استعادة تقدمك…",
+  "homeTitle": "الرئيسية — Brain Clean",
+  "homeEmptyDiagnosticPrompt": "أكمل التشخيص لتفعيل متتبع BC_score المباشر.",
+  "homeChallengeProgressTitle": "تحدي التعافي — 30 يوماً",
+  "homeChallengeProgressPercent": "{percent}% مكتمل",
+  "@homeChallengeProgressPercent": {
+    "placeholders": { "percent": { "type": "int" } }
+  },
+  "homeOpenDiagnostic": "التشخيص السريري",
+  "homeOpenDiagnosticSubtitle": "استبيان تعفن الدماغ + مقاييس BHI",
+  "homeOpenCognitiveHub": "التقييمات المعرفية",
+  "homeOpenCognitiveHubSubtitle": "اختبار بصري وألعاب ذاكرة قصيرة",
+  "homeOpenFullDashboard": "لوحة التحكم الكاملة",
+  "cognitiveHubTitle": "التقييمات المعرفية",
+  "cognitiveHubSubtitle": "وحدات تفاعلية تُحسّن عمود الأداء الدماغي في BHI.",
+  "cognitiveVisualTestTitle": "اختبار الإدراك البصري",
+  "cognitiveVisualTestSubtitle": "انتباه وتمييز أنماط (قريباً)",
+  "cognitiveMemoryGameTitle": "ألعاب الذاكرة",
+  "cognitiveMemoryGameSubtitle": "مهام تسلسل الذاكرة العاملة (قريباً)",
+  "cognitivePlaceholderBody": "هذه الوحدة مُهيّأة لمحرك تقييم BHI الموحّد. أكمل التشغيل التجريبي للتحقق من المسار.",
+  "cognitivePlaceholderComplete": "تسجيل نتيجة تجريبية",
+  "cognitivePlaceholderRecorded": "تم تسجيل نتيجة تجريبية: {score}%",
+  "@cognitivePlaceholderRecorded": {
+    "placeholders": { "score": { "type": "int" } }
+  },
+  "recoveryGridTitle": "التعافي — 30 يوماً",
+  "recoveryGridSubtitle": "اختر يوماً لتسجيل العادات الخمس الإلزامية.",
+  "recoveryDayTasksTitle": "عادات اليوم {day}",
+  "@recoveryDayTasksTitle": {
+    "placeholders": { "day": { "type": "int" } }
+  },
+  "recoveryProgressSummary": "{completed} من {total} يوماً مكتمل في البروتوكول",
+  "@recoveryProgressSummary": {
+    "placeholders": {
+      "completed": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "recoveryDayTasksProgress": "{done} من {total} عادات مسجّلة اليوم",
+  "@recoveryDayTasksProgress": {
+    "placeholders": {
+      "done": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "recoveryTaskSleepTitle": "نوم منظم",
+  "recoveryTaskSleepSubtitle": "نافذة نوم ثابتة وروتين استرخاء قبل النوم",
+  "recoveryTaskNutritionTitle": "تغذية مضادة للالتهاب",
+  "recoveryTaskNutritionSubtitle": "وجبات داعمة للدماغ دون محفزات التهاب",
+  "recoveryTaskMovementTitle": "20 دقيقة حركة",
+  "recoveryTaskMovementSubtitle": "مشي أو تمدد أو نشاط خفيف لمدة 20 دقيقة على الأقل",
+  "recoveryTaskDistractionTitle": "بروتوكول إدارة التشتت",
+  "recoveryTaskDistractionSubtitle": "إكمال روتين حماية التركيز اليومي",
+  "recoveryTaskMentalTitle": "دعم ذهني",
+  "recoveryTaskMentalSubtitle": "تدوين أو تنفس موجّه أو جلسة دعم للتعافي",
+  "recoveryDayComplete": "اكتملت العادات الخمس لهذا اليوم.",
+  "recoveryMissedHabitsTitle": "تسجيل غير مكتمل",
+  "recoveryMissedHabitsSubtitle": "فاتتك بعض العادات. افتح غرفة المسؤولية لتسجيل المساءلة.",
+  "recoveryOpenPenaltyBox": "غرفة المسؤولية",
+  "recoveryDayEmptyHint": "ضع علامة على كل عادة عند إنجازها اليوم.",
+  "recoveryPenaltyCount": "سجلات مساءلة: {count}",
+  "@recoveryPenaltyCount": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "recoveryPenaltyBoxTitle": "غرفة المسؤولية",
+  "recoveryPenaltyBoxMessage": "التأكيد يسجّل خصم −{deduction} نقطة BC_score لمساءلة العادات الفائتة اليوم.",
+  "@recoveryPenaltyBoxMessage": {
+    "placeholders": { "deduction": { "type": "int" } }
+  },
+  "recoveryPenaltyConfirm": "تأكيد المساءلة",
+  "recoveryPenaltyCancel": "إلغاء",
+  "recoveryPenaltyApplied": "تم تسجيل المساءلة لهذا اليوم.",
+  "recoveryStorageLoadError": "تعذّر تحميل تقدمك في التعافي من التخزين المحلي.",
+  "recoveryStorageSaveError": "تعذّر حفظ آخر تحديث. تغييراتك ما زالت على الشاشة — حاول مرة أخرى.",
+  "recoveryStorageReset": "بدء بروتوكول جديد",
+  "recoveryStorageMigratedNotice": "تم ترقية تقدمك المحفوظ إلى التنسيق الأحدث.",
+  "recoveryStorageRecoveredNotice": "تم إعادة ضبط البيانات المحلية لأنها لم تُقرأ بشكل صحيح. بدأ بروتوكول جديد.",
+  "homeStreakDays": "أيام",
+  "homeStreakHours": "ساعات",
+  "homeStreakMinutes": "دقائق",
+  "homeStreakSeconds": "ثوانٍ",
+  "homeDistractionButton": "تشتت مؤقت",
+  "homeDistractionConfirmTitle": "تأكيد التشتت",
+  "homeDistractionConfirmMessage": "هل أنت متأكد؟ سيتم خصم 12 ساعة من streak.",
+  "homeDistractionConfirm": "تأكيد",
+  "homeDistractionCancel": "إلغاء",
+  "homeOpenAccountability": "غرفة المساءلة الرقمية",
+  "accountabilityRoomTitle": "غرفة المساءلة الرقمية",
+  "accountabilityPenaltyRecorded": "تم تسجيل العقوبة ✓",
+  "accountabilityCatPhysical": "جسدية",
+  "accountabilityCatNutritional": "غذائية",
+  "accountabilityCatAltruistic": "إيثارية",
+  "accountabilityCatMental": "ذهنية",
+  "accountabilityPenPhysical1": "تخطي جلسة الحركة",
+  "accountabilityPenPhysical2": "إهمال نظافة النوم",
+  "accountabilityPenPhysical3": "عودة للخمول",
+  "accountabilityPenPhysical4": "تفويت مشي التعافي",
+  "accountabilityPenPhysical5": "تخطي تفعيل الجسم",
+  "accountabilityPenNutritional1": "وجبة ملتهبة",
+  "accountabilityPenNutritional2": "تخطي وجبة دعم الدماغ",
+  "accountabilityPenNutritional3": "إفراط في السكر",
+  "accountabilityPenNutritional4": "إهمال الترطيب",
+  "accountabilityPenNutritional5": "أكل متأخر ليلاً",
+  "accountabilityPenAltruistic1": "تفويت عمل لطيف",
+  "accountabilityPenAltruistic2": "انطواء اجتماعي",
+  "accountabilityPenAltruistic3": "تجاهل طلب دعم",
+  "accountabilityPenAltruistic4": "تركيز ذاتي مفرط",
+  "accountabilityPenAltruistic5": "تخطي متابعة المجتمع",
+  "accountabilityPenMental1": "تخطي تمارين التنفس",
+  "accountabilityPenMental2": "تجنب التدوين",
+  "accountabilityPenMental3": "حلقة أفكار سلبية",
+  "accountabilityPenMental4": "تفويت فحص ذهني",
+  "accountabilityPenMental5": "إدمان شاشة متصاعد",
+  "breathingInhale": "استنشق...",
+  "breathingHold": "احتبس...",
+  "breathingExhale": "أخرج...",
+  "breathingCountdownSeconds": "متبقي {seconds} ثانية",
+  "@breathingCountdownSeconds": {
+    "placeholders": { "seconds": { "type": "int" } }
+  },
+  "commonCancel": "إلغاء",
+  "commonConfirm": "تأكيد",
+  "commonOk": "حسناً",
+  "commonGreat": "رائع",
+  "commonBack": "رجوع",
+  "onboardingSkip": "تخطي",
+  "onboardingPage1Title": "مرحباً بك في Brain Clean",
+  "onboardingPage1Body": "استعد وعيك الرقمي في 21 يوماً",
+  "onboardingPage2Title": "تتبع تركيزك يومياً",
+  "onboardingPage2Body": "معادلات علمية حقيقية لقياس صحة دماغك",
+  "onboardingPage3Title": "ابدأ رحلتك الآن",
+  "onboardingPage3Body": "أجب على 10 أسئلة لتحديد مستوى تعفن دماغك",
+  "onboardingStartQuiz": "ابدأ التقييم",
+  "proPaywallTitle": "Brain Clean Pro",
+  "proPaywallSubtitle": "افتح كامل قدرات عقلك",
+  "proFeatureAdvancedBcs": "محرك Brain Clarity Score المتقدم",
+  "proFeatureSevenDayChart": "مخطط التقدم 7 أيام",
+  "proFeatureEmotionWheel": "دائرة الأحاسيس والتأثير على التعافي",
+  "proFeatureFocusChallenges": "تحديات التركيز المتقدمة",
+  "proFeatureCloudSync": "مزامنة سحابية آمنة",
+  "proWelcomeSnack": "مرحباً بك في Pro! 🎉",
+  "proPriceMonthly": "19 ريال سعودي / شهرياً",
+  "proPriceHint": "أقل من وجبة واحدة",
+  "proSubscribeNow": "اشترك الآن",
+  "proRestorePurchase": "استعادة الاشتراك",
+  "proBadgeLabel": "Pro",
+  "settingsTitle": "الإعدادات",
+  "settingsAccountSection": "الحساب",
+  "settingsProActive": "Brain Clean Pro ✓",
+  "settingsUpgradeToPro": "ترقية إلى Pro",
+  "settingsNotificationsSection": "الإشعارات",
+  "settingsEmotionNotifications": "تنبيهات الأحاسيس السلبية",
+  "settingsDailyFocusReminder": "تذكير يومي بالتركيز",
+  "settingsDataSection": "البيانات",
+  "settingsResetData": "إعادة تعيين البيانات",
+  "settingsResetDataConfirmTitle": "إعادة تعيين البيانات",
+  "settingsResetDataConfirmBody": "سيتم حذف جميع بياناتك المحلية. هل أنت متأكد؟",
+  "settingsExportData": "تصدير بياناتي",
+  "settingsComingSoon": "قريباً...",
+  "settingsAboutSection": "حول التطبيق",
+  "settingsVersion": "الإصدار",
+  "settingsPrivacyPolicy": "سياسة الخصوصية",
+  "settingsContactUs": "تواصل معنا",
+  "emotionWheelTitle": "عجلة المشاعر",
+  "emotionImpactDialogTitle": "تأثير هذا الشعور على تعافيك",
+  "emotionImpactNegative": "الشعور بـ {emotion} سيقلل نسبة تعافيك بمقدار {pct}%\nهل تريد تسجيله؟",
+  "@emotionImpactNegative": {
+    "placeholders": {
+      "emotion": { "type": "String" },
+      "pct": { "type": "String" }
+    }
+  },
+  "emotionImpactPositive": "الشعور بـ {emotion} سيحسّن نسبة تعافيك بمقدار {pct}%\nهل تريد تسجيله؟",
+  "@emotionImpactPositive": {
+    "placeholders": {
+      "emotion": { "type": "String" },
+      "pct": { "type": "String" }
+    }
+  },
+  "emotionIgnore": "لا، تجاهل",
+  "emotionConfirmLog": "نعم، سجّل",
+  "emotionGateNegative": "أشعر بشيء سلبي",
+  "emotionGateNeutral": "أشعر بشيء محايد",
+  "emotionGatePositive": "أشعر بشيء إيجابي",
+  "silenceChallengeTitle": "تحدي الصمت",
+  "silenceChallengeSubtitle": "لا تلمس الشاشة لمدة {minutes} دقيقة",
+  "@silenceChallengeSubtitle": {
+    "placeholders": { "minutes": { "type": "int" } }
+  },
+  "silenceChallengeLevel": "المستوى {level} — {minutes} دقيقة مطلوبة",
+  "@silenceChallengeLevel": {
+    "placeholders": {
+      "level": { "type": "int" },
+      "minutes": { "type": "int" }
+    }
+  },
+  "silenceChallengeFailedTitle": "فشل التحدي",
+  "silenceChallengeFailedBody": "لمست الشاشة أو خرجت من التطبيق.",
+  "silenceChallengeSuccessTitle": "أحسنت! 🎉",
+  "silenceChallengeSuccessBody": "اجتزت تحدي الصمت بنجاح.",
+  "singleTaskPauseTitle": "إيقاف مؤقت",
+  "singleTaskPauseBody": "هل تريد إيقاف المهمة الحالية؟ لن تحصل على مكافأة.",
+  "singleTaskModeTitle": "وضع المهمة الواحدة",
+  "singleTaskFocusRewardSnack": "أحسنت! +10 نقاط تركيز",
+  "singleTaskHint": "اكتب مهمتك الآن...",
+  "singleTaskStartFocus": "ابدأ التركيز",
+  "singleTaskFocusing": "جارٍ التركيز...",
+  "singleTaskCompleted": "أنهيت المهمة ✓",
+  "singleTaskPauseButton": "إيقاف مؤقت",
+  "delayedGratTitle": "تأخير الإشباع",
+  "delayedGratSubtitle": "اصمد 20 دقيقة قبل فتح السوشيال ميديا",
+  "delayedGratQuoteUnder5": "الصبر مفتاح الفرج",
+  "delayedGratQuoteUnder10": "دماغك يشكرك الآن",
+  "delayedGratQuoteUnder15": "أنت أقوى من خوارزمية",
+  "delayedGratQuoteDefault": "لحظات وتنتهي، استمر",
+  "delayedGratGiveUpTitle": "الاستسلام",
+  "delayedGratGiveUpBody": "هل تريد الاستسلام؟ لن تحصل على المكافأة.",
+  "delayedGratGiveUpButton": "استسلام",
+  "delayedGratVictoryTitle": "انتصرت على نفسك! 🏆",
+  "delayedGratVictoryBody": "+25 نقطة أضيفت لتركيزك.",
+  "chartSevenDayTitle": "تقدمك خلال 7 أيام",
+  "chartDaySat": "السبت",
+  "chartDaySun": "الأحد",
+  "chartDayMon": "الاثنين",
+  "chartDayTue": "الثلاثاء",
+  "chartDayWed": "الأربعاء",
+  "chartDayThu": "الخميس",
+  "chartDayFri": "الجمعة",
+  "proGatedChartTitle": "مخطط التقدم 7 أيام",
+  "proGatedChartSubtitle": "متاح في Brain Clean Pro",
+  "visualCognitiveBack": "العودة",
+  "visualCognitiveRound": "الجولة {round} / 5",
+  "@visualCognitiveRound": {
+    "placeholders": { "round": { "type": "int" } }
+  },
+  "visualCognitiveInstruction": "اضغط على المربع مختلف اللون",
+  "visualCognitiveScore": "النقاط: {score}",
+  "@visualCognitiveScore": {
+    "placeholders": { "score": { "type": "int" } }
+  },
+  "diagnosticCognitiveTestButton": "اختبر تركيزك 🎯",
+  "homeQuickEmotion": "كيف تشعر؟ 💭",
+  "homeQuickSilence": "تحدي الصمت 🔇",
+  "homeQuickSingleTask": "مهمة واحدة 🎯",
+  "homeQuickDelayedGrat": "تأخير الإشباع ⏳",
+  "homeQuickCognitiveTest": "اختبر تركيزك 🧪",
+  "homeAccountabilityBox": "صندوق المساءلة",
+  "homeDistractionConfirmAction": "تأكيد التشتت",
+  "splashSubtitle": "أعد ضبط دماغك",
+  "profileDefaultName": "مستخدم Brain Clean",
+  "profileProBadge": "Pro ⭐",
+  "profileStatFocusDays": "يوم تركيز",
+  "profileStatBcs": "BCS",
+  "profileStatEmotions": "إحساس",
+  "profileRecentEmotions": "أحاسيسك الأخيرة",
+  "profileNoEmotionsYet": "لم تسجل أي أحاسيس بعد",
+  "profileAchievements": "إنجازاتك",
+  "profileBadgeStreak7": "7 أيام متواصلة",
+  "profileBadgeCleanBrain": "دماغ نظيف",
+  "profileBadgeSilenceHero": "بطل الصمت",
+  "profileBadgeSingleTask": "مهمة واحدة",
+  "profileBadgeEmotionAwake": "صاحي المشاعر",
+  "profileBadgeProMember": "Pro Member",
+  "accountabilityModalCatPhysical": "اللياقة البدنية",
+  "accountabilityModalCatNutritional": "التغذية الصحية",
+  "accountabilityModalCatAltruistic": "العمل الخيري",
+  "accountabilityModalCatMental": "التحدي الذهني",
+  "accountabilityModalPenPhysical1": "تمرين 30 دقيقة",
+  "accountabilityModalPenPhysical2": "تمارين قوة",
+  "accountabilityModalPenPhysical3": "مشي 5000 خطوة",
+  "accountabilityModalPenPhysical4": "تمدد صباحي",
+  "accountabilityModalPenPhysical5": "نشاط خارجي",
+  "accountabilityModalPenNutritional1": "تجنب السكر",
+  "accountabilityModalPenNutritional2": "وجبة متوازنة",
+  "accountabilityModalPenNutritional3": "شرب 2 لتر ماء",
+  "accountabilityModalPenNutritional4": "تقليل الكافيين",
+  "accountabilityModalPenNutritional5": "وجبة بروtein",
+  "accountabilityModalPenAltruistic1": "مساعدة جار",
+  "accountabilityModalPenAltruistic2": "تبرع صغير",
+  "accountabilityModalPenAltruistic3": "رسالة شكر",
+  "accountabilityModalPenAltruistic4": "خدمة مجتمعية",
+  "accountabilityModalPenAltruistic5": "دعم صديق",
+  "accountabilityModalPenMental1": "قراءة 20 دقيقة",
+  "accountabilityModalPenMental2": "حل لغز",
+  "accountabilityModalPenMental3": "تعلم كلمة جديدة",
+  "accountabilityModalPenMental4": "تأمل موجّه",
+  "accountabilityModalPenMental5": "كتابة يوميات",
+  "breathingInhaleSlow": "استنشق ببطء...",
+  "breathingExhaleFull": "أخرج الهواء...",
+  "asyncErrorRetry": "حدث خطأ، حاول مجدداً",
+  "chartEmptyState": "لا توجد بيانات بعد، ابدأ رحلتك اليوم",
+  "homeStreakMotivation": "ابدأ أول جلسة تركيز الآن 🚀",
+  "dailyQuoteSource": "علم الأعصاب",
+  "streakFreezeConfirm": "هل تريد تجميد الـ Streak؟ متاح مرة أسبوعياً",
+  "shareProgressLabel": "شارك تقدمك",
+  "levelPointsToNext": "{points} نقطة للمستوى التالي",
+  "@levelPointsToNext": {
+    "placeholders": {
+      "points": {"type": "int"}
+    }
+  },
+  "weeklyReportTitle": "تقرير الأسبوع",
+  "weeklyReportStreakDays": "أيام التركيز هذا الأسبوع",
+  "weeklyReportAvgBcs": "متوسط BCS",
+  "weeklyReportBestEmotion": "أبرز إحساس",
+  "weeklyReportChallenges": "التحديات المكتملة",
+  "pomodoroTitle": "بومودورو",
+  "pomodoroPhaseFocus": "وقت التركيز 🎯",
+  "pomodoroPhaseShortBreak": "استراحة قصيرة ☕",
+  "pomodoroPhaseLongBreak": "استراحة طويلة 🌿",
+  "pomodoroReset": "إعادة",
+  "pomodoroSkip": "تخطي",
+  "pomodoroSessionsToday": "جلسات اليوم: {count}",
+  "@pomodoroSessionsToday": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "homeQuickPomodoro": "بومودورو ⏱️",
+  "homeQuickGames": "ألعاب 🎮",
+  "taskCategoryMental": "🧠 ذهني",
+  "taskCategoryPhysical": "💪 بدني",
+  "taskCategoryCreative": "🎨 إبداعي",
+  "taskCategoryEducational": "📚 تعليمي",
+  "taskCategoryHousehold": "🏠 منزلي",
+  "singleTaskEstimatedBonus": "إنجاز هذه المهمة سيضيف +{points} نقطة",
+  "@singleTaskEstimatedBonus": {
+    "placeholders": {
+      "points": {"type": "String"}
+    }
+  },
+  "singleTaskFocusRewardSnackBonus": "أحسنت! +{points} نقاط تركيز",
+  "@singleTaskFocusRewardSnackBonus": {
+    "placeholders": {
+      "points": {"type": "String"}
+    }
+  },
+  "singleTaskAbandonSnack": "المهمة غير المكتملة تضعف التركيز قليلاً",
+  "gamesHubTitle": "ألعاب الذاكرة 🎮",
+  "gamePatternMatchTitle": "مطابقة الأنماط",
+  "gamePatternMatchDesc": "احفظ النمط وأعد رسمه من الذاكرة",
+  "gameNumberMemoryTitle": "ذاكرة الأرقام",
+  "gameNumberMemoryDesc": "تذكر تسلسل أرقام متزايد",
+  "gameColorWordTitle": "كلمة اللون",
+  "gameColorWordDesc": "اضغط لون الحبر وليس الكلمة",
+  "gamesBestScore": "أفضل نتيجة: {score}",
+  "@gamesBestScore": {
+    "placeholders": {
+      "score": {"type": "int"}
+    }
+  },
+  "gamesBestDigits": "أطول تسلسل: {digits}",
+  "@gamesBestDigits": {
+    "placeholders": {
+      "digits": {"type": "int"}
+    }
+  },
+  "gameRoundLabel": "الجولة {current} / {total}",
+  "@gameRoundLabel": {
+    "placeholders": {
+      "current": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "gameFinalScore": "النتيجة: {score}",
+  "@gameFinalScore": {
+    "placeholders": {
+      "score": {"type": "int"}
+    }
+  },
+  "gameSubmitRound": "تأكيد",
+  "gameEnterSequence": "أدخل التسلسل الذي رأيته",
+  "gameNumberMemoryResult": "أطول تسلسل: {digits} أرقام",
+  "@gameNumberMemoryResult": {
+    "placeholders": {
+      "digits": {"type": "int"}
+    }
+  },
+  "gameColorWordPrompt": "اضغط لون الحبر",
+  "focusedThinkingTitle": "تحدي التفكير المركّز",
+  "focusedThinkingSubtitle": "اختر موضوعاً واحداً فقط وفكر فيه بعمق",
+  "focusedThinkingDurationLabel": "المدة",
+  "focusedThinkingStart": "ابدأ التفكير",
+  "focusedThinkingGuideTitle": "دليل التفكير",
+  "focusedThinkingStillThinking": "هل لا تزال تفكر في {topic}؟",
+  "@focusedThinkingStillThinking": {
+    "placeholders": {
+      "topic": {"type": "String"}
+    }
+  },
+  "focusedThinkingYes": "نعم ✓",
+  "focusedThinkingNo": "شردت ✗",
+  "focusedThinkingFocusScore": "{percent}% من الوقت كنت مركزاً",
+  "@focusedThinkingFocusScore": {
+    "placeholders": {
+      "percent": {"type": "int"}
+    }
+  },
+  "focusedThinkingDistractions": "تشتت مسجّل: {count}",
+  "@focusedThinkingDistractions": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "focusedThinkingInsightsSaved": "أفكار محفوظة: {count}",
+  "@focusedThinkingInsightsSaved": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "focusedThinkingInsightsHint": "سجّل أبرز أفكارك",
+  "focusedThinkingSaveInsight": "حفظ الفكرة",
+  "homeQuickFocusedThinking": "تفكير عميق 🧠",
+  "homeQuickCrossword": "كلمات متقاطعة ✏️",
+  "crosswordTitle": "كلمات متقاطعة",
+  "crosswordDesc": "ألغاز عربية عن الدماغ والتركيز",
+  "crosswordPlayNow": "العب الآن",
+  "crosswordTabAcross": "أفقي ↔",
+  "crosswordTabDown": "عمودي ↕",
+  "crosswordEnterLetter": "أدخل الحرف",
+  "gameNBackTitle": "N-Back 🧠",
+  "gameNBackDesc": "الأقوى علمياً لتحسين الذاكرة العاملة",
+  "gameNBackIntro": "هذه اللعبة تُعدّ الأقوى علمياً لتحسين الذاكرة العاملة",
+  "gameNBackLevel": "N={n} — {current}/{total}",
+  "@gameNBackLevel": {
+    "placeholders": {
+      "n": {"type": "int"},
+      "current": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "gameNBackMatch": "تطابق!",
+  "gameNBackResult": "أعلى N: {n}",
+  "@gameNBackResult": {
+    "placeholders": {
+      "n": {"type": "int"}
+    }
+  },
+  "gameNBackBonus": "+{points} نقطة BCS",
+  "@gameNBackBonus": {
+    "placeholders": {
+      "points": {"type": "String"}
+    }
+  },
+  "gamesBestNLevel": "أفضل N: {n}",
+  "@gamesBestNLevel": {
+    "placeholders": {
+      "n": {"type": "int"}
+    }
+  },
+  "gameSpeedSortTitle": "الترتيب السريع",
+  "gameSpeedSortDesc": "صنّف الأرقام الساقطة زوجي/فردي",
+  "gameSpeedSortEven": "زوجي",
+  "gameSpeedSortOdd": "فردي",
+  "gameSpeedSortCorrect": "صحيح: {count}",
+  "@gameSpeedSortCorrect": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "gameSpeedSortResult": "انتهى! {correct} صحيح، {wrong} خطأ",
+  "@gameSpeedSortResult": {
+    "placeholders": {
+      "correct": {"type": "int"},
+      "wrong": {"type": "int"}
+    }
+  },
+  "gameStart": "ابدأ"
+}
