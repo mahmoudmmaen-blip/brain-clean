@@ -586,5 +586,18 @@
       "wrong": {"type": "int"}
     }
   },
-  "gameStart": "ابدأ"
+  "gameStart": "ابدأ",
+  "bciCardTitle": "مؤشر وضوح الدماغ",
+  "bciCardTitleEn": "BRAIN CLARITY INDEX",
+  "bciCardSubtitle": "محرك BCI · تحديث لحظي",
+  "bciCardAssessmentLabel": "التقييم الأسبوعي",
+  "bciCardAdherenceLabel": "الالتزام اليومي",
+  "bciCardWeightAssessment": "60%",
+  "bciCardWeightAdherence": "40%",
+  "bciCardStatusHigh": "تركيز عالٍ",
+  "bciCardStatusStable": "تركيز مستقر",
+  "bciCardStatusMild": "ضباب خفيف",
+  "bciCardStatusWarning": "تحذير — راجع عاداتك",
+  "bciCardNoAssessment": "أكمل التقييم الأسبوعي لعرض BCI الكامل",
+  "bciCardLoading": "جاري حساب BCI..."
 }

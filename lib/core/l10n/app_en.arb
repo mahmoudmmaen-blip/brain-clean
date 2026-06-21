@@ -586,6 +586,19 @@
       "wrong": {"type": "int"}
     }
   },
-  "gameStart": "Start"
+  "gameStart": "Start",
+  "bciCardTitle": "Brain Clarity Index",
+  "bciCardTitleEn": "BRAIN CLARITY INDEX",
+  "bciCardSubtitle": "BCI Engine · Live update",
+  "bciCardAssessmentLabel": "Weekly assessment",
+  "bciCardAdherenceLabel": "Daily adherence",
+  "bciCardWeightAssessment": "60%",
+  "bciCardWeightAdherence": "40%",
+  "bciCardStatusHigh": "Peak focus",
+  "bciCardStatusStable": "Stable focus",
+  "bciCardStatusMild": "Mild fog",
+  "bciCardStatusWarning": "Warning — review your habits",
+  "bciCardNoAssessment": "Complete the weekly assessment for full BCI",
+  "bciCardLoading": "Calculating BCI..."
 }
 
