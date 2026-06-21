@@ -2407,6 +2407,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Start'**
   String get gameStart;
+
+  /// No description provided for @bciCardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Clarity Index'**
+  String get bciCardTitle;
+
+  /// No description provided for @bciCardTitleEn.
+  ///
+  /// In en, this message translates to:
+  /// **'BRAIN CLARITY INDEX'**
+  String get bciCardTitleEn;
+
+  /// No description provided for @bciCardSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'BCI Engine · Live update'**
+  String get bciCardSubtitle;
+
+  /// No description provided for @bciCardAssessmentLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly assessment'**
+  String get bciCardAssessmentLabel;
+
+  /// No description provided for @bciCardAdherenceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily adherence'**
+  String get bciCardAdherenceLabel;
+
+  /// No description provided for @bciCardWeightAssessment.
+  ///
+  /// In en, this message translates to:
+  /// **'60%'**
+  String get bciCardWeightAssessment;
+
+  /// No description provided for @bciCardWeightAdherence.
+  ///
+  /// In en, this message translates to:
+  /// **'40%'**
+  String get bciCardWeightAdherence;
+
+  /// No description provided for @bciCardStatusHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'Peak focus'**
+  String get bciCardStatusHigh;
+
+  /// No description provided for @bciCardStatusStable.
+  ///
+  /// In en, this message translates to:
+  /// **'Stable focus'**
+  String get bciCardStatusStable;
+
+  /// No description provided for @bciCardStatusMild.
+  ///
+  /// In en, this message translates to:
+  /// **'Mild fog'**
+  String get bciCardStatusMild;
+
+  /// No description provided for @bciCardStatusWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Warning — review your habits'**
+  String get bciCardStatusWarning;
+
+  /// No description provided for @bciCardNoAssessment.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete the weekly assessment for full BCI'**
+  String get bciCardNoAssessment;
+
+  /// No description provided for @bciCardLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Calculating BCI...'**
+  String get bciCardLoading;
 }
 
 class _AppLocalizationsDelegate

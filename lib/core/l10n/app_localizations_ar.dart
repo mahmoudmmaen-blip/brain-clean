@@ -1280,4 +1280,43 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get gameStart => 'ابدأ';
+
+  @override
+  String get bciCardTitle => 'مؤشر وضوح الدماغ';
+
+  @override
+  String get bciCardTitleEn => 'BRAIN CLARITY INDEX';
+
+  @override
+  String get bciCardSubtitle => 'محرك BCI · تحديث لحظي';
+
+  @override
+  String get bciCardAssessmentLabel => 'التقييم الأسبوعي';
+
+  @override
+  String get bciCardAdherenceLabel => 'الالتزام اليومي';
+
+  @override
+  String get bciCardWeightAssessment => '60%';
+
+  @override
+  String get bciCardWeightAdherence => '40%';
+
+  @override
+  String get bciCardStatusHigh => 'تركيز عالٍ';
+
+  @override
+  String get bciCardStatusStable => 'تركيز مستقر';
+
+  @override
+  String get bciCardStatusMild => 'ضباب خفيف';
+
+  @override
+  String get bciCardStatusWarning => 'تحذير — راجع عاداتك';
+
+  @override
+  String get bciCardNoAssessment => 'أكمل التقييم الأسبوعي لعرض BCI الكامل';
+
+  @override
+  String get bciCardLoading => 'جاري حساب BCI...';
 }

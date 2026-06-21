@@ -1294,4 +1294,44 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get gameStart => 'Start';
+
+  @override
+  String get bciCardTitle => 'Brain Clarity Index';
+
+  @override
+  String get bciCardTitleEn => 'BRAIN CLARITY INDEX';
+
+  @override
+  String get bciCardSubtitle => 'BCI Engine · Live update';
+
+  @override
+  String get bciCardAssessmentLabel => 'Weekly assessment';
+
+  @override
+  String get bciCardAdherenceLabel => 'Daily adherence';
+
+  @override
+  String get bciCardWeightAssessment => '60%';
+
+  @override
+  String get bciCardWeightAdherence => '40%';
+
+  @override
+  String get bciCardStatusHigh => 'Peak focus';
+
+  @override
+  String get bciCardStatusStable => 'Stable focus';
+
+  @override
+  String get bciCardStatusMild => 'Mild fog';
+
+  @override
+  String get bciCardStatusWarning => 'Warning — review your habits';
+
+  @override
+  String get bciCardNoAssessment =>
+      'Complete the weekly assessment for full BCI';
+
+  @override
+  String get bciCardLoading => 'Calculating BCI...';
 }
