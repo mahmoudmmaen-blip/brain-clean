@@ -1,0 +1,1982 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BrainClean Pro — Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg: #0a0e1a;
+      --card: #111827;
+      --border: #1e2a3a;
+      --text: #e8ecf4;
+      --muted: #8b95ad;
+      --gold: #f59e0b;
+      --green: #1e6b3a;
+      --green-light: #22c55e;
+      --blue: #4a90d9;
+      --danger: #ef4444;
+      --radius: 14px;
+      --touch: 48px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: #0a0e1a;
+      background-image:
+        radial-gradient(ellipse 120% 80% at 50% -20%, rgba(30, 107, 58, 0.12), transparent 50%),
+        radial-gradient(ellipse 80% 50% at 100% 50%, rgba(74, 144, 217, 0.06), transparent 45%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+      direction: rtl;
+    }
+
+    .app {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 1rem 0.9rem 2.5rem;
+    }
+
+    .dashboard {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* ── Dashboard header ── */
+    .dash-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .dash-header h1 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .dash-header .sub {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 0.1rem;
+    }
+
+    .badge {
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--green-light);
+      background: rgba(30, 107, 58, 0.25);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.5rem;
+      border-radius: 999px;
+    }
+
+    .card {
+      background: #111827;
+      border: 1px solid #1e2a3a;
+      border-radius: var(--radius);
+      padding: 1.1rem;
+      margin-bottom: 0.75rem;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.28);
+    }
+
+    .card-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.65rem;
+    }
+
+    .card-label.en {
+      font-size: 0.68rem;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+    }
+
+    /* Brain Clarity Score */
+    .clarity-card {
+      text-align: center;
+      padding: 1.5rem 1rem 1.35rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .clarity-card::before {
+      content: '';
+      position: absolute;
+      inset: -40% 10% auto;
+      height: 120px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.18), transparent 70%);
+      pointer-events: none;
+    }
+
+    .clarity-title {
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      color: #8b95ad;
+      margin-bottom: 0.5rem;
+      position: relative;
+    }
+
+    .clarity-score-wrap {
+      position: relative;
+      display: inline-block;
+    }
+
+    .clarity-score {
+      font-size: 64px;
+      font-weight: 800;
+      line-height: 1;
+      color: #f59e0b;
+      font-variant-numeric: tabular-nums;
+      text-shadow: 0 0 40px rgba(245, 158, 11, 0.35);
+      position: relative;
+    }
+
+    .clarity-score .unit {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #f59e0b;
+      opacity: 0.85;
+      margin-inline-start: 0.1rem;
+    }
+
+    .clarity-sub {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.45rem;
+    }
+
+    .clarity-status {
+      display: inline-block;
+      margin-top: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: color 0.35s ease, border-color 0.35s ease;
+    }
+
+    .clarity-score.counting {
+      animation: scorePop 0.45s ease;
+    }
+
+    @keyframes scorePop {
+      0% { transform: scale(1); }
+      40% { transform: scale(1.06); }
+      100% { transform: scale(1); }
+    }
+
+    .clarity-score.tier-high {
+      text-shadow: 0 0 48px rgba(15, 110, 86, 0.55);
+    }
+
+    /* BC_score breakdown */
+    .bc-breakdown {
+      margin-top: 1rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid #1e2a3a;
+      text-align: right;
+    }
+
+    .bc-breakdown-title {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 0.55rem;
+      text-align: center;
+    }
+
+    .bc-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      padding: 0.35rem 0;
+      gap: 0.5rem;
+    }
+
+    .bc-row .bc-label { color: var(--muted); }
+
+    .bc-row .bc-val {
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--text);
+    }
+
+    .bc-row.bc-penalty .bc-val { color: #ef4444; }
+
+    .bc-bar-track {
+      height: 3px;
+      background: #0a0e1a;
+      border-radius: 2px;
+      margin-top: 0.2rem;
+      overflow: hidden;
+    }
+
+    .bc-bar-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 0.4s ease;
+    }
+
+    /* Weekly bar chart */
+    .chart-legend {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 0.5rem;
+      font-size: 0.65rem;
+      color: var(--muted);
+    }
+
+    .chart-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .chart-legend .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+    }
+
+    .chart-legend .dot.today { background: #f59e0b; }
+    .chart-legend .dot.past { background: #1e6b3a; }
+
+    .chart-box {
+      position: relative;
+      height: 176px;
+      width: 100%;
+    }
+
+    .chart-offline {
+      display: none;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      padding: 1.25rem;
+    }
+
+    /* Streak boxes */
+    .streak-label-ar {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.55rem;
+      text-align: center;
+    }
+
+    .counter-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.4rem;
+    }
+
+    .counter-unit {
+      background: #0a0e1a;
+      border: 1px solid #1e2a3a;
+      border-radius: 10px;
+      padding: 0.55rem 0.25rem;
+      text-align: center;
+      min-height: 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .counter-unit.pulse { animation: pulse 0.35s ease; }
+
+    @keyframes pulse {
+      50% { transform: scale(1.05); }
+    }
+
+    .counter-value {
+      font-size: 1.35rem;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      color: var(--text);
+    }
+
+    .counter-label {
+      font-size: 0.6rem;
+      color: var(--muted);
+      margin-top: 0.12rem;
+    }
+
+    .streak-days-line {
+      text-align: center;
+      margin-top: 0.65rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .streak-days-line strong {
+      color: var(--gold);
+      font-size: 1rem;
+    }
+
+    /* Stat cards row */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.45rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .stat-card {
+      background: #111827;
+      border: 1px solid #1e2a3a;
+      border-radius: 12px;
+      padding: 0.8rem 0.4rem 0.7rem;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+    }
+
+    .stat-card.green::before { background: #22c55e; }
+    .stat-card.gold::before { background: #f59e0b; }
+    .stat-card.blue::before { background: #4a90d9; }
+
+    .stat-card .stat-val {
+      font-size: 1.4rem;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.1;
+    }
+
+    .stat-card .stat-lbl {
+      font-size: 0.58rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+      line-height: 1.35;
+    }
+
+    .stat-card.green .stat-val { color: #22c55e; }
+    .stat-card.gold .stat-val { color: #f59e0b; }
+    .stat-card.blue .stat-val { color: #4a90d9; }
+
+    /* Pomodoro launch */
+    .btn-pomo-launch {
+      width: 100%;
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      background: linear-gradient(135deg, #1e6b3a 0%, #0d3d22 55%, #1a5c34 100%);
+      box-shadow: 0 4px 20px rgba(30, 107, 58, 0.35);
+      margin-bottom: 0.75rem;
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+
+    .btn-pomo-launch:active { transform: scale(0.98); }
+
+    .btn-pomo-launch .play-icon {
+      width: 28px;
+      height: 28px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-pomo-launch .play-icon svg {
+      width: 14px;
+      height: 14px;
+      margin-right: -2px;
+      fill: #fff;
+    }
+
+    /* AI Coach */
+    .coach-card {
+      border-inline-start: 4px solid #f59e0b;
+      padding: 1rem 1rem 1rem 0.85rem;
+      background: linear-gradient(90deg, rgba(245, 158, 11, 0.06), #111827 28%);
+      box-shadow: 0 4px 20px rgba(245, 158, 11, 0.08);
+    }
+
+    .coach-card .coach-tag {
+      font-size: 0.65rem;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: 0.06em;
+      margin-bottom: 0.35rem;
+    }
+
+    .coach-card p {
+      font-size: 0.88rem;
+      line-height: 1.55;
+      color: var(--text);
+    }
+
+    .coach-card .coach-meta {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 0.45rem;
+    }
+
+    /* Pomodoro panel */
+    .pomo-panel { display: none; }
+    .pomo-panel.open { display: block; }
+
+    .pomo-display {
+      font-size: 2.5rem;
+      font-weight: 800;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+      color: var(--gold);
+    }
+
+    .pomo-bar {
+      height: 5px;
+      background: var(--bg);
+      border-radius: 3px;
+      margin: 0.65rem 0 0.85rem;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .pomo-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--green), var(--green-light));
+      width: 0%;
+      transition: width 0.3s linear;
+    }
+
+    .pomo-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.4rem;
+    }
+
+    button {
+      font-family: inherit;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+
+    button:active { transform: scale(0.98); }
+
+    .btn-sm {
+      min-height: 40px;
+      font-size: 0.8rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .btn-sm.primary {
+      background: rgba(30, 107, 58, 0.35);
+      border-color: var(--green);
+      color: var(--green-light);
+    }
+
+    .section-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--muted);
+      margin: 1rem 0 0.55rem;
+    }
+
+    .habits-list { display: flex; flex-direction: column; gap: 0.4rem; }
+
+    .habit-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.6rem 0.7rem;
+      min-height: var(--touch);
+      cursor: pointer;
+    }
+
+    .habit-row.done {
+      border-color: rgba(30, 107, 58, 0.5);
+      background: rgba(30, 107, 58, 0.12);
+    }
+
+    .habit-check {
+      width: 24px;
+      height: 24px;
+      border-radius: 7px;
+      border: 2px solid var(--border);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+    }
+
+    .habit-row.done .habit-check {
+      background: var(--green-light);
+      border-color: var(--green-light);
+      color: var(--bg);
+    }
+
+    .habit-name { flex: 1; font-weight: 600; font-size: 0.88rem; }
+    .habit-pts { font-size: 0.68rem; color: var(--gold); font-weight: 700; }
+
+    .habit-delete {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1.1rem;
+      min-height: auto;
+      padding: 0.2rem;
+    }
+
+    .add-habit {
+      display: flex;
+      gap: 0.4rem;
+      margin-top: 0.55rem;
+    }
+
+    .add-habit input {
+      flex: 1;
+      font-family: inherit;
+      font-size: 0.85rem;
+      padding: 0.6rem 0.7rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      min-height: 42px;
+    }
+
+    .add-habit input:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    .add-habit button {
+      min-height: 42px;
+      padding: 0 0.85rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .btn-distraction {
+      width: 100%;
+      min-height: var(--touch);
+      font-size: 0.9rem;
+      margin-bottom: 0.45rem;
+      background: rgba(245, 158, 11, 0.12);
+      color: var(--gold);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+
+    .btn-secondary {
+      width: 100%;
+      min-height: 38px;
+      font-size: 0.75rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .log-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+    }
+
+    .log-item {
+      padding: 0.65rem 0.55rem;
+      margin-bottom: 0.4rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      border-inline-start-width: 3px;
+      font-size: 0.8rem;
+      background: #0a0e1a;
+    }
+
+    .log-item.type-distraction {
+      border-inline-start-color: var(--gold);
+      background: rgba(245, 158, 11, 0.06);
+    }
+
+    .log-item.type-pomodoro {
+      border-inline-start-color: var(--green-light);
+      background: rgba(30, 107, 58, 0.08);
+    }
+
+    .log-item.type-habit {
+      border-inline-start-color: var(--blue);
+      background: rgba(74, 144, 217, 0.06);
+    }
+
+    .log-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .log-tag {
+      font-weight: 700;
+      font-size: 0.68rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: 5px;
+    }
+
+    .log-tag.distraction { background: rgba(245, 158, 11, 0.2); color: var(--gold); }
+    .log-tag.pomodoro { background: rgba(30, 107, 58, 0.35); color: var(--green-light); }
+    .log-tag.habit { background: rgba(74, 144, 217, 0.25); color: var(--blue); }
+
+    .log-time {
+      font-size: 0.65rem;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .log-detail { color: var(--text); line-height: 1.45; font-size: 0.78rem; }
+    .log-meta { color: var(--muted); font-size: 0.68rem; margin-top: 0.15rem; }
+    .empty-log { text-align: center; color: var(--muted); padding: 1rem; font-size: 0.82rem; }
+
+    .log-section-hint {
+      font-size: 0.68rem;
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.72);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .overlay.open { display: flex; }
+
+    .dialog {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.35rem;
+      width: 100%;
+      max-width: 360px;
+    }
+
+    .dialog h3 { font-size: 1rem; margin-bottom: 0.4rem; }
+    .dialog p { font-size: 0.86rem; color: var(--muted); margin-bottom: 1rem; }
+
+    .dialog-actions {
+      display: flex;
+      gap: 0.4rem;
+      flex-direction: row-reverse;
+    }
+
+    .dialog-actions button { flex: 1; min-height: 44px; }
+    .btn-confirm { background: var(--danger); color: #fff; }
+    .btn-confirm:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    .btn-cancel { background: #3f4659; color: var(--text); }
+
+    /* Distraction modal */
+    .dialog-distraction { max-width: 400px; }
+
+    .form-group {
+      margin-bottom: 0.85rem;
+      text-align: right;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+    }
+
+    .form-group label .req { color: var(--danger); }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      font-family: inherit;
+      font-size: 0.88rem;
+      padding: 0.65rem 0.75rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #0a0e1a;
+      color: var(--text);
+      min-height: 44px;
+    }
+
+    .form-group textarea {
+      min-height: 72px;
+      resize: vertical;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    .form-hint {
+      font-size: 0.68rem;
+      color: var(--muted);
+      margin-top: 0.35rem;
+      line-height: 1.4;
+    }
+
+    .distraction-penalty-preview {
+      font-size: 0.72rem;
+      color: var(--gold);
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+      border-radius: 8px;
+      padding: 0.5rem 0.65rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .toast-debounce {
+      display: none;
+      position: fixed;
+      bottom: 1.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 340px;
+      width: calc(100% - 2rem);
+      z-index: 300;
+      background: #111827;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 0.85rem 1rem;
+      border-radius: 12px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+      animation: toastIn 0.35s ease;
+    }
+
+    .toast-debounce.show { display: block; }
+
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .counter-unit.pulse { animation: none; }
+      .pomo-bar-fill { transition: none; }
+      .toast-debounce { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- ═══ DASHBOARD — Dark Premium ═══ -->
+    <main class="dashboard" aria-label="لوحة التحكم">
+      <div class="dash-header">
+        <div>
+          <h1>BrainClean Pro</h1>
+          <p class="sub">لوحة التحكم — رحلة التركيز</p>
+        </div>
+        <span class="badge" id="storageBadge">محلي</span>
+      </div>
+
+      <section class="card clarity-card">
+        <div class="clarity-title">BRAIN CLARITY SCORE</div>
+        <div class="clarity-score-wrap">
+          <div class="clarity-score" id="clarityScore" aria-live="polite">
+            50<span class="unit">%</span>
+          </div>
+        </div>
+        <p class="clarity-sub" id="claritySub">محرك BC_score · تحديث لحظي</p>
+        <span class="clarity-status" id="clarityStatus">تركيز مستقر</span>
+
+        <div class="bc-breakdown" aria-label="تفصيل نقاط Brain Clarity">
+          <div class="bc-breakdown-title">تفصيل المعادلة العلمية</div>
+          <div class="bc-row">
+            <span class="bc-label">نقاط العداد</span>
+            <span class="bc-val" id="bcS">0/40 (40%)</span>
+          </div>
+          <div class="bc-bar-track"><div class="bc-bar-fill" id="bcSBar" style="width:0%;background:#4a90d9"></div></div>
+          <div class="bc-row">
+            <span class="bc-label">نقاط العادات</span>
+            <span class="bc-val" id="bcH">0/30 (30%)</span>
+          </div>
+          <div class="bc-bar-track"><div class="bc-bar-fill" id="bcHBar" style="width:0%;background:#10b981"></div></div>
+          <div class="bc-row">
+            <span class="bc-label">نقاط البومودورو</span>
+            <span class="bc-val" id="bcP">0/30 (30%)</span>
+          </div>
+          <div class="bc-bar-track"><div class="bc-bar-fill" id="bcPBar" style="width:0%;background:#1e6b3a"></div></div>
+          <div class="bc-row bc-penalty">
+            <span class="bc-label">خصم التشتت</span>
+            <span class="bc-val" id="bcD">-0</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-label">جلسات التركيز — آخر 7 أيام</div>
+        <div class="chart-box">
+          <canvas id="weeklyChart" aria-label="رسم أعمدة أسبوعي لجلسات التركيز"></canvas>
+        </div>
+        <div class="chart-legend" aria-hidden="true">
+          <span><i class="dot today"></i> اليوم</span>
+          <span><i class="dot past"></i> أيام سابقة</span>
+        </div>
+        <p class="chart-offline" id="chartOffline">يتطلب اتصالاً لتحميل Chart.js</p>
+      </section>
+
+      <section class="card">
+        <p class="streak-label-ar">سلسلة التركيز الحالية</p>
+        <div class="counter-grid">
+          <div class="counter-unit" id="unitDays">
+            <div class="counter-value" id="valDays">00</div>
+            <div class="counter-label">يوم</div>
+          </div>
+          <div class="counter-unit" id="unitHours">
+            <div class="counter-value" id="valHours">00</div>
+            <div class="counter-label">ساعة</div>
+          </div>
+          <div class="counter-unit" id="unitMins">
+            <div class="counter-value" id="valMins">00</div>
+            <div class="counter-label">دقيقة</div>
+          </div>
+          <div class="counter-unit" id="unitSecs">
+            <div class="counter-value" id="valSecs">00</div>
+            <div class="counter-label">ثانية</div>
+          </div>
+        </div>
+        <p class="streak-days-line">
+          يوم فعّال: <strong id="streakDaysDisplay">0.00</strong>
+        </p>
+      </section>
+
+      <div class="stat-row">
+        <div class="stat-card green">
+          <div class="stat-val" id="statSessions">0</div>
+          <div class="stat-lbl">جلسات اليوم</div>
+        </div>
+        <div class="stat-card gold">
+          <div class="stat-val" id="statDistractionMins">0</div>
+          <div class="stat-lbl">دقائق التشتت</div>
+        </div>
+        <div class="stat-card blue">
+          <div class="stat-val" id="statPoints">0</div>
+          <div class="stat-lbl">نقاط الالتزام</div>
+        </div>
+      </div>
+
+      <button type="button" class="btn-pomo-launch" id="btnPomoLaunch" aria-expanded="false" aria-controls="pomoPanel">
+        <span class="play-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+        <span id="pomoLaunchText">بدء بومودورو — 25 دقيقة</span>
+      </button>
+
+      <section class="card coach-card" aria-label="مدرب ذكي">
+        <div class="coach-tag">AI COACH</div>
+        <p id="coachMessage">ابدأ جلسة تركيز واحدة الآن — الدماغ يستعيد وضوحه خلال 25 دقيقة من التركيز العميق.</p>
+        <p class="coach-meta" id="coachMeta">نصيحة اليوم · محفوظ محلياً</p>
+      </section>
+    </main>
+
+    <section class="card pomo-panel" id="pomoPanel">
+      <div class="card-label">بومودورو — 25 دقيقة</div>
+      <div class="pomo-display" id="pomoDisplay">25:00</div>
+      <div class="pomo-bar"><div class="pomo-bar-fill" id="pomoBarFill"></div></div>
+      <div class="pomo-actions">
+        <button type="button" class="btn-sm primary" id="pomoStart">بدء</button>
+        <button type="button" class="btn-sm" id="pomoPause">إيقاف</button>
+        <button type="button" class="btn-sm" id="pomoReset">إعادة</button>
+      </div>
+    </section>
+
+    <!-- ═══ باقي الشاشة ═══ -->
+    <p class="section-title">العادات الحيوية</p>
+    <div class="habits-list" id="habitsList"></div>
+    <div class="add-habit">
+      <input type="text" id="customHabitInput" placeholder="عادة مخصصة..." maxlength="40" aria-label="عادة مخصصة" />
+      <button type="button" id="btnAddHabit">إضافة</button>
+    </div>
+
+    <button type="button" class="btn-distraction" id="btnDistraction" style="margin-top:0.85rem">تشتت مؤقت</button>
+    <button type="button" class="btn-secondary" id="btnSetStart">تعيين بداية السلسلة = الآن</button>
+
+    <p class="section-title">سجل الرحلة</p>
+    <section class="card" style="padding:0.75rem 1rem">
+      <p class="log-section-hint">آخر 10 أحداث — تشتت · بومودورو · عادات</p>
+      <ul class="log-list" id="logList"></ul>
+    </section>
+  </div>
+
+  <div class="toast-debounce" id="debounceToast" role="alert" aria-live="assertive">
+    مهلاً! خذ نفساً عميقاً... هل هذا ضروري حقاً؟
+  </div>
+
+  <div class="overlay" id="distractionOverlay" role="dialog" aria-modal="true" aria-labelledby="distractionTitle">
+    <div class="dialog dialog-distraction">
+      <h3 id="distractionTitle">ملاحظة التشتت</h3>
+      <p class="form-hint" style="margin-bottom:0.75rem">سجّل سبب التشتت بوعي — يُطبَّق خصم −15 BC وتراجع 12 ساعة من السلسلة.</p>
+      <div class="distraction-penalty-preview">
+        −15 نقطة BC_score · −12 ساعة من سلسلة التركيز
+      </div>
+      <div class="form-group">
+        <label for="distractionReason">ما سبب تشتتك الحالي؟ <span class="req">*</span></label>
+        <textarea id="distractionReason" rows="2" placeholder="مثال: إشعار هاتف، ملل، إرهاق..." maxlength="200" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="distractionActivity">ما النشاط الذي ستفعله بدلاً من ذلك؟</label>
+        <select id="distractionActivity" aria-required="true">
+          <option value="browsing">تصفح عشوائي</option>
+          <option value="video">مشاهدة فيديو</option>
+          <option value="chat">دردشة</option>
+          <option value="other">أخرى</option>
+        </select>
+      </div>
+      <div class="dialog-actions">
+        <button type="button" class="btn-confirm" id="btnDistractionConfirm" disabled>تأكيد التشتت</button>
+        <button type="button" class="btn-cancel" id="btnDistractionCancel">تراجع — سأستمر</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="confirmOverlay" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
+    <div class="dialog">
+      <h3 id="dialogTitle">تأكيد</h3>
+      <p id="dialogMessage"></p>
+      <div class="dialog-actions">
+        <button type="button" class="btn-confirm" id="dialogConfirm">تأكيد</button>
+        <button type="button" class="btn-cancel" id="dialogCancel">إلغاء</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const STORAGE_KEY = 'brainclean_focus_v4';
+      const LS_CLARITY = 'brainClarityData';
+      const LS_STREAK = 'streakStartTime';
+      const LS_HABITS = 'dailyHabits';
+      const DATA_VERSION = 4;
+      const POMO_SECONDS = 25 * 60;
+
+      /* ── BC_score scientific engine ── */
+      const S_POINTS_PER_DAY = 5.71;
+      const S_POINTS_MAX = 40;
+      const S_STREAK_CAP_DAYS = 7;
+      const H_POINTS_MAX = 30;
+      const P_POINTS_PER_SESSION = 3;
+      const P_POINTS_MAX = 30;
+      const P_SESSIONS_CAP = 10;
+      const D_PENALTY_PER_DISTRACTION = 15;
+      const WEIGHT_S = 0.4;
+      const WEIGHT_H = 0.3;
+      const WEIGHT_P = 0.3;
+
+      const DISTRACTION_MINUTES = 8;
+      const DISTRACTION_DEBOUNCE_MS = 60000;
+      const STREAK_ROLLBACK_MS = 12 * 60 * 60 * 1000;
+      const ACTIVITY_LABELS = {
+        browsing: 'تصفح عشوائي',
+        video: 'مشاهدة فيديو',
+        chat: 'دردشة',
+        other: 'أخرى',
+      };
+      const HABIT_POINTS = 5;
+      const POMO_COMMITMENT_POINTS = 12;
+      const BAR_GREEN = '#1E6B3A';
+      const BAR_GOLD = '#F59E0B';
+
+      const CLARITY_COLORS = {
+        low: '#EF4444',
+        mid: '#F59E0B',
+        good: '#10B981',
+        peak: '#0F6E56',
+      };
+
+      const BUILTIN_HABITS = [
+        { id: 'sleep', name: 'النوم الكافي', icon: '🌙' },
+        { id: 'reading', name: 'القراءة', icon: '📖' },
+        { id: 'walk', name: 'الخروج والمشي', icon: '🚶' },
+        { id: 'work_focus', name: 'التركيز في العمل', icon: '💼' },
+      ];
+
+      const COACH_TIPS = [
+        'ابدأ جلسة تركيز واحدة الآن — الدماغ يستعيد وضوحه خلال 25 دقيقة من التركيز العميق.',
+        'أكمل عادتين حيويتين قبل الظهر لرفع Brain Clarity Score بشكل ملحوظ.',
+        'التشتت المؤقت يخصم جزئياً فقط — عد فوراً لجلسة بومودورو لاستعادة الوضوح.',
+        'سلسلة التركيز تُبنى بالثواني — لا تكسرها بتصفير كامل، بل بالعودة السريعة.',
+        'النوم الكافي يرفع نقاط الالتزام ويُثبّت جلسات الغد.',
+      ];
+
+      let state = null;
+      let chart = null;
+      let tickInterval = null;
+      let pomoInterval = null;
+      let pendingAction = null;
+      let lastDisplayed = { d: -1, h: -1, m: -1, s: -1 };
+      let lastSnapshotDay = '';
+      let lastSnapshotClarity = -1;
+      let saveTimer = null;
+      let pomo = { remaining: POMO_SECONDS, running: false, startedAt: null };
+      let displayedBcScore = 0;
+      let countUpFrame = null;
+      let lastBcResult = null;
+
+      const $ = (id) => document.getElementById(id);
+
+      function todayKey() {
+        return new Date().toISOString().slice(0, 10);
+      }
+
+      function defaultState() {
+        const now = Date.now();
+        const habitDone = {};
+        BUILTIN_HABITS.forEach((h) => { habitDone[h.id] = {}; });
+        return {
+          version: DATA_VERSION,
+          streakStartTime: now,
+          startDate: new Date(now).toISOString(),
+          commitmentPoints: 0,
+          distractionTotal: 0,
+          pomodorosTotal: 0,
+          events: [],
+          nextEventId: 1,
+          dailySnapshots: {},
+          habitDone,
+          customHabits: [],
+          pomodorosByDay: {},
+          distractionsByDay: {},
+          distractionMinutesByDay: {},
+          lastDistractionAt: 0,
+          brainClarityData: {
+            sPoints: 0,
+            hPoints: 0,
+            pPoints: 0,
+            dPenalty: 0,
+            bcScore: 0,
+            lastUpdated: new Date().toISOString(),
+          },
+          dailyHabitsByDay: {},
+        };
+      }
+
+      function normalizeState(raw) {
+        const base = defaultState();
+        if (!raw || typeof raw !== 'object') return base;
+        const streakTs = raw.streakStartTime != null
+          ? Number(raw.streakStartTime)
+          : (raw.startDate ? new Date(raw.startDate).getTime() : base.streakStartTime);
+        return {
+          version: DATA_VERSION,
+          streakStartTime: streakTs,
+          startDate: typeof raw.startDate === 'string'
+            ? raw.startDate
+            : new Date(streakTs).toISOString(),
+          commitmentPoints: Math.max(0, Number(raw.commitmentPoints) || 0),
+          distractionTotal: Number(raw.distractionTotal) || 0,
+          pomodorosTotal: Number(raw.pomodorosTotal) || 0,
+          events: Array.isArray(raw.events) ? raw.events.slice(-500) : [],
+          nextEventId: Number(raw.nextEventId) || 1,
+          dailySnapshots:
+            raw.dailySnapshots && typeof raw.dailySnapshots === 'object'
+              ? raw.dailySnapshots
+              : {},
+          habitDone:
+            raw.habitDone && typeof raw.habitDone === 'object'
+              ? raw.habitDone
+              : base.habitDone,
+          customHabits: Array.isArray(raw.customHabits) ? raw.customHabits : [],
+          pomodorosByDay:
+            raw.pomodorosByDay && typeof raw.pomodorosByDay === 'object'
+              ? raw.pomodorosByDay
+              : {},
+          distractionsByDay:
+            raw.distractionsByDay && typeof raw.distractionsByDay === 'object'
+              ? raw.distractionsByDay
+              : {},
+          distractionMinutesByDay:
+            raw.distractionMinutesByDay && typeof raw.distractionMinutesByDay === 'object'
+              ? raw.distractionMinutesByDay
+              : {},
+          lastDistractionAt: Number(raw.lastDistractionAt) || 0,
+          brainClarityData:
+            raw.brainClarityData && typeof raw.brainClarityData === 'object'
+              ? raw.brainClarityData
+              : base.brainClarityData,
+          dailyHabitsByDay:
+            raw.dailyHabitsByDay && typeof raw.dailyHabitsByDay === 'object'
+              ? raw.dailyHabitsByDay
+              : {},
+        };
+      }
+
+      function loadState() {
+        try {
+          let merged = null;
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (raw) merged = normalizeState(JSON.parse(raw));
+
+          const streakLs = localStorage.getItem(LS_STREAK);
+          const clarityLs = localStorage.getItem(LS_CLARITY);
+          const habitsLs = localStorage.getItem(LS_HABITS);
+
+          if (!merged) merged = defaultState();
+          if (streakLs) merged.streakStartTime = Number(streakLs) || merged.streakStartTime;
+          if (clarityLs) {
+            try {
+              merged.brainClarityData = JSON.parse(clarityLs);
+            } catch (e) { /* ignore */ }
+          }
+          if (habitsLs) {
+            try {
+              const parsed = JSON.parse(habitsLs);
+              if (parsed && typeof parsed === 'object') {
+                if (Array.isArray(parsed)) {
+                  merged.dailyHabitsByDay[todayKey()] = parsed;
+                } else {
+                  merged.dailyHabitsByDay = parsed;
+                }
+              }
+            } catch (e) { /* ignore */ }
+          }
+          return merged;
+        } catch (e) {
+          console.warn('loadState', e);
+        }
+        return defaultState();
+      }
+
+      function syncDailyHabitsArray() {
+        const day = todayKey();
+        const habits = allHabits();
+        state.dailyHabitsByDay[day] = habits.map((h) => ({
+          id: h.id,
+          name: h.name,
+          icon: h.icon,
+          done: isHabitDoneToday(h.id),
+          custom: !!h.custom,
+        }));
+      }
+
+      function persistDedicatedKeys() {
+        const bc = lastBcResult || calculateBCScore();
+        localStorage.setItem(LS_STREAK, String(state.streakStartTime));
+        localStorage.setItem(LS_CLARITY, JSON.stringify({
+          sPoints: bc.sPoints,
+          hPoints: bc.hPoints,
+          pPoints: bc.pPoints,
+          dPenalty: bc.dPenalty,
+          bcScore: bc.bcScore,
+          lastUpdated: new Date().toISOString(),
+        }));
+        syncDailyHabitsArray();
+        localStorage.setItem(LS_HABITS, JSON.stringify(state.dailyHabitsByDay[todayKey()] || []));
+      }
+
+      function saveState() {
+        try {
+          calculateBCScore();
+          persistDedicatedKeys();
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+          $('storageBadge').textContent = state.commitmentPoints + ' نقطة';
+        } catch (e) {
+          $('storageBadge').textContent = '!';
+        }
+      }
+
+      function scheduleSave() {
+        if (saveTimer) return;
+        saveTimer = setTimeout(() => {
+          saveTimer = null;
+          saveState();
+        }, 280);
+      }
+
+      function flushSave() {
+        if (saveTimer) {
+          clearTimeout(saveTimer);
+          saveTimer = null;
+        }
+        saveState();
+      }
+
+      function allHabits() {
+        return [
+          ...BUILTIN_HABITS,
+          ...state.customHabits.map((c) => ({
+            id: c.id,
+            name: c.name,
+            icon: c.icon || '✦',
+            custom: true,
+          })),
+        ];
+      }
+
+      function isHabitDoneToday(habitId) {
+        const map = state.habitDone[habitId];
+        return map && map[todayKey()] === true;
+      }
+
+      function countHabitsDoneToday() {
+        return allHabits().filter((h) => isHabitDoneToday(h.id)).length;
+      }
+
+      function pomodorosToday() {
+        return state.pomodorosByDay[todayKey()] || 0;
+      }
+
+      function distractionMinutesToday() {
+        const day = todayKey();
+        if (state.distractionMinutesByDay[day] !== undefined) {
+          return state.distractionMinutesByDay[day];
+        }
+        return (state.distractionsByDay[day] || 0) * DISTRACTION_MINUTES;
+      }
+
+      /** أيام الصمود المستمرة — بدون تصفير عند التشتت */
+      function getStreakElapsedDays() {
+        const elapsed = Math.max(0, (Date.now() - state.streakStartTime) / 86400000);
+        return elapsed;
+      }
+
+      /**
+       * BC_score = (S×0.40) + (H×0.30) + (P×0.30) − D
+       * حيث S,H,P على مقياس 40/30/30 ≡ الجمع المباشر بعد التطبيع
+       */
+      function calculateBCScore() {
+        const streakDays = getStreakElapsedDays();
+        const cappedDays = Math.min(S_STREAK_CAP_DAYS, streakDays);
+        const sPoints = Math.round(Math.min(S_POINTS_MAX, cappedDays * S_POINTS_PER_DAY) * 100) / 100;
+
+        const totalH = allHabits().length;
+        const doneH = countHabitsDoneToday();
+        const hPoints = totalH === 0
+          ? 0
+          : Math.round((doneH / totalH) * H_POINTS_MAX * 100) / 100;
+
+        const sessions = Math.min(P_SESSIONS_CAP, pomodorosToday());
+        const pPoints = Math.min(P_POINTS_MAX, sessions * P_POINTS_PER_SESSION);
+
+        const distractions = distractionsToday();
+        const dPenalty = distractions * D_PENALTY_PER_DISTRACTION;
+
+        /* S+H+P = 100 عند الاكتمال (40+30+30) ≡ (S×0.40)+(H×0.30)+(P×0.30) على المقياس الكامل */
+        const bcRaw = sPoints + hPoints + pPoints - dPenalty;
+        const bcScore = Math.round(Math.min(100, Math.max(0, bcRaw)) * 10) / 10;
+
+        const result = {
+          sPoints,
+          hPoints,
+          pPoints,
+          dPenalty,
+          bcScore,
+          streakDays,
+          distractions,
+        };
+
+        state.brainClarityData = {
+          sPoints,
+          hPoints,
+          pPoints,
+          dPenalty,
+          bcScore,
+          lastUpdated: new Date().toISOString(),
+        };
+        lastBcResult = result;
+        return result;
+      }
+
+      function clarityColorForScore(pct) {
+        if (pct <= 30) return CLARITY_COLORS.low;
+        if (pct <= 60) return CLARITY_COLORS.mid;
+        if (pct <= 85) return CLARITY_COLORS.good;
+        return CLARITY_COLORS.peak;
+      }
+
+      function clarityStatusText(pct) {
+        if (pct >= 86) return 'وضوح ذروة — أداء استثنائي';
+        if (pct >= 61) return 'تركيز مستقر';
+        if (pct >= 31) return 'تحسّن تدريجي — واصل';
+        return 'إنذار: عزّز العادات والبومودورو';
+      }
+
+      function animateClarityScore(target) {
+        if (countUpFrame) cancelAnimationFrame(countUpFrame);
+        const el = $('clarityScore');
+        const start = displayedBcScore;
+        const diff = target - start;
+        if (Math.abs(diff) < 0.5) {
+          displayedBcScore = target;
+          renderClarityScoreDisplay(target);
+          return;
+        }
+        el.classList.add('counting');
+        const t0 = performance.now();
+        const duration = 420;
+
+        function step(now) {
+          const p = Math.min(1, (now - t0) / duration);
+          const eased = 1 - Math.pow(1 - p, 3);
+          const current = Math.round(start + diff * eased);
+          displayedBcScore = current;
+          renderClarityScoreDisplay(current);
+          if (p < 1) {
+            countUpFrame = requestAnimationFrame(step);
+          } else {
+            displayedBcScore = Math.round(target);
+            renderClarityScoreDisplay(displayedBcScore);
+            el.classList.remove('counting');
+            countUpFrame = null;
+          }
+        }
+        countUpFrame = requestAnimationFrame(step);
+      }
+
+      function renderClarityScoreDisplay(value) {
+        const color = clarityColorForScore(value);
+        const el = $('clarityScore');
+        el.innerHTML = Math.round(value) + '<span class="unit">%</span>';
+        el.style.color = color;
+        el.classList.toggle('tier-high', value >= 86);
+        $('clarityStatus').style.color = color;
+        $('clarityStatus').style.borderColor = color + '44';
+      }
+
+      function updateBCBreakdownUI(bc) {
+        $('bcS').textContent = bc.sPoints.toFixed(1) + '/40 (40%)';
+        $('bcH').textContent = bc.hPoints.toFixed(1) + '/30 (30%)';
+        $('bcP').textContent = bc.pPoints + '/30 (30%)';
+        $('bcD').textContent = '-' + bc.dPenalty;
+        $('bcSBar').style.width = (bc.sPoints / S_POINTS_MAX * 100) + '%';
+        $('bcHBar').style.width = (bc.hPoints / H_POINTS_MAX * 100) + '%';
+        $('bcPBar').style.width = (bc.pPoints / P_POINTS_MAX * 100) + '%';
+      }
+
+      function pad2(n) {
+        return String(Math.floor(n)).padStart(2, '0');
+      }
+
+      function pulseUnit(id) {
+        const el = $(id);
+        el.classList.remove('pulse');
+        void el.offsetWidth;
+        el.classList.add('pulse');
+      }
+
+      function logEvent(type, note, meta) {
+        state.events.push({
+          id: state.nextEventId++,
+          type,
+          createdAt: new Date().toISOString(),
+          note: note || null,
+          meta: meta || null,
+        });
+        if (state.events.length > 500) state.events = state.events.slice(-500);
+        scheduleSave();
+      }
+
+      function saveDailySnapshot(clarity) {
+        const day = todayKey();
+        if (day === lastSnapshotDay && Math.abs(clarity - lastSnapshotClarity) < 0.05) return;
+        lastSnapshotDay = day;
+        lastSnapshotClarity = clarity;
+        state.dailySnapshots[day] = clarity;
+        scheduleSave();
+      }
+
+      function updateCoachTip() {
+        const bc = calculateBCScore();
+        let idx = Math.floor(bc.bcScore / 20) % COACH_TIPS.length;
+        if (pomodorosToday() === 0) idx = 0;
+        $('coachMessage').textContent = COACH_TIPS[idx];
+        $('coachMeta').textContent =
+          'BC_score ' + bc.bcScore + '% · ' + new Date().toLocaleDateString('ar-EG');
+      }
+
+      function updateDashboard() {
+        const start = state.streakStartTime;
+        const elapsed = Math.max(0, Date.now() - start);
+        const totalSec = Math.floor(elapsed / 1000);
+        const days = Math.floor(totalSec / 86400);
+        const hours = Math.floor((totalSec % 86400) / 3600);
+        const mins = Math.floor((totalSec % 3600) / 60);
+        const secs = totalSec % 60;
+
+        if (lastDisplayed.d !== days) {
+          $('valDays').textContent = pad2(days);
+          pulseUnit('unitDays');
+          lastDisplayed.d = days;
+        }
+        if (lastDisplayed.h !== hours) {
+          $('valHours').textContent = pad2(hours);
+          pulseUnit('unitHours');
+          lastDisplayed.h = hours;
+        }
+        if (lastDisplayed.m !== mins) {
+          $('valMins').textContent = pad2(mins);
+          pulseUnit('unitMins');
+          lastDisplayed.m = mins;
+        }
+        if (lastDisplayed.s !== secs) {
+          $('valSecs').textContent = pad2(secs);
+          pulseUnit('unitSecs');
+          lastDisplayed.s = secs;
+        }
+
+        $('streakDaysDisplay').textContent = getStreakElapsedDays().toFixed(2);
+        $('statSessions').textContent = String(pomodorosToday());
+        $('statDistractionMins').textContent = String(distractionMinutesToday());
+        $('statPoints').textContent = String(state.commitmentPoints);
+
+        const bc = calculateBCScore();
+        updateBCBreakdownUI(bc);
+        if (Math.abs(bc.bcScore - displayedBcScore) >= 0.5) {
+          animateClarityScore(bc.bcScore);
+        } else {
+          displayedBcScore = Math.round(bc.bcScore);
+          renderClarityScoreDisplay(bc.bcScore);
+        }
+        $('clarityStatus').textContent = clarityStatusText(bc.bcScore);
+        $('claritySub').textContent =
+          'BC = (S×40%)+(H×30%)+(P×30%) − D · ' + bc.distractions + ' تشتت اليوم';
+
+        saveDailySnapshot(bc.bcScore);
+        updateCoachTip();
+      }
+
+      function getWeeklyChartData() {
+        const labels = [];
+        const data = [];
+        const today = new Date();
+        const todayStr = todayKey();
+
+        for (let i = 6; i >= 0; i--) {
+          const d = new Date(today);
+          d.setDate(d.getDate() - i);
+          const key = d.toISOString().slice(0, 10);
+          labels.push(
+            d.toLocaleDateString('ar-EG', { weekday: 'short' })
+          );
+          data.push({
+            value: state.pomodorosByDay[key] || 0,
+            isToday: key === todayStr,
+          });
+        }
+
+        return {
+          labels,
+          values: data.map((x) => x.value),
+          colors: data.map((x) => (x.isToday ? BAR_GOLD : BAR_GREEN)),
+        };
+      }
+
+      function initChart() {
+        if (typeof Chart === 'undefined') {
+          $('weeklyChart').style.display = 'none';
+          $('chartOffline').style.display = 'block';
+          return;
+        }
+        $('weeklyChart').style.display = 'block';
+        $('chartOffline').style.display = 'none';
+
+        const ctx = $('weeklyChart').getContext('2d');
+        const { labels, values, colors } = getWeeklyChartData();
+
+        if (chart) chart.destroy();
+        chart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels,
+            datasets: [{
+              label: 'جلسات',
+              data: values,
+              backgroundColor: colors,
+              borderColor: colors,
+              borderWidth: 0,
+              borderRadius: 6,
+              borderSkipped: false,
+              maxBarThickness: 36,
+            }],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: { duration: 650, easing: 'easeInOutQuart' },
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                rtl: true,
+                titleFont: { family: 'Cairo' },
+                bodyFont: { family: 'Cairo' },
+                callbacks: {
+                  label: (c) => ' ' + c.parsed.y + ' جلسة تركيز',
+                },
+              },
+            },
+            scales: {
+              x: {
+                grid: { display: false },
+                ticks: { color: '#8b95ad', font: { family: 'Cairo', size: 10 } },
+              },
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  stepSize: 1,
+                  color: '#8b95ad',
+                  font: { family: 'Cairo', size: 10 },
+                },
+                grid: { color: 'rgba(30, 42, 58, 0.6)' },
+              },
+            },
+          },
+        });
+      }
+
+      function refreshChart() {
+        if (typeof Chart === 'undefined') return;
+        if (!chart) {
+          initChart();
+          return;
+        }
+        const { labels, values, colors } = getWeeklyChartData();
+        chart.data.labels = labels;
+        chart.data.datasets[0].data = values;
+        chart.data.datasets[0].backgroundColor = colors;
+        chart.data.datasets[0].borderColor = colors;
+        chart.update('active');
+      }
+
+      function renderLog() {
+        const list = $('logList');
+        list.innerHTML = '';
+        const events = [...state.events]
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+          .slice(0, 10);
+        if (!events.length) {
+          list.innerHTML = '<li class="empty-log">لا أحداث بعد</li>';
+          return;
+        }
+        const labels = {
+          distraction: 'تشتت مؤقت',
+          pomodoro: 'بومودورو',
+          habit: 'عادة حيوية',
+        };
+        events.forEach((ev) => {
+          const li = document.createElement('li');
+          li.className = 'log-item type-' + ev.type;
+          const dt = new Date(ev.createdAt);
+          let detail = ev.note ? escapeHtml(ev.note) : '';
+          if (ev.type === 'distraction' && ev.meta) {
+            detail = escapeHtml(ev.meta.reason || ev.note || '');
+            if (ev.meta.activity) {
+              detail += '<div class="log-meta">بدلاً من: ' + escapeHtml(ev.meta.activity) + '</div>';
+            }
+            if (ev.meta.penalty != null) {
+              detail += '<div class="log-meta">−' + ev.meta.penalty + ' BC · −' + (ev.meta.streakHours || 12) + ' س سلسلة</div>';
+            }
+          } else if (ev.type === 'pomodoro') {
+            detail = detail || 'جلسة تركيز 25 دقيقة مكتملة';
+          } else if (ev.type === 'habit' && !detail) {
+            detail = 'تحديث عادة حيوية';
+          }
+          li.innerHTML =
+            '<div class="log-head">' +
+            '<span class="log-tag ' + ev.type + '">' + (labels[ev.type] || ev.type) + '</span>' +
+            '<span class="log-time">' + dt.toLocaleString('ar-EG', { hour: '2-digit', minute: '2-digit', day: 'numeric', month: 'short' }) + '</span>' +
+            '</div>' +
+            '<div class="log-detail">' + detail + '</div>';
+          list.appendChild(li);
+        });
+      }
+
+      function escapeHtml(s) {
+        const d = document.createElement('div');
+        d.textContent = s;
+        return d.innerHTML;
+      }
+
+      function renderHabits() {
+        const container = $('habitsList');
+        container.innerHTML = '';
+        allHabits().forEach((h) => {
+          const done = isHabitDoneToday(h.id);
+          const row = document.createElement('div');
+          row.className = 'habit-row' + (done ? ' done' : '');
+          row.setAttribute('role', 'button');
+          row.setAttribute('tabindex', '0');
+          row.innerHTML =
+            '<div class="habit-check">' + (done ? '✓' : '') + '</div>' +
+            '<span>' + h.icon + '</span>' +
+            '<span class="habit-name">' + escapeHtml(h.name) + '</span>' +
+            '<span class="habit-pts">+' + HABIT_POINTS + '</span>' +
+            (h.custom ? '<button type="button" class="habit-delete" aria-label="حذف">×</button>' : '');
+          const toggle = () => toggleHabit(h.id, h.name);
+          row.addEventListener('click', (e) => {
+            if (e.target.classList.contains('habit-delete')) return;
+            toggle();
+          });
+          row.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              toggle();
+            }
+          });
+          const del = row.querySelector('.habit-delete');
+          if (del) {
+            del.addEventListener('click', (e) => {
+              e.stopPropagation();
+              removeCustomHabit(h.id);
+            });
+          }
+          container.appendChild(row);
+        });
+      }
+
+      function toggleHabit(habitId, habitName) {
+        if (!state.habitDone[habitId]) state.habitDone[habitId] = {};
+        const key = todayKey();
+        const wasDone = state.habitDone[habitId][key] === true;
+        if (wasDone) {
+          delete state.habitDone[habitId][key];
+          state.commitmentPoints = Math.max(0, state.commitmentPoints - HABIT_POINTS);
+          logEvent('habit', 'إلغاء: ' + habitName);
+        } else {
+          state.habitDone[habitId][key] = true;
+          state.commitmentPoints += HABIT_POINTS;
+          logEvent('habit', 'إنجاز: ' + habitName);
+        }
+        calculateBCScore();
+        flushSave();
+        renderHabits();
+        updateDashboard();
+        renderLog();
+        refreshChart();
+      }
+
+      function addCustomHabit() {
+        const name = $('customHabitInput').value.trim();
+        if (!name) return;
+        const id = 'custom_' + Date.now();
+        state.customHabits.push({ id, name, icon: '✦' });
+        state.habitDone[id] = {};
+        $('customHabitInput').value = '';
+        flushSave();
+        renderHabits();
+      }
+
+      function removeCustomHabit(id) {
+        state.customHabits = state.customHabits.filter((c) => c.id !== id);
+        delete state.habitDone[id];
+        flushSave();
+        renderHabits();
+      }
+
+      function canDistractionNow() {
+        const elapsed = Date.now() - (state.lastDistractionAt || 0);
+        return elapsed >= DISTRACTION_DEBOUNCE_MS;
+      }
+
+      function showDebounceToast() {
+        const toast = $('debounceToast');
+        toast.classList.add('show');
+        clearTimeout(showDebounceToast._t);
+        showDebounceToast._t = setTimeout(() => toast.classList.remove('show'), 4000);
+      }
+
+      function updateDistractionConfirmState() {
+        const reason = $('distractionReason').value.trim();
+        $('btnDistractionConfirm').disabled = reason.length < 2;
+      }
+
+      function openDistractionModal() {
+        if (!canDistractionNow()) {
+          showDebounceToast();
+          return;
+        }
+        $('distractionReason').value = '';
+        $('distractionActivity').value = 'browsing';
+        updateDistractionConfirmState();
+        $('distractionOverlay').classList.add('open');
+        setTimeout(() => $('distractionReason').focus(), 120);
+      }
+
+      function closeDistractionModal() {
+        $('distractionOverlay').classList.remove('open');
+      }
+
+      function applyDistraction(reason, activityKey) {
+        const day = todayKey();
+        const activityLabel = ACTIVITY_LABELS[activityKey] || activityKey;
+
+        state.streakStartTime += STREAK_ROLLBACK_MS;
+        state.startDate = new Date(state.streakStartTime).toISOString();
+        localStorage.setItem(LS_STREAK, String(state.streakStartTime));
+
+        state.distractionTotal += 1;
+        state.distractionsByDay[day] = (state.distractionsByDay[day] || 0) + 1;
+        state.distractionMinutesByDay[day] =
+          (state.distractionMinutesByDay[day] || 0) + DISTRACTION_MINUTES;
+        state.lastDistractionAt = Date.now();
+
+        logEvent('distraction', reason, {
+          reason,
+          activity: activityLabel,
+          penalty: D_PENALTY_PER_DISTRACTION,
+          streakHours: 12,
+        });
+
+        lastDisplayed = { d: -1, h: -1, m: -1, s: -1 };
+        calculateBCScore();
+        flushSave();
+        closeDistractionModal();
+        updateDashboard();
+        renderLog();
+        refreshChart();
+      }
+
+      function formatPomo(sec) {
+        return pad2(Math.floor(sec / 60)) + ':' + pad2(sec % 60);
+      }
+
+      function updatePomoUI() {
+        $('pomoDisplay').textContent = formatPomo(pomo.remaining);
+        $('pomoBarFill').style.width =
+          ((POMO_SECONDS - pomo.remaining) / POMO_SECONDS) * 100 + '%';
+        const running = pomo.running;
+        $('pomoLaunchText').textContent = running
+          ? 'جلسة جارية — ' + formatPomo(pomo.remaining)
+          : 'بدء بومودورو — 25 دقيقة';
+      }
+
+      function togglePomoPanel(open) {
+        const panel = $('pomoPanel');
+        const launch = $('btnPomoLaunch');
+        const show = open !== undefined ? open : !panel.classList.contains('open');
+        panel.classList.toggle('open', show);
+        launch.setAttribute('aria-expanded', show ? 'true' : 'false');
+      }
+
+      function completePomodoro() {
+        stopPomoTimer();
+        pomo.remaining = POMO_SECONDS;
+        pomo.running = false;
+        const day = todayKey();
+        state.pomodorosByDay[day] = (state.pomodorosByDay[day] || 0) + 1;
+        state.pomodorosTotal += 1;
+        state.commitmentPoints += POMO_COMMITMENT_POINTS;
+        logEvent('pomodoro', '+3 نقاط بومودورو · +' + POMO_COMMITMENT_POINTS + ' التزام');
+        calculateBCScore();
+        updatePomoUI();
+        flushSave();
+        updateDashboard();
+        renderLog();
+        refreshChart();
+      }
+
+      function tickPomodoro() {
+        if (!pomo.running) return;
+        const elapsed = Math.floor((Date.now() - pomo.startedAt) / 1000);
+        pomo.remaining = Math.max(0, POMO_SECONDS - elapsed);
+        updatePomoUI();
+        if (pomo.remaining <= 0) completePomodoro();
+      }
+
+      function startPomo() {
+        if (pomo.running) return;
+        if (pomo.remaining <= 0) pomo.remaining = POMO_SECONDS;
+        pomo.running = true;
+        pomo.startedAt = Date.now() - (POMO_SECONDS - pomo.remaining) * 1000;
+        togglePomoPanel(true);
+        pomoInterval = setInterval(tickPomodoro, 250);
+        updatePomoUI();
+      }
+
+      function pausePomo() {
+        if (!pomo.running) return;
+        stopPomoTimer();
+        pomo.running = false;
+        updatePomoUI();
+      }
+
+      function stopPomoTimer() {
+        if (pomoInterval) {
+          clearInterval(pomoInterval);
+          pomoInterval = null;
+        }
+      }
+
+      function resetPomo() {
+        pausePomo();
+        pomo.remaining = POMO_SECONDS;
+        updatePomoUI();
+      }
+
+      function showConfirm(title, message, onConfirm) {
+        $('dialogTitle').textContent = title;
+        $('dialogMessage').textContent = message;
+        pendingAction = onConfirm;
+        $('confirmOverlay').classList.add('open');
+      }
+
+      function hideConfirm() {
+        $('confirmOverlay').classList.remove('open');
+        pendingAction = null;
+      }
+
+      function bindUI() {
+        $('dialogCancel').addEventListener('click', hideConfirm);
+        $('dialogConfirm').addEventListener('click', () => {
+          if (pendingAction) pendingAction();
+          hideConfirm();
+        });
+        $('confirmOverlay').addEventListener('click', (e) => {
+          if (e.target === $('confirmOverlay')) hideConfirm();
+        });
+
+        $('btnDistraction').addEventListener('click', openDistractionModal);
+
+        $('distractionReason').addEventListener('input', updateDistractionConfirmState);
+        $('btnDistractionCancel').addEventListener('click', closeDistractionModal);
+        $('btnDistractionConfirm').addEventListener('click', () => {
+          if (!canDistractionNow()) {
+            closeDistractionModal();
+            showDebounceToast();
+            return;
+          }
+          const reason = $('distractionReason').value.trim();
+          if (reason.length < 2) return;
+          const activity = $('distractionActivity').value;
+          applyDistraction(reason, activity);
+        });
+        $('distractionOverlay').addEventListener('click', (e) => {
+          if (e.target === $('distractionOverlay')) closeDistractionModal();
+        });
+
+        $('btnSetStart').addEventListener('click', () => {
+          showConfirm(
+            'بداية سلسلة جديدة',
+            'ضبط نقطة البداية إلى الآن مع الإبقاء على السجل. متابعة؟',
+            () => {
+              state.streakStartTime = Date.now();
+              state.startDate = new Date().toISOString();
+              lastDisplayed = { d: -1, h: -1, m: -1, s: -1 };
+              calculateBCScore();
+              flushSave();
+              updateDashboard();
+              refreshChart();
+            }
+          );
+        });
+
+        $('btnAddHabit').addEventListener('click', addCustomHabit);
+        $('customHabitInput').addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') addCustomHabit();
+        });
+
+        $('btnPomoLaunch').addEventListener('click', () => {
+          togglePomoPanel();
+          if (!pomo.running && pomo.remaining === POMO_SECONDS) startPomo();
+          else if (!pomo.running) {
+            togglePomoPanel(true);
+          }
+        });
+
+        $('pomoStart').addEventListener('click', startPomo);
+        $('pomoPause').addEventListener('click', pausePomo);
+        $('pomoReset').addEventListener('click', resetPomo);
+
+        window.addEventListener('beforeunload', flushSave);
+        document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState === 'hidden') flushSave();
+        });
+      }
+
+      function boot() {
+        state = loadState();
+        BUILTIN_HABITS.forEach((h) => {
+          if (!state.habitDone[h.id]) state.habitDone[h.id] = {};
+        });
+        if (!state.streakStartTime) {
+          state.streakStartTime = state.startDate
+            ? new Date(state.startDate).getTime()
+            : Date.now();
+        }
+        const bc = calculateBCScore();
+        displayedBcScore = Math.round(bc.bcScore);
+        bindUI();
+        initChart();
+        renderHabits();
+        renderLog();
+        updatePomoUI();
+        updateBCBreakdownUI(bc);
+        renderClarityScoreDisplay(bc.bcScore);
+        updateDashboard();
+
+        tickInterval = setInterval(() => {
+          updateDashboard();
+          if (pomo.running) tickPomodoro();
+          if (new Date().getSeconds() === 0) refreshChart();
+        }, 1000);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', boot);
+      } else {
+        boot();
+      }
+    })();
+  </script>
+</body>
+</html>

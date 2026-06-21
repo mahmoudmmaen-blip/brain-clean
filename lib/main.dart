@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart'; // تأكد إنك ضفتها
 
 import 'core/l10n/app_localization_config.dart';
 import 'core/network/supabase_client.dart';
@@ -14,9 +15,14 @@ import 'core/theme/theme_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
+  // تحميل ملف .env من جذر المشروع
+  await dotenv.load(fileName: ".env");
+  
   await HiveBootstrap.initialize();
   await HiveBootstrap.warmUpPersistentBoxes();
   await SupabaseConfig.initialize();
+  
   runApp(const ProviderScope(child: BrainCleanApp()));
 }
 

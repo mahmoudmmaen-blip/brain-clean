@@ -1,5 +1,5 @@
 name: brain_clean_mobile
-description: "A neuro-scientific digital detox mobile app — Brain Clean."
+description: "A neuro-scientific digital detox mobile app."
 publish_to: 'none'
 version: 1.0.0+1
 
@@ -30,6 +30,7 @@ dependencies:
   confetti: ^0.7.0
   share_plus: ^10.0.0
   timezone: ^0.9.4
+  flutter_dotenv: ^5.1.0
 
 dev_dependencies:
   flutter_test:
@@ -45,6 +46,7 @@ flutter:
   generate: true
   uses-material-design: true
   assets:
+    - .env
     - assets/sounds/rain.mp3
     - assets/sounds/waves.mp3
     - assets/sounds/forest.mp3

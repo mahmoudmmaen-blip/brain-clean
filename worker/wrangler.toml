@@ -1,0 +1,6 @@
+name = "netgulf-proxy"
+main = "index.js"
+compatibility_date = "2024-01-01"
+
+[vars]
+# Set ANTHROPIC_API_KEY in Cloudflare dashboard → Workers → Settings → Variables

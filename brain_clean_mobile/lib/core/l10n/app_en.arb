@@ -1,0 +1,591 @@
+{
+  "@@locale": "en",
+  "dashboardTitle": "Brain Clean Dashboard",
+  "dashboardEmptyDiagnosticPrompt": "Complete the diagnostic to see your BC_score.",
+  "dashboardRetakeDiagnostic": "Retake Diagnostic",
+  "dashboardOpenDetoxCheckIn": "7-Day Detox Check-in",
+  "dashboardOpenDetoxCheckInSubtitle": "Log daily habits and boost your live BC_score",
+  "dashboardCommittedAt": "Committed {date}",
+  "@dashboardCommittedAt": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "diagnosticTitle": "Diagnostic 6-Point Test",
+  "diagnosticLiveSubtitle": "Live · updates on every slider move",
+  "diagnosticInstructions": "Rate each dimension from 1 (low) to 10 (high).",
+  "diagnosticStart": "Start Brain Clean",
+  "diagnosticSleepQuality": "Sleep Quality",
+  "diagnosticSustainedAttention": "Sustained Attention",
+  "diagnosticFragmentation": "Fragmentation",
+  "diagnosticDopamineSeeking": "Dopamine Seeking",
+  "diagnosticTaskSwitching": "Task Switching",
+  "diagnosticBurnout": "Burnout",
+  "bcScoreHeroLabel": "BRAIN CLARITY SCORE",
+  "bcScoreBreakdownTitle": "BHI · BC_score breakdown",
+  "bcScorePillarBrainPerformance": "Brain performance",
+  "bcScorePillarDigitalDiscipline": "Digital discipline",
+  "bcScorePillarHealthyHabits": "Healthy habits",
+  "bcScorePillarConsistency": "Consistency",
+  "bcScoreLabel": "BC_score",
+  "accountabilityAdjustment": "ACCOUNTABILITY ADJUSTMENT",
+  "bhiScoreLabel": "Base BHI score",
+  "finalBcScoreLabel": "Final BC_score",
+  "accountabilityDeduction": "Recovery accountability (−{deduction})",
+  "@accountabilityDeduction": {
+    "placeholders": {
+      "deduction": {
+        "type": "int"
+      }
+    }
+  },
+  "detoxTitle": "7-Day Dopamine Detox",
+  "detoxSubtitle": "Daily check-in",
+  "detoxLiveBcScoreTitle": "Live BC_score",
+  "detoxLiveBcScoreSubtitle": "Updates instantly as you log habits",
+  "detoxBoredomTitle": "Boredom Befriended",
+  "detoxBoredomSubtitle": "Sat with boredom without reaching for a screen",
+  "detoxDelayedTitle": "Delayed Gratification",
+  "detoxDelayedSubtitle": "Wins today (capped at {max})",
+  "@detoxDelayedSubtitle": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "detoxBodyTitle": "Body Activated",
+  "detoxBodySubtitle": "Morning sun + cold shower completed",
+  "detoxCount": "{count}",
+  "@detoxCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "detoxIncrement": "Increase",
+  "detoxDecrement": "Decrease",
+  "detoxReset": "Reset today",
+  "detoxRetry": "Retry",
+  "detoxSyncing": "Syncing…",
+  "detoxSyncError": "Could not sync. Your check-in is saved locally.",
+  "diagnosticBrainRotTitle": "Brain Rot Test",
+  "diagnosticBhiTitle": "BHI 6-Point Assessment",
+  "diagnosticYes": "Yes",
+  "diagnosticNo": "No",
+  "diagnosticPreviousQuestion": "Previous question",
+  "diagnosticBrainRotProgress": "Question {current} of {total}",
+  "@diagnosticBrainRotProgress": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "diagnosticBrainRotScoreTitle": "Brain Rot Score",
+  "diagnosticBrainRotScoreOutOf": "out of {max}",
+  "@diagnosticBrainRotScoreOutOf": {
+    "placeholders": { "max": { "type": "int" } }
+  },
+  "diagnosticBrainRotBandRange": "Severity band: {min}–{max}",
+  "@diagnosticBrainRotBandRange": {
+    "placeholders": {
+      "min": { "type": "int" },
+      "max": { "type": "int" }
+    }
+  },
+  "diagnosticBrainRotInterpretationTitle": "Clinical interpretation",
+  "diagnosticContinueToBhi": "Continue to BHI assessment",
+  "diagnosticReviewAnswers": "Review my answers",
+  "diagnosticBrainRotIncomplete": "Complete all 10 questions first.",
+  "diagnosticBrainRotScoring": "Calculating your Brain Rot score…",
+  "diagnosticSyncError": "Could not save your diagnostic. Please try again.",
+  "diagnosticBrainRotQ1": "I feel my short-term memory has weakened (I forget what was said to me recently).",
+  "diagnosticBrainRotQ2": "I have difficulty focusing on one task for long enough.",
+  "diagnosticBrainRotQ3": "My thinking feels slower compared to before.",
+  "diagnosticBrainRotQ4": "I experience \"brain fog\" or have trouble organizing my thoughts.",
+  "diagnosticBrainRotQ5": "I feel mental fatigue after short periods of thinking or mental work.",
+  "diagnosticBrainRotQ6": "I have trouble finding the right words when speaking or writing.",
+  "diagnosticBrainRotQ7": "I feel scattered or my thoughts jump quickly from idea to idea.",
+  "diagnosticBrainRotQ8": "Simple decisions or planning tasks have become harder.",
+  "diagnosticBrainRotQ9": "I work slower than usual or need more time for the same tasks.",
+  "diagnosticBrainRotQ10": "These symptoms affect my daily life (work, study, or relationships).",
+  "dashboardBrainRotSummary": "Brain Rot: {score}/10",
+  "@dashboardBrainRotSummary": {
+    "placeholders": { "score": { "type": "int" } }
+  },
+  "dashboardOpenRecoveryGrid": "30-Day Recovery Grid",
+  "dashboardOpenRecoveryGridSubtitle": "Five daily habits · accountability room for missed check-ins",
+  "splashTitle": "Brain Clean",
+  "splashHydrationRetry": "Restoring your progress…",
+  "homeTitle": "Brain Clean Home",
+  "homeEmptyDiagnosticPrompt": "Complete the diagnostic to unlock your live BC_score tracker.",
+  "homeChallengeProgressTitle": "30-day recovery challenge",
+  "homeChallengeProgressPercent": "{percent}% complete",
+  "@homeChallengeProgressPercent": {
+    "placeholders": { "percent": { "type": "int" } }
+  },
+  "homeOpenDiagnostic": "Diagnostic assessment",
+  "homeOpenDiagnosticSubtitle": "Brain Rot questionnaire + BHI sliders",
+  "homeOpenCognitiveHub": "Cognitive assessments",
+  "homeOpenCognitiveHubSubtitle": "Visual attention test and memory mini-games",
+  "homeOpenFullDashboard": "Full clinical dashboard",
+  "cognitiveHubTitle": "Cognitive assessments",
+  "cognitiveHubSubtitle": "Interactive modules that refine your brain performance pillar.",
+  "cognitiveVisualTestTitle": "Visual Cognitive Image Test",
+  "cognitiveVisualTestSubtitle": "Attention and pattern recognition (coming soon)",
+  "cognitiveMemoryGameTitle": "Memory mini-games",
+  "cognitiveMemoryGameSubtitle": "Working-memory sequence tasks (coming soon)",
+  "cognitivePlaceholderBody": "This module is scaffolded for the unified BHI evaluation engine. Complete the placeholder run to verify navigation.",
+  "cognitivePlaceholderComplete": "Record placeholder result",
+  "cognitivePlaceholderRecorded": "Placeholder score recorded: {score}%",
+  "@cognitivePlaceholderRecorded": {
+    "placeholders": { "score": { "type": "int" } }
+  },
+  "recoveryGridTitle": "30-Day Recovery",
+  "recoveryGridSubtitle": "Tap a day to log the five mandatory habits.",
+  "recoveryDayTasksTitle": "Day {day} habits",
+  "@recoveryDayTasksTitle": {
+    "placeholders": { "day": { "type": "int" } }
+  },
+  "recoveryProgressSummary": "{completed} of {total} protocol days complete",
+  "@recoveryProgressSummary": {
+    "placeholders": {
+      "completed": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "recoveryDayTasksProgress": "{done} of {total} habits logged today",
+  "@recoveryDayTasksProgress": {
+    "placeholders": {
+      "done": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "recoveryTaskSleepTitle": "Regulated sleep",
+  "recoveryTaskSleepSubtitle": "Consistent sleep window and wind-down routine",
+  "recoveryTaskNutritionTitle": "Anti-inflammatory nutrition",
+  "recoveryTaskNutritionSubtitle": "Brain-supportive meals without inflammatory triggers",
+  "recoveryTaskMovementTitle": "20 minutes of movement",
+  "recoveryTaskMovementSubtitle": "Walk, stretch, or light exercise for at least 20 minutes",
+  "recoveryTaskDistractionTitle": "Distraction management protocol",
+  "recoveryTaskDistractionSubtitle": "Completed your daily focus-protection routine",
+  "recoveryTaskMentalTitle": "Mental support",
+  "recoveryTaskMentalSubtitle": "Journaling, breathwork, or guided recovery check-in",
+  "recoveryDayComplete": "All five habits completed for this day.",
+  "recoveryMissedHabitsTitle": "Incomplete check-in",
+  "recoveryMissedHabitsSubtitle": "Some habits were missed. Open the accountability room to record responsibility.",
+  "recoveryOpenPenaltyBox": "Open accountability room",
+  "recoveryDayEmptyHint": "Check off each habit as you complete it today.",
+  "recoveryPenaltyCount": "Accountability entries: {count}",
+  "@recoveryPenaltyCount": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "recoveryPenaltyBoxTitle": "Accountability room",
+  "recoveryPenaltyBoxMessage": "Confirming applies a −{deduction} BC_score accountability entry for missed habits today.",
+  "@recoveryPenaltyBoxMessage": {
+    "placeholders": { "deduction": { "type": "int" } }
+  },
+  "recoveryPenaltyConfirm": "Confirm accountability",
+  "recoveryPenaltyCancel": "Cancel",
+  "recoveryPenaltyApplied": "Accountability recorded for today.",
+  "recoveryStorageLoadError": "Could not load your recovery progress from local storage.",
+  "recoveryStorageSaveError": "Could not save your latest check-in. Your changes are kept on screen — try again.",
+  "recoveryStorageReset": "Start fresh protocol",
+  "recoveryStorageMigratedNotice": "Your saved progress was upgraded to the latest format.",
+  "recoveryStorageRecoveredNotice": "Local data was reset because it could not be read. A new protocol has started.",
+  "homeStreakDays": "Days",
+  "homeStreakHours": "Hours",
+  "homeStreakMinutes": "Min",
+  "homeStreakSeconds": "Sec",
+  "homeDistractionButton": "Temporary distraction",
+  "homeDistractionConfirmTitle": "Confirm distraction",
+  "homeDistractionConfirmMessage": "Are you sure? 12 hours will be deducted from your streak.",
+  "homeDistractionConfirm": "Confirm",
+  "homeDistractionCancel": "Cancel",
+  "homeOpenAccountability": "Digital accountability room",
+  "accountabilityRoomTitle": "Digital accountability room",
+  "accountabilityPenaltyRecorded": "Penalty recorded ✓",
+  "accountabilityCatPhysical": "Physical",
+  "accountabilityCatNutritional": "Nutritional",
+  "accountabilityCatAltruistic": "Altruistic",
+  "accountabilityCatMental": "Mental",
+  "accountabilityPenPhysical1": "Skipped movement block",
+  "accountabilityPenPhysical2": "Poor sleep hygiene",
+  "accountabilityPenPhysical3": "Sedentary relapse",
+  "accountabilityPenPhysical4": "Missed recovery walk",
+  "accountabilityPenPhysical5": "Body activation skipped",
+  "accountabilityPenNutritional1": "Inflammatory meal",
+  "accountabilityPenNutritional2": "Skipped brain-support meal",
+  "accountabilityPenNutritional3": "Excess sugar intake",
+  "accountabilityPenNutritional4": "Hydration neglect",
+  "accountabilityPenNutritional5": "Late-night eating",
+  "accountabilityPenAltruistic1": "Missed kindness act",
+  "accountabilityPenAltruistic2": "Social withdrawal",
+  "accountabilityPenAltruistic3": "Ignored support request",
+  "accountabilityPenAltruistic4": "Self-focused relapse",
+  "accountabilityPenAltruistic5": "Community check-in skipped",
+  "accountabilityPenMental1": "Skipped breathwork",
+  "accountabilityPenMental2": "Avoided journaling",
+  "accountabilityPenMental3": "Rumination spiral",
+  "accountabilityPenMental4": "Missed mental check-in",
+  "accountabilityPenMental5": "Escalated screen binge",
+  "breathingInhale": "Inhale…",
+  "breathingHold": "Hold…",
+  "breathingExhale": "Exhale…",
+  "breathingCountdownSeconds": "{seconds} seconds remaining",
+  "@breathingCountdownSeconds": {
+    "placeholders": { "seconds": { "type": "int" } }
+  },
+  "commonCancel": "Cancel",
+  "commonConfirm": "Confirm",
+  "commonOk": "OK",
+  "commonGreat": "Great",
+  "commonBack": "Back",
+  "onboardingSkip": "Skip",
+  "onboardingPage1Title": "Welcome to Brain Clean",
+  "onboardingPage1Body": "Restore your digital awareness in 21 days",
+  "onboardingPage2Title": "Track your focus daily",
+  "onboardingPage2Body": "Real science-based formulas to measure brain health",
+  "onboardingPage3Title": "Start your journey now",
+  "onboardingPage3Body": "Answer 10 questions to assess your brain rot level",
+  "onboardingStartQuiz": "Start assessment",
+  "proPaywallTitle": "Brain Clean Pro",
+  "proPaywallSubtitle": "Unlock your mind's full potential",
+  "proFeatureAdvancedBcs": "Advanced Brain Clarity Score engine",
+  "proFeatureSevenDayChart": "7-day progress chart",
+  "proFeatureEmotionWheel": "Emotion wheel & recovery impact",
+  "proFeatureFocusChallenges": "Advanced focus challenges",
+  "proFeatureCloudSync": "Secure cloud sync",
+  "proWelcomeSnack": "Welcome to Pro! 🎉",
+  "proPriceMonthly": "SAR 19 / month",
+  "proPriceHint": "Less than one meal",
+  "proSubscribeNow": "Subscribe now",
+  "proRestorePurchase": "Restore purchase",
+  "proBadgeLabel": "Pro",
+  "settingsTitle": "Settings",
+  "settingsAccountSection": "Account",
+  "settingsProActive": "Brain Clean Pro ✓",
+  "settingsUpgradeToPro": "Upgrade to Pro",
+  "settingsNotificationsSection": "Notifications",
+  "settingsEmotionNotifications": "Negative emotion alerts",
+  "settingsDailyFocusReminder": "Daily focus reminder",
+  "settingsDataSection": "Data",
+  "settingsResetData": "Reset all data",
+  "settingsResetDataConfirmTitle": "Reset all data",
+  "settingsResetDataConfirmBody": "All local data will be deleted. Are you sure?",
+  "settingsExportData": "Export my data",
+  "settingsComingSoon": "Coming soon…",
+  "settingsAboutSection": "About",
+  "settingsVersion": "Version",
+  "settingsPrivacyPolicy": "Privacy policy",
+  "settingsContactUs": "Contact us",
+  "emotionWheelTitle": "Emotion wheel",
+  "emotionImpactDialogTitle": "Impact on your recovery",
+  "emotionImpactNegative": "Feeling {emotion} will reduce your recovery by {pct}%.\nLog it?",
+  "@emotionImpactNegative": {
+    "placeholders": {
+      "emotion": { "type": "String" },
+      "pct": { "type": "String" }
+    }
+  },
+  "emotionImpactPositive": "Feeling {emotion} will improve your recovery by {pct}%.\nLog it?",
+  "@emotionImpactPositive": {
+    "placeholders": {
+      "emotion": { "type": "String" },
+      "pct": { "type": "String" }
+    }
+  },
+  "emotionIgnore": "No, ignore",
+  "emotionConfirmLog": "Yes, log it",
+  "emotionGateNegative": "I feel something negative",
+  "emotionGateNeutral": "I feel something neutral",
+  "emotionGatePositive": "I feel something positive",
+  "silenceChallengeTitle": "Silence challenge",
+  "silenceChallengeSubtitle": "Don't touch the screen for {minutes} minutes",
+  "@silenceChallengeSubtitle": {
+    "placeholders": { "minutes": { "type": "int" } }
+  },
+  "silenceChallengeLevel": "Level {level} — {minutes} minutes required",
+  "@silenceChallengeLevel": {
+    "placeholders": {
+      "level": { "type": "int" },
+      "minutes": { "type": "int" }
+    }
+  },
+  "silenceChallengeFailedTitle": "Challenge failed",
+  "silenceChallengeFailedBody": "You touched the screen or left the app.",
+  "silenceChallengeSuccessTitle": "Well done! 🎉",
+  "silenceChallengeSuccessBody": "You completed the silence challenge.",
+  "singleTaskPauseTitle": "Pause task",
+  "singleTaskPauseBody": "Stop the current task? You won't earn a reward.",
+  "singleTaskModeTitle": "Single-task mode",
+  "singleTaskFocusRewardSnack": "Great! +10 focus points",
+  "singleTaskHint": "Write your task now…",
+  "singleTaskStartFocus": "Start focus",
+  "singleTaskFocusing": "Focusing…",
+  "singleTaskCompleted": "Task done ✓",
+  "singleTaskPauseButton": "Pause",
+  "delayedGratTitle": "Delayed gratification",
+  "delayedGratSubtitle": "Hold 20 minutes before opening social media",
+  "delayedGratQuoteUnder5": "Patience is the key to relief",
+  "delayedGratQuoteUnder10": "Your brain thanks you now",
+  "delayedGratQuoteUnder15": "You're stronger than the algorithm",
+  "delayedGratQuoteDefault": "Almost there — keep going",
+  "delayedGratGiveUpTitle": "Give up",
+  "delayedGratGiveUpBody": "Give up now? You won't earn the reward.",
+  "delayedGratGiveUpButton": "Give up",
+  "delayedGratVictoryTitle": "You beat yourself! 🏆",
+  "delayedGratVictoryBody": "+25 focus points added.",
+  "chartSevenDayTitle": "Your 7-day progress",
+  "chartDaySat": "Sat",
+  "chartDaySun": "Sun",
+  "chartDayMon": "Mon",
+  "chartDayTue": "Tue",
+  "chartDayWed": "Wed",
+  "chartDayThu": "Thu",
+  "chartDayFri": "Fri",
+  "proGatedChartTitle": "7-day progress chart",
+  "proGatedChartSubtitle": "Available in Brain Clean Pro",
+  "visualCognitiveBack": "Back",
+  "visualCognitiveRound": "Round {round} / 5",
+  "@visualCognitiveRound": {
+    "placeholders": { "round": { "type": "int" } }
+  },
+  "visualCognitiveInstruction": "Tap the square with a different color",
+  "visualCognitiveScore": "Score: {score}",
+  "@visualCognitiveScore": {
+    "placeholders": { "score": { "type": "int" } }
+  },
+  "diagnosticCognitiveTestButton": "Test your focus 🎯",
+  "homeQuickEmotion": "How do you feel? 💭",
+  "homeQuickSilence": "Silence challenge 🔇",
+  "homeQuickSingleTask": "Single task 🎯",
+  "homeQuickDelayedGrat": "Delayed gratification ⏳",
+  "homeQuickCognitiveTest": "Test your focus 🧪",
+  "homeAccountabilityBox": "Accountability box",
+  "homeDistractionConfirmAction": "Confirm distraction",
+  "splashSubtitle": "Reset your brain",
+  "profileDefaultName": "Brain Clean user",
+  "profileProBadge": "Pro ⭐",
+  "profileStatFocusDays": "focus days",
+  "profileStatBcs": "BCS",
+  "profileStatEmotions": "emotions",
+  "profileRecentEmotions": "Recent emotions",
+  "profileNoEmotionsYet": "No emotions logged yet",
+  "profileAchievements": "Your achievements",
+  "profileBadgeStreak7": "7-day streak",
+  "profileBadgeCleanBrain": "Clean brain",
+  "profileBadgeSilenceHero": "Silence hero",
+  "profileBadgeSingleTask": "Single task",
+  "profileBadgeEmotionAwake": "Emotion aware",
+  "profileBadgeProMember": "Pro Member",
+  "accountabilityModalCatPhysical": "Physical fitness",
+  "accountabilityModalCatNutritional": "Healthy nutrition",
+  "accountabilityModalCatAltruistic": "Altruistic acts",
+  "accountabilityModalCatMental": "Mental challenge",
+  "accountabilityModalPenPhysical1": "30-minute workout",
+  "accountabilityModalPenPhysical2": "Strength training",
+  "accountabilityModalPenPhysical3": "5,000 steps walk",
+  "accountabilityModalPenPhysical4": "Morning stretch",
+  "accountabilityModalPenPhysical5": "Outdoor activity",
+  "accountabilityModalPenNutritional1": "Avoid sugar",
+  "accountabilityModalPenNutritional2": "Balanced meal",
+  "accountabilityModalPenNutritional3": "Drink 2L water",
+  "accountabilityModalPenNutritional4": "Reduce caffeine",
+  "accountabilityModalPenNutritional5": "Protein meal",
+  "accountabilityModalPenAltruistic1": "Help a neighbor",
+  "accountabilityModalPenAltruistic2": "Small donation",
+  "accountabilityModalPenAltruistic3": "Thank-you message",
+  "accountabilityModalPenAltruistic4": "Community service",
+  "accountabilityModalPenAltruistic5": "Support a friend",
+  "accountabilityModalPenMental1": "Read 20 minutes",
+  "accountabilityModalPenMental2": "Solve a puzzle",
+  "accountabilityModalPenMental3": "Learn a new word",
+  "accountabilityModalPenMental4": "Guided meditation",
+  "accountabilityModalPenMental5": "Journal writing",
+  "breathingInhaleSlow": "Inhale slowly…",
+  "breathingExhaleFull": "Exhale fully…",
+  "asyncErrorRetry": "Something went wrong. Please try again.",
+  "chartEmptyState": "No data yet — start your journey today",
+  "homeStreakMotivation": "Start your first focus session now 🚀",
+  "dailyQuoteSource": "Neuroscience",
+  "streakFreezeConfirm": "Use streak freeze? Available once per week",
+  "shareProgressLabel": "Share Progress",
+  "levelPointsToNext": "{points} points to next level",
+  "@levelPointsToNext": {
+    "placeholders": {
+      "points": {"type": "int"}
+    }
+  },
+  "weeklyReportTitle": "Weekly Report",
+  "weeklyReportStreakDays": "Focus days this week",
+  "weeklyReportAvgBcs": "Average BCS",
+  "weeklyReportBestEmotion": "Top emotion",
+  "weeklyReportChallenges": "Challenges completed",
+  "pomodoroTitle": "Pomodoro",
+  "pomodoroPhaseFocus": "Focus Time 🎯",
+  "pomodoroPhaseShortBreak": "Short Break ☕",
+  "pomodoroPhaseLongBreak": "Long Break 🌿",
+  "pomodoroReset": "Reset",
+  "pomodoroSkip": "Skip",
+  "pomodoroSessionsToday": "Today's sessions: {count}",
+  "@pomodoroSessionsToday": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "homeQuickPomodoro": "Pomodoro ⏱️",
+  "homeQuickGames": "Games 🎮",
+  "taskCategoryMental": "🧠 Mental",
+  "taskCategoryPhysical": "💪 Physical",
+  "taskCategoryCreative": "🎨 Creative",
+  "taskCategoryEducational": "📚 Educational",
+  "taskCategoryHousehold": "🏠 Household",
+  "singleTaskEstimatedBonus": "Completing this task adds +{points} points",
+  "@singleTaskEstimatedBonus": {
+    "placeholders": {
+      "points": {"type": "String"}
+    }
+  },
+  "singleTaskFocusRewardSnackBonus": "Great! +{points} focus points",
+  "@singleTaskFocusRewardSnackBonus": {
+    "placeholders": {
+      "points": {"type": "String"}
+    }
+  },
+  "singleTaskAbandonSnack": "Incomplete tasks slightly weaken focus",
+  "gamesHubTitle": "Brain Games 🎮",
+  "gamePatternMatchTitle": "Pattern Match",
+  "gamePatternMatchDesc": "Memorize and recreate the grid pattern",
+  "gameNumberMemoryTitle": "Number Memory",
+  "gameNumberMemoryDesc": "Remember growing digit sequences",
+  "gameColorWordTitle": "Color Word",
+  "gameColorWordDesc": "Tap the ink color, not the word",
+  "gamesBestScore": "Best score: {score}",
+  "@gamesBestScore": {
+    "placeholders": {
+      "score": {"type": "int"}
+    }
+  },
+  "gamesBestDigits": "Best digits: {digits}",
+  "@gamesBestDigits": {
+    "placeholders": {
+      "digits": {"type": "int"}
+    }
+  },
+  "gameRoundLabel": "Round {current} / {total}",
+  "@gameRoundLabel": {
+    "placeholders": {
+      "current": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "gameFinalScore": "Score: {score}",
+  "@gameFinalScore": {
+    "placeholders": {
+      "score": {"type": "int"}
+    }
+  },
+  "gameSubmitRound": "Submit",
+  "gameEnterSequence": "Enter the sequence you saw",
+  "gameNumberMemoryResult": "Max digits reached: {digits}",
+  "@gameNumberMemoryResult": {
+    "placeholders": {
+      "digits": {"type": "int"}
+    }
+  },
+  "gameColorWordPrompt": "Tap the color of the ink",
+  "focusedThinkingTitle": "Focused Thinking Challenge",
+  "focusedThinkingSubtitle": "Pick one topic and think about it deeply",
+  "focusedThinkingDurationLabel": "Duration",
+  "focusedThinkingStart": "Start thinking",
+  "focusedThinkingGuideTitle": "Thinking Guide",
+  "focusedThinkingStillThinking": "Still thinking about {topic}?",
+  "@focusedThinkingStillThinking": {
+    "placeholders": {
+      "topic": {"type": "String"}
+    }
+  },
+  "focusedThinkingYes": "Yes ✓",
+  "focusedThinkingNo": "Drifted ✗",
+  "focusedThinkingFocusScore": "{percent}% of the time you stayed focused",
+  "@focusedThinkingFocusScore": {
+    "placeholders": {
+      "percent": {"type": "int"}
+    }
+  },
+  "focusedThinkingDistractions": "Distractions logged: {count}",
+  "@focusedThinkingDistractions": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "focusedThinkingInsightsSaved": "Insights saved: {count}",
+  "@focusedThinkingInsightsSaved": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "focusedThinkingInsightsHint": "Note your key insights",
+  "focusedThinkingSaveInsight": "Save insight",
+  "homeQuickFocusedThinking": "Deep thinking 🧠",
+  "homeQuickCrossword": "Crossword ✏️",
+  "crosswordTitle": "Crossword",
+  "crosswordDesc": "Brain-themed Arabic crossword puzzles",
+  "crosswordPlayNow": "Play now",
+  "crosswordTabAcross": "Across ↔",
+  "crosswordTabDown": "Down ↕",
+  "crosswordEnterLetter": "Enter letter",
+  "gameNBackTitle": "N-Back 🧠",
+  "gameNBackDesc": "Strongest science-backed working memory training",
+  "gameNBackIntro": "This is scientifically the strongest game for working memory",
+  "gameNBackLevel": "N={n} — {current}/{total}",
+  "@gameNBackLevel": {
+    "placeholders": {
+      "n": {"type": "int"},
+      "current": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "gameNBackMatch": "Match!",
+  "gameNBackResult": "Max N reached: {n}",
+  "@gameNBackResult": {
+    "placeholders": {
+      "n": {"type": "int"}
+    }
+  },
+  "gameNBackBonus": "+{points} BCS earned",
+  "@gameNBackBonus": {
+    "placeholders": {
+      "points": {"type": "String"}
+    }
+  },
+  "gamesBestNLevel": "Best N: {n}",
+  "@gamesBestNLevel": {
+    "placeholders": {
+      "n": {"type": "int"}
+    }
+  },
+  "gameSpeedSortTitle": "Speed Sort",
+  "gameSpeedSortDesc": "Sort falling numbers into even/odd buckets",
+  "gameSpeedSortEven": "Even",
+  "gameSpeedSortOdd": "Odd",
+  "gameSpeedSortCorrect": "Correct: {count}",
+  "@gameSpeedSortCorrect": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "gameSpeedSortResult": "Done! {correct} correct, {wrong} wrong",
+  "@gameSpeedSortResult": {
+    "placeholders": {
+      "correct": {"type": "int"},
+      "wrong": {"type": "int"}
+    }
+  },
+  "gameStart": "Start"
+}
+
