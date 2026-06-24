@@ -41,4 +41,7 @@ abstract final class HiveMetaKeys {
 
   /// UTC ISO-8601 when [serverTotalXp] was last updated from the server.
   static const serverTotalXpSyncedAt = 'serverTotalXpSyncedAt';
+
+  static const cognitiveVisualResultJson = 'cognitiveVisualResultJson';
+  static const cognitiveMemoryResultJson = 'cognitiveMemoryResultJson';
 }

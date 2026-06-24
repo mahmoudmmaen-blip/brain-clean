@@ -135,9 +135,48 @@
   "cognitiveHubTitle": "Cognitive assessments",
   "cognitiveHubSubtitle": "Interactive modules that refine your brain performance pillar.",
   "cognitiveVisualTestTitle": "Visual Cognitive Image Test",
-  "cognitiveVisualTestSubtitle": "Attention and pattern recognition (coming soon)",
+  "cognitiveVisualTestSubtitle": "Find the odd shape or color in a timed grid",
   "cognitiveMemoryGameTitle": "Memory mini-games",
-  "cognitiveMemoryGameSubtitle": "Working-memory sequence tasks (coming soon)",
+  "cognitiveMemoryGameSubtitle": "Recall growing color sequences on a 3×3 grid",
+  "cognitiveStartButton": "Start test",
+  "cognitiveDoneButton": "Save & close",
+  "cognitiveMemoryInstructions": "Watch the highlighted cells, then tap them in the same order. The sequence grows each round.",
+  "cognitiveMemoryWatch": "Watch the sequence…",
+  "cognitiveMemoryYourTurn": "Your turn — tap the cells in order",
+  "cognitiveMemoryRound": "Sequence length: {length}",
+  "@cognitiveMemoryRound": {
+    "placeholders": { "length": { "type": "int" } }
+  },
+  "cognitiveMemoryWrong": "Incorrect — test ended.",
+  "cognitiveMemoryResultTitle": "Memory test complete",
+  "cognitiveMemoryResultScore": "Longest sequence: {span} · Score: {score}%",
+  "@cognitiveMemoryResultScore": {
+    "placeholders": {
+      "span": { "type": "int" },
+      "score": { "type": "int" }
+    }
+  },
+  "cognitiveVisualInstructions": "Tap the one cell that looks different. You have a few seconds each round.",
+  "cognitiveVisualFindOdd": "Find the odd one out",
+  "cognitiveVisualRound": "Round {current} of {total}",
+  "@cognitiveVisualRound": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "cognitiveVisualCorrect": "Correct!",
+  "cognitiveVisualWrong": "Wrong",
+  "cognitiveVisualTimeout": "Too slow",
+  "cognitiveVisualResultTitle": "Visual attention complete",
+  "cognitiveVisualResultScore": "{points} / {maxPoints} points · Score: {score}%",
+  "@cognitiveVisualResultScore": {
+    "placeholders": {
+      "points": { "type": "int" },
+      "maxPoints": { "type": "int" },
+      "score": { "type": "int" }
+    }
+  },
   "cognitivePlaceholderBody": "This module is scaffolded for the unified BHI evaluation engine. Complete the placeholder run to verify navigation.",
   "cognitivePlaceholderComplete": "Record placeholder result",
   "cognitivePlaceholderRecorded": "Placeholder score recorded: {score}%",

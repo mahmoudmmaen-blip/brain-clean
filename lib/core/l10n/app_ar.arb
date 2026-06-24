@@ -135,9 +135,48 @@
   "cognitiveHubTitle": "التقييمات المعرفية",
   "cognitiveHubSubtitle": "وحدات تفاعلية تُحسّن عمود الأداء الدماغي في BHI.",
   "cognitiveVisualTestTitle": "اختبار الإدراك البصري",
-  "cognitiveVisualTestSubtitle": "انتباه وتمييز أنماط (قريباً)",
+  "cognitiveVisualTestSubtitle": "اعثر على الشكل أو اللون المختلف ضمن شبكة زمنية",
   "cognitiveMemoryGameTitle": "ألعاب الذاكرة",
-  "cognitiveMemoryGameSubtitle": "مهام تسلسل الذاكرة العاملة (قريباً)",
+  "cognitiveMemoryGameSubtitle": "استرجع تسلسلات ألوان متزايدة على شبكة 3×3",
+  "cognitiveStartButton": "ابدأ الاختبار",
+  "cognitiveDoneButton": "حفظ وإغلاق",
+  "cognitiveMemoryInstructions": "راقب الخلايا المضيئة ثم اضغطها بنفس الترتيب. يزداد الطول كل جولة.",
+  "cognitiveMemoryWatch": "راقب التسلسل…",
+  "cognitiveMemoryYourTurn": "دورك — اضغط الخلايا بالترتيب",
+  "cognitiveMemoryRound": "طول التسلسل: {length}",
+  "@cognitiveMemoryRound": {
+    "placeholders": { "length": { "type": "int" } }
+  },
+  "cognitiveMemoryWrong": "خطأ — انتهى الاختبار.",
+  "cognitiveMemoryResultTitle": "اكتمل اختبار الذاكرة",
+  "cognitiveMemoryResultScore": "أطول تسلسل: {span} · النتيجة: {score}%",
+  "@cognitiveMemoryResultScore": {
+    "placeholders": {
+      "span": { "type": "int" },
+      "score": { "type": "int" }
+    }
+  },
+  "cognitiveVisualInstructions": "اضغط الخلية التي تبدو مختلفة. لديك ثوانٍ محدودة في كل جولة.",
+  "cognitiveVisualFindOdd": "اعثر على المختلف",
+  "cognitiveVisualRound": "الجولة {current} من {total}",
+  "@cognitiveVisualRound": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "cognitiveVisualCorrect": "صحيح!",
+  "cognitiveVisualWrong": "خطأ",
+  "cognitiveVisualTimeout": "بطيء جداً",
+  "cognitiveVisualResultTitle": "اكتمل اختبار الانتباه البصري",
+  "cognitiveVisualResultScore": "{points} / {maxPoints} نقطة · النتيجة: {score}%",
+  "@cognitiveVisualResultScore": {
+    "placeholders": {
+      "points": { "type": "int" },
+      "maxPoints": { "type": "int" },
+      "score": { "type": "int" }
+    }
+  },
   "cognitivePlaceholderBody": "هذه الوحدة مُهيّأة لمحرك تقييم BHI الموحّد. أكمل التشغيل التجريبي للتحقق من المسار.",
   "cognitivePlaceholderComplete": "تسجيل نتيجة تجريبية",
   "cognitivePlaceholderRecorded": "تم تسجيل نتيجة تجريبية: {score}%",

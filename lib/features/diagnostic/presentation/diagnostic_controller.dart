@@ -5,6 +5,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../core/constants/app_routes.dart';
 import '../../../core/routing/app_router.dart';
+import '../../cognitive_tests/application/cognitive_test_results_provider.dart';
+import '../../cognitive_tests/domain/cognitive_test_scorer.dart';
 import '../../detox/presentation/detox_protocol_controller.dart';
 import '../../recovery/presentation/recovery_bc_penalty_provider.dart';
 import '../data/diagnostic_local_repository_provider.dart';
@@ -26,7 +28,13 @@ part 'diagnostic_controller.g.dart';
 DiagnosticModel diagnosticLiveModel(DiagnosticLiveModelRef ref) {
   ref.watch(diagnosticControllerProvider);
   ref.watch(detoxProtocolDataProvider);
-  return ref.read(diagnosticControllerProvider.notifier).computeLiveModel();
+  final cognitive = ref.watch(cognitiveTestResultsProvider);
+  final base = ref.read(diagnosticControllerProvider.notifier).computeLiveModel();
+  return CognitiveTestScorer.applyCognitiveToModel(
+    base,
+    visualAttention: cognitive.visualAttention,
+    memorySequence: cognitive.memorySequence,
+  );
 }
 
 /// Reactive live [DiagnosticSession] for diagnostic UI and breakdown widgets.
