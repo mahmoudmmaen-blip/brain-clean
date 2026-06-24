@@ -2485,6 +2485,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Calculating BCI...'**
   String get bciCardLoading;
+
+  /// No description provided for @settingsSecuritySection.
+  ///
+  /// In en, this message translates to:
+  /// **'Security'**
+  String get settingsSecuritySection;
+
+  /// No description provided for @settingsBiometricLock.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric app lock'**
+  String get settingsBiometricLock;
+
+  /// No description provided for @settingsBiometricLockSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Require authentication when opening the app (device PIN fallback)'**
+  String get settingsBiometricLockSubtitle;
+
+  /// No description provided for @settingsBiometricUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric authentication is not available on this device'**
+  String get settingsBiometricUnavailable;
+
+  /// No description provided for @biometricLockTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'App locked'**
+  String get biometricLockTitle;
+
+  /// No description provided for @biometricLockSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Use your fingerprint or device PIN to continue'**
+  String get biometricLockSubtitle;
+
+  /// No description provided for @biometricLockButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock Brain Clean'**
+  String get biometricLockButton;
+
+  /// No description provided for @securityCompromisedBanner.
+  ///
+  /// In en, this message translates to:
+  /// **'Warning: this device may be compromised. Local data only — cloud sync is disabled.'**
+  String get securityCompromisedBanner;
 }
 
 class _AppLocalizationsDelegate

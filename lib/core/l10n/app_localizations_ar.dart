@@ -1319,4 +1319,31 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get bciCardLoading => 'جاري حساب BCI...';
+
+  @override
+  String get settingsSecuritySection => 'الأمان';
+
+  @override
+  String get settingsBiometricLock => 'قفل التطبيق بالبصمة';
+
+  @override
+  String get settingsBiometricLockSubtitle =>
+      'يتطلب المصادقة عند فتح التطبيق (مع رمز الجهاز كبديل)';
+
+  @override
+  String get settingsBiometricUnavailable =>
+      'المصادقة البيومترية غير متاحة على هذا الجهاز';
+
+  @override
+  String get biometricLockTitle => 'التطبيق مقفل';
+
+  @override
+  String get biometricLockSubtitle => 'استخدم بصمتك أو رمز الجهاز للمتابعة';
+
+  @override
+  String get biometricLockButton => 'فتح Brain Clean';
+
+  @override
+  String get securityCompromisedBanner =>
+      'تحذير: الجهاز قد يكون معدّلاً. بياناتك محلية فقط — تم تعطيل المزامنة السحابية.';
 }

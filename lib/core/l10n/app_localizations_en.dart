@@ -1334,4 +1334,32 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get bciCardLoading => 'Calculating BCI...';
+
+  @override
+  String get settingsSecuritySection => 'Security';
+
+  @override
+  String get settingsBiometricLock => 'Biometric app lock';
+
+  @override
+  String get settingsBiometricLockSubtitle =>
+      'Require authentication when opening the app (device PIN fallback)';
+
+  @override
+  String get settingsBiometricUnavailable =>
+      'Biometric authentication is not available on this device';
+
+  @override
+  String get biometricLockTitle => 'App locked';
+
+  @override
+  String get biometricLockSubtitle =>
+      'Use your fingerprint or device PIN to continue';
+
+  @override
+  String get biometricLockButton => 'Unlock Brain Clean';
+
+  @override
+  String get securityCompromisedBanner =>
+      'Warning: this device may be compromised. Local data only — cloud sync is disabled.';
 }
