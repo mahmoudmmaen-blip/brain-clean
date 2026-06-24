@@ -24,7 +24,7 @@ final verifiedTotalXpSyncProvider = AutoDisposeProvider<int>.internal(
 );
 
 typedef VerifiedTotalXpSyncRef = AutoDisposeProviderRef<int>;
-String _$verifiedTotalXpHash() => r'bce5f9e74c6572cd5b7ded6e9daed11cff4061e4';
+String _$verifiedTotalXpHash() => r'6f1fa6240167c05ae1b4dad212642d5399feb619';
 
 /// Verified XP total — derived sum over the signed append-only ledger.
 ///
