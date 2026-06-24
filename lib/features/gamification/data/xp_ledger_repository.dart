@@ -91,6 +91,47 @@ class XpLedgerRepository {
     return entry;
   }
 
+  /// Entries awaiting server validation (signed, not yet synced).
+  Future<List<XpLedgerEntry>> pendingVerifyEntries() async {
+    final pending = <XpLedgerEntry>[];
+    for (final entry in allEntries()) {
+      if (entry.syncState != XpSyncState.pendingVerify) continue;
+      if (!await XpLedgerSigning.verify(entry)) continue;
+      pending.add(entry);
+    }
+    return pending;
+  }
+
+  /// Applies server verdicts from [verify-xp] to local ledger rows.
+  Future<void> applyServerVerdicts(
+    Iterable<({String id, bool accepted})> verdicts,
+  ) async {
+    for (final verdict in verdicts) {
+      final raw = _ledgerBox.get(verdict.id);
+      if (raw is! XpLedgerEntry) continue;
+      final nextState = verdict.accepted
+          ? XpSyncState.verified
+          : XpSyncState.rejected;
+      if (raw.syncState == nextState) continue;
+      await _ledgerBox.put(verdict.id, raw.copyWith(syncState: nextState));
+    }
+  }
+
+  Future<void> persistServerTotalXp(int total) async {
+    await _metaBox.put(HiveMetaKeys.serverTotalXp, total);
+    await _metaBox.put(
+      HiveMetaKeys.serverTotalXpSyncedAt,
+      DateTime.now().toUtc().toIso8601String(),
+    );
+  }
+
+  int? readCachedServerTotalXp() {
+    final raw = _metaBox.get(HiveMetaKeys.serverTotalXp);
+    if (raw is int) return raw;
+    if (raw is num) return raw.toInt();
+    return null;
+  }
+
   void _assertClockNotRolledBack(DateTime createdAtUtc) {
     final raw = _metaBox.get(HiveMetaKeys.xpLedgerHighWaterMarkUtc) as String?;
     if (raw == null || raw.isEmpty) return;

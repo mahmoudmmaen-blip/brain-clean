@@ -14,6 +14,7 @@ import 'core/security/security_status_provider.dart';
 import 'core/storage/hive_bootstrap.dart';
 import 'core/theme/locale_theme.dart';
 import 'core/theme/theme_provider.dart';
+import 'features/gamification/application/xp_sync_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,11 +52,15 @@ class _BrainCleanAppState extends ConsumerState<BrainCleanApp>
       _midnightReset!.triggerResetIfNeeded();
       ref.read(weeklyReportServiceProvider).schedule();
       ref.read(smartNotificationServiceProvider).rescheduleAll();
+      ref.read(xpSyncServiceProvider.notifier).syncIfPossible();
     });
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      ref.read(xpSyncServiceProvider.notifier).syncIfPossible();
+    }
     if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.inactive) {
       final enabled = ref.read(biometricLockSettingsProvider);

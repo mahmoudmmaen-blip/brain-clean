@@ -4,6 +4,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../data/xp_ledger_repository_provider.dart';
 import '../domain/xp_rejected.dart';
 import '../domain/xp_source.dart';
+import 'displayed_xp_provider.dart';
+import 'xp_sync_service.dart';
 
 part 'verified_xp_provider.g.dart';
 
@@ -29,6 +31,8 @@ class VerifiedTotalXp extends _$VerifiedTotalXp {
             refId: refId,
           );
       ref.invalidateSelf();
+      ref.invalidate(displayedXpProvider);
+      ref.read(xpSyncServiceProvider.notifier).syncIfPossible();
       return true;
     } on XpRejected catch (e) {
       debugPrint('VerifiedTotalXp.award rejected: $e');

@@ -35,4 +35,10 @@ abstract final class HiveMetaKeys {
 
   /// UTC ISO-8601 high-water mark for clock-rollback detection in [XpLedgerRepository].
   static const xpLedgerHighWaterMarkUtc = 'xpLedgerHighWaterMarkUtc';
+
+  /// Authoritative server XP total (from verify-xp); null when never synced online.
+  static const serverTotalXp = 'serverTotalXp';
+
+  /// UTC ISO-8601 when [serverTotalXp] was last updated from the server.
+  static const serverTotalXpSyncedAt = 'serverTotalXpSyncedAt';
 }
