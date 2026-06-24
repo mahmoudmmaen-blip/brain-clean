@@ -7,7 +7,7 @@ part of 'single_task_provider.dart';
 // **************************************************************************
 
 String _$singleTaskControllerHash() =>
-    r'542a9bec2c3ce646a59086b16bf44762a718deb1';
+    r'3688ec12de82feeb79c017164f023c66def95018';
 
 /// See also [SingleTaskController].
 @ProviderFor(SingleTaskController)

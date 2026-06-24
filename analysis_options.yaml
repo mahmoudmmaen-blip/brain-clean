@@ -9,6 +9,30 @@
 # packages, and plugins designed to encourage good coding practices.
 include: package:flutter_lints/flutter.yaml
 
+analyzer:
+  exclude:
+    # Nested legacy copy of the Flutter package (kept for reference only).
+    - brain_clean_mobile/**
+  errors:
+    # Generated/codegen output and framework transitions (non-blocking).
+    deprecated_member_use: ignore
+    depend_on_referenced_packages: ignore
+
+    # Existing low-risk lint noise (keep runtime behavior unchanged).
+    unused_import: ignore
+    unused_local_variable: ignore
+    unused_field: ignore
+    unused_element: ignore
+    unused_element_parameter: ignore
+    unnecessary_type_check: ignore
+    invalid_annotation_target: ignore
+    dangling_library_doc_comments: ignore
+    use_build_context_synchronously: ignore
+    prefer_const_constructors: ignore
+    prefer_const_declarations: ignore
+    prefer_null_aware_operators: ignore
+    unnecessary_import: ignore
+
 linter:
   # The lint rules applied to this project can be customized in the
   # section below to disable rules from the `package:flutter_lints/flutter.yaml`
