@@ -4,6 +4,8 @@ import '../../../core/application/app_preferences_provider.dart';
 import '../../../core/constants/hive_meta_keys.dart';
 import '../../../core/data/app_meta_box_provider.dart';
 import '../../diagnostic/presentation/bc_score_provider.dart';
+import '../../gamification/data/xp_ledger_constants.dart';
+import '../../gamification/domain/xp_source.dart';
 import '../domain/task_category.dart';
 
 part 'single_task_provider.g.dart';
@@ -114,7 +116,11 @@ class SingleTaskController extends _$SingleTaskController {
   void completeTask() {
     if (!state.isLocked) return;
     final bonus = taskCompletionBonus(state.category, state.difficultyStars);
-    ref.read(bcScoreProvider.notifier).applyBonus(bonus);
+    ref.read(bcScoreProvider.notifier).applyBonus(
+          bonus,
+          xpSource: XpSource.focusSession,
+          xpRefId: 'single_task_${state.activeTaskId}',
+        );
     ref.read(appPreferencesProvider.notifier).incrementSingleTaskComplete();
     state = SingleTaskState.idle;
     _persist(SingleTaskState.idle);

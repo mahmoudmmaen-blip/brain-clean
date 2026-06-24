@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/l10n/app_localizations.dart';
 import '../diagnostic/presentation/bc_score_provider.dart';
+import '../gamification/domain/xp_source.dart';
 import 'application/games_scores_provider.dart';
 import 'domain/game_scoring.dart';
 
@@ -70,7 +71,11 @@ class _NumberMemoryGameScreenState extends ConsumerState<NumberMemoryGameScreen>
 
   void _finish() {
     final bonus = numberMemoryBcsBonus(_maxDigits);
-    ref.read(bcScoreProvider.notifier).applyBonus(bonus);
+    ref.read(bcScoreProvider.notifier).applyBonus(
+          bonus,
+          xpSource: XpSource.game,
+          xpRefId: 'number_memory:${DateTime.now().millisecondsSinceEpoch}',
+        );
     ref
         .read(gamesBestScoresControllerProvider.notifier)
         .updateNumberMemoryBest(_maxDigits);

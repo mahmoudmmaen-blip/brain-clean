@@ -29,4 +29,10 @@ abstract final class HiveMetaKeys {
 
   /// Set to `true` after one-time Hive AES migration ([HiveBootstrap]).
   static const boxesEncryptedV1 = 'boxesEncryptedV1';
+
+  /// Set to `true` after legacy XP is migrated into the signed ledger.
+  static const xpLedgerMigratedV1 = 'xpLedgerMigratedV1';
+
+  /// UTC ISO-8601 high-water mark for clock-rollback detection in [XpLedgerRepository].
+  static const xpLedgerHighWaterMarkUtc = 'xpLedgerHighWaterMarkUtc';
 }

@@ -10,4 +10,7 @@ abstract final class HiveBoxes {
   static const journeyData = 'journey_data_v1';
   static const journalSpaces = 'journal_spaces_v1';
   static const goldenMemories = 'golden_memories_v1';
+
+  /// Append-only signed XP ledger (tamper-evident, client-side HMAC).
+  static const xpLedger = 'xp_ledger_v1';
 }

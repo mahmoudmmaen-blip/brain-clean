@@ -9,6 +9,8 @@ import 'widgets/ambient_sound_widgets.dart';
 import '../../core/application/app_preferences_provider.dart';
 import '../../core/l10n/app_localizations.dart';
 import '../diagnostic/presentation/bc_score_provider.dart';
+import '../gamification/data/xp_ledger_constants.dart';
+import '../gamification/domain/xp_source.dart';
 
 const silenceCountdownKey = Key('silence_countdown');
 const silenceLevelLabelKey = Key('silence_level_label');
@@ -151,7 +153,12 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
         actions: [
           TextButton(
             onPressed: () async {
-              ref.read(bcScoreProvider.notifier).applyBonus(20);
+              ref.read(bcScoreProvider.notifier).applyBonus(
+                    20,
+                    xpSource: XpSource.focusSession,
+                    xpRefId:
+                        'silence_${XpLedgerConstants.utcDayKey(DateTime.now().toUtc())}',
+                  );
               await ref
                   .read(appPreferencesProvider.notifier)
                   .incrementSilenceWin();

@@ -7,6 +7,8 @@ import '../../../core/data/app_meta_box_provider.dart';
 import '../../../core/providers/locale_provider.dart';
 import '../../../core/services/app_notification_service.dart';
 import '../../diagnostic/presentation/bc_score_provider.dart';
+import '../../gamification/data/xp_ledger_constants.dart';
+import '../../gamification/domain/xp_source.dart';
 import '../domain/pomodoro_logic.dart';
 
 part 'pomodoro_provider.g.dart';
@@ -151,13 +153,23 @@ class PomodoroController extends _$PomodoroController {
       _persistSessionsToday(sessionsToday);
       final bonus = advance.focusBonus;
       if (bonus != null) {
-        ref.read(bcScoreProvider.notifier).applyBonus(bonus);
+        final day = XpLedgerConstants.utcDayKey(DateTime.now().toUtc());
+        ref.read(bcScoreProvider.notifier).applyBonus(
+              bonus,
+              xpSource: XpSource.pomodoro,
+              xpRefId: 'pomodoro_focus_${advance.completedRounds}_$day',
+            );
       }
       _notifyPhaseComplete(wasFocus: true);
     } else if (completed == PomodoroPhase.longBreak) {
       final bonus = advance.longBreakBonus;
       if (bonus != null) {
-        ref.read(bcScoreProvider.notifier).applyBonus(bonus);
+        final day = XpLedgerConstants.utcDayKey(DateTime.now().toUtc());
+        ref.read(bcScoreProvider.notifier).applyBonus(
+              bonus,
+              xpSource: XpSource.pomodoro,
+              xpRefId: 'pomodoro_longbreak_$day',
+            );
       }
     } else if (completed == PomodoroPhase.shortBreak) {
       _notifyPhaseComplete(wasFocus: false);

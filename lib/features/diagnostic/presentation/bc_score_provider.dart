@@ -1,5 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../gamification/application/verified_xp_provider.dart';
+import '../../gamification/domain/xp_source.dart';
 import '../data/diagnostic_local_repository_provider.dart';
 import '../domain/diagnostic_model.dart';
 import '../domain/diagnostic_session.dart';
@@ -71,17 +73,36 @@ class BcScoreSession extends _$BcScoreSession {
     );
   }
 
-  /// Grants a focus-challenge bonus (+[amount] BC_score).
-  void applyBonus(double amount) {
+  /// Grants a focus-challenge bonus (+[amount] BC_score) and credits XP ledger.
+  void applyBonus(
+    double amount, {
+    XpSource? xpSource,
+    String? xpRefId,
+  }) {
     final current = state;
     if (current == null || amount <= 0) return;
     final reducedPenalty =
         (current.recoveryPenaltyDeduction - amount).clamp(0.0, double.infinity);
     commit(current.withRecoveryPenaltyTotal(reducedPenalty));
+    if (xpSource != null) {
+      ref.read(verifiedTotalXpProvider.notifier).award(
+            source: xpSource,
+            amount: amount.round(),
+            refId: xpRefId,
+          );
+    }
   }
 
   /// Grants cognitive test bonus (+[amount] BC_score).
-  void applyCognitiveBonus(double amount) => applyBonus(amount);
+  void applyCognitiveBonus(
+    double amount, {
+    String? xpRefId,
+  }) =>
+      applyBonus(
+        amount,
+        xpSource: XpSource.diagnostic,
+        xpRefId: xpRefId,
+      );
 }
 
 /// Alias for accountability UI — maps to [bcScoreSessionProvider].

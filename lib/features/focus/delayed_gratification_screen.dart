@@ -6,6 +6,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/l10n/app_localizations.dart';
 import '../diagnostic/presentation/bc_score_provider.dart';
+import '../gamification/data/xp_ledger_constants.dart';
+import '../gamification/domain/xp_source.dart';
 
 const delayedGratificationTitleKey = Key('delayed_gratification_title');
 
@@ -91,7 +93,12 @@ class _DelayedGratificationScreenState
     _ticker?.cancel();
     setState(() => _remainingSeconds = 0);
 
-    ref.read(bcScoreProvider.notifier).applyBonus(25);
+    ref.read(bcScoreProvider.notifier).applyBonus(
+          25,
+          xpSource: XpSource.focusSession,
+          xpRefId:
+              'delayed_grat_${XpLedgerConstants.utcDayKey(DateTime.now().toUtc())}',
+        );
 
     if (!mounted) return;
     final loc = AppLocalizations.of(context)!;
