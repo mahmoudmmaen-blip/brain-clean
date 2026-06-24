@@ -617,7 +617,7 @@ abstract class AppLocalizations {
   /// No description provided for @cognitiveVisualTestSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Attention and pattern recognition (coming soon)'**
+  /// **'Find the odd shape or color in a timed grid'**
   String get cognitiveVisualTestSubtitle;
 
   /// No description provided for @cognitiveMemoryGameTitle.
@@ -629,8 +629,110 @@ abstract class AppLocalizations {
   /// No description provided for @cognitiveMemoryGameSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Working-memory sequence tasks (coming soon)'**
+  /// **'Recall growing color sequences on a 3×3 grid'**
   String get cognitiveMemoryGameSubtitle;
+
+  /// No description provided for @cognitiveStartButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Start test'**
+  String get cognitiveStartButton;
+
+  /// No description provided for @cognitiveDoneButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Save & close'**
+  String get cognitiveDoneButton;
+
+  /// No description provided for @cognitiveMemoryInstructions.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch the highlighted cells, then tap them in the same order. The sequence grows each round.'**
+  String get cognitiveMemoryInstructions;
+
+  /// No description provided for @cognitiveMemoryWatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch the sequence…'**
+  String get cognitiveMemoryWatch;
+
+  /// No description provided for @cognitiveMemoryYourTurn.
+  ///
+  /// In en, this message translates to:
+  /// **'Your turn — tap the cells in order'**
+  String get cognitiveMemoryYourTurn;
+
+  /// No description provided for @cognitiveMemoryRound.
+  ///
+  /// In en, this message translates to:
+  /// **'Sequence length: {length}'**
+  String cognitiveMemoryRound(int length);
+
+  /// No description provided for @cognitiveMemoryWrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect — test ended.'**
+  String get cognitiveMemoryWrong;
+
+  /// No description provided for @cognitiveMemoryResultTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Memory test complete'**
+  String get cognitiveMemoryResultTitle;
+
+  /// No description provided for @cognitiveMemoryResultScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Longest sequence: {span} · Score: {score}%'**
+  String cognitiveMemoryResultScore(int span, int score);
+
+  /// No description provided for @cognitiveVisualInstructions.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the one cell that looks different. You have a few seconds each round.'**
+  String get cognitiveVisualInstructions;
+
+  /// No description provided for @cognitiveVisualFindOdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Find the odd one out'**
+  String get cognitiveVisualFindOdd;
+
+  /// No description provided for @cognitiveVisualRound.
+  ///
+  /// In en, this message translates to:
+  /// **'Round {current} of {total}'**
+  String cognitiveVisualRound(int current, int total);
+
+  /// No description provided for @cognitiveVisualCorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct!'**
+  String get cognitiveVisualCorrect;
+
+  /// No description provided for @cognitiveVisualWrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong'**
+  String get cognitiveVisualWrong;
+
+  /// No description provided for @cognitiveVisualTimeout.
+  ///
+  /// In en, this message translates to:
+  /// **'Too slow'**
+  String get cognitiveVisualTimeout;
+
+  /// No description provided for @cognitiveVisualResultTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Visual attention complete'**
+  String get cognitiveVisualResultTitle;
+
+  /// No description provided for @cognitiveVisualResultScore.
+  ///
+  /// In en, this message translates to:
+  /// **'{points} / {maxPoints} points · Score: {score}%'**
+  String cognitiveVisualResultScore(int points, int maxPoints, int score);
 
   /// No description provided for @cognitivePlaceholderBody.
   ///

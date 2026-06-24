@@ -7,7 +7,7 @@ part of 'diagnostic_controller.dart';
 // **************************************************************************
 
 String _$diagnosticLiveModelHash() =>
-    r'15af5cb4a02d506b548e3adaf54c26258126e5a6';
+    r'b2466fc47160d323a0b256371dd97326221c8d51';
 
 /// Synchronous live BHI projection — sliders + detox recomputed on every watch.
 ///

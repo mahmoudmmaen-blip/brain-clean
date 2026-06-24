@@ -307,14 +307,75 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cognitiveVisualTestSubtitle =>
-      'Attention and pattern recognition (coming soon)';
+      'Find the odd shape or color in a timed grid';
 
   @override
   String get cognitiveMemoryGameTitle => 'Memory mini-games';
 
   @override
   String get cognitiveMemoryGameSubtitle =>
-      'Working-memory sequence tasks (coming soon)';
+      'Recall growing color sequences on a 3×3 grid';
+
+  @override
+  String get cognitiveStartButton => 'Start test';
+
+  @override
+  String get cognitiveDoneButton => 'Save & close';
+
+  @override
+  String get cognitiveMemoryInstructions =>
+      'Watch the highlighted cells, then tap them in the same order. The sequence grows each round.';
+
+  @override
+  String get cognitiveMemoryWatch => 'Watch the sequence…';
+
+  @override
+  String get cognitiveMemoryYourTurn => 'Your turn — tap the cells in order';
+
+  @override
+  String cognitiveMemoryRound(int length) {
+    return 'Sequence length: $length';
+  }
+
+  @override
+  String get cognitiveMemoryWrong => 'Incorrect — test ended.';
+
+  @override
+  String get cognitiveMemoryResultTitle => 'Memory test complete';
+
+  @override
+  String cognitiveMemoryResultScore(int span, int score) {
+    return 'Longest sequence: $span · Score: $score%';
+  }
+
+  @override
+  String get cognitiveVisualInstructions =>
+      'Tap the one cell that looks different. You have a few seconds each round.';
+
+  @override
+  String get cognitiveVisualFindOdd => 'Find the odd one out';
+
+  @override
+  String cognitiveVisualRound(int current, int total) {
+    return 'Round $current of $total';
+  }
+
+  @override
+  String get cognitiveVisualCorrect => 'Correct!';
+
+  @override
+  String get cognitiveVisualWrong => 'Wrong';
+
+  @override
+  String get cognitiveVisualTimeout => 'Too slow';
+
+  @override
+  String get cognitiveVisualResultTitle => 'Visual attention complete';
+
+  @override
+  String cognitiveVisualResultScore(int points, int maxPoints, int score) {
+    return '$points / $maxPoints points · Score: $score%';
+  }
 
   @override
   String get cognitivePlaceholderBody =>
