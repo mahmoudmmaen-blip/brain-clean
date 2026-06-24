@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -7,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/bootstrap/app_hydration_provider.dart';
 import '../../../core/application/app_preferences_provider.dart';
 import '../../../core/constants/app_routes.dart';
+import '../../../core/security/security_status_provider.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/app_theme.dart';
 
@@ -14,12 +16,15 @@ import '../../../core/theme/app_theme.dart';
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
+  /// Overridable in widget tests to skip the cold-start delay.
+  @visibleForTesting
+  static Duration minSplashDuration = const Duration(seconds: 2);
+
   @override
   ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends ConsumerState<SplashScreen> {
-  static const _minSplash = Duration(seconds: 2);
   static const _typewriterDelay = Duration(milliseconds: 80);
 
   String _typedTitle = '';
@@ -68,10 +73,22 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     }
 
     final elapsed = DateTime.now().difference(started);
-    if (elapsed < _minSplash) {
-      await Future<void>.delayed(_minSplash - elapsed);
+    if (elapsed < SplashScreen.minSplashDuration) {
+      await Future<void>.delayed(SplashScreen.minSplashDuration - elapsed);
     }
     if (!mounted) return;
+
+    await ref.read(biometricLockSettingsProvider.notifier).hydrate();
+    final biometricEnabled = ref.read(biometricLockSettingsProvider);
+    if (biometricEnabled) {
+      final ok = await ref
+          .read(biometricAuthControllerProvider.notifier)
+          .authenticate();
+      if (!ok) {
+        if (mounted) context.go(AppRoutes.biometricLock);
+        return;
+      }
+    }
 
     final hasSeen = ref.read(hasSeenOnboardingProvider);
     if (!hasSeen) {

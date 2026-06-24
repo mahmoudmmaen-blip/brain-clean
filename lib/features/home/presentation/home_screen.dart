@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/application/app_preferences_provider.dart';
+import '../../../core/security/security_warning_banner.dart';
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/presentation/async_state_views.dart';
@@ -85,6 +86,7 @@ class HomeScreen extends ConsumerWidget {
           error: (_, __) => AsyncStateViews.error(context),
           data: (_) => Column(
             children: [
+              const SecurityWarningBanner(),
               const Padding(
                 padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
                 child: DailyQuoteCard(),

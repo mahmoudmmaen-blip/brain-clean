@@ -66,5 +66,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSFaceIDUsageDescription</key>
+	<string>افتح Brain Clean ببصمتك لحماية بياناتك الحساسة.</string>
 </dict>
 </plist>

@@ -7,10 +7,15 @@ import 'package:brain_clean_mobile/features/diagnostic/presentation/diagnostic_s
 import 'package:brain_clean_mobile/features/recovery/data/recovery_protocol_hive_repository.dart';
 import 'package:brain_clean_mobile/features/recovery/data/recovery_protocol_storage_provider.dart';
 import 'package:brain_clean_mobile/features/recovery/presentation/recovery_grid_screen.dart';
+import 'package:brain_clean_mobile/features/recovery/domain/recovery_protocol_state.dart';
+import 'package:brain_clean_mobile/features/recovery/presentation/recovery_protocol_controller.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/widgets/bc_score_hero_card.dart';
+import 'package:brain_clean_mobile/core/application/app_preferences_provider.dart';
 import 'package:brain_clean_mobile/core/bootstrap/app_hydration_provider.dart';
+import 'package:brain_clean_mobile/core/security/security_status_provider.dart';
 import 'package:brain_clean_mobile/core/providers/locale_provider.dart';
 import 'package:brain_clean_mobile/features/home/presentation/home_screen.dart';
+import 'package:brain_clean_mobile/features/splash/presentation/splash_screen.dart';
 import 'package:brain_clean_mobile/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -27,6 +32,14 @@ import 'helpers/test_l10n.dart';
 
 void main() {
   final en = testL10n;
+
+  setUp(() {
+    SplashScreen.minSplashDuration = Duration.zero;
+  });
+
+  tearDown(() {
+    SplashScreen.minSplashDuration = const Duration(seconds: 2);
+  });
 
   group('Diagnostic UI', () {
     testWidgets('diagnostic screen starts Brain Rot questionnaire', (tester) async {
@@ -200,10 +213,20 @@ void main() {
       ProviderScope(
         overrides: [
           appHydrationProvider.overrideWith(_InstantHydration.new),
+          appPreferencesProvider.overrideWith(
+            () => _WidgetTestAppPreferences(),
+          ),
+          biometricLockSettingsProvider.overrideWith(
+            () => _WidgetTestBiometricLockSettings(),
+          ),
+          biometricSessionProvider.overrideWith(() => _UnlockedBiometricSession()),
           localeProvider.overrideWith((ref) => const Locale('en')),
           homeStreakTickerProvider.overrideWith((ref) => Stream<int>.value(0)),
           recoveryProtocolStorageProvider.overrideWithValue(
             RecoveryProtocolMemoryRepository(),
+          ),
+          recoveryProtocolControllerProvider.overrideWith(
+            () => _WidgetTestRecoveryProtocolController(),
           ),
           ...diagnosticWidgetTestOverrides(),
         ],
@@ -211,11 +234,11 @@ void main() {
       ),
     );
     await tester.pump();
-    await tester.pump(const Duration(seconds: 3));
     await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
 
-    expect(find.text(en.homeTitle), findsOneWidget);
     expect(find.byType(HomeScreen), findsOneWidget);
+    expect(find.text(en.homeTitle), findsOneWidget);
   });
 
   testWidgets('accountability modal applies −15 BCS from home', (tester) async {
@@ -291,5 +314,30 @@ class _InstantHydration extends AppHydration {
       hasCommittedSession: false,
       hasDraftProgress: false,
     );
+  }
+}
+
+class _WidgetTestAppPreferences extends AppPreferences {
+  @override
+  AppPreferencesState build() => AppPreferencesState.testDefaults;
+}
+
+class _WidgetTestBiometricLockSettings extends BiometricLockSettings {
+  @override
+  bool build() => false;
+
+  @override
+  Future<void> hydrate() async {}
+}
+
+class _UnlockedBiometricSession extends BiometricSession {
+  @override
+  bool build() => true;
+}
+
+class _WidgetTestRecoveryProtocolController extends RecoveryProtocolController {
+  @override
+  Future<RecoveryProtocolState> build() async {
+    return RecoveryProtocolState(protocolStartDate: DateTime(2026, 1, 1));
   }
 }

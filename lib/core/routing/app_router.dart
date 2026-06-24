@@ -29,6 +29,8 @@ import '../../features/reports/weekly_report_screen.dart';
 import '../../features/settings/settings_screen.dart';
 import '../../features/splash/presentation/splash_screen.dart';
 import '../constants/app_routes.dart';
+import '../security/biometric_lock_screen.dart';
+import '../security/security_status_provider.dart';
 import 'app_navigator_key.dart';
 
 // 🌟 [NEW] إضافة مسار شاشة واحة المشاعر
@@ -204,6 +206,8 @@ class WeeklyReportRoute {
 @riverpod
 GoRouter goRouter(GoRouterRef ref) {
   final prefs = ref.watch(appPreferencesProvider);
+  final biometricEnabled = ref.watch(biometricLockSettingsProvider);
+  final biometricUnlocked = ref.watch(biometricSessionProvider);
 
   return GoRouter(
     navigatorKey: appNavigatorKey,
@@ -215,6 +219,15 @@ GoRouter goRouter(GoRouterRef ref) {
       if (!prefs.hasSeenOnboarding && location != AppRoutes.onboarding) {
         return AppRoutes.onboarding;
       }
+      if (biometricEnabled &&
+          !biometricUnlocked &&
+          location != AppRoutes.biometricLock &&
+          location != AppRoutes.onboarding) {
+        return AppRoutes.biometricLock;
+      }
+      if (biometricUnlocked && location == AppRoutes.biometricLock) {
+        return AppRoutes.home;
+      }
       return null;
     },
     routes: [
@@ -222,6 +235,11 @@ GoRouter goRouter(GoRouterRef ref) {
         path: AppRoutes.splash,
         name: 'splash',
         builder: (context, state) => const SplashScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.biometricLock,
+        name: 'biometricLock',
+        builder: (context, state) => const BiometricLockScreen(),
       ),
       GoRoute(
         path: AppRoutes.onboarding,

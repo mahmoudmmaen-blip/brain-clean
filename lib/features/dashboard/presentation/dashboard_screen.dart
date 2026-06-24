@@ -2,105 +2,127 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-// ------------------------------------------------------------------------
-// الاستيرادات الأساسية (إذا ظهر خطأ هنا، اضغط Ctrl + . لاختيار المسار)
-// ------------------------------------------------------------------------
-import 'package:brain_clean_mobile/core/l10n/app_localizations.dart';
+import '../../../core/constants/app_routes.dart';
+import '../../../core/l10n/app_localizations.dart';
+import '../../../core/theme/theme_extensions.dart';
+import '../../diagnostic/presentation/bc_score_provider.dart';
+import '../../diagnostic/presentation/widgets/bc_score_breakdown.dart';
+import '../../diagnostic/presentation/widgets/bc_score_hero_card.dart';
+import '../../diagnostic/presentation/widgets/brain_rot_colors.dart';
 
-// ------------------------------------------------------------------------
-// تعريفات مؤقتة (Fallbacks) لضمان عمل الشاشة وتجاوز الأخطاء
-// ------------------------------------------------------------------------
+/// Stable widget-test anchor for the detox check-in [ListTile].
+const dashboardDetoxCheckInTileKey = Key('dashboard_detox_check_in_tile');
+const dashboardRecoveryGridTileKey = Key('dashboard_recovery_grid_tile');
 
-// 1. بديل لملف AppStrings المفقود
-class AppStrings {
-  static const String challengeTitle = "تحدي النقاء";
-  static String challengeSubtitle(int days) => "متبقي $days يوم";
-  static const String emotionOasis = "واحة المشاعر";
+void _navigateToDetoxCheckIn(BuildContext context) {
+  if (!context.mounted) return;
+  context.push(AppRoutes.detox);
 }
 
-// 2. بديل للـ Providers المفقودة
-final challengeDurationProvider = Provider<int>((ref) => 30);
-final bcScoreSessionProvider = Provider<dynamic>((ref) => null);
+void _navigateToRecoveryGrid(BuildContext context) {
+  if (!context.mounted) return;
+  context.push(AppRoutes.recovery);
+}
 
-// ------------------------------------------------------------------------
-// بداية الكود الأصلي للشاشة
-// ------------------------------------------------------------------------
+void _navigateToDiagnostic(BuildContext context) {
+  context.push(AppRoutes.diagnostic);
+}
 
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
 
-  // 3. ميثود مؤقتة لمعالجة خطأ showChallengeDurationPicker
-  void showChallengeDurationPicker(BuildContext context, WidgetRef ref) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text("تعديل مدة التحدي"),
-        content: const Text("هذه الميزة ستكون متاحة قريباً!"),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text("إغلاق"),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // جلب الترجمة بطريقة آمنة
-    final loc = AppLocalizations.of(context);
-    final title = loc?.dashboardTitle ?? 'الرئيسية';
-    
+    final loc = AppLocalizations.of(context)!;
     final session = ref.watch(bcScoreSessionProvider);
-    final challengeDays = ref.watch(challengeDurationProvider);
+    final committedAt = session == null
+        ? null
+        : session.committedAt.toLocal().toString().substring(0, 16);
 
     return Scaffold(
-      appBar: AppBar(title: Text(title)),
+      appBar: AppBar(title: Text(loc.dashboardTitle)),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            // --- كارت التحدي ---
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.15),
-                borderRadius: BorderRadius.circular(24),
+            if (session != null) ...[
+              Builder(
+                builder: (context) {
+                  final scoreKey = ValueKey<int>(session.bcScore.round());
+                  return Column(
+                    children: [
+                      RepaintBoundary(
+                        child: BcScoreHeroCard.fromSession(
+                          key: scoreKey,
+                          session: session,
+                          fontSize: 48,
+                          subtitle: loc.dashboardCommittedAt(committedAt!),
+                        ),
+                      ),
+                      RepaintBoundary(
+                        child: BcScoreBreakdown.fromSession(
+                          key: ValueKey<String>('dash_breakdown_$scoreKey'),
+                          session: session,
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
-              child: ListTile(
-                title: const Text(AppStrings.challengeTitle, style: TextStyle(fontWeight: FontWeight.bold)),
-                subtitle: Text(AppStrings.challengeSubtitle(challengeDays)),
-                trailing: const Icon(Icons.edit, size: 20),
-                onTap: () => showChallengeDurationPicker(context, ref),
+              if (session.brainRot != null) ...[
+                const SizedBox(height: 12),
+                Card(
+                  child: ListTile(
+                    title: Text(
+                      loc.dashboardBrainRotSummary(session.brainRot!.score),
+                    ),
+                    subtitle: Text(session.brainRot!.interpretationAr),
+                    leading: Icon(
+                      Icons.psychology_outlined,
+                      color: BrainRotColors.forBand(session.brainRot!.band),
+                    ),
+                  ),
+                ),
+              ],
+            ] else
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: Text(
+                    loc.dashboardEmptyDiagnosticPrompt,
+                    textAlign: TextAlign.center,
+                    style: context.arabicBodyStyle.copyWith(
+                      color: context.textMuted,
+                    ),
+                  ),
+                ),
               ),
-            ),
-            
             const SizedBox(height: 24),
-
-            // --- كارت واحة المشاعر (الربط مع NVIDIA سيكون هنا) ---
             Card(
               clipBehavior: Clip.antiAlias,
-              color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
               child: ListTile(
-                leading: CircleAvatar(
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  child: const Icon(Icons.psychology, color: Colors.white),
-                ),
-                title: const Text(AppStrings.emotionOasis, style: TextStyle(fontWeight: FontWeight.bold)),
-                subtitle: const Text('تحدث مع المرشد السلوكي لدعم رحلتك'),
-                trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                // الانتقال لشاشة واحة المشاعر
-                onTap: () => context.push('/emotion-oasis'), 
+                key: dashboardDetoxCheckInTileKey,
+                title: Text(loc.dashboardOpenDetoxCheckIn),
+                subtitle: Text(loc.dashboardOpenDetoxCheckInSubtitle),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => _navigateToDetoxCheckIn(context),
               ),
             ),
-            
             const SizedBox(height: 12),
-
-            // زر إعادة التشخيص
+            Card(
+              clipBehavior: Clip.antiAlias,
+              child: ListTile(
+                key: dashboardRecoveryGridTileKey,
+                title: Text(loc.dashboardOpenRecoveryGrid),
+                subtitle: Text(loc.dashboardOpenRecoveryGridSubtitle),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => _navigateToRecoveryGrid(context),
+              ),
+            ),
+            const SizedBox(height: 12),
             OutlinedButton(
-              onPressed: () => print("جاري فتح التشخيص..."),
-              child: Text(loc?.dashboardRetakeDiagnostic ?? 'إعادة التشخيص'),
+              onPressed: () => _navigateToDiagnostic(context),
+              child: Text(loc.dashboardRetakeDiagnostic),
             ),
           ],
         ),

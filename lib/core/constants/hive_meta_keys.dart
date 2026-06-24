@@ -26,4 +26,7 @@ abstract final class HiveMetaKeys {
   static const thinkingLog = 'thinking_log';
   static const gameBestNBack = 'gameBestNBack';
   static const gameBestSpeedSort = 'gameBestSpeedSort';
+
+  /// Set to `true` after one-time Hive AES migration ([HiveBootstrap]).
+  static const boxesEncryptedV1 = 'boxesEncryptedV1';
 }

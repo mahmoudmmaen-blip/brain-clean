@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 
 import '../../core/application/app_preferences_provider.dart';
+import '../../core/security/security_status_provider.dart';
 import '../../core/constants/app_routes.dart';
 import '../../core/l10n/app_localizations.dart';
 import '../../core/services/smart_notification_service.dart';
@@ -126,6 +127,30 @@ class SettingsScreen extends ConsumerWidget {
                   .read(appPreferencesProvider.notifier)
                   .setDailyFocusReminder(v);
               await ref.read(smartNotificationServiceProvider).rescheduleAll();
+            },
+          ),
+          const Divider(color: Color(0xFF30363D)),
+          _SectionHeader(loc.settingsSecuritySection),
+          SwitchListTile(
+            title: Text(
+              loc.settingsBiometricLock,
+              style: const TextStyle(color: Color(0xFFE6EDF3)),
+            ),
+            subtitle: Text(
+              loc.settingsBiometricLockSubtitle,
+              style: const TextStyle(color: Color(0xFF8B949E), fontSize: 12),
+            ),
+            value: ref.watch(biometricLockSettingsProvider),
+            activeThumbColor: const Color(0xFF1D9E75),
+            onChanged: (enabled) async {
+              final ok = await ref
+                  .read(biometricLockSettingsProvider.notifier)
+                  .setEnabled(enabled);
+              if (!ok && context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(loc.settingsBiometricUnavailable)),
+                );
+              }
             },
           ),
           const Divider(color: Color(0xFF30363D)),

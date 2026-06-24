@@ -24,4 +24,5 @@ abstract final class AppRoutes {
   static const games = '/games';
   static const focusedThinking = '/focused-thinking';
   static const crossword = '/crossword';
+  static const biometricLock = '/biometric-lock';
 }

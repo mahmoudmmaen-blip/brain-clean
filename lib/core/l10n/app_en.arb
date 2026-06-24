@@ -599,6 +599,14 @@
   "bciCardStatusMild": "Mild fog",
   "bciCardStatusWarning": "Warning — review your habits",
   "bciCardNoAssessment": "Complete the weekly assessment for full BCI",
-  "bciCardLoading": "Calculating BCI..."
+  "bciCardLoading": "Calculating BCI...",
+  "settingsSecuritySection": "Security",
+  "settingsBiometricLock": "Biometric app lock",
+  "settingsBiometricLockSubtitle": "Require authentication when opening the app (device PIN fallback)",
+  "settingsBiometricUnavailable": "Biometric authentication is not available on this device",
+  "biometricLockTitle": "App locked",
+  "biometricLockSubtitle": "Use your fingerprint or device PIN to continue",
+  "biometricLockButton": "Unlock Brain Clean",
+  "securityCompromisedBanner": "Warning: this device may be compromised. Local data only — cloud sync is disabled."
 }
 

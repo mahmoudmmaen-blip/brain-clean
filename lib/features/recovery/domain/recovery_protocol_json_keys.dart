@@ -8,6 +8,8 @@ abstract final class RecoveryProtocolJsonKeys {
   static const dayIndex = 'dayIndex';
   static const taskCompleted = 'taskCompleted';
   static const penaltyApplied = 'penaltyApplied';
+  static const sleepCompleted = 'sleepCompleted';
+  static const waterCompleted = 'waterCompleted';
 
   /// Legacy snake_case keys — rejected on read to prevent payload drift.
   static const forbiddenDriftKeys = {
@@ -30,5 +32,7 @@ abstract final class RecoveryProtocolJsonKeys {
     dayIndex,
     taskCompleted,
     penaltyApplied,
+    sleepCompleted,
+    waterCompleted,
   };
 }

@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 
-import '../../../core/storage/hive_boxes.dart';
+import '../storage/hive_boxes.dart';
 
 final appMetaBoxProvider = Provider<Box<dynamic>>((ref) {
   if (!Hive.isBoxOpen(HiveBoxes.appMeta)) {

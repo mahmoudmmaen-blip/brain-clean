@@ -599,5 +599,13 @@
   "bciCardStatusMild": "ضباب خفيف",
   "bciCardStatusWarning": "تحذير — راجع عاداتك",
   "bciCardNoAssessment": "أكمل التقييم الأسبوعي لعرض BCI الكامل",
-  "bciCardLoading": "جاري حساب BCI..."
+  "bciCardLoading": "جاري حساب BCI...",
+  "settingsSecuritySection": "الأمان",
+  "settingsBiometricLock": "قفل التطبيق بالبصمة",
+  "settingsBiometricLockSubtitle": "يتطلب المصادقة عند فتح التطبيق (مع رمز الجهاز كبديل)",
+  "settingsBiometricUnavailable": "المصادقة البيومترية غير متاحة على هذا الجهاز",
+  "biometricLockTitle": "التطبيق مقفل",
+  "biometricLockSubtitle": "استخدم بصمتك أو رمز الجهاز للمتابعة",
+  "biometricLockButton": "فتح Brain Clean",
+  "securityCompromisedBanner": "تحذير: الجهاز قد يكون معدّلاً. بياناتك محلية فقط — تم تعطيل المزامنة السحابية."
 }

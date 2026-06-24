@@ -93,9 +93,8 @@ class RecoveryDayRecord {
         RecoveryProtocolJsonKeys.dayIndex: dayIndex,
         RecoveryProtocolJsonKeys.taskCompleted: List<bool>.from(taskCompleted),
         RecoveryProtocolJsonKeys.penaltyApplied: penaltyApplied,
-        // حفظ القيم الجديدة (تم استخدام نصوص مباشرة لسهولة الدمج)
-        'sleepCompleted': sleepCompleted,
-        'waterCompleted': waterCompleted,
+        RecoveryProtocolJsonKeys.sleepCompleted: sleepCompleted,
+        RecoveryProtocolJsonKeys.waterCompleted: waterCompleted,
       };
 
   /// camelCase JSON after [RecoveryHivePayload] normalization (read path).
@@ -125,9 +124,8 @@ class RecoveryDayRecord {
       penaltyApplied:
           json[RecoveryProtocolJsonKeys.penaltyApplied] == true,
       
-      // 🌟 [NEW] استرجاع القيم الجديدة بأمان للمستخدمين القدامى والجدد
-      sleepCompleted: json['sleepCompleted'] == true,
-      waterCompleted: json['waterCompleted'] == true,
+      sleepCompleted: json[RecoveryProtocolJsonKeys.sleepCompleted] == true,
+      waterCompleted: json[RecoveryProtocolJsonKeys.waterCompleted] == true,
     );
   }
 }
