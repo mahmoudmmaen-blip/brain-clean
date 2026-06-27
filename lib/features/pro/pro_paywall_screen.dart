@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../core/application/app_preferences_provider.dart';
 import '../../core/l10n/app_localizations.dart';
+import 'application/subscription_service_provider.dart';
 
 const proPaywallKey = Key('pro_paywall_screen');
 const proSubscribeKey = Key('pro_subscribe_button');
 
-/// Mock Pro subscription paywall — no real payment integration.
 class ProPaywallScreen extends ConsumerWidget {
   const ProPaywallScreen({super.key});
 
-  Future<void> _activatePro(BuildContext context, WidgetRef ref) async {
-    await ref.read(appPreferencesProvider.notifier).setProUser(true);
-    if (!context.mounted) return;
+  Future<void> _purchase(BuildContext context, WidgetRef ref) async {
+    final ok =
+        await ref.read(subscriptionServiceProvider.notifier).purchaseMonthly();
+    if (!ok || !context.mounted) return;
     final loc = AppLocalizations.of(context)!;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -23,6 +23,13 @@ class ProPaywallScreen extends ConsumerWidget {
       ),
     );
     context.pop();
+  }
+
+  Future<void> _restore(BuildContext context, WidgetRef ref) async {
+    final ok =
+        await ref.read(subscriptionServiceProvider.notifier).restorePurchases();
+    if (!context.mounted) return;
+    if (ok) context.pop();
   }
 
   @override
@@ -139,7 +146,7 @@ class ProPaywallScreen extends ConsumerWidget {
                 ),
                 child: ElevatedButton(
                   key: proSubscribeKey,
-                  onPressed: () => _activatePro(context, ref),
+                  onPressed: () => _purchase(context, ref),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,
                     shadowColor: Colors.transparent,
@@ -160,7 +167,7 @@ class ProPaywallScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 8),
               TextButton(
-                onPressed: () => _activatePro(context, ref),
+                onPressed: () => _restore(context, ref),
                 child: Text(
                   loc.proRestorePurchase,
                   style: const TextStyle(color: Color(0xFF8B949E)),

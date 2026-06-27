@@ -44,4 +44,5 @@ abstract final class HiveMetaKeys {
 
   static const cognitiveVisualResultJson = 'cognitiveVisualResultJson';
   static const cognitiveMemoryResultJson = 'cognitiveMemoryResultJson';
+  static const selectedColorThemeId = 'selectedColorThemeId';
 }
