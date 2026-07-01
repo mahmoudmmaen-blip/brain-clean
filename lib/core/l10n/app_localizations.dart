@@ -1298,6 +1298,12 @@ abstract class AppLocalizations {
   /// **'Secure cloud sync'**
   String get proFeatureCloudSync;
 
+  /// No description provided for @proFeatureColorThemes.
+  ///
+  /// In en, this message translates to:
+  /// **'4 exclusive Pro color themes'**
+  String get proFeatureColorThemes;
+
   /// No description provided for @proWelcomeSnack.
   ///
   /// In en, this message translates to:
@@ -1334,6 +1340,54 @@ abstract class AppLocalizations {
   /// **'Pro'**
   String get proBadgeLabel;
 
+  /// No description provided for @proPlanMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get proPlanMonthly;
+
+  /// No description provided for @proPlanAnnual.
+  ///
+  /// In en, this message translates to:
+  /// **'Annual'**
+  String get proPlanAnnual;
+
+  /// No description provided for @proPlanLifetime.
+  ///
+  /// In en, this message translates to:
+  /// **'Lifetime'**
+  String get proPlanLifetime;
+
+  /// No description provided for @proBestValueBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Best value'**
+  String get proBestValueBadge;
+
+  /// No description provided for @proAlreadyProTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re already Pro'**
+  String get proAlreadyProTitle;
+
+  /// No description provided for @proAlreadyProBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Enjoy unlimited access to all premium features.'**
+  String get proAlreadyProBody;
+
+  /// No description provided for @proRestoreSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchases restored successfully'**
+  String get proRestoreSuccess;
+
+  /// No description provided for @proRestoreNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No previous purchases found'**
+  String get proRestoreNone;
+
   /// No description provided for @settingsTitle.
   ///
   /// In en, this message translates to:
@@ -1357,6 +1411,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Upgrade to Pro'**
   String get settingsUpgradeToPro;
+
+  /// No description provided for @settingsAppearanceSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get settingsAppearanceSection;
+
+  /// No description provided for @colorThemeMidnightName.
+  ///
+  /// In en, this message translates to:
+  /// **'Midnight'**
+  String get colorThemeMidnightName;
+
+  /// No description provided for @colorThemeAuroraName.
+  ///
+  /// In en, this message translates to:
+  /// **'Aurora'**
+  String get colorThemeAuroraName;
+
+  /// No description provided for @colorThemePineName.
+  ///
+  /// In en, this message translates to:
+  /// **'Pine'**
+  String get colorThemePineName;
+
+  /// No description provided for @colorThemeSolarName.
+  ///
+  /// In en, this message translates to:
+  /// **'Solar'**
+  String get colorThemeSolarName;
+
+  /// No description provided for @colorThemeSlateName.
+  ///
+  /// In en, this message translates to:
+  /// **'Slate'**
+  String get colorThemeSlateName;
+
+  /// No description provided for @colorThemeDaylightName.
+  ///
+  /// In en, this message translates to:
+  /// **'Daylight'**
+  String get colorThemeDaylightName;
 
   /// No description provided for @settingsNotificationsSection.
   ///

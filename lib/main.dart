@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart'; // تأكد إنك ضفتها
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'core/l10n/app_localization_config.dart';
 import 'core/network/supabase_client.dart';
@@ -12,21 +12,21 @@ import 'core/services/weekly_report_service.dart';
 import 'core/security/root_detector.dart';
 import 'core/security/security_status_provider.dart';
 import 'core/storage/hive_bootstrap.dart';
+import 'core/theme/app_color_theme.dart';
+import 'core/theme/app_color_theme_provider.dart';
 import 'core/theme/locale_theme.dart';
-import 'core/theme/theme_provider.dart';
 import 'features/gamification/application/xp_sync_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
-  // تحميل ملف .env من جذر المشروع
+
   await dotenv.load(fileName: ".env");
-  
+
   await HiveBootstrap.initialize();
   await RootDetector.checkAndFlag();
   await HiveBootstrap.warmUpPersistentBoxes();
   await SupabaseConfig.initialize();
-  
+
   runApp(const ProviderScope(child: BrainCleanApp()));
 }
 
@@ -82,16 +82,19 @@ class _BrainCleanAppState extends ConsumerState<BrainCleanApp>
   @override
   Widget build(BuildContext context) {
     final router = ref.watch(goRouterProvider);
-    final themeMode = ref.watch(appThemeModeProvider);
     final locale = ref.watch(localeProvider);
     final isRtl = isRtlLocale(locale);
+    final colorTheme = ref.watch(effectiveColorThemeProvider);
+    final themeData = LocaleTheme.themed(locale: locale, theme: colorTheme);
 
     return MaterialApp.router(
       title: 'Brain Clean',
       debugShowCheckedModeBanner: false,
-      theme: LocaleTheme.themed(brightness: Brightness.light, locale: locale),
-      darkTheme: LocaleTheme.themed(brightness: Brightness.dark, locale: locale),
-      themeMode: themeMode,
+      theme: themeData,
+      darkTheme: themeData,
+      themeMode: colorTheme.brightness == Brightness.dark
+          ? ThemeMode.dark
+          : ThemeMode.light,
       locale: locale,
       localizationsDelegates: appLocalizationsDelegates,
       supportedLocales: supportedLocales,

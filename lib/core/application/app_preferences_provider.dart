@@ -162,11 +162,10 @@ class AppPreferences extends _$AppPreferences {
       );
 }
 
-/// Convenience read-only aliases for pro/onboarding gates.
-@riverpod
-bool isProUser(IsProUserRef ref) =>
-    ref.watch(appPreferencesProvider).isProUser;
-
+/// Convenience read-only alias for onboarding gates.
+///
+/// See `isProUserProvider` in `subscription_service_provider.dart` for the
+/// Pro entitlement equivalent (backed by [SubscriptionService]).
 @riverpod
 bool hasSeenOnboarding(HasSeenOnboardingRef ref) =>
     ref.watch(appPreferencesProvider).hasSeenOnboarding;

@@ -2,40 +2,43 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constants/hive_meta_keys.dart';
 import '../data/app_meta_box_provider.dart';
+import '../../features/pro/application/subscription_service_provider.dart';
 import 'app_color_theme.dart';
 
-final appColorThemeProvider =
-    NotifierProvider<AppColorThemeNotifier, AppColorTheme>(
-  AppColorThemeNotifier.new,
-);
-
-class AppColorThemeNotifier extends Notifier<AppColorTheme> {
+class SelectedColorThemeNotifier extends Notifier<AppColorTheme> {
   @override
   AppColorTheme build() {
     try {
       final box = ref.watch(appMetaBoxProvider);
-      final id = box.get(
-        HiveMetaKeys.selectedColorThemeId,
-        defaultValue: AppColorTheme.classicGreen.id,
-      ) as String;
-      return AppColorTheme.values.firstWhere(
-        (t) => t.id == id,
-        orElse: () => AppColorTheme.classicGreen,
-      );
+      final stored = box.get(HiveMetaKeys.selectedColorThemeId) as String?;
+      return AppColorTheme.values.asNameMap()[stored] ?? AppColorTheme.midnight;
     } catch (_) {
-      return AppColorTheme.classicGreen;
+      return AppColorTheme.midnight;
     }
   }
 
-  /// Sets [theme] for Pro users only. No-op for free users selecting a Pro theme.
-  Future<void> setTheme(AppColorTheme theme, {required bool isPro}) async {
-    if (theme.requiresPro && !isPro) return;
+  Future<void> select(AppColorTheme theme) async {
     try {
       final box = ref.read(appMetaBoxProvider);
-      await box.put(HiveMetaKeys.selectedColorThemeId, theme.id);
-      ref.invalidateSelf();
+      await box.put(HiveMetaKeys.selectedColorThemeId, theme.name);
     } catch (_) {
-      state = theme;
+      // Hive unavailable (e.g. widget tests) — fall back to in-memory state.
     }
+    state = theme;
   }
 }
+
+final selectedColorThemeProvider =
+    NotifierProvider<SelectedColorThemeNotifier, AppColorTheme>(
+  SelectedColorThemeNotifier.new,
+);
+
+/// The color theme actually applied — falls back to [AppColorTheme.midnight]
+/// if the persisted selection is Pro-only and entitlement has lapsed.
+final effectiveColorThemeProvider = Provider<AppColorTheme>((ref) {
+  final selected = ref.watch(selectedColorThemeProvider);
+  if (selected.isPro && !ref.watch(isProUserProvider)) {
+    return AppColorTheme.midnight;
+  }
+  return selected;
+});

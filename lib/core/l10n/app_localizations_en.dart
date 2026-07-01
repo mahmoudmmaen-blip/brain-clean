@@ -690,6 +690,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get proFeatureCloudSync => 'Secure cloud sync';
 
   @override
+  String get proFeatureColorThemes => '4 exclusive Pro color themes';
+
+  @override
   String get proWelcomeSnack => 'Welcome to Pro! 🎉';
 
   @override
@@ -708,6 +711,31 @@ class AppLocalizationsEn extends AppLocalizations {
   String get proBadgeLabel => 'Pro';
 
   @override
+  String get proPlanMonthly => 'Monthly';
+
+  @override
+  String get proPlanAnnual => 'Annual';
+
+  @override
+  String get proPlanLifetime => 'Lifetime';
+
+  @override
+  String get proBestValueBadge => 'Best value';
+
+  @override
+  String get proAlreadyProTitle => 'You\'re already Pro';
+
+  @override
+  String get proAlreadyProBody =>
+      'Enjoy unlimited access to all premium features.';
+
+  @override
+  String get proRestoreSuccess => 'Purchases restored successfully';
+
+  @override
+  String get proRestoreNone => 'No previous purchases found';
+
+  @override
   String get settingsTitle => 'Settings';
 
   @override
@@ -718,6 +746,27 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsUpgradeToPro => 'Upgrade to Pro';
+
+  @override
+  String get settingsAppearanceSection => 'Appearance';
+
+  @override
+  String get colorThemeMidnightName => 'Midnight';
+
+  @override
+  String get colorThemeAuroraName => 'Aurora';
+
+  @override
+  String get colorThemePineName => 'Pine';
+
+  @override
+  String get colorThemeSolarName => 'Solar';
+
+  @override
+  String get colorThemeSlateName => 'Slate';
+
+  @override
+  String get colorThemeDaylightName => 'Daylight';
 
   @override
   String get settingsNotificationsSection => 'Notifications';

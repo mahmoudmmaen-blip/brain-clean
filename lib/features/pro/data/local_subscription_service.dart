@@ -1,40 +1,48 @@
-import 'package:hive/hive.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/application/app_preferences_provider.dart';
 import '../domain/subscription_plan.dart';
 import '../domain/subscription_service.dart';
 
 class LocalSubscriptionService implements SubscriptionService {
-  const LocalSubscriptionService(this._box);
+  LocalSubscriptionService(this._ref);
 
-  final Box<dynamic> _box;
-
-  static const _kPlanKey = 'subscriptionPlan';
+  final Ref _ref;
 
   @override
-  SubscriptionPlan get currentPlan {
-    final stored =
-        _box.get(_kPlanKey, defaultValue: SubscriptionPlan.free.name) as String;
-    return SubscriptionPlan.values.firstWhere(
-      (p) => p.name == stored,
-      orElse: () => SubscriptionPlan.free,
-    );
-  }
+  bool get isPro => _ref.read(appPreferencesProvider).isProUser;
 
   @override
-  bool get isPro => currentPlan.isPro;
+  List<SubscriptionPlan> get plans => const [
+        SubscriptionPlan(
+          id: 'pro_monthly',
+          title: 'Monthly',
+          priceString: '\$4.99',
+          period: SubscriptionPeriod.monthly,
+        ),
+        SubscriptionPlan(
+          id: 'pro_annual',
+          title: 'Annual',
+          priceString: '\$29.99',
+          period: SubscriptionPeriod.annual,
+        ),
+        SubscriptionPlan(
+          id: 'pro_lifetime',
+          title: 'Lifetime',
+          priceString: '\$79.99',
+          period: SubscriptionPeriod.lifetime,
+        ),
+      ];
 
   @override
-  Future<bool> purchaseMonthly() async {
-    await _box.put(_kPlanKey, SubscriptionPlan.monthlyPro.name);
+  Future<bool> purchase(String planId) async {
+    if (plans.every((plan) => plan.id != planId)) return false;
+    await _ref.read(appPreferencesProvider.notifier).setProUser(true);
     return true;
   }
 
   @override
-  Future<bool> purchaseAnnual() async {
-    await _box.put(_kPlanKey, SubscriptionPlan.annualPro.name);
-    return true;
+  Future<void> restorePurchases() async {
+    _ref.invalidate(appPreferencesProvider);
   }
-
-  @override
-  Future<bool> restorePurchases() async => isPro;
 }

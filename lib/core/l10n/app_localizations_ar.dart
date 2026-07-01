@@ -682,6 +682,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get proFeatureCloudSync => 'مزامنة سحابية آمنة';
 
   @override
+  String get proFeatureColorThemes => '4 ثيمات ألوان حصرية لـ Pro';
+
+  @override
   String get proWelcomeSnack => 'مرحباً بك في Pro! 🎉';
 
   @override
@@ -700,6 +703,30 @@ class AppLocalizationsAr extends AppLocalizations {
   String get proBadgeLabel => 'Pro';
 
   @override
+  String get proPlanMonthly => 'شهري';
+
+  @override
+  String get proPlanAnnual => 'سنوي';
+
+  @override
+  String get proPlanLifetime => 'مدى الحياة';
+
+  @override
+  String get proBestValueBadge => 'الأفضل قيمة';
+
+  @override
+  String get proAlreadyProTitle => 'أنت بالفعل مشترك في Pro';
+
+  @override
+  String get proAlreadyProBody => 'تمتع بوصول غير محدود لجميع ميزات Pro.';
+
+  @override
+  String get proRestoreSuccess => 'تمت استعادة المشتريات بنجاح';
+
+  @override
+  String get proRestoreNone => 'لم يتم العثور على مشتريات سابقة';
+
+  @override
   String get settingsTitle => 'الإعدادات';
 
   @override
@@ -710,6 +737,27 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get settingsUpgradeToPro => 'ترقية إلى Pro';
+
+  @override
+  String get settingsAppearanceSection => 'المظهر';
+
+  @override
+  String get colorThemeMidnightName => 'منتصف الليل';
+
+  @override
+  String get colorThemeAuroraName => 'الشفق';
+
+  @override
+  String get colorThemePineName => 'الصنوبر';
+
+  @override
+  String get colorThemeSolarName => 'شمسي';
+
+  @override
+  String get colorThemeSlateName => 'إردوازي';
+
+  @override
+  String get colorThemeDaylightName => 'ضوء النهار';
 
   @override
   String get settingsNotificationsSection => 'الإشعارات';

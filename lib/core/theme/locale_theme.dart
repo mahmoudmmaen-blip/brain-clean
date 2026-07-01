@@ -1,34 +1,40 @@
 import 'package:flutter/material.dart';
 
+import 'app_color_theme.dart';
+
 class LocaleTheme {
-  static ThemeData themed({required Brightness brightness, required Locale locale}) {
+  static ThemeData themed({
+    required Locale locale,
+    required AppColorTheme theme,
+  }) {
+    final brightness = theme.brightness;
     final isDark = brightness == Brightness.dark;
+    final primary = theme.accent;
 
     return ThemeData(
       useMaterial3: true,
       brightness: brightness,
       // الخطوط تتغير تلقائياً بناءً على اللغة
-      fontFamily: locale.languageCode == 'ar' ? 'Cairo' : 'Roboto', 
-      
+      fontFamily: locale.languageCode == 'ar' ? 'Cairo' : 'Roboto',
       // --- الألوان الفاخرة المزدوجة (Premium Dual-Theme Canvas) ---
-      scaffoldBackgroundColor: isDark ? const Color(0xFF07090F) : const Color(0xFFF8FAFC),
-      colorScheme: isDark 
-          ? const ColorScheme.dark(
-              background: Color(0xFF07090F),
-              surface: Color(0xFF131920), // زجاجي نقي للوضع المظلم
-              primary: Color(0xFF6366F1),
-              outline: Color(0xFF232D38), // خطوط هيكلية ناعمة
+      scaffoldBackgroundColor: theme.background,
+      colorScheme: isDark
+          ? ColorScheme.dark(
+              background: theme.background,
+              surface: theme.surface, // زجاجي نقي للوضع المظلم
+              primary: primary,
+              outline: const Color(0xFF232D38), // خطوط هيكلية ناعمة
             )
-          : const ColorScheme.light(
-              background: Color(0xFFF8FAFC),
-              surface: Color(0xFFFFFFFF), // كروت بيضاء ناصعة للوضع الفاتح
-              primary: Color(0xFF4F46E5),
-              outline: Color(0xFFE2E8F0),
+          : ColorScheme.light(
+              background: theme.background,
+              surface: theme.surface, // كروت بيضاء ناصعة للوضع الفاتح
+              primary: primary,
+              outline: const Color(0xFFE2E8F0),
             ),
       cardTheme: CardThemeData(
         elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        color: isDark ? const Color(0xFF131920) : const Color(0xFFFFFFFF),
+        color: theme.surface,
       ),
     );
   }
