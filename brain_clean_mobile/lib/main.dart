@@ -88,6 +88,7 @@ class _BrainCleanAppState extends ConsumerState<BrainCleanApp>
     final themeData = LocaleTheme.themed(locale: locale, theme: colorTheme);
 
     return MaterialApp.router(
+      key: ValueKey('theme-${colorTheme.name}'),
       title: 'Brain Clean',
       debugShowCheckedModeBanner: false,
       theme: themeData,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'app_color_theme.dart';
 
@@ -10,39 +11,93 @@ class LocaleTheme {
     final brightness = theme.brightness;
     final isDark = brightness == Brightness.dark;
     final primary = theme.accent;
+    final onSurface =
+        isDark ? const Color(0xFFE6EDF3) : const Color(0xFF0F172A);
+    final onSurfaceVariant =
+        isDark ? const Color(0xFF8B949E) : const Color(0xFF64748B);
+    final border =
+        isDark ? const Color(0xFF232D38) : const Color(0xFFE2E8F0);
 
-    return ThemeData(
+    final base = ThemeData(
       useMaterial3: true,
       brightness: brightness,
-      // الخطوط تتغير تلقائياً بناءً على اللغة
-      fontFamily: locale.languageCode == 'ar' ? 'Cairo' : 'Roboto',
-      // --- الألوان الفاخرة المزدوجة (Premium Dual-Theme Canvas) ---
       scaffoldBackgroundColor: theme.background,
-      colorScheme: isDark
-          ? ColorScheme.dark(
-              background: theme.background,
-              surface: theme.surface, // زجاجي نقي للوضع المظلم
-              primary: primary,
-              outline: const Color(0xFF232D38), // خطوط هيكلية ناعمة
-            )
-          : ColorScheme.light(
-              background: theme.background,
-              surface: theme.surface, // كروت بيضاء ناصعة للوضع الفاتح
-              primary: primary,
-              outline: const Color(0xFFE2E8F0),
-            ),
+      colorScheme: (isDark ? const ColorScheme.dark() : const ColorScheme.light())
+          .copyWith(
+        primary: primary,
+        onPrimary: Colors.white,
+        secondary: primary,
+        onSecondary: Colors.white,
+        surface: theme.surface,
+        onSurface: onSurface,
+        onSurfaceVariant: onSurfaceVariant,
+        outline: border,
+      ),
+    );
+
+    final textTheme = GoogleFonts.cairoTextTheme(base.textTheme).apply(
+      bodyColor: onSurface,
+      displayColor: onSurface,
+    );
+
+    return base.copyWith(
+      textTheme: textTheme,
+      primaryTextTheme: textTheme,
+      appBarTheme: AppBarTheme(
+        backgroundColor: theme.background,
+        foregroundColor: onSurface,
+        elevation: 0,
+        centerTitle: true,
+        iconTheme: IconThemeData(color: onSurfaceVariant),
+        titleTextStyle: GoogleFonts.cairo(
+          fontSize: 18,
+          fontWeight: FontWeight.w700,
+          color: onSurface,
+          height: 1.3,
+        ),
+      ),
       cardTheme: CardThemeData(
         elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         color: theme.surface,
       ),
+      dividerColor: border,
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        color: primary,
+        linearTrackColor: onSurface.withValues(alpha: 0.12),
+      ),
+      filledButtonTheme: FilledButtonThemeData(
+        style: FilledButton.styleFrom(
+          backgroundColor: primary,
+          foregroundColor: Colors.white,
+          minimumSize: const Size.fromHeight(48),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: primary,
+          side: BorderSide(color: primary.withValues(alpha: 0.55), width: 1.5),
+          minimumSize: const Size.fromHeight(48),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
+        ),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(foregroundColor: primary),
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: primary,
+        foregroundColor: Colors.white,
+      ),
     );
   }
 
-  // تأثير الزجاج الفاخر (استخدمه في كروت واحة المشاعر ودفاتر التدوين)
-  // مثال للاستخدام: boxShadow: [LocaleTheme.premiumShadow]
   static BoxShadow get premiumShadow => BoxShadow(
-        color: Colors.black.withOpacity(0.04),
+        color: Colors.black.withValues(alpha: 0.04),
         blurRadius: 12,
         offset: const Offset(0, 4),
       );
