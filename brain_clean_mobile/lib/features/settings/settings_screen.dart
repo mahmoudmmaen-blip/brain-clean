@@ -23,24 +23,33 @@ class SettingsScreen extends ConsumerWidget {
     final loc = AppLocalizations.of(context)!;
     final confirmed = await showDialog<bool>(
       context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: const Color(0xFF161B22),
-        title: Text(loc.settingsResetDataConfirmTitle,
-            style: const TextStyle(color: Color(0xFFE6EDF3))),
-        content: Text(loc.settingsResetDataConfirmBody,
-            style: const TextStyle(color: Color(0xFF8B949E))),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(false),
-            child: Text(loc.commonCancel),
+      builder: (ctx) {
+        final colorScheme = Theme.of(ctx).colorScheme;
+        return AlertDialog(
+          backgroundColor: colorScheme.surface,
+          title: Text(
+            loc.settingsResetDataConfirmTitle,
+            style: TextStyle(color: colorScheme.onSurface),
           ),
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(true),
-            child: Text(loc.commonConfirm,
-                style: const TextStyle(color: Color(0xFFEF4444))),
+          content: Text(
+            loc.settingsResetDataConfirmBody,
+            style: TextStyle(color: colorScheme.onSurfaceVariant),
           ),
-        ],
-      ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(false),
+              child: Text(loc.commonCancel),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(true),
+              child: Text(
+                loc.commonConfirm,
+                style: TextStyle(color: colorScheme.error),
+              ),
+            ),
+          ],
+        );
+      },
     );
     if (confirmed != true || !context.mounted) return;
 
@@ -64,15 +73,10 @@ class SettingsScreen extends ConsumerWidget {
     final loc = AppLocalizations.of(context)!;
     final prefs = ref.watch(appPreferencesProvider);
     final isPro = ref.watch(isProUserProvider);
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF0D1117),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF0D1117),
-        title: Text(loc.settingsTitle,
-            style: const TextStyle(color: Color(0xFFE6EDF3))),
-        iconTheme: const IconThemeData(color: Color(0xFF8B949E)),
-      ),
+      appBar: AppBar(title: Text(loc.settingsTitle)),
       body: ListView(
         children: [
           _SectionHeader(loc.settingsAccountSection),
@@ -81,27 +85,27 @@ class SettingsScreen extends ConsumerWidget {
             title: Text(
               isPro ? loc.settingsProActive : loc.settingsUpgradeToPro,
               style: TextStyle(
-                color: isPro
-                    ? const Color(0xFF1D9E75)
-                    : const Color(0xFFE6EDF3),
+                color: isPro ? colorScheme.primary : colorScheme.onSurface,
                 fontWeight: FontWeight.w600,
               ),
             ),
             trailing: isPro
                 ? null
-                : const Icon(Icons.chevron_left, color: Color(0xFF8B949E)),
+                : Icon(Icons.chevron_left, color: colorScheme.onSurfaceVariant),
             onTap: isPro ? null : () => context.push(AppRoutes.proPaywall),
           ),
-          const Divider(color: Color(0xFF30363D)),
+          Divider(color: Theme.of(context).dividerColor),
           _SectionHeader(loc.settingsAppearanceSection),
           _ColorThemeSection(isPro: isPro),
-          const Divider(color: Color(0xFF30363D)),
+          Divider(color: Theme.of(context).dividerColor),
           _SectionHeader(loc.settingsNotificationsSection),
           SwitchListTile(
-            title: Text(loc.settingsEmotionNotifications,
-                style: const TextStyle(color: Color(0xFFE6EDF3))),
+            title: Text(
+              loc.settingsEmotionNotifications,
+              style: TextStyle(color: colorScheme.onSurface),
+            ),
             value: prefs.emotionNotificationsEnabled,
-            activeThumbColor: const Color(0xFF1D9E75),
+            activeThumbColor: colorScheme.primary,
             onChanged: (v) async {
               await ref
                   .read(appPreferencesProvider.notifier)
@@ -110,10 +114,12 @@ class SettingsScreen extends ConsumerWidget {
             },
           ),
           SwitchListTile(
-            title: Text(loc.settingsDailyFocusReminder,
-                style: const TextStyle(color: Color(0xFFE6EDF3))),
+            title: Text(
+              loc.settingsDailyFocusReminder,
+              style: TextStyle(color: colorScheme.onSurface),
+            ),
             value: prefs.dailyFocusReminderEnabled,
-            activeThumbColor: const Color(0xFF1D9E75),
+            activeThumbColor: colorScheme.primary,
             onChanged: (v) async {
               await ref
                   .read(appPreferencesProvider.notifier)
@@ -121,16 +127,22 @@ class SettingsScreen extends ConsumerWidget {
               await ref.read(smartNotificationServiceProvider).rescheduleAll();
             },
           ),
-          const Divider(color: Color(0xFF30363D)),
+          Divider(color: Theme.of(context).dividerColor),
           _SectionHeader(loc.settingsSecuritySection),
           SwitchListTile(
-            title: Text(loc.settingsBiometricLock,
-                style: const TextStyle(color: Color(0xFFE6EDF3))),
-            subtitle: Text(loc.settingsBiometricLockSubtitle,
-                style: const TextStyle(
-                    color: Color(0xFF8B949E), fontSize: 12)),
+            title: Text(
+              loc.settingsBiometricLock,
+              style: TextStyle(color: colorScheme.onSurface),
+            ),
+            subtitle: Text(
+              loc.settingsBiometricLockSubtitle,
+              style: TextStyle(
+                color: colorScheme.onSurfaceVariant,
+                fontSize: 12,
+              ),
+            ),
             value: ref.watch(biometricLockSettingsProvider),
-            activeThumbColor: const Color(0xFF1D9E75),
+            activeThumbColor: colorScheme.primary,
             onChanged: (enabled) async {
               final ok = await ref
                   .read(biometricLockSettingsProvider.notifier)
@@ -138,45 +150,57 @@ class SettingsScreen extends ConsumerWidget {
               if (!ok && context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                      content:
-                          Text(loc.settingsBiometricUnavailable)),
+                    content: Text(loc.settingsBiometricUnavailable),
+                  ),
                 );
               }
             },
           ),
-          const Divider(color: Color(0xFF30363D)),
+          Divider(color: Theme.of(context).dividerColor),
           _SectionHeader(loc.settingsDataSection),
           ListTile(
             key: settingsResetKey,
-            title: Text(loc.settingsResetData,
-                style: const TextStyle(color: Color(0xFFEF4444))),
+            title: Text(
+              loc.settingsResetData,
+              style: TextStyle(color: colorScheme.error),
+            ),
             onTap: () => _confirmReset(context, ref),
           ),
           ListTile(
-            title: Text(loc.settingsExportData,
-                style: const TextStyle(color: Color(0xFFE6EDF3))),
+            title: Text(
+              loc.settingsExportData,
+              style: TextStyle(color: colorScheme.onSurface),
+            ),
             onTap: () {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(loc.settingsComingSoon)),
               );
             },
           ),
-          const Divider(color: Color(0xFF30363D)),
+          Divider(color: Theme.of(context).dividerColor),
           _SectionHeader(loc.settingsAboutSection),
           ListTile(
-            title: Text(loc.settingsVersion,
-                style: const TextStyle(color: Color(0xFFE6EDF3))),
-            trailing: const Text('1.0.0',
-                style: TextStyle(color: Color(0xFF8B949E))),
+            title: Text(
+              loc.settingsVersion,
+              style: TextStyle(color: colorScheme.onSurface),
+            ),
+            trailing: Text(
+              '1.0.0',
+              style: TextStyle(color: colorScheme.onSurfaceVariant),
+            ),
           ),
           ListTile(
-            title: Text(loc.settingsPrivacyPolicy,
-                style: const TextStyle(color: Color(0xFFE6EDF3))),
+            title: Text(
+              loc.settingsPrivacyPolicy,
+              style: TextStyle(color: colorScheme.onSurface),
+            ),
             onTap: () {},
           ),
           ListTile(
-            title: Text(loc.settingsContactUs,
-                style: const TextStyle(color: Color(0xFFE6EDF3))),
+            title: Text(
+              loc.settingsContactUs,
+              style: TextStyle(color: colorScheme.onSurface),
+            ),
             onTap: () {},
           ),
         ],
@@ -191,13 +215,17 @@ class _SectionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-      child: Text(label,
-          style: const TextStyle(
-              color: Color(0xFF8B949E),
-              fontSize: 13,
-              fontWeight: FontWeight.w600)),
+      child: Text(
+        label,
+        style: TextStyle(
+          color: colorScheme.onSurfaceVariant,
+          fontSize: 13,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
     );
   }
 }
@@ -269,6 +297,7 @@ class _ColorThemeSwatch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Semantics(
       label: label,
       selected: selected,
@@ -288,14 +317,14 @@ class _ColorThemeSwatch extends StatelessWidget {
                     color: theme.accent,
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color:
-                          selected ? Colors.white : Colors.transparent,
+                      color: selected
+                          ? colorScheme.onSurface
+                          : Colors.transparent,
                       width: 2.5,
                     ),
                   ),
                   child: selected
-                      ? const Icon(Icons.check,
-                          color: Colors.white, size: 20)
+                      ? Icon(Icons.check, color: colorScheme.onPrimary, size: 20)
                       : null,
                 ),
                 if (locked)
@@ -306,15 +335,18 @@ class _ColorThemeSwatch extends StatelessWidget {
                       color: Colors.black.withValues(alpha: 0.45),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.lock,
-                        color: Colors.white, size: 18),
+                    child: const Icon(Icons.lock, color: Colors.white, size: 18),
                   ),
               ],
             ),
             const SizedBox(height: 6),
-            Text(label,
-                style: const TextStyle(
-                    color: Color(0xFF8B949E), fontSize: 12)),
+            Text(
+              label,
+              style: TextStyle(
+                color: colorScheme.onSurfaceVariant,
+                fontSize: 12,
+              ),
+            ),
           ],
         ),
       ),

@@ -8,7 +8,6 @@ import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/presentation/async_state_views.dart';
 import '../../../core/presentation/language_toggle_button.dart';
-import '../../../core/theme/app_colors.dart';
 import '../../focus/widgets/ambient_sound_widgets.dart';
 import '../widgets/daily_quote_card.dart';
 import '../widgets/streak_freeze_button.dart';
@@ -62,9 +61,7 @@ class HomeScreen extends ConsumerWidget {
     );
 
     return Scaffold(
-      backgroundColor: AppColors.background,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
         title: Text(loc.homeTitle),
         actions: [
           const LanguageToggleButton(),
@@ -127,6 +124,7 @@ class _HomeBody extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bcScore = (session?.bcScore ?? 0.0).clamp(0.0, 100.0);
+    final colorScheme = Theme.of(context).colorScheme;
 
     return ListView(
       padding: const EdgeInsets.all(16),
@@ -149,8 +147,8 @@ class _HomeBody extends ConsumerWidget {
             loc.homeStreakMotivation,
             key: homeStreakMotivationKey,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: AppColors.primary,
+            style: TextStyle(
+              color: colorScheme.primary,
               fontSize: 14,
               fontWeight: FontWeight.w600,
             ),
@@ -168,7 +166,7 @@ class _HomeBody extends ConsumerWidget {
               _QuickActionCard(
                 key: homeEmotionWheelKey,
                 icon: Icons.psychology_outlined,
-                iconColor: AppColors.textSecondary,
+                iconColor: colorScheme.onSurfaceVariant,
                 label: loc.homeQuickEmotion,
                 proGated: !isPro,
                 proBadge: loc.proBadgeLabel,
@@ -182,7 +180,7 @@ class _HomeBody extends ConsumerWidget {
               _QuickActionCard(
                 key: homeSilenceChallengeKey,
                 icon: Icons.volume_off_outlined,
-                iconColor: AppColors.textSecondary,
+                iconColor: colorScheme.onSurfaceVariant,
                 label: loc.homeQuickSilence,
                 proGated: !isPro,
                 proBadge: loc.proBadgeLabel,
@@ -196,7 +194,7 @@ class _HomeBody extends ConsumerWidget {
               _QuickActionCard(
                 key: homeSingleTaskKey,
                 icon: Icons.track_changes,
-                iconColor: AppColors.primary,
+                iconColor: colorScheme.primary,
                 label: loc.homeQuickSingleTask,
                 onTap: () => context.push(AppRoutes.singleTask),
               ),
@@ -204,7 +202,7 @@ class _HomeBody extends ConsumerWidget {
               _QuickActionCard(
                 key: homePomodoroKey,
                 icon: Icons.timer_outlined,
-                iconColor: AppColors.primary,
+                iconColor: colorScheme.primary,
                 label: loc.homeQuickPomodoro,
                 onTap: () => context.push(AppRoutes.pomodoro),
               ),
@@ -212,7 +210,7 @@ class _HomeBody extends ConsumerWidget {
               _QuickActionCard(
                 key: homeFocusedThinkingKey,
                 icon: Icons.psychology,
-                iconColor: AppColors.primary,
+                iconColor: colorScheme.primary,
                 label: loc.homeQuickFocusedThinking,
                 onTap: () => context.push(AppRoutes.focusedThinking),
               ),
@@ -220,7 +218,7 @@ class _HomeBody extends ConsumerWidget {
               _QuickActionCard(
                 key: homeCrosswordKey,
                 icon: Icons.grid_on_outlined,
-                iconColor: AppColors.info,
+                iconColor: colorScheme.primary,
                 label: loc.homeQuickCrossword,
                 proGated: !isPro,
                 proBadge: loc.proBadgeLabel,
@@ -234,7 +232,7 @@ class _HomeBody extends ConsumerWidget {
               _QuickActionCard(
                 key: homeGamesKey,
                 icon: Icons.videogame_asset_outlined,
-                iconColor: AppColors.info,
+                iconColor: colorScheme.primary,
                 label: loc.homeQuickGames,
                 proGated: !isPro,
                 proBadge: loc.proBadgeLabel,
@@ -248,7 +246,7 @@ class _HomeBody extends ConsumerWidget {
               _QuickActionCard(
                 key: homeDelayedGratificationKey,
                 icon: Icons.hourglass_top,
-                iconColor: AppColors.warning,
+                iconColor: colorScheme.primary,
                 label: loc.homeQuickDelayedGrat,
                 onTap: () => context.push(AppRoutes.delayedGratification),
               ),
@@ -256,7 +254,7 @@ class _HomeBody extends ConsumerWidget {
               _QuickActionCard(
                 key: homeCognitiveTestKey,
                 icon: Icons.science_outlined,
-                iconColor: AppColors.info,
+                iconColor: colorScheme.primary,
                 label: loc.homeQuickCognitiveTest,
                 proGated: !isPro,
                 proBadge: loc.proBadgeLabel,
@@ -271,22 +269,22 @@ class _HomeBody extends ConsumerWidget {
         ),
         const SizedBox(height: 20),
         Card(
-          color: const Color(0xFF2D1216),
+          color: colorScheme.errorContainer,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
-            side: const BorderSide(color: AppColors.danger, width: 0.5),
+            side: BorderSide(color: colorScheme.error, width: 0.5),
           ),
           child: ListTile(
             key: homeAccountabilityButtonKey,
-            leading: const Icon(Icons.gavel_outlined, color: AppColors.danger),
+            leading: Icon(Icons.gavel_outlined, color: colorScheme.error),
             title: Text(
               loc.homeAccountabilityBox,
-              style: const TextStyle(
-                color: AppColors.textPrimary,
+              style: TextStyle(
+                color: colorScheme.onSurface,
                 fontWeight: FontWeight.w600,
               ),
             ),
-            trailing: const Icon(Icons.chevron_left, color: AppColors.textSecondary),
+            trailing: Icon(Icons.chevron_left, color: colorScheme.onSurfaceVariant),
             onTap: () {
               showModalBottomSheet<void>(
                 context: context,
@@ -305,14 +303,14 @@ class _HomeBody extends ConsumerWidget {
         ] else ...[
           const SizedBox(height: 20),
           Card(
-            color: AppColors.card,
+            color: colorScheme.surface,
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: Text(
                 loc.homeEmptyDiagnosticPrompt,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: AppColors.textSecondary,
+                style: TextStyle(
+                  color: colorScheme.onSurfaceVariant,
                   fontSize: 14,
                 ),
               ),
@@ -381,11 +379,12 @@ class _QuickActionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return SizedBox(
       width: 140,
       height: 90,
       child: Material(
-        color: AppColors.card,
+        color: colorScheme.surface,
         borderRadius: BorderRadius.circular(14),
         clipBehavior: Clip.antiAlias,
         child: InkWell(
@@ -405,9 +404,9 @@ class _QuickActionCard extends StatelessWidget {
                         textAlign: TextAlign.center,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 12,
-                          color: AppColors.textPrimary,
+                          color: colorScheme.onSurface,
                         ),
                       ),
                     ),
@@ -422,7 +421,7 @@ class _QuickActionCard extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFF59E0B),
+                      color: colorScheme.primary,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(

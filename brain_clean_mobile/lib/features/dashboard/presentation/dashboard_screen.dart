@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
-import '../../../core/theme/theme_extensions.dart';
 import '../../diagnostic/presentation/bc_score_provider.dart';
 import '../../diagnostic/presentation/widgets/bc_score_breakdown.dart';
 import '../../diagnostic/presentation/widgets/bc_score_hero_card.dart';
@@ -34,6 +33,7 @@ class DashboardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
     final session = ref.watch(bcScoreSessionProvider);
     final committedAt = session == null
         ? null
@@ -91,9 +91,9 @@ class DashboardScreen extends ConsumerWidget {
                   child: Text(
                     loc.dashboardEmptyDiagnosticPrompt,
                     textAlign: TextAlign.center,
-                    style: context.arabicBodyStyle.copyWith(
-                      color: context.textMuted,
-                    ),
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: colorScheme.onSurfaceVariant,
+                        ),
                   ),
                 ),
               ),
