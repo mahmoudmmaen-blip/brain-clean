@@ -4,6 +4,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../features/dashboard/domain/daily_snapshot.dart';
 import '../../features/emotions/domain/emotion_log_entry.dart';
 import '../network/supabase_client.dart';
+import '../security/root_detector.dart';
 
 part 'cloud_sync_service.g.dart';
 
@@ -28,6 +29,7 @@ class CloudSyncService {
   String? get _userId => _client?.auth.currentSession?.user.id;
 
   Future<void> syncDailySnapshot(DailySnapshot snapshot) async {
+    if (RootDetector.isCompromised) return;
     final client = _client;
     if (client == null || client.auth.currentSession == null) return;
     final userId = _userId;
@@ -44,6 +46,7 @@ class CloudSyncService {
   }
 
   Future<void> syncEmotionLog(EmotionLogEntry entry) async {
+    if (RootDetector.isCompromised) return;
     final client = _client;
     if (client == null || client.auth.currentSession == null) return;
     final userId = _userId;

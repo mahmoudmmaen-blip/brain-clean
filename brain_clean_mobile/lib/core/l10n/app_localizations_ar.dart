@@ -301,14 +301,76 @@ class AppLocalizationsAr extends AppLocalizations {
   String get cognitiveVisualTestTitle => 'اختبار الإدراك البصري';
 
   @override
-  String get cognitiveVisualTestSubtitle => 'انتباه وتمييز أنماط (قريباً)';
+  String get cognitiveVisualTestSubtitle =>
+      'اعثر على الشكل أو اللون المختلف ضمن شبكة زمنية';
 
   @override
   String get cognitiveMemoryGameTitle => 'ألعاب الذاكرة';
 
   @override
   String get cognitiveMemoryGameSubtitle =>
-      'مهام تسلسل الذاكرة العاملة (قريباً)';
+      'استرجع تسلسلات ألوان متزايدة على شبكة 3×3';
+
+  @override
+  String get cognitiveStartButton => 'ابدأ الاختبار';
+
+  @override
+  String get cognitiveDoneButton => 'حفظ وإغلاق';
+
+  @override
+  String get cognitiveMemoryInstructions =>
+      'راقب الخلايا المضيئة ثم اضغطها بنفس الترتيب. يزداد الطول كل جولة.';
+
+  @override
+  String get cognitiveMemoryWatch => 'راقب التسلسل…';
+
+  @override
+  String get cognitiveMemoryYourTurn => 'دورك — اضغط الخلايا بالترتيب';
+
+  @override
+  String cognitiveMemoryRound(int length) {
+    return 'طول التسلسل: $length';
+  }
+
+  @override
+  String get cognitiveMemoryWrong => 'خطأ — انتهى الاختبار.';
+
+  @override
+  String get cognitiveMemoryResultTitle => 'اكتمل اختبار الذاكرة';
+
+  @override
+  String cognitiveMemoryResultScore(int span, int score) {
+    return 'أطول تسلسل: $span · النتيجة: $score%';
+  }
+
+  @override
+  String get cognitiveVisualInstructions =>
+      'اضغط الخلية التي تبدو مختلفة. لديك ثوانٍ محدودة في كل جولة.';
+
+  @override
+  String get cognitiveVisualFindOdd => 'اعثر على المختلف';
+
+  @override
+  String cognitiveVisualRound(int current, int total) {
+    return 'الجولة $current من $total';
+  }
+
+  @override
+  String get cognitiveVisualCorrect => 'صحيح!';
+
+  @override
+  String get cognitiveVisualWrong => 'خطأ';
+
+  @override
+  String get cognitiveVisualTimeout => 'بطيء جداً';
+
+  @override
+  String get cognitiveVisualResultTitle => 'اكتمل اختبار الانتباه البصري';
+
+  @override
+  String cognitiveVisualResultScore(int points, int maxPoints, int score) {
+    return '$points / $maxPoints نقطة · النتيجة: $score%';
+  }
 
   @override
   String get cognitivePlaceholderBody =>
@@ -620,6 +682,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get proFeatureCloudSync => 'مزامنة سحابية آمنة';
 
   @override
+  String get proFeatureColorThemes => '4 ثيمات ألوان حصرية لـ Pro';
+
+  @override
   String get proWelcomeSnack => 'مرحباً بك في Pro! 🎉';
 
   @override
@@ -638,6 +703,30 @@ class AppLocalizationsAr extends AppLocalizations {
   String get proBadgeLabel => 'Pro';
 
   @override
+  String get proPlanMonthly => 'شهري';
+
+  @override
+  String get proPlanAnnual => 'سنوي';
+
+  @override
+  String get proPlanLifetime => 'مدى الحياة';
+
+  @override
+  String get proBestValueBadge => 'الأفضل قيمة';
+
+  @override
+  String get proAlreadyProTitle => 'أنت بالفعل مشترك في Pro';
+
+  @override
+  String get proAlreadyProBody => 'تمتع بوصول غير محدود لجميع ميزات Pro.';
+
+  @override
+  String get proRestoreSuccess => 'تمت استعادة المشتريات بنجاح';
+
+  @override
+  String get proRestoreNone => 'لم يتم العثور على مشتريات سابقة';
+
+  @override
   String get settingsTitle => 'الإعدادات';
 
   @override
@@ -648,6 +737,27 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get settingsUpgradeToPro => 'ترقية إلى Pro';
+
+  @override
+  String get settingsAppearanceSection => 'المظهر';
+
+  @override
+  String get colorThemeMidnightName => 'منتصف الليل';
+
+  @override
+  String get colorThemeAuroraName => 'الشفق';
+
+  @override
+  String get colorThemePineName => 'الصنوبر';
+
+  @override
+  String get colorThemeSolarName => 'شمسي';
+
+  @override
+  String get colorThemeSlateName => 'إردوازي';
+
+  @override
+  String get colorThemeDaylightName => 'ضوء النهار';
 
   @override
   String get settingsNotificationsSection => 'الإشعارات';
@@ -1280,4 +1390,70 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get gameStart => 'ابدأ';
+
+  @override
+  String get bciCardTitle => 'مؤشر وضوح الدماغ';
+
+  @override
+  String get bciCardTitleEn => 'BRAIN CLARITY INDEX';
+
+  @override
+  String get bciCardSubtitle => 'محرك BCI · تحديث لحظي';
+
+  @override
+  String get bciCardAssessmentLabel => 'التقييم الأسبوعي';
+
+  @override
+  String get bciCardAdherenceLabel => 'الالتزام اليومي';
+
+  @override
+  String get bciCardWeightAssessment => '60%';
+
+  @override
+  String get bciCardWeightAdherence => '40%';
+
+  @override
+  String get bciCardStatusHigh => 'تركيز عالٍ';
+
+  @override
+  String get bciCardStatusStable => 'تركيز مستقر';
+
+  @override
+  String get bciCardStatusMild => 'ضباب خفيف';
+
+  @override
+  String get bciCardStatusWarning => 'تحذير — راجع عاداتك';
+
+  @override
+  String get bciCardNoAssessment => 'أكمل التقييم الأسبوعي لعرض BCI الكامل';
+
+  @override
+  String get bciCardLoading => 'جاري حساب BCI...';
+
+  @override
+  String get settingsSecuritySection => 'الأمان';
+
+  @override
+  String get settingsBiometricLock => 'قفل التطبيق بالبصمة';
+
+  @override
+  String get settingsBiometricLockSubtitle =>
+      'يتطلب المصادقة عند فتح التطبيق (مع رمز الجهاز كبديل)';
+
+  @override
+  String get settingsBiometricUnavailable =>
+      'المصادقة البيومترية غير متاحة على هذا الجهاز';
+
+  @override
+  String get biometricLockTitle => 'التطبيق مقفل';
+
+  @override
+  String get biometricLockSubtitle => 'استخدم بصمتك أو رمز الجهاز للمتابعة';
+
+  @override
+  String get biometricLockButton => 'فتح Brain Clean';
+
+  @override
+  String get securityCompromisedBanner =>
+      'تحذير: الجهاز قد يكون معدّلاً. بياناتك محلية فقط — تم تعطيل المزامنة السحابية.';
 }

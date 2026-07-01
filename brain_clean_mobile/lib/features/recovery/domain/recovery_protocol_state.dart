@@ -32,6 +32,33 @@ class RecoveryProtocolState {
   double get progressRatio =>
       completedDaysCount / RecoveryProtocolConstants.dayCount;
 
+  // ---------------------------------------------------------------------------
+  // 🌟 [NEW] معمارية الـ BCS (Brain Clean Score)
+  // ---------------------------------------------------------------------------
+  
+  /// يحسب متوسط أداء المستخدم في كل الأيام المسجلة (من 100%)
+  double get averageBcsScore {
+    if (days.isEmpty) return 0.0;
+    double totalBcs = 0.0;
+    for (final day in days.values) {
+      // سيتم سحب هذه القيمة من ملف recovery_day_record.dart
+      totalBcs += day.dailyBcsScore; 
+    }
+    return totalBcs / days.length;
+  }
+
+  /// نسبة التقدم الإجمالية في رحلة التعافي (Progress Bar) بناءً على جودة الأيام مش مجرد اكتمالها
+  double get bcsProgressRatio {
+    if (RecoveryProtocolConstants.dayCount == 0) return 0.0;
+    double totalEarnedScore = 0.0;
+    for (final day in days.values) {
+      totalEarnedScore += day.dailyBcsScore; 
+    }
+    // نقسم إجمالي النقاط المكتسبة على (عدد الأيام * 100 نقطة يومياً)
+    return (totalEarnedScore / (RecoveryProtocolConstants.dayCount * 100)).clamp(0.0, 1.0);
+  }
+  // ---------------------------------------------------------------------------
+
   RecoveryProtocolState copyWith({
     DateTime? protocolStartDate,
     int? selectedDayIndex,

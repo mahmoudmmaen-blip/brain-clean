@@ -307,14 +307,75 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cognitiveVisualTestSubtitle =>
-      'Attention and pattern recognition (coming soon)';
+      'Find the odd shape or color in a timed grid';
 
   @override
   String get cognitiveMemoryGameTitle => 'Memory mini-games';
 
   @override
   String get cognitiveMemoryGameSubtitle =>
-      'Working-memory sequence tasks (coming soon)';
+      'Recall growing color sequences on a 3×3 grid';
+
+  @override
+  String get cognitiveStartButton => 'Start test';
+
+  @override
+  String get cognitiveDoneButton => 'Save & close';
+
+  @override
+  String get cognitiveMemoryInstructions =>
+      'Watch the highlighted cells, then tap them in the same order. The sequence grows each round.';
+
+  @override
+  String get cognitiveMemoryWatch => 'Watch the sequence…';
+
+  @override
+  String get cognitiveMemoryYourTurn => 'Your turn — tap the cells in order';
+
+  @override
+  String cognitiveMemoryRound(int length) {
+    return 'Sequence length: $length';
+  }
+
+  @override
+  String get cognitiveMemoryWrong => 'Incorrect — test ended.';
+
+  @override
+  String get cognitiveMemoryResultTitle => 'Memory test complete';
+
+  @override
+  String cognitiveMemoryResultScore(int span, int score) {
+    return 'Longest sequence: $span · Score: $score%';
+  }
+
+  @override
+  String get cognitiveVisualInstructions =>
+      'Tap the one cell that looks different. You have a few seconds each round.';
+
+  @override
+  String get cognitiveVisualFindOdd => 'Find the odd one out';
+
+  @override
+  String cognitiveVisualRound(int current, int total) {
+    return 'Round $current of $total';
+  }
+
+  @override
+  String get cognitiveVisualCorrect => 'Correct!';
+
+  @override
+  String get cognitiveVisualWrong => 'Wrong';
+
+  @override
+  String get cognitiveVisualTimeout => 'Too slow';
+
+  @override
+  String get cognitiveVisualResultTitle => 'Visual attention complete';
+
+  @override
+  String cognitiveVisualResultScore(int points, int maxPoints, int score) {
+    return '$points / $maxPoints points · Score: $score%';
+  }
 
   @override
   String get cognitivePlaceholderBody =>
@@ -629,6 +690,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get proFeatureCloudSync => 'Secure cloud sync';
 
   @override
+  String get proFeatureColorThemes => '4 exclusive Pro color themes';
+
+  @override
   String get proWelcomeSnack => 'Welcome to Pro! 🎉';
 
   @override
@@ -647,6 +711,31 @@ class AppLocalizationsEn extends AppLocalizations {
   String get proBadgeLabel => 'Pro';
 
   @override
+  String get proPlanMonthly => 'Monthly';
+
+  @override
+  String get proPlanAnnual => 'Annual';
+
+  @override
+  String get proPlanLifetime => 'Lifetime';
+
+  @override
+  String get proBestValueBadge => 'Best value';
+
+  @override
+  String get proAlreadyProTitle => 'You\'re already Pro';
+
+  @override
+  String get proAlreadyProBody =>
+      'Enjoy unlimited access to all premium features.';
+
+  @override
+  String get proRestoreSuccess => 'Purchases restored successfully';
+
+  @override
+  String get proRestoreNone => 'No previous purchases found';
+
+  @override
   String get settingsTitle => 'Settings';
 
   @override
@@ -657,6 +746,27 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsUpgradeToPro => 'Upgrade to Pro';
+
+  @override
+  String get settingsAppearanceSection => 'Appearance';
+
+  @override
+  String get colorThemeMidnightName => 'Midnight';
+
+  @override
+  String get colorThemeAuroraName => 'Aurora';
+
+  @override
+  String get colorThemePineName => 'Pine';
+
+  @override
+  String get colorThemeSolarName => 'Solar';
+
+  @override
+  String get colorThemeSlateName => 'Slate';
+
+  @override
+  String get colorThemeDaylightName => 'Daylight';
 
   @override
   String get settingsNotificationsSection => 'Notifications';
@@ -1294,4 +1404,72 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get gameStart => 'Start';
+
+  @override
+  String get bciCardTitle => 'Brain Clarity Index';
+
+  @override
+  String get bciCardTitleEn => 'BRAIN CLARITY INDEX';
+
+  @override
+  String get bciCardSubtitle => 'BCI Engine · Live update';
+
+  @override
+  String get bciCardAssessmentLabel => 'Weekly assessment';
+
+  @override
+  String get bciCardAdherenceLabel => 'Daily adherence';
+
+  @override
+  String get bciCardWeightAssessment => '60%';
+
+  @override
+  String get bciCardWeightAdherence => '40%';
+
+  @override
+  String get bciCardStatusHigh => 'Peak focus';
+
+  @override
+  String get bciCardStatusStable => 'Stable focus';
+
+  @override
+  String get bciCardStatusMild => 'Mild fog';
+
+  @override
+  String get bciCardStatusWarning => 'Warning — review your habits';
+
+  @override
+  String get bciCardNoAssessment =>
+      'Complete the weekly assessment for full BCI';
+
+  @override
+  String get bciCardLoading => 'Calculating BCI...';
+
+  @override
+  String get settingsSecuritySection => 'Security';
+
+  @override
+  String get settingsBiometricLock => 'Biometric app lock';
+
+  @override
+  String get settingsBiometricLockSubtitle =>
+      'Require authentication when opening the app (device PIN fallback)';
+
+  @override
+  String get settingsBiometricUnavailable =>
+      'Biometric authentication is not available on this device';
+
+  @override
+  String get biometricLockTitle => 'App locked';
+
+  @override
+  String get biometricLockSubtitle =>
+      'Use your fingerprint or device PIN to continue';
+
+  @override
+  String get biometricLockButton => 'Unlock Brain Clean';
+
+  @override
+  String get securityCompromisedBanner =>
+      'Warning: this device may be compromised. Local data only — cloud sync is disabled.';
 }

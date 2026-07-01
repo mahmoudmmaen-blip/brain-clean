@@ -8,18 +8,14 @@ import '../../core/l10n/app_localizations.dart';
 import '../../core/providers/locale_provider.dart';
 import '../../core/services/app_notification_service.dart';
 import '../../core/theme/app_colors.dart';
-import '../dashboard/data/daily_snapshots_repository.dart';
+import 'application/displayed_xp_provider.dart';
 import 'level_system.dart';
 
 const levelProgressWidgetKey = Key('level_progress_widget');
 
+/// Verified cumulative XP — server-preferred when online, else local ledger.
 final cumulativeBcsScoreProvider = Provider<int>((ref) {
-  try {
-    final snapshots = ref.watch(dailySnapshotsRepositoryProvider).loadAll();
-    return cumulativeScoreFromSnapshots(snapshots.map((s) => s.bcsValue));
-  } catch (_) {
-    return 0;
-  }
+  return ref.watch(displayedXpSyncProvider);
 });
 
 /// Shows current brain level, progress bar, and confetti on level-up.

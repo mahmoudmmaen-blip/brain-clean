@@ -58,6 +58,28 @@ class RecoveryProtocolController extends _$RecoveryProtocolController {
     await _commit(current.copyWith(days: nextDays));
   }
 
+  // ---------------------------------------------------------------------------
+  // 🌟 [NEW] دوال التحكم في معايير الـ BCS الإضافية (النوم والمياه)
+  // ---------------------------------------------------------------------------
+  Future<void> toggleSleep(bool completed) async {
+    final current = state.requireValue;
+    final dayIndex = current.selectedDayIndex;
+    final record = current.dayRecord(dayIndex).toggleSleep(completed);
+    final nextDays = Map<int, RecoveryDayRecord>.from(current.days)
+      ..[dayIndex] = record;
+    await _commit(current.copyWith(days: nextDays));
+  }
+
+  Future<void> toggleWater(bool completed) async {
+    final current = state.requireValue;
+    final dayIndex = current.selectedDayIndex;
+    final record = current.dayRecord(dayIndex).toggleWater(completed);
+    final nextDays = Map<int, RecoveryDayRecord>.from(current.days)
+      ..[dayIndex] = record;
+    await _commit(current.copyWith(days: nextDays));
+  }
+  // ---------------------------------------------------------------------------
+
   /// Records an accountability-room penalty (−15 BC_score).
   Future<void> applyAccountabilityPenalty() async {
     final current = state.requireValue;

@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../core/storage/hive_bootstrap.dart';
 import '../../../core/storage/hive_boxes.dart';
+import '../../../core/security/secure_key_store.dart';
 import '../domain/recovery_hive_payload.dart';
 import '../domain/recovery_protocol_load_result.dart';
 import '../domain/recovery_protocol_state.dart';
@@ -22,7 +23,10 @@ class RecoveryProtocolHiveRepository implements RecoveryProtocolStorage {
     if (Hive.isBoxOpen(HiveBoxes.recoveryProtocol)) {
       return Hive.box<dynamic>(HiveBoxes.recoveryProtocol);
     }
-    return Hive.openBox<dynamic>(HiveBoxes.recoveryProtocol);
+    return Hive.openBox<dynamic>(
+      HiveBoxes.recoveryProtocol,
+      encryptionCipher: SecureKeyStore.cipher,
+    );
   }
 
   @override

@@ -80,20 +80,32 @@
   "diagnosticBrainRotProgress": "السؤال {current} من {total}",
   "@diagnosticBrainRotProgress": {
     "placeholders": {
-      "current": { "type": "int" },
-      "total": { "type": "int" }
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "diagnosticBrainRotScoreTitle": "نتيجة تعفن الدماغ",
   "diagnosticBrainRotScoreOutOf": "من {max}",
   "@diagnosticBrainRotScoreOutOf": {
-    "placeholders": { "max": { "type": "int" } }
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
   },
   "diagnosticBrainRotBandRange": "نطاق الشدة: {min}–{max}",
   "@diagnosticBrainRotBandRange": {
     "placeholders": {
-      "min": { "type": "int" },
-      "max": { "type": "int" }
+      "min": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
     }
   },
   "diagnosticBrainRotInterpretationTitle": "التفسير السريري",
@@ -114,7 +126,11 @@
   "diagnosticBrainRotQ10": "هذه الأعراض تؤثر على حياتي اليومية (في العمل أو الدراسة أو العلاقات).",
   "dashboardBrainRotSummary": "تعفن الدماغ: {score}/10",
   "@dashboardBrainRotSummary": {
-    "placeholders": { "score": { "type": "int" } }
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
   },
   "dashboardOpenRecoveryGrid": "شبكة التعافي (30 يوماً)",
   "dashboardOpenRecoveryGridSubtitle": "خمس عادات يومية · غرفة المسؤولية عند التقصير",
@@ -125,7 +141,11 @@
   "homeChallengeProgressTitle": "تحدي التعافي — 30 يوماً",
   "homeChallengeProgressPercent": "{percent}% مكتمل",
   "@homeChallengeProgressPercent": {
-    "placeholders": { "percent": { "type": "int" } }
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
   },
   "homeOpenDiagnostic": "التشخيص السريري",
   "homeOpenDiagnosticSubtitle": "استبيان تعفن الدماغ + مقاييس BHI",
@@ -135,33 +155,106 @@
   "cognitiveHubTitle": "التقييمات المعرفية",
   "cognitiveHubSubtitle": "وحدات تفاعلية تُحسّن عمود الأداء الدماغي في BHI.",
   "cognitiveVisualTestTitle": "اختبار الإدراك البصري",
-  "cognitiveVisualTestSubtitle": "انتباه وتمييز أنماط (قريباً)",
+  "cognitiveVisualTestSubtitle": "اعثر على الشكل أو اللون المختلف ضمن شبكة زمنية",
   "cognitiveMemoryGameTitle": "ألعاب الذاكرة",
-  "cognitiveMemoryGameSubtitle": "مهام تسلسل الذاكرة العاملة (قريباً)",
+  "cognitiveMemoryGameSubtitle": "استرجع تسلسلات ألوان متزايدة على شبكة 3×3",
+  "cognitiveStartButton": "ابدأ الاختبار",
+  "cognitiveDoneButton": "حفظ وإغلاق",
+  "cognitiveMemoryInstructions": "راقب الخلايا المضيئة ثم اضغطها بنفس الترتيب. يزداد الطول كل جولة.",
+  "cognitiveMemoryWatch": "راقب التسلسل…",
+  "cognitiveMemoryYourTurn": "دورك — اضغط الخلايا بالترتيب",
+  "cognitiveMemoryRound": "طول التسلسل: {length}",
+  "@cognitiveMemoryRound": {
+    "placeholders": {
+      "length": {
+        "type": "int"
+      }
+    }
+  },
+  "cognitiveMemoryWrong": "خطأ — انتهى الاختبار.",
+  "cognitiveMemoryResultTitle": "اكتمل اختبار الذاكرة",
+  "cognitiveMemoryResultScore": "أطول تسلسل: {span} · النتيجة: {score}%",
+  "@cognitiveMemoryResultScore": {
+    "placeholders": {
+      "span": {
+        "type": "int"
+      },
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "cognitiveVisualInstructions": "اضغط الخلية التي تبدو مختلفة. لديك ثوانٍ محدودة في كل جولة.",
+  "cognitiveVisualFindOdd": "اعثر على المختلف",
+  "cognitiveVisualRound": "الجولة {current} من {total}",
+  "@cognitiveVisualRound": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "cognitiveVisualCorrect": "صحيح!",
+  "cognitiveVisualWrong": "خطأ",
+  "cognitiveVisualTimeout": "بطيء جداً",
+  "cognitiveVisualResultTitle": "اكتمل اختبار الانتباه البصري",
+  "cognitiveVisualResultScore": "{points} / {maxPoints} نقطة · النتيجة: {score}%",
+  "@cognitiveVisualResultScore": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      },
+      "maxPoints": {
+        "type": "int"
+      },
+      "score": {
+        "type": "int"
+      }
+    }
+  },
   "cognitivePlaceholderBody": "هذه الوحدة مُهيّأة لمحرك تقييم BHI الموحّد. أكمل التشغيل التجريبي للتحقق من المسار.",
   "cognitivePlaceholderComplete": "تسجيل نتيجة تجريبية",
   "cognitivePlaceholderRecorded": "تم تسجيل نتيجة تجريبية: {score}%",
   "@cognitivePlaceholderRecorded": {
-    "placeholders": { "score": { "type": "int" } }
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
   },
   "recoveryGridTitle": "التعافي — 30 يوماً",
   "recoveryGridSubtitle": "اختر يوماً لتسجيل العادات الخمس الإلزامية.",
   "recoveryDayTasksTitle": "عادات اليوم {day}",
   "@recoveryDayTasksTitle": {
-    "placeholders": { "day": { "type": "int" } }
+    "placeholders": {
+      "day": {
+        "type": "int"
+      }
+    }
   },
   "recoveryProgressSummary": "{completed} من {total} يوماً مكتمل في البروتوكول",
   "@recoveryProgressSummary": {
     "placeholders": {
-      "completed": { "type": "int" },
-      "total": { "type": "int" }
+      "completed": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "recoveryDayTasksProgress": "{done} من {total} عادات مسجّلة اليوم",
   "@recoveryDayTasksProgress": {
     "placeholders": {
-      "done": { "type": "int" },
-      "total": { "type": "int" }
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "recoveryTaskSleepTitle": "نوم منظم",
@@ -181,12 +274,20 @@
   "recoveryDayEmptyHint": "ضع علامة على كل عادة عند إنجازها اليوم.",
   "recoveryPenaltyCount": "سجلات مساءلة: {count}",
   "@recoveryPenaltyCount": {
-    "placeholders": { "count": { "type": "int" } }
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
   "recoveryPenaltyBoxTitle": "غرفة المسؤولية",
   "recoveryPenaltyBoxMessage": "التأكيد يسجّل خصم −{deduction} نقطة BC_score لمساءلة العادات الفائتة اليوم.",
   "@recoveryPenaltyBoxMessage": {
-    "placeholders": { "deduction": { "type": "int" } }
+    "placeholders": {
+      "deduction": {
+        "type": "int"
+      }
+    }
   },
   "recoveryPenaltyConfirm": "تأكيد المساءلة",
   "recoveryPenaltyCancel": "إلغاء",
@@ -237,7 +338,11 @@
   "breathingExhale": "أخرج...",
   "breathingCountdownSeconds": "متبقي {seconds} ثانية",
   "@breathingCountdownSeconds": {
-    "placeholders": { "seconds": { "type": "int" } }
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
   },
   "commonCancel": "إلغاء",
   "commonConfirm": "تأكيد",
@@ -259,16 +364,32 @@
   "proFeatureEmotionWheel": "دائرة الأحاسيس والتأثير على التعافي",
   "proFeatureFocusChallenges": "تحديات التركيز المتقدمة",
   "proFeatureCloudSync": "مزامنة سحابية آمنة",
+  "proFeatureColorThemes": "4 ثيمات ألوان حصرية لـ Pro",
   "proWelcomeSnack": "مرحباً بك في Pro! 🎉",
   "proPriceMonthly": "19 ريال سعودي / شهرياً",
   "proPriceHint": "أقل من وجبة واحدة",
   "proSubscribeNow": "اشترك الآن",
   "proRestorePurchase": "استعادة الاشتراك",
   "proBadgeLabel": "Pro",
+  "proPlanMonthly": "شهري",
+  "proPlanAnnual": "سنوي",
+  "proPlanLifetime": "مدى الحياة",
+  "proBestValueBadge": "الأفضل قيمة",
+  "proAlreadyProTitle": "أنت بالفعل مشترك في Pro",
+  "proAlreadyProBody": "تمتع بوصول غير محدود لجميع ميزات Pro.",
+  "proRestoreSuccess": "تمت استعادة المشتريات بنجاح",
+  "proRestoreNone": "لم يتم العثور على مشتريات سابقة",
   "settingsTitle": "الإعدادات",
   "settingsAccountSection": "الحساب",
   "settingsProActive": "Brain Clean Pro ✓",
   "settingsUpgradeToPro": "ترقية إلى Pro",
+  "settingsAppearanceSection": "المظهر",
+  "colorThemeMidnightName": "منتصف الليل",
+  "colorThemeAuroraName": "الشفق",
+  "colorThemePineName": "الصنوبر",
+  "colorThemeSolarName": "شمسي",
+  "colorThemeSlateName": "إردوازي",
+  "colorThemeDaylightName": "ضوء النهار",
   "settingsNotificationsSection": "الإشعارات",
   "settingsEmotionNotifications": "تنبيهات الأحاسيس السلبية",
   "settingsDailyFocusReminder": "تذكير يومي بالتركيز",
@@ -287,15 +408,23 @@
   "emotionImpactNegative": "الشعور بـ {emotion} سيقلل نسبة تعافيك بمقدار {pct}%\nهل تريد تسجيله؟",
   "@emotionImpactNegative": {
     "placeholders": {
-      "emotion": { "type": "String" },
-      "pct": { "type": "String" }
+      "emotion": {
+        "type": "String"
+      },
+      "pct": {
+        "type": "String"
+      }
     }
   },
   "emotionImpactPositive": "الشعور بـ {emotion} سيحسّن نسبة تعافيك بمقدار {pct}%\nهل تريد تسجيله؟",
   "@emotionImpactPositive": {
     "placeholders": {
-      "emotion": { "type": "String" },
-      "pct": { "type": "String" }
+      "emotion": {
+        "type": "String"
+      },
+      "pct": {
+        "type": "String"
+      }
     }
   },
   "emotionIgnore": "لا، تجاهل",
@@ -306,13 +435,21 @@
   "silenceChallengeTitle": "تحدي الصمت",
   "silenceChallengeSubtitle": "لا تلمس الشاشة لمدة {minutes} دقيقة",
   "@silenceChallengeSubtitle": {
-    "placeholders": { "minutes": { "type": "int" } }
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
   },
   "silenceChallengeLevel": "المستوى {level} — {minutes} دقيقة مطلوبة",
   "@silenceChallengeLevel": {
     "placeholders": {
-      "level": { "type": "int" },
-      "minutes": { "type": "int" }
+      "level": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
     }
   },
   "silenceChallengeFailedTitle": "فشل التحدي",
@@ -352,12 +489,20 @@
   "visualCognitiveBack": "العودة",
   "visualCognitiveRound": "الجولة {round} / 5",
   "@visualCognitiveRound": {
-    "placeholders": { "round": { "type": "int" } }
+    "placeholders": {
+      "round": {
+        "type": "int"
+      }
+    }
   },
   "visualCognitiveInstruction": "اضغط على المربع مختلف اللون",
   "visualCognitiveScore": "النقاط: {score}",
   "@visualCognitiveScore": {
-    "placeholders": { "score": { "type": "int" } }
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
   },
   "diagnosticCognitiveTestButton": "اختبر تركيزك 🎯",
   "homeQuickEmotion": "كيف تشعر؟ 💭",
@@ -417,7 +562,9 @@
   "levelPointsToNext": "{points} نقطة للمستوى التالي",
   "@levelPointsToNext": {
     "placeholders": {
-      "points": {"type": "int"}
+      "points": {
+        "type": "int"
+      }
     }
   },
   "weeklyReportTitle": "تقرير الأسبوع",
@@ -434,7 +581,9 @@
   "pomodoroSessionsToday": "جلسات اليوم: {count}",
   "@pomodoroSessionsToday": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "homeQuickPomodoro": "بومودورو ⏱️",
@@ -447,13 +596,17 @@
   "singleTaskEstimatedBonus": "إنجاز هذه المهمة سيضيف +{points} نقطة",
   "@singleTaskEstimatedBonus": {
     "placeholders": {
-      "points": {"type": "String"}
+      "points": {
+        "type": "String"
+      }
     }
   },
   "singleTaskFocusRewardSnackBonus": "أحسنت! +{points} نقاط تركيز",
   "@singleTaskFocusRewardSnackBonus": {
     "placeholders": {
-      "points": {"type": "String"}
+      "points": {
+        "type": "String"
+      }
     }
   },
   "singleTaskAbandonSnack": "المهمة غير المكتملة تضعف التركيز قليلاً",
@@ -467,26 +620,36 @@
   "gamesBestScore": "أفضل نتيجة: {score}",
   "@gamesBestScore": {
     "placeholders": {
-      "score": {"type": "int"}
+      "score": {
+        "type": "int"
+      }
     }
   },
   "gamesBestDigits": "أطول تسلسل: {digits}",
   "@gamesBestDigits": {
     "placeholders": {
-      "digits": {"type": "int"}
+      "digits": {
+        "type": "int"
+      }
     }
   },
   "gameRoundLabel": "الجولة {current} / {total}",
   "@gameRoundLabel": {
     "placeholders": {
-      "current": {"type": "int"},
-      "total": {"type": "int"}
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "gameFinalScore": "النتيجة: {score}",
   "@gameFinalScore": {
     "placeholders": {
-      "score": {"type": "int"}
+      "score": {
+        "type": "int"
+      }
     }
   },
   "gameSubmitRound": "تأكيد",
@@ -494,7 +657,9 @@
   "gameNumberMemoryResult": "أطول تسلسل: {digits} أرقام",
   "@gameNumberMemoryResult": {
     "placeholders": {
-      "digits": {"type": "int"}
+      "digits": {
+        "type": "int"
+      }
     }
   },
   "gameColorWordPrompt": "اضغط لون الحبر",
@@ -506,7 +671,9 @@
   "focusedThinkingStillThinking": "هل لا تزال تفكر في {topic}؟",
   "@focusedThinkingStillThinking": {
     "placeholders": {
-      "topic": {"type": "String"}
+      "topic": {
+        "type": "String"
+      }
     }
   },
   "focusedThinkingYes": "نعم ✓",
@@ -514,19 +681,25 @@
   "focusedThinkingFocusScore": "{percent}% من الوقت كنت مركزاً",
   "@focusedThinkingFocusScore": {
     "placeholders": {
-      "percent": {"type": "int"}
+      "percent": {
+        "type": "int"
+      }
     }
   },
   "focusedThinkingDistractions": "تشتت مسجّل: {count}",
   "@focusedThinkingDistractions": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "focusedThinkingInsightsSaved": "أفكار محفوظة: {count}",
   "@focusedThinkingInsightsSaved": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "focusedThinkingInsightsHint": "سجّل أبرز أفكارك",
@@ -545,28 +718,40 @@
   "gameNBackLevel": "N={n} — {current}/{total}",
   "@gameNBackLevel": {
     "placeholders": {
-      "n": {"type": "int"},
-      "current": {"type": "int"},
-      "total": {"type": "int"}
+      "n": {
+        "type": "int"
+      },
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "gameNBackMatch": "تطابق!",
   "gameNBackResult": "أعلى N: {n}",
   "@gameNBackResult": {
     "placeholders": {
-      "n": {"type": "int"}
+      "n": {
+        "type": "int"
+      }
     }
   },
   "gameNBackBonus": "+{points} نقطة BCS",
   "@gameNBackBonus": {
     "placeholders": {
-      "points": {"type": "String"}
+      "points": {
+        "type": "String"
+      }
     }
   },
   "gamesBestNLevel": "أفضل N: {n}",
   "@gamesBestNLevel": {
     "placeholders": {
-      "n": {"type": "int"}
+      "n": {
+        "type": "int"
+      }
     }
   },
   "gameSpeedSortTitle": "الترتيب السريع",
@@ -576,15 +761,42 @@
   "gameSpeedSortCorrect": "صحيح: {count}",
   "@gameSpeedSortCorrect": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "gameSpeedSortResult": "انتهى! {correct} صحيح، {wrong} خطأ",
   "@gameSpeedSortResult": {
     "placeholders": {
-      "correct": {"type": "int"},
-      "wrong": {"type": "int"}
+      "correct": {
+        "type": "int"
+      },
+      "wrong": {
+        "type": "int"
+      }
     }
   },
-  "gameStart": "ابدأ"
+  "gameStart": "ابدأ",
+  "bciCardTitle": "مؤشر وضوح الدماغ",
+  "bciCardTitleEn": "BRAIN CLARITY INDEX",
+  "bciCardSubtitle": "محرك BCI · تحديث لحظي",
+  "bciCardAssessmentLabel": "التقييم الأسبوعي",
+  "bciCardAdherenceLabel": "الالتزام اليومي",
+  "bciCardWeightAssessment": "60%",
+  "bciCardWeightAdherence": "40%",
+  "bciCardStatusHigh": "تركيز عالٍ",
+  "bciCardStatusStable": "تركيز مستقر",
+  "bciCardStatusMild": "ضباب خفيف",
+  "bciCardStatusWarning": "تحذير — راجع عاداتك",
+  "bciCardNoAssessment": "أكمل التقييم الأسبوعي لعرض BCI الكامل",
+  "bciCardLoading": "جاري حساب BCI...",
+  "settingsSecuritySection": "الأمان",
+  "settingsBiometricLock": "قفل التطبيق بالبصمة",
+  "settingsBiometricLockSubtitle": "يتطلب المصادقة عند فتح التطبيق (مع رمز الجهاز كبديل)",
+  "settingsBiometricUnavailable": "المصادقة البيومترية غير متاحة على هذا الجهاز",
+  "biometricLockTitle": "التطبيق مقفل",
+  "biometricLockSubtitle": "استخدم بصمتك أو رمز الجهاز للمتابعة",
+  "biometricLockButton": "فتح Brain Clean",
+  "securityCompromisedBanner": "تحذير: الجهاز قد يكون معدّلاً. بياناتك محلية فقط — تم تعطيل المزامنة السحابية."
 }

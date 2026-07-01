@@ -8,9 +8,7 @@
   "dashboardCommittedAt": "Committed {date}",
   "@dashboardCommittedAt": {
     "placeholders": {
-      "date": {
-        "type": "String"
-      }
+      "date": { "type": "String" }
     }
   },
   "diagnosticTitle": "Diagnostic 6-Point Test",
@@ -36,9 +34,7 @@
   "accountabilityDeduction": "Recovery accountability (−{deduction})",
   "@accountabilityDeduction": {
     "placeholders": {
-      "deduction": {
-        "type": "int"
-      }
+      "deduction": { "type": "int" }
     }
   },
   "detoxTitle": "7-Day Dopamine Detox",
@@ -51,9 +47,7 @@
   "detoxDelayedSubtitle": "Wins today (capped at {max})",
   "@detoxDelayedSubtitle": {
     "placeholders": {
-      "max": {
-        "type": "int"
-      }
+      "max": { "type": "int" }
     }
   },
   "detoxBodyTitle": "Body Activated",
@@ -61,9 +55,7 @@
   "detoxCount": "{count}",
   "@detoxCount": {
     "placeholders": {
-      "count": {
-        "type": "int"
-      }
+      "count": { "type": "int" }
     }
   },
   "detoxIncrement": "Increase",
@@ -135,9 +127,48 @@
   "cognitiveHubTitle": "Cognitive assessments",
   "cognitiveHubSubtitle": "Interactive modules that refine your brain performance pillar.",
   "cognitiveVisualTestTitle": "Visual Cognitive Image Test",
-  "cognitiveVisualTestSubtitle": "Attention and pattern recognition (coming soon)",
+  "cognitiveVisualTestSubtitle": "Find the odd shape or color in a timed grid",
   "cognitiveMemoryGameTitle": "Memory mini-games",
-  "cognitiveMemoryGameSubtitle": "Working-memory sequence tasks (coming soon)",
+  "cognitiveMemoryGameSubtitle": "Recall growing color sequences on a 3×3 grid",
+  "cognitiveStartButton": "Start test",
+  "cognitiveDoneButton": "Save & close",
+  "cognitiveMemoryInstructions": "Watch the highlighted cells, then tap them in the same order. The sequence grows each round.",
+  "cognitiveMemoryWatch": "Watch the sequence…",
+  "cognitiveMemoryYourTurn": "Your turn — tap the cells in order",
+  "cognitiveMemoryRound": "Sequence length: {length}",
+  "@cognitiveMemoryRound": {
+    "placeholders": { "length": { "type": "int" } }
+  },
+  "cognitiveMemoryWrong": "Incorrect — test ended.",
+  "cognitiveMemoryResultTitle": "Memory test complete",
+  "cognitiveMemoryResultScore": "Longest sequence: {span} · Score: {score}%",
+  "@cognitiveMemoryResultScore": {
+    "placeholders": {
+      "span": { "type": "int" },
+      "score": { "type": "int" }
+    }
+  },
+  "cognitiveVisualInstructions": "Tap the one cell that looks different. You have a few seconds each round.",
+  "cognitiveVisualFindOdd": "Find the odd one out",
+  "cognitiveVisualRound": "Round {current} of {total}",
+  "@cognitiveVisualRound": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "cognitiveVisualCorrect": "Correct!",
+  "cognitiveVisualWrong": "Wrong",
+  "cognitiveVisualTimeout": "Too slow",
+  "cognitiveVisualResultTitle": "Visual attention complete",
+  "cognitiveVisualResultScore": "{points} / {maxPoints} points · Score: {score}%",
+  "@cognitiveVisualResultScore": {
+    "placeholders": {
+      "points": { "type": "int" },
+      "maxPoints": { "type": "int" },
+      "score": { "type": "int" }
+    }
+  },
   "cognitivePlaceholderBody": "This module is scaffolded for the unified BHI evaluation engine. Complete the placeholder run to verify navigation.",
   "cognitivePlaceholderComplete": "Record placeholder result",
   "cognitivePlaceholderRecorded": "Placeholder score recorded: {score}%",
@@ -259,16 +290,32 @@
   "proFeatureEmotionWheel": "Emotion wheel & recovery impact",
   "proFeatureFocusChallenges": "Advanced focus challenges",
   "proFeatureCloudSync": "Secure cloud sync",
+  "proFeatureColorThemes": "4 exclusive Pro color themes",
   "proWelcomeSnack": "Welcome to Pro! 🎉",
   "proPriceMonthly": "SAR 19 / month",
   "proPriceHint": "Less than one meal",
   "proSubscribeNow": "Subscribe now",
   "proRestorePurchase": "Restore purchase",
   "proBadgeLabel": "Pro",
+  "proPlanMonthly": "Monthly",
+  "proPlanAnnual": "Annual",
+  "proPlanLifetime": "Lifetime",
+  "proBestValueBadge": "Best value",
+  "proAlreadyProTitle": "You're already Pro",
+  "proAlreadyProBody": "Enjoy unlimited access to all premium features.",
+  "proRestoreSuccess": "Purchases restored successfully",
+  "proRestoreNone": "No previous purchases found",
   "settingsTitle": "Settings",
   "settingsAccountSection": "Account",
   "settingsProActive": "Brain Clean Pro ✓",
   "settingsUpgradeToPro": "Upgrade to Pro",
+  "settingsAppearanceSection": "Appearance",
+  "colorThemeMidnightName": "Midnight",
+  "colorThemeAuroraName": "Aurora",
+  "colorThemePineName": "Pine",
+  "colorThemeSolarName": "Solar",
+  "colorThemeSlateName": "Slate",
+  "colorThemeDaylightName": "Daylight",
   "settingsNotificationsSection": "Notifications",
   "settingsEmotionNotifications": "Negative emotion alerts",
   "settingsDailyFocusReminder": "Daily focus reminder",
@@ -417,7 +464,7 @@
   "levelPointsToNext": "{points} points to next level",
   "@levelPointsToNext": {
     "placeholders": {
-      "points": {"type": "int"}
+      "points": { "type": "int" }
     }
   },
   "weeklyReportTitle": "Weekly Report",
@@ -434,7 +481,7 @@
   "pomodoroSessionsToday": "Today's sessions: {count}",
   "@pomodoroSessionsToday": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": { "type": "int" }
     }
   },
   "homeQuickPomodoro": "Pomodoro ⏱️",
@@ -447,13 +494,13 @@
   "singleTaskEstimatedBonus": "Completing this task adds +{points} points",
   "@singleTaskEstimatedBonus": {
     "placeholders": {
-      "points": {"type": "String"}
+      "points": { "type": "String" }
     }
   },
   "singleTaskFocusRewardSnackBonus": "Great! +{points} focus points",
   "@singleTaskFocusRewardSnackBonus": {
     "placeholders": {
-      "points": {"type": "String"}
+      "points": { "type": "String" }
     }
   },
   "singleTaskAbandonSnack": "Incomplete tasks slightly weaken focus",
@@ -467,26 +514,26 @@
   "gamesBestScore": "Best score: {score}",
   "@gamesBestScore": {
     "placeholders": {
-      "score": {"type": "int"}
+      "score": { "type": "int" }
     }
   },
   "gamesBestDigits": "Best digits: {digits}",
   "@gamesBestDigits": {
     "placeholders": {
-      "digits": {"type": "int"}
+      "digits": { "type": "int" }
     }
   },
   "gameRoundLabel": "Round {current} / {total}",
   "@gameRoundLabel": {
     "placeholders": {
-      "current": {"type": "int"},
-      "total": {"type": "int"}
+      "current": { "type": "int" },
+      "total": { "type": "int" }
     }
   },
   "gameFinalScore": "Score: {score}",
   "@gameFinalScore": {
     "placeholders": {
-      "score": {"type": "int"}
+      "score": { "type": "int" }
     }
   },
   "gameSubmitRound": "Submit",
@@ -494,7 +541,7 @@
   "gameNumberMemoryResult": "Max digits reached: {digits}",
   "@gameNumberMemoryResult": {
     "placeholders": {
-      "digits": {"type": "int"}
+      "digits": { "type": "int" }
     }
   },
   "gameColorWordPrompt": "Tap the color of the ink",
@@ -506,7 +553,7 @@
   "focusedThinkingStillThinking": "Still thinking about {topic}?",
   "@focusedThinkingStillThinking": {
     "placeholders": {
-      "topic": {"type": "String"}
+      "topic": { "type": "String" }
     }
   },
   "focusedThinkingYes": "Yes ✓",
@@ -514,19 +561,19 @@
   "focusedThinkingFocusScore": "{percent}% of the time you stayed focused",
   "@focusedThinkingFocusScore": {
     "placeholders": {
-      "percent": {"type": "int"}
+      "percent": { "type": "int" }
     }
   },
   "focusedThinkingDistractions": "Distractions logged: {count}",
   "@focusedThinkingDistractions": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": { "type": "int" }
     }
   },
   "focusedThinkingInsightsSaved": "Insights saved: {count}",
   "@focusedThinkingInsightsSaved": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": { "type": "int" }
     }
   },
   "focusedThinkingInsightsHint": "Note your key insights",
@@ -545,28 +592,28 @@
   "gameNBackLevel": "N={n} — {current}/{total}",
   "@gameNBackLevel": {
     "placeholders": {
-      "n": {"type": "int"},
-      "current": {"type": "int"},
-      "total": {"type": "int"}
+      "n": { "type": "int" },
+      "current": { "type": "int" },
+      "total": { "type": "int" }
     }
   },
   "gameNBackMatch": "Match!",
   "gameNBackResult": "Max N reached: {n}",
   "@gameNBackResult": {
     "placeholders": {
-      "n": {"type": "int"}
+      "n": { "type": "int" }
     }
   },
   "gameNBackBonus": "+{points} BCS earned",
   "@gameNBackBonus": {
     "placeholders": {
-      "points": {"type": "String"}
+      "points": { "type": "String" }
     }
   },
   "gamesBestNLevel": "Best N: {n}",
   "@gamesBestNLevel": {
     "placeholders": {
-      "n": {"type": "int"}
+      "n": { "type": "int" }
     }
   },
   "gameSpeedSortTitle": "Speed Sort",
@@ -576,16 +623,36 @@
   "gameSpeedSortCorrect": "Correct: {count}",
   "@gameSpeedSortCorrect": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": { "type": "int" }
     }
   },
   "gameSpeedSortResult": "Done! {correct} correct, {wrong} wrong",
   "@gameSpeedSortResult": {
     "placeholders": {
-      "correct": {"type": "int"},
-      "wrong": {"type": "int"}
+      "correct": { "type": "int" },
+      "wrong": { "type": "int" }
     }
   },
-  "gameStart": "Start"
+  "gameStart": "Start",
+  "bciCardTitle": "Brain Clarity Index",
+  "bciCardTitleEn": "BRAIN CLARITY INDEX",
+  "bciCardSubtitle": "BCI Engine · Live update",
+  "bciCardAssessmentLabel": "Weekly assessment",
+  "bciCardAdherenceLabel": "Daily adherence",
+  "bciCardWeightAssessment": "60%",
+  "bciCardWeightAdherence": "40%",
+  "bciCardStatusHigh": "Peak focus",
+  "bciCardStatusStable": "Stable focus",
+  "bciCardStatusMild": "Mild fog",
+  "bciCardStatusWarning": "Warning — review your habits",
+  "bciCardNoAssessment": "Complete the weekly assessment for full BCI",
+  "bciCardLoading": "Calculating BCI...",
+  "settingsSecuritySection": "Security",
+  "settingsBiometricLock": "Biometric app lock",
+  "settingsBiometricLockSubtitle": "Require authentication when opening the app (device PIN fallback)",
+  "settingsBiometricUnavailable": "Biometric authentication is not available on this device",
+  "biometricLockTitle": "App locked",
+  "biometricLockSubtitle": "Use your fingerprint or device PIN to continue",
+  "biometricLockButton": "Unlock Brain Clean",
+  "securityCompromisedBanner": "Warning: this device may be compromised. Local data only — cloud sync is disabled."
 }
-

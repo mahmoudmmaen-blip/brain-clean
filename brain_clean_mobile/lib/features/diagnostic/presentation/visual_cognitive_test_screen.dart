@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/l10n/app_localizations.dart';
+import '../../gamification/data/xp_ledger_constants.dart';
 import 'bc_score_provider.dart';
 import 'visual_cognitive_scorer.dart';
 
@@ -109,7 +110,11 @@ class _VisualCognitiveTestScreenState
 
   void _finishAndPop() {
     final bonus = VisualCognitiveScorer.cognitiveBonus(_score);
-    ref.read(bcScoreProvider.notifier).applyCognitiveBonus(bonus);
+    ref.read(bcScoreProvider.notifier).applyCognitiveBonus(
+          bonus,
+          xpRefId:
+              'visual_cognitive_${XpLedgerConstants.utcDayKey(DateTime.now().toUtc())}',
+        );
     context.pop();
   }
 

@@ -26,4 +26,23 @@ abstract final class HiveMetaKeys {
   static const thinkingLog = 'thinking_log';
   static const gameBestNBack = 'gameBestNBack';
   static const gameBestSpeedSort = 'gameBestSpeedSort';
+
+  /// Set to `true` after one-time Hive AES migration ([HiveBootstrap]).
+  static const boxesEncryptedV1 = 'boxesEncryptedV1';
+
+  /// Set to `true` after legacy XP is migrated into the signed ledger.
+  static const xpLedgerMigratedV1 = 'xpLedgerMigratedV1';
+
+  /// UTC ISO-8601 high-water mark for clock-rollback detection in [XpLedgerRepository].
+  static const xpLedgerHighWaterMarkUtc = 'xpLedgerHighWaterMarkUtc';
+
+  /// Authoritative server XP total (from verify-xp); null when never synced online.
+  static const serverTotalXp = 'serverTotalXp';
+
+  /// UTC ISO-8601 when [serverTotalXp] was last updated from the server.
+  static const serverTotalXpSyncedAt = 'serverTotalXpSyncedAt';
+
+  static const cognitiveVisualResultJson = 'cognitiveVisualResultJson';
+  static const cognitiveMemoryResultJson = 'cognitiveMemoryResultJson';
+  static const selectedColorThemeId = 'selectedColorThemeId';
 }

@@ -617,7 +617,7 @@ abstract class AppLocalizations {
   /// No description provided for @cognitiveVisualTestSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Attention and pattern recognition (coming soon)'**
+  /// **'Find the odd shape or color in a timed grid'**
   String get cognitiveVisualTestSubtitle;
 
   /// No description provided for @cognitiveMemoryGameTitle.
@@ -629,8 +629,110 @@ abstract class AppLocalizations {
   /// No description provided for @cognitiveMemoryGameSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Working-memory sequence tasks (coming soon)'**
+  /// **'Recall growing color sequences on a 3×3 grid'**
   String get cognitiveMemoryGameSubtitle;
+
+  /// No description provided for @cognitiveStartButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Start test'**
+  String get cognitiveStartButton;
+
+  /// No description provided for @cognitiveDoneButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Save & close'**
+  String get cognitiveDoneButton;
+
+  /// No description provided for @cognitiveMemoryInstructions.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch the highlighted cells, then tap them in the same order. The sequence grows each round.'**
+  String get cognitiveMemoryInstructions;
+
+  /// No description provided for @cognitiveMemoryWatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch the sequence…'**
+  String get cognitiveMemoryWatch;
+
+  /// No description provided for @cognitiveMemoryYourTurn.
+  ///
+  /// In en, this message translates to:
+  /// **'Your turn — tap the cells in order'**
+  String get cognitiveMemoryYourTurn;
+
+  /// No description provided for @cognitiveMemoryRound.
+  ///
+  /// In en, this message translates to:
+  /// **'Sequence length: {length}'**
+  String cognitiveMemoryRound(int length);
+
+  /// No description provided for @cognitiveMemoryWrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect — test ended.'**
+  String get cognitiveMemoryWrong;
+
+  /// No description provided for @cognitiveMemoryResultTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Memory test complete'**
+  String get cognitiveMemoryResultTitle;
+
+  /// No description provided for @cognitiveMemoryResultScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Longest sequence: {span} · Score: {score}%'**
+  String cognitiveMemoryResultScore(int span, int score);
+
+  /// No description provided for @cognitiveVisualInstructions.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the one cell that looks different. You have a few seconds each round.'**
+  String get cognitiveVisualInstructions;
+
+  /// No description provided for @cognitiveVisualFindOdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Find the odd one out'**
+  String get cognitiveVisualFindOdd;
+
+  /// No description provided for @cognitiveVisualRound.
+  ///
+  /// In en, this message translates to:
+  /// **'Round {current} of {total}'**
+  String cognitiveVisualRound(int current, int total);
+
+  /// No description provided for @cognitiveVisualCorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct!'**
+  String get cognitiveVisualCorrect;
+
+  /// No description provided for @cognitiveVisualWrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong'**
+  String get cognitiveVisualWrong;
+
+  /// No description provided for @cognitiveVisualTimeout.
+  ///
+  /// In en, this message translates to:
+  /// **'Too slow'**
+  String get cognitiveVisualTimeout;
+
+  /// No description provided for @cognitiveVisualResultTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Visual attention complete'**
+  String get cognitiveVisualResultTitle;
+
+  /// No description provided for @cognitiveVisualResultScore.
+  ///
+  /// In en, this message translates to:
+  /// **'{points} / {maxPoints} points · Score: {score}%'**
+  String cognitiveVisualResultScore(int points, int maxPoints, int score);
 
   /// No description provided for @cognitivePlaceholderBody.
   ///
@@ -1196,6 +1298,12 @@ abstract class AppLocalizations {
   /// **'Secure cloud sync'**
   String get proFeatureCloudSync;
 
+  /// No description provided for @proFeatureColorThemes.
+  ///
+  /// In en, this message translates to:
+  /// **'4 exclusive Pro color themes'**
+  String get proFeatureColorThemes;
+
   /// No description provided for @proWelcomeSnack.
   ///
   /// In en, this message translates to:
@@ -1232,6 +1340,54 @@ abstract class AppLocalizations {
   /// **'Pro'**
   String get proBadgeLabel;
 
+  /// No description provided for @proPlanMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get proPlanMonthly;
+
+  /// No description provided for @proPlanAnnual.
+  ///
+  /// In en, this message translates to:
+  /// **'Annual'**
+  String get proPlanAnnual;
+
+  /// No description provided for @proPlanLifetime.
+  ///
+  /// In en, this message translates to:
+  /// **'Lifetime'**
+  String get proPlanLifetime;
+
+  /// No description provided for @proBestValueBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Best value'**
+  String get proBestValueBadge;
+
+  /// No description provided for @proAlreadyProTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re already Pro'**
+  String get proAlreadyProTitle;
+
+  /// No description provided for @proAlreadyProBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Enjoy unlimited access to all premium features.'**
+  String get proAlreadyProBody;
+
+  /// No description provided for @proRestoreSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchases restored successfully'**
+  String get proRestoreSuccess;
+
+  /// No description provided for @proRestoreNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No previous purchases found'**
+  String get proRestoreNone;
+
   /// No description provided for @settingsTitle.
   ///
   /// In en, this message translates to:
@@ -1255,6 +1411,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Upgrade to Pro'**
   String get settingsUpgradeToPro;
+
+  /// No description provided for @settingsAppearanceSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get settingsAppearanceSection;
+
+  /// No description provided for @colorThemeMidnightName.
+  ///
+  /// In en, this message translates to:
+  /// **'Midnight'**
+  String get colorThemeMidnightName;
+
+  /// No description provided for @colorThemeAuroraName.
+  ///
+  /// In en, this message translates to:
+  /// **'Aurora'**
+  String get colorThemeAuroraName;
+
+  /// No description provided for @colorThemePineName.
+  ///
+  /// In en, this message translates to:
+  /// **'Pine'**
+  String get colorThemePineName;
+
+  /// No description provided for @colorThemeSolarName.
+  ///
+  /// In en, this message translates to:
+  /// **'Solar'**
+  String get colorThemeSolarName;
+
+  /// No description provided for @colorThemeSlateName.
+  ///
+  /// In en, this message translates to:
+  /// **'Slate'**
+  String get colorThemeSlateName;
+
+  /// No description provided for @colorThemeDaylightName.
+  ///
+  /// In en, this message translates to:
+  /// **'Daylight'**
+  String get colorThemeDaylightName;
 
   /// No description provided for @settingsNotificationsSection.
   ///
@@ -2407,6 +2605,132 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Start'**
   String get gameStart;
+
+  /// No description provided for @bciCardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Clarity Index'**
+  String get bciCardTitle;
+
+  /// No description provided for @bciCardTitleEn.
+  ///
+  /// In en, this message translates to:
+  /// **'BRAIN CLARITY INDEX'**
+  String get bciCardTitleEn;
+
+  /// No description provided for @bciCardSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'BCI Engine · Live update'**
+  String get bciCardSubtitle;
+
+  /// No description provided for @bciCardAssessmentLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly assessment'**
+  String get bciCardAssessmentLabel;
+
+  /// No description provided for @bciCardAdherenceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily adherence'**
+  String get bciCardAdherenceLabel;
+
+  /// No description provided for @bciCardWeightAssessment.
+  ///
+  /// In en, this message translates to:
+  /// **'60%'**
+  String get bciCardWeightAssessment;
+
+  /// No description provided for @bciCardWeightAdherence.
+  ///
+  /// In en, this message translates to:
+  /// **'40%'**
+  String get bciCardWeightAdherence;
+
+  /// No description provided for @bciCardStatusHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'Peak focus'**
+  String get bciCardStatusHigh;
+
+  /// No description provided for @bciCardStatusStable.
+  ///
+  /// In en, this message translates to:
+  /// **'Stable focus'**
+  String get bciCardStatusStable;
+
+  /// No description provided for @bciCardStatusMild.
+  ///
+  /// In en, this message translates to:
+  /// **'Mild fog'**
+  String get bciCardStatusMild;
+
+  /// No description provided for @bciCardStatusWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Warning — review your habits'**
+  String get bciCardStatusWarning;
+
+  /// No description provided for @bciCardNoAssessment.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete the weekly assessment for full BCI'**
+  String get bciCardNoAssessment;
+
+  /// No description provided for @bciCardLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Calculating BCI...'**
+  String get bciCardLoading;
+
+  /// No description provided for @settingsSecuritySection.
+  ///
+  /// In en, this message translates to:
+  /// **'Security'**
+  String get settingsSecuritySection;
+
+  /// No description provided for @settingsBiometricLock.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric app lock'**
+  String get settingsBiometricLock;
+
+  /// No description provided for @settingsBiometricLockSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Require authentication when opening the app (device PIN fallback)'**
+  String get settingsBiometricLockSubtitle;
+
+  /// No description provided for @settingsBiometricUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric authentication is not available on this device'**
+  String get settingsBiometricUnavailable;
+
+  /// No description provided for @biometricLockTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'App locked'**
+  String get biometricLockTitle;
+
+  /// No description provided for @biometricLockSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Use your fingerprint or device PIN to continue'**
+  String get biometricLockSubtitle;
+
+  /// No description provided for @biometricLockButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock Brain Clean'**
+  String get biometricLockButton;
+
+  /// No description provided for @securityCompromisedBanner.
+  ///
+  /// In en, this message translates to:
+  /// **'Warning: this device may be compromised. Local data only — cloud sync is disabled.'**
+  String get securityCompromisedBanner;
 }
 
 class _AppLocalizationsDelegate

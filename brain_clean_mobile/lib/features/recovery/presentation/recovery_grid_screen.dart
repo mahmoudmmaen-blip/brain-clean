@@ -308,6 +308,71 @@ class _RecoveryGridBody extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 16),
+          
+          // -------------------------------------------------------------------
+          // 🌟 [NEW] كارت مؤشر جودة التعافي (BCS Score)
+          // -------------------------------------------------------------------
+          Card(
+            clipBehavior: Clip.antiAlias,
+            elevation: 0,
+            color: theme.colorScheme.primary.withValues(alpha: 0.08),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+              side: BorderSide(
+                color: theme.colorScheme.primary.withValues(alpha: 0.2),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'مؤشر جودة التعافي (BCS)',
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: theme.colorScheme.primary,
+                        ),
+                      ),
+                      Text(
+                        '${state.averageBcsScore.toStringAsFixed(1)}%',
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: theme.colorScheme.primary,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: LinearProgressIndicator(
+                      value: state.bcsProgressRatio,
+                      minHeight: 10,
+                      backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.15),
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        theme.colorScheme.primary,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'التقييم يشمل: 60% عادات ومحفزات، 20% جودة نوم، 20% شرب مياه',
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.primary.withValues(alpha: 0.8),
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          // -------------------------------------------------------------------
+
           RecoveryProgressCard(
             completedDays: state.completedDaysCount,
             totalDays: RecoveryProtocolConstants.dayCount,
@@ -347,6 +412,8 @@ class _RecoveryGridBody extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 12),
+          
+          // المهام الأساسية (العادات)
           ...RecoveryDailyTask.values.map(
             (task) => RecoveryTaskTile(
               title: _taskTitle(loc, task),
@@ -355,6 +422,7 @@ class _RecoveryGridBody extends ConsumerWidget {
               onChanged: (v) => controller.toggleTask(task, v),
             ),
           ),
+          
           const SizedBox(height: 12),
           if (selected.allTasksComplete)
             Card(

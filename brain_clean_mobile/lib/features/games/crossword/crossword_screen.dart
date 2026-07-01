@@ -5,6 +5,7 @@ import '../../../core/l10n/app_localizations.dart';
 import '../../../core/presentation/language_toggle_button.dart';
 import '../../../core/providers/locale_provider.dart';
 import '../../diagnostic/presentation/bc_score_provider.dart';
+import '../../gamification/domain/xp_source.dart';
 import 'domain/crossword_logic.dart';
 import 'domain/crossword_models.dart';
 import 'domain/crossword_puzzles.dart';
@@ -87,9 +88,18 @@ class _CrosswordScreenState extends ConsumerState<CrosswordScreen>
   void _checkCompletion() {
     if (!isPuzzleComplete(_puzzle, _entries)) return;
     final elapsed = DateTime.now().difference(_startedAt);
-    ref.read(bcScoreProvider.notifier).applyBonus(crosswordCompleteBonus);
+    final sessionId = DateTime.now().millisecondsSinceEpoch;
+    ref.read(bcScoreProvider.notifier).applyBonus(
+          crosswordCompleteBonus,
+          xpSource: XpSource.game,
+          xpRefId: 'crossword:$sessionId:complete',
+        );
     if (elapsed < crosswordTimeBonusThreshold) {
-      ref.read(bcScoreProvider.notifier).applyBonus(crosswordTimeBonus);
+      ref.read(bcScoreProvider.notifier).applyBonus(
+            crosswordTimeBonus,
+            xpSource: XpSource.game,
+            xpRefId: 'crossword:$sessionId:time',
+          );
     }
     setState(() => _completed = true);
     final isAr = ref.read(localeProvider).languageCode == 'ar';

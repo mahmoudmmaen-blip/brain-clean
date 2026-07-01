@@ -6,25 +6,14 @@ part of 'app_preferences_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$isProUserHash() => r'59d4a42b13f52f6e7f25bbac052fb47b75ff9811';
-
-/// Convenience read-only aliases for pro/onboarding gates.
-///
-/// Copied from [isProUser].
-@ProviderFor(isProUser)
-final isProUserProvider = AutoDisposeProvider<bool>.internal(
-  isProUser,
-  name: r'isProUserProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$isProUserHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef IsProUserRef = AutoDisposeProviderRef<bool>;
 String _$hasSeenOnboardingHash() => r'3e6fb0887fb1225a2e38c93b18d790cfcdf4e631';
 
-/// See also [hasSeenOnboarding].
+/// Convenience read-only alias for onboarding gates.
+///
+/// See `isProUserProvider` in `subscription_service_provider.dart` for the
+/// Pro entitlement equivalent (backed by [SubscriptionService]).
+///
+/// Copied from [hasSeenOnboarding].
 @ProviderFor(hasSeenOnboarding)
 final hasSeenOnboardingProvider = AutoDisposeProvider<bool>.internal(
   hasSeenOnboarding,

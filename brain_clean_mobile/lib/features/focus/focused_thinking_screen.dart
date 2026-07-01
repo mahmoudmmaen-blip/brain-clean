@@ -8,6 +8,8 @@ import '../../core/l10n/app_localizations.dart';
 import '../../core/presentation/language_toggle_button.dart';
 import '../../core/providers/locale_provider.dart';
 import '../diagnostic/presentation/bc_score_provider.dart';
+import '../gamification/data/xp_ledger_constants.dart';
+import '../gamification/domain/xp_source.dart';
 import 'data/thinking_log_repository.dart';
 import 'domain/focused_thinking_logic.dart';
 
@@ -101,7 +103,12 @@ class _FocusedThinkingScreenState extends ConsumerState<FocusedThinkingScreen> {
   void _finishSession() {
     _cancelTimers();
     final bonus = focusedThinkingBcsBonus(_focusScore);
-    ref.read(bcScoreProvider.notifier).applyBonus(bonus);
+    ref.read(bcScoreProvider.notifier).applyBonus(
+          bonus,
+          xpSource: XpSource.focusSession,
+          xpRefId:
+              'focused_thinking_${XpLedgerConstants.utcDayKey(DateTime.now().toUtc())}',
+        );
     setState(() => _phase = _ThinkingPhase.complete);
   }
 

@@ -14,7 +14,6 @@ import '../../diagnostic/presentation/widgets/brain_rot_colors.dart';
 const dashboardDetoxCheckInTileKey = Key('dashboard_detox_check_in_tile');
 const dashboardRecoveryGridTileKey = Key('dashboard_recovery_grid_tile');
 
-/// Pushes the 7-day detox check-in screen onto the navigation stack.
 void _navigateToDetoxCheckIn(BuildContext context) {
   if (!context.mounted) return;
   context.push(AppRoutes.detox);
@@ -25,7 +24,6 @@ void _navigateToRecoveryGrid(BuildContext context) {
   context.push(AppRoutes.recovery);
 }
 
-/// Replaces the stack with the diagnostic flow entry screen.
 void _navigateToDiagnostic(BuildContext context) {
   context.push(AppRoutes.diagnostic);
 }
@@ -50,7 +48,6 @@ class DashboardScreen extends ConsumerWidget {
             if (session != null) ...[
               Builder(
                 builder: (context) {
-                  final evaluation = session.pillarEvaluation;
                   final scoreKey = ValueKey<int>(session.bcScore.round());
                   return Column(
                     children: [
@@ -94,7 +91,9 @@ class DashboardScreen extends ConsumerWidget {
                   child: Text(
                     loc.dashboardEmptyDiagnosticPrompt,
                     textAlign: TextAlign.center,
-                    style: context.arabicBodyStyle.copyWith(color: context.textMuted),
+                    style: context.arabicBodyStyle.copyWith(
+                      color: context.textMuted,
+                    ),
                   ),
                 ),
               ),

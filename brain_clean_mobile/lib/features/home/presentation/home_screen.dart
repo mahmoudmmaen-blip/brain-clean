@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/application/app_preferences_provider.dart';
+import '../../../core/security/security_warning_banner.dart';
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/presentation/async_state_views.dart';
@@ -16,6 +17,7 @@ import '../../diagnostic/presentation/bc_score_provider.dart';
 import '../../diagnostic/domain/diagnostic_session.dart';
 import '../../diagnostic/presentation/widgets/bc_score_breakdown.dart';
 import '../../dashboard/presentation/pro_gated_seven_day_chart.dart';
+import '../../pro/application/subscription_service_provider.dart';
 import '../../pro/pro_gate.dart';
 import '../../recovery/presentation/recovery_protocol_controller.dart';
 import 'widgets/distraction_safeguard_button.dart';
@@ -85,6 +87,7 @@ class HomeScreen extends ConsumerWidget {
           error: (_, __) => AsyncStateViews.error(context),
           data: (_) => Column(
             children: [
+              const SecurityWarningBanner(),
               const Padding(
                 padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
                 child: DailyQuoteCard(),

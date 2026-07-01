@@ -8,6 +8,8 @@ class RecoveryDayRecord {
     required this.dayIndex,
     List<bool>? taskCompleted,
     this.penaltyApplied = false,
+    this.sleepCompleted = false, // 🌟 [NEW] متغير النوم
+    this.waterCompleted = false, // 🌟 [NEW] متغير الماء
   }) : taskCompleted = taskCompleted ??
             List<bool>.filled(
               RecoveryProtocolConstants.mandatoryTaskCount,
@@ -24,23 +26,55 @@ class RecoveryDayRecord {
   final List<bool> taskCompleted;
   final bool penaltyApplied;
 
+  // 🌟 [NEW] خصائص الميزات الجديدة
+  final bool sleepCompleted;
+  final bool waterCompleted;
+
   int get completedCount => taskCompleted.where((t) => t).length;
 
+  // تم تحديثها لتشمل اكتمال المهام والنوم والماء معاً
   bool get allTasksComplete =>
-      completedCount == RecoveryProtocolConstants.mandatoryTaskCount;
+      completedCount == RecoveryProtocolConstants.mandatoryTaskCount &&
+      sleepCompleted &&
+      waterCompleted;
 
   bool get hasMissedHabit =>
       completedCount > 0 &&
       completedCount < RecoveryProtocolConstants.mandatoryTaskCount;
 
+  // ---------------------------------------------------------------------------
+  // 🌟 [NEW] معادلة الـ BCS (Brain Clean Score)
+  // ---------------------------------------------------------------------------
+  double get dailyBcsScore {
+    // 1. العادات الأساسية والمحفزات (تمثل 60% من التقييم الإجمالي)
+    final double habitsRatio = RecoveryProtocolConstants.mandatoryTaskCount > 0 
+        ? (completedCount / RecoveryProtocolConstants.mandatoryTaskCount) 
+        : 0.0;
+    final double habitsScore = habitsRatio * 60.0;
+
+    // 2. جودة النوم (تمثل 20%)
+    final double sleepScore = sleepCompleted ? 20.0 : 0.0;
+
+    // 3. شرب الماء (يمثل 20%)
+    final double waterScore = waterCompleted ? 20.0 : 0.0;
+
+    // الإجمالي من 100
+    return habitsScore + sleepScore + waterScore;
+  }
+  // ---------------------------------------------------------------------------
+
   RecoveryDayRecord copyWith({
     List<bool>? taskCompleted,
     bool? penaltyApplied,
+    bool? sleepCompleted,
+    bool? waterCompleted,
   }) {
     return RecoveryDayRecord(
       dayIndex: dayIndex,
       taskCompleted: taskCompleted ?? List<bool>.from(this.taskCompleted),
       penaltyApplied: penaltyApplied ?? this.penaltyApplied,
+      sleepCompleted: sleepCompleted ?? this.sleepCompleted,
+      waterCompleted: waterCompleted ?? this.waterCompleted,
     );
   }
 
@@ -50,11 +84,17 @@ class RecoveryDayRecord {
     return copyWith(taskCompleted: next);
   }
 
+  // 🌟 [NEW] دوال للتحكم في مفاتيح النوم والماء من واجهة المستخدم
+  RecoveryDayRecord toggleSleep(bool value) => copyWith(sleepCompleted: value);
+  RecoveryDayRecord toggleWater(bool value) => copyWith(waterCompleted: value);
+
   /// camelCase JSON for Hive persistence (write path).
   Map<String, dynamic> toJson() => {
         RecoveryProtocolJsonKeys.dayIndex: dayIndex,
         RecoveryProtocolJsonKeys.taskCompleted: List<bool>.from(taskCompleted),
         RecoveryProtocolJsonKeys.penaltyApplied: penaltyApplied,
+        RecoveryProtocolJsonKeys.sleepCompleted: sleepCompleted,
+        RecoveryProtocolJsonKeys.waterCompleted: waterCompleted,
       };
 
   /// camelCase JSON after [RecoveryHivePayload] normalization (read path).
@@ -83,7 +123,9 @@ class RecoveryDayRecord {
       taskCompleted: tasks,
       penaltyApplied:
           json[RecoveryProtocolJsonKeys.penaltyApplied] == true,
+      
+      sleepCompleted: json[RecoveryProtocolJsonKeys.sleepCompleted] == true,
+      waterCompleted: json[RecoveryProtocolJsonKeys.waterCompleted] == true,
     );
   }
-
 }
