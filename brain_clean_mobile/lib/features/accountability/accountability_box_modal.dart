@@ -104,18 +104,16 @@ class _AccountabilityBoxBodyState extends ConsumerState<_AccountabilityBoxBody> 
   _AccountabilityCategory? _expanded;
   int? _selectedOptionIndex;
 
-  static const _bg = Color(0xFF0D1117);
-  static const _handle = Color(0xFF30363D);
-
   Future<void> _selectPenalty(String label) async {
     ref.read(bcScoreProvider.notifier).applyPenalty(15);
     if (!mounted) return;
     final loc = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
     Navigator.of(context).pop();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(loc.accountabilityPenaltyRecorded),
-        backgroundColor: const Color(0xFF1D9E75),
+        backgroundColor: colorScheme.primary,
       ),
     );
   }
@@ -123,11 +121,13 @@ class _AccountabilityBoxBodyState extends ConsumerState<_AccountabilityBoxBody> 
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
+    final dividerColor = Theme.of(context).dividerColor;
 
     return Container(
-      decoration: const BoxDecoration(
-        color: _bg,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
       ),
       child: Column(
         children: [
@@ -137,7 +137,7 @@ class _AccountabilityBoxBodyState extends ConsumerState<_AccountabilityBoxBody> 
               width: 40,
               height: 4,
               decoration: BoxDecoration(
-                color: _handle,
+                color: dividerColor,
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
@@ -149,15 +149,15 @@ class _AccountabilityBoxBodyState extends ConsumerState<_AccountabilityBoxBody> 
                 Expanded(
                   child: Text(
                     loc.accountabilityRoomTitle,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFFE6EDF3),
+                      color: colorScheme.onSurface,
                     ),
                   ),
                 ),
                 IconButton(
-                  icon: const Icon(Icons.close, color: Color(0xFF8B949E)),
+                  icon: Icon(Icons.close, color: colorScheme.onSurfaceVariant),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
               ],
@@ -180,7 +180,7 @@ class _AccountabilityBoxBodyState extends ConsumerState<_AccountabilityBoxBody> 
                     children: _AccountabilityCategory.values.map((cat) {
                       final selected = _expanded == cat;
                       return Material(
-                        color: const Color(0xFF161B22),
+                        color: colorScheme.surface,
                         borderRadius: BorderRadius.circular(14),
                         child: InkWell(
                           borderRadius: BorderRadius.circular(14),
@@ -197,15 +197,15 @@ class _AccountabilityBoxBodyState extends ConsumerState<_AccountabilityBoxBody> 
                               children: [
                                 Icon(
                                   _categoryIcon(cat),
-                                  color: const Color(0xFF1D9E75),
+                                  color: colorScheme.primary,
                                   size: 28,
                                 ),
                                 const SizedBox(height: 8),
                                 Text(
                                   _categoryLabel(loc, cat),
                                   textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    color: Color(0xFFE6EDF3),
+                                  style: TextStyle(
+                                    color: colorScheme.onSurface,
                                     fontSize: 13,
                                   ),
                                 ),
@@ -232,13 +232,13 @@ class _AccountabilityBoxBodyState extends ConsumerState<_AccountabilityBoxBody> 
                                 leading: Radio<int>(
                                   value: i,
                                   groupValue: _selectedOptionIndex,
-                                  activeColor: const Color(0xFF1D9E75),
+                                  activeColor: colorScheme.primary,
                                   onChanged: (_) => _selectPenalty(label),
                                 ),
                                 title: Text(
                                   label,
-                                  style: const TextStyle(
-                                    color: Color(0xFFE6EDF3),
+                                  style: TextStyle(
+                                    color: colorScheme.onSurface,
                                   ),
                                 ),
                                 onTap: () => _selectPenalty(label),

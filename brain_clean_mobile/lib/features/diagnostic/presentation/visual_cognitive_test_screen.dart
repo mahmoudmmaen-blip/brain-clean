@@ -12,6 +12,14 @@ import 'visual_cognitive_scorer.dart';
 
 const visualCognitiveGridKey = Key('visual_cognitive_grid');
 
+List<Color> _gamePalette(ColorScheme cs) => [
+      cs.primary,
+      cs.error,
+      Color.lerp(cs.primary, cs.error, 0.5)!,
+      Color.lerp(cs.primary, cs.onSurface, 0.35)!,
+      cs.onSurfaceVariant,
+    ];
+
 /// 5-round odd-color-out visual attention test.
 class VisualCognitiveTestScreen extends ConsumerStatefulWidget {
   const VisualCognitiveTestScreen({super.key});
@@ -23,30 +31,27 @@ class VisualCognitiveTestScreen extends ConsumerStatefulWidget {
 
 class _VisualCognitiveTestScreenState
     extends ConsumerState<VisualCognitiveTestScreen> {
-  static const _bg = Color(0xFF0D1117);
-  static const _palette = [
-    Color(0xFF1D9E75),
-    Color(0xFF3B82F6),
-    Color(0xFFF59E0B),
-    Color(0xFF8B5CF6),
-    Color(0xFFEF4444),
-  ];
-
   final _random = Random();
   int _round = 1;
   int _score = 0;
   int _targetIndex = 0;
-  Color _baseColor = _palette.first;
-  Color _targetColor = _palette.first;
+  late List<Color> _palette;
+  Color _baseColor = Colors.transparent;
+  Color _targetColor = Colors.transparent;
   DateTime? _roundStartedAt;
   Timer? _roundTimer;
   bool _showResults = false;
   bool _roundResolved = false;
+  bool _initialized = false;
 
   @override
-  void initState() {
-    super.initState();
-    _startRound();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_initialized) {
+      _initialized = true;
+      _palette = _gamePalette(Theme.of(context).colorScheme);
+      _startRound();
+    }
   }
 
   Color _brighter(Color base) {
@@ -84,8 +89,8 @@ class _VisualCognitiveTestScreenState
       _score += VisualCognitiveScorer.scoreTimeout();
     } else if (correct) {
       final elapsed = DateTime.now()
-          .difference(_roundStartedAt ?? DateTime.now())
-          .inMilliseconds /
+              .difference(_roundStartedAt ?? DateTime.now())
+              .inMilliseconds /
           1000.0;
       _score += VisualCognitiveScorer.scoreCorrectTap(
         tapTimeSeconds: elapsed,
@@ -118,6 +123,13 @@ class _VisualCognitiveTestScreenState
     context.pop();
   }
 
+  Color _resultColor(ColorScheme cs) {
+    if (_score >= 12) return cs.primary;
+    if (_score >= 8) return cs.primary;
+    if (_score >= 4) return cs.onSurfaceVariant;
+    return cs.error;
+  }
+
   @override
   void dispose() {
     _roundTimer?.cancel();
@@ -127,10 +139,11 @@ class _VisualCognitiveTestScreenState
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
+
     if (_showResults) {
-      final color = VisualCognitiveScorer.resultColor(_score);
+      final resultColor = _resultColor(colorScheme);
       return Scaffold(
-        backgroundColor: _bg,
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(24),
@@ -143,22 +156,22 @@ class _VisualCognitiveTestScreenState
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: color,
+                    color: resultColor,
                   ),
                 ),
                 const SizedBox(height: 12),
                 Text(
                   '$_score / 15',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 18,
-                    color: Color(0xFF8B949E),
+                    color: colorScheme.onSurfaceVariant,
                   ),
                 ),
                 const SizedBox(height: 32),
                 FilledButton(
                   onPressed: _finishAndPop,
                   style: FilledButton.styleFrom(
-                    backgroundColor: color,
+                    backgroundColor: resultColor,
                     minimumSize: const Size.fromHeight(48),
                   ),
                   child: Text(loc.visualCognitiveBack),
@@ -171,14 +184,12 @@ class _VisualCognitiveTestScreenState
     }
 
     return Scaffold(
-      backgroundColor: _bg,
       appBar: AppBar(
-        backgroundColor: _bg,
         title: Text(
           loc.visualCognitiveRound(_round),
-          style: const TextStyle(color: Color(0xFFE6EDF3)),
+          style: TextStyle(color: colorScheme.onSurface),
         ),
-        iconTheme: const IconThemeData(color: Color(0xFF8B949E)),
+        iconTheme: IconThemeData(color: colorScheme.onSurfaceVariant),
       ),
       body: Padding(
         padding: const EdgeInsets.all(24),
@@ -186,7 +197,10 @@ class _VisualCognitiveTestScreenState
           children: [
             Text(
               loc.visualCognitiveInstruction,
-              style: const TextStyle(color: Color(0xFF8B949E), fontSize: 16),
+              style: TextStyle(
+                color: colorScheme.onSurfaceVariant,
+                fontSize: 16,
+              ),
             ),
             const SizedBox(height: 24),
             Expanded(
@@ -215,8 +229,8 @@ class _VisualCognitiveTestScreenState
             ),
             Text(
               loc.visualCognitiveScore(_score),
-              style: const TextStyle(
-                color: Color(0xFFE6EDF3),
+              style: TextStyle(
+                color: colorScheme.onSurface,
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),

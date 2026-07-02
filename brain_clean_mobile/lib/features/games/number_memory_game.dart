@@ -85,13 +85,10 @@ class _NumberMemoryGameScreenState extends ConsumerState<NumberMemoryGameScreen>
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF0D1117),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF0D1117),
-        title: Text(loc.gameNumberMemoryTitle),
-      ),
+      appBar: AppBar(title: Text(loc.gameNumberMemoryTitle)),
       body: Padding(
         padding: const EdgeInsets.all(24),
         child: Column(
@@ -101,8 +98,8 @@ class _NumberMemoryGameScreenState extends ConsumerState<NumberMemoryGameScreen>
               Text(
                 loc.gameNumberMemoryResult(_maxDigits),
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Color(0xFF1D9E75),
+                style: TextStyle(
+                  color: colorScheme.primary,
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                 ),
@@ -111,8 +108,8 @@ class _NumberMemoryGameScreenState extends ConsumerState<NumberMemoryGameScreen>
               Text(
                 _sequence,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Color(0xFFE6EDF3),
+                style: TextStyle(
+                  color: colorScheme.onSurface,
                   fontSize: 40,
                   letterSpacing: 8,
                   fontWeight: FontWeight.bold,
@@ -121,21 +118,21 @@ class _NumberMemoryGameScreenState extends ConsumerState<NumberMemoryGameScreen>
             else ...[
               Text(
                 loc.gameEnterSequence,
-                style: const TextStyle(color: Color(0xFF8B949E)),
+                style: TextStyle(color: colorScheme.onSurfaceVariant),
               ),
               const SizedBox(height: 16),
               TextField(
                 controller: _inputController,
                 keyboardType: TextInputType.number,
-                style: const TextStyle(
-                  color: Color(0xFFE6EDF3),
+                style: TextStyle(
+                  color: colorScheme.onSurface,
                   fontSize: 28,
                   letterSpacing: 6,
                 ),
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: const Color(0xFF161B22),
+                  fillColor: colorScheme.surface,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide.none,
@@ -146,7 +143,7 @@ class _NumberMemoryGameScreenState extends ConsumerState<NumberMemoryGameScreen>
               FilledButton(
                 onPressed: _submit,
                 style: FilledButton.styleFrom(
-                  backgroundColor: const Color(0xFF1D9E75),
+                  backgroundColor: colorScheme.primary,
                   minimumSize: const Size.fromHeight(48),
                 ),
                 child: Text(loc.gameSubmitRound),

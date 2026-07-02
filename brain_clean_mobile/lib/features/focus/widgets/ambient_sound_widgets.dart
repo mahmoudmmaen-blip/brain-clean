@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/providers/locale_provider.dart';
-import '../../../core/theme/app_colors.dart';
 import '../ambient_sound_player.dart';
 
 const ambientMiniPlayerKey = Key('ambient_mini_player');
@@ -19,10 +18,11 @@ class AmbientMiniPlayer extends ConsumerWidget {
 
     final isArabic = ref.watch(localeProvider).languageCode == 'ar';
     final controller = ref.read(ambientSoundControllerProvider.notifier);
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Material(
       key: ambientMiniPlayerKey,
-      color: AppColors.card,
+      color: colorScheme.surface,
       elevation: 8,
       child: SafeArea(
         top: false,
@@ -35,8 +35,8 @@ class AmbientMiniPlayer extends ConsumerWidget {
               Expanded(
                 child: Text(
                   sound.localizedLabel(isArabic),
-                  style: const TextStyle(
-                    color: AppColors.textPrimary,
+                  style: TextStyle(
+                    color: colorScheme.onSurface,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -44,7 +44,7 @@ class AmbientMiniPlayer extends ConsumerWidget {
               IconButton(
                 icon: Icon(
                   state.isPlaying ? Icons.pause : Icons.play_arrow,
-                  color: AppColors.primary,
+                  color: colorScheme.primary,
                 ),
                 onPressed: () {
                   if (state.isPlaying) {
@@ -55,7 +55,7 @@ class AmbientMiniPlayer extends ConsumerWidget {
                 },
               ),
               IconButton(
-                icon: const Icon(Icons.stop, color: AppColors.textSecondary),
+                icon: Icon(Icons.stop, color: colorScheme.onSurfaceVariant),
                 onPressed: controller.stop,
               ),
             ],
@@ -68,9 +68,10 @@ class AmbientMiniPlayer extends ConsumerWidget {
 
 /// Bottom sheet grid for picking ambient sounds.
 Future<void> showAmbientSoundPicker(BuildContext context, WidgetRef ref) {
+  final colorScheme = Theme.of(context).colorScheme;
   return showModalBottomSheet<void>(
     context: context,
-    backgroundColor: AppColors.card,
+    backgroundColor: colorScheme.surface,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
     ),
@@ -79,6 +80,7 @@ Future<void> showAmbientSoundPicker(BuildContext context, WidgetRef ref) {
         final isArabic = ref.watch(localeProvider).languageCode == 'ar';
         final state = ref.watch(ambientSoundControllerProvider);
         final controller = ref.read(ambientSoundControllerProvider.notifier);
+        final sheetScheme = Theme.of(context).colorScheme;
 
         return Padding(
           padding: const EdgeInsets.all(16),
@@ -87,8 +89,8 @@ Future<void> showAmbientSoundPicker(BuildContext context, WidgetRef ref) {
             children: [
               Text(
                 isArabic ? 'أصوات التركيز' : 'Focus Sounds',
-                style: const TextStyle(
-                  color: AppColors.textPrimary,
+                style: TextStyle(
+                  color: sheetScheme.onSurface,
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
@@ -113,11 +115,11 @@ Future<void> showAmbientSoundPicker(BuildContext context, WidgetRef ref) {
               const SizedBox(height: 12),
               Row(
                 children: [
-                  const Icon(Icons.volume_up, color: AppColors.textSecondary),
+                  Icon(Icons.volume_up, color: sheetScheme.onSurfaceVariant),
                   Expanded(
                     child: Slider(
                       value: state.volume,
-                      activeColor: AppColors.primary,
+                      activeColor: sheetScheme.primary,
                       onChanged: controller.setVolume,
                     ),
                   ),
@@ -146,8 +148,11 @@ class _SoundCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Material(
-      color: selected ? AppColors.primary.withValues(alpha: 0.15) : AppColors.background,
+      color: selected
+          ? colorScheme.primary.withValues(alpha: 0.15)
+          : Theme.of(context).scaffoldBackgroundColor,
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
@@ -155,7 +160,7 @@ class _SoundCard extends StatelessWidget {
         child: Center(
           child: Text(
             '${sound.emoji} ${sound.localizedLabel(isArabic)}',
-            style: const TextStyle(color: AppColors.textPrimary),
+            style: TextStyle(color: colorScheme.onSurface),
             textAlign: TextAlign.center,
           ),
         ),

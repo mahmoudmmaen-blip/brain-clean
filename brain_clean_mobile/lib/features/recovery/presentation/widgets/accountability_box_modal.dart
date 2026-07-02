@@ -63,14 +63,11 @@ class _AccountabilityBoxSheetBodyState
     extends ConsumerState<AccountabilityBoxSheetBody> {
   late AccountabilityCategory? _expanded;
 
-  static const _bg = Color(0xFF0D1117);
-
   @override
   void initState() {
     super.initState();
     _expanded = widget.initialExpanded;
   }
-  static const _handle = Color(0xFF30363D);
 
   Future<void> _selectPenalty(
     AccountabilityCategory category,
@@ -95,11 +92,13 @@ class _AccountabilityBoxSheetBodyState
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
+    final dividerColor = Theme.of(context).dividerColor;
 
     return Container(
-      decoration: const BoxDecoration(
-        color: _bg,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
       ),
       child: Column(
         children: [
@@ -108,7 +107,7 @@ class _AccountabilityBoxSheetBodyState
             width: 40,
             height: 4,
             decoration: BoxDecoration(
-              color: _handle,
+              color: dividerColor,
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -119,16 +118,16 @@ class _AccountabilityBoxSheetBodyState
                 Expanded(
                   child: Text(
                     loc.accountabilityRoomTitle,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w800,
-                      color: Colors.white,
+                      color: colorScheme.onSurface,
                     ),
                   ),
                 ),
                 if (widget.onClose != null)
                   IconButton(
-                    icon: const Icon(Icons.close, color: Color(0xFF8B949E)),
+                    icon: Icon(Icons.close, color: colorScheme.onSurfaceVariant),
                     onPressed: widget.onClose,
                   ),
               ],
@@ -169,17 +168,17 @@ class _AccountabilityBoxSheetBodyState
                       final global = cat.penaltyGlobalIndex(i);
                       return ListTile(
                         key: accountabilityPenaltyOptionKey(global),
-                        tileColor: const Color(0xFF161B22),
+                        tileColor: colorScheme.surface,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
                         title: Text(
                           cat.penaltyLabel(loc, i),
-                          style: const TextStyle(color: Colors.white),
+                          style: TextStyle(color: colorScheme.onSurface),
                         ),
-                        trailing: const Icon(
+                        trailing: Icon(
                           Icons.remove_circle_outline,
-                          color: Color(0xFFEF4444),
+                          color: colorScheme.error,
                         ),
                         onTap: () => _selectPenalty(cat, i),
                       );
@@ -210,11 +209,12 @@ class _CategoryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Material(
       color: selected
-          ? const Color(0xFF1D9E75).withValues(alpha: 0.12)
-          : const Color(0xFF161B22),
+          ? colorScheme.primary.withValues(alpha: 0.12)
+          : colorScheme.surface,
       borderRadius: BorderRadius.circular(14),
       child: InkWell(
         key: key,
@@ -225,13 +225,13 @@ class _CategoryTile extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(category.icon, color: const Color(0xFF1D9E75), size: 28),
+              Icon(category.icon, color: colorScheme.primary, size: 28),
               const SizedBox(height: 8),
               Text(
                 category.title(loc),
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: colorScheme.onSurface,
                   fontWeight: FontWeight.w700,
                   fontSize: 13,
                 ),

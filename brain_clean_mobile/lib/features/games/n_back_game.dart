@@ -121,15 +121,12 @@ class _NBackGameScreenState extends ConsumerState<NBackGameScreen> {
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
-    final isAr = ref.watch(localeProvider).languageCode == 'ar';
+    final colorScheme = Theme.of(context).colorScheme;
+    final dividerColor = Theme.of(context).dividerColor;
 
     if (_showIntro) {
       return Scaffold(
-        backgroundColor: const Color(0xFF0D1117),
-        appBar: AppBar(
-          backgroundColor: const Color(0xFF0D1117),
-          title: Text(loc.gameNBackTitle),
-        ),
+        appBar: AppBar(title: Text(loc.gameNBackTitle)),
         body: Padding(
           padding: const EdgeInsets.all(24),
           child: Column(
@@ -137,13 +134,13 @@ class _NBackGameScreenState extends ConsumerState<NBackGameScreen> {
             children: [
               Text(
                 loc.gameNBackIntro,
-                style: const TextStyle(color: Color(0xFFE6EDF3), fontSize: 16),
+                style: TextStyle(color: colorScheme.onSurface, fontSize: 16),
               ),
               const Spacer(),
               FilledButton(
                 onPressed: _startGame,
                 style: FilledButton.styleFrom(
-                  backgroundColor: const Color(0xFF1D9E75),
+                  backgroundColor: colorScheme.primary,
                   minimumSize: const Size.fromHeight(52),
                 ),
                 child: Text(loc.gameStart),
@@ -155,11 +152,7 @@ class _NBackGameScreenState extends ConsumerState<NBackGameScreen> {
     }
 
     return Scaffold(
-      backgroundColor: const Color(0xFF0D1117),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF0D1117),
-        title: Text(loc.gameNBackTitle),
-      ),
+      appBar: AppBar(title: Text(loc.gameNBackTitle)),
       body: Padding(
         padding: const EdgeInsets.all(24),
         child: Column(
@@ -168,7 +161,7 @@ class _NBackGameScreenState extends ConsumerState<NBackGameScreen> {
               _finished
                   ? loc.gameNBackResult(_maxN)
                   : loc.gameNBackLevel(_nLevel, _stimulusIndex, _stimuliPerRound),
-              style: const TextStyle(color: Color(0xFF8B949E)),
+              style: TextStyle(color: colorScheme.onSurfaceVariant),
             ),
             const SizedBox(height: 24),
             AspectRatio(
@@ -184,9 +177,7 @@ class _NBackGameScreenState extends ConsumerState<NBackGameScreen> {
                   return Container(
                     margin: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                      color: lit
-                          ? const Color(0xFF1D9E75)
-                          : const Color(0xFF30363D),
+                      color: lit ? colorScheme.primary : dividerColor,
                       borderRadius: BorderRadius.circular(8),
                     ),
                   );
@@ -198,7 +189,7 @@ class _NBackGameScreenState extends ConsumerState<NBackGameScreen> {
               FilledButton(
                 onPressed: _onMatchTap,
                 style: FilledButton.styleFrom(
-                  backgroundColor: const Color(0xFF3B82F6),
+                  backgroundColor: colorScheme.primary,
                   minimumSize: const Size.fromHeight(52),
                 ),
                 child: Text(loc.gameNBackMatch),
@@ -206,7 +197,7 @@ class _NBackGameScreenState extends ConsumerState<NBackGameScreen> {
             if (_finished)
               Text(
                 loc.gameNBackBonus(nBackBcsBonus(_maxN).toStringAsFixed(0)),
-                style: const TextStyle(color: Color(0xFF1D9E75)),
+                style: TextStyle(color: colorScheme.primary),
               ),
           ],
         ),

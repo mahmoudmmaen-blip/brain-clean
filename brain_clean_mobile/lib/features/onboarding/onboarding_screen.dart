@@ -19,8 +19,6 @@ class OnboardingScreen extends ConsumerStatefulWidget {
 }
 
 class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
-  static const _bg = Color(0xFF0D1117);
-
   final _controller = PageController();
   int _page = 0;
 
@@ -39,9 +37,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
+    final dividerColor = Theme.of(context).dividerColor;
 
     return Scaffold(
-      backgroundColor: _bg,
       body: SafeArea(
         child: Column(
           children: [
@@ -52,7 +51,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 onPressed: () => _finish(destination: AppRoutes.home),
                 child: Text(
                   loc.onboardingSkip,
-                  style: const TextStyle(color: Color(0xFF8B949E)),
+                  style: TextStyle(color: colorScheme.onSurfaceVariant),
                 ),
               ),
             ),
@@ -64,19 +63,19 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 children: [
                   _OnboardingPage(
                     icon: Icons.psychology_outlined,
-                    iconColor: const Color(0xFF1D9E75),
+                    iconColor: colorScheme.primary,
                     title: loc.onboardingPage1Title,
                     body: loc.onboardingPage1Body,
                   ),
                   _OnboardingPage(
                     icon: Icons.track_changes,
-                    iconColor: const Color(0xFF3B82F6),
+                    iconColor: colorScheme.primary,
                     title: loc.onboardingPage2Title,
                     body: loc.onboardingPage2Body,
                   ),
                   _OnboardingPage(
                     icon: Icons.emoji_events,
-                    iconColor: const Color(0xFFF59E0B),
+                    iconColor: colorScheme.primary,
                     title: loc.onboardingPage3Title,
                     body: loc.onboardingPage3Body,
                     showStartButton: true,
@@ -94,9 +93,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   width: _page == i ? 20 : 8,
                   height: 8,
                   decoration: BoxDecoration(
-                    color: _page == i
-                        ? const Color(0xFF1D9E75)
-                        : const Color(0xFF30363D),
+                    color: _page == i ? colorScheme.primary : dividerColor,
                     borderRadius: BorderRadius.circular(4),
                   ),
                 ),
@@ -114,7 +111,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     onPressed: () =>
                         _finish(destination: AppRoutes.diagnostic),
                     style: FilledButton.styleFrom(
-                      backgroundColor: const Color(0xFF1D9E75),
+                      backgroundColor: colorScheme.primary,
                     ),
                     child: Text(loc.onboardingStartQuiz),
                   ),
@@ -146,6 +143,7 @@ class _OnboardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32),
       child: Column(
@@ -156,19 +154,19 @@ class _OnboardingPage extends StatelessWidget {
           Text(
             title,
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: Color(0xFFE6EDF3),
+              color: colorScheme.onSurface,
             ),
           ),
           const SizedBox(height: 16),
           Text(
             body,
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 16,
-              color: Color(0xFF8B949E),
+              color: colorScheme.onSurfaceVariant,
               height: 1.5,
             ),
           ),

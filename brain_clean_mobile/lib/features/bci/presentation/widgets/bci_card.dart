@@ -46,6 +46,7 @@ class _BciGlassShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
       child: BackdropFilter(
@@ -67,7 +68,7 @@ class _BciGlassShell extends StatelessWidget {
             ),
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFF06B6D4).withValues(alpha: 0.08),
+                color: colorScheme.primary.withValues(alpha: 0.08),
                 blurRadius: 32,
                 spreadRadius: -4,
                 offset: const Offset(0, 12),
@@ -88,7 +89,7 @@ class _BciGlassShell extends StatelessWidget {
                       shape: BoxShape.circle,
                       gradient: RadialGradient(
                         colors: [
-                          const Color(0xFF06B6D4).withValues(alpha: 0.22),
+                          colorScheme.primary.withValues(alpha: 0.22),
                           Colors.transparent,
                         ],
                       ),
@@ -122,7 +123,8 @@ class _BciCardContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
-    final accent = _BciNeonColors.forScore(bci.totalScore);
+    final colorScheme = Theme.of(context).colorScheme;
+    final accent = _BciNeonColors.forScore(colorScheme, bci.totalScore);
     final statusLabel = _statusLabel(loc, bci.totalScore);
 
     return Column(
@@ -171,7 +173,7 @@ class _BciCardContent extends StatelessWidget {
           label: loc.bciCardAssessmentLabel,
           weight: loc.bciCardWeightAssessment,
           value: bci.assessmentScoreRounded,
-          barColor: const Color(0xFF06B6D4),
+          barColor: colorScheme.primary,
           progress: bci.assessmentScore / 100,
         ),
         const SizedBox(height: 12),
@@ -179,7 +181,7 @@ class _BciCardContent extends StatelessWidget {
           label: loc.bciCardAdherenceLabel,
           weight: loc.bciCardWeightAdherence,
           value: bci.adherenceScoreRounded,
-          barColor: const Color(0xFF22D3EE),
+          barColor: Color.lerp(colorScheme.primary, colorScheme.onSurface, 0.2)!,
           progress: bci.adherenceScore / 100,
         ),
       ],
@@ -307,9 +309,8 @@ class _BciRingPainter extends CustomPainter {
         endAngle: 3 * math.pi / 2,
         colors: [
           accent.withValues(alpha: 0.35),
-          const Color(0xFF06B6D4),
-          const Color(0xFF22D3EE),
-          const Color(0xFF00F5FF),
+          accent,
+          Color.lerp(accent, Colors.white, 0.3)!,
           accent,
         ],
         stops: const [0.0, 0.25, 0.55, 0.8, 1.0],
@@ -429,6 +430,7 @@ class _BciLoadingContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Column(
       children: [
@@ -454,15 +456,15 @@ class _BciLoadingContent extends StatelessWidget {
                 painter: _BciRingPainter(
                   progress: 0,
                   strokeWidth: 11,
-                  accent: const Color(0xFF06B6D4),
+                  accent: colorScheme.primary,
                 ),
               ),
-              const SizedBox(
+              SizedBox(
                 width: 36,
                 height: 36,
                 child: CircularProgressIndicator(
                   strokeWidth: 3,
-                  color: Color(0xFF22D3EE),
+                  color: colorScheme.primary,
                 ),
               ),
             ],
@@ -526,15 +528,10 @@ class _BciErrorContent extends StatelessWidget {
 }
 
 abstract final class _BciNeonColors {
-  static const _cyan = Color(0xFF06B6D4);
-  static const _neon = Color(0xFF00F5FF);
-  static const _amber = AppDesignConstants.accentGold;
-  static const _danger = AppDesignConstants.accentError;
-
-  static Color forScore(double score) {
-    if (score >= 86) return _neon;
-    if (score >= 71) return _cyan;
-    if (score >= 41) return _amber;
-    return _danger;
+  static Color forScore(ColorScheme cs, double score) {
+    if (score >= 86) return cs.primary;
+    if (score >= 71) return cs.primary;
+    if (score >= 41) return cs.primary;
+    return cs.error;
   }
 }

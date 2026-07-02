@@ -37,12 +37,12 @@ class PomodoroScreen extends ConsumerWidget {
     final isAr = ref.watch(localeProvider).languageCode == 'ar';
     final pomodoro = ref.watch(pomodoroControllerProvider);
     final notifier = ref.read(pomodoroControllerProvider.notifier);
+    final colorScheme = Theme.of(context).colorScheme;
+    final dividerColor = Theme.of(context).dividerColor;
 
     return Scaffold(
       key: pomodoroScreenKey,
-      backgroundColor: const Color(0xFF0D1117),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF0D1117),
         title: Text(loc.pomodoroTitle),
         actions: const [LanguageToggleButton()],
       ),
@@ -53,8 +53,8 @@ class PomodoroScreen extends ConsumerWidget {
             children: [
               Text(
                 _phaseLabel(pomodoro.currentPhase, loc, isAr),
-                style: const TextStyle(
-                  color: Color(0xFFE6EDF3),
+                style: TextStyle(
+                  color: colorScheme.onSurface,
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
                 ),
@@ -76,9 +76,7 @@ class PomodoroScreen extends ConsumerWidget {
                     margin: const EdgeInsets.symmetric(horizontal: 6),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: filled
-                          ? const Color(0xFF1D9E75)
-                          : const Color(0xFF30363D),
+                      color: filled ? colorScheme.primary : dividerColor,
                     ),
                   );
                 }),
@@ -91,11 +89,11 @@ class PomodoroScreen extends ConsumerWidget {
                     onPressed: notifier.reset,
                     child: Text(
                       loc.pomodoroReset,
-                      style: const TextStyle(color: Color(0xFF8B949E)),
+                      style: TextStyle(color: colorScheme.onSurfaceVariant),
                     ),
                   ),
                   FloatingActionButton.large(
-                    backgroundColor: const Color(0xFF1D9E75),
+                    backgroundColor: colorScheme.primary,
                     onPressed: pomodoro.isRunning ? notifier.pause : notifier.start,
                     child: Icon(
                       pomodoro.isRunning ? Icons.pause : Icons.play_arrow,
@@ -106,7 +104,7 @@ class PomodoroScreen extends ConsumerWidget {
                     onPressed: notifier.skip,
                     child: Text(
                       loc.pomodoroSkip,
-                      style: const TextStyle(color: Color(0xFF8B949E)),
+                      style: TextStyle(color: colorScheme.onSurfaceVariant),
                     ),
                   ),
                 ],
@@ -116,17 +114,17 @@ class PomodoroScreen extends ConsumerWidget {
                 width: double.infinity,
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF161B22),
+                  color: colorScheme.surface,
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: const Color(0xFF30363D)),
+                  border: Border.all(color: dividerColor),
                 ),
                 child: Text(
                   isAr
                       ? 'جلسات اليوم: ${pomodoro.totalSessionsToday}'
                       : loc.pomodoroSessionsToday(pomodoro.totalSessionsToday),
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Color(0xFFE6EDF3),
+                  style: TextStyle(
+                    color: colorScheme.onSurface,
                     fontSize: 16,
                   ),
                 ),

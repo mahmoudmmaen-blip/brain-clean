@@ -133,19 +133,17 @@ class _SpeedSortGameScreenState extends ConsumerState<SpeedSortGameScreen> {
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final isAr = ref.watch(localeProvider).languageCode == 'ar';
+    final colorScheme = Theme.of(context).colorScheme;
+    final dividerColor = Theme.of(context).dividerColor;
 
     if (!_running && !_finished) {
       return Scaffold(
-        backgroundColor: const Color(0xFF0D1117),
-        appBar: AppBar(
-          backgroundColor: const Color(0xFF0D1117),
-          title: Text(loc.gameSpeedSortTitle),
-        ),
+        appBar: AppBar(title: Text(loc.gameSpeedSortTitle)),
         body: Center(
           child: FilledButton(
             onPressed: _start,
             style: FilledButton.styleFrom(
-              backgroundColor: const Color(0xFF1D9E75),
+              backgroundColor: colorScheme.primary,
               padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 16),
             ),
             child: Text(loc.gameStart),
@@ -155,11 +153,7 @@ class _SpeedSortGameScreenState extends ConsumerState<SpeedSortGameScreen> {
     }
 
     return Scaffold(
-      backgroundColor: const Color(0xFF0D1117),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF0D1117),
-        title: Text(loc.gameSpeedSortTitle),
-      ),
+      appBar: AppBar(title: Text(loc.gameSpeedSortTitle)),
       body: Column(
         children: [
           Padding(
@@ -168,7 +162,7 @@ class _SpeedSortGameScreenState extends ConsumerState<SpeedSortGameScreen> {
               _finished
                   ? loc.gameSpeedSortResult(_correct, _wrong)
                   : '${_secondsLeft}s — ${loc.gameSpeedSortCorrect(_correct)}',
-              style: const TextStyle(color: Color(0xFFE6EDF3)),
+              style: TextStyle(color: colorScheme.onSurface),
             ),
           ),
           Expanded(
@@ -183,14 +177,14 @@ class _SpeedSortGameScreenState extends ConsumerState<SpeedSortGameScreen> {
                       height: 48,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: const Color(0xFF161B22),
+                        color: colorScheme.surface,
                         borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: const Color(0xFF30363D)),
+                        border: Border.all(color: dividerColor),
                       ),
                       child: Text(
                         '${item.value}',
-                        style: const TextStyle(
-                          color: Color(0xFFE6EDF3),
+                        style: TextStyle(
+                          color: colorScheme.onSurface,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
@@ -208,12 +202,12 @@ class _SpeedSortGameScreenState extends ConsumerState<SpeedSortGameScreen> {
                   child: Container(
                     height: 72,
                     margin: const EdgeInsets.all(12),
-                    color: const Color(0xFF3B82F6),
+                    color: colorScheme.primary,
                     alignment: Alignment.center,
                     child: Text(
                       isAr ? 'زوجي' : loc.gameSpeedSortEven,
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: TextStyle(
+                        color: colorScheme.onPrimary,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -226,12 +220,12 @@ class _SpeedSortGameScreenState extends ConsumerState<SpeedSortGameScreen> {
                   child: Container(
                     height: 72,
                     margin: const EdgeInsets.all(12),
-                    color: const Color(0xFF1D9E75),
+                    color: colorScheme.primary,
                     alignment: Alignment.center,
                     child: Text(
                       isAr ? 'فردي' : loc.gameSpeedSortOdd,
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: TextStyle(
+                        color: colorScheme.onPrimary,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
