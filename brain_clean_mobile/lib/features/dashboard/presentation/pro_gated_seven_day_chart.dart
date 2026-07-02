@@ -16,6 +16,7 @@ class ProGatedSevenDayChart extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
     if (ref.watch(isProUserProvider)) {
       return const SevenDayChartWidget();
     }
@@ -26,13 +27,13 @@ class ProGatedSevenDayChart extends ConsumerWidget {
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: const Color(0xFF161B22),
+          color: colorScheme.surface,
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: const Color(0xFF30363D)),
+          border: Border.all(color: Theme.of(context).dividerColor),
         ),
         child: Row(
           children: [
-            const Icon(Icons.lock_outline, color: Color(0xFFF59E0B)),
+            Icon(Icons.lock_outline, color: colorScheme.primary),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
@@ -40,20 +41,23 @@ class ProGatedSevenDayChart extends ConsumerWidget {
                 children: [
                   Text(
                     loc.proGatedChartTitle,
-                    style: const TextStyle(
-                      color: Color(0xFFE6EDF3),
+                    style: TextStyle(
+                      color: colorScheme.onSurface,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     loc.proGatedChartSubtitle,
-                    style: const TextStyle(color: Color(0xFF8B949E), fontSize: 13),
+                    style: TextStyle(
+                      color: colorScheme.onSurfaceVariant,
+                      fontSize: 13,
+                    ),
                   ),
                 ],
               ),
             ),
-            const Icon(Icons.chevron_left, color: Color(0xFF8B949E)),
+            Icon(Icons.chevron_left, color: colorScheme.onSurfaceVariant),
           ],
         ),
       ),

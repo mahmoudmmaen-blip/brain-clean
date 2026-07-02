@@ -32,12 +32,13 @@ class _DistractionSafeguardButtonState
 
     final confirmed = await showModalBottomSheet<bool>(
       context: context,
-      backgroundColor: const Color(0xFF0D1117),
+      backgroundColor: Theme.of(context).colorScheme.surface,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (ctx) {
         final loc = AppLocalizations.of(ctx)!;
+        final colorScheme = Theme.of(ctx).colorScheme;
         return Directionality(
           textDirection: TextDirection.rtl,
           child: Padding(
@@ -49,19 +50,19 @@ class _DistractionSafeguardButtonState
                 Text(
                   loc.homeDistractionConfirmTitle,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: colorScheme.onSurface,
                   ),
                 ),
                 const SizedBox(height: 12),
                 Text(
                   loc.homeDistractionConfirmMessage,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 14,
-                    color: Color(0xFF8B949E),
+                    color: colorScheme.onSurfaceVariant,
                     height: 1.4,
                   ),
                 ),
@@ -73,7 +74,7 @@ class _DistractionSafeguardButtonState
                         onPressed: () => Navigator.of(ctx).pop(false),
                         child: Text(
                           loc.homeDistractionCancel,
-                          style: const TextStyle(color: Color(0xFF8B949E)),
+                          style: TextStyle(color: colorScheme.onSurfaceVariant),
                         ),
                       ),
                     ),
@@ -82,7 +83,7 @@ class _DistractionSafeguardButtonState
                       child: ElevatedButton(
                         onPressed: () => Navigator.of(ctx).pop(true),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFEF4444),
+                          backgroundColor: colorScheme.error,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -108,6 +109,7 @@ class _DistractionSafeguardButtonState
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return OutlinedButton.icon(
       key: homeDistractionButtonKey,
@@ -116,8 +118,8 @@ class _DistractionSafeguardButtonState
       label: Text(loc.homeDistractionButton),
       style: OutlinedButton.styleFrom(
         minimumSize: const Size.fromHeight(48),
-        foregroundColor: const Color(0xFFF59E0B),
-        side: const BorderSide(color: Color(0xFFF59E0B)),
+        foregroundColor: colorScheme.primary,
+        side: BorderSide(color: colorScheme.primary),
       ),
     );
   }

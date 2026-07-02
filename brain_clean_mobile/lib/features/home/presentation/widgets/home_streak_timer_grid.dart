@@ -10,21 +10,19 @@ const homeStreakTimerKey = Key('home_streak_timer_grid');
 class HomeStreakTimerGrid extends ConsumerWidget {
   const HomeStreakTimerGrid({super.key});
 
-  static const _valueColor = Colors.white;
-  static const _labelColor = Color(0xFF8B949E);
-  static const _dividerColor = Color(0xFF30363D);
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = AppLocalizations.of(context)!;
     final streak = ref.watch(homeStreakSnapshotProvider);
+    final colorScheme = Theme.of(context).colorScheme;
+    final dividerColor = Theme.of(context).dividerColor;
 
     return Card(
       key: homeStreakTimerKey,
-      color: const Color(0xFF161B22),
+      color: colorScheme.surface,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
-        side: const BorderSide(color: _dividerColor),
+        side: BorderSide(color: dividerColor),
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
@@ -70,6 +68,8 @@ class _StreakColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final dividerColor = Theme.of(context).dividerColor;
     return Expanded(
       child: Row(
         children: [
@@ -78,8 +78,8 @@ class _StreakColumn extends StatelessWidget {
               children: [
                 Text(
                   value,
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: colorScheme.onSurface,
                     fontSize: 28,
                     fontWeight: FontWeight.w800,
                     height: 1.1,
@@ -88,8 +88,8 @@ class _StreakColumn extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   label,
-                  style: const TextStyle(
-                    color: Color(0xFF8B949E),
+                  style: TextStyle(
+                    color: colorScheme.onSurfaceVariant,
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
                   ),
@@ -102,7 +102,7 @@ class _StreakColumn extends StatelessWidget {
             Container(
               width: 1,
               height: 44,
-              color: const Color(0xFF30363D),
+              color: dividerColor,
             ),
         ],
       ),

@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/presentation/async_state_views.dart';
-import '../../../core/theme/app_colors.dart';
 import '../application/seven_day_provider.dart';
 import '../domain/daily_snapshot.dart';
 
@@ -49,17 +48,17 @@ class SevenDayChartWidget extends ConsumerWidget {
               key: chartEmptyStateKey,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(
+                Icon(
                   Icons.show_chart,
                   size: 48,
-                  color: AppColors.textSecondary,
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
                 const SizedBox(height: 12),
                 Text(
                   loc.chartEmptyState,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: AppColors.textSecondary,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                     fontSize: 14,
                   ),
                 ),
@@ -88,22 +87,23 @@ class _CardShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.card,
+        color: colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.border),
+        border: Border.all(color: Theme.of(context).dividerColor),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: AppColors.textPrimary,
+              color: colorScheme.onSurface,
             ),
           ),
           const SizedBox(height: 16),
@@ -127,22 +127,24 @@ class _ChartBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final dividerColor = Theme.of(context).dividerColor;
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.card,
+        color: colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.border),
+        border: Border.all(color: dividerColor),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: AppColors.textPrimary,
+              color: colorScheme.onSurface,
             ),
           ),
           const SizedBox(height: 16),
@@ -156,7 +158,7 @@ class _ChartBody extends StatelessWidget {
                   show: true,
                   drawVerticalLine: false,
                   getDrawingHorizontalLine: (_) => FlLine(
-                    color: AppColors.border,
+                    color: dividerColor,
                     strokeWidth: 1,
                     dashArray: [4, 4],
                   ),
@@ -181,8 +183,8 @@ class _ChartBody extends StatelessWidget {
                             value == 100) {
                           return Text(
                             value.toInt().toString(),
-                            style: const TextStyle(
-                              color: AppColors.textSecondary,
+                            style: TextStyle(
+                              color: colorScheme.onSurfaceVariant,
                               fontSize: 11,
                             ),
                           );
@@ -204,8 +206,8 @@ class _ChartBody extends StatelessWidget {
                           padding: const EdgeInsets.only(top: 6),
                           child: Text(
                             xLabels[i],
-                            style: const TextStyle(
-                              color: AppColors.textSecondary,
+                            style: TextStyle(
+                              color: colorScheme.onSurfaceVariant,
                               fontSize: 10,
                             ),
                           ),
@@ -221,8 +223,8 @@ class _ChartBody extends StatelessWidget {
                         .map(
                           (s) => LineTooltipItem(
                             s.y.toStringAsFixed(0),
-                            const TextStyle(
-                              color: Colors.white,
+                            TextStyle(
+                              color: colorScheme.onPrimary,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -237,7 +239,7 @@ class _ChartBody extends StatelessWidget {
                         FlSpot(i.toDouble(), snapshots[i].bcsValue),
                     ],
                     isCurved: true,
-                    color: AppColors.primary,
+                    color: colorScheme.primary,
                     barWidth: 2.5,
                     dotData: const FlDotData(show: true),
                     belowBarData: BarAreaData(
@@ -246,8 +248,8 @@ class _ChartBody extends StatelessWidget {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          AppColors.primary.withValues(alpha: 0.2),
-                          AppColors.primary.withValues(alpha: 0),
+                          colorScheme.primary.withValues(alpha: 0.2),
+                          colorScheme.primary.withValues(alpha: 0),
                         ],
                       ),
                     ),

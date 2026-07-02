@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/providers/locale_provider.dart';
-import '../../../core/theme/app_colors.dart';
 import '../application/streak_freeze_provider.dart';
 
 const streakFreezeButtonKey = Key('streak_freeze_button');
@@ -17,27 +16,30 @@ class StreakFreezeButton extends ConsumerWidget {
     final isArabic = ref.read(localeProvider).languageCode == 'ar';
     final confirmed = await showDialog<bool>(
       context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: AppColors.card,
-        title: Text(
-          isArabic ? 'تجميد Streak ❄️' : 'Streak Freeze ❄️',
-          style: const TextStyle(color: AppColors.textPrimary),
-        ),
-        content: Text(
-          loc.streakFreezeConfirm,
-          style: const TextStyle(color: AppColors.textSecondary),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(false),
-            child: Text(loc.commonCancel),
+      builder: (ctx) {
+        final colorScheme = Theme.of(ctx).colorScheme;
+        return AlertDialog(
+          backgroundColor: colorScheme.surface,
+          title: Text(
+            isArabic ? 'تجميد Streak ❄️' : 'Streak Freeze ❄️',
+            style: TextStyle(color: colorScheme.onSurface),
           ),
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(true),
-            child: Text(loc.commonConfirm),
+          content: Text(
+            loc.streakFreezeConfirm,
+            style: TextStyle(color: colorScheme.onSurfaceVariant),
           ),
-        ],
-      ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(false),
+              child: Text(loc.commonCancel),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(true),
+              child: Text(loc.commonConfirm),
+            ),
+          ],
+        );
+      },
     );
     if (confirmed == true) {
       ref.read(streakFreezeControllerProvider.notifier).useFreeze();
@@ -48,7 +50,8 @@ class StreakFreezeButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final freeze = ref.watch(streakFreezeControllerProvider);
     final active = freeze.freezesAvailable > 0;
-    final color = active ? AppColors.info : AppColors.border;
+    final colorScheme = Theme.of(context).colorScheme;
+    final color = active ? colorScheme.primary : Theme.of(context).dividerColor;
 
     return Material(
       color: Colors.transparent,
