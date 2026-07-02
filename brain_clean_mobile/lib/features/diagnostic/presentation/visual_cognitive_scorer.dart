@@ -18,11 +18,15 @@ abstract final class VisualCognitiveScorer {
     return 'تركيزك يحتاج تحسيناً 🔴';
   }
 
-  static Color resultColor(int totalScore) {
-    if (totalScore >= 13) return const Color(0xFF1D9E75);
-    if (totalScore >= 9) return const Color(0xFF3B82F6);
-    if (totalScore >= 5) return const Color(0xFFF59E0B);
-    return const Color(0xFFEF4444);
+  static Color resultColor(int totalScore, ColorScheme colorScheme) {
+    if (totalScore >= 13) return colorScheme.primary;
+    if (totalScore >= 9) {
+      return Color.lerp(colorScheme.primary, colorScheme.onSurface, 0.35)!;
+    }
+    if (totalScore >= 5) {
+      return Color.lerp(colorScheme.primary, colorScheme.error, 0.5)!;
+    }
+    return colorScheme.error;
   }
 
   static double cognitiveBonus(int totalScore) =>

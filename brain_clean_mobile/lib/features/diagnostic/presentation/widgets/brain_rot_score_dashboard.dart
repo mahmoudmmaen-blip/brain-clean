@@ -31,7 +31,11 @@ class BrainRotScoreDashboard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = AppLocalizations.of(context)!;
     final isRtl = Directionality.of(context) == TextDirection.rtl;
-    final ringColor = BrainRotScoreRingColors.forScore(interpretation.score);
+    final colorScheme = Theme.of(context).colorScheme;
+    final ringColor = BrainRotScoreRingColors.forScore(
+      interpretation.score,
+      colorScheme,
+    );
     final range = interpretation.band.scoreRange;
     final clinicalText = interpretation.interpretationAr;
 
@@ -123,8 +127,8 @@ class BrainRotScoreDashboard extends ConsumerWidget {
           label: Text(loc.diagnosticCognitiveTestButton),
           style: OutlinedButton.styleFrom(
             minimumSize: const Size.fromHeight(48),
-            foregroundColor: const Color(0xFF1D9E75),
-            side: const BorderSide(color: Color(0xFF1D9E75)),
+            foregroundColor: colorScheme.primary,
+            side: BorderSide(color: colorScheme.primary),
           ),
         ),
         const SizedBox(height: 12),
@@ -157,15 +161,15 @@ class _FrostedSeverityCard extends StatelessWidget {
   final Color accentColor;
   final bool alignStart;
 
-  static const _frostedFill = Color(0xFF161B22);
-
   @override
   Widget build(BuildContext context) {
+    final surfaceColor = Theme.of(context).colorScheme.surface;
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
       decoration: BoxDecoration(
-        color: _frostedFill.withValues(alpha: 0.85),
+        color: surfaceColor.withValues(alpha: 0.85),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: accentColor.withValues(alpha: 0.65)),
         boxShadow: [

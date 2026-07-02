@@ -17,6 +17,9 @@ class PomodoroTimerRing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final dividerColor = Theme.of(context).dividerColor;
+
     return SizedBox(
       width: 260,
       height: 260,
@@ -24,15 +27,16 @@ class PomodoroTimerRing extends StatelessWidget {
         painter: _PomodoroRingPainter(
           progress: progress,
           ringColor: ringColor,
+          trackColor: dividerColor,
         ),
         child: Center(
           child: Text(
             timeLabel,
-            style: const TextStyle(
-              color: Color(0xFFE6EDF3),
+            style: TextStyle(
+              color: colorScheme.onSurface,
               fontSize: 48,
               fontWeight: FontWeight.bold,
-              fontFeatures: [FontFeature.tabularFigures()],
+              fontFeatures: const [FontFeature.tabularFigures()],
             ),
           ),
         ),
@@ -45,10 +49,12 @@ class _PomodoroRingPainter extends CustomPainter {
   _PomodoroRingPainter({
     required this.progress,
     required this.ringColor,
+    required this.trackColor,
   });
 
   final double progress;
   final Color ringColor;
+  final Color trackColor;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -57,7 +63,7 @@ class _PomodoroRingPainter extends CustomPainter {
     const stroke = 10.0;
 
     final track = Paint()
-      ..color = const Color(0xFF30363D)
+      ..color = trackColor
       ..style = PaintingStyle.stroke
       ..strokeWidth = stroke
       ..strokeCap = StrokeCap.round;
@@ -82,5 +88,7 @@ class _PomodoroRingPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _PomodoroRingPainter oldDelegate) =>
-      oldDelegate.progress != progress || oldDelegate.ringColor != ringColor;
+      oldDelegate.progress != progress ||
+      oldDelegate.ringColor != ringColor ||
+      oldDelegate.trackColor != trackColor;
 }

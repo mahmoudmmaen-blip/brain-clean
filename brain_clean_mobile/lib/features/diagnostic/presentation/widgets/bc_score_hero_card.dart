@@ -62,7 +62,10 @@ class BcScoreHeroCard extends StatelessWidget {
               style: AppDesignConstants.cairo(
                 fontSize: fontSize,
                 fontWeight: FontWeight.w800,
-                color: BcScoreColors.forScore(score),
+                color: BcScoreColors.forScore(
+                  score,
+                  Theme.of(context).colorScheme,
+                ),
                 height: 1,
               ),
             ),

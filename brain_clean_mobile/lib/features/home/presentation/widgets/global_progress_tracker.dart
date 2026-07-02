@@ -75,7 +75,7 @@ class _GlobalProgressTrackerState extends State<GlobalProgressTracker>
     final loc = AppLocalizations.of(context)!;
     final clampedBcs = widget.bcScore.clamp(0.0, 100.0);
     final scoreColor = widget.hasSession
-        ? BcScoreColors.forScore(clampedBcs)
+        ? BcScoreColors.forScore(clampedBcs, Theme.of(context).colorScheme)
         : context.textMuted;
     final challengePct =
         (widget.challengeProgress.clamp(0, 1) * 100).round();

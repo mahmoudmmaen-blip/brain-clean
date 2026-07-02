@@ -42,7 +42,7 @@ class EmotionWheelScreen extends ConsumerWidget {
         iconTheme: IconThemeData(color: colorScheme.onSurfaceVariant),
       ),
       body: hydrationAsync.when(
-        loading: () => AsyncStateViews.loading(),
+        loading: () => AsyncStateViews.loading(context),
         error: (_, __) => AsyncStateViews.error(context),
         data: (_) => ListView(
           padding: const EdgeInsets.all(16),

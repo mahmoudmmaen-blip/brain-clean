@@ -266,7 +266,10 @@ class _DetoxLiveScoreCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final liveBcScore = live.bcScore;
-    final scoreColor = BcScoreColors.forScore(liveBcScore);
+    final scoreColor = BcScoreColors.forScore(
+      liveBcScore,
+      Theme.of(context).colorScheme,
+    );
 
     return Card(
       child: Padding(

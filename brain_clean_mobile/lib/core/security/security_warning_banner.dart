@@ -15,19 +15,20 @@ class SecurityWarningBanner extends ConsumerWidget {
     if (!compromised) return const SizedBox.shrink();
 
     final loc = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
       child: Material(
-        color: const Color(0xFF3B1F1F),
+        color: colorScheme.error.withValues(alpha: 0.2),
         borderRadius: BorderRadius.circular(12),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
           child: Row(
             children: [
-              const Icon(
+              Icon(
                 Icons.shield_outlined,
-                color: Color(0xFFF59E0B),
+                color: colorScheme.primary,
                 size: 22,
               ),
               const SizedBox(width: 12),
@@ -37,7 +38,11 @@ class SecurityWarningBanner extends ConsumerWidget {
                   style: AppDesignConstants.cairo(
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
-                    color: const Color(0xFFFDE68A),
+                    color: Color.lerp(
+                      colorScheme.primary,
+                      colorScheme.onSurface,
+                      0.5,
+                    )!,
                   ),
                 ),
               ),

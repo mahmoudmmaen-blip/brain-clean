@@ -50,7 +50,10 @@ class _BrainRotAnimatedScoreRingState extends State<BrainRotAnimatedScoreRing>
 
   @override
   Widget build(BuildContext context) {
-    final ringColor = BrainRotScoreRingColors.forScore(widget.score);
+    final ringColor = BrainRotScoreRingColors.forScore(
+      widget.score,
+      Theme.of(context).colorScheme,
+    );
 
     return AnimatedBuilder(
       animation: _progress,

@@ -34,7 +34,7 @@ class SevenDayChartWidget extends ConsumerWidget {
     return snapshotsAsync.when(
       loading: () => _CardShell(
         title: loc.chartSevenDayTitle,
-        child: AsyncStateViews.loading(),
+        child: AsyncStateViews.loading(context),
       ),
       error: (_, __) => _CardShell(
         title: loc.chartSevenDayTitle,

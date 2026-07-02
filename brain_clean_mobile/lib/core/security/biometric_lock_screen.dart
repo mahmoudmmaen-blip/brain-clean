@@ -15,19 +15,20 @@ class BiometricLockScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = AppLocalizations.of(context)!;
     final auth = ref.watch(biometricAuthControllerProvider);
+    final colorScheme = Theme.of(context).colorScheme;
+    final primary = colorScheme.primary;
 
     return Scaffold(
-      backgroundColor: AppDesignConstants.darkBackground,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(
+              Icon(
                 Icons.fingerprint_rounded,
                 size: 72,
-                color: Color(0xFF22D3EE),
+                color: primary,
               ),
               const SizedBox(height: 24),
               Text(
@@ -36,7 +37,7 @@ class BiometricLockScreen extends ConsumerWidget {
                 style: AppDesignConstants.cairo(
                   fontSize: 22,
                   fontWeight: FontWeight.w700,
-                  color: Colors.white,
+                  color: colorScheme.onSurface,
                 ),
               ),
               const SizedBox(height: 12),
@@ -46,12 +47,12 @@ class BiometricLockScreen extends ConsumerWidget {
                 style: AppDesignConstants.cairo(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
-                  color: Colors.white70,
+                  color: colorScheme.onSurfaceVariant,
                 ),
               ),
               const SizedBox(height: 32),
               if (auth.isLoading)
-                const CircularProgressIndicator(color: Color(0xFF22D3EE))
+                CircularProgressIndicator(color: primary)
               else
                 FilledButton.icon(
                   onPressed: () async {
@@ -65,7 +66,7 @@ class BiometricLockScreen extends ConsumerWidget {
                   icon: const Icon(Icons.lock_open_rounded),
                   label: Text(loc.biometricLockButton),
                   style: FilledButton.styleFrom(
-                    backgroundColor: const Color(0xFF06B6D4),
+                    backgroundColor: primary,
                     minimumSize: const Size.fromHeight(48),
                   ),
                 ),

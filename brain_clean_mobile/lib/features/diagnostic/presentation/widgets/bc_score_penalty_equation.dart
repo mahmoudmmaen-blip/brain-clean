@@ -25,7 +25,10 @@ class BcScorePenaltyEquation extends StatelessWidget {
     final loc = AppLocalizations.of(context)!;
     final severity = Theme.of(context).colorScheme.error;
     final baseColor = context.diagnosticAccentGold;
-    final finalColor = BcScoreColors.forScore(finalBcScore);
+    final finalColor = BcScoreColors.forScore(
+      finalBcScore,
+      Theme.of(context).colorScheme,
+    );
     final muted = context.textMuted;
     final isRtl = Directionality.of(context) == TextDirection.rtl;
 

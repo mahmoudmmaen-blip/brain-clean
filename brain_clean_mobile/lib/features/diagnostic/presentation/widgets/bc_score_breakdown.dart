@@ -104,7 +104,10 @@ class BcScoreBreakdown extends StatelessWidget {
             _SummaryRow(
               label: _hasPenalty ? loc.finalBcScoreLabel : loc.bcScoreLabel,
               value: '${displayBcScore.round()}%',
-              color: BcScoreColors.forScore(displayBcScore),
+              color: BcScoreColors.forScore(
+                displayBcScore,
+                Theme.of(context).colorScheme,
+              ),
               textDirection: textDirection,
             ),
           ],

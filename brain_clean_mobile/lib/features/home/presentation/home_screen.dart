@@ -80,7 +80,7 @@ class HomeScreen extends ConsumerWidget {
       bottomNavigationBar: const AmbientMiniPlayer(),
       body: SafeArea(
         child: recoveryAsync.when(
-          loading: () => AsyncStateViews.loading(),
+          loading: () => AsyncStateViews.loading(context),
           error: (_, __) => AsyncStateViews.error(context),
           data: (_) => Column(
             children: [

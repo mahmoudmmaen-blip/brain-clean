@@ -15,9 +15,6 @@ class BhiShimmerCtaButton extends StatefulWidget {
   final double height;
   final double borderRadius;
 
-  static const _gradientStart = Color(0xFF1D9E75);
-  static const _gradientEnd = Color(0xFF0F7A5A);
-
   @override
   State<BhiShimmerCtaButton> createState() => _BhiShimmerCtaButtonState();
 }
@@ -43,6 +40,11 @@ class _BhiShimmerCtaButtonState extends State<BhiShimmerCtaButton>
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final primary = colorScheme.primary;
+    final gradientEnd = Color.lerp(primary, Colors.black, 0.35)!;
+    final shimmerMid = Color.lerp(primary, Colors.white, 0.2)!;
+
     return SizedBox(
       height: widget.height,
       width: double.infinity,
@@ -55,19 +57,17 @@ class _BhiShimmerCtaButtonState extends State<BhiShimmerCtaButton>
               gradient: LinearGradient(
                 begin: Alignment(-1 + 2 * _shimmer.value, 0),
                 end: Alignment(_shimmer.value, 0),
-                colors: const [
-                  BhiShimmerCtaButton._gradientStart,
-                  Color(0xFF2AB88A),
-                  BhiShimmerCtaButton._gradientEnd,
-                  BhiShimmerCtaButton._gradientStart,
+                colors: [
+                  primary,
+                  shimmerMid,
+                  gradientEnd,
+                  primary,
                 ],
                 stops: const [0.0, 0.35, 0.7, 1.0],
               ),
               boxShadow: [
                 BoxShadow(
-                  color: BhiShimmerCtaButton._gradientStart.withValues(
-                    alpha: 0.35,
-                  ),
+                  color: primary.withValues(alpha: 0.35),
                   blurRadius: 12,
                   offset: const Offset(0, 4),
                 ),
@@ -84,8 +84,8 @@ class _BhiShimmerCtaButtonState extends State<BhiShimmerCtaButton>
             child: Center(
               child: Text(
                 widget.label,
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: colorScheme.onPrimary,
                   fontSize: 17,
                   fontWeight: FontWeight.w700,
                 ),
