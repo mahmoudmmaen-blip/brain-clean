@@ -1,4 +1,4 @@
-package com.example.brain_clean_mobile
+package com.brainclean.mobile
 
 import io.flutter.embedding.android.FlutterActivity
 

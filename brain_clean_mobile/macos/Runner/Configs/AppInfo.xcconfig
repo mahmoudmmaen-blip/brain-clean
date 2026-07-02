@@ -8,7 +8,7 @@
 PRODUCT_NAME = brain_clean_mobile
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.brainCleanMobile
+PRODUCT_BUNDLE_IDENTIFIER = com.brainclean.mobile
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2026 com.example. All rights reserved.
