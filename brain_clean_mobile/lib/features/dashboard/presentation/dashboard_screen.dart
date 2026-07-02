@@ -79,7 +79,10 @@ class DashboardScreen extends ConsumerWidget {
                     subtitle: Text(session.brainRot!.interpretationAr),
                     leading: Icon(
                       Icons.psychology_outlined,
-                      color: BrainRotColors.forBand(session.brainRot!.band),
+                      color: BrainRotColors.forBand(
+                        session.brainRot!.band,
+                        Theme.of(context).colorScheme,
+                      ),
                     ),
                   ),
                 ),

@@ -24,9 +24,7 @@ class GamesHubScreen extends ConsumerWidget {
 
     return Scaffold(
       key: gamesHubScreenKey,
-      backgroundColor: const Color(0xFF0D1117),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF0D1117),
         title: Text(loc.gamesHubTitle),
         actions: const [LanguageToggleButton()],
       ),
@@ -119,13 +117,15 @@ class _GameCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Card(
-      color: const Color(0xFF161B22),
+      color: colorScheme.surface,
       child: ListTile(
         title: Text(
           title,
-          style: const TextStyle(
-            color: Color(0xFFE6EDF3),
+          style: TextStyle(
+            color: colorScheme.onSurface,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -133,12 +133,21 @@ class _GameCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 4),
-            Text(subtitle, style: const TextStyle(color: Color(0xFF8B949E))),
+            Text(
+              subtitle,
+              style: TextStyle(color: colorScheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 8),
-            Text(bestLabel, style: const TextStyle(color: Color(0xFF1D9E75))),
+            Text(
+              bestLabel,
+              style: TextStyle(color: colorScheme.primary),
+            ),
           ],
         ),
-        trailing: const Icon(Icons.chevron_right, color: Color(0xFF8B949E)),
+        trailing: Icon(
+          Icons.chevron_right,
+          color: colorScheme.onSurfaceVariant,
+        ),
         onTap: onTap,
       ),
     );

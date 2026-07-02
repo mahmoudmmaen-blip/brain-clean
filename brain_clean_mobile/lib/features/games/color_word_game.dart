@@ -18,12 +18,16 @@ class _ColorInk {
   final Color color;
 }
 
-const _inks = [
-  _ColorInk('أحمر', 'Red', Color(0xFFEF4444)),
-  _ColorInk('أزرق', 'Blue', Color(0xFF3B82F6)),
-  _ColorInk('أخضر', 'Green', Color(0xFF22C55E)),
-  _ColorInk('أصفر', 'Yellow', Color(0xFFEAB308)),
-];
+List<_ColorInk> _inks(ColorScheme cs) => [
+      _ColorInk('أحمر', 'Red', cs.error),
+      _ColorInk('أزرق', 'Blue', Color.lerp(cs.primary, cs.onSurface, 0.35)!),
+      _ColorInk('أخضر', 'Green', cs.primary),
+      _ColorInk(
+        'أصفر',
+        'Yellow',
+        Color.lerp(cs.primary, cs.onSurface, 0.65)!,
+      ),
+    ];
 
 /// Stroop-style color-word game — tap ink color, not the word.
 class ColorWordGameScreen extends ConsumerStatefulWidget {
@@ -35,6 +39,7 @@ class ColorWordGameScreen extends ConsumerStatefulWidget {
 
 class _ColorWordGameScreenState extends ConsumerState<ColorWordGameScreen> {
   static const _totalRounds = 10;
+  static const _inkCount = 4;
   final _random = Random();
 
   int _round = 0;
@@ -50,10 +55,10 @@ class _ColorWordGameScreenState extends ConsumerState<ColorWordGameScreen> {
   }
 
   void _nextRound() {
-    _wordIndex = _random.nextInt(_inks.length);
-    _inkIndex = _random.nextInt(_inks.length);
+    _wordIndex = _random.nextInt(_inkCount);
+    _inkIndex = _random.nextInt(_inkCount);
     while (_inkIndex == _wordIndex) {
-      _inkIndex = _random.nextInt(_inks.length);
+      _inkIndex = _random.nextInt(_inkCount);
     }
   }
 
@@ -86,14 +91,14 @@ class _ColorWordGameScreenState extends ConsumerState<ColorWordGameScreen> {
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final isAr = ref.watch(localeProvider).languageCode == 'ar';
-    final word = _wordIndex != null ? _inks[_wordIndex!] : _inks.first;
-    final ink = _inkIndex != null ? _inks[_inkIndex!] : _inks.first;
+    final colorScheme = Theme.of(context).colorScheme;
+    final inks = _inks(colorScheme);
+    final word = _wordIndex != null ? inks[_wordIndex!] : inks.first;
+    final ink = _inkIndex != null ? inks[_inkIndex!] : inks.first;
     final displayWord = isAr ? word.nameAr : word.nameEn;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF0D1117),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF0D1117),
         title: Text(loc.gameColorWordTitle),
       ),
       body: Padding(
@@ -104,7 +109,7 @@ class _ColorWordGameScreenState extends ConsumerState<ColorWordGameScreen> {
               _finished
                   ? loc.gameFinalScore(((_correct / _totalRounds) * 100).round())
                   : loc.gameRoundLabel(_round + 1, _totalRounds),
-              style: const TextStyle(color: Color(0xFF8B949E)),
+              style: TextStyle(color: colorScheme.onSurfaceVariant),
             ),
             const SizedBox(height: 48),
             if (!_finished)
@@ -120,7 +125,7 @@ class _ColorWordGameScreenState extends ConsumerState<ColorWordGameScreen> {
             if (!_finished)
               Text(
                 loc.gameColorWordPrompt,
-                style: const TextStyle(color: Color(0xFF8B949E)),
+                style: TextStyle(color: colorScheme.onSurfaceVariant),
               ),
             const Spacer(),
             if (!_finished)
@@ -128,13 +133,13 @@ class _ColorWordGameScreenState extends ConsumerState<ColorWordGameScreen> {
                 spacing: 12,
                 runSpacing: 12,
                 alignment: WrapAlignment.center,
-                children: List.generate(_inks.length, (index) {
-                  final c = _inks[index];
+                children: List.generate(inks.length, (index) {
+                  final c = inks[index];
                   final label = isAr ? c.nameAr : c.nameEn;
                   return ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: c.color,
-                      foregroundColor: Colors.white,
+                      foregroundColor: colorScheme.onPrimary,
                       minimumSize: const Size(120, 48),
                     ),
                     onPressed: () => _pickInk(index),

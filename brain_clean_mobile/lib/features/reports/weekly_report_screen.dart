@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/l10n/app_localizations.dart';
 import '../../core/presentation/language_toggle_button.dart';
 import '../../core/providers/locale_provider.dart';
-import '../../core/theme/app_colors.dart';
 import '../diagnostic/presentation/bc_score_provider.dart';
 import '../profile/application/profile_emotions_provider.dart';
 import '../dashboard/data/daily_snapshots_repository.dart';
@@ -28,6 +27,8 @@ class WeeklyReportScreen extends ConsumerWidget {
     final streakDays = ref.watch(homeStreakSnapshotProvider).days;
     final bcs =
         (ref.watch(bcScoreSessionProvider)?.bcScore ?? 0).clamp(0.0, 100.0);
+    final colorScheme = Theme.of(context).colorScheme;
+    final dividerColor = Theme.of(context).dividerColor;
 
     List<double> weekBcs = const [];
     String bestEmotion = isArabic ? '—' : '—';
@@ -61,9 +62,7 @@ class WeeklyReportScreen extends ConsumerWidget {
 
     return Scaffold(
       key: weeklyReportScreenKey,
-      backgroundColor: AppColors.background,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
         title: Text(loc.weeklyReportTitle),
         actions: const [LanguageToggleButton()],
       ),
@@ -73,8 +72,8 @@ class WeeklyReportScreen extends ConsumerWidget {
           Text(
             message,
             key: Key('weekly_report_message'),
-            style: const TextStyle(
-              color: AppColors.primary,
+            style: TextStyle(
+              color: colorScheme.primary,
               fontSize: 22,
               fontWeight: FontWeight.bold,
             ),
@@ -83,8 +82,8 @@ class WeeklyReportScreen extends ConsumerWidget {
           const SizedBox(height: 20),
           Text(
             loc.weeklyReportStreakDays,
-            style: const TextStyle(
-              color: AppColors.textPrimary,
+            style: TextStyle(
+              color: colorScheme.onSurface,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -97,7 +96,7 @@ class WeeklyReportScreen extends ConsumerWidget {
                   margin: const EdgeInsets.symmetric(horizontal: 3),
                   height: 12,
                   decoration: BoxDecoration(
-                    color: active ? AppColors.primary : AppColors.border,
+                    color: active ? colorScheme.primary : dividerColor,
                     borderRadius: BorderRadius.circular(6),
                   ),
                 ),
@@ -132,6 +131,8 @@ class _StatTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Row(
@@ -139,13 +140,13 @@ class _StatTile extends StatelessWidget {
           Expanded(
             child: Text(
               label,
-              style: const TextStyle(color: AppColors.textSecondary),
+              style: TextStyle(color: colorScheme.onSurfaceVariant),
             ),
           ),
           Text(
             value,
-            style: const TextStyle(
-              color: AppColors.textPrimary,
+            style: TextStyle(
+              color: colorScheme.onSurface,
               fontWeight: FontWeight.bold,
               fontSize: 18,
             ),

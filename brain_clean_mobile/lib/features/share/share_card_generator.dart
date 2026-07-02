@@ -9,7 +9,6 @@ import 'package:share_plus/share_plus.dart';
 
 import '../../core/l10n/app_localizations.dart';
 import '../../core/providers/locale_provider.dart';
-import '../../core/theme/app_colors.dart';
 import '../diagnostic/presentation/bc_score_provider.dart';
 import '../gamification/level_system.dart';
 import '../home/presentation/home_streak_provider.dart';
@@ -69,6 +68,8 @@ class ShareCardCapture extends ConsumerWidget {
         (ref.watch(bcScoreSessionProvider)?.bcScore ?? 0).clamp(0.0, 100.0);
     final streak = ref.watch(homeStreakSnapshotProvider).days;
     final level = BrainLevel.forScore(bcs.round());
+    final colorScheme = Theme.of(context).colorScheme;
+    final dividerColor = Theme.of(context).dividerColor;
 
     final card = RepaintBoundary(
       key: shareCardBoundaryKey,
@@ -76,21 +77,24 @@ class ShareCardCapture extends ConsumerWidget {
         width: 400,
         height: 300,
         child: DecoratedBox(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [Color(0xFF0D1117), Color(0xFF161B22)],
+              colors: [
+                Color.lerp(colorScheme.surface, Colors.black, 0.25)!,
+                colorScheme.surface,
+              ],
             ),
           ),
           child: Padding(
             padding: const EdgeInsets.all(24),
             child: Column(
               children: [
-                const Text(
+                Text(
                   '🧠 Brain Clean',
                   style: TextStyle(
-                    color: AppColors.textPrimary,
+                    color: colorScheme.onSurface,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
@@ -98,16 +102,16 @@ class ShareCardCapture extends ConsumerWidget {
                 const Spacer(),
                 Text(
                   '${bcs.round()}',
-                  style: const TextStyle(
-                    color: AppColors.primary,
+                  style: TextStyle(
+                    color: colorScheme.primary,
                     fontSize: 64,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
                 Text(
                   isArabic ? 'مؤشر وضوح الدماغ' : 'Brain Clarity Score',
-                  style: const TextStyle(
-                    color: AppColors.textSecondary,
+                  style: TextStyle(
+                    color: colorScheme.onSurfaceVariant,
                     fontSize: 14,
                   ),
                 ),
@@ -116,22 +120,22 @@ class ShareCardCapture extends ConsumerWidget {
                   isArabic
                       ? '🔥 $streak يوم تركيز متواصل'
                       : '🔥 $streak day focus streak',
-                  style: const TextStyle(
-                    color: AppColors.textPrimary,
+                  style: TextStyle(
+                    color: colorScheme.onSurface,
                     fontSize: 16,
                   ),
                 ),
                 Text(
                   '${level.emoji} ${level.localizedName(isArabic)}',
-                  style: const TextStyle(
-                    color: AppColors.warning,
+                  style: TextStyle(
+                    color: colorScheme.primary,
                     fontSize: 14,
                   ),
                 ),
                 const Spacer(),
-                const Text(
+                Text(
                   'brain-clean.app',
-                  style: TextStyle(color: Color(0xFF30363D), fontSize: 12),
+                  style: TextStyle(color: dividerColor, fontSize: 12),
                 ),
               ],
             ),

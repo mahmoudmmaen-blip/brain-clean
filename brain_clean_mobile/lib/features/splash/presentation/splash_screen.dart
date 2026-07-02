@@ -111,9 +111,10 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final hydration = ref.watch(appHydrationProvider);
+    final colorScheme = Theme.of(context).colorScheme;
+    final dividerColor = Theme.of(context).dividerColor;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF0D1117),
       body: SafeArea(
         child: Column(
           children: [
@@ -132,7 +133,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
                       _typedTitle,
                       style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                             fontWeight: FontWeight.w700,
-                            color: const Color(0xFFE6EDF3),
+                            color: colorScheme.onSurface,
                           ),
                     ),
                     const SizedBox(height: 12),
@@ -141,9 +142,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
                       duration: const Duration(milliseconds: 400),
                       child: Text(
                         loc.splashSubtitle,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 16,
-                          color: Color(0xFF8B949E),
+                          color: colorScheme.onSurfaceVariant,
                         ),
                       ),
                     ),
@@ -152,18 +153,18 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
                       Text(
                         loc.splashHydrationRetry,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(color: Color(0xFF8B949E)),
+                        style: TextStyle(color: colorScheme.onSurfaceVariant),
                       ),
                   ],
                 ),
               ),
             ),
             if (hydration.isLoading)
-              const Padding(
-                padding: EdgeInsets.fromLTRB(32, 0, 32, 32),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(32, 0, 32, 32),
                 child: LinearProgressIndicator(
-                  color: Color(0xFF1D9E75),
-                  backgroundColor: Color(0xFF30363D),
+                  color: colorScheme.primary,
+                  backgroundColor: dividerColor,
                 ),
               ),
           ],

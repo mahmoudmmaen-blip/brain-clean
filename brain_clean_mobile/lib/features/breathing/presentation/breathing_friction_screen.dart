@@ -25,8 +25,6 @@ enum _BreathPhase { inhale, hold, exhale }
 
 class _BreathingFrictionScreenState extends State<BreathingFrictionScreen>
     with TickerProviderStateMixin {
-  static const _bg = Color(0xFF0D1117);
-
   late final int _totalSeconds;
   late final AnimationController _breathController;
   Timer? _countdownTimer;
@@ -102,9 +100,11 @@ class _BreathingFrictionScreenState extends State<BreathingFrictionScreen>
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final progress = 1 - (_remainingSeconds / _totalSeconds);
+    final colorScheme = Theme.of(context).colorScheme;
+    final dividerColor = Theme.of(context).dividerColor;
+    final primary = colorScheme.primary;
 
     return Scaffold(
-      backgroundColor: _bg,
       body: SafeArea(
         child: Column(
           children: [
@@ -118,14 +118,14 @@ class _BreathingFrictionScreenState extends State<BreathingFrictionScreen>
                   height: size,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: const Color(0xFF1D9E75).withValues(alpha: 0.25),
+                    color: primary.withValues(alpha: 0.25),
                     border: Border.all(
-                      color: const Color(0xFF1D9E75),
+                      color: primary,
                       width: 3,
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: const Color(0xFF1D9E75).withValues(alpha: 0.35),
+                        color: primary.withValues(alpha: 0.35),
                         blurRadius: 32,
                         spreadRadius: 4,
                       ),
@@ -137,8 +137,8 @@ class _BreathingFrictionScreenState extends State<BreathingFrictionScreen>
             const SizedBox(height: 40),
             Text(
               _phaseLabel(loc),
-              style: const TextStyle(
-                color: Colors.white,
+              style: TextStyle(
+                color: colorScheme.onSurface,
                 fontSize: 26,
                 fontWeight: FontWeight.w700,
               ),
@@ -154,16 +154,16 @@ class _BreathingFrictionScreenState extends State<BreathingFrictionScreen>
                     child: LinearProgressIndicator(
                       value: progress.clamp(0, 1),
                       minHeight: 6,
-                      backgroundColor: const Color(0xFF30363D),
-                      color: const Color(0xFF1D9E75),
+                      backgroundColor: dividerColor,
+                      color: primary,
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     loc.breathingCountdownSeconds(_remainingSeconds),
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Color(0xFF8B949E),
+                    style: TextStyle(
+                      color: colorScheme.onSurfaceVariant,
                       fontSize: 14,
                     ),
                   ),

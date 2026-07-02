@@ -7,7 +7,6 @@ import '../../core/data/app_meta_box_provider.dart';
 import '../../core/l10n/app_localizations.dart';
 import '../../core/providers/locale_provider.dart';
 import '../../core/services/app_notification_service.dart';
-import '../../core/theme/app_colors.dart';
 import 'application/displayed_xp_provider.dart';
 import 'level_system.dart';
 
@@ -76,6 +75,8 @@ class _LevelProgressWidgetState extends ConsumerState<LevelProgressWidget> {
     final level = BrainLevel.forScore(score);
     final progress = BrainLevel.progressToNext(score);
     final pointsLeft = BrainLevel.pointsToNextLevel(score);
+    final colorScheme = Theme.of(context).colorScheme;
+    final dividerColor = Theme.of(context).dividerColor;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _maybeCelebrateLevelUp(level);
@@ -88,9 +89,9 @@ class _LevelProgressWidgetState extends ConsumerState<LevelProgressWidget> {
           key: levelProgressWidgetKey,
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: AppColors.card,
+            color: colorScheme.surface,
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: AppColors.border),
+            border: Border.all(color: dividerColor),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -102,8 +103,8 @@ class _LevelProgressWidgetState extends ConsumerState<LevelProgressWidget> {
                   Expanded(
                     child: Text(
                       level.localizedName(isArabic),
-                      style: const TextStyle(
-                        color: AppColors.textPrimary,
+                      style: TextStyle(
+                        color: colorScheme.onSurface,
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
@@ -117,15 +118,15 @@ class _LevelProgressWidgetState extends ConsumerState<LevelProgressWidget> {
                 child: LinearProgressIndicator(
                   value: progress,
                   minHeight: 8,
-                  backgroundColor: AppColors.border,
-                  color: AppColors.primary,
+                  backgroundColor: dividerColor,
+                  color: colorScheme.primary,
                 ),
               ),
               const SizedBox(height: 8),
               Text(
                 loc.levelPointsToNext(pointsLeft),
-                style: const TextStyle(
-                  color: AppColors.textSecondary,
+                style: TextStyle(
+                  color: colorScheme.onSurfaceVariant,
                   fontSize: 12,
                 ),
                 textAlign: TextAlign.end,

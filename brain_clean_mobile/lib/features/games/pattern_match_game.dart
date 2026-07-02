@@ -100,15 +100,15 @@ class _PatternMatchGameScreenState
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
+    final dividerColor = Theme.of(context).dividerColor;
     final score = patternMatchScore(
       correctCells: _totalCorrect,
       totalCells: _totalCells > 0 ? _totalCells : 1,
     ).round();
 
     return Scaffold(
-      backgroundColor: const Color(0xFF0D1117),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF0D1117),
         title: Text(loc.gamePatternMatchTitle),
       ),
       body: Padding(
@@ -119,7 +119,10 @@ class _PatternMatchGameScreenState
               _finished
                   ? loc.gameFinalScore(score)
                   : loc.gameRoundLabel(_round + 1, _rounds),
-              style: const TextStyle(color: Color(0xFFE6EDF3), fontSize: 18),
+              style: TextStyle(
+                color: colorScheme.onSurface,
+                fontSize: 18,
+              ),
             ),
             const SizedBox(height: 24),
             AspectRatio(
@@ -141,8 +144,8 @@ class _PatternMatchGameScreenState
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                         color: active
-                            ? const Color(0xFF1D9E75)
-                            : const Color(0xFF30363D),
+                            ? colorScheme.primary
+                            : dividerColor,
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
@@ -155,7 +158,7 @@ class _PatternMatchGameScreenState
               FilledButton(
                 onPressed: _submitRound,
                 style: FilledButton.styleFrom(
-                  backgroundColor: const Color(0xFF1D9E75),
+                  backgroundColor: colorScheme.primary,
                   minimumSize: const Size.fromHeight(48),
                 ),
                 child: Text(loc.gameSubmitRound),
