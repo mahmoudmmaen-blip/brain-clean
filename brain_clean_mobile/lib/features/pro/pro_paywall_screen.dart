@@ -69,6 +69,7 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
     final colorScheme = Theme.of(context).colorScheme;
     final loc = AppLocalizations.of(context)!;
     final isPro = ref.watch(isProUserProvider);
+    ref.watch(subscriptionCatalogVersionProvider);
     final plans = ref.watch(subscriptionServiceProvider).plans;
     _selectedPlanId ??= plans
         .firstWhere(

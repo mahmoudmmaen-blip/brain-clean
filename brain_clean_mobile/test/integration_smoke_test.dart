@@ -22,6 +22,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 
 import 'helpers/diagnostic_provider_overrides.dart';
+import 'helpers/subscription_test_overrides.dart';
 import 'helpers/hive_test_fixtures.dart';
 import 'helpers/localized_test_app.dart';
 
@@ -31,6 +32,7 @@ void main() {
     final metaBox = InMemoryHiveBox();
     final container = ProviderContainer(
       overrides: [
+        localSubscriptionTestOverride(),
         appMetaBoxProvider.overrideWithValue(metaBox),
         appHydrationProvider.overrideWith(_InstantHydration.new),
         homeStreakTickerProvider.overrideWith((ref) => Stream<int>.value(0)),
@@ -146,6 +148,7 @@ void main() {
     final metaBox = InMemoryHiveBox();
     final container = ProviderContainer(
       overrides: [
+        localSubscriptionTestOverride(),
         appMetaBoxProvider.overrideWithValue(metaBox),
         appPreferencesProvider.overrideWith(_FreeUserPreferences.new),
         appHydrationProvider.overrideWith(_InstantHydration.new),

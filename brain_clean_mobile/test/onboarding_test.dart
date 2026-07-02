@@ -15,6 +15,7 @@ import 'package:brain_clean_mobile/features/recovery/data/recovery_protocol_hive
 import 'package:brain_clean_mobile/features/recovery/data/recovery_protocol_storage_provider.dart';
 import 'package:brain_clean_mobile/features/home/presentation/home_streak_provider.dart';
 import 'helpers/diagnostic_provider_overrides.dart';
+import 'helpers/subscription_test_overrides.dart';
 import 'helpers/hive_test_fixtures.dart';
 
 void main() {
@@ -23,6 +24,7 @@ void main() {
     final metaBox = InMemoryHiveBox();
     final container = ProviderContainer(
       overrides: [
+        localSubscriptionTestOverride(),
         appMetaBoxProvider.overrideWithValue(metaBox),
         appPreferencesProvider.overrideWith(_NeverSeenOnboarding.new),
         homeStreakTickerProvider.overrideWith((ref) => Stream<int>.value(0)),
@@ -78,6 +80,7 @@ void main() {
     final metaBox = InMemoryHiveBox();
     final container = ProviderContainer(
       overrides: [
+        localSubscriptionTestOverride(),
         appMetaBoxProvider.overrideWithValue(metaBox),
         appPreferencesProvider.overrideWith(_FreeUserPreferences.new),
         homeStreakTickerProvider.overrideWith((ref) => Stream<int>.value(0)),
