@@ -25,8 +25,6 @@ class DelayedGratificationScreen extends ConsumerStatefulWidget {
 
 class _DelayedGratificationScreenState
     extends ConsumerState<DelayedGratificationScreen> {
-  static const _bg = Color(0xFF0D1117);
-
   StreamSubscription<int>? _ticker;
   int _remainingSeconds = DelayedGratificationScreen.totalSeconds;
   bool _completed = false;
@@ -57,24 +55,25 @@ class _DelayedGratificationScreenState
 
   Future<bool> _confirmAbandon() async {
     final loc = AppLocalizations.of(context)!;
+    final cs = Theme.of(context).colorScheme;
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        backgroundColor: const Color(0xFF161B22),
+        backgroundColor: cs.surface,
         title: Text(
           loc.delayedGratGiveUpTitle,
-          style: const TextStyle(color: Color(0xFFE6EDF3)),
+          style: TextStyle(color: cs.onSurface),
         ),
         content: Text(
           loc.delayedGratGiveUpBody,
-          style: const TextStyle(color: Color(0xFF8B949E)),
+          style: TextStyle(color: cs.onSurfaceVariant),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
             child: Text(
               loc.commonCancel,
-              style: const TextStyle(color: Color(0xFF8B949E)),
+              style: TextStyle(color: cs.onSurfaceVariant),
             ),
           ),
           TextButton(
@@ -102,18 +101,19 @@ class _DelayedGratificationScreenState
 
     if (!mounted) return;
     final loc = AppLocalizations.of(context)!;
+    final cs = Theme.of(context).colorScheme;
     await showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (ctx) => AlertDialog(
-        backgroundColor: const Color(0xFF161B22),
+        backgroundColor: cs.surface,
         title: Text(
           loc.delayedGratVictoryTitle,
-          style: const TextStyle(color: Color(0xFFE6EDF3)),
+          style: TextStyle(color: cs.onSurface),
         ),
         content: Text(
           loc.delayedGratVictoryBody,
-          style: const TextStyle(color: Color(0xFF8B949E)),
+          style: TextStyle(color: cs.onSurfaceVariant),
         ),
         actions: [
           TextButton(
@@ -148,6 +148,7 @@ class _DelayedGratificationScreenState
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final cs = Theme.of(context).colorScheme;
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) async {
@@ -156,11 +157,9 @@ class _DelayedGratificationScreenState
         if (abandon && context.mounted) context.pop();
       },
       child: Scaffold(
-        backgroundColor: _bg,
         appBar: AppBar(
-          backgroundColor: _bg,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Color(0xFF8B949E)),
+            icon: Icon(Icons.arrow_back, color: cs.onSurfaceVariant),
             onPressed: () async {
               final abandon = await _confirmAbandon();
               if (abandon && context.mounted) context.pop();
@@ -175,24 +174,24 @@ class _DelayedGratificationScreenState
                 Text(
                   loc.delayedGratTitle,
                   key: delayedGratificationTitleKey,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFFE6EDF3),
+                    color: cs.onSurface,
                   ),
                 ),
                 const SizedBox(height: 8),
                 Text(
                   loc.delayedGratSubtitle,
-                  style: TextStyle(fontSize: 14, color: Color(0xFF8B949E)),
+                  style: TextStyle(fontSize: 14, color: cs.onSurfaceVariant),
                 ),
                 const Spacer(),
                 Text(
                   _countdownText,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 64,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFFF59E0B),
+                    color: cs.primary,
                   ),
                 ),
                 const SizedBox(height: 32),
@@ -201,18 +200,18 @@ class _DelayedGratificationScreenState
                   child: LinearProgressIndicator(
                     value: _progress.clamp(0, 1),
                     minHeight: 6,
-                    backgroundColor: const Color(0xFF161B22),
-                    color: const Color(0xFFF59E0B),
+                    backgroundColor: cs.surface,
+                    color: cs.primary,
                   ),
                 ),
                 const Spacer(),
                 Text(
                   _quoteForElapsed(loc),
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 18,
                     fontStyle: FontStyle.italic,
-                    color: Color(0xFFE6EDF3),
+                    color: cs.onSurface,
                   ),
                 ),
               ],

@@ -26,21 +26,22 @@ class VisualCognitiveTestScreen extends ConsumerStatefulWidget {
 class _VisualCognitiveTestScreenState
     extends ConsumerState<VisualCognitiveTestScreen> {
   static const _rounds = CognitiveTestScorer.visualDefaultRounds;
-  static const _palette = [
-    Color(0xFF1D9E75),
-    Color(0xFF3B82F6),
-    Color(0xFFF59E0B),
-    Color(0xFF8B5CF6),
-    Color(0xFFEF4444),
-  ];
+
+  List<Color> _palette(ColorScheme cs) => [
+        cs.primary,
+        cs.error,
+        Color.lerp(cs.primary, cs.error, 0.5)!,
+        Color.lerp(cs.primary, cs.onSurface, 0.35)!,
+        cs.onSurfaceVariant,
+      ];
 
   final _random = Random();
   _VisualPhase _phase = _VisualPhase.intro;
   int _round = 1;
   int _totalPoints = 0;
   int _targetIndex = 0;
-  Color _baseColor = _palette.first;
-  Color _oddColor = _palette.first;
+  Color _baseColor = Colors.transparent;
+  Color _oddColor = Colors.transparent;
   bool _useShapeOddity = false;
   DateTime? _roundStartedAt;
   Timer? _roundTimer;
@@ -73,7 +74,8 @@ class _VisualCognitiveTestScreenState
   void _startRound() {
     _roundResolved = false;
     _feedbackKey = null;
-    _baseColor = _palette[_random.nextInt(_palette.length)];
+    final palette = _palette(Theme.of(context).colorScheme);
+    _baseColor = palette[_random.nextInt(palette.length)];
     _targetIndex = _random.nextInt(9);
     _useShapeOddity = _round >= 7;
     final subtle = _round >= 4 && _round < 7;
@@ -146,11 +148,10 @@ class _VisualCognitiveTestScreenState
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final cs = Theme.of(context).colorScheme;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF0D1117),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF0D1117),
         title: Text(loc.cognitiveVisualTestTitle),
       ),
       body: SafeArea(
@@ -169,7 +170,7 @@ class _VisualCognitiveTestScreenState
                 style: AppDesignConstants.cairo(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
-                  color: const Color(0xFFE6EDF3),
+                  color: cs.onSurface,
                 ),
               ),
               if (_phase == _VisualPhase.playing) ...[
@@ -180,7 +181,7 @@ class _VisualCognitiveTestScreenState
                   style: AppDesignConstants.cairo(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
-                    color: const Color(0xFF8B949E),
+                    color: cs.onSurfaceVariant,
                   ),
                 ),
                 if (_feedbackKey != null)
@@ -192,7 +193,7 @@ class _VisualCognitiveTestScreenState
                       style: AppDesignConstants.cairo(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
-                        color: const Color(0xFF22D3EE),
+                        color: cs.primary,
                       ),
                     ),
                   ),
@@ -233,6 +234,7 @@ class _VisualCognitiveTestScreenState
   }
 
   Widget _buildGrid() {
+    final dividerColor = Theme.of(context).dividerColor;
     return GridView.builder(
       key: cognitiveVisualGridKey,
       shrinkWrap: true,
@@ -258,7 +260,7 @@ class _VisualCognitiveTestScreenState
                 color: fill,
                 shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
                 borderRadius: isCircle ? null : BorderRadius.circular(8),
-                border: Border.all(color: const Color(0xFF30363D)),
+                border: Border.all(color: dividerColor),
               ),
             ),
           ),
@@ -282,6 +284,7 @@ class _VisualResultPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final cs = Theme.of(context).colorScheme;
     final maxPts =
         CognitiveTestScorer.visualDefaultRounds *
         CognitiveTestScorer.visualMaxPointsPerRound;
@@ -294,7 +297,7 @@ class _VisualResultPanel extends StatelessWidget {
           style: AppDesignConstants.cairo(
             fontSize: 22,
             fontWeight: FontWeight.w700,
-            color: const Color(0xFF3B82F6),
+            color: cs.primary,
           ),
         ),
         const SizedBox(height: 24),

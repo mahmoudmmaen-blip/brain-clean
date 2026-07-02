@@ -39,10 +39,11 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
     if (!mounted) return;
     setState(() => _busy = false);
     if (!ok) return;
+    final colorScheme = Theme.of(context).colorScheme;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(loc.proWelcomeSnack),
-        backgroundColor: const Color(0xFF1D9E75),
+        backgroundColor: colorScheme.primary,
       ),
     );
     if (mounted) context.pop();
@@ -65,6 +66,7 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     final loc = AppLocalizations.of(context)!;
     final isPro = ref.watch(isProUserProvider);
     final plans = ref.watch(subscriptionServiceProvider).plans;
@@ -87,11 +89,14 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
     return Scaffold(
       key: proPaywallKey,
       body: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Color(0xFF0D1117), Color(0xFF161B22)],
+            colors: [
+              Theme.of(context).scaffoldBackgroundColor,
+              colorScheme.surface,
+            ],
           ),
         ),
         child: SafeArea(
@@ -101,30 +106,30 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: IconButton(
-                  icon: const Icon(Icons.close, color: Color(0xFF8B949E)),
+                  icon: Icon(Icons.close, color: colorScheme.onSurfaceVariant),
                   onPressed: () => context.pop(),
                 ),
               ),
-              const Icon(
+              Icon(
                 Icons.workspace_premium,
                 size: 64,
-                color: Color(0xFFF59E0B),
+                color: colorScheme.primary,
               ),
               const SizedBox(height: 16),
               Text(
                 loc.proPaywallTitle,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFFE6EDF3),
+                  color: colorScheme.onSurface,
                 ),
               ),
               const SizedBox(height: 8),
               Text(
                 isPro ? loc.proAlreadyProBody : loc.proPaywallSubtitle,
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 16, color: Color(0xFF8B949E)),
+                style: TextStyle(fontSize: 16, color: colorScheme.onSurfaceVariant),
               ),
               const SizedBox(height: 32),
               ...features.map(
@@ -132,13 +137,13 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
                   padding: const EdgeInsets.only(bottom: 12),
                   child: Row(
                     children: [
-                      const Icon(Icons.check_circle,
-                          color: Color(0xFF1D9E75), size: 22),
+                      Icon(Icons.check_circle,
+                          color: colorScheme.primary, size: 22),
                       const SizedBox(width: 12),
                       Expanded(
                         child: Text(f,
-                            style: const TextStyle(
-                                color: Color(0xFFE6EDF3), fontSize: 15)),
+                            style: TextStyle(
+                                color: colorScheme.onSurface, fontSize: 15)),
                       ),
                     ],
                   ),
@@ -149,19 +154,18 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
                 Container(
                   padding: const EdgeInsets.all(24),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF161B22),
+                    color: colorScheme.surface,
                     borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: const Color(0xFF1D9E75)),
+                    border: Border.all(color: colorScheme.primary),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(Icons.check_circle,
-                          color: Color(0xFF1D9E75)),
+                      Icon(Icons.check_circle, color: colorScheme.primary),
                       const SizedBox(width: 8),
                       Text(loc.proAlreadyProTitle,
-                          style: const TextStyle(
-                              color: Color(0xFFE6EDF3),
+                          style: TextStyle(
+                              color: colorScheme.onSurface,
                               fontWeight: FontWeight.bold,
                               fontSize: 16)),
                     ],
@@ -182,11 +186,11 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 16, vertical: 14),
                         decoration: BoxDecoration(
-                          color: const Color(0xFF161B22),
+                          color: colorScheme.surface,
                           borderRadius: BorderRadius.circular(14),
                           border: Border.all(
                             color: selected
-                                ? const Color(0xFF1D9E75)
+                                ? colorScheme.primary
                                 : Colors.transparent,
                             width: 2,
                           ),
@@ -198,16 +202,16 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
                                   ? Icons.radio_button_checked
                                   : Icons.radio_button_unchecked,
                               color: selected
-                                  ? const Color(0xFF1D9E75)
-                                  : const Color(0xFF8B949E),
+                                  ? colorScheme.primary
+                                  : colorScheme.onSurfaceVariant,
                             ),
                             const SizedBox(width: 12),
                             Expanded(
                               child: Row(
                                 children: [
                                   Text(_planTitle(loc, plan.period),
-                                      style: const TextStyle(
-                                          color: Color(0xFFE6EDF3),
+                                      style: TextStyle(
+                                          color: colorScheme.onSurface,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16)),
                                   if (isBestValue) ...[
@@ -216,13 +220,13 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 8, vertical: 2),
                                       decoration: BoxDecoration(
-                                        color: const Color(0xFFF59E0B),
+                                        color: colorScheme.primary,
                                         borderRadius:
                                             BorderRadius.circular(10),
                                       ),
                                       child: Text(loc.proBestValueBadge,
-                                          style: const TextStyle(
-                                              color: Colors.white,
+                                          style: TextStyle(
+                                              color: colorScheme.onPrimary,
                                               fontSize: 11,
                                               fontWeight:
                                                   FontWeight.bold)),
@@ -232,8 +236,8 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
                               ),
                             ),
                             Text(plan.priceString,
-                                style: const TextStyle(
-                                    color: Color(0xFFE6EDF3),
+                                style: TextStyle(
+                                    color: colorScheme.onSurface,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16)),
                           ],
@@ -246,8 +250,12 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
                 DecoratedBox(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(14),
-                    gradient: const LinearGradient(
-                        colors: [Color(0xFF1D9E75), Color(0xFF0F7A5A)]),
+                    gradient: LinearGradient(
+                      colors: [
+                        colorScheme.primary,
+                        Color.lerp(colorScheme.primary, Colors.black, 0.35)!,
+                      ],
+                    ),
                   ),
                   child: ElevatedButton(
                     key: proSubscribeKey,
@@ -263,10 +271,10 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
                           borderRadius: BorderRadius.circular(14)),
                     ),
                     child: Text(loc.proSubscribeNow,
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white)),
+                            color: colorScheme.onPrimary)),
                   ),
                 ),
               ],
@@ -275,7 +283,7 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
                 key: proRestoreKey,
                 onPressed: _busy ? null : _restore,
                 child: Text(loc.proRestorePurchase,
-                    style: const TextStyle(color: Color(0xFF8B949E))),
+                    style: TextStyle(color: colorScheme.onSurfaceVariant)),
               ),
             ],
           ),

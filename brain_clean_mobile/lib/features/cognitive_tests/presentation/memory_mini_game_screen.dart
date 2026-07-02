@@ -25,14 +25,15 @@ class MemoryMiniGameScreen extends ConsumerStatefulWidget {
 
 class _MemoryMiniGameScreenState extends ConsumerState<MemoryMiniGameScreen> {
   static const _gridSize = 9;
-  static const _cellColors = [
-    Color(0xFF1D9E75),
-    Color(0xFF3B82F6),
-    Color(0xFFF59E0B),
-    Color(0xFF8B5CF6),
-    Color(0xFFEF4444),
-    Color(0xFF06B6D4),
-  ];
+
+  List<Color> _palette(ColorScheme cs) => [
+        cs.primary,
+        cs.error,
+        Color.lerp(cs.primary, cs.error, 0.5)!,
+        Color.lerp(cs.primary, cs.onSurface, 0.35)!,
+        cs.onSurfaceVariant,
+        Color.lerp(cs.error, cs.primary, 0.25)!,
+      ];
 
   final _random = Random();
   _MemoryPhase _phase = _MemoryPhase.intro;
@@ -140,11 +141,10 @@ class _MemoryMiniGameScreenState extends ConsumerState<MemoryMiniGameScreen> {
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final cs = Theme.of(context).colorScheme;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF0D1117),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF0D1117),
         title: Text(loc.cognitiveMemoryGameTitle),
       ),
       body: SafeArea(
@@ -165,7 +165,7 @@ class _MemoryMiniGameScreenState extends ConsumerState<MemoryMiniGameScreen> {
                 style: AppDesignConstants.cairo(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
-                  color: const Color(0xFFE6EDF3),
+                  color: cs.onSurface,
                 ),
               ),
               if (_phase != _MemoryPhase.intro && _phase != _MemoryPhase.finished)
@@ -177,7 +177,7 @@ class _MemoryMiniGameScreenState extends ConsumerState<MemoryMiniGameScreen> {
                     style: AppDesignConstants.cairo(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
-                      color: const Color(0xFF8B949E),
+                      color: cs.onSurfaceVariant,
                     ),
                   ),
                 ),
@@ -190,7 +190,7 @@ class _MemoryMiniGameScreenState extends ConsumerState<MemoryMiniGameScreen> {
                     style: AppDesignConstants.cairo(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
-                      color: const Color(0xFFEF4444),
+                      color: cs.error,
                     ),
                   ),
                 ),
@@ -230,6 +230,9 @@ class _MemoryMiniGameScreenState extends ConsumerState<MemoryMiniGameScreen> {
   }
 
   Widget _buildGrid() {
+    final cs = Theme.of(context).colorScheme;
+    final dividerColor = Theme.of(context).dividerColor;
+    final cellColors = _palette(cs);
     return GridView.builder(
       key: memoryMiniGridKey,
       shrinkWrap: true,
@@ -243,14 +246,14 @@ class _MemoryMiniGameScreenState extends ConsumerState<MemoryMiniGameScreen> {
       itemBuilder: (context, index) {
         final highlighted = _showIndex == index ||
             (_phase == _MemoryPhase.input && _lastTapped == index);
-        final color = _cellColors[index % _cellColors.length];
+        final color = cellColors[index % cellColors.length];
         return AnimatedContainer(
           duration: const Duration(milliseconds: 150),
           decoration: BoxDecoration(
             color: highlighted ? color : color.withValues(alpha: 0.25),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: highlighted ? Colors.white : const Color(0xFF30363D),
+              color: highlighted ? cs.onPrimary : dividerColor,
               width: highlighted ? 2 : 1,
             ),
           ),
@@ -281,6 +284,7 @@ class _ResultPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final cs = Theme.of(context).colorScheme;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -290,7 +294,7 @@ class _ResultPanel extends StatelessWidget {
           style: AppDesignConstants.cairo(
             fontSize: 22,
             fontWeight: FontWeight.w700,
-            color: const Color(0xFF1D9E75),
+            color: cs.primary,
           ),
         ),
         const SizedBox(height: 24),

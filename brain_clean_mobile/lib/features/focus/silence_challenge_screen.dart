@@ -37,8 +37,6 @@ class SilenceChallengeScreen extends ConsumerStatefulWidget {
 
 class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
     with WidgetsBindingObserver {
-  static const _bg = Color(0xFF0D1117);
-
   late final int _level;
   late final int _targetMinutes;
   late final int _totalSeconds;
@@ -108,18 +106,19 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
   Future<void> _showFailDialog() async {
     if (!mounted) return;
     final loc = AppLocalizations.of(context)!;
+    final cs = Theme.of(context).colorScheme;
     await showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (ctx) => AlertDialog(
-        backgroundColor: const Color(0xFF161B22),
+        backgroundColor: cs.surface,
         title: Text(
           loc.silenceChallengeFailedTitle,
-          style: const TextStyle(color: Color(0xFFE6EDF3)),
+          style: TextStyle(color: cs.onSurface),
         ),
         content: Text(
           loc.silenceChallengeFailedBody,
-          style: const TextStyle(color: Color(0xFF8B949E)),
+          style: TextStyle(color: cs.onSurfaceVariant),
         ),
         actions: [
           TextButton(
@@ -137,18 +136,19 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
   Future<void> _showSuccessDialog() async {
     if (!mounted) return;
     final loc = AppLocalizations.of(context)!;
+    final cs = Theme.of(context).colorScheme;
     await showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (ctx) => AlertDialog(
-        backgroundColor: const Color(0xFF161B22),
+        backgroundColor: cs.surface,
         title: Text(
           loc.silenceChallengeSuccessTitle,
-          style: const TextStyle(color: Color(0xFFE6EDF3)),
+          style: TextStyle(color: cs.onSurface),
         ),
         content: Text(
           loc.silenceChallengeSuccessBody,
-          style: const TextStyle(color: Color(0xFF8B949E)),
+          style: TextStyle(color: cs.onSurfaceVariant),
         ),
         actions: [
           TextButton(
@@ -193,13 +193,14 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final cs = Theme.of(context).colorScheme;
+    final dividerColor = Theme.of(context).dividerColor;
     return GestureDetector(
       onTap: _onFail,
       onPanStart: (_) => _onFail(),
       onLongPress: _onFail,
       behavior: HitTestBehavior.opaque,
       child: Scaffold(
-        backgroundColor: _bg,
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(24),
@@ -211,18 +212,18 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
                 ),
                 Text(
                   loc.silenceChallengeTitle,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFFE6EDF3),
+                    color: cs.onSurface,
                   ),
                 ),
                 const SizedBox(height: 8),
                 Text(
                   loc.silenceChallengeSubtitle(_targetMinutes),
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 14,
-                    color: Color(0xFF8B949E),
+                    color: cs.onSurfaceVariant,
                   ),
                 ),
                 const Spacer(),
@@ -234,15 +235,19 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
                     children: [
                       CustomPaint(
                         size: const Size(220, 220),
-                        painter: _SilenceRingPainter(progress: _progress),
+                        painter: _SilenceRingPainter(
+                          progress: _progress,
+                          trackColor: dividerColor,
+                          progressColor: cs.primary,
+                        ),
                       ),
                       Text(
                         _countdownText,
                         key: silenceCountdownKey,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 64,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF1D9E75),
+                          color: cs.primary,
                         ),
                       ),
                     ],
@@ -252,9 +257,9 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
                 Text(
                   loc.silenceChallengeLevel(_level, _targetMinutes),
                   key: silenceLevelLabelKey,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
-                    color: Color(0xFF8B949E),
+                    color: cs.onSurfaceVariant,
                   ),
                 ),
               ],
@@ -267,9 +272,15 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
 }
 
 class _SilenceRingPainter extends CustomPainter {
-  _SilenceRingPainter({required this.progress});
+  _SilenceRingPainter({
+    required this.progress,
+    required this.trackColor,
+    required this.progressColor,
+  });
 
   final double progress;
+  final Color trackColor;
+  final Color progressColor;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -278,13 +289,13 @@ class _SilenceRingPainter extends CustomPainter {
     const stroke = 4.0;
 
     final track = Paint()
-      ..color = const Color(0xFF30363D)
+      ..color = trackColor
       ..style = PaintingStyle.stroke
       ..strokeWidth = stroke;
     canvas.drawCircle(center, radius, track);
 
     final arc = Paint()
-      ..color = const Color(0xFF1D9E75)
+      ..color = progressColor
       ..style = PaintingStyle.stroke
       ..strokeWidth = stroke
       ..strokeCap = StrokeCap.round;
@@ -299,5 +310,7 @@ class _SilenceRingPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_SilenceRingPainter oldDelegate) =>
-      oldDelegate.progress != progress;
+      oldDelegate.progress != progress ||
+      oldDelegate.trackColor != trackColor ||
+      oldDelegate.progressColor != progressColor;
 }

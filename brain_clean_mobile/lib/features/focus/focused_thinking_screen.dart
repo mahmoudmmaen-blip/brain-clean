@@ -162,9 +162,7 @@ class _FocusedThinkingScreenState extends ConsumerState<FocusedThinkingScreen> {
 
     return Scaffold(
       key: focusedThinkingScreenKey,
-      backgroundColor: const Color(0xFF0D1117),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF0D1117),
         title: Text(loc.focusedThinkingTitle),
         actions: const [LanguageToggleButton()],
       ),
@@ -225,6 +223,7 @@ class _SelectionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     final topics = suggestedTopicsForLocale(isAr);
     final customHint = topics.last;
 
@@ -233,7 +232,7 @@ class _SelectionView extends StatelessWidget {
       children: [
         Text(
           loc.focusedThinkingSubtitle,
-          style: const TextStyle(color: Color(0xFF8B949E), fontSize: 16),
+          style: TextStyle(color: colorScheme.onSurfaceVariant, fontSize: 16),
         ),
         const SizedBox(height: 20),
         Wrap(
@@ -241,13 +240,16 @@ class _SelectionView extends StatelessWidget {
           runSpacing: 8,
           children: topics.map((t) {
             final isCustom = t == customHint;
+            final selected = !isCustom && topic == t;
             return ChoiceChip(
               label: Text(t),
-              selected: !isCustom && topic == t,
-              selectedColor: const Color(0xFF1D9E75),
-              backgroundColor: const Color(0xFF161B22),
+              selected: selected,
+              selectedColor: colorScheme.primary,
+              backgroundColor: colorScheme.surface,
               labelStyle: TextStyle(
-                color: topic == t ? Colors.white : const Color(0xFF8B949E),
+                color: selected
+                    ? colorScheme.onPrimary
+                    : colorScheme.onSurfaceVariant,
               ),
               onSelected: (_) {
                 if (isCustom) return;
@@ -259,12 +261,12 @@ class _SelectionView extends StatelessWidget {
         const SizedBox(height: 16),
         TextField(
           onChanged: onTopicChanged,
-          style: const TextStyle(color: Color(0xFFE6EDF3)),
+          style: TextStyle(color: colorScheme.onSurface),
           decoration: InputDecoration(
             hintText: customHint,
-            hintStyle: const TextStyle(color: Color(0xFF8B949E)),
+            hintStyle: TextStyle(color: colorScheme.onSurfaceVariant),
             filled: true,
-            fillColor: const Color(0xFF161B22),
+            fillColor: colorScheme.surface,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide.none,
@@ -274,8 +276,8 @@ class _SelectionView extends StatelessWidget {
         const SizedBox(height: 24),
         Text(
           loc.focusedThinkingDurationLabel,
-          style: const TextStyle(
-            color: Color(0xFFE6EDF3),
+          style: TextStyle(
+            color: colorScheme.onSurface,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -289,8 +291,8 @@ class _SelectionView extends StatelessWidget {
                 child: ChoiceChip(
                   label: Center(child: Text('$m')),
                   selected: selected,
-                  selectedColor: const Color(0xFF1D9E75),
-                  backgroundColor: const Color(0xFF161B22),
+                  selectedColor: colorScheme.primary,
+                  backgroundColor: colorScheme.surface,
                   onSelected: (_) => onDuration(m),
                 ),
               ),
@@ -301,7 +303,7 @@ class _SelectionView extends StatelessWidget {
         FilledButton(
           onPressed: topic.trim().isEmpty ? null : onStart,
           style: FilledButton.styleFrom(
-            backgroundColor: const Color(0xFF1D9E75),
+            backgroundColor: colorScheme.primary,
             minimumSize: const Size.fromHeight(52),
           ),
           child: Text(loc.focusedThinkingStart),
@@ -334,6 +336,7 @@ class _ActiveView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Stack(
       children: [
         Padding(
@@ -344,14 +347,14 @@ class _ActiveView extends StatelessWidget {
                 width: double.infinity,
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF161B22),
+                  color: colorScheme.surface,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
                   topic,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Color(0xFF1D9E75),
+                  style: TextStyle(
+                    color: colorScheme.primary,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
@@ -360,11 +363,11 @@ class _ActiveView extends StatelessWidget {
               const SizedBox(height: 40),
               Text(
                 timeLabel,
-                style: const TextStyle(
-                  color: Color(0xFFE6EDF3),
+                style: TextStyle(
+                  color: colorScheme.onSurface,
                   fontSize: 56,
                   fontWeight: FontWeight.bold,
-                  fontFeatures: [FontFeature.tabularFigures()],
+                  fontFeatures: const [FontFeature.tabularFigures()],
                 ),
               ),
               const SizedBox(height: 32),
@@ -372,25 +375,25 @@ class _ActiveView extends StatelessWidget {
                 width: double.infinity,
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF161B22),
+                  color: colorScheme.surface,
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: const Color(0xFF30363D)),
+                  border: Border.all(color: Theme.of(context).dividerColor),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       loc.focusedThinkingGuideTitle,
-                      style: const TextStyle(
-                        color: Color(0xFF8B949E),
+                      style: TextStyle(
+                        color: colorScheme.onSurfaceVariant,
                         fontSize: 12,
                       ),
                     ),
                     const SizedBox(height: 8),
                     Text(
                       prompt,
-                      style: const TextStyle(
-                        color: Color(0xFFE6EDF3),
+                      style: TextStyle(
+                        color: colorScheme.onSurface,
                         fontSize: 16,
                         fontStyle: FontStyle.italic,
                       ),
@@ -407,7 +410,7 @@ class _ActiveView extends StatelessWidget {
             left: 16,
             right: 16,
             child: Material(
-              color: const Color(0xFF161B22),
+              color: colorScheme.surface,
               borderRadius: BorderRadius.circular(8),
               elevation: 4,
               child: Padding(
@@ -419,8 +422,8 @@ class _ActiveView extends StatelessWidget {
                         isAr
                             ? 'هل لا تزال تفكر في $topic؟'
                             : loc.focusedThinkingStillThinking(topic),
-                        style: const TextStyle(
-                          color: Color(0xFFE6EDF3),
+                        style: TextStyle(
+                          color: colorScheme.onSurface,
                           fontSize: 13,
                         ),
                       ),
@@ -433,7 +436,7 @@ class _ActiveView extends StatelessWidget {
                       onPressed: onNo,
                       child: Text(
                         isAr ? 'شردت ✗' : loc.focusedThinkingNo,
-                        style: const TextStyle(color: Color(0xFFEF4444)),
+                        style: TextStyle(color: colorScheme.error),
                       ),
                     ),
                   ],
@@ -471,14 +474,15 @@ class _CompleteView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return ListView(
       padding: const EdgeInsets.all(24),
       children: [
         Text(
           topic,
           textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: Color(0xFF1D9E75),
+          style: TextStyle(
+            color: colorScheme.primary,
             fontSize: 22,
             fontWeight: FontWeight.bold,
           ),
@@ -489,30 +493,30 @@ class _CompleteView extends StatelessWidget {
               ? '$focusPercent% من الوقت كنت مركزاً'
               : loc.focusedThinkingFocusScore(focusPercent),
           textAlign: TextAlign.center,
-          style: const TextStyle(color: Color(0xFFE6EDF3), fontSize: 18),
+          style: TextStyle(color: colorScheme.onSurface, fontSize: 18),
         ),
         const SizedBox(height: 12),
         Text(
           loc.focusedThinkingDistractions(distractions),
           textAlign: TextAlign.center,
-          style: const TextStyle(color: Color(0xFF8B949E)),
+          style: TextStyle(color: colorScheme.onSurfaceVariant),
         ),
         const SizedBox(height: 8),
         Text(
           loc.focusedThinkingInsightsSaved(insightsCount),
           textAlign: TextAlign.center,
-          style: const TextStyle(color: Color(0xFF8B949E)),
+          style: TextStyle(color: colorScheme.onSurfaceVariant),
         ),
         const SizedBox(height: 24),
         TextField(
           controller: insightController,
           maxLines: 4,
-          style: const TextStyle(color: Color(0xFFE6EDF3)),
+          style: TextStyle(color: colorScheme.onSurface),
           decoration: InputDecoration(
             hintText: loc.focusedThinkingInsightsHint,
-            hintStyle: const TextStyle(color: Color(0xFF8B949E)),
+            hintStyle: TextStyle(color: colorScheme.onSurfaceVariant),
             filled: true,
-            fillColor: const Color(0xFF161B22),
+            fillColor: colorScheme.surface,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide.none,
@@ -528,7 +532,7 @@ class _CompleteView extends StatelessWidget {
         FilledButton(
           onPressed: onDone,
           style: FilledButton.styleFrom(
-            backgroundColor: const Color(0xFF1D9E75),
+            backgroundColor: colorScheme.primary,
             minimumSize: const Size.fromHeight(48),
           ),
           child: Text(loc.commonOk),

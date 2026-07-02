@@ -22,7 +22,6 @@ class SingleTaskScreen extends ConsumerStatefulWidget {
 }
 
 class _SingleTaskScreenState extends ConsumerState<SingleTaskScreen> {
-  static const _bg = Color(0xFF0D1117);
   final _controller = TextEditingController();
 
   @override
@@ -45,36 +44,40 @@ class _SingleTaskScreenState extends ConsumerState<SingleTaskScreen> {
     final loc = AppLocalizations.of(context)!;
     final confirmed = await showDialog<bool>(
       context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: const Color(0xFF161B22),
-        title: Text(
-          loc.singleTaskPauseTitle,
-          style: const TextStyle(color: Color(0xFFE6EDF3)),
-        ),
-        content: Text(
-          loc.singleTaskPauseBody,
-          style: const TextStyle(color: Color(0xFF8B949E)),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(false),
-            child: Text(
-              loc.commonCancel,
-              style: const TextStyle(color: Color(0xFF8B949E)),
+      builder: (ctx) {
+        final colorScheme = Theme.of(ctx).colorScheme;
+        return AlertDialog(
+          backgroundColor: colorScheme.surface,
+          title: Text(
+            loc.singleTaskPauseTitle,
+            style: TextStyle(color: colorScheme.onSurface),
+          ),
+          content: Text(
+            loc.singleTaskPauseBody,
+            style: TextStyle(color: colorScheme.onSurfaceVariant),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(false),
+              child: Text(
+                loc.commonCancel,
+                style: TextStyle(color: colorScheme.onSurfaceVariant),
+              ),
             ),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(true),
-            child: Text(loc.commonConfirm),
-          ),
-        ],
-      ),
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(true),
+              child: Text(loc.commonConfirm),
+            ),
+          ],
+        );
+      },
     );
     if (confirmed == true && mounted) {
       final abandoned =
           ref.read(singleTaskControllerProvider.notifier).abandonTask();
       if (abandoned) {
         final isAr = ref.read(localeProvider).languageCode == 'ar';
+        final colorScheme = Theme.of(context).colorScheme;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
@@ -82,7 +85,7 @@ class _SingleTaskScreenState extends ConsumerState<SingleTaskScreen> {
                   ? 'المهمة غير المكتملة تضعف التركيز قليلاً'
                   : loc.singleTaskAbandonSnack,
             ),
-            backgroundColor: const Color(0xFFDA3633),
+            backgroundColor: colorScheme.error,
           ),
         );
       }
@@ -91,6 +94,7 @@ class _SingleTaskScreenState extends ConsumerState<SingleTaskScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     final loc = AppLocalizations.of(context)!;
     final isAr = ref.read(localeProvider).languageCode == 'ar';
     final taskState = ref.watch(singleTaskControllerProvider);
@@ -99,15 +103,13 @@ class _SingleTaskScreenState extends ConsumerState<SingleTaskScreen> {
     return PopScope(
       canPop: !taskState.isLocked,
       child: Scaffold(
-        backgroundColor: _bg,
         appBar: AppBar(
-          backgroundColor: _bg,
           automaticallyImplyLeading: !taskState.isLocked,
           title: Text(
             loc.singleTaskModeTitle,
-            style: const TextStyle(color: Color(0xFFE6EDF3)),
+            style: TextStyle(color: colorScheme.onSurface),
           ),
-          iconTheme: const IconThemeData(color: Color(0xFF8B949E)),
+          iconTheme: IconThemeData(color: colorScheme.onSurfaceVariant),
           actions: const [AmbientSoundToggleButton()],
         ),
         body: SafeArea(
@@ -131,7 +133,7 @@ class _SingleTaskScreenState extends ConsumerState<SingleTaskScreen> {
                                     bonus.toStringAsFixed(0),
                                   ),
                           ),
-                          backgroundColor: const Color(0xFF1D9E75),
+                          backgroundColor: colorScheme.primary,
                         ),
                       );
                     },
@@ -211,15 +213,16 @@ class _IdleTaskView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
           loc.singleTaskModeTitle,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,
-            color: Color(0xFFE6EDF3),
+            color: colorScheme.onSurface,
           ),
         ),
         const SizedBox(height: 16),
@@ -235,12 +238,12 @@ class _IdleTaskView extends StatelessWidget {
                 child: ChoiceChip(
                   label: Text(_categoryLabel(cat, loc, isAr)),
                   selected: selected,
-                  selectedColor: const Color(0xFF1D9E75),
-                  backgroundColor: const Color(0xFF161B22),
+                  selectedColor: colorScheme.primary,
+                  backgroundColor: colorScheme.surface,
                   labelStyle: TextStyle(
                     color: selected
-                        ? Colors.white
-                        : const Color(0xFF8B949E),
+                        ? colorScheme.onPrimary
+                        : colorScheme.onSurfaceVariant,
                   ),
                   onSelected: (_) => onCategory(cat),
                 ),
@@ -259,8 +262,8 @@ class _IdleTaskView extends StatelessWidget {
               icon: Icon(
                 selected ? Icons.star : Icons.star_border,
                 color: selected
-                    ? const Color(0xFFFFB800)
-                    : const Color(0xFF8B949E),
+                    ? colorScheme.primary
+                    : colorScheme.onSurfaceVariant,
               ),
             );
           }),
@@ -269,18 +272,18 @@ class _IdleTaskView extends StatelessWidget {
           isAr
               ? 'إنجاز هذه المهمة سيضيف +${estimatedBonus.toStringAsFixed(0)} نقطة'
               : loc.singleTaskEstimatedBonus(estimatedBonus.toStringAsFixed(0)),
-          style: const TextStyle(color: Color(0xFF1D9E75), fontSize: 14),
+          style: TextStyle(color: colorScheme.primary, fontSize: 14),
         ),
         const SizedBox(height: 16),
         TextField(
           key: singleTaskInputKey,
           controller: controller,
-          style: const TextStyle(color: Color(0xFFE6EDF3)),
+          style: TextStyle(color: colorScheme.onSurface),
           decoration: InputDecoration(
             hintText: loc.singleTaskHint,
-            hintStyle: const TextStyle(color: Color(0xFF8B949E)),
+            hintStyle: TextStyle(color: colorScheme.onSurfaceVariant),
             filled: true,
-            fillColor: const Color(0xFF161B22),
+            fillColor: colorScheme.surface,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide.none,
@@ -291,8 +294,11 @@ class _IdleTaskView extends StatelessWidget {
         DecoratedBox(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            gradient: const LinearGradient(
-              colors: [Color(0xFF1D9E75), Color(0xFF0F7A5A)],
+            gradient: LinearGradient(
+              colors: [
+                colorScheme.primary,
+                Color.lerp(colorScheme.primary, Colors.black, 0.35)!,
+              ],
             ),
           ),
           child: ElevatedButton(
@@ -352,16 +358,17 @@ class _ActiveTaskViewState extends State<_ActiveTaskView>
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
           widget.label,
           textAlign: TextAlign.center,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.bold,
-            color: Color(0xFFE6EDF3),
+            color: colorScheme.onSurface,
           ),
         ),
         const SizedBox(height: 24),
@@ -373,8 +380,8 @@ class _ActiveTaskViewState extends State<_ActiveTaskView>
               child: Container(
                 width: 12,
                 height: 12,
-                decoration: const BoxDecoration(
-                  color: Color(0xFF1D9E75),
+                decoration: BoxDecoration(
+                  color: colorScheme.primary,
                   shape: BoxShape.circle,
                 ),
               ),
@@ -382,7 +389,7 @@ class _ActiveTaskViewState extends State<_ActiveTaskView>
             const SizedBox(width: 8),
             Text(
               widget.loc.singleTaskFocusing,
-              style: const TextStyle(color: Color(0xFF1D9E75), fontSize: 16),
+              style: TextStyle(color: colorScheme.primary, fontSize: 16),
             ),
           ],
         ),
@@ -390,7 +397,7 @@ class _ActiveTaskViewState extends State<_ActiveTaskView>
         FilledButton(
           onPressed: widget.onComplete,
           style: FilledButton.styleFrom(
-            backgroundColor: const Color(0xFF1D9E75),
+            backgroundColor: colorScheme.primary,
             minimumSize: const Size.fromHeight(52),
           ),
           child: Text(widget.loc.singleTaskCompleted),
@@ -399,8 +406,8 @@ class _ActiveTaskViewState extends State<_ActiveTaskView>
         OutlinedButton(
           onPressed: widget.onAbandon,
           style: OutlinedButton.styleFrom(
-            foregroundColor: const Color(0xFF8B949E),
-            side: const BorderSide(color: Color(0xFF8B949E)),
+            foregroundColor: colorScheme.onSurfaceVariant,
+            side: BorderSide(color: colorScheme.onSurfaceVariant),
             minimumSize: const Size.fromHeight(48),
           ),
           child: Text(widget.loc.singleTaskPauseButton),

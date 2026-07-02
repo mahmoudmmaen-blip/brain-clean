@@ -112,7 +112,7 @@ class _CrosswordScreenState extends ConsumerState<CrosswordScreen>
               ? 'أكملت اللغز في $minutes:${seconds.toString().padLeft(2, '0')}!'
               : 'Puzzle complete in $minutes:${seconds.toString().padLeft(2, '0')}!',
         ),
-        backgroundColor: const Color(0xFF1D9E75),
+        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );
   }
@@ -141,11 +141,12 @@ class _CrosswordScreenState extends ConsumerState<CrosswordScreen>
         .where((c) => c.direction == CrosswordDirection.down)
         .toList();
 
+    final cs = Theme.of(context).colorScheme;
+    final dividerColor = Theme.of(context).dividerColor;
+
     return Scaffold(
       key: crosswordScreenKey,
-      backgroundColor: const Color(0xFF0D1117),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF0D1117),
         title: Text(_puzzle.title(isAr)),
         actions: const [LanguageToggleButton()],
         bottom: TabBar(
@@ -174,7 +175,9 @@ class _CrosswordScreenState extends ConsumerState<CrosswordScreen>
                   final col = index % _puzzle.cols;
                   final solution = _puzzle.grid[row][col];
                   if (solution == null) {
-                    return const ColoredBox(color: Color(0xFF0D1117));
+                    return ColoredBox(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                    );
                   }
                   final cell = CrosswordCell(row, col);
                   final isSelected = _selectedCells.contains(cell) ||
@@ -184,11 +187,11 @@ class _CrosswordScreenState extends ConsumerState<CrosswordScreen>
                   final correct = letter.isNotEmpty &&
                       isCellCorrect(_puzzle, row, col, letter);
                   final wrong = letter.isNotEmpty && !correct;
-                  Color bg = const Color(0xFF161B22);
+                  Color bg = cs.surface;
                   if (correct && _completed) {
-                    bg = const Color(0x331D9E75);
+                    bg = cs.primary.withValues(alpha: 0.2);
                   } else if (wrong) {
-                    bg = const Color(0x33EF4444);
+                    bg = cs.error.withValues(alpha: 0.2);
                   }
                   return GestureDetector(
                     onTap: () => _onCellTap(row, col),
@@ -196,9 +199,7 @@ class _CrosswordScreenState extends ConsumerState<CrosswordScreen>
                       decoration: BoxDecoration(
                         color: bg,
                         border: Border.all(
-                          color: isSelected
-                              ? const Color(0xFF1D9E75)
-                              : const Color(0xFF30363D),
+                          color: isSelected ? cs.primary : dividerColor,
                           width: isSelected ? 2 : 1,
                         ),
                       ),
@@ -210,8 +211,8 @@ class _CrosswordScreenState extends ConsumerState<CrosswordScreen>
                               top: 2,
                               child: Text(
                                 '${_clueNumberAt(row, col)}',
-                                style: const TextStyle(
-                                  color: Color(0xFF8B949E),
+                                style: TextStyle(
+                                  color: cs.onSurfaceVariant,
                                   fontSize: 8,
                                 ),
                               ),
@@ -219,8 +220,8 @@ class _CrosswordScreenState extends ConsumerState<CrosswordScreen>
                           Center(
                             child: Text(
                               letter,
-                              style: const TextStyle(
-                                color: Color(0xFFE6EDF3),
+                              style: TextStyle(
+                                color: cs.onSurface,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
                               ),
@@ -242,11 +243,11 @@ class _CrosswordScreenState extends ConsumerState<CrosswordScreen>
                 child: TextField(
                   autofocus: true,
                   onChanged: _onLetterChanged,
-                  style: const TextStyle(color: Color(0xFFE6EDF3)),
+                  style: TextStyle(color: cs.onSurface),
                   decoration: InputDecoration(
                     hintText: loc.crosswordEnterLetter,
                     filled: true,
-                    fillColor: const Color(0xFF161B22),
+                    fillColor: cs.surface,
                   ),
                 ),
               ),
@@ -291,6 +292,7 @@ class _ClueList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
     return ListView.builder(
       padding: const EdgeInsets.all(12),
       itemCount: clues.length,
@@ -299,13 +301,11 @@ class _ClueList extends StatelessWidget {
         final isSelected = selected == clue;
         return ListTile(
           selected: isSelected,
-          selectedTileColor: const Color(0x331D9E75),
+          selectedTileColor: cs.primary.withValues(alpha: 0.2),
           title: Text(
             '${clue.number}. ${clue.clueText(isAr)}',
             style: TextStyle(
-              color: isSelected
-                  ? const Color(0xFF1D9E75)
-                  : const Color(0xFFE6EDF3),
+              color: isSelected ? cs.primary : cs.onSurface,
             ),
           ),
           onTap: () => onTap(clue),

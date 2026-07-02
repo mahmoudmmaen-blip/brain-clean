@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/application/app_preferences_provider.dart';
 import '../../core/l10n/app_localizations.dart';
 import '../../core/presentation/async_state_views.dart';
-import '../../core/theme/app_colors.dart';
 import '../diagnostic/presentation/bc_score_provider.dart';
 import '../home/presentation/home_streak_provider.dart';
 import '../../core/presentation/language_toggle_button.dart';
@@ -55,6 +54,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     final loc = AppLocalizations.of(context)!;
     final prefs = ref.watch(appPreferencesProvider);
     final streakDays = ref.watch(homeStreakSnapshotProvider).days;
@@ -68,11 +68,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     }
 
     return Scaffold(
-      backgroundColor: AppColors.background,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
-        title: Text(displayName, style: const TextStyle(color: AppColors.textPrimary)),
-        iconTheme: const IconThemeData(color: AppColors.textSecondary),
+        title: Text(displayName, style: TextStyle(color: colorScheme.onSurface)),
+        iconTheme: IconThemeData(color: colorScheme.onSurfaceVariant),
         actions: const [LanguageToggleButton()],
       ),
       body: ListView(
@@ -121,18 +119,18 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           const SizedBox(height: 24),
           Text(
             loc.profileRecentEmotions,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: AppColors.textPrimary,
+              color: colorScheme.onSurface,
             ),
           ),
           const SizedBox(height: 12),
           emotionsAsync.when(
-            loading: () => const SizedBox(
+            loading: () => SizedBox(
               height: 40,
               child: Center(
-                child: CircularProgressIndicator(color: AppColors.primary),
+                child: CircularProgressIndicator(color: colorScheme.primary),
               ),
             ),
             error: (_, __) => AsyncStateViews.error(context),
@@ -141,7 +139,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 return Text(
                   loc.profileNoEmotionsYet,
                   key: profileEmptyEmotionsKey,
-                  style: const TextStyle(color: AppColors.textSecondary),
+                  style: TextStyle(color: colorScheme.onSurfaceVariant),
                 );
               }
               return SizedBox(
@@ -154,8 +152,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     final entry = emotions.recent[i];
                     return Chip(
                       label: Text(entry.label),
-                      backgroundColor: AppColors.card,
-                      labelStyle: const TextStyle(color: AppColors.textPrimary),
+                      backgroundColor: colorScheme.surface,
+                      labelStyle: TextStyle(color: colorScheme.onSurface),
                     );
                   },
                 ),
@@ -165,10 +163,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           const SizedBox(height: 24),
           Text(
             loc.profileAchievements,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: AppColors.textPrimary,
+              color: colorScheme.onSurface,
             ),
           ),
           const SizedBox(height: 12),
@@ -243,12 +241,13 @@ class _HeaderSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Column(
       children: [
-        const CircleAvatar(
+        CircleAvatar(
           radius: 40,
-          backgroundColor: Color(0xFF1D9E75),
-          child: Icon(Icons.person, size: 40, color: Colors.white),
+          backgroundColor: colorScheme.primary,
+          child: Icon(Icons.person, size: 40, color: colorScheme.onPrimary),
         ),
         const SizedBox(height: 12),
         if (editingName)
@@ -259,10 +258,10 @@ class _HeaderSection extends StatelessWidget {
               controller: nameController,
               autofocus: true,
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFFE6EDF3),
+                color: colorScheme.onSurface,
               ),
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
@@ -276,10 +275,10 @@ class _HeaderSection extends StatelessWidget {
             onTap: onTapName,
             child: Text(
               displayName,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFFE6EDF3),
+                color: colorScheme.onSurface,
               ),
             ),
           ),
@@ -288,13 +287,13 @@ class _HeaderSection extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
             decoration: BoxDecoration(
-              color: const Color(0xFFF59E0B),
+              color: colorScheme.primary,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
               proBadgeLabel,
-              style: const TextStyle(
-                color: Colors.white,
+              style: TextStyle(
+                color: colorScheme.onPrimary,
                 fontWeight: FontWeight.bold,
                 fontSize: 12,
               ),
@@ -314,27 +313,28 @@ class _StatCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
       decoration: BoxDecoration(
-        color: const Color(0xFF161B22),
+        color: colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
         children: [
           Text(
             value,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF1D9E75),
+              color: colorScheme.primary,
             ),
           ),
           const SizedBox(height: 4),
           Text(
             label,
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 11, color: Color(0xFF8B949E)),
+            style: TextStyle(fontSize: 11, color: colorScheme.onSurfaceVariant),
           ),
         ],
       ),
@@ -356,15 +356,16 @@ class _BadgeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     final child = Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: const Color(0xFF161B22),
+        color: colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
         boxShadow: unlocked
             ? [
                 BoxShadow(
-                  color: const Color(0xFF1D9E75).withValues(alpha: 0.25),
+                  color: colorScheme.primary.withValues(alpha: 0.25),
                   blurRadius: 12,
                   spreadRadius: 1,
                 ),
@@ -382,8 +383,8 @@ class _BadgeCard extends StatelessWidget {
             style: TextStyle(
               fontSize: 12,
               color: unlocked
-                  ? const Color(0xFFE6EDF3)
-                  : const Color(0xFF8B949E),
+                  ? colorScheme.onSurface
+                  : colorScheme.onSurfaceVariant,
               fontWeight: unlocked ? FontWeight.w600 : FontWeight.normal,
             ),
           ),

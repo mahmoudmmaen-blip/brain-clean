@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/bootstrap/app_hydration_provider.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/presentation/async_state_views.dart';
-import '../../../core/theme/app_colors.dart';
 import '../application/emotion_provider.dart';
 import '../domain/emotion_model.dart';
 
@@ -19,10 +18,9 @@ Key emotionCategoryChipKey(EmotionCategory category) =>
 class EmotionWheelScreen extends ConsumerWidget {
   const EmotionWheelScreen({super.key});
 
-  static const _card = AppColors.card;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final colorScheme = Theme.of(context).colorScheme;
     final loc = AppLocalizations.of(context)!;
     final emotionState = ref.watch(emotionNotifierProvider);
     final hydrationAsync = ref.watch(appHydrationProvider);
@@ -36,14 +34,12 @@ class EmotionWheelScreen extends ConsumerWidget {
     });
 
     return Scaffold(
-      backgroundColor: AppColors.background,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
         title: Text(
           loc.emotionWheelTitle,
-          style: const TextStyle(color: AppColors.textPrimary),
+          style: TextStyle(color: colorScheme.onSurface),
         ),
-        iconTheme: const IconThemeData(color: AppColors.textSecondary),
+        iconTheme: IconThemeData(color: colorScheme.onSurfaceVariant),
       ),
       body: hydrationAsync.when(
         loading: () => AsyncStateViews.loading(),
@@ -111,35 +107,37 @@ class EmotionWheelScreen extends ConsumerWidget {
 
     final confirmed = await showDialog<bool>(
       context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: _card,
-        title: Text(
-          loc.emotionImpactDialogTitle,
-          style: const TextStyle(color: Color(0xFFE6EDF3)),
-        ),
-        content: Text(
-          body,
-          style: const TextStyle(color: Color(0xFF8B949E), height: 1.5),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(false),
-            child: Text(
-              loc.emotionIgnore,
-              style: const TextStyle(color: Color(0xFF8B949E)),
-            ),
+      builder: (ctx) {
+        final colorScheme = Theme.of(ctx).colorScheme;
+        return AlertDialog(
+          backgroundColor: colorScheme.surface,
+          title: Text(
+            loc.emotionImpactDialogTitle,
+            style: TextStyle(color: colorScheme.onSurface),
           ),
-          ElevatedButton(
-            onPressed: () => Navigator.of(ctx).pop(true),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: impact < 0
-                  ? const Color(0xFFEF4444)
-                  : const Color(0xFF1D9E75),
-            ),
-            child: Text(loc.emotionConfirmLog),
+          content: Text(
+            body,
+            style: TextStyle(color: colorScheme.onSurfaceVariant, height: 1.5),
           ),
-        ],
-      ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(false),
+              child: Text(
+                loc.emotionIgnore,
+                style: TextStyle(color: colorScheme.onSurfaceVariant),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.of(ctx).pop(true),
+              style: ElevatedButton.styleFrom(
+                backgroundColor:
+                    impact < 0 ? colorScheme.error : colorScheme.primary,
+              ),
+              child: Text(loc.emotionConfirmLog),
+            ),
+          ],
+        );
+      },
     );
 
     if (confirmed == true) {
@@ -169,13 +167,14 @@ class _MoodGateStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Column(
       children: [
         _MoodCard(
           key: emotionMoodNegativeKey,
           label: negativeLabel,
           icon: Icons.sentiment_dissatisfied,
-          color: const Color(0xFFEF4444),
+          color: colorScheme.error,
           onTap: onNegative,
         ),
         const SizedBox(height: 12),
@@ -183,7 +182,7 @@ class _MoodGateStep extends StatelessWidget {
           key: emotionMoodNeutralKey,
           label: neutralLabel,
           icon: Icons.sentiment_neutral,
-          color: const Color(0xFFF59E0B),
+          color: colorScheme.primary,
           onTap: onNeutral,
         ),
         const SizedBox(height: 12),
@@ -191,7 +190,7 @@ class _MoodGateStep extends StatelessWidget {
           key: emotionMoodPositiveKey,
           label: positiveLabel,
           icon: Icons.sentiment_satisfied,
-          color: const Color(0xFF1D9E75),
+          color: colorScheme.primary,
           onTap: onPositive,
         ),
       ],
@@ -215,8 +214,9 @@ class _MoodCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Material(
-      color: const Color(0xFF161B22),
+      color: colorScheme.surface,
       borderRadius: BorderRadius.circular(14),
       child: InkWell(
         borderRadius: BorderRadius.circular(14),
@@ -231,8 +231,8 @@ class _MoodCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   label,
-                  style: const TextStyle(
-                    color: Color(0xFFE6EDF3),
+                  style: TextStyle(
+                    color: colorScheme.onSurface,
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
                   ),
@@ -261,6 +261,7 @@ class _CategoryStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -268,10 +269,10 @@ class _CategoryStep extends StatelessWidget {
           alignment: Alignment.centerRight,
           child: TextButton.icon(
             onPressed: onBack,
-            icon: const Icon(Icons.arrow_back, color: Color(0xFF8B949E)),
+            icon: Icon(Icons.arrow_back, color: colorScheme.onSurfaceVariant),
             label: Text(
               backLabel,
-              style: const TextStyle(color: Color(0xFF8B949E)),
+              style: TextStyle(color: colorScheme.onSurfaceVariant),
             ),
           ),
         ),
@@ -289,9 +290,9 @@ class _CategoryStep extends StatelessWidget {
                 label: Text(
                   '${EmotionModel.categoryEmoji(cat)} ${EmotionModel.categoryLabel(cat)}',
                 ),
-                backgroundColor: const Color(0xFF161B22),
-                labelStyle: const TextStyle(color: Color(0xFFE6EDF3)),
-                side: const BorderSide(color: Color(0xFF30363D)),
+                backgroundColor: colorScheme.surface,
+                labelStyle: TextStyle(color: colorScheme.onSurface),
+                side: BorderSide(color: Theme.of(context).dividerColor),
                 onPressed: () => onSelect(cat),
               );
             },
@@ -315,15 +316,18 @@ class _EmotionGridStep extends StatelessWidget {
   final ValueChanged<EmotionModel> onSelect;
   final VoidCallback onBack;
 
-  Color _borderColor(int intensity) => switch (intensity) {
-        1 => const Color(0xFF1D9E75),
-        2 => const Color(0xFFF59E0B),
-        3 => const Color(0xFFEF4444),
-        _ => const Color(0xFF30363D),
+  Color _borderColor(ColorScheme colorScheme, Color dividerColor, int intensity) =>
+      switch (intensity) {
+        1 => colorScheme.primary,
+        2 => colorScheme.primary,
+        3 => colorScheme.error,
+        _ => dividerColor,
       };
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final dividerColor = Theme.of(context).dividerColor;
     final emotions = EmotionModel.forCategory(category);
     final rings = [1, 2, 3];
 
@@ -334,10 +338,10 @@ class _EmotionGridStep extends StatelessWidget {
           alignment: Alignment.centerRight,
           child: TextButton.icon(
             onPressed: onBack,
-            icon: const Icon(Icons.arrow_back, color: Color(0xFF8B949E)),
+            icon: Icon(Icons.arrow_back, color: colorScheme.onSurfaceVariant),
             label: Text(
               backLabel,
-              style: const TextStyle(color: Color(0xFF8B949E)),
+              style: TextStyle(color: colorScheme.onSurfaceVariant),
             ),
           ),
         ),
@@ -345,8 +349,8 @@ class _EmotionGridStep extends StatelessWidget {
           const SizedBox(height: 16),
           Text(
             EmotionModel.ringLabel(ring),
-            style: const TextStyle(
-              color: Color(0xFF8B949E),
+            style: TextStyle(
+              color: colorScheme.onSurfaceVariant,
               fontSize: 14,
               fontWeight: FontWeight.w600,
             ),
@@ -360,9 +364,11 @@ class _EmotionGridStep extends StatelessWidget {
                 .map(
                   (e) => ActionChip(
                     label: Text(e.label),
-                    backgroundColor: const Color(0xFF161B22),
-                    labelStyle: const TextStyle(color: Color(0xFFE6EDF3)),
-                    side: BorderSide(color: _borderColor(ring)),
+                    backgroundColor: colorScheme.surface,
+                    labelStyle: TextStyle(color: colorScheme.onSurface),
+                    side: BorderSide(
+                      color: _borderColor(colorScheme, dividerColor, ring),
+                    ),
                     onPressed: () => onSelect(e),
                   ),
                 )
