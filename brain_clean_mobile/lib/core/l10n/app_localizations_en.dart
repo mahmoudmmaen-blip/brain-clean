@@ -736,6 +736,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get proRestoreNone => 'No previous purchases found';
 
   @override
+  String get proPurchaseError =>
+      'Something went wrong completing your purchase. Please try again.';
+
+  @override
+  String get proPlansUnavailable =>
+      'Plans are unavailable right now. Please try again later.';
+
+  @override
   String get settingsTitle => 'Settings';
 
   @override

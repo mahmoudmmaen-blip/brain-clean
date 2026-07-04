@@ -6,23 +6,15 @@ part of 'subscription_service_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$subscriptionServiceHash() =>
-    r'0951a0b55ec5760babdf79d5a16aa4e76c0aa98f';
+String _$isProUserHash() => r'0420b2c10324064667cc7bc40da3e59bc3d62869';
 
-@ProviderFor(subscriptionService)
-final subscriptionServiceProvider = Provider<SubscriptionService>.internal(
-  subscriptionService,
-  name: r'subscriptionServiceProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$subscriptionServiceHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef SubscriptionServiceRef = ProviderRef<SubscriptionService>;
-String _$isProUserHash() => r'dff98712857d44664d1d591dfe272c9da9ff0326';
-
+/// Reactive Pro entitlement, derived from [entitlementStatusProvider].
+///
+/// Defaults to `false` until RevenueCat resolves the first customer info, and
+/// updates automatically via the customer-info listener. Used by
+/// [navigateWithProGate] and every other Pro gate in the app.
+///
+/// Copied from [isProUser].
 @ProviderFor(isProUser)
 final isProUserProvider = AutoDisposeProvider<bool>.internal(
   isProUser,

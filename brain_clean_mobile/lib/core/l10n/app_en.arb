@@ -305,6 +305,8 @@
   "proAlreadyProBody": "Enjoy unlimited access to all premium features.",
   "proRestoreSuccess": "Purchases restored successfully",
   "proRestoreNone": "No previous purchases found",
+  "proPurchaseError": "Something went wrong completing your purchase. Please try again.",
+  "proPlansUnavailable": "Plans are unavailable right now. Please try again later.",
   "settingsTitle": "Settings",
   "settingsAccountSection": "Account",
   "settingsProActive": "Brain Clean Pro ✓",

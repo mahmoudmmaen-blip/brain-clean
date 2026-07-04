@@ -7,6 +7,7 @@ import 'core/network/supabase_client.dart';
 import 'core/providers/locale_provider.dart';
 import 'core/routing/app_router.dart';
 import 'core/services/midnight_reset_service.dart';
+import 'core/services/purchases_service.dart';
 import 'core/services/smart_notification_service.dart';
 import 'core/services/weekly_report_service.dart';
 import 'core/security/root_detector.dart';
@@ -16,19 +17,18 @@ import 'core/theme/app_color_theme.dart';
 import 'core/theme/app_color_theme_provider.dart';
 import 'core/theme/locale_theme.dart';
 import 'features/gamification/application/xp_sync_service.dart';
-import 'features/pro/data/revenue_cat_bootstrap.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await dotenv.load(fileName: ".env");
 
-  await RevenueCatBootstrap.initialize();
-
   await HiveBootstrap.initialize();
   await RootDetector.checkAndFlag();
   await HiveBootstrap.warmUpPersistentBoxes();
   await SupabaseConfig.initialize();
+
+  await PurchasesService.initialize();
 
   runApp(const ProviderScope(child: BrainCleanApp()));
 }

@@ -1,22 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 
 import '../../core/l10n/app_localizations.dart';
-import 'application/subscription_service_provider.dart';
-import 'domain/subscription_plan.dart';
+import '../../core/services/purchases_service.dart';
 
 const proPaywallKey = Key('pro_paywall_screen');
 const proSubscribeKey = Key('pro_subscribe_button');
 const proRestoreKey = Key('pro_restore_button');
 const proPlanTileKeyPrefix = 'pro_plan_tile_';
 
-String _planTitle(AppLocalizations loc, SubscriptionPeriod period) {
-  return switch (period) {
-    SubscriptionPeriod.monthly => loc.proPlanMonthly,
-    SubscriptionPeriod.annual => loc.proPlanAnnual,
-    SubscriptionPeriod.lifetime => loc.proPlanLifetime,
+/// Which RevenueCat package a tile represents (drives its label/badge).
+enum _PlanKind { monthly, annual, lifetime }
+
+/// A purchasable package paired with its display kind.
+class _PlanEntry {
+  const _PlanEntry(this.package, this.kind);
+
+  final Package package;
+  final _PlanKind kind;
+
+  String get id => package.identifier;
+  String get priceString => package.storeProduct.priceString;
+}
+
+String _planTitle(AppLocalizations loc, _PlanKind kind) {
+  return switch (kind) {
+    _PlanKind.monthly => loc.proPlanMonthly,
+    _PlanKind.annual => loc.proPlanAnnual,
+    _PlanKind.lifetime => loc.proPlanLifetime,
   };
+}
+
+/// Builds monthly/annual/lifetime entries from the current [offering].
+List<_PlanEntry> _entriesFor(Offering offering) {
+  final entries = <_PlanEntry>[];
+  final monthly = offering.monthly;
+  final annual = offering.annual;
+  final lifetime = offering.lifetime;
+  if (monthly != null) entries.add(_PlanEntry(monthly, _PlanKind.monthly));
+  if (annual != null) entries.add(_PlanEntry(annual, _PlanKind.annual));
+  if (lifetime != null) entries.add(_PlanEntry(lifetime, _PlanKind.lifetime));
+  return entries;
 }
 
 class ProPaywallScreen extends ConsumerStatefulWidget {
@@ -30,53 +57,82 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
   String? _selectedPlanId;
   bool _busy = false;
 
-  Future<void> _upgrade(SubscriptionPlan plan) async {
+  String? _defaultPlanId(List<_PlanEntry> entries) {
+    if (entries.isEmpty) return null;
+    final annual = entries.firstWhere(
+      (e) => e.kind == _PlanKind.annual,
+      orElse: () => entries.first,
+    );
+    return annual.id;
+  }
+
+  Future<void> _purchase(Package package) async {
     final loc = AppLocalizations.of(context)!;
     setState(() => _busy = true);
-    final service = ref.read(subscriptionServiceProvider);
-    final ok = await service.purchase(plan.id);
-    ref.invalidate(isProUserProvider);
-    if (!mounted) return;
-    setState(() => _busy = false);
-    if (!ok) return;
-    final colorScheme = Theme.of(context).colorScheme;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(loc.proWelcomeSnack),
-        backgroundColor: colorScheme.primary,
-      ),
-    );
-    if (mounted) context.pop();
+    try {
+      final result = await Purchases.purchasePackage(package);
+      if (!mounted) return;
+      if (PurchasesService.hasProEntitlement(result.customerInfo)) {
+        final colorScheme = Theme.of(context).colorScheme;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(loc.proWelcomeSnack),
+            backgroundColor: colorScheme.primary,
+          ),
+        );
+        context.pop();
+      }
+    } on PlatformException catch (e) {
+      final code = PurchasesErrorHelper.getErrorCode(e);
+      if (code == PurchasesErrorCode.purchaseCancelledError) return;
+      if (!mounted) return;
+      final colorScheme = Theme.of(context).colorScheme;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(loc.proPurchaseError),
+          backgroundColor: colorScheme.error,
+        ),
+      );
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
   }
 
   Future<void> _restore() async {
     final loc = AppLocalizations.of(context)!;
     setState(() => _busy = true);
-    final service = ref.read(subscriptionServiceProvider);
-    await service.restorePurchases();
-    final isPro = ref.refresh(isProUserProvider);
-    if (!mounted) return;
-    setState(() => _busy = false);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(isPro ? loc.proRestoreSuccess : loc.proRestoreNone),
-      ),
-    );
+    try {
+      final info = await Purchases.restorePurchases();
+      if (!mounted) return;
+      final restored = PurchasesService.hasProEntitlement(info);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(restored ? loc.proRestoreSuccess : loc.proRestoreNone),
+        ),
+      );
+      if (restored) context.pop();
+    } on PlatformException catch (e) {
+      final code = PurchasesErrorHelper.getErrorCode(e);
+      if (code == PurchasesErrorCode.purchaseCancelledError) return;
+      if (!mounted) return;
+      final colorScheme = Theme.of(context).colorScheme;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(loc.proPurchaseError),
+          backgroundColor: colorScheme.error,
+        ),
+      );
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final loc = AppLocalizations.of(context)!;
-    final isPro = ref.watch(isProUserProvider);
-    ref.watch(subscriptionCatalogVersionProvider);
-    final plans = ref.watch(subscriptionServiceProvider).plans;
-    _selectedPlanId ??= plans
-        .firstWhere(
-          (p) => p.period == SubscriptionPeriod.annual,
-          orElse: () => plans.first,
-        )
-        .id;
+    final isPro = ref.watch(entitlementStatusProvider).valueOrNull ?? false;
+    final offeringAsync = ref.watch(proOfferingProvider);
 
     final features = [
       loc.proFeatureColorThemes,
@@ -130,7 +186,10 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
               Text(
                 isPro ? loc.proAlreadyProBody : loc.proPaywallSubtitle,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16, color: colorScheme.onSurfaceVariant),
+                style: TextStyle(
+                  fontSize: 16,
+                  color: colorScheme.onSurfaceVariant,
+                ),
               ),
               const SizedBox(height: 32),
               ...features.map(
@@ -142,9 +201,11 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
                           color: colorScheme.primary, size: 22),
                       const SizedBox(width: 12),
                       Expanded(
-                        child: Text(f,
-                            style: TextStyle(
-                                color: colorScheme.onSurface, fontSize: 15)),
+                        child: Text(
+                          f,
+                          style: TextStyle(
+                              color: colorScheme.onSurface, fontSize: 15),
+                        ),
                       ),
                     ],
                   ),
@@ -152,143 +213,272 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
               ),
               const SizedBox(height: 16),
               if (isPro)
-                Container(
-                  padding: const EdgeInsets.all(24),
-                  decoration: BoxDecoration(
-                    color: colorScheme.surface,
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: colorScheme.primary),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.check_circle, color: colorScheme.primary),
-                      const SizedBox(width: 8),
-                      Text(loc.proAlreadyProTitle,
-                          style: TextStyle(
-                              color: colorScheme.onSurface,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16)),
-                    ],
-                  ),
-                )
-              else ...[
-                ...plans.map((plan) {
-                  final selected = plan.id == _selectedPlanId;
-                  final isBestValue =
-                      plan.period == SubscriptionPeriod.annual;
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 12),
-                    child: GestureDetector(
-                      key: Key('$proPlanTileKeyPrefix${plan.id}'),
-                      onTap: () =>
-                          setState(() => _selectedPlanId = plan.id),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 14),
-                        decoration: BoxDecoration(
-                          color: colorScheme.surface,
-                          borderRadius: BorderRadius.circular(14),
-                          border: Border.all(
-                            color: selected
-                                ? colorScheme.primary
-                                : Colors.transparent,
-                            width: 2,
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(
-                              selected
-                                  ? Icons.radio_button_checked
-                                  : Icons.radio_button_unchecked,
-                              color: selected
-                                  ? colorScheme.primary
-                                  : colorScheme.onSurfaceVariant,
-                            ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  Text(_planTitle(loc, plan.period),
-                                      style: TextStyle(
-                                          color: colorScheme.onSurface,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16)),
-                                  if (isBestValue) ...[
-                                    const SizedBox(width: 8),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8, vertical: 2),
-                                      decoration: BoxDecoration(
-                                        color: colorScheme.primary,
-                                        borderRadius:
-                                            BorderRadius.circular(10),
-                                      ),
-                                      child: Text(loc.proBestValueBadge,
-                                          style: TextStyle(
-                                              color: colorScheme.onPrimary,
-                                              fontSize: 11,
-                                              fontWeight:
-                                                  FontWeight.bold)),
-                                    ),
-                                  ],
-                                ],
-                              ),
-                            ),
-                            Text(plan.priceString,
-                                style: TextStyle(
-                                    color: colorScheme.onSurface,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16)),
-                          ],
-                        ),
+                _AlreadyProCard(loc: loc)
+              else
+                offeringAsync.when(
+                  loading: () => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 32),
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: colorScheme.primary,
                       ),
                     ),
-                  );
-                }),
-                const SizedBox(height: 12),
-                DecoratedBox(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(14),
-                    gradient: LinearGradient(
-                      colors: [
-                        colorScheme.primary,
-                        Color.lerp(colorScheme.primary, Colors.black, 0.35)!,
+                  ),
+                  error: (_, __) => _PlansUnavailable(loc: loc),
+                  data: (offering) {
+                    final entries =
+                        offering == null ? const <_PlanEntry>[] : _entriesFor(offering);
+                    if (entries.isEmpty) return _PlansUnavailable(loc: loc);
+
+                    final selectedId = _selectedPlanId ??= _defaultPlanId(entries);
+
+                    return Column(
+                      children: [
+                        ...entries.map(
+                          (entry) => _PlanTile(
+                            entry: entry,
+                            selected: entry.id == selectedId,
+                            onTap: () =>
+                                setState(() => _selectedPlanId = entry.id),
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        _SubscribeButton(
+                          busy: _busy,
+                          onPressed: () {
+                            final selected = entries.firstWhere(
+                              (e) => e.id == _selectedPlanId,
+                              orElse: () => entries.first,
+                            );
+                            _purchase(selected.package);
+                          },
+                        ),
                       ],
-                    ),
-                  ),
-                  child: ElevatedButton(
-                    key: proSubscribeKey,
-                    onPressed: _busy
-                        ? null
-                        : () => _upgrade(plans
-                            .firstWhere((p) => p.id == _selectedPlanId)),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.transparent,
-                      shadowColor: Colors.transparent,
-                      minimumSize: const Size.fromHeight(56),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14)),
-                    ),
-                    child: Text(loc.proSubscribeNow,
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: colorScheme.onPrimary)),
-                  ),
+                    );
+                  },
                 ),
-              ],
               const SizedBox(height: 8),
               TextButton(
                 key: proRestoreKey,
                 onPressed: _busy ? null : _restore,
-                child: Text(loc.proRestorePurchase,
-                    style: TextStyle(color: colorScheme.onSurfaceVariant)),
+                child: Text(
+                  loc.proRestorePurchase,
+                  style: TextStyle(color: colorScheme.onSurfaceVariant),
+                ),
               ),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _PlanTile extends StatelessWidget {
+  const _PlanTile({
+    required this.entry,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final _PlanEntry entry;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final loc = AppLocalizations.of(context)!;
+    final isBestValue = entry.kind == _PlanKind.annual;
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: GestureDetector(
+        key: Key('$proPlanTileKeyPrefix${entry.id}'),
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          decoration: BoxDecoration(
+            color: colorScheme.surface,
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(
+              color: selected ? colorScheme.primary : Colors.transparent,
+              width: 2,
+            ),
+          ),
+          child: Row(
+            children: [
+              Icon(
+                selected
+                    ? Icons.radio_button_checked
+                    : Icons.radio_button_unchecked,
+                color: selected
+                    ? colorScheme.primary
+                    : colorScheme.onSurfaceVariant,
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Row(
+                  children: [
+                    Text(
+                      _planTitle(loc, entry.kind),
+                      style: TextStyle(
+                        color: colorScheme.onSurface,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                    if (isBestValue) ...[
+                      const SizedBox(width: 8),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: colorScheme.primary,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Text(
+                          loc.proBestValueBadge,
+                          style: TextStyle(
+                            color: colorScheme.onPrimary,
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+              Text(
+                entry.priceString,
+                style: TextStyle(
+                  color: colorScheme.onSurface,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _SubscribeButton extends StatelessWidget {
+  const _SubscribeButton({required this.busy, required this.onPressed});
+
+  final bool busy;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final loc = AppLocalizations.of(context)!;
+
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(14),
+        gradient: LinearGradient(
+          colors: [
+            colorScheme.primary,
+            Color.lerp(colorScheme.primary, Colors.black, 0.35)!,
+          ],
+        ),
+      ),
+      child: ElevatedButton(
+        key: proSubscribeKey,
+        onPressed: busy ? null : onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          minimumSize: const Size.fromHeight(56),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
+        ),
+        child: busy
+            ? SizedBox(
+                width: 22,
+                height: 22,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2.5,
+                  color: colorScheme.onPrimary,
+                ),
+              )
+            : Text(
+                loc.proSubscribeNow,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: colorScheme.onPrimary,
+                ),
+              ),
+      ),
+    );
+  }
+}
+
+class _AlreadyProCard extends StatelessWidget {
+  const _AlreadyProCard({required this.loc});
+
+  final AppLocalizations loc;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return Container(
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: colorScheme.surface,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: colorScheme.primary),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.check_circle, color: colorScheme.primary),
+          const SizedBox(width: 8),
+          Text(
+            loc.proAlreadyProTitle,
+            style: TextStyle(
+              color: colorScheme.onSurface,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _PlansUnavailable extends StatelessWidget {
+  const _PlansUnavailable({required this.loc});
+
+  final AppLocalizations loc;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: colorScheme.surface,
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Row(
+        children: [
+          Icon(Icons.info_outline, color: colorScheme.onSurfaceVariant),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              loc.proPlansUnavailable,
+              style: TextStyle(color: colorScheme.onSurfaceVariant),
+            ),
+          ),
+        ],
       ),
     );
   }

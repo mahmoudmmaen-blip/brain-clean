@@ -727,6 +727,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get proRestoreNone => 'لم يتم العثور على مشتريات سابقة';
 
   @override
+  String get proPurchaseError =>
+      'حدث خطأ أثناء إتمام العملية. من فضلك حاول مرة أخرى.';
+
+  @override
+  String get proPlansUnavailable =>
+      'الباقات غير متاحة حالياً. حاول مرة أخرى لاحقاً.';
+
+  @override
   String get settingsTitle => 'الإعدادات';
 
   @override

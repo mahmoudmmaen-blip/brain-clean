@@ -1388,6 +1388,18 @@ abstract class AppLocalizations {
   /// **'No previous purchases found'**
   String get proRestoreNone;
 
+  /// No description provided for @proPurchaseError.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong completing your purchase. Please try again.'**
+  String get proPurchaseError;
+
+  /// No description provided for @proPlansUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Plans are unavailable right now. Please try again later.'**
+  String get proPlansUnavailable;
+
   /// No description provided for @settingsTitle.
   ///
   /// In en, this message translates to:
