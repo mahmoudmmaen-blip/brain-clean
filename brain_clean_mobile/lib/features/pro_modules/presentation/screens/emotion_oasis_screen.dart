@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/l10n/app_localizations.dart';
+import '../../../../features/pro/application/subscription_service_provider.dart';
+import '../../../../features/pro/pro_gate.dart';
 
 class EmotionOasisScreen extends ConsumerStatefulWidget {
   const EmotionOasisScreen({super.key});
@@ -41,9 +43,11 @@ class _EmotionOasisScreenState extends ConsumerState<EmotionOasisScreen> {
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
+    final isPro = ref.watch(isProUserProvider);
     return Scaffold(
       appBar: AppBar(title: Text(loc.emotionOasisTitle)),
-      body: Padding(
+      body: isPro
+          ? Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -114,7 +118,8 @@ class _EmotionOasisScreenState extends ConsumerState<EmotionOasisScreen> {
               ),
           ],
         ),
-      ),
+      )
+          : const ProGate(),
     );
   }
 }
