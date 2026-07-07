@@ -1,15 +1,12 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-/// Supabase bootstrap — wire env keys before production.
+import '../config/app_config.dart';
+
+/// Supabase bootstrap — credentials from [AppConfig] (`.env` or dart-define).
 abstract final class SupabaseConfig {
-  static const String url = String.fromEnvironment(
-    'SUPABASE_URL',
-    defaultValue: '',
-  );
-  static const String anonKey = String.fromEnvironment(
-    'SUPABASE_ANON_KEY',
-    defaultValue: '',
-  );
+  static String get url => AppConfig.supabaseUrl;
+
+  static String get anonKey => AppConfig.supabaseAnonKey;
 
   static Future<void> initialize() async {
     if (url.isEmpty || anonKey.isEmpty) return;
