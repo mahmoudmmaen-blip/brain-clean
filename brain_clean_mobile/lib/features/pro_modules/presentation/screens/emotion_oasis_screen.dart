@@ -1,8 +1,8 @@
+import 'package:brain_clean_mobile/core/services/nvidia_ai_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// 🚨 ملاحظة: لو السطر ده تحته خط أحمر، امسحه واضغط (Ctrl + .) على كلمة nvidiaAiServiceProvider تحت واختار Import library
-import 'package:brain_clean_mobile/core/services/nvidia_ai_service.dart';
+import '../../../../core/l10n/app_localizations.dart';
 
 class EmotionOasisScreen extends ConsumerStatefulWidget {
   const EmotionOasisScreen({super.key});
@@ -24,14 +24,13 @@ class _EmotionOasisScreenState extends ConsumerState<EmotionOasisScreen> {
       _response = '';
     });
 
-    // إخفاء الكيبورد أثناء التحليل
     FocusScope.of(context).unfocus();
 
     final service = ref.read(nvidiaAiServiceProvider);
     final result = await service.analyzeEmotion(_controller.text);
 
     if (!mounted) return;
-    
+
     setState(() {
       _response = result;
       _isLoading = false;
@@ -40,16 +39,17 @@ class _EmotionOasisScreenState extends ConsumerState<EmotionOasisScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(title: const Text('واحة المشاعر - Brain Clean')),
+      appBar: AppBar(title: Text(loc.emotionOasisTitle)),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              'تحدث مع المرشد السلوكي.. ما الذي تواجهه الآن؟',
+              loc.emotionOasisPromptLabel,
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: theme.colorScheme.primary,
@@ -60,7 +60,7 @@ class _EmotionOasisScreenState extends ConsumerState<EmotionOasisScreen> {
               controller: _controller,
               maxLines: 4,
               decoration: InputDecoration(
-                hintText: 'اكتب مشاعرك أو التحدي بكل صراحة...',
+                hintText: loc.emotionOasisHint,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -77,13 +77,16 @@ class _EmotionOasisScreenState extends ConsumerState<EmotionOasisScreen> {
               ),
               child: _isLoading
                   ? const SizedBox(
-                      height: 20, 
-                      width: 20, 
-                      child: CircularProgressIndicator(strokeWidth: 2)
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(strokeWidth: 2),
                     )
-                  : const Text(
-                      'تحليل وطلب الدعم', 
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  : Text(
+                      loc.emotionOasisAnalyze,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
             ),
             const SizedBox(height: 24),

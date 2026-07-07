@@ -1464,4 +1464,16 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get securityCompromisedBanner =>
       'تحذير: الجهاز قد يكون معدّلاً. بياناتك محلية فقط — تم تعطيل المزامنة السحابية.';
+
+  @override
+  String get emotionOasisTitle => 'واحة المشاعر — صفا';
+
+  @override
+  String get emotionOasisHint => 'شاركني ما تشعر به الآن...';
+
+  @override
+  String get emotionOasisAnalyze => 'تحدث مع صفا';
+
+  @override
+  String get emotionOasisPromptLabel => 'ما الذي يشغل تفكيرك؟';
 }

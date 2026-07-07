@@ -800,5 +800,9 @@
   "biometricLockTitle": "التطبيق مقفل",
   "biometricLockSubtitle": "استخدم بصمتك أو رمز الجهاز للمتابعة",
   "biometricLockButton": "فتح Brain Clean",
-  "securityCompromisedBanner": "تحذير: الجهاز قد يكون معدّلاً. بياناتك محلية فقط — تم تعطيل المزامنة السحابية."
+  "securityCompromisedBanner": "تحذير: الجهاز قد يكون معدّلاً. بياناتك محلية فقط — تم تعطيل المزامنة السحابية.",
+  "emotionOasisTitle": "واحة المشاعر — صفا",
+  "emotionOasisHint": "شاركني ما تشعر به الآن...",
+  "emotionOasisAnalyze": "تحدث مع صفا",
+  "emotionOasisPromptLabel": "ما الذي يشغل تفكيرك؟"
 }

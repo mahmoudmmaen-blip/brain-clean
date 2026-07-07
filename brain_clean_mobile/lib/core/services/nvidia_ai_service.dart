@@ -23,7 +23,7 @@ class NvidiaAiService {
         body: jsonEncode({
           "model": "meta/llama3-70b-instruct",
           "messages": [
-            {"role": "system", "content": "أنت مرشد سلوكي في تطبيق (Pure Day). قدم نصيحة عملية، صارمة، وداعمة. ممنوع الموسيقى. ركز على التنفس، الرياضة، أو التدوين."},
+            {"role": "system", "content": "أنت صفا، مرشدك في تطبيق Brain Clean. مهمتك مساعدة المستخدم على التعافي من إدمان الشاشات وإعادة بناء التركيز. قدّم نصيحة عملية وداعمة. ممنوع الموسيقى. ركز على التنفس، الرياضة، التدوين، وتقليل وقت الشاشة."},
             {"role": "user", "content": userText}
           ],
           "temperature": 0.5,

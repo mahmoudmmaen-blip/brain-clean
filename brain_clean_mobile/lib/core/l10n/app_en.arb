@@ -656,5 +656,9 @@
   "biometricLockTitle": "App locked",
   "biometricLockSubtitle": "Use your fingerprint or device PIN to continue",
   "biometricLockButton": "Unlock Brain Clean",
-  "securityCompromisedBanner": "Warning: this device may be compromised. Local data only — cloud sync is disabled."
+  "securityCompromisedBanner": "Warning: this device may be compromised. Local data only — cloud sync is disabled.",
+  "emotionOasisTitle": "Emotion Oasis — Safa",
+  "emotionOasisHint": "Share how you're feeling right now...",
+  "emotionOasisAnalyze": "Talk to Safa",
+  "emotionOasisPromptLabel": "What's on your mind?"
 }

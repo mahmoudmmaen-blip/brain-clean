@@ -2743,6 +2743,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Warning: this device may be compromised. Local data only — cloud sync is disabled.'**
   String get securityCompromisedBanner;
+
+  /// No description provided for @emotionOasisTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Emotion Oasis — Safa'**
+  String get emotionOasisTitle;
+
+  /// No description provided for @emotionOasisHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Share how you\'re feeling right now...'**
+  String get emotionOasisHint;
+
+  /// No description provided for @emotionOasisAnalyze.
+  ///
+  /// In en, this message translates to:
+  /// **'Talk to Safa'**
+  String get emotionOasisAnalyze;
+
+  /// No description provided for @emotionOasisPromptLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s on your mind?'**
+  String get emotionOasisPromptLabel;
 }
 
 class _AppLocalizationsDelegate

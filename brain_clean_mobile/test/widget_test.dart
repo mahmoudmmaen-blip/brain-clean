@@ -8,8 +8,13 @@ import 'package:brain_clean_mobile/features/recovery/data/recovery_protocol_hive
 import 'package:brain_clean_mobile/features/recovery/data/recovery_protocol_storage_provider.dart';
 import 'package:brain_clean_mobile/features/recovery/presentation/recovery_grid_screen.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/widgets/bc_score_hero_card.dart';
+import 'package:brain_clean_mobile/core/application/app_preferences_provider.dart';
 import 'package:brain_clean_mobile/core/bootstrap/app_hydration_provider.dart';
+import 'package:brain_clean_mobile/core/constants/app_routes.dart';
+import 'package:brain_clean_mobile/core/constants/hive_meta_keys.dart';
+import 'package:brain_clean_mobile/core/data/app_meta_box_provider.dart';
 import 'package:brain_clean_mobile/core/providers/locale_provider.dart';
+import 'package:brain_clean_mobile/core/routing/app_router.dart';
 import 'package:brain_clean_mobile/features/home/presentation/home_screen.dart';
 import 'package:brain_clean_mobile/main.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +25,12 @@ import 'package:brain_clean_mobile/features/accountability/accountability_box_mo
 import 'package:brain_clean_mobile/features/diagnostic/presentation/bc_score_provider.dart';
 import 'package:brain_clean_mobile/features/focus/breathing_friction_screen.dart';
 import 'package:brain_clean_mobile/features/home/presentation/home_streak_provider.dart';
+import 'package:brain_clean_mobile/features/splash/presentation/splash_screen.dart';
 
 import 'helpers/diagnostic_provider_overrides.dart';
+import 'helpers/hive_test_fixtures.dart';
 import 'helpers/localized_test_app.dart';
+import 'helpers/subscription_test_overrides.dart';
 import 'helpers/test_l10n.dart';
 
 void main() {
@@ -196,26 +204,45 @@ void main() {
   });
 
   testWidgets('BrainCleanApp hydrates then routes to home', (tester) async {
+    final previousSplashDuration = SplashScreen.minSplashDuration;
+    SplashScreen.minSplashDuration = Duration.zero;
+    addTearDown(() => SplashScreen.minSplashDuration = previousSplashDuration);
+
+    final metaBox = InMemoryHiveBox();
+    await metaBox.put(HiveMetaKeys.hasSeenOnboarding, true);
+
+    final container = ProviderContainer(
+      overrides: [
+        localSubscriptionTestOverride(),
+        appMetaBoxProvider.overrideWithValue(metaBox),
+        appPreferencesProvider.overrideWith(_TestAppPreferences.new),
+        appHydrationProvider.overrideWith(_InstantHydration.new),
+        localeProvider.overrideWith((ref) => const Locale('en')),
+        homeStreakTickerProvider.overrideWith((ref) => Stream<int>.value(0)),
+        recoveryProtocolStorageProvider.overrideWithValue(
+          RecoveryProtocolMemoryRepository(),
+        ),
+        ...diagnosticWidgetTestOverrides(),
+      ],
+    );
+    addTearDown(container.dispose);
+
     await tester.pumpWidget(
-      ProviderScope(
-        overrides: [
-          appHydrationProvider.overrideWith(_InstantHydration.new),
-          localeProvider.overrideWith((ref) => const Locale('en')),
-          homeStreakTickerProvider.overrideWith((ref) => Stream<int>.value(0)),
-          recoveryProtocolStorageProvider.overrideWithValue(
-            RecoveryProtocolMemoryRepository(),
-          ),
-          ...diagnosticWidgetTestOverrides(),
-        ],
+      UncontrolledProviderScope(
+        container: container,
         child: const BrainCleanApp(),
       ),
     );
     await tester.pump();
-    await tester.pump(const Duration(seconds: 3));
-    await tester.pump();
 
-    expect(find.text(en.homeTitle), findsOneWidget);
+    final snapshot = await container.read(appHydrationProvider.future);
+    expect(snapshot.hasDraftProgress, isFalse);
+
+    container.read(goRouterProvider).go(AppRoutes.home);
+    await tester.pumpAndSettle();
+
     expect(find.byType(HomeScreen), findsOneWidget);
+    expect(find.text(en.homeTitle), findsOneWidget);
   });
 
   testWidgets('accountability modal applies −15 BCS from home', (tester) async {
@@ -292,4 +319,9 @@ class _InstantHydration extends AppHydration {
       hasDraftProgress: false,
     );
   }
+}
+
+class _TestAppPreferences extends AppPreferences {
+  @override
+  AppPreferencesState build() => AppPreferencesState.testDefaults;
 }

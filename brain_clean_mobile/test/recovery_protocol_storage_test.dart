@@ -23,6 +23,8 @@ void main() {
           1: RecoveryDayRecord(
             dayIndex: 1,
             taskCompleted: [true, true, true, true, true],
+            sleepCompleted: true,
+            waterCompleted: true,
           ),
           2: RecoveryDayRecord(
             dayIndex: 2,

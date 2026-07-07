@@ -1480,4 +1480,16 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get securityCompromisedBanner =>
       'Warning: this device may be compromised. Local data only — cloud sync is disabled.';
+
+  @override
+  String get emotionOasisTitle => 'Emotion Oasis — Safa';
+
+  @override
+  String get emotionOasisHint => 'Share how you\'re feeling right now...';
+
+  @override
+  String get emotionOasisAnalyze => 'Talk to Safa';
+
+  @override
+  String get emotionOasisPromptLabel => 'What\'s on your mind?';
 }
