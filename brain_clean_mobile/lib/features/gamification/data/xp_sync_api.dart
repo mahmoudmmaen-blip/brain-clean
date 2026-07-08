@@ -39,9 +39,15 @@ class XpSyncApi {
       final body = {
         'entries': entries.map(_entryPayload).toList(),
       };
+      final token = client.auth.currentSession?.accessToken;
+      if (token == null) return null;
+
       final response = await client.functions.invoke(
         'verify-xp',
         body: body,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
       );
 
       if (response.status != 200) {

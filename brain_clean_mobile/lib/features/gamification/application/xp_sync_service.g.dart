@@ -20,7 +20,7 @@ final xpSyncApiProvider = Provider<XpSyncApi>.internal(
 );
 
 typedef XpSyncApiRef = ProviderRef<XpSyncApi>;
-String _$xpSyncServiceHash() => r'b46709d3b76078caaf1c19fb6aceb6be822233cf';
+String _$xpSyncServiceHash() => r'3bafda42f06bd852736f26ad1b721b49dfeda192';
 
 /// Pushes [XpSyncState.pendingVerify] entries to [verify-xp] and reconciles totals.
 ///
