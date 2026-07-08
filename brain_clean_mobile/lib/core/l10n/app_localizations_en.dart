@@ -1644,4 +1644,52 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get moreVersion => 'Version 1.0.0';
+
+  @override
+  String get homeGreetingMorning => 'Good morning ☀️';
+
+  @override
+  String get homeGreetingAfternoon => 'Good afternoon 🌤️';
+
+  @override
+  String get homeGreetingEvening => 'Good evening 🌙';
+
+  @override
+  String get homeHeroName => 'Champion';
+
+  @override
+  String get homeStreakLabel => 'day streak';
+
+  @override
+  String get homeBciLabel => 'Brain Clarity Index';
+
+  @override
+  String get homeBciTrend => '↑ this week';
+
+  @override
+  String get homeActivitiesTitle => 'Today\'s activities';
+
+  @override
+  String get homeActivitiesOf => 'of';
+
+  @override
+  String get homeSafaMessage => 'Proud of you! Keep going 💚';
+
+  @override
+  String get homeProFeature => 'Charts + advanced AI';
+
+  @override
+  String get homeActivityExercise => 'Exercise';
+
+  @override
+  String get homeActivityWater => 'Water';
+
+  @override
+  String get homeActivitySleep => 'Sleep';
+
+  @override
+  String get homeActivityMovement => 'Movement';
+
+  @override
+  String get settingsSubscriptionSection => 'Subscription';
 }

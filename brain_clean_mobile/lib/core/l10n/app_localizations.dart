@@ -3061,6 +3061,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Version 1.0.0'**
   String get moreVersion;
+
+  /// No description provided for @homeGreetingMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'Good morning ☀️'**
+  String get homeGreetingMorning;
+
+  /// No description provided for @homeGreetingAfternoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Good afternoon 🌤️'**
+  String get homeGreetingAfternoon;
+
+  /// No description provided for @homeGreetingEvening.
+  ///
+  /// In en, this message translates to:
+  /// **'Good evening 🌙'**
+  String get homeGreetingEvening;
+
+  /// No description provided for @homeHeroName.
+  ///
+  /// In en, this message translates to:
+  /// **'Champion'**
+  String get homeHeroName;
+
+  /// No description provided for @homeStreakLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'day streak'**
+  String get homeStreakLabel;
+
+  /// No description provided for @homeBciLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Clarity Index'**
+  String get homeBciLabel;
+
+  /// No description provided for @homeBciTrend.
+  ///
+  /// In en, this message translates to:
+  /// **'↑ this week'**
+  String get homeBciTrend;
+
+  /// No description provided for @homeActivitiesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s activities'**
+  String get homeActivitiesTitle;
+
+  /// No description provided for @homeActivitiesOf.
+  ///
+  /// In en, this message translates to:
+  /// **'of'**
+  String get homeActivitiesOf;
+
+  /// No description provided for @homeSafaMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Proud of you! Keep going 💚'**
+  String get homeSafaMessage;
+
+  /// No description provided for @homeProFeature.
+  ///
+  /// In en, this message translates to:
+  /// **'Charts + advanced AI'**
+  String get homeProFeature;
+
+  /// No description provided for @homeActivityExercise.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercise'**
+  String get homeActivityExercise;
+
+  /// No description provided for @homeActivityWater.
+  ///
+  /// In en, this message translates to:
+  /// **'Water'**
+  String get homeActivityWater;
+
+  /// No description provided for @homeActivitySleep.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep'**
+  String get homeActivitySleep;
+
+  /// No description provided for @homeActivityMovement.
+  ///
+  /// In en, this message translates to:
+  /// **'Movement'**
+  String get homeActivityMovement;
+
+  /// No description provided for @settingsSubscriptionSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription'**
+  String get settingsSubscriptionSection;
 }
 
 class _AppLocalizationsDelegate

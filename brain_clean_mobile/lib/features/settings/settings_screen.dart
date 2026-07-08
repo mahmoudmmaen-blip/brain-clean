@@ -13,6 +13,7 @@ import '../../core/services/weekly_report_service.dart';
 import '../../core/storage/hive_boxes.dart';
 import '../../core/theme/app_color_theme.dart';
 import '../../core/theme/app_color_theme_provider.dart';
+import '../../shared/widgets/glass_card.dart';
 import '../pro/application/subscription_service_provider.dart';
 
 const settingsProTileKey = Key('settings_pro_tile');
@@ -80,131 +81,201 @@ class SettingsScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: Text(loc.settingsTitle)),
       body: ListView(
+        padding: const EdgeInsets.all(16),
         children: [
-          _SectionHeader(loc.settingsAccountSection),
-          ListTile(
-            key: settingsProTileKey,
-            title: Text(
-              isPro ? loc.settingsProActive : loc.settingsUpgradeToPro,
-              style: TextStyle(
-                color: isPro ? colorScheme.primary : colorScheme.onSurface,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            trailing: isPro
-                ? null
-                : Icon(Icons.chevron_left, color: colorScheme.onSurfaceVariant),
-            onTap: isPro ? null : () => context.push(AppRoutes.proPaywall),
-          ),
-          Divider(color: Theme.of(context).dividerColor),
-          _SectionHeader(loc.settingsAppearanceSection),
-          _ColorThemeSection(isPro: isPro),
-          Divider(color: Theme.of(context).dividerColor),
-          _SectionHeader(loc.settingsNotificationsSection),
-          SwitchListTile(
-            title: Text(
-              loc.settingsEmotionNotifications,
-              style: TextStyle(color: colorScheme.onSurface),
-            ),
-            value: prefs.emotionNotificationsEnabled,
-            activeThumbColor: colorScheme.primary,
-            onChanged: (v) async {
-              await ref
-                  .read(appPreferencesProvider.notifier)
-                  .setEmotionNotifications(v);
-              await ref.read(smartNotificationServiceProvider).rescheduleAll();
-            },
-          ),
-          SwitchListTile(
-            title: Text(
-              loc.settingsDailyFocusReminder,
-              style: TextStyle(color: colorScheme.onSurface),
-            ),
-            value: prefs.dailyFocusReminderEnabled,
-            activeThumbColor: colorScheme.primary,
-            onChanged: (v) async {
-              await ref
-                  .read(appPreferencesProvider.notifier)
-                  .setDailyFocusReminder(v);
-              await ref.read(smartNotificationServiceProvider).rescheduleAll();
-            },
-          ),
-          const _DailyReminderTile(),
-          Divider(color: Theme.of(context).dividerColor),
-          _SectionHeader(loc.settingsSecuritySection),
-          SwitchListTile(
-            title: Text(
-              loc.settingsBiometricLock,
-              style: TextStyle(color: colorScheme.onSurface),
-            ),
-            subtitle: Text(
-              loc.settingsBiometricLockSubtitle,
-              style: TextStyle(
-                color: colorScheme.onSurfaceVariant,
-                fontSize: 12,
-              ),
-            ),
-            value: ref.watch(biometricLockSettingsProvider),
-            activeThumbColor: colorScheme.primary,
-            onChanged: (enabled) async {
-              final ok = await ref
-                  .read(biometricLockSettingsProvider.notifier)
-                  .setEnabled(enabled);
-              if (!ok && context.mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(loc.settingsBiometricUnavailable),
+          GlassCard(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                _SectionHeader(loc.settingsAccountSection),
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  key: settingsProTileKey,
+                  title: Text(
+                    isPro ? loc.settingsProActive : loc.settingsUpgradeToPro,
+                    style: TextStyle(
+                      color: isPro ? colorScheme.primary : colorScheme.onSurface,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                );
-              }
-            },
-          ),
-          Divider(color: Theme.of(context).dividerColor),
-          _SectionHeader(loc.settingsDataSection),
-          ListTile(
-            key: settingsResetKey,
-            title: Text(
-              loc.settingsResetData,
-              style: TextStyle(color: colorScheme.error),
-            ),
-            onTap: () => _confirmReset(context, ref),
-          ),
-          ListTile(
-            title: Text(
-              loc.settingsExportData,
-              style: TextStyle(color: colorScheme.onSurface),
-            ),
-            onTap: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(loc.settingsComingSoon)),
-              );
-            },
-          ),
-          Divider(color: Theme.of(context).dividerColor),
-          _SectionHeader(loc.settingsAboutSection),
-          ListTile(
-            title: Text(
-              loc.settingsVersion,
-              style: TextStyle(color: colorScheme.onSurface),
-            ),
-            trailing: Text(
-              '1.0.0',
-              style: TextStyle(color: colorScheme.onSurfaceVariant),
+                  trailing: isPro
+                      ? null
+                      : Icon(
+                          Icons.chevron_left,
+                          color: colorScheme.onSurfaceVariant,
+                        ),
+                  onTap: isPro ? null : () => context.push(AppRoutes.proPaywall),
+                ),
+              ],
             ),
           ),
-          ListTile(
-            title: Text(
-              loc.settingsPrivacyPolicy,
-              style: TextStyle(color: colorScheme.onSurface),
+          const SizedBox(height: 12),
+          GlassCard(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                _SectionHeader(loc.settingsAppearanceSection),
+                const _ColorThemeSection(),
+                SwitchListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(
+                    loc.settingsBiometricLock,
+                    style: TextStyle(color: colorScheme.onSurface),
+                  ),
+                  subtitle: Text(
+                    loc.settingsBiometricLockSubtitle,
+                    style: TextStyle(
+                      color: colorScheme.onSurfaceVariant,
+                      fontSize: 12,
+                    ),
+                  ),
+                  value: ref.watch(biometricLockSettingsProvider),
+                  activeThumbColor: colorScheme.primary,
+                  onChanged: (enabled) async {
+                    final ok = await ref
+                        .read(biometricLockSettingsProvider.notifier)
+                        .setEnabled(enabled);
+                    if (!ok && context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(loc.settingsBiometricUnavailable),
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ],
             ),
-            onTap: () {},
           ),
-          ListTile(
-            title: Text(
-              loc.settingsContactUs,
-              style: TextStyle(color: colorScheme.onSurface),
+          const SizedBox(height: 12),
+          GlassCard(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                _SectionHeader(loc.settingsNotificationsSection),
+                SwitchListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(
+                    loc.settingsEmotionNotifications,
+                    style: TextStyle(color: colorScheme.onSurface),
+                  ),
+                  value: prefs.emotionNotificationsEnabled,
+                  activeThumbColor: colorScheme.primary,
+                  onChanged: (v) async {
+                    await ref
+                        .read(appPreferencesProvider.notifier)
+                        .setEmotionNotifications(v);
+                    await ref.read(smartNotificationServiceProvider).rescheduleAll();
+                  },
+                ),
+                SwitchListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(
+                    loc.settingsDailyFocusReminder,
+                    style: TextStyle(color: colorScheme.onSurface),
+                  ),
+                  value: prefs.dailyFocusReminderEnabled,
+                  activeThumbColor: colorScheme.primary,
+                  onChanged: (v) async {
+                    await ref
+                        .read(appPreferencesProvider.notifier)
+                        .setDailyFocusReminder(v);
+                    await ref.read(smartNotificationServiceProvider).rescheduleAll();
+                  },
+                ),
+                const _DailyReminderTile(),
+              ],
             ),
-            onTap: () {},
+          ),
+          const SizedBox(height: 12),
+          GlassCard(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                _SectionHeader(loc.settingsSubscriptionSection),
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(
+                    isPro ? loc.settingsProActive : loc.settingsUpgradeToPro,
+                    style: TextStyle(
+                      color: isPro
+                          ? const Color(0xFFFBBF24)
+                          : colorScheme.onSurface,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  subtitle: Text(
+                    isPro ? loc.proPriceHint : loc.proPriceMonthly,
+                    style: TextStyle(color: colorScheme.onSurfaceVariant),
+                  ),
+                  trailing: isPro
+                      ? Icon(Icons.verified, color: const Color(0xFFFBBF24))
+                      : Icon(
+                          Icons.chevron_left,
+                          color: colorScheme.onSurfaceVariant,
+                        ),
+                  onTap: isPro ? null : () => context.push(AppRoutes.proPaywall),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
+          GlassCard(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                _SectionHeader(loc.settingsDataSection),
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  key: settingsResetKey,
+                  title: Text(
+                    loc.settingsResetData,
+                    style: TextStyle(color: colorScheme.error),
+                  ),
+                  onTap: () => _confirmReset(context, ref),
+                ),
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(
+                    loc.settingsExportData,
+                    style: TextStyle(color: colorScheme.onSurface),
+                  ),
+                  onTap: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(loc.settingsComingSoon)),
+                    );
+                  },
+                ),
+                _SectionHeader(loc.settingsAboutSection),
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(
+                    loc.settingsVersion,
+                    style: TextStyle(color: colorScheme.onSurface),
+                  ),
+                  trailing: Text(
+                    '1.0.0',
+                    style: TextStyle(color: colorScheme.onSurfaceVariant),
+                  ),
+                ),
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(
+                    loc.settingsPrivacyPolicy,
+                    style: TextStyle(color: colorScheme.onSurface),
+                  ),
+                  onTap: () {},
+                ),
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(
+                    loc.settingsContactUs,
+                    style: TextStyle(color: colorScheme.onSurface),
+                  ),
+                  onTap: () {},
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -241,6 +312,7 @@ class _DailyReminderTileState extends ConsumerState<_DailyReminderTile> {
 
     if (_enabled == null) {
       return SwitchListTile(
+        contentPadding: EdgeInsets.zero,
         title: Text(
           loc.settingsDailyReminder,
           style: TextStyle(color: colorScheme.onSurface),
@@ -255,6 +327,7 @@ class _DailyReminderTileState extends ConsumerState<_DailyReminderTile> {
     }
 
     return SwitchListTile(
+      contentPadding: EdgeInsets.zero,
       title: Text(
         loc.settingsDailyReminder,
         style: TextStyle(color: colorScheme.onSurface),
@@ -295,13 +368,16 @@ class _SectionHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-      child: Text(
-        label,
-        style: TextStyle(
-          color: colorScheme.onSurfaceVariant,
-          fontSize: 13,
-          fontWeight: FontWeight.w600,
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Align(
+        alignment: Alignment.centerRight,
+        child: Text(
+          label,
+          style: TextStyle(
+            color: colorScheme.onSurfaceVariant,
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
     );
@@ -320,16 +396,16 @@ String _colorThemeName(AppLocalizations loc, AppColorTheme theme) {
 }
 
 class _ColorThemeSection extends ConsumerWidget {
-  const _ColorThemeSection({required this.isPro});
-  final bool isPro;
+  const _ColorThemeSection();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = AppLocalizations.of(context)!;
     final selected = ref.watch(selectedColorThemeProvider);
+    final isPro = ref.watch(isProUserProvider);
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+      padding: const EdgeInsets.only(bottom: 8),
       child: Wrap(
         spacing: 18,
         runSpacing: 16,

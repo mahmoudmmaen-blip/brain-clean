@@ -1628,4 +1628,52 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get moreVersion => 'الإصدار 1.0.0';
+
+  @override
+  String get homeGreetingMorning => 'صباح الخير ☀️';
+
+  @override
+  String get homeGreetingAfternoon => 'مساء الخير 🌤️';
+
+  @override
+  String get homeGreetingEvening => 'مساء الخير 🌙';
+
+  @override
+  String get homeHeroName => 'يا بطل';
+
+  @override
+  String get homeStreakLabel => 'يوم متواصل';
+
+  @override
+  String get homeBciLabel => 'مؤشر صفاء الدماغ';
+
+  @override
+  String get homeBciTrend => '↑ هذا الأسبوع';
+
+  @override
+  String get homeActivitiesTitle => 'أنشطة اليوم';
+
+  @override
+  String get homeActivitiesOf => 'من';
+
+  @override
+  String get homeSafaMessage => 'فخورة بيك! كمّل كده 💚';
+
+  @override
+  String get homeProFeature => 'رسوم بيانية + AI متقدّم';
+
+  @override
+  String get homeActivityExercise => 'تمرين';
+
+  @override
+  String get homeActivityWater => 'مياه';
+
+  @override
+  String get homeActivitySleep => 'نوم';
+
+  @override
+  String get homeActivityMovement => 'حركة';
+
+  @override
+  String get settingsSubscriptionSection => 'الاشتراك';
 }

@@ -7,6 +7,7 @@ import '../../core/presentation/async_state_views.dart';
 import '../diagnostic/presentation/bc_score_provider.dart';
 import '../home/presentation/home_streak_provider.dart';
 import '../../core/presentation/language_toggle_button.dart';
+import '../../shared/widgets/glass_card.dart';
 import '../gamification/level_progress_widget.dart';
 import '../gamification/level_system.dart';
 import '../share/share_card_generator.dart';
@@ -88,33 +89,39 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             onSaveName: _saveName,
           ),
           const SizedBox(height: 20),
-          Row(
-            key: profileStatsRowKey,
-            children: [
-              Expanded(
-                child: _StatCard(
-                  value: '$streakDays',
-                  label: loc.profileStatFocusDays,
+          GlassCard(
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+            child: Row(
+              key: profileStatsRowKey,
+              children: [
+                Expanded(
+                  child: _StatCard(
+                    value: '$streakDays',
+                    label: loc.profileStatFocusDays,
+                  ),
                 ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: _StatCard(
-                  value: '${bcScore.round()}',
-                  label: loc.profileStatBcs,
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _StatCard(
+                    value: '${bcScore.round()}',
+                    label: loc.profileStatBcs,
+                  ),
                 ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: _StatCard(
-                  value: '${emotionsAsync.maybeWhen(data: (d) => d.count, orElse: () => 0)}',
-                  label: loc.profileStatEmotions,
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _StatCard(
+                    value:
+                        '${emotionsAsync.maybeWhen(data: (d) => d.count, orElse: () => 0)}',
+                    label: loc.profileStatEmotions,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           const SizedBox(height: 20),
-          const LevelProgressWidget(),
+          GlassCard(
+            child: const LevelProgressWidget(),
+          ),
           const SizedBox(height: 16),
           const ShareButton(),
           const ShareCardCapture(),
@@ -138,26 +145,31 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             error: (_, __) => AsyncStateViews.error(context),
             data: (emotions) {
               if (emotions.recent.isEmpty) {
-                return Text(
-                  loc.profileNoEmotionsYet,
-                  key: profileEmptyEmotionsKey,
-                  style: TextStyle(color: colorScheme.onSurfaceVariant),
+                return GlassCard(
+                  child: Text(
+                    loc.profileNoEmotionsYet,
+                    key: profileEmptyEmotionsKey,
+                    style: TextStyle(color: colorScheme.onSurfaceVariant),
+                  ),
                 );
               }
-              return SizedBox(
-                height: 40,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: emotions.recent.length,
-                  separatorBuilder: (_, __) => const SizedBox(width: 8),
-                  itemBuilder: (_, i) {
-                    final entry = emotions.recent[i];
-                    return Chip(
-                      label: Text(entry.label),
-                      backgroundColor: colorScheme.surface,
-                      labelStyle: TextStyle(color: colorScheme.onSurface),
-                    );
-                  },
+              return GlassCard(
+                child: SizedBox(
+                  height: 40,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: emotions.recent.length,
+                    separatorBuilder: (_, __) => const SizedBox(width: 8),
+                    itemBuilder: (_, i) {
+                      final entry = emotions.recent[i];
+                      return Chip(
+                        label: Text(entry.label),
+                        backgroundColor:
+                            colorScheme.surface.withOpacity(0.5),
+                        labelStyle: TextStyle(color: colorScheme.onSurface),
+                      );
+                    },
+                  ),
                 ),
               );
             },
@@ -172,14 +184,16 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             ),
           ),
           const SizedBox(height: 12),
-          GridView.count(
-            crossAxisCount: 2,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            mainAxisSpacing: 12,
-            crossAxisSpacing: 12,
-            childAspectRatio: 1.4,
-            children: [
+          GlassCard(
+            padding: const EdgeInsets.all(8),
+            child: GridView.count(
+              crossAxisCount: 2,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              mainAxisSpacing: 12,
+              crossAxisSpacing: 12,
+              childAspectRatio: 1.4,
+              children: [
               _BadgeCard(
                 key: profileBadgeStreak7Key,
                 emoji: '🔥',
@@ -215,6 +229,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 unlocked: prefs.isProUser,
               ),
             ],
+          ),
           ),
           const SizedBox(height: 24),
           TextButton.icon(
@@ -325,30 +340,23 @@ class _StatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-      decoration: BoxDecoration(
-        color: colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        children: [
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: colorScheme.primary,
-            ),
+    return Column(
+      children: [
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: colorScheme.primary,
           ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 11, color: colorScheme.onSurfaceVariant),
-          ),
-        ],
-      ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          label,
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 11, color: colorScheme.onSurfaceVariant),
+        ),
+      ],
     );
   }
 }

@@ -867,5 +867,21 @@
   "moreSettings": "الإعدادات",
   "morePro": "Brain Clean Pro",
   "moreAccountability": "شريك المتابعة",
-  "moreVersion": "الإصدار 1.0.0"
+  "moreVersion": "الإصدار 1.0.0",
+  "homeGreetingMorning": "صباح الخير ☀️",
+  "homeGreetingAfternoon": "مساء الخير 🌤️",
+  "homeGreetingEvening": "مساء الخير 🌙",
+  "homeHeroName": "يا بطل",
+  "homeStreakLabel": "يوم متواصل",
+  "homeBciLabel": "مؤشر صفاء الدماغ",
+  "homeBciTrend": "↑ هذا الأسبوع",
+  "homeActivitiesTitle": "أنشطة اليوم",
+  "homeActivitiesOf": "من",
+  "homeSafaMessage": "فخورة بيك! كمّل كده 💚",
+  "homeProFeature": "رسوم بيانية + AI متقدّم",
+  "homeActivityExercise": "تمرين",
+  "homeActivityWater": "مياه",
+  "homeActivitySleep": "نوم",
+  "homeActivityMovement": "حركة",
+  "settingsSubscriptionSection": "الاشتراك"
 }
