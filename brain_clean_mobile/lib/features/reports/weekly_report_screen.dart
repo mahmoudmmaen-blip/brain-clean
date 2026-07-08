@@ -73,7 +73,7 @@ class WeeklyReportScreen extends ConsumerWidget {
         children: [
           Text(
             message,
-            key: Key('weekly_report_message'),
+            key: const Key('weekly_report_message'),
             style: TextStyle(
               color: colorScheme.primary,
               fontSize: 22,

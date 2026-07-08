@@ -80,7 +80,7 @@ void main() {
         var rebuilds = 0;
 
         lock.bindToTransition(
-          AlwaysStoppedAnimation<double>(0.5),
+          const AlwaysStoppedAnimation<double>(0.5),
           () => rebuilds++,
         );
         expect(lock.isLocked, isTrue);

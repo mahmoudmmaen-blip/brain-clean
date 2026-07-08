@@ -24,6 +24,7 @@ Future<void> main() async {
   await dotenv.load(fileName: ".env");
 
   await HiveBootstrap.initialize();
+  HiveBootstrap.markRoutingGuardEnabled();
   await RootDetector.checkAndFlag();
   await HiveBootstrap.warmUpPersistentBoxes();
   await SupabaseConfig.initialize();

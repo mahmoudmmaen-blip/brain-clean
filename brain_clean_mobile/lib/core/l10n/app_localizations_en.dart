@@ -274,6 +274,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get splashHydrationRetry => 'Restoring your progress…';
 
   @override
+  String get splashInitError => 'Loading failed. Please restart the app.';
+
+  @override
   String get homeTitle => 'Brain Clean Home';
 
   @override
@@ -1498,6 +1501,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get biometricLockButton => 'Unlock Brain Clean';
+
+  @override
+  String get biometricFallbackPin => 'Use PIN instead';
 
   @override
   String get securityCompromisedBanner =>

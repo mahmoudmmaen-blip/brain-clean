@@ -213,7 +213,7 @@ abstract final class BhiPillarJsonKeys {
     final normalized = normalizeIncoming(json);
     final raw = normalized[committedAt];
     if (raw is! String) {
-      throw FormatException(
+      throw const FormatException(
         'BhiPillarJsonKeys: missing or invalid "$committedAt"',
       );
     }
@@ -225,7 +225,7 @@ abstract final class BhiPillarJsonKeys {
     final normalized = normalizeIncoming(json);
     final bhiMap = readBhiMap(normalized);
     if (bhiMap != null) return bhiMap;
-    throw FormatException('BhiPillarJsonKeys: missing "$bhi" envelope');
+    throw const FormatException('BhiPillarJsonKeys: missing "$bhi" envelope');
   }
 
   /// Embeds recovery accountability fields on a BHI or session JSON map.

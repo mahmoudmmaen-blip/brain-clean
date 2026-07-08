@@ -1,4 +1,3 @@
-import 'recovery_day_record.dart';
 import 'recovery_persistence_exception.dart';
 import 'recovery_protocol_json_keys.dart';
 import 'recovery_protocol_load_result.dart';

@@ -285,7 +285,7 @@ class _VisualResultPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final cs = Theme.of(context).colorScheme;
-    final maxPts =
+    const maxPts =
         CognitiveTestScorer.visualDefaultRounds *
         CognitiveTestScorer.visualMaxPointsPerRound;
     return Column(

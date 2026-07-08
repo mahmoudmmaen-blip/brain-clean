@@ -30,6 +30,7 @@ import '../../features/settings/settings_screen.dart';
 import '../../features/splash/presentation/splash_screen.dart';
 import '../constants/app_routes.dart';
 import '../security/biometric_lock_screen.dart';
+import '../storage/hive_bootstrap.dart';
 import '../security/security_status_provider.dart';
 import 'app_navigator_key.dart';
 
@@ -215,6 +216,12 @@ GoRouter goRouter(GoRouterRef ref) {
     debugLogDiagnostics: true,
     redirect: (context, state) {
       final location = state.uri.path;
+      if (HiveBootstrap.isRoutingGuardEnabled &&
+          location != AppRoutes.splash &&
+          !HiveBootstrap.isInitialized &&
+          !HiveBootstrap.hasRegisteredAdapters) {
+        return AppRoutes.splash;
+      }
       if (location == AppRoutes.splash) return null;
       if (!prefs.hasSeenOnboarding && location != AppRoutes.onboarding) {
         return AppRoutes.onboarding;

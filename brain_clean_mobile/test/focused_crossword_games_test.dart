@@ -1,6 +1,5 @@
 import 'package:brain_clean_mobile/features/focus/domain/focused_thinking_logic.dart';
 import 'package:brain_clean_mobile/features/games/crossword/domain/crossword_logic.dart';
-import 'package:brain_clean_mobile/features/games/crossword/domain/crossword_models.dart';
 import 'package:brain_clean_mobile/features/games/crossword/domain/crossword_puzzles.dart';
 import 'package:brain_clean_mobile/features/games/domain/n_back_logic.dart';
 import 'package:flutter_test/flutter_test.dart';

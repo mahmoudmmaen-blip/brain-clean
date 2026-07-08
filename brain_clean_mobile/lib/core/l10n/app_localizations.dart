@@ -560,6 +560,12 @@ abstract class AppLocalizations {
   /// **'Restoring your progress…'**
   String get splashHydrationRetry;
 
+  /// No description provided for @splashInitError.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading failed. Please restart the app.'**
+  String get splashInitError;
+
   /// No description provided for @homeTitle.
   ///
   /// In en, this message translates to:
@@ -2779,6 +2785,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Unlock Brain Clean'**
   String get biometricLockButton;
+
+  /// No description provided for @biometricFallbackPin.
+  ///
+  /// In en, this message translates to:
+  /// **'Use PIN instead'**
+  String get biometricFallbackPin;
 
   /// No description provided for @securityCompromisedBanner.
   ///

@@ -6,7 +6,6 @@ import 'package:brain_clean_mobile/features/recovery/domain/accountability_categ
 import 'package:brain_clean_mobile/features/recovery/presentation/recovery_protocol_controller.dart';
 import 'package:brain_clean_mobile/features/recovery/presentation/widgets/accountability_box_modal.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 

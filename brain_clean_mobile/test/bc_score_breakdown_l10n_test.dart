@@ -5,7 +5,6 @@ import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.d
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_session.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/widgets/bc_score_breakdown.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

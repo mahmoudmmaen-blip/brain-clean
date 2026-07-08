@@ -6,7 +6,6 @@ import '../../../core/theme/app_design_constants.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/theme_extensions.dart';
 import '../domain/recovery_daily_task.dart';
-import '../domain/recovery_day_record.dart';
 import '../domain/recovery_protocol_constants.dart';
 import '../domain/recovery_protocol_state.dart';
 import 'recovery_load_meta_provider.dart';
@@ -428,7 +427,7 @@ class _RecoveryGridBody extends ConsumerWidget {
             Card(
               color: AppTheme.success.withValues(alpha: 0.12),
               child: ListTile(
-                leading: Icon(Icons.check_circle, color: AppTheme.success),
+                leading: const Icon(Icons.check_circle, color: AppTheme.success),
                 title: Text(
                   loc.recoveryDayComplete,
                   style: TextStyle(color: theme.colorScheme.onSurface),

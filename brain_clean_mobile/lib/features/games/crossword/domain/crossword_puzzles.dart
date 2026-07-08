@@ -9,7 +9,7 @@ final List<CrosswordPuzzle> crosswordPuzzles = [
   _puzzle5,
 ];
 
-final _puzzle1 = CrosswordPuzzle(
+const _puzzle1 = CrosswordPuzzle(
   id: 'easy_5',
   titleAr: 'سهل — 5×5',
   titleEn: 'Easy — 5×5',
@@ -21,7 +21,7 @@ final _puzzle1 = CrosswordPuzzle(
     ['ذ', 'ا', 'ك', 'ر', 'ة'],
   ],
   clues: [
-    const CrosswordClue(
+    CrosswordClue(
       number: 1,
       direction: CrosswordDirection.across,
       clueTextAr: 'قدرة الذهن على التثبيت',
@@ -31,7 +31,7 @@ final _puzzle1 = CrosswordPuzzle(
       startCol: 4,
       length: 5,
     ),
-    const CrosswordClue(
+    CrosswordClue(
       number: 2,
       direction: CrosswordDirection.across,
       clueTextAr: 'العافية الجسدية',
@@ -41,7 +41,7 @@ final _puzzle1 = CrosswordPuzzle(
       startCol: 2,
       length: 3,
     ),
-    const CrosswordClue(
+    CrosswordClue(
       number: 3,
       direction: CrosswordDirection.across,
       clueTextAr: 'مركز التفكير والإدراك',
@@ -51,7 +51,7 @@ final _puzzle1 = CrosswordPuzzle(
       startCol: 4,
       length: 4,
     ),
-    const CrosswordClue(
+    CrosswordClue(
       number: 4,
       direction: CrosswordDirection.across,
       clueTextAr: 'راحة الجسم الليلية',
@@ -61,7 +61,7 @@ final _puzzle1 = CrosswordPuzzle(
       startCol: 3,
       length: 3,
     ),
-    const CrosswordClue(
+    CrosswordClue(
       number: 5,
       direction: CrosswordDirection.across,
       clueTextAr: 'تخزين التجارب والمعلومات',
@@ -74,7 +74,7 @@ final _puzzle1 = CrosswordPuzzle(
   ],
 );
 
-final _puzzle2 = CrosswordPuzzle(
+const _puzzle2 = CrosswordPuzzle(
   id: 'medium_7',
   titleAr: 'متوسط — 7×7',
   titleEn: 'Medium — 7×7',
@@ -88,7 +88,7 @@ final _puzzle2 = CrosswordPuzzle(
     [null, 'ه', 'د', 'و', 'ء', null, null],
   ],
   clues: [
-    const CrosswordClue(
+    CrosswordClue(
       number: 1,
       direction: CrosswordDirection.across,
       clueTextAr: 'ناقل مكافأة في الدماغ',
@@ -98,7 +98,7 @@ final _puzzle2 = CrosswordPuzzle(
       startCol: 6,
       length: 7,
     ),
-    const CrosswordClue(
+    CrosswordClue(
       number: 2,
       direction: CrosswordDirection.across,
       clueTextAr: 'التركيز الذهني',
@@ -108,7 +108,7 @@ final _puzzle2 = CrosswordPuzzle(
       startCol: 6,
       length: 6,
     ),
-    const CrosswordClue(
+    CrosswordClue(
       number: 3,
       direction: CrosswordDirection.across,
       clueTextAr: 'قوة الإرادة والاختيار',
@@ -118,7 +118,7 @@ final _puzzle2 = CrosswordPuzzle(
       startCol: 4,
       length: 5,
     ),
-    const CrosswordClue(
+    CrosswordClue(
       number: 4,
       direction: CrosswordDirection.across,
       clueTextAr: 'سكينة وطمأنينة',
@@ -131,7 +131,7 @@ final _puzzle2 = CrosswordPuzzle(
   ],
 );
 
-final _puzzle3 = CrosswordPuzzle(
+const _puzzle3 = CrosswordPuzzle(
   id: 'hard_9',
   titleAr: 'صعب — 9×9',
   titleEn: 'Hard — 9×9',
@@ -147,7 +147,7 @@ final _puzzle3 = CrosswordPuzzle(
     [null, 'و', 'ع', 'ي', null, null, null, null, null],
   ],
   clues: [
-    const CrosswordClue(
+    CrosswordClue(
       number: 1,
       direction: CrosswordDirection.across,
       clueTextAr: 'خلايا ناقلة الإشارات',
@@ -157,7 +157,7 @@ final _puzzle3 = CrosswordPuzzle(
       startCol: 6,
       length: 7,
     ),
-    const CrosswordClue(
+    CrosswordClue(
       number: 2,
       direction: CrosswordDirection.across,
       clueTextAr: 'خطة منظمة للتعافي',
@@ -167,7 +167,7 @@ final _puzzle3 = CrosswordPuzzle(
       startCol: 8,
       length: 8,
     ),
-    const CrosswordClue(
+    CrosswordClue(
       number: 3,
       direction: CrosswordDirection.across,
       clueTextAr: 'مواجهة الإغراءات',
@@ -177,7 +177,7 @@ final _puzzle3 = CrosswordPuzzle(
       startCol: 5,
       length: 6,
     ),
-    const CrosswordClue(
+    CrosswordClue(
       number: 4,
       direction: CrosswordDirection.across,
       clueTextAr: 'التحكم الذاتي',
@@ -187,7 +187,7 @@ final _puzzle3 = CrosswordPuzzle(
       startCol: 6,
       length: 6,
     ),
-    const CrosswordClue(
+    CrosswordClue(
       number: 5,
       direction: CrosswordDirection.across,
       clueTextAr: 'الإدراك والوعي الذاتي',
@@ -200,7 +200,7 @@ final _puzzle3 = CrosswordPuzzle(
   ],
 );
 
-final _puzzle4 = CrosswordPuzzle(
+const _puzzle4 = CrosswordPuzzle(
   id: 'focus_7',
   titleAr: 'تركيز — 7×7',
   titleEn: 'Focus — 7×7',
@@ -214,7 +214,7 @@ final _puzzle4 = CrosswordPuzzle(
     ['ذ', 'ا', 'ك', 'ر', 'ة', null, null],
   ],
   clues: [
-    const CrosswordClue(
+    CrosswordClue(
       number: 1,
       direction: CrosswordDirection.across,
       clueTextAr: 'ثبات الانتباه',
@@ -224,7 +224,7 @@ final _puzzle4 = CrosswordPuzzle(
       startCol: 4,
       length: 5,
     ),
-    const CrosswordClue(
+    CrosswordClue(
       number: 2,
       direction: CrosswordDirection.across,
       clueTextAr: 'عضو التفكير',
@@ -234,7 +234,7 @@ final _puzzle4 = CrosswordPuzzle(
       startCol: 4,
       length: 4,
     ),
-    const CrosswordClue(
+    CrosswordClue(
       number: 3,
       direction: CrosswordDirection.across,
       clueTextAr: 'راحة ليلية',
@@ -244,7 +244,7 @@ final _puzzle4 = CrosswordPuzzle(
       startCol: 2,
       length: 3,
     ),
-    const CrosswordClue(
+    CrosswordClue(
       number: 4,
       direction: CrosswordDirection.across,
       clueTextAr: 'عافية جسدية',
@@ -254,7 +254,7 @@ final _puzzle4 = CrosswordPuzzle(
       startCol: 3,
       length: 3,
     ),
-    const CrosswordClue(
+    CrosswordClue(
       number: 5,
       direction: CrosswordDirection.across,
       clueTextAr: 'حفظ المعلومات',
@@ -267,7 +267,7 @@ final _puzzle4 = CrosswordPuzzle(
   ],
 );
 
-final _puzzle5 = CrosswordPuzzle(
+const _puzzle5 = CrosswordPuzzle(
   id: 'brain_9',
   titleAr: 'دماغ — 9×9',
   titleEn: 'Brain — 9×9',
@@ -283,7 +283,7 @@ final _puzzle5 = CrosswordPuzzle(
     [null, 'ت', 'ر', 'ك', 'ي', 'ز', null, null, null],
   ],
   clues: [
-    const CrosswordClue(
+    CrosswordClue(
       number: 1,
       direction: CrosswordDirection.across,
       clueTextAr: 'ناقل المكافأة',
@@ -293,7 +293,7 @@ final _puzzle5 = CrosswordPuzzle(
       startCol: 6,
       length: 7,
     ),
-    const CrosswordClue(
+    CrosswordClue(
       number: 2,
       direction: CrosswordDirection.across,
       clueTextAr: 'الانتباه الواعي',
@@ -303,7 +303,7 @@ final _puzzle5 = CrosswordPuzzle(
       startCol: 6,
       length: 6,
     ),
-    const CrosswordClue(
+    CrosswordClue(
       number: 3,
       direction: CrosswordDirection.across,
       clueTextAr: 'قوة القرار',
@@ -313,7 +313,7 @@ final _puzzle5 = CrosswordPuzzle(
       startCol: 4,
       length: 5,
     ),
-    const CrosswordClue(
+    CrosswordClue(
       number: 4,
       direction: CrosswordDirection.across,
       clueTextAr: 'هدوء داخلي',
@@ -323,7 +323,7 @@ final _puzzle5 = CrosswordPuzzle(
       startCol: 4,
       length: 4,
     ),
-    const CrosswordClue(
+    CrosswordClue(
       number: 5,
       direction: CrosswordDirection.across,
       clueTextAr: 'عمق التركيز',

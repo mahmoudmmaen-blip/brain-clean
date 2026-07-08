@@ -61,7 +61,7 @@ PomodoroAdvanceResult advancePomodoro({
         completedRounds: completedRounds,
       );
     case PomodoroPhase.longBreak:
-      return PomodoroAdvanceResult(
+      return const PomodoroAdvanceResult(
         nextPhase: PomodoroPhase.focus,
         completedRounds: 0,
         longBreakBonus: pomodoroLongBreakBonus,

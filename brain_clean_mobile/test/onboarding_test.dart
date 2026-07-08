@@ -62,11 +62,11 @@ void main() {
 
   testWidgets('OnboardingScreen shows PageView and skip button', (tester) async {
     await tester.pumpWidget(
-      MaterialApp(
-        locale: const Locale('ar'),
+      const MaterialApp(
+        locale: Locale('ar'),
         localizationsDelegates: appLocalizationsDelegates,
         supportedLocales: supportedLocales,
-        home: const OnboardingScreen(),
+        home: OnboardingScreen(),
       ),
     );
     await tester.pumpAndSettle();

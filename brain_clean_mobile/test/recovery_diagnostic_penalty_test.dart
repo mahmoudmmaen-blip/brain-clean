@@ -77,7 +77,7 @@ void main() {
     });
 
     test('cumulative penalties clamp at BHI floor', () {
-      final lowModel = const DiagnosticModel(
+      const lowModel = DiagnosticModel(
         brainPerformance: 30,
         digitalDiscipline: 30,
         healthyHabits: 30,

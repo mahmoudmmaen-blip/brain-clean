@@ -2,7 +2,6 @@ import '../../games/domain/game_scoring.dart';
 import '../../games/domain/n_back_logic.dart';
 import '../../games/domain/speed_sort_logic.dart';
 import '../../games/crossword/domain/crossword_logic.dart';
-import '../../focus/domain/focused_thinking_logic.dart';
 import '../../focus/domain/task_category.dart';
 import '../../pomodoro/domain/pomodoro_logic.dart';
 import '../../diagnostic/presentation/visual_cognitive_scorer.dart';

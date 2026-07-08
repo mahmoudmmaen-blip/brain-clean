@@ -4,7 +4,6 @@ import '../../../core/application/app_preferences_provider.dart';
 import '../../../core/constants/hive_meta_keys.dart';
 import '../../../core/data/app_meta_box_provider.dart';
 import '../../diagnostic/presentation/bc_score_provider.dart';
-import '../../gamification/data/xp_ledger_constants.dart';
 import '../../gamification/domain/xp_source.dart';
 import '../domain/task_category.dart';
 

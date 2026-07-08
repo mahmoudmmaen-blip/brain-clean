@@ -270,6 +270,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get splashHydrationRetry => 'جارٍ استعادة تقدمك…';
 
   @override
+  String get splashInitError => 'حدث خطأ أثناء التحميل. أعد تشغيل التطبيق.';
+
+  @override
   String get homeTitle => 'الرئيسية — Brain Clean';
 
   @override
@@ -1482,6 +1485,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get biometricLockButton => 'فتح Brain Clean';
+
+  @override
+  String get biometricFallbackPin => 'استخدم رمز PIN بدلاً من ذلك';
 
   @override
   String get securityCompromisedBanner =>

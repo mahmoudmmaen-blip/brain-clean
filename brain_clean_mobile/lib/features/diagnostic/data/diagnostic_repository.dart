@@ -41,9 +41,8 @@ class DiagnosticRepository {
           .order('updated_at', ascending: false)
           .limit(1);
 
-      if (rows is! List || rows.isEmpty) return null;
+      if (rows.isEmpty) return null;
       final row = rows.first;
-      if (row is! Map<String, dynamic>) return null;
 
       final sessionJson = row[BhiPillarJsonKeys.sessionJsonSnake] ??
           row['session_json'];

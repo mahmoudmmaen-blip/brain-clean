@@ -62,6 +62,11 @@ abstract final class BiometricGate {
     _sessionAuthenticated = false;
   }
 
+  /// Bypass biometric for the current app session only (e.g. after repeated failures).
+  static void bypassForSession() {
+    _sessionAuthenticated = true;
+  }
+
   @visibleForTesting
   static void resetSessionForTesting() {
     _sessionAuthenticated = false;

@@ -19,6 +19,21 @@ import '../../features/recovery/data/adapters/recovery_protocol_state_adapter.da
 /// Legacy unencrypted boxes are migrated once ([HiveMetaKeys.boxesEncryptedV1]).
 abstract final class HiveBootstrap {
   static bool _initialized = false;
+  static bool _routingGuardEnabled = false;
+
+  /// Whether [initialize] completed successfully (adapters registered).
+  static bool get isInitialized => _initialized;
+
+  /// Enabled from [main] after cold-start Hive setup — skipped in widget tests.
+  static bool get isRoutingGuardEnabled => _routingGuardEnabled;
+
+  static void markRoutingGuardEnabled() {
+    _routingGuardEnabled = true;
+  }
+
+  /// True when Hive adapters are registered (e.g. integration test fixtures).
+  static bool get hasRegisteredAdapters =>
+      Hive.isAdapterRegistered(DailySnapshotAdapter().typeId);
 
   static const List<String> _durableBoxes = [
     HiveBoxes.recoveryProtocol,

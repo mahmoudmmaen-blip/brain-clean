@@ -206,7 +206,7 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
             padding: const EdgeInsets.all(24),
             child: Column(
               children: [
-                Align(
+                const Align(
                   alignment: Alignment.centerLeft,
                   child: AmbientSoundToggleButton(),
                 ),

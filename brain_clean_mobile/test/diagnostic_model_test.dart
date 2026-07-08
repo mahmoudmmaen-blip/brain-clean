@@ -2,9 +2,7 @@ import 'package:brain_clean_mobile/core/constants/bc_score_constants.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/bhi_pillar_frozen_snapshot.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/bhi_pillar_json_keys.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/pillar_bound_evaluation.dart';
-import 'package:brain_clean_mobile/features/diagnostic/domain/brain_rot_assessment.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/brain_rot_questionnaire_snapshot.dart';
-import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_bhi_snapshot.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_metrics.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_session.dart';
@@ -405,7 +403,7 @@ void main() {
         taskSwitching: 5,
         burnout: 6,
       );
-      final questionnaire = BrainRotQuestionnaireSnapshot(
+      const questionnaire = BrainRotQuestionnaireSnapshot(
         answers: [true, false, true, false, false, false, false, false, false, false],
         currentIndex: 9,
         phase: BrainRotFlowPhase.results,
@@ -439,7 +437,7 @@ void main() {
         consistency: 50,
       );
       const metrics = DiagnosticMetrics(sleepQuality: 9);
-      final midFlowQuestionnaire = BrainRotQuestionnaireSnapshot(
+      const midFlowQuestionnaire = BrainRotQuestionnaireSnapshot(
         answers: [true, false, null, null, null, null, null, null, null, null],
         currentIndex: 2,
         phase: BrainRotFlowPhase.questions,

@@ -35,9 +35,7 @@ class DashboardScreen extends ConsumerWidget {
     final loc = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
     final session = ref.watch(bcScoreSessionProvider);
-    final committedAt = session == null
-        ? null
-        : session.committedAt.toLocal().toString().substring(0, 16);
+    final committedAt = session?.committedAt.toLocal().toString().substring(0, 16);
 
     return Scaffold(
       appBar: AppBar(title: Text(loc.dashboardTitle)),

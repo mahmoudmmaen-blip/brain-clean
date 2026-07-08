@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -29,6 +28,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
   String _typedTitle = '';
   bool _showSubtitle = false;
+  bool _initFailed = false;
   Timer? _typewriterTimer;
   int _charIndex = 0;
 
@@ -61,44 +61,42 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   }
 
   Future<void> _hydrateAndRoute() async {
-    final started = DateTime.now();
-    var snapshot = const AppHydrationSnapshot(
-      hasCommittedSession: false,
-      hasDraftProgress: false,
-    );
     try {
-      snapshot = await ref.read(appHydrationProvider.future);
-    } catch (_) {
-      // Local Hive remains authoritative; route using defaults below.
-    }
+      final started = DateTime.now();
+      final snapshot = await ref.read(appHydrationProvider.future);
 
-    final elapsed = DateTime.now().difference(started);
-    if (elapsed < SplashScreen.minSplashDuration) {
-      await Future<void>.delayed(SplashScreen.minSplashDuration - elapsed);
-    }
-    if (!mounted) return;
+      final elapsed = DateTime.now().difference(started);
+      if (elapsed < SplashScreen.minSplashDuration) {
+        await Future<void>.delayed(SplashScreen.minSplashDuration - elapsed);
+      }
+      if (!mounted) return;
 
-    await ref.read(biometricLockSettingsProvider.notifier).hydrate();
-    final biometricEnabled = ref.read(biometricLockSettingsProvider);
-    if (biometricEnabled) {
-      final ok = await ref
-          .read(biometricAuthControllerProvider.notifier)
-          .authenticate();
-      if (!ok) {
-        if (mounted) context.go(AppRoutes.biometricLock);
+      await ref.read(biometricLockSettingsProvider.notifier).hydrate();
+      final biometricEnabled = ref.read(biometricLockSettingsProvider);
+      if (biometricEnabled) {
+        final ok = await ref
+            .read(biometricAuthControllerProvider.notifier)
+            .authenticate();
+        if (!ok) {
+          if (mounted) context.go(AppRoutes.biometricLock);
+          return;
+        }
+      }
+
+      final hasSeen = ref.read(hasSeenOnboardingProvider);
+      if (!hasSeen) {
+        context.go(AppRoutes.onboarding);
         return;
       }
-    }
 
-    final hasSeen = ref.read(hasSeenOnboardingProvider);
-    if (!hasSeen) {
-      context.go(AppRoutes.onboarding);
-      return;
+      final resumeLiveSession =
+          snapshot.hasDraftProgress && !snapshot.hasCommittedSession;
+      context.go(resumeLiveSession ? AppRoutes.diagnostic : AppRoutes.home);
+    } catch (error, stackTrace) {
+      debugPrint('SplashScreen: initialization failed: $error');
+      debugPrint('$stackTrace');
+      if (mounted) setState(() => _initFailed = true);
     }
-
-    final resumeLiveSession =
-        snapshot.hasDraftProgress && !snapshot.hasCommittedSession;
-    context.go(resumeLiveSession ? AppRoutes.diagnostic : AppRoutes.home);
   }
 
   @override
@@ -110,6 +108,21 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+
+    if (_initFailed) {
+      return Scaffold(
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Text(
+              loc.splashInitError,
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+      );
+    }
+
     final hydration = ref.watch(appHydrationProvider);
     final colorScheme = Theme.of(context).colorScheme;
     final dividerColor = Theme.of(context).dividerColor;

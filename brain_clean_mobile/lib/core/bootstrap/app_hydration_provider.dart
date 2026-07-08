@@ -4,7 +4,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../features/detox/presentation/detox_protocol_controller.dart';
 import '../../features/diagnostic/data/diagnostic_local_repository_provider.dart';
 import '../../features/diagnostic/data/diagnostic_repository_provider.dart';
-import '../../features/diagnostic/domain/diagnostic_metrics.dart';
 import '../../features/diagnostic/domain/diagnostic_session.dart';
 import '../../features/diagnostic/presentation/bc_score_provider.dart';
 import '../../features/diagnostic/presentation/diagnostic_controller.dart';

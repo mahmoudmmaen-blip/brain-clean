@@ -4,7 +4,6 @@ import 'package:brain_clean_mobile/core/storage/hive_bootstrap.dart';
 import 'package:brain_clean_mobile/core/storage/hive_boxes.dart';
 import 'package:brain_clean_mobile/features/diagnostic/data/diagnostic_local_repository.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/brain_rot_questionnaire_snapshot.dart';
-import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_bhi_snapshot.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_metrics.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_session.dart';

@@ -34,7 +34,7 @@ enum BrainLevel {
   }
 
   BrainLevel? get next {
-    final values = BrainLevel.values;
+    const values = BrainLevel.values;
     final i = index;
     if (i >= values.length - 1) return null;
     return values[i + 1];

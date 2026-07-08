@@ -24,7 +24,7 @@ abstract final class BciAdherenceCalculator {
     final currentDay = state.currentProtocolDay;
     if (currentDay < 1) return const [];
 
-    final window = BciScoreConstants.adherenceWindowDays;
+    const window = BciScoreConstants.adherenceWindowDays;
     final startDay = (currentDay - window + 1).clamp(1, currentDay);
 
     final records = <RecoveryDayRecord>[];

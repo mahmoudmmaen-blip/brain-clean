@@ -1,4 +1,3 @@
-import 'package:brain_clean_mobile/core/application/app_preferences_provider.dart';
 import 'package:brain_clean_mobile/core/data/app_meta_box_provider.dart';
 import 'package:brain_clean_mobile/features/emotions/data/emotion_log_repository.dart';
 import 'package:brain_clean_mobile/features/home/presentation/home_streak_provider.dart';

@@ -8,7 +8,6 @@ import 'package:brain_clean_mobile/features/dashboard/data/daily_snapshots_repos
 import 'package:brain_clean_mobile/features/dashboard/domain/daily_snapshot.dart';
 import 'package:brain_clean_mobile/features/dashboard/presentation/seven_day_chart_widget.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
-import 'package:brain_clean_mobile/features/diagnostic/presentation/bc_score_provider.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/visual_cognitive_scorer.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/visual_cognitive_test_screen.dart';
 import 'package:brain_clean_mobile/features/home/presentation/home_streak_provider.dart';

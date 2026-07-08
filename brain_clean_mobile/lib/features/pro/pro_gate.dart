@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import '../../core/constants/app_routes.dart';
 import '../../core/l10n/app_localizations.dart';
 import '../../core/services/purchases_service.dart';
-import 'application/subscription_service_provider.dart';
 
 /// Whether the current user holds the live Brain Clean Pro entitlement.
 bool _hasProEntitlement(WidgetRef ref) =>

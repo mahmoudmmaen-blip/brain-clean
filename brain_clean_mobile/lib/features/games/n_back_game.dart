@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/l10n/app_localizations.dart';
-import '../../core/providers/locale_provider.dart';
 import '../diagnostic/presentation/bc_score_provider.dart';
 import '../gamification/domain/xp_source.dart';
 import 'application/games_scores_provider.dart';

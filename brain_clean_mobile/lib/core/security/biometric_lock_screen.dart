@@ -5,14 +5,42 @@ import 'package:go_router/go_router.dart';
 import '../constants/app_routes.dart';
 import '../l10n/app_localizations.dart';
 import '../theme/app_design_constants.dart';
+import 'biometric_gate.dart';
 import 'security_status_provider.dart';
 
 /// Full-screen gate when biometric lock is enabled.
-class BiometricLockScreen extends ConsumerWidget {
+class BiometricLockScreen extends ConsumerStatefulWidget {
   const BiometricLockScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<BiometricLockScreen> createState() =>
+      _BiometricLockScreenState();
+}
+
+class _BiometricLockScreenState extends ConsumerState<BiometricLockScreen> {
+  int _failureCount = 0;
+
+  Future<void> _authenticate() async {
+    final ok = await ref
+        .read(biometricAuthControllerProvider.notifier)
+        .authenticate();
+    if (!mounted) return;
+    if (ok) {
+      setState(() => _failureCount = 0);
+      context.go(AppRoutes.home);
+    } else {
+      setState(() => _failureCount++);
+    }
+  }
+
+  void _bypassWithPin() {
+    BiometricGate.bypassForSession();
+    ref.read(biometricSessionProvider.notifier).unlock();
+    context.go(AppRoutes.home);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final auth = ref.watch(biometricAuthControllerProvider);
     final colorScheme = Theme.of(context).colorScheme;
@@ -55,14 +83,7 @@ class BiometricLockScreen extends ConsumerWidget {
                 CircularProgressIndicator(color: primary)
               else
                 FilledButton.icon(
-                  onPressed: () async {
-                    final ok = await ref
-                        .read(biometricAuthControllerProvider.notifier)
-                        .authenticate();
-                    if (ok && context.mounted) {
-                      context.go(AppRoutes.home);
-                    }
-                  },
+                  onPressed: _authenticate,
                   icon: const Icon(Icons.lock_open_rounded),
                   label: Text(loc.biometricLockButton),
                   style: FilledButton.styleFrom(
@@ -70,6 +91,13 @@ class BiometricLockScreen extends ConsumerWidget {
                     minimumSize: const Size.fromHeight(48),
                   ),
                 ),
+              if (_failureCount >= 3) ...[
+                const SizedBox(height: 16),
+                TextButton(
+                  onPressed: _bypassWithPin,
+                  child: Text(loc.biometricFallbackPin),
+                ),
+              ],
             ],
           ),
         ),
