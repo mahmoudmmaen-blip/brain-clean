@@ -69,6 +69,3 @@ PomodoroAdvanceResult advancePomodoro({
   }
 }
 
-/// Ring color hex for the active phase.
-int pomodoroRingColor(PomodoroPhase phase) =>
-    phase == PomodoroPhase.focus ? 0xFF1D9E75 : 0xFF3B82F6;

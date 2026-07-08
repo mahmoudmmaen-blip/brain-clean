@@ -16,21 +16,21 @@ extension AppColorThemeX on AppColorTheme {
       this == AppColorTheme.daylight ? Brightness.light : Brightness.dark;
 
   Color get accent => switch (this) {
-    AppColorTheme.midnight => const Color(0xFF6366F1),
-    AppColorTheme.aurora => const Color(0xFF22D3EE),
-    AppColorTheme.pine => const Color(0xFF22C55E),
-    AppColorTheme.solar => const Color(0xFFF59E0B),
-    AppColorTheme.slate => const Color(0xFF94A3B8),
-    AppColorTheme.daylight => const Color(0xFF4F46E5),
+    AppColorTheme.midnight => const Color(0xFF27E0B0),
+    AppColorTheme.aurora => const Color(0xFFA78BFA),
+    AppColorTheme.pine => const Color(0xFF34D399),
+    AppColorTheme.solar => const Color(0xFFFBBF24),
+    AppColorTheme.slate => const Color(0xFF60A5FA),
+    AppColorTheme.daylight => const Color(0xFF0FA988),
   };
 
   Color get background => switch (this) {
-    AppColorTheme.midnight => const Color(0xFF07090F),
-    AppColorTheme.aurora => const Color(0xFF071019),
-    AppColorTheme.pine => const Color(0xFF06120D),
-    AppColorTheme.solar => const Color(0xFF140D06),
-    AppColorTheme.slate => const Color(0xFF0F1115),
-    AppColorTheme.daylight => const Color(0xFFF8FAFC),
+    AppColorTheme.midnight => const Color(0xFF070B14),
+    AppColorTheme.aurora => const Color(0xFF12101F),
+    AppColorTheme.pine => const Color(0xFF0A1410),
+    AppColorTheme.solar => const Color(0xFF15110A),
+    AppColorTheme.slate => const Color(0xFF0E1218),
+    AppColorTheme.daylight => const Color(0xFFF6F8FB),
   };
 
   Color get surface => switch (this) {

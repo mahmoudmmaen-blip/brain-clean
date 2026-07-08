@@ -62,7 +62,9 @@ class PomodoroScreen extends ConsumerWidget {
               const SizedBox(height: 32),
               PomodoroTimerRing(
                 progress: pomodoro.progress,
-                ringColor: Color(pomodoroRingColor(pomodoro.currentPhase)),
+                ringColor: pomodoro.currentPhase == PomodoroPhase.focus
+                    ? colorScheme.primary
+                    : colorScheme.secondary,
                 timeLabel: _formatTime(pomodoro.remainingSeconds),
               ),
               const SizedBox(height: 24),
