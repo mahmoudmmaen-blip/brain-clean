@@ -1529,4 +1529,103 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get emotionOasisPromptLabel => 'ما الذي يشغل تفكيرك؟';
+
+  @override
+  String get navTabHome => 'الرئيسية';
+
+  @override
+  String get navTabExercises => 'التمارين';
+
+  @override
+  String get navTabSafa => 'صفا';
+
+  @override
+  String get navTabJourney => 'رحلتي';
+
+  @override
+  String get navTabMore => 'المزيد';
+
+  @override
+  String get sosFabTooltip => 'طوارئ SOS';
+
+  @override
+  String get exercisesTabTitle => 'التمارين';
+
+  @override
+  String get exercisesCardCognitiveHubTitle => 'مكتبة التمارين';
+
+  @override
+  String get exercisesCardCognitiveHubSubtitle => '20 تمرين معتمد علمياً';
+
+  @override
+  String get exercisesCardPomodoroTitle => 'بومودورو';
+
+  @override
+  String get exercisesCardPomodoroSubtitle => 'تركيز 25 دقيقة';
+
+  @override
+  String get exercisesCardBreathingTitle => 'تمرين التنفس';
+
+  @override
+  String get exercisesCardBreathingSubtitle => '4·4·4·4 مربّع';
+
+  @override
+  String get exercisesCardGamesTitle => 'ألعاب معرفية';
+
+  @override
+  String get exercisesCardGamesSubtitle => 'تحدّ دماغك';
+
+  @override
+  String get exercisesCardSingleTaskTitle => 'مهمة واحدة';
+
+  @override
+  String get exercisesCardSingleTaskSubtitle => 'التركيز الأحادي';
+
+  @override
+  String get exercisesCardDeepThinkingTitle => 'تفكير عميق';
+
+  @override
+  String get exercisesCardDeepThinkingSubtitle => '10 دقائق بلا تشتيت';
+
+  @override
+  String get safaTabTitle => 'صفا';
+
+  @override
+  String get safaTabSubtitle => 'مرشدتك الذكية · هنا لما تحتاجها';
+
+  @override
+  String get safaTalkButton => 'تحدّثي مع صفا';
+
+  @override
+  String get safaOasisButton => 'واحة المشاعر';
+
+  @override
+  String get journeyTabTitle => 'رحلتي';
+
+  @override
+  String get journeyCardBciTitle => 'مؤشر صفاء الدماغ BCI';
+
+  @override
+  String get journeyCardDiagnosticTitle => 'التشخيص';
+
+  @override
+  String get journeyCardWeeklyReportTitle => 'التقرير الأسبوعي';
+
+  @override
+  String get moreTabTitle => 'المزيد';
+
+  @override
+  String get moreProfile => 'الملف الشخصي';
+
+  @override
+  String get moreSettings => 'الإعدادات';
+
+  @override
+  String get morePro => 'Brain Clean Pro';
+
+  @override
+  String get moreAccountability => 'شريك المتابعة';
+
+  @override
+  String get moreVersion => 'الإصدار 1.0.0';
 }

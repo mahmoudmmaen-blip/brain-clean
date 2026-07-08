@@ -2863,6 +2863,204 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'What\'s on your mind?'**
   String get emotionOasisPromptLabel;
+
+  /// No description provided for @navTabHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get navTabHome;
+
+  /// No description provided for @navTabExercises.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercises'**
+  String get navTabExercises;
+
+  /// No description provided for @navTabSafa.
+  ///
+  /// In en, this message translates to:
+  /// **'Safa'**
+  String get navTabSafa;
+
+  /// No description provided for @navTabJourney.
+  ///
+  /// In en, this message translates to:
+  /// **'My Journey'**
+  String get navTabJourney;
+
+  /// No description provided for @navTabMore.
+  ///
+  /// In en, this message translates to:
+  /// **'More'**
+  String get navTabMore;
+
+  /// No description provided for @sosFabTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'SOS Emergency'**
+  String get sosFabTooltip;
+
+  /// No description provided for @exercisesTabTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercises'**
+  String get exercisesTabTitle;
+
+  /// No description provided for @exercisesCardCognitiveHubTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercise Library'**
+  String get exercisesCardCognitiveHubTitle;
+
+  /// No description provided for @exercisesCardCognitiveHubSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'20 science-backed exercises'**
+  String get exercisesCardCognitiveHubSubtitle;
+
+  /// No description provided for @exercisesCardPomodoroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pomodoro'**
+  String get exercisesCardPomodoroTitle;
+
+  /// No description provided for @exercisesCardPomodoroSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'25-minute focus'**
+  String get exercisesCardPomodoroSubtitle;
+
+  /// No description provided for @exercisesCardBreathingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Breathing Exercise'**
+  String get exercisesCardBreathingTitle;
+
+  /// No description provided for @exercisesCardBreathingSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'4·4·4·4 box breathing'**
+  String get exercisesCardBreathingSubtitle;
+
+  /// No description provided for @exercisesCardGamesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Cognitive Games'**
+  String get exercisesCardGamesTitle;
+
+  /// No description provided for @exercisesCardGamesSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Challenge your brain'**
+  String get exercisesCardGamesSubtitle;
+
+  /// No description provided for @exercisesCardSingleTaskTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Single Task'**
+  String get exercisesCardSingleTaskTitle;
+
+  /// No description provided for @exercisesCardSingleTaskSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Single-point focus'**
+  String get exercisesCardSingleTaskSubtitle;
+
+  /// No description provided for @exercisesCardDeepThinkingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Deep Thinking'**
+  String get exercisesCardDeepThinkingTitle;
+
+  /// No description provided for @exercisesCardDeepThinkingSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'10 distraction-free minutes'**
+  String get exercisesCardDeepThinkingSubtitle;
+
+  /// No description provided for @safaTabTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Safa'**
+  String get safaTabTitle;
+
+  /// No description provided for @safaTabSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your AI guide · here when you need her'**
+  String get safaTabSubtitle;
+
+  /// No description provided for @safaTalkButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Talk to Safa'**
+  String get safaTalkButton;
+
+  /// No description provided for @safaOasisButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Emotion Oasis'**
+  String get safaOasisButton;
+
+  /// No description provided for @journeyTabTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My Journey'**
+  String get journeyTabTitle;
+
+  /// No description provided for @journeyCardBciTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Clarity Index (BCI)'**
+  String get journeyCardBciTitle;
+
+  /// No description provided for @journeyCardDiagnosticTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Diagnostic'**
+  String get journeyCardDiagnosticTitle;
+
+  /// No description provided for @journeyCardWeeklyReportTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Report'**
+  String get journeyCardWeeklyReportTitle;
+
+  /// No description provided for @moreTabTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'More'**
+  String get moreTabTitle;
+
+  /// No description provided for @moreProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get moreProfile;
+
+  /// No description provided for @moreSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get moreSettings;
+
+  /// No description provided for @morePro.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Clean Pro'**
+  String get morePro;
+
+  /// No description provided for @moreAccountability.
+  ///
+  /// In en, this message translates to:
+  /// **'Accountability Partner'**
+  String get moreAccountability;
+
+  /// No description provided for @moreVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'Version 1.0.0'**
+  String get moreVersion;
 }
 
 class _AppLocalizationsDelegate

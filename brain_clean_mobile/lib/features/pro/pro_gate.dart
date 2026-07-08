@@ -30,7 +30,7 @@ void navigateSilenceWithProGate(
   int streakDays,
 ) {
   if (_hasProEntitlement(ref)) {
-    context.push('/silence-challenge/$streakDays');
+    context.push(AppRoutes.silenceChallenge(streakDays));
   } else {
     context.push(AppRoutes.proPaywall);
   }

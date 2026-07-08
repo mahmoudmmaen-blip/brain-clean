@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../core/application/app_preferences_provider.dart';
+import '../../core/presentation/app_shell.dart';
+import '../../features/accountability/accountability_screen.dart';
 import '../../features/cognitive_tests/presentation/cognitive_hub_screen.dart';
 import '../../features/cognitive_tests/presentation/memory_mini_game_screen.dart';
 import '../../features/cognitive_tests/presentation/visual_cognitive_test_screen.dart';
@@ -12,6 +14,7 @@ import '../../features/diagnostic/presentation/diagnostic_screen.dart';
 import '../../features/diagnostic/presentation/visual_cognitive_test_screen.dart'
     as diagnostic_visual;
 import '../../features/emotions/presentation/emotion_wheel_screen.dart';
+import '../../features/exercises/presentation/exercises_tab_screen.dart';
 import '../../features/focus/breathing_friction_screen.dart';
 import '../../features/focus/delayed_gratification_screen.dart';
 import '../../features/focus/silence_challenge_screen.dart';
@@ -20,12 +23,15 @@ import '../../features/focus/single_task_screen.dart';
 import '../../features/games/crossword/crossword_screen.dart';
 import '../../features/games/games_hub_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
+import '../../features/journey/presentation/journey_tab_screen.dart';
+import '../../features/more/presentation/more_tab_screen.dart';
 import '../../features/pomodoro/pomodoro_screen.dart';
 import '../../features/onboarding/onboarding_screen.dart';
 import '../../features/pro/pro_paywall_screen.dart';
 import '../../features/recovery/presentation/recovery_grid_screen.dart';
 import '../../features/profile/profile_screen.dart';
 import '../../features/reports/weekly_report_screen.dart';
+import '../../features/safa_tab/presentation/safa_tab_screen.dart';
 import '../../features/settings/settings_screen.dart';
 import '../../features/splash/presentation/splash_screen.dart';
 import '../constants/app_routes.dart';
@@ -34,7 +40,6 @@ import '../storage/hive_bootstrap.dart';
 import '../security/security_status_provider.dart';
 import 'app_navigator_key.dart';
 
-// 🌟 [NEW] إضافة مسار شاشة واحة المشاعر
 import '../../features/pro_modules/presentation/screens/emotion_oasis_screen.dart';
 
 part 'app_router.g.dart';
@@ -116,9 +121,10 @@ class SilenceChallengeRoute {
   final int streakDays;
 
   static const name = 'silenceChallenge';
-  static const path = '/silence-challenge/:streakDays';
+  static const path = 'silence-challenge/:streakDays';
 
-  static String location(int streakDays) => '/silence-challenge/$streakDays';
+  static String location(int streakDays) =>
+      AppRoutes.silenceChallenge(streakDays);
 }
 
 /// Typed route for single-tasking focus mode.
@@ -148,9 +154,10 @@ class BreathingFrictionRoute {
   final int currentBhi;
 
   static const name = 'breathingFriction';
-  static const path = '/breathing-friction/:currentBhi';
+  static const path = 'breathing-friction/:currentBhi';
 
-  static String location(int currentBhi) => '/breathing-friction/$currentBhi';
+  static String location(int currentBhi) =>
+      AppRoutes.breathingFriction(currentBhi);
 }
 
 /// Typed route for Pomodoro focus timer.
@@ -216,6 +223,9 @@ GoRouter goRouter(GoRouterRef ref) {
     debugLogDiagnostics: true,
     redirect: (context, state) {
       final location = state.uri.path;
+      final legacy = AppRoutes.legacyRedirect(location);
+      if (legacy != null) return legacy;
+
       if (HiveBootstrap.isRoutingGuardEnabled &&
           location != AppRoutes.splash &&
           !HiveBootstrap.isInitialized &&
@@ -253,131 +263,193 @@ GoRouter goRouter(GoRouterRef ref) {
         name: OnboardingRoute.name,
         builder: (context, state) => const OnboardingScreen(),
       ),
-      GoRoute(
-        path: AppRoutes.home,
-        name: 'home',
-        builder: (context, state) => const HomeScreen(),
-      ),
-      GoRoute(
-        path: AppRoutes.proPaywall,
-        name: ProPaywallRoute.name,
-        builder: (context, state) => const ProPaywallScreen(),
-      ),
-      GoRoute(
-        path: AppRoutes.settings,
-        name: SettingsRoute.name,
-        builder: (context, state) => const SettingsScreen(),
-      ),
-      GoRoute(
-        path: AppRoutes.profile,
-        name: ProfileRoute.name,
-        builder: (context, state) => const ProfileScreen(),
-      ),
-      GoRoute(
-        path: AppRoutes.weeklyReport,
-        name: WeeklyReportRoute.name,
-        builder: (context, state) => const WeeklyReportScreen(),
-      ),
-      GoRoute(
-        path: AppRoutes.diagnostic,
-        name: 'diagnostic',
-        builder: (context, state) => const DiagnosticScreen(),
-      ),
-      GoRoute(
-        path: AppRoutes.dashboard,
-        name: 'dashboard',
-        builder: (context, state) => const DashboardScreen(),
-      ),
-      GoRoute(
-        path: AppRoutes.detox,
-        name: 'detox',
-        builder: (context, state) => const DetoxProtocolScreen(),
-      ),
-      GoRoute(
-        path: AppRoutes.recovery,
-        name: 'recovery',
-        builder: (context, state) => const RecoveryGridScreen(),
-      ),
-      GoRoute(
-        path: AppRoutes.cognitiveHub,
-        name: 'cognitiveHub',
-        builder: (context, state) => const CognitiveHubScreen(),
-      ),
-      GoRoute(
-        path: AppRoutes.cognitiveVisual,
-        name: 'cognitiveVisual',
-        builder: (context, state) => const VisualCognitiveTestScreen(),
-      ),
-      GoRoute(
-        path: AppRoutes.cognitiveMemory,
-        name: 'cognitiveMemory',
-        builder: (context, state) => const MemoryMiniGameScreen(),
-      ),
-      GoRoute(
-        path: VisualCognitiveTestRoute.path,
-        name: VisualCognitiveTestRoute.name,
-        builder: (context, state) =>
-            const diagnostic_visual.VisualCognitiveTestScreen(),
-      ),
-      GoRoute(
-        path: EmotionWheelRoute.path,
-        name: EmotionWheelRoute.name,
-        builder: (context, state) => const EmotionWheelScreen(),
-      ),
-      GoRoute(
-        path: SilenceChallengeRoute.path,
-        name: SilenceChallengeRoute.name,
-        builder: (context, state) {
-          final daysParam = state.pathParameters['streakDays'];
-          final streakDays = int.tryParse(daysParam ?? '') ?? 0;
-          return SilenceChallengeScreen(streakDays: streakDays);
-        },
-      ),
-      GoRoute(
-        path: SingleTaskRoute.path,
-        name: SingleTaskRoute.name,
-        builder: (context, state) => const SingleTaskScreen(),
-      ),
-      GoRoute(
-        path: PomodoroRoute.path,
-        name: PomodoroRoute.name,
-        builder: (context, state) => const PomodoroScreen(),
-      ),
-      GoRoute(
-        path: GamesHubRoute.path,
-        name: GamesHubRoute.name,
-        builder: (context, state) => const GamesHubScreen(),
-      ),
-      GoRoute(
-        path: FocusedThinkingRoute.path,
-        name: FocusedThinkingRoute.name,
-        builder: (context, state) => const FocusedThinkingScreen(),
-      ),
-      GoRoute(
-        path: CrosswordRoute.path,
-        name: CrosswordRoute.name,
-        builder: (context, state) => const CrosswordScreen(),
-      ),
-      GoRoute(
-        path: DelayedGratificationRoute.path,
-        name: DelayedGratificationRoute.name,
-        builder: (context, state) => const DelayedGratificationScreen(),
-      ),
-      GoRoute(
-        path: BreathingFrictionRoute.path,
-        name: BreathingFrictionRoute.name,
-        builder: (context, state) {
-          final bhiParam = state.pathParameters['currentBhi'];
-          final bhi = int.tryParse(bhiParam ?? '') ?? 50;
-          return BreathingFrictionScreen(currentBhi: bhi);
-        },
-      ),
-      
-      // 🌟 [NEW] مسار واحة المشاعر
-      GoRoute(
-        path: '/emotion-oasis',
-        name: 'emotionOasis',
-        builder: (context, state) => const EmotionOasisScreen(),
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) =>
+            AppShell(navigationShell: navigationShell),
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.home,
+                name: 'home',
+                builder: (context, state) => const HomeScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'diagnostic',
+                    name: 'diagnostic',
+                    builder: (context, state) => const DiagnosticScreen(),
+                  ),
+                  GoRoute(
+                    path: 'detox',
+                    name: 'detox',
+                    builder: (context, state) => const DetoxProtocolScreen(),
+                  ),
+                  GoRoute(
+                    path: 'recovery',
+                    name: 'recovery',
+                    builder: (context, state) => const RecoveryGridScreen(),
+                  ),
+                  GoRoute(
+                    path: 'pomodoro',
+                    name: PomodoroRoute.name,
+                    builder: (context, state) => const PomodoroScreen(),
+                  ),
+                  GoRoute(
+                    path: 'single-task',
+                    name: SingleTaskRoute.name,
+                    builder: (context, state) => const SingleTaskScreen(),
+                  ),
+                  GoRoute(
+                    path: SilenceChallengeRoute.path,
+                    name: SilenceChallengeRoute.name,
+                    builder: (context, state) {
+                      final daysParam = state.pathParameters['streakDays'];
+                      final streakDays = int.tryParse(daysParam ?? '') ?? 0;
+                      return SilenceChallengeScreen(streakDays: streakDays);
+                    },
+                  ),
+                  GoRoute(
+                    path: BreathingFrictionRoute.path,
+                    name: BreathingFrictionRoute.name,
+                    builder: (context, state) {
+                      final bhiParam = state.pathParameters['currentBhi'];
+                      final bhi = int.tryParse(bhiParam ?? '') ?? 50;
+                      return BreathingFrictionScreen(currentBhi: bhi);
+                    },
+                  ),
+                  GoRoute(
+                    path: 'emotion-wheel',
+                    name: EmotionWheelRoute.name,
+                    builder: (context, state) => const EmotionWheelScreen(),
+                  ),
+                  GoRoute(
+                    path: 'delayed-gratification',
+                    name: DelayedGratificationRoute.name,
+                    builder: (context, state) =>
+                        const DelayedGratificationScreen(),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.exercises,
+                name: 'exercises',
+                builder: (context, state) => const ExercisesTabScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'cognitive-hub',
+                    name: 'cognitiveHub',
+                    builder: (context, state) => const CognitiveHubScreen(),
+                  ),
+                  GoRoute(
+                    path: 'cognitive-visual',
+                    name: 'cognitiveVisual',
+                    builder: (context, state) =>
+                        const VisualCognitiveTestScreen(),
+                  ),
+                  GoRoute(
+                    path: 'cognitive-memory',
+                    name: 'cognitiveMemory',
+                    builder: (context, state) => const MemoryMiniGameScreen(),
+                  ),
+                  GoRoute(
+                    path: 'cognitive-test',
+                    name: VisualCognitiveTestRoute.name,
+                    builder: (context, state) =>
+                        const diagnostic_visual.VisualCognitiveTestScreen(),
+                  ),
+                  GoRoute(
+                    path: 'focused-thinking',
+                    name: FocusedThinkingRoute.name,
+                    builder: (context, state) =>
+                        const FocusedThinkingScreen(),
+                  ),
+                  GoRoute(
+                    path: 'crossword',
+                    name: CrosswordRoute.name,
+                    builder: (context, state) => const CrosswordScreen(),
+                  ),
+                  GoRoute(
+                    path: 'games',
+                    name: GamesHubRoute.name,
+                    builder: (context, state) => const GamesHubScreen(),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.safa,
+                name: 'safa',
+                builder: (context, state) => const SafaTabScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'emotion-oasis',
+                    name: 'emotionOasis',
+                    builder: (context, state) => const EmotionOasisScreen(),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.journey,
+                name: 'journey',
+                builder: (context, state) => const JourneyTabScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'dashboard',
+                    name: 'dashboard',
+                    builder: (context, state) => const DashboardScreen(),
+                  ),
+                  GoRoute(
+                    path: 'weekly-report',
+                    name: WeeklyReportRoute.name,
+                    builder: (context, state) => const WeeklyReportScreen(),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.more,
+                name: 'more',
+                builder: (context, state) => const MoreTabScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'settings',
+                    name: SettingsRoute.name,
+                    builder: (context, state) => const SettingsScreen(),
+                  ),
+                  GoRoute(
+                    path: 'profile',
+                    name: ProfileRoute.name,
+                    builder: (context, state) => const ProfileScreen(),
+                  ),
+                  GoRoute(
+                    path: 'pro-paywall',
+                    name: ProPaywallRoute.name,
+                    builder: (context, state) => const ProPaywallScreen(),
+                  ),
+                  GoRoute(
+                    path: 'accountability',
+                    name: 'accountability',
+                    builder: (context, state) => const AccountabilityScreen(),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
       ),
     ],
     errorBuilder: (context, state) => Scaffold(

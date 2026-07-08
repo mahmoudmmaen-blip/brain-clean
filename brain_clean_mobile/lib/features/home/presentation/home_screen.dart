@@ -7,7 +7,6 @@ import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/presentation/async_state_views.dart';
 import '../../../core/presentation/language_toggle_button.dart';
-import '../../focus/widgets/ambient_sound_widgets.dart';
 import '../widgets/daily_quote_card.dart';
 import '../widgets/streak_freeze_button.dart';
 import '../../accountability/accountability_box_modal.dart';
@@ -37,8 +36,6 @@ const homePomodoroKey = Key('home_pomodoro_entry');
 const homeGamesKey = Key('home_games_entry');
 const homeFocusedThinkingKey = Key('home_focused_thinking_entry');
 const homeCrosswordKey = Key('home_crossword_entry');
-const homeSettingsButtonKey = Key('home_settings_button');
-const homeProfileButtonKey = Key('home_profile_button');
 const homeQuickActionsKey = Key('home_quick_actions_row');
 
 const homeStreakMotivationKey = Key('home_streak_motivation');
@@ -62,21 +59,10 @@ class HomeScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(loc.homeTitle),
-        actions: [
-          const LanguageToggleButton(),
-          IconButton(
-            key: homeProfileButtonKey,
-            icon: const Icon(Icons.person_outline),
-            onPressed: () => context.push(AppRoutes.profile),
-          ),
-          IconButton(
-            key: homeSettingsButtonKey,
-            icon: const Icon(Icons.settings_outlined),
-            onPressed: () => context.push(AppRoutes.settings),
-          ),
+        actions: const [
+          LanguageToggleButton(),
         ],
       ),
-      bottomNavigationBar: const AmbientMiniPlayer(),
       body: SafeArea(
         child: recoveryAsync.when(
           loading: () => AsyncStateViews.loading(context),

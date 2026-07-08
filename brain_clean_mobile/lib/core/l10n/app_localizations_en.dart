@@ -1545,4 +1545,103 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get emotionOasisPromptLabel => 'What\'s on your mind?';
+
+  @override
+  String get navTabHome => 'Home';
+
+  @override
+  String get navTabExercises => 'Exercises';
+
+  @override
+  String get navTabSafa => 'Safa';
+
+  @override
+  String get navTabJourney => 'My Journey';
+
+  @override
+  String get navTabMore => 'More';
+
+  @override
+  String get sosFabTooltip => 'SOS Emergency';
+
+  @override
+  String get exercisesTabTitle => 'Exercises';
+
+  @override
+  String get exercisesCardCognitiveHubTitle => 'Exercise Library';
+
+  @override
+  String get exercisesCardCognitiveHubSubtitle => '20 science-backed exercises';
+
+  @override
+  String get exercisesCardPomodoroTitle => 'Pomodoro';
+
+  @override
+  String get exercisesCardPomodoroSubtitle => '25-minute focus';
+
+  @override
+  String get exercisesCardBreathingTitle => 'Breathing Exercise';
+
+  @override
+  String get exercisesCardBreathingSubtitle => '4·4·4·4 box breathing';
+
+  @override
+  String get exercisesCardGamesTitle => 'Cognitive Games';
+
+  @override
+  String get exercisesCardGamesSubtitle => 'Challenge your brain';
+
+  @override
+  String get exercisesCardSingleTaskTitle => 'Single Task';
+
+  @override
+  String get exercisesCardSingleTaskSubtitle => 'Single-point focus';
+
+  @override
+  String get exercisesCardDeepThinkingTitle => 'Deep Thinking';
+
+  @override
+  String get exercisesCardDeepThinkingSubtitle => '10 distraction-free minutes';
+
+  @override
+  String get safaTabTitle => 'Safa';
+
+  @override
+  String get safaTabSubtitle => 'Your AI guide · here when you need her';
+
+  @override
+  String get safaTalkButton => 'Talk to Safa';
+
+  @override
+  String get safaOasisButton => 'Emotion Oasis';
+
+  @override
+  String get journeyTabTitle => 'My Journey';
+
+  @override
+  String get journeyCardBciTitle => 'Brain Clarity Index (BCI)';
+
+  @override
+  String get journeyCardDiagnosticTitle => 'Diagnostic';
+
+  @override
+  String get journeyCardWeeklyReportTitle => 'Weekly Report';
+
+  @override
+  String get moreTabTitle => 'More';
+
+  @override
+  String get moreProfile => 'Profile';
+
+  @override
+  String get moreSettings => 'Settings';
+
+  @override
+  String get morePro => 'Brain Clean Pro';
+
+  @override
+  String get moreAccountability => 'Accountability Partner';
+
+  @override
+  String get moreVersion => 'Version 1.0.0';
 }
