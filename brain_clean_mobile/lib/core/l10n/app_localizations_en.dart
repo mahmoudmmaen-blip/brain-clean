@@ -808,6 +808,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsDailyFocusReminder => 'Daily focus reminder';
 
   @override
+  String get settingsDailyReminder => 'Daily Reminder';
+
+  @override
+  String get settingsDailyReminderSub => 'Daily reminder at 9:00 AM';
+
+  @override
+  String get notifDailyTitle => 'Time for your daily exercise 🧠';
+
+  @override
+  String get notifDailyBody => 'Open Brain Clean and start your day with focus';
+
+  @override
   String get settingsDataSection => 'Data';
 
   @override

@@ -1526,6 +1526,30 @@ abstract class AppLocalizations {
   /// **'Daily focus reminder'**
   String get settingsDailyFocusReminder;
 
+  /// No description provided for @settingsDailyReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Reminder'**
+  String get settingsDailyReminder;
+
+  /// No description provided for @settingsDailyReminderSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily reminder at 9:00 AM'**
+  String get settingsDailyReminderSub;
+
+  /// No description provided for @notifDailyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Time for your daily exercise 🧠'**
+  String get notifDailyTitle;
+
+  /// No description provided for @notifDailyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Brain Clean and start your day with focus'**
+  String get notifDailyBody;
+
   /// No description provided for @settingsDataSection.
   ///
   /// In en, this message translates to:

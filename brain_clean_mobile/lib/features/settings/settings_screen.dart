@@ -7,7 +7,9 @@ import '../../core/application/app_preferences_provider.dart';
 import '../../core/security/security_status_provider.dart';
 import '../../core/constants/app_routes.dart';
 import '../../core/l10n/app_localizations.dart';
+import '../../core/services/notifications_service.dart';
 import '../../core/services/smart_notification_service.dart';
+import '../../core/services/weekly_report_service.dart';
 import '../../core/storage/hive_boxes.dart';
 import '../../core/theme/app_color_theme.dart';
 import '../../core/theme/app_color_theme_provider.dart';
@@ -127,6 +129,7 @@ class SettingsScreen extends ConsumerWidget {
               await ref.read(smartNotificationServiceProvider).rescheduleAll();
             },
           ),
+          const _DailyReminderTile(),
           Divider(color: Theme.of(context).dividerColor),
           _SectionHeader(loc.settingsSecuritySection),
           SwitchListTile(
@@ -205,6 +208,81 @@ class SettingsScreen extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _DailyReminderTile extends ConsumerStatefulWidget {
+  const _DailyReminderTile();
+
+  @override
+  ConsumerState<_DailyReminderTile> createState() => _DailyReminderTileState();
+}
+
+class _DailyReminderTileState extends ConsumerState<_DailyReminderTile> {
+  final _service = NotificationsService();
+  bool? _enabled;
+
+  @override
+  void initState() {
+    super.initState();
+    _load();
+  }
+
+  Future<void> _load() async {
+    final enabled = await _service.isDailyReminderEnabled();
+    if (mounted) setState(() => _enabled = enabled);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
+
+    if (_enabled == null) {
+      return SwitchListTile(
+        title: Text(
+          loc.settingsDailyReminder,
+          style: TextStyle(color: colorScheme.onSurface),
+        ),
+        subtitle: Text(
+          loc.settingsDailyReminderSub,
+          style: TextStyle(color: colorScheme.onSurfaceVariant, fontSize: 12),
+        ),
+        value: true,
+        onChanged: null,
+      );
+    }
+
+    return SwitchListTile(
+      title: Text(
+        loc.settingsDailyReminder,
+        style: TextStyle(color: colorScheme.onSurface),
+      ),
+      subtitle: Text(
+        loc.settingsDailyReminderSub,
+        style: TextStyle(color: colorScheme.onSurfaceVariant, fontSize: 12),
+      ),
+      value: _enabled!,
+      activeThumbColor: colorScheme.primary,
+      onChanged: (enabled) async {
+        final locale = Localizations.localeOf(context);
+        setState(() => _enabled = enabled);
+        await _service.setDailyReminderEnabled(enabled);
+        if (enabled) {
+          await _service.scheduleDailyReminder(
+            title: loc.notifDailyTitle,
+            body: loc.notifDailyBody,
+            locale: locale,
+          );
+        } else {
+          await _service.cancelAll();
+          try {
+            await ref.read(smartNotificationServiceProvider).rescheduleAll();
+            await ref.read(weeklyReportServiceProvider).schedule();
+          } catch (_) {}
+        }
+      },
     );
   }
 }

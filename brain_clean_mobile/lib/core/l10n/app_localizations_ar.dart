@@ -798,6 +798,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settingsDailyFocusReminder => 'تذكير يومي بالتركيز';
 
   @override
+  String get settingsDailyReminder => 'تذكير يومي';
+
+  @override
+  String get settingsDailyReminderSub => 'تذكير يومي الساعة 9 صباحاً';
+
+  @override
+  String get notifDailyTitle => 'حان وقت تمرينك اليومي 🧠';
+
+  @override
+  String get notifDailyBody => 'افتح Brain Clean وابدأ يومك بتركيز';
+
+  @override
   String get settingsDataSection => 'البيانات';
 
   @override

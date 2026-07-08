@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -7,6 +8,7 @@ import 'core/network/supabase_client.dart';
 import 'core/providers/locale_provider.dart';
 import 'core/routing/app_router.dart';
 import 'core/services/midnight_reset_service.dart';
+import 'core/services/notifications_service.dart';
 import 'core/services/purchases_service.dart';
 import 'core/services/smart_notification_service.dart';
 import 'core/services/weekly_report_service.dart';
@@ -22,6 +24,14 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await dotenv.load(fileName: ".env");
+
+  try {
+    final notifications = NotificationsService();
+    await notifications.initialize();
+    await notifications.scheduleDailyReminder();
+  } catch (error) {
+    debugPrint('NotificationsService startup failed: $error');
+  }
 
   await HiveBootstrap.initialize();
   HiveBootstrap.markRoutingGuardEnabled();
