@@ -387,6 +387,7 @@
   "proPurchaseError": "حدث خطأ أثناء إتمام العملية. من فضلك حاول مرة أخرى.",
   "proPlansUnavailable": "الباقات غير متاحة حالياً. حاول مرة أخرى لاحقاً.",
   "paywallRetryLoad": "إعادة المحاولة",
+  "paywallLifetimeLabel": "دفعة واحدة للأبد",
   "settingsTitle": "الإعدادات",
   "settingsAccountSection": "الحساب",
   "settingsProActive": "Brain Clean Pro ✓",

@@ -763,6 +763,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get paywallRetryLoad => 'Retry';
 
   @override
+  String get paywallLifetimeLabel => 'One-time forever';
+
+  @override
   String get settingsTitle => 'Settings';
 
   @override

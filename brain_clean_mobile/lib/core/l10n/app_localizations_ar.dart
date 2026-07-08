@@ -753,6 +753,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get paywallRetryLoad => 'إعادة المحاولة';
 
   @override
+  String get paywallLifetimeLabel => 'دفعة واحدة للأبد';
+
+  @override
   String get settingsTitle => 'الإعدادات';
 
   @override

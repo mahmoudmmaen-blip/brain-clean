@@ -22,6 +22,9 @@ class PurchasesService {
   /// Offering identifier configured in the RevenueCat dashboard.
   static const offeringId = 'default';
 
+  /// Google Play / RevenueCat product id for one-time Pro lifetime access.
+  static const lifetimeProductId = 'pro_lifetime';
+
   /// `true` once [initialize] has configured the SDK successfully. Stays
   /// `false` on platforms without the native SDK (e.g. widget tests).
   static bool isConfigured = false;
@@ -40,8 +43,69 @@ class PurchasesService {
   }
 
   /// Whether [info] currently grants the Brain Clean Pro entitlement.
-  static bool hasProEntitlement(CustomerInfo info) =>
-      info.entitlements.active.containsKey(entitlementId);
+  ///
+  /// Checks the active entitlement first, then lifetime one-time purchases
+  /// (non-consumable) when the dashboard product type was misconfigured.
+  static bool hasProEntitlement(CustomerInfo info) {
+    if (info.entitlements.active.containsKey(entitlementId)) {
+      return true;
+    }
+
+    for (final productId in info.allPurchasedProductIdentifiers) {
+      if (isLifetimeProductIdentifier(productId)) return true;
+    }
+
+    for (final tx in info.nonSubscriptionTransactions) {
+      if (isLifetimeProductIdentifier(tx.productIdentifier)) return true;
+    }
+
+    return false;
+  }
+
+  /// Whether [productId] refers to the lifetime Pro SKU.
+  static bool isLifetimeProductIdentifier(String productId) {
+    final id = productId.toLowerCase();
+    return id == lifetimeProductId.toLowerCase() || id.contains('lifetime');
+  }
+
+  /// Whether [package] is the lifetime plan — supports [PackageType.lifetime]
+  /// and misconfigured subscription/custom slots that still map to lifetime.
+  static bool isLifetimePackage(Package package) {
+    if (package.packageType == PackageType.lifetime) return true;
+
+    final packageId = package.identifier.toLowerCase();
+    final productId = package.storeProduct.identifier.toLowerCase();
+
+    if (productId == lifetimeProductId.toLowerCase()) return true;
+
+    if (package.packageType == PackageType.annual &&
+        (packageId.contains('lifetime') || productId.contains('lifetime'))) {
+      return true;
+    }
+
+    if ((package.packageType == PackageType.custom ||
+            package.packageType == PackageType.unknown) &&
+        (packageId.contains('lifetime') || productId.contains('lifetime'))) {
+      return true;
+    }
+
+    return false;
+  }
+
+  /// Resolves the lifetime [Package] from an [Offering], including mis-typed SKUs.
+  static Package? findLifetimePackage(Offering offering) {
+    final lifetime = offering.lifetime;
+    if (lifetime != null && isLifetimePackage(lifetime)) return lifetime;
+
+    for (final package in offering.availablePackages) {
+      if (isLifetimePackage(package)) return package;
+    }
+
+    final annual = offering.annual;
+    if (annual != null && isLifetimePackage(annual)) return annual;
+
+    return offering.getPackage(lifetimeProductId);
+  }
 }
 
 /// Live Pro entitlement — emits `true`/`false` and updates in real time when

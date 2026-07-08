@@ -37,12 +37,25 @@ String _planTitle(AppLocalizations loc, _PlanKind kind) {
 /// Builds monthly/annual/lifetime entries from the current [offering].
 List<_PlanEntry> _entriesFor(Offering offering) {
   final entries = <_PlanEntry>[];
+  final seenIds = <String>{};
+
+  void add(Package package, _PlanKind kind) {
+    if (seenIds.add(package.identifier)) {
+      entries.add(_PlanEntry(package, kind));
+    }
+  }
+
   final monthly = offering.monthly;
+  if (monthly != null) add(monthly, _PlanKind.monthly);
+
   final annual = offering.annual;
-  final lifetime = offering.lifetime;
-  if (monthly != null) entries.add(_PlanEntry(monthly, _PlanKind.monthly));
-  if (annual != null) entries.add(_PlanEntry(annual, _PlanKind.annual));
-  if (lifetime != null) entries.add(_PlanEntry(lifetime, _PlanKind.lifetime));
+  if (annual != null && !PurchasesService.isLifetimePackage(annual)) {
+    add(annual, _PlanKind.annual);
+  }
+
+  final lifetime = PurchasesService.findLifetimePackage(offering);
+  if (lifetime != null) add(lifetime, _PlanKind.lifetime);
+
   return entries;
 }
 
@@ -293,6 +306,7 @@ class _PlanTile extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final loc = AppLocalizations.of(context)!;
     final isBestValue = entry.kind == _PlanKind.annual;
+    final isLifetime = entry.kind == _PlanKind.lifetime;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
@@ -321,35 +335,51 @@ class _PlanTile extends StatelessWidget {
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: Row(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      _planTitle(loc, entry.kind),
-                      style: TextStyle(
-                        color: colorScheme.onSurface,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                    if (isBestValue) ...[
-                      const SizedBox(width: 8),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 2),
-                        decoration: BoxDecoration(
-                          color: colorScheme.primary,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Text(
-                          loc.proBestValueBadge,
+                    Row(
+                      children: [
+                        Text(
+                          _planTitle(loc, entry.kind),
                           style: TextStyle(
-                            color: colorScheme.onPrimary,
-                            fontSize: 11,
+                            color: colorScheme.onSurface,
                             fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                        if (isBestValue) ...[
+                          const SizedBox(width: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: colorScheme.primary,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Text(
+                              loc.proBestValueBadge,
+                              style: TextStyle(
+                                color: colorScheme.onPrimary,
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                    if (isLifetime)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 4),
+                        child: Text(
+                          loc.paywallLifetimeLabel,
+                          style: TextStyle(
+                            color: colorScheme.onSurfaceVariant,
+                            fontSize: 12,
                           ),
                         ),
                       ),
-                    ],
                   ],
                 ),
               ),

@@ -1436,6 +1436,12 @@ abstract class AppLocalizations {
   /// **'Retry'**
   String get paywallRetryLoad;
 
+  /// No description provided for @paywallLifetimeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'One-time forever'**
+  String get paywallLifetimeLabel;
+
   /// No description provided for @settingsTitle.
   ///
   /// In en, this message translates to:
