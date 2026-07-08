@@ -110,6 +110,24 @@ abstract class AppLocalizations {
   /// **'Complete the diagnostic to see your BC_score.'**
   String get dashboardEmptyDiagnosticPrompt;
 
+  /// No description provided for @dashboardEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Start your journey!'**
+  String get dashboardEmptyTitle;
+
+  /// No description provided for @dashboardEmptySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Take your first BCI test to see your progress here'**
+  String get dashboardEmptySubtitle;
+
+  /// No description provided for @dashboardEmptyCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Test'**
+  String get dashboardEmptyCta;
+
   /// No description provided for @dashboardRetakeDiagnostic.
   ///
   /// In en, this message translates to:
@@ -607,6 +625,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Interactive modules that refine your brain performance pillar.'**
   String get cognitiveHubSubtitle;
+
+  /// No description provided for @cognitiveHubEmptyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'No tests taken yet — try one now!'**
+  String get cognitiveHubEmptyHint;
 
   /// No description provided for @cognitiveVisualTestTitle.
   ///
@@ -2209,6 +2233,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Challenges completed'**
   String get weeklyReportChallenges;
+
+  /// No description provided for @weeklyReportEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No data this week — keep going!'**
+  String get weeklyReportEmpty;
+
+  /// No description provided for @weeklyReportEmptyCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Home'**
+  String get weeklyReportEmptyCta;
 
   /// No description provided for @pomodoroTitle.
   ///

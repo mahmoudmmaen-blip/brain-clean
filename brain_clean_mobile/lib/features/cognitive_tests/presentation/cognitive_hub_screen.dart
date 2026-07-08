@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
+import '../application/cognitive_test_results_provider.dart';
 
 /// Entry hub for visual cognitive tests and memory mini-games.
-class CognitiveHubScreen extends StatelessWidget {
+class CognitiveHubScreen extends ConsumerWidget {
   const CognitiveHubScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final loc = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
+    final results = ref.watch(cognitiveTestResultsProvider);
+    final hasResults =
+        results.visualAttention != null || results.memorySequence != null;
 
     return Scaffold(
       appBar: AppBar(title: Text(loc.cognitiveHubTitle)),
@@ -21,7 +27,30 @@ class CognitiveHubScreen extends StatelessWidget {
             loc.cognitiveHubSubtitle,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
-          const SizedBox(height: 16),
+          if (!hasResults) ...[
+            const SizedBox(height: 24),
+            Center(
+              child: Column(
+                children: [
+                  Icon(
+                    Icons.emoji_events_outlined,
+                    size: 64,
+                    color: colorScheme.primary,
+                  ),
+                  const SizedBox(height: 24),
+                  Text(
+                    loc.cognitiveHubEmptyHint,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: colorScheme.onSurfaceVariant,
+                        ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 24),
+          ] else
+            const SizedBox(height: 16),
           Card(
             child: ListTile(
               leading: const Icon(Icons.image_search_outlined),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../core/constants/app_routes.dart';
 import '../../core/l10n/app_localizations.dart';
 import '../../core/presentation/language_toggle_button.dart';
 import '../../core/providers/locale_provider.dart';
@@ -104,15 +106,42 @@ class WeeklyReportScreen extends ConsumerWidget {
             }),
           ),
           const SizedBox(height: 20),
-          _StatTile(
-            label: loc.weeklyReportAvgBcs,
-            value: avgBcs.toStringAsFixed(0),
-          ),
-          _StatTile(label: loc.weeklyReportBestEmotion, value: bestEmotion),
-          _StatTile(
-            label: loc.weeklyReportChallenges,
-            value: '$challengesCompleted',
-          ),
+          if (weekBcs.isEmpty)
+            Center(
+              child: Column(
+                children: [
+                  Icon(
+                    Icons.bar_chart_outlined,
+                    size: 80,
+                    color: colorScheme.primary,
+                  ),
+                  const SizedBox(height: 24),
+                  Text(
+                    loc.weeklyReportEmpty,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: colorScheme.onSurfaceVariant,
+                        ),
+                  ),
+                  const SizedBox(height: 24),
+                  ElevatedButton(
+                    onPressed: () => context.go(AppRoutes.home),
+                    child: Text(loc.weeklyReportEmptyCta),
+                  ),
+                ],
+              ),
+            )
+          else ...[
+            _StatTile(
+              label: loc.weeklyReportAvgBcs,
+              value: avgBcs.toStringAsFixed(0),
+            ),
+            _StatTile(label: loc.weeklyReportBestEmotion, value: bestEmotion),
+            _StatTile(
+              label: loc.weeklyReportChallenges,
+              value: '$challengesCompleted',
+            ),
+          ],
           const SizedBox(height: 24),
           const ShareButton(),
           const SizedBox(height: 8),

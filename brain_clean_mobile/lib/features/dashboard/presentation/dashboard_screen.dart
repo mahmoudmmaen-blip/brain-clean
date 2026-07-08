@@ -88,15 +88,37 @@ class DashboardScreen extends ConsumerWidget {
                 ),
               ],
             ] else
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(24),
-                  child: Text(
-                    loc.dashboardEmptyDiagnosticPrompt,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: colorScheme.onSurfaceVariant,
-                        ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 32),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.psychology_outlined,
+                        size: 80,
+                        color: colorScheme.primary,
+                      ),
+                      const SizedBox(height: 24),
+                      Text(
+                        loc.dashboardEmptyTitle,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      const SizedBox(height: 24),
+                      Text(
+                        loc.dashboardEmptySubtitle,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: colorScheme.onSurfaceVariant,
+                            ),
+                      ),
+                      const SizedBox(height: 24),
+                      ElevatedButton(
+                        onPressed: () => _navigateToDiagnostic(context),
+                        child: Text(loc.dashboardEmptyCta),
+                      ),
+                    ],
                   ),
                 ),
               ),

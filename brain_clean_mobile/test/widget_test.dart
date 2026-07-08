@@ -111,7 +111,9 @@ void main() {
       await tester.pump();
 
       expect(find.text(en.dashboardTitle), findsOneWidget);
-      expect(find.text(en.dashboardEmptyDiagnosticPrompt), findsOneWidget);
+      expect(find.text(en.dashboardEmptyTitle), findsOneWidget);
+      expect(find.text(en.dashboardEmptySubtitle), findsOneWidget);
+      expect(find.text(en.dashboardEmptyCta), findsOneWidget);
 
       final detoxTile = find.byKey(dashboardDetoxCheckInTileKey);
       expect(detoxTile, findsOneWidget);

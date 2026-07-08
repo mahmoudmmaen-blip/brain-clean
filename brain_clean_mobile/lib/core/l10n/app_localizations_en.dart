@@ -16,6 +16,16 @@ class AppLocalizationsEn extends AppLocalizations {
       'Complete the diagnostic to see your BC_score.';
 
   @override
+  String get dashboardEmptyTitle => 'Start your journey!';
+
+  @override
+  String get dashboardEmptySubtitle =>
+      'Take your first BCI test to see your progress here';
+
+  @override
+  String get dashboardEmptyCta => 'Start Test';
+
+  @override
   String get dashboardRetakeDiagnostic => 'Retake Diagnostic';
 
   @override
@@ -301,6 +311,9 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get cognitiveHubSubtitle =>
       'Interactive modules that refine your brain performance pillar.';
+
+  @override
+  String get cognitiveHubEmptyHint => 'No tests taken yet — try one now!';
 
   @override
   String get cognitiveVisualTestTitle => 'Visual Cognitive Image Test';
@@ -1169,6 +1182,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get weeklyReportChallenges => 'Challenges completed';
+
+  @override
+  String get weeklyReportEmpty => 'No data this week — keep going!';
+
+  @override
+  String get weeklyReportEmptyCta => 'Back to Home';
 
   @override
   String get pomodoroTitle => 'Pomodoro';

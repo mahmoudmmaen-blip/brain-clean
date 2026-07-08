@@ -16,6 +16,15 @@ class AppLocalizationsAr extends AppLocalizations {
       'أكمل التشخيص لعرض نقاط BC_score.';
 
   @override
+  String get dashboardEmptyTitle => 'ابدأ رحلتك!';
+
+  @override
+  String get dashboardEmptySubtitle => 'أجرِ اختبار BCI الأول لترى تقدمك هنا';
+
+  @override
+  String get dashboardEmptyCta => 'ابدأ الاختبار';
+
+  @override
   String get dashboardRetakeDiagnostic => 'إعادة التشخيص';
 
   @override
@@ -296,6 +305,9 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get cognitiveHubSubtitle =>
       'وحدات تفاعلية تُحسّن عمود الأداء الدماغي في BHI.';
+
+  @override
+  String get cognitiveHubEmptyHint => 'لم تُجرِ أي اختبار بعد — جرّب الآن!';
 
   @override
   String get cognitiveVisualTestTitle => 'اختبار الإدراك البصري';
@@ -1156,6 +1168,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get weeklyReportChallenges => 'التحديات المكتملة';
+
+  @override
+  String get weeklyReportEmpty =>
+      'لا توجد بيانات هذا الأسبوع — استمر في التحدي!';
+
+  @override
+  String get weeklyReportEmptyCta => 'عُد للرئيسية';
 
   @override
   String get pomodoroTitle => 'بومودورو';
