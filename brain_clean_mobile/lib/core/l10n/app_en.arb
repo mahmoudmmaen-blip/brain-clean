@@ -311,6 +311,7 @@
   "proRestoreNone": "No previous purchases found",
   "proPurchaseError": "Something went wrong completing your purchase. Please try again.",
   "proPlansUnavailable": "Plans are unavailable right now. Please try again later.",
+  "paywallRetryLoad": "Retry",
   "settingsTitle": "Settings",
   "settingsAccountSection": "Account",
   "settingsProActive": "Brain Clean Pro ✓",

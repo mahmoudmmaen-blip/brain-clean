@@ -1424,6 +1424,12 @@ abstract class AppLocalizations {
   /// **'Plans are unavailable right now. Please try again later.'**
   String get proPlansUnavailable;
 
+  /// No description provided for @paywallRetryLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get paywallRetryLoad;
+
   /// No description provided for @settingsTitle.
   ///
   /// In en, this message translates to:

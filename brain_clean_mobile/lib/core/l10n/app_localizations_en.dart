@@ -757,6 +757,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Plans are unavailable right now. Please try again later.';
 
   @override
+  String get paywallRetryLoad => 'Retry';
+
+  @override
   String get settingsTitle => 'Settings';
 
   @override

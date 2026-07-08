@@ -224,7 +224,10 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
                       ),
                     ),
                   ),
-                  error: (_, __) => _PlansUnavailable(loc: loc),
+                  error: (_, __) => _OfferingsLoadError(
+                    loc: loc,
+                    onRetry: () => ref.invalidate(proOfferingProvider),
+                  ),
                   data: (offering) {
                     final entries =
                         offering == null ? const <_PlanEntry>[] : _entriesFor(offering);
@@ -477,6 +480,49 @@ class _PlansUnavailable extends StatelessWidget {
               loc.proPlansUnavailable,
               style: TextStyle(color: colorScheme.onSurfaceVariant),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _OfferingsLoadError extends StatelessWidget {
+  const _OfferingsLoadError({
+    required this.loc,
+    required this.onRetry,
+  });
+
+  final AppLocalizations loc;
+  final VoidCallback onRetry;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: colorScheme.surface,
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Icon(Icons.error_outline, color: colorScheme.onSurfaceVariant),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  loc.proPlansUnavailable,
+                  style: TextStyle(color: colorScheme.onSurfaceVariant),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: onRetry,
+            child: Text(loc.paywallRetryLoad),
           ),
         ],
       ),

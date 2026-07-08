@@ -45,16 +45,18 @@ class XpSyncApi {
       );
 
       if (response.status != 200) {
-        debugPrint('XpSyncApi: verify-xp status ${response.status}');
+        debugPrint('XP sync failed: HTTP ${response.status}');
         return null;
       }
 
       final data = response.data;
-      if (data is! Map) return null;
+      if (data is! Map) {
+        debugPrint('XP sync failed: unexpected response shape');
+        return null;
+      }
       return XpVerifyResponse.fromJson(Map<String, dynamic>.from(data));
-    } catch (error, stackTrace) {
-      debugPrint('XpSyncApi.verifyEntries failed: $error');
-      debugPrint('$stackTrace');
+    } catch (error) {
+      debugPrint('XP sync failed: $error');
       return null;
     }
   }

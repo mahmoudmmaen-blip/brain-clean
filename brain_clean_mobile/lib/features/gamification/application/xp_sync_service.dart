@@ -23,39 +23,44 @@ class XpSyncService extends _$XpSyncService {
 
   /// Sync when online + authenticated; no-op otherwise.
   Future<bool> syncIfPossible() async {
-    if (RootDetector.isCompromised) return false;
-    if (!ref.read(connectivityOnlineProvider)) return false;
+    try {
+      if (RootDetector.isCompromised) return false;
+      if (!ref.read(connectivityOnlineProvider)) return false;
 
-    final repo = ref.read(xpLedgerRepositoryProvider);
-    final pending = await repo.pendingVerifyEntries();
-    if (pending.isEmpty) {
+      final repo = ref.read(xpLedgerRepositoryProvider);
+      final pending = await repo.pendingVerifyEntries();
+      if (pending.isEmpty) {
+        return false;
+      }
+
+      final api = ref.read(xpSyncApiProvider);
+      if (!api.hasAuthenticatedSession) return false;
+
+      final response = await api.verifyEntries(pending);
+      if (response == null) return false;
+
+      await repo.applyServerVerdicts(
+        response.verdicts.map(
+          (v) => (id: v.id, accepted: v.accepted),
+        ),
+      );
+      await repo.persistServerTotalXp(response.serverTotalXp);
+
+      ref.invalidate(serverTotalXpProvider);
+      ref.invalidate(verifiedTotalXpProvider);
+      ref.invalidate(displayedXpProvider);
+
+      if (response.verdicts.any((v) => !v.accepted)) {
+        debugPrint(
+          'XpSyncService: ${response.verdicts.where((v) => !v.accepted).length} '
+          'entries rejected server-side (subtle local exclusion)',
+        );
+      }
+
+      return true;
+    } catch (error) {
+      debugPrint('XP sync failed: $error');
       return false;
     }
-
-    final api = ref.read(xpSyncApiProvider);
-    if (!api.hasAuthenticatedSession) return false;
-
-    final response = await api.verifyEntries(pending);
-    if (response == null) return false;
-
-    await repo.applyServerVerdicts(
-      response.verdicts.map(
-        (v) => (id: v.id, accepted: v.accepted),
-      ),
-    );
-    await repo.persistServerTotalXp(response.serverTotalXp);
-
-    ref.invalidate(serverTotalXpProvider);
-    ref.invalidate(verifiedTotalXpProvider);
-    ref.invalidate(displayedXpProvider);
-
-    if (response.verdicts.any((v) => !v.accepted)) {
-      debugPrint(
-        'XpSyncService: ${response.verdicts.where((v) => !v.accepted).length} '
-        'entries rejected server-side (subtle local exclusion)',
-      );
-    }
-
-    return true;
   }
 }

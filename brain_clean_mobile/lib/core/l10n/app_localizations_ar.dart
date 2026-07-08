@@ -747,6 +747,9 @@ class AppLocalizationsAr extends AppLocalizations {
       'الباقات غير متاحة حالياً. حاول مرة أخرى لاحقاً.';
 
   @override
+  String get paywallRetryLoad => 'إعادة المحاولة';
+
+  @override
   String get settingsTitle => 'الإعدادات';
 
   @override
