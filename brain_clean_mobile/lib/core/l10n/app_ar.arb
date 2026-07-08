@@ -572,6 +572,22 @@
   "dailyQuoteSource": "علم الأعصاب",
   "streakFreezeConfirm": "هل تريد تجميد الـ Streak؟ متاح مرة أسبوعياً",
   "shareProgressLabel": "شارك تقدمك",
+  "shareScoreText": "حققت نتيجة {score} في اختبار Brain Clean! 🧠\nحمّل التطبيق وابدأ رحلتك:",
+  "@shareScoreText": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "shareProfileText": "أنا في مستوى {level} في Brain Clean! 🏆\nانضم إليّ:",
+  "@shareProfileText": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    }
+  },
   "levelPointsToNext": "{points} نقطة للمستوى التالي",
   "@levelPointsToNext": {
     "placeholders": {

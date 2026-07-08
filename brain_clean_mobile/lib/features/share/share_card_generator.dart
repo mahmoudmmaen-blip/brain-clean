@@ -7,6 +7,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
+import 'package:share_plus/share_plus.dart';
+
 import '../../core/l10n/app_localizations.dart';
 import '../../core/providers/locale_provider.dart';
 import '../diagnostic/presentation/bc_score_provider.dart';
@@ -14,6 +16,17 @@ import '../gamification/level_system.dart';
 import '../home/presentation/home_streak_provider.dart';
 
 final shareCardBoundaryKey = GlobalKey();
+
+const brainCleanPlayStoreUrl =
+    'https://play.google.com/store/apps/details?id=com.brainclean.mobile';
+
+Future<void> shareBrainCleanText(String message) async {
+  try {
+    await Share.share('$message\n$brainCleanPlayStoreUrl');
+  } catch (_) {
+    // Share may fail in tests or without platform handler.
+  }
+}
 
 /// Renders a 400×300 share card and shares it as PNG.
 class ShareButton extends ConsumerWidget {

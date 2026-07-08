@@ -2240,6 +2240,18 @@ abstract class AppLocalizations {
   /// **'Share Progress'**
   String get shareProgressLabel;
 
+  /// No description provided for @shareScoreText.
+  ///
+  /// In en, this message translates to:
+  /// **'I scored {score} on Brain Clean! 🧠\nDownload the app and start your journey:'**
+  String shareScoreText(int score);
+
+  /// No description provided for @shareProfileText.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'m at level {level} in Brain Clean! 🏆\nJoin me:'**
+  String shareProfileText(int level);
+
   /// No description provided for @levelPointsToNext.
   ///
   /// In en, this message translates to:

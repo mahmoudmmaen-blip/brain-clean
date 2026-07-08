@@ -1171,6 +1171,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get shareProgressLabel => 'شارك تقدمك';
 
   @override
+  String shareScoreText(int score) {
+    return 'حققت نتيجة $score في اختبار Brain Clean! 🧠\nحمّل التطبيق وابدأ رحلتك:';
+  }
+
+  @override
+  String shareProfileText(int level) {
+    return 'أنا في مستوى $level في Brain Clean! 🏆\nانضم إليّ:';
+  }
+
+  @override
   String levelPointsToNext(int points) {
     return '$points نقطة للمستوى التالي';
   }

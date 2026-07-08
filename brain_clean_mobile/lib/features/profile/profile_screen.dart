@@ -8,6 +8,7 @@ import '../diagnostic/presentation/bc_score_provider.dart';
 import '../home/presentation/home_streak_provider.dart';
 import '../../core/presentation/language_toggle_button.dart';
 import '../gamification/level_progress_widget.dart';
+import '../gamification/level_system.dart';
 import '../share/share_card_generator.dart';
 import 'application/profile_emotions_provider.dart';
 
@@ -62,6 +63,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         (ref.watch(bcScoreSessionProvider)?.bcScore ?? 0.0).clamp(0.0, 100.0);
     final emotionsAsync = ref.watch(profileEmotionsProvider);
     final displayName = _displayName(loc, prefs);
+    final level = BrainLevel.forScore(ref.watch(cumulativeBcsScoreProvider));
 
     if (!_editingName && _nameController.text != displayName) {
       _nameController.text = displayName;
@@ -214,6 +216,15 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               ),
             ],
           ),
+          const SizedBox(height: 24),
+          TextButton.icon(
+            onPressed: () => shareBrainCleanText(
+              loc.shareProfileText(level.index + 1),
+            ),
+            icon: const Icon(Icons.share_outlined),
+            label: Text(loc.shareProgressLabel),
+          ),
+          const SizedBox(height: 8),
         ],
       ),
     );

@@ -474,6 +474,18 @@
   "dailyQuoteSource": "Neuroscience",
   "streakFreezeConfirm": "Use streak freeze? Available once per week",
   "shareProgressLabel": "Share Progress",
+  "shareScoreText": "I scored {score} on Brain Clean! 🧠\nDownload the app and start your journey:",
+  "@shareScoreText": {
+    "placeholders": {
+      "score": { "type": "int" }
+    }
+  },
+  "shareProfileText": "I'm at level {level} in Brain Clean! 🏆\nJoin me:",
+  "@shareProfileText": {
+    "placeholders": {
+      "level": { "type": "int" }
+    }
+  },
   "levelPointsToNext": "{points} points to next level",
   "@levelPointsToNext": {
     "placeholders": {

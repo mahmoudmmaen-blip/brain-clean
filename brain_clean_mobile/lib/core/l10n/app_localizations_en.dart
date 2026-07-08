@@ -1185,6 +1185,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get shareProgressLabel => 'Share Progress';
 
   @override
+  String shareScoreText(int score) {
+    return 'I scored $score on Brain Clean! 🧠\nDownload the app and start your journey:';
+  }
+
+  @override
+  String shareProfileText(int level) {
+    return 'I\'m at level $level in Brain Clean! 🏆\nJoin me:';
+  }
+
+  @override
   String levelPointsToNext(int points) {
     return '$points points to next level';
   }

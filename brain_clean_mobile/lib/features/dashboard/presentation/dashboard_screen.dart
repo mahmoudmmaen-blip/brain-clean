@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
+import '../../share/share_card_generator.dart';
 import '../../diagnostic/presentation/bc_score_provider.dart';
 import '../../diagnostic/presentation/widgets/bc_score_breakdown.dart';
 import '../../diagnostic/presentation/widgets/bc_score_hero_card.dart';
@@ -38,7 +39,18 @@ class DashboardScreen extends ConsumerWidget {
     final committedAt = session?.committedAt.toLocal().toString().substring(0, 16);
 
     return Scaffold(
-      appBar: AppBar(title: Text(loc.dashboardTitle)),
+      appBar: AppBar(
+        title: Text(loc.dashboardTitle),
+        actions: [
+          if (session != null)
+            IconButton(
+              icon: const Icon(Icons.share_outlined),
+              onPressed: () => shareBrainCleanText(
+                loc.shareScoreText(session.bcScore.round()),
+              ),
+            ),
+        ],
+      ),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(16),
