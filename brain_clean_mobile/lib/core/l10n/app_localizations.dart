@@ -3589,6 +3589,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Worry window reminder updated.'**
   String get safaCheckinTimeUpdated;
+
+  /// No description provided for @dailyChallengeIcon.
+  ///
+  /// In en, this message translates to:
+  /// **'🧠'**
+  String get dailyChallengeIcon;
+
+  /// No description provided for @dailyChallengeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s challenge'**
+  String get dailyChallengeTitle;
+
+  /// No description provided for @dailyChallengeCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Done ✓'**
+  String get dailyChallengeCompleted;
+
+  /// No description provided for @dailyChallengeStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start challenge'**
+  String get dailyChallengeStart;
+
+  /// No description provided for @dailyChallengeReplay.
+  ///
+  /// In en, this message translates to:
+  /// **'Replay challenge 🔄'**
+  String get dailyChallengeReplay;
+
+  /// No description provided for @dailyChallengeGameNBack.
+  ///
+  /// In en, this message translates to:
+  /// **'N-Back Memory'**
+  String get dailyChallengeGameNBack;
+
+  /// No description provided for @dailyChallengeGameSpeedSort.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed Sort'**
+  String get dailyChallengeGameSpeedSort;
+
+  /// No description provided for @dailyChallengeGameColorWord.
+  ///
+  /// In en, this message translates to:
+  /// **'Color Word'**
+  String get dailyChallengeGameColorWord;
+
+  /// No description provided for @dailyChallengeGameNumberMemory.
+  ///
+  /// In en, this message translates to:
+  /// **'Number Memory'**
+  String get dailyChallengeGameNumberMemory;
+
+  /// No description provided for @dailyChallengeGamePatternMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Pattern Match'**
+  String get dailyChallengeGamePatternMatch;
+
+  /// No description provided for @dailyChallengeGameCrossword.
+  ///
+  /// In en, this message translates to:
+  /// **'Crossword'**
+  String get dailyChallengeGameCrossword;
+
+  /// No description provided for @dailyChallengeSubtitleNBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Train your working memory'**
+  String get dailyChallengeSubtitleNBack;
+
+  /// No description provided for @dailyChallengeSubtitleSpeedSort.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed up your logical thinking'**
+  String get dailyChallengeSubtitleSpeedSort;
+
+  /// No description provided for @dailyChallengeSubtitleColorWord.
+  ///
+  /// In en, this message translates to:
+  /// **'Challenge your visual focus'**
+  String get dailyChallengeSubtitleColorWord;
+
+  /// No description provided for @dailyChallengeSubtitleNumberMemory.
+  ///
+  /// In en, this message translates to:
+  /// **'Strengthen your number memory'**
+  String get dailyChallengeSubtitleNumberMemory;
+
+  /// No description provided for @dailyChallengeSubtitlePatternMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Sharpen your visual discrimination'**
+  String get dailyChallengeSubtitlePatternMatch;
+
+  /// No description provided for @dailyChallengeSubtitleCrossword.
+  ///
+  /// In en, this message translates to:
+  /// **'Expand your Arabic vocabulary'**
+  String get dailyChallengeSubtitleCrossword;
 }
 
 class _AppLocalizationsDelegate

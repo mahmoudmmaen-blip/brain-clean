@@ -1931,4 +1931,58 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get safaCheckinTimeUpdated => 'Worry window reminder updated.';
+
+  @override
+  String get dailyChallengeIcon => '🧠';
+
+  @override
+  String get dailyChallengeTitle => 'Today\'s challenge';
+
+  @override
+  String get dailyChallengeCompleted => 'Done ✓';
+
+  @override
+  String get dailyChallengeStart => 'Start challenge';
+
+  @override
+  String get dailyChallengeReplay => 'Replay challenge 🔄';
+
+  @override
+  String get dailyChallengeGameNBack => 'N-Back Memory';
+
+  @override
+  String get dailyChallengeGameSpeedSort => 'Speed Sort';
+
+  @override
+  String get dailyChallengeGameColorWord => 'Color Word';
+
+  @override
+  String get dailyChallengeGameNumberMemory => 'Number Memory';
+
+  @override
+  String get dailyChallengeGamePatternMatch => 'Pattern Match';
+
+  @override
+  String get dailyChallengeGameCrossword => 'Crossword';
+
+  @override
+  String get dailyChallengeSubtitleNBack => 'Train your working memory';
+
+  @override
+  String get dailyChallengeSubtitleSpeedSort =>
+      'Speed up your logical thinking';
+
+  @override
+  String get dailyChallengeSubtitleColorWord => 'Challenge your visual focus';
+
+  @override
+  String get dailyChallengeSubtitleNumberMemory =>
+      'Strengthen your number memory';
+
+  @override
+  String get dailyChallengeSubtitlePatternMatch =>
+      'Sharpen your visual discrimination';
+
+  @override
+  String get dailyChallengeSubtitleCrossword => 'Expand your Arabic vocabulary';
 }

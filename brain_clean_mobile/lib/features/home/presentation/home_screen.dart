@@ -38,6 +38,8 @@ import '../../recovery/presentation/recovery_protocol_controller.dart';
 
 import '../../worry/presentation/worry_today_entries_provider.dart';
 
+import '../../daily_challenge/presentation/daily_challenge_card.dart';
+
 import 'widgets/global_progress_tracker.dart';
 
 import 'home_streak_provider.dart';
@@ -495,6 +497,11 @@ class _HomeBody extends ConsumerWidget {
         const SizedBox(height: 12),
 
         const _DailyActivityChips(),
+
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: DailyChallengeCard(),
+        ),
 
         const SizedBox(height: 12),
 

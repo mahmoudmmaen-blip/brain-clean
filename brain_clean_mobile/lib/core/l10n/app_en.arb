@@ -818,5 +818,22 @@
   "safaCheckinTitle": "A note from Safa",
   "safaCheckinBody": "I noticed you journal worries at night often — that can affect your sleep. Would you like to move your worry window to the afternoon?",
   "safaCheckinAction": "Change time",
-  "safaCheckinTimeUpdated": "Worry window reminder updated."
+  "safaCheckinTimeUpdated": "Worry window reminder updated.",
+  "dailyChallengeIcon": "🧠",
+  "dailyChallengeTitle": "Today's challenge",
+  "dailyChallengeCompleted": "Done ✓",
+  "dailyChallengeStart": "Start challenge",
+  "dailyChallengeReplay": "Replay challenge 🔄",
+  "dailyChallengeGameNBack": "N-Back Memory",
+  "dailyChallengeGameSpeedSort": "Speed Sort",
+  "dailyChallengeGameColorWord": "Color Word",
+  "dailyChallengeGameNumberMemory": "Number Memory",
+  "dailyChallengeGamePatternMatch": "Pattern Match",
+  "dailyChallengeGameCrossword": "Crossword",
+  "dailyChallengeSubtitleNBack": "Train your working memory",
+  "dailyChallengeSubtitleSpeedSort": "Speed up your logical thinking",
+  "dailyChallengeSubtitleColorWord": "Challenge your visual focus",
+  "dailyChallengeSubtitleNumberMemory": "Strengthen your number memory",
+  "dailyChallengeSubtitlePatternMatch": "Sharpen your visual discrimination",
+  "dailyChallengeSubtitleCrossword": "Expand your Arabic vocabulary"
 }

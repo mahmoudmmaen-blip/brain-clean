@@ -14,4 +14,5 @@ abstract final class HiveBoxes {
 
   /// Append-only signed XP ledger (tamper-evident, client-side HMAC).
   static const xpLedger = 'xp_ledger_v1';
+  static const dailyChallenge = 'daily_challenge_v1';
 }

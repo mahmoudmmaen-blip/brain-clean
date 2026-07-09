@@ -25,7 +25,12 @@ import '../../features/focus/silence_challenge_screen.dart';
 import '../../features/focus/focused_thinking_screen.dart';
 import '../../features/focus/single_task_screen.dart';
 import '../../features/games/crossword/crossword_screen.dart';
+import '../../features/games/color_word_game.dart';
 import '../../features/games/games_hub_screen.dart';
+import '../../features/games/n_back_game.dart';
+import '../../features/games/number_memory_game.dart';
+import '../../features/games/pattern_match_game.dart';
+import '../../features/games/speed_sort_game.dart';
 import '../../features/home/presentation/home_screen.dart';
 import '../../features/journey/presentation/journey_tab_screen.dart';
 import '../../features/more/presentation/more_tab_screen.dart';
@@ -400,6 +405,33 @@ GoRouter goRouter(GoRouterRef ref) {
                     path: 'games',
                     name: GamesHubRoute.name,
                     builder: (context, state) => const GamesHubScreen(),
+                  ),
+                  GoRoute(
+                    path: 'n-back',
+                    name: 'gameNBack',
+                    builder: (context, state) => const NBackGameScreen(),
+                  ),
+                  GoRoute(
+                    path: 'speed-sort',
+                    name: 'gameSpeedSort',
+                    builder: (context, state) => const SpeedSortGameScreen(),
+                  ),
+                  GoRoute(
+                    path: 'color-word',
+                    name: 'gameColorWord',
+                    builder: (context, state) => const ColorWordGameScreen(),
+                  ),
+                  GoRoute(
+                    path: 'number-memory',
+                    name: 'gameNumberMemory',
+                    builder: (context, state) =>
+                        const NumberMemoryGameScreen(),
+                  ),
+                  GoRoute(
+                    path: 'pattern-match',
+                    name: 'gamePatternMatch',
+                    builder: (context, state) =>
+                        const PatternMatchGameScreen(),
                   ),
                 ],
               ),

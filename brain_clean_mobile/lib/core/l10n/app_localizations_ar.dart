@@ -1909,4 +1909,55 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get safaCheckinTimeUpdated => 'تم تحديث وقت تذكير نافذة القلق.';
+
+  @override
+  String get dailyChallengeIcon => '🧠';
+
+  @override
+  String get dailyChallengeTitle => 'تحدي اليوم';
+
+  @override
+  String get dailyChallengeCompleted => 'مكتمل ✓';
+
+  @override
+  String get dailyChallengeStart => 'ابدأ التحدي';
+
+  @override
+  String get dailyChallengeReplay => 'أعد التحدي 🔄';
+
+  @override
+  String get dailyChallengeGameNBack => 'ذاكرة N-Back';
+
+  @override
+  String get dailyChallengeGameSpeedSort => 'الترتيب السريع';
+
+  @override
+  String get dailyChallengeGameColorWord => 'كلمة اللون';
+
+  @override
+  String get dailyChallengeGameNumberMemory => 'ذاكرة الأرقام';
+
+  @override
+  String get dailyChallengeGamePatternMatch => 'تطابق الأنماط';
+
+  @override
+  String get dailyChallengeGameCrossword => 'كلمة متقاطعة';
+
+  @override
+  String get dailyChallengeSubtitleNBack => 'تدرّب على ذاكرتك العاملة';
+
+  @override
+  String get dailyChallengeSubtitleSpeedSort => 'سرّع تفكيرك المنطقي';
+
+  @override
+  String get dailyChallengeSubtitleColorWord => 'تحدّ تركيزك البصري';
+
+  @override
+  String get dailyChallengeSubtitleNumberMemory => 'قوّي ذاكرتك الرقمية';
+
+  @override
+  String get dailyChallengeSubtitlePatternMatch => 'اشحذ تمييزك البصري';
+
+  @override
+  String get dailyChallengeSubtitleCrossword => 'وسّع مفرداتك العربية';
 }

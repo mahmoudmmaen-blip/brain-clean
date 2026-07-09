@@ -966,5 +966,22 @@
   "safaCheckinTitle": "ملاحظة من صفا",
   "safaCheckinBody": "لاحظت إنك بتكتب في دفتر القلق بالليل كتير — ده ممكن يأثر على نومك. تحب ننقل نافذة القلق للعصر؟",
   "safaCheckinAction": "غيّر الوقت",
-  "safaCheckinTimeUpdated": "تم تحديث وقت تذكير نافذة القلق."
+  "safaCheckinTimeUpdated": "تم تحديث وقت تذكير نافذة القلق.",
+  "dailyChallengeIcon": "🧠",
+  "dailyChallengeTitle": "تحدي اليوم",
+  "dailyChallengeCompleted": "مكتمل ✓",
+  "dailyChallengeStart": "ابدأ التحدي",
+  "dailyChallengeReplay": "أعد التحدي 🔄",
+  "dailyChallengeGameNBack": "ذاكرة N-Back",
+  "dailyChallengeGameSpeedSort": "الترتيب السريع",
+  "dailyChallengeGameColorWord": "كلمة اللون",
+  "dailyChallengeGameNumberMemory": "ذاكرة الأرقام",
+  "dailyChallengeGamePatternMatch": "تطابق الأنماط",
+  "dailyChallengeGameCrossword": "كلمة متقاطعة",
+  "dailyChallengeSubtitleNBack": "تدرّب على ذاكرتك العاملة",
+  "dailyChallengeSubtitleSpeedSort": "سرّع تفكيرك المنطقي",
+  "dailyChallengeSubtitleColorWord": "تحدّ تركيزك البصري",
+  "dailyChallengeSubtitleNumberMemory": "قوّي ذاكرتك الرقمية",
+  "dailyChallengeSubtitlePatternMatch": "اشحذ تمييزك البصري",
+  "dailyChallengeSubtitleCrossword": "وسّع مفرداتك العربية"
 }

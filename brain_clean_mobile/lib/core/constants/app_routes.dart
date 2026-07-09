@@ -31,6 +31,11 @@ abstract final class AppRoutes {
   static const focusedThinking = '/exercises/focused-thinking';
   static const crossword = '/exercises/crossword';
   static const games = '/exercises/games';
+  static const gameNBack = '/exercises/n-back';
+  static const gameSpeedSort = '/exercises/speed-sort';
+  static const gameColorWord = '/exercises/color-word';
+  static const gameNumberMemory = '/exercises/number-memory';
+  static const gamePatternMatch = '/exercises/pattern-match';
 
   // Safa branch
   static const emotionOasis = '/safa/emotion-oasis';
@@ -68,6 +73,11 @@ abstract final class AppRoutes {
       '/focused-thinking': focusedThinking,
       '/crossword': crossword,
       '/games': games,
+      '/n-back': gameNBack,
+      '/speed-sort': gameSpeedSort,
+      '/color-word': gameColorWord,
+      '/number-memory': gameNumberMemory,
+      '/pattern-match': gamePatternMatch,
       '/emotion-oasis': emotionOasis,
       '/dashboard': dashboard,
       '/weekly-report': weeklyReport,
