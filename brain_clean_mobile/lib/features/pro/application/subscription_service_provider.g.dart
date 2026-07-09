@@ -6,7 +6,7 @@ part of 'subscription_service_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$isProUserHash() => r'0420b2c10324064667cc7bc40da3e59bc3d62869';
+String _$isProUserHash() => r'e9b3c629c793f9bfdf1808ed5a224115400ce0ef';
 
 /// Reactive Pro entitlement, derived from [entitlementStatusProvider].
 ///
@@ -16,7 +16,7 @@ String _$isProUserHash() => r'0420b2c10324064667cc7bc40da3e59bc3d62869';
 ///
 /// Copied from [isProUser].
 @ProviderFor(isProUser)
-final isProUserProvider = AutoDisposeProvider<bool>.internal(
+final isProUserProvider = Provider<bool>.internal(
   isProUser,
   name: r'isProUserProvider',
   debugGetCreateSourceHash:
@@ -25,6 +25,6 @@ final isProUserProvider = AutoDisposeProvider<bool>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef IsProUserRef = AutoDisposeProviderRef<bool>;
+typedef IsProUserRef = ProviderRef<bool>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

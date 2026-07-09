@@ -9,7 +9,7 @@ part 'subscription_service_provider.g.dart';
 /// Defaults to `false` until RevenueCat resolves the first customer info, and
 /// updates automatically via the customer-info listener. Used by
 /// [navigateWithProGate] and every other Pro gate in the app.
-@riverpod
+@Riverpod(keepAlive: true)
 bool isProUser(IsProUserRef ref) {
   return ref.watch(entitlementStatusProvider).valueOrNull ?? false;
 }
