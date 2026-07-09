@@ -11,6 +11,9 @@ class AppPreferencesState {
     required this.isProUser,
     required this.emotionNotificationsEnabled,
     required this.dailyFocusReminderEnabled,
+    required this.worryWindowReminderEnabled,
+    required this.worryWindowReminderHour,
+    required this.worryWindowReminderMinute,
     required this.profileDisplayName,
     required this.silenceWinsCount,
     required this.singleTasksCompletedCount,
@@ -20,6 +23,9 @@ class AppPreferencesState {
   final bool isProUser;
   final bool emotionNotificationsEnabled;
   final bool dailyFocusReminderEnabled;
+  final bool worryWindowReminderEnabled;
+  final int worryWindowReminderHour;
+  final int worryWindowReminderMinute;
   final String profileDisplayName;
   final int silenceWinsCount;
   final int singleTasksCompletedCount;
@@ -29,6 +35,9 @@ class AppPreferencesState {
     isProUser: false,
     emotionNotificationsEnabled: true,
     dailyFocusReminderEnabled: true,
+    worryWindowReminderEnabled: false,
+    worryWindowReminderHour: 17,
+    worryWindowReminderMinute: 0,
     profileDisplayName: '',
     silenceWinsCount: 0,
     singleTasksCompletedCount: 0,
@@ -40,6 +49,9 @@ class AppPreferencesState {
     isProUser: true,
     emotionNotificationsEnabled: true,
     dailyFocusReminderEnabled: true,
+    worryWindowReminderEnabled: false,
+    worryWindowReminderHour: 17,
+    worryWindowReminderMinute: 0,
     profileDisplayName: '',
     silenceWinsCount: 0,
     singleTasksCompletedCount: 0,
@@ -50,6 +62,9 @@ class AppPreferencesState {
     bool? isProUser,
     bool? emotionNotificationsEnabled,
     bool? dailyFocusReminderEnabled,
+    bool? worryWindowReminderEnabled,
+    int? worryWindowReminderHour,
+    int? worryWindowReminderMinute,
     String? profileDisplayName,
     int? silenceWinsCount,
     int? singleTasksCompletedCount,
@@ -61,6 +76,12 @@ class AppPreferencesState {
           emotionNotificationsEnabled ?? this.emotionNotificationsEnabled,
       dailyFocusReminderEnabled:
           dailyFocusReminderEnabled ?? this.dailyFocusReminderEnabled,
+      worryWindowReminderEnabled:
+          worryWindowReminderEnabled ?? this.worryWindowReminderEnabled,
+      worryWindowReminderHour:
+          worryWindowReminderHour ?? this.worryWindowReminderHour,
+      worryWindowReminderMinute:
+          worryWindowReminderMinute ?? this.worryWindowReminderMinute,
       profileDisplayName: profileDisplayName ?? this.profileDisplayName,
       silenceWinsCount: silenceWinsCount ?? this.silenceWinsCount,
       singleTasksCompletedCount:
@@ -91,6 +112,21 @@ class AppPreferences extends _$AppPreferences {
               defaultValue: true,
             )
             as bool,
+        worryWindowReminderEnabled: box.get(
+              HiveMetaKeys.worryWindowReminderEnabled,
+              defaultValue: false,
+            )
+            as bool,
+        worryWindowReminderHour: box.get(
+              HiveMetaKeys.worryWindowReminderHour,
+              defaultValue: 17,
+            )
+            as int,
+        worryWindowReminderMinute: box.get(
+              HiveMetaKeys.worryWindowReminderMinute,
+              defaultValue: 0,
+            )
+            as int,
         profileDisplayName: box.get(
               HiveMetaKeys.profileDisplayName,
               defaultValue: '',
@@ -128,6 +164,12 @@ class AppPreferences extends _$AppPreferences {
         state.copyWith(emotionNotificationsEnabled: value as bool),
       HiveMetaKeys.dailyFocusReminderEnabled =>
         state.copyWith(dailyFocusReminderEnabled: value as bool),
+      HiveMetaKeys.worryWindowReminderEnabled =>
+        state.copyWith(worryWindowReminderEnabled: value as bool),
+      HiveMetaKeys.worryWindowReminderHour =>
+        state.copyWith(worryWindowReminderHour: value as int),
+      HiveMetaKeys.worryWindowReminderMinute =>
+        state.copyWith(worryWindowReminderMinute: value as int),
       HiveMetaKeys.profileDisplayName =>
         state.copyWith(profileDisplayName: value as String),
       HiveMetaKeys.silenceWinsCount =>
@@ -149,6 +191,26 @@ class AppPreferences extends _$AppPreferences {
 
   Future<void> setDailyFocusReminder(bool value) =>
       _persist(HiveMetaKeys.dailyFocusReminderEnabled, value);
+
+  Future<void> setWorryWindowReminderEnabled(bool value) =>
+      _persist(HiveMetaKeys.worryWindowReminderEnabled, value);
+
+  Future<void> setWorryWindowReminderTime({
+    required int hour,
+    required int minute,
+  }) async {
+    try {
+      final box = ref.read(appMetaBoxProvider);
+      await box.put(HiveMetaKeys.worryWindowReminderHour, hour);
+      await box.put(HiveMetaKeys.worryWindowReminderMinute, minute);
+      ref.invalidateSelf();
+    } catch (_) {
+      state = state.copyWith(
+        worryWindowReminderHour: hour,
+        worryWindowReminderMinute: minute,
+      );
+    }
+  }
 
   Future<void> setProfileDisplayName(String name) =>
       _persist(HiveMetaKeys.profileDisplayName, name.trim());

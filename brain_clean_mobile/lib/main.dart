@@ -12,6 +12,7 @@ import 'core/services/notifications_service.dart';
 import 'core/services/purchases_service.dart';
 import 'core/services/smart_notification_service.dart';
 import 'core/services/weekly_report_service.dart';
+import 'core/services/worry_window_notification_service.dart';
 import 'core/security/root_detector.dart';
 import 'core/security/security_status_provider.dart';
 import 'core/storage/hive_bootstrap.dart';
@@ -66,6 +67,7 @@ class _BrainCleanAppState extends ConsumerState<BrainCleanApp>
       _midnightReset!.triggerResetIfNeeded();
       ref.read(weeklyReportServiceProvider).schedule();
       ref.read(smartNotificationServiceProvider).rescheduleAll();
+      ref.read(worryWindowNotificationServiceProvider).reschedule();
       ref.read(xpSyncServiceProvider.notifier).syncIfPossible();
     });
   }

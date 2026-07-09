@@ -36,6 +36,8 @@ import '../../recovery/domain/recovery_daily_task.dart';
 
 import '../../recovery/presentation/recovery_protocol_controller.dart';
 
+import '../../worry/presentation/worry_today_entries_provider.dart';
+
 import 'widgets/global_progress_tracker.dart';
 
 import 'home_streak_provider.dart';
@@ -870,9 +872,11 @@ class _DailyActivityChips extends ConsumerWidget {
 
     final record = recovery?.dayRecord(dayIndex);
 
+    final worryDone = ref.watch(worryHabitDoneTodayProvider).valueOrNull ?? false;
 
 
-    final chips = <({String label, bool done})>[
+
+    final chips = <({String label, bool done, VoidCallback? onTap})>[
 
       (
 
@@ -882,11 +886,13 @@ class _DailyActivityChips extends ConsumerWidget {
 
             false,
 
+        onTap: null,
+
       ),
 
-      (label: loc.homeActivityWater, done: record?.waterCompleted ?? false),
+      (label: loc.homeActivityWater, done: record?.waterCompleted ?? false, onTap: null),
 
-      (label: loc.homeActivitySleep, done: record?.sleepCompleted ?? false),
+      (label: loc.homeActivitySleep, done: record?.sleepCompleted ?? false, onTap: null),
 
       (
 
@@ -895,6 +901,28 @@ class _DailyActivityChips extends ConsumerWidget {
         done: record?.taskCompleted[RecoveryDailyTask.distractionManagement.index] ??
 
             false,
+
+        onTap: null,
+
+      ),
+
+      (
+
+        label: loc.homeActivityWorryJournal,
+
+        done: worryDone,
+
+        onTap: () => context.push(AppRoutes.worryJournal),
+
+      ),
+
+      (
+
+        label: loc.homeActivityWorryWindow,
+
+        done: worryDone,
+
+        onTap: () => context.push(AppRoutes.worryWindow),
 
       ),
 
@@ -968,7 +996,7 @@ class _DailyActivityChips extends ConsumerWidget {
 
                 .map(
 
-                  (chip) => Chip(
+                  (chip) => ActionChip(
 
                     avatar: Icon(
 
@@ -989,6 +1017,8 @@ class _DailyActivityChips extends ConsumerWidget {
                     backgroundColor: colorScheme.surface.withOpacity(0.5),
 
                     labelStyle: TextStyle(color: colorScheme.onSurface),
+
+                    onPressed: chip.onTap,
 
                   ),
 

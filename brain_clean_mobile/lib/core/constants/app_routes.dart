@@ -42,6 +42,8 @@ abstract final class AppRoutes {
   // Full-screen assessments (outside shell stacks)
   static const anxietyDiagnostic = '/anxiety-diagnostic';
   static const anxietyResult = '/anxiety-result';
+  static const worryJournal = '/worry-journal';
+  static const worryWindow = '/worry-window';
 
   // More branch
   static const settings = '/more/settings';

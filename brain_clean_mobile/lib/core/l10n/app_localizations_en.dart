@@ -1799,4 +1799,89 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get anxietyNoResultYet => 'No result yet. Take the assessment first.';
+
+  @override
+  String get worryWindowTitle => 'Worry Window';
+
+  @override
+  String get worryJournalTitle => 'Worry Journal';
+
+  @override
+  String get worrySafaPrompt =>
+      'Write what\'s on your mind right now — it doesn\'t have to be organized, just get it out 🌿';
+
+  @override
+  String get worryJournalHint => 'What\'s worrying you today?';
+
+  @override
+  String get worryDurationTen => '10 min';
+
+  @override
+  String get worryDurationFifteen => '15 min';
+
+  @override
+  String get worryRuleReminder => '💡 Not before bedtime';
+
+  @override
+  String get worryTimerStart => 'Start';
+
+  @override
+  String get worryTimerPause => 'Pause';
+
+  @override
+  String get worryTimerReset => 'Reset';
+
+  @override
+  String get worryWindowCompleteMessage =>
+      'Well done — you emptied your mind 💚 Sleep will be calmer tonight.';
+
+  @override
+  String get worrySaveAndClose => 'Save & close';
+
+  @override
+  String get worrySaveFab => 'Save';
+
+  @override
+  String get worrySavedSnackbar => '✓ Saved';
+
+  @override
+  String get worryPastEntriesTitle => 'Today\'s entries';
+
+  @override
+  String get worryNoEntriesToday => 'No entries yet today.';
+
+  @override
+  String get worryLoadError => 'Could not load entries.';
+
+  @override
+  String get worryDiscardTitle => 'Discard writing?';
+
+  @override
+  String get worryDiscardBody => 'You have unsaved text. Close without saving?';
+
+  @override
+  String get worrySettingsSectionTitle => 'Daily Worry Window';
+
+  @override
+  String get worrySettingsReminderTime => 'Reminder time';
+
+  @override
+  String get worrySettingsReminderEnabled => 'Enable reminder';
+
+  @override
+  String get worryTimingWarning =>
+      '⚠️ Worry window should be before bedtime — pick an earlier time.';
+
+  @override
+  String get worryNotifTitle => 'Worry window time 🧠';
+
+  @override
+  String get worryNotifBody =>
+      '10 minutes to empty your mind — you\'ll stay calmer all night';
+
+  @override
+  String get homeActivityWorryJournal => '✍️ Worry Journal';
+
+  @override
+  String get homeActivityWorryWindow => '⏱️ Worry Window';
 }

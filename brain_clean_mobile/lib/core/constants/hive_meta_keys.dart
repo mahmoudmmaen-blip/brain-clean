@@ -5,6 +5,9 @@ abstract final class HiveMetaKeys {
   static const isProUser = 'isProUser';
   static const emotionNotificationsEnabled = 'emotionNotificationsEnabled';
   static const dailyFocusReminderEnabled = 'dailyFocusReminderEnabled';
+  static const worryWindowReminderEnabled = 'worryWindowReminderEnabled';
+  static const worryWindowReminderHour = 'worryWindowReminderHour';
+  static const worryWindowReminderMinute = 'worryWindowReminderMinute';
   static const profileDisplayName = 'profileDisplayName';
   static const silenceWinsCount = 'silenceWinsCount';
   static const singleTasksCompletedCount = 'singleTasksCompletedCount';

@@ -3343,6 +3343,168 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No result yet. Take the assessment first.'**
   String get anxietyNoResultYet;
+
+  /// No description provided for @worryWindowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Worry Window'**
+  String get worryWindowTitle;
+
+  /// No description provided for @worryJournalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Worry Journal'**
+  String get worryJournalTitle;
+
+  /// No description provided for @worrySafaPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Write what\'s on your mind right now — it doesn\'t have to be organized, just get it out 🌿'**
+  String get worrySafaPrompt;
+
+  /// No description provided for @worryJournalHint.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s worrying you today?'**
+  String get worryJournalHint;
+
+  /// No description provided for @worryDurationTen.
+  ///
+  /// In en, this message translates to:
+  /// **'10 min'**
+  String get worryDurationTen;
+
+  /// No description provided for @worryDurationFifteen.
+  ///
+  /// In en, this message translates to:
+  /// **'15 min'**
+  String get worryDurationFifteen;
+
+  /// No description provided for @worryRuleReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'💡 Not before bedtime'**
+  String get worryRuleReminder;
+
+  /// No description provided for @worryTimerStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get worryTimerStart;
+
+  /// No description provided for @worryTimerPause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get worryTimerPause;
+
+  /// No description provided for @worryTimerReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get worryTimerReset;
+
+  /// No description provided for @worryWindowCompleteMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Well done — you emptied your mind 💚 Sleep will be calmer tonight.'**
+  String get worryWindowCompleteMessage;
+
+  /// No description provided for @worrySaveAndClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Save & close'**
+  String get worrySaveAndClose;
+
+  /// No description provided for @worrySaveFab.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get worrySaveFab;
+
+  /// No description provided for @worrySavedSnackbar.
+  ///
+  /// In en, this message translates to:
+  /// **'✓ Saved'**
+  String get worrySavedSnackbar;
+
+  /// No description provided for @worryPastEntriesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s entries'**
+  String get worryPastEntriesTitle;
+
+  /// No description provided for @worryNoEntriesToday.
+  ///
+  /// In en, this message translates to:
+  /// **'No entries yet today.'**
+  String get worryNoEntriesToday;
+
+  /// No description provided for @worryLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load entries.'**
+  String get worryLoadError;
+
+  /// No description provided for @worryDiscardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard writing?'**
+  String get worryDiscardTitle;
+
+  /// No description provided for @worryDiscardBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You have unsaved text. Close without saving?'**
+  String get worryDiscardBody;
+
+  /// No description provided for @worrySettingsSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Worry Window'**
+  String get worrySettingsSectionTitle;
+
+  /// No description provided for @worrySettingsReminderTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder time'**
+  String get worrySettingsReminderTime;
+
+  /// No description provided for @worrySettingsReminderEnabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable reminder'**
+  String get worrySettingsReminderEnabled;
+
+  /// No description provided for @worryTimingWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'⚠️ Worry window should be before bedtime — pick an earlier time.'**
+  String get worryTimingWarning;
+
+  /// No description provided for @worryNotifTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Worry window time 🧠'**
+  String get worryNotifTitle;
+
+  /// No description provided for @worryNotifBody.
+  ///
+  /// In en, this message translates to:
+  /// **'10 minutes to empty your mind — you\'ll stay calmer all night'**
+  String get worryNotifBody;
+
+  /// No description provided for @homeActivityWorryJournal.
+  ///
+  /// In en, this message translates to:
+  /// **'✍️ Worry Journal'**
+  String get homeActivityWorryJournal;
+
+  /// No description provided for @homeActivityWorryWindow.
+  ///
+  /// In en, this message translates to:
+  /// **'⏱️ Worry Window'**
+  String get homeActivityWorryWindow;
 }
 
 class _AppLocalizationsDelegate

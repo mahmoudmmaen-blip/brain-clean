@@ -1778,4 +1778,88 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get anxietyNoResultYet => 'لا توجد نتيجة بعد. ابدأ التشخيص أولاً.';
+
+  @override
+  String get worryWindowTitle => 'نافذة القلق';
+
+  @override
+  String get worryJournalTitle => 'دفتر القلق';
+
+  @override
+  String get worrySafaPrompt =>
+      'اكتب اللي في دماغك دلوقتي — مش لازم يكون منظّم، بس طلّعه بره 🌿';
+
+  @override
+  String get worryJournalHint => 'إيه اللي قلقانك النهارده؟';
+
+  @override
+  String get worryDurationTen => '١٠ دقائق';
+
+  @override
+  String get worryDurationFifteen => '١٥ دقيقة';
+
+  @override
+  String get worryRuleReminder => '💡 مش قبل النوم';
+
+  @override
+  String get worryTimerStart => 'ابدأ';
+
+  @override
+  String get worryTimerPause => 'إيقاف';
+
+  @override
+  String get worryTimerReset => 'إعادة';
+
+  @override
+  String get worryWindowCompleteMessage =>
+      'أحسنت — فرّغت دماغك 💚 النوم هيبقى أهدى.';
+
+  @override
+  String get worrySaveAndClose => 'حفظ وإغلاق';
+
+  @override
+  String get worrySaveFab => 'حفظ';
+
+  @override
+  String get worrySavedSnackbar => '✓ اتحفظ';
+
+  @override
+  String get worryPastEntriesTitle => 'إدخالات اليوم';
+
+  @override
+  String get worryNoEntriesToday => 'مفيش إدخالات النهارده.';
+
+  @override
+  String get worryLoadError => 'تعذّر تحميل الإدخالات.';
+
+  @override
+  String get worryDiscardTitle => 'تجاهل الكتابة؟';
+
+  @override
+  String get worryDiscardBody => 'عندك نص مش محفوظ. تقفل من غير حفظ؟';
+
+  @override
+  String get worrySettingsSectionTitle => 'نافذة القلق اليومية';
+
+  @override
+  String get worrySettingsReminderTime => 'وقت التذكير';
+
+  @override
+  String get worrySettingsReminderEnabled => 'تفعيل التذكير';
+
+  @override
+  String get worryTimingWarning =>
+      '⚠️ نافذة القلق تكون قبل النوم — اختار وقت أبكر.';
+
+  @override
+  String get worryNotifTitle => 'وقت نافذة القلق 🧠';
+
+  @override
+  String get worryNotifBody => '١٠ دقايق تفرّغ دماغك — هتفضل أهدى طول الليل';
+
+  @override
+  String get homeActivityWorryJournal => '✍️ دفتر القلق';
+
+  @override
+  String get homeActivityWorryWindow => '⏱️ نافذة القلق';
 }

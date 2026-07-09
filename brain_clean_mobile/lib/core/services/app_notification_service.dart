@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 import '../constants/app_routes.dart';
 import '../routing/app_navigator_key.dart';
 
+import 'worry_window_notification_service.dart';
+
 const weeklyReportPayload = 'weekly_report';
 
 /// Shared local notifications plugin bootstrap.
@@ -34,11 +36,15 @@ class AppNotificationService {
   }
 
   void _handlePayload(String? payload) {
+    final context = appNavigatorKey.currentContext;
+    if (context == null || !context.mounted) return;
+
     if (payload == weeklyReportPayload) {
-      final context = appNavigatorKey.currentContext;
-      if (context != null && context.mounted) {
-        context.push(AppRoutes.weeklyReport);
-      }
+      context.push(AppRoutes.weeklyReport);
+      return;
+    }
+    if (payload == worryWindowPayload || payload == AppRoutes.worryWindow) {
+      context.push(AppRoutes.worryWindow);
     }
   }
 

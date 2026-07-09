@@ -10,6 +10,7 @@ import '../../core/l10n/app_localizations.dart';
 import '../../core/services/notifications_service.dart';
 import '../../core/services/smart_notification_service.dart';
 import '../../core/services/weekly_report_service.dart';
+import '../../core/services/worry_window_notification_service.dart';
 import '../../core/storage/hive_boxes.dart';
 import '../../core/theme/app_color_theme.dart';
 import '../../core/theme/app_color_theme_provider.dart';
@@ -61,6 +62,7 @@ class SettingsScreen extends ConsumerWidget {
       HiveBoxes.diagnosticPersistence,
       HiveBoxes.emotionLog,
       HiveBoxes.dailySnapshots,
+      HiveBoxes.journalSpaces,
       HiveBoxes.appMeta,
     ]) {
       if (Hive.isBoxOpen(name)) {
@@ -187,6 +189,8 @@ class SettingsScreen extends ConsumerWidget {
               ],
             ),
           ),
+          const SizedBox(height: 12),
+          const _WorryWindowReminderSection(),
           const SizedBox(height: 12),
           GlassCard(
             child: Column(
@@ -356,6 +360,93 @@ class _DailyReminderTileState extends ConsumerState<_DailyReminderTile> {
           } catch (_) {}
         }
       },
+    );
+  }
+}
+
+class _WorryWindowReminderSection extends ConsumerWidget {
+  const _WorryWindowReminderSection();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final loc = AppLocalizations.of(context)!;
+    final prefs = ref.watch(appPreferencesProvider);
+    final colorScheme = Theme.of(context).colorScheme;
+    final timeLabel = MaterialLocalizations.of(context).formatTimeOfDay(
+      TimeOfDay(
+        hour: prefs.worryWindowReminderHour,
+        minute: prefs.worryWindowReminderMinute,
+      ),
+    );
+    final showLateWarning = prefs.worryWindowReminderHour >= 21;
+
+    return GlassCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          _SectionHeader(loc.worrySettingsSectionTitle),
+          ListTile(
+            contentPadding: EdgeInsets.zero,
+            title: Text(
+              loc.worrySettingsReminderTime,
+              style: TextStyle(color: colorScheme.onSurface),
+            ),
+            subtitle: Text(
+              timeLabel,
+              style: TextStyle(color: colorScheme.primary),
+            ),
+            trailing: Icon(Icons.schedule, color: colorScheme.onSurfaceVariant),
+            onTap: () async {
+              final picked = await showTimePicker(
+                context: context,
+                initialTime: TimeOfDay(
+                  hour: prefs.worryWindowReminderHour,
+                  minute: prefs.worryWindowReminderMinute,
+                ),
+              );
+              if (picked == null) return;
+              await ref
+                  .read(appPreferencesProvider.notifier)
+                  .setWorryWindowReminderTime(
+                    hour: picked.hour,
+                    minute: picked.minute,
+                  );
+              await ref
+                  .read(worryWindowNotificationServiceProvider)
+                  .reschedule();
+            },
+          ),
+          if (showLateWarning)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Text(
+                loc.worryTimingWarning,
+                style: TextStyle(
+                  color: colorScheme.error,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          SwitchListTile(
+            contentPadding: EdgeInsets.zero,
+            title: Text(
+              loc.worrySettingsReminderEnabled,
+              style: TextStyle(color: colorScheme.onSurface),
+            ),
+            value: prefs.worryWindowReminderEnabled,
+            activeThumbColor: colorScheme.primary,
+            onChanged: (enabled) async {
+              await ref
+                  .read(appPreferencesProvider.notifier)
+                  .setWorryWindowReminderEnabled(enabled);
+              await ref
+                  .read(worryWindowNotificationServiceProvider)
+                  .reschedule();
+            },
+          ),
+        ],
+      ),
     );
   }
 }

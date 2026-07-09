@@ -6,6 +6,8 @@ import '../../core/application/app_preferences_provider.dart';
 import '../../core/presentation/app_shell.dart';
 import '../../features/anxiety/presentation/anxiety_diagnostic_screen.dart';
 import '../../features/anxiety/presentation/anxiety_result_screen.dart';
+import '../../features/worry/presentation/worry_journal_screen.dart';
+import '../../features/worry/presentation/worry_window_screen.dart';
 import '../../features/accountability/accountability_screen.dart';
 import '../../features/cognitive_tests/presentation/cognitive_hub_screen.dart';
 import '../../features/cognitive_tests/presentation/memory_mini_game_screen.dart';
@@ -274,6 +276,16 @@ GoRouter goRouter(GoRouterRef ref) {
         path: AppRoutes.anxietyResult,
         name: 'anxietyResult',
         builder: (context, state) => const AnxietyResultScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.worryJournal,
+        name: 'worryJournal',
+        builder: (context, state) => const WorryJournalScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.worryWindow,
+        name: 'worryWindow',
+        builder: (context, state) => const WorryWindowScreen(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>
