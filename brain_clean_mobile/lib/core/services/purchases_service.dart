@@ -4,6 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../constants/revenue_cat_constants.dart';
+
 part 'purchases_service.g.dart';
 
 /// RevenueCat integration for Brain Clean (Google Play, production).
@@ -17,13 +19,13 @@ class PurchasesService {
   static const _apiKey = 'goog_RJESzENrLajTmowuJXBVoBKTpgE';
 
   /// Entitlement identifier configured in the RevenueCat dashboard.
-  static const entitlementId = 'Brain Clean';
+  static const entitlementId = RevenueCatConstants.proEntitlement;
 
   /// Offering identifier configured in the RevenueCat dashboard.
   static const offeringId = 'default';
 
   /// Google Play / RevenueCat product id for one-time Pro lifetime access.
-  static const lifetimeProductId = 'pro_lifetime';
+  static const lifetimeProductId = RevenueCatConstants.lifetimeProductId;
 
   /// `true` once [initialize] has configured the SDK successfully. Stays
   /// `false` on platforms without the native SDK (e.g. widget tests).

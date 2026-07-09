@@ -4,7 +4,7 @@ A new Flutter project.
 
 ## RevenueCat Setup
 
-Important: `pro_lifetime` must be created as a Non-Consumable (one-time purchase) product in both Google Play Console and RevenueCat Dashboard, NOT as a subscription.
+Important: `brainclean_lifetime` must be created as a Non-Consumable (one-time purchase) product in both Google Play Console and RevenueCat Dashboard, NOT as a subscription.
 
 ## Getting Started
 
