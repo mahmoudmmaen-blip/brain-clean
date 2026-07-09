@@ -735,5 +735,47 @@
   "homeActivityWater": "Water",
   "homeActivitySleep": "Sleep",
   "homeActivityMovement": "Movement",
-  "settingsSubscriptionSection": "Subscription"
+  "settingsSubscriptionSection": "Subscription",
+  "anxietyScreenTitle": "Anxiety Assessment",
+  "anxietyResultTitle": "Your Anxiety Result",
+  "anxietyProgressLabel": "{current} / {total}",
+  "@anxietyProgressLabel": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "anxietyQ1": "Do you overthink a lot before sleep?",
+  "anxietyQ2": "Do you replay scenarios in your head more than once?",
+  "anxietyQ3": "Do you often expect the worst?",
+  "anxietyQ4": "Is it hard for you to stop thinking?",
+  "anxietyQ5": "Do you feel like your mind is always running?",
+  "anxietyQ6": "Do you notice physical tension (tight shoulders, stomach, fast breathing)?",
+  "anxietyQ7": "Do you avoid tasks or situations because of anxiety?",
+  "anxietyQ8": "Does anxiety affect your focus or sleep on a daily basis?",
+  "anxietyOptionNever": "Never",
+  "anxietyOptionSometimes": "Sometimes",
+  "anxietyOptionOften": "Often",
+  "anxietyOptionAlways": "Always",
+  "anxietyLevelCalm": "Calm",
+  "anxietyLevelModerate": "Moderate",
+  "anxietyLevelHigh": "High",
+  "anxietyLevelSevere": "Severe",
+  "anxietyInterpretationCalm": "Your anxiety is in a normal range — keep up your current pace.",
+  "anxietyInterpretationModerate": "Early signs of chronic anxiety — an anxiety journal can help a lot.",
+  "anxietyInterpretationHigh": "Anxiety is affecting your life — Safa will guide you step by step.",
+  "anxietyInterpretationSevere": "We recommend seeing a specialist + start the anxiety program with Safa.",
+  "anxietyStartProgramCta": "Start the program with Safa",
+  "anxietyRetakeTest": "Retake the test",
+  "anxietyJourneyCardTitle": "Anxiety Assessment",
+  "anxietyJourneyCardSubtitle": "8 questions · chronic anxiety screening",
+  "anxietyJourneyCardLatestScore": "Latest score: {score}%",
+  "@anxietyJourneyCardLatestScore": {
+    "placeholders": {
+      "score": { "type": "int" }
+    }
+  },
+  "anxietySaveError": "Could not save your result. Please try again.",
+  "anxietyLoadError": "Could not load your result.",
+  "anxietyNoResultYet": "No result yet. Take the assessment first."
 }

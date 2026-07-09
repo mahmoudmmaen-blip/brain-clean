@@ -2,6 +2,7 @@
 abstract final class HiveBoxes {
   static const recoveryProtocol = 'recovery_protocol_v1';
   static const diagnosticPersistence = 'diagnostic_persistence_v1';
+  static const anxietyPersistence = 'anxiety_persistence_v1';
   static const emotionLog = 'emotion_log';
   static const dailySnapshots = 'daily_snapshots';
   static const appMeta = 'app_meta';

@@ -1676,4 +1676,106 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get settingsSubscriptionSection => 'الاشتراك';
+
+  @override
+  String get anxietyScreenTitle => 'تشخيص القلق';
+
+  @override
+  String get anxietyResultTitle => 'نتيجة تشخيص القلق';
+
+  @override
+  String anxietyProgressLabel(int current, int total) {
+    return '$current / $total';
+  }
+
+  @override
+  String get anxietyQ1 => 'هل تفكّر كثيراً قبل النوم؟';
+
+  @override
+  String get anxietyQ2 => 'هل تعيد السيناريو في راسك أكثر من مرة؟';
+
+  @override
+  String get anxietyQ3 => 'هل تتوقّع الأسوأ غالباً؟';
+
+  @override
+  String get anxietyQ4 => 'هل يصعُب عليك إيقاف التفكير؟';
+
+  @override
+  String get anxietyQ5 => 'هل تشعر أن عقلك يعمل طوال الوقت؟';
+
+  @override
+  String get anxietyQ6 =>
+      'هل تلاحظ توتراً جسدياً (كتف مشدود، معدة، تنفّس سريع)؟';
+
+  @override
+  String get anxietyQ7 => 'هل تتجنّب مهام أو مواقف بسبب القلق منها؟';
+
+  @override
+  String get anxietyQ8 => 'هل يؤثر القلق على تركيزك أو نومك بشكل يومي؟';
+
+  @override
+  String get anxietyOptionNever => 'أبداً';
+
+  @override
+  String get anxietyOptionSometimes => 'أحياناً';
+
+  @override
+  String get anxietyOptionOften => 'غالباً';
+
+  @override
+  String get anxietyOptionAlways => 'دائماً';
+
+  @override
+  String get anxietyLevelCalm => 'هادئ';
+
+  @override
+  String get anxietyLevelModerate => 'متوسط';
+
+  @override
+  String get anxietyLevelHigh => 'مرتفع';
+
+  @override
+  String get anxietyLevelSevere => 'شديد';
+
+  @override
+  String get anxietyInterpretationCalm =>
+      'قلقك في المنطقة الطبيعية — استمر على نفس الوتيرة.';
+
+  @override
+  String get anxietyInterpretationModerate =>
+      'بداية قلق مزمن — دفتر القلق هيفيدك كتير.';
+
+  @override
+  String get anxietyInterpretationHigh =>
+      'القلق بيأثر على حياتك — صفا معاك خطوة خطوة.';
+
+  @override
+  String get anxietyInterpretationSevere =>
+      'يُنصح بمراجعة مختص + ابدأ برنامج القلق مع صفا.';
+
+  @override
+  String get anxietyStartProgramCta => 'ابدأ البرنامج مع صفا';
+
+  @override
+  String get anxietyRetakeTest => 'أعد الاختبار';
+
+  @override
+  String get anxietyJourneyCardTitle => 'تشخيص القلق';
+
+  @override
+  String get anxietyJourneyCardSubtitle => '8 أسئلة · فحص القلق المزمن';
+
+  @override
+  String anxietyJourneyCardLatestScore(int score) {
+    return 'آخر نتيجة: $score%';
+  }
+
+  @override
+  String get anxietySaveError => 'تعذّر حفظ النتيجة. حاول مرة أخرى.';
+
+  @override
+  String get anxietyLoadError => 'تعذّر تحميل النتيجة.';
+
+  @override
+  String get anxietyNoResultYet => 'لا توجد نتيجة بعد. ابدأ التشخيص أولاً.';
 }

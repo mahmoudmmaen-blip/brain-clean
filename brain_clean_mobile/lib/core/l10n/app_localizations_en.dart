@@ -1692,4 +1692,111 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsSubscriptionSection => 'Subscription';
+
+  @override
+  String get anxietyScreenTitle => 'Anxiety Assessment';
+
+  @override
+  String get anxietyResultTitle => 'Your Anxiety Result';
+
+  @override
+  String anxietyProgressLabel(int current, int total) {
+    return '$current / $total';
+  }
+
+  @override
+  String get anxietyQ1 => 'Do you overthink a lot before sleep?';
+
+  @override
+  String get anxietyQ2 =>
+      'Do you replay scenarios in your head more than once?';
+
+  @override
+  String get anxietyQ3 => 'Do you often expect the worst?';
+
+  @override
+  String get anxietyQ4 => 'Is it hard for you to stop thinking?';
+
+  @override
+  String get anxietyQ5 => 'Do you feel like your mind is always running?';
+
+  @override
+  String get anxietyQ6 =>
+      'Do you notice physical tension (tight shoulders, stomach, fast breathing)?';
+
+  @override
+  String get anxietyQ7 =>
+      'Do you avoid tasks or situations because of anxiety?';
+
+  @override
+  String get anxietyQ8 =>
+      'Does anxiety affect your focus or sleep on a daily basis?';
+
+  @override
+  String get anxietyOptionNever => 'Never';
+
+  @override
+  String get anxietyOptionSometimes => 'Sometimes';
+
+  @override
+  String get anxietyOptionOften => 'Often';
+
+  @override
+  String get anxietyOptionAlways => 'Always';
+
+  @override
+  String get anxietyLevelCalm => 'Calm';
+
+  @override
+  String get anxietyLevelModerate => 'Moderate';
+
+  @override
+  String get anxietyLevelHigh => 'High';
+
+  @override
+  String get anxietyLevelSevere => 'Severe';
+
+  @override
+  String get anxietyInterpretationCalm =>
+      'Your anxiety is in a normal range — keep up your current pace.';
+
+  @override
+  String get anxietyInterpretationModerate =>
+      'Early signs of chronic anxiety — an anxiety journal can help a lot.';
+
+  @override
+  String get anxietyInterpretationHigh =>
+      'Anxiety is affecting your life — Safa will guide you step by step.';
+
+  @override
+  String get anxietyInterpretationSevere =>
+      'We recommend seeing a specialist + start the anxiety program with Safa.';
+
+  @override
+  String get anxietyStartProgramCta => 'Start the program with Safa';
+
+  @override
+  String get anxietyRetakeTest => 'Retake the test';
+
+  @override
+  String get anxietyJourneyCardTitle => 'Anxiety Assessment';
+
+  @override
+  String get anxietyJourneyCardSubtitle =>
+      '8 questions · chronic anxiety screening';
+
+  @override
+  String anxietyJourneyCardLatestScore(int score) {
+    return 'Latest score: $score%';
+  }
+
+  @override
+  String get anxietySaveError =>
+      'Could not save your result. Please try again.';
+
+  @override
+  String get anxietyLoadError => 'Could not load your result.';
+
+  @override
+  String get anxietyNoResultYet => 'No result yet. Take the assessment first.';
 }

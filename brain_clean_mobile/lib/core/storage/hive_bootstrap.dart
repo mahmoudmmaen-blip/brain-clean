@@ -38,6 +38,7 @@ abstract final class HiveBootstrap {
   static const List<String> _durableBoxes = [
     HiveBoxes.recoveryProtocol,
     HiveBoxes.diagnosticPersistence,
+    HiveBoxes.anxietyPersistence,
     HiveBoxes.emotionLog,
     HiveBoxes.dailySnapshots,
     HiveBoxes.appMeta,

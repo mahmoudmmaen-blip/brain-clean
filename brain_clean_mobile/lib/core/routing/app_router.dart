@@ -4,6 +4,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../core/application/app_preferences_provider.dart';
 import '../../core/presentation/app_shell.dart';
+import '../../features/anxiety/presentation/anxiety_diagnostic_screen.dart';
+import '../../features/anxiety/presentation/anxiety_result_screen.dart';
 import '../../features/accountability/accountability_screen.dart';
 import '../../features/cognitive_tests/presentation/cognitive_hub_screen.dart';
 import '../../features/cognitive_tests/presentation/memory_mini_game_screen.dart';
@@ -262,6 +264,16 @@ GoRouter goRouter(GoRouterRef ref) {
         path: AppRoutes.onboarding,
         name: OnboardingRoute.name,
         builder: (context, state) => const OnboardingScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.anxietyDiagnostic,
+        name: 'anxietyDiagnostic',
+        builder: (context, state) => const AnxietyDiagnosticScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.anxietyResult,
+        name: 'anxietyResult',
+        builder: (context, state) => const AnxietyResultScreen(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>

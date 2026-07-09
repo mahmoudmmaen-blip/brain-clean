@@ -3157,6 +3157,192 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Subscription'**
   String get settingsSubscriptionSection;
+
+  /// No description provided for @anxietyScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Anxiety Assessment'**
+  String get anxietyScreenTitle;
+
+  /// No description provided for @anxietyResultTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Anxiety Result'**
+  String get anxietyResultTitle;
+
+  /// No description provided for @anxietyProgressLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{current} / {total}'**
+  String anxietyProgressLabel(int current, int total);
+
+  /// No description provided for @anxietyQ1.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you overthink a lot before sleep?'**
+  String get anxietyQ1;
+
+  /// No description provided for @anxietyQ2.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you replay scenarios in your head more than once?'**
+  String get anxietyQ2;
+
+  /// No description provided for @anxietyQ3.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you often expect the worst?'**
+  String get anxietyQ3;
+
+  /// No description provided for @anxietyQ4.
+  ///
+  /// In en, this message translates to:
+  /// **'Is it hard for you to stop thinking?'**
+  String get anxietyQ4;
+
+  /// No description provided for @anxietyQ5.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you feel like your mind is always running?'**
+  String get anxietyQ5;
+
+  /// No description provided for @anxietyQ6.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you notice physical tension (tight shoulders, stomach, fast breathing)?'**
+  String get anxietyQ6;
+
+  /// No description provided for @anxietyQ7.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you avoid tasks or situations because of anxiety?'**
+  String get anxietyQ7;
+
+  /// No description provided for @anxietyQ8.
+  ///
+  /// In en, this message translates to:
+  /// **'Does anxiety affect your focus or sleep on a daily basis?'**
+  String get anxietyQ8;
+
+  /// No description provided for @anxietyOptionNever.
+  ///
+  /// In en, this message translates to:
+  /// **'Never'**
+  String get anxietyOptionNever;
+
+  /// No description provided for @anxietyOptionSometimes.
+  ///
+  /// In en, this message translates to:
+  /// **'Sometimes'**
+  String get anxietyOptionSometimes;
+
+  /// No description provided for @anxietyOptionOften.
+  ///
+  /// In en, this message translates to:
+  /// **'Often'**
+  String get anxietyOptionOften;
+
+  /// No description provided for @anxietyOptionAlways.
+  ///
+  /// In en, this message translates to:
+  /// **'Always'**
+  String get anxietyOptionAlways;
+
+  /// No description provided for @anxietyLevelCalm.
+  ///
+  /// In en, this message translates to:
+  /// **'Calm'**
+  String get anxietyLevelCalm;
+
+  /// No description provided for @anxietyLevelModerate.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderate'**
+  String get anxietyLevelModerate;
+
+  /// No description provided for @anxietyLevelHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'High'**
+  String get anxietyLevelHigh;
+
+  /// No description provided for @anxietyLevelSevere.
+  ///
+  /// In en, this message translates to:
+  /// **'Severe'**
+  String get anxietyLevelSevere;
+
+  /// No description provided for @anxietyInterpretationCalm.
+  ///
+  /// In en, this message translates to:
+  /// **'Your anxiety is in a normal range — keep up your current pace.'**
+  String get anxietyInterpretationCalm;
+
+  /// No description provided for @anxietyInterpretationModerate.
+  ///
+  /// In en, this message translates to:
+  /// **'Early signs of chronic anxiety — an anxiety journal can help a lot.'**
+  String get anxietyInterpretationModerate;
+
+  /// No description provided for @anxietyInterpretationHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'Anxiety is affecting your life — Safa will guide you step by step.'**
+  String get anxietyInterpretationHigh;
+
+  /// No description provided for @anxietyInterpretationSevere.
+  ///
+  /// In en, this message translates to:
+  /// **'We recommend seeing a specialist + start the anxiety program with Safa.'**
+  String get anxietyInterpretationSevere;
+
+  /// No description provided for @anxietyStartProgramCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Start the program with Safa'**
+  String get anxietyStartProgramCta;
+
+  /// No description provided for @anxietyRetakeTest.
+  ///
+  /// In en, this message translates to:
+  /// **'Retake the test'**
+  String get anxietyRetakeTest;
+
+  /// No description provided for @anxietyJourneyCardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Anxiety Assessment'**
+  String get anxietyJourneyCardTitle;
+
+  /// No description provided for @anxietyJourneyCardSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'8 questions · chronic anxiety screening'**
+  String get anxietyJourneyCardSubtitle;
+
+  /// No description provided for @anxietyJourneyCardLatestScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest score: {score}%'**
+  String anxietyJourneyCardLatestScore(int score);
+
+  /// No description provided for @anxietySaveError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save your result. Please try again.'**
+  String get anxietySaveError;
+
+  /// No description provided for @anxietyLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load your result.'**
+  String get anxietyLoadError;
+
+  /// No description provided for @anxietyNoResultYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No result yet. Take the assessment first.'**
+  String get anxietyNoResultYet;
 }
 
 class _AppLocalizationsDelegate

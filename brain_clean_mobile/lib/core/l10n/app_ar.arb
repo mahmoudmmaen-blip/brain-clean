@@ -883,5 +883,47 @@
   "homeActivityWater": "مياه",
   "homeActivitySleep": "نوم",
   "homeActivityMovement": "حركة",
-  "settingsSubscriptionSection": "الاشتراك"
+  "settingsSubscriptionSection": "الاشتراك",
+  "anxietyScreenTitle": "تشخيص القلق",
+  "anxietyResultTitle": "نتيجة تشخيص القلق",
+  "anxietyProgressLabel": "{current} / {total}",
+  "@anxietyProgressLabel": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "anxietyQ1": "هل تفكّر كثيراً قبل النوم؟",
+  "anxietyQ2": "هل تعيد السيناريو في راسك أكثر من مرة؟",
+  "anxietyQ3": "هل تتوقّع الأسوأ غالباً؟",
+  "anxietyQ4": "هل يصعُب عليك إيقاف التفكير؟",
+  "anxietyQ5": "هل تشعر أن عقلك يعمل طوال الوقت؟",
+  "anxietyQ6": "هل تلاحظ توتراً جسدياً (كتف مشدود، معدة، تنفّس سريع)؟",
+  "anxietyQ7": "هل تتجنّب مهام أو مواقف بسبب القلق منها؟",
+  "anxietyQ8": "هل يؤثر القلق على تركيزك أو نومك بشكل يومي؟",
+  "anxietyOptionNever": "أبداً",
+  "anxietyOptionSometimes": "أحياناً",
+  "anxietyOptionOften": "غالباً",
+  "anxietyOptionAlways": "دائماً",
+  "anxietyLevelCalm": "هادئ",
+  "anxietyLevelModerate": "متوسط",
+  "anxietyLevelHigh": "مرتفع",
+  "anxietyLevelSevere": "شديد",
+  "anxietyInterpretationCalm": "قلقك في المنطقة الطبيعية — استمر على نفس الوتيرة.",
+  "anxietyInterpretationModerate": "بداية قلق مزمن — دفتر القلق هيفيدك كتير.",
+  "anxietyInterpretationHigh": "القلق بيأثر على حياتك — صفا معاك خطوة خطوة.",
+  "anxietyInterpretationSevere": "يُنصح بمراجعة مختص + ابدأ برنامج القلق مع صفا.",
+  "anxietyStartProgramCta": "ابدأ البرنامج مع صفا",
+  "anxietyRetakeTest": "أعد الاختبار",
+  "anxietyJourneyCardTitle": "تشخيص القلق",
+  "anxietyJourneyCardSubtitle": "8 أسئلة · فحص القلق المزمن",
+  "anxietyJourneyCardLatestScore": "آخر نتيجة: {score}%",
+  "@anxietyJourneyCardLatestScore": {
+    "placeholders": {
+      "score": { "type": "int" }
+    }
+  },
+  "anxietySaveError": "تعذّر حفظ النتيجة. حاول مرة أخرى.",
+  "anxietyLoadError": "تعذّر تحميل النتيجة.",
+  "anxietyNoResultYet": "لا توجد نتيجة بعد. ابدأ التشخيص أولاً."
 }
