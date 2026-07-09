@@ -1,21 +1,28 @@
-# brain_clean_mobile
+# Brain Clean — تطبيق تنقية الدماغ
 
-A new Flutter project.
+## ما هو Brain Clean؟
+تطبيق عربي لمكافحة إدمان الشاشات وتحسين صفاء الذهن،
+مبني على أساس علمي (مؤشر BCI + وحدة القلق المزمن).
 
-## RevenueCat Setup
+## المميزات الرئيسية
+- مؤشر BCI (Brain Clean Index) — يقيس صفاء ذهنك يومياً
+- مؤشر الهدوء (Calm Index) — يتابع تحسن القلق عبر الوقت
+- صفا — مساعد ذكاء اصطناعي عربي مخصص
+- اختبار القلق المزمن — 8 أسئلة + برنامج مخصص
+- دفتر القلق + نافذة القلق — عادتان يوميتان علميتان
+- 6 ثيمات بصرية (Midnight / Aurora / Pine / Solar / Slate / Daylight)
+- تمارين تركيز، تنفس، ومهام يومية
 
-Important: `brainclean_lifetime` must be created as a Non-Consumable (one-time purchase) product in both Google Play Console and RevenueCat Dashboard, NOT as a subscription.
+## Tech Stack
+Flutter · Riverpod · Supabase · RevenueCat · NVIDIA AI · Hive AES-256
 
-## Getting Started
+## How to Run
+```bash
+flutter pub get
+dart run build_runner build --delete-conflicting-outputs
+flutter run
+```
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## BCI Formula
+BCI = (60% × diagnostic score) + (40% × daily commitment score)
+Calm Index = 100 − anxiety assessment score
