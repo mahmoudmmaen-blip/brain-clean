@@ -62,8 +62,22 @@ flutter_launcher_icons:
 flutter:
   generate: true
   uses-material-design: true
+  fonts:
+    - family: IBM Plex Sans Arabic
+      fonts:
+        - asset: assets/fonts/IBMPlexSansArabic-Light.ttf
+          weight: 300
+        - asset: assets/fonts/IBMPlexSansArabic-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/IBMPlexSansArabic-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/IBMPlexSansArabic-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/IBMPlexSansArabic-Bold.ttf
+          weight: 700
   assets:
     - .env
+    - assets/fonts/
     - assets/sounds/rain.mp3
     - assets/sounds/waves.mp3
     - assets/sounds/forest.mp3

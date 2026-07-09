@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'app_color_theme.dart';
 
@@ -17,10 +16,13 @@ class LocaleTheme {
         isDark ? const Color(0xFF8B949E) : const Color(0xFF64748B);
     final border =
         isDark ? const Color(0xFF232D38) : const Color(0xFFE2E8F0);
+    final fontFamily =
+        locale.languageCode == 'ar' ? 'IBM Plex Sans Arabic' : 'Roboto';
 
     final base = ThemeData(
       useMaterial3: true,
       brightness: brightness,
+      fontFamily: fontFamily,
       scaffoldBackgroundColor: theme.background,
       colorScheme: (isDark ? const ColorScheme.dark() : const ColorScheme.light())
           .copyWith(
@@ -35,9 +37,10 @@ class LocaleTheme {
       ),
     );
 
-    final textTheme = GoogleFonts.cairoTextTheme(base.textTheme).apply(
+    final textTheme = base.textTheme.apply(
       bodyColor: onSurface,
       displayColor: onSurface,
+      fontFamily: fontFamily,
     );
 
     return base.copyWith(
@@ -49,7 +52,8 @@ class LocaleTheme {
         elevation: 0,
         centerTitle: true,
         iconTheme: IconThemeData(color: onSurfaceVariant),
-        titleTextStyle: GoogleFonts.cairo(
+        titleTextStyle: TextStyle(
+          fontFamily: fontFamily,
           fontSize: 18,
           fontWeight: FontWeight.w700,
           color: onSurface,
