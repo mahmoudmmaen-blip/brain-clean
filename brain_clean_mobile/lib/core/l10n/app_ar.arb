@@ -983,5 +983,43 @@
   "dailyChallengeSubtitleColorWord": "تحدّ تركيزك البصري",
   "dailyChallengeSubtitleNumberMemory": "قوّي ذاكرتك الرقمية",
   "dailyChallengeSubtitlePatternMatch": "اشحذ تمييزك البصري",
-  "dailyChallengeSubtitleCrossword": "وسّع مفرداتك العربية"
+  "dailyChallengeSubtitleCrossword": "وسّع مفرداتك العربية",
+  "weeklyReportEntryIcon": "📊",
+  "weeklyReportEntryTitle": "تقرير الأسبوع",
+  "weeklyReportEntrySubtitle": "شوف تقدمك هذا الأسبوع",
+  "weeklyReportLoadError": "تعذّر تحميل تقرير الأسبوع.",
+  "weeklyReportBciLabel": "مؤشر صفاء الذهن",
+  "weeklyReportBciNoData": "لم يُسجَّل بيانات هذا الأسبوع",
+  "weeklyReportBciUp": "↑ +{percent}%",
+  "@weeklyReportBciUp": {
+    "placeholders": {
+      "percent": { "type": "String" }
+    }
+  },
+  "weeklyReportBciDown": "↓ -{percent}%",
+  "@weeklyReportBciDown": {
+    "placeholders": {
+      "percent": { "type": "String" }
+    }
+  },
+  "weeklyReportBciFlat": "→ ثابت",
+  "weeklyReportActivityTitle": "ملخص النشاط",
+  "weeklyReportStatGamesIcon": "🎮",
+  "weeklyReportStatGames": "لعبة",
+  "weeklyReportStatChallengesIcon": "🧩",
+  "weeklyReportStatChallenges": "تحديات",
+  "weeklyReportStatChallengesValue": "{count}/٧",
+  "@weeklyReportStatChallengesValue": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "weeklyReportStatWorryIcon": "✍️",
+  "weeklyReportStatWorry": "تدوينة قلق",
+  "weeklyReportStatStreakIcon": "🔥",
+  "weeklyReportStatStreak": "يوم تواصل",
+  "weeklyReportBestGameTitle": "نجم الأسبوع 🏆",
+  "weeklyReportBestGameSubtitle": "أفضل أداء هذا الأسبوع",
+  "weeklyReportCalmTitle": "مؤشر الهدوء",
+  "weeklyReportSafaAvatar": "ص"
 }

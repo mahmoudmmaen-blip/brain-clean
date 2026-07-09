@@ -2,7 +2,8 @@ import 'package:brain_clean_mobile/core/data/app_meta_box_provider.dart';
 import 'package:brain_clean_mobile/core/providers/locale_provider.dart';import 'package:brain_clean_mobile/features/gamification/level_system.dart';
 import 'package:brain_clean_mobile/features/home/application/streak_freeze_provider.dart';
 import 'package:brain_clean_mobile/features/home/domain/daily_quotes.dart';
-import 'package:brain_clean_mobile/features/reports/weekly_report_logic.dart';
+import 'package:brain_clean_mobile/features/weekly_report/domain/weekly_report_data.dart';
+import 'package:brain_clean_mobile/features/weekly_report/domain/weekly_report_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -60,14 +61,22 @@ void main() {
   });
 
   group('weekly report messages', () {
-    test('returns motivational copy by streak days', () {
-      expect(
-        weeklyReportMessage(streakDaysThisWeek: 5, isArabic: true),
-        'أسبوع استثنائي 🏆',
+    test('returns motivational copy by BCI change', () {
+      final data = WeeklyReportData(
+        weekStart: DateTime(2026, 7, 6),
+        weekEnd: DateTime(2026, 7, 12),
+        avgBciScore: 70,
+        bciChange: 6,
+        hasBciData: true,
+        gamesPlayed: 0,
+        streakDays: 5,
+        worryEntriesCount: 0,
+        dailyChallengesCompleted: 0,
+        motivationalMessage: '',
       );
       expect(
-        weeklyReportMessage(streakDaysThisWeek: 2, isArabic: true),
-        'الأسبوع القادم أفضل 🌱',
+        WeeklyReportService.getMotivationalMessage(data, isArabic: true),
+        'أسبوع قوي — دماغك بيتحسن بوضوح 💚',
       );
     });
   });

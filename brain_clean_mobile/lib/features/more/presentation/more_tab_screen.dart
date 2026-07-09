@@ -61,6 +61,23 @@ class MoreTabScreen extends ConsumerWidget {
             ),
             onTap: () => context.push(AppRoutes.accountability),
           ),
+          ListTile(
+            leading: Text(
+              loc.weeklyReportEntryIcon,
+              style: const TextStyle(fontSize: 22),
+            ),
+            title: Text(loc.weeklyReportEntryTitle),
+            subtitle: Text(
+              loc.weeklyReportEntrySubtitle,
+              style: TextStyle(color: colorScheme.onSurfaceVariant),
+            ),
+            trailing: Icon(
+              Icons.arrow_forward_ios,
+              size: 18,
+              color: colorScheme.onSurfaceVariant,
+            ),
+            onTap: () => context.push(AppRoutes.weeklyReport),
+          ),
           const Divider(),
           ListTile(
             leading: Icon(Icons.info_outline, color: colorScheme.onSurfaceVariant),

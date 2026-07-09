@@ -3691,6 +3691,144 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Expand your Arabic vocabulary'**
   String get dailyChallengeSubtitleCrossword;
+
+  /// No description provided for @weeklyReportEntryIcon.
+  ///
+  /// In en, this message translates to:
+  /// **'📊'**
+  String get weeklyReportEntryIcon;
+
+  /// No description provided for @weeklyReportEntryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Report'**
+  String get weeklyReportEntryTitle;
+
+  /// No description provided for @weeklyReportEntrySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'See your progress this week'**
+  String get weeklyReportEntrySubtitle;
+
+  /// No description provided for @weeklyReportLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load your weekly report.'**
+  String get weeklyReportLoadError;
+
+  /// No description provided for @weeklyReportBciLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Clarity Index'**
+  String get weeklyReportBciLabel;
+
+  /// No description provided for @weeklyReportBciNoData.
+  ///
+  /// In en, this message translates to:
+  /// **'No data recorded this week'**
+  String get weeklyReportBciNoData;
+
+  /// No description provided for @weeklyReportBciUp.
+  ///
+  /// In en, this message translates to:
+  /// **'↑ +{percent}%'**
+  String weeklyReportBciUp(String percent);
+
+  /// No description provided for @weeklyReportBciDown.
+  ///
+  /// In en, this message translates to:
+  /// **'↓ -{percent}%'**
+  String weeklyReportBciDown(String percent);
+
+  /// No description provided for @weeklyReportBciFlat.
+  ///
+  /// In en, this message translates to:
+  /// **'→ Steady'**
+  String get weeklyReportBciFlat;
+
+  /// No description provided for @weeklyReportActivityTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Activity summary'**
+  String get weeklyReportActivityTitle;
+
+  /// No description provided for @weeklyReportStatGamesIcon.
+  ///
+  /// In en, this message translates to:
+  /// **'🎮'**
+  String get weeklyReportStatGamesIcon;
+
+  /// No description provided for @weeklyReportStatGames.
+  ///
+  /// In en, this message translates to:
+  /// **'games'**
+  String get weeklyReportStatGames;
+
+  /// No description provided for @weeklyReportStatChallengesIcon.
+  ///
+  /// In en, this message translates to:
+  /// **'🧩'**
+  String get weeklyReportStatChallengesIcon;
+
+  /// No description provided for @weeklyReportStatChallenges.
+  ///
+  /// In en, this message translates to:
+  /// **'challenges'**
+  String get weeklyReportStatChallenges;
+
+  /// No description provided for @weeklyReportStatChallengesValue.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}/7'**
+  String weeklyReportStatChallengesValue(int count);
+
+  /// No description provided for @weeklyReportStatWorryIcon.
+  ///
+  /// In en, this message translates to:
+  /// **'✍️'**
+  String get weeklyReportStatWorryIcon;
+
+  /// No description provided for @weeklyReportStatWorry.
+  ///
+  /// In en, this message translates to:
+  /// **'worry notes'**
+  String get weeklyReportStatWorry;
+
+  /// No description provided for @weeklyReportStatStreakIcon.
+  ///
+  /// In en, this message translates to:
+  /// **'🔥'**
+  String get weeklyReportStatStreakIcon;
+
+  /// No description provided for @weeklyReportStatStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'streak days'**
+  String get weeklyReportStatStreak;
+
+  /// No description provided for @weeklyReportBestGameTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Star of the week 🏆'**
+  String get weeklyReportBestGameTitle;
+
+  /// No description provided for @weeklyReportBestGameSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Best performance this week'**
+  String get weeklyReportBestGameSubtitle;
+
+  /// No description provided for @weeklyReportCalmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Calm Index'**
+  String get weeklyReportCalmTitle;
+
+  /// No description provided for @weeklyReportSafaAvatar.
+  ///
+  /// In en, this message translates to:
+  /// **'S'**
+  String get weeklyReportSafaAvatar;
 }
 
 class _AppLocalizationsDelegate

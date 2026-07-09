@@ -39,7 +39,7 @@ import '../../features/onboarding/onboarding_screen.dart';
 import '../../features/pro/pro_paywall_screen.dart';
 import '../../features/recovery/presentation/recovery_grid_screen.dart';
 import '../../features/profile/profile_screen.dart';
-import '../../features/reports/weekly_report_screen.dart';
+import '../../features/weekly_report/presentation/weekly_report_screen.dart';
 import '../../features/safa_tab/presentation/safa_tab_screen.dart';
 import '../../features/settings/settings_screen.dart';
 import '../../features/splash/presentation/splash_screen.dart';
@@ -292,6 +292,11 @@ GoRouter goRouter(GoRouterRef ref) {
         name: 'worryWindow',
         builder: (context, state) => const WorryWindowScreen(),
       ),
+      GoRoute(
+        path: AppRoutes.weeklyReport,
+        name: WeeklyReportRoute.name,
+        builder: (context, state) => const WeeklyReportScreen(),
+      ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>
             AppShell(navigationShell: navigationShell),
@@ -464,11 +469,6 @@ GoRouter goRouter(GoRouterRef ref) {
                     path: 'dashboard',
                     name: 'dashboard',
                     builder: (context, state) => const DashboardScreen(),
-                  ),
-                  GoRoute(
-                    path: 'weekly-report',
-                    name: WeeklyReportRoute.name,
-                    builder: (context, state) => const WeeklyReportScreen(),
                   ),
                 ],
               ),

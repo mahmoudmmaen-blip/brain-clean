@@ -1985,4 +1985,79 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dailyChallengeSubtitleCrossword => 'Expand your Arabic vocabulary';
+
+  @override
+  String get weeklyReportEntryIcon => '📊';
+
+  @override
+  String get weeklyReportEntryTitle => 'Weekly Report';
+
+  @override
+  String get weeklyReportEntrySubtitle => 'See your progress this week';
+
+  @override
+  String get weeklyReportLoadError => 'Could not load your weekly report.';
+
+  @override
+  String get weeklyReportBciLabel => 'Brain Clarity Index';
+
+  @override
+  String get weeklyReportBciNoData => 'No data recorded this week';
+
+  @override
+  String weeklyReportBciUp(String percent) {
+    return '↑ +$percent%';
+  }
+
+  @override
+  String weeklyReportBciDown(String percent) {
+    return '↓ -$percent%';
+  }
+
+  @override
+  String get weeklyReportBciFlat => '→ Steady';
+
+  @override
+  String get weeklyReportActivityTitle => 'Activity summary';
+
+  @override
+  String get weeklyReportStatGamesIcon => '🎮';
+
+  @override
+  String get weeklyReportStatGames => 'games';
+
+  @override
+  String get weeklyReportStatChallengesIcon => '🧩';
+
+  @override
+  String get weeklyReportStatChallenges => 'challenges';
+
+  @override
+  String weeklyReportStatChallengesValue(int count) {
+    return '$count/7';
+  }
+
+  @override
+  String get weeklyReportStatWorryIcon => '✍️';
+
+  @override
+  String get weeklyReportStatWorry => 'worry notes';
+
+  @override
+  String get weeklyReportStatStreakIcon => '🔥';
+
+  @override
+  String get weeklyReportStatStreak => 'streak days';
+
+  @override
+  String get weeklyReportBestGameTitle => 'Star of the week 🏆';
+
+  @override
+  String get weeklyReportBestGameSubtitle => 'Best performance this week';
+
+  @override
+  String get weeklyReportCalmTitle => 'Calm Index';
+
+  @override
+  String get weeklyReportSafaAvatar => 'S';
 }

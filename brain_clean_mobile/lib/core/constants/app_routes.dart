@@ -42,7 +42,7 @@ abstract final class AppRoutes {
 
   // Journey branch
   static const dashboard = '/journey/dashboard';
-  static const weeklyReport = '/journey/weekly-report';
+  static const weeklyReport = '/weekly-report';
 
   // Full-screen assessments (outside shell stacks)
   static const anxietyDiagnostic = '/anxiety-diagnostic';

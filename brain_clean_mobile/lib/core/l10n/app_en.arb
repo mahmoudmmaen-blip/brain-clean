@@ -835,5 +835,43 @@
   "dailyChallengeSubtitleColorWord": "Challenge your visual focus",
   "dailyChallengeSubtitleNumberMemory": "Strengthen your number memory",
   "dailyChallengeSubtitlePatternMatch": "Sharpen your visual discrimination",
-  "dailyChallengeSubtitleCrossword": "Expand your Arabic vocabulary"
+  "dailyChallengeSubtitleCrossword": "Expand your Arabic vocabulary",
+  "weeklyReportEntryIcon": "📊",
+  "weeklyReportEntryTitle": "Weekly Report",
+  "weeklyReportEntrySubtitle": "See your progress this week",
+  "weeklyReportLoadError": "Could not load your weekly report.",
+  "weeklyReportBciLabel": "Brain Clarity Index",
+  "weeklyReportBciNoData": "No data recorded this week",
+  "weeklyReportBciUp": "↑ +{percent}%",
+  "@weeklyReportBciUp": {
+    "placeholders": {
+      "percent": { "type": "String" }
+    }
+  },
+  "weeklyReportBciDown": "↓ -{percent}%",
+  "@weeklyReportBciDown": {
+    "placeholders": {
+      "percent": { "type": "String" }
+    }
+  },
+  "weeklyReportBciFlat": "→ Steady",
+  "weeklyReportActivityTitle": "Activity summary",
+  "weeklyReportStatGamesIcon": "🎮",
+  "weeklyReportStatGames": "games",
+  "weeklyReportStatChallengesIcon": "🧩",
+  "weeklyReportStatChallenges": "challenges",
+  "weeklyReportStatChallengesValue": "{count}/7",
+  "@weeklyReportStatChallengesValue": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "weeklyReportStatWorryIcon": "✍️",
+  "weeklyReportStatWorry": "worry notes",
+  "weeklyReportStatStreakIcon": "🔥",
+  "weeklyReportStatStreak": "streak days",
+  "weeklyReportBestGameTitle": "Star of the week 🏆",
+  "weeklyReportBestGameSubtitle": "Best performance this week",
+  "weeklyReportCalmTitle": "Calm Index",
+  "weeklyReportSafaAvatar": "S"
 }

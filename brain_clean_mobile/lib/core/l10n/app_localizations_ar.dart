@@ -1960,4 +1960,79 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get dailyChallengeSubtitleCrossword => 'وسّع مفرداتك العربية';
+
+  @override
+  String get weeklyReportEntryIcon => '📊';
+
+  @override
+  String get weeklyReportEntryTitle => 'تقرير الأسبوع';
+
+  @override
+  String get weeklyReportEntrySubtitle => 'شوف تقدمك هذا الأسبوع';
+
+  @override
+  String get weeklyReportLoadError => 'تعذّر تحميل تقرير الأسبوع.';
+
+  @override
+  String get weeklyReportBciLabel => 'مؤشر صفاء الذهن';
+
+  @override
+  String get weeklyReportBciNoData => 'لم يُسجَّل بيانات هذا الأسبوع';
+
+  @override
+  String weeklyReportBciUp(String percent) {
+    return '↑ +$percent%';
+  }
+
+  @override
+  String weeklyReportBciDown(String percent) {
+    return '↓ -$percent%';
+  }
+
+  @override
+  String get weeklyReportBciFlat => '→ ثابت';
+
+  @override
+  String get weeklyReportActivityTitle => 'ملخص النشاط';
+
+  @override
+  String get weeklyReportStatGamesIcon => '🎮';
+
+  @override
+  String get weeklyReportStatGames => 'لعبة';
+
+  @override
+  String get weeklyReportStatChallengesIcon => '🧩';
+
+  @override
+  String get weeklyReportStatChallenges => 'تحديات';
+
+  @override
+  String weeklyReportStatChallengesValue(int count) {
+    return '$count/٧';
+  }
+
+  @override
+  String get weeklyReportStatWorryIcon => '✍️';
+
+  @override
+  String get weeklyReportStatWorry => 'تدوينة قلق';
+
+  @override
+  String get weeklyReportStatStreakIcon => '🔥';
+
+  @override
+  String get weeklyReportStatStreak => 'يوم تواصل';
+
+  @override
+  String get weeklyReportBestGameTitle => 'نجم الأسبوع 🏆';
+
+  @override
+  String get weeklyReportBestGameSubtitle => 'أفضل أداء هذا الأسبوع';
+
+  @override
+  String get weeklyReportCalmTitle => 'مؤشر الهدوء';
+
+  @override
+  String get weeklyReportSafaAvatar => 'ص';
 }
