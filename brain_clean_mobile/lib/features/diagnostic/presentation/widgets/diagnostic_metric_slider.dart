@@ -39,7 +39,7 @@ class DiagnosticMetricSlider extends StatelessWidget {
                 Expanded(
                   child: Text(
                     '$code · $label',
-                    style: AppDesignConstants.cairo(
+                    style: AppDesignConstants.arabicText(
                       fontSize: 14,
                       fontWeight: FontWeight.w700,
                       color: Theme.of(context).colorScheme.onSurface,
@@ -49,7 +49,7 @@ class DiagnosticMetricSlider extends StatelessWidget {
                 ),
                 Text(
                   '$displayValue',
-                  style: AppDesignConstants.cairo(
+                  style: AppDesignConstants.arabicText(
                     fontSize: 16,
                     fontWeight: FontWeight.w800,
                     color: gold,

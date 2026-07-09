@@ -48,7 +48,7 @@ class BcScoreHeroCard extends StatelessWidget {
           children: [
             Text(
               loc.bcScoreHeroLabel,
-              style: AppDesignConstants.cairo(
+              style: AppDesignConstants.arabicText(
                 fontSize: 11,
                 fontWeight: FontWeight.w800,
                 color: context.textMuted,
@@ -59,7 +59,7 @@ class BcScoreHeroCard extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               '${score.round()}%',
-              style: AppDesignConstants.cairo(
+              style: AppDesignConstants.arabicText(
                 fontSize: fontSize,
                 fontWeight: FontWeight.w800,
                 color: BcScoreColors.forScore(

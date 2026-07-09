@@ -162,7 +162,7 @@ class _MemoryMiniGameScreenState extends ConsumerState<MemoryMiniGameScreen> {
                             ? loc.cognitiveMemoryYourTurn
                             : loc.cognitiveMemoryResultTitle,
                 textAlign: TextAlign.center,
-                style: AppDesignConstants.cairo(
+                style: AppDesignConstants.arabicText(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                   color: cs.onSurface,
@@ -174,7 +174,7 @@ class _MemoryMiniGameScreenState extends ConsumerState<MemoryMiniGameScreen> {
                   child: Text(
                     loc.cognitiveMemoryRound(_sequenceLength),
                     textAlign: TextAlign.center,
-                    style: AppDesignConstants.cairo(
+                    style: AppDesignConstants.arabicText(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                       color: cs.onSurfaceVariant,
@@ -187,7 +187,7 @@ class _MemoryMiniGameScreenState extends ConsumerState<MemoryMiniGameScreen> {
                   child: Text(
                     loc.cognitiveMemoryWrong,
                     textAlign: TextAlign.center,
-                    style: AppDesignConstants.cairo(
+                    style: AppDesignConstants.arabicText(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                       color: cs.error,
@@ -291,7 +291,7 @@ class _ResultPanel extends StatelessWidget {
         Text(
           loc.cognitiveMemoryResultScore(span, score.round()),
           textAlign: TextAlign.center,
-          style: AppDesignConstants.cairo(
+          style: AppDesignConstants.arabicText(
             fontSize: 22,
             fontWeight: FontWeight.w700,
             color: cs.primary,

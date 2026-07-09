@@ -62,7 +62,7 @@ class _BiometricLockScreenState extends ConsumerState<BiometricLockScreen> {
               Text(
                 loc.biometricLockTitle,
                 textAlign: TextAlign.center,
-                style: AppDesignConstants.cairo(
+                style: AppDesignConstants.arabicText(
                   fontSize: 22,
                   fontWeight: FontWeight.w700,
                   color: colorScheme.onSurface,
@@ -72,7 +72,7 @@ class _BiometricLockScreenState extends ConsumerState<BiometricLockScreen> {
               Text(
                 loc.biometricLockSubtitle,
                 textAlign: TextAlign.center,
-                style: AppDesignConstants.cairo(
+                style: AppDesignConstants.arabicText(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                   color: colorScheme.onSurfaceVariant,

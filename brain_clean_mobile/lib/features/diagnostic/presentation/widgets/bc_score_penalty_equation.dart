@@ -46,7 +46,7 @@ class BcScorePenaltyEquation extends StatelessWidget {
           Text(
             loc.accountabilityAdjustment,
             textAlign: TextAlign.center,
-            style: AppDesignConstants.cairo(
+            style: AppDesignConstants.arabicText(
               fontSize: 10,
               fontWeight: FontWeight.w700,
               letterSpacing: 0.4,
@@ -73,7 +73,7 @@ class BcScorePenaltyEquation extends StatelessWidget {
                   child: Text(
                     loc.accountabilityDeduction(penaltyDeduction.round()),
                     textAlign: TextAlign.center,
-                    style: AppDesignConstants.cairo(
+                    style: AppDesignConstants.arabicText(
                       fontSize: 11,
                       fontWeight: FontWeight.w600,
                       color: severity,
@@ -121,7 +121,7 @@ class _EquationRow extends StatelessWidget {
         Flexible(
           child: Text(
             label,
-            style: AppDesignConstants.cairo(
+            style: AppDesignConstants.arabicText(
               fontSize: emphasize ? 12 : 11,
               fontWeight: emphasize ? FontWeight.w700 : FontWeight.w500,
               color: muted,
@@ -131,7 +131,7 @@ class _EquationRow extends StatelessWidget {
         ),
         Text(
           value,
-          style: AppDesignConstants.cairo(
+          style: AppDesignConstants.arabicText(
             fontSize: emphasize ? 16 : 14,
             fontWeight: FontWeight.w800,
             color: valueColor,

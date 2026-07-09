@@ -24,7 +24,7 @@ extension AppThemeContext on BuildContext {
   /// Large Arabic question copy — high contrast, generous line height.
   TextStyle get arabicQuestionStyle {
     final onSurface = Theme.of(this).colorScheme.onSurface;
-    return AppDesignConstants.cairo(
+    return AppDesignConstants.arabicText(
       fontSize: AppDesignConstants.arabicQuestionFontSize,
       fontWeight: FontWeight.w600,
       color: onSurface,
@@ -35,7 +35,7 @@ extension AppThemeContext on BuildContext {
   /// Standard Arabic body (interpretations, subtitles).
   TextStyle get arabicBodyStyle {
     final onSurface = Theme.of(this).colorScheme.onSurface;
-    return AppDesignConstants.cairo(
+    return AppDesignConstants.arabicText(
       fontSize: 16,
       fontWeight: FontWeight.w500,
       color: onSurface,
@@ -75,7 +75,7 @@ extension AppThemeContext on BuildContext {
 
   /// Progress / step labels above questions.
   TextStyle get arabicLabelStyle {
-    return AppDesignConstants.cairo(
+    return AppDesignConstants.arabicText(
       fontSize: 13,
       fontWeight: FontWeight.w600,
       color: textMuted,

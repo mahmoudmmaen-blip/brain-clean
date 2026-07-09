@@ -133,7 +133,7 @@ class _BciCardContent extends StatelessWidget {
         Text(
           loc.bciCardTitleEn,
           textAlign: TextAlign.center,
-          style: AppDesignConstants.cairo(
+          style: AppDesignConstants.arabicText(
             fontSize: 11,
             fontWeight: FontWeight.w800,
             color: context.textMuted,
@@ -156,7 +156,7 @@ class _BciCardContent extends StatelessWidget {
               ? loc.bciCardSubtitle
               : loc.bciCardNoAssessment,
           textAlign: TextAlign.center,
-          style: AppDesignConstants.cairo(
+          style: AppDesignConstants.arabicText(
             fontSize: 13,
             fontWeight: FontWeight.w500,
             color: context.textMuted,
@@ -257,7 +257,7 @@ class _BciNeonRing extends StatelessWidget {
           children: [
             TextSpan(
               text: '$score',
-              style: AppDesignConstants.cairo(
+              style: AppDesignConstants.arabicText(
                 fontSize: 52,
                 fontWeight: FontWeight.w800,
                 color: accent,
@@ -266,7 +266,7 @@ class _BciNeonRing extends StatelessWidget {
             ),
             TextSpan(
               text: '%',
-              style: AppDesignConstants.cairo(
+              style: AppDesignConstants.arabicText(
                 fontSize: 22,
                 fontWeight: FontWeight.w700,
                 color: accent.withValues(alpha: 0.85),
@@ -363,7 +363,7 @@ class _BciBreakdownRow extends StatelessWidget {
             Expanded(
               child: Text(
                 label,
-                style: AppDesignConstants.cairo(
+                style: AppDesignConstants.arabicText(
                   fontSize: 13,
                   fontWeight: FontWeight.w600,
                   color: Theme.of(context).colorScheme.onSurface,
@@ -372,7 +372,7 @@ class _BciBreakdownRow extends StatelessWidget {
             ),
             Text(
               '$value · $weight',
-              style: AppDesignConstants.cairo(
+              style: AppDesignConstants.arabicText(
                 fontSize: 12,
                 fontWeight: FontWeight.w700,
                 color: barColor,
@@ -412,7 +412,7 @@ class _BciStatusPill extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: AppDesignConstants.cairo(
+        style: AppDesignConstants.arabicText(
           fontSize: 12,
           fontWeight: FontWeight.w600,
           color: color,
@@ -437,7 +437,7 @@ class _BciLoadingContent extends StatelessWidget {
         Text(
           loc.bciCardTitleEn,
           textAlign: TextAlign.center,
-          style: AppDesignConstants.cairo(
+          style: AppDesignConstants.arabicText(
             fontSize: 11,
             fontWeight: FontWeight.w800,
             color: context.textMuted,
@@ -474,7 +474,7 @@ class _BciLoadingContent extends StatelessWidget {
         Text(
           loc.bciCardLoading,
           textAlign: TextAlign.center,
-          style: AppDesignConstants.cairo(
+          style: AppDesignConstants.arabicText(
             fontSize: 13,
             fontWeight: FontWeight.w500,
             color: context.textMuted,
@@ -499,7 +499,7 @@ class _BciErrorContent extends StatelessWidget {
         Text(
           loc.bciCardTitleEn,
           textAlign: TextAlign.center,
-          style: AppDesignConstants.cairo(
+          style: AppDesignConstants.arabicText(
             fontSize: 11,
             fontWeight: FontWeight.w800,
             color: context.textMuted,
@@ -516,7 +516,7 @@ class _BciErrorContent extends StatelessWidget {
         Text(
           loc.asyncErrorRetry,
           textAlign: TextAlign.center,
-          style: AppDesignConstants.cairo(
+          style: AppDesignConstants.arabicText(
             fontSize: 13,
             fontWeight: FontWeight.w500,
             color: context.textMuted,

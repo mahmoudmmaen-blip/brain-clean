@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'app_design_constants.dart';
 
@@ -78,16 +77,20 @@ abstract final class AppTheme {
       onSurface: onSurface,
     );
 
+    const fontFamily = 'IBM Plex Sans Arabic';
+
     final base = ThemeData(
       useMaterial3: true,
       brightness: brightness,
+      fontFamily: fontFamily,
       scaffoldBackgroundColor: scaffold,
       colorScheme: colorScheme,
     );
 
-    final textTheme = GoogleFonts.cairoTextTheme(base.textTheme).apply(
+    final textTheme = base.textTheme.apply(
       bodyColor: onSurface,
       displayColor: onSurface,
+      fontFamily: fontFamily,
     );
 
     return base.copyWith(
@@ -100,7 +103,7 @@ abstract final class AppTheme {
         shadowColor: Colors.black.withValues(alpha: isDark ? 0 : 0.12),
         centerTitle: true,
         iconTheme: IconThemeData(color: appBarFg),
-        titleTextStyle: AppDesignConstants.cairo(
+        titleTextStyle: AppDesignConstants.arabicText(
           fontSize: 18,
           fontWeight: FontWeight.w700,
           color: appBarFg,

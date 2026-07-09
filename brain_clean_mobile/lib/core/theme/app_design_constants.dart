@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 /// Central design tokens for Brain Clean (light + dark).
 abstract final class AppDesignConstants {
@@ -36,14 +35,15 @@ abstract final class AppDesignConstants {
   static const double arabicBodyLineHeight = 1.55;
   static const double arabicLabelLetterSpacing = 0.3;
 
-  static TextStyle cairo({
+  static TextStyle arabicText({
     required double fontSize,
     required FontWeight fontWeight,
     required Color color,
     double height = arabicBodyLineHeight,
     double letterSpacing = 0,
   }) {
-    return GoogleFonts.cairo(
+    return TextStyle(
+      fontFamily: 'IBM Plex Sans Arabic',
       fontSize: fontSize,
       fontWeight: fontWeight,
       color: color,

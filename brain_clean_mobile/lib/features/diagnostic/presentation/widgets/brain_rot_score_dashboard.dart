@@ -94,7 +94,7 @@ class BrainRotScoreDashboard extends ConsumerWidget {
               children: [
                 Text(
                   loc.diagnosticBrainRotInterpretationTitle,
-                  style: AppDesignConstants.cairo(
+                  style: AppDesignConstants.arabicText(
                     fontSize: 15,
                     fontWeight: FontWeight.w700,
                     color: context.brandPrimary,
@@ -186,7 +186,7 @@ class _FrostedSeverityCard extends StatelessWidget {
           Text(
             label,
             textAlign: alignStart ? TextAlign.right : TextAlign.left,
-            style: AppDesignConstants.cairo(
+            style: AppDesignConstants.arabicText(
               fontSize: 18,
               fontWeight: FontWeight.w800,
               color: accentColor,
@@ -197,7 +197,7 @@ class _FrostedSeverityCard extends StatelessWidget {
           Text(
             bandRangeLabel,
             textAlign: alignStart ? TextAlign.right : TextAlign.left,
-            style: AppDesignConstants.cairo(
+            style: AppDesignConstants.arabicText(
               fontSize: 13,
               fontWeight: FontWeight.w600,
               color: accentColor.withValues(alpha: 0.85),

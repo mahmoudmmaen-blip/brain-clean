@@ -76,7 +76,7 @@ class BcScoreBreakdown extends StatelessWidget {
             Text(
               loc.bcScoreBreakdownTitle,
               textAlign: TextAlign.center,
-              style: AppDesignConstants.cairo(
+              style: AppDesignConstants.arabicText(
                 fontSize: 11,
                 fontWeight: FontWeight.w700,
                 color: context.textMuted,
@@ -148,7 +148,7 @@ class _PillarRow extends StatelessWidget {
                   label,
                   textDirection: textDirection,
                   softWrap: true,
-                  style: AppDesignConstants.cairo(
+                  style: AppDesignConstants.arabicText(
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
                     color: context.textMuted,
@@ -160,7 +160,7 @@ class _PillarRow extends StatelessWidget {
               Text(
                 '${pillarScore.round()}% → +${contribution.toStringAsFixed(1)}',
                 textDirection: textDirection,
-                style: AppDesignConstants.cairo(
+                style: AppDesignConstants.arabicText(
                   fontSize: 13,
                   fontWeight: FontWeight.w700,
                   color: gold,
@@ -212,7 +212,7 @@ class _SummaryRow extends StatelessWidget {
               label,
               textDirection: textDirection,
               softWrap: true,
-              style: AppDesignConstants.cairo(
+              style: AppDesignConstants.arabicText(
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
                 color: context.textMuted,
@@ -224,7 +224,7 @@ class _SummaryRow extends StatelessWidget {
           Text(
             value,
             textDirection: textDirection,
-            style: AppDesignConstants.cairo(
+            style: AppDesignConstants.arabicText(
               fontSize: 15,
               fontWeight: FontWeight.w800,
               color: color,

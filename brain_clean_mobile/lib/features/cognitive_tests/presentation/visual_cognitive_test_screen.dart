@@ -167,7 +167,7 @@ class _VisualCognitiveTestScreenState
                         ? loc.cognitiveVisualResultTitle
                         : loc.cognitiveVisualFindOdd,
                 textAlign: TextAlign.center,
-                style: AppDesignConstants.cairo(
+                style: AppDesignConstants.arabicText(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                   color: cs.onSurface,
@@ -178,7 +178,7 @@ class _VisualCognitiveTestScreenState
                 Text(
                   loc.cognitiveVisualRound(_round, _rounds),
                   textAlign: TextAlign.center,
-                  style: AppDesignConstants.cairo(
+                  style: AppDesignConstants.arabicText(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                     color: cs.onSurfaceVariant,
@@ -190,7 +190,7 @@ class _VisualCognitiveTestScreenState
                     child: Text(
                       _feedbackKey!,
                       textAlign: TextAlign.center,
-                      style: AppDesignConstants.cairo(
+                      style: AppDesignConstants.arabicText(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                         color: cs.primary,
@@ -294,7 +294,7 @@ class _VisualResultPanel extends StatelessWidget {
         Text(
           loc.cognitiveVisualResultScore(totalPoints, maxPts, score.round()),
           textAlign: TextAlign.center,
-          style: AppDesignConstants.cairo(
+          style: AppDesignConstants.arabicText(
             fontSize: 22,
             fontWeight: FontWeight.w700,
             color: cs.primary,

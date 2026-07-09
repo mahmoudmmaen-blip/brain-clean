@@ -141,7 +141,7 @@ class _GlobalProgressTrackerState extends State<GlobalProgressTracker>
                             widget.hasSession
                                 ? '${clampedBcs.round()}%'
                                 : '—',
-                            style: AppDesignConstants.cairo(
+                            style: AppDesignConstants.arabicText(
                               fontSize: 28,
                               fontWeight: FontWeight.w800,
                               color: scoreColor,
@@ -149,7 +149,7 @@ class _GlobalProgressTrackerState extends State<GlobalProgressTracker>
                           ),
                           Text(
                             loc.bcScoreHeroLabel,
-                            style: AppDesignConstants.cairo(
+                            style: AppDesignConstants.arabicText(
                               fontSize: 9,
                               fontWeight: FontWeight.w700,
                               color: context.textMuted,

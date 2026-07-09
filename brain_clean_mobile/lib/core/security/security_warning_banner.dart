@@ -35,7 +35,7 @@ class SecurityWarningBanner extends ConsumerWidget {
               Expanded(
                 child: Text(
                   loc.securityCompromisedBanner,
-                  style: AppDesignConstants.cairo(
+                  style: AppDesignConstants.arabicText(
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
                     color: Color.lerp(
