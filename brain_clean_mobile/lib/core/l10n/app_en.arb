@@ -804,5 +804,19 @@
   "worryNotifTitle": "Worry window time 🧠",
   "worryNotifBody": "10 minutes to empty your mind — you'll stay calmer all night",
   "homeActivityWorryJournal": "✍️ Worry Journal",
-  "homeActivityWorryWindow": "⏱️ Worry Window"
+  "homeActivityWorryWindow": "⏱️ Worry Window",
+  "safaProgramTitle": "Your program with Safa 🌿",
+  "safaProgramCta": "Start with Safa",
+  "safaProgramLoadError": "Could not load your program.",
+  "safaProgramFallbackCalm": "Your anxiety is under control — keep your current pace. Use the worry journal if pressure builds. Safa is here if you need support. You are on the right path 💚",
+  "safaProgramFallbackModerate": "Early chronic anxiety signs — the worry journal will help a lot. Try a daily worry window at 5 PM. Safa will check in weekly. Small daily steps make a difference 🌿",
+  "safaProgramFallbackHigh": "Anxiety is affecting your days — start a daily worry window and add light movement. Safa will build a weekly plan with you. You are stronger than anxiety 💪",
+  "safaProgramFallbackSevere": "Anxiety is high — consider seeing a specialist alongside the program. Start the worry journal daily. Safa is with you every step. You do not have to face this alone 🤝",
+  "calmIndexLegendBci": "Brain Clarity (BCI)",
+  "calmIndexLegendCalm": "Calm Index",
+  "safaCheckinIcon": "🌙",
+  "safaCheckinTitle": "A note from Safa",
+  "safaCheckinBody": "I noticed you journal worries at night often — that can affect your sleep. Would you like to move your worry window to the afternoon?",
+  "safaCheckinAction": "Change time",
+  "safaCheckinTimeUpdated": "Worry window reminder updated."
 }

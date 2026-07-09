@@ -3505,6 +3505,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'⏱️ Worry Window'**
   String get homeActivityWorryWindow;
+
+  /// No description provided for @safaProgramTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your program with Safa 🌿'**
+  String get safaProgramTitle;
+
+  /// No description provided for @safaProgramCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Start with Safa'**
+  String get safaProgramCta;
+
+  /// No description provided for @safaProgramLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load your program.'**
+  String get safaProgramLoadError;
+
+  /// No description provided for @safaProgramFallbackCalm.
+  ///
+  /// In en, this message translates to:
+  /// **'Your anxiety is under control — keep your current pace. Use the worry journal if pressure builds. Safa is here if you need support. You are on the right path 💚'**
+  String get safaProgramFallbackCalm;
+
+  /// No description provided for @safaProgramFallbackModerate.
+  ///
+  /// In en, this message translates to:
+  /// **'Early chronic anxiety signs — the worry journal will help a lot. Try a daily worry window at 5 PM. Safa will check in weekly. Small daily steps make a difference 🌿'**
+  String get safaProgramFallbackModerate;
+
+  /// No description provided for @safaProgramFallbackHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'Anxiety is affecting your days — start a daily worry window and add light movement. Safa will build a weekly plan with you. You are stronger than anxiety 💪'**
+  String get safaProgramFallbackHigh;
+
+  /// No description provided for @safaProgramFallbackSevere.
+  ///
+  /// In en, this message translates to:
+  /// **'Anxiety is high — consider seeing a specialist alongside the program. Start the worry journal daily. Safa is with you every step. You do not have to face this alone 🤝'**
+  String get safaProgramFallbackSevere;
+
+  /// No description provided for @calmIndexLegendBci.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Clarity (BCI)'**
+  String get calmIndexLegendBci;
+
+  /// No description provided for @calmIndexLegendCalm.
+  ///
+  /// In en, this message translates to:
+  /// **'Calm Index'**
+  String get calmIndexLegendCalm;
+
+  /// No description provided for @safaCheckinIcon.
+  ///
+  /// In en, this message translates to:
+  /// **'🌙'**
+  String get safaCheckinIcon;
+
+  /// No description provided for @safaCheckinTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A note from Safa'**
+  String get safaCheckinTitle;
+
+  /// No description provided for @safaCheckinBody.
+  ///
+  /// In en, this message translates to:
+  /// **'I noticed you journal worries at night often — that can affect your sleep. Would you like to move your worry window to the afternoon?'**
+  String get safaCheckinBody;
+
+  /// No description provided for @safaCheckinAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Change time'**
+  String get safaCheckinAction;
+
+  /// No description provided for @safaCheckinTimeUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Worry window reminder updated.'**
+  String get safaCheckinTimeUpdated;
 }
 
 class _AppLocalizationsDelegate

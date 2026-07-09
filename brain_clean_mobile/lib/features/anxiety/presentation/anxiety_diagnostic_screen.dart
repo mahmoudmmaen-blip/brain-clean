@@ -8,6 +8,7 @@ import '../../../core/theme/app_design_constants.dart';
 import '../data/anxiety_repository_provider.dart';
 import '../domain/anxiety_scoring.dart';
 import 'anxiety_latest_result_provider.dart';
+import 'calm_index_provider.dart';
 import 'anxiety_localization.dart';
 
 /// Eight-question chronic anxiety questionnaire — one question per page.
@@ -62,6 +63,7 @@ class _AnxietyDiagnosticScreenState
       );
       await ref.read(anxietyRepositoryProvider).saveResult(result);
       ref.invalidate(anxietyLatestResultProvider);
+      ref.invalidate(calmIndexChartDataProvider);
       if (!mounted) return;
       context.push(AppRoutes.anxietyResult);
     } catch (e) {

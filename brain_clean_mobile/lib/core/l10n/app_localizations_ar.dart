@@ -1862,4 +1862,51 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get homeActivityWorryWindow => '⏱️ نافذة القلق';
+
+  @override
+  String get safaProgramTitle => 'برنامجك مع صفا 🌿';
+
+  @override
+  String get safaProgramCta => 'ابدأ مع صفا';
+
+  @override
+  String get safaProgramLoadError => 'تعذّر تحميل البرنامج.';
+
+  @override
+  String get safaProgramFallbackCalm =>
+      'قلقك تحت السيطرة — استمر على نفس الإيقاع. ركّز على دفتر القلق لو حسيت بأي ضغط. صفا هنا لو محتاج. أنت على الطريق الصح 💚';
+
+  @override
+  String get safaProgramFallbackModerate =>
+      'لاحظت بداية قلق مزمن — دفتر القلق هيفيدك كتير. جرّب نافذة القلق كل يوم الساعة 5 العصر. صفا هتابع معاك أسبوعياً. خطوة صغيرة كل يوم تصنع فرقاً 🌿';
+
+  @override
+  String get safaProgramFallbackHigh =>
+      'القلق بيأثر على يومك — ابدأ بنافذة القلق اليومية وأضف حركة خفيفة. صفا ستبني معك خطة أسبوعية. أنت أقوى من القلق 💪';
+
+  @override
+  String get safaProgramFallbackSevere =>
+      'القلق عالي — يُنصح بمراجعة مختص إلى جانب البرنامج. ابدأ بدفتر القلق يومياً. صفا معاك في كل خطوة. مش لازم تعدي ده لوحدك 🤝';
+
+  @override
+  String get calmIndexLegendBci => 'صفاء الذهن (BCI)';
+
+  @override
+  String get calmIndexLegendCalm => 'مؤشر الهدوء';
+
+  @override
+  String get safaCheckinIcon => '🌙';
+
+  @override
+  String get safaCheckinTitle => 'ملاحظة من صفا';
+
+  @override
+  String get safaCheckinBody =>
+      'لاحظت إنك بتكتب في دفتر القلق بالليل كتير — ده ممكن يأثر على نومك. تحب ننقل نافذة القلق للعصر؟';
+
+  @override
+  String get safaCheckinAction => 'غيّر الوقت';
+
+  @override
+  String get safaCheckinTimeUpdated => 'تم تحديث وقت تذكير نافذة القلق.';
 }

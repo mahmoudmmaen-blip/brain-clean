@@ -14,6 +14,7 @@ class AppPreferencesState {
     required this.worryWindowReminderEnabled,
     required this.worryWindowReminderHour,
     required this.worryWindowReminderMinute,
+    this.safaCheckinDismissedUntil,
     required this.profileDisplayName,
     required this.silenceWinsCount,
     required this.singleTasksCompletedCount,
@@ -26,6 +27,7 @@ class AppPreferencesState {
   final bool worryWindowReminderEnabled;
   final int worryWindowReminderHour;
   final int worryWindowReminderMinute;
+  final DateTime? safaCheckinDismissedUntil;
   final String profileDisplayName;
   final int silenceWinsCount;
   final int singleTasksCompletedCount;
@@ -65,6 +67,7 @@ class AppPreferencesState {
     bool? worryWindowReminderEnabled,
     int? worryWindowReminderHour,
     int? worryWindowReminderMinute,
+    DateTime? safaCheckinDismissedUntil,
     String? profileDisplayName,
     int? silenceWinsCount,
     int? singleTasksCompletedCount,
@@ -82,6 +85,8 @@ class AppPreferencesState {
           worryWindowReminderHour ?? this.worryWindowReminderHour,
       worryWindowReminderMinute:
           worryWindowReminderMinute ?? this.worryWindowReminderMinute,
+      safaCheckinDismissedUntil:
+          safaCheckinDismissedUntil ?? this.safaCheckinDismissedUntil,
       profileDisplayName: profileDisplayName ?? this.profileDisplayName,
       silenceWinsCount: silenceWinsCount ?? this.silenceWinsCount,
       singleTasksCompletedCount:
@@ -92,6 +97,11 @@ class AppPreferencesState {
 
 @Riverpod(keepAlive: true)
 class AppPreferences extends _$AppPreferences {
+  static DateTime? _parseDismissedUntil(dynamic raw) {
+    if (raw is! String || raw.isEmpty) return null;
+    return DateTime.tryParse(raw);
+  }
+
   @override
   AppPreferencesState build() {
     try {
@@ -127,6 +137,9 @@ class AppPreferences extends _$AppPreferences {
               defaultValue: 0,
             )
             as int,
+        safaCheckinDismissedUntil: _parseDismissedUntil(
+          box.get(HiveMetaKeys.safaCheckinDismissedUntil),
+        ),
         profileDisplayName: box.get(
               HiveMetaKeys.profileDisplayName,
               defaultValue: '',
@@ -170,6 +183,11 @@ class AppPreferences extends _$AppPreferences {
         state.copyWith(worryWindowReminderHour: value as int),
       HiveMetaKeys.worryWindowReminderMinute =>
         state.copyWith(worryWindowReminderMinute: value as int),
+      HiveMetaKeys.safaCheckinDismissedUntil => state.copyWith(
+            safaCheckinDismissedUntil: value == null
+                ? null
+                : DateTime.tryParse(value as String),
+          ),
       HiveMetaKeys.profileDisplayName =>
         state.copyWith(profileDisplayName: value as String),
       HiveMetaKeys.silenceWinsCount =>
@@ -214,6 +232,11 @@ class AppPreferences extends _$AppPreferences {
 
   Future<void> setProfileDisplayName(String name) =>
       _persist(HiveMetaKeys.profileDisplayName, name.trim());
+
+  Future<void> dismissSafaCheckinForDays(int days) => _persist(
+        HiveMetaKeys.safaCheckinDismissedUntil,
+        DateTime.now().add(Duration(days: days)).toUtc().toIso8601String(),
+      );
 
   Future<void> incrementSilenceWin() =>
       _persist(HiveMetaKeys.silenceWinsCount, state.silenceWinsCount + 1);

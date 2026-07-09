@@ -26,7 +26,7 @@ final hasSeenOnboardingProvider = AutoDisposeProvider<bool>.internal(
 );
 
 typedef HasSeenOnboardingRef = AutoDisposeProviderRef<bool>;
-String _$appPreferencesHash() => r'70b530f2359d121cfdd1fa7d77687e5d512a62cb';
+String _$appPreferencesHash() => r'a3d8ba85ff58c55db34f7692e427575849b820a9';
 
 /// See also [AppPreferences].
 @ProviderFor(AppPreferences)

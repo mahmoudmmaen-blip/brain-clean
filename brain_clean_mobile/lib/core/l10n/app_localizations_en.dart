@@ -1884,4 +1884,51 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeActivityWorryWindow => '⏱️ Worry Window';
+
+  @override
+  String get safaProgramTitle => 'Your program with Safa 🌿';
+
+  @override
+  String get safaProgramCta => 'Start with Safa';
+
+  @override
+  String get safaProgramLoadError => 'Could not load your program.';
+
+  @override
+  String get safaProgramFallbackCalm =>
+      'Your anxiety is under control — keep your current pace. Use the worry journal if pressure builds. Safa is here if you need support. You are on the right path 💚';
+
+  @override
+  String get safaProgramFallbackModerate =>
+      'Early chronic anxiety signs — the worry journal will help a lot. Try a daily worry window at 5 PM. Safa will check in weekly. Small daily steps make a difference 🌿';
+
+  @override
+  String get safaProgramFallbackHigh =>
+      'Anxiety is affecting your days — start a daily worry window and add light movement. Safa will build a weekly plan with you. You are stronger than anxiety 💪';
+
+  @override
+  String get safaProgramFallbackSevere =>
+      'Anxiety is high — consider seeing a specialist alongside the program. Start the worry journal daily. Safa is with you every step. You do not have to face this alone 🤝';
+
+  @override
+  String get calmIndexLegendBci => 'Brain Clarity (BCI)';
+
+  @override
+  String get calmIndexLegendCalm => 'Calm Index';
+
+  @override
+  String get safaCheckinIcon => '🌙';
+
+  @override
+  String get safaCheckinTitle => 'A note from Safa';
+
+  @override
+  String get safaCheckinBody =>
+      'I noticed you journal worries at night often — that can affect your sleep. Would you like to move your worry window to the afternoon?';
+
+  @override
+  String get safaCheckinAction => 'Change time';
+
+  @override
+  String get safaCheckinTimeUpdated => 'Worry window reminder updated.';
 }

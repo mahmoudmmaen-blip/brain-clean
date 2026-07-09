@@ -952,5 +952,19 @@
   "worryNotifTitle": "وقت نافذة القلق 🧠",
   "worryNotifBody": "١٠ دقايق تفرّغ دماغك — هتفضل أهدى طول الليل",
   "homeActivityWorryJournal": "✍️ دفتر القلق",
-  "homeActivityWorryWindow": "⏱️ نافذة القلق"
+  "homeActivityWorryWindow": "⏱️ نافذة القلق",
+  "safaProgramTitle": "برنامجك مع صفا 🌿",
+  "safaProgramCta": "ابدأ مع صفا",
+  "safaProgramLoadError": "تعذّر تحميل البرنامج.",
+  "safaProgramFallbackCalm": "قلقك تحت السيطرة — استمر على نفس الإيقاع. ركّز على دفتر القلق لو حسيت بأي ضغط. صفا هنا لو محتاج. أنت على الطريق الصح 💚",
+  "safaProgramFallbackModerate": "لاحظت بداية قلق مزمن — دفتر القلق هيفيدك كتير. جرّب نافذة القلق كل يوم الساعة 5 العصر. صفا هتابع معاك أسبوعياً. خطوة صغيرة كل يوم تصنع فرقاً 🌿",
+  "safaProgramFallbackHigh": "القلق بيأثر على يومك — ابدأ بنافذة القلق اليومية وأضف حركة خفيفة. صفا ستبني معك خطة أسبوعية. أنت أقوى من القلق 💪",
+  "safaProgramFallbackSevere": "القلق عالي — يُنصح بمراجعة مختص إلى جانب البرنامج. ابدأ بدفتر القلق يومياً. صفا معاك في كل خطوة. مش لازم تعدي ده لوحدك 🤝",
+  "calmIndexLegendBci": "صفاء الذهن (BCI)",
+  "calmIndexLegendCalm": "مؤشر الهدوء",
+  "safaCheckinIcon": "🌙",
+  "safaCheckinTitle": "ملاحظة من صفا",
+  "safaCheckinBody": "لاحظت إنك بتكتب في دفتر القلق بالليل كتير — ده ممكن يأثر على نومك. تحب ننقل نافذة القلق للعصر؟",
+  "safaCheckinAction": "غيّر الوقت",
+  "safaCheckinTimeUpdated": "تم تحديث وقت تذكير نافذة القلق."
 }

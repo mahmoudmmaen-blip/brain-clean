@@ -15,7 +15,20 @@ class NvidiaAiService {
       'عذراً، صفا غير متاحة الآن. حاول مرة أخرى لاحقاً.';
 
   Future<String> analyzeEmotion(String userText) async {
-    if (_apiKey.isEmpty) return "يرجى ضبط مفتاح الـ API في ملف .env.";
+    final response = await chat(
+      systemPrompt:
+          'أنت صفا، مرشدك في تطبيق Brain Clean. مهمتك مساعدة المستخدم على التعافي من إدمان الشاشات وإعادة بناء التركيز. قدّم نصيحة عملية وداعمة. ممنوع الموسيقى. ركز على التنفس، الرياضة، التدوين، وتقليل وقت الشاشة.',
+      userMessage: userText,
+    );
+    return response ?? _fallbackMessage;
+  }
+
+  /// Returns AI text or `null` when the key is missing / the request fails.
+  Future<String?> chat({
+    required String systemPrompt,
+    required String userMessage,
+  }) async {
+    if (_apiKey.isEmpty) return null;
 
     try {
       final response = await http
@@ -26,17 +39,13 @@ class NvidiaAiService {
               'Authorization': 'Bearer $_apiKey',
             },
             body: jsonEncode({
-              "model": "meta/llama3-70b-instruct",
-              "messages": [
-                {
-                  "role": "system",
-                  "content":
-                      "أنت صفا، مرشدك في تطبيق Brain Clean. مهمتك مساعدة المستخدم على التعافي من إدمان الشاشات وإعادة بناء التركيز. قدّم نصيحة عملية وداعمة. ممنوع الموسيقى. ركز على التنفس، الرياضة، التدوين، وتقليل وقت الشاشة."
-                },
-                {"role": "user", "content": userText}
+              'model': 'meta/llama3-70b-instruct',
+              'messages': [
+                {'role': 'system', 'content': systemPrompt},
+                {'role': 'user', 'content': userMessage},
               ],
-              "temperature": 0.5,
-              "max_tokens": 150,
+              'temperature': 0.5,
+              'max_tokens': 250,
             }),
           )
           .timeout(const Duration(seconds: 30));
@@ -45,19 +54,19 @@ class NvidiaAiService {
         debugPrint(
           'NvidiaAiService: request failed with status ${response.statusCode}',
         );
-        return _fallbackMessage;
+        return null;
       }
 
       final data = jsonDecode(utf8.decode(response.bodyBytes));
       final content = data['choices']?[0]?['message']?['content'];
       if (content == null) {
         debugPrint('NvidiaAiService: unexpected response shape');
-        return _fallbackMessage;
+        return null;
       }
       return content.toString().trim();
     } catch (error) {
       debugPrint('NvidiaAiService: request failed: $error');
-      return _fallbackMessage;
+      return null;
     }
   }
 }

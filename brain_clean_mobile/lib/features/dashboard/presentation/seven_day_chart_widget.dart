@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/presentation/async_state_views.dart';
+import '../../anxiety/presentation/calm_index_provider.dart';
 import '../application/seven_day_provider.dart';
 import '../domain/daily_snapshot.dart';
 
@@ -114,7 +115,7 @@ class _CardShell extends StatelessWidget {
   }
 }
 
-class _ChartBody extends StatelessWidget {
+class _ChartBody extends ConsumerWidget {
   const _ChartBody({
     required this.snapshots,
     required this.xLabels,
@@ -126,9 +127,54 @@ class _ChartBody extends StatelessWidget {
   final String title;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final loc = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
     final dividerColor = Theme.of(context).dividerColor;
+    final calmAsync = ref.watch(calmIndexChartDataProvider);
+    final calmColor = colorScheme.tertiary != colorScheme.primary
+        ? colorScheme.tertiary
+        : colorScheme.secondary;
+
+    final calmData = calmAsync.valueOrNull ?? CalmIndexChartData.empty;
+
+    final lineBars = <LineChartBarData>[
+      LineChartBarData(
+        spots: [
+          for (var i = 0; i < snapshots.length; i++)
+            FlSpot(i.toDouble(), snapshots[i].bcsValue),
+        ],
+        isCurved: true,
+        color: colorScheme.primary,
+        barWidth: 2.5,
+        dotData: const FlDotData(show: true),
+        belowBarData: BarAreaData(
+          show: true,
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              colorScheme.primary.withValues(alpha: 0.2),
+              colorScheme.primary.withValues(alpha: 0),
+            ],
+          ),
+        ),
+      ),
+    ];
+
+    if (calmData.showLine) {
+      lineBars.add(
+        LineChartBarData(
+          spots: calmData.spots,
+          isCurved: true,
+          color: calmColor,
+          barWidth: 2.5,
+          dashArray: const [4, 4],
+          dotData: const FlDotData(show: true),
+        ),
+      );
+    }
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -232,34 +278,101 @@ class _ChartBody extends StatelessWidget {
                         .toList(),
                   ),
                 ),
-                lineBarsData: [
-                  LineChartBarData(
-                    spots: [
-                      for (var i = 0; i < snapshots.length; i++)
-                        FlSpot(i.toDouble(), snapshots[i].bcsValue),
-                    ],
-                    isCurved: true,
-                    color: colorScheme.primary,
-                    barWidth: 2.5,
-                    dotData: const FlDotData(show: true),
-                    belowBarData: BarAreaData(
-                      show: true,
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          colorScheme.primary.withValues(alpha: 0.2),
-                          colorScheme.primary.withValues(alpha: 0),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+                lineBarsData: lineBars,
               ),
             ),
           ),
+          if (calmData.showLine) ...[
+            const SizedBox(height: 12),
+            Wrap(
+              spacing: 16,
+              runSpacing: 8,
+              alignment: WrapAlignment.center,
+              children: [
+                _LegendDot(
+                  color: colorScheme.primary,
+                  label: loc.calmIndexLegendBci,
+                ),
+                _LegendDot(
+                  color: calmColor,
+                  label: loc.calmIndexLegendCalm,
+                  dashed: true,
+                ),
+              ],
+            ),
+          ],
         ],
       ),
     );
   }
+}
+
+class _LegendDot extends StatelessWidget {
+  const _LegendDot({
+    required this.color,
+    required this.label,
+    this.dashed = false,
+  });
+
+  final Color color;
+  final String label;
+  final bool dashed;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        CustomPaint(
+          size: const Size(20, 4),
+          painter: _LegendLinePainter(color: color, dashed: dashed),
+        ),
+        const SizedBox(width: 6),
+        Text(
+          label,
+          style: TextStyle(
+            color: colorScheme.onSurfaceVariant,
+            fontSize: 12,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _LegendLinePainter extends CustomPainter {
+  _LegendLinePainter({required this.color, required this.dashed});
+
+  final Color color;
+  final bool dashed;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = color
+      ..strokeWidth = 3
+      ..style = PaintingStyle.stroke;
+
+    if (dashed) {
+      const dashWidth = 4.0;
+      const gap = 3.0;
+      var x = 0.0;
+      while (x < size.width) {
+        final end = (x + dashWidth).clamp(0.0, size.width).toDouble();
+        canvas.drawLine(Offset(x, size.height / 2), Offset(end, size.height / 2), paint);
+        x += dashWidth + gap;
+      }
+    } else {
+      canvas.drawLine(
+        Offset(0, size.height / 2),
+        Offset(size.width, size.height / 2),
+        paint,
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(_LegendLinePainter oldDelegate) =>
+      oldDelegate.color != color || oldDelegate.dashed != dashed;
 }
