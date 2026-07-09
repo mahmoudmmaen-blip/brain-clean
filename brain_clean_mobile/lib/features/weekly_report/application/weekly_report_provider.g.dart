@@ -6,7 +6,7 @@ part of 'weekly_report_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$weeklyReportHash() => r'5126e0f5b6adc8c3d8a249e0345bea53382957e3';
+String _$weeklyReportHash() => r'30073246a1c028dc3b3c28a1dc7127caba275b07';
 
 /// See also [weeklyReport].
 @ProviderFor(weeklyReport)

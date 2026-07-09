@@ -45,6 +45,10 @@ class AppNotificationService {
     }
     if (payload == worryWindowPayload || payload == AppRoutes.worryWindow) {
       context.push(AppRoutes.worryWindow);
+      return;
+    }
+    if (payload == AppRoutes.home || payload == '/home') {
+      context.go(AppRoutes.home);
     }
   }
 

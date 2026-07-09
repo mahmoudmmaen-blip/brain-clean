@@ -1021,5 +1021,15 @@
   "weeklyReportBestGameTitle": "نجم الأسبوع 🏆",
   "weeklyReportBestGameSubtitle": "أفضل أداء هذا الأسبوع",
   "weeklyReportCalmTitle": "مؤشر الهدوء",
-  "weeklyReportSafaAvatar": "ص"
+  "weeklyReportSafaAvatar": "ص",
+  "smartReminderSectionTitle": "التذكير الذكي",
+  "smartReminderToggle": "تذكير ذكي",
+  "smartReminderStatusDetected": "سيُرسَل تذكير الساعة {hour}:00 بناءً على عادتك 🎯",
+  "@smartReminderStatusDetected": {
+    "placeholders": {
+      "hour": { "type": "int" }
+    }
+  },
+  "smartReminderStatusLearning": "افتح التطبيق ٣ أيام متتالية عشان نتعلم وقتك المفضل",
+  "smartReminderInfoChip": "بيتعلم من سلوكك تلقائياً"
 }

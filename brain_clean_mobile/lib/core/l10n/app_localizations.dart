@@ -3829,6 +3829,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'S'**
   String get weeklyReportSafaAvatar;
+
+  /// No description provided for @smartReminderSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Smart reminder'**
+  String get smartReminderSectionTitle;
+
+  /// No description provided for @smartReminderToggle.
+  ///
+  /// In en, this message translates to:
+  /// **'Smart reminder'**
+  String get smartReminderToggle;
+
+  /// No description provided for @smartReminderStatusDetected.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder will arrive at {hour}:00 based on your habit 🎯'**
+  String smartReminderStatusDetected(int hour);
+
+  /// No description provided for @smartReminderStatusLearning.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the app 3 days in a row so we can learn your favorite time'**
+  String get smartReminderStatusLearning;
+
+  /// No description provided for @smartReminderInfoChip.
+  ///
+  /// In en, this message translates to:
+  /// **'Learns from your behavior automatically'**
+  String get smartReminderInfoChip;
 }
 
 class _AppLocalizationsDelegate

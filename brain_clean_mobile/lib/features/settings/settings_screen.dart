@@ -16,6 +16,7 @@ import '../../core/theme/app_color_theme.dart';
 import '../../core/theme/app_color_theme_provider.dart';
 import '../../shared/widgets/glass_card.dart';
 import '../pro/application/subscription_service_provider.dart';
+import '../smart_reminders/application/smart_reminder_provider.dart';
 
 const settingsProTileKey = Key('settings_pro_tile');
 const settingsResetKey = Key('settings_reset_data');
@@ -191,6 +192,8 @@ class SettingsScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 12),
           const _WorryWindowReminderSection(),
+          const SizedBox(height: 12),
+          const _SmartReminderSection(),
           const SizedBox(height: 12),
           GlassCard(
             child: Column(
@@ -447,6 +450,71 @@ class _WorryWindowReminderSection extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _SmartReminderSection extends ConsumerWidget {
+  const _SmartReminderSection();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final loc = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
+    final configAsync = ref.watch(smartReminderProvider);
+
+    return configAsync.when(
+      loading: () => const SizedBox.shrink(),
+      error: (_, __) => const SizedBox.shrink(),
+      data: (config) {
+        final statusText = config.detectedHour != null
+            ? loc.smartReminderStatusDetected(config.detectedHour!)
+            : loc.smartReminderStatusLearning;
+
+        return GlassCard(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _SectionHeader(loc.smartReminderSectionTitle),
+              SwitchListTile(
+                contentPadding: EdgeInsets.zero,
+                title: Text(
+                  loc.smartReminderToggle,
+                  style: TextStyle(color: colorScheme.onSurface),
+                ),
+                value: config.isEnabled,
+                activeThumbColor: colorScheme.primary,
+                onChanged: (enabled) => ref
+                    .read(smartReminderProvider.notifier)
+                    .toggleEnabled(enabled),
+              ),
+              Text(
+                statusText,
+                style: TextStyle(
+                  color: colorScheme.onSurfaceVariant,
+                  fontSize: 13,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                decoration: BoxDecoration(
+                  color: colorScheme.surfaceContainerHighest,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  loc.smartReminderInfoChip,
+                  style: TextStyle(
+                    color: colorScheme.onSurfaceVariant,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

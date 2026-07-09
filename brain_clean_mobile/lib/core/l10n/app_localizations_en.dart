@@ -2060,4 +2060,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get weeklyReportSafaAvatar => 'S';
+
+  @override
+  String get smartReminderSectionTitle => 'Smart reminder';
+
+  @override
+  String get smartReminderToggle => 'Smart reminder';
+
+  @override
+  String smartReminderStatusDetected(int hour) {
+    return 'Reminder will arrive at $hour:00 based on your habit 🎯';
+  }
+
+  @override
+  String get smartReminderStatusLearning =>
+      'Open the app 3 days in a row so we can learn your favorite time';
+
+  @override
+  String get smartReminderInfoChip => 'Learns from your behavior automatically';
 }

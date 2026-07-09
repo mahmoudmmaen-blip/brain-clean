@@ -873,5 +873,15 @@
   "weeklyReportBestGameTitle": "Star of the week 🏆",
   "weeklyReportBestGameSubtitle": "Best performance this week",
   "weeklyReportCalmTitle": "Calm Index",
-  "weeklyReportSafaAvatar": "S"
+  "weeklyReportSafaAvatar": "S",
+  "smartReminderSectionTitle": "Smart reminder",
+  "smartReminderToggle": "Smart reminder",
+  "smartReminderStatusDetected": "Reminder will arrive at {hour}:00 based on your habit 🎯",
+  "@smartReminderStatusDetected": {
+    "placeholders": {
+      "hour": { "type": "int" }
+    }
+  },
+  "smartReminderStatusLearning": "Open the app 3 days in a row so we can learn your favorite time",
+  "smartReminderInfoChip": "Learns from your behavior automatically"
 }

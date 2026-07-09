@@ -20,6 +20,8 @@ import 'core/theme/app_color_theme.dart';
 import 'core/theme/app_color_theme_provider.dart';
 import 'core/theme/locale_theme.dart';
 import 'features/gamification/application/xp_sync_service.dart';
+import 'features/smart_reminders/application/smart_reminder_provider.dart';
+import 'features/smart_reminders/data/smart_reminder_repository_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -69,6 +71,18 @@ class _BrainCleanAppState extends ConsumerState<BrainCleanApp>
       ref.read(smartNotificationServiceProvider).rescheduleAll();
       ref.read(worryWindowNotificationServiceProvider).reschedule();
       ref.read(xpSyncServiceProvider.notifier).syncIfPossible();
+      _trackSmartReminderOpen();
+    });
+  }
+
+  void _trackSmartReminderOpen() {
+    Future<void>(() async {
+      try {
+        await ref.read(smartReminderRepositoryProvider).logAppOpen();
+        await ref.read(smartReminderProvider.notifier).analyzeAndSchedule();
+      } catch (error) {
+        debugPrint('SmartReminder tracking failed: $error');
+      }
     });
   }
 
@@ -76,6 +90,7 @@ class _BrainCleanAppState extends ConsumerState<BrainCleanApp>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       ref.read(xpSyncServiceProvider.notifier).syncIfPossible();
+      _trackSmartReminderOpen();
     }
     if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.inactive) {
