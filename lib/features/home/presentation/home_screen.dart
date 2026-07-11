@@ -17,6 +17,7 @@ import '../../diagnostic/presentation/bc_score_provider.dart';
 import '../../diagnostic/domain/diagnostic_session.dart';
 import '../../diagnostic/presentation/widgets/bc_score_breakdown.dart';
 import '../../dashboard/presentation/pro_gated_seven_day_chart.dart';
+import '../../pro/application/subscription_service_provider.dart';
 import '../../pro/pro_gate.dart';
 import '../../recovery/presentation/recovery_protocol_controller.dart';
 import 'widgets/distraction_safeguard_button.dart';

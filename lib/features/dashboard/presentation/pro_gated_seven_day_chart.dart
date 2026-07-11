@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/application/app_preferences_provider.dart';
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
+import '../../pro/application/subscription_service_provider.dart';
 import 'seven_day_chart_widget.dart';
 
 const proLockedChartKey = Key('pro_locked_chart');
