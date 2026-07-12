@@ -16,4 +16,5 @@ abstract final class HiveBoxes {
   static const xpLedger = 'xp_ledger_v1';
   static const dailyChallenge = 'daily_challenge_v1';
   static const smartReminders = 'smart_reminders_v1';
+  static const dailyProgram = 'daily_program_v1';
 }

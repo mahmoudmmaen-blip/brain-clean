@@ -3859,6 +3859,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Learns from your behavior automatically'**
   String get smartReminderInfoChip;
+
+  /// No description provided for @dailyProgramTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Program'**
+  String get dailyProgramTitle;
+
+  /// No description provided for @dailyProgramLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load today\'s program.'**
+  String get dailyProgramLoadError;
+
+  /// No description provided for @dailyProgramGreetingGeneric.
+  ///
+  /// In en, this message translates to:
+  /// **'Good morning 🌿'**
+  String get dailyProgramGreetingGeneric;
+
+  /// No description provided for @dailyProgramGreetingNamed.
+  ///
+  /// In en, this message translates to:
+  /// **'Good morning, {name} 🌿'**
+  String dailyProgramGreetingNamed(String name);
+
+  /// No description provided for @dailyProgramDayLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Day {day}'**
+  String dailyProgramDayLabel(int day);
+
+  /// No description provided for @dailyProgramRemaining.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} steps left'**
+  String dailyProgramRemaining(int count);
+
+  /// No description provided for @dailyProgramRemainingZero.
+  ///
+  /// In en, this message translates to:
+  /// **'All steps done'**
+  String get dailyProgramRemainingZero;
+
+  /// No description provided for @dailyProgramProgressPercent.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}%'**
+  String dailyProgramProgressPercent(int percent);
+
+  /// No description provided for @dailyProgramDoneCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Done ✅'**
+  String get dailyProgramDoneCta;
+
+  /// No description provided for @dailyProgramSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get dailyProgramSkip;
+
+  /// No description provided for @dailyProgramAllStepsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'All steps today'**
+  String get dailyProgramAllStepsTitle;
+
+  /// No description provided for @dailyProgramCompleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'🏁 You finished today\'s journey! Proud of you 💚'**
+  String get dailyProgramCompleteTitle;
+
+  /// No description provided for @dailyProgramViewReport.
+  ///
+  /// In en, this message translates to:
+  /// **'See today\'s report'**
+  String get dailyProgramViewReport;
+
+  /// No description provided for @dailyProgramHomeIcon.
+  ///
+  /// In en, this message translates to:
+  /// **'🌿'**
+  String get dailyProgramHomeIcon;
+
+  /// No description provided for @dailyProgramHomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My Daily Program'**
+  String get dailyProgramHomeTitle;
+
+  /// No description provided for @dailyProgramHomeStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start your day journey'**
+  String get dailyProgramHomeStart;
+
+  /// No description provided for @dailyProgramHomeInProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} steps left'**
+  String dailyProgramHomeInProgress(int count);
+
+  /// No description provided for @dailyProgramHomeDone.
+  ///
+  /// In en, this message translates to:
+  /// **'You finished today\'s journey ✅'**
+  String get dailyProgramHomeDone;
 }
 
 class _AppLocalizationsDelegate

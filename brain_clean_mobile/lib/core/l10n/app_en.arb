@@ -883,5 +883,48 @@
     }
   },
   "smartReminderStatusLearning": "Open the app 3 days in a row so we can learn your favorite time",
-  "smartReminderInfoChip": "Learns from your behavior automatically"
+  "smartReminderInfoChip": "Learns from your behavior automatically",
+  "dailyProgramTitle": "Daily Program",
+  "dailyProgramLoadError": "Could not load today's program.",
+  "dailyProgramGreetingGeneric": "Good morning 🌿",
+  "dailyProgramGreetingNamed": "Good morning, {name} 🌿",
+  "@dailyProgramGreetingNamed": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "dailyProgramDayLabel": "Day {day}",
+  "@dailyProgramDayLabel": {
+    "placeholders": {
+      "day": { "type": "int" }
+    }
+  },
+  "dailyProgramRemaining": "{count} steps left",
+  "@dailyProgramRemaining": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "dailyProgramRemainingZero": "All steps done",
+  "dailyProgramProgressPercent": "{percent}%",
+  "@dailyProgramProgressPercent": {
+    "placeholders": {
+      "percent": { "type": "int" }
+    }
+  },
+  "dailyProgramDoneCta": "Done ✅",
+  "dailyProgramSkip": "Skip",
+  "dailyProgramAllStepsTitle": "All steps today",
+  "dailyProgramCompleteTitle": "🏁 You finished today's journey! Proud of you 💚",
+  "dailyProgramViewReport": "See today's report",
+  "dailyProgramHomeIcon": "🌿",
+  "dailyProgramHomeTitle": "My Daily Program",
+  "dailyProgramHomeStart": "Start your day journey",
+  "dailyProgramHomeInProgress": "{count} steps left",
+  "@dailyProgramHomeInProgress": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "dailyProgramHomeDone": "You finished today's journey ✅"
 }

@@ -40,6 +40,8 @@ import '../../worry/presentation/worry_today_entries_provider.dart';
 
 import '../../daily_challenge/presentation/daily_challenge_card.dart';
 
+import '../../daily_program/presentation/daily_program_home_card.dart';
+
 import 'widgets/global_progress_tracker.dart';
 
 import 'home_streak_provider.dart';
@@ -235,6 +237,10 @@ class _HomeBody extends ConsumerWidget {
       padding: const EdgeInsets.all(16),
 
       children: [
+
+        const DailyProgramHomeCard(),
+
+        const SizedBox(height: 12),
 
         Row(
 

@@ -39,6 +39,7 @@ import '../../features/onboarding/onboarding_screen.dart';
 import '../../features/pro/pro_paywall_screen.dart';
 import '../../features/recovery/presentation/recovery_grid_screen.dart';
 import '../../features/profile/profile_screen.dart';
+import '../../features/daily_program/presentation/daily_program_screen.dart';
 import '../../features/weekly_report/presentation/weekly_report_screen.dart';
 import '../../features/safa_tab/presentation/safa_tab_screen.dart';
 import '../../features/settings/settings_screen.dart';
@@ -296,6 +297,11 @@ GoRouter goRouter(GoRouterRef ref) {
         path: AppRoutes.weeklyReport,
         name: WeeklyReportRoute.name,
         builder: (context, state) => const WeeklyReportScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.dailyProgram,
+        name: 'dailyProgram',
+        builder: (context, state) => const DailyProgramScreen(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>

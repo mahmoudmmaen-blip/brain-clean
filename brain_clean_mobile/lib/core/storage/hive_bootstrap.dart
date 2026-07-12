@@ -48,6 +48,7 @@ abstract final class HiveBootstrap {
     HiveBoxes.xpLedger,
     HiveBoxes.dailyChallenge,
     HiveBoxes.smartReminders,
+    HiveBoxes.dailyProgram,
   ];
 
   static Future<void> initialize() async {

@@ -1031,5 +1031,48 @@
     }
   },
   "smartReminderStatusLearning": "افتح التطبيق ٣ أيام متتالية عشان نتعلم وقتك المفضل",
-  "smartReminderInfoChip": "بيتعلم من سلوكك تلقائياً"
+  "smartReminderInfoChip": "بيتعلم من سلوكك تلقائياً",
+  "dailyProgramTitle": "البرنامج اليومي",
+  "dailyProgramLoadError": "تعذّر تحميل برنامج اليوم.",
+  "dailyProgramGreetingGeneric": "صباح الخير 🌿",
+  "dailyProgramGreetingNamed": "صباح الخير يا {name} 🌿",
+  "@dailyProgramGreetingNamed": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "dailyProgramDayLabel": "اليوم {day}",
+  "@dailyProgramDayLabel": {
+    "placeholders": {
+      "day": { "type": "int" }
+    }
+  },
+  "dailyProgramRemaining": "تبقى لك {count} خطوات",
+  "@dailyProgramRemaining": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "dailyProgramRemainingZero": "خلّصت كل الخطوات",
+  "dailyProgramProgressPercent": "{percent}%",
+  "@dailyProgramProgressPercent": {
+    "placeholders": {
+      "percent": { "type": "int" }
+    }
+  },
+  "dailyProgramDoneCta": "تم ✅",
+  "dailyProgramSkip": "تخطّي",
+  "dailyProgramAllStepsTitle": "كل خطوات اليوم",
+  "dailyProgramCompleteTitle": "🏁 خلّصت رحلة اليوم! فخورين بيك 💚",
+  "dailyProgramViewReport": "شوف تقرير اليوم",
+  "dailyProgramHomeIcon": "🌿",
+  "dailyProgramHomeTitle": "برنامجي اليومي",
+  "dailyProgramHomeStart": "ابدأ رحلة يومك",
+  "dailyProgramHomeInProgress": "تبقى لك {count} خطوات",
+  "@dailyProgramHomeInProgress": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "dailyProgramHomeDone": "خلّصت رحلة النهارده ✅"
 }

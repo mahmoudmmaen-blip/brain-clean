@@ -2053,4 +2053,68 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get smartReminderInfoChip => 'بيتعلم من سلوكك تلقائياً';
+
+  @override
+  String get dailyProgramTitle => 'البرنامج اليومي';
+
+  @override
+  String get dailyProgramLoadError => 'تعذّر تحميل برنامج اليوم.';
+
+  @override
+  String get dailyProgramGreetingGeneric => 'صباح الخير 🌿';
+
+  @override
+  String dailyProgramGreetingNamed(String name) {
+    return 'صباح الخير يا $name 🌿';
+  }
+
+  @override
+  String dailyProgramDayLabel(int day) {
+    return 'اليوم $day';
+  }
+
+  @override
+  String dailyProgramRemaining(int count) {
+    return 'تبقى لك $count خطوات';
+  }
+
+  @override
+  String get dailyProgramRemainingZero => 'خلّصت كل الخطوات';
+
+  @override
+  String dailyProgramProgressPercent(int percent) {
+    return '$percent%';
+  }
+
+  @override
+  String get dailyProgramDoneCta => 'تم ✅';
+
+  @override
+  String get dailyProgramSkip => 'تخطّي';
+
+  @override
+  String get dailyProgramAllStepsTitle => 'كل خطوات اليوم';
+
+  @override
+  String get dailyProgramCompleteTitle => '🏁 خلّصت رحلة اليوم! فخورين بيك 💚';
+
+  @override
+  String get dailyProgramViewReport => 'شوف تقرير اليوم';
+
+  @override
+  String get dailyProgramHomeIcon => '🌿';
+
+  @override
+  String get dailyProgramHomeTitle => 'برنامجي اليومي';
+
+  @override
+  String get dailyProgramHomeStart => 'ابدأ رحلة يومك';
+
+  @override
+  String dailyProgramHomeInProgress(int count) {
+    return 'تبقى لك $count خطوات';
+  }
+
+  @override
+  String get dailyProgramHomeDone => 'خلّصت رحلة النهارده ✅';
 }

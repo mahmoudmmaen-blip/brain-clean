@@ -2078,4 +2078,69 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get smartReminderInfoChip => 'Learns from your behavior automatically';
+
+  @override
+  String get dailyProgramTitle => 'Daily Program';
+
+  @override
+  String get dailyProgramLoadError => 'Could not load today\'s program.';
+
+  @override
+  String get dailyProgramGreetingGeneric => 'Good morning 🌿';
+
+  @override
+  String dailyProgramGreetingNamed(String name) {
+    return 'Good morning, $name 🌿';
+  }
+
+  @override
+  String dailyProgramDayLabel(int day) {
+    return 'Day $day';
+  }
+
+  @override
+  String dailyProgramRemaining(int count) {
+    return '$count steps left';
+  }
+
+  @override
+  String get dailyProgramRemainingZero => 'All steps done';
+
+  @override
+  String dailyProgramProgressPercent(int percent) {
+    return '$percent%';
+  }
+
+  @override
+  String get dailyProgramDoneCta => 'Done ✅';
+
+  @override
+  String get dailyProgramSkip => 'Skip';
+
+  @override
+  String get dailyProgramAllStepsTitle => 'All steps today';
+
+  @override
+  String get dailyProgramCompleteTitle =>
+      '🏁 You finished today\'s journey! Proud of you 💚';
+
+  @override
+  String get dailyProgramViewReport => 'See today\'s report';
+
+  @override
+  String get dailyProgramHomeIcon => '🌿';
+
+  @override
+  String get dailyProgramHomeTitle => 'My Daily Program';
+
+  @override
+  String get dailyProgramHomeStart => 'Start your day journey';
+
+  @override
+  String dailyProgramHomeInProgress(int count) {
+    return '$count steps left';
+  }
+
+  @override
+  String get dailyProgramHomeDone => 'You finished today\'s journey ✅';
 }
