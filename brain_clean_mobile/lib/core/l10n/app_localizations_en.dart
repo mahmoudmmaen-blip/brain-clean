@@ -2115,6 +2115,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dailyProgramDoneCta => 'Done ✅';
 
   @override
+  String get dailyProgramOpenEmotionWheel => 'Open Emotion Wheel';
+
+  @override
+  String get dailyProgramOpenCalmExercise => 'Open Calm Exercise';
+
+  @override
+  String get dailyProgramOpenWorryJournal => 'Open Worry Journal';
+
+  @override
   String get dailyProgramSkip => 'Skip';
 
   @override

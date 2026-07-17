@@ -913,6 +913,9 @@
     }
   },
   "dailyProgramDoneCta": "Done ✅",
+  "dailyProgramOpenEmotionWheel": "Open Emotion Wheel",
+  "dailyProgramOpenCalmExercise": "Open Calm Exercise",
+  "dailyProgramOpenWorryJournal": "Open Worry Journal",
   "dailyProgramSkip": "Skip",
   "dailyProgramAllStepsTitle": "All steps today",
   "dailyProgramCompleteTitle": "🏁 You finished today's journey! Proud of you 💚",

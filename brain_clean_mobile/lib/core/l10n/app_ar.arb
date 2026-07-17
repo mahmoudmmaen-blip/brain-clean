@@ -1061,6 +1061,9 @@
     }
   },
   "dailyProgramDoneCta": "تم ✅",
+  "dailyProgramOpenEmotionWheel": "فتح عجلة المشاعر",
+  "dailyProgramOpenCalmExercise": "فتح تمرين السكون",
+  "dailyProgramOpenWorryJournal": "فتح دفتر القلق",
   "dailyProgramSkip": "تخطّي",
   "dailyProgramAllStepsTitle": "كل خطوات اليوم",
   "dailyProgramCompleteTitle": "🏁 خلّصت رحلة اليوم! فخورين بيك 💚",
