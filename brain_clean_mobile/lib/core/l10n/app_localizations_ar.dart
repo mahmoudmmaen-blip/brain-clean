@@ -897,6 +897,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get silenceChallengeSuccessBody => 'اجتزت تحدي الصمت بنجاح.';
 
   @override
+  String get silenceChallengeDurationLabel => 'مدة الجلسة';
+
+  @override
+  String silenceChallengeDurationOption(int minutes) {
+    return '$minutes د';
+  }
+
+  @override
   String get singleTaskPauseTitle => 'إيقاف مؤقت';
 
   @override

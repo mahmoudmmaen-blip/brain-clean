@@ -22,6 +22,8 @@ class DailyStepEntry with _$DailyStepEntry {
 class DailyProgramState with _$DailyProgramState {
   const DailyProgramState._();
 
+  // ignore: invalid_annotation_target
+  @JsonSerializable(explicitToJson: true)
   const factory DailyProgramState({
     required DateTime date,
     required int dayNumber,

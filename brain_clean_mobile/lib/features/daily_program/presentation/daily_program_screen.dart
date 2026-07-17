@@ -64,13 +64,15 @@ class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
 
   VoidCallback? _secondaryAction(BuildContext context, DailyStep step) {
     return switch (step) {
-      DailyStep.mood => () => context.push(AppRoutes.emotionWheel),
+      // Shell-nested under /home — go() avoids duplicate StatefulShell navigators.
+      DailyStep.mood => () => context.go(AppRoutes.emotionWheel),
       DailyStep.sukoon => () {
           final streakDays = ref.read(homeStreakSnapshotProvider).days;
-          context.push(
+          context.go(
             AppRoutes.silenceChallenge(streakDays < 0 ? 0 : streakDays),
           );
         },
+      // Top-level route (outside shell) — push is safe.
       DailyStep.journal => () => context.push(AppRoutes.worryJournal),
       _ => null,
     };

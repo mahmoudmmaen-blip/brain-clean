@@ -291,7 +291,8 @@ class __$$DailyProgramStateImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$DailyProgramStateImpl extends _DailyProgramState {
   const _$DailyProgramStateImpl(
       {required this.date,

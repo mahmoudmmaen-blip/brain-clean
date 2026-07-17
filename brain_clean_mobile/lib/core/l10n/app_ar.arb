@@ -469,6 +469,13 @@
   "silenceChallengeFailedBody": "لمست الشاشة أو خرجت من التطبيق.",
   "silenceChallengeSuccessTitle": "أحسنت! 🎉",
   "silenceChallengeSuccessBody": "اجتزت تحدي الصمت بنجاح.",
+  "silenceChallengeDurationLabel": "مدة الجلسة",
+  "silenceChallengeDurationOption": "{minutes} د",
+  "@silenceChallengeDurationOption": {
+    "placeholders": {
+      "minutes": { "type": "int" }
+    }
+  },
   "singleTaskPauseTitle": "إيقاف مؤقت",
   "singleTaskPauseBody": "هل تريد إيقاف المهمة الحالية؟ لن تحصل على مكافأة.",
   "singleTaskModeTitle": "وضع المهمة الواحدة",

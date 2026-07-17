@@ -132,6 +132,8 @@ class EmotionWheelScreen extends ConsumerWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor:
                     impact < 0 ? colorScheme.error : colorScheme.primary,
+                foregroundColor:
+                    impact < 0 ? colorScheme.onError : colorScheme.onPrimary,
               ),
               child: Text(loc.emotionConfirmLog),
             ),

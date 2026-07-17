@@ -40,6 +40,25 @@ void main() {
       expect(after[1].status, DailyStepStatus.current);
       expect(after[2].status, DailyStepStatus.locked);
     });
+
+    test('toJson nests step maps so Hive can persist (no Freezed objects)', () {
+      final initial = DailyProgramService.buildTodaySteps();
+      final after = DailyProgramService.afterComplete(
+        initial,
+        DailyStep.dayStart,
+      );
+      final stateJson = {
+        'date': DateTime(2026, 7, 17).toIso8601String(),
+        'dayNumber': 1,
+        'steps': after.map((e) => e.toJson()).toList(),
+      };
+
+      expect(stateJson['steps'], isA<List<dynamic>>());
+      final first = (stateJson['steps'] as List).first;
+      expect(first, isA<Map<String, dynamic>>());
+      expect(first['step'], 'dayStart');
+      expect(first['status'], 'done');
+    });
   });
 
   group('DailyProgramService.afterSkip', () {

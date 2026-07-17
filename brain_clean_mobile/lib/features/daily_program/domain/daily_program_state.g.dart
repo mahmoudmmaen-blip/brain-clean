@@ -55,5 +55,5 @@ Map<String, dynamic> _$$DailyProgramStateImplToJson(
     <String, dynamic>{
       'date': instance.date.toIso8601String(),
       'dayNumber': instance.dayNumber,
-      'steps': instance.steps,
+      'steps': instance.steps.map((e) => e.toJson()).toList(),
     };
