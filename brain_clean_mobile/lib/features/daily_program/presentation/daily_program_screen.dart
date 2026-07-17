@@ -7,6 +7,7 @@ import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/presentation/language_toggle_button.dart';
 import '../../../shared/widgets/glass_card.dart';
+import '../../home/presentation/home_streak_provider.dart';
 import '../application/daily_program_provider.dart';
 import '../domain/daily_program_service.dart';
 import '../domain/daily_program_state.dart';
@@ -51,6 +52,29 @@ class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
   final _nextStepKey = GlobalKey();
   String? _rewardChip;
   bool _busy = false;
+
+  String? _secondaryActionLabel(AppLocalizations loc, DailyStep step) {
+    return switch (step) {
+      DailyStep.mood => loc.dailyProgramOpenEmotionWheel,
+      DailyStep.sukoon => loc.dailyProgramOpenCalmExercise,
+      DailyStep.journal => loc.dailyProgramOpenWorryJournal,
+      _ => null,
+    };
+  }
+
+  VoidCallback? _secondaryAction(BuildContext context, DailyStep step) {
+    return switch (step) {
+      DailyStep.mood => () => context.push(AppRoutes.emotionWheel),
+      DailyStep.sukoon => () {
+          final streakDays = ref.read(homeStreakSnapshotProvider).days;
+          context.push(
+            AppRoutes.silenceChallenge(streakDays < 0 ? 0 : streakDays),
+          );
+        },
+      DailyStep.journal => () => context.push(AppRoutes.worryJournal),
+      _ => null,
+    };
+  }
 
   Future<void> _complete(DailyStep step) async {
     if (_busy) return;
@@ -176,6 +200,10 @@ class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
                       busy: _busy,
                       rewardChip: _rewardChip,
                       onComplete: () => _complete(current.step),
+                      secondaryActionLabel:
+                          _secondaryActionLabel(loc, current.step),
+                      onSecondaryAction:
+                          _secondaryAction(context, current.step),
                       onSkip: current.step == DailyStep.journal
                           ? () => _skip(current.step)
                           : null,
@@ -215,6 +243,8 @@ class _NextStepCard extends StatelessWidget {
     required this.busy,
     required this.rewardChip,
     required this.onComplete,
+    this.secondaryActionLabel,
+    this.onSecondaryAction,
     this.onSkip,
   });
 
@@ -222,6 +252,8 @@ class _NextStepCard extends StatelessWidget {
   final bool busy;
   final String? rewardChip;
   final VoidCallback onComplete;
+  final String? secondaryActionLabel;
+  final VoidCallback? onSecondaryAction;
   final VoidCallback? onSkip;
 
   @override
@@ -307,6 +339,21 @@ class _NextStepCard extends StatelessWidget {
                     ),
                   ),
           ),
+          if (secondaryActionLabel != null && onSecondaryAction != null) ...[
+            const SizedBox(height: 8),
+            OutlinedButton(
+              onPressed: busy ? null : onSecondaryAction,
+              style: OutlinedButton.styleFrom(
+                minimumSize: const Size.fromHeight(48),
+                side: BorderSide(color: colorScheme.outline),
+                foregroundColor: colorScheme.onSurface,
+              ),
+              child: Text(
+                secondaryActionLabel!,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
           if (onSkip != null) ...[
             const SizedBox(height: 8),
             TextButton(

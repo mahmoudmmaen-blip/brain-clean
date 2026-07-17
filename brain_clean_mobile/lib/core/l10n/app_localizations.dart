@@ -3914,6 +3914,24 @@ abstract class AppLocalizations {
   /// **'Done ✅'**
   String get dailyProgramDoneCta;
 
+  /// No description provided for @dailyProgramOpenEmotionWheel.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Emotion Wheel'**
+  String get dailyProgramOpenEmotionWheel;
+
+  /// No description provided for @dailyProgramOpenCalmExercise.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Calm Exercise'**
+  String get dailyProgramOpenCalmExercise;
+
+  /// No description provided for @dailyProgramOpenWorryJournal.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Worry Journal'**
+  String get dailyProgramOpenWorryJournal;
+
   /// No description provided for @dailyProgramSkip.
   ///
   /// In en, this message translates to:
