@@ -379,6 +379,13 @@
   "silenceChallengeFailedBody": "You touched the screen or left the app.",
   "silenceChallengeSuccessTitle": "Well done! 🎉",
   "silenceChallengeSuccessBody": "You completed the silence challenge.",
+  "silenceChallengeDurationLabel": "Session length",
+  "silenceChallengeDurationOption": "{minutes} min",
+  "@silenceChallengeDurationOption": {
+    "placeholders": {
+      "minutes": { "type": "int" }
+    }
+  },
   "singleTaskPauseTitle": "Pause task",
   "singleTaskPauseBody": "Stop the current task? You won't earn a reward.",
   "singleTaskModeTitle": "Single-task mode",

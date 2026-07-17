@@ -909,6 +909,14 @@ class AppLocalizationsEn extends AppLocalizations {
       'You completed the silence challenge.';
 
   @override
+  String get silenceChallengeDurationLabel => 'Session length';
+
+  @override
+  String silenceChallengeDurationOption(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
   String get singleTaskPauseTitle => 'Pause task';
 
   @override

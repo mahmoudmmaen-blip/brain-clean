@@ -1706,6 +1706,18 @@ abstract class AppLocalizations {
   /// **'You completed the silence challenge.'**
   String get silenceChallengeSuccessBody;
 
+  /// No description provided for @silenceChallengeDurationLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Session length'**
+  String get silenceChallengeDurationLabel;
+
+  /// No description provided for @silenceChallengeDurationOption.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min'**
+  String silenceChallengeDurationOption(int minutes);
+
   /// No description provided for @singleTaskPauseTitle.
   ///
   /// In en, this message translates to:

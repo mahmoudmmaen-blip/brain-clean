@@ -14,6 +14,8 @@ import '../gamification/domain/xp_source.dart';
 
 const silenceCountdownKey = Key('silence_countdown');
 const silenceLevelLabelKey = Key('silence_level_label');
+const silenceDurationSelectorKey = Key('silence_duration_selector');
+const silenceStartButtonKey = Key('silence_start_button');
 
 /// Full-screen silence challenge — no touch or backgrounding until timer ends.
 class SilenceChallengeScreen extends ConsumerStatefulWidget {
@@ -24,9 +26,13 @@ class SilenceChallengeScreen extends ConsumerStatefulWidget {
 
   final int streakDays;
 
+  static const durationOptionsMinutes = <int>[5, 10, 15, 20, 30];
+  static const defaultDurationMinutes = 10;
+
   static int computeLevel(int streakDays) =>
       ((streakDays / 7) + 1).ceil();
 
+  /// Legacy level→minutes helper (kept for callers/tests). UI default is 10.
   static int targetMinutesForLevel(int level) =>
       10 + ((level - 1) * 2);
 
@@ -38,11 +44,13 @@ class SilenceChallengeScreen extends ConsumerStatefulWidget {
 class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
     with WidgetsBindingObserver {
   late final int _level;
-  late final int _targetMinutes;
-  late final int _totalSeconds;
+
+  int _targetMinutes = SilenceChallengeScreen.defaultDurationMinutes;
+  late int _totalSeconds;
+  late int _remainingSeconds;
 
   StreamSubscription<int>? _ticker;
-  int _remainingSeconds = 0;
+  bool _running = false;
   bool _failed = false;
   bool _completed = false;
 
@@ -51,15 +59,31 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     _level = SilenceChallengeScreen.computeLevel(widget.streakDays);
-    _targetMinutes = SilenceChallengeScreen.targetMinutesForLevel(_level);
     _totalSeconds = _targetMinutes * 60;
     _remainingSeconds = _totalSeconds;
-    _startTicker();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref
           .read(ambientSoundControllerProvider.notifier)
           .play(AmbientSound.rain);
     });
+  }
+
+  void _selectDuration(int minutes) {
+    if (_running || _failed || _completed) return;
+    if (!SilenceChallengeScreen.durationOptionsMinutes.contains(minutes)) {
+      return;
+    }
+    setState(() {
+      _targetMinutes = minutes;
+      _totalSeconds = minutes * 60;
+      _remainingSeconds = _totalSeconds;
+    });
+  }
+
+  void _beginChallenge() {
+    if (_running || _failed || _completed) return;
+    setState(() => _running = true);
+    _startTicker();
   }
 
   void _startTicker() {
@@ -83,13 +107,14 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.paused && !_failed && !_completed) {
+    if (!_running || _failed || _completed) return;
+    if (state == AppLifecycleState.paused) {
       _onFail();
     }
   }
 
   void _onFail() {
-    if (_failed || _completed) return;
+    if (!_running || _failed || _completed) return;
     _failed = true;
     _stopTicker();
     _showFailDialog();
@@ -195,10 +220,12 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
     final loc = AppLocalizations.of(context)!;
     final cs = Theme.of(context).colorScheme;
     final dividerColor = Theme.of(context).dividerColor;
+    final canEditDuration = !_running && !_failed && !_completed;
+
     return GestureDetector(
-      onTap: _onFail,
-      onPanStart: (_) => _onFail(),
-      onLongPress: _onFail,
+      onTap: _running ? _onFail : null,
+      onPanStart: _running ? (_) => _onFail() : null,
+      onLongPress: _running ? _onFail : null,
       behavior: HitTestBehavior.opaque,
       child: Scaffold(
         body: SafeArea(
@@ -221,10 +248,52 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
                 const SizedBox(height: 8),
                 Text(
                   loc.silenceChallengeSubtitle(_targetMinutes),
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 14,
                     color: cs.onSurfaceVariant,
                   ),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  loc.silenceChallengeDurationLabel,
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    color: cs.onSurfaceVariant,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Wrap(
+                  key: silenceDurationSelectorKey,
+                  spacing: 8,
+                  runSpacing: 8,
+                  alignment: WrapAlignment.center,
+                  children: [
+                    for (final minutes
+                        in SilenceChallengeScreen.durationOptionsMinutes)
+                      ChoiceChip(
+                        label: Text(
+                          loc.silenceChallengeDurationOption(minutes),
+                        ),
+                        selected: _targetMinutes == minutes,
+                        onSelected: canEditDuration
+                            ? (_) => _selectDuration(minutes)
+                            : null,
+                        selectedColor: cs.primary.withValues(alpha: 0.2),
+                        labelStyle: TextStyle(
+                          color: _targetMinutes == minutes
+                              ? cs.primary
+                              : cs.onSurface,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        side: BorderSide(
+                          color: _targetMinutes == minutes
+                              ? cs.primary
+                              : dividerColor,
+                        ),
+                      ),
+                  ],
                 ),
                 const Spacer(),
                 SizedBox(
@@ -254,6 +323,19 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
                   ),
                 ),
                 const Spacer(),
+                if (canEditDuration) ...[
+                  ElevatedButton(
+                    key: silenceStartButtonKey,
+                    onPressed: _beginChallenge,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: cs.primary,
+                      foregroundColor: cs.onPrimary,
+                      minimumSize: const Size.fromHeight(52),
+                    ),
+                    child: Text(loc.gameStart),
+                  ),
+                  const SizedBox(height: 16),
+                ],
                 Text(
                   loc.silenceChallengeLevel(_level, _targetMinutes),
                   key: silenceLevelLabelKey,
