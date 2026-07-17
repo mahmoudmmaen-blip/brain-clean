@@ -24,9 +24,29 @@ class DailyProgramRepositoryImpl implements DailyProgramRepository {
     return Hive.box<dynamic>(HiveBoxes.dailyProgram);
   }
 
+  /// Hive cannot write Freezed objects; persist plain JSON maps only.
+  Map<String, dynamic> _toHiveJson(DailyProgramState state) {
+    return <String, dynamic>{
+      'date': state.date.toIso8601String(),
+      'dayNumber': state.dayNumber,
+      'steps': state.steps.map((e) => e.toJson()).toList(),
+    };
+  }
+
+  Map<String, dynamic> _fromHiveMap(Map<dynamic, dynamic> raw) {
+    final map = Map<String, dynamic>.from(raw);
+    final steps = map['steps'];
+    if (steps is List) {
+      map['steps'] = steps
+          .map((e) => e is Map ? Map<String, dynamic>.from(e) : e)
+          .toList();
+    }
+    return map;
+  }
+
   Future<void> _save(DailyProgramState state) async {
     final box = await _openBox();
-    await box.put(_todayKey, state.toJson());
+    await box.put(_todayKey, _toHiveJson(state));
   }
 
   Future<DailyProgramState?> _readStoredToday() async {
@@ -34,7 +54,7 @@ class DailyProgramRepositoryImpl implements DailyProgramRepository {
     final raw = box.get(_todayKey);
     if (raw is! Map) return null;
     final existing = DailyProgramState.fromJson(
-      Map<String, dynamic>.from(raw),
+      _fromHiveMap(Map<dynamic, dynamic>.from(raw)),
     );
     if (_dateOnly(existing.date) != _dateOnly(DateTime.now())) {
       return null;
