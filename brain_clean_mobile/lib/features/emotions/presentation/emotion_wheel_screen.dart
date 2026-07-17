@@ -29,7 +29,7 @@ class EmotionWheelScreen extends ConsumerWidget {
       if (next.isAwaitingConfirmation &&
           next.selectedEmotion != null &&
           (prev?.isAwaitingConfirmation != true)) {
-        _showConfirmationDialog(context, ref, next, loc);
+        _showConfirmationDialog(context, ref, loc);
       }
     });
 
@@ -95,16 +95,8 @@ class EmotionWheelScreen extends ConsumerWidget {
   Future<void> _showConfirmationDialog(
     BuildContext context,
     WidgetRef ref,
-    EmotionState state,
     AppLocalizations loc,
   ) async {
-    final emotion = state.selectedEmotion!;
-    final impact = state.pendingImpact;
-    final pct = (impact.abs() * 100).toStringAsFixed(0);
-    final body = impact < 0
-        ? loc.emotionImpactNegative(emotion.label, pct)
-        : loc.emotionImpactPositive(emotion.label, pct);
-
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) {
@@ -116,7 +108,7 @@ class EmotionWheelScreen extends ConsumerWidget {
             style: TextStyle(color: colorScheme.onSurface),
           ),
           content: Text(
-            body,
+            loc.emotionLogDialogBody,
             style: TextStyle(color: colorScheme.onSurfaceVariant, height: 1.5),
           ),
           actions: [
@@ -130,10 +122,8 @@ class EmotionWheelScreen extends ConsumerWidget {
             ElevatedButton(
               onPressed: () => Navigator.of(ctx).pop(true),
               style: ElevatedButton.styleFrom(
-                backgroundColor:
-                    impact < 0 ? colorScheme.error : colorScheme.primary,
-                foregroundColor:
-                    impact < 0 ? colorScheme.onError : colorScheme.onPrimary,
+                backgroundColor: colorScheme.primary,
+                foregroundColor: colorScheme.onPrimary,
               ),
               child: Text(loc.emotionConfirmLog),
             ),

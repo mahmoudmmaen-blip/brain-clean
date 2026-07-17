@@ -60,21 +60,20 @@ void main() {
 
     tearDown(() => container.dispose());
 
-    test('selectEmotion with negative impact awaits confirmation', () {
+    test('selectEmotion awaits confirmation without recovery penalty', () {
       final sadness = EmotionModel.catalog.firstWhere(
         (e) => e.category == EmotionCategory.sadness && e.intensity == 3,
       );
-      expect(sadness.recoveryImpact, lessThan(0));
 
       container.read(emotionNotifierProvider.notifier).selectEmotion(sadness);
       final state = container.read(emotionNotifierProvider);
 
       expect(state.isAwaitingConfirmation, isTrue);
-      expect(state.pendingImpact, lessThan(0));
+      expect(state.pendingImpact, 0);
       expect(state.selectedEmotion?.label, sadness.label);
     });
 
-    test('confirmImpact applies delta to bcScoreSession', () async {
+    test('confirmImpact logs emotion without changing bcScoreSession', () async {
       final before = container.read(bcScoreSessionProvider)!.bcScore;
       final outerFear = EmotionModel.catalog.firstWhere(
         (e) => e.category == EmotionCategory.fear && e.intensity == 3,
@@ -84,11 +83,8 @@ void main() {
       await container.read(emotionNotifierProvider.notifier).confirmImpact();
 
       final after = container.read(bcScoreSessionProvider)!.bcScore;
-      expect(after, lessThan(before));
-      expect(
-        before - after,
-        closeTo(before * outerFear.recoveryImpact.abs(), 0.01),
-      );
+      expect(after, before);
+      expect(container.read(emotionNotifierProvider), EmotionState.initial);
     });
 
     test('rejectImpact resets state without changing BCS', () {

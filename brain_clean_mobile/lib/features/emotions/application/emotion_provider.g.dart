@@ -26,7 +26,7 @@ final filteredEmotionCategoriesProvider =
 
 typedef FilteredEmotionCategoriesRef
     = AutoDisposeProviderRef<List<EmotionCategory>>;
-String _$emotionNotifierHash() => r'b5adef74e932c27d87f7a682386a147be4122a6f';
+String _$emotionNotifierHash() => r'3f0a1f1634fe59677e8430830d9cc99d0fd2ed0d';
 
 /// See also [EmotionNotifier].
 @ProviderFor(EmotionNotifier)

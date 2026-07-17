@@ -854,17 +854,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get emotionWheelTitle => 'Emotion wheel';
 
   @override
-  String get emotionImpactDialogTitle => 'Impact on your recovery';
+  String get emotionImpactDialogTitle => 'Log emotion';
 
   @override
-  String emotionImpactNegative(String emotion, String pct) {
-    return 'Feeling $emotion will reduce your recovery by $pct%.\nLog it?';
-  }
-
-  @override
-  String emotionImpactPositive(String emotion, String pct) {
-    return 'Feeling $emotion will improve your recovery by $pct%.\nLog it?';
-  }
+  String get emotionLogDialogBody =>
+      'Logging this emotion helps you understand your day and track your progress gently. Do you want to log it?';
 
   @override
   String get emotionIgnore => 'No, ignore';
