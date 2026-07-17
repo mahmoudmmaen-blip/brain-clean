@@ -7,16 +7,11 @@ import '../../core/application/app_preferences_provider.dart';
 import '../../core/security/security_status_provider.dart';
 import '../../core/constants/app_routes.dart';
 import '../../core/l10n/app_localizations.dart';
-import '../../core/services/notifications_service.dart';
 import '../../core/services/smart_notification_service.dart';
-import '../../core/services/weekly_report_service.dart';
-import '../../core/services/worry_window_notification_service.dart';
 import '../../core/storage/hive_boxes.dart';
 import '../../core/theme/app_color_theme.dart';
 import '../../core/theme/app_color_theme_provider.dart';
-import '../../shared/widgets/glass_card.dart';
 import '../pro/application/subscription_service_provider.dart';
-import '../smart_reminders/application/smart_reminder_provider.dart';
 
 const settingsProTileKey = Key('settings_pro_tile');
 const settingsResetKey = Key('settings_reset_data');
@@ -28,33 +23,24 @@ class SettingsScreen extends ConsumerWidget {
     final loc = AppLocalizations.of(context)!;
     final confirmed = await showDialog<bool>(
       context: context,
-      builder: (ctx) {
-        final colorScheme = Theme.of(ctx).colorScheme;
-        return AlertDialog(
-          backgroundColor: colorScheme.surface,
-          title: Text(
-            loc.settingsResetDataConfirmTitle,
-            style: TextStyle(color: colorScheme.onSurface),
+      builder: (ctx) => AlertDialog(
+        backgroundColor: const Color(0xFF161B22),
+        title: Text(loc.settingsResetDataConfirmTitle,
+            style: const TextStyle(color: Color(0xFFE6EDF3))),
+        content: Text(loc.settingsResetDataConfirmBody,
+            style: const TextStyle(color: Color(0xFF8B949E))),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(false),
+            child: Text(loc.commonCancel),
           ),
-          content: Text(
-            loc.settingsResetDataConfirmBody,
-            style: TextStyle(color: colorScheme.onSurfaceVariant),
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(true),
+            child: Text(loc.commonConfirm,
+                style: const TextStyle(color: Color(0xFFEF4444))),
           ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(ctx).pop(false),
-              child: Text(loc.commonCancel),
-            ),
-            TextButton(
-              onPressed: () => Navigator.of(ctx).pop(true),
-              child: Text(
-                loc.commonConfirm,
-                style: TextStyle(color: colorScheme.error),
-              ),
-            ),
-          ],
-        );
-      },
+        ],
+      ),
     );
     if (confirmed != true || !context.mounted) return;
 
@@ -63,7 +49,6 @@ class SettingsScreen extends ConsumerWidget {
       HiveBoxes.diagnosticPersistence,
       HiveBoxes.emotionLog,
       HiveBoxes.dailySnapshots,
-      HiveBoxes.journalSpaces,
       HiveBoxes.appMeta,
     ]) {
       if (Hive.isBoxOpen(name)) {
@@ -79,442 +64,123 @@ class SettingsScreen extends ConsumerWidget {
     final loc = AppLocalizations.of(context)!;
     final prefs = ref.watch(appPreferencesProvider);
     final isPro = ref.watch(isProUserProvider);
-    final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      appBar: AppBar(title: Text(loc.settingsTitle)),
+      backgroundColor: const Color(0xFF0D1117),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF0D1117),
+        title: Text(loc.settingsTitle,
+            style: const TextStyle(color: Color(0xFFE6EDF3))),
+        iconTheme: const IconThemeData(color: Color(0xFF8B949E)),
+      ),
       body: ListView(
-        padding: const EdgeInsets.all(16),
         children: [
-          GlassCard(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _SectionHeader(loc.settingsAccountSection),
-                ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  key: settingsProTileKey,
-                  title: Text(
-                    isPro ? loc.settingsProActive : loc.settingsUpgradeToPro,
-                    style: TextStyle(
-                      color: isPro ? colorScheme.primary : colorScheme.onSurface,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  trailing: isPro
-                      ? null
-                      : Icon(
-                          Icons.chevron_left,
-                          color: colorScheme.onSurfaceVariant,
-                        ),
-                  onTap: isPro ? null : () => context.push(AppRoutes.proPaywall),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 12),
-          GlassCard(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _SectionHeader(loc.settingsAppearanceSection),
-                const _ColorThemeSection(),
-                SwitchListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(
-                    loc.settingsBiometricLock,
-                    style: TextStyle(color: colorScheme.onSurface),
-                  ),
-                  subtitle: Text(
-                    loc.settingsBiometricLockSubtitle,
-                    style: TextStyle(
-                      color: colorScheme.onSurfaceVariant,
-                      fontSize: 12,
-                    ),
-                  ),
-                  value: ref.watch(biometricLockSettingsProvider),
-                  activeThumbColor: colorScheme.primary,
-                  onChanged: (enabled) async {
-                    final ok = await ref
-                        .read(biometricLockSettingsProvider.notifier)
-                        .setEnabled(enabled);
-                    if (!ok && context.mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(loc.settingsBiometricUnavailable),
-                        ),
-                      );
-                    }
-                  },
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 12),
-          GlassCard(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _SectionHeader(loc.settingsNotificationsSection),
-                SwitchListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(
-                    loc.settingsEmotionNotifications,
-                    style: TextStyle(color: colorScheme.onSurface),
-                  ),
-                  value: prefs.emotionNotificationsEnabled,
-                  activeThumbColor: colorScheme.primary,
-                  onChanged: (v) async {
-                    await ref
-                        .read(appPreferencesProvider.notifier)
-                        .setEmotionNotifications(v);
-                    await ref.read(smartNotificationServiceProvider).rescheduleAll();
-                  },
-                ),
-                SwitchListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(
-                    loc.settingsDailyFocusReminder,
-                    style: TextStyle(color: colorScheme.onSurface),
-                  ),
-                  value: prefs.dailyFocusReminderEnabled,
-                  activeThumbColor: colorScheme.primary,
-                  onChanged: (v) async {
-                    await ref
-                        .read(appPreferencesProvider.notifier)
-                        .setDailyFocusReminder(v);
-                    await ref.read(smartNotificationServiceProvider).rescheduleAll();
-                  },
-                ),
-                const _DailyReminderTile(),
-              ],
-            ),
-          ),
-          const SizedBox(height: 12),
-          const _WorryWindowReminderSection(),
-          const SizedBox(height: 12),
-          const _SmartReminderSection(),
-          const SizedBox(height: 12),
-          GlassCard(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _SectionHeader(loc.settingsSubscriptionSection),
-                ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(
-                    isPro ? loc.settingsProActive : loc.settingsUpgradeToPro,
-                    style: TextStyle(
-                      color: isPro
-                          ? const Color(0xFFFBBF24)
-                          : colorScheme.onSurface,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  subtitle: Text(
-                    isPro ? loc.proPriceHint : loc.proPriceMonthly,
-                    style: TextStyle(color: colorScheme.onSurfaceVariant),
-                  ),
-                  trailing: isPro
-                      ? Icon(Icons.verified, color: const Color(0xFFFBBF24))
-                      : Icon(
-                          Icons.chevron_left,
-                          color: colorScheme.onSurfaceVariant,
-                        ),
-                  onTap: isPro ? null : () => context.push(AppRoutes.proPaywall),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 12),
-          GlassCard(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _SectionHeader(loc.settingsDataSection),
-                ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  key: settingsResetKey,
-                  title: Text(
-                    loc.settingsResetData,
-                    style: TextStyle(color: colorScheme.error),
-                  ),
-                  onTap: () => _confirmReset(context, ref),
-                ),
-                ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(
-                    loc.settingsExportData,
-                    style: TextStyle(color: colorScheme.onSurface),
-                  ),
-                  onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(loc.settingsComingSoon)),
-                    );
-                  },
-                ),
-                _SectionHeader(loc.settingsAboutSection),
-                ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(
-                    loc.settingsVersion,
-                    style: TextStyle(color: colorScheme.onSurface),
-                  ),
-                  trailing: Text(
-                    '1.0.0',
-                    style: TextStyle(color: colorScheme.onSurfaceVariant),
-                  ),
-                ),
-                ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(
-                    loc.settingsPrivacyPolicy,
-                    style: TextStyle(color: colorScheme.onSurface),
-                  ),
-                  onTap: () {},
-                ),
-                ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(
-                    loc.settingsContactUs,
-                    style: TextStyle(color: colorScheme.onSurface),
-                  ),
-                  onTap: () {},
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _DailyReminderTile extends ConsumerStatefulWidget {
-  const _DailyReminderTile();
-
-  @override
-  ConsumerState<_DailyReminderTile> createState() => _DailyReminderTileState();
-}
-
-class _DailyReminderTileState extends ConsumerState<_DailyReminderTile> {
-  final _service = NotificationsService();
-  bool? _enabled;
-
-  @override
-  void initState() {
-    super.initState();
-    _load();
-  }
-
-  Future<void> _load() async {
-    final enabled = await _service.isDailyReminderEnabled();
-    if (mounted) setState(() => _enabled = enabled);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final loc = AppLocalizations.of(context)!;
-    final colorScheme = Theme.of(context).colorScheme;
-
-    if (_enabled == null) {
-      return SwitchListTile(
-        contentPadding: EdgeInsets.zero,
-        title: Text(
-          loc.settingsDailyReminder,
-          style: TextStyle(color: colorScheme.onSurface),
-        ),
-        subtitle: Text(
-          loc.settingsDailyReminderSub,
-          style: TextStyle(color: colorScheme.onSurfaceVariant, fontSize: 12),
-        ),
-        value: true,
-        onChanged: null,
-      );
-    }
-
-    return SwitchListTile(
-      contentPadding: EdgeInsets.zero,
-      title: Text(
-        loc.settingsDailyReminder,
-        style: TextStyle(color: colorScheme.onSurface),
-      ),
-      subtitle: Text(
-        loc.settingsDailyReminderSub,
-        style: TextStyle(color: colorScheme.onSurfaceVariant, fontSize: 12),
-      ),
-      value: _enabled!,
-      activeThumbColor: colorScheme.primary,
-      onChanged: (enabled) async {
-        final locale = Localizations.localeOf(context);
-        setState(() => _enabled = enabled);
-        await _service.setDailyReminderEnabled(enabled);
-        if (enabled) {
-          await _service.scheduleDailyReminder(
-            title: loc.notifDailyTitle,
-            body: loc.notifDailyBody,
-            locale: locale,
-          );
-        } else {
-          await _service.cancelAll();
-          try {
-            await ref.read(smartNotificationServiceProvider).rescheduleAll();
-            await ref.read(weeklyReportServiceProvider).schedule();
-          } catch (_) {}
-        }
-      },
-    );
-  }
-}
-
-class _WorryWindowReminderSection extends ConsumerWidget {
-  const _WorryWindowReminderSection();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final loc = AppLocalizations.of(context)!;
-    final prefs = ref.watch(appPreferencesProvider);
-    final colorScheme = Theme.of(context).colorScheme;
-    final timeLabel = MaterialLocalizations.of(context).formatTimeOfDay(
-      TimeOfDay(
-        hour: prefs.worryWindowReminderHour,
-        minute: prefs.worryWindowReminderMinute,
-      ),
-    );
-    final showLateWarning = prefs.worryWindowReminderHour >= 21;
-
-    return GlassCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          _SectionHeader(loc.worrySettingsSectionTitle),
+          _SectionHeader(loc.settingsAccountSection),
           ListTile(
-            contentPadding: EdgeInsets.zero,
+            key: settingsProTileKey,
             title: Text(
-              loc.worrySettingsReminderTime,
-              style: TextStyle(color: colorScheme.onSurface),
-            ),
-            subtitle: Text(
-              timeLabel,
-              style: TextStyle(color: colorScheme.primary),
-            ),
-            trailing: Icon(Icons.schedule, color: colorScheme.onSurfaceVariant),
-            onTap: () async {
-              final picked = await showTimePicker(
-                context: context,
-                initialTime: TimeOfDay(
-                  hour: prefs.worryWindowReminderHour,
-                  minute: prefs.worryWindowReminderMinute,
-                ),
-              );
-              if (picked == null) return;
-              await ref
-                  .read(appPreferencesProvider.notifier)
-                  .setWorryWindowReminderTime(
-                    hour: picked.hour,
-                    minute: picked.minute,
-                  );
-              await ref
-                  .read(worryWindowNotificationServiceProvider)
-                  .reschedule();
-            },
-          ),
-          if (showLateWarning)
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: Text(
-                loc.worryTimingWarning,
-                style: TextStyle(
-                  color: colorScheme.error,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                ),
+              isPro ? loc.settingsProActive : loc.settingsUpgradeToPro,
+              style: TextStyle(
+                color: isPro
+                    ? const Color(0xFF1D9E75)
+                    : const Color(0xFFE6EDF3),
+                fontWeight: FontWeight.w600,
               ),
             ),
+            trailing: isPro
+                ? null
+                : const Icon(Icons.chevron_left, color: Color(0xFF8B949E)),
+            onTap: isPro ? null : () => context.push(AppRoutes.proPaywall),
+          ),
+          const Divider(color: Color(0xFF30363D)),
+          _SectionHeader(loc.settingsAppearanceSection),
+          _ColorThemeSection(isPro: isPro),
+          const Divider(color: Color(0xFF30363D)),
+          _SectionHeader(loc.settingsNotificationsSection),
           SwitchListTile(
-            contentPadding: EdgeInsets.zero,
-            title: Text(
-              loc.worrySettingsReminderEnabled,
-              style: TextStyle(color: colorScheme.onSurface),
-            ),
-            value: prefs.worryWindowReminderEnabled,
-            activeThumbColor: colorScheme.primary,
-            onChanged: (enabled) async {
+            title: Text(loc.settingsEmotionNotifications,
+                style: const TextStyle(color: Color(0xFFE6EDF3))),
+            value: prefs.emotionNotificationsEnabled,
+            activeThumbColor: const Color(0xFF1D9E75),
+            onChanged: (v) async {
               await ref
                   .read(appPreferencesProvider.notifier)
-                  .setWorryWindowReminderEnabled(enabled);
-              await ref
-                  .read(worryWindowNotificationServiceProvider)
-                  .reschedule();
+                  .setEmotionNotifications(v);
+              await ref.read(smartNotificationServiceProvider).rescheduleAll();
             },
+          ),
+          SwitchListTile(
+            title: Text(loc.settingsDailyFocusReminder,
+                style: const TextStyle(color: Color(0xFFE6EDF3))),
+            value: prefs.dailyFocusReminderEnabled,
+            activeThumbColor: const Color(0xFF1D9E75),
+            onChanged: (v) async {
+              await ref
+                  .read(appPreferencesProvider.notifier)
+                  .setDailyFocusReminder(v);
+              await ref.read(smartNotificationServiceProvider).rescheduleAll();
+            },
+          ),
+          const Divider(color: Color(0xFF30363D)),
+          _SectionHeader(loc.settingsSecuritySection),
+          SwitchListTile(
+            title: Text(loc.settingsBiometricLock,
+                style: const TextStyle(color: Color(0xFFE6EDF3))),
+            subtitle: Text(loc.settingsBiometricLockSubtitle,
+                style: const TextStyle(
+                    color: Color(0xFF8B949E), fontSize: 12)),
+            value: ref.watch(biometricLockSettingsProvider),
+            activeThumbColor: const Color(0xFF1D9E75),
+            onChanged: (enabled) async {
+              final ok = await ref
+                  .read(biometricLockSettingsProvider.notifier)
+                  .setEnabled(enabled);
+              if (!ok && context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                      content:
+                          Text(loc.settingsBiometricUnavailable)),
+                );
+              }
+            },
+          ),
+          const Divider(color: Color(0xFF30363D)),
+          _SectionHeader(loc.settingsDataSection),
+          ListTile(
+            key: settingsResetKey,
+            title: Text(loc.settingsResetData,
+                style: const TextStyle(color: Color(0xFFEF4444))),
+            onTap: () => _confirmReset(context, ref),
+          ),
+          ListTile(
+            title: Text(loc.settingsExportData,
+                style: const TextStyle(color: Color(0xFFE6EDF3))),
+            onTap: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(loc.settingsComingSoon)),
+              );
+            },
+          ),
+          const Divider(color: Color(0xFF30363D)),
+          _SectionHeader(loc.settingsAboutSection),
+          ListTile(
+            title: Text(loc.settingsVersion,
+                style: const TextStyle(color: Color(0xFFE6EDF3))),
+            trailing: const Text('1.0.0',
+                style: TextStyle(color: Color(0xFF8B949E))),
+          ),
+          ListTile(
+            title: Text(loc.settingsPrivacyPolicy,
+                style: const TextStyle(color: Color(0xFFE6EDF3))),
+            onTap: () {},
+          ),
+          ListTile(
+            title: Text(loc.settingsContactUs,
+                style: const TextStyle(color: Color(0xFFE6EDF3))),
+            onTap: () {},
           ),
         ],
       ),
-    );
-  }
-}
-
-class _SmartReminderSection extends ConsumerWidget {
-  const _SmartReminderSection();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final loc = AppLocalizations.of(context)!;
-    final colorScheme = Theme.of(context).colorScheme;
-    final configAsync = ref.watch(smartReminderProvider);
-
-    return configAsync.when(
-      loading: () => const SizedBox.shrink(),
-      error: (_, __) => const SizedBox.shrink(),
-      data: (config) {
-        final statusText = config.detectedHour != null
-            ? loc.smartReminderStatusDetected(config.detectedHour!)
-            : loc.smartReminderStatusLearning;
-
-        return GlassCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _SectionHeader(loc.smartReminderSectionTitle),
-              SwitchListTile(
-                contentPadding: EdgeInsets.zero,
-                title: Text(
-                  loc.smartReminderToggle,
-                  style: TextStyle(color: colorScheme.onSurface),
-                ),
-                value: config.isEnabled,
-                activeThumbColor: colorScheme.primary,
-                onChanged: (enabled) => ref
-                    .read(smartReminderProvider.notifier)
-                    .toggleEnabled(enabled),
-              ),
-              Text(
-                statusText,
-                style: TextStyle(
-                  color: colorScheme.onSurfaceVariant,
-                  fontSize: 13,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                decoration: BoxDecoration(
-                  color: colorScheme.surfaceContainerHighest,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Text(
-                  loc.smartReminderInfoChip,
-                  style: TextStyle(
-                    color: colorScheme.onSurfaceVariant,
-                    fontSize: 12,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
     );
   }
 }
@@ -525,20 +191,13 @@ class _SectionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Align(
-        alignment: Alignment.centerRight,
-        child: Text(
-          label,
-          style: TextStyle(
-            color: colorScheme.onSurfaceVariant,
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+      child: Text(label,
+          style: const TextStyle(
+              color: Color(0xFF8B949E),
+              fontSize: 13,
+              fontWeight: FontWeight.w600)),
     );
   }
 }
@@ -555,16 +214,16 @@ String _colorThemeName(AppLocalizations loc, AppColorTheme theme) {
 }
 
 class _ColorThemeSection extends ConsumerWidget {
-  const _ColorThemeSection();
+  const _ColorThemeSection({required this.isPro});
+  final bool isPro;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = AppLocalizations.of(context)!;
     final selected = ref.watch(selectedColorThemeProvider);
-    final isPro = ref.watch(isProUserProvider);
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
       child: Wrap(
         spacing: 18,
         runSpacing: 16,
@@ -610,7 +269,6 @@ class _ColorThemeSwatch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
     return Semantics(
       label: label,
       selected: selected,
@@ -630,14 +288,14 @@ class _ColorThemeSwatch extends StatelessWidget {
                     color: theme.accent,
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: selected
-                          ? colorScheme.onSurface
-                          : Colors.transparent,
+                      color:
+                          selected ? Colors.white : Colors.transparent,
                       width: 2.5,
                     ),
                   ),
                   child: selected
-                      ? Icon(Icons.check, color: colorScheme.onPrimary, size: 20)
+                      ? const Icon(Icons.check,
+                          color: Colors.white, size: 20)
                       : null,
                 ),
                 if (locked)
@@ -648,18 +306,15 @@ class _ColorThemeSwatch extends StatelessWidget {
                       color: Colors.black.withValues(alpha: 0.45),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.lock, color: Colors.white, size: 18),
+                    child: const Icon(Icons.lock,
+                        color: Colors.white, size: 18),
                   ),
               ],
             ),
             const SizedBox(height: 6),
-            Text(
-              label,
-              style: TextStyle(
-                color: colorScheme.onSurfaceVariant,
-                fontSize: 12,
-              ),
-            ),
+            Text(label,
+                style: const TextStyle(
+                    color: Color(0xFF8B949E), fontSize: 12)),
           ],
         ),
       ),
