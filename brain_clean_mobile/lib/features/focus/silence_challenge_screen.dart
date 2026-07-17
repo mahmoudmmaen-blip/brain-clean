@@ -26,7 +26,7 @@ class SilenceChallengeScreen extends ConsumerStatefulWidget {
 
   final int streakDays;
 
-  static const durationOptionsMinutes = <int>[5, 10, 15, 20, 30];
+  static const durationOptionsMinutes = <int>[5, 10, 15, 20, 30, 45, 60];
   static const defaultDurationMinutes = 10;
 
   static int computeLevel(int streakDays) =>
