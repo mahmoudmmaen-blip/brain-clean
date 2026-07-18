@@ -13,6 +13,24 @@ part 'emotion_provider.g.dart';
 /// Mood gate selection before category chips.
 enum EmotionMoodGate { negative, neutral, positive }
 
+/// Armed only when Emotion Wheel is opened from Daily Program mood step.
+@Riverpod(keepAlive: true)
+class EmotionWheelDailyProgramGate extends _$EmotionWheelDailyProgramGate {
+  @override
+  bool build() => false;
+
+  void arm() => state = true;
+
+  void disarm() => state = false;
+
+  /// Returns whether the gate was armed, then clears it.
+  bool consume() {
+    final armed = state;
+    state = false;
+    return armed;
+  }
+}
+
 class EmotionState {
   const EmotionState({
     this.moodGate,
@@ -108,13 +126,17 @@ class EmotionNotifier extends _$EmotionNotifier {
       // Logging is best-effort.
     }
 
-    await _completeDailyMoodStepIfCurrent();
+    await _completeDailyMoodStepIfOpenedFromDailyProgram();
 
     state = EmotionState.initial;
   }
 
-  Future<void> _completeDailyMoodStepIfCurrent() async {
+  Future<void> _completeDailyMoodStepIfOpenedFromDailyProgram() async {
     try {
+      final fromDailyProgram =
+          ref.read(emotionWheelDailyProgramGateProvider.notifier).consume();
+      if (!fromDailyProgram) return;
+
       final program = ref.read(dailyProgramProvider).valueOrNull;
       final current = program?.currentStep;
       if (current == null || current.step != DailyStep.mood) return;
@@ -126,6 +148,7 @@ class EmotionNotifier extends _$EmotionNotifier {
   }
 
   void rejectImpact() {
+    ref.read(emotionWheelDailyProgramGateProvider.notifier).disarm();
     state = EmotionState.initial;
   }
 

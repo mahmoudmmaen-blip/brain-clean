@@ -17,7 +17,18 @@ class DailyProgramService {
     ];
   }
 
-  static String getStepTitle(DailyStep step) {
+  static String getStepTitle(DailyStep step, {String languageCode = 'ar'}) {
+    if (languageCode == 'en') {
+      return switch (step) {
+        DailyStep.dayStart => 'Day start',
+        DailyStep.water => 'Drink a glass of water',
+        DailyStep.movement => 'Movement',
+        DailyStep.sukoon => 'Stillness session',
+        DailyStep.mood => 'Check your mood',
+        DailyStep.journal => "Today's journal",
+        DailyStep.dayEnd => 'Close the day',
+      };
+    }
     return switch (step) {
       DailyStep.dayStart => 'بداية اليوم',
       DailyStep.water => 'اشرب كوب ماء',
@@ -34,7 +45,7 @@ class DailyProgramService {
       DailyStep.dayStart => '🌅',
       DailyStep.water => '💧',
       DailyStep.movement => '🚶',
-      DailyStep.sukoon => '🧘',
+      DailyStep.sukoon => '🔕',
       DailyStep.mood => '😊',
       DailyStep.journal => '📝',
       DailyStep.dayEnd => '🏁',

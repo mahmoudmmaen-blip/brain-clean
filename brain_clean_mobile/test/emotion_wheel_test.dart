@@ -87,6 +87,18 @@ void main() {
       expect(container.read(emotionNotifierProvider), EmotionState.initial);
     });
 
+    test('confirmImpact does not complete mood unless Daily Program gate armed',
+        () async {
+      final joy = EmotionModel.catalog.firstWhere(
+        (e) => e.category == EmotionCategory.joy && e.intensity == 1,
+      );
+
+      expect(container.read(emotionWheelDailyProgramGateProvider), isFalse);
+      container.read(emotionNotifierProvider.notifier).selectEmotion(joy);
+      await container.read(emotionNotifierProvider.notifier).confirmImpact();
+      expect(container.read(emotionWheelDailyProgramGateProvider), isFalse);
+    });
+
     test('rejectImpact resets state without changing BCS', () {
       final before = container.read(bcScoreSessionProvider)!.bcScore;
       final anger = EmotionModel.catalog.firstWhere(

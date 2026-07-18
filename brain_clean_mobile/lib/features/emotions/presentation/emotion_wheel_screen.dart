@@ -15,11 +15,16 @@ Key emotionCategoryChipKey(EmotionCategory category) =>
     Key('emotion_category_${category.name}');
 
 /// Three-step smart emotion picker with confirmation dialog.
-class EmotionWheelScreen extends ConsumerWidget {
+class EmotionWheelScreen extends ConsumerStatefulWidget {
   const EmotionWheelScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<EmotionWheelScreen> createState() => _EmotionWheelScreenState();
+}
+
+class _EmotionWheelScreenState extends ConsumerState<EmotionWheelScreen> {
+  @override
+  Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final loc = AppLocalizations.of(context)!;
     final emotionState = ref.watch(emotionNotifierProvider);
@@ -33,60 +38,67 @@ class EmotionWheelScreen extends ConsumerWidget {
       }
     });
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          loc.emotionWheelTitle,
-          style: TextStyle(color: colorScheme.onSurface),
+    return PopScope(
+      onPopInvokedWithResult: (didPop, _) {
+        if (didPop) {
+          ref.read(emotionWheelDailyProgramGateProvider.notifier).disarm();
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            loc.emotionWheelTitle,
+            style: TextStyle(color: colorScheme.onSurface),
+          ),
+          iconTheme: IconThemeData(color: colorScheme.onSurfaceVariant),
         ),
-        iconTheme: IconThemeData(color: colorScheme.onSurfaceVariant),
-      ),
-      body: hydrationAsync.when(
-        loading: () => AsyncStateViews.loading(context),
-        error: (_, __) => AsyncStateViews.error(context),
-        data: (_) => ListView(
-          padding: const EdgeInsets.all(16),
-          children: [
-            if (emotionState.moodGate == null)
-              _MoodGateStep(
-                negativeLabel: loc.emotionGateNegative,
-                neutralLabel: loc.emotionGateNeutral,
-                positiveLabel: loc.emotionGatePositive,
-                onNegative: () => ref
-                    .read(emotionNotifierProvider.notifier)
-                    .selectMoodGate(EmotionMoodGate.negative),
-                onNeutral: () => ref
-                    .read(emotionNotifierProvider.notifier)
-                    .selectMoodGate(EmotionMoodGate.neutral),
-                onPositive: () => ref
-                    .read(emotionNotifierProvider.notifier)
-                    .selectMoodGate(EmotionMoodGate.positive),
-              )
-            else ...[
-              if (emotionState.selectedCategory == null)
-                _CategoryStep(
-                  backLabel: loc.commonBack,
-                  categories: ref.watch(filteredEmotionCategoriesProvider),
-                  onSelect: (cat) => ref
+        body: hydrationAsync.when(
+          loading: () => AsyncStateViews.loading(context),
+          error: (_, __) => AsyncStateViews.error(context),
+          data: (_) => ListView(
+            padding: const EdgeInsets.all(16),
+            children: [
+              if (emotionState.moodGate == null)
+                _MoodGateStep(
+                  negativeLabel: loc.emotionGateNegative,
+                  neutralLabel: loc.emotionGateNeutral,
+                  positiveLabel: loc.emotionGatePositive,
+                  onNegative: () => ref
                       .read(emotionNotifierProvider.notifier)
-                      .selectCategory(cat),
-                  onBack: () => ref
+                      .selectMoodGate(EmotionMoodGate.negative),
+                  onNeutral: () => ref
                       .read(emotionNotifierProvider.notifier)
-                      .resetMoodGate(),
+                      .selectMoodGate(EmotionMoodGate.neutral),
+                  onPositive: () => ref
+                      .read(emotionNotifierProvider.notifier)
+                      .selectMoodGate(EmotionMoodGate.positive),
                 )
-              else
-                _EmotionGridStep(
-                  backLabel: loc.commonBack,
-                  category: emotionState.selectedCategory!,
-                  onSelect: (e) => ref
-                      .read(emotionNotifierProvider.notifier)
-                      .selectEmotion(e),
-                  onBack: () => ref
-                      .read(emotionNotifierProvider.notifier)
-                      .backToCategories(),
-                ),
+              else ...[
+                if (emotionState.selectedCategory == null)
+                  _CategoryStep(
+                    backLabel: loc.commonBack,
+                    categories: ref.watch(filteredEmotionCategoriesProvider),
+                    onSelect: (cat) => ref
+                        .read(emotionNotifierProvider.notifier)
+                        .selectCategory(cat),
+                    onBack: () => ref
+                        .read(emotionNotifierProvider.notifier)
+                        .resetMoodGate(),
+                  )
+                else
+                  _EmotionGridStep(
+                    backLabel: loc.commonBack,
+                    category: emotionState.selectedCategory!,
+                    onSelect: (e) => ref
+                        .read(emotionNotifierProvider.notifier)
+                        .selectEmotion(e),
+                    onBack: () => ref
+                        .read(emotionNotifierProvider.notifier)
+                        .backToCategories(),
+                  ),
+              ],
             ],
-          ],
+          ),
         ),
       ),
     );

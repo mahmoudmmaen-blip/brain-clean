@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/constants/app_routes.dart';
 import '../../core/l10n/app_localizations.dart';
 import '../../core/services/purchases_service.dart';
+import '../emotions/application/emotion_provider.dart';
 
 /// Whether the current user holds the live Brain Clean Pro entitlement.
 bool _hasProEntitlement(WidgetRef ref) =>
@@ -16,6 +17,10 @@ void navigateWithProGate(
   WidgetRef ref,
   String destination,
 ) {
+  if (destination == AppRoutes.emotionWheel) {
+    // Home / other entry points must not complete Daily Program mood.
+    ref.read(emotionWheelDailyProgramGateProvider.notifier).disarm();
+  }
   if (_hasProEntitlement(ref)) {
     context.push(destination);
   } else {

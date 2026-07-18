@@ -7,6 +7,7 @@ import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/presentation/language_toggle_button.dart';
 import '../../../shared/widgets/glass_card.dart';
+import '../../emotions/application/emotion_provider.dart';
 import '../../home/presentation/home_streak_provider.dart';
 import '../application/daily_program_provider.dart';
 import '../domain/daily_program_service.dart';
@@ -65,7 +66,12 @@ class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
   VoidCallback? _secondaryAction(BuildContext context, DailyStep step) {
     return switch (step) {
       // Shell-nested under /home — go() avoids duplicate StatefulShell navigators.
-      DailyStep.mood => () => context.go(AppRoutes.emotionWheel),
+      DailyStep.mood => () {
+          ref
+              .read(emotionWheelDailyProgramGateProvider.notifier)
+              .arm();
+          context.go(AppRoutes.emotionWheel);
+        },
       DailyStep.sukoon => () {
           final streakDays = ref.read(homeStreakSnapshotProvider).days;
           context.go(
@@ -273,7 +279,10 @@ class _NextStepCard extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           Text(
-            DailyProgramService.getStepTitle(step),
+            DailyProgramService.getStepTitle(
+              step,
+              languageCode: Localizations.localeOf(context).languageCode,
+            ),
             textAlign: TextAlign.center,
             style: TextStyle(
               color: colorScheme.onSurface,
@@ -444,7 +453,10 @@ class _StepRow extends StatelessWidget {
         const SizedBox(width: 12),
         Expanded(
           child: Text(
-            DailyProgramService.getStepTitle(step),
+            DailyProgramService.getStepTitle(
+              step,
+              languageCode: Localizations.localeOf(context).languageCode,
+            ),
             style: TextStyle(
               color: status == DailyStepStatus.locked
                   ? colorScheme.onSurfaceVariant
