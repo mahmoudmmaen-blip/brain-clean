@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 
 import 'ambient_sound_player.dart';
 import 'application/silence_challenge_daily_program_gate.dart';
-import 'widgets/ambient_sound_widgets.dart';
 import '../../core/application/app_preferences_provider.dart';
 import '../../core/constants/app_routes.dart';
 import '../../core/l10n/app_localizations.dart';
@@ -21,6 +20,7 @@ const silenceCountdownKey = Key('silence_countdown');
 const silenceLevelLabelKey = Key('silence_level_label');
 const silenceDurationSelectorKey = Key('silence_duration_selector');
 const silenceStartButtonKey = Key('silence_start_button');
+const silenceSessionIconKey = Key('silence_session_icon');
 
 /// Full-screen silence challenge — no touch or backgrounding until timer ends.
 class SilenceChallengeScreen extends ConsumerStatefulWidget {
@@ -67,9 +67,8 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
     _totalSeconds = _targetMinutes * 60;
     _remainingSeconds = _totalSeconds;
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref
-          .read(ambientSoundControllerProvider.notifier)
-          .play(AmbientSound.rain);
+      // Stillness session is silent by default — never autoplay ambient audio.
+      ref.read(ambientSoundControllerProvider.notifier).stop();
     });
   }
 
@@ -276,9 +275,14 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
               child: Column(
                 children: [
                   const Align(
-                    alignment: Alignment.centerLeft,
-                    child: AmbientSoundToggleButton(),
+                    alignment: Alignment.center,
+                    child: Text(
+                      '🔕',
+                      key: silenceSessionIconKey,
+                      style: TextStyle(fontSize: 36),
+                    ),
                   ),
+                  const SizedBox(height: 12),
                   Text(
                     loc.silenceChallengeTitle,
                     style: TextStyle(

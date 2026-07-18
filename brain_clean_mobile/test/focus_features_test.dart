@@ -46,6 +46,8 @@ void main() {
 
       expect(find.byKey(silenceCountdownKey), findsOneWidget);
       expect(find.byKey(silenceLevelLabelKey), findsOneWidget);
+      expect(find.byKey(silenceSessionIconKey), findsOneWidget);
+      expect(find.text('🔕'), findsOneWidget);
       expect(find.textContaining('المستوى'), findsOneWidget);
     });
   });

@@ -100,7 +100,11 @@ class AmbientSoundController extends StateNotifier<AmbientSoundState> {
   }
 
   Future<void> stop() async {
-    await _player.stop();
+    try {
+      await _player.stop();
+    } catch (_) {
+      // Web/unsupported assets must not crash the silence session.
+    }
     state = const AmbientSoundState();
   }
 
