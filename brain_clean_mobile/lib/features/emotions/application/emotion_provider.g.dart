@@ -26,7 +26,26 @@ final filteredEmotionCategoriesProvider =
 
 typedef FilteredEmotionCategoriesRef
     = AutoDisposeProviderRef<List<EmotionCategory>>;
-String _$emotionNotifierHash() => r'b5adef74e932c27d87f7a682386a147be4122a6f';
+String _$emotionWheelDailyProgramGateHash() =>
+    r'8b6d49da82375060e5f705c917d968d03bf4abab';
+
+/// Armed only when Emotion Wheel is opened from Daily Program mood step.
+///
+/// Copied from [EmotionWheelDailyProgramGate].
+@ProviderFor(EmotionWheelDailyProgramGate)
+final emotionWheelDailyProgramGateProvider =
+    NotifierProvider<EmotionWheelDailyProgramGate, bool>.internal(
+  EmotionWheelDailyProgramGate.new,
+  name: r'emotionWheelDailyProgramGateProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$emotionWheelDailyProgramGateHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$EmotionWheelDailyProgramGate = Notifier<bool>;
+String _$emotionNotifierHash() => r'73717aaecb1822ba1abfebf7363759c25cebe8f2';
 
 /// See also [EmotionNotifier].
 @ProviderFor(EmotionNotifier)

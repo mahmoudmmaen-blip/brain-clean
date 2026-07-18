@@ -1619,20 +1619,14 @@ abstract class AppLocalizations {
   /// No description provided for @emotionImpactDialogTitle.
   ///
   /// In en, this message translates to:
-  /// **'Impact on your recovery'**
+  /// **'Log emotion'**
   String get emotionImpactDialogTitle;
 
-  /// No description provided for @emotionImpactNegative.
+  /// No description provided for @emotionLogDialogBody.
   ///
   /// In en, this message translates to:
-  /// **'Feeling {emotion} will reduce your recovery by {pct}%.\nLog it?'**
-  String emotionImpactNegative(String emotion, String pct);
-
-  /// No description provided for @emotionImpactPositive.
-  ///
-  /// In en, this message translates to:
-  /// **'Feeling {emotion} will improve your recovery by {pct}%.\nLog it?'**
-  String emotionImpactPositive(String emotion, String pct);
+  /// **'Logging this emotion helps you understand your day and track your progress gently. Do you want to log it?'**
+  String get emotionLogDialogBody;
 
   /// No description provided for @emotionIgnore.
   ///

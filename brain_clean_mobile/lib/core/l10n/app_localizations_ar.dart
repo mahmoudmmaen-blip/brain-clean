@@ -844,17 +844,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get emotionWheelTitle => 'عجلة المشاعر';
 
   @override
-  String get emotionImpactDialogTitle => 'تأثير هذا الشعور على تعافيك';
+  String get emotionImpactDialogTitle => 'تسجيل الشعور';
 
   @override
-  String emotionImpactNegative(String emotion, String pct) {
-    return 'الشعور بـ $emotion سيقلل نسبة تعافيك بمقدار $pct%\nهل تريد تسجيله؟';
-  }
-
-  @override
-  String emotionImpactPositive(String emotion, String pct) {
-    return 'الشعور بـ $emotion سيحسّن نسبة تعافيك بمقدار $pct%\nهل تريد تسجيله؟';
-  }
+  String get emotionLogDialogBody =>
+      'تسجيل هذا الشعور يساعدك تفهم يومك ويتابع تقدّمك بهدوء. هل تريد تسجيله؟';
 
   @override
   String get emotionIgnore => 'لا، تجاهل';

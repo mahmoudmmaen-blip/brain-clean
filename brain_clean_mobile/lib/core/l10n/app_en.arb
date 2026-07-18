@@ -343,21 +343,8 @@
   "settingsPrivacyPolicy": "Privacy policy",
   "settingsContactUs": "Contact us",
   "emotionWheelTitle": "Emotion wheel",
-  "emotionImpactDialogTitle": "Impact on your recovery",
-  "emotionImpactNegative": "Feeling {emotion} will reduce your recovery by {pct}%.\nLog it?",
-  "@emotionImpactNegative": {
-    "placeholders": {
-      "emotion": { "type": "String" },
-      "pct": { "type": "String" }
-    }
-  },
-  "emotionImpactPositive": "Feeling {emotion} will improve your recovery by {pct}%.\nLog it?",
-  "@emotionImpactPositive": {
-    "placeholders": {
-      "emotion": { "type": "String" },
-      "pct": { "type": "String" }
-    }
-  },
+  "emotionImpactDialogTitle": "Log emotion",
+  "emotionLogDialogBody": "Logging this emotion helps you understand your day and track your progress gently. Do you want to log it?",
   "emotionIgnore": "No, ignore",
   "emotionConfirmLog": "Yes, log it",
   "emotionGateNegative": "I feel something negative",

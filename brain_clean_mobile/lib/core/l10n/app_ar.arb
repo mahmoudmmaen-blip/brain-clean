@@ -417,29 +417,8 @@
   "settingsPrivacyPolicy": "سياسة الخصوصية",
   "settingsContactUs": "تواصل معنا",
   "emotionWheelTitle": "عجلة المشاعر",
-  "emotionImpactDialogTitle": "تأثير هذا الشعور على تعافيك",
-  "emotionImpactNegative": "الشعور بـ {emotion} سيقلل نسبة تعافيك بمقدار {pct}%\nهل تريد تسجيله؟",
-  "@emotionImpactNegative": {
-    "placeholders": {
-      "emotion": {
-        "type": "String"
-      },
-      "pct": {
-        "type": "String"
-      }
-    }
-  },
-  "emotionImpactPositive": "الشعور بـ {emotion} سيحسّن نسبة تعافيك بمقدار {pct}%\nهل تريد تسجيله؟",
-  "@emotionImpactPositive": {
-    "placeholders": {
-      "emotion": {
-        "type": "String"
-      },
-      "pct": {
-        "type": "String"
-      }
-    }
-  },
+  "emotionImpactDialogTitle": "تسجيل الشعور",
+  "emotionLogDialogBody": "تسجيل هذا الشعور يساعدك تفهم يومك ويتابع تقدّمك بهدوء. هل تريد تسجيله؟",
   "emotionIgnore": "لا، تجاهل",
   "emotionConfirmLog": "نعم، سجّل",
   "emotionGateNegative": "أشعر بشيء سلبي",

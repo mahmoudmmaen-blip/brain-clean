@@ -1,17 +1,35 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../diagnostic/presentation/bc_score_provider.dart';
+import '../../../core/services/cloud_sync_service.dart';
+import '../../daily_program/application/daily_program_provider.dart';
+import '../../daily_program/domain/daily_step.dart';
+import '../../daily_program/domain/daily_step_status.dart';
 import '../data/emotion_log_repository.dart';
 import '../domain/emotion_log_entry.dart';
 import '../domain/emotion_model.dart';
-import 'emotion_notification_service.dart';
-import '../../../core/services/cloud_sync_service.dart';
-import '../../../core/application/app_preferences_provider.dart';
 
 part 'emotion_provider.g.dart';
 
 /// Mood gate selection before category chips.
 enum EmotionMoodGate { negative, neutral, positive }
+
+/// Armed only when Emotion Wheel is opened from Daily Program mood step.
+@Riverpod(keepAlive: true)
+class EmotionWheelDailyProgramGate extends _$EmotionWheelDailyProgramGate {
+  @override
+  bool build() => false;
+
+  void arm() => state = true;
+
+  void disarm() => state = false;
+
+  /// Returns whether the gate was armed, then clears it.
+  bool consume() {
+    final armed = state;
+    state = false;
+    return armed;
+  }
+}
 
 class EmotionState {
   const EmotionState({
@@ -25,6 +43,8 @@ class EmotionState {
   final EmotionMoodGate? moodGate;
   final EmotionCategory? selectedCategory;
   final EmotionModel? selectedEmotion;
+
+  /// Legacy field kept for state shape; emotions no longer modify recovery %.
   final double pendingImpact;
   final bool isAwaitingConfirmation;
 
@@ -78,55 +98,57 @@ class EmotionNotifier extends _$EmotionNotifier {
   void selectEmotion(EmotionModel emotion) {
     state = state.copyWith(
       selectedEmotion: emotion,
-      pendingImpact: emotion.recoveryImpact,
+      pendingImpact: 0,
       isAwaitingConfirmation: true,
     );
   }
 
+  /// Logs the selected emotion as a check-in (no recovery % change).
   Future<void> confirmImpact() async {
     final emotion = state.selectedEmotion;
-    final impact = state.pendingImpact;
     if (emotion == null) return;
-
-    final sessionBefore = ref.read(bcScoreSessionProvider);
-    final previousBcs = sessionBefore?.bcScoreRounded ?? 0;
-
-    ref.read(bcScoreProvider.notifier).applyEmotionImpact(impact);
 
     try {
       final timestamp = DateTime.now();
       await ref.read(emotionLogRepositoryProvider).append(
             emotion: emotion,
-            appliedImpact: impact,
+            appliedImpact: 0,
             timestamp: timestamp,
           );
       await ref.read(cloudSyncServiceProvider).syncEmotionLog(
             EmotionLogEntry.fromEmotion(
               emotion: emotion,
-              appliedImpact: impact,
+              appliedImpact: 0,
               timestamp: timestamp,
             ),
           );
     } catch (_) {
-      // Logging is best-effort; BCS update remains authoritative.
+      // Logging is best-effort.
     }
 
-    final sessionAfter = ref.read(bcScoreSessionProvider);
-    final newBcs = sessionAfter?.bcScoreRounded ?? previousBcs;
-    if (sessionAfter != null && newBcs < previousBcs) {
-      final notificationsOn =
-          ref.read(appPreferencesProvider).emotionNotificationsEnabled;
-      if (notificationsOn) {
-        await ref
-            .read(emotionNotificationServiceProvider)
-            .showRecoveryDecline(newBcsRounded: newBcs);
-      }
-    }
+    await _completeDailyMoodStepIfOpenedFromDailyProgram();
 
     state = EmotionState.initial;
   }
 
+  Future<void> _completeDailyMoodStepIfOpenedFromDailyProgram() async {
+    try {
+      final fromDailyProgram =
+          ref.read(emotionWheelDailyProgramGateProvider.notifier).consume();
+      if (!fromDailyProgram) return;
+
+      final program = ref.read(dailyProgramProvider).valueOrNull;
+      final current = program?.currentStep;
+      if (current == null || current.step != DailyStep.mood) return;
+      if (current.status != DailyStepStatus.current) return;
+      await ref.read(dailyProgramProvider.notifier).completeStep(DailyStep.mood);
+    } catch (_) {
+      // Daily Program sync is best-effort.
+    }
+  }
+
   void rejectImpact() {
+    ref.read(emotionWheelDailyProgramGateProvider.notifier).disarm();
     state = EmotionState.initial;
   }
 
