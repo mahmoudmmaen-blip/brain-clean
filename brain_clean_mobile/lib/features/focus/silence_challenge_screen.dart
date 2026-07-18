@@ -250,6 +250,14 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
     super.dispose();
   }
 
+  /// Clears the Daily Program sukoon gate after the current frame/build.
+  void _disarmDailyProgramGateSafely() {
+    final gate = ref.read(silenceChallengeDailyProgramGateProvider.notifier);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      gate.disarm();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
@@ -260,7 +268,7 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
     return PopScope(
       onPopInvokedWithResult: (didPop, _) {
         if (didPop) {
-          ref.read(silenceChallengeDailyProgramGateProvider.notifier).disarm();
+          _disarmDailyProgramGateSafely();
         }
       },
       child: GestureDetector(

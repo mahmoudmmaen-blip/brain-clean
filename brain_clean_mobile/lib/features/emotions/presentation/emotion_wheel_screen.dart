@@ -23,6 +23,14 @@ class EmotionWheelScreen extends ConsumerStatefulWidget {
 }
 
 class _EmotionWheelScreenState extends ConsumerState<EmotionWheelScreen> {
+  /// Clears the Daily Program mood gate after the current frame/build.
+  void _disarmDailyProgramGateSafely() {
+    final gate = ref.read(emotionWheelDailyProgramGateProvider.notifier);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      gate.disarm();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
@@ -41,7 +49,7 @@ class _EmotionWheelScreenState extends ConsumerState<EmotionWheelScreen> {
     return PopScope(
       onPopInvokedWithResult: (didPop, _) {
         if (didPop) {
-          ref.read(emotionWheelDailyProgramGateProvider.notifier).disarm();
+          _disarmDailyProgramGateSafely();
         }
       },
       child: Scaffold(
