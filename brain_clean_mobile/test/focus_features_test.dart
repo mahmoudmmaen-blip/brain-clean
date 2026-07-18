@@ -1,5 +1,6 @@
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/bc_score_provider.dart';
+import 'package:brain_clean_mobile/features/focus/application/silence_challenge_daily_program_gate.dart';
 import 'package:brain_clean_mobile/features/focus/application/single_task_provider.dart';
 import 'package:brain_clean_mobile/features/focus/delayed_gratification_screen.dart';
 import 'package:brain_clean_mobile/features/focus/silence_challenge_screen.dart';
@@ -12,6 +13,27 @@ import 'helpers/localized_test_app.dart';
 import 'helpers/test_l10n.dart';
 
 void main() {
+  group('SilenceChallengeDailyProgramGate', () {
+    test('arm/consume/disarm behave like mood gate', () {
+      final container = ProviderContainer();
+      addTearDown(container.dispose);
+
+      final gate =
+          container.read(silenceChallengeDailyProgramGateProvider.notifier);
+      expect(container.read(silenceChallengeDailyProgramGateProvider), isFalse);
+
+      gate.arm();
+      expect(container.read(silenceChallengeDailyProgramGateProvider), isTrue);
+      expect(gate.consume(), isTrue);
+      expect(container.read(silenceChallengeDailyProgramGateProvider), isFalse);
+      expect(gate.consume(), isFalse);
+
+      gate.arm();
+      gate.disarm();
+      expect(container.read(silenceChallengeDailyProgramGateProvider), isFalse);
+    });
+  });
+
   group('Silence Challenge', () {
     testWidgets('shows countdown and level label', (tester) async {
       await tester.pumpWidget(

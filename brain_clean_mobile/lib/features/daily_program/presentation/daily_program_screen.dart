@@ -8,6 +8,7 @@ import '../../../core/l10n/app_localizations.dart';
 import '../../../core/presentation/language_toggle_button.dart';
 import '../../../shared/widgets/glass_card.dart';
 import '../../emotions/application/emotion_provider.dart';
+import '../../focus/application/silence_challenge_daily_program_gate.dart';
 import '../../home/presentation/home_streak_provider.dart';
 import '../application/daily_program_provider.dart';
 import '../domain/daily_program_service.dart';
@@ -74,6 +75,9 @@ class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
         },
       DailyStep.sukoon => () {
           final streakDays = ref.read(homeStreakSnapshotProvider).days;
+          ref
+              .read(silenceChallengeDailyProgramGateProvider.notifier)
+              .arm();
           context.go(
             AppRoutes.silenceChallenge(streakDays < 0 ? 0 : streakDays),
           );
