@@ -6,6 +6,7 @@ import '../../core/constants/app_routes.dart';
 import '../../core/l10n/app_localizations.dart';
 import '../../core/services/purchases_service.dart';
 import '../emotions/application/emotion_provider.dart';
+import '../focus/application/silence_challenge_daily_program_gate.dart';
 
 /// Whether the current user holds the live Brain Clean Pro entitlement.
 bool _hasProEntitlement(WidgetRef ref) =>
@@ -34,6 +35,8 @@ void navigateSilenceWithProGate(
   WidgetRef ref,
   int streakDays,
 ) {
+  // Home / other entry points must not complete Daily Program sukoon.
+  ref.read(silenceChallengeDailyProgramGateProvider.notifier).disarm();
   if (_hasProEntitlement(ref)) {
     context.push(AppRoutes.silenceChallenge(streakDays));
   } else {

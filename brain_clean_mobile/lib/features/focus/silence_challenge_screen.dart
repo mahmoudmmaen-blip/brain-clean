@@ -5,9 +5,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'ambient_sound_player.dart';
+import 'application/silence_challenge_daily_program_gate.dart';
 import 'widgets/ambient_sound_widgets.dart';
 import '../../core/application/app_preferences_provider.dart';
+import '../../core/constants/app_routes.dart';
 import '../../core/l10n/app_localizations.dart';
+import '../daily_program/application/daily_program_provider.dart';
+import '../daily_program/domain/daily_step.dart';
+import '../daily_program/domain/daily_step_status.dart';
 import '../diagnostic/presentation/bc_score_provider.dart';
 import '../gamification/data/xp_ledger_constants.dart';
 import '../gamification/domain/xp_source.dart';
@@ -128,6 +133,46 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
     await _showSuccessDialog();
   }
 
+  Future<void> _completeDailySukoonIfOpenedFromDailyProgram(
+    bool fromDailyProgram,
+  ) async {
+    if (!fromDailyProgram) return;
+    try {
+      final program = ref.read(dailyProgramProvider).valueOrNull;
+      final current = program?.currentStep;
+      if (current == null || current.step != DailyStep.sukoon) return;
+      if (current.status != DailyStepStatus.current) return;
+      await ref
+          .read(dailyProgramProvider.notifier)
+          .completeStep(DailyStep.sukoon);
+    } catch (_) {
+      // Daily Program sync is best-effort.
+    }
+  }
+
+  Future<void> _leaveAfterSession({required bool success}) async {
+    final fromDailyProgram =
+        ref.read(silenceChallengeDailyProgramGateProvider.notifier).consume();
+
+    if (success) {
+      ref.read(bcScoreProvider.notifier).applyBonus(
+            20,
+            xpSource: XpSource.focusSession,
+            xpRefId:
+                'silence_${XpLedgerConstants.utcDayKey(DateTime.now().toUtc())}',
+          );
+      await ref.read(appPreferencesProvider.notifier).incrementSilenceWin();
+      await _completeDailySukoonIfOpenedFromDailyProgram(fromDailyProgram);
+    }
+
+    if (!mounted) return;
+    if (fromDailyProgram) {
+      context.go(AppRoutes.dailyProgram);
+    } else {
+      context.pop();
+    }
+  }
+
   Future<void> _showFailDialog() async {
     if (!mounted) return;
     final loc = AppLocalizations.of(context)!;
@@ -147,9 +192,9 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
         ),
         actions: [
           TextButton(
-            onPressed: () {
-              Navigator.of(ctx).pop();
-              if (context.mounted) context.pop();
+            onPressed: () async {
+              if (ctx.mounted) Navigator.of(ctx).pop();
+              await _leaveAfterSession(success: false);
             },
             child: Text(loc.commonOk),
           ),
@@ -178,17 +223,8 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
         actions: [
           TextButton(
             onPressed: () async {
-              ref.read(bcScoreProvider.notifier).applyBonus(
-                    20,
-                    xpSource: XpSource.focusSession,
-                    xpRefId:
-                        'silence_${XpLedgerConstants.utcDayKey(DateTime.now().toUtc())}',
-                  );
-              await ref
-                  .read(appPreferencesProvider.notifier)
-                  .incrementSilenceWin();
               if (ctx.mounted) Navigator.of(ctx).pop();
-              if (context.mounted) context.pop();
+              await _leaveAfterSession(success: true);
             },
             child: Text(loc.commonGreat),
           ),
@@ -222,129 +258,136 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
     final dividerColor = Theme.of(context).dividerColor;
     final canEditDuration = !_running && !_failed && !_completed;
 
-    return GestureDetector(
-      onTap: _running ? _onFail : null,
-      onPanStart: _running ? (_) => _onFail() : null,
-      onLongPress: _running ? _onFail : null,
-      behavior: HitTestBehavior.opaque,
-      child: Scaffold(
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              children: [
-                const Align(
-                  alignment: Alignment.centerLeft,
-                  child: AmbientSoundToggleButton(),
-                ),
-                Text(
-                  loc.silenceChallengeTitle,
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: cs.onSurface,
+    return PopScope(
+      onPopInvokedWithResult: (didPop, _) {
+        if (didPop) {
+          ref.read(silenceChallengeDailyProgramGateProvider.notifier).disarm();
+        }
+      },
+      child: GestureDetector(
+        onTap: _running ? _onFail : null,
+        onPanStart: _running ? (_) => _onFail() : null,
+        onLongPress: _running ? _onFail : null,
+        behavior: HitTestBehavior.opaque,
+        child: Scaffold(
+          body: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                children: [
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: AmbientSoundToggleButton(),
                   ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  loc.silenceChallengeSubtitle(_targetMinutes),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: cs.onSurfaceVariant,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  loc.silenceChallengeDurationLabel,
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600,
-                    color: cs.onSurfaceVariant,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Wrap(
-                  key: silenceDurationSelectorKey,
-                  spacing: 8,
-                  runSpacing: 8,
-                  alignment: WrapAlignment.center,
-                  children: [
-                    for (final minutes
-                        in SilenceChallengeScreen.durationOptionsMinutes)
-                      ChoiceChip(
-                        label: Text(
-                          loc.silenceChallengeDurationOption(minutes),
-                        ),
-                        selected: _targetMinutes == minutes,
-                        onSelected: canEditDuration
-                            ? (_) => _selectDuration(minutes)
-                            : null,
-                        selectedColor: cs.primary.withValues(alpha: 0.2),
-                        labelStyle: TextStyle(
-                          color: _targetMinutes == minutes
-                              ? cs.primary
-                              : cs.onSurface,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        side: BorderSide(
-                          color: _targetMinutes == minutes
-                              ? cs.primary
-                              : dividerColor,
-                        ),
-                      ),
-                  ],
-                ),
-                const Spacer(),
-                SizedBox(
-                  width: 220,
-                  height: 220,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      CustomPaint(
-                        size: const Size(220, 220),
-                        painter: _SilenceRingPainter(
-                          progress: _progress,
-                          trackColor: dividerColor,
-                          progressColor: cs.primary,
-                        ),
-                      ),
-                      Text(
-                        _countdownText,
-                        key: silenceCountdownKey,
-                        style: TextStyle(
-                          fontSize: 64,
-                          fontWeight: FontWeight.bold,
-                          color: cs.primary,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const Spacer(),
-                if (canEditDuration) ...[
-                  ElevatedButton(
-                    key: silenceStartButtonKey,
-                    onPressed: _beginChallenge,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: cs.primary,
-                      foregroundColor: cs.onPrimary,
-                      minimumSize: const Size.fromHeight(52),
+                  Text(
+                    loc.silenceChallengeTitle,
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: cs.onSurface,
                     ),
-                    child: Text(loc.gameStart),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    loc.silenceChallengeSubtitle(_targetMinutes),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: cs.onSurfaceVariant,
+                    ),
                   ),
                   const SizedBox(height: 16),
-                ],
-                Text(
-                  loc.silenceChallengeLevel(_level, _targetMinutes),
-                  key: silenceLevelLabelKey,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: cs.onSurfaceVariant,
+                  Text(
+                    loc.silenceChallengeDurationLabel,
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                      color: cs.onSurfaceVariant,
+                    ),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 8),
+                  Wrap(
+                    key: silenceDurationSelectorKey,
+                    spacing: 8,
+                    runSpacing: 8,
+                    alignment: WrapAlignment.center,
+                    children: [
+                      for (final minutes
+                          in SilenceChallengeScreen.durationOptionsMinutes)
+                        ChoiceChip(
+                          label: Text(
+                            loc.silenceChallengeDurationOption(minutes),
+                          ),
+                          selected: _targetMinutes == minutes,
+                          onSelected: canEditDuration
+                              ? (_) => _selectDuration(minutes)
+                              : null,
+                          selectedColor: cs.primary.withValues(alpha: 0.2),
+                          labelStyle: TextStyle(
+                            color: _targetMinutes == minutes
+                                ? cs.primary
+                                : cs.onSurface,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          side: BorderSide(
+                            color: _targetMinutes == minutes
+                                ? cs.primary
+                                : dividerColor,
+                          ),
+                        ),
+                    ],
+                  ),
+                  const Spacer(),
+                  SizedBox(
+                    width: 220,
+                    height: 220,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        CustomPaint(
+                          size: const Size(220, 220),
+                          painter: _SilenceRingPainter(
+                            progress: _progress,
+                            trackColor: dividerColor,
+                            progressColor: cs.primary,
+                          ),
+                        ),
+                        Text(
+                          _countdownText,
+                          key: silenceCountdownKey,
+                          style: TextStyle(
+                            fontSize: 64,
+                            fontWeight: FontWeight.bold,
+                            color: cs.primary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Spacer(),
+                  if (canEditDuration) ...[
+                    ElevatedButton(
+                      key: silenceStartButtonKey,
+                      onPressed: _beginChallenge,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: cs.primary,
+                        foregroundColor: cs.onPrimary,
+                        minimumSize: const Size.fromHeight(52),
+                      ),
+                      child: Text(loc.gameStart),
+                    ),
+                    const SizedBox(height: 16),
+                  ],
+                  Text(
+                    loc.silenceChallengeLevel(_level, _targetMinutes),
+                    key: silenceLevelLabelKey,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: cs.onSurfaceVariant,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
