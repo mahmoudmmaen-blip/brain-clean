@@ -700,6 +700,8 @@
   "exercisesCardSingleTaskSubtitle": "Single-point focus",
   "exercisesCardDeepThinkingTitle": "Deep Thinking",
   "exercisesCardDeepThinkingSubtitle": "10 distraction-free minutes",
+  "exercisesCardSukoonTitle": "Sukoon",
+  "exercisesCardSukoonSubtitle": "Wakeful rest — clear your mind",
   "safaTabTitle": "Safa",
   "safaTabSubtitle": "Your AI guide · here when you need her",
   "safaTalkButton": "Talk to Safa",
@@ -924,5 +926,34 @@
       "count": { "type": "int" }
     }
   },
-  "dailyProgramHomeDone": "You finished today's journey ✅"
+  "dailyProgramHomeDone": "You finished today's journey ✅",
+
+  "sukoonTitle": "Sukoon",
+  "sukoonIntro": "Sit in stillness. Let your mind wander — think, drift, or think of nothing at all.\nScience shows these quiet moments restore your attention.",
+  "sukoonDurationLabel": "Duration",
+  "sukoonDuration3": "3 minutes",
+  "sukoonDuration5": "5 minutes",
+  "sukoonDuration10": "10 minutes",
+  "sukoonDuration15": "15 minutes",
+  "sukoonDurationOption": "{minutes} min",
+  "@sukoonDurationOption": {
+    "placeholders": {
+      "minutes": { "type": "int" }
+    }
+  },
+  "sukoonStart": "Start",
+  "sukoonPause": "Pause",
+  "sukoonContinue": "Continue",
+  "sukoonRestart": "Start over",
+  "sukoonReset": "Reset",
+  "sukoonInterruptedMessage": "Stillness was interrupted — no problem. You can continue or start fresh 🌿",
+  "sukoonCompleteTitle": "You finished {minutes} minutes of stillness 🌿 Your mind rested.",
+  "@sukoonCompleteTitle": {
+    "placeholders": {
+      "minutes": { "type": "int" }
+    }
+  },
+  "sukoonWanderHint": "Where did your mind go? (optional)",
+  "sukoonSave": "Save",
+  "sukoonSkip": "Skip"
 }

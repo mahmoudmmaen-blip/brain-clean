@@ -35,6 +35,12 @@ class ExercisesTabScreen extends ConsumerWidget {
             onTap: () => context.push(AppRoutes.pomodoro),
           ),
           _ExerciseCard(
+            icon: Icons.self_improvement,
+            title: loc.exercisesCardSukoonTitle,
+            subtitle: loc.exercisesCardSukoonSubtitle,
+            onTap: () => context.push(AppRoutes.sukoon),
+          ),
+          _ExerciseCard(
             icon: Icons.air,
             title: loc.exercisesCardBreathingTitle,
             subtitle: loc.exercisesCardBreathingSubtitle,

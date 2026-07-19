@@ -8,8 +8,7 @@ import '../../../core/l10n/app_localizations.dart';
 import '../../../core/presentation/language_toggle_button.dart';
 import '../../../shared/widgets/glass_card.dart';
 import '../../emotions/application/emotion_provider.dart';
-import '../../focus/application/silence_challenge_daily_program_gate.dart';
-import '../../home/presentation/home_streak_provider.dart';
+import '../../sukoon/application/sukoon_daily_program_gate.dart';
 import '../application/daily_program_provider.dart';
 import '../domain/daily_program_service.dart';
 import '../domain/daily_program_state.dart';
@@ -75,13 +74,9 @@ class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
           context.go(AppRoutes.emotionWheel);
         },
       DailyStep.sukoon => () {
-          final streakDays = ref.read(homeStreakSnapshotProvider).days;
-          ref
-              .read(silenceChallengeDailyProgramGateProvider.notifier)
-              .arm();
-          context.go(
-            AppRoutes.silenceChallenge(streakDays < 0 ? 0 : streakDays),
-          );
+          ref.read(sukoonDailyProgramGateProvider.notifier).arm();
+          // Top-level route (outside shell) — push is safe.
+          context.push(AppRoutes.sukoon);
         },
       DailyStep.focusTask => () => context.go(AppRoutes.singleTask),
       // Top-level route (outside shell) — push is safe.

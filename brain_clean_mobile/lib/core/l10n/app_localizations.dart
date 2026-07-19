@@ -2984,6 +2984,18 @@ abstract class AppLocalizations {
   /// **'10 distraction-free minutes'**
   String get exercisesCardDeepThinkingSubtitle;
 
+  /// No description provided for @exercisesCardSukoonTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sukoon'**
+  String get exercisesCardSukoonTitle;
+
+  /// No description provided for @exercisesCardSukoonSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Wakeful rest — clear your mind'**
+  String get exercisesCardSukoonSubtitle;
+
   /// No description provided for @safaTabTitle.
   ///
   /// In en, this message translates to:
@@ -3997,6 +4009,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You finished today\'s journey ✅'**
   String get dailyProgramHomeDone;
+
+  /// No description provided for @sukoonTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sukoon'**
+  String get sukoonTitle;
+
+  /// No description provided for @sukoonIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Sit in stillness. Let your mind wander — think, drift, or think of nothing at all.\nScience shows these quiet moments restore your attention.'**
+  String get sukoonIntro;
+
+  /// No description provided for @sukoonDurationLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Duration'**
+  String get sukoonDurationLabel;
+
+  /// No description provided for @sukoonDuration3.
+  ///
+  /// In en, this message translates to:
+  /// **'3 minutes'**
+  String get sukoonDuration3;
+
+  /// No description provided for @sukoonDuration5.
+  ///
+  /// In en, this message translates to:
+  /// **'5 minutes'**
+  String get sukoonDuration5;
+
+  /// No description provided for @sukoonDuration10.
+  ///
+  /// In en, this message translates to:
+  /// **'10 minutes'**
+  String get sukoonDuration10;
+
+  /// No description provided for @sukoonDuration15.
+  ///
+  /// In en, this message translates to:
+  /// **'15 minutes'**
+  String get sukoonDuration15;
+
+  /// No description provided for @sukoonDurationOption.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min'**
+  String sukoonDurationOption(int minutes);
+
+  /// No description provided for @sukoonStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get sukoonStart;
+
+  /// No description provided for @sukoonPause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get sukoonPause;
+
+  /// No description provided for @sukoonContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get sukoonContinue;
+
+  /// No description provided for @sukoonRestart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start over'**
+  String get sukoonRestart;
+
+  /// No description provided for @sukoonReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get sukoonReset;
+
+  /// No description provided for @sukoonInterruptedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Stillness was interrupted — no problem. You can continue or start fresh 🌿'**
+  String get sukoonInterruptedMessage;
+
+  /// No description provided for @sukoonCompleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You finished {minutes} minutes of stillness 🌿 Your mind rested.'**
+  String sukoonCompleteTitle(int minutes);
+
+  /// No description provided for @sukoonWanderHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Where did your mind go? (optional)'**
+  String get sukoonWanderHint;
+
+  /// No description provided for @sukoonSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get sukoonSave;
+
+  /// No description provided for @sukoonSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get sukoonSkip;
 }
 
 class _AppLocalizationsDelegate

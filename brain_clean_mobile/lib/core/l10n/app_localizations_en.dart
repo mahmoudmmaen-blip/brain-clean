@@ -1606,6 +1606,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get exercisesCardDeepThinkingSubtitle => '10 distraction-free minutes';
 
   @override
+  String get exercisesCardSukoonTitle => 'Sukoon';
+
+  @override
+  String get exercisesCardSukoonSubtitle => 'Wakeful rest — clear your mind';
+
+  @override
   String get safaTabTitle => 'Safa';
 
   @override
@@ -2157,4 +2163,64 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dailyProgramHomeDone => 'You finished today\'s journey ✅';
+
+  @override
+  String get sukoonTitle => 'Sukoon';
+
+  @override
+  String get sukoonIntro =>
+      'Sit in stillness. Let your mind wander — think, drift, or think of nothing at all.\nScience shows these quiet moments restore your attention.';
+
+  @override
+  String get sukoonDurationLabel => 'Duration';
+
+  @override
+  String get sukoonDuration3 => '3 minutes';
+
+  @override
+  String get sukoonDuration5 => '5 minutes';
+
+  @override
+  String get sukoonDuration10 => '10 minutes';
+
+  @override
+  String get sukoonDuration15 => '15 minutes';
+
+  @override
+  String sukoonDurationOption(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get sukoonStart => 'Start';
+
+  @override
+  String get sukoonPause => 'Pause';
+
+  @override
+  String get sukoonContinue => 'Continue';
+
+  @override
+  String get sukoonRestart => 'Start over';
+
+  @override
+  String get sukoonReset => 'Reset';
+
+  @override
+  String get sukoonInterruptedMessage =>
+      'Stillness was interrupted — no problem. You can continue or start fresh 🌿';
+
+  @override
+  String sukoonCompleteTitle(int minutes) {
+    return 'You finished $minutes minutes of stillness 🌿 Your mind rested.';
+  }
+
+  @override
+  String get sukoonWanderHint => 'Where did your mind go? (optional)';
+
+  @override
+  String get sukoonSave => 'Save';
+
+  @override
+  String get sukoonSkip => 'Skip';
 }

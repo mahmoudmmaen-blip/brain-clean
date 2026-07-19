@@ -17,4 +17,5 @@ abstract final class HiveBoxes {
   static const dailyChallenge = 'daily_challenge_v1';
   static const smartReminders = 'smart_reminders_v1';
   static const dailyProgram = 'daily_program_v1';
+  static const sukoon = 'sukoon_v1';
 }

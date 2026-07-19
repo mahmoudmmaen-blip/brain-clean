@@ -840,6 +840,8 @@
   "exercisesCardSingleTaskSubtitle": "التركيز الأحادي",
   "exercisesCardDeepThinkingTitle": "تفكير عميق",
   "exercisesCardDeepThinkingSubtitle": "10 دقائق بلا تشتيت",
+  "exercisesCardSukoonTitle": "سكون",
+  "exercisesCardSukoonSubtitle": "استراحة يقظة — صفّي ذهنك",
   "safaTabTitle": "صفا",
   "safaTabSubtitle": "مرشدتك الذكية · هنا لما تحتاجها",
   "safaTalkButton": "تحدّثي مع صفا",
@@ -1064,5 +1066,34 @@
       "count": { "type": "int" }
     }
   },
-  "dailyProgramHomeDone": "خلّصت رحلة النهارده ✅"
+  "dailyProgramHomeDone": "خلّصت رحلة النهارده ✅",
+
+  "sukoonTitle": "سكون",
+  "sukoonIntro": "اقعد في سكون. سيب دماغك حر — يشرد، يفكّر، أو ما يفكّرش في حاجة.\nالعلم بيقول إن لحظات السكون دي بتعيد شحن انتباهك.",
+  "sukoonDurationLabel": "المدة",
+  "sukoonDuration3": "٣ دقائق",
+  "sukoonDuration5": "٥ دقائق",
+  "sukoonDuration10": "١٠ دقائق",
+  "sukoonDuration15": "١٥ دقيقة",
+  "sukoonDurationOption": "{minutes} د",
+  "@sukoonDurationOption": {
+    "placeholders": {
+      "minutes": { "type": "int" }
+    }
+  },
+  "sukoonStart": "ابدأ",
+  "sukoonPause": "إيقاف مؤقت",
+  "sukoonContinue": "أكمل",
+  "sukoonRestart": "من جديد",
+  "sukoonReset": "إعادة",
+  "sukoonInterruptedMessage": "السكون اتقطع — مفيش مشكلة، تقدر تكمّل أو تبدأ من جديد 🌿",
+  "sukoonCompleteTitle": "خلّصت {minutes} دقايق سكون 🌿 دماغك ارتاح.",
+  "@sukoonCompleteTitle": {
+    "placeholders": {
+      "minutes": { "type": "int" }
+    }
+  },
+  "sukoonWanderHint": "وين سرح بالك؟ (اختياري)",
+  "sukoonSave": "حفظ",
+  "sukoonSkip": "تخطّي"
 }

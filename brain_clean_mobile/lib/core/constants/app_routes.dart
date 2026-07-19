@@ -50,6 +50,7 @@ abstract final class AppRoutes {
   static const worryJournal = '/worry-journal';
   static const worryWindow = '/worry-window';
   static const dailyProgram = '/daily-program';
+  static const sukoon = '/sukoon';
 
   // More branch
   static const settings = '/more/settings';

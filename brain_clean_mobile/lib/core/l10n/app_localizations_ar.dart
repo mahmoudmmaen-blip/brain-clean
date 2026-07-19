@@ -1590,6 +1590,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get exercisesCardDeepThinkingSubtitle => '10 دقائق بلا تشتيت';
 
   @override
+  String get exercisesCardSukoonTitle => 'سكون';
+
+  @override
+  String get exercisesCardSukoonSubtitle => 'استراحة يقظة — صفّي ذهنك';
+
+  @override
   String get safaTabTitle => 'صفا';
 
   @override
@@ -2131,4 +2137,64 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get dailyProgramHomeDone => 'خلّصت رحلة النهارده ✅';
+
+  @override
+  String get sukoonTitle => 'سكون';
+
+  @override
+  String get sukoonIntro =>
+      'اقعد في سكون. سيب دماغك حر — يشرد، يفكّر، أو ما يفكّرش في حاجة.\nالعلم بيقول إن لحظات السكون دي بتعيد شحن انتباهك.';
+
+  @override
+  String get sukoonDurationLabel => 'المدة';
+
+  @override
+  String get sukoonDuration3 => '٣ دقائق';
+
+  @override
+  String get sukoonDuration5 => '٥ دقائق';
+
+  @override
+  String get sukoonDuration10 => '١٠ دقائق';
+
+  @override
+  String get sukoonDuration15 => '١٥ دقيقة';
+
+  @override
+  String sukoonDurationOption(int minutes) {
+    return '$minutes د';
+  }
+
+  @override
+  String get sukoonStart => 'ابدأ';
+
+  @override
+  String get sukoonPause => 'إيقاف مؤقت';
+
+  @override
+  String get sukoonContinue => 'أكمل';
+
+  @override
+  String get sukoonRestart => 'من جديد';
+
+  @override
+  String get sukoonReset => 'إعادة';
+
+  @override
+  String get sukoonInterruptedMessage =>
+      'السكون اتقطع — مفيش مشكلة، تقدر تكمّل أو تبدأ من جديد 🌿';
+
+  @override
+  String sukoonCompleteTitle(int minutes) {
+    return 'خلّصت $minutes دقايق سكون 🌿 دماغك ارتاح.';
+  }
+
+  @override
+  String get sukoonWanderHint => 'وين سرح بالك؟ (اختياري)';
+
+  @override
+  String get sukoonSave => 'حفظ';
+
+  @override
+  String get sukoonSkip => 'تخطّي';
 }
