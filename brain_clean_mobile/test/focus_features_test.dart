@@ -1,3 +1,4 @@
+import 'package:brain_clean_mobile/core/l10n/app_localization_config.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/bc_score_provider.dart';
 import 'package:brain_clean_mobile/features/focus/application/silence_challenge_daily_program_gate.dart';
@@ -49,6 +50,61 @@ void main() {
       expect(find.byKey(silenceSessionIconKey), findsOneWidget);
       expect(find.text('🔕'), findsOneWidget);
       expect(find.textContaining('المستوى'), findsOneWidget);
+    });
+
+    testWidgets('popping back disarms gate without provider lifecycle error',
+        (tester) async {
+      late ProviderContainer container;
+      final navigatorKey = GlobalKey<NavigatorState>();
+
+      await tester.pumpWidget(
+        ProviderScope(
+          child: Builder(
+            builder: (context) {
+              container = ProviderScope.containerOf(context);
+              return MaterialApp(
+                navigatorKey: navigatorKey,
+                localizationsDelegates: appLocalizationsDelegates,
+                supportedLocales: supportedLocales,
+                locale: const Locale('ar'),
+                home: Scaffold(
+                  body: ElevatedButton(
+                    onPressed: () {
+                      navigatorKey.currentState!.push(
+                        MaterialPageRoute<void>(
+                          builder: (_) =>
+                              const SilenceChallengeScreen(streakDays: 0),
+                        ),
+                      );
+                    },
+                    child: const Text('open'),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      container
+          .read(silenceChallengeDailyProgramGateProvider.notifier)
+          .arm();
+      expect(container.read(silenceChallengeDailyProgramGateProvider), isTrue);
+
+      await tester.tap(find.text('open'));
+      await tester.pumpAndSettle();
+      expect(find.byKey(silenceCountdownKey), findsOneWidget);
+
+      navigatorKey.currentState!.pop();
+      await tester.pump();
+      await tester.pump();
+
+      expect(
+        container.read(silenceChallengeDailyProgramGateProvider),
+        isFalse,
+      );
+      expect(tester.takeException(), isNull);
     });
   });
 
