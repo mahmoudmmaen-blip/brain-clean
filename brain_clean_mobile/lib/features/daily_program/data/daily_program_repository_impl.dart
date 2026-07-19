@@ -68,8 +68,16 @@ class DailyProgramRepositoryImpl implements DailyProgramRepository {
       final safeDay = dayNumber < 1 ? 1 : dayNumber;
       final existing = await _readStoredToday();
       if (existing != null) {
-        final synced = existing.copyWith(dayNumber: safeDay);
-        if (synced.dayNumber != existing.dayNumber) {
+        final migratedSteps =
+            DailyProgramService.ensureCurrentStepSchema(existing.steps);
+        final synced = existing.copyWith(
+          dayNumber: safeDay,
+          steps: migratedSteps,
+        );
+        final needsSave = synced.dayNumber != existing.dayNumber ||
+            migratedSteps.length != existing.steps.length ||
+            !_sameStepOrder(existing.steps, migratedSteps);
+        if (needsSave) {
           await _save(synced);
         }
         return synced;
@@ -112,5 +120,16 @@ class DailyProgramRepositoryImpl implements DailyProgramRepository {
     );
     await _save(updated);
     return updated;
+  }
+
+  bool _sameStepOrder(
+    List<DailyStepEntry> a,
+    List<DailyStepEntry> b,
+  ) {
+    if (a.length != b.length) return false;
+    for (var i = 0; i < a.length; i++) {
+      if (a[i].step != b[i].step || a[i].status != b[i].status) return false;
+    }
+    return true;
   }
 }

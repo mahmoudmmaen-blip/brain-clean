@@ -2123,6 +2123,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dailyProgramOpenCalmExercise => 'Open Calm Exercise';
 
   @override
+  String get dailyProgramOpenSingleTask => 'Open Single Task';
+
+  @override
   String get dailyProgramOpenWorryJournal => 'Open Worry Journal';
 
   @override

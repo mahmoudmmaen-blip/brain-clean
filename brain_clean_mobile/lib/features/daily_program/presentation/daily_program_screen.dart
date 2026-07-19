@@ -59,6 +59,7 @@ class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
     return switch (step) {
       DailyStep.mood => loc.dailyProgramOpenEmotionWheel,
       DailyStep.sukoon => loc.dailyProgramOpenCalmExercise,
+      DailyStep.focusTask => loc.dailyProgramOpenSingleTask,
       DailyStep.journal => loc.dailyProgramOpenWorryJournal,
       _ => null,
     };
@@ -82,6 +83,7 @@ class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
             AppRoutes.silenceChallenge(streakDays < 0 ? 0 : streakDays),
           );
         },
+      DailyStep.focusTask => () => context.go(AppRoutes.singleTask),
       // Top-level route (outside shell) — push is safe.
       DailyStep.journal => () => context.push(AppRoutes.worryJournal),
       _ => null,
@@ -296,7 +298,10 @@ class _NextStepCard extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            DailyProgramService.getStepSubtitle(step),
+            DailyProgramService.getStepSubtitle(
+              step,
+              languageCode: Localizations.localeOf(context).languageCode,
+            ),
             textAlign: TextAlign.center,
             style: TextStyle(
               color: colorScheme.onSurfaceVariant,

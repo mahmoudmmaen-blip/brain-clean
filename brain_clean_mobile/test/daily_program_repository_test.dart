@@ -35,14 +35,14 @@ void main() {
   test('completeStep persists done + unlocks next current', () async {
     final initial = await repository.getToday(dayNumber: 3);
     expect(initial.steps.first.status, DailyStepStatus.current);
-    expect(initial.remainingCount, 7);
+    expect(initial.remainingCount, 8);
 
     final after = await repository.completeStep(DailyStep.dayStart);
 
     expect(after.steps[0].status, DailyStepStatus.done);
     expect(after.steps[1].status, DailyStepStatus.current);
-    expect(after.remainingCount, 6);
-    expect(after.progressRatio, closeTo(1 / 7, 0.001));
+    expect(after.remainingCount, 7);
+    expect(after.progressRatio, closeTo(1 / 8, 0.001));
 
     if (Hive.isBoxOpen(HiveBoxes.dailyProgram)) {
       await Hive.box(HiveBoxes.dailyProgram).close();
@@ -53,6 +53,6 @@ void main() {
 
     expect(restored.steps[0].status, DailyStepStatus.done);
     expect(restored.steps[1].status, DailyStepStatus.current);
-    expect(restored.remainingCount, 6);
+    expect(restored.remainingCount, 7);
   });
 }

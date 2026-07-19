@@ -2098,6 +2098,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dailyProgramOpenCalmExercise => 'فتح تمرين السكون';
 
   @override
+  String get dailyProgramOpenSingleTask => 'فتح مهمة التركيز';
+
+  @override
   String get dailyProgramOpenWorryJournal => 'فتح دفتر القلق';
 
   @override

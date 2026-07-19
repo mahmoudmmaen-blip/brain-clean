@@ -28,6 +28,7 @@ const _$DailyStepEnumMap = {
   DailyStep.water: 'water',
   DailyStep.movement: 'movement',
   DailyStep.sukoon: 'sukoon',
+  DailyStep.focusTask: 'focusTask',
   DailyStep.mood: 'mood',
   DailyStep.journal: 'journal',
   DailyStep.dayEnd: 'dayEnd',

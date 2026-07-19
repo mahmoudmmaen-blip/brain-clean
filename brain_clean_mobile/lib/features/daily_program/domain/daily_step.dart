@@ -4,6 +4,7 @@ enum DailyStep {
   water,
   movement,
   sukoon,
+  focusTask,
   mood,
   journal,
   dayEnd,

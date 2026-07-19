@@ -3932,6 +3932,12 @@ abstract class AppLocalizations {
   /// **'Open Calm Exercise'**
   String get dailyProgramOpenCalmExercise;
 
+  /// No description provided for @dailyProgramOpenSingleTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Single Task'**
+  String get dailyProgramOpenSingleTask;
+
   /// No description provided for @dailyProgramOpenWorryJournal.
   ///
   /// In en, this message translates to:

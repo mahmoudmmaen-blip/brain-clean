@@ -17,6 +17,46 @@ class DailyProgramService {
     ];
   }
 
+  /// Remaps stored steps onto the current [DailyStep] order (e.g. after adding
+  /// focusTask), preserving done/skipped progress and one current pointer.
+  static List<DailyStepEntry> ensureCurrentStepSchema(
+    List<DailyStepEntry> stored,
+  ) {
+    final byStep = {for (final e in stored) e.step: e};
+    final aligned = <DailyStepEntry>[
+      for (final step in DailyStep.values)
+        byStep[step] ??
+            DailyStepEntry(step: step, status: DailyStepStatus.locked),
+    ];
+
+    final normalized = <DailyStepEntry>[];
+    var placedCurrent = false;
+    for (final entry in aligned) {
+      if (entry.status == DailyStepStatus.done ||
+          entry.status == DailyStepStatus.skipped) {
+        normalized.add(entry);
+        continue;
+      }
+      if (!placedCurrent) {
+        normalized.add(
+          entry.copyWith(
+            status: DailyStepStatus.current,
+            completedAt: null,
+          ),
+        );
+        placedCurrent = true;
+      } else {
+        normalized.add(
+          entry.copyWith(
+            status: DailyStepStatus.locked,
+            completedAt: null,
+          ),
+        );
+      }
+    }
+    return normalized;
+  }
+
   static String getStepTitle(DailyStep step, {String languageCode = 'ar'}) {
     if (languageCode == 'en') {
       return switch (step) {
@@ -24,6 +64,7 @@ class DailyProgramService {
         DailyStep.water => 'Drink a glass of water',
         DailyStep.movement => 'Movement',
         DailyStep.sukoon => 'Stillness session',
+        DailyStep.focusTask => 'One focus task',
         DailyStep.mood => 'Check your mood',
         DailyStep.journal => "Today's journal",
         DailyStep.dayEnd => 'Close the day',
@@ -34,6 +75,7 @@ class DailyProgramService {
       DailyStep.water => 'اشرب كوب ماء',
       DailyStep.movement => 'الحركة',
       DailyStep.sukoon => 'جلسة سكون',
+      DailyStep.focusTask => 'مهمة تركيز واحدة',
       DailyStep.mood => 'قيّم مزاجك',
       DailyStep.journal => 'دفتر اليوم',
       DailyStep.dayEnd => 'إغلاق اليوم',
@@ -46,18 +88,32 @@ class DailyProgramService {
       DailyStep.water => '💧',
       DailyStep.movement => '🚶',
       DailyStep.sukoon => '🔕',
+      DailyStep.focusTask => '🎯',
       DailyStep.mood => '😊',
       DailyStep.journal => '📝',
       DailyStep.dayEnd => '🏁',
     };
   }
 
-  static String getStepSubtitle(DailyStep step) {
+  static String getStepSubtitle(DailyStep step, {String languageCode = 'ar'}) {
+    if (languageCode == 'en') {
+      return switch (step) {
+        DailyStep.dayStart => 'Begin your day with calm intention',
+        DailyStep.water => 'One glass wakes your body up',
+        DailyStep.movement => 'Move for two minutes — that\'s enough',
+        DailyStep.sukoon => 'A minute of stillness or breathing',
+        DailyStep.focusTask => '10 minutes without scrolling — one task only',
+        DailyStep.mood => 'Record how you feel honestly',
+        DailyStep.journal => 'Optional — one line is enough',
+        DailyStep.dayEnd => 'Close your day gently',
+      };
+    }
     return switch (step) {
       DailyStep.dayStart => 'ابدأ يومك بنِيّة هادئة',
       DailyStep.water => 'كوب واحد يوقظ جسمك',
       DailyStep.movement => 'تحرك دقيقتين — يكفي',
       DailyStep.sukoon => 'دقيقة سكون أو تنفس',
+      DailyStep.focusTask => '10 دقائق بدون سكرول — مهمة واحدة فقط',
       DailyStep.mood => 'سجّل إحساسك بصدق',
       DailyStep.journal => 'اختياري — سطر واحد يكفي',
       DailyStep.dayEnd => 'أختِم يومك بلطف',
