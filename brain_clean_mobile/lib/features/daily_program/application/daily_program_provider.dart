@@ -14,7 +14,11 @@ class DailyProgram extends _$DailyProgram {
 
   @override
   Future<DailyProgramState> build() async {
-    final dayNumber = ref.watch(homeStreakSnapshotProvider).days;
+    // Select days only — full snapshot ticks every second and would
+    // rebuild this provider continuously (screen jitter).
+    final dayNumber = ref.watch(
+      homeStreakSnapshotProvider.select((s) => s.days),
+    );
     return ref.read(dailyProgramRepositoryProvider).getToday(
           dayNumber: dayNumber < 1 ? 1 : dayNumber,
         );

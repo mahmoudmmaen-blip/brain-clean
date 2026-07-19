@@ -32,6 +32,9 @@ class DailyProgramScreen extends ConsumerWidget {
         actions: const [LanguageToggleButton()],
       ),
       body: async.when(
+        // Keep prior data visible on reload — avoids spinner flash / shake.
+        skipLoadingOnReload: true,
+        skipLoadingOnRefresh: true,
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (_, __) => Center(child: Text(loc.dailyProgramLoadError)),
         data: (state) => _DailyProgramBody(state: state),
@@ -50,7 +53,6 @@ class _DailyProgramBody extends ConsumerStatefulWidget {
 }
 
 class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
-  final _nextStepKey = GlobalKey();
   String? _rewardChip;
   bool _busy = false;
 
@@ -91,11 +93,13 @@ class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
     final notifier = ref.read(dailyProgramProvider.notifier);
     await notifier.completeStep(step);
     if (!mounted) return;
+    final reward = notifier.lastMicroReward;
     setState(() {
-      _rewardChip = notifier.lastMicroReward;
+      _rewardChip = reward;
       _busy = false;
     });
-    await Future<void>.delayed(const Duration(milliseconds: 1500));
+    if (reward == null) return;
+    await Future<void>.delayed(const Duration(milliseconds: 1200));
     if (mounted) setState(() => _rewardChip = null);
   }
 
@@ -104,16 +108,6 @@ class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
     setState(() => _busy = true);
     await ref.read(dailyProgramProvider.notifier).skipStep(step);
     if (mounted) setState(() => _busy = false);
-  }
-
-  void _scrollToNext() {
-    final ctx = _nextStepKey.currentContext;
-    if (ctx == null) return;
-    Scrollable.ensureVisible(
-      ctx,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeOut,
-    );
   }
 
   @override
@@ -127,76 +121,28 @@ class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
     final current = state.currentStep;
     final percent = (state.progressRatio * 100).round();
 
-    return ListView(
-      padding: const EdgeInsets.all(16),
+    // Header + current step stay outside the steps ListView so completing
+    // a step does not jump/scroll the "كل خطوات اليوم" list.
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        GlassCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                morning,
-                style: TextStyle(
-                  color: colorScheme.primary,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  height: 1.4,
-                ),
-              ),
-              const SizedBox(height: 12),
-              Text(
-                name.isEmpty
-                    ? loc.dailyProgramGreetingGeneric
-                    : loc.dailyProgramGreetingNamed(name),
-                style: TextStyle(
-                  color: colorScheme.onSurface,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                loc.dailyProgramDayLabel(state.dayNumber),
-                style: TextStyle(
-                  color: colorScheme.onSurfaceVariant,
-                  fontSize: 13,
-                ),
-              ),
-              const SizedBox(height: 16),
-              Text(
-                state.isAllDone
-                    ? loc.dailyProgramRemainingZero
-                    : loc.dailyProgramRemaining(state.remainingCount),
-                style: TextStyle(
-                  color: colorScheme.onSurfaceVariant,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(height: 8),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: LinearProgressIndicator(
-                  value: state.progressRatio,
-                  minHeight: 10,
-                  backgroundColor: colorScheme.surfaceContainerHighest,
-                  color: colorScheme.primary,
-                ),
-              ),
-              const SizedBox(height: 6),
-              Text(
-                loc.dailyProgramProgressPercent(percent),
-                style: TextStyle(
-                  color: colorScheme.onSurfaceVariant,
-                  fontSize: 12,
-                ),
-              ),
-            ],
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+          child: _ProgramHeader(
+            morning: morning,
+            greeting: name.isEmpty
+                ? loc.dailyProgramGreetingGeneric
+                : loc.dailyProgramGreetingNamed(name),
+            dayLabel: loc.dailyProgramDayLabel(state.dayNumber),
+            remainingLabel: state.isAllDone
+                ? loc.dailyProgramRemainingZero
+                : loc.dailyProgramRemaining(state.remainingCount),
+            progress: state.progressRatio,
+            percentLabel: loc.dailyProgramProgressPercent(percent),
           ),
         ),
-        const SizedBox(height: 16),
-        KeyedSubtree(
-          key: _nextStepKey,
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
           child: state.isAllDone
               ? _CompletionCard(
                   loc: loc,
@@ -205,6 +151,7 @@ class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
               : current == null
                   ? const SizedBox.shrink()
                   : _NextStepCard(
+                      key: ValueKey(current.step),
                       entry: current,
                       busy: _busy,
                       rewardChip: _rewardChip,
@@ -218,26 +165,34 @@ class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
                           : null,
                     ),
         ),
-        const SizedBox(height: 20),
-        Text(
-          loc.dailyProgramAllStepsTitle,
-          style: TextStyle(
-            color: colorScheme.onSurface,
-            fontWeight: FontWeight.w700,
-            fontSize: 16,
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 20, 16, 10),
+          child: Text(
+            loc.dailyProgramAllStepsTitle,
+            style: TextStyle(
+              color: colorScheme.onSurface,
+              fontWeight: FontWeight.w700,
+              fontSize: 16,
+            ),
           ),
         ),
-        const SizedBox(height: 10),
-        GlassCard(
-          child: Column(
+        Expanded(
+          child: ListView(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
             children: [
-              for (var i = 0; i < state.steps.length; i++) ...[
-                if (i > 0) const Divider(height: 16),
-                _StepRow(
-                  entry: state.steps[i],
-                  onTapCurrent: _scrollToNext,
+              GlassCard(
+                child: Column(
+                  children: [
+                    for (var i = 0; i < state.steps.length; i++) ...[
+                      if (i > 0) const Divider(height: 16),
+                      _StepRow(
+                        key: ValueKey(state.steps[i].step),
+                        entry: state.steps[i],
+                      ),
+                    ],
+                  ],
                 ),
-              ],
+              ),
             ],
           ),
         ),
@@ -246,8 +201,116 @@ class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
   }
 }
 
+class _ProgramHeader extends StatelessWidget {
+  const _ProgramHeader({
+    required this.morning,
+    required this.greeting,
+    required this.dayLabel,
+    required this.remainingLabel,
+    required this.progress,
+    required this.percentLabel,
+  });
+
+  final String morning;
+  final String greeting;
+  final String dayLabel;
+  final String remainingLabel;
+  final double progress;
+  final String percentLabel;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return GlassCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            morning,
+            style: TextStyle(
+              color: colorScheme.primary,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              height: 1.4,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            greeting,
+            style: TextStyle(
+              color: colorScheme.onSurface,
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            dayLabel,
+            style: TextStyle(
+              color: colorScheme.onSurfaceVariant,
+              fontSize: 13,
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            remainingLabel,
+            style: TextStyle(
+              color: colorScheme.onSurfaceVariant,
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 8),
+          // Instant bar — LinearProgressIndicator's implicit animation
+          // felt like screen shake when progress + card swapped together.
+          _InstantProgressBar(value: progress),
+          const SizedBox(height: 6),
+          Text(
+            percentLabel,
+            style: TextStyle(
+              color: colorScheme.onSurfaceVariant,
+              fontSize: 12,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _InstantProgressBar extends StatelessWidget {
+  const _InstantProgressBar({required this.value});
+
+  final double value;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final clamped = value.clamp(0.0, 1.0);
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: SizedBox(
+        height: 10,
+        child: ColoredBox(
+          color: colorScheme.surfaceContainerHighest,
+          child: Align(
+            alignment: AlignmentDirectional.centerStart,
+            child: FractionallySizedBox(
+              widthFactor: clamped,
+              child: ColoredBox(color: colorScheme.primary),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class _NextStepCard extends StatelessWidget {
   const _NextStepCard({
+    super.key,
     required this.entry,
     required this.busy,
     required this.rewardChip,
@@ -305,23 +368,18 @@ class _NextStepCard extends StatelessWidget {
           ),
           if (rewardChip != null) ...[
             const SizedBox(height: 12),
-            AnimatedOpacity(
-              opacity: 1,
-              duration: const Duration(milliseconds: 250),
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                decoration: BoxDecoration(
-                  color: colorScheme.primary.withValues(alpha: 0.12),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Text(
-                  rewardChip!,
-                  style: TextStyle(
-                    color: colorScheme.primary,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 13,
-                  ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: colorScheme.primary.withValues(alpha: 0.12),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Text(
+                rewardChip!,
+                style: TextStyle(
+                  color: colorScheme.primary,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 13,
                 ),
               ),
             ),
@@ -428,12 +486,11 @@ class _CompletionCard extends StatelessWidget {
 
 class _StepRow extends StatelessWidget {
   const _StepRow({
+    super.key,
     required this.entry,
-    required this.onTapCurrent,
   });
 
   final DailyStepEntry entry;
-  final VoidCallback onTapCurrent;
 
   @override
   Widget build(BuildContext context) {
@@ -448,7 +505,7 @@ class _StepRow extends StatelessWidget {
       DailyStepStatus.skipped => '➖',
     };
 
-    final row = Row(
+    return Row(
       children: [
         Text(
           DailyProgramService.getStepEmoji(step),
@@ -481,10 +538,5 @@ class _StepRow extends StatelessWidget {
         ),
       ],
     );
-
-    if (status == DailyStepStatus.current) {
-      return InkWell(onTap: onTapCurrent, child: row);
-    }
-    return row;
   }
 }
