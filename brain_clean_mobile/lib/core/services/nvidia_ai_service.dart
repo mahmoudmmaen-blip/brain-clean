@@ -46,8 +46,9 @@ class NvidiaAiService {
     );
     debugPrint('SAFA_DEBUG: message = $userMessage');
 
+    http.Response? response;
     try {
-      final response = await http
+      response = await http
           .post(
             Uri.parse(_endpoint),
             headers: {
@@ -55,7 +56,7 @@ class NvidiaAiService {
               'Authorization': 'Bearer $_apiKey',
             },
             body: jsonEncode({
-              'model': 'meta/llama-3.3-70b-instruct',
+              'model': 'nvidia/llama-3.1-nemotron-70b-instruct',
               'messages': [
                 {'role': 'system', 'content': systemPrompt},
                 {'role': 'user', 'content': userMessage},
@@ -67,9 +68,8 @@ class NvidiaAiService {
           .timeout(const Duration(seconds: 30));
 
       if (response.statusCode != 200) {
-        debugPrint(
-          'NvidiaAiService: request failed with status ${response.statusCode}',
-        );
+        debugPrint('SAFA_ERROR: status=${response.statusCode}');
+        debugPrint('SAFA_ERROR: body=${response.body}');
         return null;
       }
 
@@ -81,6 +81,10 @@ class NvidiaAiService {
       }
       return content.toString().trim();
     } catch (e) {
+      if (response != null) {
+        debugPrint('SAFA_ERROR: status=${response.statusCode}');
+        debugPrint('SAFA_ERROR: body=${response.body}');
+      }
       debugPrint('SAFA_DEBUG: error = $e');
       debugPrint('NvidiaAiService: request failed: $e');
       return null;
