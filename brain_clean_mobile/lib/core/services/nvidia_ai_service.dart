@@ -8,11 +8,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final nvidiaAiServiceProvider = Provider<NvidiaAiService>((ref) => NvidiaAiService());
 
 class NvidiaAiService {
-  final String _apiKey = dotenv.env['NVIDIA_API_KEY'] ?? '';
   static const String _endpoint =
       'https://integrate.api.nvidia.com/v1/chat/completions';
   static const String _fallbackMessage =
       'عذراً، صفا غير متاحة الآن. حاول مرة أخرى لاحقاً.';
+
+  /// Read lazily so dotenv is guaranteed loaded before first access.
+  String get _apiKey => dotenv.env['NVIDIA_API_KEY'] ?? '';
 
   Future<String> analyzeEmotion(String userText) async {
     final response = await chat(
