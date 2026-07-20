@@ -4070,6 +4070,60 @@ abstract class AppLocalizations {
   /// **'Not able today'**
   String get dailyProgramMovementSkipToday;
 
+  /// No description provided for @dayEndTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You finished your day 💚'**
+  String get dayEndTitle;
+
+  /// No description provided for @dayEndSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Every step you took today brings you closer to mental clarity.'**
+  String get dayEndSubtitle;
+
+  /// No description provided for @dayEndSummaryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your day summary'**
+  String get dayEndSummaryTitle;
+
+  /// No description provided for @dayEndReflection0.
+  ///
+  /// In en, this message translates to:
+  /// **'What was the best thing that happened today?'**
+  String get dayEndReflection0;
+
+  /// No description provided for @dayEndReflection1.
+  ///
+  /// In en, this message translates to:
+  /// **'What do you want to do again tomorrow?'**
+  String get dayEndReflection1;
+
+  /// No description provided for @dayEndReflection2.
+  ///
+  /// In en, this message translates to:
+  /// **'What did you feel today?'**
+  String get dayEndReflection2;
+
+  /// No description provided for @dayEndReflection3.
+  ///
+  /// In en, this message translates to:
+  /// **'One thing you\'re grateful for today?'**
+  String get dayEndReflection3;
+
+  /// No description provided for @dayEndClosingMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep well 🌙 Your brain will recharge tonight.'**
+  String get dayEndClosingMessage;
+
+  /// No description provided for @dayEndFinishButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Close the day'**
+  String get dayEndFinishButton;
+
   /// No description provided for @sukoonTitle.
   ///
   /// In en, this message translates to:

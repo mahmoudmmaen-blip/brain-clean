@@ -2198,6 +2198,36 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dailyProgramMovementSkipToday => 'Not able today';
 
   @override
+  String get dayEndTitle => 'You finished your day 💚';
+
+  @override
+  String get dayEndSubtitle =>
+      'Every step you took today brings you closer to mental clarity.';
+
+  @override
+  String get dayEndSummaryTitle => 'Your day summary';
+
+  @override
+  String get dayEndReflection0 =>
+      'What was the best thing that happened today?';
+
+  @override
+  String get dayEndReflection1 => 'What do you want to do again tomorrow?';
+
+  @override
+  String get dayEndReflection2 => 'What did you feel today?';
+
+  @override
+  String get dayEndReflection3 => 'One thing you\'re grateful for today?';
+
+  @override
+  String get dayEndClosingMessage =>
+      'Sleep well 🌙 Your brain will recharge tonight.';
+
+  @override
+  String get dayEndFinishButton => 'Close the day';
+
+  @override
   String get sukoonTitle => 'Sukoon';
 
   @override

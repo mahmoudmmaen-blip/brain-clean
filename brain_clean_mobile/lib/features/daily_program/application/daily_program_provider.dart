@@ -57,4 +57,22 @@ class DailyProgram extends _$DailyProgram {
       );
     } catch (_) {}
   }
+
+  Future<void> completeDayEnd({String? reflectionNote}) async {
+    try {
+      lastMicroReward = DailyProgramService.getMicroReward(DailyStep.dayEnd);
+      final dayNumber = ref.read(homeStreakSnapshotProvider).days;
+      final current = state.valueOrNull;
+      final updated = await ref
+          .read(dailyProgramRepositoryProvider)
+          .completeDayEnd(reflectionNote: reflectionNote);
+      state = AsyncData(
+        updated.copyWith(
+          dayNumber: current?.dayNumber ?? (dayNumber < 1 ? 1 : dayNumber),
+        ),
+      );
+    } catch (_) {
+      // Keep prior state on failure.
+    }
+  }
 }

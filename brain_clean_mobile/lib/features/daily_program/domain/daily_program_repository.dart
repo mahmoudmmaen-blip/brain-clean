@@ -7,4 +7,6 @@ abstract interface class DailyProgramRepository {
   Future<DailyProgramState> completeStep(DailyStep step);
 
   Future<DailyProgramState> skipStep(DailyStep step);
+
+  Future<DailyProgramState> completeDayEnd({String? reflectionNote});
 }

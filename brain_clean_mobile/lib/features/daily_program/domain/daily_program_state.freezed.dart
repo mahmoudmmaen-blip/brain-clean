@@ -197,6 +197,7 @@ mixin _$DailyProgramState {
   DateTime get date => throw _privateConstructorUsedError;
   int get dayNumber => throw _privateConstructorUsedError;
   List<DailyStepEntry> get steps => throw _privateConstructorUsedError;
+  String? get reflectionNote => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -210,7 +211,11 @@ abstract class $DailyProgramStateCopyWith<$Res> {
           DailyProgramState value, $Res Function(DailyProgramState) then) =
       _$DailyProgramStateCopyWithImpl<$Res, DailyProgramState>;
   @useResult
-  $Res call({DateTime date, int dayNumber, List<DailyStepEntry> steps});
+  $Res call(
+      {DateTime date,
+      int dayNumber,
+      List<DailyStepEntry> steps,
+      String? reflectionNote});
 }
 
 /// @nodoc
@@ -229,6 +234,7 @@ class _$DailyProgramStateCopyWithImpl<$Res, $Val extends DailyProgramState>
     Object? date = null,
     Object? dayNumber = null,
     Object? steps = null,
+    Object? reflectionNote = freezed,
   }) {
     return _then(_value.copyWith(
       date: null == date
@@ -243,6 +249,10 @@ class _$DailyProgramStateCopyWithImpl<$Res, $Val extends DailyProgramState>
           ? _value.steps
           : steps // ignore: cast_nullable_to_non_nullable
               as List<DailyStepEntry>,
+      reflectionNote: freezed == reflectionNote
+          ? _value.reflectionNote
+          : reflectionNote // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -255,7 +265,11 @@ abstract class _$$DailyProgramStateImplCopyWith<$Res>
       __$$DailyProgramStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({DateTime date, int dayNumber, List<DailyStepEntry> steps});
+  $Res call(
+      {DateTime date,
+      int dayNumber,
+      List<DailyStepEntry> steps,
+      String? reflectionNote});
 }
 
 /// @nodoc
@@ -272,6 +286,7 @@ class __$$DailyProgramStateImplCopyWithImpl<$Res>
     Object? date = null,
     Object? dayNumber = null,
     Object? steps = null,
+    Object? reflectionNote = freezed,
   }) {
     return _then(_$DailyProgramStateImpl(
       date: null == date
@@ -286,6 +301,10 @@ class __$$DailyProgramStateImplCopyWithImpl<$Res>
           ? _value._steps
           : steps // ignore: cast_nullable_to_non_nullable
               as List<DailyStepEntry>,
+      reflectionNote: freezed == reflectionNote
+          ? _value.reflectionNote
+          : reflectionNote // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -297,7 +316,8 @@ class _$DailyProgramStateImpl extends _DailyProgramState {
   const _$DailyProgramStateImpl(
       {required this.date,
       required this.dayNumber,
-      required final List<DailyStepEntry> steps})
+      required final List<DailyStepEntry> steps,
+      this.reflectionNote})
       : _steps = steps,
         super._();
 
@@ -317,8 +337,11 @@ class _$DailyProgramStateImpl extends _DailyProgramState {
   }
 
   @override
+  final String? reflectionNote;
+
+  @override
   String toString() {
-    return 'DailyProgramState(date: $date, dayNumber: $dayNumber, steps: $steps)';
+    return 'DailyProgramState(date: $date, dayNumber: $dayNumber, steps: $steps, reflectionNote: $reflectionNote)';
   }
 
   @override
@@ -329,13 +352,15 @@ class _$DailyProgramStateImpl extends _DailyProgramState {
             (identical(other.date, date) || other.date == date) &&
             (identical(other.dayNumber, dayNumber) ||
                 other.dayNumber == dayNumber) &&
-            const DeepCollectionEquality().equals(other._steps, _steps));
+            const DeepCollectionEquality().equals(other._steps, _steps) &&
+            (identical(other.reflectionNote, reflectionNote) ||
+                other.reflectionNote == reflectionNote));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, date, dayNumber,
-      const DeepCollectionEquality().hash(_steps));
+      const DeepCollectionEquality().hash(_steps), reflectionNote);
 
   @JsonKey(ignore: true)
   @override
@@ -356,7 +381,8 @@ abstract class _DailyProgramState extends DailyProgramState {
   const factory _DailyProgramState(
       {required final DateTime date,
       required final int dayNumber,
-      required final List<DailyStepEntry> steps}) = _$DailyProgramStateImpl;
+      required final List<DailyStepEntry> steps,
+      final String? reflectionNote}) = _$DailyProgramStateImpl;
   const _DailyProgramState._() : super._();
 
   factory _DailyProgramState.fromJson(Map<String, dynamic> json) =
@@ -368,6 +394,8 @@ abstract class _DailyProgramState extends DailyProgramState {
   int get dayNumber;
   @override
   List<DailyStepEntry> get steps;
+  @override
+  String? get reflectionNote;
   @override
   @JsonKey(ignore: true)
   _$$DailyProgramStateImplCopyWith<_$DailyProgramStateImpl> get copyWith =>

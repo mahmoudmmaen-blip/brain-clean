@@ -94,6 +94,10 @@ class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
       await _showMovementSheet(context);
       return;
     }
+    if (step == DailyStep.dayEnd) {
+      await context.push(AppRoutes.dayEnd);
+      return;
+    }
     await _completeStepWithFeedback(step);
   }
 

@@ -49,6 +49,7 @@ _$DailyProgramStateImpl _$$DailyProgramStateImplFromJson(
       steps: (json['steps'] as List<dynamic>)
           .map((e) => DailyStepEntry.fromJson(e as Map<String, dynamic>))
           .toList(),
+      reflectionNote: json['reflectionNote'] as String?,
     );
 
 Map<String, dynamic> _$$DailyProgramStateImplToJson(
@@ -57,4 +58,5 @@ Map<String, dynamic> _$$DailyProgramStateImplToJson(
       'date': instance.date.toIso8601String(),
       'dayNumber': instance.dayNumber,
       'steps': instance.steps.map((e) => e.toJson()).toList(),
+      'reflectionNote': instance.reflectionNote,
     };

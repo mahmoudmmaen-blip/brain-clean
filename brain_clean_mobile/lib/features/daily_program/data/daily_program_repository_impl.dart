@@ -30,6 +30,7 @@ class DailyProgramRepositoryImpl implements DailyProgramRepository {
       'date': state.date.toIso8601String(),
       'dayNumber': state.dayNumber,
       'steps': state.steps.map((e) => e.toJson()).toList(),
+      if (state.reflectionNote != null) 'reflectionNote': state.reflectionNote,
     };
   }
 
@@ -117,6 +118,23 @@ class DailyProgramRepositoryImpl implements DailyProgramRepository {
         await getToday(dayNumber: 1);
     final updated = current.copyWith(
       steps: DailyProgramService.afterSkip(current.steps, step),
+    );
+    await _save(updated);
+    return updated;
+  }
+
+  @override
+  Future<DailyProgramState> completeDayEnd({String? reflectionNote}) async {
+    final current = await _readStoredToday() ??
+        await getToday(dayNumber: 1);
+    final trimmed = reflectionNote?.trim();
+    final updated = current.copyWith(
+      steps: DailyProgramService.afterComplete(
+        current.steps,
+        DailyStep.dayEnd,
+      ),
+      reflectionNote:
+          (trimmed == null || trimmed.isEmpty) ? null : trimmed,
     );
     await _save(updated);
     return updated;

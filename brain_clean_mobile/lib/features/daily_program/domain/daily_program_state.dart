@@ -28,6 +28,7 @@ class DailyProgramState with _$DailyProgramState {
     required DateTime date,
     required int dayNumber,
     required List<DailyStepEntry> steps,
+    String? reflectionNote,
   }) = _DailyProgramState;
 
   factory DailyProgramState.fromJson(Map<String, dynamic> json) =>

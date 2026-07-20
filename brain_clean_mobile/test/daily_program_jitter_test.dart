@@ -39,6 +39,18 @@ class _FakeDailyProgramRepository implements DailyProgramRepository {
       steps: DailyProgramService.afterSkip(current.steps, step),
     );
   }
+
+  @override
+  Future<DailyProgramState> completeDayEnd({String? reflectionNote}) async {
+    final current = await getToday(dayNumber: 3);
+    return current.copyWith(
+      steps: DailyProgramService.afterComplete(
+        current.steps,
+        DailyStep.dayEnd,
+      ),
+      reflectionNote: reflectionNote,
+    );
+  }
 }
 
 void main() {

@@ -40,6 +40,7 @@ import '../../features/pro/pro_paywall_screen.dart';
 import '../../features/recovery/presentation/recovery_grid_screen.dart';
 import '../../features/profile/profile_screen.dart';
 import '../../features/daily_program/presentation/daily_program_screen.dart';
+import '../../features/daily_program/presentation/day_end_screen.dart';
 import '../../features/sukoon/presentation/sukoon_screen.dart';
 import '../../features/weekly_report/presentation/weekly_report_screen.dart';
 import '../../features/safa_tab/presentation/safa_tab_screen.dart';
@@ -308,6 +309,11 @@ GoRouter goRouter(GoRouterRef ref) {
         path: AppRoutes.sukoon,
         name: 'sukoon',
         builder: (context, state) => const SukoonScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.dayEnd,
+        name: 'dayEnd',
+        builder: (context, state) => const DayEndScreen(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>

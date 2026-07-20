@@ -2169,6 +2169,34 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dailyProgramMovementSkipToday => 'مش قادر النهارده';
 
   @override
+  String get dayEndTitle => 'خلّصت يومك 💚';
+
+  @override
+  String get dayEndSubtitle =>
+      'كل خطوة عملتها النهارده بتقرّبك أكتر من صفاء ذهنك.';
+
+  @override
+  String get dayEndSummaryTitle => 'ملخّص يومك';
+
+  @override
+  String get dayEndReflection0 => 'إيه أحسن حاجة حصلت معاك النهارده؟';
+
+  @override
+  String get dayEndReflection1 => 'إيه اللي عايز تعمله تاني بكره؟';
+
+  @override
+  String get dayEndReflection2 => 'إيه اللي شعرت بيه النهارده؟';
+
+  @override
+  String get dayEndReflection3 => 'حاجة واحدة شكرت ربنا عليها النهارده؟';
+
+  @override
+  String get dayEndClosingMessage => 'نامّ كويس 🌙 دماغك هيستعيد طاقته الليلة.';
+
+  @override
+  String get dayEndFinishButton => 'أنهِ اليوم';
+
+  @override
   String get sukoonTitle => 'سكون';
 
   @override

@@ -939,6 +939,16 @@
   "dailyProgramMovementDoNow": "I'll do it now",
   "dailyProgramMovementSkipToday": "Not able today",
 
+  "dayEndTitle": "You finished your day 💚",
+  "dayEndSubtitle": "Every step you took today brings you closer to mental clarity.",
+  "dayEndSummaryTitle": "Your day summary",
+  "dayEndReflection0": "What was the best thing that happened today?",
+  "dayEndReflection1": "What do you want to do again tomorrow?",
+  "dayEndReflection2": "What did you feel today?",
+  "dayEndReflection3": "One thing you're grateful for today?",
+  "dayEndClosingMessage": "Sleep well 🌙 Your brain will recharge tonight.",
+  "dayEndFinishButton": "Close the day",
+
   "sukoonTitle": "Sukoon",
   "sukoonIntro": "Sit in stillness. Let your mind wander — think, drift, or think of nothing at all.\nScience shows these quiet moments restore your attention.",
   "sukoonDurationLabel": "Duration",

@@ -1079,6 +1079,16 @@
   "dailyProgramMovementDoNow": "هعمل دلوقتي",
   "dailyProgramMovementSkipToday": "مش قادر النهارده",
 
+  "dayEndTitle": "خلّصت يومك 💚",
+  "dayEndSubtitle": "كل خطوة عملتها النهارده بتقرّبك أكتر من صفاء ذهنك.",
+  "dayEndSummaryTitle": "ملخّص يومك",
+  "dayEndReflection0": "إيه أحسن حاجة حصلت معاك النهارده؟",
+  "dayEndReflection1": "إيه اللي عايز تعمله تاني بكره؟",
+  "dayEndReflection2": "إيه اللي شعرت بيه النهارده؟",
+  "dayEndReflection3": "حاجة واحدة شكرت ربنا عليها النهارده؟",
+  "dayEndClosingMessage": "نامّ كويس 🌙 دماغك هيستعيد طاقته الليلة.",
+  "dayEndFinishButton": "أنهِ اليوم",
+
   "sukoonTitle": "سكون",
   "sukoonIntro": "اقعد في سكون. سيب دماغك حر — يشرد، يفكّر، أو ما يفكّرش في حاجة.\nالعلم بيقول إن لحظات السكون دي بتعيد شحن انتباهك.",
   "sukoonDurationLabel": "المدة",

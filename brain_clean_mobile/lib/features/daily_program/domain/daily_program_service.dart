@@ -130,6 +130,9 @@ class DailyProgramService {
     };
   }
 
+  /// Rotates closing reflection prompt by calendar day (0–3).
+  static int reflectionQuestionIndex(DateTime date) => date.day % 4;
+
   static String getMicroReward(DailyStep step) {
     return switch (step.indexInJourney % 4) {
       0 => '✔ رائع',
