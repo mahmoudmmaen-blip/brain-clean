@@ -2142,6 +2142,33 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dailyProgramHomeDone => 'خلّصت رحلة النهارده ✅';
 
   @override
+  String get dailyProgramWaterSheetTitle => '💧 شربت كوب ماء؟';
+
+  @override
+  String get dailyProgramWaterSheetSubtitle => 'الماء بيساعد دماغك يشتغل أحسن';
+
+  @override
+  String get dailyProgramWaterConfirm => 'أيوه، شربت ✅';
+
+  @override
+  String get dailyProgramWaterLater => 'لسه، هشرب دلوقتي';
+
+  @override
+  String get dailyProgramMovementSheetTitle => '🚶 عملت أي حركة النهارده؟';
+
+  @override
+  String get dailyProgramMovementSheetSubtitle => 'حتى 5 دقايق مشي بتفرق';
+
+  @override
+  String get dailyProgramMovementConfirm => 'أيوه ✅';
+
+  @override
+  String get dailyProgramMovementDoNow => 'هعمل دلوقتي';
+
+  @override
+  String get dailyProgramMovementSkipToday => 'مش قادر النهارده';
+
+  @override
   String get sukoonTitle => 'سكون';
 
   @override

@@ -929,6 +929,16 @@
   },
   "dailyProgramHomeDone": "You finished today's journey ✅",
 
+  "dailyProgramWaterSheetTitle": "💧 Did you drink a glass of water?",
+  "dailyProgramWaterSheetSubtitle": "Water helps your brain work better",
+  "dailyProgramWaterConfirm": "Yes, I drank ✅",
+  "dailyProgramWaterLater": "Not yet — I'll drink now",
+  "dailyProgramMovementSheetTitle": "🚶 Did you move today?",
+  "dailyProgramMovementSheetSubtitle": "Even 5 minutes of walking helps",
+  "dailyProgramMovementConfirm": "Yes ✅",
+  "dailyProgramMovementDoNow": "I'll do it now",
+  "dailyProgramMovementSkipToday": "Not able today",
+
   "sukoonTitle": "Sukoon",
   "sukoonIntro": "Sit in stillness. Let your mind wander — think, drift, or think of nothing at all.\nScience shows these quiet moments restore your attention.",
   "sukoonDurationLabel": "Duration",

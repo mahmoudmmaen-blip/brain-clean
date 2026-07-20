@@ -4016,6 +4016,60 @@ abstract class AppLocalizations {
   /// **'You finished today\'s journey ✅'**
   String get dailyProgramHomeDone;
 
+  /// No description provided for @dailyProgramWaterSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'💧 Did you drink a glass of water?'**
+  String get dailyProgramWaterSheetTitle;
+
+  /// No description provided for @dailyProgramWaterSheetSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Water helps your brain work better'**
+  String get dailyProgramWaterSheetSubtitle;
+
+  /// No description provided for @dailyProgramWaterConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes, I drank ✅'**
+  String get dailyProgramWaterConfirm;
+
+  /// No description provided for @dailyProgramWaterLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Not yet — I\'ll drink now'**
+  String get dailyProgramWaterLater;
+
+  /// No description provided for @dailyProgramMovementSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'🚶 Did you move today?'**
+  String get dailyProgramMovementSheetTitle;
+
+  /// No description provided for @dailyProgramMovementSheetSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Even 5 minutes of walking helps'**
+  String get dailyProgramMovementSheetSubtitle;
+
+  /// No description provided for @dailyProgramMovementConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes ✅'**
+  String get dailyProgramMovementConfirm;
+
+  /// No description provided for @dailyProgramMovementDoNow.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'ll do it now'**
+  String get dailyProgramMovementDoNow;
+
+  /// No description provided for @dailyProgramMovementSkipToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Not able today'**
+  String get dailyProgramMovementSkipToday;
+
   /// No description provided for @sukoonTitle.
   ///
   /// In en, this message translates to:

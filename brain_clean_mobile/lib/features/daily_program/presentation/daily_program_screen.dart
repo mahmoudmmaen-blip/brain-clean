@@ -86,6 +86,18 @@ class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
       await _openMoodWheelAndCompleteIfLogged();
       return;
     }
+    if (step == DailyStep.water) {
+      await _showWaterSheet(context);
+      return;
+    }
+    if (step == DailyStep.movement) {
+      await _showMovementSheet(context);
+      return;
+    }
+    await _completeStepWithFeedback(step);
+  }
+
+  Future<void> _completeStepWithFeedback(DailyStep step) async {
     if (_busy) return;
     setState(() => _busy = true);
     final notifier = ref.read(dailyProgramProvider.notifier);
@@ -99,6 +111,100 @@ class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
     if (reward == null) return;
     await Future<void>.delayed(const Duration(milliseconds: 1200));
     if (mounted) setState(() => _rewardChip = null);
+  }
+
+  Future<void> _showWaterSheet(BuildContext context) async {
+    if (_busy) return;
+    final loc = AppLocalizations.of(context)!;
+
+    await showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (sheetContext) {
+        return _ConfirmationSheetShell(
+          title: loc.dailyProgramWaterSheetTitle,
+          subtitle: loc.dailyProgramWaterSheetSubtitle,
+          children: [
+            ElevatedButton(
+              onPressed: () async {
+                Navigator.of(sheetContext).pop();
+                await _completeStepWithFeedback(DailyStep.water);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(sheetContext).colorScheme.primary,
+                foregroundColor: Theme.of(sheetContext).colorScheme.onPrimary,
+                minimumSize: const Size.fromHeight(52),
+              ),
+              child: Text(loc.dailyProgramWaterConfirm),
+            ),
+            const SizedBox(height: 8),
+            TextButton(
+              onPressed: () => Navigator.of(sheetContext).pop(),
+              child: Text(
+                loc.dailyProgramWaterLater,
+                style: TextStyle(
+                  color: Theme.of(sheetContext).colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _showMovementSheet(BuildContext context) async {
+    if (_busy) return;
+    final loc = AppLocalizations.of(context)!;
+
+    await showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (sheetContext) {
+        final colorScheme = Theme.of(sheetContext).colorScheme;
+        return _ConfirmationSheetShell(
+          title: loc.dailyProgramMovementSheetTitle,
+          subtitle: loc.dailyProgramMovementSheetSubtitle,
+          children: [
+            ElevatedButton(
+              onPressed: () async {
+                Navigator.of(sheetContext).pop();
+                await _completeStepWithFeedback(DailyStep.movement);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: colorScheme.primary,
+                foregroundColor: colorScheme.onPrimary,
+                minimumSize: const Size.fromHeight(52),
+              ),
+              child: Text(loc.dailyProgramMovementConfirm),
+            ),
+            const SizedBox(height: 8),
+            OutlinedButton(
+              onPressed: () => Navigator.of(sheetContext).pop(),
+              style: OutlinedButton.styleFrom(
+                minimumSize: const Size.fromHeight(48),
+                side: BorderSide(color: colorScheme.outline),
+                foregroundColor: colorScheme.onSurface,
+              ),
+              child: Text(loc.dailyProgramMovementDoNow),
+            ),
+            const SizedBox(height: 4),
+            TextButton(
+              onPressed: () async {
+                Navigator.of(sheetContext).pop();
+                await _completeStepWithFeedback(DailyStep.movement);
+              },
+              child: Text(
+                loc.dailyProgramMovementSkipToday,
+                style: TextStyle(color: colorScheme.onSurfaceVariant),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   /// Opens Emotion Wheel; completes mood only if a new today log exists on return.
@@ -593,6 +699,83 @@ class _StepRow extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _ConfirmationSheetShell extends StatelessWidget {
+  const _ConfirmationSheetShell({
+    required this.title,
+    required this.subtitle,
+    required this.children,
+  });
+
+  final String title;
+  final String subtitle;
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Padding(
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.viewInsetsOf(context).bottom,
+      ),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: colorScheme.surface,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+          border: Border(
+            top: BorderSide(color: colorScheme.outline.withValues(alpha: 0.14)),
+          ),
+        ),
+        child: SafeArea(
+          top: false,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Center(
+                  child: Container(
+                    width: 40,
+                    height: 4,
+                    margin: const EdgeInsets.only(bottom: 20),
+                    decoration: BoxDecoration(
+                      color: colorScheme.onSurfaceVariant
+                          .withValues(alpha: 0.35),
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                ),
+                Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: colorScheme.onSurface,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  subtitle,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: colorScheme.onSurfaceVariant,
+                    fontSize: 14,
+                    height: 1.45,
+                  ),
+                ),
+                const SizedBox(height: 24),
+                ...children,
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

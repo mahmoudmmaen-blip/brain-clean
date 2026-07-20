@@ -2168,6 +2168,36 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dailyProgramHomeDone => 'You finished today\'s journey ✅';
 
   @override
+  String get dailyProgramWaterSheetTitle =>
+      '💧 Did you drink a glass of water?';
+
+  @override
+  String get dailyProgramWaterSheetSubtitle =>
+      'Water helps your brain work better';
+
+  @override
+  String get dailyProgramWaterConfirm => 'Yes, I drank ✅';
+
+  @override
+  String get dailyProgramWaterLater => 'Not yet — I\'ll drink now';
+
+  @override
+  String get dailyProgramMovementSheetTitle => '🚶 Did you move today?';
+
+  @override
+  String get dailyProgramMovementSheetSubtitle =>
+      'Even 5 minutes of walking helps';
+
+  @override
+  String get dailyProgramMovementConfirm => 'Yes ✅';
+
+  @override
+  String get dailyProgramMovementDoNow => 'I\'ll do it now';
+
+  @override
+  String get dailyProgramMovementSkipToday => 'Not able today';
+
+  @override
   String get sukoonTitle => 'Sukoon';
 
   @override

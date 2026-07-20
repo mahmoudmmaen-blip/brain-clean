@@ -1069,6 +1069,16 @@
   },
   "dailyProgramHomeDone": "خلّصت رحلة النهارده ✅",
 
+  "dailyProgramWaterSheetTitle": "💧 شربت كوب ماء؟",
+  "dailyProgramWaterSheetSubtitle": "الماء بيساعد دماغك يشتغل أحسن",
+  "dailyProgramWaterConfirm": "أيوه، شربت ✅",
+  "dailyProgramWaterLater": "لسه، هشرب دلوقتي",
+  "dailyProgramMovementSheetTitle": "🚶 عملت أي حركة النهارده؟",
+  "dailyProgramMovementSheetSubtitle": "حتى 5 دقايق مشي بتفرق",
+  "dailyProgramMovementConfirm": "أيوه ✅",
+  "dailyProgramMovementDoNow": "هعمل دلوقتي",
+  "dailyProgramMovementSkipToday": "مش قادر النهارده",
+
   "sukoonTitle": "سكون",
   "sukoonIntro": "اقعد في سكون. سيب دماغك حر — يشرد، يفكّر، أو ما يفكّرش في حاجة.\nالعلم بيقول إن لحظات السكون دي بتعيد شحن انتباهك.",
   "sukoonDurationLabel": "المدة",
