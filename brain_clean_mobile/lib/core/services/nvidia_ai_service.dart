@@ -55,7 +55,7 @@ class NvidiaAiService {
               'Authorization': 'Bearer $_apiKey',
             },
             body: jsonEncode({
-              'model': 'meta/llama-3.1-8b-instruct',
+              'model': 'meta/llama-3.3-70b-instruct',
               'messages': [
                 {'role': 'system', 'content': systemPrompt},
                 {'role': 'user', 'content': userMessage},
