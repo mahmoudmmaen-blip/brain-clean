@@ -42,7 +42,7 @@ class SafaAnxietyProgramCard extends ConsumerWidget {
               style: TextStyle(color: colorScheme.error),
             ),
             data: (program) => Text(
-              program,
+              program.replaceAll(RegExp(r'\*\*'), ''),
               textAlign: TextAlign.center,
               style: AppDesignConstants.arabicText(
                 fontSize: 16,

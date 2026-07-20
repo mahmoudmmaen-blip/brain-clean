@@ -16,10 +16,17 @@ class NvidiaAiService {
   /// Read lazily so dotenv is guaranteed loaded before first access.
   String get _apiKey => dotenv.env['NVIDIA_API_KEY'] ?? '';
 
+  static const String _systemPrompt = '''
+أنت صفا، المساعدة الذكية في تطبيق Brain Clean.
+ردّك دائماً بالعربية العامية المصرية.
+اجعل ردّك قصيراً (3-4 جمل فقط).
+كن حنوناً ومشجعاً. لا تعطِ قوائم طويلة.
+لا تستخدم تنسيق markdown.
+''';
+
   Future<String> analyzeEmotion(String userText) async {
     final response = await chat(
-      systemPrompt:
-          'أنت صفا، مرشدك في تطبيق Brain Clean. مهمتك مساعدة المستخدم على التعافي من إدمان الشاشات وإعادة بناء التركيز. قدّم نصيحة عملية وداعمة. ممنوع الموسيقى. ركز على التنفس، الرياضة، التدوين، وتقليل وقت الشاشة.',
+      systemPrompt: _systemPrompt,
       userMessage: userText,
     );
     return response ?? _fallbackMessage;
@@ -32,6 +39,12 @@ class NvidiaAiService {
   }) async {
     if (_apiKey.isEmpty) return null;
 
+    debugPrint('SAFA_DEBUG: apiKey length = ${_apiKey.length}');
+    debugPrint(
+      'SAFA_DEBUG: apiKey first 8 = ${_apiKey.length > 8 ? _apiKey.substring(0, 8) : "TOO_SHORT"}',
+    );
+    debugPrint('SAFA_DEBUG: message = $userMessage');
+
     try {
       final response = await http
           .post(
@@ -41,13 +54,13 @@ class NvidiaAiService {
               'Authorization': 'Bearer $_apiKey',
             },
             body: jsonEncode({
-              'model': 'meta/llama3-70b-instruct',
+              'model': 'meta/llama-3.1-8b-instruct',
               'messages': [
                 {'role': 'system', 'content': systemPrompt},
                 {'role': 'user', 'content': userMessage},
               ],
-              'temperature': 0.5,
-              'max_tokens': 250,
+              'temperature': 0.7,
+              'max_tokens': 300,
             }),
           )
           .timeout(const Duration(seconds: 30));
@@ -66,8 +79,9 @@ class NvidiaAiService {
         return null;
       }
       return content.toString().trim();
-    } catch (error) {
-      debugPrint('NvidiaAiService: request failed: $error');
+    } catch (e) {
+      debugPrint('SAFA_DEBUG: error = $e');
+      debugPrint('NvidiaAiService: request failed: $e');
       return null;
     }
   }

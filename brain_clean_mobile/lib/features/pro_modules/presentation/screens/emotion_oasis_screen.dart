@@ -107,7 +107,7 @@ class _EmotionOasisScreenState extends ConsumerState<EmotionOasisScreen> {
                   ),
                   child: SingleChildScrollView(
                     child: Text(
-                      _response,
+                      _response.replaceAll(RegExp(r'\*\*'), ''),
                       style: theme.textTheme.bodyLarge?.copyWith(
                         height: 1.6,
                         fontWeight: FontWeight.w500,
