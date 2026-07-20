@@ -3932,6 +3932,12 @@ abstract class AppLocalizations {
   /// **'Done ✅'**
   String get dailyProgramDoneCta;
 
+  /// No description provided for @dailyProgramChooseMood.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your mood'**
+  String get dailyProgramChooseMood;
+
   /// No description provided for @dailyProgramOpenEmotionWheel.
   ///
   /// In en, this message translates to:

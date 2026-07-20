@@ -8,6 +8,7 @@ import '../../../core/l10n/app_localizations.dart';
 import '../../../core/presentation/language_toggle_button.dart';
 import '../../../shared/widgets/glass_card.dart';
 import '../../emotions/application/emotion_provider.dart';
+import '../../emotions/data/emotion_log_repository.dart';
 import '../../sukoon/application/sukoon_daily_program_gate.dart';
 import '../application/daily_program_provider.dart';
 import '../domain/daily_program_service.dart';
@@ -58,7 +59,7 @@ class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
 
   String? _secondaryActionLabel(AppLocalizations loc, DailyStep step) {
     return switch (step) {
-      DailyStep.mood => loc.dailyProgramOpenEmotionWheel,
+      // Mood primary CTA opens the wheel — no duplicate secondary.
       DailyStep.sukoon => loc.dailyProgramOpenCalmExercise,
       DailyStep.focusTask => loc.dailyProgramOpenSingleTask,
       DailyStep.journal => loc.dailyProgramOpenWorryJournal,
@@ -68,13 +69,6 @@ class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
 
   VoidCallback? _secondaryAction(BuildContext context, DailyStep step) {
     return switch (step) {
-      // Shell-nested under /home — go() avoids duplicate StatefulShell navigators.
-      DailyStep.mood => () {
-          ref
-              .read(emotionWheelDailyProgramGateProvider.notifier)
-              .arm();
-          context.go(AppRoutes.emotionWheel);
-        },
       DailyStep.sukoon => () {
           ref.read(sukoonDailyProgramGateProvider.notifier).arm();
           // Top-level route (outside shell) — push is safe.
@@ -88,6 +82,10 @@ class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
   }
 
   Future<void> _complete(DailyStep step) async {
+    if (step == DailyStep.mood) {
+      await _openMoodWheelAndCompleteIfLogged();
+      return;
+    }
     if (_busy) return;
     setState(() => _busy = true);
     final notifier = ref.read(dailyProgramProvider.notifier);
@@ -101,6 +99,59 @@ class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
     if (reward == null) return;
     await Future<void>.delayed(const Duration(milliseconds: 1200));
     if (mounted) setState(() => _rewardChip = null);
+  }
+
+  /// Opens Emotion Wheel; completes mood only if a new today log exists on return.
+  Future<void> _openMoodWheelAndCompleteIfLogged() async {
+    if (_busy) return;
+    setState(() => _busy = true);
+
+    DateTime? baseline;
+    try {
+      baseline =
+          ref.read(emotionLogRepositoryProvider).latestTodayTimestamp();
+    } catch (_) {
+      // Hive may be unavailable in edge cases — still open the wheel.
+    }
+
+    // Keep existing EmotionWheel gate path for confirmImpact auto-complete.
+    ref.read(emotionWheelDailyProgramGateProvider.notifier).arm();
+
+    await context.push(AppRoutes.emotionWheel);
+    if (!mounted) return;
+
+    final program = ref.read(dailyProgramProvider).valueOrNull;
+    final current = program?.currentStep;
+    final stillOnMood = current != null &&
+        current.step == DailyStep.mood &&
+        current.status == DailyStepStatus.current;
+
+    if (stillOnMood) {
+      var loggedSinceOpen = false;
+      try {
+        loggedSinceOpen = ref
+            .read(emotionLogRepositoryProvider)
+            .hasLoggedToday(after: baseline);
+      } catch (_) {}
+
+      if (loggedSinceOpen) {
+        final notifier = ref.read(dailyProgramProvider.notifier);
+        await notifier.completeStep(DailyStep.mood);
+        if (!mounted) return;
+        final reward = notifier.lastMicroReward;
+        setState(() {
+          _rewardChip = reward;
+          _busy = false;
+        });
+        if (reward != null) {
+          await Future<void>.delayed(const Duration(milliseconds: 1200));
+          if (mounted) setState(() => _rewardChip = null);
+        }
+        return;
+      }
+    }
+
+    if (mounted) setState(() => _busy = false);
   }
 
   Future<void> _skip(DailyStep step) async {
@@ -155,6 +206,9 @@ class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
                       entry: current,
                       busy: _busy,
                       rewardChip: _rewardChip,
+                      doneLabel: current.step == DailyStep.mood
+                          ? loc.dailyProgramChooseMood
+                          : loc.dailyProgramDoneCta,
                       onComplete: () => _complete(current.step),
                       secondaryActionLabel:
                           _secondaryActionLabel(loc, current.step),
@@ -314,6 +368,7 @@ class _NextStepCard extends StatelessWidget {
     required this.entry,
     required this.busy,
     required this.rewardChip,
+    required this.doneLabel,
     required this.onComplete,
     this.secondaryActionLabel,
     this.onSecondaryAction,
@@ -323,6 +378,7 @@ class _NextStepCard extends StatelessWidget {
   final DailyStepEntry entry;
   final bool busy;
   final String? rewardChip;
+  final String doneLabel;
   final VoidCallback onComplete;
   final String? secondaryActionLabel;
   final VoidCallback? onSecondaryAction;
@@ -405,7 +461,7 @@ class _NextStepCard extends StatelessWidget {
                     ),
                   )
                 : Text(
-                    loc.dailyProgramDoneCta,
+                    doneLabel,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,

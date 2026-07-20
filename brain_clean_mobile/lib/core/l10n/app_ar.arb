@@ -1049,6 +1049,7 @@
     }
   },
   "dailyProgramDoneCta": "تم ✅",
+  "dailyProgramChooseMood": "اختار مزاجك",
   "dailyProgramOpenEmotionWheel": "فتح عجلة المشاعر",
   "dailyProgramOpenCalmExercise": "فتح تمرين السكون",
   "dailyProgramOpenSingleTask": "فتح مهمة التركيز",

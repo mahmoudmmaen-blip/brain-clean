@@ -103,7 +103,7 @@ class DailyProgramService {
         DailyStep.movement => 'Move for two minutes — that\'s enough',
         DailyStep.sukoon => 'Wakeful rest — let the mind wander',
         DailyStep.focusTask => '10 minutes without scrolling — one task only',
-        DailyStep.mood => 'Record how you feel honestly',
+        DailyStep.mood => 'Choose your mood now',
         DailyStep.journal => 'Optional — one line is enough',
         DailyStep.dayEnd => 'Close your day gently',
       };
@@ -114,7 +114,7 @@ class DailyProgramService {
       DailyStep.movement => 'تحرك دقيقتين — يكفي',
       DailyStep.sukoon => 'استراحة يقظة — سيب دماغك حر',
       DailyStep.focusTask => '10 دقائق بدون سكرول — مهمة واحدة فقط',
-      DailyStep.mood => 'سجّل إحساسك بصدق',
+      DailyStep.mood => 'اختار مزاجك دلوقتي',
       DailyStep.journal => 'اختياري — سطر واحد يكفي',
       DailyStep.dayEnd => 'أختِم يومك بلطف',
     };

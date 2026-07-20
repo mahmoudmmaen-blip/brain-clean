@@ -909,6 +909,7 @@
     }
   },
   "dailyProgramDoneCta": "Done ✅",
+  "dailyProgramChooseMood": "Choose your mood",
   "dailyProgramOpenEmotionWheel": "Open Emotion Wheel",
   "dailyProgramOpenCalmExercise": "Open Calm Exercise",
   "dailyProgramOpenSingleTask": "Open Single Task",

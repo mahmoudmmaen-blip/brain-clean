@@ -158,4 +158,20 @@ void main() {
       expect(DailyProgramService.getStepEmoji(DailyStep.focusTask), '🎯');
     });
   });
+
+  group('DailyProgramService mood copy', () {
+    test('mood subtitle guides user to choose now', () {
+      expect(
+        DailyProgramService.getStepSubtitle(DailyStep.mood),
+        'اختار مزاجك دلوقتي',
+      );
+      expect(
+        DailyProgramService.getStepSubtitle(
+          DailyStep.mood,
+          languageCode: 'en',
+        ),
+        'Choose your mood now',
+      );
+    });
+  });
 }

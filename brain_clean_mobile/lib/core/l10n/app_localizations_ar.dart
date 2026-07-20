@@ -2098,6 +2098,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dailyProgramDoneCta => 'تم ✅';
 
   @override
+  String get dailyProgramChooseMood => 'اختار مزاجك';
+
+  @override
   String get dailyProgramOpenEmotionWheel => 'فتح عجلة المشاعر';
 
   @override

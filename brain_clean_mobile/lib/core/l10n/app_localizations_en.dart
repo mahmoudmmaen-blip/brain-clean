@@ -2123,6 +2123,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dailyProgramDoneCta => 'Done ✅';
 
   @override
+  String get dailyProgramChooseMood => 'Choose your mood';
+
+  @override
   String get dailyProgramOpenEmotionWheel => 'Open Emotion Wheel';
 
   @override

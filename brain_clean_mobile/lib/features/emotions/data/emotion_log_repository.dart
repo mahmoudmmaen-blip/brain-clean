@@ -28,6 +28,42 @@ class EmotionLogRepository {
 
   int get count => _box.length;
 
+  /// True if any emotion log entry falls on today's calendar date.
+  /// When [after] is set, only entries strictly newer than [after] count.
+  bool hasLoggedToday({DateTime? after}) {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    for (final entry in recentEntries(limit: 200)) {
+      final day = DateTime(
+        entry.timestamp.year,
+        entry.timestamp.month,
+        entry.timestamp.day,
+      );
+      if (day != today) continue;
+      if (after == null || entry.timestamp.isAfter(after)) return true;
+    }
+    return false;
+  }
+
+  /// Latest emotion timestamp for today, or null if none.
+  DateTime? latestTodayTimestamp() {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    DateTime? latest;
+    for (final entry in recentEntries(limit: 200)) {
+      final day = DateTime(
+        entry.timestamp.year,
+        entry.timestamp.month,
+        entry.timestamp.day,
+      );
+      if (day != today) continue;
+      if (latest == null || entry.timestamp.isAfter(latest)) {
+        latest = entry.timestamp;
+      }
+    }
+    return latest;
+  }
+
   List<EmotionLogEntry> recentEntries({int limit = 5}) {
     final entries = <EmotionLogEntry>[];
     for (final key in _box.keys) {
