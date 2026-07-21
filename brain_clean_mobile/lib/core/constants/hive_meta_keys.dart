@@ -9,6 +9,7 @@ abstract final class HiveMetaKeys {
   static const worryWindowReminderHour = 'worryWindowReminderHour';
   static const worryWindowReminderMinute = 'worryWindowReminderMinute';
   static const safaCheckinDismissedUntil = 'safaCheckinDismissedUntil';
+  static const safaFirstUsedAt = 'safaFirstUsedAt';
   static const profileDisplayName = 'profileDisplayName';
   static const silenceWinsCount = 'silenceWinsCount';
   static const singleTasksCompletedCount = 'singleTasksCompletedCount';

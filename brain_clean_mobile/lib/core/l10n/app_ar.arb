@@ -846,6 +846,8 @@
   "safaTabSubtitle": "مرشدتك الذكية · هنا لما تحتاجها",
   "safaTalkButton": "تحدّثي مع صفا",
   "safaOasisButton": "واحة المشاعر",
+  "safaTrialExpiredMessage": "خلصت فترة تجربة صفا المجانية — كمّلي معاها بالاشتراك في Pro",
+  "safaMedicalDisclaimer": "صفا مساعدة دعم نفسي بالذكاء الاصطناعي، مش بديل عن استشارة طبيب أو معالج نفسي متخصص. لو حاسس إن الموضوع أكبر من كده، استشر مختص.",
   "journeyTabTitle": "رحلتي",
   "journeyCardBciTitle": "مؤشر صفاء الدماغ BCI",
   "journeyCardDiagnosticTitle": "التشخيص",

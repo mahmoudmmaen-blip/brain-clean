@@ -706,6 +706,8 @@
   "safaTabSubtitle": "Your AI guide · here when you need her",
   "safaTalkButton": "Talk to Safa",
   "safaOasisButton": "Emotion Oasis",
+  "safaTrialExpiredMessage": "Your free Safa trial has ended — continue with her by subscribing to Pro",
+  "safaMedicalDisclaimer": "Safa is AI-powered emotional support, not a substitute for a doctor or licensed therapist. If things feel bigger than this, please consult a professional.",
   "journeyTabTitle": "My Journey",
   "journeyCardBciTitle": "Brain Clarity Index (BCI)",
   "journeyCardDiagnosticTitle": "Diagnostic",

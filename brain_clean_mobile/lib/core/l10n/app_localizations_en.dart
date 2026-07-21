@@ -1624,6 +1624,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get safaOasisButton => 'Emotion Oasis';
 
   @override
+  String get safaTrialExpiredMessage =>
+      'Your free Safa trial has ended — continue with her by subscribing to Pro';
+
+  @override
+  String get safaMedicalDisclaimer =>
+      'Safa is AI-powered emotional support, not a substitute for a doctor or licensed therapist. If things feel bigger than this, please consult a professional.';
+
+  @override
   String get journeyTabTitle => 'My Journey';
 
   @override

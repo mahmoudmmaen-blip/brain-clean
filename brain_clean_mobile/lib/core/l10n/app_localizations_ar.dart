@@ -1608,6 +1608,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get safaOasisButton => 'واحة المشاعر';
 
   @override
+  String get safaTrialExpiredMessage =>
+      'خلصت فترة تجربة صفا المجانية — كمّلي معاها بالاشتراك في Pro';
+
+  @override
+  String get safaMedicalDisclaimer =>
+      'صفا مساعدة دعم نفسي بالذكاء الاصطناعي، مش بديل عن استشارة طبيب أو معالج نفسي متخصص. لو حاسس إن الموضوع أكبر من كده، استشر مختص.';
+
+  @override
   String get journeyTabTitle => 'رحلتي';
 
   @override

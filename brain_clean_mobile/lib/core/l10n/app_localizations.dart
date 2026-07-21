@@ -3020,6 +3020,18 @@ abstract class AppLocalizations {
   /// **'Emotion Oasis'**
   String get safaOasisButton;
 
+  /// No description provided for @safaTrialExpiredMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your free Safa trial has ended — continue with her by subscribing to Pro'**
+  String get safaTrialExpiredMessage;
+
+  /// No description provided for @safaMedicalDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Safa is AI-powered emotional support, not a substitute for a doctor or licensed therapist. If things feel bigger than this, please consult a professional.'**
+  String get safaMedicalDisclaimer;
+
   /// No description provided for @journeyTabTitle.
   ///
   /// In en, this message translates to:
