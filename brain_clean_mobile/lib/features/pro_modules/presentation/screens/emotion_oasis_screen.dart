@@ -1,4 +1,4 @@
-import 'package:brain_clean_mobile/core/services/claude_ai_service.dart';
+import 'package:brain_clean_mobile/core/services/claude_ai_service_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -14,6 +14,9 @@ class EmotionOasisScreen extends ConsumerStatefulWidget {
 }
 
 class _EmotionOasisScreenState extends ConsumerState<EmotionOasisScreen> {
+  static const _claudeFallback =
+      'أنا هنا معاكي — جرّب تاني بعد شوية 🌿';
+
   final TextEditingController _controller = TextEditingController();
   String _response = '';
   bool _isLoading = false;
@@ -34,7 +37,7 @@ class _EmotionOasisScreenState extends ConsumerState<EmotionOasisScreen> {
     if (!mounted) return;
 
     setState(() {
-      _response = result ?? ClaudeAiService.fallbackMessage;
+      _response = result ?? _claudeFallback;
       _isLoading = false;
     });
   }

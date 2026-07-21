@@ -7,7 +7,7 @@ part of 'safa_anxiety_program_provider.dart';
 // **************************************************************************
 
 String _$safaAnxietyProgramHash() =>
-    r'62bade796502e720f97be4b5a3bd82c4f16c539f';
+    r'6f13e523614940f70d2b25fcb17a2e03cfad815e';
 
 /// Copied from Dart SDK
 class _SystemHash {
