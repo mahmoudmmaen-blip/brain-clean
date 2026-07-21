@@ -4,7 +4,5 @@ import 'claude_ai_service.dart';
 
 part 'claude_ai_service_provider.g.dart';
 
-@Riverpod(keepAlive: true)
-ClaudeAiService claudeAiService(ClaudeAiServiceRef ref) {
-  return ClaudeAiService();
-}
+@riverpod
+ClaudeAiService claudeAiService(ClaudeAiServiceRef ref) => ClaudeAiService();
