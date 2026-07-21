@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/theme/app_design_constants.dart';
 import '../../../../core/theme/theme_extensions.dart';
+import '../../../../shared/widgets/metric_info_row.dart';
 import '../../application/bci_controller_provider.dart';
 import '../../domain/bci_score_model.dart';
 
@@ -165,6 +166,12 @@ class _BciCardContent extends StatelessWidget {
         const SizedBox(height: 10),
         Center(
           child: _BciStatusPill(label: statusLabel, color: accent),
+        ),
+        const SizedBox(height: 12),
+        MetricInfoRow(
+          oneLiner: loc.bciOneLiner,
+          fullExplanation: loc.bciFullExplanation,
+          sheetTitle: loc.bciCardTitle,
         ),
         const SizedBox(height: 18),
         Divider(color: context.borderMuted.withValues(alpha: 0.6)),

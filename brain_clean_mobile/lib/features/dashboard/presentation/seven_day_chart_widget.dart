@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/presentation/async_state_views.dart';
+import '../../../shared/widgets/metric_info_row.dart';
 import '../../anxiety/presentation/calm_index_provider.dart';
 import '../application/seven_day_provider.dart';
 import '../domain/daily_snapshot.dart';
@@ -299,6 +300,13 @@ class _ChartBody extends ConsumerWidget {
                   dashed: true,
                 ),
               ],
+            ),
+            const SizedBox(height: 8),
+            MetricInfoRow(
+              oneLiner: loc.calmIndexOneLiner,
+              fullExplanation: loc.calmIndexFullExplanation,
+              sheetTitle: loc.calmIndexLegendCalm,
+              compact: true,
             ),
           ],
         ],

@@ -6,6 +6,7 @@ import '../../../core/l10n/app_localizations.dart';
 import '../../../core/presentation/language_toggle_button.dart';
 import '../../../core/providers/locale_provider.dart';
 import '../../../shared/widgets/glass_card.dart';
+import '../../../shared/widgets/metric_info_row.dart';
 import '../application/weekly_report_provider.dart';
 import '../domain/weekly_report_data.dart';
 import '../domain/weekly_report_service.dart';
@@ -13,7 +14,7 @@ import '../domain/weekly_report_service.dart';
 const weeklyReportScreenKey = Key('weekly_report_screen');
 const weeklyReportCoralNegative = Color(0xFFFF5A5F);
 
-/// Weekly progress summary — opened from More tab or notification.
+/// Weekly progress summary — opened from Journey tab or notification.
 class WeeklyReportScreen extends ConsumerWidget {
   const WeeklyReportScreen({super.key});
 
@@ -359,6 +360,13 @@ class _AnxietyCard extends StatelessWidget {
               fontSize: 13,
               fontWeight: FontWeight.w600,
             ),
+          ),
+          const SizedBox(height: 6),
+          MetricInfoRow(
+            oneLiner: loc.calmIndexOneLiner,
+            fullExplanation: loc.calmIndexFullExplanation,
+            sheetTitle: loc.weeklyReportCalmTitle,
+            compact: true,
           ),
           const SizedBox(height: 12),
           Text(

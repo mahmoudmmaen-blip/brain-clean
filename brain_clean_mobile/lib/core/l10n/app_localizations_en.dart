@@ -1506,6 +1506,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get bciCardLoading => 'Calculating BCI...';
 
   @override
+  String get bciOneLiner =>
+      '60% weekly assessment + 40% daily adherence over the last 7 days';
+
+  @override
+  String get bciFullExplanation =>
+      'Brain Clarity (BCI) is a live 0–100 score that updates daily. 60% comes from your weekly assessment (BHI test and mental clarity), and 40% from how consistently you followed your recovery protocol over the last 7 days. If you haven’t completed the weekly assessment yet, the score is based on adherence only.';
+
+  @override
+  String get calmIndexOneLiner =>
+      'The inverse of your anxiety test — less anxiety means more calm';
+
+  @override
+  String get calmIndexFullExplanation =>
+      'The Calm Index is calculated from your anxiety test: 100 minus your anxiety score. It appears on the chart once you have at least two anxiety test results, and days between tests are estimated with a gradual fill.';
+
+  @override
+  String get metricInfoA11yLabel => 'What does this number mean?';
+
+  @override
   String get settingsSecuritySection => 'Security';
 
   @override

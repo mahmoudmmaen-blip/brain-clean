@@ -11,6 +11,12 @@ void main() {
   late Directory tempDir;
   late WorryRepositoryImpl repository;
 
+  /// Midday local — avoids midnight / ISO-without-offset parse edge cases.
+  DateTime _todayNoon() {
+    final n = DateTime.now();
+    return DateTime(n.year, n.month, n.day, 12);
+  }
+
   setUp(() async {
     HiveBootstrap.resetForTesting();
     tempDir = await Directory.systemTemp.createTemp('bc_worry_hive_');
@@ -32,8 +38,8 @@ void main() {
   });
 
   test('persists entries and filters today entries', () async {
-    final yesterday = DateTime.now().subtract(const Duration(days: 1)).toUtc();
-    final today = DateTime.now().toUtc();
+    final todayNoon = _todayNoon();
+    final yesterday = todayNoon.subtract(const Duration(days: 1));
 
     await repository.saveEntry(
       WorryEntry(
@@ -47,7 +53,7 @@ void main() {
       WorryEntry(
         id: 'new',
         content: 'today worry',
-        createdAt: today,
+        createdAt: todayNoon,
         sessionMinutes: 15,
       ),
     );
@@ -62,17 +68,20 @@ void main() {
   });
 
   test('appends multiple entries same day', () async {
-    final now = DateTime.now().toUtc();
+    final noon = _todayNoon();
     await repository.saveEntry(
-      WorryEntry(id: 'a', content: 'first', createdAt: now),
+      WorryEntry(id: 'a', content: 'first', createdAt: noon),
     );
     await repository.saveEntry(
       WorryEntry(
         id: 'b',
         content: 'second',
-        createdAt: now.add(const Duration(minutes: 5)),
+        createdAt: noon.add(const Duration(minutes: 5)),
       ),
     );
+
+    final all = await repository.getAllEntries();
+    expect(all.length, 2);
 
     final todayEntries = await repository.getTodayEntries();
     expect(todayEntries.length, 2);

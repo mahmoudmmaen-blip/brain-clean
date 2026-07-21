@@ -1491,6 +1491,25 @@ class AppLocalizationsAr extends AppLocalizations {
   String get bciCardLoading => 'جاري حساب BCI...';
 
   @override
+  String get bciOneLiner =>
+      '٦٠٪ تقييمك الأسبوعي + ٤٠٪ التزامك اليومي آخر 7 أيام';
+
+  @override
+  String get bciFullExplanation =>
+      'صفاء الدماغ (BCI) رقم حي بين 0 و100 بيتجدد يومياً. 60% منه جاي من نتيجة تقييمك الأسبوعي (اختبار BHI ووضوح الذهن)، و40% من مدى التزامك ببروتوكول التعافي في آخر 7 أيام. لو لسه معملتش التقييم الأسبوعي، الرقم بيتحسب من الالتزام بس.';
+
+  @override
+  String get calmIndexOneLiner =>
+      'عكس نتيجة اختبار القلق — كل ما قلّ القلق، زاد الهدوء';
+
+  @override
+  String get calmIndexFullExplanation =>
+      'مؤشر الهدوء بيتحسب من نتيجة اختبار القلق بتاعك: 100 ناقص درجة القلق. يظهر على الرسم البياني لما يكون عندك نتيجتين على الأقل من اختبار القلق، والأيام اللي بينهم بتتحسب تقريبياً بالتدرج.';
+
+  @override
+  String get metricInfoA11yLabel => 'ما معنى هذا الرقم؟';
+
+  @override
   String get settingsSecuritySection => 'الأمان';
 
   @override

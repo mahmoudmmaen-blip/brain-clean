@@ -2792,6 +2792,36 @@ abstract class AppLocalizations {
   /// **'Calculating BCI...'**
   String get bciCardLoading;
 
+  /// No description provided for @bciOneLiner.
+  ///
+  /// In en, this message translates to:
+  /// **'60% weekly assessment + 40% daily adherence over the last 7 days'**
+  String get bciOneLiner;
+
+  /// No description provided for @bciFullExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Clarity (BCI) is a live 0–100 score that updates daily. 60% comes from your weekly assessment (BHI test and mental clarity), and 40% from how consistently you followed your recovery protocol over the last 7 days. If you haven’t completed the weekly assessment yet, the score is based on adherence only.'**
+  String get bciFullExplanation;
+
+  /// No description provided for @calmIndexOneLiner.
+  ///
+  /// In en, this message translates to:
+  /// **'The inverse of your anxiety test — less anxiety means more calm'**
+  String get calmIndexOneLiner;
+
+  /// No description provided for @calmIndexFullExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'The Calm Index is calculated from your anxiety test: 100 minus your anxiety score. It appears on the chart once you have at least two anxiety test results, and days between tests are estimated with a gradual fill.'**
+  String get calmIndexFullExplanation;
+
+  /// No description provided for @metricInfoA11yLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'What does this number mean?'**
+  String get metricInfoA11yLabel;
+
   /// No description provided for @settingsSecuritySection.
   ///
   /// In en, this message translates to:
