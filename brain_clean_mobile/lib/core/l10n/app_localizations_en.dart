@@ -9,7 +9,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get dashboardTitle => 'Brain Clean Dashboard';
+  String get dashboardTitle => 'Diagnostic BC Score';
 
   @override
   String get dashboardEmptyDiagnosticPrompt =>
@@ -1466,7 +1466,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get gameStart => 'Start';
 
   @override
-  String get bciCardTitle => 'Brain Clarity Index';
+  String get bciCardTitle => 'Brain Clarity (BCI)';
 
   @override
   String get bciCardTitleEn => 'BRAIN CLARITY INDEX';
@@ -1642,6 +1642,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get journeyCardWeeklyReportTitle => 'Weekly Report';
+
+  @override
+  String get journeyQuickLinksTitle => 'Quick links';
 
   @override
   String get moreTabTitle => 'More';

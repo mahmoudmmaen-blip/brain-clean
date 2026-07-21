@@ -101,7 +101,7 @@ abstract class AppLocalizations {
   /// No description provided for @dashboardTitle.
   ///
   /// In en, this message translates to:
-  /// **'Brain Clean Dashboard'**
+  /// **'Diagnostic BC Score'**
   String get dashboardTitle;
 
   /// No description provided for @dashboardEmptyDiagnosticPrompt.
@@ -2717,7 +2717,7 @@ abstract class AppLocalizations {
   /// No description provided for @bciCardTitle.
   ///
   /// In en, this message translates to:
-  /// **'Brain Clarity Index'**
+  /// **'Brain Clarity (BCI)'**
   String get bciCardTitle;
 
   /// No description provided for @bciCardTitleEn.
@@ -3055,6 +3055,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Weekly Report'**
   String get journeyCardWeeklyReportTitle;
+
+  /// No description provided for @journeyQuickLinksTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick links'**
+  String get journeyQuickLinksTitle;
 
   /// No description provided for @moreTabTitle.
   ///

@@ -1,6 +1,6 @@
 {
   "@@locale": "ar",
-  "dashboardTitle": "لوحة Brain Clean",
+  "dashboardTitle": "درجة التشخيص (BC Score)",
   "dashboardEmptyDiagnosticPrompt": "أكمل التشخيص لعرض نقاط BC_score.",
   "dashboardEmptyTitle": "ابدأ رحلتك!",
   "dashboardEmptySubtitle": "أجرِ اختبار BCI الأول لترى تقدمك هنا",
@@ -795,7 +795,7 @@
     }
   },
   "gameStart": "ابدأ",
-  "bciCardTitle": "مؤشر وضوح الدماغ",
+  "bciCardTitle": "صفاء الدماغ (BCI)",
   "bciCardTitleEn": "BRAIN CLARITY INDEX",
   "bciCardSubtitle": "محرك BCI · تحديث لحظي",
   "bciCardAssessmentLabel": "التقييم الأسبوعي",
@@ -852,6 +852,7 @@
   "journeyCardBciTitle": "مؤشر صفاء الدماغ BCI",
   "journeyCardDiagnosticTitle": "التشخيص",
   "journeyCardWeeklyReportTitle": "التقرير الأسبوعي",
+  "journeyQuickLinksTitle": "روابط سريعة",
   "moreTabTitle": "المزيد",
   "moreProfile": "الملف الشخصي",
   "moreSettings": "الإعدادات",

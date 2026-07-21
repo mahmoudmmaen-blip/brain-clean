@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "dashboardTitle": "Brain Clean Dashboard",
+  "dashboardTitle": "Diagnostic BC Score",
   "dashboardEmptyDiagnosticPrompt": "Complete the diagnostic to see your BC_score.",
   "dashboardEmptyTitle": "Start your journey!",
   "dashboardEmptySubtitle": "Take your first BCI test to see your progress here",
@@ -655,7 +655,7 @@
     }
   },
   "gameStart": "Start",
-  "bciCardTitle": "Brain Clarity Index",
+  "bciCardTitle": "Brain Clarity (BCI)",
   "bciCardTitleEn": "BRAIN CLARITY INDEX",
   "bciCardSubtitle": "BCI Engine · Live update",
   "bciCardAssessmentLabel": "Weekly assessment",
@@ -712,6 +712,7 @@
   "journeyCardBciTitle": "Brain Clarity Index (BCI)",
   "journeyCardDiagnosticTitle": "Diagnostic",
   "journeyCardWeeklyReportTitle": "Weekly Report",
+  "journeyQuickLinksTitle": "Quick links",
   "moreTabTitle": "More",
   "moreProfile": "Profile",
   "moreSettings": "Settings",

@@ -9,7 +9,7 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get dashboardTitle => 'لوحة Brain Clean';
+  String get dashboardTitle => 'درجة التشخيص (BC Score)';
 
   @override
   String get dashboardEmptyDiagnosticPrompt =>
@@ -1452,7 +1452,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get gameStart => 'ابدأ';
 
   @override
-  String get bciCardTitle => 'مؤشر وضوح الدماغ';
+  String get bciCardTitle => 'صفاء الدماغ (BCI)';
 
   @override
   String get bciCardTitleEn => 'BRAIN CLARITY INDEX';
@@ -1626,6 +1626,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get journeyCardWeeklyReportTitle => 'التقرير الأسبوعي';
+
+  @override
+  String get journeyQuickLinksTitle => 'روابط سريعة';
 
   @override
   String get moreTabTitle => 'المزيد';

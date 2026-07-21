@@ -131,13 +131,13 @@ class _BciCardContent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
-          loc.bciCardTitleEn,
+          loc.bciCardTitle,
           textAlign: TextAlign.center,
           style: AppDesignConstants.arabicText(
-            fontSize: 11,
+            fontSize: 13,
             fontWeight: FontWeight.w800,
             color: context.textMuted,
-            letterSpacing: 1.4,
+            letterSpacing: 0.6,
           ),
         ),
         const SizedBox(height: 16),
@@ -435,13 +435,13 @@ class _BciLoadingContent extends StatelessWidget {
     return Column(
       children: [
         Text(
-          loc.bciCardTitleEn,
+          loc.bciCardTitle,
           textAlign: TextAlign.center,
           style: AppDesignConstants.arabicText(
-            fontSize: 11,
+            fontSize: 13,
             fontWeight: FontWeight.w800,
             color: context.textMuted,
-            letterSpacing: 1.4,
+            letterSpacing: 0.6,
           ),
         ),
         const SizedBox(height: 24),
@@ -497,13 +497,13 @@ class _BciErrorContent extends StatelessWidget {
     return Column(
       children: [
         Text(
-          loc.bciCardTitleEn,
+          loc.bciCardTitle,
           textAlign: TextAlign.center,
           style: AppDesignConstants.arabicText(
-            fontSize: 11,
+            fontSize: 13,
             fontWeight: FontWeight.w800,
             color: context.textMuted,
-            letterSpacing: 1.4,
+            letterSpacing: 0.6,
           ),
         ),
         const SizedBox(height: 24),
