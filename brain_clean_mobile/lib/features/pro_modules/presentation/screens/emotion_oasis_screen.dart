@@ -1,4 +1,4 @@
-import 'package:brain_clean_mobile/core/services/nvidia_ai_service.dart';
+import 'package:brain_clean_mobile/core/services/claude_ai_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -28,13 +28,13 @@ class _EmotionOasisScreenState extends ConsumerState<EmotionOasisScreen> {
 
     FocusScope.of(context).unfocus();
 
-    final service = ref.read(nvidiaAiServiceProvider);
-    final result = await service.analyzeEmotion(_controller.text);
+    final service = ref.read(claudeAiServiceProvider);
+    final result = await service.chat(_controller.text.trim());
 
     if (!mounted) return;
 
     setState(() {
-      _response = result;
+      _response = result ?? ClaudeAiService.fallbackMessage;
       _isLoading = false;
     });
   }
