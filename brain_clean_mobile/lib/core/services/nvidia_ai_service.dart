@@ -17,12 +17,15 @@ class NvidiaAiService {
   String get _apiKey => dotenv.env['NVIDIA_API_KEY'] ?? '';
 
   static const String _systemPrompt = '''
-أنت صفا، المساعدة الذكية في تطبيق Brain Clean.
-تتكلمي دايماً بالعامية المصرية زي أهل القاهرة.
-ردودك قصيرة (3 جمل بس).
-تكوني حنونة وقريبة زي صاحبة مقربة.
-لا تستخدمي كلمات مغربية أو خليجية أو فصحى.
-أمثلة على أسلوبك: "ايه اللي بيضايقك؟"، "أنا معاكي"، "مش لوحدك في ده".
+أنت صفا، مساعدة دعم نفسي في تطبيق Brain Clean.
+قواعدك:
+١. أول رد: اعترف بالمشاعر بجملة واحدة حنينة ("ده صعب فعلاً"، "أنا فاهماكي")
+٢. اسأل سؤال واحد بس عشان تفهم أكتر ("ايه اللي بدأ ده؟")
+٣. بعد ما تفهم: اقترح حاجة واحدة عملية من التطبيق (سكون / دفتر القلق / تنفس)
+٤. كلامك بالعامية المصرية دايماً — مش فصحى مش خليجي مش مغربي
+٥. مش أكتر من 3 جمل في كل رد
+٦. مش بتديش قوائم أو نصايح كتير
+٧. لو حد بيقول كلام خطير (إيذاء نفس) قولي: "ده مهم — كلم حد قريب منك دلوقتي"
 ''';
 
   Future<String> analyzeEmotion(String userText) async {
@@ -56,7 +59,7 @@ class NvidiaAiService {
               'Authorization': 'Bearer $_apiKey',
             },
             body: jsonEncode({
-              'model': 'nvidia/llama-3.1-nemotron-70b-instruct',
+              'model': 'meta/llama-3.1-8b-instruct',
               'messages': [
                 {'role': 'system', 'content': systemPrompt},
                 {'role': 'user', 'content': userMessage},
