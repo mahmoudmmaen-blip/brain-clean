@@ -38,6 +38,8 @@ import '../../worry/application/worry_journal_daily_program_gate.dart';
 
 import '../../worry/presentation/worry_today_entries_provider.dart';
 
+import '../../focus/application/single_task_daily_program_gate.dart';
+
 import '../../daily_challenge/presentation/daily_challenge_card.dart';
 
 import '../../daily_program/presentation/daily_program_home_card.dart';
@@ -1213,7 +1215,15 @@ class _QuickActionsRow extends ConsumerWidget {
 
             label: loc.homeQuickSingleTask,
 
-            onTap: () => context.push(AppRoutes.singleTask),
+            // Home entry must not complete Daily Program focusTask.
+
+            onTap: () {
+
+              ref.read(singleTaskDailyProgramGateProvider.notifier).disarm();
+
+              context.push(AppRoutes.singleTask);
+
+            },
 
           ),
 

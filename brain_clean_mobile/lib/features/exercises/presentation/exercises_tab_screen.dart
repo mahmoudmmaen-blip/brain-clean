@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../shared/widgets/glass_card.dart';
+import '../../focus/application/single_task_daily_program_gate.dart';
 
 /// Exercises tab — curated entry points into focus and cognitive tools.
 class ExercisesTabScreen extends ConsumerWidget {
@@ -56,7 +57,11 @@ class ExercisesTabScreen extends ConsumerWidget {
             icon: Icons.track_changes,
             title: loc.exercisesCardSingleTaskTitle,
             subtitle: loc.exercisesCardSingleTaskSubtitle,
-            onTap: () => context.push(AppRoutes.singleTask),
+            // Exercises entry must not complete Daily Program focusTask.
+            onTap: () {
+              ref.read(singleTaskDailyProgramGateProvider.notifier).disarm();
+              context.push(AppRoutes.singleTask);
+            },
           ),
           _ExerciseCard(
             icon: Icons.psychology_alt,

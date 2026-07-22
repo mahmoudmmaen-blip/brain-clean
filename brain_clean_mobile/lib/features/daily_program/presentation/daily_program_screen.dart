@@ -10,6 +10,7 @@ import '../../../shared/widgets/glass_card.dart';
 import '../../emotions/application/emotion_provider.dart';
 import '../../emotions/data/emotion_log_repository.dart';
 import '../../focus/application/silence_challenge_daily_program_gate.dart';
+import '../../focus/application/single_task_daily_program_gate.dart';
 import '../../home/presentation/home_streak_provider.dart';
 import '../../worry/application/worry_journal_daily_program_gate.dart';
 import '../application/daily_program_provider.dart';
@@ -85,7 +86,10 @@ class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
           ref.read(silenceChallengeDailyProgramGateProvider.notifier).arm();
           context.push(AppRoutes.silenceChallenge(streakDays));
         },
-      DailyStep.focusTask => () => context.go(AppRoutes.singleTask),
+      DailyStep.focusTask => () {
+          ref.read(singleTaskDailyProgramGateProvider.notifier).arm();
+          context.push(AppRoutes.singleTask);
+        },
       DailyStep.journal => () {
           ref.read(worryJournalDailyProgramGateProvider.notifier).arm();
           context.push(AppRoutes.worryJournal);

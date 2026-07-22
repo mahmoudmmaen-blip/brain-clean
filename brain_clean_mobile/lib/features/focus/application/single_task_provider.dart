@@ -6,6 +6,7 @@ import '../../../core/data/app_meta_box_provider.dart';
 import '../../diagnostic/presentation/bc_score_provider.dart';
 import '../../gamification/domain/xp_source.dart';
 import '../domain/task_category.dart';
+import 'single_task_daily_program_gate.dart';
 
 part 'single_task_provider.g.dart';
 
@@ -112,7 +113,7 @@ class SingleTaskController extends _$SingleTaskController {
     _persist(next);
   }
 
-  void completeTask() {
+  Future<void> completeTask() async {
     if (!state.isLocked) return;
     final bonus = taskCompletionBonus(state.category, state.difficultyStars);
     ref.read(bcScoreProvider.notifier).applyBonus(
@@ -123,6 +124,9 @@ class SingleTaskController extends _$SingleTaskController {
     ref.read(appPreferencesProvider.notifier).incrementSingleTaskComplete();
     state = SingleTaskState.idle;
     _persist(SingleTaskState.idle);
+    await ref
+        .read(singleTaskDailyProgramGateProvider.notifier)
+        .completeFocusTaskStepIfArmed();
   }
 
   /// Abandons the task and applies a partial focus penalty.

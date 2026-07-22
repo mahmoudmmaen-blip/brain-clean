@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/l10n/app_localizations.dart';
 import '../../core/providers/locale_provider.dart';
 import 'ambient_sound_player.dart';
+import 'application/single_task_daily_program_gate.dart';
 import 'application/single_task_provider.dart';
 import 'domain/task_category.dart';
 import 'widgets/ambient_sound_widgets.dart';
@@ -23,6 +24,14 @@ class SingleTaskScreen extends ConsumerStatefulWidget {
 
 class _SingleTaskScreenState extends ConsumerState<SingleTaskScreen> {
   final _controller = TextEditingController();
+
+  /// Clears the Daily Program focus gate after the current frame/build.
+  void _disarmDailyProgramGateSafely() {
+    final gate = ref.read(singleTaskDailyProgramGateProvider.notifier);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      gate.disarm();
+    });
+  }
 
   @override
   void dispose() {
@@ -92,6 +101,11 @@ class _SingleTaskScreenState extends ConsumerState<SingleTaskScreen> {
 
     return PopScope(
       canPop: !taskState.isLocked,
+      onPopInvokedWithResult: (didPop, _) {
+        if (didPop) {
+          _disarmDailyProgramGateSafely();
+        }
+      },
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: !taskState.isLocked,
@@ -109,11 +123,12 @@ class _SingleTaskScreenState extends ConsumerState<SingleTaskScreen> {
                 ? _ActiveTaskView(
                     label: taskState.activeTaskLabel!,
                     loc: loc,
-                    onComplete: () {
+                    onComplete: () async {
                       final bonus = taskState.estimatedBonus;
-                      ref
+                      await ref
                           .read(singleTaskControllerProvider.notifier)
                           .completeTask();
+                      if (!context.mounted) return;
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
@@ -320,7 +335,7 @@ class _ActiveTaskView extends StatefulWidget {
 
   final String label;
   final AppLocalizations loc;
-  final VoidCallback onComplete;
+  final Future<void> Function() onComplete;
   final VoidCallback onAbandon;
 
   @override
@@ -385,7 +400,7 @@ class _ActiveTaskViewState extends State<_ActiveTaskView>
         ),
         const Spacer(),
         FilledButton(
-          onPressed: widget.onComplete,
+          onPressed: () => widget.onComplete(),
           style: FilledButton.styleFrom(
             backgroundColor: colorScheme.primary,
             minimumSize: const Size.fromHeight(52),
