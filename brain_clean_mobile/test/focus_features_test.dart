@@ -130,7 +130,7 @@ void main() {
 
     tearDown(() => container.dispose());
 
-    test('startTask locks and completeTask applies bonus', () {
+    test('startTask locks and completeTask applies bonus', () async {
       final notifier = container.read(singleTaskControllerProvider.notifier);
       final before = container.read(bcScoreSessionProvider)!.bcScore;
 
@@ -139,7 +139,7 @@ void main() {
       expect(locked.isLocked, isTrue);
       expect(locked.activeTaskLabel, 'قراءة كتاب');
 
-      notifier.completeTask();
+      await notifier.completeTask();
       final idle = container.read(singleTaskControllerProvider);
       expect(idle.isLocked, isFalse);
       expect(idle.activeTaskLabel, isNull);
