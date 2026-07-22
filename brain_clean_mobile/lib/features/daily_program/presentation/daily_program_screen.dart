@@ -68,25 +68,24 @@ class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
     };
   }
 
-  /// Navigation-only hooks — never arm Daily Program completion gates.
-  /// Primary Done / Choose Mood remain the explicit completion paths.
+  /// Route hooks from Daily Program — arm gates so a successful action
+  /// inside the destination can complete the related step. Opening alone
+  /// never completes. Primary Done remains the fallback.
   VoidCallback? _secondaryAction(BuildContext context, DailyStep step) {
     return switch (step) {
       DailyStep.mood => () {
-          // Browse Emotion Wheel without auto-completing mood on return.
-          ref.read(emotionWheelDailyProgramGateProvider.notifier).disarm();
+          // Same gate path as primary "Choose your mood".
+          ref.read(emotionWheelDailyProgramGateProvider.notifier).arm();
           context.push(AppRoutes.emotionWheel);
         },
       DailyStep.sukoon => () {
           // streakDays is a safe default already used by Home / Silence Challenge.
           final streakDays = ref.read(homeStreakSnapshotProvider).days;
-          ref
-              .read(silenceChallengeDailyProgramGateProvider.notifier)
-              .disarm();
+          ref.read(silenceChallengeDailyProgramGateProvider.notifier).arm();
           context.push(AppRoutes.silenceChallenge(streakDays));
         },
       DailyStep.focusTask => () => context.go(AppRoutes.singleTask),
-      // Top-level route (outside shell) — push is safe.
+      // TODO: arm journal gate after save when one exists; manual Done for now.
       DailyStep.journal => () => context.push(AppRoutes.worryJournal),
       _ => null,
     };
