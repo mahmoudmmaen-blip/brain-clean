@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 enum AmbientSound {
@@ -77,7 +78,9 @@ class AmbientSoundController extends StateNotifier<AmbientSoundState> {
         isPlaying: true,
         volume: state.volume,
       );
-    } catch (_) {
+    } catch (error, stackTrace) {
+      debugPrint('AmbientSoundController.play failed (${sound.id}): $error');
+      debugPrint('$stackTrace');
       state = AmbientSoundState(
         active: sound,
         isPlaying: false,
@@ -95,28 +98,45 @@ class AmbientSoundController extends StateNotifier<AmbientSoundState> {
   }
 
   Future<void> pause() async {
-    await _player.pause();
-    state = state.copyWith(isPlaying: false);
+    try {
+      await _player.pause();
+      state = state.copyWith(isPlaying: false);
+    } catch (error, stackTrace) {
+      debugPrint('AmbientSoundController.pause failed: $error');
+      debugPrint('$stackTrace');
+      state = state.copyWith(isPlaying: false);
+    }
   }
 
   Future<void> stop() async {
     try {
       await _player.stop();
-    } catch (_) {
-      // Web/unsupported assets must not crash the silence session.
+    } catch (error, stackTrace) {
+      debugPrint('AmbientSoundController.stop failed: $error');
+      debugPrint('$stackTrace');
     }
     state = const AmbientSoundState();
   }
 
   Future<void> setVolume(double volume) async {
     final v = volume.clamp(0.0, 1.0);
-    await _player.setVolume(v);
+    try {
+      await _player.setVolume(v);
+    } catch (error, stackTrace) {
+      debugPrint('AmbientSoundController.setVolume failed: $error');
+      debugPrint('$stackTrace');
+    }
     state = state.copyWith(volume: v);
   }
 
   @override
   void dispose() {
-    _player.dispose();
+    try {
+      _player.dispose();
+    } catch (error, stackTrace) {
+      debugPrint('AmbientSoundController.dispose failed: $error');
+      debugPrint('$stackTrace');
+    }
     super.dispose();
   }
 }
