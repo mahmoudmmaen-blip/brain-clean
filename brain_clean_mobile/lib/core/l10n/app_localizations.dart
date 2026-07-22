@@ -4303,6 +4303,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Skip'**
   String get sukoonSkip;
+
+  /// No description provided for @socialMediaUsageLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading social media time…'**
+  String get socialMediaUsageLoading;
+
+  /// No description provided for @socialMediaUsagePromptTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Track your social media time'**
+  String get socialMediaUsagePromptTitle;
+
+  /// No description provided for @socialMediaUsagePromptBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A gentle view of today\'s screen time — no blocking, no judgment. Enable Usage Access in system settings.'**
+  String get socialMediaUsagePromptBody;
+
+  /// No description provided for @socialMediaUsageGrantButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Usage Access settings'**
+  String get socialMediaUsageGrantButton;
+
+  /// No description provided for @socialMediaUsageTodayTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'You spent {minutes} minutes on social media today'**
+  String socialMediaUsageTodayTotal(int minutes);
+
+  /// No description provided for @socialMediaUsageTodaySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Instagram · TikTok · Snapchat · Facebook · X — for awareness only'**
+  String get socialMediaUsageTodaySubtitle;
 }
 
 class _AppLocalizationsDelegate

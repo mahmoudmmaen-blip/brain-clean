@@ -40,6 +40,8 @@ import '../../daily_challenge/presentation/daily_challenge_card.dart';
 
 import '../../daily_program/presentation/daily_program_home_card.dart';
 
+import '../widgets/social_media_usage_home_card.dart';
+
 import 'widgets/global_progress_tracker.dart';
 
 import 'home_streak_provider.dart';
@@ -213,6 +215,10 @@ class _HomeBody extends ConsumerWidget {
       children: [
 
         const DailyProgramHomeCard(),
+
+        const SizedBox(height: 12),
+
+        const SocialMediaUsageHomeCard(),
 
         const SizedBox(height: 12),
 

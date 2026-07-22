@@ -2299,4 +2299,26 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get sukoonSkip => 'تخطّي';
+
+  @override
+  String get socialMediaUsageLoading => 'جاري تحميل وقت السوشيال ميديا…';
+
+  @override
+  String get socialMediaUsagePromptTitle => 'تابع وقتك على السوشيال ميديا';
+
+  @override
+  String get socialMediaUsagePromptBody =>
+      'معلومة بس عن وقتك النهارده — من غير حظر ولا حكم. فعّل صلاحية الوصول للاستخدام من إعدادات النظام.';
+
+  @override
+  String get socialMediaUsageGrantButton => 'فتح إعدادات الوصول للاستخدام';
+
+  @override
+  String socialMediaUsageTodayTotal(int minutes) {
+    return 'قضيت $minutes دقيقة النهاردة على السوشيال ميديا';
+  }
+
+  @override
+  String get socialMediaUsageTodaySubtitle =>
+      'إنستغرام · تيك توك · سناب · فيسبوك · X — للمعلومة فقط';
 }

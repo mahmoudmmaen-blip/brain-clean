@@ -1128,5 +1128,17 @@
   },
   "sukoonWanderHint": "وين سرح بالك؟ (اختياري)",
   "sukoonSave": "حفظ",
-  "sukoonSkip": "تخطّي"
+  "sukoonSkip": "تخطّي",
+
+  "socialMediaUsageLoading": "جاري تحميل وقت السوشيال ميديا…",
+  "socialMediaUsagePromptTitle": "تابع وقتك على السوشيال ميديا",
+  "socialMediaUsagePromptBody": "معلومة بس عن وقتك النهارده — من غير حظر ولا حكم. فعّل صلاحية الوصول للاستخدام من إعدادات النظام.",
+  "socialMediaUsageGrantButton": "فتح إعدادات الوصول للاستخدام",
+  "socialMediaUsageTodayTotal": "قضيت {minutes} دقيقة النهاردة على السوشيال ميديا",
+  "@socialMediaUsageTodayTotal": {
+    "placeholders": {
+      "minutes": { "type": "int" }
+    }
+  },
+  "socialMediaUsageTodaySubtitle": "إنستغرام · تيك توك · سناب · فيسبوك · X — للمعلومة فقط"
 }

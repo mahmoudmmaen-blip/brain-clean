@@ -2330,4 +2330,26 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sukoonSkip => 'Skip';
+
+  @override
+  String get socialMediaUsageLoading => 'Loading social media time…';
+
+  @override
+  String get socialMediaUsagePromptTitle => 'Track your social media time';
+
+  @override
+  String get socialMediaUsagePromptBody =>
+      'A gentle view of today\'s screen time — no blocking, no judgment. Enable Usage Access in system settings.';
+
+  @override
+  String get socialMediaUsageGrantButton => 'Open Usage Access settings';
+
+  @override
+  String socialMediaUsageTodayTotal(int minutes) {
+    return 'You spent $minutes minutes on social media today';
+  }
+
+  @override
+  String get socialMediaUsageTodaySubtitle =>
+      'Instagram · TikTok · Snapchat · Facebook · X — for awareness only';
 }

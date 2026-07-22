@@ -988,5 +988,17 @@
   },
   "sukoonWanderHint": "Where did your mind go? (optional)",
   "sukoonSave": "Save",
-  "sukoonSkip": "Skip"
+  "sukoonSkip": "Skip",
+
+  "socialMediaUsageLoading": "Loading social media time…",
+  "socialMediaUsagePromptTitle": "Track your social media time",
+  "socialMediaUsagePromptBody": "A gentle view of today's screen time — no blocking, no judgment. Enable Usage Access in system settings.",
+  "socialMediaUsageGrantButton": "Open Usage Access settings",
+  "socialMediaUsageTodayTotal": "You spent {minutes} minutes on social media today",
+  "@socialMediaUsageTodayTotal": {
+    "placeholders": {
+      "minutes": { "type": "int" }
+    }
+  },
+  "socialMediaUsageTodaySubtitle": "Instagram · TikTok · Snapchat · Facebook · X — for awareness only"
 }
