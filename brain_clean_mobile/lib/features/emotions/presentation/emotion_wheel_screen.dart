@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/bootstrap/app_hydration_provider.dart';
+import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/presentation/async_state_views.dart';
 import '../application/emotion_provider.dart';
@@ -37,6 +39,7 @@ class _EmotionWheelScreenState extends ConsumerState<EmotionWheelScreen> {
     final loc = AppLocalizations.of(context)!;
     final emotionState = ref.watch(emotionNotifierProvider);
     final hydrationAsync = ref.watch(appHydrationProvider);
+    final fromDailyProgram = ref.watch(emotionWheelDailyProgramGateProvider);
 
     ref.listen(emotionNotifierProvider, (prev, next) {
       if (next.isAwaitingConfirmation &&
@@ -47,10 +50,16 @@ class _EmotionWheelScreenState extends ConsumerState<EmotionWheelScreen> {
     });
 
     return PopScope(
+      // When opened via go() from Daily Program, intercept back so we return
+      // to /daily-program instead of shell /home (and avoid stranded gates).
+      canPop: !fromDailyProgram,
       onPopInvokedWithResult: (didPop, _) {
         if (didPop) {
           _disarmDailyProgramGateSafely();
+          return;
         }
+        ref.read(emotionWheelDailyProgramGateProvider.notifier).disarm();
+        context.go(AppRoutes.dailyProgram);
       },
       child: Scaffold(
         appBar: AppBar(
@@ -153,7 +162,12 @@ class _EmotionWheelScreenState extends ConsumerState<EmotionWheelScreen> {
     );
 
     if (confirmed == true) {
+      final fromDailyProgram = ref.read(emotionWheelDailyProgramGateProvider);
       await ref.read(emotionNotifierProvider.notifier).confirmImpact();
+      if (!context.mounted) return;
+      if (fromDailyProgram) {
+        context.go(AppRoutes.dailyProgram);
+      }
     } else {
       ref.read(emotionNotifierProvider.notifier).rejectImpact();
     }

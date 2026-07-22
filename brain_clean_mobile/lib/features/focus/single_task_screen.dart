@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../core/constants/app_routes.dart';
 import '../../core/l10n/app_localizations.dart';
 import '../../core/providers/locale_provider.dart';
 import 'ambient_sound_player.dart';
@@ -98,13 +100,19 @@ class _SingleTaskScreenState extends ConsumerState<SingleTaskScreen> {
     final isAr = ref.read(localeProvider).languageCode == 'ar';
     final taskState = ref.watch(singleTaskControllerProvider);
     final notifier = ref.read(singleTaskControllerProvider.notifier);
+    final fromDailyProgram = ref.watch(singleTaskDailyProgramGateProvider);
 
     return PopScope(
-      canPop: !taskState.isLocked,
+      // Locked tasks block pop; Daily Program go() entry returns via go().
+      canPop: !taskState.isLocked && !fromDailyProgram,
       onPopInvokedWithResult: (didPop, _) {
         if (didPop) {
           _disarmDailyProgramGateSafely();
+          return;
         }
+        if (taskState.isLocked) return;
+        ref.read(singleTaskDailyProgramGateProvider.notifier).disarm();
+        context.go(AppRoutes.dailyProgram);
       },
       child: Scaffold(
         appBar: AppBar(
@@ -124,6 +132,8 @@ class _SingleTaskScreenState extends ConsumerState<SingleTaskScreen> {
                     label: taskState.activeTaskLabel!,
                     loc: loc,
                     onComplete: () async {
+                      final fromDailyProgram =
+                          ref.read(singleTaskDailyProgramGateProvider);
                       final bonus = taskState.estimatedBonus;
                       await ref
                           .read(singleTaskControllerProvider.notifier)
@@ -141,6 +151,9 @@ class _SingleTaskScreenState extends ConsumerState<SingleTaskScreen> {
                           backgroundColor: colorScheme.primary,
                         ),
                       );
+                      if (fromDailyProgram) {
+                        context.go(AppRoutes.dailyProgram);
+                      }
                     },
                     onAbandon: _confirmAbandon,
                   )
