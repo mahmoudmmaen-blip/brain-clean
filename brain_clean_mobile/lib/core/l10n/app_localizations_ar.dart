@@ -2213,14 +2213,29 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dailyProgramMovementSkipToday => 'مش قادر النهارده';
 
   @override
-  String get dayEndTitle => 'خلّصت يومك 💚';
+  String get dayEndTitle => 'أختِم يومك بلطف 💚';
 
   @override
   String get dayEndSubtitle =>
-      'كل خطوة عملتها النهارده بتقرّبك أكتر من صفاء ذهنك.';
+      'كل خطوة عملتها النهارده كافية. الإغلاق بهدوء هو تقدّم.';
 
   @override
   String get dayEndSummaryTitle => 'ملخّص يومك';
+
+  @override
+  String dayEndProgressSummary(int completed, int total) {
+    return '$completed من $total خطوات اكتملت';
+  }
+
+  @override
+  String dayEndSkippedSummary(int count) {
+    return '$count تم تخطيها — وده تمام';
+  }
+
+  @override
+  String dayEndRemainingSummary(int count) {
+    return '$count ما زالت مفتوحة';
+  }
 
   @override
   String get dayEndReflection0 => 'إيه أحسن حاجة حصلت معاك النهارده؟';
@@ -2235,10 +2250,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dayEndReflection3 => 'حاجة واحدة شكرت ربنا عليها النهارده؟';
 
   @override
-  String get dayEndClosingMessage => 'نامّ كويس 🌙 دماغك هيستعيد طاقته الليلة.';
+  String get dayEndClosingMessage => 'ارتاح كويس 🌙 بكره بداية جديدة.';
 
   @override
-  String get dayEndFinishButton => 'أنهِ اليوم';
+  String get dayEndFinishButton => 'أنهيت يومي';
 
   @override
   String get sukoonTitle => 'سكون';

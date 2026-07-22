@@ -2242,14 +2242,29 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dailyProgramMovementSkipToday => 'Not able today';
 
   @override
-  String get dayEndTitle => 'You finished your day 💚';
+  String get dayEndTitle => 'Close your day gently 💚';
 
   @override
   String get dayEndSubtitle =>
-      'Every step you took today brings you closer to mental clarity.';
+      'Every step you took today is enough. Closing with calm is progress.';
 
   @override
   String get dayEndSummaryTitle => 'Your day summary';
+
+  @override
+  String dayEndProgressSummary(int completed, int total) {
+    return '$completed of $total steps completed';
+  }
+
+  @override
+  String dayEndSkippedSummary(int count) {
+    return '$count skipped — that is okay';
+  }
+
+  @override
+  String dayEndRemainingSummary(int count) {
+    return '$count still open';
+  }
 
   @override
   String get dayEndReflection0 =>
@@ -2265,11 +2280,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dayEndReflection3 => 'One thing you\'re grateful for today?';
 
   @override
-  String get dayEndClosingMessage =>
-      'Sleep well 🌙 Your brain will recharge tonight.';
+  String get dayEndClosingMessage => 'Rest well 🌙 Tomorrow is a fresh start.';
 
   @override
-  String get dayEndFinishButton => 'Close the day';
+  String get dayEndFinishButton => 'Close my day';
 
   @override
   String get sukoonTitle => 'Sukoon';
