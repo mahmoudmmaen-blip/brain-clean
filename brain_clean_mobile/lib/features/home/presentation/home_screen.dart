@@ -8,8 +8,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/application/app_preferences_provider.dart';
 
-import '../../../core/security/security_warning_banner.dart';
-
 import '../../../core/constants/app_routes.dart';
 
 import '../../../core/l10n/app_localizations.dart';
@@ -144,40 +142,16 @@ class HomeScreen extends ConsumerWidget {
 
           error: (_, __) => AsyncStateViews.error(context),
 
-          data: (_) => Column(
-
-            children: [
-
-              const SecurityWarningBanner(),
-
-              Expanded(
-
-                child: _HomeBody(
-
+          data: (_) => _HomeBody(
                   loc: loc,
-
                   session: session,
-
                   isPro: isPro,
-
                   prefs: prefs,
-
                   streakDays: streakDays,
-
                   challengeProgress: challengeProgress,
-
                 ),
-
-              ),
-
-            ],
-
-          ),
-
         ),
-
       ),
-
     );
 
   }

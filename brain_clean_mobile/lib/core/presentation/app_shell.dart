@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 
 import '../constants/app_routes.dart';
 import '../l10n/app_localizations.dart';
+import '../security/security_warning_banner.dart';
 import '../../features/focus/widgets/ambient_sound_widgets.dart';
 
 /// Persistent 5-tab shell with glass bottom navigation and SOS FAB.
@@ -32,7 +33,16 @@ class _AppShellState extends ConsumerState<AppShell> {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      body: widget.navigationShell,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const SafeArea(
+            bottom: false,
+            child: SecurityWarningBanner(),
+          ),
+          Expanded(child: widget.navigationShell),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         heroTag: 'sos_fab',
         backgroundColor: const Color(0xFFFF5A5F),
@@ -40,7 +50,7 @@ class _AppShellState extends ConsumerState<AppShell> {
         tooltip: loc.sosFabTooltip,
         child: const Icon(Icons.warning_amber_rounded, color: Colors.white),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
