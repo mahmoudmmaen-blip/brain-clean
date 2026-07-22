@@ -8,6 +8,7 @@ import '../../../core/theme/app_design_constants.dart';
 import '../../../shared/widgets/glass_card.dart';
 import '../../recovery/domain/recovery_daily_program_sync.dart';
 import '../../recovery/presentation/recovery_protocol_controller.dart';
+import '../application/worry_journal_daily_program_gate.dart';
 import '../data/worry_repository_provider.dart';
 import '../domain/worry_entry.dart';
 import 'worry_today_entries_provider.dart';
@@ -24,6 +25,14 @@ class _WorryJournalScreenState extends ConsumerState<WorryJournalScreen> {
   static const _uuid = Uuid();
   final _contentController = TextEditingController();
   bool _pastExpanded = true;
+
+  /// Clears the Daily Program journal gate after the current frame/build.
+  void _disarmDailyProgramGateSafely() {
+    final gate = ref.read(worryJournalDailyProgramGateProvider.notifier);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      gate.disarm();
+    });
+  }
 
   @override
   void dispose() {
@@ -48,6 +57,9 @@ class _WorryJournalScreenState extends ConsumerState<WorryJournalScreen> {
     ref.invalidate(worryHabitDoneTodayProvider);
 
     _contentController.clear();
+    await ref
+        .read(worryJournalDailyProgramGateProvider.notifier)
+        .completeJournalStepIfArmed();
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(AppLocalizations.of(context)!.worrySavedSnackbar)),
@@ -65,7 +77,13 @@ class _WorryJournalScreenState extends ConsumerState<WorryJournalScreen> {
     final colorScheme = Theme.of(context).colorScheme;
     final todayAsync = ref.watch(worryTodayEntriesProvider);
 
-    return Scaffold(
+    return PopScope(
+      onPopInvokedWithResult: (didPop, _) {
+        if (didPop) {
+          _disarmDailyProgramGateSafely();
+        }
+      },
+      child: Scaffold(
       appBar: AppBar(
         title: Text(loc.worryJournalTitle),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -165,6 +183,7 @@ class _WorryJournalScreenState extends ConsumerState<WorryJournalScreen> {
             ),
         ],
       ),
+    ),
     );
   }
 }

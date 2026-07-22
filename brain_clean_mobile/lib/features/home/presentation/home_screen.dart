@@ -34,6 +34,8 @@ import '../../recovery/domain/recovery_daily_task.dart';
 
 import '../../recovery/presentation/recovery_protocol_controller.dart';
 
+import '../../worry/application/worry_journal_daily_program_gate.dart';
+
 import '../../worry/presentation/worry_today_entries_provider.dart';
 
 import '../../daily_challenge/presentation/daily_challenge_card.dart';
@@ -905,7 +907,15 @@ class _DailyActivityChips extends ConsumerWidget {
 
         done: worryDone,
 
-        onTap: () => context.push(AppRoutes.worryJournal),
+        // Home entry must not complete Daily Program journal.
+
+        onTap: () {
+
+          ref.read(worryJournalDailyProgramGateProvider.notifier).disarm();
+
+          context.push(AppRoutes.worryJournal);
+
+        },
 
       ),
 

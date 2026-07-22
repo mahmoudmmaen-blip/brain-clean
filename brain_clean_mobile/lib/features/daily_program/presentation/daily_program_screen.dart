@@ -11,6 +11,7 @@ import '../../emotions/application/emotion_provider.dart';
 import '../../emotions/data/emotion_log_repository.dart';
 import '../../focus/application/silence_challenge_daily_program_gate.dart';
 import '../../home/presentation/home_streak_provider.dart';
+import '../../worry/application/worry_journal_daily_program_gate.dart';
 import '../application/daily_program_provider.dart';
 import '../domain/daily_program_service.dart';
 import '../domain/daily_program_state.dart';
@@ -85,8 +86,10 @@ class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
           context.push(AppRoutes.silenceChallenge(streakDays));
         },
       DailyStep.focusTask => () => context.go(AppRoutes.singleTask),
-      // TODO: arm journal gate after save when one exists; manual Done for now.
-      DailyStep.journal => () => context.push(AppRoutes.worryJournal),
+      DailyStep.journal => () {
+          ref.read(worryJournalDailyProgramGateProvider.notifier).arm();
+          context.push(AppRoutes.worryJournal);
+        },
       _ => null,
     };
   }
