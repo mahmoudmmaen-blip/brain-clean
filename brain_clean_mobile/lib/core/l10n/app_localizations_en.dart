@@ -463,6 +463,20 @@ class AppLocalizationsEn extends AppLocalizations {
       'Journaling, breathwork, or guided recovery check-in';
 
   @override
+  String get recoverySleepCheckTitle => 'Sleep quality';
+
+  @override
+  String get recoverySleepCheckSubtitle =>
+      'Enough, regular sleep today (20% of today’s score)';
+
+  @override
+  String get recoveryWaterCheckTitle => 'Water intake';
+
+  @override
+  String get recoveryWaterCheckSubtitle =>
+      'Enough hydration today (20% of today’s score)';
+
+  @override
   String get recoveryDayComplete => 'All five habits completed for this day.';
 
   @override

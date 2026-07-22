@@ -3,10 +3,12 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../data/recovery_protocol_storage.dart';
 import '../data/recovery_protocol_storage_provider.dart';
 import 'recovery_bc_penalty_provider.dart';
+import '../domain/recovery_daily_program_sync.dart';
 import '../domain/recovery_daily_task.dart';
 import '../domain/recovery_day_record.dart';
 import '../domain/recovery_protocol_constants.dart';
 import '../domain/recovery_protocol_state.dart';
+import '../../daily_program/domain/daily_step.dart';
 import 'recovery_load_meta_provider.dart';
 
 part 'recovery_protocol_controller.g.dart';
@@ -50,35 +52,52 @@ class RecoveryProtocolController extends _$RecoveryProtocolController {
   }
 
   Future<void> toggleTask(RecoveryDailyTask task, bool completed) async {
-    final current = state.requireValue;
-    final dayIndex = current.selectedDayIndex;
-    final record = current.dayRecord(dayIndex).toggleTask(task, completed);
-    final nextDays = Map<int, RecoveryDayRecord>.from(current.days)
-      ..[dayIndex] = record;
-    await _commit(current.copyWith(days: nextDays));
+    await _updateDayRecord(
+      (record) => record.toggleTask(task, completed),
+    );
   }
 
-  // ---------------------------------------------------------------------------
-  // 🌟 [NEW] دوال التحكم في معايير الـ BCS الإضافية (النوم والمياه)
-  // ---------------------------------------------------------------------------
   Future<void> toggleSleep(bool completed) async {
-    final current = state.requireValue;
-    final dayIndex = current.selectedDayIndex;
-    final record = current.dayRecord(dayIndex).toggleSleep(completed);
-    final nextDays = Map<int, RecoveryDayRecord>.from(current.days)
-      ..[dayIndex] = record;
-    await _commit(current.copyWith(days: nextDays));
+    await _updateDayRecord((record) => record.toggleSleep(completed));
   }
 
   Future<void> toggleWater(bool completed) async {
+    await _updateDayRecord((record) => record.toggleWater(completed));
+  }
+
+  /// Marks today's protocol day from a completed Daily Program step.
+  ///
+  /// Only sets flags to `true` via the same record setters as manual toggles.
+  /// Does nothing for steps without a recovery mapping.
+  Future<void> applyDailyProgramStep(DailyStep step) async {
+    final mark = recoveryAutoMarkForDailyStep(step);
+    if (mark == null) return;
+
+    try {
+      final current = state.valueOrNull ?? await future;
+      final dayIndex = current.currentProtocolDay;
+      final record = applyRecoveryDailyProgramAutoMark(
+        current.dayRecord(dayIndex),
+        mark,
+      );
+      final nextDays = Map<int, RecoveryDayRecord>.from(current.days)
+        ..[dayIndex] = record;
+      await _commit(current.copyWith(days: nextDays));
+    } catch (_) {
+      // Best-effort sync — Daily Program completion must not fail.
+    }
+  }
+
+  Future<void> _updateDayRecord(
+    RecoveryDayRecord Function(RecoveryDayRecord record) transform,
+  ) async {
     final current = state.requireValue;
     final dayIndex = current.selectedDayIndex;
-    final record = current.dayRecord(dayIndex).toggleWater(completed);
+    final record = transform(current.dayRecord(dayIndex));
     final nextDays = Map<int, RecoveryDayRecord>.from(current.days)
       ..[dayIndex] = record;
     await _commit(current.copyWith(days: nextDays));
   }
-  // ---------------------------------------------------------------------------
 
   /// Records an accountability-room penalty (−15 BC_score).
   Future<void> applyAccountabilityPenalty() async {

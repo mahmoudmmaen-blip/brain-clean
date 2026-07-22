@@ -421,7 +421,19 @@ class _RecoveryGridBody extends ConsumerWidget {
               onChanged: (v) => controller.toggleTask(task, v),
             ),
           ),
-          
+          RecoveryTaskTile(
+            title: loc.recoverySleepCheckTitle,
+            subtitle: loc.recoverySleepCheckSubtitle,
+            value: selected.sleepCompleted,
+            onChanged: controller.toggleSleep,
+          ),
+          RecoveryTaskTile(
+            title: loc.recoveryWaterCheckTitle,
+            subtitle: loc.recoveryWaterCheckSubtitle,
+            value: selected.waterCompleted,
+            onChanged: controller.toggleWater,
+          ),
+
           const SizedBox(height: 12),
           if (selected.allTasksComplete)
             Card(

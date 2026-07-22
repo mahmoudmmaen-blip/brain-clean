@@ -7,7 +7,7 @@ part of 'recovery_protocol_controller.dart';
 // **************************************************************************
 
 String _$recoveryProtocolControllerHash() =>
-    r'b72f2762f4b33163d0b24ec549e2d1ff26308a48';
+    r'03c3b90548c059891a719d090ce8ade1d252102a';
 
 /// See also [RecoveryProtocolController].
 @ProviderFor(RecoveryProtocolController)

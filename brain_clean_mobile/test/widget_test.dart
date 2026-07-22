@@ -82,7 +82,7 @@ void main() {
       expect(find.byType(LinearProgressIndicator), findsNWidgets(4));
     });
 
-    testWidgets('recovery grid shows 30-day layout and five tasks', (tester) async {
+    testWidgets('recovery grid shows 30-day layout and habit checkboxes', (tester) async {
       await tester.pumpWidget(
         createLocalizedProviderTestWidget(
           const RecoveryGridScreen(),
@@ -98,7 +98,10 @@ void main() {
 
       expect(find.text(en.recoveryGridTitle), findsOneWidget);
       expect(find.byKey(const Key('recovery_day_tasks_header')), findsOneWidget);
-      expect(find.byType(CheckboxListTile), findsNWidgets(5));
+      // 5 protocol habits + sleep quality + water intake.
+      expect(find.byType(CheckboxListTile), findsNWidgets(7));
+      expect(find.text(en.recoverySleepCheckTitle), findsOneWidget);
+      expect(find.text(en.recoveryWaterCheckTitle), findsOneWidget);
     });
 
     testWidgets('dashboard shows empty state without session', (tester) async {

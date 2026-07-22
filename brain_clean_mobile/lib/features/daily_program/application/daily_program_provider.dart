@@ -1,6 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../home/presentation/home_streak_provider.dart';
+import '../../recovery/presentation/recovery_protocol_controller.dart';
 import '../data/daily_program_repository_provider.dart';
 import '../domain/daily_program_service.dart';
 import '../domain/daily_program_state.dart';
@@ -37,6 +38,9 @@ class DailyProgram extends _$DailyProgram {
           dayNumber: current?.dayNumber ?? (dayNumber < 1 ? 1 : dayNumber),
         ),
       );
+      await ref
+          .read(recoveryProtocolControllerProvider.notifier)
+          .applyDailyProgramStep(step);
     } catch (_) {
       // Keep prior state on failure.
     }

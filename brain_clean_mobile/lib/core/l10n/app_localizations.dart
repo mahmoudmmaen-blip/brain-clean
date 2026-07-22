@@ -872,6 +872,30 @@ abstract class AppLocalizations {
   /// **'Journaling, breathwork, or guided recovery check-in'**
   String get recoveryTaskMentalSubtitle;
 
+  /// No description provided for @recoverySleepCheckTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep quality'**
+  String get recoverySleepCheckTitle;
+
+  /// No description provided for @recoverySleepCheckSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enough, regular sleep today (20% of today’s score)'**
+  String get recoverySleepCheckSubtitle;
+
+  /// No description provided for @recoveryWaterCheckTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Water intake'**
+  String get recoveryWaterCheckTitle;
+
+  /// No description provided for @recoveryWaterCheckSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enough hydration today (20% of today’s score)'**
+  String get recoveryWaterCheckSubtitle;
+
   /// No description provided for @recoveryDayComplete.
   ///
   /// In en, this message translates to:

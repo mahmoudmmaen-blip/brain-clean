@@ -6,7 +6,7 @@ part of 'daily_program_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$dailyProgramHash() => r'9385810cd66fdaafd959b8b8bbfb0e6342099002';
+String _$dailyProgramHash() => r'790a2a2e66560fd9047d83a1addf7c8cfcffff22';
 
 /// See also [DailyProgram].
 @ProviderFor(DailyProgram)

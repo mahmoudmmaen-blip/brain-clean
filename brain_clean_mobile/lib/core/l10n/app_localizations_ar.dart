@@ -457,6 +457,20 @@ class AppLocalizationsAr extends AppLocalizations {
       'تدوين أو تنفس موجّه أو جلسة دعم للتعافي';
 
   @override
+  String get recoverySleepCheckTitle => 'جودة النوم';
+
+  @override
+  String get recoverySleepCheckSubtitle =>
+      'نوم كافٍ ومنتظم اليوم (20% من تقييم اليوم)';
+
+  @override
+  String get recoveryWaterCheckTitle => 'شرب المياه';
+
+  @override
+  String get recoveryWaterCheckSubtitle =>
+      'ترطيب كافٍ اليوم (20% من تقييم اليوم)';
+
+  @override
   String get recoveryDayComplete => 'اكتملت العادات الخمس لهذا اليوم.';
 
   @override
