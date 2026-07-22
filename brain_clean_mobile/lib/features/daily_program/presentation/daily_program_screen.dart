@@ -9,7 +9,8 @@ import '../../../core/presentation/language_toggle_button.dart';
 import '../../../shared/widgets/glass_card.dart';
 import '../../emotions/application/emotion_provider.dart';
 import '../../emotions/data/emotion_log_repository.dart';
-import '../../sukoon/application/sukoon_daily_program_gate.dart';
+import '../../focus/application/silence_challenge_daily_program_gate.dart';
+import '../../home/presentation/home_streak_provider.dart';
 import '../application/daily_program_provider.dart';
 import '../domain/daily_program_service.dart';
 import '../domain/daily_program_state.dart';
@@ -59,7 +60,7 @@ class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
 
   String? _secondaryActionLabel(AppLocalizations loc, DailyStep step) {
     return switch (step) {
-      // Mood primary CTA opens the wheel — no duplicate secondary.
+      DailyStep.mood => loc.dailyProgramOpenEmotionWheel,
       DailyStep.sukoon => loc.dailyProgramOpenCalmExercise,
       DailyStep.focusTask => loc.dailyProgramOpenSingleTask,
       DailyStep.journal => loc.dailyProgramOpenWorryJournal,
@@ -67,15 +68,24 @@ class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
     };
   }
 
+  /// Route hooks from Daily Program — arm gates so a successful action
+  /// inside the destination can complete the related step. Opening alone
+  /// never completes. Primary Done remains the fallback.
   VoidCallback? _secondaryAction(BuildContext context, DailyStep step) {
     return switch (step) {
+      DailyStep.mood => () {
+          // Same gate path as primary "Choose your mood".
+          ref.read(emotionWheelDailyProgramGateProvider.notifier).arm();
+          context.push(AppRoutes.emotionWheel);
+        },
       DailyStep.sukoon => () {
-          ref.read(sukoonDailyProgramGateProvider.notifier).arm();
-          // Top-level route (outside shell) — push is safe.
-          context.push(AppRoutes.sukoon);
+          // streakDays is a safe default already used by Home / Silence Challenge.
+          final streakDays = ref.read(homeStreakSnapshotProvider).days;
+          ref.read(silenceChallengeDailyProgramGateProvider.notifier).arm();
+          context.push(AppRoutes.silenceChallenge(streakDays));
         },
       DailyStep.focusTask => () => context.go(AppRoutes.singleTask),
-      // Top-level route (outside shell) — push is safe.
+      // TODO: arm journal gate after save when one exists; manual Done for now.
       DailyStep.journal => () => context.push(AppRoutes.worryJournal),
       _ => null,
     };
