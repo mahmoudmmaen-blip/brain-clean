@@ -403,8 +403,8 @@ class _RecoveryGridBody extends ConsumerWidget {
           const SizedBox(height: 4),
           Text(
             loc.recoveryDayTasksProgress(
-              selected.completedCount,
-              RecoveryProtocolConstants.mandatoryTaskCount,
+              selected.scoredCompletedCount,
+              RecoveryProtocolConstants.scoredHabitCount,
             ),
             style: theme.textTheme.bodySmall?.copyWith(
               color: context.textMuted,
@@ -412,8 +412,8 @@ class _RecoveryGridBody extends ConsumerWidget {
           ),
           const SizedBox(height: 12),
           
-          // المهام الأساسية (العادات)
-          ...RecoveryDailyTask.values.map(
+          // Scored habits (regulatedSleep hidden — sleep uses sleepCompleted only).
+          ...recoveryScoredDailyTasks.map(
             (task) => RecoveryTaskTile(
               title: _taskTitle(loc, task),
               subtitle: _taskSubtitle(loc, task),
@@ -473,7 +473,7 @@ class _RecoveryGridBody extends ConsumerWidget {
               ),
               label: Text(loc.recoveryOpenPenaltyBox),
             ),
-          ] else if (selected.completedCount == 0)
+          ] else if (selected.scoredCompletedCount == 0)
             Text(
               loc.recoveryDayEmptyHint,
               style: theme.textTheme.bodySmall?.copyWith(

@@ -8,8 +8,8 @@ class RecoveryDayRecord {
     required this.dayIndex,
     List<bool>? taskCompleted,
     this.penaltyApplied = false,
-    this.sleepCompleted = false, // 🌟 [NEW] متغير النوم
-    this.waterCompleted = false, // 🌟 [NEW] متغير الماء
+    this.sleepCompleted = false,
+    this.waterCompleted = false,
   }) : taskCompleted = taskCompleted ??
             List<bool>.filled(
               RecoveryProtocolConstants.mandatoryTaskCount,
@@ -25,43 +25,41 @@ class RecoveryDayRecord {
   final int dayIndex;
   final List<bool> taskCompleted;
   final bool penaltyApplied;
-
-  // 🌟 [NEW] خصائص الميزات الجديدة
   final bool sleepCompleted;
   final bool waterCompleted;
 
+  /// Count of checked boxes in the legacy 5-slot [taskCompleted] list.
   int get completedCount => taskCompleted.where((t) => t).length;
 
-  // تم تحديثها لتشمل اكتمال المهام والنوم والماء معاً
+  /// Count of habits that contribute to [dailyBcsScore] (6 equal components).
+  int get scoredCompletedCount {
+    var count = 0;
+    for (final task in recoveryScoredDailyTasks) {
+      if (taskCompleted[task.index]) count++;
+    }
+    if (sleepCompleted) count++;
+    if (waterCompleted) count++;
+    return count;
+  }
+
   bool get allTasksComplete =>
-      completedCount == RecoveryProtocolConstants.mandatoryTaskCount &&
-      sleepCompleted &&
-      waterCompleted;
+      scoredCompletedCount == RecoveryProtocolConstants.scoredHabitCount;
 
   bool get hasMissedHabit =>
-      completedCount > 0 &&
-      completedCount < RecoveryProtocolConstants.mandatoryTaskCount;
+      scoredCompletedCount > 0 &&
+      scoredCompletedCount < RecoveryProtocolConstants.scoredHabitCount;
 
-  // ---------------------------------------------------------------------------
-  // 🌟 [NEW] معادلة الـ BCS (Brain Clean Score)
-  // ---------------------------------------------------------------------------
+  /// Daily adherence input for BCI — six equal, non-overlapping habits (≈16.67 each).
   double get dailyBcsScore {
-    // 1. العادات الأساسية والمحفزات (تمثل 60% من التقييم الإجمالي)
-    final double habitsRatio = RecoveryProtocolConstants.mandatoryTaskCount > 0 
-        ? (completedCount / RecoveryProtocolConstants.mandatoryTaskCount) 
-        : 0.0;
-    final double habitsScore = habitsRatio * 60.0;
-
-    // 2. جودة النوم (تمثل 20%)
-    final double sleepScore = sleepCompleted ? 20.0 : 0.0;
-
-    // 3. شرب الماء (يمثل 20%)
-    final double waterScore = waterCompleted ? 20.0 : 0.0;
-
-    // الإجمالي من 100
-    return habitsScore + sleepScore + waterScore;
+    final points = RecoveryProtocolConstants.pointsPerScoredHabit;
+    var total = 0.0;
+    for (final task in recoveryScoredDailyTasks) {
+      if (taskCompleted[task.index]) total += points;
+    }
+    if (sleepCompleted) total += points;
+    if (waterCompleted) total += points;
+    return total.clamp(0.0, 100.0);
   }
-  // ---------------------------------------------------------------------------
 
   RecoveryDayRecord copyWith({
     List<bool>? taskCompleted,
@@ -84,7 +82,6 @@ class RecoveryDayRecord {
     return copyWith(taskCompleted: next);
   }
 
-  // 🌟 [NEW] دوال للتحكم في مفاتيح النوم والماء من واجهة المستخدم
   RecoveryDayRecord toggleSleep(bool value) => copyWith(sleepCompleted: value);
   RecoveryDayRecord toggleWater(bool value) => copyWith(waterCompleted: value);
 
@@ -112,6 +109,13 @@ class RecoveryDayRecord {
       }
     }
 
+    var sleepDone = json[RecoveryProtocolJsonKeys.sleepCompleted] == true;
+    // Legacy: regulatedSleep task slot counted as sleep before sleepCompleted existed.
+    if (!sleepDone &&
+        tasks[RecoveryDailyTask.regulatedSleep.index]) {
+      sleepDone = true;
+    }
+
     final index = json[RecoveryProtocolJsonKeys.dayIndex];
     return RecoveryDayRecord(
       dayIndex: index is int
@@ -123,8 +127,7 @@ class RecoveryDayRecord {
       taskCompleted: tasks,
       penaltyApplied:
           json[RecoveryProtocolJsonKeys.penaltyApplied] == true,
-      
-      sleepCompleted: json[RecoveryProtocolJsonKeys.sleepCompleted] == true,
+      sleepCompleted: sleepDone,
       waterCompleted: json[RecoveryProtocolJsonKeys.waterCompleted] == true,
     );
   }

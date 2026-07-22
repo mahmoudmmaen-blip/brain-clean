@@ -99,7 +99,7 @@ void main() {
       expect(find.text(en.recoveryGridTitle), findsOneWidget);
       expect(find.byKey(const Key('recovery_day_tasks_header')), findsOneWidget);
       // 5 protocol habits + sleep quality + water intake.
-      expect(find.byType(CheckboxListTile), findsNWidgets(7));
+      expect(find.byType(CheckboxListTile), findsNWidgets(6));
       expect(find.text(en.recoverySleepCheckTitle), findsOneWidget);
       expect(find.text(en.recoveryWaterCheckTitle), findsOneWidget);
     });
