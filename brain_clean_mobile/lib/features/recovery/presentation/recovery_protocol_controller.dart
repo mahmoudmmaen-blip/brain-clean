@@ -76,16 +76,44 @@ class RecoveryProtocolController extends _$RecoveryProtocolController {
     try {
       final current = state.valueOrNull ?? await future;
       final dayIndex = current.currentProtocolDay;
-      final record = applyRecoveryDailyProgramAutoMark(
-        current.dayRecord(dayIndex),
-        mark,
-      );
+      final record = current.dayRecord(dayIndex);
+      if (_dailyProgramMarkAlreadyApplied(record, mark)) return;
+      final updated = applyRecoveryDailyProgramAutoMark(record, mark);
       final nextDays = Map<int, RecoveryDayRecord>.from(current.days)
-        ..[dayIndex] = record;
+        ..[dayIndex] = updated;
       await _commit(current.copyWith(days: nextDays));
     } catch (_) {
       // Best-effort sync — Daily Program completion must not fail.
     }
+  }
+
+  /// Marks today's protocol day from in-app engagement (journal, pomodoro, etc.).
+  Future<void> applyEngagementAutoMark(RecoveryEngagementAutoMark mark) async {
+    try {
+      final current = state.valueOrNull ?? await future;
+      final dayIndex = current.currentProtocolDay;
+      final record = current.dayRecord(dayIndex);
+      if (recoveryEngagementAutoMarkIsApplied(record, mark)) return;
+      final updated = applyRecoveryEngagementAutoMark(record, mark);
+      final nextDays = Map<int, RecoveryDayRecord>.from(current.days)
+        ..[dayIndex] = updated;
+      await _commit(current.copyWith(days: nextDays));
+    } catch (_) {
+      // Best-effort — source feature must not fail.
+    }
+  }
+
+  bool _dailyProgramMarkAlreadyApplied(
+    RecoveryDayRecord record,
+    RecoveryDailyProgramAutoMark mark,
+  ) {
+    return switch (mark) {
+      RecoveryDailyProgramAutoMark.water => record.waterCompleted,
+      RecoveryDailyProgramAutoMark.movement =>
+        record.taskCompleted[RecoveryDailyTask.movementTwentyMinutes.index],
+      RecoveryDailyProgramAutoMark.mentalSupport =>
+        record.taskCompleted[RecoveryDailyTask.mentalSupport.index],
+    };
   }
 
   Future<void> _updateDayRecord(

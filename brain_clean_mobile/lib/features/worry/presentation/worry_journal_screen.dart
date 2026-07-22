@@ -6,6 +6,8 @@ import 'package:uuid/uuid.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/app_design_constants.dart';
 import '../../../shared/widgets/glass_card.dart';
+import '../../recovery/domain/recovery_daily_program_sync.dart';
+import '../../recovery/presentation/recovery_protocol_controller.dart';
 import '../data/worry_repository_provider.dart';
 import '../domain/worry_entry.dart';
 import 'worry_today_entries_provider.dart';
@@ -39,6 +41,9 @@ class _WorryJournalScreenState extends ConsumerState<WorryJournalScreen> {
       createdAt: DateTime.now().toUtc(),
     );
     await ref.read(worryRepositoryProvider).saveEntry(entry);
+    await ref
+        .read(recoveryProtocolControllerProvider.notifier)
+        .applyEngagementAutoMark(RecoveryEngagementAutoMark.mentalSupport);
     ref.invalidate(worryTodayEntriesProvider);
     ref.invalidate(worryHabitDoneTodayProvider);
 

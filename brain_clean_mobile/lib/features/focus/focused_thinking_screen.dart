@@ -10,6 +10,8 @@ import '../../core/providers/locale_provider.dart';
 import '../diagnostic/presentation/bc_score_provider.dart';
 import '../gamification/data/xp_ledger_constants.dart';
 import '../gamification/domain/xp_source.dart';
+import '../recovery/domain/recovery_daily_program_sync.dart';
+import '../recovery/presentation/recovery_protocol_controller.dart';
 import 'data/thinking_log_repository.dart';
 import 'domain/focused_thinking_logic.dart';
 
@@ -109,6 +111,9 @@ class _FocusedThinkingScreenState extends ConsumerState<FocusedThinkingScreen> {
           xpRefId:
               'focused_thinking_${XpLedgerConstants.utcDayKey(DateTime.now().toUtc())}',
         );
+    ref
+        .read(recoveryProtocolControllerProvider.notifier)
+        .applyEngagementAutoMark(RecoveryEngagementAutoMark.distractionManagement);
     setState(() => _phase = _ThinkingPhase.complete);
   }
 

@@ -28,6 +28,79 @@ void main() {
       expect(recoveryAutoMarkForDailyStep(DailyStep.journal), isNull);
       expect(recoveryAutoMarkForDailyStep(DailyStep.dayEnd), isNull);
     });
+
+    test('journal step does not map to recovery (worry entry handles mentalSupport)', () {
+      expect(recoveryAutoMarkForDailyStep(DailyStep.journal), isNull);
+    });
+  });
+
+  group('applyRecoveryEngagementAutoMark', () {
+    test('sets mentalSupport from worry journal signal', () {
+      final record = RecoveryDayRecord(dayIndex: 1);
+      final next = applyRecoveryEngagementAutoMark(
+        record,
+        RecoveryEngagementAutoMark.mentalSupport,
+      );
+      expect(
+        next.taskCompleted[RecoveryDailyTask.mentalSupport.index],
+        isTrue,
+      );
+    });
+
+    test('sets distractionManagement from pomodoro or focused thinking', () {
+      final record = RecoveryDayRecord(dayIndex: 1);
+      final next = applyRecoveryEngagementAutoMark(
+        record,
+        RecoveryEngagementAutoMark.distractionManagement,
+      );
+      expect(
+        next.taskCompleted[RecoveryDailyTask.distractionManagement.index],
+        isTrue,
+      );
+    });
+
+    test('recoveryEngagementAutoMarkIsApplied detects existing flags', () {
+      final marked = applyRecoveryEngagementAutoMark(
+        RecoveryDayRecord(dayIndex: 1),
+        RecoveryEngagementAutoMark.distractionManagement,
+      );
+      expect(
+        recoveryEngagementAutoMarkIsApplied(
+          marked,
+          RecoveryEngagementAutoMark.distractionManagement,
+        ),
+        isTrue,
+      );
+      expect(
+        recoveryEngagementAutoMarkIsApplied(
+          RecoveryDayRecord(dayIndex: 1),
+          RecoveryEngagementAutoMark.distractionManagement,
+        ),
+        isFalse,
+      );
+    });
+
+    test('idempotent when mentalSupport already set by sukoon auto-mark', () {
+      var record = applyRecoveryDailyProgramAutoMark(
+        RecoveryDayRecord(dayIndex: 1),
+        RecoveryDailyProgramAutoMark.mentalSupport,
+      );
+      expect(
+        recoveryEngagementAutoMarkIsApplied(
+          record,
+          RecoveryEngagementAutoMark.mentalSupport,
+        ),
+        isTrue,
+      );
+      record = applyRecoveryEngagementAutoMark(
+        record,
+        RecoveryEngagementAutoMark.mentalSupport,
+      );
+      expect(
+        record.taskCompleted[RecoveryDailyTask.mentalSupport.index],
+        isTrue,
+      );
+    });
   });
 
   group('applyRecoveryDailyProgramAutoMark', () {

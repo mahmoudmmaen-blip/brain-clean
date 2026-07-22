@@ -9,6 +9,8 @@ import '../../../core/services/app_notification_service.dart';
 import '../../diagnostic/presentation/bc_score_provider.dart';
 import '../../gamification/data/xp_ledger_constants.dart';
 import '../../gamification/domain/xp_source.dart';
+import '../../recovery/domain/recovery_daily_program_sync.dart';
+import '../../recovery/presentation/recovery_protocol_controller.dart';
 import '../domain/pomodoro_logic.dart';
 
 part 'pomodoro_provider.g.dart';
@@ -151,6 +153,9 @@ class PomodoroController extends _$PomodoroController {
     if (completed == PomodoroPhase.focus) {
       sessionsToday++;
       _persistSessionsToday(sessionsToday);
+      ref
+          .read(recoveryProtocolControllerProvider.notifier)
+          .applyEngagementAutoMark(RecoveryEngagementAutoMark.distractionManagement);
       final bonus = advance.focusBonus;
       if (bonus != null) {
         final day = XpLedgerConstants.utcDayKey(DateTime.now().toUtc());
