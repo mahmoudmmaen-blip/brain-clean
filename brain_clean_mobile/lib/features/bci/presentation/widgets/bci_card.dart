@@ -319,6 +319,7 @@ class _BciRingPainter extends CustomPainter {
           accent,
           Color.lerp(accent, Colors.white, 0.3)!,
           accent,
+          accent.withValues(alpha: 0.35),
         ],
         stops: const [0.0, 0.25, 0.55, 0.8, 1.0],
         transform: const GradientRotation(-math.pi / 2),
