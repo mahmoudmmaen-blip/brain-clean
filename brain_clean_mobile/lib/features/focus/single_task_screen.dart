@@ -25,16 +25,6 @@ class _SingleTaskScreenState extends ConsumerState<SingleTaskScreen> {
   final _controller = TextEditingController();
 
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref
-          .read(ambientSoundControllerProvider.notifier)
-          .play(AmbientSound.rain);
-    });
-  }
-
-  @override
   void dispose() {
     _controller.dispose();
     super.dispose();

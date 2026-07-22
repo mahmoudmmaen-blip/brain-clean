@@ -23,10 +23,20 @@ import 'features/gamification/application/xp_sync_service.dart';
 import 'features/smart_reminders/application/smart_reminder_provider.dart';
 import 'features/smart_reminders/data/smart_reminder_repository_provider.dart';
 
+/// Loads env without crashing on clean clones (`.env` is gitignored).
+/// Bundled asset is `.env.example` only — never commit real secrets.
+Future<void> _loadDotEnvSafely() async {
+  try {
+    await dotenv.load(fileName: '.env.example', isOptional: true);
+  } catch (error) {
+    debugPrint('dotenv: .env.example load failed: $error');
+  }
+}
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await dotenv.load(fileName: ".env");
+  await _loadDotEnvSafely();
 
   try {
     final notifications = NotificationsService();

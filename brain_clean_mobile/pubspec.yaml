@@ -75,7 +75,7 @@ flutter:
         - asset: assets/fonts/IBMPlexSansArabic-Bold.ttf
           weight: 700
   assets:
-    - .env
+    - .env.example
     - assets/fonts/
     - assets/sounds/rain.mp3
     - assets/sounds/waves.mp3

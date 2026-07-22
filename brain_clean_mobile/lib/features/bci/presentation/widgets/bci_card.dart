@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -10,6 +11,24 @@ import '../../../../core/theme/theme_extensions.dart';
 import '../../../../shared/widgets/metric_info_row.dart';
 import '../../application/bci_controller_provider.dart';
 import '../../domain/bci_score_model.dart';
+
+/// SweepGradient parts for the BCI neon ring — colors and stops must match.
+@visibleForTesting
+({List<Color> colors, List<double> stops}) bciRingSweepParts(Color accent) {
+  final colors = <Color>[
+    accent.withValues(alpha: 0.35),
+    accent,
+    Color.lerp(accent, Colors.white, 0.3)!,
+    accent,
+    accent.withValues(alpha: 0.35),
+  ];
+  const stops = <double>[0.0, 0.25, 0.55, 0.8, 1.0];
+  assert(
+    colors.length == stops.length,
+    'BCI ring SweepGradient colors/stops length mismatch',
+  );
+  return (colors: colors, stops: stops);
+}
 
 /// بطاقة BCI بتأثير زجاجي (Glassmorphism) وحلقة تقدم نيون/سيان.
 class BciCard extends ConsumerWidget {
@@ -310,17 +329,13 @@ class _BciRingPainter extends CustomPainter {
       ..strokeWidth = strokeWidth
       ..strokeCap = StrokeCap.round;
 
+    final parts = bciRingSweepParts(accent);
     final arcPaint = Paint()
       ..shader = SweepGradient(
         startAngle: -math.pi / 2,
         endAngle: 3 * math.pi / 2,
-        colors: [
-          accent.withValues(alpha: 0.35),
-          accent,
-          Color.lerp(accent, Colors.white, 0.3)!,
-          accent,
-        ],
-        stops: const [0.0, 0.25, 0.55, 0.8, 1.0],
+        colors: parts.colors,
+        stops: parts.stops,
         transform: const GradientRotation(-math.pi / 2),
       ).createShader(rect)
       ..style = PaintingStyle.stroke

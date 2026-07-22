@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -44,7 +42,9 @@ class _SocialMediaUsageHomeCardState extends ConsumerState<SocialMediaUsageHomeC
 
   @override
   Widget build(BuildContext context) {
-    if (!Platform.isAndroid) {
+    // Android-only card; hide on Web/iOS/desktop without dart:io Platform.
+    final service = ref.watch(socialMediaUsageServiceProvider);
+    if (!service.isSupported) {
       return const SizedBox.shrink();
     }
 
