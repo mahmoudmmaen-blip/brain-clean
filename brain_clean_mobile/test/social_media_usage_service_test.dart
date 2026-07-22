@@ -47,5 +47,25 @@ void main() {
       );
       expect(await service.hasUsageAccess(), isFalse);
     });
+
+    test('unsupported platform skips channel and returns empty', () async {
+      var channelCalled = false;
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (call) async {
+        channelCalled = true;
+        return null;
+      });
+
+      final service = SocialMediaUsageService(
+        channel: channel,
+        platformIsAndroid: false,
+      );
+
+      expect(service.isSupported, isFalse);
+      expect(await service.hasUsageAccess(), isFalse);
+      expect(await service.getTodaySocialMediaUsage(), isEmpty);
+      await service.openUsageAccessSettings();
+      expect(channelCalled, isFalse);
+    });
   });
 }

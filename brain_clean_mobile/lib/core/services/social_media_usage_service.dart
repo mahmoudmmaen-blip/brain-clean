@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
@@ -15,7 +13,10 @@ class SocialMediaUsageService {
   final MethodChannel _channel;
   final bool? _platformIsAndroid;
 
-  bool get isSupported => _platformIsAndroid ?? Platform.isAndroid;
+  /// Android only — never uses `dart:io` [Platform] (unsafe on Flutter Web).
+  bool get isSupported =>
+      _platformIsAndroid ??
+      (!kIsWeb && defaultTargetPlatform == TargetPlatform.android);
 
   Future<bool> hasUsageAccess() async {
     if (!isSupported) return false;

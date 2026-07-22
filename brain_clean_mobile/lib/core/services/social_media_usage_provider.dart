@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'social_media_usage_service.dart';
@@ -34,14 +32,16 @@ SocialMediaUsageService socialMediaUsageService(SocialMediaUsageServiceRef ref) 
 class SocialMediaUsage extends _$SocialMediaUsage {
   @override
   Future<SocialMediaUsageSnapshot> build() async {
-    if (!Platform.isAndroid) {
+    final service = ref.read(socialMediaUsageServiceProvider);
+    if (!service.isSupported) {
       return SocialMediaUsageSnapshot.empty;
     }
     return _load();
   }
 
   Future<void> refresh() async {
-    if (!Platform.isAndroid) return;
+    final service = ref.read(socialMediaUsageServiceProvider);
+    if (!service.isSupported) return;
     state = const AsyncLoading();
     state = AsyncData(await _load());
   }
