@@ -8,7 +8,6 @@ import '../../../core/l10n/app_localizations.dart';
 import '../../../core/presentation/language_toggle_button.dart';
 import '../../../shared/widgets/glass_card.dart';
 import '../../emotions/application/emotion_provider.dart';
-import '../../emotions/data/emotion_log_repository.dart';
 import '../../focus/application/silence_challenge_daily_program_gate.dart';
 import '../../focus/application/single_task_daily_program_gate.dart';
 import '../../home/presentation/home_streak_provider.dart';
@@ -73,22 +72,25 @@ class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
   /// Route hooks from Daily Program — arm gates so a successful action
   /// inside the destination can complete the related step. Opening alone
   /// never completes. Primary Done remains the fallback.
+  ///
+  /// ShellRoute children (`/home/...`) must use [GoRouter.go] — [GoRouter.push]
+  /// from this top-level route duplicates navigator page keys on Flutter Web.
   VoidCallback? _secondaryAction(BuildContext context, DailyStep step) {
     return switch (step) {
       DailyStep.mood => () {
           // Same gate path as primary "Choose your mood".
           ref.read(emotionWheelDailyProgramGateProvider.notifier).arm();
-          context.push(AppRoutes.emotionWheel);
+          context.go(AppRoutes.emotionWheel);
         },
       DailyStep.sukoon => () {
           // streakDays is a safe default already used by Home / Silence Challenge.
           final streakDays = ref.read(homeStreakSnapshotProvider).days;
           ref.read(silenceChallengeDailyProgramGateProvider.notifier).arm();
-          context.push(AppRoutes.silenceChallenge(streakDays));
+          context.go(AppRoutes.silenceChallenge(streakDays));
         },
       DailyStep.focusTask => () {
           ref.read(singleTaskDailyProgramGateProvider.notifier).arm();
-          context.push(AppRoutes.singleTask);
+          context.go(AppRoutes.singleTask);
         },
       DailyStep.journal => () {
           ref.read(worryJournalDailyProgramGateProvider.notifier).arm();
@@ -228,57 +230,17 @@ class _DailyProgramBodyState extends ConsumerState<_DailyProgramBody> {
     );
   }
 
-  /// Opens Emotion Wheel; completes mood only if a new today log exists on return.
+  /// Opens Emotion Wheel via [GoRouter.go] (shell child). Mood completes
+  /// through the armed gate on successful emotion log — not on open.
   Future<void> _openMoodWheelAndCompleteIfLogged() async {
     if (_busy) return;
     setState(() => _busy = true);
 
-    DateTime? baseline;
-    try {
-      baseline =
-          ref.read(emotionLogRepositoryProvider).latestTodayTimestamp();
-    } catch (_) {
-      // Hive may be unavailable in edge cases — still open the wheel.
-    }
-
     // Keep existing EmotionWheel gate path for confirmImpact auto-complete.
     ref.read(emotionWheelDailyProgramGateProvider.notifier).arm();
-
-    await context.push(AppRoutes.emotionWheel);
     if (!mounted) return;
-
-    final program = ref.read(dailyProgramProvider).valueOrNull;
-    final current = program?.currentStep;
-    final stillOnMood = current != null &&
-        current.step == DailyStep.mood &&
-        current.status == DailyStepStatus.current;
-
-    if (stillOnMood) {
-      var loggedSinceOpen = false;
-      try {
-        loggedSinceOpen = ref
-            .read(emotionLogRepositoryProvider)
-            .hasLoggedToday(after: baseline);
-      } catch (_) {}
-
-      if (loggedSinceOpen) {
-        final notifier = ref.read(dailyProgramProvider.notifier);
-        await notifier.completeStep(DailyStep.mood);
-        if (!mounted) return;
-        final reward = notifier.lastMicroReward;
-        setState(() {
-          _rewardChip = reward;
-          _busy = false;
-        });
-        if (reward != null) {
-          await Future<void>.delayed(const Duration(milliseconds: 1200));
-          if (mounted) setState(() => _rewardChip = null);
-        }
-        return;
-      }
-    }
-
-    if (mounted) setState(() => _busy = false);
+    setState(() => _busy = false);
+    context.go(AppRoutes.emotionWheel);
   }
 
   Future<void> _skip(DailyStep step) async {
