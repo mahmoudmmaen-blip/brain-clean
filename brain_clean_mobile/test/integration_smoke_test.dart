@@ -25,6 +25,7 @@ import 'helpers/diagnostic_provider_overrides.dart';
 import 'helpers/subscription_test_overrides.dart';
 import 'helpers/hive_test_fixtures.dart';
 import 'helpers/localized_test_app.dart';
+import 'helpers/social_media_test_overrides.dart';
 
 void main() {
   testWidgets('onboarding skip flow reaches home with BCS ring and emotion card',
@@ -33,6 +34,7 @@ void main() {
     final container = ProviderContainer(
       overrides: [
         localSubscriptionTestOverride(),
+        socialMediaUnsupportedTestOverride(),
         appMetaBoxProvider.overrideWithValue(metaBox),
         appHydrationProvider.overrideWith(_InstantHydration.new),
         homeStreakTickerProvider.overrideWith((ref) => Stream<int>.value(0)),
@@ -149,6 +151,7 @@ void main() {
     final container = ProviderContainer(
       overrides: [
         localSubscriptionTestOverride(),
+        socialMediaUnsupportedTestOverride(),
         appMetaBoxProvider.overrideWithValue(metaBox),
         appPreferencesProvider.overrideWith(_FreeUserPreferences.new),
         appHydrationProvider.overrideWith(_InstantHydration.new),

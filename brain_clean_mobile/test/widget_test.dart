@@ -30,6 +30,7 @@ import 'package:brain_clean_mobile/features/splash/presentation/splash_screen.da
 import 'helpers/diagnostic_provider_overrides.dart';
 import 'helpers/hive_test_fixtures.dart';
 import 'helpers/localized_test_app.dart';
+import 'helpers/social_media_test_overrides.dart';
 import 'helpers/subscription_test_overrides.dart';
 import 'helpers/test_l10n.dart';
 
@@ -219,6 +220,7 @@ void main() {
     final container = ProviderContainer(
       overrides: [
         localSubscriptionTestOverride(),
+        socialMediaUnsupportedTestOverride(),
         appMetaBoxProvider.overrideWithValue(metaBox),
         appPreferencesProvider.overrideWith(_TestAppPreferences.new),
         appHydrationProvider.overrideWith(_InstantHydration.new),

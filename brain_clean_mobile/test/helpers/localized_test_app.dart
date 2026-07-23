@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import 'social_media_test_overrides.dart';
+
 /// Wraps [child] in a [MaterialApp] using the same localization setup as production.
 ///
 /// Uses [appLocalizationsDelegates] from production config:
@@ -38,7 +40,11 @@ Widget createLocalizedProviderTestWidget(
   List<Override> overrides = const [],
 }) {
   return ProviderScope(
-    overrides: overrides,
+    overrides: [
+      // Avoid indeterminate home CPI from Android usage MethodChannel in tests.
+      socialMediaUnsupportedTestOverride(),
+      ...overrides,
+    ],
     child: createLocalizedTestWidget(child, locale: locale),
   );
 }
@@ -50,7 +56,10 @@ Widget createLocalizedRouterTestWidget({
   List<Override> overrides = const [],
 }) {
   return ProviderScope(
-    overrides: overrides,
+    overrides: [
+      socialMediaUnsupportedTestOverride(),
+      ...overrides,
+    ],
     child: MaterialApp.router(
       locale: locale,
       localizationsDelegates: appLocalizationsDelegates,
