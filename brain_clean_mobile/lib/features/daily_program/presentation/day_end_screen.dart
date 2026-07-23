@@ -12,8 +12,9 @@ import '../domain/daily_step_status.dart';
 
 const dayEndScreenKey = Key('day_end_screen');
 const dayEndFinishButtonKey = Key('day_end_finish_button');
+const dayEndProgressSummaryKey = Key('day_end_progress_summary');
 
-/// Calm day-closing ritual — summary, optional reflection, gentle exit.
+/// Calm day-closing ritual — simple summary, optional reflection, gentle exit.
 class DayEndScreen extends ConsumerStatefulWidget {
   const DayEndScreen({super.key});
 
@@ -43,22 +44,30 @@ class _DayEndScreenState extends ConsumerState<DayEndScreen> {
   String _stepStatusIcon(DailyStepStatus status) {
     return switch (status) {
       DailyStepStatus.done => '✅',
-      DailyStepStatus.skipped ||
-      DailyStepStatus.locked ||
-      DailyStepStatus.current =>
-        '⬜',
+      DailyStepStatus.skipped => '➖',
+      DailyStepStatus.locked || DailyStepStatus.current => '⬜',
     };
   }
 
-  Future<void> _finishDay() async {
+  Future<void> _finishDay(DailyProgramState state) async {
     if (_busy) return;
     setState(() => _busy = true);
-    final note = _reflectionController.text;
-    await ref
-        .read(dailyProgramProvider.notifier)
-        .completeDayEnd(reflectionNote: note);
-    if (!mounted) return;
-    context.go(AppRoutes.home);
+    try {
+      // Already closed — just return home without mutating again.
+      if (state.isAllDone) {
+        if (!mounted) return;
+        context.go(AppRoutes.home);
+        return;
+      }
+      final note = _reflectionController.text;
+      await ref
+          .read(dailyProgramProvider.notifier)
+          .completeDayEnd(reflectionNote: note);
+      if (!mounted) return;
+      context.go(AppRoutes.home);
+    } catch (_) {
+      if (mounted) setState(() => _busy = false);
+    }
   }
 
   @override
@@ -84,7 +93,7 @@ class _DayEndScreenState extends ConsumerState<DayEndScreen> {
           reflectionQuestion: _reflectionQuestion(loc, state.date),
           stepStatusIcon: _stepStatusIcon,
           busy: _busy,
-          onFinish: _finishDay,
+          onFinish: () => _finishDay(state),
         ),
       ),
     );
@@ -108,11 +117,26 @@ class _DayEndBody extends StatelessWidget {
   final bool busy;
   final VoidCallback onFinish;
 
+  int get _completedCount =>
+      state.steps.where((s) => s.status == DailyStepStatus.done).length;
+
+  int get _skippedCount =>
+      state.steps.where((s) => s.status == DailyStepStatus.skipped).length;
+
+  int get _remainingCount => state.steps
+      .where(
+        (s) =>
+            s.status == DailyStepStatus.current ||
+            s.status == DailyStepStatus.locked,
+      )
+      .length;
+
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
     final languageCode = Localizations.localeOf(context).languageCode;
+    final total = state.steps.length;
 
     return SafeArea(
       child: ListView(
@@ -156,6 +180,38 @@ class _DayEndBody extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
+                const SizedBox(height: 10),
+                Text(
+                  loc.dayEndProgressSummary(_completedCount, total),
+                  key: dayEndProgressSummaryKey,
+                  style: TextStyle(
+                    color: colorScheme.primary,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                if (_skippedCount > 0) ...[
+                  const SizedBox(height: 6),
+                  Text(
+                    loc.dayEndSkippedSummary(_skippedCount),
+                    style: TextStyle(
+                      color: colorScheme.onSurfaceVariant,
+                      fontSize: 14,
+                      height: 1.35,
+                    ),
+                  ),
+                ],
+                if (_remainingCount > 0) ...[
+                  const SizedBox(height: 6),
+                  Text(
+                    loc.dayEndRemainingSummary(_remainingCount),
+                    style: TextStyle(
+                      color: colorScheme.onSurfaceVariant,
+                      fontSize: 14,
+                      height: 1.35,
+                    ),
+                  ),
+                ],
                 const SizedBox(height: 14),
                 for (var i = 0; i < state.steps.length; i++) ...[
                   if (i > 0) const SizedBox(height: 10),

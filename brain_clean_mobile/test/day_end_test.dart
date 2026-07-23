@@ -106,5 +106,27 @@ void main() {
       expect(finished.isAllDone, isTrue);
       expect(finished.reflectionNote, isNull);
     });
+
+    test('day-end summary counts treat done/skipped/remaining separately',
+        () async {
+      await advanceToDayEnd();
+      final state = await repository.getToday(dayNumber: 1);
+
+      final completed =
+          state.steps.where((s) => s.status == DailyStepStatus.done).length;
+      final skipped =
+          state.steps.where((s) => s.status == DailyStepStatus.skipped).length;
+      final remaining = state.steps
+          .where(
+            (s) =>
+                s.status == DailyStepStatus.current ||
+                s.status == DailyStepStatus.locked,
+          )
+          .length;
+
+      expect(completed + skipped + remaining, state.steps.length);
+      expect(state.currentStep?.step, DailyStep.dayEnd);
+      expect(remaining, greaterThanOrEqualTo(1));
+    });
   });
 }

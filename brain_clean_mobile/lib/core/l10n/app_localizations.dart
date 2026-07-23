@@ -4145,13 +4145,13 @@ abstract class AppLocalizations {
   /// No description provided for @dayEndTitle.
   ///
   /// In en, this message translates to:
-  /// **'You finished your day 💚'**
+  /// **'Close your day gently 💚'**
   String get dayEndTitle;
 
   /// No description provided for @dayEndSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Every step you took today brings you closer to mental clarity.'**
+  /// **'Every step you took today is enough. Closing with calm is progress.'**
   String get dayEndSubtitle;
 
   /// No description provided for @dayEndSummaryTitle.
@@ -4159,6 +4159,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your day summary'**
   String get dayEndSummaryTitle;
+
+  /// No description provided for @dayEndProgressSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'{completed} of {total} steps completed'**
+  String dayEndProgressSummary(int completed, int total);
+
+  /// No description provided for @dayEndSkippedSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} skipped — that is okay'**
+  String dayEndSkippedSummary(int count);
+
+  /// No description provided for @dayEndRemainingSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} still open'**
+  String dayEndRemainingSummary(int count);
 
   /// No description provided for @dayEndReflection0.
   ///
@@ -4187,13 +4205,13 @@ abstract class AppLocalizations {
   /// No description provided for @dayEndClosingMessage.
   ///
   /// In en, this message translates to:
-  /// **'Sleep well 🌙 Your brain will recharge tonight.'**
+  /// **'Rest well 🌙 Tomorrow is a fresh start.'**
   String get dayEndClosingMessage;
 
   /// No description provided for @dayEndFinishButton.
   ///
   /// In en, this message translates to:
-  /// **'Close the day'**
+  /// **'Close my day'**
   String get dayEndFinishButton;
 
   /// No description provided for @sukoonTitle.
