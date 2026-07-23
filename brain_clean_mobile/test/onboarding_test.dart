@@ -17,6 +17,7 @@ import 'package:brain_clean_mobile/features/home/presentation/home_streak_provid
 import 'helpers/diagnostic_provider_overrides.dart';
 import 'helpers/subscription_test_overrides.dart';
 import 'helpers/hive_test_fixtures.dart';
+import 'helpers/social_media_test_overrides.dart';
 
 void main() {
   testWidgets('router redirects to onboarding when hasSeenOnboarding is false',
@@ -25,6 +26,7 @@ void main() {
     final container = ProviderContainer(
       overrides: [
         localSubscriptionTestOverride(),
+        socialMediaUnsupportedTestOverride(),
         appMetaBoxProvider.overrideWithValue(metaBox),
         appPreferencesProvider.overrideWith(_NeverSeenOnboarding.new),
         homeStreakTickerProvider.overrideWith((ref) => Stream<int>.value(0)),
@@ -81,6 +83,7 @@ void main() {
     final container = ProviderContainer(
       overrides: [
         localSubscriptionTestOverride(),
+        socialMediaUnsupportedTestOverride(),
         appMetaBoxProvider.overrideWithValue(metaBox),
         appPreferencesProvider.overrideWith(_FreeUserPreferences.new),
         homeStreakTickerProvider.overrideWith((ref) => Stream<int>.value(0)),
