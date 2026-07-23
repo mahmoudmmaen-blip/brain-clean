@@ -4,19 +4,17 @@ import 'package:flutter/foundation.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../config/app_config.dart';
 import '../constants/revenue_cat_constants.dart';
 
 part 'purchases_service.g.dart';
 
 /// RevenueCat integration for Brain Clean (Google Play, production).
 ///
-/// Holds the SDK configuration constants and the one-shot [initialize] call
-/// that must run from `main` before `runApp`.
+/// Public SDK key comes from `--dart-define=REVENUECAT_API_KEY=...`
+/// (preferred) or dotenv — never hardcode production keys in source.
 class PurchasesService {
   const PurchasesService._();
-
-  /// Public SDK key (Google Play, production).
-  static const _apiKey = 'goog_RJESzENrLajTmowuJXBVoBKTpgE';
 
   /// Entitlement identifier configured in the RevenueCat dashboard.
   static const entitlementId = RevenueCatConstants.proEntitlement;
@@ -32,15 +30,44 @@ class PurchasesService {
   static bool isConfigured = false;
 
   /// Configures RevenueCat. Call once from `main`, before `runApp`.
+  ///
+  /// Skips Web (needs a Web Billing key) and skips when the key is missing
+  /// or a documentation placeholder. Android/iOS configure when a valid
+  /// public SDK key is provided via dart-define.
   static Future<void> initialize() async {
+    if (kIsWeb) {
+      debugPrint(
+        'PurchasesService: skipping configure on Web '
+        '(Android/iOS public SDK key only)',
+      );
+      return;
+    }
+
+    final apiKey = AppConfig.revenueCatApiKey;
+    if (!AppConfig.hasValidRevenueCatApiKey) {
+      debugPrint(
+        'PurchasesService: missing or placeholder REVENUECAT_API_KEY — '
+        'skipping configure (pass via --dart-define for Play billing)',
+      );
+      return;
+    }
+
     try {
       await Purchases.setLogLevel(
         kReleaseMode ? LogLevel.error : LogLevel.debug,
       );
-      await Purchases.configure(PurchasesConfiguration(_apiKey));
+      await Purchases.configure(PurchasesConfiguration(apiKey));
       isConfigured = true;
+      debugPrint(
+        'PurchasesService: configured '
+        '(${AppConfig.configPresenceLabel(apiKey)})',
+      );
     } catch (e) {
-      debugPrint('RevenueCat configure failed: $e');
+      debugPrint('PurchasesService: configure failed — continuing without Pro SDK');
+      assert(() {
+        debugPrint('PurchasesService: configure error detail: $e');
+        return true;
+      }());
     }
   }
 
