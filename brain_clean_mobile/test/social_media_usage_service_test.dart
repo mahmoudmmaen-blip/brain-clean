@@ -67,5 +67,15 @@ void main() {
       await service.openUsageAccessSettings();
       expect(channelCalled, isFalse);
     });
+
+    test('Play v1 keeps Home card disabled even on Android', () {
+      final service = SocialMediaUsageService(
+        channel: channel,
+        platformIsAndroid: true,
+      );
+      expect(SocialMediaUsageService.isPlayFeatureEnabled, isFalse);
+      expect(service.isSupported, isTrue);
+      expect(service.isHomeCardEnabled, isFalse);
+    });
   });
 }
