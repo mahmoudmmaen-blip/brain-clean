@@ -2,6 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 /// View-only social media foreground time via Android Usage Access.
+///
+/// **Play v1:** [isPlayFeatureEnabled] is `false` — the Home card is hidden and
+/// `PACKAGE_USAGE_STATS` is not declared. Service APIs stay testable for a
+/// later opt-in release with proper disclosure.
 class SocialMediaUsageService {
   SocialMediaUsageService({
     MethodChannel? channel,
@@ -13,10 +17,19 @@ class SocialMediaUsageService {
   final MethodChannel _channel;
   final bool? _platformIsAndroid;
 
-  /// Android only — never uses `dart:io` [Platform] (unsafe on Flutter Web).
+  /// Master switch for shipping Usage Access UI + Play declaration.
+  ///
+  /// Keep `false` until Play Console Data Safety / sensitive-permission
+  /// justification and an in-app opt-in disclosure are ready.
+  static const bool isPlayFeatureEnabled = false;
+
+  /// Android platform can call the usage MethodChannel (independent of Play gate).
   bool get isSupported =>
       _platformIsAndroid ??
       (!kIsWeb && defaultTargetPlatform == TargetPlatform.android);
+
+  /// Home card / provider may surface the feature (Play gate ∧ Android).
+  bool get isHomeCardEnabled => isPlayFeatureEnabled && isSupported;
 
   Future<bool> hasUsageAccess() async {
     if (!isSupported) return false;
@@ -43,6 +56,8 @@ class SocialMediaUsageService {
   }
 
   /// Package name → whole minutes of foreground usage today (local midnight → now).
+  ///
+  /// Data stays on-device; this app does not upload usage maps to the cloud.
   Future<Map<String, int>> getTodaySocialMediaUsage() async {
     if (!isSupported) return const {};
     try {

@@ -33,7 +33,8 @@ class SocialMediaUsage extends _$SocialMediaUsage {
   @override
   Future<SocialMediaUsageSnapshot> build() async {
     final service = ref.read(socialMediaUsageServiceProvider);
-    if (!service.isSupported) {
+    // Play v1: feature deferred — never query Usage Access from Home.
+    if (!service.isHomeCardEnabled) {
       return SocialMediaUsageSnapshot.empty;
     }
     return _load();
@@ -41,13 +42,15 @@ class SocialMediaUsage extends _$SocialMediaUsage {
 
   Future<void> refresh() async {
     final service = ref.read(socialMediaUsageServiceProvider);
-    if (!service.isSupported) return;
+    if (!service.isHomeCardEnabled) return;
     state = const AsyncLoading();
     state = AsyncData(await _load());
   }
 
   Future<void> openUsageAccessSettings() async {
-    await ref.read(socialMediaUsageServiceProvider).openUsageAccessSettings();
+    final service = ref.read(socialMediaUsageServiceProvider);
+    if (!service.isHomeCardEnabled) return;
+    await service.openUsageAccessSettings();
   }
 
   Future<SocialMediaUsageSnapshot> _load() async {

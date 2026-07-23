@@ -42,9 +42,10 @@ class _SocialMediaUsageHomeCardState extends ConsumerState<SocialMediaUsageHomeC
 
   @override
   Widget build(BuildContext context) {
-    // Android-only card; hide on Web/iOS/desktop without dart:io Platform.
+    // Play v1: hidden on all platforms (Usage Access deferred).
+    // Also Android-only when re-enabled — never uses dart:io Platform.
     final service = ref.watch(socialMediaUsageServiceProvider);
-    if (!service.isSupported) {
+    if (!service.isHomeCardEnabled) {
       return const SizedBox.shrink();
     }
 

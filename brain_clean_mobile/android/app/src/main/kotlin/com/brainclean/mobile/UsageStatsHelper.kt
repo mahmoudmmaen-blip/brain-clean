@@ -13,6 +13,12 @@ import java.util.Calendar
 /**
  * Reads foreground time for target social apps via [UsageStatsManager.queryEvents].
  *
+ * Local-only: package → minutes maps stay on device (no network upload from this helper).
+ *
+ * Play v1: [PACKAGE_USAGE_STATS] is not declared in the manifest and the Flutter Home
+ * card is gated off. Keep this helper for a later opt-in release with Play declaration
+ * + in-app disclosure.
+ *
  * We use event-based summation (MOVE_TO_FOREGROUND / MOVE_TO_BACKGROUND) instead of
  * [UsageStatsManager.queryUsageStats] because queryUsageStats returns coarse buckets
  * (often stale until the next interval) and can mis-attribute time when the device
