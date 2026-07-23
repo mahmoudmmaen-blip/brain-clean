@@ -23,8 +23,11 @@ import 'features/gamification/application/xp_sync_service.dart';
 import 'features/smart_reminders/application/smart_reminder_provider.dart';
 import 'features/smart_reminders/data/smart_reminder_repository_provider.dart';
 
-/// Loads env without crashing on clean clones (`.env` is gitignored).
-/// Bundled asset is `.env.example` only — never commit real secrets.
+/// Loads bundled `.env.example` as documentation defaults only.
+///
+/// Real secrets must come from `--dart-define` (preferred). Placeholder
+/// values in `.env.example` are ignored by [AppConfig] validation.
+/// Never commit a real `.env`.
 Future<void> _loadDotEnvSafely() async {
   try {
     await dotenv.load(fileName: '.env.example', isOptional: true);
