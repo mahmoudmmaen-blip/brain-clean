@@ -14,6 +14,15 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 }
 
+val releaseStoreFilePath = keystoreProperties.getProperty("storeFile")
+val releaseStoreFile = releaseStoreFilePath?.let { file(it) }
+val canSignRelease = keystorePropertiesFile.exists()
+    && !keystoreProperties.getProperty("keyAlias").isNullOrBlank()
+    && !keystoreProperties.getProperty("keyPassword").isNullOrBlank()
+    && !keystoreProperties.getProperty("storePassword").isNullOrBlank()
+    && releaseStoreFile != null
+    && releaseStoreFile.exists()
+
 android {
     namespace = "com.brainclean.mobile"
     compileSdk = 36
@@ -40,16 +49,30 @@ android {
 
     signingConfigs {
         create("release") {
-            keyAlias = keystoreProperties.getProperty("keyAlias")
-            keyPassword = keystoreProperties.getProperty("keyPassword")
-            storePassword = keystoreProperties.getProperty("storePassword")
-            storeFile = keystoreProperties.getProperty("storeFile")?.let { file(it) }
+            if (canSignRelease) {
+                keyAlias = keystoreProperties.getProperty("keyAlias")
+                keyPassword = keystoreProperties.getProperty("keyPassword")
+                storePassword = keystoreProperties.getProperty("storePassword")
+                storeFile = releaseStoreFile
+            }
         }
     }
 
     buildTypes {
         release {
-            signingConfig = signingConfigs.getByName("release")
+            // Prefer gitignored release keystore when present; otherwise fall back to
+            // debug signing so local `flutter build appbundle` still verifies compile.
+            // Do not upload a debug-signed bundle to Play.
+            signingConfig = if (canSignRelease) {
+                signingConfigs.getByName("release")
+            } else {
+                logger.warn(
+                    "brain_clean_mobile: release keystore missing or incomplete " +
+                        "(android/key.properties + storeFile). Using debug signing — " +
+                        "not valid for Play upload.",
+                )
+                signingConfigs.getByName("debug")
+            }
         }
     }
 }
