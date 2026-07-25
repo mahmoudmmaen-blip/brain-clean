@@ -1,7 +1,7 @@
 # Brain Clean — Privacy Policy
 
 **Last updated:** 25 July 2026  
-**Contact:** [PUT SUPPORT EMAIL HERE]
+**Contact:** brainclean.app@gmail.com
 
 This page is the public privacy policy for the Brain Clean Android app (`com.brainclean.mobile`).  
 It is intended for Google Play and website hosting (for example GitHub Pages).
@@ -116,7 +116,7 @@ No method of transmission or storage is 100% secure.
 ### 13. Retention and deletion requests
 
 - **Local data** is typically removed when you clear app storage or uninstall the app.  
-- **Cloud data** (when cloud was enabled): email **[PUT SUPPORT EMAIL HERE]** and request deletion of your anonymous account / associated server records.  
+- **Cloud data** (when cloud was enabled): email **brainclean.app@gmail.com** and request deletion of your anonymous account / associated server records.  
 
 We will delete or anonymize associated server-side records within a reasonable period, subject to legal obligations and technical constraints.
 
@@ -136,7 +136,7 @@ We may update this policy. The “Last updated” date at the top will change wh
 
 ### 17. Contact
 
-For privacy questions or deletion requests: **[PUT SUPPORT EMAIL HERE]**
+For privacy questions or deletion requests: **brainclean.app@gmail.com**
 
 ---
 
@@ -248,7 +248,7 @@ Brain Clean **ليس** جهازًا طبيًا، و**لا** يقدّم تشخي�
 ### 13. الاحتفاظ وطلب الحذف
 
 - **البيانات المحلية** تُزال عادةً عند مسح بيانات التطبيق أو إلغاء التثبيت.  
-- **البيانات السحابية** (إن وُجدت): راسل **[PUT SUPPORT EMAIL HERE]** واطلب حذف حسابك المجهول / السجلات المرتبطة على الخادم.  
+- **البيانات السحابية** (إن وُجدت): راسل **brainclean.app@gmail.com** واطلب حذف حسابك المجهول / السجلات المرتبطة على الخادم.  
 
 سنحذف أو نُجهّل السجلات المرتبطة على الخادم خلال مدة معقولة، مع مراعاة الالتزامات القانونية والقيود التقنية.
 
@@ -268,4 +268,4 @@ Brain Clean **ليس** جهازًا طبيًا، و**لا** يقدّم تشخي�
 
 ### 17. التواصل
 
-لأسئلة الخصوصية أو طلبات الحذف: **[PUT SUPPORT EMAIL HERE]**
+لأسئلة الخصوصية أو طلبات الحذف: **brainclean.app@gmail.com**
