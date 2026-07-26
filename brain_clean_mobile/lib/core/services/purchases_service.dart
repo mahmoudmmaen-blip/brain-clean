@@ -9,21 +9,38 @@ import '../constants/revenue_cat_constants.dart';
 
 part 'purchases_service.g.dart';
 
-/// RevenueCat integration for Brain Clean (Google Play, production).
+/// Which plan tile a RevenueCat [Package] maps to on the paywall.
+enum PaywallPlanKind { monthly, annual, lifetime }
+
+/// A purchasable package paired with its paywall kind.
+class PaywallPlanEntry {
+  const PaywallPlanEntry(this.package, this.kind);
+
+  final Package package;
+  final PaywallPlanKind kind;
+
+  String get id => package.identifier;
+}
+
+/// RevenueCat integration for Brain Clean (Google Play).
 ///
 /// Public SDK key comes from `--dart-define=REVENUECAT_API_KEY=...`
 /// (preferred) or dotenv — never hardcode production keys in source.
 class PurchasesService {
   const PurchasesService._();
 
-  /// Entitlement identifier configured in the RevenueCat dashboard.
+  /// Preferred entitlement id (`pro`). Live dashboard still uses [legacy].
   static const entitlementId = RevenueCatConstants.proEntitlement;
 
-  /// Offering identifier configured in the RevenueCat dashboard.
-  static const offeringId = 'default';
+  /// Live entitlement id (`Brain Clean`).
+  static const legacyEntitlementId = RevenueCatConstants.legacyProEntitlement;
 
-  /// Google Play / RevenueCat product id for one-time Pro lifetime access.
+  /// Offering identifier configured in the RevenueCat dashboard.
+  static const offeringId = RevenueCatConstants.defaultOfferingId;
+
   static const lifetimeProductId = RevenueCatConstants.lifetimeProductId;
+  static const yearlyProductId = RevenueCatConstants.yearlyProductId;
+  static const monthlyProductId = RevenueCatConstants.monthlyProductId;
 
   /// `true` once [initialize] has configured the SDK successfully. Stays
   /// `false` on platforms without the native SDK (e.g. widget tests).
@@ -31,9 +48,8 @@ class PurchasesService {
 
   /// Configures RevenueCat. Call once from `main`, before `runApp`.
   ///
-  /// Skips Web (needs a Web Billing key) and skips when the key is missing
-  /// or a documentation placeholder. Android/iOS configure when a valid
-  /// public SDK key is provided via dart-define.
+  /// Skips Web and skips when the key is missing or a documentation
+  /// placeholder. Missing key must never crash the app.
   static Future<void> initialize() async {
     if (kIsWeb) {
       debugPrint(
@@ -63,7 +79,9 @@ class PurchasesService {
         '(${AppConfig.configPresenceLabel(apiKey)})',
       );
     } catch (e) {
-      debugPrint('PurchasesService: configure failed — continuing without Pro SDK');
+      debugPrint(
+        'PurchasesService: configure failed — continuing without Pro SDK',
+      );
       assert(() {
         debugPrint('PurchasesService: configure error detail: $e');
         return true;
@@ -71,15 +89,15 @@ class PurchasesService {
     }
   }
 
-  /// Whether [info] currently grants the Brain Clean Pro entitlement.
+  /// Whether [info] currently grants Brain Clean Pro.
   ///
-  /// Checks the active entitlement first, then lifetime one-time purchases
-  /// (non-consumable) when the dashboard product type was misconfigured.
+  /// Accepts entitlement ids [entitlementId] (`pro`) and
+  /// [legacyEntitlementId] (`Brain Clean`). Also treats a purchased lifetime
+  /// SKU as Pro when present.
   static bool hasProEntitlement(CustomerInfo info) {
     final active = info.entitlements.active;
-    if (active.containsKey(entitlementId) ||
-        active.containsKey(RevenueCatConstants.legacyProEntitlement)) {
-      return true;
+    for (final id in RevenueCatConstants.acceptedProEntitlementIds) {
+      if (active.containsKey(id)) return true;
     }
 
     for (final productId in info.allPurchasedProductIdentifiers) {
@@ -96,46 +114,98 @@ class PurchasesService {
   /// Whether [productId] refers to the lifetime Pro SKU.
   static bool isLifetimeProductIdentifier(String productId) {
     final id = productId.toLowerCase();
-    return id == lifetimeProductId.toLowerCase() || id.contains('lifetime');
+    if (id.startsWith(yearlyProductId.toLowerCase())) return false;
+    if (id.startsWith(monthlyProductId.toLowerCase())) return false;
+    return id == lifetimeProductId.toLowerCase() ||
+        id.startsWith('${lifetimeProductId.toLowerCase()}:') ||
+        id.contains('lifetime');
   }
 
-  /// Whether [package] is the lifetime plan — supports [PackageType.lifetime]
-  /// and misconfigured subscription/custom slots that still map to lifetime.
+  /// Whether [productId] matches the monthly subscription product.
+  static bool isMonthlyProductIdentifier(String productId) {
+    final id = productId.toLowerCase();
+    return id == monthlyProductId.toLowerCase() ||
+        id.startsWith('${monthlyProductId.toLowerCase()}:');
+  }
+
+  /// Whether [productId] matches the annual subscription product.
+  static bool isAnnualProductIdentifier(String productId) {
+    final id = productId.toLowerCase();
+    return id == yearlyProductId.toLowerCase() ||
+        id.startsWith('${yearlyProductId.toLowerCase()}:');
+  }
+
+  /// Whether [package] is the lifetime plan.
   static bool isLifetimePackage(Package package) {
     if (package.packageType == PackageType.lifetime) return true;
-
-    final packageId = package.identifier.toLowerCase();
-    final productId = package.storeProduct.identifier.toLowerCase();
-
-    if (productId == lifetimeProductId.toLowerCase()) return true;
-
-    if (package.packageType == PackageType.annual &&
-        (packageId.contains('lifetime') || productId.contains('lifetime'))) {
-      return true;
-    }
-
-    if ((package.packageType == PackageType.custom ||
-            package.packageType == PackageType.unknown) &&
-        (packageId.contains('lifetime') || productId.contains('lifetime'))) {
-      return true;
-    }
-
-    return false;
+    return isLifetimeProductIdentifier(package.storeProduct.identifier);
   }
 
-  /// Resolves the lifetime [Package] from an [Offering], including mis-typed SKUs.
+  /// Monthly package from [offering], if present.
+  static Package? findMonthlyPackage(Offering offering) {
+    final typed = offering.monthly;
+    if (typed != null && !isLifetimePackage(typed)) return typed;
+
+    for (final package in offering.availablePackages) {
+      if (isLifetimePackage(package)) continue;
+      if (package.packageType == PackageType.monthly) return package;
+      if (isMonthlyProductIdentifier(package.storeProduct.identifier)) {
+        return package;
+      }
+    }
+
+    return offering.getPackage(r'$rc_monthly') ??
+        offering.getPackage(monthlyProductId);
+  }
+
+  /// Annual package from [offering], if present (never lifetime).
+  static Package? findAnnualPackage(Offering offering) {
+    final typed = offering.annual;
+    if (typed != null && !isLifetimePackage(typed)) return typed;
+
+    for (final package in offering.availablePackages) {
+      if (isLifetimePackage(package)) continue;
+      if (package.packageType == PackageType.annual) return package;
+      if (isAnnualProductIdentifier(package.storeProduct.identifier)) {
+        return package;
+      }
+    }
+
+    return offering.getPackage(r'$rc_annual') ??
+        offering.getPackage(yearlyProductId);
+  }
+
+  /// Lifetime package only when it exists in [offering].
+  ///
+  /// Returns `null` for the current live default offering (monthly + annual).
   static Package? findLifetimePackage(Offering offering) {
-    final lifetime = offering.lifetime;
-    if (lifetime != null && isLifetimePackage(lifetime)) return lifetime;
+    final typed = offering.lifetime;
+    if (typed != null && isLifetimePackage(typed)) return typed;
 
     for (final package in offering.availablePackages) {
       if (isLifetimePackage(package)) return package;
     }
 
-    final annual = offering.annual;
-    if (annual != null && isLifetimePackage(annual)) return annual;
-
     return offering.getPackage(lifetimeProductId);
+  }
+
+  /// Paywall tiles for [offering]: monthly/annual when present; lifetime only
+  /// when a distinct lifetime package is in the offering.
+  static List<PaywallPlanEntry> paywallPlanEntries(Offering offering) {
+    final entries = <PaywallPlanEntry>[];
+    final seenIds = <String>{};
+
+    void add(Package? package, PaywallPlanKind kind) {
+      if (package == null) return;
+      if (!seenIds.add(package.identifier)) return;
+      entries.add(PaywallPlanEntry(package, kind));
+    }
+
+    add(findMonthlyPackage(offering), PaywallPlanKind.monthly);
+    add(findAnnualPackage(offering), PaywallPlanKind.annual);
+    add(findLifetimePackage(offering), PaywallPlanKind.lifetime);
+
+    return entries;
   }
 }
 

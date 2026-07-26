@@ -1,12 +1,68 @@
 import 'package:brain_clean_mobile/core/constants/revenue_cat_constants.dart';
+import 'package:brain_clean_mobile/core/services/purchases_service.dart';
 import 'package:brain_clean_mobile/features/home/domain/daily_quotes.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  group('RevenueCat entitlement ids', () {
-    test('canonical entitlement is pro with legacy alias', () {
-      expect(RevenueCatConstants.proEntitlement, 'pro');
+  group('RevenueCat alignment (Local Pro RC)', () {
+    test('reads default offering id', () {
+      expect(PurchasesService.offeringId, 'default');
+      expect(
+        PurchasesService.offeringId,
+        RevenueCatConstants.defaultOfferingId,
+      );
+    });
+
+    test('accepts both Brain Clean and pro entitlements', () {
+      expect(
+        RevenueCatConstants.acceptedProEntitlementIds,
+        containsAll(<String>['pro', 'Brain Clean']),
+      );
       expect(RevenueCatConstants.legacyProEntitlement, 'Brain Clean');
+      expect(RevenueCatConstants.proEntitlement, 'pro');
+      expect(PurchasesService.entitlementId, 'pro');
+      expect(PurchasesService.legacyEntitlementId, 'Brain Clean');
+    });
+
+    test('expects monthly and annual product ids from live offering', () {
+      expect(PurchasesService.monthlyProductId, 'brainclean_monthly');
+      expect(PurchasesService.yearlyProductId, 'brainclean_yearly');
+    });
+
+    test('classifies Play base-plan product ids', () {
+      expect(
+        PurchasesService.isMonthlyProductIdentifier(
+          'brainclean_monthly:monthly-autorenew',
+        ),
+        isTrue,
+      );
+      expect(
+        PurchasesService.isAnnualProductIdentifier(
+          'brainclean_yearly:yearly-autorenew',
+        ),
+        isTrue,
+      );
+      expect(
+        PurchasesService.isLifetimeProductIdentifier(
+          'brainclean_yearly:yearly-autorenew',
+        ),
+        isFalse,
+      );
+      expect(
+        PurchasesService.isLifetimeProductIdentifier(
+          'brainclean_monthly:monthly-autorenew',
+        ),
+        isFalse,
+      );
+      expect(
+        PurchasesService.isLifetimeProductIdentifier('brainclean_lifetime'),
+        isTrue,
+      );
+    });
+
+    test('SDK stays unconfigured without key (no crash path)', () {
+      // Widget/unit tests never call Purchases.configure with a real key.
+      expect(PurchasesService.isConfigured, isFalse);
     });
   });
 

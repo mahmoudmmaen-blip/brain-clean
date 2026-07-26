@@ -34,29 +34,22 @@ String _planTitle(AppLocalizations loc, _PlanKind kind) {
   };
 }
 
+_PlanKind _mapKind(PaywallPlanKind kind) {
+  return switch (kind) {
+    PaywallPlanKind.monthly => _PlanKind.monthly,
+    PaywallPlanKind.annual => _PlanKind.annual,
+    PaywallPlanKind.lifetime => _PlanKind.lifetime,
+  };
+}
+
 /// Builds monthly/annual/lifetime entries from the current [offering].
+///
+/// Lifetime appears only when present in the offering (not in live `default`).
 List<_PlanEntry> _entriesFor(Offering offering) {
-  final entries = <_PlanEntry>[];
-  final seenIds = <String>{};
-
-  void add(Package package, _PlanKind kind) {
-    if (seenIds.add(package.identifier)) {
-      entries.add(_PlanEntry(package, kind));
-    }
-  }
-
-  final monthly = offering.monthly;
-  if (monthly != null) add(monthly, _PlanKind.monthly);
-
-  final annual = offering.annual;
-  if (annual != null && !PurchasesService.isLifetimePackage(annual)) {
-    add(annual, _PlanKind.annual);
-  }
-
-  final lifetime = PurchasesService.findLifetimePackage(offering);
-  if (lifetime != null) add(lifetime, _PlanKind.lifetime);
-
-  return entries;
+  return [
+    for (final entry in PurchasesService.paywallPlanEntries(offering))
+      _PlanEntry(entry.package, _mapKind(entry.kind)),
+  ];
 }
 
 class ProPaywallScreen extends ConsumerStatefulWidget {
