@@ -696,7 +696,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get proPaywallTitle => 'Brain Clean Pro';
 
   @override
-  String get proPaywallSubtitle => 'افتح كامل قدرات عقلك';
+  String get proPaywallSubtitle => 'افتح مزايا Pro الهادئة';
 
   @override
   String get proFeatureAdvancedBcs => 'محرك Brain Clarity Score المتقدم';
@@ -705,7 +705,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get proFeatureSevenDayChart => 'مخطط التقدم 7 أيام';
 
   @override
-  String get proFeatureEmotionWheel => 'دائرة الأحاسيس والتأثير على التعافي';
+  String get proFeatureEmotionWheel => 'رؤى أعمق عن المشاعر والعادات';
 
   @override
   String get proFeatureFocusChallenges => 'جلسات سكون وتركيز أطول';
@@ -776,7 +776,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get proPlansUnavailable =>
-      'الباقات غير متاحة الآن. الميزات المجانية تعمل — حاول لاحقاً.';
+      'الباقات غير متاحة الآن. جرّب لاحقًا أو استخدم الاستعادة إذا كنت مشتركًا.';
 
   @override
   String get paywallRetryLoad => 'إعادة المحاولة';

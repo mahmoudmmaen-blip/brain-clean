@@ -1319,7 +1319,7 @@ abstract class AppLocalizations {
   /// No description provided for @proPaywallSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Unlock your mind\'s full potential'**
+  /// **'Unlock calm Pro features'**
   String get proPaywallSubtitle;
 
   /// No description provided for @proFeatureAdvancedBcs.
@@ -1337,7 +1337,7 @@ abstract class AppLocalizations {
   /// No description provided for @proFeatureEmotionWheel.
   ///
   /// In en, this message translates to:
-  /// **'Emotion wheel & recovery impact'**
+  /// **'Deeper mood and habit insights'**
   String get proFeatureEmotionWheel;
 
   /// No description provided for @proFeatureFocusChallenges.
@@ -1475,7 +1475,7 @@ abstract class AppLocalizations {
   /// No description provided for @proPlansUnavailable.
   ///
   /// In en, this message translates to:
-  /// **'Plans aren\'t available right now. Free features still work — try again later.'**
+  /// **'Plans are unavailable right now. Try again later or restore if you already subscribed.'**
   String get proPlansUnavailable;
 
   /// No description provided for @paywallRetryLoad.
