@@ -719,9 +719,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get proFeatureFocusChallenges => 'Longer silence & focus sessions';
 
   @override
-  String get proFeatureNoAds => 'Ad-free experience';
-
-  @override
   String get proFeatureAdvancedReports =>
       'Advanced 30 / 90-day clarity insights';
 
@@ -820,7 +817,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsProBenefitHint =>
-      'Pro removes ads and unlocks extra features while keeping the core Daily Program free.';
+      'Pro unlocks extra features while keeping the core Daily Program free.';
 
   @override
   String get settingsRestorePurchases => 'Restore purchases';

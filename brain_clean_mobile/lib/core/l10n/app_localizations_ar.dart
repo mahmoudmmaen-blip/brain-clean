@@ -710,9 +710,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get proFeatureFocusChallenges => 'جلسات سكون وتركيز أطول';
 
   @override
-  String get proFeatureNoAds => 'تجربة بلا إعلانات';
-
-  @override
   String get proFeatureAdvancedReports => 'رؤى صفاء متقدمة لـ 30 / 90 يوماً';
 
   @override
@@ -809,7 +806,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get settingsProBenefitHint =>
-      'Pro يزيل الإعلانات ويفتح مزايا إضافية بدون تغيير البرنامج اليومي الأساسي.';
+      'Pro يفتح مزايا إضافية بدون تغيير البرنامج اليومي الأساسي.';
 
   @override
   String get settingsRestorePurchases => 'استعادة المشتريات';

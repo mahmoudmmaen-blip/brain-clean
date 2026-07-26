@@ -1346,12 +1346,6 @@ abstract class AppLocalizations {
   /// **'Longer silence & focus sessions'**
   String get proFeatureFocusChallenges;
 
-  /// No description provided for @proFeatureNoAds.
-  ///
-  /// In en, this message translates to:
-  /// **'Ad-free experience'**
-  String get proFeatureNoAds;
-
   /// No description provided for @proFeatureAdvancedReports.
   ///
   /// In en, this message translates to:
@@ -1541,7 +1535,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingsProBenefitHint.
   ///
   /// In en, this message translates to:
-  /// **'Pro removes ads and unlocks extra features while keeping the core Daily Program free.'**
+  /// **'Pro unlocks extra features while keeping the core Daily Program free.'**
   String get settingsProBenefitHint;
 
   /// No description provided for @settingsRestorePurchases.
