@@ -148,12 +148,15 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
     final offeringAsync = ref.watch(proOfferingProvider);
 
     final features = [
+      loc.proFeatureNoAds,
       loc.proFeatureColorThemes,
-      loc.proFeatureAdvancedBcs,
+      loc.proFeatureAdvancedReports,
       loc.proFeatureSevenDayChart,
       loc.proFeatureEmotionWheel,
       loc.proFeatureFocusChallenges,
-      loc.proFeatureCloudSync,
+      loc.proFeatureExtraQuotes,
+      loc.proFeatureExportData,
+      loc.proFeatureCustomReminders,
     ];
 
     return Scaffold(

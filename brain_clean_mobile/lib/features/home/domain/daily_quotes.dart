@@ -131,12 +131,19 @@ const List<DailyQuote> dailyQuotes = [
   ),
 ];
 
-/// Picks today's quote index (0–29) from day-of-year.
-int dailyQuoteIndex(DateTime date) {
+/// Picks today's quote index from day-of-year within [poolLength].
+int dailyQuoteIndex(DateTime date, {int poolLength = 30}) {
+  final length = poolLength <= 0 ? dailyQuotes.length : poolLength;
   final start = DateTime(date.year, 1, 1);
   final dayOfYear = date.difference(start).inDays + 1;
-  return dayOfYear % dailyQuotes.length;
+  return dayOfYear % length;
 }
 
-DailyQuote quoteForDate(DateTime date) =>
-    dailyQuotes[dailyQuoteIndex(date)];
+/// Free users rotate among the first [freeQuotePoolSize] quotes.
+/// Pro users use the full library.
+const freeQuotePoolSize = 15;
+
+DailyQuote quoteForDate(DateTime date, {bool isPro = false}) {
+  final pool = isPro ? dailyQuotes.length : freeQuotePoolSize;
+  return dailyQuotes[dailyQuoteIndex(date, poolLength: pool)];
+}

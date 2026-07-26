@@ -1343,8 +1343,38 @@ abstract class AppLocalizations {
   /// No description provided for @proFeatureFocusChallenges.
   ///
   /// In en, this message translates to:
-  /// **'Advanced focus challenges'**
+  /// **'Longer silence & focus sessions'**
   String get proFeatureFocusChallenges;
+
+  /// No description provided for @proFeatureNoAds.
+  ///
+  /// In en, this message translates to:
+  /// **'Ad-free experience'**
+  String get proFeatureNoAds;
+
+  /// No description provided for @proFeatureAdvancedReports.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced 30 / 90-day clarity insights'**
+  String get proFeatureAdvancedReports;
+
+  /// No description provided for @proFeatureExportData.
+  ///
+  /// In en, this message translates to:
+  /// **'Export your local data'**
+  String get proFeatureExportData;
+
+  /// No description provided for @proFeatureCustomReminders.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom reminders'**
+  String get proFeatureCustomReminders;
+
+  /// No description provided for @proFeatureExtraQuotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Larger daily quote library'**
+  String get proFeatureExtraQuotes;
 
   /// No description provided for @proFeatureCloudSync.
   ///
@@ -1490,6 +1520,36 @@ abstract class AppLocalizations {
   /// **'Upgrade to Pro'**
   String get settingsUpgradeToPro;
 
+  /// No description provided for @settingsProCardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Clean Pro'**
+  String get settingsProCardTitle;
+
+  /// No description provided for @settingsProStatusFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Free'**
+  String get settingsProStatusFree;
+
+  /// No description provided for @settingsProStatusPro.
+  ///
+  /// In en, this message translates to:
+  /// **'Pro'**
+  String get settingsProStatusPro;
+
+  /// No description provided for @settingsProBenefitHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Pro removes ads and unlocks extra features while keeping the core Daily Program free.'**
+  String get settingsProBenefitHint;
+
+  /// No description provided for @settingsRestorePurchases.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore purchases'**
+  String get settingsRestorePurchases;
+
   /// No description provided for @settingsAppearanceSection.
   ///
   /// In en, this message translates to:
@@ -1604,11 +1664,59 @@ abstract class AppLocalizations {
   /// **'Export data — coming soon'**
   String get settingsExportData;
 
+  /// No description provided for @settingsExportDataPro.
+  ///
+  /// In en, this message translates to:
+  /// **'Export data'**
+  String get settingsExportDataPro;
+
+  /// No description provided for @settingsExportReadyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Share a local summary of your progress (no cloud).'**
+  String get settingsExportReadyBody;
+
+  /// No description provided for @settingsExportShared.
+  ///
+  /// In en, this message translates to:
+  /// **'Local progress summary ready to share.'**
+  String get settingsExportShared;
+
+  /// No description provided for @settingsExportProOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Export is a Pro feature.'**
+  String get settingsExportProOnly;
+
   /// No description provided for @settingsComingSoon.
   ///
   /// In en, this message translates to:
   /// **'Coming soon…'**
   String get settingsComingSoon;
+
+  /// No description provided for @settingsAdvancedInsightsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'30 / 90-day insights'**
+  String get settingsAdvancedInsightsTitle;
+
+  /// No description provided for @settingsAdvancedInsightsLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock advanced clarity insights with Pro.'**
+  String get settingsAdvancedInsightsLocked;
+
+  /// No description provided for @settingsCustomRemindersLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom reminder schedules unlock with Pro.'**
+  String get settingsCustomRemindersLocked;
+
+  /// No description provided for @silenceDurationProLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Longer sessions unlock with Pro.'**
+  String get silenceDurationProLocked;
 
   /// No description provided for @settingsAboutSection.
   ///

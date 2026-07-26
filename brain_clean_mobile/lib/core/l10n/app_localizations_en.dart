@@ -716,7 +716,23 @@ class AppLocalizationsEn extends AppLocalizations {
   String get proFeatureEmotionWheel => 'Emotion wheel & recovery impact';
 
   @override
-  String get proFeatureFocusChallenges => 'Advanced focus challenges';
+  String get proFeatureFocusChallenges => 'Longer silence & focus sessions';
+
+  @override
+  String get proFeatureNoAds => 'Ad-free experience';
+
+  @override
+  String get proFeatureAdvancedReports =>
+      'Advanced 30 / 90-day clarity insights';
+
+  @override
+  String get proFeatureExportData => 'Export your local data';
+
+  @override
+  String get proFeatureCustomReminders => 'Custom reminders';
+
+  @override
+  String get proFeatureExtraQuotes => 'Larger daily quote library';
 
   @override
   String get proFeatureCloudSync => 'Secure cloud sync';
@@ -794,6 +810,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsUpgradeToPro => 'Upgrade to Pro';
 
   @override
+  String get settingsProCardTitle => 'Brain Clean Pro';
+
+  @override
+  String get settingsProStatusFree => 'Free';
+
+  @override
+  String get settingsProStatusPro => 'Pro';
+
+  @override
+  String get settingsProBenefitHint =>
+      'Pro removes ads and unlocks extra features while keeping the core Daily Program free.';
+
+  @override
+  String get settingsRestorePurchases => 'Restore purchases';
+
+  @override
   String get settingsAppearanceSection => 'Appearance';
 
   @override
@@ -852,7 +884,34 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsExportData => 'Export data — coming soon';
 
   @override
+  String get settingsExportDataPro => 'Export data';
+
+  @override
+  String get settingsExportReadyBody =>
+      'Share a local summary of your progress (no cloud).';
+
+  @override
+  String get settingsExportShared => 'Local progress summary ready to share.';
+
+  @override
+  String get settingsExportProOnly => 'Export is a Pro feature.';
+
+  @override
   String get settingsComingSoon => 'Coming soon…';
+
+  @override
+  String get settingsAdvancedInsightsTitle => '30 / 90-day insights';
+
+  @override
+  String get settingsAdvancedInsightsLocked =>
+      'Unlock advanced clarity insights with Pro.';
+
+  @override
+  String get settingsCustomRemindersLocked =>
+      'Custom reminder schedules unlock with Pro.';
+
+  @override
+  String get silenceDurationProLocked => 'Longer sessions unlock with Pro.';
 
   @override
   String get settingsAboutSection => 'About';

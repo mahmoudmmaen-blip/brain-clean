@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/providers/locale_provider.dart';
+import '../../pro/application/subscription_service_provider.dart';
 import '../domain/daily_quotes.dart';
 
 const dailyQuoteCardKey = Key('daily_quote_card');
@@ -15,7 +16,8 @@ class DailyQuoteCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = AppLocalizations.of(context)!;
     final isArabic = ref.watch(localeProvider).languageCode == 'ar';
-    final quote = quoteForDate(DateTime.now());
+    final isPro = ref.watch(isProUserProvider);
+    final quote = quoteForDate(DateTime.now(), isPro: isPro);
     final colorScheme = Theme.of(context).colorScheme;
 
     return Container(

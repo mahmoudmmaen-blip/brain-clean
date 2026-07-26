@@ -76,7 +76,9 @@ class PurchasesService {
   /// Checks the active entitlement first, then lifetime one-time purchases
   /// (non-consumable) when the dashboard product type was misconfigured.
   static bool hasProEntitlement(CustomerInfo info) {
-    if (info.entitlements.active.containsKey(entitlementId)) {
+    final active = info.entitlements.active;
+    if (active.containsKey(entitlementId) ||
+        active.containsKey(RevenueCatConstants.legacyProEntitlement)) {
       return true;
     }
 

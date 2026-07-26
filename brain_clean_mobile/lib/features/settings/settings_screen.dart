@@ -4,21 +4,26 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/application/app_preferences_provider.dart';
 import '../../core/config/app_config.dart';
-import '../../core/security/security_status_provider.dart';
 import '../../core/constants/app_routes.dart';
 import '../../core/l10n/app_localizations.dart';
+import '../../core/security/security_status_provider.dart';
 import '../../core/services/external_link_service.dart';
+import '../../core/services/purchases_service.dart';
 import '../../core/services/smart_notification_service.dart';
 import '../../core/storage/app_data_reset.dart';
+import '../../core/storage/local_data_export.dart';
 import '../../core/theme/app_color_theme.dart';
 import '../../core/theme/app_color_theme_provider.dart';
 import '../pro/application/subscription_service_provider.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 
 const settingsProTileKey = Key('settings_pro_tile');
 const settingsResetKey = Key('settings_reset_data');
 const settingsPrivacyPolicyKey = Key('settings_privacy_policy');
 const settingsContactUsKey = Key('settings_contact_us');
 const settingsVersionValueKey = Key('settings_version_value');
+const settingsRestoreKey = Key('settings_restore_purchases');
+const settingsExportKey = Key('settings_export_data');
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -66,6 +71,48 @@ class SettingsScreen extends ConsumerWidget {
     }
   }
 
+  Future<void> _restorePurchases(BuildContext context) async {
+    final loc = AppLocalizations.of(context)!;
+    if (!PurchasesService.isConfigured) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(loc.proPlansUnavailable)),
+      );
+      return;
+    }
+    try {
+      final info = await Purchases.restorePurchases();
+      if (!context.mounted) return;
+      final restored = PurchasesService.hasProEntitlement(info);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            restored ? loc.proRestoreSuccess : loc.proRestoreNone,
+          ),
+        ),
+      );
+    } catch (_) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(loc.proPurchaseError)),
+      );
+    }
+  }
+
+  Future<void> _exportData(BuildContext context, bool isPro) async {
+    final loc = AppLocalizations.of(context)!;
+    if (!isPro) {
+      context.push(AppRoutes.proPaywall);
+      return;
+    }
+    final ok = await LocalDataExport.shareSummary();
+    if (!context.mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(ok ? loc.settingsExportShared : loc.proPurchaseError),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = AppLocalizations.of(context)!;
@@ -83,21 +130,63 @@ class SettingsScreen extends ConsumerWidget {
       body: ListView(
         children: [
           _SectionHeader(loc.settingsAccountSection),
-          ListTile(
+          Card(
             key: settingsProTileKey,
-            title: Text(
-              isPro ? loc.settingsProActive : loc.settingsUpgradeToPro,
-              style: TextStyle(
-                color: isPro
-                    ? const Color(0xFF1D9E75)
-                    : const Color(0xFFE6EDF3),
-                fontWeight: FontWeight.w600,
+            color: const Color(0xFF161B22),
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          loc.settingsProCardTitle,
+                          style: const TextStyle(
+                            color: Color(0xFFE6EDF3),
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        isPro
+                            ? loc.settingsProStatusPro
+                            : loc.settingsProStatusFree,
+                        style: TextStyle(
+                          color: isPro
+                              ? const Color(0xFF1D9E75)
+                              : const Color(0xFF8B949E),
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    loc.settingsProBenefitHint,
+                    style: const TextStyle(
+                      color: Color(0xFF8B949E),
+                      fontSize: 13,
+                      height: 1.35,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  if (!isPro)
+                    TextButton(
+                      onPressed: () => context.push(AppRoutes.proPaywall),
+                      child: Text(loc.settingsUpgradeToPro),
+                    ),
+                  TextButton(
+                    key: settingsRestoreKey,
+                    onPressed: () => _restorePurchases(context),
+                    child: Text(loc.settingsRestorePurchases),
+                  ),
+                ],
               ),
             ),
-            trailing: isPro
-                ? null
-                : const Icon(Icons.chevron_left, color: Color(0xFF8B949E)),
-            onTap: isPro ? null : () => context.push(AppRoutes.proPaywall),
           ),
           const Divider(color: Color(0xFF30363D)),
           _SectionHeader(loc.settingsAppearanceSection),
@@ -127,6 +216,20 @@ class SettingsScreen extends ConsumerWidget {
                   .setDailyFocusReminder(v);
               await ref.read(smartNotificationServiceProvider).rescheduleAll();
             },
+          ),
+          ListTile(
+            title: Text(loc.settingsCustomRemindersLocked,
+                style: TextStyle(
+                  color: isPro
+                      ? const Color(0xFFE6EDF3)
+                      : const Color(0xFF8B949E),
+                )),
+            trailing: isPro
+                ? null
+                : const Icon(Icons.lock_outline, color: Color(0xFF8B949E)),
+            onTap: isPro
+                ? null
+                : () => context.push(AppRoutes.proPaywall),
           ),
           const Divider(color: Color(0xFF30363D)),
           _SectionHeader(loc.settingsSecuritySection),
@@ -160,11 +263,47 @@ class SettingsScreen extends ConsumerWidget {
             onTap: () => _confirmReset(context, ref),
           ),
           ListTile(
-            enabled: false,
+            key: settingsExportKey,
+            enabled: isPro,
             title: Text(
-              loc.settingsExportData,
-              style: const TextStyle(color: Color(0xFF8B949E)),
+              isPro ? loc.settingsExportDataPro : loc.settingsExportData,
+              style: TextStyle(
+                color: isPro
+                    ? const Color(0xFFE6EDF3)
+                    : const Color(0xFF8B949E),
+              ),
             ),
+            subtitle: Text(
+              isPro ? loc.settingsExportReadyBody : loc.settingsExportProOnly,
+              style: const TextStyle(color: Color(0xFF8B949E), fontSize: 12),
+            ),
+            trailing: isPro
+                ? null
+                : const Icon(Icons.lock_outline, color: Color(0xFF8B949E)),
+            onTap: () => _exportData(context, isPro),
+          ),
+          ListTile(
+            title: Text(loc.settingsAdvancedInsightsTitle,
+                style: TextStyle(
+                  color: isPro
+                      ? const Color(0xFFE6EDF3)
+                      : const Color(0xFF8B949E),
+                )),
+            subtitle: isPro
+                ? null
+                : Text(
+                    loc.settingsAdvancedInsightsLocked,
+                    style: const TextStyle(
+                      color: Color(0xFF8B949E),
+                      fontSize: 12,
+                    ),
+                  ),
+            trailing: isPro
+                ? null
+                : const Icon(Icons.lock_outline, color: Color(0xFF8B949E)),
+            onTap: isPro
+                ? () => context.push(AppRoutes.weeklyReport)
+                : () => context.push(AppRoutes.proPaywall),
           ),
           const Divider(color: Color(0xFF30363D)),
           _SectionHeader(loc.settingsAboutSection),

@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../ads/ad_visibility.dart';
+import '../ads/footer_banner_ad.dart';
 import '../constants/app_routes.dart';
 import '../l10n/app_localizations.dart';
 import '../security/security_warning_banner.dart';
 import '../../features/focus/widgets/ambient_sound_widgets.dart';
+import '../../features/pro/application/subscription_service_provider.dart';
 
 /// Persistent 5-tab shell with glass bottom navigation and SOS FAB.
 class AppShell extends ConsumerStatefulWidget {
@@ -31,6 +34,12 @@ class _AppShellState extends ConsumerState<AppShell> {
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
+    final isPro = ref.watch(isProUserProvider);
+    final location = GoRouterState.of(context).uri.toString();
+    final showAds = AdVisibility.shouldShowFooterBanner(
+      isPro: isPro,
+      location: location,
+    );
 
     return Scaffold(
       body: Column(
@@ -55,12 +64,13 @@ class _AppShellState extends ConsumerState<AppShell> {
         mainAxisSize: MainAxisSize.min,
         children: [
           const AmbientMiniPlayer(),
+          if (showAds) const FooterBannerAd(key: Key('footer_banner_ad')),
           ClipRect(
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
               child: NavigationBar(
-                backgroundColor: colorScheme.surface.withOpacity(0.85),
-                indicatorColor: colorScheme.primary.withOpacity(0.15),
+                backgroundColor: colorScheme.surface.withValues(alpha: 0.85),
+                indicatorColor: colorScheme.primary.withValues(alpha: 0.15),
                 selectedIndex: widget.navigationShell.currentIndex,
                 onDestinationSelected: _onDestinationSelected,
                 labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,

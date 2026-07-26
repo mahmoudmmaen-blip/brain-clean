@@ -707,7 +707,22 @@ class AppLocalizationsAr extends AppLocalizations {
   String get proFeatureEmotionWheel => 'دائرة الأحاسيس والتأثير على التعافي';
 
   @override
-  String get proFeatureFocusChallenges => 'تحديات التركيز المتقدمة';
+  String get proFeatureFocusChallenges => 'جلسات سكون وتركيز أطول';
+
+  @override
+  String get proFeatureNoAds => 'تجربة بلا إعلانات';
+
+  @override
+  String get proFeatureAdvancedReports => 'رؤى صفاء متقدمة لـ 30 / 90 يوماً';
+
+  @override
+  String get proFeatureExportData => 'تصدير بياناتك المحلية';
+
+  @override
+  String get proFeatureCustomReminders => 'تذكيرات مخصّصة';
+
+  @override
+  String get proFeatureExtraQuotes => 'مكتبة اقتباسات يومية أوسع';
 
   @override
   String get proFeatureCloudSync => 'مزامنة سحابية آمنة';
@@ -784,6 +799,22 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settingsUpgradeToPro => 'ترقية إلى Pro';
 
   @override
+  String get settingsProCardTitle => 'Brain Clean Pro';
+
+  @override
+  String get settingsProStatusFree => 'مجاني';
+
+  @override
+  String get settingsProStatusPro => 'Pro';
+
+  @override
+  String get settingsProBenefitHint =>
+      'Pro يزيل الإعلانات ويفتح مزايا إضافية بدون تغيير البرنامج اليومي الأساسي.';
+
+  @override
+  String get settingsRestorePurchases => 'استعادة المشتريات';
+
+  @override
   String get settingsAppearanceSection => 'المظهر';
 
   @override
@@ -842,7 +873,34 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settingsExportData => 'تصدير البيانات — قريبًا';
 
   @override
+  String get settingsExportDataPro => 'تصدير البيانات';
+
+  @override
+  String get settingsExportReadyBody =>
+      'شارك ملخصاً محلياً لتقدّمك (بدون سحابة).';
+
+  @override
+  String get settingsExportShared => 'ملخص التقدّم المحلي جاهز للمشاركة.';
+
+  @override
+  String get settingsExportProOnly => 'التصدير ميزة Pro.';
+
+  @override
   String get settingsComingSoon => 'قريباً...';
+
+  @override
+  String get settingsAdvancedInsightsTitle => 'رؤى 30 / 90 يوماً';
+
+  @override
+  String get settingsAdvancedInsightsLocked =>
+      'افتح رؤى الصفاء المتقدمة مع Pro.';
+
+  @override
+  String get settingsCustomRemindersLocked =>
+      'جداول التذكير المخصّصة تُفتح مع Pro.';
+
+  @override
+  String get silenceDurationProLocked => 'الجلسات الأطول تُفتح مع Pro.';
 
   @override
   String get settingsAboutSection => 'حول التطبيق';
