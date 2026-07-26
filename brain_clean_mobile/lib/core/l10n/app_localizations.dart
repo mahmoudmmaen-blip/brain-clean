@@ -113,19 +113,19 @@ abstract class AppLocalizations {
   /// No description provided for @dashboardEmptyTitle.
   ///
   /// In en, this message translates to:
-  /// **'Start your journey!'**
+  /// **'Your journey starts here'**
   String get dashboardEmptyTitle;
 
   /// No description provided for @dashboardEmptySubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Take your first BCI test to see your progress here'**
+  /// **'As you follow your Daily Program, progress will show here'**
   String get dashboardEmptySubtitle;
 
   /// No description provided for @dashboardEmptyCta.
   ///
   /// In en, this message translates to:
-  /// **'Start Test'**
+  /// **'Start check-in'**
   String get dashboardEmptyCta;
 
   /// No description provided for @dashboardRetakeDiagnostic.
@@ -437,7 +437,7 @@ abstract class AppLocalizations {
   /// No description provided for @diagnosticBrainRotInterpretationTitle.
   ///
   /// In en, this message translates to:
-  /// **'Clinical interpretation'**
+  /// **'What your answers suggest'**
   String get diagnosticBrainRotInterpretationTitle;
 
   /// No description provided for @diagnosticContinueToBhi.
@@ -461,7 +461,7 @@ abstract class AppLocalizations {
   /// No description provided for @diagnosticBrainRotScoring.
   ///
   /// In en, this message translates to:
-  /// **'Calculating your Brain Rot score…'**
+  /// **'Calculating your clarity score…'**
   String get diagnosticBrainRotScoring;
 
   /// No description provided for @diagnosticSyncError.
@@ -563,7 +563,7 @@ abstract class AppLocalizations {
   /// No description provided for @splashInitError.
   ///
   /// In en, this message translates to:
-  /// **'Loading failed. Please restart the app.'**
+  /// **'Couldn\'t finish loading. Please reopen the app.'**
   String get splashInitError;
 
   /// No description provided for @homeTitle.
@@ -593,13 +593,13 @@ abstract class AppLocalizations {
   /// No description provided for @homeOpenDiagnostic.
   ///
   /// In en, this message translates to:
-  /// **'Diagnostic assessment'**
+  /// **'Clarity check-in'**
   String get homeOpenDiagnostic;
 
   /// No description provided for @homeOpenDiagnosticSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Brain Rot questionnaire + BHI sliders'**
+  /// **'A short questionnaire + focus sliders'**
   String get homeOpenDiagnosticSubtitle;
 
   /// No description provided for @homeOpenCognitiveHub.
@@ -617,7 +617,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeOpenFullDashboard.
   ///
   /// In en, this message translates to:
-  /// **'Full clinical dashboard'**
+  /// **'Full progress dashboard'**
   String get homeOpenFullDashboard;
 
   /// No description provided for @cognitiveHubTitle.
@@ -767,19 +767,19 @@ abstract class AppLocalizations {
   /// No description provided for @cognitivePlaceholderBody.
   ///
   /// In en, this message translates to:
-  /// **'This module is scaffolded for the unified BHI evaluation engine. Complete the placeholder run to verify navigation.'**
+  /// **'This focus check is ready when you are. Try a short run to see how it feels.'**
   String get cognitivePlaceholderBody;
 
   /// No description provided for @cognitivePlaceholderComplete.
   ///
   /// In en, this message translates to:
-  /// **'Record placeholder result'**
+  /// **'Save this practice result'**
   String get cognitivePlaceholderComplete;
 
   /// No description provided for @cognitivePlaceholderRecorded.
   ///
   /// In en, this message translates to:
-  /// **'Placeholder score recorded: {score}%'**
+  /// **'Practice score saved: {score}%'**
   String cognitivePlaceholderRecorded(int score);
 
   /// No description provided for @recoveryGridTitle.
@@ -989,7 +989,7 @@ abstract class AppLocalizations {
   /// No description provided for @recoveryStorageRecoveredNotice.
   ///
   /// In en, this message translates to:
-  /// **'Local data was reset because it could not be read. A new protocol has started.'**
+  /// **'Local data needed a fresh start. Your progress begins again from today.'**
   String get recoveryStorageRecoveredNotice;
 
   /// No description provided for @homeStreakDays.
@@ -1205,7 +1205,7 @@ abstract class AppLocalizations {
   /// No description provided for @accountabilityPenMental5.
   ///
   /// In en, this message translates to:
-  /// **'Escalated screen binge'**
+  /// **'Heavy screen day'**
   String get accountabilityPenMental5;
 
   /// No description provided for @breathingInhale.
@@ -1277,19 +1277,19 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingPage1Body.
   ///
   /// In en, this message translates to:
-  /// **'Restore your digital awareness in 21 days'**
+  /// **'Build digital calm one day at a time'**
   String get onboardingPage1Body;
 
   /// No description provided for @onboardingPage2Title.
   ///
   /// In en, this message translates to:
-  /// **'Track your focus daily'**
+  /// **'Your Daily Program'**
   String get onboardingPage2Title;
 
   /// No description provided for @onboardingPage2Body.
   ///
   /// In en, this message translates to:
-  /// **'Real science-based formulas to measure brain health'**
+  /// **'Each day: prepare, focus, reflect, complete, and rest — guided gently'**
   String get onboardingPage2Body;
 
   /// No description provided for @onboardingPage3Title.
@@ -1301,13 +1301,13 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingPage3Body.
   ///
   /// In en, this message translates to:
-  /// **'Answer 10 questions to assess your brain rot level'**
+  /// **'A short check-in first — then your Daily Program guides each day'**
   String get onboardingPage3Body;
 
   /// No description provided for @onboardingStartQuiz.
   ///
   /// In en, this message translates to:
-  /// **'Start assessment'**
+  /// **'Continue'**
   String get onboardingStartQuiz;
 
   /// No description provided for @proPaywallTitle.
@@ -1451,7 +1451,7 @@ abstract class AppLocalizations {
   /// No description provided for @proPlansUnavailable.
   ///
   /// In en, this message translates to:
-  /// **'Plans are unavailable right now. Please try again later.'**
+  /// **'Plans aren\'t available right now. You can keep using free features and try again later.'**
   String get proPlansUnavailable;
 
   /// No description provided for @paywallRetryLoad.
@@ -1463,7 +1463,7 @@ abstract class AppLocalizations {
   /// No description provided for @paywallLifetimeLabel.
   ///
   /// In en, this message translates to:
-  /// **'One-time forever'**
+  /// **'Pay once, keep forever'**
   String get paywallLifetimeLabel;
 
   /// No description provided for @settingsTitle.
@@ -2039,7 +2039,7 @@ abstract class AppLocalizations {
   /// No description provided for @profileNoEmotionsYet.
   ///
   /// In en, this message translates to:
-  /// **'No emotions logged yet'**
+  /// **'No emotions logged yet — open the Emotion Wheel when you\'re ready'**
   String get profileNoEmotionsYet;
 
   /// No description provided for @profileAchievements.
@@ -3437,7 +3437,7 @@ abstract class AppLocalizations {
   /// No description provided for @anxietyNoResultYet.
   ///
   /// In en, this message translates to:
-  /// **'No result yet. Take the assessment first.'**
+  /// **'No result yet. Complete a short check-in first.'**
   String get anxietyNoResultYet;
 
   /// No description provided for @worryWindowTitle.

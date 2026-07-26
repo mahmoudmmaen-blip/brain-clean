@@ -16,13 +16,13 @@ class AppLocalizationsAr extends AppLocalizations {
       'أكمل التشخيص لعرض نقاط BC_score.';
 
   @override
-  String get dashboardEmptyTitle => 'ابدأ رحلتك!';
+  String get dashboardEmptyTitle => 'رحلتك تبدأ من هنا';
 
   @override
-  String get dashboardEmptySubtitle => 'أجرِ اختبار BCI الأول لترى تقدمك هنا';
+  String get dashboardEmptySubtitle => 'مع البرنامج اليومي سيظهر تقدّمك هنا';
 
   @override
-  String get dashboardEmptyCta => 'ابدأ الاختبار';
+  String get dashboardEmptyCta => 'ابدأ الفحص القصير';
 
   @override
   String get dashboardRetakeDiagnostic => 'إعادة التشخيص';
@@ -194,7 +194,7 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get diagnosticBrainRotInterpretationTitle => 'التفسير السريري';
+  String get diagnosticBrainRotInterpretationTitle => 'ماذا تقول إجاباتك';
 
   @override
   String get diagnosticContinueToBhi => 'متابعة تقييم BHI';
@@ -206,7 +206,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get diagnosticBrainRotIncomplete => 'أكمل الأسئلة العشرة أولاً.';
 
   @override
-  String get diagnosticBrainRotScoring => 'جاري حساب نتيجة تعفن الدماغ…';
+  String get diagnosticBrainRotScoring => 'جارٍ حساب نتيجتك…';
 
   @override
   String get diagnosticSyncError => 'تعذر حفظ التشخيص. حاول مرة أخرى.';
@@ -270,7 +270,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get splashHydrationRetry => 'جارٍ استعادة تقدمك…';
 
   @override
-  String get splashInitError => 'حدث خطأ أثناء التحميل. أعد تشغيل التطبيق.';
+  String get splashInitError => 'تعذر إكمال التحميل. أعد فتح التطبيق من فضلك.';
 
   @override
   String get homeTitle => 'الرئيسية — Brain Clean';
@@ -288,10 +288,10 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get homeOpenDiagnostic => 'التشخيص السريري';
+  String get homeOpenDiagnostic => 'فحص وضوح قصير';
 
   @override
-  String get homeOpenDiagnosticSubtitle => 'استبيان تعفن الدماغ + مقاييس BHI';
+  String get homeOpenDiagnosticSubtitle => 'استبيان قصير + مقاييس التركيز';
 
   @override
   String get homeOpenCognitiveHub => 'التقييمات المعرفية';
@@ -389,14 +389,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get cognitivePlaceholderBody =>
-      'هذه الوحدة مُهيّأة لمحرك تقييم BHI الموحّد. أكمل التشغيل التجريبي للتحقق من المسار.';
+      'فحص التركيز جاهز عندما تكون مستعداً. جرّب جولة قصيرة لترى الإحساس.';
 
   @override
-  String get cognitivePlaceholderComplete => 'تسجيل نتيجة تجريبية';
+  String get cognitivePlaceholderComplete => 'احفظ نتيجة هذه الممارسة';
 
   @override
   String cognitivePlaceholderRecorded(int score) {
-    return 'تم تسجيل نتيجة تجريبية: $score%';
+    return 'تم حفظ نتيجة الممارسة: $score%';
   }
 
   @override
@@ -525,7 +525,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get recoveryStorageRecoveredNotice =>
-      'تم إعادة ضبط البيانات المحلية لأنها لم تُقرأ بشكل صحيح. بدأ بروتوكول جديد.';
+      'احتاجت البيانات المحلية لبداية جديدة. تقدّمك يبدأ من اليوم.';
 
   @override
   String get homeStreakDays => 'أيام';
@@ -634,7 +634,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get accountabilityPenMental4 => 'تفويت فحص ذهني';
 
   @override
-  String get accountabilityPenMental5 => 'إدمان شاشة متصاعد';
+  String get accountabilityPenMental5 => 'يوم شاشات ثقيل';
 
   @override
   String get breathingInhale => 'استنشق...';
@@ -672,22 +672,24 @@ class AppLocalizationsAr extends AppLocalizations {
   String get onboardingPage1Title => 'مرحباً بك في Brain Clean';
 
   @override
-  String get onboardingPage1Body => 'استعد وعيك الرقمي في 21 يوماً';
+  String get onboardingPage1Body => 'ابنِ هدوءاً رقمياً يوماً بعد يوم';
 
   @override
-  String get onboardingPage2Title => 'تتبع تركيزك يومياً';
+  String get onboardingPage2Title => 'برنامجك اليومي';
 
   @override
-  String get onboardingPage2Body => 'معادلات علمية حقيقية لقياس صحة دماغك';
+  String get onboardingPage2Body =>
+      'كل يوم: تهيئة، تركيز، تأمّل، إكمال، وراحة — برفق';
 
   @override
   String get onboardingPage3Title => 'ابدأ رحلتك الآن';
 
   @override
-  String get onboardingPage3Body => 'أجب على 10 أسئلة لتحديد مستوى تعفن دماغك';
+  String get onboardingPage3Body =>
+      'فحص قصير أولاً — ثم البرنامج اليومي يرافقك كل يوم';
 
   @override
-  String get onboardingStartQuiz => 'ابدأ التقييم';
+  String get onboardingStartQuiz => 'متابعة';
 
   @override
   String get proPaywallTitle => 'Brain Clean Pro';
@@ -761,13 +763,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get proPlansUnavailable =>
-      'الباقات غير متاحة حالياً. حاول مرة أخرى لاحقاً.';
+      'الباقات غير متاحة الآن. يمكنك متابعة الميزات المجانية والمحاولة لاحقاً.';
 
   @override
   String get paywallRetryLoad => 'إعادة المحاولة';
 
   @override
-  String get paywallLifetimeLabel => 'دفعة واحدة للأبد';
+  String get paywallLifetimeLabel => 'ادفع مرة واحدة واستمر للأبد';
 
   @override
   String get settingsTitle => 'الإعدادات';
@@ -797,7 +799,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get colorThemeSolarName => 'شمسي';
 
   @override
-  String get colorThemeSlateName => 'إردوازي';
+  String get colorThemeSlateName => 'أردوازي';
 
   @override
   String get colorThemeDaylightName => 'ضوء النهار';
@@ -1069,7 +1071,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get profileRecentEmotions => 'أحاسيسك الأخيرة';
 
   @override
-  String get profileNoEmotionsYet => 'لم تسجل أي أحاسيس بعد';
+  String get profileNoEmotionsYet =>
+      'لم تسجّل أي مشاعر بعد — جرّب عجلة المشاعر عندما تكون مستعداً';
 
   @override
   String get profileAchievements => 'إنجازاتك';
@@ -1834,7 +1837,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get anxietyLoadError => 'تعذّر تحميل النتيجة.';
 
   @override
-  String get anxietyNoResultYet => 'لا توجد نتيجة بعد. ابدأ التشخيص أولاً.';
+  String get anxietyNoResultYet =>
+      'لا توجد نتيجة بعد. أكمل فحصاً قصيراً أولاً.';
 
   @override
   String get worryWindowTitle => 'نافذة القلق';
@@ -1906,7 +1910,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get worryTimingWarning =>
-      '⚠️ نافذة القلق تكون قبل النوم — اختار وقت أبكر.';
+      '⚠️ نافذة القلق تكون قبل النوم — اختر وقتاً أبكر.';
 
   @override
   String get worryNotifTitle => 'وقت نافذة القلق 🧠';
@@ -2147,7 +2151,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dailyProgramDoneCta => 'تم ✅';
 
   @override
-  String get dailyProgramChooseMood => 'اختار مزاجك';
+  String get dailyProgramChooseMood => 'اختر مزاجك';
 
   @override
   String get dailyProgramOpenEmotionWheel => 'فتح عجلة المشاعر';

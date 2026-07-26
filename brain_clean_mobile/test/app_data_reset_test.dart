@@ -45,6 +45,13 @@ void main() {
       );
     });
 
+    test('intentionally includes dailyProgram box in reset targets', () {
+      expect(
+        AppDataReset.targetBoxNames,
+        contains(HiveBoxes.dailyProgram),
+      );
+    });
+
     test('clears all open durable boxes and restores encryption flag', () async {
       final seeded = <String>[];
       for (final name in HiveBoxes.allDurable) {

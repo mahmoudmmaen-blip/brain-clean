@@ -90,8 +90,8 @@ const List<DailyQuote> dailyQuotes = [
     en: 'Your brain loves useful routine, not chaos',
   ),
   DailyQuote(
-    ar: 'كل يوم بدون إدمان هو انتصار عصبي',
-    en: 'Every addiction-free day is a neural victory',
+    ar: 'كل يوم أقل شاشات هو انتصار صغير',
+    en: 'Every screen-light day is a small win',
   ),
   DailyQuote(
     ar: 'التركيز العميق يطلق موجات ألفا المهدئة',

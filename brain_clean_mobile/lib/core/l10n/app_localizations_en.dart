@@ -16,14 +16,14 @@ class AppLocalizationsEn extends AppLocalizations {
       'Complete the diagnostic to see your BC_score.';
 
   @override
-  String get dashboardEmptyTitle => 'Start your journey!';
+  String get dashboardEmptyTitle => 'Your journey starts here';
 
   @override
   String get dashboardEmptySubtitle =>
-      'Take your first BCI test to see your progress here';
+      'As you follow your Daily Program, progress will show here';
 
   @override
-  String get dashboardEmptyCta => 'Start Test';
+  String get dashboardEmptyCta => 'Start check-in';
 
   @override
   String get dashboardRetakeDiagnostic => 'Retake Diagnostic';
@@ -197,7 +197,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get diagnosticBrainRotInterpretationTitle => 'Clinical interpretation';
+  String get diagnosticBrainRotInterpretationTitle =>
+      'What your answers suggest';
 
   @override
   String get diagnosticContinueToBhi => 'Continue to BHI assessment';
@@ -209,7 +210,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get diagnosticBrainRotIncomplete => 'Complete all 10 questions first.';
 
   @override
-  String get diagnosticBrainRotScoring => 'Calculating your Brain Rot score…';
+  String get diagnosticBrainRotScoring => 'Calculating your clarity score…';
 
   @override
   String get diagnosticSyncError =>
@@ -274,7 +275,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get splashHydrationRetry => 'Restoring your progress…';
 
   @override
-  String get splashInitError => 'Loading failed. Please restart the app.';
+  String get splashInitError =>
+      'Couldn\'t finish loading. Please reopen the app.';
 
   @override
   String get homeTitle => 'Brain Clean Home';
@@ -292,11 +294,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get homeOpenDiagnostic => 'Diagnostic assessment';
+  String get homeOpenDiagnostic => 'Clarity check-in';
 
   @override
   String get homeOpenDiagnosticSubtitle =>
-      'Brain Rot questionnaire + BHI sliders';
+      'A short questionnaire + focus sliders';
 
   @override
   String get homeOpenCognitiveHub => 'Cognitive assessments';
@@ -306,7 +308,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Visual attention test and memory mini-games';
 
   @override
-  String get homeOpenFullDashboard => 'Full clinical dashboard';
+  String get homeOpenFullDashboard => 'Full progress dashboard';
 
   @override
   String get cognitiveHubTitle => 'Cognitive assessments';
@@ -395,14 +397,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cognitivePlaceholderBody =>
-      'This module is scaffolded for the unified BHI evaluation engine. Complete the placeholder run to verify navigation.';
+      'This focus check is ready when you are. Try a short run to see how it feels.';
 
   @override
-  String get cognitivePlaceholderComplete => 'Record placeholder result';
+  String get cognitivePlaceholderComplete => 'Save this practice result';
 
   @override
   String cognitivePlaceholderRecorded(int score) {
-    return 'Placeholder score recorded: $score%';
+    return 'Practice score saved: $score%';
   }
 
   @override
@@ -532,7 +534,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get recoveryStorageRecoveredNotice =>
-      'Local data was reset because it could not be read. A new protocol has started.';
+      'Local data needed a fresh start. Your progress begins again from today.';
 
   @override
   String get homeStreakDays => 'Days';
@@ -641,7 +643,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get accountabilityPenMental4 => 'Missed mental check-in';
 
   @override
-  String get accountabilityPenMental5 => 'Escalated screen binge';
+  String get accountabilityPenMental5 => 'Heavy screen day';
 
   @override
   String get breathingInhale => 'Inhale…';
@@ -679,24 +681,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboardingPage1Title => 'Welcome to Brain Clean';
 
   @override
-  String get onboardingPage1Body => 'Restore your digital awareness in 21 days';
+  String get onboardingPage1Body => 'Build digital calm one day at a time';
 
   @override
-  String get onboardingPage2Title => 'Track your focus daily';
+  String get onboardingPage2Title => 'Your Daily Program';
 
   @override
   String get onboardingPage2Body =>
-      'Real science-based formulas to measure brain health';
+      'Each day: prepare, focus, reflect, complete, and rest — guided gently';
 
   @override
   String get onboardingPage3Title => 'Start your journey now';
 
   @override
   String get onboardingPage3Body =>
-      'Answer 10 questions to assess your brain rot level';
+      'A short check-in first — then your Daily Program guides each day';
 
   @override
-  String get onboardingStartQuiz => 'Start assessment';
+  String get onboardingStartQuiz => 'Continue';
 
   @override
   String get proPaywallTitle => 'Brain Clean Pro';
@@ -771,13 +773,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get proPlansUnavailable =>
-      'Plans are unavailable right now. Please try again later.';
+      'Plans aren\'t available right now. You can keep using free features and try again later.';
 
   @override
   String get paywallRetryLoad => 'Retry';
 
   @override
-  String get paywallLifetimeLabel => 'One-time forever';
+  String get paywallLifetimeLabel => 'Pay once, keep forever';
 
   @override
   String get settingsTitle => 'Settings';
@@ -1084,7 +1086,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profileRecentEmotions => 'Recent emotions';
 
   @override
-  String get profileNoEmotionsYet => 'No emotions logged yet';
+  String get profileNoEmotionsYet =>
+      'No emotions logged yet — open the Emotion Wheel when you\'re ready';
 
   @override
   String get profileAchievements => 'Your achievements';
@@ -1856,7 +1859,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get anxietyLoadError => 'Could not load your result.';
 
   @override
-  String get anxietyNoResultYet => 'No result yet. Take the assessment first.';
+  String get anxietyNoResultYet =>
+      'No result yet. Complete a short check-in first.';
 
   @override
   String get worryWindowTitle => 'Worry Window';
