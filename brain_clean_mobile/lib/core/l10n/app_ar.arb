@@ -1,11 +1,11 @@
 {
   "@@locale": "ar",
-  "dashboardTitle": "درجة التشخيص (BC Score)",
-  "dashboardEmptyDiagnosticPrompt": "أكمل التشخيص لعرض نقاط BC_score.",
+  "dashboardTitle": "مؤشر الصفاء",
+  "dashboardEmptyDiagnosticPrompt": "أكمل فحص التركيز لعرض مؤشر الصفاء.",
   "dashboardEmptyTitle": "رحلتك تبدأ من هنا",
   "dashboardEmptySubtitle": "مع البرنامج اليومي سيظهر تقدّمك هنا",
   "dashboardEmptyCta": "ابدأ الفحص القصير",
-  "dashboardRetakeDiagnostic": "إعادة التشخيص",
+  "dashboardRetakeDiagnostic": "إعادة فحص التركيز",
   "dashboardOpenDetoxCheckIn": "تسجيل بروتوكول الديتوكس (7 أيام)",
   "dashboardOpenDetoxCheckInSubtitle": "سجّل عاداتك اليومية وارفع نقاطك المباشرة",
   "dashboardCommittedAt": "تم التثبيت {date}",
@@ -16,7 +16,7 @@
       }
     }
   },
-  "diagnosticTitle": "اختبار التشخيص (6 نقاط)",
+  "diagnosticTitle": "مؤشر الصفاء",
   "diagnosticLiveSubtitle": "مباشر · يتغير مع كل تعديل",
   "diagnosticInstructions": "قيّم كل بُعد من 1 (منخفض) إلى 10 (مرتفع).",
   "diagnosticStart": "ابدأ Brain Clean",
@@ -33,7 +33,7 @@
   "bcScorePillarHealthyHabits": "العادات الصحية",
   "bcScorePillarConsistency": "الاستمرارية",
   "bcScoreLabel": "BC_score",
-  "accountabilityAdjustment": "بند المساءلة السريرية",
+  "accountabilityAdjustment": "ملاحظة المساءلة",
   "bhiScoreLabel": "مؤشر BHI الأساسي",
   "finalBcScoreLabel": "BC_score بعد المساءلة",
   "accountabilityDeduction": "خصم مساءلة التعافي (−{deduction})",
@@ -75,8 +75,8 @@
   "detoxRetry": "إعادة المحاولة",
   "detoxSyncing": "جارٍ المزامنة…",
   "detoxSyncError": "تعذرت المزامنة. تم حفظ تسجيلك محليًا.",
-  "diagnosticBrainRotTitle": "اختبار تعفن الدماغ",
-  "diagnosticBhiTitle": "تقييم BHI (6 نقاط)",
+  "diagnosticBrainRotTitle": "فحص التركيز",
+  "diagnosticBhiTitle": "تقييم العادات الرقمية",
   "diagnosticYes": "نعم",
   "diagnosticNo": "لا",
   "diagnosticPreviousQuestion": "السؤال السابق",
@@ -91,7 +91,7 @@
       }
     }
   },
-  "diagnosticBrainRotScoreTitle": "نتيجة تعفن الدماغ",
+  "diagnosticBrainRotScoreTitle": "مؤشر الصفاء",
   "diagnosticBrainRotScoreOutOf": "من {max}",
   "@diagnosticBrainRotScoreOutOf": {
     "placeholders": {
@@ -112,11 +112,11 @@
     }
   },
   "diagnosticBrainRotInterpretationTitle": "ماذا تقول إجاباتك",
-  "diagnosticContinueToBhi": "متابعة تقييم BHI",
+  "diagnosticContinueToBhi": "متابعة تقييم العادات الرقمية",
   "diagnosticReviewAnswers": "مراجعة إجاباتي",
   "diagnosticBrainRotIncomplete": "أكمل الأسئلة العشرة أولاً.",
   "diagnosticBrainRotScoring": "جارٍ حساب نتيجتك…",
-  "diagnosticSyncError": "تعذر حفظ التشخيص. حاول مرة أخرى.",
+  "diagnosticSyncError": "تعذر حفظ فحص التركيز. حاول مرة أخرى.",
   "diagnosticBrainRotQ1": "أشعر أن ذاكرتي قصيرة المدى ضعفت (أنسى ما قيل لي مؤخراً).",
   "diagnosticBrainRotQ2": "أواجه صعوبة في التركيز على مهمة واحدة لفترة كافية.",
   "diagnosticBrainRotQ3": "يبدو لي أن تفكيري بطيء مقارنة بما كنت عليه من قبل.",
@@ -127,7 +127,7 @@
   "diagnosticBrainRotQ8": "يصبح من الصعب علي اتخاذ قرارات بسيطة أو التخطيط لمهام.",
   "diagnosticBrainRotQ9": "أجد نفسي أعمل ببطء أكثر من المعتاد، أو أحتاج إلى وقت أطول لإنجاز نفس المهام.",
   "diagnosticBrainRotQ10": "هذه الأعراض تؤثر على حياتي اليومية (في العمل أو الدراسة أو العلاقات).",
-  "dashboardBrainRotSummary": "تعفن الدماغ: {score}/10",
+  "dashboardBrainRotSummary": "مؤشر الصفاء: {score}/10",
   "@dashboardBrainRotSummary": {
     "placeholders": {
       "score": {
@@ -141,7 +141,7 @@
   "splashHydrationRetry": "جارٍ استعادة تقدمك…",
   "splashInitError": "تعذر إكمال التحميل. أعد فتح التطبيق من فضلك.",
   "homeTitle": "الرئيسية — Brain Clean",
-  "homeEmptyDiagnosticPrompt": "أكمل التشخيص لتفعيل متتبع BC_score المباشر.",
+  "homeEmptyDiagnosticPrompt": "أكمل فحص التركيز لتفعيل متتبع الصفاء المباشر.",
   "homeChallengeProgressTitle": "تحدي التعافي — 30 يوماً",
   "homeChallengeProgressPercent": "{percent}% مكتمل",
   "@homeChallengeProgressPercent": {
@@ -389,7 +389,7 @@
   "proRestoreSuccess": "تمت استعادة المشتريات بنجاح",
   "proRestoreNone": "لم يتم العثور على مشتريات سابقة",
   "proPurchaseError": "حدث خطأ أثناء إتمام العملية. من فضلك حاول مرة أخرى.",
-  "proPlansUnavailable": "الباقات غير متاحة الآن. يمكنك متابعة الميزات المجانية والمحاولة لاحقاً.",
+  "proPlansUnavailable": "الباقات غير متاحة الآن. الميزات المجانية تعمل — حاول لاحقاً.",
   "paywallRetryLoad": "إعادة المحاولة",
   "paywallLifetimeLabel": "ادفع مرة واحدة واستمر للأبد",
   "settingsTitle": "الإعدادات",
@@ -414,13 +414,14 @@
   "settingsResetData": "إعادة تعيين البيانات",
   "settingsResetDataConfirmTitle": "إعادة تعيين البيانات",
   "settingsResetDataConfirmBody": "سيُمسح كل التقدم المحلي واليوميات والبرنامج اليومي والإعدادات على هذا الجهاز، وستبدأ من جديد. مفاتيح التشفير تُبقى. هل تريد المتابعة؟",
-  "settingsExportData": "تصدير بياناتي",
+  "settingsExportData": "تصدير البيانات — قريبًا",
   "settingsComingSoon": "قريباً...",
   "settingsAboutSection": "حول التطبيق",
   "settingsVersion": "الإصدار",
   "settingsPrivacyPolicy": "سياسة الخصوصية",
   "settingsContactUs": "تواصل معنا",
   "settingsLinkOpenFailed": "تعذر فتح الرابط على هذا الجهاز.",
+  "settingsLocalModeHint": "يعمل التطبيق محليًا الآن، وسيتم تفعيل المزامنة لاحقًا.",
   "emotionWheelTitle": "عجلة المشاعر",
   "emotionImpactDialogTitle": "تسجيل الشعور",
   "emotionLogDialogBody": "تسجيل هذا الشعور يساعدك تفهم يومك ويتابع تقدّمك بهدوء. هل تريد تسجيله؟",
@@ -860,7 +861,7 @@
   "safaMedicalDisclaimer": "صفا مساعدة دعم نفسي بالذكاء الاصطناعي، مش بديل عن استشارة طبيب أو معالج نفسي متخصص. لو حاسس إن الموضوع أكبر من كده، استشر مختص.",
   "journeyTabTitle": "رحلتي",
   "journeyCardBciTitle": "مؤشر صفاء الدماغ BCI",
-  "journeyCardDiagnosticTitle": "التشخيص",
+  "journeyCardDiagnosticTitle": "فحص التركيز",
   "journeyCardWeeklyReportTitle": "التقرير الأسبوعي",
   "journeyQuickLinksTitle": "روابط سريعة",
   "moreTabTitle": "المزيد",

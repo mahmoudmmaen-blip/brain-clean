@@ -9,11 +9,11 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get dashboardTitle => 'Diagnostic BC Score';
+  String get dashboardTitle => 'Clarity Score';
 
   @override
   String get dashboardEmptyDiagnosticPrompt =>
-      'Complete the diagnostic to see your BC_score.';
+      'Complete a Focus Check to see your clarity score.';
 
   @override
   String get dashboardEmptyTitle => 'Your journey starts here';
@@ -26,7 +26,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dashboardEmptyCta => 'Start check-in';
 
   @override
-  String get dashboardRetakeDiagnostic => 'Retake Diagnostic';
+  String get dashboardRetakeDiagnostic => 'Retake Focus Check';
 
   @override
   String get dashboardOpenDetoxCheckIn => '7-Day Detox Check-in';
@@ -41,7 +41,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get diagnosticTitle => 'Diagnostic 6-Point Test';
+  String get diagnosticTitle => 'Clarity Check';
 
   @override
   String get diagnosticLiveSubtitle => 'Live · updates on every slider move';
@@ -93,7 +93,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get bcScoreLabel => 'BC_score';
 
   @override
-  String get accountabilityAdjustment => 'ACCOUNTABILITY ADJUSTMENT';
+  String get accountabilityAdjustment => 'Accountability note';
 
   @override
   String get bhiScoreLabel => 'Base BHI score';
@@ -164,10 +164,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Could not sync. Your check-in is saved locally.';
 
   @override
-  String get diagnosticBrainRotTitle => 'Brain Rot Test';
+  String get diagnosticBrainRotTitle => 'Focus Check';
 
   @override
-  String get diagnosticBhiTitle => 'BHI 6-Point Assessment';
+  String get diagnosticBhiTitle => 'Digital Habits Check';
 
   @override
   String get diagnosticYes => 'Yes';
@@ -184,7 +184,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get diagnosticBrainRotScoreTitle => 'Brain Rot Score';
+  String get diagnosticBrainRotScoreTitle => 'Clarity Check';
 
   @override
   String diagnosticBrainRotScoreOutOf(int max) {
@@ -201,7 +201,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'What your answers suggest';
 
   @override
-  String get diagnosticContinueToBhi => 'Continue to BHI assessment';
+  String get diagnosticContinueToBhi => 'Continue to Digital Habits Check';
 
   @override
   String get diagnosticReviewAnswers => 'Review my answers';
@@ -214,7 +214,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get diagnosticSyncError =>
-      'Could not save your diagnostic. Please try again.';
+      'Could not save your Focus Check. Please try again.';
 
   @override
   String get diagnosticBrainRotQ1 =>
@@ -258,7 +258,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String dashboardBrainRotSummary(int score) {
-    return 'Brain Rot: $score/10';
+    return 'Clarity: $score/10';
   }
 
   @override
@@ -283,7 +283,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeEmptyDiagnosticPrompt =>
-      'Complete the diagnostic to unlock your live BC_score tracker.';
+      'Complete a Focus Check to unlock your live clarity tracker.';
 
   @override
   String get homeChallengeProgressTitle => '30-day recovery challenge';
@@ -773,7 +773,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get proPlansUnavailable =>
-      'Plans aren\'t available right now. You can keep using free features and try again later.';
+      'Plans aren\'t available right now. Free features still work — try again later.';
 
   @override
   String get paywallRetryLoad => 'Retry';
@@ -849,7 +849,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'This clears all local progress, journals, daily program, and settings on this device. You will start over. Encryption keys are kept. Continue?';
 
   @override
-  String get settingsExportData => 'Export my data';
+  String get settingsExportData => 'Export data — coming soon';
 
   @override
   String get settingsComingSoon => 'Coming soon…';
@@ -869,6 +869,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get settingsLinkOpenFailed =>
       'Could not open the link on this device.';
+
+  @override
+  String get settingsLocalModeHint =>
+      'Brain Clean is running locally for now. Sync can be enabled later.';
 
   @override
   String get emotionWheelTitle => 'Emotion wheel';
@@ -1678,7 +1682,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get journeyCardBciTitle => 'Brain Clarity Index (BCI)';
 
   @override
-  String get journeyCardDiagnosticTitle => 'Diagnostic';
+  String get journeyCardDiagnosticTitle => 'Focus Check';
 
   @override
   String get journeyCardWeeklyReportTitle => 'Weekly Report';

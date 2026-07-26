@@ -160,16 +160,26 @@ class SettingsScreen extends ConsumerWidget {
             onTap: () => _confirmReset(context, ref),
           ),
           ListTile(
-            title: Text(loc.settingsExportData,
-                style: const TextStyle(color: Color(0xFFE6EDF3))),
-            onTap: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(loc.settingsComingSoon)),
-              );
-            },
+            enabled: false,
+            title: Text(
+              loc.settingsExportData,
+              style: const TextStyle(color: Color(0xFF8B949E)),
+            ),
           ),
           const Divider(color: Color(0xFF30363D)),
           _SectionHeader(loc.settingsAboutSection),
+          if (!AppConfig.hasValidSupabaseConfig)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 4, 16, 12),
+              child: Text(
+                loc.settingsLocalModeHint,
+                style: const TextStyle(
+                  color: Color(0xFF8B949E),
+                  fontSize: 13,
+                  height: 1.35,
+                ),
+              ),
+            ),
           ListTile(
             title: Text(loc.settingsVersion,
                 style: const TextStyle(color: Color(0xFFE6EDF3))),

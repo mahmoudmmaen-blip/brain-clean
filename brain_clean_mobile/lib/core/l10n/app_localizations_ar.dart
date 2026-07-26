@@ -9,11 +9,11 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get dashboardTitle => 'درجة التشخيص (BC Score)';
+  String get dashboardTitle => 'مؤشر الصفاء';
 
   @override
   String get dashboardEmptyDiagnosticPrompt =>
-      'أكمل التشخيص لعرض نقاط BC_score.';
+      'أكمل فحص التركيز لعرض مؤشر الصفاء.';
 
   @override
   String get dashboardEmptyTitle => 'رحلتك تبدأ من هنا';
@@ -25,7 +25,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dashboardEmptyCta => 'ابدأ الفحص القصير';
 
   @override
-  String get dashboardRetakeDiagnostic => 'إعادة التشخيص';
+  String get dashboardRetakeDiagnostic => 'إعادة فحص التركيز';
 
   @override
   String get dashboardOpenDetoxCheckIn => 'تسجيل بروتوكول الديتوكس (7 أيام)';
@@ -40,7 +40,7 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get diagnosticTitle => 'اختبار التشخيص (6 نقاط)';
+  String get diagnosticTitle => 'مؤشر الصفاء';
 
   @override
   String get diagnosticLiveSubtitle => 'مباشر · يتغير مع كل تعديل';
@@ -92,7 +92,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get bcScoreLabel => 'BC_score';
 
   @override
-  String get accountabilityAdjustment => 'بند المساءلة السريرية';
+  String get accountabilityAdjustment => 'ملاحظة المساءلة';
 
   @override
   String get bhiScoreLabel => 'مؤشر BHI الأساسي';
@@ -161,10 +161,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get detoxSyncError => 'تعذرت المزامنة. تم حفظ تسجيلك محليًا.';
 
   @override
-  String get diagnosticBrainRotTitle => 'اختبار تعفن الدماغ';
+  String get diagnosticBrainRotTitle => 'فحص التركيز';
 
   @override
-  String get diagnosticBhiTitle => 'تقييم BHI (6 نقاط)';
+  String get diagnosticBhiTitle => 'تقييم العادات الرقمية';
 
   @override
   String get diagnosticYes => 'نعم';
@@ -181,7 +181,7 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get diagnosticBrainRotScoreTitle => 'نتيجة تعفن الدماغ';
+  String get diagnosticBrainRotScoreTitle => 'مؤشر الصفاء';
 
   @override
   String diagnosticBrainRotScoreOutOf(int max) {
@@ -197,7 +197,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get diagnosticBrainRotInterpretationTitle => 'ماذا تقول إجاباتك';
 
   @override
-  String get diagnosticContinueToBhi => 'متابعة تقييم BHI';
+  String get diagnosticContinueToBhi => 'متابعة تقييم العادات الرقمية';
 
   @override
   String get diagnosticReviewAnswers => 'مراجعة إجاباتي';
@@ -209,7 +209,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get diagnosticBrainRotScoring => 'جارٍ حساب نتيجتك…';
 
   @override
-  String get diagnosticSyncError => 'تعذر حفظ التشخيص. حاول مرة أخرى.';
+  String get diagnosticSyncError => 'تعذر حفظ فحص التركيز. حاول مرة أخرى.';
 
   @override
   String get diagnosticBrainRotQ1 =>
@@ -253,7 +253,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String dashboardBrainRotSummary(int score) {
-    return 'تعفن الدماغ: $score/10';
+    return 'مؤشر الصفاء: $score/10';
   }
 
   @override
@@ -277,7 +277,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get homeEmptyDiagnosticPrompt =>
-      'أكمل التشخيص لتفعيل متتبع BC_score المباشر.';
+      'أكمل فحص التركيز لتفعيل متتبع الصفاء المباشر.';
 
   @override
   String get homeChallengeProgressTitle => 'تحدي التعافي — 30 يوماً';
@@ -763,7 +763,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get proPlansUnavailable =>
-      'الباقات غير متاحة الآن. يمكنك متابعة الميزات المجانية والمحاولة لاحقاً.';
+      'الباقات غير متاحة الآن. الميزات المجانية تعمل — حاول لاحقاً.';
 
   @override
   String get paywallRetryLoad => 'إعادة المحاولة';
@@ -839,7 +839,7 @@ class AppLocalizationsAr extends AppLocalizations {
       'سيُمسح كل التقدم المحلي واليوميات والبرنامج اليومي والإعدادات على هذا الجهاز، وستبدأ من جديد. مفاتيح التشفير تُبقى. هل تريد المتابعة؟';
 
   @override
-  String get settingsExportData => 'تصدير بياناتي';
+  String get settingsExportData => 'تصدير البيانات — قريبًا';
 
   @override
   String get settingsComingSoon => 'قريباً...';
@@ -858,6 +858,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get settingsLinkOpenFailed => 'تعذر فتح الرابط على هذا الجهاز.';
+
+  @override
+  String get settingsLocalModeHint =>
+      'يعمل التطبيق محليًا الآن، وسيتم تفعيل المزامنة لاحقًا.';
 
   @override
   String get emotionWheelTitle => 'عجلة المشاعر';
@@ -1661,7 +1665,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get journeyCardBciTitle => 'مؤشر صفاء الدماغ BCI';
 
   @override
-  String get journeyCardDiagnosticTitle => 'التشخيص';
+  String get journeyCardDiagnosticTitle => 'فحص التركيز';
 
   @override
   String get journeyCardWeeklyReportTitle => 'التقرير الأسبوعي';

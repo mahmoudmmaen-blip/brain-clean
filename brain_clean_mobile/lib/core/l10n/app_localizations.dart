@@ -101,13 +101,13 @@ abstract class AppLocalizations {
   /// No description provided for @dashboardTitle.
   ///
   /// In en, this message translates to:
-  /// **'Diagnostic BC Score'**
+  /// **'Clarity Score'**
   String get dashboardTitle;
 
   /// No description provided for @dashboardEmptyDiagnosticPrompt.
   ///
   /// In en, this message translates to:
-  /// **'Complete the diagnostic to see your BC_score.'**
+  /// **'Complete a Focus Check to see your clarity score.'**
   String get dashboardEmptyDiagnosticPrompt;
 
   /// No description provided for @dashboardEmptyTitle.
@@ -131,7 +131,7 @@ abstract class AppLocalizations {
   /// No description provided for @dashboardRetakeDiagnostic.
   ///
   /// In en, this message translates to:
-  /// **'Retake Diagnostic'**
+  /// **'Retake Focus Check'**
   String get dashboardRetakeDiagnostic;
 
   /// No description provided for @dashboardOpenDetoxCheckIn.
@@ -155,7 +155,7 @@ abstract class AppLocalizations {
   /// No description provided for @diagnosticTitle.
   ///
   /// In en, this message translates to:
-  /// **'Diagnostic 6-Point Test'**
+  /// **'Clarity Check'**
   String get diagnosticTitle;
 
   /// No description provided for @diagnosticLiveSubtitle.
@@ -257,7 +257,7 @@ abstract class AppLocalizations {
   /// No description provided for @accountabilityAdjustment.
   ///
   /// In en, this message translates to:
-  /// **'ACCOUNTABILITY ADJUSTMENT'**
+  /// **'Accountability note'**
   String get accountabilityAdjustment;
 
   /// No description provided for @bhiScoreLabel.
@@ -383,13 +383,13 @@ abstract class AppLocalizations {
   /// No description provided for @diagnosticBrainRotTitle.
   ///
   /// In en, this message translates to:
-  /// **'Brain Rot Test'**
+  /// **'Focus Check'**
   String get diagnosticBrainRotTitle;
 
   /// No description provided for @diagnosticBhiTitle.
   ///
   /// In en, this message translates to:
-  /// **'BHI 6-Point Assessment'**
+  /// **'Digital Habits Check'**
   String get diagnosticBhiTitle;
 
   /// No description provided for @diagnosticYes.
@@ -419,7 +419,7 @@ abstract class AppLocalizations {
   /// No description provided for @diagnosticBrainRotScoreTitle.
   ///
   /// In en, this message translates to:
-  /// **'Brain Rot Score'**
+  /// **'Clarity Check'**
   String get diagnosticBrainRotScoreTitle;
 
   /// No description provided for @diagnosticBrainRotScoreOutOf.
@@ -443,7 +443,7 @@ abstract class AppLocalizations {
   /// No description provided for @diagnosticContinueToBhi.
   ///
   /// In en, this message translates to:
-  /// **'Continue to BHI assessment'**
+  /// **'Continue to Digital Habits Check'**
   String get diagnosticContinueToBhi;
 
   /// No description provided for @diagnosticReviewAnswers.
@@ -467,7 +467,7 @@ abstract class AppLocalizations {
   /// No description provided for @diagnosticSyncError.
   ///
   /// In en, this message translates to:
-  /// **'Could not save your diagnostic. Please try again.'**
+  /// **'Could not save your Focus Check. Please try again.'**
   String get diagnosticSyncError;
 
   /// No description provided for @diagnosticBrainRotQ1.
@@ -533,7 +533,7 @@ abstract class AppLocalizations {
   /// No description provided for @dashboardBrainRotSummary.
   ///
   /// In en, this message translates to:
-  /// **'Brain Rot: {score}/10'**
+  /// **'Clarity: {score}/10'**
   String dashboardBrainRotSummary(int score);
 
   /// No description provided for @dashboardOpenRecoveryGrid.
@@ -575,7 +575,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeEmptyDiagnosticPrompt.
   ///
   /// In en, this message translates to:
-  /// **'Complete the diagnostic to unlock your live BC_score tracker.'**
+  /// **'Complete a Focus Check to unlock your live clarity tracker.'**
   String get homeEmptyDiagnosticPrompt;
 
   /// No description provided for @homeChallengeProgressTitle.
@@ -1451,7 +1451,7 @@ abstract class AppLocalizations {
   /// No description provided for @proPlansUnavailable.
   ///
   /// In en, this message translates to:
-  /// **'Plans aren\'t available right now. You can keep using free features and try again later.'**
+  /// **'Plans aren\'t available right now. Free features still work — try again later.'**
   String get proPlansUnavailable;
 
   /// No description provided for @paywallRetryLoad.
@@ -1601,7 +1601,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingsExportData.
   ///
   /// In en, this message translates to:
-  /// **'Export my data'**
+  /// **'Export data — coming soon'**
   String get settingsExportData;
 
   /// No description provided for @settingsComingSoon.
@@ -1639,6 +1639,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not open the link on this device.'**
   String get settingsLinkOpenFailed;
+
+  /// No description provided for @settingsLocalModeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Clean is running locally for now. Sync can be enabled later.'**
+  String get settingsLocalModeHint;
 
   /// No description provided for @emotionWheelTitle.
   ///
@@ -3107,7 +3113,7 @@ abstract class AppLocalizations {
   /// No description provided for @journeyCardDiagnosticTitle.
   ///
   /// In en, this message translates to:
-  /// **'Diagnostic'**
+  /// **'Focus Check'**
   String get journeyCardDiagnosticTitle;
 
   /// No description provided for @journeyCardWeeklyReportTitle.
