@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/config/app_config.dart';
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 
@@ -64,7 +65,7 @@ class MoreTabScreen extends ConsumerWidget {
           const Divider(),
           ListTile(
             leading: Icon(Icons.info_outline, color: colorScheme.onSurfaceVariant),
-            title: Text(loc.moreVersion),
+            title: Text(loc.moreVersion(AppConfig.appVersion)),
           ),
         ],
       ),

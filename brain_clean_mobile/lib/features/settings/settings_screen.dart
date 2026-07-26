@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hive/hive.dart';
 
 import '../../core/application/app_preferences_provider.dart';
+import '../../core/config/app_config.dart';
 import '../../core/security/security_status_provider.dart';
 import '../../core/constants/app_routes.dart';
 import '../../core/l10n/app_localizations.dart';
+import '../../core/services/external_link_service.dart';
 import '../../core/services/smart_notification_service.dart';
-import '../../core/storage/hive_boxes.dart';
+import '../../core/storage/app_data_reset.dart';
 import '../../core/theme/app_color_theme.dart';
 import '../../core/theme/app_color_theme_provider.dart';
 import '../pro/application/subscription_service_provider.dart';
 
 const settingsProTileKey = Key('settings_pro_tile');
 const settingsResetKey = Key('settings_reset_data');
+const settingsPrivacyPolicyKey = Key('settings_privacy_policy');
+const settingsContactUsKey = Key('settings_contact_us');
+const settingsVersionValueKey = Key('settings_version_value');
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -44,19 +48,22 @@ class SettingsScreen extends ConsumerWidget {
     );
     if (confirmed != true || !context.mounted) return;
 
-    for (final name in [
-      HiveBoxes.recoveryProtocol,
-      HiveBoxes.diagnosticPersistence,
-      HiveBoxes.emotionLog,
-      HiveBoxes.dailySnapshots,
-      HiveBoxes.appMeta,
-    ]) {
-      if (Hive.isBoxOpen(name)) {
-        await Hive.box(name).clear();
-      }
-    }
+    await AppDataReset.clearAllOpenDurableBoxes();
     ref.invalidate(appPreferencesProvider);
     if (context.mounted) context.go(AppRoutes.splash);
+  }
+
+  Future<void> _openExternalLink(
+    BuildContext context,
+    Future<bool> Function() open,
+  ) async {
+    final loc = AppLocalizations.of(context)!;
+    final ok = await open();
+    if (!ok && context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(loc.settingsLinkOpenFailed)),
+      );
+    }
   }
 
   @override
@@ -166,18 +173,29 @@ class SettingsScreen extends ConsumerWidget {
           ListTile(
             title: Text(loc.settingsVersion,
                 style: const TextStyle(color: Color(0xFFE6EDF3))),
-            trailing: const Text('1.0.0',
-                style: TextStyle(color: Color(0xFF8B949E))),
+            trailing: Text(
+              AppConfig.appVersion,
+              key: settingsVersionValueKey,
+              style: const TextStyle(color: Color(0xFF8B949E)),
+            ),
           ),
           ListTile(
+            key: settingsPrivacyPolicyKey,
             title: Text(loc.settingsPrivacyPolicy,
                 style: const TextStyle(color: Color(0xFFE6EDF3))),
-            onTap: () {},
+            onTap: () => _openExternalLink(
+              context,
+              externalLinkService.openPrivacyPolicy,
+            ),
           ),
           ListTile(
+            key: settingsContactUsKey,
             title: Text(loc.settingsContactUs,
                 style: const TextStyle(color: Color(0xFFE6EDF3))),
-            onTap: () {},
+            onTap: () => _openExternalLink(
+              context,
+              externalLinkService.openContactEmail,
+            ),
           ),
         ],
       ),

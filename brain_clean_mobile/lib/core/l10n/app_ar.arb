@@ -413,13 +413,14 @@
   "settingsDataSection": "البيانات",
   "settingsResetData": "إعادة تعيين البيانات",
   "settingsResetDataConfirmTitle": "إعادة تعيين البيانات",
-  "settingsResetDataConfirmBody": "سيتم حذف جميع بياناتك المحلية. هل أنت متأكد؟",
+  "settingsResetDataConfirmBody": "سيُمسح كل التقدم المحلي واليوميات والبرنامج اليومي والإعدادات على هذا الجهاز، وستبدأ من جديد. مفاتيح التشفير تُبقى. هل تريد المتابعة؟",
   "settingsExportData": "تصدير بياناتي",
   "settingsComingSoon": "قريباً...",
   "settingsAboutSection": "حول التطبيق",
   "settingsVersion": "الإصدار",
   "settingsPrivacyPolicy": "سياسة الخصوصية",
   "settingsContactUs": "تواصل معنا",
+  "settingsLinkOpenFailed": "تعذر فتح الرابط على هذا الجهاز.",
   "emotionWheelTitle": "عجلة المشاعر",
   "emotionImpactDialogTitle": "تسجيل الشعور",
   "emotionLogDialogBody": "تسجيل هذا الشعور يساعدك تفهم يومك ويتابع تقدّمك بهدوء. هل تريد تسجيله؟",
@@ -867,7 +868,14 @@
   "moreSettings": "الإعدادات",
   "morePro": "Brain Clean Pro",
   "moreAccountability": "شريك المتابعة",
-  "moreVersion": "الإصدار 1.0.0",
+  "moreVersion": "الإصدار {version}",
+  "@moreVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
   "homeGreetingMorning": "صباح الخير ☀️",
   "homeGreetingAfternoon": "مساء الخير 🌤️",
   "homeGreetingEvening": "مساء الخير 🌙",

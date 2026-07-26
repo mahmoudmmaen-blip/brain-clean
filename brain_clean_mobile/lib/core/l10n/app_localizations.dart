@@ -1595,7 +1595,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingsResetDataConfirmBody.
   ///
   /// In en, this message translates to:
-  /// **'All local data will be deleted. Are you sure?'**
+  /// **'This clears all local progress, journals, daily program, and settings on this device. You will start over. Encryption keys are kept. Continue?'**
   String get settingsResetDataConfirmBody;
 
   /// No description provided for @settingsExportData.
@@ -1633,6 +1633,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Contact us'**
   String get settingsContactUs;
+
+  /// No description provided for @settingsLinkOpenFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open the link on this device.'**
+  String get settingsLinkOpenFailed;
 
   /// No description provided for @emotionWheelTitle.
   ///
@@ -3149,8 +3155,8 @@ abstract class AppLocalizations {
   /// No description provided for @moreVersion.
   ///
   /// In en, this message translates to:
-  /// **'Version 1.0.0'**
-  String get moreVersion;
+  /// **'Version {version}'**
+  String moreVersion(String version);
 
   /// No description provided for @homeGreetingMorning.
   ///

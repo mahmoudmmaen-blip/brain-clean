@@ -844,7 +844,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsResetDataConfirmBody =>
-      'All local data will be deleted. Are you sure?';
+      'This clears all local progress, journals, daily program, and settings on this device. You will start over. Encryption keys are kept. Continue?';
 
   @override
   String get settingsExportData => 'Export my data';
@@ -863,6 +863,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsContactUs => 'Contact us';
+
+  @override
+  String get settingsLinkOpenFailed =>
+      'Could not open the link on this device.';
 
   @override
   String get emotionWheelTitle => 'Emotion wheel';
@@ -1695,7 +1699,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get moreAccountability => 'Accountability Partner';
 
   @override
-  String get moreVersion => 'Version 1.0.0';
+  String moreVersion(String version) {
+    return 'Version $version';
+  }
 
   @override
   String get homeGreetingMorning => 'Good morning ☀️';

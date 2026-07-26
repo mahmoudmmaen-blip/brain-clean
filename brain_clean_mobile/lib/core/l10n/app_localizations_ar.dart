@@ -834,7 +834,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get settingsResetDataConfirmBody =>
-      'سيتم حذف جميع بياناتك المحلية. هل أنت متأكد؟';
+      'سيُمسح كل التقدم المحلي واليوميات والبرنامج اليومي والإعدادات على هذا الجهاز، وستبدأ من جديد. مفاتيح التشفير تُبقى. هل تريد المتابعة؟';
 
   @override
   String get settingsExportData => 'تصدير بياناتي';
@@ -853,6 +853,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get settingsContactUs => 'تواصل معنا';
+
+  @override
+  String get settingsLinkOpenFailed => 'تعذر فتح الرابط على هذا الجهاز.';
 
   @override
   String get emotionWheelTitle => 'عجلة المشاعر';
@@ -1679,7 +1682,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get moreAccountability => 'شريك المتابعة';
 
   @override
-  String get moreVersion => 'الإصدار 1.0.0';
+  String moreVersion(String version) {
+    return 'الإصدار $version';
+  }
 
   @override
   String get homeGreetingMorning => 'صباح الخير ☀️';

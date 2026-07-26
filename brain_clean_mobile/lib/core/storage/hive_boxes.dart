@@ -18,4 +18,22 @@ abstract final class HiveBoxes {
   static const smartReminders = 'smart_reminders_v1';
   static const dailyProgram = 'daily_program_v1';
   static const sukoon = 'sukoon_v1';
+
+  /// All durable boxes opened at cold start / cleared by reset-all-data.
+  static const List<String> allDurable = [
+    recoveryProtocol,
+    diagnosticPersistence,
+    anxietyPersistence,
+    emotionLog,
+    dailySnapshots,
+    appMeta,
+    journeyData,
+    journalSpaces,
+    goldenMemories,
+    xpLedger,
+    dailyChallenge,
+    smartReminders,
+    dailyProgram,
+    sukoon,
+  ];
 }

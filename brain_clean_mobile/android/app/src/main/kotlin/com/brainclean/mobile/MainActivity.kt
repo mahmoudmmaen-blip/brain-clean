@@ -27,5 +27,22 @@ class MainActivity : FlutterActivity() {
                 else -> result.notImplemented()
             }
         }
+
+        MethodChannel(
+            flutterEngine.dartExecutor.binaryMessenger,
+            ExternalLinkHelper.CHANNEL_NAME,
+        ).setMethodCallHandler { call, result ->
+            when (call.method) {
+                "openUri" -> {
+                    val uri = call.argument<String>("uri")
+                    if (uri.isNullOrBlank()) {
+                        result.error("invalid_args", "uri is required", null)
+                    } else {
+                        result.success(ExternalLinkHelper.openUri(this, uri))
+                    }
+                }
+                else -> result.notImplemented()
+            }
+        }
     }
 }

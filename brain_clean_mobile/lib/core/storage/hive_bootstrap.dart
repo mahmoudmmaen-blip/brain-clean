@@ -35,22 +35,7 @@ abstract final class HiveBootstrap {
   static bool get hasRegisteredAdapters =>
       Hive.isAdapterRegistered(DailySnapshotAdapter().typeId);
 
-  static const List<String> _durableBoxes = [
-    HiveBoxes.recoveryProtocol,
-    HiveBoxes.diagnosticPersistence,
-    HiveBoxes.anxietyPersistence,
-    HiveBoxes.emotionLog,
-    HiveBoxes.dailySnapshots,
-    HiveBoxes.appMeta,
-    HiveBoxes.journeyData,
-    HiveBoxes.journalSpaces,
-    HiveBoxes.goldenMemories,
-    HiveBoxes.xpLedger,
-    HiveBoxes.dailyChallenge,
-    HiveBoxes.smartReminders,
-    HiveBoxes.dailyProgram,
-    HiveBoxes.sukoon,
-  ];
+  static const List<String> _durableBoxes = HiveBoxes.allDurable;
 
   static Future<void> initialize() async {
     if (_initialized) return;

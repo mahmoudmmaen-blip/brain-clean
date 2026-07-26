@@ -339,13 +339,14 @@
   "settingsDataSection": "Data",
   "settingsResetData": "Reset all data",
   "settingsResetDataConfirmTitle": "Reset all data",
-  "settingsResetDataConfirmBody": "All local data will be deleted. Are you sure?",
+  "settingsResetDataConfirmBody": "This clears all local progress, journals, daily program, and settings on this device. You will start over. Encryption keys are kept. Continue?",
   "settingsExportData": "Export my data",
   "settingsComingSoon": "Coming soon…",
   "settingsAboutSection": "About",
   "settingsVersion": "Version",
   "settingsPrivacyPolicy": "Privacy policy",
   "settingsContactUs": "Contact us",
+  "settingsLinkOpenFailed": "Could not open the link on this device.",
   "emotionWheelTitle": "Emotion wheel",
   "emotionImpactDialogTitle": "Log emotion",
   "emotionLogDialogBody": "Logging this emotion helps you understand your day and track your progress gently. Do you want to log it?",
@@ -727,7 +728,14 @@
   "moreSettings": "Settings",
   "morePro": "Brain Clean Pro",
   "moreAccountability": "Accountability Partner",
-  "moreVersion": "Version 1.0.0",
+  "moreVersion": "Version {version}",
+  "@moreVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
   "homeGreetingMorning": "Good morning ☀️",
   "homeGreetingAfternoon": "Good afternoon 🌤️",
   "homeGreetingEvening": "Good evening 🌙",

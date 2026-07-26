@@ -8,6 +8,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 ///
 /// Placeholder values from `.env.example` are treated as **missing**.
 abstract final class AppConfig {
+  /// Marketing / settings version label — keep in sync with `pubspec.yaml` `version:`
+  /// (name part before `+`). No `package_info` dependency in this app.
+  static const String appVersion = '1.0.1';
+
   static String get supabaseUrl => _resolve(
         defineValue: const String.fromEnvironment('SUPABASE_URL'),
         envKey: 'SUPABASE_URL',
