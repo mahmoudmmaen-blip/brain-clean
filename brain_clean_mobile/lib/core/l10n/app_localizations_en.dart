@@ -157,11 +157,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get detoxRetry => 'Retry';
 
   @override
-  String get detoxSyncing => 'Syncing…';
+  String get detoxSyncing => 'Saving…';
 
   @override
   String get detoxSyncError =>
-      'Could not sync. Your check-in is saved locally.';
+      'Could not finish saving. Your check-in is kept on this device.';
 
   @override
   String get diagnosticBrainRotTitle => 'Focus Check';
@@ -732,7 +732,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get proFeatureExtraQuotes => 'Larger daily quote library';
 
   @override
-  String get proFeatureCloudSync => 'Secure cloud sync';
+  String get proFeatureCloudSync => 'Extra Pro insights';
 
   @override
   String get proFeatureColorThemes => '4 exclusive Pro color themes';
@@ -798,7 +798,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsTitle => 'Settings';
 
   @override
-  String get settingsAccountSection => 'Account';
+  String get settingsAccountSection => 'Subscription';
 
   @override
   String get settingsProActive => 'Brain Clean Pro ✓';
@@ -885,7 +885,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsExportReadyBody =>
-      'Share a local summary of your progress (no cloud).';
+      'Share a local summary of your progress.';
 
   @override
   String get settingsExportShared => 'Local progress summary ready to share.';
@@ -927,8 +927,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Could not open the link on this device.';
 
   @override
-  String get settingsLocalModeHint =>
-      'Brain Clean is running locally for now. Sync can be enabled later.';
+  String get settingsLocalModeHint => 'Your data stays on this device.';
 
   @override
   String get emotionWheelTitle => 'Emotion wheel';
@@ -1633,8 +1632,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get biometricFallbackPin => 'Use PIN instead';
 
   @override
-  String get securityCompromisedBanner =>
-      'Warning: this device may be compromised. Local data only — cloud sync is disabled.';
+  String get securityCompromisedBanner => 'Your data stays on this device.';
 
   @override
   String get emotionOasisTitle => 'Emotion Oasis — Safa';
@@ -1664,7 +1662,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navTabMore => 'More';
 
   @override
-  String get sosFabTooltip => 'SOS Emergency';
+  String get sosFabTooltip => 'Quick support';
 
   @override
   String get exercisesTabTitle => 'Exercises';

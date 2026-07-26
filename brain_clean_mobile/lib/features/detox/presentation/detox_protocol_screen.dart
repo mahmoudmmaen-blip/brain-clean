@@ -174,7 +174,7 @@ class _DetoxProtocolErrorView extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
-                  Icons.cloud_off_outlined,
+                  Icons.error_outline,
                   size: 40,
                   color: Theme.of(context).colorScheme.error.withValues(alpha: 0.8),
                 ),

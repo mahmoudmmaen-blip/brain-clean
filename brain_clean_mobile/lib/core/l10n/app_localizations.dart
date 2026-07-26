@@ -371,13 +371,13 @@ abstract class AppLocalizations {
   /// No description provided for @detoxSyncing.
   ///
   /// In en, this message translates to:
-  /// **'Syncing…'**
+  /// **'Saving…'**
   String get detoxSyncing;
 
   /// No description provided for @detoxSyncError.
   ///
   /// In en, this message translates to:
-  /// **'Could not sync. Your check-in is saved locally.'**
+  /// **'Could not finish saving. Your check-in is kept on this device.'**
   String get detoxSyncError;
 
   /// No description provided for @diagnosticBrainRotTitle.
@@ -1373,7 +1373,7 @@ abstract class AppLocalizations {
   /// No description provided for @proFeatureCloudSync.
   ///
   /// In en, this message translates to:
-  /// **'Secure cloud sync'**
+  /// **'Extra Pro insights'**
   String get proFeatureCloudSync;
 
   /// No description provided for @proFeatureColorThemes.
@@ -1499,7 +1499,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingsAccountSection.
   ///
   /// In en, this message translates to:
-  /// **'Account'**
+  /// **'Subscription'**
   String get settingsAccountSection;
 
   /// No description provided for @settingsProActive.
@@ -1667,7 +1667,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingsExportReadyBody.
   ///
   /// In en, this message translates to:
-  /// **'Share a local summary of your progress (no cloud).'**
+  /// **'Share a local summary of your progress.'**
   String get settingsExportReadyBody;
 
   /// No description provided for @settingsExportShared.
@@ -1745,7 +1745,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingsLocalModeHint.
   ///
   /// In en, this message translates to:
-  /// **'Brain Clean is running locally for now. Sync can be enabled later.'**
+  /// **'Your data stays on this device.'**
   String get settingsLocalModeHint;
 
   /// No description provided for @emotionWheelTitle.
@@ -3011,7 +3011,7 @@ abstract class AppLocalizations {
   /// No description provided for @securityCompromisedBanner.
   ///
   /// In en, this message translates to:
-  /// **'Warning: this device may be compromised. Local data only — cloud sync is disabled.'**
+  /// **'Your data stays on this device.'**
   String get securityCompromisedBanner;
 
   /// No description provided for @emotionOasisTitle.
@@ -3071,7 +3071,7 @@ abstract class AppLocalizations {
   /// No description provided for @sosFabTooltip.
   ///
   /// In en, this message translates to:
-  /// **'SOS Emergency'**
+  /// **'Quick support'**
   String get sosFabTooltip;
 
   /// No description provided for @exercisesTabTitle.

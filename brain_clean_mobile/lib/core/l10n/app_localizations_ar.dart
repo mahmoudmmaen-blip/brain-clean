@@ -155,10 +155,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get detoxRetry => 'إعادة المحاولة';
 
   @override
-  String get detoxSyncing => 'جارٍ المزامنة…';
+  String get detoxSyncing => 'جارٍ الحفظ…';
 
   @override
-  String get detoxSyncError => 'تعذرت المزامنة. تم حفظ تسجيلك محليًا.';
+  String get detoxSyncError =>
+      'تعذّر إكمال الحفظ. تسجيلك محفوظ على هذا الجهاز.';
 
   @override
   String get diagnosticBrainRotTitle => 'فحص التركيز';
@@ -722,7 +723,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get proFeatureExtraQuotes => 'مكتبة اقتباسات يومية أوسع';
 
   @override
-  String get proFeatureCloudSync => 'مزامنة سحابية آمنة';
+  String get proFeatureCloudSync => 'رؤى Pro إضافية';
 
   @override
   String get proFeatureColorThemes => '4 ثيمات ألوان حصرية لـ Pro';
@@ -787,7 +788,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settingsTitle => 'الإعدادات';
 
   @override
-  String get settingsAccountSection => 'الحساب';
+  String get settingsAccountSection => 'الاشتراك';
 
   @override
   String get settingsProActive => 'Brain Clean Pro ✓';
@@ -873,8 +874,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settingsExportDataPro => 'تصدير البيانات';
 
   @override
-  String get settingsExportReadyBody =>
-      'شارك ملخصاً محلياً لتقدّمك (بدون سحابة).';
+  String get settingsExportReadyBody => 'شارك ملخصاً محلياً لتقدّمك.';
 
   @override
   String get settingsExportShared => 'ملخص التقدّم المحلي جاهز للمشاركة.';
@@ -915,8 +915,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settingsLinkOpenFailed => 'تعذر فتح الرابط على هذا الجهاز.';
 
   @override
-  String get settingsLocalModeHint =>
-      'يعمل التطبيق محليًا الآن، وسيتم تفعيل المزامنة لاحقًا.';
+  String get settingsLocalModeHint => 'بياناتك محفوظة على هذا الجهاز.';
 
   @override
   String get emotionWheelTitle => 'عجلة المشاعر';
@@ -1615,8 +1614,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get biometricFallbackPin => 'استخدم رمز PIN بدلاً من ذلك';
 
   @override
-  String get securityCompromisedBanner =>
-      'تحذير: الجهاز قد يكون معدّلاً. بياناتك محلية فقط — تم تعطيل المزامنة السحابية.';
+  String get securityCompromisedBanner => 'بياناتك محفوظة على هذا الجهاز.';
 
   @override
   String get emotionOasisTitle => 'واحة المشاعر — صفا';
@@ -1646,7 +1644,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get navTabMore => 'المزيد';
 
   @override
-  String get sosFabTooltip => 'طوارئ SOS';
+  String get sosFabTooltip => 'مساعدة سريعة';
 
   @override
   String get exercisesTabTitle => 'التمارين';

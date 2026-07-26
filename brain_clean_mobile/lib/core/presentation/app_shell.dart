@@ -6,10 +6,9 @@ import 'package:go_router/go_router.dart';
 
 import '../constants/app_routes.dart';
 import '../l10n/app_localizations.dart';
-import '../security/security_warning_banner.dart';
 import '../../features/focus/widgets/ambient_sound_widgets.dart';
 
-/// Persistent 5-tab shell with glass bottom navigation and SOS FAB.
+/// Persistent 5-tab shell with glass bottom navigation and calm support FAB.
 class AppShell extends ConsumerStatefulWidget {
   const AppShell({super.key, required this.navigationShell});
 
@@ -20,6 +19,9 @@ class AppShell extends ConsumerStatefulWidget {
 }
 
 class _AppShellState extends ConsumerState<AppShell> {
+  static const Color _supportFabBg = Color(0xFF1A3D3A);
+  static const Color _supportFabFg = Color(0xFF5EEAD4);
+
   void _onDestinationSelected(int index) {
     widget.navigationShell.goBranch(
       index,
@@ -33,22 +35,15 @@ class _AppShellState extends ConsumerState<AppShell> {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const SafeArea(
-            bottom: false,
-            child: SecurityWarningBanner(),
-          ),
-          Expanded(child: widget.navigationShell),
-        ],
-      ),
+      body: widget.navigationShell,
       floatingActionButton: FloatingActionButton(
         heroTag: 'sos_fab',
-        backgroundColor: const Color(0xFFFF5A5F),
+        backgroundColor: _supportFabBg,
+        foregroundColor: _supportFabFg,
+        elevation: 2,
         onPressed: () => context.push(AppRoutes.recovery),
         tooltip: loc.sosFabTooltip,
-        child: const Icon(Icons.warning_amber_rounded, color: Colors.white),
+        child: const Icon(Icons.self_improvement_outlined),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       bottomNavigationBar: Column(

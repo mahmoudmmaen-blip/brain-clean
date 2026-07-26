@@ -178,7 +178,7 @@ class _RecoveryPersistenceBanner extends StatelessWidget {
         child: Row(
           children: [
             Icon(
-              Icons.cloud_off_outlined,
+              Icons.sd_storage_outlined,
               color: theme.colorScheme.onErrorContainer,
               size: 22,
             ),
