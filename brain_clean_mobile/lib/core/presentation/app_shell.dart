@@ -33,18 +33,22 @@ class _AppShellState extends ConsumerState<AppShell> {
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
+    final path = GoRouterState.of(context).uri.path;
+    final showSupportFab = path != AppRoutes.proPaywall;
 
     return Scaffold(
       body: widget.navigationShell,
-      floatingActionButton: FloatingActionButton(
-        heroTag: 'sos_fab',
-        backgroundColor: _supportFabBg,
-        foregroundColor: _supportFabFg,
-        elevation: 2,
-        onPressed: () => context.push(AppRoutes.recovery),
-        tooltip: loc.sosFabTooltip,
-        child: const Icon(Icons.self_improvement_outlined),
-      ),
+      floatingActionButton: showSupportFab
+          ? FloatingActionButton(
+              heroTag: 'sos_fab',
+              backgroundColor: _supportFabBg,
+              foregroundColor: _supportFabFg,
+              elevation: 2,
+              onPressed: () => context.push(AppRoutes.recovery),
+              tooltip: loc.sosFabTooltip,
+              child: const Icon(Icons.self_improvement_outlined),
+            )
+          : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,

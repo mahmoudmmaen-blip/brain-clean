@@ -1709,7 +1709,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get safaMedicalDisclaimer =>
-      'صفا مساعدة دعم نفسي بالذكاء الاصطناعي، مش بديل عن استشارة طبيب أو معالج نفسي متخصص. لو حاسس إن الموضوع أكبر من كده، استشر مختص.';
+      'صفا مساعد دعم ذاتي بالذكاء الاصطناعي، وليس بديلًا عن مختص. لو شعرت أن الموضوع أكبر من قدرتك، اطلب دعمًا من شخص مؤهل.';
 
   @override
   String get journeyTabTitle => 'رحلتي';

@@ -3197,7 +3197,7 @@ abstract class AppLocalizations {
   /// No description provided for @safaMedicalDisclaimer.
   ///
   /// In en, this message translates to:
-  /// **'Safa is AI-powered emotional support, not a substitute for a doctor or licensed therapist. If things feel bigger than this, please consult a professional.'**
+  /// **'Safa is an AI self-support companion, not a replacement for a qualified professional. If things feel bigger than you can handle, seek support from a qualified person.'**
   String get safaMedicalDisclaimer;
 
   /// No description provided for @journeyTabTitle.
