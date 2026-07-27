@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../ads/ad_visibility.dart';
+import '../ads/footer_banner_ad.dart';
 import '../constants/app_routes.dart';
 import '../l10n/app_localizations.dart';
 import '../../features/focus/widgets/ambient_sound_widgets.dart';
+import '../../features/pro/application/subscription_service_provider.dart';
 
 /// Persistent 5-tab shell with glass bottom navigation and calm support FAB.
 class AppShell extends ConsumerStatefulWidget {
@@ -35,6 +38,11 @@ class _AppShellState extends ConsumerState<AppShell> {
     final colorScheme = Theme.of(context).colorScheme;
     final path = GoRouterState.of(context).uri.path;
     final showSupportFab = path != AppRoutes.proPaywall;
+    final isPro = ref.watch(isProUserProvider);
+    final showAds = AdVisibility.shouldShowFooterBanner(
+      isPro: isPro,
+      location: path,
+    );
 
     return Scaffold(
       body: widget.navigationShell,
@@ -54,6 +62,7 @@ class _AppShellState extends ConsumerState<AppShell> {
         mainAxisSize: MainAxisSize.min,
         children: [
           const AmbientMiniPlayer(),
+          if (showAds) const FooterBannerAd(key: Key('footer_banner_ad')),
           ClipRect(
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
