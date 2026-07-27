@@ -732,7 +732,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get proWelcomeSnack => 'مرحباً بك في Pro! 🎉';
 
   @override
-  String get proPriceMonthly => '19 ريال سعودي / شهرياً';
+  String get proPriceMonthly => 'مزايا Pro اختيارية';
 
   @override
   String get proPriceHint => 'أقل من وجبة واحدة';
@@ -1777,7 +1777,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get homeSafaMessage => 'فخورة بيك! كمّل كده 💚';
 
   @override
-  String get homeProFeature => 'رسوم بيانية + AI متقدّم';
+  String get homeProFeature => 'رؤى وتقارير أعمق';
 
   @override
   String get homeActivityExercise => 'تمرين';
@@ -2071,7 +2071,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dailyChallengeSubtitleColorWord => 'تحدّ تركيزك البصري';
 
   @override
-  String get dailyChallengeSubtitleNumberMemory => 'قوّي ذاكرتك الرقمية';
+  String get dailyChallengeSubtitleNumberMemory => 'درّب انتباهك اليومي';
 
   @override
   String get dailyChallengeSubtitlePatternMatch => 'اشحذ تمييزك البصري';

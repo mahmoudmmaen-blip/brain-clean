@@ -1391,7 +1391,7 @@ abstract class AppLocalizations {
   /// No description provided for @proPriceMonthly.
   ///
   /// In en, this message translates to:
-  /// **'SAR 19 / month'**
+  /// **'Optional Pro features'**
   String get proPriceMonthly;
 
   /// No description provided for @proPriceHint.
@@ -3329,7 +3329,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeProFeature.
   ///
   /// In en, this message translates to:
-  /// **'Charts + advanced AI'**
+  /// **'Deeper insights and reports'**
   String get homeProFeature;
 
   /// No description provided for @homeActivityExercise.
@@ -3881,7 +3881,7 @@ abstract class AppLocalizations {
   /// No description provided for @dailyChallengeSubtitleNumberMemory.
   ///
   /// In en, this message translates to:
-  /// **'Strengthen your number memory'**
+  /// **'Train your daily attention'**
   String get dailyChallengeSubtitleNumberMemory;
 
   /// No description provided for @dailyChallengeSubtitlePatternMatch.

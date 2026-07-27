@@ -122,8 +122,8 @@ const List<DailyQuote> dailyQuotes = [
     en: 'Gratitude rebalances your neurochemistry',
   ),
   DailyQuote(
-    ar: 'كل جلسة تركيز تبني عادات عصبية أقوى',
-    en: 'Each focus session builds stronger neural habits',
+    ar: 'كل جلسة تركيز تساعدك تبني عادة أهدأ',
+    en: 'Each focus session helps you build a calmer habit',
   ),
   DailyQuote(
     ar: 'العقل النقي يبدأ بقرار واحد واعٍ اليوم',

@@ -741,7 +741,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get proWelcomeSnack => 'Welcome to Pro! 🎉';
 
   @override
-  String get proPriceMonthly => 'SAR 19 / month';
+  String get proPriceMonthly => 'Optional Pro features';
 
   @override
   String get proPriceHint => 'Less than one meal';
@@ -1795,7 +1795,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeSafaMessage => 'Proud of you! Keep going 💚';
 
   @override
-  String get homeProFeature => 'Charts + advanced AI';
+  String get homeProFeature => 'Deeper insights and reports';
 
   @override
   String get homeActivityExercise => 'Exercise';
@@ -2096,8 +2096,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dailyChallengeSubtitleColorWord => 'Challenge your visual focus';
 
   @override
-  String get dailyChallengeSubtitleNumberMemory =>
-      'Strengthen your number memory';
+  String get dailyChallengeSubtitleNumberMemory => 'Train your daily attention';
 
   @override
   String get dailyChallengeSubtitlePatternMatch =>
