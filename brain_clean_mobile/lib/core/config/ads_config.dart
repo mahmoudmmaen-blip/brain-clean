@@ -8,6 +8,10 @@ import 'package:flutter/foundation.dart';
 /// `--dart-define=ADMOB_IOS_APP_ID=ca-app-pub-xxx~yyy`
 /// `--dart-define=ADMOB_IOS_BANNER_AD_UNIT_ID=ca-app-pub-xxx/yyy`
 ///
+/// Android App ID for the native AdMob SDK is also injected into
+/// `AndroidManifest.xml` via Gradle `manifestPlaceholders["admobAppId"]`
+/// (same dart-define). Banner unit IDs stay Dart-only at runtime.
+///
 /// Never commit real production ad unit IDs as source defaults.
 abstract final class AdsConfig {
   AdsConfig._();
