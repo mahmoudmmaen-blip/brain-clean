@@ -25,8 +25,8 @@ class _AppShellState extends ConsumerState<AppShell> {
   static const Color _supportFabBg = Color(0xFF1A3D3A);
   static const Color _supportFabFg = Color(0xFF5EEAD4);
 
-  /// Extra FAB lift when a loaded footer banner is visible.
-  static const double _fabBannerClearance = 12;
+  /// Extra FAB lift when a loaded footer banner sits below the nav.
+  static const double _fabBannerClearance = 16;
 
   bool _bannerVisible = false;
 
@@ -53,6 +53,7 @@ class _AppShellState extends ConsumerState<AppShell> {
       isPro: isPro,
       location: path,
     );
+    final bottomInset = MediaQuery.viewPaddingOf(context).bottom;
 
     // Reset visibility tracking when ads are not allowed on this route.
     if (!showAds && _bannerVisible) {
@@ -63,11 +64,15 @@ class _AppShellState extends ConsumerState<AppShell> {
       });
     }
 
+    // Scaffold already lifts the FAB above the whole bottomNavigationBar.
+    // Add a small extra clearance when the compact banner is loaded.
     final fabBottomPad = (_bannerVisible && showAds)
         ? FooterBannerAd.reservedStripHeight + _fabBannerClearance
         : 0.0;
 
     return Scaffold(
+      // Body is inset by Scaffold for bottomNavigationBar height, so scrollable
+      // shell content is not covered by nav or banner.
       body: widget.navigationShell,
       floatingActionButton: showSupportFab
           ? Padding(
@@ -88,11 +93,6 @@ class _AppShellState extends ConsumerState<AppShell> {
         mainAxisSize: MainAxisSize.min,
         children: [
           const AmbientMiniPlayer(),
-          if (showAds)
-            FooterBannerAd(
-              key: const Key('footer_banner_ad'),
-              onVisibilityChanged: _onBannerVisibilityChanged,
-            ),
           ClipRect(
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
@@ -132,6 +132,23 @@ class _AppShellState extends ConsumerState<AppShell> {
               ),
             ),
           ),
+          // Banner sits below nav so it is less prominent than browsing chrome.
+          if (showAds) ...[
+            Divider(
+              height: 1,
+              thickness: 0.5,
+              color: colorScheme.outlineVariant.withValues(alpha: 0.35),
+            ),
+            ColoredBox(
+              color: colorScheme.surface.withValues(alpha: 0.92),
+              child: FooterBannerAd(
+                key: const Key('footer_banner_ad'),
+                onVisibilityChanged: _onBannerVisibilityChanged,
+              ),
+            ),
+          ],
+          // Minimal system inset only (home indicator / gesture bar).
+          SizedBox(height: bottomInset),
         ],
       ),
     );

@@ -4,7 +4,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../config/ads_config.dart';
 
-/// Compact standard banner (~320×50) above bottom navigation.
+/// Compact standard banner (~320×50) in the shell footer.
 ///
 /// Hides cleanly on load failure. Does not crop or scale the ad.
 class FooterBannerAd extends StatefulWidget {
@@ -27,15 +27,14 @@ class FooterBannerAd extends StatefulWidget {
     required BannerAdListener listener,
   })? createBanner;
 
-  /// Standard banner height used for layout spacing (AdSize.banner).
+  /// Official AdMob standard banner height ([AdSize.banner] ≈ 320×50).
   static const double bannerHeight = 50;
 
-  /// Vertical padding around the banner strip (top + bottom combined extras).
-  static const double stripVerticalPadding = 8;
+  /// No decorative vertical padding — strip height matches the ad.
+  static const double stripVerticalPadding = 0;
 
-  /// Approximate reserved strip height when the banner is visible.
-  static const double reservedStripHeight =
-      bannerHeight + stripVerticalPadding * 2;
+  /// Height reserved when the banner is visible (ad only).
+  static const double reservedStripHeight = bannerHeight;
 
   @override
   State<FooterBannerAd> createState() => _FooterBannerAdState();
@@ -62,7 +61,7 @@ class _FooterBannerAdState extends State<FooterBannerAd> {
     }
 
     try {
-      // Compact standard banner (~320×50). Safer than tall adaptive banners.
+      // Official compact banner (~320×50). Do not use tall adaptive sizes.
       const size = AdSize.banner;
 
       final unitId = widget.adUnitId ?? AdsConfig.bannerAdUnitId;
@@ -130,30 +129,15 @@ class _FooterBannerAdState extends State<FooterBannerAd> {
       return const SizedBox.shrink();
     }
 
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: colorScheme.surface,
-        border: Border(
-          top: BorderSide(
-            color: colorScheme.outlineVariant.withValues(alpha: 0.45),
-          ),
-          bottom: BorderSide(
-            color: colorScheme.outlineVariant.withValues(alpha: 0.35),
-          ),
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: FooterBannerAd.stripVerticalPadding,
-        ),
-        child: Center(
-          child: SizedBox(
-            width: _banner!.size.width.toDouble(),
-            height: _banner!.size.height.toDouble(),
-            child: AdWidget(ad: _banner!),
-          ),
+    // Exact ad size only — no decorative padding block.
+    return SizedBox(
+      height: FooterBannerAd.bannerHeight,
+      width: double.infinity,
+      child: Center(
+        child: SizedBox(
+          width: _banner!.size.width.toDouble(),
+          height: _banner!.size.height.toDouble(),
+          child: AdWidget(ad: _banner!),
         ),
       ),
     );

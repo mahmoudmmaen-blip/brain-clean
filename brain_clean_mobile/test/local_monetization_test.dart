@@ -76,8 +76,8 @@ void main() {
   group('FooterBannerAd layout', () {
     test('uses compact standard banner strip height (~320x50)', () {
       expect(FooterBannerAd.bannerHeight, 50);
-      expect(FooterBannerAd.reservedStripHeight, greaterThan(50));
-      expect(FooterBannerAd.reservedStripHeight, lessThan(80));
+      expect(FooterBannerAd.stripVerticalPadding, 0);
+      expect(FooterBannerAd.reservedStripHeight, 50);
     });
   });
 
