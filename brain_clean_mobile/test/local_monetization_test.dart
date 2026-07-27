@@ -7,6 +7,7 @@ import 'package:brain_clean_mobile/core/constants/revenue_cat_constants.dart';
 import 'package:brain_clean_mobile/core/services/purchases_service.dart';
 import 'package:brain_clean_mobile/features/home/domain/daily_quotes.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 void main() {
   group('AdVisibility (Safe Footer Banner RC)', () {
@@ -74,10 +75,18 @@ void main() {
   });
 
   group('FooterBannerAd layout', () {
-    test('uses compact standard banner strip height (~320x50)', () {
+    test('forces fixed AdSize.banner 320x50 only (no adaptive)', () {
+      expect(FooterBannerAd.bannerWidth, 320);
       expect(FooterBannerAd.bannerHeight, 50);
       expect(FooterBannerAd.stripVerticalPadding, 0);
       expect(FooterBannerAd.reservedStripHeight, 50);
+      expect(FooterBannerAd.fixedPhoneBanner.width, 320);
+      expect(FooterBannerAd.fixedPhoneBanner.height, 50);
+      expect(FooterBannerAd.fixedPhoneBanner.width, AdSize.banner.width);
+      expect(FooterBannerAd.fixedPhoneBanner.height, AdSize.banner.height);
+      // Explicitly not fullBanner (468×60) or largeBanner.
+      expect(FooterBannerAd.fixedPhoneBanner.width, isNot(AdSize.fullBanner.width));
+      expect(FooterBannerAd.fixedPhoneBanner.height, isNot(AdSize.fullBanner.height));
     });
   });
 

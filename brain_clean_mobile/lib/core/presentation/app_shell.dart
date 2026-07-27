@@ -25,8 +25,8 @@ class _AppShellState extends ConsumerState<AppShell> {
   static const Color _supportFabBg = Color(0xFF1A3D3A);
   static const Color _supportFabFg = Color(0xFF5EEAD4);
 
-  /// Extra FAB lift when a loaded footer banner sits below the nav.
-  static const double _fabBannerClearance = 16;
+  /// Extra FAB lift above bottom nav + fixed banner when the banner is loaded.
+  static const double _fabBannerClearance = 20;
 
   bool _bannerVisible = false;
 
@@ -64,15 +64,15 @@ class _AppShellState extends ConsumerState<AppShell> {
       });
     }
 
-    // Scaffold already lifts the FAB above the whole bottomNavigationBar.
-    // Add a small extra clearance when the compact banner is loaded.
+    // Scaffold already places FAB above the whole bottomNavigationBar.
+    // Extra pad clears the fixed 320×50 strip + a calm gap.
     final fabBottomPad = (_bannerVisible && showAds)
         ? FooterBannerAd.reservedStripHeight + _fabBannerClearance
         : 0.0;
 
     return Scaffold(
-      // Body is inset by Scaffold for bottomNavigationBar height, so scrollable
-      // shell content is not covered by nav or banner.
+      // Body is inset by Scaffold for bottomNavigationBar height
+      // (nav + optional 50px banner + system inset).
       body: widget.navigationShell,
       floatingActionButton: showSupportFab
           ? Padding(
@@ -132,19 +132,16 @@ class _AppShellState extends ConsumerState<AppShell> {
               ),
             ),
           ),
-          // Banner sits below nav so it is less prominent than browsing chrome.
+          // Fixed 320×50 banner below nav (not above, not adaptive).
           if (showAds) ...[
             Divider(
               height: 1,
               thickness: 0.5,
               color: colorScheme.outlineVariant.withValues(alpha: 0.35),
             ),
-            ColoredBox(
-              color: colorScheme.surface.withValues(alpha: 0.92),
-              child: FooterBannerAd(
-                key: const Key('footer_banner_ad'),
-                onVisibilityChanged: _onBannerVisibilityChanged,
-              ),
+            FooterBannerAd(
+              key: const Key('footer_banner_ad'),
+              onVisibilityChanged: _onBannerVisibilityChanged,
             ),
           ],
           // Minimal system inset only (home indicator / gesture bar).

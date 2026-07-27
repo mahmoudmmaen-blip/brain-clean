@@ -4,9 +4,10 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../config/ads_config.dart';
 
-/// Compact standard banner (~320×50) in the shell footer.
+/// Fixed phone banner (320×50) for the shell footer.
 ///
-/// Hides cleanly on load failure. Does not crop or scale the ad.
+/// Never uses adaptive / anchored adaptive sizes. Hides on load failure.
+/// Does not crop, scale, or transform the ad view.
 class FooterBannerAd extends StatefulWidget {
   const FooterBannerAd({
     super.key,
@@ -27,14 +28,23 @@ class FooterBannerAd extends StatefulWidget {
     required BannerAdListener listener,
   })? createBanner;
 
-  /// Official AdMob standard banner height ([AdSize.banner] ≈ 320×50).
+  /// Fixed phone banner width in logical pixels.
+  static const double bannerWidth = 320;
+
+  /// Fixed phone banner height in logical pixels ([AdSize.banner]).
   static const double bannerHeight = 50;
 
-  /// No decorative vertical padding — strip height matches the ad.
+  /// No decorative vertical padding.
   static const double stripVerticalPadding = 0;
 
-  /// Height reserved when the banner is visible (ad only).
+  /// Height reserved when the banner is visible.
   static const double reservedStripHeight = bannerHeight;
+
+  /// Forced AdMob size — standard banner only (never adaptive / fullBanner).
+  static const AdSize fixedPhoneBanner = AdSize(
+    width: 320,
+    height: 50,
+  );
 
   @override
   State<FooterBannerAd> createState() => _FooterBannerAdState();
@@ -48,6 +58,11 @@ class _FooterBannerAdState extends State<FooterBannerAd> {
   @override
   void initState() {
     super.initState();
+    assert(
+      FooterBannerAd.fixedPhoneBanner.width == AdSize.banner.width &&
+          FooterBannerAd.fixedPhoneBanner.height == AdSize.banner.height,
+      'fixedPhoneBanner must match AdSize.banner (320×50)',
+    );
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) _load();
     });
@@ -61,8 +76,8 @@ class _FooterBannerAdState extends State<FooterBannerAd> {
     }
 
     try {
-      // Official compact banner (~320×50). Do not use tall adaptive sizes.
-      const size = AdSize.banner;
+      // FIXED 320×50 only — never adaptive / anchored / fullBanner / large.
+      const size = FooterBannerAd.fixedPhoneBanner;
 
       final unitId = widget.adUnitId ?? AdsConfig.bannerAdUnitId;
       final banner = widget.createBanner?.call(
@@ -82,6 +97,21 @@ class _FooterBannerAdState extends State<FooterBannerAd> {
         banner.dispose();
         return;
       }
+
+      // Reject unexpected sizes (e.g. fullBanner 468×60) instead of stretching.
+      if (banner.size.width != FooterBannerAd.bannerWidth ||
+          banner.size.height != FooterBannerAd.bannerHeight) {
+        debugPrint(
+          'FooterBannerAd: rejecting unexpected size '
+          '${banner.size.width}x${banner.size.height} '
+          '(expected ${FooterBannerAd.bannerWidth}x${FooterBannerAd.bannerHeight})',
+        );
+        banner.dispose();
+        if (mounted) setState(() => _failed = true);
+        _notifyVisible(false);
+        return;
+      }
+
       setState(() => _banner = banner);
     } catch (error, stackTrace) {
       debugPrint('FooterBannerAd load failed: $error');
@@ -95,6 +125,22 @@ class _FooterBannerAdState extends State<FooterBannerAd> {
     return BannerAdListener(
       onAdLoaded: (ad) {
         if (!mounted) return;
+        if (ad is BannerAd &&
+            (ad.size.width != FooterBannerAd.bannerWidth ||
+                ad.size.height != FooterBannerAd.bannerHeight)) {
+          debugPrint(
+            'FooterBannerAd: onAdLoaded unexpected size '
+            '${ad.size.width}x${ad.size.height}',
+          );
+          ad.dispose();
+          setState(() {
+            _banner = null;
+            _loaded = false;
+            _failed = true;
+          });
+          _notifyVisible(false);
+          return;
+        }
         setState(() => _loaded = true);
         _notifyVisible(true);
       },
@@ -129,14 +175,14 @@ class _FooterBannerAdState extends State<FooterBannerAd> {
       return const SizedBox.shrink();
     }
 
-    // Exact ad size only — no decorative padding block.
+    // Fixed 320×50 box only — centered, not stretched to full width.
     return SizedBox(
       height: FooterBannerAd.bannerHeight,
       width: double.infinity,
       child: Center(
         child: SizedBox(
-          width: _banner!.size.width.toDouble(),
-          height: _banner!.size.height.toDouble(),
+          width: FooterBannerAd.bannerWidth,
+          height: FooterBannerAd.bannerHeight,
           child: AdWidget(ad: _banner!),
         ),
       ),
