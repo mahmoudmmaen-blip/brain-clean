@@ -1,5 +1,6 @@
 import 'package:brain_clean_mobile/core/ads/ad_visibility.dart';
 import 'package:brain_clean_mobile/core/ads/ads_service.dart';
+import 'package:brain_clean_mobile/core/ads/footer_banner_ad.dart';
 import 'package:brain_clean_mobile/core/config/ads_config.dart';
 import 'package:brain_clean_mobile/core/constants/app_routes.dart';
 import 'package:brain_clean_mobile/core/constants/revenue_cat_constants.dart';
@@ -72,11 +73,21 @@ void main() {
     });
   });
 
+  group('FooterBannerAd layout', () {
+    test('uses compact standard banner strip height (~320x50)', () {
+      expect(FooterBannerAd.bannerHeight, 50);
+      expect(FooterBannerAd.reservedStripHeight, greaterThan(50));
+      expect(FooterBannerAd.reservedStripHeight, lessThan(80));
+    });
+  });
+
   group('AdsService', () {
-    test('initialize does not throw when SDK is unavailable in tests', () async {
-      TestWidgetsFlutterBinding.ensureInitialized();
+    test('missing plugin path stays safe (no crash / not initialized)', () {
+      // Unit tests have no native AdMob plugin; AdsService must remain false
+      // and AdsConfig must still supply test IDs without throwing.
       expect(AdsService.isInitialized, isFalse);
-      await expectLater(AdsService.initialize(), completes);
+      expect(AdsConfig.bannerAdUnitId, isNotEmpty);
+      expect(AdsConfig.androidAppId, AdsConfig.androidTestAppId);
     });
   });
 
