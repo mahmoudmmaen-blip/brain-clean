@@ -362,6 +362,7 @@
   "settingsAboutSection": "About",
   "settingsVersion": "Version",
   "settingsPrivacyPolicy": "Privacy policy",
+  "settingsPrivacyOptions": "Privacy options",
   "settingsContactUs": "Contact us",
   "settingsLinkOpenFailed": "Could not open the link on this device.",
   "settingsLocalModeHint": "Your data stays on this device.",

@@ -909,6 +909,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settingsPrivacyPolicy => 'سياسة الخصوصية';
 
   @override
+  String get settingsPrivacyOptions => 'خيارات الخصوصية';
+
+  @override
   String get settingsContactUs => 'تواصل معنا';
 
   @override

@@ -920,6 +920,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsPrivacyPolicy => 'Privacy policy';
 
   @override
+  String get settingsPrivacyOptions => 'Privacy options';
+
+  @override
   String get settingsContactUs => 'Contact us';
 
   @override

@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../ads/ad_visibility.dart';
+import '../ads/ads_consent_service.dart';
+import '../ads/ads_service.dart';
 import '../ads/footer_banner_ad.dart';
 import '../constants/app_routes.dart';
 import '../l10n/app_localizations.dart';
@@ -30,6 +32,22 @@ class _AppShellState extends ConsumerState<AppShell> {
 
   bool _bannerVisible = false;
 
+  @override
+  void initState() {
+    super.initState();
+    AdsConsentService.notifier.addListener(_onConsentChanged);
+  }
+
+  @override
+  void dispose() {
+    AdsConsentService.notifier.removeListener(_onConsentChanged);
+    super.dispose();
+  }
+
+  void _onConsentChanged() {
+    if (mounted) setState(() {});
+  }
+
   void _onDestinationSelected(int index) {
     widget.navigationShell.goBranch(
       index,
@@ -49,10 +67,13 @@ class _AppShellState extends ConsumerState<AppShell> {
     final path = GoRouterState.of(context).uri.path;
     final showSupportFab = path != AppRoutes.proPaywall;
     final isPro = ref.watch(isProUserProvider);
-    final showAds = AdVisibility.shouldShowFooterBanner(
-      isPro: isPro,
-      location: path,
-    );
+    final adsConsentReady =
+        AdsConsentService.canRequestAds && AdsService.isInitialized;
+    final showAds = adsConsentReady &&
+        AdVisibility.shouldShowFooterBanner(
+          isPro: isPro,
+          location: path,
+        );
     final bottomInset = MediaQuery.viewPaddingOf(context).bottom;
 
     // Reset visibility tracking when ads are not allowed on this route.

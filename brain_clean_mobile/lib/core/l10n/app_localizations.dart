@@ -1730,6 +1730,12 @@ abstract class AppLocalizations {
   /// **'Privacy policy'**
   String get settingsPrivacyPolicy;
 
+  /// No description provided for @settingsPrivacyOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy options'**
+  String get settingsPrivacyOptions;
+
   /// No description provided for @settingsContactUs.
   ///
   /// In en, this message translates to:

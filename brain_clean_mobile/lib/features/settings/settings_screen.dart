@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/ads/ads_consent_service.dart';
 import '../../core/application/app_preferences_provider.dart';
 import '../../core/config/app_config.dart';
 import '../../core/constants/app_routes.dart';
@@ -20,6 +21,7 @@ import 'package:purchases_flutter/purchases_flutter.dart';
 const settingsProTileKey = Key('settings_pro_tile');
 const settingsResetKey = Key('settings_reset_data');
 const settingsPrivacyPolicyKey = Key('settings_privacy_policy');
+const settingsPrivacyOptionsKey = Key('settings_privacy_options');
 const settingsContactUsKey = Key('settings_contact_us');
 const settingsVersionValueKey = Key('settings_version_value');
 const settingsRestoreKey = Key('settings_restore_purchases');
@@ -337,6 +339,7 @@ class SettingsScreen extends ConsumerWidget {
               externalLinkService.openPrivacyPolicy,
             ),
           ),
+          const _PrivacyOptionsTile(),
           ListTile(
             key: settingsContactUsKey,
             title: Text(loc.settingsContactUs,
@@ -365,6 +368,56 @@ class _SectionHeader extends StatelessWidget {
               color: Color(0xFF8B949E),
               fontSize: 13,
               fontWeight: FontWeight.w600)),
+    );
+  }
+}
+
+class _PrivacyOptionsTile extends StatefulWidget {
+  const _PrivacyOptionsTile();
+
+  @override
+  State<_PrivacyOptionsTile> createState() => _PrivacyOptionsTileState();
+}
+
+class _PrivacyOptionsTileState extends State<_PrivacyOptionsTile> {
+  bool _visible = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _syncVisibility();
+    AdsConsentService.notifier.addListener(_syncVisibility);
+  }
+
+  @override
+  void dispose() {
+    AdsConsentService.notifier.removeListener(_syncVisibility);
+    super.dispose();
+  }
+
+  void _syncVisibility() {
+    final visible = AdsConsentService.shouldShowPrivacyOptions;
+    if (_visible != visible && mounted) {
+      setState(() => _visible = visible);
+    }
+  }
+
+  Future<void> _openPrivacyOptions() async {
+    await AdsConsentService.showPrivacyOptions();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (!_visible) return const SizedBox.shrink();
+
+    final loc = AppLocalizations.of(context)!;
+    return ListTile(
+      key: settingsPrivacyOptionsKey,
+      title: Text(
+        loc.settingsPrivacyOptions,
+        style: const TextStyle(color: Color(0xFFE6EDF3)),
+      ),
+      onTap: _openPrivacyOptions,
     );
   }
 }

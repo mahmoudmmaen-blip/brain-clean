@@ -436,6 +436,7 @@
   "settingsAboutSection": "حول التطبيق",
   "settingsVersion": "الإصدار",
   "settingsPrivacyPolicy": "سياسة الخصوصية",
+  "settingsPrivacyOptions": "خيارات الخصوصية",
   "settingsContactUs": "تواصل معنا",
   "settingsLinkOpenFailed": "تعذر فتح الرابط على هذا الجهاز.",
   "settingsLocalModeHint": "بياناتك محفوظة على هذا الجهاز.",

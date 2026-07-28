@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../config/ads_config.dart';
+import 'ads_consent_service.dart';
+import 'ads_service.dart';
 
 /// Fixed phone banner (320×50) for the shell footer.
 ///
@@ -70,6 +72,12 @@ class _FooterBannerAdState extends State<FooterBannerAd> {
 
   Future<void> _load() async {
     if (kIsWeb) {
+      if (mounted) setState(() => _failed = true);
+      _notifyVisible(false);
+      return;
+    }
+
+    if (!AdsConsentService.canRequestAds || !AdsService.isInitialized) {
       if (mounted) setState(() => _failed = true);
       _notifyVisible(false);
       return;

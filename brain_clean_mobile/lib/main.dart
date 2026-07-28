@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import 'core/ads/ads_service.dart';
+import 'core/ads/ads_consent_service.dart';
 import 'core/l10n/app_localization_config.dart';
 import 'core/network/supabase_client.dart';
 import 'core/providers/locale_provider.dart';
@@ -57,7 +57,7 @@ Future<void> main() async {
   await SupabaseConfig.initialize();
 
   await PurchasesService.initialize();
-  await AdsService.initialize();
+  await AdsConsentService.runLaunchConsentFlow();
 
   runApp(const ProviderScope(child: BrainCleanApp()));
 }

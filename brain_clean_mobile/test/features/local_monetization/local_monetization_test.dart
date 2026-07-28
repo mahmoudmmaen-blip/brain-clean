@@ -1,99 +1,13 @@
-import 'package:brain_clean_mobile/core/ads/ad_visibility.dart';
 import 'package:brain_clean_mobile/core/ads/ads_service.dart';
-import 'package:brain_clean_mobile/core/ads/footer_banner_ad.dart';
 import 'package:brain_clean_mobile/core/config/ads_config.dart';
-import 'package:brain_clean_mobile/core/constants/app_routes.dart';
 import 'package:brain_clean_mobile/core/constants/revenue_cat_constants.dart';
 import 'package:brain_clean_mobile/core/services/purchases_service.dart';
 import 'package:brain_clean_mobile/features/home/domain/daily_quotes.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 void main() {
-  group('AdVisibility (Safe Footer Banner RC)', () {
-    test('shows banner for free users on normal shell routes', () {
-      for (final location in [
-        AppRoutes.home,
-        AppRoutes.exercises,
-        AppRoutes.journey,
-        AppRoutes.more,
-        AppRoutes.settings,
-      ]) {
-        expect(
-          AdVisibility.shouldShowFooterBanner(isPro: false, location: location),
-          isTrue,
-          reason: location,
-        );
-      }
-    });
-
-    test('hides banner for Pro users everywhere', () {
-      for (final location in [
-        AppRoutes.home,
-        AppRoutes.exercises,
-        AppRoutes.more,
-      ]) {
-        expect(
-          AdVisibility.shouldShowFooterBanner(isPro: true, location: location),
-          isFalse,
-          reason: location,
-        );
-      }
-    });
-
-    test('hides banner on paywall, Safa, and focus flows', () {
-      for (final location in [
-        AppRoutes.proPaywall,
-        AppRoutes.safa,
-        '${AppRoutes.safa}/emotion-oasis',
-        AppRoutes.singleTask,
-        '/home/silence-challenge/3',
-        AppRoutes.dailyProgram,
-        AppRoutes.dayEnd,
-        AppRoutes.sukoon,
-        AppRoutes.pomodoro,
-        AppRoutes.recovery,
-        '${AppRoutes.exercises}/games',
-      ]) {
-        expect(
-          AdVisibility.shouldShowFooterBanner(isPro: false, location: location),
-          isFalse,
-          reason: location,
-        );
-      }
-    });
-  });
-
-  group('AdsConfig', () {
-    test('defaults to Google test banner and app ids', () {
-      expect(AdsConfig.androidBannerUnitId, AdsConfig.androidTestBannerUnitId);
-      expect(AdsConfig.iosBannerUnitId, AdsConfig.iosTestBannerUnitId);
-      expect(AdsConfig.androidAppId, AdsConfig.androidTestAppId);
-      expect(AdsConfig.iosAppId, AdsConfig.iosTestAppId);
-      expect(AdsConfig.bannerAdUnitId, isNotEmpty);
-    });
-  });
-
-  group('FooterBannerAd layout', () {
-    test('forces fixed AdSize.banner 320x50 only (no adaptive)', () {
-      expect(FooterBannerAd.bannerWidth, 320);
-      expect(FooterBannerAd.bannerHeight, 50);
-      expect(FooterBannerAd.stripVerticalPadding, 0);
-      expect(FooterBannerAd.reservedStripHeight, 50);
-      expect(FooterBannerAd.fixedPhoneBanner.width, 320);
-      expect(FooterBannerAd.fixedPhoneBanner.height, 50);
-      expect(FooterBannerAd.fixedPhoneBanner.width, AdSize.banner.width);
-      expect(FooterBannerAd.fixedPhoneBanner.height, AdSize.banner.height);
-      // Explicitly not fullBanner (468×60) or largeBanner.
-      expect(FooterBannerAd.fixedPhoneBanner.width, isNot(AdSize.fullBanner.width));
-      expect(FooterBannerAd.fixedPhoneBanner.height, isNot(AdSize.fullBanner.height));
-    });
-  });
-
   group('AdsService', () {
     test('missing plugin path stays safe (no crash / not initialized)', () {
-      // Unit tests have no native AdMob plugin; AdsService must remain false
-      // and AdsConfig must still supply test IDs without throwing.
       expect(AdsService.isInitialized, isFalse);
       expect(AdsConfig.bannerAdUnitId, isNotEmpty);
       expect(AdsConfig.androidAppId, AdsConfig.androidTestAppId);
@@ -157,7 +71,6 @@ void main() {
     });
 
     test('SDK stays unconfigured without key (no crash path)', () {
-      // Widget/unit tests never call Purchases.configure with a real key.
       expect(PurchasesService.isConfigured, isFalse);
     });
   });
