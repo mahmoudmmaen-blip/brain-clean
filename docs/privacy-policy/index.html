@@ -113,7 +113,7 @@
   <div class="wrap">
     <header>
       <h1>Brain Clean — Privacy Policy</h1>
-      <p class="meta"><strong>Last updated:</strong> 25 July 2026</p>
+      <p class="meta"><strong>Last updated:</strong> 28 July 2026</p>
       <p class="meta"><strong>Contact:</strong> <a href="mailto:brainclean.app@gmail.com">brainclean.app@gmail.com</a></p>
       <p class="meta">Public privacy policy for the Brain Clean Android app (<code>com.brainclean.mobile</code>).</p>
       <nav aria-label="Language">
@@ -144,10 +144,12 @@
         <li>XP / progress ledger data</li>
         <li>Optional biometric app-lock preference</li>
       </ul>
+      <p>The <strong>current Android release</strong> does <strong>not</strong> require you to create an account. It is <strong>local-first</strong>: journals, mood history, Daily Program progress, and recovery data stay on your device unless a future feature explicitly says otherwise.</p>
       <p>Worry journal and similar free-text notes are designed to remain <strong>local on your device</strong> in v1.</p>
       <p>Local durable storage may be encrypted on device where the app implements secure storage.</p>
 
       <h3>4. Account and cloud features (when enabled in a production build)</h3>
+      <p>The current Android release does <strong>not</strong> require account sign-in. The following applies only when cloud features are enabled in a future or specially configured build.</p>
       <p>If a production build is configured with cloud credentials, the app may:</p>
       <ul>
         <li>Create an <strong>anonymous</strong> account (a random user ID; the app does not ask for email/password for this flow)</li>
@@ -167,71 +169,80 @@
       <h3>5. In-app AI helpers (when cloud is enabled)</h3>
       <p>If you use optional AI features (for example Safa / Emotion Oasis chat) in a cloud-enabled production build, the message text you send may be processed through our backend (Supabase Edge Functions) and AI providers solely to generate a reply.</p>
 
-      <h3>6. Purchases (when enabled in a production build)</h3>
-      <p>If Pro / billing is enabled in a production build, purchases are handled by <strong>Google Play Billing</strong> and <strong>RevenueCat</strong>.</p>
-      <p>We do <strong>not</strong> store your full payment card details in the Brain Clean app.</p>
+      <h3>6. Purchases and subscriptions</h3>
+      <p>Purchases and subscriptions are processed through <strong>Google Play Billing</strong> and <strong>RevenueCat</strong>.</p>
+      <p>RevenueCat may process purchase history and anonymous subscription entitlement identifiers to manage Pro access.</p>
+      <p>Brain Clean does <strong>not</strong> receive or store your full payment card details.</p>
 
-      <h3>7. What we do <strong>not</strong> collect in v1</h3>
+      <h3>7. Advertising</h3>
+      <p>The free version of Brain Clean may display <strong>banner advertisements</strong> through <strong>Google AdMob</strong>.</p>
+      <p><strong>Pro subscribers do not see ads.</strong></p>
+      <p>Google Mobile Ads may collect and share information such as your IP address (used to estimate approximate location), app interactions, diagnostic information, and device or account identifiers.</p>
+      <p>This information may be used for advertising, analytics, and for fraud prevention, security, and compliance purposes.</p>
+      <p>Brain Clean does <strong>not</strong> sell your personal information.</p>
+
+      <h3>8. What we do <strong>not</strong> collect in v1</h3>
       <ul>
-        <li><strong>No advertising SDKs</strong> in the current build — this app does <strong>not</strong> contain ads.</li>
         <li><strong>No</strong> Android Usage Access / installed-app usage / social-app usage-time collection in v1.</li>
         <li><strong>No</strong> collection of your name, email, or phone number through the anonymous auth flow described above.</li>
       </ul>
 
-      <h3>8. Notifications</h3>
+      <h3>9. Notifications</h3>
       <p>Reminders in this build are <strong>local notifications</strong> (scheduled on your device). They are not Firebase Cloud Messaging push in the current codebase.</p>
       <p>Notification content is generally fixed app copy (for example reminder text), not your private journal entries.</p>
 
-      <h3>9. Biometrics</h3>
+      <h3>10. Biometrics</h3>
       <p>Optional app lock may use your device biometric or screen-lock APIs (<code>local_auth</code>).</p>
       <p>Biometric templates stay on your device. Brain Clean does not upload fingerprint or face data.</p>
 
-      <h3>10. How we use information</h3>
+      <h3>11. How we use information</h3>
       <p>We use information to:</p>
       <ul>
         <li>Provide digital wellbeing and daily routine features</li>
         <li>Keep local progress working offline</li>
+        <li>Display banner ads to free users (Pro subscribers are ad-free)</li>
         <li>Optionally back up / sync selected data when cloud is enabled</li>
         <li>Verify XP events when cloud verification is enabled</li>
         <li>Process Pro entitlements when billing is enabled</li>
         <li>Generate AI replies only when you use those features</li>
       </ul>
 
-      <h3>11. Sharing</h3>
+      <h3>12. Sharing</h3>
       <p>We do <strong>not sell</strong> your personal information.</p>
-      <p>When cloud or billing is enabled in a production build, we use service providers needed to run the app, such as:</p>
+      <p>We use service providers needed to run the app, such as:</p>
       <ul>
-        <li><strong>Supabase</strong> (authentication, database, Edge Functions)</li>
+        <li><strong>Google Mobile Ads (AdMob)</strong> for banner advertising in the free version</li>
+        <li><strong>Supabase</strong> (authentication, database, Edge Functions) when cloud is enabled</li>
         <li><strong>AI providers</strong> reached via our Edge Functions when you use AI chat features</li>
         <li><strong>RevenueCat</strong> and <strong>Google Play</strong> for purchases / entitlements</li>
       </ul>
       <p>These parties process data as needed to provide those services — not for selling your data.</p>
 
-      <h3>12. Security</h3>
+      <h3>13. Security</h3>
       <ul>
         <li>Data sent over the network uses <strong>HTTPS</strong> (encrypted in transit).</li>
         <li>Local durable app data may be stored with encryption where implemented.</li>
       </ul>
       <p>No method of transmission or storage is 100% secure.</p>
 
-      <h3>13. Retention and deletion requests</h3>
+      <h3>14. Retention and deletion requests</h3>
       <ul>
-        <li><strong>Local data</strong> is typically removed when you clear app storage or uninstall the app.</li>
+        <li><strong>Local app data:</strong> you can delete it through <strong>Reset All Data</strong> in the app, by clearing app storage in Android settings, or by uninstalling the app.</li>
+        <li><strong>RevenueCat / subscription records:</strong> email <a href="mailto:brainclean.app@gmail.com"><strong>brainclean.app@gmail.com</strong></a> to request deletion of associated customer records. Please include your <strong>Support ID</strong> if available.</li>
         <li><strong>Cloud data</strong> (when cloud was enabled): email <a href="mailto:brainclean.app@gmail.com"><strong>brainclean.app@gmail.com</strong></a> and request deletion of your anonymous account / associated server records.</li>
       </ul>
-      <p>We will delete or anonymize associated server-side records within a reasonable period, subject to legal obligations and technical constraints.</p>
-      <p>Please include enough detail for us to identify the relevant anonymous account where possible (for example approximate install date or other non-sensitive context you can share).</p>
+      <p>We will process deletion requests in accordance with applicable law and technical constraints. Please include enough detail for us to identify the relevant records where possible.</p>
 
-      <h3>14. Children</h3>
+      <h3>15. Children</h3>
       <p>Brain Clean is not directed at children under 13 (or under the higher age required in your country). Do not use the app if you are under the applicable age.</p>
 
-      <h3>15. International users</h3>
+      <h3>16. International users</h3>
       <p>If you use cloud features, your information may be processed on servers in regions used by our service providers.</p>
 
-      <h3>16. Changes to this policy</h3>
+      <h3>17. Changes to this policy</h3>
       <p>We may update this policy. The “Last updated” date at the top will change when we do.</p>
 
-      <h3>17. Contact</h3>
+      <h3>18. Contact</h3>
       <p>For privacy questions or deletion requests: <a href="mailto:brainclean.app@gmail.com"><strong>brainclean.app@gmail.com</strong></a></p>
     </section>
 
@@ -257,10 +268,12 @@
         <li>بيانات نقاط XP / التقدّم</li>
         <li>تفضيل قفل التطبيق بالقياسات الحيوية (اختياري)</li>
       </ul>
+      <p><strong>إصدار Android الحالي</strong> <strong>لا</strong> يتطلب إنشاء حساب. التطبيق <strong>محلي أولًا</strong>: المذكرات، وسجل المزاج، وتقدّم البرنامج اليومي، وبيانات التعافي تبقى على جهازك ما لم تنص ميزة مستقبلية صراحة على غير ذلك.</p>
       <p>نصوص دفتر القلق والملاحظات الحرة مصمّمة لتبقى <strong>محلية على جهازك</strong> في الإصدار v1.</p>
       <p>قد يُشفَّر التخزين المحلي الدائم حيث يطبّق التطبيق التخزين الآمن.</p>
 
       <h3>4. الحساب والميزات السحابية (عند تفعيلها في نسخة الإنتاج)</h3>
+      <p>إصدار Android الحالي <strong>لا</strong> يتطلب تسجيل دخول. ما يلي ينطبق فقط عند تفعيل الميزات السحابية في نسخة مستقبلية أو مُعدّة خصيصًا.</p>
       <p>إذا تم ضبط نسخة الإنتاج بإعدادات سحابية صالحة، قد يقوم التطبيق بـ:</p>
       <ul>
         <li>إنشاء حساب <strong>مجهول</strong> (معرّف مستخدم عشوائي؛ التطبيق لا يطلب بريدًا/كلمة مرور في هذا المسار)</li>
@@ -280,76 +293,85 @@
       <h3>5. المساعدات الذكية داخل التطبيق (عند تفعيل السحابة)</h3>
       <p>إذا استخدمت ميزات الذكاء الاصطناعي الاختيارية (مثل صفا / دردشة واحة المشاعر) في نسخة إنتاج مفعَّلة سحابيًا، قد تُعالَج نصوص الرسائل التي ترسلها عبر خوادمنا (Supabase Edge Functions) ومزوّدي الذكاء الاصطناعي فقط لإنشاء الرد.</p>
 
-      <h3>6. المشتريات (عند تفعيلها في نسخة الإنتاج)</h3>
-      <p>إذا كان Pro / الفوترة مفعّلين في نسخة الإنتاج، تتم المشتريات عبر <strong>Google Play Billing</strong> و<strong>RevenueCat</strong>.</p>
-      <p>نحن <strong>لا</strong> نخزّن بيانات بطاقتك الكاملة داخل تطبيق Brain Clean.</p>
+      <h3>6. المشتريات والاشتراكات</h3>
+      <p>تتم المشتريات والاشتراكات عبر <strong>Google Play Billing</strong> و<strong>RevenueCat</strong>.</p>
+      <p>قد تعالج RevenueCat سجل المشتريات ومعرّفات صلاحيات الاشتراك المجهولة لإدارة وصول Pro.</p>
+      <p>Brain Clean <strong>لا</strong> يستلم و<strong>لا</strong> يخزّن بيانات بطاقتك الكاملة.</p>
 
-      <h3>7. ما لا نجمعه في v1</h3>
+      <h3>7. الإعلانات</h3>
+      <p>قد تعرض النسخة المجانية من Brain Clean <strong>إعلانات بانر</strong> عبر <strong>Google AdMob</strong>.</p>
+      <p><strong>مشتركو Pro لا يرون إعلانات.</strong></p>
+      <p>قد تجمع Google Mobile Ads وتشارك معلومات مثل عنوان IP (يُستخدم لتقدير الموقع التقريبي)، وتفاعلات التطبيق، ومعلومات تشخيصية، ومعرّفات الجهاز أو الحساب.</p>
+      <p>قد تُستخدم هذه المعلومات للإعلان والتحليلات ولمنع الاحتيال والأمان والامتثال.</p>
+      <p>Brain Clean <strong>لا</strong> يبيع معلوماتك الشخصية.</p>
+
+      <h3>8. ما لا نجمعه في v1</h3>
       <ul>
-        <li><strong>لا</strong> توجد حزم إعلانات في البناء الحالي — التطبيق <strong>لا</strong> يحتوي على إعلانات.</li>
         <li><strong>لا</strong> جمع لإحصاءات استخدام التطبيقات / صلاحية Usage Access / وقت تطبيقات التواصل في v1.</li>
         <li><strong>لا</strong> جمع لاسمك أو بريدك أو رقم هاتفك عبر مسار المصادقة المجهولة الموضّح أعلاه.</li>
       </ul>
 
-      <h3>8. الإشعارات</h3>
+      <h3>9. الإشعارات</h3>
       <p>التذكيرات في هذا البناء <strong>إشعارات محلية</strong> (تُجدوَل على جهازك)، وليست رسائل Firebase Cloud Messaging في الكود الحالي.</p>
       <p>محتوى الإشعار عادةً نصوص ثابتة من التطبيق، وليس محتويات مذكراتك الخاصة.</p>
 
-      <h3>9. القياسات الحيوية</h3>
+      <h3>10. القياسات الحيوية</h3>
       <p>قد يستخدم قفل التطبيق الاختياري واجهات الجهاز للقياسات الحيوية أو قفل الشاشة.</p>
       <p>قوالب القياسات الحيوية تبقى على جهازك. Brain Clean لا يرفع بيانات البصمة أو الوجه.</p>
 
-      <h3>10. كيف نستخدم المعلومات</h3>
+      <h3>11. كيف نستخدم المعلومات</h3>
       <p>نستخدم المعلومات من أجل:</p>
       <ul>
         <li>تقديم ميزات العافية الرقمية والروتين اليومي</li>
         <li>استمرار التقدّم المحلي دون اتصال</li>
+        <li>عرض إعلانات البانر للمستخدمين المجانيين (مشتركو Pro بلا إعلانات)</li>
         <li>النسخ الاحتياطي / المزامنة الاختيارية عند تفعيل السحابة</li>
         <li>التحقق من أحداث XP عند تفعيل التحقق السحابي</li>
         <li>معالجة صلاحيات Pro عند تفعيل الفوترة</li>
         <li>إنشاء ردود الذكاء الاصطناعي فقط عند استخدامك لهذه الميزات</li>
       </ul>
 
-      <h3>11. المشاركة</h3>
+      <h3>12. المشاركة</h3>
       <p>نحن <strong>لا نبيع</strong> معلوماتك الشخصية.</p>
-      <p>عند تفعيل السحابة أو الفوترة في نسخة الإنتاج، نستخدم مزوّدي خدمة ضروريين لتشغيل التطبيق، مثل:</p>
+      <p>نستخدم مزوّدي خدمة ضروريين لتشغيل التطبيق، مثل:</p>
       <ul>
-        <li><strong>Supabase</strong> (المصادقة، قاعدة البيانات، Edge Functions)</li>
+        <li><strong>Google Mobile Ads (AdMob)</strong> لإعلانات البانر في النسخة المجانية</li>
+        <li><strong>Supabase</strong> (المصادقة، قاعدة البيانات، Edge Functions) عند تفعيل السحابة</li>
         <li><strong>مزوّدو الذكاء الاصطناعي</strong> عبر Edge Functions عند استخدام الدردشة الذكية</li>
         <li><strong>RevenueCat</strong> و<strong>Google Play</strong> للمشتريات / الصلاحيات</li>
       </ul>
       <p>يعالج هؤلاء الأطراف البيانات بالقدر اللازم لتقديم الخدمة — وليس لبيع بياناتك.</p>
 
-      <h3>12. الأمان</h3>
+      <h3>13. الأمان</h3>
       <ul>
         <li>البيانات عبر الشبكة تستخدم <strong>HTTPS</strong> (تشفير أثناء النقل).</li>
         <li>قد تُشفَّر بيانات التطبيق المحلية الدائمة حيث يُنفَّذ ذلك.</li>
       </ul>
       <p>لا توجد طريقة نقل أو تخزين آمنة بنسبة 100%.</p>
 
-      <h3>13. الاحتفاظ وطلب الحذف</h3>
+      <h3>14. الاحتفاظ وطلب الحذف</h3>
       <ul>
-        <li><strong>البيانات المحلية</strong> تُزال عادةً عند مسح بيانات التطبيق أو إلغاء التثبيت.</li>
+        <li><strong>بيانات التطبيق المحلية:</strong> يمكنك حذفها عبر <strong>إعادة ضبط جميع البيانات</strong> في التطبيق، أو مسح بيانات التطبيق من إعدادات Android، أو إلغاء التثبيت.</li>
+        <li><strong>سجلات RevenueCat / الاشتراك:</strong> راسل <a href="mailto:brainclean.app@gmail.com"><strong>brainclean.app@gmail.com</strong></a> لطلب حذف السجلات المرتبطة. يُرجى تضمين <strong>معرّف الدعم (Support ID)</strong> إن وُجد.</li>
         <li><strong>البيانات السحابية</strong> (إن وُجدت): راسل <a href="mailto:brainclean.app@gmail.com"><strong>brainclean.app@gmail.com</strong></a> واطلب حذف حسابك المجهول / السجلات المرتبطة على الخادم.</li>
       </ul>
-      <p>سنحذف أو نُجهّل السجلات المرتبطة على الخادم خلال مدة معقولة، مع مراعاة الالتزامات القانونية والقيود التقنية.</p>
-      <p>يُفضَّل تضمين تفاصيل تساعد على تحديد الحساب المجهول عند الإمكان (مثل تاريخ تقريبي للتثبيت أو سياق غير حسّاس يمكنك مشاركته).</p>
+      <p>سنعالج طلبات الحذف وفق القانون المعمول به والقيود التقنية. يُفضَّل تضمين تفاصيل تساعد على تحديد السجلات ذات الصلة عند الإمكان.</p>
 
-      <h3>14. الأطفال</h3>
+      <h3>15. الأطفال</h3>
       <p>التطبيق غير موجّه لمن هم دون 13 عامًا (أو دون السن الأعلى المطلوب في بلدك). لا تستخدم التطبيق إن كنت دون السن المعمول به.</p>
 
-      <h3>15. المستخدمون الدوليون</h3>
+      <h3>16. المستخدمون الدوليون</h3>
       <p>عند استخدام الميزات السحابية، قد تُعالَج معلوماتك على خوادم في مناطق يستخدمها مزوّدو الخدمة.</p>
 
-      <h3>16. تغييرات السياسة</h3>
+      <h3>17. تغييرات السياسة</h3>
       <p>قد نحدّث هذه السياسة. سيتغيّر تاريخ «آخر تحديث» في الأعلى عند ذلك.</p>
 
-      <h3>17. التواصل</h3>
+      <h3>18. التواصل</h3>
       <p>لأسئلة الخصوصية أو طلبات الحذف: <a href="mailto:brainclean.app@gmail.com"><strong>brainclean.app@gmail.com</strong></a></p>
     </section>
 
     <footer>
-      Brain Clean · Privacy Policy · 25 July 2026
+      Brain Clean · Privacy Policy · 28 July 2026
     </footer>
   </div>
 </body>
