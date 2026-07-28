@@ -877,6 +877,7 @@
   "safaOasisButton": "واحة المشاعر",
   "safaTrialExpiredMessage": "خلصت فترة تجربة صفا المجانية — كمّلي معاها بالاشتراك في Pro",
   "safaMedicalDisclaimer": "صفا مساعد دعم ذاتي بالذكاء الاصطناعي، وليس بديلًا عن مختص. لو شعرت أن الموضوع أكبر من قدرتك، اطلب دعمًا من شخص مؤهل.",
+  "safaTemporarilyUnavailable": "صفا غير متاحة مؤقتًا. تحقق من اتصالك وحاول مرة أخرى بعد قليل.",
   "journeyTabTitle": "رحلتي",
   "journeyCardBciTitle": "مؤشر صفاء الدماغ BCI",
   "journeyCardDiagnosticTitle": "فحص التركيز",

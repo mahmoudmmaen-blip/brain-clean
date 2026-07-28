@@ -35,6 +35,17 @@ if ($defines.Count -eq 0) {
   Write-Host ("Passing {0} dart-define(s) (values not printed)." -f $defines.Count)
 }
 
+$hasSupabaseUrl = -not [string]::IsNullOrWhiteSpace(
+  [Environment]::GetEnvironmentVariable('SUPABASE_URL'))
+$hasSupabaseAnon = -not [string]::IsNullOrWhiteSpace(
+  [Environment]::GetEnvironmentVariable('SUPABASE_ANON_KEY'))
+if (-not ($hasSupabaseUrl -and $hasSupabaseAnon)) {
+  Write-Warning (
+    'SUPABASE_URL and/or SUPABASE_ANON_KEY missing — Safa chat (safa-chat) ' +
+    'will be unavailable in this release build. Set both env vars before building.'
+  )
+}
+
 & flutter build appbundle --release @defines
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 

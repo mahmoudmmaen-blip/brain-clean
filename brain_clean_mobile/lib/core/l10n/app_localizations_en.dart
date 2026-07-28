@@ -1733,6 +1733,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Safa is an AI self-support companion, not a replacement for a qualified professional. If things feel bigger than you can handle, seek support from a qualified person.';
 
   @override
+  String get safaTemporarilyUnavailable =>
+      'Safa is temporarily unavailable. Check your connection and try again shortly.';
+
+  @override
   String get journeyTabTitle => 'My Journey';
 
   @override

@@ -3206,6 +3206,12 @@ abstract class AppLocalizations {
   /// **'Safa is an AI self-support companion, not a replacement for a qualified professional. If things feel bigger than you can handle, seek support from a qualified person.'**
   String get safaMedicalDisclaimer;
 
+  /// No description provided for @safaTemporarilyUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Safa is temporarily unavailable. Check your connection and try again shortly.'**
+  String get safaTemporarilyUnavailable;
+
   /// No description provided for @journeyTabTitle.
   ///
   /// In en, this message translates to:

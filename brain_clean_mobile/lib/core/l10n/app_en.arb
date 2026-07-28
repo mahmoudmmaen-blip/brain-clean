@@ -737,6 +737,7 @@
   "safaOasisButton": "Emotion Oasis",
   "safaTrialExpiredMessage": "Your free Safa trial has ended — continue with her by subscribing to Pro",
   "safaMedicalDisclaimer": "Safa is an AI self-support companion, not a replacement for a qualified professional. If things feel bigger than you can handle, seek support from a qualified person.",
+  "safaTemporarilyUnavailable": "Safa is temporarily unavailable. Check your connection and try again shortly.",
   "journeyTabTitle": "My Journey",
   "journeyCardBciTitle": "Brain Clarity Index (BCI)",
   "journeyCardDiagnosticTitle": "Focus Check",

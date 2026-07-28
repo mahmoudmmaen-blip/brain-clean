@@ -15,9 +15,6 @@ class EmotionOasisScreen extends ConsumerStatefulWidget {
 }
 
 class _EmotionOasisScreenState extends ConsumerState<EmotionOasisScreen> {
-  static const _claudeFallback =
-      'أنا هنا معاكي — جرّب تاني بعد شوية 🌿';
-
   final TextEditingController _controller = TextEditingController();
   String _response = '';
   bool _isLoading = false;
@@ -40,13 +37,16 @@ class _EmotionOasisScreenState extends ConsumerState<EmotionOasisScreen> {
 
     FocusScope.of(context).unfocus();
 
+    final loc = AppLocalizations.of(context)!;
     final service = ref.read(claudeAiServiceProvider);
-    final result = await service.chat(_controller.text.trim());
+    final outcome = await service.send(_controller.text.trim());
 
     if (!mounted) return;
 
     setState(() {
-      _response = result ?? _claudeFallback;
+      _response = outcome.isSuccess
+          ? outcome.reply!
+          : loc.safaTemporarilyUnavailable;
       _isLoading = false;
     });
   }

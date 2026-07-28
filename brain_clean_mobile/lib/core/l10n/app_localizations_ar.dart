@@ -1715,6 +1715,10 @@ class AppLocalizationsAr extends AppLocalizations {
       'صفا مساعد دعم ذاتي بالذكاء الاصطناعي، وليس بديلًا عن مختص. لو شعرت أن الموضوع أكبر من قدرتك، اطلب دعمًا من شخص مؤهل.';
 
   @override
+  String get safaTemporarilyUnavailable =>
+      'صفا غير متاحة مؤقتًا. تحقق من اتصالك وحاول مرة أخرى بعد قليل.';
+
+  @override
   String get journeyTabTitle => 'رحلتي';
 
   @override
