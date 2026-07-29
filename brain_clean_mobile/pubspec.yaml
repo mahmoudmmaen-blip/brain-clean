@@ -1,8 +1,7 @@
-name: brain_clean_mobile
-description: "A neuro-scientific digital detox mobile app — Brain Clean."
+﻿name: brain_clean_mobile
+description: "A neuro-scientific digital detox mobile app â€” Brain Clean."
 publish_to: 'none'
-version: 1.2.2+15
-
+version: 1.2.3+16
 environment:
   sdk: '>=3.0.0 <4.0.0'
 
@@ -83,3 +82,4 @@ flutter:
     - assets/sounds/forest.mp3
     - assets/sounds/white_noise.mp3
     - assets/sounds/brown_noise.mp3
+

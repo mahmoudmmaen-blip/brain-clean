@@ -1,4 +1,4 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+﻿import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Runtime configuration.
 ///
@@ -11,9 +11,9 @@ abstract final class AppConfig {
   /// Displayed app version for Settings / More.
   ///
   /// MUST be bumped together with `pubspec.yaml` `version:` (name before `+`).
-  /// Example: pubspec `1.2.2+15` → `appVersion = '1.2.2'`.
-  /// Do not add `package_info` — keep this constant as the single UI source.
-  static const String appVersion = '1.2.2';
+  /// Example: pubspec `1.2.2+15` â†’ `appVersion = '1.2.3'`.
+  /// Do not add `package_info` â€” keep this constant as the single UI source.
+  static const String appVersion = '1.2.3';
 
   static String get supabaseUrl => _resolve(
         defineValue: const String.fromEnvironment('SUPABASE_URL'),
@@ -50,7 +50,7 @@ abstract final class AppConfig {
   /// Set after anonymous Supabase sign-in (XP sync / Edge Functions).
   static String? supabaseUserId;
 
-  /// Returns [defineValue] when set; otherwise dotenv; placeholders → `''`.
+  /// Returns [defineValue] when set; otherwise dotenv; placeholders â†’ `''`.
   static String _resolve({
     required String defineValue,
     required String envKey,
@@ -70,7 +70,7 @@ abstract final class AppConfig {
 
   /// Detects documentation / example placeholder credentials.
   ///
-  /// Does not log or return the original secret — callers only see a bool.
+  /// Does not log or return the original secret â€” callers only see a bool.
   static bool isPlaceholderConfigValue(String value) {
     final v = value.trim().toLowerCase();
     if (v.isEmpty) return false;
@@ -100,6 +100,7 @@ abstract final class AppConfig {
   static String configPresenceLabel(String value) {
     if (value.isEmpty) return 'missing';
     if (value.length <= 4) return 'set(len=${value.length})';
-    return 'set(len=${value.length},prefix=${value.substring(0, 4)}…)';
+    return 'set(len=${value.length},prefix=${value.substring(0, 4)}â€¦)';
   }
 }
+
