@@ -68,15 +68,15 @@ abstract final class BrainRotTest {
 
   /// Band 3–5 — Dr. Moneam protocol.
   static const String labelModerateAr =
-      'بداية تعفن دماغ وبعض التأثير على الحياة اليومية';
+      'بداية تشويش ذهني مع بعض التأثير على اليوم';
 
   /// Band 6–8 — Dr. Moneam protocol.
   static const String labelSevereAr =
-      'تعفن دماغ واضح يؤثر على التركيز والإنتاجية';
+      'تشويش ذهني واضح يؤثر على التركيز والإنتاجية';
 
   /// Band 9–10 — Dr. Moneam protocol.
   static const String labelCriticalAr =
-      'تعفن دماغ شديد ينصح بمراجعة طبيب أو مختص';
+      'تشويش ذهني شديد — خفّف الشاشات واهتم براحتك اليومية';
 
   /// All four Arabic interpretation bands — single source of truth for UI/tests.
   static const Map<InterpretationBand, String> interpretationLabelsAr = {

@@ -1,7 +1,19 @@
+import 'dart:io';
+
 import 'package:brain_clean_mobile/core/config/app_config.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  group('AppConfig.appVersion', () {
+    test('matches pubspec.yaml version name (before +build)', () {
+      final pubspec = File('pubspec.yaml').readAsStringSync();
+      final match =
+          RegExp(r'^version:\s*([^\s+]+)', multiLine: true).firstMatch(pubspec);
+      expect(match, isNotNull);
+      expect(AppConfig.appVersion, match!.group(1));
+    });
+  });
+
   group('AppConfig.isPlaceholderConfigValue', () {
     test('detects common documentation placeholders', () {
       expect(
@@ -65,8 +77,6 @@ void main() {
 
   group('AppConfig without dart-defines', () {
     test('Supabase and RevenueCat look invalid when only placeholders exist', () {
-      // Test process has no --dart-define secrets; dotenv may load example
-      // placeholders which AppConfig must treat as empty/invalid.
       expect(AppConfig.hasValidSupabaseConfig, isFalse);
       expect(AppConfig.hasValidRevenueCatApiKey, isFalse);
       expect(AppConfig.supabaseUrl, isEmpty);

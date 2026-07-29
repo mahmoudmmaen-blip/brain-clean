@@ -5,6 +5,7 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+import java.util.Base64
 import java.util.Properties
 import java.io.FileInputStream
 
@@ -22,6 +23,50 @@ val canSignRelease = keystorePropertiesFile.exists()
     && !keystoreProperties.getProperty("storePassword").isNullOrBlank()
     && releaseStoreFile != null
     && releaseStoreFile.exists()
+
+/** Google sample Android AdMob App ID (safe default for debug / missing config). */
+val googleTestAdmobAppId = "ca-app-pub-3940256099942544~3347511713"
+
+/**
+ * Reads Flutter `--dart-define=KEY=VALUE` entries passed as `-Pdart-defines`
+ * (comma-separated Base64 payloads of `KEY=VALUE`).
+ */
+fun dartDefinesMap(): Map<String, String> {
+    val raw = project.findProperty("dart-defines") as? String ?: return emptyMap()
+    if (raw.isBlank()) return emptyMap()
+    return raw.split(",")
+        .mapNotNull { token ->
+            val trimmed = token.trim()
+            if (trimmed.isEmpty()) return@mapNotNull null
+            try {
+                val decoded = String(Base64.getDecoder().decode(trimmed), Charsets.UTF_8)
+                val idx = decoded.indexOf('=')
+                if (idx <= 0) null
+                else decoded.substring(0, idx) to decoded.substring(idx + 1)
+            } catch (_: IllegalArgumentException) {
+                null
+            }
+        }
+        .toMap()
+}
+
+fun resolveAdmobAndroidAppId(): String {
+    val fromDart = dartDefinesMap()["ADMOB_ANDROID_APP_ID"]?.trim().orEmpty()
+    val fromProp = (project.findProperty("ADMOB_ANDROID_APP_ID") as? String)?.trim().orEmpty()
+    val candidate = when {
+        fromDart.isNotEmpty() -> fromDart
+        fromProp.isNotEmpty() -> fromProp
+        else -> ""
+    }
+    // Ignore empty / documentation placeholders — never bake fake IDs into the APK.
+    if (candidate.isEmpty()) return googleTestAdmobAppId
+    if (candidate.contains("xxxxxxxx", ignoreCase = true)) return googleTestAdmobAppId
+    if (candidate.contains("your_", ignoreCase = true)) return googleTestAdmobAppId
+    if (!candidate.startsWith("ca-app-pub-")) return googleTestAdmobAppId
+    return candidate
+}
+
+val admobAndroidAppId = resolveAdmobAndroidAppId()
 
 android {
     namespace = "com.brainclean.mobile"
@@ -45,6 +90,8 @@ android {
         versionCode = flutter.versionCode
         versionName = flutter.versionName
         multiDexEnabled = true
+        // Injected into AndroidManifest meta-data APPLICATION_ID.
+        manifestPlaceholders["admobAppId"] = admobAndroidAppId
     }
 
     signingConfigs {

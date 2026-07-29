@@ -15,6 +15,7 @@ import '../daily_program/domain/daily_step_status.dart';
 import '../diagnostic/presentation/bc_score_provider.dart';
 import '../gamification/data/xp_ledger_constants.dart';
 import '../gamification/domain/xp_source.dart';
+import '../pro/application/subscription_service_provider.dart';
 
 const silenceCountdownKey = Key('silence_countdown');
 const silenceLevelLabelKey = Key('silence_level_label');
@@ -32,6 +33,8 @@ class SilenceChallengeScreen extends ConsumerStatefulWidget {
   final int streakDays;
 
   static const durationOptionsMinutes = <int>[5, 10, 15, 20, 30, 45, 60];
+  static const freeDurationOptionsMinutes = <int>[5, 10, 15, 20];
+  static const proOnlyDurationOptionsMinutes = <int>[30, 45, 60];
   static const defaultDurationMinutes = 10;
 
   static int computeLevel(int streakDays) =>
@@ -72,9 +75,15 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
     });
   }
 
-  void _selectDuration(int minutes) {
+  void _selectDuration(int minutes, {required bool isPro}) {
     if (_running || _failed || _completed) return;
     if (!SilenceChallengeScreen.durationOptionsMinutes.contains(minutes)) {
+      return;
+    }
+    final isProOnly =
+        SilenceChallengeScreen.proOnlyDurationOptionsMinutes.contains(minutes);
+    if (isProOnly && !isPro) {
+      context.push(AppRoutes.proPaywall);
       return;
     }
     setState(() {
@@ -264,6 +273,7 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
     final cs = Theme.of(context).colorScheme;
     final dividerColor = Theme.of(context).dividerColor;
     final canEditDuration = !_running && !_failed && !_completed;
+    final isPro = ref.watch(isProUserProvider);
 
     return PopScope(
       onPopInvokedWithResult: (didPop, _) {
@@ -328,11 +338,17 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
                           in SilenceChallengeScreen.durationOptionsMinutes)
                         ChoiceChip(
                           label: Text(
-                            loc.silenceChallengeDurationOption(minutes),
+                            SilenceChallengeScreen
+                                        .proOnlyDurationOptionsMinutes
+                                        .contains(minutes) &&
+                                    !isPro
+                                ? '${loc.silenceChallengeDurationOption(minutes)} ★'
+                                : loc.silenceChallengeDurationOption(minutes),
                           ),
                           selected: _targetMinutes == minutes,
                           onSelected: canEditDuration
-                              ? (_) => _selectDuration(minutes)
+                              ? (_) =>
+                                  _selectDuration(minutes, isPro: isPro)
                               : null,
                           selectedColor: cs.primary.withValues(alpha: 0.2),
                           labelStyle: TextStyle(
@@ -349,6 +365,17 @@ class _SilenceChallengeScreenState extends ConsumerState<SilenceChallengeScreen>
                         ),
                     ],
                   ),
+                  if (!isPro) ...[
+                    const SizedBox(height: 8),
+                    Text(
+                      loc.silenceDurationProLocked,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: cs.onSurfaceVariant,
+                      ),
+                    ),
+                  ],
                   const Spacer(),
                   SizedBox(
                     width: 220,

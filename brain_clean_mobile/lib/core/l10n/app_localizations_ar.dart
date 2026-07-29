@@ -9,23 +9,23 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get dashboardTitle => 'درجة التشخيص (BC Score)';
+  String get dashboardTitle => 'مؤشر الصفاء';
 
   @override
   String get dashboardEmptyDiagnosticPrompt =>
-      'أكمل التشخيص لعرض نقاط BC_score.';
+      'أكمل فحص التركيز لعرض مؤشر الصفاء.';
 
   @override
-  String get dashboardEmptyTitle => 'ابدأ رحلتك!';
+  String get dashboardEmptyTitle => 'رحلتك تبدأ من هنا';
 
   @override
-  String get dashboardEmptySubtitle => 'أجرِ اختبار BCI الأول لترى تقدمك هنا';
+  String get dashboardEmptySubtitle => 'مع البرنامج اليومي سيظهر تقدّمك هنا';
 
   @override
-  String get dashboardEmptyCta => 'ابدأ الاختبار';
+  String get dashboardEmptyCta => 'ابدأ الفحص القصير';
 
   @override
-  String get dashboardRetakeDiagnostic => 'إعادة التشخيص';
+  String get dashboardRetakeDiagnostic => 'إعادة فحص التركيز';
 
   @override
   String get dashboardOpenDetoxCheckIn => 'تسجيل بروتوكول الديتوكس (7 أيام)';
@@ -40,7 +40,7 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get diagnosticTitle => 'اختبار التشخيص (6 نقاط)';
+  String get diagnosticTitle => 'مؤشر الصفاء';
 
   @override
   String get diagnosticLiveSubtitle => 'مباشر · يتغير مع كل تعديل';
@@ -92,7 +92,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get bcScoreLabel => 'BC_score';
 
   @override
-  String get accountabilityAdjustment => 'بند المساءلة السريرية';
+  String get accountabilityAdjustment => 'ملاحظة المساءلة';
 
   @override
   String get bhiScoreLabel => 'مؤشر BHI الأساسي';
@@ -155,16 +155,17 @@ class AppLocalizationsAr extends AppLocalizations {
   String get detoxRetry => 'إعادة المحاولة';
 
   @override
-  String get detoxSyncing => 'جارٍ المزامنة…';
+  String get detoxSyncing => 'جارٍ الحفظ…';
 
   @override
-  String get detoxSyncError => 'تعذرت المزامنة. تم حفظ تسجيلك محليًا.';
+  String get detoxSyncError =>
+      'تعذّر إكمال الحفظ. تسجيلك محفوظ على هذا الجهاز.';
 
   @override
-  String get diagnosticBrainRotTitle => 'اختبار تعفن الدماغ';
+  String get diagnosticBrainRotTitle => 'فحص التركيز';
 
   @override
-  String get diagnosticBhiTitle => 'تقييم BHI (6 نقاط)';
+  String get diagnosticBhiTitle => 'تقييم العادات الرقمية';
 
   @override
   String get diagnosticYes => 'نعم';
@@ -181,7 +182,7 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get diagnosticBrainRotScoreTitle => 'نتيجة تعفن الدماغ';
+  String get diagnosticBrainRotScoreTitle => 'مؤشر الصفاء';
 
   @override
   String diagnosticBrainRotScoreOutOf(int max) {
@@ -194,10 +195,10 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get diagnosticBrainRotInterpretationTitle => 'التفسير السريري';
+  String get diagnosticBrainRotInterpretationTitle => 'ماذا تقول إجاباتك';
 
   @override
-  String get diagnosticContinueToBhi => 'متابعة تقييم BHI';
+  String get diagnosticContinueToBhi => 'متابعة تقييم العادات الرقمية';
 
   @override
   String get diagnosticReviewAnswers => 'مراجعة إجاباتي';
@@ -206,10 +207,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get diagnosticBrainRotIncomplete => 'أكمل الأسئلة العشرة أولاً.';
 
   @override
-  String get diagnosticBrainRotScoring => 'جاري حساب نتيجة تعفن الدماغ…';
+  String get diagnosticBrainRotScoring => 'جارٍ حساب نتيجتك…';
 
   @override
-  String get diagnosticSyncError => 'تعذر حفظ التشخيص. حاول مرة أخرى.';
+  String get diagnosticSyncError => 'تعذر حفظ فحص التركيز. حاول مرة أخرى.';
 
   @override
   String get diagnosticBrainRotQ1 =>
@@ -253,7 +254,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String dashboardBrainRotSummary(int score) {
-    return 'تعفن الدماغ: $score/10';
+    return 'مؤشر الصفاء: $score/10';
   }
 
   @override
@@ -270,14 +271,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get splashHydrationRetry => 'جارٍ استعادة تقدمك…';
 
   @override
-  String get splashInitError => 'حدث خطأ أثناء التحميل. أعد تشغيل التطبيق.';
+  String get splashInitError => 'تعذر إكمال التحميل. أعد فتح التطبيق من فضلك.';
 
   @override
   String get homeTitle => 'الرئيسية — Brain Clean';
 
   @override
   String get homeEmptyDiagnosticPrompt =>
-      'أكمل التشخيص لتفعيل متتبع BC_score المباشر.';
+      'أكمل فحص التركيز لتفعيل متتبع الصفاء المباشر.';
 
   @override
   String get homeChallengeProgressTitle => 'تحدي التعافي — 30 يوماً';
@@ -288,10 +289,10 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get homeOpenDiagnostic => 'التشخيص السريري';
+  String get homeOpenDiagnostic => 'فحص وضوح قصير';
 
   @override
-  String get homeOpenDiagnosticSubtitle => 'استبيان تعفن الدماغ + مقاييس BHI';
+  String get homeOpenDiagnosticSubtitle => 'استبيان قصير + مقاييس التركيز';
 
   @override
   String get homeOpenCognitiveHub => 'التقييمات المعرفية';
@@ -389,14 +390,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get cognitivePlaceholderBody =>
-      'هذه الوحدة مُهيّأة لمحرك تقييم BHI الموحّد. أكمل التشغيل التجريبي للتحقق من المسار.';
+      'فحص التركيز جاهز عندما تكون مستعداً. جرّب جولة قصيرة لترى الإحساس.';
 
   @override
-  String get cognitivePlaceholderComplete => 'تسجيل نتيجة تجريبية';
+  String get cognitivePlaceholderComplete => 'احفظ نتيجة هذه الممارسة';
 
   @override
   String cognitivePlaceholderRecorded(int score) {
-    return 'تم تسجيل نتيجة تجريبية: $score%';
+    return 'تم حفظ نتيجة الممارسة: $score%';
   }
 
   @override
@@ -525,7 +526,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get recoveryStorageRecoveredNotice =>
-      'تم إعادة ضبط البيانات المحلية لأنها لم تُقرأ بشكل صحيح. بدأ بروتوكول جديد.';
+      'احتاجت البيانات المحلية لبداية جديدة. تقدّمك يبدأ من اليوم.';
 
   @override
   String get homeStreakDays => 'أيام';
@@ -634,7 +635,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get accountabilityPenMental4 => 'تفويت فحص ذهني';
 
   @override
-  String get accountabilityPenMental5 => 'إدمان شاشة متصاعد';
+  String get accountabilityPenMental5 => 'يوم شاشات ثقيل';
 
   @override
   String get breathingInhale => 'استنشق...';
@@ -672,28 +673,30 @@ class AppLocalizationsAr extends AppLocalizations {
   String get onboardingPage1Title => 'مرحباً بك في Brain Clean';
 
   @override
-  String get onboardingPage1Body => 'استعد وعيك الرقمي في 21 يوماً';
+  String get onboardingPage1Body => 'ابنِ هدوءاً رقمياً يوماً بعد يوم';
 
   @override
-  String get onboardingPage2Title => 'تتبع تركيزك يومياً';
+  String get onboardingPage2Title => 'برنامجك اليومي';
 
   @override
-  String get onboardingPage2Body => 'معادلات علمية حقيقية لقياس صحة دماغك';
+  String get onboardingPage2Body =>
+      'كل يوم: تهيئة، تركيز، تأمّل، إكمال، وراحة — برفق';
 
   @override
   String get onboardingPage3Title => 'ابدأ رحلتك الآن';
 
   @override
-  String get onboardingPage3Body => 'أجب على 10 أسئلة لتحديد مستوى تعفن دماغك';
+  String get onboardingPage3Body =>
+      'فحص قصير أولاً — ثم البرنامج اليومي يرافقك كل يوم';
 
   @override
-  String get onboardingStartQuiz => 'ابدأ التقييم';
+  String get onboardingStartQuiz => 'متابعة';
 
   @override
   String get proPaywallTitle => 'Brain Clean Pro';
 
   @override
-  String get proPaywallSubtitle => 'افتح كامل قدرات عقلك';
+  String get proPaywallSubtitle => 'افتح مزايا Pro الهادئة';
 
   @override
   String get proFeatureAdvancedBcs => 'محرك Brain Clarity Score المتقدم';
@@ -702,13 +705,25 @@ class AppLocalizationsAr extends AppLocalizations {
   String get proFeatureSevenDayChart => 'مخطط التقدم 7 أيام';
 
   @override
-  String get proFeatureEmotionWheel => 'دائرة الأحاسيس والتأثير على التعافي';
+  String get proFeatureEmotionWheel => 'رؤى أعمق عن المشاعر والعادات';
 
   @override
-  String get proFeatureFocusChallenges => 'تحديات التركيز المتقدمة';
+  String get proFeatureFocusChallenges => 'جلسات سكون وتركيز أطول';
 
   @override
-  String get proFeatureCloudSync => 'مزامنة سحابية آمنة';
+  String get proFeatureAdvancedReports => 'رؤى صفاء متقدمة لـ 30 / 90 يوماً';
+
+  @override
+  String get proFeatureExportData => 'تصدير بياناتك المحلية';
+
+  @override
+  String get proFeatureCustomReminders => 'تذكيرات مخصّصة';
+
+  @override
+  String get proFeatureExtraQuotes => 'مكتبة اقتباسات يومية أوسع';
+
+  @override
+  String get proFeatureCloudSync => 'رؤى Pro إضافية';
 
   @override
   String get proFeatureColorThemes => '4 ثيمات ألوان حصرية لـ Pro';
@@ -717,7 +732,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get proWelcomeSnack => 'مرحباً بك في Pro! 🎉';
 
   @override
-  String get proPriceMonthly => '19 ريال سعودي / شهرياً';
+  String get proPriceMonthly => 'مزايا Pro اختيارية';
 
   @override
   String get proPriceHint => 'أقل من وجبة واحدة';
@@ -761,25 +776,41 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get proPlansUnavailable =>
-      'الباقات غير متاحة حالياً. حاول مرة أخرى لاحقاً.';
+      'الباقات غير متاحة الآن. جرّب لاحقًا أو استخدم الاستعادة إذا كنت مشتركًا.';
 
   @override
   String get paywallRetryLoad => 'إعادة المحاولة';
 
   @override
-  String get paywallLifetimeLabel => 'دفعة واحدة للأبد';
+  String get paywallLifetimeLabel => 'ادفع مرة واحدة واستمر للأبد';
 
   @override
   String get settingsTitle => 'الإعدادات';
 
   @override
-  String get settingsAccountSection => 'الحساب';
+  String get settingsAccountSection => 'الاشتراك';
 
   @override
   String get settingsProActive => 'Brain Clean Pro ✓';
 
   @override
   String get settingsUpgradeToPro => 'ترقية إلى Pro';
+
+  @override
+  String get settingsProCardTitle => 'Brain Clean Pro';
+
+  @override
+  String get settingsProStatusFree => 'مجاني';
+
+  @override
+  String get settingsProStatusPro => 'Pro';
+
+  @override
+  String get settingsProBenefitHint =>
+      'Pro يفتح مزايا إضافية بدون تغيير البرنامج اليومي الأساسي.';
+
+  @override
+  String get settingsRestorePurchases => 'استعادة المشتريات';
 
   @override
   String get settingsAppearanceSection => 'المظهر';
@@ -797,7 +828,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get colorThemeSolarName => 'شمسي';
 
   @override
-  String get colorThemeSlateName => 'إردوازي';
+  String get colorThemeSlateName => 'أردوازي';
 
   @override
   String get colorThemeDaylightName => 'ضوء النهار';
@@ -834,13 +865,39 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get settingsResetDataConfirmBody =>
-      'سيتم حذف جميع بياناتك المحلية. هل أنت متأكد؟';
+      'سيُمسح كل التقدم المحلي واليوميات والبرنامج اليومي والإعدادات على هذا الجهاز، وستبدأ من جديد. مفاتيح التشفير تُبقى. هل تريد المتابعة؟';
 
   @override
-  String get settingsExportData => 'تصدير بياناتي';
+  String get settingsExportData => 'تصدير البيانات — قريبًا';
+
+  @override
+  String get settingsExportDataPro => 'تصدير البيانات';
+
+  @override
+  String get settingsExportReadyBody => 'شارك ملخصاً محلياً لتقدّمك.';
+
+  @override
+  String get settingsExportShared => 'ملخص التقدّم المحلي جاهز للمشاركة.';
+
+  @override
+  String get settingsExportProOnly => 'التصدير ميزة Pro.';
 
   @override
   String get settingsComingSoon => 'قريباً...';
+
+  @override
+  String get settingsAdvancedInsightsTitle => 'رؤى 30 / 90 يوماً';
+
+  @override
+  String get settingsAdvancedInsightsLocked =>
+      'افتح رؤى الصفاء المتقدمة مع Pro.';
+
+  @override
+  String get settingsCustomRemindersLocked =>
+      'جداول التذكير المخصّصة تُفتح مع Pro.';
+
+  @override
+  String get silenceDurationProLocked => 'الجلسات الأطول تُفتح مع Pro.';
 
   @override
   String get settingsAboutSection => 'حول التطبيق';
@@ -852,7 +909,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settingsPrivacyPolicy => 'سياسة الخصوصية';
 
   @override
+  String get settingsPrivacyOptions => 'خيارات الخصوصية';
+
+  @override
   String get settingsContactUs => 'تواصل معنا';
+
+  @override
+  String get settingsLinkOpenFailed => 'تعذر فتح الرابط على هذا الجهاز.';
+
+  @override
+  String get settingsLocalModeHint => 'بياناتك محفوظة على هذا الجهاز.';
 
   @override
   String get emotionWheelTitle => 'عجلة المشاعر';
@@ -1066,7 +1132,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get profileRecentEmotions => 'أحاسيسك الأخيرة';
 
   @override
-  String get profileNoEmotionsYet => 'لم تسجل أي أحاسيس بعد';
+  String get profileNoEmotionsYet =>
+      'لم تسجّل أي مشاعر بعد — جرّب عجلة المشاعر عندما تكون مستعداً';
 
   @override
   String get profileAchievements => 'إنجازاتك';
@@ -1550,8 +1617,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get biometricFallbackPin => 'استخدم رمز PIN بدلاً من ذلك';
 
   @override
-  String get securityCompromisedBanner =>
-      'تحذير: الجهاز قد يكون معدّلاً. بياناتك محلية فقط — تم تعطيل المزامنة السحابية.';
+  String get securityCompromisedBanner => 'بياناتك محفوظة على هذا الجهاز.';
 
   @override
   String get emotionOasisTitle => 'واحة المشاعر — صفا';
@@ -1581,7 +1647,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get navTabMore => 'المزيد';
 
   @override
-  String get sosFabTooltip => 'طوارئ SOS';
+  String get sosFabTooltip => 'مساعدة سريعة';
 
   @override
   String get exercisesTabTitle => 'التمارين';
@@ -1646,7 +1712,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get safaMedicalDisclaimer =>
-      'صفا مساعدة دعم نفسي بالذكاء الاصطناعي، مش بديل عن استشارة طبيب أو معالج نفسي متخصص. لو حاسس إن الموضوع أكبر من كده، استشر مختص.';
+      'صفا مساعد دعم ذاتي بالذكاء الاصطناعي، وليس بديلًا عن مختص. لو شعرت أن الموضوع أكبر من قدرتك، اطلب دعمًا من شخص مؤهل.';
+
+  @override
+  String get safaTemporarilyUnavailable =>
+      'صفا غير متاحة مؤقتًا. تحقق من اتصالك وحاول مرة أخرى بعد قليل.';
 
   @override
   String get journeyTabTitle => 'رحلتي';
@@ -1655,7 +1725,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get journeyCardBciTitle => 'مؤشر صفاء الدماغ BCI';
 
   @override
-  String get journeyCardDiagnosticTitle => 'التشخيص';
+  String get journeyCardDiagnosticTitle => 'فحص التركيز';
 
   @override
   String get journeyCardWeeklyReportTitle => 'التقرير الأسبوعي';
@@ -1679,7 +1749,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get moreAccountability => 'شريك المتابعة';
 
   @override
-  String get moreVersion => 'الإصدار 1.0.0';
+  String moreVersion(String version) {
+    return 'الإصدار $version';
+  }
 
   @override
   String get homeGreetingMorning => 'صباح الخير ☀️';
@@ -1712,7 +1784,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get homeSafaMessage => 'فخورة بيك! كمّل كده 💚';
 
   @override
-  String get homeProFeature => 'رسوم بيانية + AI متقدّم';
+  String get homeProFeature => 'رؤى وتقارير أعمق';
 
   @override
   String get homeActivityExercise => 'تمرين';
@@ -1829,7 +1901,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get anxietyLoadError => 'تعذّر تحميل النتيجة.';
 
   @override
-  String get anxietyNoResultYet => 'لا توجد نتيجة بعد. ابدأ التشخيص أولاً.';
+  String get anxietyNoResultYet =>
+      'لا توجد نتيجة بعد. أكمل فحصاً قصيراً أولاً.';
 
   @override
   String get worryWindowTitle => 'نافذة القلق';
@@ -1901,7 +1974,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get worryTimingWarning =>
-      '⚠️ نافذة القلق تكون قبل النوم — اختار وقت أبكر.';
+      '⚠️ نافذة القلق تكون قبل النوم — اختر وقتاً أبكر.';
 
   @override
   String get worryNotifTitle => 'وقت نافذة القلق 🧠';
@@ -2005,7 +2078,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dailyChallengeSubtitleColorWord => 'تحدّ تركيزك البصري';
 
   @override
-  String get dailyChallengeSubtitleNumberMemory => 'قوّي ذاكرتك الرقمية';
+  String get dailyChallengeSubtitleNumberMemory => 'درّب انتباهك اليومي';
 
   @override
   String get dailyChallengeSubtitlePatternMatch => 'اشحذ تمييزك البصري';
@@ -2142,7 +2215,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dailyProgramDoneCta => 'تم ✅';
 
   @override
-  String get dailyProgramChooseMood => 'اختار مزاجك';
+  String get dailyProgramChooseMood => 'اختر مزاجك';
 
   @override
   String get dailyProgramOpenEmotionWheel => 'فتح عجلة المشاعر';

@@ -101,37 +101,37 @@ abstract class AppLocalizations {
   /// No description provided for @dashboardTitle.
   ///
   /// In en, this message translates to:
-  /// **'Diagnostic BC Score'**
+  /// **'Clarity Score'**
   String get dashboardTitle;
 
   /// No description provided for @dashboardEmptyDiagnosticPrompt.
   ///
   /// In en, this message translates to:
-  /// **'Complete the diagnostic to see your BC_score.'**
+  /// **'Complete a Focus Check to see your clarity score.'**
   String get dashboardEmptyDiagnosticPrompt;
 
   /// No description provided for @dashboardEmptyTitle.
   ///
   /// In en, this message translates to:
-  /// **'Start your journey!'**
+  /// **'Your journey starts here'**
   String get dashboardEmptyTitle;
 
   /// No description provided for @dashboardEmptySubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Take your first BCI test to see your progress here'**
+  /// **'As you follow your Daily Program, progress will show here'**
   String get dashboardEmptySubtitle;
 
   /// No description provided for @dashboardEmptyCta.
   ///
   /// In en, this message translates to:
-  /// **'Start Test'**
+  /// **'Start check-in'**
   String get dashboardEmptyCta;
 
   /// No description provided for @dashboardRetakeDiagnostic.
   ///
   /// In en, this message translates to:
-  /// **'Retake Diagnostic'**
+  /// **'Retake Focus Check'**
   String get dashboardRetakeDiagnostic;
 
   /// No description provided for @dashboardOpenDetoxCheckIn.
@@ -155,7 +155,7 @@ abstract class AppLocalizations {
   /// No description provided for @diagnosticTitle.
   ///
   /// In en, this message translates to:
-  /// **'Diagnostic 6-Point Test'**
+  /// **'Clarity Check'**
   String get diagnosticTitle;
 
   /// No description provided for @diagnosticLiveSubtitle.
@@ -257,7 +257,7 @@ abstract class AppLocalizations {
   /// No description provided for @accountabilityAdjustment.
   ///
   /// In en, this message translates to:
-  /// **'ACCOUNTABILITY ADJUSTMENT'**
+  /// **'Accountability note'**
   String get accountabilityAdjustment;
 
   /// No description provided for @bhiScoreLabel.
@@ -371,25 +371,25 @@ abstract class AppLocalizations {
   /// No description provided for @detoxSyncing.
   ///
   /// In en, this message translates to:
-  /// **'Syncing…'**
+  /// **'Saving…'**
   String get detoxSyncing;
 
   /// No description provided for @detoxSyncError.
   ///
   /// In en, this message translates to:
-  /// **'Could not sync. Your check-in is saved locally.'**
+  /// **'Could not finish saving. Your check-in is kept on this device.'**
   String get detoxSyncError;
 
   /// No description provided for @diagnosticBrainRotTitle.
   ///
   /// In en, this message translates to:
-  /// **'Brain Rot Test'**
+  /// **'Focus Check'**
   String get diagnosticBrainRotTitle;
 
   /// No description provided for @diagnosticBhiTitle.
   ///
   /// In en, this message translates to:
-  /// **'BHI 6-Point Assessment'**
+  /// **'Digital Habits Check'**
   String get diagnosticBhiTitle;
 
   /// No description provided for @diagnosticYes.
@@ -419,7 +419,7 @@ abstract class AppLocalizations {
   /// No description provided for @diagnosticBrainRotScoreTitle.
   ///
   /// In en, this message translates to:
-  /// **'Brain Rot Score'**
+  /// **'Clarity Check'**
   String get diagnosticBrainRotScoreTitle;
 
   /// No description provided for @diagnosticBrainRotScoreOutOf.
@@ -437,13 +437,13 @@ abstract class AppLocalizations {
   /// No description provided for @diagnosticBrainRotInterpretationTitle.
   ///
   /// In en, this message translates to:
-  /// **'Clinical interpretation'**
+  /// **'What your answers suggest'**
   String get diagnosticBrainRotInterpretationTitle;
 
   /// No description provided for @diagnosticContinueToBhi.
   ///
   /// In en, this message translates to:
-  /// **'Continue to BHI assessment'**
+  /// **'Continue to Digital Habits Check'**
   String get diagnosticContinueToBhi;
 
   /// No description provided for @diagnosticReviewAnswers.
@@ -461,13 +461,13 @@ abstract class AppLocalizations {
   /// No description provided for @diagnosticBrainRotScoring.
   ///
   /// In en, this message translates to:
-  /// **'Calculating your Brain Rot score…'**
+  /// **'Calculating your clarity score…'**
   String get diagnosticBrainRotScoring;
 
   /// No description provided for @diagnosticSyncError.
   ///
   /// In en, this message translates to:
-  /// **'Could not save your diagnostic. Please try again.'**
+  /// **'Could not save your Focus Check. Please try again.'**
   String get diagnosticSyncError;
 
   /// No description provided for @diagnosticBrainRotQ1.
@@ -533,7 +533,7 @@ abstract class AppLocalizations {
   /// No description provided for @dashboardBrainRotSummary.
   ///
   /// In en, this message translates to:
-  /// **'Brain Rot: {score}/10'**
+  /// **'Clarity: {score}/10'**
   String dashboardBrainRotSummary(int score);
 
   /// No description provided for @dashboardOpenRecoveryGrid.
@@ -563,7 +563,7 @@ abstract class AppLocalizations {
   /// No description provided for @splashInitError.
   ///
   /// In en, this message translates to:
-  /// **'Loading failed. Please restart the app.'**
+  /// **'Couldn\'t finish loading. Please reopen the app.'**
   String get splashInitError;
 
   /// No description provided for @homeTitle.
@@ -575,7 +575,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeEmptyDiagnosticPrompt.
   ///
   /// In en, this message translates to:
-  /// **'Complete the diagnostic to unlock your live BC_score tracker.'**
+  /// **'Complete a Focus Check to unlock your live clarity tracker.'**
   String get homeEmptyDiagnosticPrompt;
 
   /// No description provided for @homeChallengeProgressTitle.
@@ -593,13 +593,13 @@ abstract class AppLocalizations {
   /// No description provided for @homeOpenDiagnostic.
   ///
   /// In en, this message translates to:
-  /// **'Diagnostic assessment'**
+  /// **'Clarity check-in'**
   String get homeOpenDiagnostic;
 
   /// No description provided for @homeOpenDiagnosticSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Brain Rot questionnaire + BHI sliders'**
+  /// **'A short questionnaire + focus sliders'**
   String get homeOpenDiagnosticSubtitle;
 
   /// No description provided for @homeOpenCognitiveHub.
@@ -617,7 +617,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeOpenFullDashboard.
   ///
   /// In en, this message translates to:
-  /// **'Full clinical dashboard'**
+  /// **'Full progress dashboard'**
   String get homeOpenFullDashboard;
 
   /// No description provided for @cognitiveHubTitle.
@@ -767,19 +767,19 @@ abstract class AppLocalizations {
   /// No description provided for @cognitivePlaceholderBody.
   ///
   /// In en, this message translates to:
-  /// **'This module is scaffolded for the unified BHI evaluation engine. Complete the placeholder run to verify navigation.'**
+  /// **'This focus check is ready when you are. Try a short run to see how it feels.'**
   String get cognitivePlaceholderBody;
 
   /// No description provided for @cognitivePlaceholderComplete.
   ///
   /// In en, this message translates to:
-  /// **'Record placeholder result'**
+  /// **'Save this practice result'**
   String get cognitivePlaceholderComplete;
 
   /// No description provided for @cognitivePlaceholderRecorded.
   ///
   /// In en, this message translates to:
-  /// **'Placeholder score recorded: {score}%'**
+  /// **'Practice score saved: {score}%'**
   String cognitivePlaceholderRecorded(int score);
 
   /// No description provided for @recoveryGridTitle.
@@ -989,7 +989,7 @@ abstract class AppLocalizations {
   /// No description provided for @recoveryStorageRecoveredNotice.
   ///
   /// In en, this message translates to:
-  /// **'Local data was reset because it could not be read. A new protocol has started.'**
+  /// **'Local data needed a fresh start. Your progress begins again from today.'**
   String get recoveryStorageRecoveredNotice;
 
   /// No description provided for @homeStreakDays.
@@ -1205,7 +1205,7 @@ abstract class AppLocalizations {
   /// No description provided for @accountabilityPenMental5.
   ///
   /// In en, this message translates to:
-  /// **'Escalated screen binge'**
+  /// **'Heavy screen day'**
   String get accountabilityPenMental5;
 
   /// No description provided for @breathingInhale.
@@ -1277,19 +1277,19 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingPage1Body.
   ///
   /// In en, this message translates to:
-  /// **'Restore your digital awareness in 21 days'**
+  /// **'Build digital calm one day at a time'**
   String get onboardingPage1Body;
 
   /// No description provided for @onboardingPage2Title.
   ///
   /// In en, this message translates to:
-  /// **'Track your focus daily'**
+  /// **'Your Daily Program'**
   String get onboardingPage2Title;
 
   /// No description provided for @onboardingPage2Body.
   ///
   /// In en, this message translates to:
-  /// **'Real science-based formulas to measure brain health'**
+  /// **'Each day: prepare, focus, reflect, complete, and rest — guided gently'**
   String get onboardingPage2Body;
 
   /// No description provided for @onboardingPage3Title.
@@ -1301,13 +1301,13 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingPage3Body.
   ///
   /// In en, this message translates to:
-  /// **'Answer 10 questions to assess your brain rot level'**
+  /// **'A short check-in first — then your Daily Program guides each day'**
   String get onboardingPage3Body;
 
   /// No description provided for @onboardingStartQuiz.
   ///
   /// In en, this message translates to:
-  /// **'Start assessment'**
+  /// **'Continue'**
   String get onboardingStartQuiz;
 
   /// No description provided for @proPaywallTitle.
@@ -1319,7 +1319,7 @@ abstract class AppLocalizations {
   /// No description provided for @proPaywallSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Unlock your mind\'s full potential'**
+  /// **'Unlock calm Pro features'**
   String get proPaywallSubtitle;
 
   /// No description provided for @proFeatureAdvancedBcs.
@@ -1337,19 +1337,43 @@ abstract class AppLocalizations {
   /// No description provided for @proFeatureEmotionWheel.
   ///
   /// In en, this message translates to:
-  /// **'Emotion wheel & recovery impact'**
+  /// **'Deeper mood and habit insights'**
   String get proFeatureEmotionWheel;
 
   /// No description provided for @proFeatureFocusChallenges.
   ///
   /// In en, this message translates to:
-  /// **'Advanced focus challenges'**
+  /// **'Longer silence & focus sessions'**
   String get proFeatureFocusChallenges;
+
+  /// No description provided for @proFeatureAdvancedReports.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced 30 / 90-day clarity insights'**
+  String get proFeatureAdvancedReports;
+
+  /// No description provided for @proFeatureExportData.
+  ///
+  /// In en, this message translates to:
+  /// **'Export your local data'**
+  String get proFeatureExportData;
+
+  /// No description provided for @proFeatureCustomReminders.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom reminders'**
+  String get proFeatureCustomReminders;
+
+  /// No description provided for @proFeatureExtraQuotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Larger daily quote library'**
+  String get proFeatureExtraQuotes;
 
   /// No description provided for @proFeatureCloudSync.
   ///
   /// In en, this message translates to:
-  /// **'Secure cloud sync'**
+  /// **'Extra Pro insights'**
   String get proFeatureCloudSync;
 
   /// No description provided for @proFeatureColorThemes.
@@ -1367,7 +1391,7 @@ abstract class AppLocalizations {
   /// No description provided for @proPriceMonthly.
   ///
   /// In en, this message translates to:
-  /// **'SAR 19 / month'**
+  /// **'Optional Pro features'**
   String get proPriceMonthly;
 
   /// No description provided for @proPriceHint.
@@ -1451,7 +1475,7 @@ abstract class AppLocalizations {
   /// No description provided for @proPlansUnavailable.
   ///
   /// In en, this message translates to:
-  /// **'Plans are unavailable right now. Please try again later.'**
+  /// **'Plans are unavailable right now. Try again later or restore if you already subscribed.'**
   String get proPlansUnavailable;
 
   /// No description provided for @paywallRetryLoad.
@@ -1463,7 +1487,7 @@ abstract class AppLocalizations {
   /// No description provided for @paywallLifetimeLabel.
   ///
   /// In en, this message translates to:
-  /// **'One-time forever'**
+  /// **'Pay once, keep forever'**
   String get paywallLifetimeLabel;
 
   /// No description provided for @settingsTitle.
@@ -1475,7 +1499,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingsAccountSection.
   ///
   /// In en, this message translates to:
-  /// **'Account'**
+  /// **'Subscription'**
   String get settingsAccountSection;
 
   /// No description provided for @settingsProActive.
@@ -1489,6 +1513,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Upgrade to Pro'**
   String get settingsUpgradeToPro;
+
+  /// No description provided for @settingsProCardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Clean Pro'**
+  String get settingsProCardTitle;
+
+  /// No description provided for @settingsProStatusFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Free'**
+  String get settingsProStatusFree;
+
+  /// No description provided for @settingsProStatusPro.
+  ///
+  /// In en, this message translates to:
+  /// **'Pro'**
+  String get settingsProStatusPro;
+
+  /// No description provided for @settingsProBenefitHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Pro unlocks extra features while keeping the core Daily Program free.'**
+  String get settingsProBenefitHint;
+
+  /// No description provided for @settingsRestorePurchases.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore purchases'**
+  String get settingsRestorePurchases;
 
   /// No description provided for @settingsAppearanceSection.
   ///
@@ -1595,20 +1649,68 @@ abstract class AppLocalizations {
   /// No description provided for @settingsResetDataConfirmBody.
   ///
   /// In en, this message translates to:
-  /// **'All local data will be deleted. Are you sure?'**
+  /// **'This clears all local progress, journals, daily program, and settings on this device. You will start over. Encryption keys are kept. Continue?'**
   String get settingsResetDataConfirmBody;
 
   /// No description provided for @settingsExportData.
   ///
   /// In en, this message translates to:
-  /// **'Export my data'**
+  /// **'Export data — coming soon'**
   String get settingsExportData;
+
+  /// No description provided for @settingsExportDataPro.
+  ///
+  /// In en, this message translates to:
+  /// **'Export data'**
+  String get settingsExportDataPro;
+
+  /// No description provided for @settingsExportReadyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Share a local summary of your progress.'**
+  String get settingsExportReadyBody;
+
+  /// No description provided for @settingsExportShared.
+  ///
+  /// In en, this message translates to:
+  /// **'Local progress summary ready to share.'**
+  String get settingsExportShared;
+
+  /// No description provided for @settingsExportProOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Export is a Pro feature.'**
+  String get settingsExportProOnly;
 
   /// No description provided for @settingsComingSoon.
   ///
   /// In en, this message translates to:
   /// **'Coming soon…'**
   String get settingsComingSoon;
+
+  /// No description provided for @settingsAdvancedInsightsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'30 / 90-day insights'**
+  String get settingsAdvancedInsightsTitle;
+
+  /// No description provided for @settingsAdvancedInsightsLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock advanced clarity insights with Pro.'**
+  String get settingsAdvancedInsightsLocked;
+
+  /// No description provided for @settingsCustomRemindersLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom reminder schedules unlock with Pro.'**
+  String get settingsCustomRemindersLocked;
+
+  /// No description provided for @silenceDurationProLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Longer sessions unlock with Pro.'**
+  String get silenceDurationProLocked;
 
   /// No description provided for @settingsAboutSection.
   ///
@@ -1628,11 +1730,29 @@ abstract class AppLocalizations {
   /// **'Privacy policy'**
   String get settingsPrivacyPolicy;
 
+  /// No description provided for @settingsPrivacyOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy options'**
+  String get settingsPrivacyOptions;
+
   /// No description provided for @settingsContactUs.
   ///
   /// In en, this message translates to:
   /// **'Contact us'**
   String get settingsContactUs;
+
+  /// No description provided for @settingsLinkOpenFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open the link on this device.'**
+  String get settingsLinkOpenFailed;
+
+  /// No description provided for @settingsLocalModeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Your data stays on this device.'**
+  String get settingsLocalModeHint;
 
   /// No description provided for @emotionWheelTitle.
   ///
@@ -2033,7 +2153,7 @@ abstract class AppLocalizations {
   /// No description provided for @profileNoEmotionsYet.
   ///
   /// In en, this message translates to:
-  /// **'No emotions logged yet'**
+  /// **'No emotions logged yet — open the Emotion Wheel when you\'re ready'**
   String get profileNoEmotionsYet;
 
   /// No description provided for @profileAchievements.
@@ -2897,7 +3017,7 @@ abstract class AppLocalizations {
   /// No description provided for @securityCompromisedBanner.
   ///
   /// In en, this message translates to:
-  /// **'Warning: this device may be compromised. Local data only — cloud sync is disabled.'**
+  /// **'Your data stays on this device.'**
   String get securityCompromisedBanner;
 
   /// No description provided for @emotionOasisTitle.
@@ -2957,7 +3077,7 @@ abstract class AppLocalizations {
   /// No description provided for @sosFabTooltip.
   ///
   /// In en, this message translates to:
-  /// **'SOS Emergency'**
+  /// **'Quick support'**
   String get sosFabTooltip;
 
   /// No description provided for @exercisesTabTitle.
@@ -3083,8 +3203,14 @@ abstract class AppLocalizations {
   /// No description provided for @safaMedicalDisclaimer.
   ///
   /// In en, this message translates to:
-  /// **'Safa is AI-powered emotional support, not a substitute for a doctor or licensed therapist. If things feel bigger than this, please consult a professional.'**
+  /// **'Safa is an AI self-support companion, not a replacement for a qualified professional. If things feel bigger than you can handle, seek support from a qualified person.'**
   String get safaMedicalDisclaimer;
+
+  /// No description provided for @safaTemporarilyUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Safa is temporarily unavailable. Check your connection and try again shortly.'**
+  String get safaTemporarilyUnavailable;
 
   /// No description provided for @journeyTabTitle.
   ///
@@ -3101,7 +3227,7 @@ abstract class AppLocalizations {
   /// No description provided for @journeyCardDiagnosticTitle.
   ///
   /// In en, this message translates to:
-  /// **'Diagnostic'**
+  /// **'Focus Check'**
   String get journeyCardDiagnosticTitle;
 
   /// No description provided for @journeyCardWeeklyReportTitle.
@@ -3149,8 +3275,8 @@ abstract class AppLocalizations {
   /// No description provided for @moreVersion.
   ///
   /// In en, this message translates to:
-  /// **'Version 1.0.0'**
-  String get moreVersion;
+  /// **'Version {version}'**
+  String moreVersion(String version);
 
   /// No description provided for @homeGreetingMorning.
   ///
@@ -3215,7 +3341,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeProFeature.
   ///
   /// In en, this message translates to:
-  /// **'Charts + advanced AI'**
+  /// **'Deeper insights and reports'**
   String get homeProFeature;
 
   /// No description provided for @homeActivityExercise.
@@ -3431,7 +3557,7 @@ abstract class AppLocalizations {
   /// No description provided for @anxietyNoResultYet.
   ///
   /// In en, this message translates to:
-  /// **'No result yet. Take the assessment first.'**
+  /// **'No result yet. Complete a short check-in first.'**
   String get anxietyNoResultYet;
 
   /// No description provided for @worryWindowTitle.
@@ -3767,7 +3893,7 @@ abstract class AppLocalizations {
   /// No description provided for @dailyChallengeSubtitleNumberMemory.
   ///
   /// In en, this message translates to:
-  /// **'Strengthen your number memory'**
+  /// **'Train your daily attention'**
   String get dailyChallengeSubtitleNumberMemory;
 
   /// No description provided for @dailyChallengeSubtitlePatternMatch.

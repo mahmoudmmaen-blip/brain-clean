@@ -90,8 +90,8 @@ const List<DailyQuote> dailyQuotes = [
     en: 'Your brain loves useful routine, not chaos',
   ),
   DailyQuote(
-    ar: 'كل يوم بدون إدمان هو انتصار عصبي',
-    en: 'Every addiction-free day is a neural victory',
+    ar: 'كل يوم أقل شاشات هو انتصار صغير',
+    en: 'Every screen-light day is a small win',
   ),
   DailyQuote(
     ar: 'التركيز العميق يطلق موجات ألفا المهدئة',
@@ -122,8 +122,8 @@ const List<DailyQuote> dailyQuotes = [
     en: 'Gratitude rebalances your neurochemistry',
   ),
   DailyQuote(
-    ar: 'كل جلسة تركيز تبني عادات عصبية أقوى',
-    en: 'Each focus session builds stronger neural habits',
+    ar: 'كل جلسة تركيز تساعدك تبني عادة أهدأ',
+    en: 'Each focus session helps you build a calmer habit',
   ),
   DailyQuote(
     ar: 'العقل النقي يبدأ بقرار واحد واعٍ اليوم',
@@ -131,12 +131,19 @@ const List<DailyQuote> dailyQuotes = [
   ),
 ];
 
-/// Picks today's quote index (0–29) from day-of-year.
-int dailyQuoteIndex(DateTime date) {
+/// Picks today's quote index from day-of-year within [poolLength].
+int dailyQuoteIndex(DateTime date, {int poolLength = 30}) {
+  final length = poolLength <= 0 ? dailyQuotes.length : poolLength;
   final start = DateTime(date.year, 1, 1);
   final dayOfYear = date.difference(start).inDays + 1;
-  return dayOfYear % dailyQuotes.length;
+  return dayOfYear % length;
 }
 
-DailyQuote quoteForDate(DateTime date) =>
-    dailyQuotes[dailyQuoteIndex(date)];
+/// Free users rotate among the first [freeQuotePoolSize] quotes.
+/// Pro users use the full library.
+const freeQuotePoolSize = 15;
+
+DailyQuote quoteForDate(DateTime date, {bool isPro = false}) {
+  final pool = isPro ? dailyQuotes.length : freeQuotePoolSize;
+  return dailyQuotes[dailyQuoteIndex(date, poolLength: pool)];
+}

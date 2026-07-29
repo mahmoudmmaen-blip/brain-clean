@@ -9,24 +9,24 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get dashboardTitle => 'Diagnostic BC Score';
+  String get dashboardTitle => 'Clarity Score';
 
   @override
   String get dashboardEmptyDiagnosticPrompt =>
-      'Complete the diagnostic to see your BC_score.';
+      'Complete a Focus Check to see your clarity score.';
 
   @override
-  String get dashboardEmptyTitle => 'Start your journey!';
+  String get dashboardEmptyTitle => 'Your journey starts here';
 
   @override
   String get dashboardEmptySubtitle =>
-      'Take your first BCI test to see your progress here';
+      'As you follow your Daily Program, progress will show here';
 
   @override
-  String get dashboardEmptyCta => 'Start Test';
+  String get dashboardEmptyCta => 'Start check-in';
 
   @override
-  String get dashboardRetakeDiagnostic => 'Retake Diagnostic';
+  String get dashboardRetakeDiagnostic => 'Retake Focus Check';
 
   @override
   String get dashboardOpenDetoxCheckIn => '7-Day Detox Check-in';
@@ -41,7 +41,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get diagnosticTitle => 'Diagnostic 6-Point Test';
+  String get diagnosticTitle => 'Clarity Check';
 
   @override
   String get diagnosticLiveSubtitle => 'Live · updates on every slider move';
@@ -93,7 +93,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get bcScoreLabel => 'BC_score';
 
   @override
-  String get accountabilityAdjustment => 'ACCOUNTABILITY ADJUSTMENT';
+  String get accountabilityAdjustment => 'Accountability note';
 
   @override
   String get bhiScoreLabel => 'Base BHI score';
@@ -157,17 +157,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get detoxRetry => 'Retry';
 
   @override
-  String get detoxSyncing => 'Syncing…';
+  String get detoxSyncing => 'Saving…';
 
   @override
   String get detoxSyncError =>
-      'Could not sync. Your check-in is saved locally.';
+      'Could not finish saving. Your check-in is kept on this device.';
 
   @override
-  String get diagnosticBrainRotTitle => 'Brain Rot Test';
+  String get diagnosticBrainRotTitle => 'Focus Check';
 
   @override
-  String get diagnosticBhiTitle => 'BHI 6-Point Assessment';
+  String get diagnosticBhiTitle => 'Digital Habits Check';
 
   @override
   String get diagnosticYes => 'Yes';
@@ -184,7 +184,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get diagnosticBrainRotScoreTitle => 'Brain Rot Score';
+  String get diagnosticBrainRotScoreTitle => 'Clarity Check';
 
   @override
   String diagnosticBrainRotScoreOutOf(int max) {
@@ -197,10 +197,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get diagnosticBrainRotInterpretationTitle => 'Clinical interpretation';
+  String get diagnosticBrainRotInterpretationTitle =>
+      'What your answers suggest';
 
   @override
-  String get diagnosticContinueToBhi => 'Continue to BHI assessment';
+  String get diagnosticContinueToBhi => 'Continue to Digital Habits Check';
 
   @override
   String get diagnosticReviewAnswers => 'Review my answers';
@@ -209,11 +210,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get diagnosticBrainRotIncomplete => 'Complete all 10 questions first.';
 
   @override
-  String get diagnosticBrainRotScoring => 'Calculating your Brain Rot score…';
+  String get diagnosticBrainRotScoring => 'Calculating your clarity score…';
 
   @override
   String get diagnosticSyncError =>
-      'Could not save your diagnostic. Please try again.';
+      'Could not save your Focus Check. Please try again.';
 
   @override
   String get diagnosticBrainRotQ1 =>
@@ -257,7 +258,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String dashboardBrainRotSummary(int score) {
-    return 'Brain Rot: $score/10';
+    return 'Clarity: $score/10';
   }
 
   @override
@@ -274,14 +275,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get splashHydrationRetry => 'Restoring your progress…';
 
   @override
-  String get splashInitError => 'Loading failed. Please restart the app.';
+  String get splashInitError =>
+      'Couldn\'t finish loading. Please reopen the app.';
 
   @override
   String get homeTitle => 'Brain Clean Home';
 
   @override
   String get homeEmptyDiagnosticPrompt =>
-      'Complete the diagnostic to unlock your live BC_score tracker.';
+      'Complete a Focus Check to unlock your live clarity tracker.';
 
   @override
   String get homeChallengeProgressTitle => '30-day recovery challenge';
@@ -292,11 +294,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get homeOpenDiagnostic => 'Diagnostic assessment';
+  String get homeOpenDiagnostic => 'Clarity check-in';
 
   @override
   String get homeOpenDiagnosticSubtitle =>
-      'Brain Rot questionnaire + BHI sliders';
+      'A short questionnaire + focus sliders';
 
   @override
   String get homeOpenCognitiveHub => 'Cognitive assessments';
@@ -306,7 +308,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Visual attention test and memory mini-games';
 
   @override
-  String get homeOpenFullDashboard => 'Full clinical dashboard';
+  String get homeOpenFullDashboard => 'Full progress dashboard';
 
   @override
   String get cognitiveHubTitle => 'Cognitive assessments';
@@ -395,14 +397,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cognitivePlaceholderBody =>
-      'This module is scaffolded for the unified BHI evaluation engine. Complete the placeholder run to verify navigation.';
+      'This focus check is ready when you are. Try a short run to see how it feels.';
 
   @override
-  String get cognitivePlaceholderComplete => 'Record placeholder result';
+  String get cognitivePlaceholderComplete => 'Save this practice result';
 
   @override
   String cognitivePlaceholderRecorded(int score) {
-    return 'Placeholder score recorded: $score%';
+    return 'Practice score saved: $score%';
   }
 
   @override
@@ -532,7 +534,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get recoveryStorageRecoveredNotice =>
-      'Local data was reset because it could not be read. A new protocol has started.';
+      'Local data needed a fresh start. Your progress begins again from today.';
 
   @override
   String get homeStreakDays => 'Days';
@@ -641,7 +643,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get accountabilityPenMental4 => 'Missed mental check-in';
 
   @override
-  String get accountabilityPenMental5 => 'Escalated screen binge';
+  String get accountabilityPenMental5 => 'Heavy screen day';
 
   @override
   String get breathingInhale => 'Inhale…';
@@ -679,30 +681,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboardingPage1Title => 'Welcome to Brain Clean';
 
   @override
-  String get onboardingPage1Body => 'Restore your digital awareness in 21 days';
+  String get onboardingPage1Body => 'Build digital calm one day at a time';
 
   @override
-  String get onboardingPage2Title => 'Track your focus daily';
+  String get onboardingPage2Title => 'Your Daily Program';
 
   @override
   String get onboardingPage2Body =>
-      'Real science-based formulas to measure brain health';
+      'Each day: prepare, focus, reflect, complete, and rest — guided gently';
 
   @override
   String get onboardingPage3Title => 'Start your journey now';
 
   @override
   String get onboardingPage3Body =>
-      'Answer 10 questions to assess your brain rot level';
+      'A short check-in first — then your Daily Program guides each day';
 
   @override
-  String get onboardingStartQuiz => 'Start assessment';
+  String get onboardingStartQuiz => 'Continue';
 
   @override
   String get proPaywallTitle => 'Brain Clean Pro';
 
   @override
-  String get proPaywallSubtitle => 'Unlock your mind\'s full potential';
+  String get proPaywallSubtitle => 'Unlock calm Pro features';
 
   @override
   String get proFeatureAdvancedBcs => 'Advanced Brain Clarity Score engine';
@@ -711,13 +713,26 @@ class AppLocalizationsEn extends AppLocalizations {
   String get proFeatureSevenDayChart => '7-day progress chart';
 
   @override
-  String get proFeatureEmotionWheel => 'Emotion wheel & recovery impact';
+  String get proFeatureEmotionWheel => 'Deeper mood and habit insights';
 
   @override
-  String get proFeatureFocusChallenges => 'Advanced focus challenges';
+  String get proFeatureFocusChallenges => 'Longer silence & focus sessions';
 
   @override
-  String get proFeatureCloudSync => 'Secure cloud sync';
+  String get proFeatureAdvancedReports =>
+      'Advanced 30 / 90-day clarity insights';
+
+  @override
+  String get proFeatureExportData => 'Export your local data';
+
+  @override
+  String get proFeatureCustomReminders => 'Custom reminders';
+
+  @override
+  String get proFeatureExtraQuotes => 'Larger daily quote library';
+
+  @override
+  String get proFeatureCloudSync => 'Extra Pro insights';
 
   @override
   String get proFeatureColorThemes => '4 exclusive Pro color themes';
@@ -726,7 +741,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get proWelcomeSnack => 'Welcome to Pro! 🎉';
 
   @override
-  String get proPriceMonthly => 'SAR 19 / month';
+  String get proPriceMonthly => 'Optional Pro features';
 
   @override
   String get proPriceHint => 'Less than one meal';
@@ -771,25 +786,41 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get proPlansUnavailable =>
-      'Plans are unavailable right now. Please try again later.';
+      'Plans are unavailable right now. Try again later or restore if you already subscribed.';
 
   @override
   String get paywallRetryLoad => 'Retry';
 
   @override
-  String get paywallLifetimeLabel => 'One-time forever';
+  String get paywallLifetimeLabel => 'Pay once, keep forever';
 
   @override
   String get settingsTitle => 'Settings';
 
   @override
-  String get settingsAccountSection => 'Account';
+  String get settingsAccountSection => 'Subscription';
 
   @override
   String get settingsProActive => 'Brain Clean Pro ✓';
 
   @override
   String get settingsUpgradeToPro => 'Upgrade to Pro';
+
+  @override
+  String get settingsProCardTitle => 'Brain Clean Pro';
+
+  @override
+  String get settingsProStatusFree => 'Free';
+
+  @override
+  String get settingsProStatusPro => 'Pro';
+
+  @override
+  String get settingsProBenefitHint =>
+      'Pro unlocks extra features while keeping the core Daily Program free.';
+
+  @override
+  String get settingsRestorePurchases => 'Restore purchases';
 
   @override
   String get settingsAppearanceSection => 'Appearance';
@@ -844,13 +875,40 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsResetDataConfirmBody =>
-      'All local data will be deleted. Are you sure?';
+      'This clears all local progress, journals, daily program, and settings on this device. You will start over. Encryption keys are kept. Continue?';
 
   @override
-  String get settingsExportData => 'Export my data';
+  String get settingsExportData => 'Export data — coming soon';
+
+  @override
+  String get settingsExportDataPro => 'Export data';
+
+  @override
+  String get settingsExportReadyBody =>
+      'Share a local summary of your progress.';
+
+  @override
+  String get settingsExportShared => 'Local progress summary ready to share.';
+
+  @override
+  String get settingsExportProOnly => 'Export is a Pro feature.';
 
   @override
   String get settingsComingSoon => 'Coming soon…';
+
+  @override
+  String get settingsAdvancedInsightsTitle => '30 / 90-day insights';
+
+  @override
+  String get settingsAdvancedInsightsLocked =>
+      'Unlock advanced clarity insights with Pro.';
+
+  @override
+  String get settingsCustomRemindersLocked =>
+      'Custom reminder schedules unlock with Pro.';
+
+  @override
+  String get silenceDurationProLocked => 'Longer sessions unlock with Pro.';
 
   @override
   String get settingsAboutSection => 'About';
@@ -862,7 +920,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsPrivacyPolicy => 'Privacy policy';
 
   @override
+  String get settingsPrivacyOptions => 'Privacy options';
+
+  @override
   String get settingsContactUs => 'Contact us';
+
+  @override
+  String get settingsLinkOpenFailed =>
+      'Could not open the link on this device.';
+
+  @override
+  String get settingsLocalModeHint => 'Your data stays on this device.';
 
   @override
   String get emotionWheelTitle => 'Emotion wheel';
@@ -1080,7 +1148,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profileRecentEmotions => 'Recent emotions';
 
   @override
-  String get profileNoEmotionsYet => 'No emotions logged yet';
+  String get profileNoEmotionsYet =>
+      'No emotions logged yet — open the Emotion Wheel when you\'re ready';
 
   @override
   String get profileAchievements => 'Your achievements';
@@ -1566,8 +1635,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get biometricFallbackPin => 'Use PIN instead';
 
   @override
-  String get securityCompromisedBanner =>
-      'Warning: this device may be compromised. Local data only — cloud sync is disabled.';
+  String get securityCompromisedBanner => 'Your data stays on this device.';
 
   @override
   String get emotionOasisTitle => 'Emotion Oasis — Safa';
@@ -1597,7 +1665,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navTabMore => 'More';
 
   @override
-  String get sosFabTooltip => 'SOS Emergency';
+  String get sosFabTooltip => 'Quick support';
 
   @override
   String get exercisesTabTitle => 'Exercises';
@@ -1662,7 +1730,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get safaMedicalDisclaimer =>
-      'Safa is AI-powered emotional support, not a substitute for a doctor or licensed therapist. If things feel bigger than this, please consult a professional.';
+      'Safa is an AI self-support companion, not a replacement for a qualified professional. If things feel bigger than you can handle, seek support from a qualified person.';
+
+  @override
+  String get safaTemporarilyUnavailable =>
+      'Safa is temporarily unavailable. Check your connection and try again shortly.';
 
   @override
   String get journeyTabTitle => 'My Journey';
@@ -1671,7 +1743,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get journeyCardBciTitle => 'Brain Clarity Index (BCI)';
 
   @override
-  String get journeyCardDiagnosticTitle => 'Diagnostic';
+  String get journeyCardDiagnosticTitle => 'Focus Check';
 
   @override
   String get journeyCardWeeklyReportTitle => 'Weekly Report';
@@ -1695,7 +1767,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get moreAccountability => 'Accountability Partner';
 
   @override
-  String get moreVersion => 'Version 1.0.0';
+  String moreVersion(String version) {
+    return 'Version $version';
+  }
 
   @override
   String get homeGreetingMorning => 'Good morning ☀️';
@@ -1728,7 +1802,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeSafaMessage => 'Proud of you! Keep going 💚';
 
   @override
-  String get homeProFeature => 'Charts + advanced AI';
+  String get homeProFeature => 'Deeper insights and reports';
 
   @override
   String get homeActivityExercise => 'Exercise';
@@ -1850,7 +1924,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get anxietyLoadError => 'Could not load your result.';
 
   @override
-  String get anxietyNoResultYet => 'No result yet. Take the assessment first.';
+  String get anxietyNoResultYet =>
+      'No result yet. Complete a short check-in first.';
 
   @override
   String get worryWindowTitle => 'Worry Window';
@@ -2028,8 +2103,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dailyChallengeSubtitleColorWord => 'Challenge your visual focus';
 
   @override
-  String get dailyChallengeSubtitleNumberMemory =>
-      'Strengthen your number memory';
+  String get dailyChallengeSubtitleNumberMemory => 'Train your daily attention';
 
   @override
   String get dailyChallengeSubtitlePatternMatch =>

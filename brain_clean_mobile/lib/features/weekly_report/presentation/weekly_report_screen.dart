@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
+import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/presentation/language_toggle_button.dart';
 import '../../../core/providers/locale_provider.dart';
 import '../../../shared/widgets/glass_card.dart';
 import '../../../shared/widgets/metric_info_row.dart';
+import '../../pro/application/subscription_service_provider.dart';
 import '../application/weekly_report_provider.dart';
 import '../domain/weekly_report_data.dart';
 import '../domain/weekly_report_service.dart';
@@ -68,6 +71,8 @@ class _WeeklyReportBody extends ConsumerWidget {
             fontSize: 14,
           ),
         ),
+        const SizedBox(height: 8),
+        const _AdvancedInsightsTeaser(),
         const SizedBox(height: 8),
         Text(
           report.motivationalMessage,
@@ -430,6 +435,35 @@ class _SafaMessageCard extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _AdvancedInsightsTeaser extends ConsumerWidget {
+  const _AdvancedInsightsTeaser();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final loc = AppLocalizations.of(context)!;
+    final isPro = ref.watch(isProUserProvider);
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return GlassCard(
+      child: ListTile(
+        contentPadding: EdgeInsets.zero,
+        title: Text(loc.settingsAdvancedInsightsTitle),
+        subtitle: Text(
+          isPro
+              ? loc.settingsExportReadyBody
+              : loc.settingsAdvancedInsightsLocked,
+        ),
+        trailing: isPro
+            ? Icon(Icons.insights_outlined, color: colorScheme.primary)
+            : Icon(Icons.lock_outline, color: colorScheme.onSurfaceVariant),
+        onTap: isPro
+            ? null
+            : () => context.push(AppRoutes.proPaywall),
       ),
     );
   }

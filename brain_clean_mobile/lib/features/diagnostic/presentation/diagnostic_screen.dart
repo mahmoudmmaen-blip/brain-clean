@@ -300,7 +300,7 @@ class _DiagnosticErrorView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
-              Icons.cloud_off_outlined,
+              Icons.error_outline,
               size: 48,
               color: Theme.of(context).colorScheme.error,
             ),
@@ -313,7 +313,7 @@ class _DiagnosticErrorView extends StatelessWidget {
             const SizedBox(height: 20),
             FilledButton.icon(
               onPressed: onRetry,
-              icon: const Icon(Icons.sync),
+              icon: const Icon(Icons.refresh),
               label: Text(loc.detoxRetry),
             ),
           ],

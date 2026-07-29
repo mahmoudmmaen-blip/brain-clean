@@ -4,12 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../ads/ad_visibility.dart';
+import '../ads/ads_consent_service.dart';
+import '../ads/ads_service.dart';
+import '../ads/footer_banner_ad.dart';
 import '../constants/app_routes.dart';
 import '../l10n/app_localizations.dart';
-import '../security/security_warning_banner.dart';
 import '../../features/focus/widgets/ambient_sound_widgets.dart';
+import '../../features/pro/application/subscription_service_provider.dart';
 
-/// Persistent 5-tab shell with glass bottom navigation and SOS FAB.
+/// Persistent 5-tab shell with glass bottom navigation and calm support FAB.
 class AppShell extends ConsumerStatefulWidget {
   const AppShell({super.key, required this.navigationShell});
 
@@ -20,6 +24,30 @@ class AppShell extends ConsumerStatefulWidget {
 }
 
 class _AppShellState extends ConsumerState<AppShell> {
+  static const Color _supportFabBg = Color(0xFF1A3D3A);
+  static const Color _supportFabFg = Color(0xFF5EEAD4);
+
+  /// Extra FAB lift above bottom nav + fixed banner when the banner is loaded.
+  static const double _fabBannerClearance = 20;
+
+  bool _bannerVisible = false;
+
+  @override
+  void initState() {
+    super.initState();
+    AdsConsentService.notifier.addListener(_onConsentChanged);
+  }
+
+  @override
+  void dispose() {
+    AdsConsentService.notifier.removeListener(_onConsentChanged);
+    super.dispose();
+  }
+
+  void _onConsentChanged() {
+    if (mounted) setState(() {});
+  }
+
   void _onDestinationSelected(int index) {
     widget.navigationShell.goBranch(
       index,
@@ -27,29 +55,60 @@ class _AppShellState extends ConsumerState<AppShell> {
     );
   }
 
+  void _onBannerVisibilityChanged(bool visible) {
+    if (!mounted || _bannerVisible == visible) return;
+    setState(() => _bannerVisible = visible);
+  }
+
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
+    final path = GoRouterState.of(context).uri.path;
+    final showSupportFab = path != AppRoutes.proPaywall;
+    final isPro = ref.watch(isProUserProvider);
+    final adsConsentReady =
+        AdsConsentService.canRequestAds && AdsService.isInitialized;
+    final showAds = adsConsentReady &&
+        AdVisibility.shouldShowFooterBanner(
+          isPro: isPro,
+          location: path,
+        );
+    final bottomInset = MediaQuery.viewPaddingOf(context).bottom;
+
+    // Reset visibility tracking when ads are not allowed on this route.
+    if (!showAds && _bannerVisible) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted && _bannerVisible) {
+          setState(() => _bannerVisible = false);
+        }
+      });
+    }
+
+    // Scaffold already places FAB above the whole bottomNavigationBar.
+    // Extra pad clears the fixed 320×50 strip + a calm gap.
+    final fabBottomPad = (_bannerVisible && showAds)
+        ? FooterBannerAd.reservedStripHeight + _fabBannerClearance
+        : 0.0;
 
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const SafeArea(
-            bottom: false,
-            child: SecurityWarningBanner(),
-          ),
-          Expanded(child: widget.navigationShell),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        heroTag: 'sos_fab',
-        backgroundColor: const Color(0xFFFF5A5F),
-        onPressed: () => context.push(AppRoutes.recovery),
-        tooltip: loc.sosFabTooltip,
-        child: const Icon(Icons.warning_amber_rounded, color: Colors.white),
-      ),
+      // Body is inset by Scaffold for bottomNavigationBar height
+      // (nav + optional 50px banner + system inset).
+      body: widget.navigationShell,
+      floatingActionButton: showSupportFab
+          ? Padding(
+              padding: EdgeInsets.only(bottom: fabBottomPad),
+              child: FloatingActionButton(
+                heroTag: 'sos_fab',
+                backgroundColor: _supportFabBg,
+                foregroundColor: _supportFabFg,
+                elevation: 2,
+                onPressed: () => context.push(AppRoutes.recovery),
+                tooltip: loc.sosFabTooltip,
+                child: const Icon(Icons.self_improvement_outlined),
+              ),
+            )
+          : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
@@ -59,8 +118,8 @@ class _AppShellState extends ConsumerState<AppShell> {
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
               child: NavigationBar(
-                backgroundColor: colorScheme.surface.withOpacity(0.85),
-                indicatorColor: colorScheme.primary.withOpacity(0.15),
+                backgroundColor: colorScheme.surface.withValues(alpha: 0.85),
+                indicatorColor: colorScheme.primary.withValues(alpha: 0.15),
                 selectedIndex: widget.navigationShell.currentIndex,
                 onDestinationSelected: _onDestinationSelected,
                 labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
@@ -94,6 +153,20 @@ class _AppShellState extends ConsumerState<AppShell> {
               ),
             ),
           ),
+          // Fixed 320×50 banner below nav (not above, not adaptive).
+          if (showAds) ...[
+            Divider(
+              height: 1,
+              thickness: 0.5,
+              color: colorScheme.outlineVariant.withValues(alpha: 0.35),
+            ),
+            FooterBannerAd(
+              key: const Key('footer_banner_ad'),
+              onVisibilityChanged: _onBannerVisibilityChanged,
+            ),
+          ],
+          // Minimal system inset only (home indicator / gesture bar).
+          SizedBox(height: bottomInset),
         ],
       ),
     );
