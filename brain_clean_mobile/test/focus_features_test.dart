@@ -37,6 +37,9 @@ void main() {
 
   group('Silence Challenge', () {
     testWidgets('shows countdown and level label', (tester) async {
+      await tester.binding.setSurfaceSize(const Size(800, 1200));
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+
       await tester.pumpWidget(
         createLocalizedProviderTestWidget(
           const SilenceChallengeScreen(streakDays: 7),
@@ -50,10 +53,14 @@ void main() {
       expect(find.byKey(silenceSessionIconKey), findsOneWidget);
       expect(find.text('🔕'), findsOneWidget);
       expect(find.textContaining('المستوى'), findsOneWidget);
+      expect(tester.takeException(), isNull);
     });
 
     testWidgets('popping back disarms gate without provider lifecycle error',
         (tester) async {
+      await tester.binding.setSurfaceSize(const Size(800, 1200));
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+
       late ProviderContainer container;
       final navigatorKey = GlobalKey<NavigatorState>();
 

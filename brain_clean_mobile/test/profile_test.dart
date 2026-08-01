@@ -10,6 +10,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'helpers/diagnostic_provider_overrides.dart';
 import 'helpers/hive_test_fixtures.dart';
 import 'helpers/localized_test_app.dart';
+import 'helpers/test_l10n.dart';
 
 void main() {
   testWidgets('ProfileScreen renders stats row with 3 cards', (tester) async {
@@ -91,13 +92,16 @@ void main() {
   });
 
   testWidgets('recent emotions empty state when log is empty', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(800, 1200));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+
     await tester.pumpWidget(
       _profileTestApp(overrides: _baseOverrides()),
     );
     await tester.pumpAndSettle();
 
     expect(find.byKey(profileEmptyEmotionsKey), findsOneWidget);
-    expect(find.text('لم تسجل أي أحاسيس بعد'), findsOneWidget);
+    expect(find.text(testL10nAr.profileNoEmotionsYet), findsOneWidget);
   });
 }
 
