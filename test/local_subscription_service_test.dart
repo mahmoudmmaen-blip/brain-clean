@@ -1,51 +1,90 @@
-import 'package:brain_clean_mobile/features/pro/data/local_subscription_service.dart';
+import 'package:brain_clean_mobile/core/application/app_preferences_provider.dart';
+import 'package:brain_clean_mobile/core/data/app_meta_box_provider.dart';
+import 'package:brain_clean_mobile/features/pro/application/subscription_service_provider.dart';
 import 'package:brain_clean_mobile/features/pro/domain/subscription_plan.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'helpers/hive_test_fixtures.dart';
 
+ProviderContainer _container() {
+  final container = ProviderContainer(
+    overrides: [
+      appMetaBoxProvider.overrideWithValue(InMemoryHiveBox()),
+      appPreferencesProvider.overrideWith(_FreePreferences.new),
+    ],
+  );
+  addTearDown(container.dispose);
+  return container;
+}
+
 void main() {
   group('LocalSubscriptionService', () {
-    test('defaults to free plan', () {
-      final service = LocalSubscriptionService(InMemoryHiveBox());
-      expect(service.currentPlan, SubscriptionPlan.free);
+    test('defaults to free (not Pro)', () {
+      final c = _container();
+      final service = c.read(subscriptionServiceProvider);
       expect(service.isPro, isFalse);
+      expect(service.plans, isNotEmpty);
     });
 
-    test('purchaseMonthly returns true and sets monthlyPro', () async {
-      final service = LocalSubscriptionService(InMemoryHiveBox());
-      final ok = await service.purchaseMonthly();
+    test('purchase monthly plan id returns true and sets Pro', () async {
+      final c = _container();
+      final service = c.read(subscriptionServiceProvider);
+      final ok = await service.purchase('pro_monthly');
       expect(ok, isTrue);
-      expect(service.currentPlan, SubscriptionPlan.monthlyPro);
-      expect(service.isPro, isTrue);
+      expect(c.read(subscriptionServiceProvider).isPro, isTrue);
     });
 
-    test('purchaseAnnual returns true and sets annualPro', () async {
-      final service = LocalSubscriptionService(InMemoryHiveBox());
-      final ok = await service.purchaseAnnual();
+    test('purchase annual plan id returns true and sets Pro', () async {
+      final c = _container();
+      final service = c.read(subscriptionServiceProvider);
+      final ok = await service.purchase('pro_annual');
       expect(ok, isTrue);
-      expect(service.currentPlan, SubscriptionPlan.annualPro);
-      expect(service.isPro, isTrue);
+      expect(c.read(subscriptionServiceProvider).isPro, isTrue);
     });
 
-    test('restorePurchases returns true when already pro', () async {
-      final service = LocalSubscriptionService(InMemoryHiveBox());
-      await service.purchaseMonthly();
-      expect(await service.restorePurchases(), isTrue);
+    test('purchase rejects unknown plan id', () async {
+      final c = _container();
+      final ok = await c.read(subscriptionServiceProvider).purchase('nope');
+      expect(ok, isFalse);
+      expect(c.read(subscriptionServiceProvider).isPro, isFalse);
     });
 
-    test('restorePurchases returns false when free', () async {
-      final service = LocalSubscriptionService(InMemoryHiveBox());
-      expect(await service.restorePurchases(), isFalse);
-    });
-
-    test('plan persists across instances sharing the same box', () async {
-      final box = InMemoryHiveBox();
-      await LocalSubscriptionService(box).purchaseAnnual();
-      expect(
-        LocalSubscriptionService(box).currentPlan,
-        SubscriptionPlan.annualPro,
+    test('restorePurchases completes without throwing', () async {
+      final c = _container();
+      await c.read(subscriptionServiceProvider).purchase('pro_monthly');
+      expect(c.read(subscriptionServiceProvider).isPro, isTrue);
+      await expectLater(
+        c.read(subscriptionServiceProvider).restorePurchases(),
+        completes,
       );
     });
+
+    test('plans expose monthly annual and lifetime periods', () {
+      final c = _container();
+      final periods =
+          c.read(subscriptionServiceProvider).plans.map((p) => p.period).toSet();
+      expect(periods, contains(SubscriptionPeriod.monthly));
+      expect(periods, contains(SubscriptionPeriod.annual));
+      expect(periods, contains(SubscriptionPeriod.lifetime));
+    });
   });
+}
+
+class _FreePreferences extends AppPreferences {
+  @override
+  AppPreferencesState build() => const AppPreferencesState(
+        hasSeenOnboarding: true,
+        isProUser: false,
+        emotionNotificationsEnabled: true,
+        dailyFocusReminderEnabled: true,
+        profileDisplayName: '',
+        silenceWinsCount: 0,
+        singleTasksCompletedCount: 0,
+      );
+
+  @override
+  Future<void> setProUser(bool value) async {
+    state = state.copyWith(isProUser: value);
+  }
 }

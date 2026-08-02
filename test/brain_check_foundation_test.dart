@@ -201,6 +201,28 @@ void main() {
       expect(await repository.loadDraft(), isNull);
       expect(await repository.loadResult(), isNotNull);
     });
+
+    test('complete is idempotent — no new session or MeasurementEvent', () async {
+      await controller.start(mode: BrainCheckMode.pulse, source: 'pulse');
+      await answerAllRemaining();
+      final first = await controller.complete(languageCode: 'en');
+      expect(first.isOk, isTrue);
+      final sessionId = controller.result!.sessionId;
+      final eventId = controller.result!.measurementEvent.id;
+      final completedAt = controller.result!.completedAt;
+
+      final second = await controller.complete(languageCode: 'ar');
+      expect(second.isOk, isTrue);
+      expect(controller.result!.sessionId, sessionId);
+      expect(controller.result!.measurementEvent.id, eventId);
+      expect(controller.result!.completedAt, completedAt);
+      expect(controller.result!.measurementEvent.languageCode, 'en');
+      expect(controller.progress.phase, BrainCheckPhase.completed);
+
+      final stored = await repository.loadResult();
+      expect(stored!.sessionId, sessionId);
+      expect(stored.measurementEvent.id, eventId);
+    });
   });
 
   group('Arabic / English / RTL', () {

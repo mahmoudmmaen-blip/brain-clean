@@ -324,7 +324,23 @@ class BrainCheckController extends ChangeNotifier {
   }
 
   /// CHK-04 → commit MeasurementEvent + placeholder score; clear draft.
+  ///
+  /// Idempotent: once completed, repeats return the same stored result and
+  /// never mint a new session / MeasurementEvent.
   Future<BrainCheckValidationResult> complete({String? languageCode}) async {
+    if (_progress.phase == BrainCheckPhase.completed) {
+      _result ??= await _repository.loadResult();
+      _lastValidation = _result != null
+          ? BrainCheckValidationResult.ok
+          : const BrainCheckValidationResult(
+              code: BrainCheckValidationCode.notInProgress,
+              messageEn: 'Brain Check completion is missing. Start again.',
+              messageAr: 'اكتمال فحص الدماغ غير موجود. ابدأ من جديد.',
+            );
+      notifyListeners();
+      return _lastValidation!;
+    }
+
     if (_progress.phase != BrainCheckPhase.completion &&
         !_allQuestionsAnswered()) {
       _lastValidation = const BrainCheckValidationResult(
