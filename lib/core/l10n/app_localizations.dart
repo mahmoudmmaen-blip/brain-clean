@@ -2797,6 +2797,162 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not save your answers. They are still on this screen.'**
   String get brainCheckSaveError;
+
+  /// No description provided for @brainProfileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Profile'**
+  String get brainProfileTitle;
+
+  /// No description provided for @brainProfileBuilding.
+  ///
+  /// In en, this message translates to:
+  /// **'Building your Brain Profile…'**
+  String get brainProfileBuilding;
+
+  /// No description provided for @brainProfileLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Brain Profile'**
+  String get brainProfileLoading;
+
+  /// No description provided for @brainProfileMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'No Brain Profile yet'**
+  String get brainProfileMissing;
+
+  /// No description provided for @brainProfileEmptyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete a Brain Check to create your first snapshot.'**
+  String get brainProfileEmptyHint;
+
+  /// No description provided for @brainProfileUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile calculation is unavailable right now.'**
+  String get brainProfileUnavailable;
+
+  /// No description provided for @brainProfileRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get brainProfileRetry;
+
+  /// No description provided for @brainProfileGoHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Home'**
+  String get brainProfileGoHome;
+
+  /// No description provided for @brainProfileOrientation.
+  ///
+  /// In en, this message translates to:
+  /// **'A calm look at your snapshot'**
+  String get brainProfileOrientation;
+
+  /// No description provided for @brainProfileScoreHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery Score estimate'**
+  String get brainProfileScoreHeading;
+
+  /// No description provided for @brainProfileScorePendingLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimate pending'**
+  String get brainProfileScorePendingLabel;
+
+  /// No description provided for @brainProfileScorePendingSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery Score estimate is pending. Domain summaries are available from your answers.'**
+  String get brainProfileScorePendingSemantics;
+
+  /// No description provided for @brainProfileScoreSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery Score estimate: {value}'**
+  String brainProfileScoreSemantics(String value);
+
+  /// No description provided for @brainProfileConfidenceHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Confidence'**
+  String get brainProfileConfidenceHeading;
+
+  /// No description provided for @brainProfileConfidenceProvisional.
+  ///
+  /// In en, this message translates to:
+  /// **'Provisional'**
+  String get brainProfileConfidenceProvisional;
+
+  /// No description provided for @brainProfileConfidenceModerate.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderate'**
+  String get brainProfileConfidenceModerate;
+
+  /// No description provided for @brainProfileConfidenceSolid.
+  ///
+  /// In en, this message translates to:
+  /// **'Solid'**
+  String get brainProfileConfidenceSolid;
+
+  /// No description provided for @brainProfileDomainsHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Domain summary'**
+  String get brainProfileDomainsHeading;
+
+  /// No description provided for @brainProfileDomainNoData.
+  ///
+  /// In en, this message translates to:
+  /// **'No answers in this area yet'**
+  String get brainProfileDomainNoData;
+
+  /// No description provided for @brainProfileDomainMean.
+  ///
+  /// In en, this message translates to:
+  /// **'Reported average: {value}'**
+  String brainProfileDomainMean(String value);
+
+  /// No description provided for @brainProfileDomainClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get brainProfileDomainClose;
+
+  /// No description provided for @brainProfileExplainHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'What this means'**
+  String get brainProfileExplainHeading;
+
+  /// No description provided for @brainProfileContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get brainProfileContinue;
+
+  /// No description provided for @brainProfileReadyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Brain Profile is ready'**
+  String get brainProfileReadyTitle;
+
+  /// No description provided for @brainProfileReadyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your personalized Recovery Plan comes in a later step. For now, you can return home.'**
+  String get brainProfileReadyBody;
+
+  /// No description provided for @brainProfileHistoricalBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Earlier snapshot'**
+  String get brainProfileHistoricalBadge;
 }
 
 class _AppLocalizationsDelegate

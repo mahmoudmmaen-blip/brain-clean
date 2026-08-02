@@ -1494,4 +1494,88 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get brainCheckSaveError =>
       'تعذّر حفظ إجاباتك. ما زالت موجودة على هذه الشاشة.';
+
+  @override
+  String get brainProfileTitle => 'ملف الدماغ';
+
+  @override
+  String get brainProfileBuilding => 'جارٍ بناء ملف الدماغ…';
+
+  @override
+  String get brainProfileLoading => 'جارٍ تحميل ملف الدماغ';
+
+  @override
+  String get brainProfileMissing => 'لا يوجد ملف دماغ بعد';
+
+  @override
+  String get brainProfileEmptyHint => 'أكمل فحص الدماغ لإنشاء أول لقطة.';
+
+  @override
+  String get brainProfileUnavailable => 'حساب الملف غير متاح الآن.';
+
+  @override
+  String get brainProfileRetry => 'حاول مرة أخرى';
+
+  @override
+  String get brainProfileGoHome => 'العودة إلى الرئيسية';
+
+  @override
+  String get brainProfileOrientation => 'نظرة هادئة على لقطتك';
+
+  @override
+  String get brainProfileScoreHeading => 'تقدير درجة التعافي';
+
+  @override
+  String get brainProfileScorePendingLabel => 'التقدير قيد الانتظار';
+
+  @override
+  String get brainProfileScorePendingSemantics =>
+      'تقدير درجة التعافي قيد الانتظار. ملخصات المجالات متاحة من إجاباتك.';
+
+  @override
+  String brainProfileScoreSemantics(String value) {
+    return 'تقدير درجة التعافي: $value';
+  }
+
+  @override
+  String get brainProfileConfidenceHeading => 'الثقة';
+
+  @override
+  String get brainProfileConfidenceProvisional => 'أولية';
+
+  @override
+  String get brainProfileConfidenceModerate => 'متوسطة';
+
+  @override
+  String get brainProfileConfidenceSolid => 'جيدة';
+
+  @override
+  String get brainProfileDomainsHeading => 'ملخص المجالات';
+
+  @override
+  String get brainProfileDomainNoData => 'لا إجابات في هذا المجال بعد';
+
+  @override
+  String brainProfileDomainMean(String value) {
+    return 'المتوسط المبلّغ عنه: $value';
+  }
+
+  @override
+  String get brainProfileDomainClose => 'إغلاق';
+
+  @override
+  String get brainProfileExplainHeading => 'ماذا يعني هذا';
+
+  @override
+  String get brainProfileContinue => 'متابعة';
+
+  @override
+  String get brainProfileReadyTitle => 'ملف الدماغ جاهز';
+
+  @override
+  String get brainProfileReadyBody =>
+      'خطتك الشخصية للتعافي تأتي في خطوة لاحقة. يمكنك الآن العودة إلى الرئيسية.';
+
+  @override
+  String get brainProfileHistoricalBadge => 'لقطة سابقة';
 }

@@ -28,9 +28,13 @@ import '../../features/profile/profile_screen.dart';
 import '../../features/reports/weekly_report_screen.dart';
 import '../../features/settings/settings_screen.dart';
 import '../../features/splash/presentation/splash_screen.dart';
+import '../../features/brain_profile/ui/brain_check_building_screen.dart';
+import '../../features/brain_profile/ui/brain_profile_reveal_screen.dart';
+import '../../features/brain_profile/ui/profile_ready_boundary_screen.dart';
 import '../constants/app_routes.dart';
 import '../security/biometric_lock_screen.dart';
 import '../security/security_status_provider.dart';
+import '../v2/v2_feature_boundary.dart';
 import 'app_navigator_key.dart';
 
 // 🌟 [NEW] إضافة مسار شاشة واحة المشاعر
@@ -216,6 +220,11 @@ GoRouter goRouter(GoRouterRef ref) {
     redirect: (context, state) {
       final location = state.uri.path;
       if (location == AppRoutes.splash) return null;
+      // V2 surfaces stay behind local feature boundary; V1 remains default.
+      if (location.startsWith('/v2/') &&
+          !V2FeatureBoundary.enableBrainProfileRoutes) {
+        return AppRoutes.home;
+      }
       if (!prefs.hasSeenOnboarding && location != AppRoutes.onboarding) {
         return AppRoutes.onboarding;
       }
@@ -371,6 +380,26 @@ GoRouter goRouter(GoRouterRef ref) {
         path: '/emotion-oasis',
         name: 'emotionOasis',
         builder: (context, state) => const EmotionOasisScreen(),
+      ),
+
+      // V2 Brain Profile (gated by V2FeatureBoundary.enableBrainProfileRoutes)
+      GoRoute(
+        path: AppRoutes.v2BrainCheckBuilding,
+        name: 'v2BrainCheckBuilding',
+        builder: (context, state) => const BrainCheckBuildingScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.v2BrainProfile,
+        name: 'v2BrainProfile',
+        builder: (context, state) {
+          final session = state.uri.queryParameters['session'];
+          return BrainProfileRevealScreen(sessionId: session);
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.v2ProfileReadyBoundary,
+        name: 'v2ProfileReadyBoundary',
+        builder: (context, state) => const ProfileReadyBoundaryScreen(),
       ),
     ],
     errorBuilder: (context, state) => Scaffold(

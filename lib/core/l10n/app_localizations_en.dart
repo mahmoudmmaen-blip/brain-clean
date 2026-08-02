@@ -1511,4 +1511,90 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get brainCheckSaveError =>
       'Could not save your answers. They are still on this screen.';
+
+  @override
+  String get brainProfileTitle => 'Brain Profile';
+
+  @override
+  String get brainProfileBuilding => 'Building your Brain Profile…';
+
+  @override
+  String get brainProfileLoading => 'Loading Brain Profile';
+
+  @override
+  String get brainProfileMissing => 'No Brain Profile yet';
+
+  @override
+  String get brainProfileEmptyHint =>
+      'Complete a Brain Check to create your first snapshot.';
+
+  @override
+  String get brainProfileUnavailable =>
+      'Profile calculation is unavailable right now.';
+
+  @override
+  String get brainProfileRetry => 'Try again';
+
+  @override
+  String get brainProfileGoHome => 'Back to Home';
+
+  @override
+  String get brainProfileOrientation => 'A calm look at your snapshot';
+
+  @override
+  String get brainProfileScoreHeading => 'Recovery Score estimate';
+
+  @override
+  String get brainProfileScorePendingLabel => 'Estimate pending';
+
+  @override
+  String get brainProfileScorePendingSemantics =>
+      'Recovery Score estimate is pending. Domain summaries are available from your answers.';
+
+  @override
+  String brainProfileScoreSemantics(String value) {
+    return 'Recovery Score estimate: $value';
+  }
+
+  @override
+  String get brainProfileConfidenceHeading => 'Confidence';
+
+  @override
+  String get brainProfileConfidenceProvisional => 'Provisional';
+
+  @override
+  String get brainProfileConfidenceModerate => 'Moderate';
+
+  @override
+  String get brainProfileConfidenceSolid => 'Solid';
+
+  @override
+  String get brainProfileDomainsHeading => 'Domain summary';
+
+  @override
+  String get brainProfileDomainNoData => 'No answers in this area yet';
+
+  @override
+  String brainProfileDomainMean(String value) {
+    return 'Reported average: $value';
+  }
+
+  @override
+  String get brainProfileDomainClose => 'Close';
+
+  @override
+  String get brainProfileExplainHeading => 'What this means';
+
+  @override
+  String get brainProfileContinue => 'Continue';
+
+  @override
+  String get brainProfileReadyTitle => 'Your Brain Profile is ready';
+
+  @override
+  String get brainProfileReadyBody =>
+      'Your personalized Recovery Plan comes in a later step. For now, you can return home.';
+
+  @override
+  String get brainProfileHistoricalBadge => 'Earlier snapshot';
 }

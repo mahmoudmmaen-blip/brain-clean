@@ -25,4 +25,14 @@ abstract final class AppRoutes {
   static const focusedThinking = '/focused-thinking';
   static const crossword = '/crossword';
   static const biometricLock = '/biometric-lock';
+
+  // --- V2 product surfaces (gated by V2FeatureBoundary) ---
+  /// CHK-03 — build ProfilePack from completed MeasurementEvent.
+  static const v2BrainCheckBuilding = '/v2/brain-check/building';
+
+  /// PRF-01 — Brain Profile reveal.
+  static const v2BrainProfile = '/v2/brain-profile';
+
+  /// Temporary completion boundary until Recovery Plan (Slice 4).
+  static const v2ProfileReadyBoundary = '/v2/brain-profile/ready';
 }

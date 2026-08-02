@@ -677,5 +677,41 @@
   },
   "brainCheckComplete": "Check complete",
   "brainCheckResumeTitle": "Continue your Brain Check?",
-  "brainCheckSaveError": "Could not save your answers. They are still on this screen."
+  "brainCheckSaveError": "Could not save your answers. They are still on this screen.",
+  "brainProfileTitle": "Brain Profile",
+  "brainProfileBuilding": "Building your Brain Profile…",
+  "brainProfileLoading": "Loading Brain Profile",
+  "brainProfileMissing": "No Brain Profile yet",
+  "brainProfileEmptyHint": "Complete a Brain Check to create your first snapshot.",
+  "brainProfileUnavailable": "Profile calculation is unavailable right now.",
+  "brainProfileRetry": "Try again",
+  "brainProfileGoHome": "Back to Home",
+  "brainProfileOrientation": "A calm look at your snapshot",
+  "brainProfileScoreHeading": "Recovery Score estimate",
+  "brainProfileScorePendingLabel": "Estimate pending",
+  "brainProfileScorePendingSemantics": "Recovery Score estimate is pending. Domain summaries are available from your answers.",
+  "brainProfileScoreSemantics": "Recovery Score estimate: {value}",
+  "@brainProfileScoreSemantics": {
+    "placeholders": {
+      "value": { "type": "String" }
+    }
+  },
+  "brainProfileConfidenceHeading": "Confidence",
+  "brainProfileConfidenceProvisional": "Provisional",
+  "brainProfileConfidenceModerate": "Moderate",
+  "brainProfileConfidenceSolid": "Solid",
+  "brainProfileDomainsHeading": "Domain summary",
+  "brainProfileDomainNoData": "No answers in this area yet",
+  "brainProfileDomainMean": "Reported average: {value}",
+  "@brainProfileDomainMean": {
+    "placeholders": {
+      "value": { "type": "String" }
+    }
+  },
+  "brainProfileDomainClose": "Close",
+  "brainProfileExplainHeading": "What this means",
+  "brainProfileContinue": "Continue",
+  "brainProfileReadyTitle": "Your Brain Profile is ready",
+  "brainProfileReadyBody": "Your personalized Recovery Plan comes in a later step. For now, you can return home.",
+  "brainProfileHistoricalBadge": "Earlier snapshot"
 }

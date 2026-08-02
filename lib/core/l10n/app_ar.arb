@@ -821,5 +821,41 @@
   },
   "brainCheckComplete": "اكتمل الفحص",
   "brainCheckResumeTitle": "هل تريد متابعة فحص الدماغ؟",
-  "brainCheckSaveError": "تعذّر حفظ إجاباتك. ما زالت موجودة على هذه الشاشة."
+  "brainCheckSaveError": "تعذّر حفظ إجاباتك. ما زالت موجودة على هذه الشاشة.",
+  "brainProfileTitle": "ملف الدماغ",
+  "brainProfileBuilding": "جارٍ بناء ملف الدماغ…",
+  "brainProfileLoading": "جارٍ تحميل ملف الدماغ",
+  "brainProfileMissing": "لا يوجد ملف دماغ بعد",
+  "brainProfileEmptyHint": "أكمل فحص الدماغ لإنشاء أول لقطة.",
+  "brainProfileUnavailable": "حساب الملف غير متاح الآن.",
+  "brainProfileRetry": "حاول مرة أخرى",
+  "brainProfileGoHome": "العودة إلى الرئيسية",
+  "brainProfileOrientation": "نظرة هادئة على لقطتك",
+  "brainProfileScoreHeading": "تقدير درجة التعافي",
+  "brainProfileScorePendingLabel": "التقدير قيد الانتظار",
+  "brainProfileScorePendingSemantics": "تقدير درجة التعافي قيد الانتظار. ملخصات المجالات متاحة من إجاباتك.",
+  "brainProfileScoreSemantics": "تقدير درجة التعافي: {value}",
+  "@brainProfileScoreSemantics": {
+    "placeholders": {
+      "value": { "type": "String" }
+    }
+  },
+  "brainProfileConfidenceHeading": "الثقة",
+  "brainProfileConfidenceProvisional": "أولية",
+  "brainProfileConfidenceModerate": "متوسطة",
+  "brainProfileConfidenceSolid": "جيدة",
+  "brainProfileDomainsHeading": "ملخص المجالات",
+  "brainProfileDomainNoData": "لا إجابات في هذا المجال بعد",
+  "brainProfileDomainMean": "المتوسط المبلّغ عنه: {value}",
+  "@brainProfileDomainMean": {
+    "placeholders": {
+      "value": { "type": "String" }
+    }
+  },
+  "brainProfileDomainClose": "إغلاق",
+  "brainProfileExplainHeading": "ماذا يعني هذا",
+  "brainProfileContinue": "متابعة",
+  "brainProfileReadyTitle": "ملف الدماغ جاهز",
+  "brainProfileReadyBody": "خطتك الشخصية للتعافي تأتي في خطوة لاحقة. يمكنك الآن العودة إلى الرئيسية.",
+  "brainProfileHistoricalBadge": "لقطة سابقة"
 }

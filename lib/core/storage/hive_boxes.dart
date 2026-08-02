@@ -16,4 +16,7 @@ abstract final class HiveBoxes {
 
   /// V2 Brain Check draft + completed MeasurementEvent result (local-first).
   static const brainCheck = 'brain_check_v1';
+
+  /// V2 Brain Profile history (ProfilePack append-only, local-first).
+  static const brainProfile = 'brain_profile_v1';
 }
