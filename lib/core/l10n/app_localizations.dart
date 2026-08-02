@@ -2731,6 +2731,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Warning: this device may be compromised. Local data only — cloud sync is disabled.'**
   String get securityCompromisedBanner;
+
+  /// No description provided for @brainCheckTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Check'**
+  String get brainCheckTitle;
+
+  /// No description provided for @brainCheckIntroNonMedical.
+  ///
+  /// In en, this message translates to:
+  /// **'This is a self-check, not a medical diagnosis.'**
+  String get brainCheckIntroNonMedical;
+
+  /// No description provided for @brainCheckStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Brain Check'**
+  String get brainCheckStart;
+
+  /// No description provided for @brainCheckContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get brainCheckContinue;
+
+  /// No description provided for @brainCheckStartOver.
+  ///
+  /// In en, this message translates to:
+  /// **'Start over'**
+  String get brainCheckStartOver;
+
+  /// No description provided for @brainCheckEmptyState.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Brain Check to build your profile.'**
+  String get brainCheckEmptyState;
+
+  /// No description provided for @brainCheckQuestionProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Question {current} of {total}'**
+  String brainCheckQuestionProgress(int current, int total);
+
+  /// No description provided for @brainCheckSectionProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Part {current} of {total}'**
+  String brainCheckSectionProgress(int current, int total);
+
+  /// No description provided for @brainCheckComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Check complete'**
+  String get brainCheckComplete;
+
+  /// No description provided for @brainCheckResumeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue your Brain Check?'**
+  String get brainCheckResumeTitle;
+
+  /// No description provided for @brainCheckSaveError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save your answers. They are still on this screen.'**
+  String get brainCheckSaveError;
 }
 
 class _AppLocalizationsDelegate

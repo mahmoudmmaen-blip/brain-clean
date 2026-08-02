@@ -1472,4 +1472,43 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get securityCompromisedBanner =>
       'Warning: this device may be compromised. Local data only — cloud sync is disabled.';
+
+  @override
+  String get brainCheckTitle => 'Brain Check';
+
+  @override
+  String get brainCheckIntroNonMedical =>
+      'This is a self-check, not a medical diagnosis.';
+
+  @override
+  String get brainCheckStart => 'Start Brain Check';
+
+  @override
+  String get brainCheckContinue => 'Continue';
+
+  @override
+  String get brainCheckStartOver => 'Start over';
+
+  @override
+  String get brainCheckEmptyState => 'Start Brain Check to build your profile.';
+
+  @override
+  String brainCheckQuestionProgress(int current, int total) {
+    return 'Question $current of $total';
+  }
+
+  @override
+  String brainCheckSectionProgress(int current, int total) {
+    return 'Part $current of $total';
+  }
+
+  @override
+  String get brainCheckComplete => 'Check complete';
+
+  @override
+  String get brainCheckResumeTitle => 'Continue your Brain Check?';
+
+  @override
+  String get brainCheckSaveError =>
+      'Could not save your answers. They are still on this screen.';
 }

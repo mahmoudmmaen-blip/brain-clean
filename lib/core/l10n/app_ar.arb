@@ -798,5 +798,28 @@
   "biometricLockTitle": "التطبيق مقفل",
   "biometricLockSubtitle": "استخدم بصمتك أو رمز الجهاز للمتابعة",
   "biometricLockButton": "فتح Brain Clean",
-  "securityCompromisedBanner": "تحذير: الجهاز قد يكون معدّلاً. بياناتك محلية فقط — تم تعطيل المزامنة السحابية."
+  "securityCompromisedBanner": "تحذير: الجهاز قد يكون معدّلاً. بياناتك محلية فقط — تم تعطيل المزامنة السحابية.",
+  "brainCheckTitle": "فحص الدماغ",
+  "brainCheckIntroNonMedical": "هذا فحص ذاتي، وليس تشخيصاً طبياً.",
+  "brainCheckStart": "ابدأ فحص الدماغ",
+  "brainCheckContinue": "متابعة",
+  "brainCheckStartOver": "البدء من جديد",
+  "brainCheckEmptyState": "ابدأ فحص الدماغ لبناء ملفك.",
+  "brainCheckQuestionProgress": "السؤال {current} من {total}",
+  "@brainCheckQuestionProgress": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "brainCheckSectionProgress": "الجزء {current} من {total}",
+  "@brainCheckSectionProgress": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "brainCheckComplete": "اكتمل الفحص",
+  "brainCheckResumeTitle": "هل تريد متابعة فحص الدماغ؟",
+  "brainCheckSaveError": "تعذّر حفظ إجاباتك. ما زالت موجودة على هذه الشاشة."
 }

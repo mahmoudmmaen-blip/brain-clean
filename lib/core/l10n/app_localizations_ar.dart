@@ -1456,4 +1456,42 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get securityCompromisedBanner =>
       'تحذير: الجهاز قد يكون معدّلاً. بياناتك محلية فقط — تم تعطيل المزامنة السحابية.';
+
+  @override
+  String get brainCheckTitle => 'فحص الدماغ';
+
+  @override
+  String get brainCheckIntroNonMedical => 'هذا فحص ذاتي، وليس تشخيصاً طبياً.';
+
+  @override
+  String get brainCheckStart => 'ابدأ فحص الدماغ';
+
+  @override
+  String get brainCheckContinue => 'متابعة';
+
+  @override
+  String get brainCheckStartOver => 'البدء من جديد';
+
+  @override
+  String get brainCheckEmptyState => 'ابدأ فحص الدماغ لبناء ملفك.';
+
+  @override
+  String brainCheckQuestionProgress(int current, int total) {
+    return 'السؤال $current من $total';
+  }
+
+  @override
+  String brainCheckSectionProgress(int current, int total) {
+    return 'الجزء $current من $total';
+  }
+
+  @override
+  String get brainCheckComplete => 'اكتمل الفحص';
+
+  @override
+  String get brainCheckResumeTitle => 'هل تريد متابعة فحص الدماغ؟';
+
+  @override
+  String get brainCheckSaveError =>
+      'تعذّر حفظ إجاباتك. ما زالت موجودة على هذه الشاشة.';
 }

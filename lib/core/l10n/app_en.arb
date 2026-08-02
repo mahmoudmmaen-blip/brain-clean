@@ -654,5 +654,28 @@
   "biometricLockTitle": "App locked",
   "biometricLockSubtitle": "Use your fingerprint or device PIN to continue",
   "biometricLockButton": "Unlock Brain Clean",
-  "securityCompromisedBanner": "Warning: this device may be compromised. Local data only — cloud sync is disabled."
+  "securityCompromisedBanner": "Warning: this device may be compromised. Local data only — cloud sync is disabled.",
+  "brainCheckTitle": "Brain Check",
+  "brainCheckIntroNonMedical": "This is a self-check, not a medical diagnosis.",
+  "brainCheckStart": "Start Brain Check",
+  "brainCheckContinue": "Continue",
+  "brainCheckStartOver": "Start over",
+  "brainCheckEmptyState": "Start Brain Check to build your profile.",
+  "brainCheckQuestionProgress": "Question {current} of {total}",
+  "@brainCheckQuestionProgress": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "brainCheckSectionProgress": "Part {current} of {total}",
+  "@brainCheckSectionProgress": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "brainCheckComplete": "Check complete",
+  "brainCheckResumeTitle": "Continue your Brain Check?",
+  "brainCheckSaveError": "Could not save your answers. They are still on this screen."
 }

@@ -13,4 +13,7 @@ abstract final class HiveBoxes {
 
   /// Append-only signed XP ledger (tamper-evident, client-side HMAC).
   static const xpLedger = 'xp_ledger_v1';
+
+  /// V2 Brain Check draft + completed MeasurementEvent result (local-first).
+  static const brainCheck = 'brain_check_v1';
 }
