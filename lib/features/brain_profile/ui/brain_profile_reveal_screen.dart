@@ -9,6 +9,7 @@ import '../data/brain_profile_repository_provider.dart';
 import '../domain/measurement_confidence.dart';
 import '../domain/profile_domain_catalog.dart';
 import '../domain/profile_pack.dart';
+import '../domain/recovery_score.dart';
 
 /// PRF-01 — calm Brain Profile reveal (no Recovery Plan, no dashboard warehouse).
 class BrainProfileRevealScreen extends ConsumerStatefulWidget {
@@ -169,7 +170,7 @@ class BrainProfileRevealBody extends StatelessWidget {
     return switch (c) {
       MeasurementConfidence.provisional => loc.brainProfileConfidenceProvisional,
       MeasurementConfidence.moderate => loc.brainProfileConfidenceModerate,
-      MeasurementConfidence.solid => loc.brainProfileConfidenceSolid,
+      MeasurementConfidence.strong => loc.brainProfileConfidenceSolid,
     };
   }
 
@@ -221,11 +222,16 @@ class BrainProfileRevealBody extends StatelessWidget {
 
     final explanation = pack!.explanation;
     final confidenceLabel = _confidenceLabel(pack!.confidence);
-    final scoreSemantics = pack!.recoveryScore.isPending
-        ? loc.brainProfileScorePendingSemantics
-        : loc.brainProfileScoreSemantics(
-            pack!.recoveryScore.value?.toStringAsFixed(0) ?? '',
-          );
+    final score = pack!.recoveryScore;
+    final scoreSemantics = score.isValid
+        ? loc.brainProfileScoreSemantics('${score.value}')
+        : loc.brainProfileScorePendingSemantics;
+    final scoreLabel = score.isValid
+        ? '${score.value}'
+        : loc.brainProfileScorePendingLabel;
+    final scoreDetail = score.isValid
+        ? '${score.band.labelEn}. ${explanation.scorePending(languageCode)}'
+        : explanation.scorePending(languageCode);
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(24),
@@ -262,12 +268,12 @@ class BrainProfileRevealBody extends StatelessWidget {
           Semantics(
             label: scoreSemantics,
             child: Text(
-              loc.brainProfileScorePendingLabel,
+              scoreLabel,
               style: Theme.of(context).textTheme.headlineSmall,
             ),
           ),
           const SizedBox(height: 8),
-          Text(explanation.scorePending(languageCode)),
+          Text(scoreDetail),
           const SizedBox(height: 24),
           Semantics(
             header: true,
@@ -298,10 +304,10 @@ class BrainProfileRevealBody extends StatelessWidget {
           Text(explanation.supportAreas(languageCode)),
           const SizedBox(height: 12),
           ...pack!.domains.map((d) {
-            final meanLabel = d.normalizedMean == null
+            final meanLabel = d.displayScore == null && d.normalizedMean == null
                 ? loc.brainProfileDomainNoData
                 : loc.brainProfileDomainMean(
-                    d.normalizedMean!.toStringAsFixed(1),
+                    '${d.displayScore ?? (d.normalizedMean! + 0.5).floor()}',
                   );
             return Semantics(
               button: true,

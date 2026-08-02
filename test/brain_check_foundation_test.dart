@@ -43,6 +43,7 @@ void main() {
     controller = BrainCheckController(
       repository: repository,
       clock: nextClock,
+      scoreBridge: const V1RecoveryScoreBridge(),
     );
   });
 
@@ -157,6 +158,7 @@ void main() {
       final resumed = BrainCheckController(
         repository: repository,
         clock: nextClock,
+        scoreBridge: const V1RecoveryScoreBridge(),
       );
       await resumed.hydrate();
       expect(resumed.progress.phase, BrainCheckPhase.resumeGate);
@@ -183,7 +185,7 @@ void main() {
   });
 
   group('completion', () {
-    test('completes with MeasurementEvent and pending Recovery Score', () async {
+    test('completes with MeasurementEvent and V1 Recovery Score', () async {
       await controller.start(mode: BrainCheckMode.pulse, source: 'pulse');
       await answerAllRemaining();
       expect(controller.progress.phase, BrainCheckPhase.completion);
@@ -192,11 +194,12 @@ void main() {
       expect(done.isOk, isTrue);
       expect(controller.progress.phase, BrainCheckPhase.completed);
       expect(controller.result, isNotNull);
-      expect(controller.result!.scorePlaceholder.isPending, isTrue);
+      expect(controller.result!.scorePlaceholder.isPending, isFalse);
       expect(
         controller.result!.scorePlaceholder.status,
-        RecoveryScorePlaceholder.pendingStatus,
+        RecoveryScorePlaceholder.v1Status,
       );
+      expect(controller.result!.scorePlaceholder.recoveryScore, isNotNull);
       expect(controller.result!.measurementEvent.answers.length, 4);
       expect(await repository.loadDraft(), isNull);
       expect(await repository.loadResult(), isNotNull);
@@ -273,6 +276,7 @@ void main() {
       final second = BrainCheckController(
         repository: repository,
         clock: nextClock,
+        scoreBridge: const V1RecoveryScoreBridge(),
       );
       addTearDown(second.dispose);
       await second.hydrate();
@@ -289,7 +293,10 @@ void main() {
       await controller.hydrate();
       expect(() => controller.dispose(), returnsNormally);
       // Recreate for tearDown.
-      controller = BrainCheckController(repository: repository);
+      controller = BrainCheckController(
+        repository: repository,
+        scoreBridge: const V1RecoveryScoreBridge(),
+      );
     });
   });
 }

@@ -117,19 +117,19 @@ abstract final class ProfileExplanationCatalog {
 
     final confidenceEn = switch (confidence) {
       MeasurementConfidence.provisional =>
-        'This is a provisional snapshot (often from a shorter check). Confidence is limited.',
+        'This snapshot is early or incomplete; treat it gently.',
       MeasurementConfidence.moderate =>
-        'This snapshot has moderate confidence — some answers may still be thin.',
-      MeasurementConfidence.solid =>
-        'This snapshot has solid coverage for the path you took.',
+        'Coverage is enough for a useful estimate, with normal uncertainty.',
+      MeasurementConfidence.strong =>
+        'Coverage for this Full check is solid for product use — still not a diagnosis.',
     };
     final confidenceAr = switch (confidence) {
       MeasurementConfidence.provisional =>
-        'هذه لقطة أولية (غالباً من فحص أقصر). درجة الثقة محدودة.',
+        'هذه اللقطة مبكرة أو غير مكتملة؛ تعامل معها بلطف.',
       MeasurementConfidence.moderate =>
-        'هذه اللقطة بثقة متوسطة — قد تظل بعض الإجابات خفيفة.',
-      MeasurementConfidence.solid =>
-        'هذه اللقطة بتغطية جيدة للمسار الذي اخترته.',
+        'التغطية كافية لتقدير مفيد، مع عدم يقين طبيعي.',
+      MeasurementConfidence.strong =>
+        'تغطية هذا الفحص الكامل جيدة للاستخدام في المنتج — وليست تشخيصاً.',
     };
 
     return MeasurementExplanation(
@@ -156,10 +156,10 @@ abstract final class ProfileExplanationCatalog {
       retakeAr:
           'يمكنك إعادة فحص الدماغ في أي وقت. الفحص الجديد ينشئ لقطة جديدة — وتبقى اللقطات السابقة في السجل.',
       scorePendingEn: scorePending
-          ? 'An overall Recovery Score estimate is not finalized yet. Domain summaries below are from your answers only.'
+          ? 'An overall Recovery Score estimate is not available for this snapshot.'
           : 'Overall Recovery Score estimate is available for this snapshot.',
       scorePendingAr: scorePending
-          ? 'تقدير درجة التعافي الإجمالية غير مكتمل بعد. ملخصات المجالات أدناه مأخوذة من إجاباتك فقط.'
+          ? 'تقدير درجة التعافي الإجمالية غير متاح لهذه اللقطة.'
           : 'تقدير درجة التعافي الإجمالية متاح لهذه اللقطة.',
     );
   }

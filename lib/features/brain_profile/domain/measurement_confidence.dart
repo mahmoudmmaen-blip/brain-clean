@@ -1,13 +1,13 @@
 /// Confidence in the measurement snapshot — separate from any score value.
 enum MeasurementConfidence {
-  /// Few items or Lite path — provisional snapshot.
+  /// Few items or incomplete / corrupt path.
   provisional,
 
-  /// Most required items answered on a fuller path.
+  /// Useful estimate with normal uncertainty (Lite/Pulse complete).
   moderate,
 
-  /// Full path with complete answers.
-  solid,
+  /// Full path complete under recovery_score_v1 (user label: Strong).
+  strong,
 }
 
 extension MeasurementConfidenceX on MeasurementConfidence {
@@ -15,8 +15,9 @@ extension MeasurementConfidenceX on MeasurementConfidence {
 
   static MeasurementConfidence fromWire(String? raw) {
     switch (raw) {
-      case 'solid':
-        return MeasurementConfidence.solid;
+      case 'strong':
+      case 'solid': // legacy Slice 3 wire name
+        return MeasurementConfidence.strong;
       case 'moderate':
         return MeasurementConfidence.moderate;
       case 'provisional':

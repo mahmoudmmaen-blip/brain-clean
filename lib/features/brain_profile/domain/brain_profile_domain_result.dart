@@ -8,6 +8,7 @@ class BrainProfileDomainResult {
     required this.expectedCount,
     required this.missingQuestionIds,
     this.normalizedMean,
+    this.displayScore,
   });
 
   final String domainId;
@@ -16,8 +17,11 @@ class BrainProfileDomainResult {
   final int answeredCount;
   final int expectedCount;
 
-  /// 0–100 equal-weight mean of answered items in this domain, or null if none.
+  /// Internal 0–100 mean (may have fractional precision).
   final double? normalizedMean;
+
+  /// User-facing whole-number domain score when available.
+  final int? displayScore;
   final List<String> missingQuestionIds;
 
   bool get hasData => normalizedMean != null && answeredCount > 0;
@@ -34,6 +38,7 @@ class BrainProfileDomainResult {
         'expectedCount': expectedCount,
         'missingQuestionIds': missingQuestionIds,
         if (normalizedMean != null) 'normalizedMean': normalizedMean,
+        if (displayScore != null) 'displayScore': displayScore,
       };
 
   factory BrainProfileDomainResult.fromJson(Map<String, dynamic> json) {
@@ -44,6 +49,9 @@ class BrainProfileDomainResult {
         missing.add(item.toString());
       }
     }
+    final mean = (json['normalizedMean'] as num?)?.toDouble();
+    final display = (json['displayScore'] as num?)?.toInt() ??
+        (mean == null ? null : (mean + 0.5).floor().clamp(0, 100));
     return BrainProfileDomainResult(
       domainId: json['domainId'] as String,
       titleEn: json['titleEn'] as String? ?? json['domainId'] as String,
@@ -51,7 +59,8 @@ class BrainProfileDomainResult {
       answeredCount: (json['answeredCount'] as num?)?.toInt() ?? 0,
       expectedCount: (json['expectedCount'] as num?)?.toInt() ?? 0,
       missingQuestionIds: List<String>.unmodifiable(missing),
-      normalizedMean: (json['normalizedMean'] as num?)?.toDouble(),
+      normalizedMean: mean,
+      displayScore: display,
     );
   }
 }

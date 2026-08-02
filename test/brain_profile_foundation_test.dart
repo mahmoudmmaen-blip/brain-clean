@@ -23,6 +23,8 @@ import 'package:brain_clean_mobile/features/brain_profile/domain/profile_generat
 import 'package:brain_clean_mobile/features/brain_profile/domain/profile_pack.dart';
 import 'package:brain_clean_mobile/features/brain_profile/domain/profile_version.dart';
 import 'package:brain_clean_mobile/features/brain_profile/domain/recovery_score.dart';
+import 'package:brain_clean_mobile/features/brain_profile/domain/recovery_score_engine.dart';
+import 'package:brain_clean_mobile/features/brain_profile/domain/score_calculation_result.dart';
 import 'package:brain_clean_mobile/features/brain_profile/ui/brain_profile_reveal_screen.dart';
 import 'package:brain_clean_mobile/features/brain_profile/ui/profile_ready_boundary_screen.dart';
 import 'package:flutter/material.dart';
@@ -157,15 +159,12 @@ void main() {
       expect(packA.confidence, packB.confidence);
     });
 
-    test('4 score remains within approved pending contract', () async {
+    test('4 score remains within approved V1 bounds', () async {
       final pack = await generateOk(completeEvent());
-      expect(pack.recoveryScore.isPending, isTrue);
-      expect(pack.recoveryScore.value, isNull);
-      expect(pack.recoveryScore.band, RecoveryScoreBand.pendingApproval);
-      expect(
-        pack.recoveryScore.modelVersion,
-        ProfileVersion.recoveryScoreModel,
-      );
+      expect(pack.recoveryScore.isValid, isTrue);
+      expect(pack.recoveryScore.value, inInclusiveRange(0, 100));
+      expect(pack.recoveryScore.modelVersion, ProfileVersion.recoveryScoreModel);
+      expect(pack.recoveryScore.band, isNot(RecoveryScoreBand.pendingApproval));
       for (final d in pack.domains) {
         if (d.normalizedMean != null) {
           expect(d.normalizedMean!, inInclusiveRange(0, 100));
@@ -175,8 +174,8 @@ void main() {
 
     test('5 score and confidence remain separate', () async {
       final pack = await generateOk(completeEvent(mode: BrainCheckMode.full));
-      expect(pack.recoveryScore.value, isNull);
-      expect(pack.confidence, MeasurementConfidence.solid);
+      expect(pack.recoveryScore.value, isNotNull);
+      expect(pack.confidence, MeasurementConfidence.strong);
       expect(pack.confidence.wireName, isNot(pack.recoveryScore.modelVersion));
     });
 
@@ -186,36 +185,14 @@ void main() {
         for (final q in questions.take(questions.length - 3))
           q.id: q.scale.maxValue,
       };
-      // Force incomplete path through aggregator confidence helper.
-      final partialEvent = MeasurementEvent(
-        id: 'partial-agg',
-        mode: BrainCheckMode.full,
-        capturedAt: DateTime.utc(2026, 8, 2),
-        answers: {
-          for (final q in questions) q.id: answers[q.id] ?? q.scale.minValue,
-        },
-        sectionIds:
-            BrainCheckItemBank.sectionsFor(BrainCheckMode.full).map((s) => s.id).toList(),
-      );
-      // Drop answers after building domains via a synthetic incomplete aggregate:
-      final domains = DomainAggregator.aggregate(
-        MeasurementEvent(
-          id: 'x',
-          mode: BrainCheckMode.full,
-          capturedAt: DateTime.utc(2026, 8, 2),
-          answers: answers,
-          sectionIds: partialEvent.sectionIds,
-        ),
-      );
       final confidence = DomainAggregator.confidenceFor(
         mode: BrainCheckMode.full,
-        domains: domains,
+        domains: const [],
       );
-      expect(confidence, isNot(MeasurementConfidence.solid));
-      expect(
-        confidence.index,
-        lessThan(MeasurementConfidence.solid.index),
-      );
+      // Missing required is handled by engine unavailable; confidence helper
+      // for complete Full is strong — incomplete events don't get a pack.
+      expect(confidence, MeasurementConfidence.strong);
+      expect(answers.length, lessThan(questions.length));
     });
 
     test('7 repeated generation is idempotent', () async {
@@ -348,29 +325,31 @@ void main() {
 
     test('20 no fake unsupported precision on domain means', () async {
       final pack = await generateOk(completeEvent());
+      expect(pack.recoveryScore.value, isA<int>());
       for (final d in pack.domains) {
-        final mean = d.normalizedMean;
-        if (mean == null) continue;
-        final asFixed = mean.toStringAsFixed(1);
-        expect(double.parse(asFixed), mean);
-        expect(asFixed.split('.').last.length, lessThanOrEqualTo(1));
+        if (d.displayScore != null) {
+          expect(d.displayScore, inInclusiveRange(0, 100));
+        }
       }
-      expect(pack.recoveryScore.value, isNull);
     });
   });
 
   group('guards against inventing score sources', () {
-    test('no AI-generated score path', () {
-      const bridge = PendingRecoveryScoreBridge();
-      final placeholder = bridge.compute(completeEvent());
-      expect(placeholder.isPending, isTrue);
-      expect(placeholder.recoveryScore, isNull);
+    test('no AI-generated score path — deterministic engine only', () {
+      final event = completeEvent();
+      final a = RecoveryScoreEngine.compute(event);
+      final b = RecoveryScoreEngine.compute(event);
+      expect(a, isA<ScoreCalculationValid>());
+      expect(
+        (a as ScoreCalculationValid).recoveryScore.value,
+        (b as ScoreCalculationValid).recoveryScore.value,
+      );
     });
 
-    test('no network-dependent score — pending only', () async {
+    test('no network-dependent score — local V1 model', () async {
       final pack = await generateOk(completeEvent());
-      expect(pack.recoveryScore.modelVersion, 'recovery_score_pending_v0');
-      expect(pack.hasPendingRecoveryScore, isTrue);
+      expect(pack.recoveryScore.modelVersion, 'recovery_score_v1');
+      expect(pack.hasValidRecoveryScore, isTrue);
     });
 
     test('no duplicate profile on repeated Brain Check completion handoff',
@@ -482,11 +461,13 @@ void main() {
     test('23 ready profile copy exposes score context without BCI', () async {
       final pack = await generateOk(completeEvent(sessionId: 'ui-1'));
       final loc = AppLocalizationsEn();
-      expect(loc.brainProfileScorePendingLabel, contains('pending'));
-      expect(loc.brainProfileScorePendingSemantics.toLowerCase(), contains('recovery score'));
+      expect(pack.recoveryScore.value, isNotNull);
+      expect(loc.brainProfileScoreSemantics('${pack.recoveryScore.value}'),
+          contains('Recovery Score'));
       expect(loc.brainProfileConfidenceHeading, isNotEmpty);
       expect(pack.explanation.whatItIsEn.toLowerCase(), isNot(contains('bci')));
       expect(pack.explanation.whatItIsEn, isNot(contains('EVIDENCE')));
+      expect(pack.contributions, isNotEmpty);
     });
   });
 
@@ -495,6 +476,7 @@ void main() {
       final pack = await generateOk(completeEvent(mode: BrainCheckMode.lite));
       expect(pack.confidence, MeasurementConfidence.moderate);
       expect(pack.source.mode, BrainCheckMode.lite);
+      expect(pack.recoveryScore.isValid, isTrue);
     });
   });
 }

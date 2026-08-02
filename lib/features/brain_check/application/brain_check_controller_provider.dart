@@ -9,7 +9,7 @@ final brainCheckControllerProvider =
     ChangeNotifierProvider<BrainCheckController>((ref) {
   final controller = BrainCheckController(
     repository: ref.watch(brainCheckLocalRepositoryProvider),
-    scoreBridge: const PendingRecoveryScoreBridge(),
+    scoreBridge: const V1RecoveryScoreBridge(),
   );
   // Fire-and-forget hydrate; UI slices await [isHydrated] / listen.
   // ignore: discarded_futures

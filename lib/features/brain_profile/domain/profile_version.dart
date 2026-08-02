@@ -6,10 +6,12 @@ abstract final class ProfileVersion {
   /// Brain Check item-bank / MeasurementEvent shape this pack expects.
   static const brainCheckSchema = 'brain_check_measurement_v1';
 
-  /// Overall Recovery Score model. Remains pending until mathematics
-  /// authority is present in-repo (Build Spec is silent on weights/bands).
-  static const recoveryScoreModel = 'recovery_score_pending_v0';
+  /// Overall Recovery Score model (`recovery_score_v1`).
+  static const recoveryScoreModel = 'recovery_score_v1';
 
-  /// Domain aggregation only (equal-weight mean within a section).
+  /// Domain aggregation companion (equal-weight mean within a section).
   static const domainAggregationModel = 'domain_mean_v1';
+
+  /// Equal domain weight set identifier.
+  static const weightSet = 'weight_set_equal_v1';
 }

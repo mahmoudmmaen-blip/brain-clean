@@ -1,6 +1,8 @@
 import 'measurement_event.dart';
+import '../../brain_profile/domain/recovery_score_engine.dart';
+import '../../brain_profile/domain/score_calculation_result.dart';
 
-/// Placeholder Recovery Score until the Recovery Score engine connects.
+/// Placeholder Recovery Score until / when ProfilePack is built.
 class RecoveryScorePlaceholder {
   const RecoveryScorePlaceholder({
     this.recoveryScore,
@@ -8,12 +10,15 @@ class RecoveryScorePlaceholder {
   });
 
   static const pendingStatus = 'pending_recovery_score';
+  static const v1Status = 'recovery_score_v1';
+  static const unavailableStatus = 'recovery_score_unavailable';
 
-  /// Null until Recovery Score is wired.
+  /// Null until Recovery Score is wired or when unavailable.
   final double? recoveryScore;
   final String status;
 
-  bool get isPending => recoveryScore == null;
+  bool get isPending =>
+      recoveryScore == null && status == pendingStatus;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'status': status,
@@ -30,20 +35,36 @@ class RecoveryScorePlaceholder {
   static const pending = RecoveryScorePlaceholder();
 }
 
-/// Extension point for future Recovery Score mathematics.
-///
-/// Slice 2 keeps the default implementation as a no-op placeholder.
+/// Extension point for Recovery Score mathematics.
 abstract class RecoveryScoreBridge {
   RecoveryScorePlaceholder compute(MeasurementEvent event);
 }
 
-/// Approved placeholder — does not invent scoring math.
+/// Deterministic V1 bridge — pure local [RecoveryScoreEngine].
+class V1RecoveryScoreBridge implements RecoveryScoreBridge {
+  const V1RecoveryScoreBridge();
+
+  @override
+  RecoveryScorePlaceholder compute(MeasurementEvent event) {
+    final result = RecoveryScoreEngine.compute(event);
+    return switch (result) {
+      ScoreCalculationValid(:final recoveryScore) => RecoveryScorePlaceholder(
+          recoveryScore: recoveryScore.value?.toDouble(),
+          status: RecoveryScorePlaceholder.v1Status,
+        ),
+      ScoreCalculationUnavailable() => const RecoveryScorePlaceholder(
+          status: RecoveryScorePlaceholder.unavailableStatus,
+        ),
+    };
+  }
+}
+
+/// Legacy no-op placeholder retained for tests that assert pending behavior.
 class PendingRecoveryScoreBridge implements RecoveryScoreBridge {
   const PendingRecoveryScoreBridge();
 
   @override
   RecoveryScorePlaceholder compute(MeasurementEvent event) {
-    // Intentionally empty: Recovery Score connects in a later slice.
     return RecoveryScorePlaceholder.pending;
   }
 }

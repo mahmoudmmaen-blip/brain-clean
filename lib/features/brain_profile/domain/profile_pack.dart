@@ -4,10 +4,9 @@ import 'measurement_explanation.dart';
 import 'profile_source_reference.dart';
 import 'profile_version.dart';
 import 'recovery_score.dart';
+import 'score_calculation_result.dart';
 
 /// Immutable V2 Brain Profile pack (Build Spec: ProfilePack).
-///
-/// Overall [recoveryScore] stays pending until mathematics authority arrives.
 class ProfilePack {
   const ProfilePack({
     required this.id,
@@ -22,6 +21,8 @@ class ProfilePack {
     required this.domainAggregationModelVersion,
     this.strongerDomainIds = const [],
     this.supportDomainIds = const [],
+    this.contributions = const [],
+    this.explanationFlags = const [],
   });
 
   final String id;
@@ -36,8 +37,11 @@ class ProfilePack {
   final String domainAggregationModelVersion;
   final List<String> strongerDomainIds;
   final List<String> supportDomainIds;
+  final List<DomainContribution> contributions;
+  final List<String> explanationFlags;
 
   bool get hasPendingRecoveryScore => recoveryScore.isPending;
+  bool get hasValidRecoveryScore => recoveryScore.isValid;
 
   List<String> get missingDataIndicators {
     final missing = <String>[];
@@ -48,6 +52,9 @@ class ProfilePack {
     }
     if (recoveryScore.isPending) {
       missing.add('recovery_score_pending');
+    }
+    if (recoveryScore.isUnavailable) {
+      missing.add('recovery_score_unavailable');
     }
     return List<String>.unmodifiable(missing);
   }
@@ -65,7 +72,10 @@ class ProfilePack {
         'domainAggregationModelVersion': domainAggregationModelVersion,
         'strongerDomainIds': strongerDomainIds,
         'supportDomainIds': supportDomainIds,
-        'calculationModelVersion': ProfileVersion.recoveryScoreModel,
+        'contributions':
+            contributions.map((c) => c.toJson()).toList(growable: false),
+        'explanationFlags': explanationFlags,
+        'calculationModelVersion': recoveryScore.modelVersion,
       };
 
   factory ProfilePack.fromJson(Map<String, dynamic> json) {
@@ -96,6 +106,24 @@ class ProfilePack {
         support.add(item.toString());
       }
     }
+    final contributions = <DomainContribution>[];
+    final rawContrib = json['contributions'];
+    if (rawContrib is List) {
+      for (final item in rawContrib) {
+        if (item is Map) {
+          contributions.add(
+            DomainContribution.fromJson(Map<String, dynamic>.from(item)),
+          );
+        }
+      }
+    }
+    final flags = <String>[];
+    final rawFlags = json['explanationFlags'];
+    if (rawFlags is List) {
+      for (final item in rawFlags) {
+        flags.add(item.toString());
+      }
+    }
 
     return ProfilePack(
       id: json['id'] as String,
@@ -124,6 +152,8 @@ class ProfilePack {
               ProfileVersion.domainAggregationModel,
       strongerDomainIds: List<String>.unmodifiable(stronger),
       supportDomainIds: List<String>.unmodifiable(support),
+      contributions: List<DomainContribution>.unmodifiable(contributions),
+      explanationFlags: List<String>.unmodifiable(flags),
     );
   }
 }
