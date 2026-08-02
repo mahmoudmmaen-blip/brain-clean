@@ -1597,4 +1597,109 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get brainProfileHistoricalBadge => 'Earlier snapshot';
+
+  @override
+  String get recoveryPlanTitle => 'Recovery Plan';
+
+  @override
+  String get recoveryPlanBuilding => 'Building your Recovery Plan…';
+
+  @override
+  String get recoveryPlanLoading => 'Loading Recovery Plan';
+
+  @override
+  String get recoveryPlanReady => 'Your Recovery Plan is ready';
+
+  @override
+  String get recoveryPlanStarterReady => 'A calm starter plan is ready';
+
+  @override
+  String get recoveryPlanMissing => 'No Recovery Plan yet';
+
+  @override
+  String get recoveryPlanMissingProfile =>
+      'Complete a Brain Check and Brain Profile first.';
+
+  @override
+  String get recoveryPlanScoreUnavailable =>
+      'A full plan needs a valid Recovery Score estimate. A starter plan may still be available.';
+
+  @override
+  String get recoveryPlanUnsupportedVersion =>
+      'This plan model is not supported on this version.';
+
+  @override
+  String get recoveryPlanGenerationError =>
+      'Could not build your plan right now. Try again.';
+
+  @override
+  String get recoveryPlanRetry => 'Try again';
+
+  @override
+  String get recoveryPlanGoHome => 'Back to Home';
+
+  @override
+  String get recoveryPlanBuildCta => 'Build Recovery Plan';
+
+  @override
+  String get recoveryPlanMainFocus => 'Main focus';
+
+  @override
+  String get recoveryPlanPrioritiesHeading => 'Priority support';
+
+  @override
+  String get recoveryPlanNoPriorities =>
+      'No priority domains in this starter plan';
+
+  @override
+  String get recoveryPlanStrongerHeading => 'Already helping';
+
+  @override
+  String get recoveryPlanConfidenceHeading => 'Confidence';
+
+  @override
+  String get recoveryPlanTimeHeading => 'Daily time';
+
+  @override
+  String recoveryPlanTimeRange(String min, String max) {
+    return 'About $min–$max minutes';
+  }
+
+  @override
+  String get recoveryPlanIntensityLabel => 'Intensity';
+
+  @override
+  String get recoveryPlanMinimumPath => 'Minimum path';
+
+  @override
+  String get recoveryPlanStandardPath => 'Standard path';
+
+  @override
+  String get recoveryPlanBecauseHeading => 'Why this plan today';
+
+  @override
+  String get recoveryPlanTodayPreview => 'Today preview';
+
+  @override
+  String get recoveryPlanContinueToday => 'Continue to Today';
+
+  @override
+  String get recoveryPlanSkipHint =>
+      'Skipping a step never counts as a penalty.';
+
+  @override
+  String get recoveryPlanOptionalTag => 'optional';
+
+  @override
+  String get recoveryPlanNoSteps => 'No steps listed';
+
+  @override
+  String get recoveryPlanStarterBadge => 'Starter plan';
+
+  @override
+  String get recoveryPlanTodayReadyTitle => 'Today is ready to begin';
+
+  @override
+  String get recoveryPlanTodayReadyBody =>
+      'Your daily session player arrives in a later step. Your Recovery Plan is saved on this device.';
 }

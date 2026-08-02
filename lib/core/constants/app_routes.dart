@@ -35,4 +35,13 @@ abstract final class AppRoutes {
 
   /// Temporary completion boundary until Recovery Plan (Slice 4).
   static const v2ProfileReadyBoundary = '/v2/brain-profile/ready';
+
+  /// PLN-00 — build Recovery Plan from ProfilePack.
+  static const v2PlanBuilding = '/v2/plan/building';
+
+  /// PLN-01 — Recovery Plan reveal.
+  static const v2PlanReveal = '/v2/plan';
+
+  /// Temporary Today-ready boundary (no session player yet).
+  static const v2PlanTodayReady = '/v2/plan/today-ready';
 }

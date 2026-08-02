@@ -1578,4 +1578,106 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get brainProfileHistoricalBadge => 'لقطة سابقة';
+
+  @override
+  String get recoveryPlanTitle => 'خطة التعافي';
+
+  @override
+  String get recoveryPlanBuilding => 'جارٍ بناء خطة التعافي…';
+
+  @override
+  String get recoveryPlanLoading => 'جارٍ تحميل خطة التعافي';
+
+  @override
+  String get recoveryPlanReady => 'خطة التعافي جاهزة';
+
+  @override
+  String get recoveryPlanStarterReady => 'خطة بداية هادئة جاهزة';
+
+  @override
+  String get recoveryPlanMissing => 'لا توجد خطة تعافٍ بعد';
+
+  @override
+  String get recoveryPlanMissingProfile => 'أكمل فحص الدماغ وملف الدماغ أولاً.';
+
+  @override
+  String get recoveryPlanScoreUnavailable =>
+      'الخطة الكاملة تحتاج تقدير درجة تعافٍ صالح. قد تبقى خطة البداية متاحة.';
+
+  @override
+  String get recoveryPlanUnsupportedVersion =>
+      'نموذج الخطة هذا غير مدعوم في هذا الإصدار.';
+
+  @override
+  String get recoveryPlanGenerationError =>
+      'تعذّر بناء خطتك الآن. حاول مرة أخرى.';
+
+  @override
+  String get recoveryPlanRetry => 'حاول مرة أخرى';
+
+  @override
+  String get recoveryPlanGoHome => 'العودة إلى الرئيسية';
+
+  @override
+  String get recoveryPlanBuildCta => 'ابنِ خطة التعافي';
+
+  @override
+  String get recoveryPlanMainFocus => 'التركيز الرئيسي';
+
+  @override
+  String get recoveryPlanPrioritiesHeading => 'دعم الأولوية';
+
+  @override
+  String get recoveryPlanNoPriorities => 'لا مجالات أولوية في خطة البداية هذه';
+
+  @override
+  String get recoveryPlanStrongerHeading => 'ما يساعدك بالفعل';
+
+  @override
+  String get recoveryPlanConfidenceHeading => 'الثقة';
+
+  @override
+  String get recoveryPlanTimeHeading => 'الوقت اليومي';
+
+  @override
+  String recoveryPlanTimeRange(String min, String max) {
+    return 'حوالي $min–$max دقيقة';
+  }
+
+  @override
+  String get recoveryPlanIntensityLabel => 'الشدة';
+
+  @override
+  String get recoveryPlanMinimumPath => 'المسار الأدنى';
+
+  @override
+  String get recoveryPlanStandardPath => 'المسار القياسي';
+
+  @override
+  String get recoveryPlanBecauseHeading => 'لماذا هذه الخطة اليوم';
+
+  @override
+  String get recoveryPlanTodayPreview => 'معاينة اليوم';
+
+  @override
+  String get recoveryPlanContinueToday => 'المتابعة إلى اليوم';
+
+  @override
+  String get recoveryPlanSkipHint => 'تخطي خطوة لا يُحسب أبداً كعقوبة.';
+
+  @override
+  String get recoveryPlanOptionalTag => 'اختياري';
+
+  @override
+  String get recoveryPlanNoSteps => 'لا خطوات مدرجة';
+
+  @override
+  String get recoveryPlanStarterBadge => 'خطة بداية';
+
+  @override
+  String get recoveryPlanTodayReadyTitle => 'اليوم جاهز للبدء';
+
+  @override
+  String get recoveryPlanTodayReadyBody =>
+      'مشغّل الجلسة اليومية يأتي في خطوة لاحقة. خطة التعافي محفوظة على هذا الجهاز.';
 }

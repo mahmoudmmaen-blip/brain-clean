@@ -134,7 +134,7 @@ class _BrainProfileRevealScreenState
           pack: _pack,
           onDomainTap: _openDomain,
           onGoHome: () => context.go(AppRoutes.home),
-          onContinue: () => context.go(AppRoutes.v2ProfileReadyBoundary),
+          onContinue: () => context.go(AppRoutes.v2PlanBuilding),
         ),
       ),
     );

@@ -32,6 +32,7 @@ abstract final class HiveBootstrap {
     HiveBoxes.xpLedger,
     HiveBoxes.brainCheck,
     HiveBoxes.brainProfile,
+    HiveBoxes.recoveryPlan,
   ];
 
   static Future<void> initialize() async {

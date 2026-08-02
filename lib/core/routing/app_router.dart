@@ -31,6 +31,9 @@ import '../../features/splash/presentation/splash_screen.dart';
 import '../../features/brain_profile/ui/brain_check_building_screen.dart';
 import '../../features/brain_profile/ui/brain_profile_reveal_screen.dart';
 import '../../features/brain_profile/ui/profile_ready_boundary_screen.dart';
+import '../../features/recovery_plan/ui/plan_building_screen.dart';
+import '../../features/recovery_plan/ui/plan_reveal_screen.dart';
+import '../../features/recovery_plan/ui/plan_today_ready_boundary_screen.dart';
 import '../constants/app_routes.dart';
 import '../security/biometric_lock_screen.dart';
 import '../security/security_status_provider.dart';
@@ -400,6 +403,27 @@ GoRouter goRouter(GoRouterRef ref) {
         path: AppRoutes.v2ProfileReadyBoundary,
         name: 'v2ProfileReadyBoundary',
         builder: (context, state) => const ProfileReadyBoundaryScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.v2PlanBuilding,
+        name: 'v2PlanBuilding',
+        builder: (context, state) => const PlanBuildingScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.v2PlanReveal,
+        name: 'v2PlanReveal',
+        builder: (context, state) {
+          final planId = state.uri.queryParameters['plan'];
+          return PlanRevealScreen(planId: planId);
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.v2PlanTodayReady,
+        name: 'v2PlanTodayReady',
+        builder: (context, state) {
+          final planId = state.uri.queryParameters['plan'];
+          return PlanTodayReadyBoundaryScreen(planId: planId);
+        },
       ),
     ],
     errorBuilder: (context, state) => Scaffold(

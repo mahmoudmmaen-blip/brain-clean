@@ -2953,6 +2953,198 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Earlier snapshot'**
   String get brainProfileHistoricalBadge;
+
+  /// No description provided for @recoveryPlanTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery Plan'**
+  String get recoveryPlanTitle;
+
+  /// No description provided for @recoveryPlanBuilding.
+  ///
+  /// In en, this message translates to:
+  /// **'Building your Recovery Plan…'**
+  String get recoveryPlanBuilding;
+
+  /// No description provided for @recoveryPlanLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Recovery Plan'**
+  String get recoveryPlanLoading;
+
+  /// No description provided for @recoveryPlanReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Recovery Plan is ready'**
+  String get recoveryPlanReady;
+
+  /// No description provided for @recoveryPlanStarterReady.
+  ///
+  /// In en, this message translates to:
+  /// **'A calm starter plan is ready'**
+  String get recoveryPlanStarterReady;
+
+  /// No description provided for @recoveryPlanMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'No Recovery Plan yet'**
+  String get recoveryPlanMissing;
+
+  /// No description provided for @recoveryPlanMissingProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete a Brain Check and Brain Profile first.'**
+  String get recoveryPlanMissingProfile;
+
+  /// No description provided for @recoveryPlanScoreUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'A full plan needs a valid Recovery Score estimate. A starter plan may still be available.'**
+  String get recoveryPlanScoreUnavailable;
+
+  /// No description provided for @recoveryPlanUnsupportedVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'This plan model is not supported on this version.'**
+  String get recoveryPlanUnsupportedVersion;
+
+  /// No description provided for @recoveryPlanGenerationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not build your plan right now. Try again.'**
+  String get recoveryPlanGenerationError;
+
+  /// No description provided for @recoveryPlanRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get recoveryPlanRetry;
+
+  /// No description provided for @recoveryPlanGoHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Home'**
+  String get recoveryPlanGoHome;
+
+  /// No description provided for @recoveryPlanBuildCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Build Recovery Plan'**
+  String get recoveryPlanBuildCta;
+
+  /// No description provided for @recoveryPlanMainFocus.
+  ///
+  /// In en, this message translates to:
+  /// **'Main focus'**
+  String get recoveryPlanMainFocus;
+
+  /// No description provided for @recoveryPlanPrioritiesHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Priority support'**
+  String get recoveryPlanPrioritiesHeading;
+
+  /// No description provided for @recoveryPlanNoPriorities.
+  ///
+  /// In en, this message translates to:
+  /// **'No priority domains in this starter plan'**
+  String get recoveryPlanNoPriorities;
+
+  /// No description provided for @recoveryPlanStrongerHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Already helping'**
+  String get recoveryPlanStrongerHeading;
+
+  /// No description provided for @recoveryPlanConfidenceHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Confidence'**
+  String get recoveryPlanConfidenceHeading;
+
+  /// No description provided for @recoveryPlanTimeHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily time'**
+  String get recoveryPlanTimeHeading;
+
+  /// No description provided for @recoveryPlanTimeRange.
+  ///
+  /// In en, this message translates to:
+  /// **'About {min}–{max} minutes'**
+  String recoveryPlanTimeRange(String min, String max);
+
+  /// No description provided for @recoveryPlanIntensityLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Intensity'**
+  String get recoveryPlanIntensityLabel;
+
+  /// No description provided for @recoveryPlanMinimumPath.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum path'**
+  String get recoveryPlanMinimumPath;
+
+  /// No description provided for @recoveryPlanStandardPath.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard path'**
+  String get recoveryPlanStandardPath;
+
+  /// No description provided for @recoveryPlanBecauseHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Why this plan today'**
+  String get recoveryPlanBecauseHeading;
+
+  /// No description provided for @recoveryPlanTodayPreview.
+  ///
+  /// In en, this message translates to:
+  /// **'Today preview'**
+  String get recoveryPlanTodayPreview;
+
+  /// No description provided for @recoveryPlanContinueToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue to Today'**
+  String get recoveryPlanContinueToday;
+
+  /// No description provided for @recoveryPlanSkipHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Skipping a step never counts as a penalty.'**
+  String get recoveryPlanSkipHint;
+
+  /// No description provided for @recoveryPlanOptionalTag.
+  ///
+  /// In en, this message translates to:
+  /// **'optional'**
+  String get recoveryPlanOptionalTag;
+
+  /// No description provided for @recoveryPlanNoSteps.
+  ///
+  /// In en, this message translates to:
+  /// **'No steps listed'**
+  String get recoveryPlanNoSteps;
+
+  /// No description provided for @recoveryPlanStarterBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Starter plan'**
+  String get recoveryPlanStarterBadge;
+
+  /// No description provided for @recoveryPlanTodayReadyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Today is ready to begin'**
+  String get recoveryPlanTodayReadyTitle;
+
+  /// No description provided for @recoveryPlanTodayReadyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your daily session player arrives in a later step. Your Recovery Plan is saved on this device.'**
+  String get recoveryPlanTodayReadyBody;
 }
 
 class _AppLocalizationsDelegate

@@ -8,4 +8,7 @@ abstract final class V2FeatureBoundary {
 
   /// Temporary completion boundary until Slice 4 (Recovery Plan).
   static bool get profileReadyBoundaryEnabled => enableBrainProfileRoutes;
+
+  /// V2 Recovery Plan routes share the Brain Profile feature gate.
+  static bool get enableRecoveryPlanRoutes => enableBrainProfileRoutes;
 }

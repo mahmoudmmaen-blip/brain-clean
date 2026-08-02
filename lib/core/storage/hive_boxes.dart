@@ -19,4 +19,7 @@ abstract final class HiveBoxes {
 
   /// V2 Brain Profile history (ProfilePack append-only, local-first).
   static const brainProfile = 'brain_profile_v1';
+
+  /// V2 Recovery Plan history (RecoveryPlanPack append-only, local-first).
+  static const recoveryPlan = 'recovery_plan_v1';
 }
