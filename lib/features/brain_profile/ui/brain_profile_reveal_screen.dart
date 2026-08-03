@@ -5,13 +5,16 @@ import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../v2_onboarding/data/v2_onboarding_repository_provider.dart';
 import '../data/brain_profile_repository_provider.dart';
+import '../domain/brain_profile_domain_result.dart';
 import '../domain/measurement_confidence.dart';
 import '../domain/profile_domain_catalog.dart';
 import '../domain/profile_pack.dart';
 import '../domain/recovery_score.dart';
+import 'brain_profile_domain_detail_body.dart';
 
-/// PRF-01 — calm Brain Profile reveal (no Recovery Plan, no dashboard warehouse).
+/// PRF-01 / ONB-07 — calm Brain Profile reveal.
 class BrainProfileRevealScreen extends ConsumerStatefulWidget {
   const BrainProfileRevealScreen({
     super.key,
@@ -63,6 +66,9 @@ class _BrainProfileRevealScreenState
         _historical = historical;
         _loading = false;
       });
+      if (pack != null) {
+        await _recordOnboardingMilestone(pack.source.sessionId);
+      }
     } catch (_) {
       if (!mounted) return;
       setState(() {
@@ -73,45 +79,53 @@ class _BrainProfileRevealScreenState
     }
   }
 
+  Future<void> _recordOnboardingMilestone(String sessionId) async {
+    try {
+      final controller = ref.read(v2OnboardingControllerProvider);
+      if (!controller.isHydrated) {
+        await controller.hydrate();
+      }
+      await controller.markProfileRevealed(sessionId: sessionId);
+    } catch (_) {
+      // Profile reveal must not fail if onboarding box is unavailable.
+    }
+  }
+
   Future<void> _openDomain(String domainId) async {
     final domain = ProfileDomainCatalog.byId(domainId);
-    if (domain == null || !mounted) return;
+    final pack = _pack;
+    if (domain == null || pack == null || !mounted) return;
     final loc = AppLocalizations.of(context)!;
     final isAr = Localizations.localeOf(context).languageCode == 'ar';
+    BrainProfileDomainResult? result;
+    for (final d in pack.domains) {
+      if (d.domainId == domainId) {
+        result = d;
+        break;
+      }
+    }
     await showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
       builder: (ctx) {
         return SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Semantics(
-                  header: true,
-                  child: Text(
-                    domain.titleForLocale(isAr ? 'ar' : 'en'),
-                    style: Theme.of(ctx).textTheme.titleLarge,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Text(domain.definitionForLocale(isAr ? 'ar' : 'en')),
-                const SizedBox(height: 24),
-                SizedBox(
-                  height: 48,
-                  child: FilledButton(
-                    onPressed: () => Navigator.of(ctx).pop(),
-                    child: Text(loc.brainProfileDomainClose),
-                  ),
-                ),
-              ],
-            ),
+          child: BrainProfileDomainDetailBody(
+            loc: loc,
+            languageCode: isAr ? 'ar' : 'en',
+            domain: domain,
+            result: result,
+            pack: pack,
+            onClose: () => Navigator.of(ctx).pop(),
           ),
         );
       },
     );
+  }
+
+  void _continueToPlan() {
+    final pack = _pack;
+    if (pack == null || !pack.hasValidRecoveryScore) return;
+    context.go(AppRoutes.v2PlanBuilding);
   }
 
   @override
@@ -134,7 +148,7 @@ class _BrainProfileRevealScreenState
           pack: _pack,
           onDomainTap: _openDomain,
           onGoHome: () => context.go(AppRoutes.home),
-          onContinue: () => context.go(AppRoutes.v2PlanBuilding),
+          onContinue: _continueToPlan,
         ),
       ),
     );
@@ -170,8 +184,13 @@ class BrainProfileRevealBody extends StatelessWidget {
     return switch (c) {
       MeasurementConfidence.provisional => loc.brainProfileConfidenceProvisional,
       MeasurementConfidence.moderate => loc.brainProfileConfidenceModerate,
+      // Contract §10.4: Strong (ARB key retained for compatibility).
       MeasurementConfidence.strong => loc.brainProfileConfidenceSolid,
     };
+  }
+
+  String _bandLabel(RecoveryScoreBand band) {
+    return languageCode == 'ar' ? band.labelAr : band.labelEn;
   }
 
   @override
@@ -181,7 +200,6 @@ class BrainProfileRevealBody extends StatelessWidget {
         liveRegion: true,
         label: loc.brainProfileLoading,
         child: const Center(
-          // Static marker — avoids indeterminate animation hanging tests.
           child: SizedBox(
             width: 48,
             height: 48,
@@ -223,15 +241,18 @@ class BrainProfileRevealBody extends StatelessWidget {
     final explanation = pack!.explanation;
     final confidenceLabel = _confidenceLabel(pack!.confidence);
     final score = pack!.recoveryScore;
+    final canContinue = score.isValid;
     final scoreSemantics = score.isValid
         ? loc.brainProfileScoreSemantics('${score.value}')
-        : loc.brainProfileScorePendingSemantics;
+        : score.isUnavailable
+            ? loc.brainProfileScoreUnavailableSemantics
+            : loc.brainProfileScorePendingSemantics;
     final scoreLabel = score.isValid
         ? '${score.value}'
-        : loc.brainProfileScorePendingLabel;
-    final scoreDetail = score.isValid
-        ? '${score.band.labelEn}. ${explanation.scorePending(languageCode)}'
-        : explanation.scorePending(languageCode);
+        : score.isUnavailable
+            ? loc.brainProfileScoreUnavailableLabel
+            : loc.brainProfileScorePendingLabel;
+    final bandText = score.isValid ? _bandLabel(score.band) : null;
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(24),
@@ -272,8 +293,24 @@ class BrainProfileRevealBody extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineSmall,
             ),
           ),
+          if (bandText != null) ...[
+            const SizedBox(height: 8),
+            Semantics(
+              label: '${loc.brainProfileBandHeading}: $bandText',
+              child: Text(
+                bandText,
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(loc.brainProfileBandMeaning),
+          ],
           const SizedBox(height: 8),
-          Text(scoreDetail),
+          Text(
+            score.isUnavailable
+                ? loc.brainProfileScoreUnavailableBody
+                : explanation.scorePending(languageCode),
+          ),
           const SizedBox(height: 24),
           Semantics(
             header: true,
@@ -294,6 +331,26 @@ class BrainProfileRevealBody extends StatelessWidget {
           Semantics(
             header: true,
             child: Text(
+              loc.brainProfileMeansHeading,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(loc.brainProfileMeansBody),
+          const SizedBox(height: 16),
+          Semantics(
+            header: true,
+            child: Text(
+              loc.brainProfileDoesNotMeanHeading,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(explanation.whatItIsNot(languageCode)),
+          const SizedBox(height: 24),
+          Semantics(
+            header: true,
+            child: Text(
               loc.brainProfileDomainsHeading,
               style: Theme.of(context).textTheme.titleMedium,
             ),
@@ -309,14 +366,22 @@ class BrainProfileRevealBody extends StatelessWidget {
                 : loc.brainProfileDomainMean(
                     '${d.displayScore ?? (d.normalizedMean! + 0.5).floor()}',
                   );
+            final tag = pack!.strongerDomainIds.contains(d.domainId)
+                ? loc.brainProfileDomainStrongerLabel
+                : pack!.supportDomainIds.contains(d.domainId)
+                    ? loc.brainProfileDomainSupportLabel
+                    : null;
             return Semantics(
               button: true,
-              label: '${d.titleForLocale(languageCode)}. $meanLabel',
+              label:
+                  '${d.titleForLocale(languageCode)}. $meanLabel${tag == null ? '' : '. $tag'}',
               child: ListTile(
                 contentPadding: EdgeInsets.zero,
                 minVerticalPadding: 12,
                 title: Text(d.titleForLocale(languageCode)),
-                subtitle: Text(meanLabel),
+                subtitle: Text(
+                  tag == null ? meanLabel : '$meanLabel · $tag',
+                ),
                 onTap: () => onDomainTap(d.domainId),
               ),
             );
@@ -334,10 +399,23 @@ class BrainProfileRevealBody extends StatelessWidget {
           const SizedBox(height: 8),
           Text(explanation.retake(languageCode)),
           const SizedBox(height: 32),
+          if (!canContinue) ...[
+            Semantics(
+              liveRegion: true,
+              child: Text(
+                loc.brainProfileContinueUnavailable,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: AppColors.textSecondary,
+                    ),
+              ),
+            ),
+            const SizedBox(height: 12),
+          ],
           SizedBox(
             height: 48,
             child: FilledButton(
-              onPressed: onContinue,
+              onPressed: canContinue ? onContinue : null,
               child: Text(loc.brainProfileContinue),
             ),
           ),

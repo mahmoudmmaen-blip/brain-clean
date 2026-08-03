@@ -5,7 +5,7 @@ import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/app_colors.dart';
 
-/// Temporary post-check boundary after MeasurementEvent commit (no Profile yet).
+/// Safe post-check recovery boundary — continues into CHK-03 Profile build.
 class BrainCheckCompleteBoundaryScreen extends StatelessWidget {
   const BrainCheckCompleteBoundaryScreen({super.key});
 
@@ -46,6 +46,16 @@ class BrainCheckCompleteBoundaryScreen extends StatelessWidget {
                 width: double.infinity,
                 height: 48,
                 child: FilledButton(
+                  onPressed: () =>
+                      context.go(AppRoutes.v2BrainCheckBuilding),
+                  child: Text(loc.brainCheckCompleteBoundaryContinue),
+                ),
+              ),
+              const SizedBox(height: 12),
+              SizedBox(
+                width: double.infinity,
+                height: 48,
+                child: OutlinedButton(
                   onPressed: () => context.go(AppRoutes.home),
                   child: Text(loc.v2OnboardingGoHome),
                 ),

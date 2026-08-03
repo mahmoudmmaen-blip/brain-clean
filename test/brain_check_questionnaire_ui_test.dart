@@ -419,11 +419,11 @@ void main() {
       expect(controller.progress.phase, BrainCheckPhase.completed);
     });
 
-    testWidgets('complete boundary is temporary post-check only', (tester) async {
+    testWidgets('complete boundary continues into profile build', (tester) async {
       final loc = await loadLoc();
       await tester.pumpWidget(wrap(const BrainCheckCompleteBoundaryScreen()));
       expect(find.text(loc.brainCheckCompleteBoundaryTitle), findsOneWidget);
-      expect(find.textContaining('Profile reveal'), findsOneWidget);
+      expect(find.text(loc.brainCheckCompleteBoundaryContinue), findsOneWidget);
     });
   });
 

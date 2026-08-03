@@ -215,6 +215,12 @@ class V2OnboardingFlowBody extends StatelessWidget {
           loc: loc,
           onStart: onStartCheck,
         );
+      case V2OnboardingStep.profileReveal:
+        // ONB-07 is hosted by the Profile reveal route, not this shell.
+        return OnbCheckIntroView(
+          loc: loc,
+          onStart: onStartCheck,
+        );
     }
   }
 }

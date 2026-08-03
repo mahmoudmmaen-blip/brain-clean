@@ -1595,7 +1595,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get brainCheckCompleteBoundaryBody =>
-      'تقريرك الذاتي محفوظ على هذا الجهاز. كشف الملف يأتي في الخطوة التالية من المنتج.';
+      'تقريرك الذاتي محفوظ على هذا الجهاز. تابع لبناء لقطة ملف الدماغ.';
+
+  @override
+  String get brainCheckCompleteBoundaryContinue => 'ابنِ ملف الدماغ';
 
   @override
   String get brainProfileTitle => 'ملف الدماغ';
@@ -1649,7 +1652,70 @@ class AppLocalizationsAr extends AppLocalizations {
   String get brainProfileConfidenceModerate => 'متوسطة';
 
   @override
-  String get brainProfileConfidenceSolid => 'جيدة';
+  String get brainProfileConfidenceSolid => 'قوية';
+
+  @override
+  String get brainProfileBandHeading => 'النطاق الحالي';
+
+  @override
+  String get brainProfileBandMeaning =>
+      'تسمية هادئة لتقدير التقرير الذاتي — وليست شدة سريرية.';
+
+  @override
+  String get brainProfileMeansHeading => 'ماذا يعني هذا';
+
+  @override
+  String get brainProfileMeansBody =>
+      'هذه لقطة بداية مبلَّغ عنها ذاتياً. تُبرز المناطق الأقوى كما ظهرت وأولويات الدعم الحالية بناءً على إجابات فحص الدماغ.';
+
+  @override
+  String get brainProfileDoesNotMeanHeading => 'ماذا لا يعني هذا';
+
+  @override
+  String get brainProfileScoreUnavailableLabel => 'التقدير غير متاح';
+
+  @override
+  String get brainProfileScoreUnavailableSemantics =>
+      'تقدير درجة التعافي غير متاح. لا يُعرض رقم.';
+
+  @override
+  String get brainProfileScoreUnavailableBody =>
+      'تعذّر تقدير درجة التعافي من هذا الفحص. تبقى إجاباتك محفوظة. أكمل فحصاً صالحاً للمتابعة إلى خطة التعافي.';
+
+  @override
+  String get brainProfileContinueUnavailable =>
+      'خطة التعافي تحتاج تقدير درجة تعافٍ صالح.';
+
+  @override
+  String get brainProfileMissingEvent => 'أكمل فحص الدماغ أولاً.';
+
+  @override
+  String get brainProfileBuildingHint =>
+      'جارٍ تجهيز لقطة تقريرك الذاتي على هذا الجهاز…';
+
+  @override
+  String get brainProfileDomainEstimateHeading => 'التقدير الحالي';
+
+  @override
+  String get brainProfileDomainStrongerLabel => 'منطقة أقوى كما ظهرت';
+
+  @override
+  String get brainProfileDomainSupportLabel => 'أولوية دعم حالية';
+
+  @override
+  String get brainProfileDomainNeutralLabel => 'بناءً على إجاباتك الحالية';
+
+  @override
+  String get brainProfileDomainBasedOnAnswers =>
+      'بناءً على موضوعات من إجابات فحص الدماغ الحالية — وليس درجات خام.';
+
+  @override
+  String get brainProfileDomainNonMedical =>
+      'ليس تشخيصاً طبياً. وليس كشفاً عن تلف دماغي. وليس درجة ذكاء.';
+
+  @override
+  String get brainProfileDomainPlanPreviewHint =>
+      'قد تركّز خطوة لطيفة من خطة التعافي هنا لاحقاً — وذلك بعد المتابعة.';
 
   @override
   String get brainProfileDomainsHeading => 'ملخص المجالات';
@@ -1669,14 +1735,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get brainProfileExplainHeading => 'ماذا يعني هذا';
 
   @override
-  String get brainProfileContinue => 'متابعة';
+  String get brainProfileContinue => 'المتابعة إلى خطة التعافي';
 
   @override
   String get brainProfileReadyTitle => 'ملف الدماغ جاهز';
 
   @override
   String get brainProfileReadyBody =>
-      'خطتك الشخصية للتعافي تأتي في خطوة لاحقة. يمكنك الآن العودة إلى الرئيسية.';
+      'خطة التعافي هي الخطوة الهادئة التالية عند المتابعة من ملفك.';
 
   @override
   String get brainProfileHistoricalBadge => 'لقطة سابقة';

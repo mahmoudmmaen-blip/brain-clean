@@ -18,6 +18,8 @@ class V2OnboardingState {
     this.privacyAcknowledged = false,
     this.ritualWindow,
     this.brainCheckReady = false,
+    this.profileRevealed = false,
+    this.profileSessionId,
   });
 
   final V2OnboardingStatus status;
@@ -33,9 +35,15 @@ class V2OnboardingState {
   final V2RitualWindow? ritualWindow;
   final bool brainCheckReady;
 
+  /// ONB-07 milestone reached (Profile reveal shown for a session).
+  final bool profileRevealed;
+
+  /// ProfilePack source session linked to ONB-07 (optional).
+  final String? profileSessionId;
+
   V2OnboardingProgress get progress => V2OnboardingProgress(
         currentStepIndex: currentStep.orderIndex,
-        totalSteps: V2OnboardingStep.values.length,
+        totalSteps: V2OnboardingStepX.preCheckOrdered.length,
       );
 
   bool get canSubmitConsent => consentNonMedical && consentTerms;
@@ -71,6 +79,9 @@ class V2OnboardingState {
     V2RitualWindow? ritualWindow,
     bool clearRitual = false,
     bool? brainCheckReady,
+    bool? profileRevealed,
+    String? profileSessionId,
+    bool clearProfileSession = false,
   }) {
     return V2OnboardingState(
       status: status ?? this.status,
@@ -87,6 +98,10 @@ class V2OnboardingState {
       privacyAcknowledged: privacyAcknowledged ?? this.privacyAcknowledged,
       ritualWindow: clearRitual ? null : (ritualWindow ?? this.ritualWindow),
       brainCheckReady: brainCheckReady ?? this.brainCheckReady,
+      profileRevealed: profileRevealed ?? this.profileRevealed,
+      profileSessionId: clearProfileSession
+          ? null
+          : (profileSessionId ?? this.profileSessionId),
     );
   }
 
@@ -103,6 +118,8 @@ class V2OnboardingState {
         'privacyAcknowledged': privacyAcknowledged,
         if (ritualWindow != null) 'ritualWindow': ritualWindow!.wireName,
         'brainCheckReady': brainCheckReady,
+        'profileRevealed': profileRevealed,
+        if (profileSessionId != null) 'profileSessionId': profileSessionId,
       };
 
   factory V2OnboardingState.fromJson(Map<String, dynamic> json) {
@@ -129,6 +146,8 @@ class V2OnboardingState {
       privacyAcknowledged: json['privacyAcknowledged'] as bool? ?? false,
       ritualWindow: ritual,
       brainCheckReady: json['brainCheckReady'] as bool? ?? false,
+      profileRevealed: json['profileRevealed'] as bool? ?? false,
+      profileSessionId: json['profileSessionId'] as String?,
     );
   }
 }

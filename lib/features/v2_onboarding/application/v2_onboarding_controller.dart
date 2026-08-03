@@ -6,7 +6,7 @@ import '../domain/v2_onboarding_state.dart';
 import '../domain/v2_onboarding_status.dart';
 import '../domain/v2_onboarding_step.dart';
 
-/// Orchestrates ONB-01…ONB-06 persistence and resume.
+/// Orchestrates ONB-01…ONB-07 persistence and resume.
 class V2OnboardingController extends ChangeNotifier {
   V2OnboardingController({
     required V2OnboardingRepository repository,
@@ -136,6 +136,28 @@ class V2OnboardingController extends ChangeNotifier {
         status: V2OnboardingStatus.readyForBrainCheck,
         brainCheckReady: true,
         currentStep: V2OnboardingStep.checkIntro,
+        updatedAt: _now,
+      ),
+    );
+  }
+
+  /// ONB-07 Profile reveal milestone — does not complete the full FTE journey.
+  Future<void> markProfileRevealed({required String sessionId}) async {
+    if (_state.profileRevealed &&
+        _state.profileSessionId == sessionId &&
+        _state.currentStep == V2OnboardingStep.profileReveal) {
+      return;
+    }
+    await _persist(
+      _state.copyWith(
+        currentStep: V2OnboardingStep.profileReveal,
+        profileRevealed: true,
+        profileSessionId: sessionId,
+        // Keep readyForBrainCheck unless already completed (ONB-10 reserved).
+        status: _state.status == V2OnboardingStatus.completed
+            ? V2OnboardingStatus.completed
+            : V2OnboardingStatus.readyForBrainCheck,
+        brainCheckReady: true,
         updatedAt: _now,
       ),
     );

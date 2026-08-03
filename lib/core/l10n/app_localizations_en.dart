@@ -1613,7 +1613,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get brainCheckCompleteBoundaryBody =>
-      'Your self-report is stored on this device. Profile reveal comes in the next product step.';
+      'Your self-report is stored on this device. Continue to build your Brain Profile snapshot.';
+
+  @override
+  String get brainCheckCompleteBoundaryContinue => 'Build Brain Profile';
 
   @override
   String get brainProfileTitle => 'Brain Profile';
@@ -1669,7 +1672,70 @@ class AppLocalizationsEn extends AppLocalizations {
   String get brainProfileConfidenceModerate => 'Moderate';
 
   @override
-  String get brainProfileConfidenceSolid => 'Solid';
+  String get brainProfileConfidenceSolid => 'Strong';
+
+  @override
+  String get brainProfileBandHeading => 'Current band';
+
+  @override
+  String get brainProfileBandMeaning =>
+      'A calm product label for this self-report estimate — not a clinical severity.';
+
+  @override
+  String get brainProfileMeansHeading => 'What this means';
+
+  @override
+  String get brainProfileMeansBody =>
+      'This is a self-reported starting snapshot. It highlights stronger reported areas and current support priorities based on your Brain Check answers.';
+
+  @override
+  String get brainProfileDoesNotMeanHeading => 'What this does not mean';
+
+  @override
+  String get brainProfileScoreUnavailableLabel => 'Estimate unavailable';
+
+  @override
+  String get brainProfileScoreUnavailableSemantics =>
+      'Recovery Score estimate is unavailable. No number is shown.';
+
+  @override
+  String get brainProfileScoreUnavailableBody =>
+      'A Recovery Score could not be estimated from this check. Your answers remain saved. Complete a valid Brain Check to continue to a Recovery Plan.';
+
+  @override
+  String get brainProfileContinueUnavailable =>
+      'A Recovery Plan needs a valid Recovery Score estimate.';
+
+  @override
+  String get brainProfileMissingEvent => 'Complete a Brain Check first.';
+
+  @override
+  String get brainProfileBuildingHint =>
+      'Preparing your self-report snapshot on this device…';
+
+  @override
+  String get brainProfileDomainEstimateHeading => 'Current estimate';
+
+  @override
+  String get brainProfileDomainStrongerLabel => 'Stronger reported area';
+
+  @override
+  String get brainProfileDomainSupportLabel => 'Current support priority';
+
+  @override
+  String get brainProfileDomainNeutralLabel => 'Based on your current answers';
+
+  @override
+  String get brainProfileDomainBasedOnAnswers =>
+      'Based on themes from your current Brain Check answers — not raw scores.';
+
+  @override
+  String get brainProfileDomainNonMedical =>
+      'Not a medical diagnosis. Not brain-damage detection. Not an intelligence score.';
+
+  @override
+  String get brainProfileDomainPlanPreviewHint =>
+      'A gentle Recovery Plan step may focus here next — that comes after you continue.';
 
   @override
   String get brainProfileDomainsHeading => 'Domain summary';
@@ -1689,14 +1755,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get brainProfileExplainHeading => 'What this means';
 
   @override
-  String get brainProfileContinue => 'Continue';
+  String get brainProfileContinue => 'Continue to Recovery Plan';
 
   @override
   String get brainProfileReadyTitle => 'Your Brain Profile is ready';
 
   @override
   String get brainProfileReadyBody =>
-      'Your personalized Recovery Plan comes in a later step. For now, you can return home.';
+      'Your Recovery Plan is the next calm step when you continue from your Profile.';
 
   @override
   String get brainProfileHistoricalBadge => 'Earlier snapshot';

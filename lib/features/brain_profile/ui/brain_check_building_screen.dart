@@ -20,9 +20,10 @@ class BrainCheckBuildingScreen extends ConsumerStatefulWidget {
 
 class _BrainCheckBuildingScreenState
     extends ConsumerState<BrainCheckBuildingScreen> {
+  var _building = true;
+  var _missingEvent = false;
   String? _errorEn;
   String? _errorAr;
-  var _building = true;
 
   @override
   void initState() {
@@ -33,6 +34,7 @@ class _BrainCheckBuildingScreenState
   Future<void> _build() async {
     setState(() {
       _building = true;
+      _missingEvent = false;
       _errorEn = null;
       _errorAr = null;
     });
@@ -44,15 +46,13 @@ class _BrainCheckBuildingScreenState
         if (!mounted) return;
         setState(() {
           _building = false;
-          _errorEn = 'Complete a Brain Check first.';
-          _errorAr = 'أكمل فحص الدماغ أولاً.';
+          _missingEvent = true;
         });
         return;
       }
 
       final generator = ref.read(brainProfileGeneratorProvider);
-      final outcome =
-          await generator.generateFrom(result.measurementEvent);
+      final outcome = await generator.generateFrom(result.measurementEvent);
 
       if (!mounted) return;
 
@@ -73,8 +73,8 @@ class _BrainCheckBuildingScreenState
       if (!mounted) return;
       setState(() {
         _building = false;
-        _errorEn = 'Could not build your Brain Profile. Please try again.';
-        _errorAr = 'تعذّر بناء ملف الدماغ. حاول مرة أخرى.';
+        _errorEn = null;
+        _errorAr = null;
       });
     }
   }
@@ -83,62 +83,130 @@ class _BrainCheckBuildingScreenState
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final isAr = Localizations.localeOf(context).languageCode == 'ar';
-    final error = isAr ? (_errorAr ?? _errorEn) : (_errorEn ?? _errorAr);
+    final reduceMotion = MediaQuery.maybeOf(context)?.disableAnimations ?? false;
+    final error = _missingEvent
+        ? loc.brainProfileMissingEvent
+        : (isAr
+            ? (_errorAr ?? _errorEn ?? loc.brainProfileUnavailable)
+            : (_errorEn ?? _errorAr ?? loc.brainProfileUnavailable));
 
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
-        child: Semantics(
-          liveRegion: true,
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(24),
-              child: _building
-                  ? Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const SizedBox(
-                          width: 48,
-                          height: 48,
-                          child: CircularProgressIndicator(value: 0.6),
-                        ),
-                        const SizedBox(height: 24),
-                        Text(
-                          loc.brainProfileBuilding,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                      ],
-                    )
-                  : Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          error ?? loc.brainProfileUnavailable,
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 24),
-                        SizedBox(
-                          width: double.infinity,
-                          height: 48,
-                          child: FilledButton(
-                            onPressed: _build,
-                            child: Text(loc.brainProfileRetry),
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-                        SizedBox(
-                          width: double.infinity,
-                          height: 48,
-                          child: OutlinedButton(
-                            onPressed: () => context.go(AppRoutes.home),
-                            child: Text(loc.brainProfileGoHome),
-                          ),
-                        ),
-                      ],
+        child: BrainCheckBuildingBody(
+          loc: loc,
+          building: _building,
+          error: error,
+          missingEvent: _missingEvent,
+          reduceMotion: reduceMotion,
+          onRetry: _build,
+          onGoHome: () => context.go(AppRoutes.home),
+          onGoEntry: () => context.go(AppRoutes.v2BrainCheckEntry),
+        ),
+      ),
+    );
+  }
+}
+
+/// Sync-testable CHK-03 body.
+class BrainCheckBuildingBody extends StatelessWidget {
+  const BrainCheckBuildingBody({
+    super.key,
+    required this.loc,
+    required this.building,
+    required this.error,
+    required this.missingEvent,
+    required this.reduceMotion,
+    required this.onRetry,
+    required this.onGoHome,
+    required this.onGoEntry,
+  });
+
+  final AppLocalizations loc;
+  final bool building;
+  final String error;
+  final bool missingEvent;
+  final bool reduceMotion;
+  final VoidCallback onRetry;
+  final VoidCallback onGoHome;
+  final VoidCallback onGoEntry;
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      liveRegion: true,
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: building
+              ? Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      width: 48,
+                      height: 48,
+                      child: CircularProgressIndicator(
+                        // Determinate calm marker — no fake “brain scan”.
+                        value: reduceMotion ? 1.0 : 0.6,
+                      ),
                     ),
-            ),
-          ),
+                    const SizedBox(height: 24),
+                    Text(
+                      loc.brainProfileBuilding,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      loc.brainProfileBuildingHint,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: AppColors.textSecondary,
+                          ),
+                    ),
+                  ],
+                )
+              : Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Semantics(
+                      header: true,
+                      child: Text(
+                        error,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    if (!missingEvent)
+                      SizedBox(
+                        width: double.infinity,
+                        height: 48,
+                        child: FilledButton(
+                          onPressed: onRetry,
+                          child: Text(loc.brainProfileRetry),
+                        ),
+                      )
+                    else
+                      SizedBox(
+                        width: double.infinity,
+                        height: 48,
+                        child: FilledButton(
+                          onPressed: onGoEntry,
+                          child: Text(loc.v2BrainCheckEntryStart),
+                        ),
+                      ),
+                    const SizedBox(height: 12),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 48,
+                      child: OutlinedButton(
+                        onPressed: onGoHome,
+                        child: Text(loc.brainProfileGoHome),
+                      ),
+                    ),
+                  ],
+                ),
         ),
       ),
     );

@@ -2987,8 +2987,14 @@ abstract class AppLocalizations {
   /// No description provided for @brainCheckCompleteBoundaryBody.
   ///
   /// In en, this message translates to:
-  /// **'Your self-report is stored on this device. Profile reveal comes in the next product step.'**
+  /// **'Your self-report is stored on this device. Continue to build your Brain Profile snapshot.'**
   String get brainCheckCompleteBoundaryBody;
+
+  /// No description provided for @brainCheckCompleteBoundaryContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Build Brain Profile'**
+  String get brainCheckCompleteBoundaryContinue;
 
   /// No description provided for @brainProfileTitle.
   ///
@@ -3089,8 +3095,116 @@ abstract class AppLocalizations {
   /// No description provided for @brainProfileConfidenceSolid.
   ///
   /// In en, this message translates to:
-  /// **'Solid'**
+  /// **'Strong'**
   String get brainProfileConfidenceSolid;
+
+  /// No description provided for @brainProfileBandHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Current band'**
+  String get brainProfileBandHeading;
+
+  /// No description provided for @brainProfileBandMeaning.
+  ///
+  /// In en, this message translates to:
+  /// **'A calm product label for this self-report estimate — not a clinical severity.'**
+  String get brainProfileBandMeaning;
+
+  /// No description provided for @brainProfileMeansHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'What this means'**
+  String get brainProfileMeansHeading;
+
+  /// No description provided for @brainProfileMeansBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This is a self-reported starting snapshot. It highlights stronger reported areas and current support priorities based on your Brain Check answers.'**
+  String get brainProfileMeansBody;
+
+  /// No description provided for @brainProfileDoesNotMeanHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'What this does not mean'**
+  String get brainProfileDoesNotMeanHeading;
+
+  /// No description provided for @brainProfileScoreUnavailableLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimate unavailable'**
+  String get brainProfileScoreUnavailableLabel;
+
+  /// No description provided for @brainProfileScoreUnavailableSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery Score estimate is unavailable. No number is shown.'**
+  String get brainProfileScoreUnavailableSemantics;
+
+  /// No description provided for @brainProfileScoreUnavailableBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A Recovery Score could not be estimated from this check. Your answers remain saved. Complete a valid Brain Check to continue to a Recovery Plan.'**
+  String get brainProfileScoreUnavailableBody;
+
+  /// No description provided for @brainProfileContinueUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'A Recovery Plan needs a valid Recovery Score estimate.'**
+  String get brainProfileContinueUnavailable;
+
+  /// No description provided for @brainProfileMissingEvent.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete a Brain Check first.'**
+  String get brainProfileMissingEvent;
+
+  /// No description provided for @brainProfileBuildingHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing your self-report snapshot on this device…'**
+  String get brainProfileBuildingHint;
+
+  /// No description provided for @brainProfileDomainEstimateHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Current estimate'**
+  String get brainProfileDomainEstimateHeading;
+
+  /// No description provided for @brainProfileDomainStrongerLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Stronger reported area'**
+  String get brainProfileDomainStrongerLabel;
+
+  /// No description provided for @brainProfileDomainSupportLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Current support priority'**
+  String get brainProfileDomainSupportLabel;
+
+  /// No description provided for @brainProfileDomainNeutralLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Based on your current answers'**
+  String get brainProfileDomainNeutralLabel;
+
+  /// No description provided for @brainProfileDomainBasedOnAnswers.
+  ///
+  /// In en, this message translates to:
+  /// **'Based on themes from your current Brain Check answers — not raw scores.'**
+  String get brainProfileDomainBasedOnAnswers;
+
+  /// No description provided for @brainProfileDomainNonMedical.
+  ///
+  /// In en, this message translates to:
+  /// **'Not a medical diagnosis. Not brain-damage detection. Not an intelligence score.'**
+  String get brainProfileDomainNonMedical;
+
+  /// No description provided for @brainProfileDomainPlanPreviewHint.
+  ///
+  /// In en, this message translates to:
+  /// **'A gentle Recovery Plan step may focus here next — that comes after you continue.'**
+  String get brainProfileDomainPlanPreviewHint;
 
   /// No description provided for @brainProfileDomainsHeading.
   ///
@@ -3125,7 +3239,7 @@ abstract class AppLocalizations {
   /// No description provided for @brainProfileContinue.
   ///
   /// In en, this message translates to:
-  /// **'Continue'**
+  /// **'Continue to Recovery Plan'**
   String get brainProfileContinue;
 
   /// No description provided for @brainProfileReadyTitle.
@@ -3137,7 +3251,7 @@ abstract class AppLocalizations {
   /// No description provided for @brainProfileReadyBody.
   ///
   /// In en, this message translates to:
-  /// **'Your personalized Recovery Plan comes in a later step. For now, you can return home.'**
+  /// **'Your Recovery Plan is the next calm step when you continue from your Profile.'**
   String get brainProfileReadyBody;
 
   /// No description provided for @brainProfileHistoricalBadge.

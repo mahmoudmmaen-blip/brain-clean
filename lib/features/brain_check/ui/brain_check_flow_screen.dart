@@ -94,7 +94,9 @@ class _BrainCheckFlowScreenState extends ConsumerState<BrainCheckFlowScreen> {
     if (!mounted) return;
     setState(() => _submitting = false);
     if (result.isOk) {
-      context.go(AppRoutes.v2BrainCheckCompleteBoundary);
+      // CHK-04 → CHK-03 (Build Spec). Temporary complete boundary remains
+      // reachable for safe recovery, but the live path builds the Profile.
+      context.go(AppRoutes.v2BrainCheckBuilding);
     } else {
       setState(() => _localError = result.messageForLocale(lang));
     }
@@ -139,7 +141,7 @@ class _BrainCheckFlowScreenState extends ConsumerState<BrainCheckFlowScreen> {
     }
     if (phase == BrainCheckPhase.completed && controller.result != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted) context.go(AppRoutes.v2BrainCheckCompleteBoundary);
+        if (mounted) context.go(AppRoutes.v2BrainCheckBuilding);
       });
     }
 
