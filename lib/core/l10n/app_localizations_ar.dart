@@ -3064,4 +3064,28 @@ class AppLocalizationsAr extends AppLocalizations {
   String v2ReportsDomainHistoryRow(String title, String day, String value) {
     return '$title في $day: $value';
   }
+
+  @override
+  String get v2NavHome => 'الرئيسية';
+
+  @override
+  String get v2NavCheck => 'فحص الدماغ';
+
+  @override
+  String get v2NavPlan => 'الخطة';
+
+  @override
+  String get v2NavProgress => 'التقدّم';
+
+  @override
+  String get v2NavReports => 'التقارير';
+
+  @override
+  String get v2NavProfile => 'الملف';
+
+  @override
+  String get v2NavRecoverHome => 'العودة إلى الرئيسية';
+
+  @override
+  String get v2NavRouteNotFound => 'تعذّر العثور على هذه الصفحة';
 }

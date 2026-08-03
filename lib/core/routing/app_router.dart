@@ -29,17 +29,10 @@ import '../../features/reports/weekly_report_screen.dart';
 import '../../features/settings/settings_screen.dart';
 import '../../features/splash/presentation/splash_screen.dart';
 import '../../features/brain_profile/ui/brain_check_building_screen.dart';
-import '../../features/brain_profile/ui/brain_profile_reveal_screen.dart';
 import '../../features/brain_profile/ui/profile_ready_boundary_screen.dart';
 import '../../features/recovery_plan/ui/plan_building_screen.dart';
-import '../../features/recovery_plan/ui/plan_reveal_screen.dart';
 import '../../features/recovery_plan/ui/plan_today_preview_screen.dart';
 import '../../features/recovery_plan/ui/plan_today_ready_boundary_screen.dart';
-import '../../features/daily_session/ui/today_home_screen.dart';
-import '../../features/progress/ui/progress_home_screen.dart';
-import '../../features/v2_reports/ui/measurement_history_screen.dart';
-import '../../features/v2_reports/ui/reports_overview_screen.dart';
-import '../../features/v2_reports/ui/weekly_artifact_detail_screen.dart';
 import '../../features/daily_session/ui/session_prepare_screen.dart';
 import '../../features/daily_session/ui/session_act_screen.dart';
 import '../../features/daily_session/ui/session_reflect_screen.dart';
@@ -48,10 +41,12 @@ import '../../features/weekly_review/ui/weekly_review_questions_screen.dart';
 import '../../features/weekly_review/ui/weekly_review_summary_screen.dart';
 import '../../features/brain_check/ui/brain_check_complete_boundary_screen.dart';
 import '../../features/brain_check/ui/brain_check_flow_screen.dart';
-import '../../features/v2_onboarding/ui/brain_check_entry_boundary_screen.dart';
 import '../../features/v2_onboarding/ui/brain_check_ready_boundary_screen.dart';
 import '../../features/v2_onboarding/ui/v2_onboarding_flow_screen.dart';
+import '../../features/v2_shell/domain/v2_shell_routes.dart';
+import '../../features/v2_shell/domain/v2_shell_tab.dart';
 import '../constants/app_routes.dart';
+import '../l10n/app_localizations.dart';
 import '../security/biometric_lock_screen.dart';
 import '../security/security_status_provider.dart';
 import '../v2/v2_feature_boundary.dart';
@@ -245,6 +240,12 @@ GoRouter goRouter(GoRouterRef ref) {
           !V2FeatureBoundary.enableBrainProfileRoutes) {
         return AppRoutes.home;
       }
+      // Unknown V2 paths recover to Home tab (when shell enabled).
+      if (location.startsWith('/v2/') &&
+          V2FeatureBoundary.enableV2Shell &&
+          !V2ShellPaths.isKnownV2Location(location)) {
+        return AppRoutes.v2Home;
+      }
       if (!prefs.hasSeenOnboarding && location != AppRoutes.onboarding) {
         return AppRoutes.onboarding;
       }
@@ -402,7 +403,7 @@ GoRouter goRouter(GoRouterRef ref) {
         builder: (context, state) => const EmotionOasisScreen(),
       ),
 
-      // V2 Brain Profile (gated by V2FeatureBoundary.enableBrainProfileRoutes)
+      // V2 flows outside the shell + Slice 9.1 six-tab shell
       GoRoute(
         path: AppRoutes.v2BrainCheckBuilding,
         name: 'v2BrainCheckBuilding',
@@ -411,9 +412,12 @@ GoRouter goRouter(GoRouterRef ref) {
       GoRoute(
         path: AppRoutes.v2BrainProfile,
         name: 'v2BrainProfile',
-        builder: (context, state) {
+        redirect: (context, state) {
           final session = state.uri.queryParameters['session'];
-          return BrainProfileRevealScreen(sessionId: session);
+          if (session != null && session.isNotEmpty) {
+            return '${AppRoutes.v2Profile}?session=${Uri.encodeComponent(session)}';
+          }
+          return AppRoutes.v2Profile;
         },
       ),
       GoRoute(
@@ -425,14 +429,6 @@ GoRouter goRouter(GoRouterRef ref) {
         path: AppRoutes.v2PlanBuilding,
         name: 'v2PlanBuilding',
         builder: (context, state) => const PlanBuildingScreen(),
-      ),
-      GoRoute(
-        path: AppRoutes.v2PlanReveal,
-        name: 'v2PlanReveal',
-        builder: (context, state) {
-          final planId = state.uri.queryParameters['plan'];
-          return PlanRevealScreen(planId: planId);
-        },
       ),
       GoRoute(
         path: AppRoutes.v2PlanTodayPreview,
@@ -451,33 +447,28 @@ GoRouter goRouter(GoRouterRef ref) {
         },
       ),
       GoRoute(
-        path: AppRoutes.v2Today,
-        name: 'v2Today',
-        builder: (context, state) => const TodayHomeScreen(),
+        path: '/v2/today',
+        name: 'v2TodayAlias',
+        redirect: (context, state) => AppRoutes.v2Home,
       ),
       GoRoute(
-        path: AppRoutes.v2Progress,
-        name: 'v2Progress',
-        builder: (context, state) => const ProgressHomeScreen(),
-      ),
-      GoRoute(
-        path: AppRoutes.v2Reports,
-        name: 'v2Reports',
-        builder: (context, state) => const ReportsOverviewScreen(),
-      ),
-      GoRoute(
-        path: AppRoutes.v2ReportArtifact,
-        name: 'v2ReportArtifact',
-        builder: (context, state) {
-          final id = state.uri.queryParameters['id'];
-          return WeeklyArtifactDetailScreen(artifactId: id);
+        path: AppRoutes.v2BrainCheckEntry,
+        name: 'v2BrainCheckEntry',
+        redirect: (context, state) {
+          final mode = state.uri.queryParameters['mode'];
+          final source = state.uri.queryParameters['source'];
+          final q = <String>[];
+          if (mode != null && mode.isNotEmpty) {
+            q.add('mode=${Uri.encodeComponent(mode)}');
+          }
+          if (source != null && source.isNotEmpty) {
+            q.add('source=${Uri.encodeComponent(source)}');
+          }
+          if (q.isEmpty) return AppRoutes.v2Check;
+          return '${AppRoutes.v2Check}?${q.join('&')}';
         },
       ),
-      GoRoute(
-        path: AppRoutes.v2ReportMeasurements,
-        name: 'v2ReportMeasurements',
-        builder: (context, state) => const MeasurementHistoryScreen(),
-      ),
+      buildV2NavigationShellRoute(),
       GoRoute(
         path: AppRoutes.v2SessionPrepare,
         name: 'v2SessionPrepare',
@@ -527,15 +518,6 @@ GoRouter goRouter(GoRouterRef ref) {
         builder: (context, state) => const V2OnboardingFlowScreen(),
       ),
       GoRoute(
-        path: AppRoutes.v2BrainCheckEntry,
-        name: 'v2BrainCheckEntry',
-        builder: (context, state) {
-          final mode = state.uri.queryParameters['mode'] ?? 'lite';
-          final source = state.uri.queryParameters['source'] ?? 'onboarding';
-          return BrainCheckEntryBoundaryScreen(mode: mode, source: source);
-        },
-      ),
-      GoRoute(
         path: AppRoutes.v2BrainCheckFlow,
         name: 'v2BrainCheckFlow',
         builder: (context, state) => const BrainCheckFlowScreen(),
@@ -551,8 +533,27 @@ GoRouter goRouter(GoRouterRef ref) {
         builder: (context, state) => const BrainCheckCompleteBoundaryScreen(),
       ),
     ],
-    errorBuilder: (context, state) => Scaffold(
-      body: Center(child: Text('Route not found: ${state.uri}')),
-    ),
+    errorBuilder: (context, state) {
+      final path = state.uri.path;
+      final loc = AppLocalizations.of(context);
+      if (path.startsWith('/v2/') && V2FeatureBoundary.enableV2Shell) {
+        return Scaffold(
+          body: Center(
+            child: SizedBox(
+              height: 48,
+              child: TextButton(
+                onPressed: () => GoRouter.of(context).go(AppRoutes.v2Home),
+                child: Text(loc?.v2NavRecoverHome ?? 'Home'),
+              ),
+            ),
+          ),
+        );
+      }
+      return Scaffold(
+        body: Center(
+          child: Text(loc?.v2NavRouteNotFound ?? 'Route not found'),
+        ),
+      );
+    },
   );
 }

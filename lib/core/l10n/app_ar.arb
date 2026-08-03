@@ -1513,5 +1513,13 @@
       "day": { "type": "String" },
       "value": { "type": "String" }
     }
-  }
+  },
+  "v2NavHome": "الرئيسية",
+  "v2NavCheck": "فحص الدماغ",
+  "v2NavPlan": "الخطة",
+  "v2NavProgress": "التقدّم",
+  "v2NavReports": "التقارير",
+  "v2NavProfile": "الملف",
+  "v2NavRecoverHome": "العودة إلى الرئيسية",
+  "v2NavRouteNotFound": "تعذّر العثور على هذه الصفحة"
 }

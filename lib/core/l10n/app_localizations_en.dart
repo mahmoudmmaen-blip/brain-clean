@@ -3108,4 +3108,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String v2ReportsDomainHistoryRow(String title, String day, String value) {
     return '$title on $day: $value';
   }
+
+  @override
+  String get v2NavHome => 'Home';
+
+  @override
+  String get v2NavCheck => 'Brain Check';
+
+  @override
+  String get v2NavPlan => 'Plan';
+
+  @override
+  String get v2NavProgress => 'Progress';
+
+  @override
+  String get v2NavReports => 'Reports';
+
+  @override
+  String get v2NavProfile => 'Profile';
+
+  @override
+  String get v2NavRecoverHome => 'Back to Home';
+
+  @override
+  String get v2NavRouteNotFound => 'This page could not be found';
 }

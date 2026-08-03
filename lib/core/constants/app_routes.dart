@@ -48,8 +48,14 @@ abstract final class AppRoutes {
   /// ONB-09 — Today preview (not the daily-session player).
   static const v2PlanTodayPreview = '/v2/plan/today-preview';
 
-  /// HOM-01 — V2 Today home.
-  static const v2Today = '/v2/today';
+  /// HOM-01 — V2 Today / Home tab (shell deep link `/v2/home`).
+  static const v2Home = '/v2/home';
+
+  /// Alias of [v2Home] — preserved for existing call sites.
+  static const v2Today = v2Home;
+
+  /// CHK tab root — Brain Check entry (hydrate only until user starts).
+  static const v2Check = '/v2/check';
 
   /// PRG-01 — V2 Progress proof experience.
   static const v2Progress = '/v2/progress';
@@ -81,10 +87,13 @@ abstract final class AppRoutes {
   /// RPT-03 — Recovery measurement history (gated V2).
   static const v2ReportMeasurements = '/v2/reports/measurements';
 
+  /// PRF tab root — Brain Profile reveal (shell deep link `/v2/profile`).
+  static const v2Profile = '/v2/profile';
+
   /// V2 onboarding foundation ONB-01…ONB-06.
   static const v2Onboarding = '/v2/onboarding';
 
-  /// CHK-01 entry boundary (no full questionnaire UI yet).
+  /// CHK-01 entry boundary (also available via [v2Check] shell tab).
   static const v2BrainCheckEntry = '/v2/brain-check/entry';
 
   /// CHK-02 / CHK-02B / CHK-04 questionnaire flow.

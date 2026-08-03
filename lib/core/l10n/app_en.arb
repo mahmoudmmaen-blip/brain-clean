@@ -1369,5 +1369,13 @@
       "day": { "type": "String" },
       "value": { "type": "String" }
     }
-  }
+  },
+  "v2NavHome": "Home",
+  "v2NavCheck": "Brain Check",
+  "v2NavPlan": "Plan",
+  "v2NavProgress": "Progress",
+  "v2NavReports": "Reports",
+  "v2NavProfile": "Profile",
+  "v2NavRecoverHome": "Back to Home",
+  "v2NavRouteNotFound": "This page could not be found"
 }

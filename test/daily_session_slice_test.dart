@@ -346,7 +346,8 @@ void main() {
     });
 
     test('routes + versions + ads exclusion', () {
-      expect(AppRoutes.v2Today, '/v2/today');
+      expect(AppRoutes.v2Today, '/v2/home');
+      expect(AppRoutes.v2Home, '/v2/home');
       expect(AppRoutes.v2SessionPrepare, '/v2/session/prepare');
       expect(AppRoutes.v2SessionAct, '/v2/session/act');
       expect(AppRoutes.v2SessionReflect, '/v2/session/reflect');

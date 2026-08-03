@@ -5546,6 +5546,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{title} on {day}: {value}'**
   String v2ReportsDomainHistoryRow(String title, String day, String value);
+
+  /// No description provided for @v2NavHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get v2NavHome;
+
+  /// No description provided for @v2NavCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Check'**
+  String get v2NavCheck;
+
+  /// No description provided for @v2NavPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan'**
+  String get v2NavPlan;
+
+  /// No description provided for @v2NavProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress'**
+  String get v2NavProgress;
+
+  /// No description provided for @v2NavReports.
+  ///
+  /// In en, this message translates to:
+  /// **'Reports'**
+  String get v2NavReports;
+
+  /// No description provided for @v2NavProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get v2NavProfile;
+
+  /// No description provided for @v2NavRecoverHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Home'**
+  String get v2NavRecoverHome;
+
+  /// No description provided for @v2NavRouteNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'This page could not be found'**
+  String get v2NavRouteNotFound;
 }
 
 class _AppLocalizationsDelegate

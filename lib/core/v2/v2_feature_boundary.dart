@@ -20,4 +20,7 @@ abstract final class V2FeatureBoundary {
 
   /// RPT-01 / RPT-02 / RPT-03 share the same gated V2 surface.
   static bool get enableReportsRoutes => enableBrainProfileRoutes;
+
+  /// Final V2 navigation shell (six tabs) shares the same gate.
+  static bool get enableV2Shell => enableBrainProfileRoutes;
 }
