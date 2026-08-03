@@ -51,6 +51,8 @@ import '../../features/v2_premium/ui/premium_overview_screen.dart';
 import '../../features/v2_premium/ui/premium_plans_screen.dart';
 import '../../features/v2_premium/ui/premium_status_screen.dart';
 import '../../features/v2_premium/ui/premium_success_screen.dart';
+import '../../features/v2_safa/domain/safa_session_origin.dart';
+import '../../features/v2_safa/ui/safa_support_screen.dart';
 import '../../features/v2_shell/domain/v2_shell_routes.dart';
 import '../../features/v2_shell/domain/v2_shell_tab.dart';
 import '../constants/app_routes.dart';
@@ -253,6 +255,13 @@ GoRouter goRouter(GoRouterRef ref) {
           V2FeatureBoundary.enableV2Shell &&
           !V2ShellPaths.isKnownV2Location(location)) {
         return AppRoutes.v2Home;
+      }
+      // Safa deep link without origin context → HOM-01 (Contract §15.2).
+      if (location == AppRoutes.v2Safa) {
+        final origin = state.uri.queryParameters['origin'];
+        if (origin == null || origin.trim().isEmpty) {
+          return AppRoutes.v2Home;
+        }
       }
       if (!prefs.hasSeenOnboarding && location != AppRoutes.onboarding) {
         return AppRoutes.onboarding;
@@ -508,6 +517,23 @@ GoRouter goRouter(GoRouterRef ref) {
             builder: (context, state) => const MeasurementHistoryScreen(),
           ),
         ],
+      ),
+      // Contextual Safa (not a tab) — SAF-01
+      GoRoute(
+        path: AppRoutes.v2Safa,
+        name: 'v2Safa',
+        builder: (context, state) {
+          final origin = SafaSessionOriginX.parse(
+            state.uri.queryParameters['origin'],
+          );
+          final returnTo = state.uri.queryParameters['returnTo'];
+          final view = state.uri.queryParameters['view'];
+          return SafaSupportScreen(
+            origin: origin,
+            returnPath: returnTo,
+            view: view,
+          );
+        },
       ),
       // Contextual Premium (not a tab) — PRE-01…PRE-03
       GoRoute(

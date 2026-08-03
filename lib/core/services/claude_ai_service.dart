@@ -75,7 +75,16 @@ class ClaudeAiService {
     return outcome.reply;
   }
 
+  /// Legacy message-only send — preserved for Emotion Oasis compatibility.
   Future<SafaChatOutcome> send(String userMessage) async {
+    return sendAllowlisted({'message': userMessage});
+  }
+
+  /// Allowlisted Edge invoke (Contract §7.3 / §14). No client Claude secret.
+  ///
+  /// Callers must supply only allowlisted keys. Raw recovery payloads are
+  /// never added here.
+  Future<SafaChatOutcome> sendAllowlisted(Map<String, dynamic> body) async {
     lastDebugDiagnostic = null;
 
     if (!_isSupabaseConfigured) {
@@ -98,7 +107,7 @@ class ClaudeAiService {
       final invoker = _invoker ?? _defaultInvoker;
       final res = await invoker(
         functionName: functionName,
-        body: {'message': userMessage},
+        body: body,
       ).timeout(timeout);
 
       final status = res.status;

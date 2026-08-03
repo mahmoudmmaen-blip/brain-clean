@@ -36,7 +36,10 @@ extension V2ShellTabX on V2ShellTab {
     if (path == '/v2/check' ||
         path.startsWith('/v2/brain-check') ||
         path == '/v2/reports' ||
-        path.startsWith('/v2/reports/')) {
+        path.startsWith('/v2/reports/') ||
+        path == '/v2/safa' ||
+        path.startsWith('/v2/safa/') ||
+        path.startsWith('/v2/premium')) {
       return null;
     }
     if (path.startsWith('/v2/plan/')) return null;
@@ -90,6 +93,7 @@ abstract final class V2ShellPaths {
       '/v2/reports/artifact',
       '/v2/reports/measurements',
       '/v2/premium',
+      '/v2/safa',
     ];
     for (final prefix in known) {
       if (path == prefix || path.startsWith('$prefix/')) return true;

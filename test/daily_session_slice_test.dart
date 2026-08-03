@@ -257,6 +257,7 @@ void main() {
               onBuildPlan: () {},
               onPrimary: () {},
               onViewPlan: () {},
+              onOpenSafa: () {},
             ),
           ),
         ),
@@ -290,6 +291,7 @@ void main() {
             onBuildPlan: () {},
             onPrimary: () {},
             onViewPlan: () {},
+            onOpenSafa: () {},
           ),
           locale: const Locale('ar'),
         ),
@@ -315,6 +317,7 @@ void main() {
             onBuildPlan: () {},
             onPrimary: () {},
             onViewPlan: () {},
+            onOpenSafa: () {},
           ),
         ),
       );

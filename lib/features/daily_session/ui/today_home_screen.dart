@@ -54,6 +54,9 @@ class _TodayHomeScreenState extends ConsumerState<TodayHomeScreen> {
             if (id == null) return;
             context.go('${AppRoutes.v2PlanReveal}?plan=$id');
           },
+          onOpenSafa: () => context.go(
+            '${AppRoutes.v2Safa}?origin=today&returnTo=${Uri.encodeComponent(AppRoutes.v2Home)}',
+          ),
         ),
       ),
     );
@@ -97,6 +100,7 @@ class TodayHomeBody extends StatelessWidget {
     required this.onBuildPlan,
     required this.onPrimary,
     required this.onViewPlan,
+    required this.onOpenSafa,
   });
 
   final AppLocalizations loc;
@@ -109,6 +113,7 @@ class TodayHomeBody extends StatelessWidget {
   final VoidCallback onBuildPlan;
   final VoidCallback onPrimary;
   final VoidCallback onViewPlan;
+  final VoidCallback onOpenSafa;
 
   @override
   Widget build(BuildContext context) {
@@ -264,6 +269,15 @@ class TodayHomeBody extends StatelessWidget {
             child: OutlinedButton(
               onPressed: onViewPlan,
               child: Text(loc.v2TodayHomeViewPlan),
+            ),
+          ),
+          const SizedBox(height: 12),
+          SizedBox(
+            height: 48,
+            child: TextButton(
+              key: const Key('v2_today_safa_entry'),
+              onPressed: onOpenSafa,
+              child: Text(loc.v2SafaEntryToday),
             ),
           ),
         ],

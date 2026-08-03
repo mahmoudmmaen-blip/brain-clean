@@ -5876,6 +5876,306 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Restore purchases'**
   String get v2ReportsPremiumRestore;
+
+  /// No description provided for @v2SafaTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Safa'**
+  String get v2SafaTitle;
+
+  /// No description provided for @v2SafaPurpose.
+  ///
+  /// In en, this message translates to:
+  /// **'Short support to help you continue with one calm next step.'**
+  String get v2SafaPurpose;
+
+  /// No description provided for @v2SafaAiLimitation.
+  ///
+  /// In en, this message translates to:
+  /// **'Safa may use an AI service over the network. It is not medical care and not emergency services.'**
+  String get v2SafaAiLimitation;
+
+  /// No description provided for @v2SafaPrivacyNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'Before sending: only what you type and explicitly select will be sent. You can continue without Safa or cancel.'**
+  String get v2SafaPrivacyNotice;
+
+  /// No description provided for @v2SafaAcknowledgeNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand'**
+  String get v2SafaAcknowledgeNotice;
+
+  /// No description provided for @v2SafaContinueWithout.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue without Safa'**
+  String get v2SafaContinueWithout;
+
+  /// No description provided for @v2SafaConsentBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Send only your typed message and any context you select. Safa is not medical or emergency support.'**
+  String get v2SafaConsentBody;
+
+  /// No description provided for @v2SafaConsentAllow.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow one network reply'**
+  String get v2SafaConsentAllow;
+
+  /// No description provided for @v2SafaConsentDecline.
+  ///
+  /// In en, this message translates to:
+  /// **'Use offline support'**
+  String get v2SafaConsentDecline;
+
+  /// No description provided for @v2SafaContextOptionalHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional context (nothing is preselected)'**
+  String get v2SafaContextOptionalHeading;
+
+  /// No description provided for @v2SafaContextNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No extra context'**
+  String get v2SafaContextNone;
+
+  /// No description provided for @v2SafaContextDifficult.
+  ///
+  /// In en, this message translates to:
+  /// **'Difficult moment'**
+  String get v2SafaContextDifficult;
+
+  /// No description provided for @v2SafaContextClarify.
+  ///
+  /// In en, this message translates to:
+  /// **'Clarify a step'**
+  String get v2SafaContextClarify;
+
+  /// No description provided for @v2SafaContextContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Help continuing'**
+  String get v2SafaContextContinue;
+
+  /// No description provided for @v2SafaIncludeApprovedContext.
+  ///
+  /// In en, this message translates to:
+  /// **'Include a short context I approve for this send only'**
+  String get v2SafaIncludeApprovedContext;
+
+  /// No description provided for @v2SafaInputLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your message'**
+  String get v2SafaInputLabel;
+
+  /// No description provided for @v2SafaInputHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write briefly what you need help with'**
+  String get v2SafaInputHint;
+
+  /// No description provided for @v2SafaSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get v2SafaSend;
+
+  /// No description provided for @v2SafaSending.
+  ///
+  /// In en, this message translates to:
+  /// **'Sending'**
+  String get v2SafaSending;
+
+  /// No description provided for @v2SafaResponseHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Safa reply'**
+  String get v2SafaResponseHeading;
+
+  /// No description provided for @v2SafaSuggestedReturn.
+  ///
+  /// In en, this message translates to:
+  /// **'Return to where you left'**
+  String get v2SafaSuggestedReturn;
+
+  /// No description provided for @v2SafaSuggestedReturnToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Return to Today'**
+  String get v2SafaSuggestedReturnToday;
+
+  /// No description provided for @v2SafaFallbackGrounding.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause: breathe slowly for one minute'**
+  String get v2SafaFallbackGrounding;
+
+  /// No description provided for @v2SafaFallbackSimplify.
+  ///
+  /// In en, this message translates to:
+  /// **'Simplify: do only the smallest next step'**
+  String get v2SafaFallbackSimplify;
+
+  /// No description provided for @v2SafaRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get v2SafaRetry;
+
+  /// No description provided for @v2SafaUseLocalFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'Use offline support'**
+  String get v2SafaUseLocalFallback;
+
+  /// No description provided for @v2SafaOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'You are offline. Offline support is available.'**
+  String get v2SafaOffline;
+
+  /// No description provided for @v2SafaTimeout.
+  ///
+  /// In en, this message translates to:
+  /// **'The request timed out. Offline support is available.'**
+  String get v2SafaTimeout;
+
+  /// No description provided for @v2SafaServiceUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Safa is temporarily unavailable. Offline support is available.'**
+  String get v2SafaServiceUnavailable;
+
+  /// No description provided for @v2SafaInvalidResponse.
+  ///
+  /// In en, this message translates to:
+  /// **'The reply could not be shown safely. Offline support is available.'**
+  String get v2SafaInvalidResponse;
+
+  /// No description provided for @v2SafaInputTooLong.
+  ///
+  /// In en, this message translates to:
+  /// **'Please shorten your message (500 characters max).'**
+  String get v2SafaInputTooLong;
+
+  /// No description provided for @v2SafaSessionComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'This support session has reached its limit. Choose a next step or leave.'**
+  String get v2SafaSessionComplete;
+
+  /// No description provided for @v2SafaClearSession.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear this session'**
+  String get v2SafaClearSession;
+
+  /// No description provided for @v2SafaReturn.
+  ///
+  /// In en, this message translates to:
+  /// **'Return'**
+  String get v2SafaReturn;
+
+  /// No description provided for @v2SafaUrgentHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'I need urgent help'**
+  String get v2SafaUrgentHelp;
+
+  /// No description provided for @v2SafaUrgentBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Safa is stopping the conversation here. Safa cannot provide emergency care.'**
+  String get v2SafaUrgentBody;
+
+  /// No description provided for @v2SafaUrgentLocalEmergency.
+  ///
+  /// In en, this message translates to:
+  /// **'If you may be in immediate danger, contact your local emergency services. This app does not replace them.'**
+  String get v2SafaUrgentLocalEmergency;
+
+  /// No description provided for @v2SafaNotMedical.
+  ///
+  /// In en, this message translates to:
+  /// **'Safa is not medical or emergency support.'**
+  String get v2SafaNotMedical;
+
+  /// No description provided for @v2SafaOnlyTypedSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Only what you type and select will be sent.'**
+  String get v2SafaOnlyTypedSent;
+
+  /// No description provided for @v2SafaStartLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a new Safa session later'**
+  String get v2SafaStartLater;
+
+  /// No description provided for @v2SafaLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Opening Safa'**
+  String get v2SafaLoading;
+
+  /// No description provided for @v2SafaStateIdle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready when you are.'**
+  String get v2SafaStateIdle;
+
+  /// No description provided for @v2SafaStateReady.
+  ///
+  /// In en, this message translates to:
+  /// **'You can write a short message.'**
+  String get v2SafaStateReady;
+
+  /// No description provided for @v2SafaStateResponseReady.
+  ///
+  /// In en, this message translates to:
+  /// **'A short reply is ready.'**
+  String get v2SafaStateResponseReady;
+
+  /// No description provided for @v2SafaStateLocalFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline support is shown below.'**
+  String get v2SafaStateLocalFallback;
+
+  /// No description provided for @v2SafaUserCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled. You can return or try again later.'**
+  String get v2SafaUserCancelled;
+
+  /// No description provided for @v2SafaCleared.
+  ///
+  /// In en, this message translates to:
+  /// **'Session cleared.'**
+  String get v2SafaCleared;
+
+  /// No description provided for @v2SafaSessionLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'Support turns: {used} of {max}'**
+  String v2SafaSessionLimit(String used, String max);
+
+  /// No description provided for @v2SafaEntryToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask Safa for support'**
+  String get v2SafaEntryToday;
+
+  /// No description provided for @v2SafaEntryProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Safa'**
+  String get v2SafaEntryProfile;
 }
 
 class _AppLocalizationsDelegate

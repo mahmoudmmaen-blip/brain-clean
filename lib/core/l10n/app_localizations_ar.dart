@@ -3240,4 +3240,168 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v2ReportsPremiumRestore => 'استعادة المشتريات';
+
+  @override
+  String get v2SafaTitle => 'صفا';
+
+  @override
+  String get v2SafaPurpose =>
+      'دعم موجز لمساعدتك على المتابعة بخطوة هادئة واحدة.';
+
+  @override
+  String get v2SafaAiLimitation =>
+      'قد تستخدم صفا خدمة ذكاء اصطناعي عبر الشبكة. ليست رعاية طبية وليست خدمات طوارئ.';
+
+  @override
+  String get v2SafaPrivacyNotice =>
+      'قبل الإرسال: يُرسل فقط ما تكتبه وما تختاره صراحة. يمكنك المتابعة بدون صفا أو الإلغاء.';
+
+  @override
+  String get v2SafaAcknowledgeNotice => 'فهمت';
+
+  @override
+  String get v2SafaContinueWithout => 'المتابعة بدون صفا';
+
+  @override
+  String get v2SafaConsentBody =>
+      'أرسِل فقط رسالتك المكتوبة وأي سياق تختاره. صفا ليست دعمًا طبيًا ولا طوارئ.';
+
+  @override
+  String get v2SafaConsentAllow => 'السماح برد واحد عبر الشبكة';
+
+  @override
+  String get v2SafaConsentDecline => 'استخدم الدعم دون اتصال';
+
+  @override
+  String get v2SafaContextOptionalHeading =>
+      'سياق اختياري (لا شيء محدد مسبقًا)';
+
+  @override
+  String get v2SafaContextNone => 'بدون سياق إضافي';
+
+  @override
+  String get v2SafaContextDifficult => 'لحظة صعبة';
+
+  @override
+  String get v2SafaContextClarify => 'توضيح خطوة';
+
+  @override
+  String get v2SafaContextContinue => 'مساعدة على المتابعة';
+
+  @override
+  String get v2SafaIncludeApprovedContext =>
+      'ضمّن سياقًا قصيرًا أوافق عليه لهذا الإرسال فقط';
+
+  @override
+  String get v2SafaInputLabel => 'رسالتك';
+
+  @override
+  String get v2SafaInputHint => 'اكتب باختصار ما تحتاج المساعدة فيه';
+
+  @override
+  String get v2SafaSend => 'إرسال';
+
+  @override
+  String get v2SafaSending => 'جارٍ الإرسال';
+
+  @override
+  String get v2SafaResponseHeading => 'رد صفا';
+
+  @override
+  String get v2SafaSuggestedReturn => 'العودة إلى حيث توقفت';
+
+  @override
+  String get v2SafaSuggestedReturnToday => 'العودة إلى اليوم';
+
+  @override
+  String get v2SafaFallbackGrounding => 'تهدئة: تنفّس ببطء لدقيقة واحدة';
+
+  @override
+  String get v2SafaFallbackSimplify => 'تبسيط: نفّذ أصغر خطوة تالية فقط';
+
+  @override
+  String get v2SafaRetry => 'إعادة المحاولة';
+
+  @override
+  String get v2SafaUseLocalFallback => 'استخدم الدعم دون اتصال';
+
+  @override
+  String get v2SafaOffline => 'أنت دون اتصال. الدعم دون اتصال متاح.';
+
+  @override
+  String get v2SafaTimeout => 'انتهت مهلة الطلب. الدعم دون اتصال متاح.';
+
+  @override
+  String get v2SafaServiceUnavailable =>
+      'صفا غير متاحة مؤقتًا. الدعم دون اتصال متاح.';
+
+  @override
+  String get v2SafaInvalidResponse =>
+      'تعذّر عرض الرد بأمان. الدعم دون اتصال متاح.';
+
+  @override
+  String get v2SafaInputTooLong => 'يُرجى اختصار رسالتك (الحد الأقصى 500 حرف).';
+
+  @override
+  String get v2SafaSessionComplete =>
+      'وصلت جلسة الدعم هذه إلى حدها. اختر خطوة تالية أو غادر.';
+
+  @override
+  String get v2SafaClearSession => 'مسح هذه الجلسة';
+
+  @override
+  String get v2SafaReturn => 'رجوع';
+
+  @override
+  String get v2SafaUrgentHelp => 'أحتاج مساعدة عاجلة';
+
+  @override
+  String get v2SafaUrgentBody =>
+      'توقف صفا المحادثة هنا. لا تستطيع صفا تقديم رعاية الطوارئ.';
+
+  @override
+  String get v2SafaUrgentLocalEmergency =>
+      'إذا كنت قد تكون في خطر فوري، اتصل بخدمات الطوارئ المحلية. هذا التطبيق لا يحل محلها.';
+
+  @override
+  String get v2SafaNotMedical => 'صفا ليست دعمًا طبيًا ولا طوارئ.';
+
+  @override
+  String get v2SafaOnlyTypedSent => 'يُرسل فقط ما تكتبه وتختاره.';
+
+  @override
+  String get v2SafaStartLater => 'ابدأ جلسة صفا جديدة لاحقًا';
+
+  @override
+  String get v2SafaLoading => 'جارٍ فتح صفا';
+
+  @override
+  String get v2SafaStateIdle => 'جاهز عندما تكون مستعدًا.';
+
+  @override
+  String get v2SafaStateReady => 'يمكنك كتابة رسالة قصيرة.';
+
+  @override
+  String get v2SafaStateResponseReady => 'رد موجز جاهز.';
+
+  @override
+  String get v2SafaStateLocalFallback => 'الدعم دون اتصال ظاهر أدناه.';
+
+  @override
+  String get v2SafaUserCancelled =>
+      'تم الإلغاء. يمكنك الرجوع أو المحاولة لاحقًا.';
+
+  @override
+  String get v2SafaCleared => 'تم مسح الجلسة.';
+
+  @override
+  String v2SafaSessionLimit(String used, String max) {
+    return 'جولات الدعم: $used من $max';
+  }
+
+  @override
+  String get v2SafaEntryToday => 'اطلب دعم صفا';
+
+  @override
+  String get v2SafaEntryProfile => 'افتح صفا';
 }

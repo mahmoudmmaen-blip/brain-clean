@@ -3285,4 +3285,172 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v2ReportsPremiumRestore => 'Restore purchases';
+
+  @override
+  String get v2SafaTitle => 'Safa';
+
+  @override
+  String get v2SafaPurpose =>
+      'Short support to help you continue with one calm next step.';
+
+  @override
+  String get v2SafaAiLimitation =>
+      'Safa may use an AI service over the network. It is not medical care and not emergency services.';
+
+  @override
+  String get v2SafaPrivacyNotice =>
+      'Before sending: only what you type and explicitly select will be sent. You can continue without Safa or cancel.';
+
+  @override
+  String get v2SafaAcknowledgeNotice => 'I understand';
+
+  @override
+  String get v2SafaContinueWithout => 'Continue without Safa';
+
+  @override
+  String get v2SafaConsentBody =>
+      'Send only your typed message and any context you select. Safa is not medical or emergency support.';
+
+  @override
+  String get v2SafaConsentAllow => 'Allow one network reply';
+
+  @override
+  String get v2SafaConsentDecline => 'Use offline support';
+
+  @override
+  String get v2SafaContextOptionalHeading =>
+      'Optional context (nothing is preselected)';
+
+  @override
+  String get v2SafaContextNone => 'No extra context';
+
+  @override
+  String get v2SafaContextDifficult => 'Difficult moment';
+
+  @override
+  String get v2SafaContextClarify => 'Clarify a step';
+
+  @override
+  String get v2SafaContextContinue => 'Help continuing';
+
+  @override
+  String get v2SafaIncludeApprovedContext =>
+      'Include a short context I approve for this send only';
+
+  @override
+  String get v2SafaInputLabel => 'Your message';
+
+  @override
+  String get v2SafaInputHint => 'Write briefly what you need help with';
+
+  @override
+  String get v2SafaSend => 'Send';
+
+  @override
+  String get v2SafaSending => 'Sending';
+
+  @override
+  String get v2SafaResponseHeading => 'Safa reply';
+
+  @override
+  String get v2SafaSuggestedReturn => 'Return to where you left';
+
+  @override
+  String get v2SafaSuggestedReturnToday => 'Return to Today';
+
+  @override
+  String get v2SafaFallbackGrounding => 'Pause: breathe slowly for one minute';
+
+  @override
+  String get v2SafaFallbackSimplify =>
+      'Simplify: do only the smallest next step';
+
+  @override
+  String get v2SafaRetry => 'Retry';
+
+  @override
+  String get v2SafaUseLocalFallback => 'Use offline support';
+
+  @override
+  String get v2SafaOffline => 'You are offline. Offline support is available.';
+
+  @override
+  String get v2SafaTimeout =>
+      'The request timed out. Offline support is available.';
+
+  @override
+  String get v2SafaServiceUnavailable =>
+      'Safa is temporarily unavailable. Offline support is available.';
+
+  @override
+  String get v2SafaInvalidResponse =>
+      'The reply could not be shown safely. Offline support is available.';
+
+  @override
+  String get v2SafaInputTooLong =>
+      'Please shorten your message (500 characters max).';
+
+  @override
+  String get v2SafaSessionComplete =>
+      'This support session has reached its limit. Choose a next step or leave.';
+
+  @override
+  String get v2SafaClearSession => 'Clear this session';
+
+  @override
+  String get v2SafaReturn => 'Return';
+
+  @override
+  String get v2SafaUrgentHelp => 'I need urgent help';
+
+  @override
+  String get v2SafaUrgentBody =>
+      'Safa is stopping the conversation here. Safa cannot provide emergency care.';
+
+  @override
+  String get v2SafaUrgentLocalEmergency =>
+      'If you may be in immediate danger, contact your local emergency services. This app does not replace them.';
+
+  @override
+  String get v2SafaNotMedical => 'Safa is not medical or emergency support.';
+
+  @override
+  String get v2SafaOnlyTypedSent =>
+      'Only what you type and select will be sent.';
+
+  @override
+  String get v2SafaStartLater => 'Start a new Safa session later';
+
+  @override
+  String get v2SafaLoading => 'Opening Safa';
+
+  @override
+  String get v2SafaStateIdle => 'Ready when you are.';
+
+  @override
+  String get v2SafaStateReady => 'You can write a short message.';
+
+  @override
+  String get v2SafaStateResponseReady => 'A short reply is ready.';
+
+  @override
+  String get v2SafaStateLocalFallback => 'Offline support is shown below.';
+
+  @override
+  String get v2SafaUserCancelled =>
+      'Cancelled. You can return or try again later.';
+
+  @override
+  String get v2SafaCleared => 'Session cleared.';
+
+  @override
+  String v2SafaSessionLimit(String used, String max) {
+    return 'Support turns: $used of $max';
+  }
+
+  @override
+  String get v2SafaEntryToday => 'Ask Safa for support';
+
+  @override
+  String get v2SafaEntryProfile => 'Open Safa';
 }

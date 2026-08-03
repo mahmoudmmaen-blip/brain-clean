@@ -119,4 +119,7 @@ abstract final class AppRoutes {
 
   /// PRE-03 restore intent.
   static const v2PremiumRestore = '/v2/premium/restore';
+
+  /// SAF-01 — Contextual Safa support (not a tab). Query: origin=, returnTo=, view=
+  static const v2Safa = '/v2/safa';
 }

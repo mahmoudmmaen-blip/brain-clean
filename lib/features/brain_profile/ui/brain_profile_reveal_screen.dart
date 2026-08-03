@@ -423,6 +423,17 @@ class BrainProfileRevealBody extends StatelessWidget {
           SizedBox(
             height: 48,
             child: TextButton(
+              key: const Key('v2_profile_safa_entry'),
+              onPressed: () => context.go(
+                '${AppRoutes.v2Safa}?origin=profile&returnTo=${Uri.encodeComponent(AppRoutes.v2Profile)}',
+              ),
+              child: Text(loc.v2SafaEntryProfile),
+            ),
+          ),
+          const SizedBox(height: 8),
+          SizedBox(
+            height: 48,
+            child: TextButton(
               key: const Key('v2_profile_premium_entry'),
               onPressed: () => context.go(
                 '${AppRoutes.v2Premium}?source=profile',
