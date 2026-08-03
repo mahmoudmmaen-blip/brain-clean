@@ -11,23 +11,21 @@ import '../domain/recovery_plan.dart';
 import '../domain/recovery_plan_versions.dart';
 import '../domain/today_act_presentation.dart';
 
-/// Temporary Today-ready boundary — session player is a later slice (ONB-10).
-class PlanTodayReadyBoundaryScreen extends ConsumerStatefulWidget {
-  const PlanTodayReadyBoundaryScreen({super.key, this.planId});
+/// ONB-09 — Today preview only (not the SES daily-session player).
+class PlanTodayPreviewScreen extends ConsumerStatefulWidget {
+  const PlanTodayPreviewScreen({super.key, this.planId});
 
   final String? planId;
 
   @override
-  ConsumerState<PlanTodayReadyBoundaryScreen> createState() =>
-      _PlanTodayReadyBoundaryScreenState();
+  ConsumerState<PlanTodayPreviewScreen> createState() =>
+      _PlanTodayPreviewScreenState();
 }
 
-class _PlanTodayReadyBoundaryScreenState
-    extends ConsumerState<PlanTodayReadyBoundaryScreen> {
+class _PlanTodayPreviewScreenState extends ConsumerState<PlanTodayPreviewScreen> {
   RecoveryPlan? _plan;
   var _loading = true;
   String? _errorKey;
-  var _journeyMarked = false;
 
   @override
   void initState() {
@@ -57,14 +55,6 @@ class _PlanTodayReadyBoundaryScreenState
         });
         return;
       }
-      if (plan.schemaVersion.isEmpty) {
-        setState(() {
-          _plan = plan;
-          _errorKey = 'corrupt_plan';
-          _loading = false;
-        });
-        return;
-      }
       if (plan.schemaVersion != RecoveryPlanVersions.schema) {
         setState(() {
           _plan = plan;
@@ -82,23 +72,18 @@ class _PlanTodayReadyBoundaryScreenState
         });
         return;
       }
-
       final onboarding = ref.read(v2OnboardingControllerProvider);
-      if (!onboarding.state.todayPreviewed) {
-        await onboarding.markTodayPreviewed(planId: plan.id);
-      }
-      await onboarding.markJourneyCompleted(planId: plan.id);
+      await onboarding.markTodayPreviewed(planId: plan.id);
       if (!mounted) return;
       setState(() {
         _plan = plan;
-        _journeyMarked = true;
         _loading = false;
       });
     } catch (_) {
       if (!mounted) return;
       setState(() {
         _plan = null;
-        _errorKey = 'persistence_failed';
+        _errorKey = 'generation_error';
         _loading = false;
       });
     }
@@ -110,22 +95,22 @@ class _PlanTodayReadyBoundaryScreenState
     final isAr = Localizations.localeOf(context).languageCode == 'ar';
     return Scaffold(
       backgroundColor: AppColors.background,
+      appBar: AppBar(
+        title: Text(loc.v2TodayPreviewTitle),
+        backgroundColor: AppColors.background,
+      ),
       body: SafeArea(
-        child: PlanTodayReadyBody(
+        child: PlanTodayPreviewBody(
           loc: loc,
           languageCode: isAr ? 'ar' : 'en',
           loading: _loading,
           errorKey: _errorKey,
           plan: _plan,
-          journeyMarked: _journeyMarked,
           onRetry: _load,
           onRebuildPlan: () => context.go(AppRoutes.v2PlanBuilding),
-          onStay: () {
-            // Remain inside V2 Today-ready boundary (no unfinished Home shell).
-          },
-          onOpenPreview: () {
+          onContinue: () {
             final id = _plan?.id ?? widget.planId ?? '';
-            context.go('${AppRoutes.v2PlanTodayPreview}?plan=$id');
+            context.go('${AppRoutes.v2PlanTodayReady}?plan=$id');
           },
         ),
       ),
@@ -133,20 +118,18 @@ class _PlanTodayReadyBoundaryScreenState
   }
 }
 
-/// Sync-testable Today-ready body.
-class PlanTodayReadyBody extends StatelessWidget {
-  const PlanTodayReadyBody({
+/// Sync-testable ONB-09 body.
+class PlanTodayPreviewBody extends StatelessWidget {
+  const PlanTodayPreviewBody({
     super.key,
     required this.loc,
     required this.languageCode,
     required this.loading,
     required this.errorKey,
     required this.plan,
-    required this.journeyMarked,
     required this.onRetry,
     required this.onRebuildPlan,
-    required this.onStay,
-    required this.onOpenPreview,
+    required this.onContinue,
   });
 
   final AppLocalizations loc;
@@ -154,11 +137,9 @@ class PlanTodayReadyBody extends StatelessWidget {
   final bool loading;
   final String? errorKey;
   final RecoveryPlan? plan;
-  final bool journeyMarked;
   final VoidCallback onRetry;
   final VoidCallback onRebuildPlan;
-  final VoidCallback onStay;
-  final VoidCallback onOpenPreview;
+  final VoidCallback onContinue;
 
   @override
   Widget build(BuildContext context) {
@@ -166,8 +147,8 @@ class PlanTodayReadyBody extends StatelessWidget {
       return Center(
         child: Semantics(
           liveRegion: true,
-          label: loc.v2TodayReadyLoading,
-          child: Text(loc.v2TodayReadyLoading),
+          label: loc.v2TodayPreviewLoading,
+          child: Text(loc.v2TodayPreviewLoading),
         ),
       );
     }
@@ -175,16 +156,20 @@ class PlanTodayReadyBody extends StatelessWidget {
     if (errorKey != null || plan == null) {
       final message = switch (errorKey) {
         'missing_plan' => loc.recoveryPlanMissing,
-        'corrupt_plan' => loc.v2TodayReadyCorruptPlan,
-        'unsupported_version' => loc.recoveryPlanUnsupportedVersion,
         'missing_today_act' => loc.v2TodayPreviewMissingAct,
-        'persistence_failed' => loc.v2TodayReadyPersistFailed,
+        'unsupported_version' => loc.recoveryPlanUnsupportedVersion,
         _ => loc.recoveryPlanGenerationError,
       };
-      final useRebuild = errorKey == 'missing_plan' ||
-          errorKey == 'corrupt_plan' ||
-          errorKey == 'unsupported_version' ||
-          errorKey == 'missing_today_act';
+      final primary = errorKey == 'missing_plan' ||
+              errorKey == 'missing_today_act' ||
+              errorKey == 'unsupported_version'
+          ? onRebuildPlan
+          : onRetry;
+      final primaryLabel = errorKey == 'missing_plan' ||
+              errorKey == 'missing_today_act' ||
+              errorKey == 'unsupported_version'
+          ? loc.recoveryPlanBuildCta
+          : loc.recoveryPlanRetry;
       return Padding(
         padding: const EdgeInsets.all(24),
         child: Column(
@@ -204,10 +189,8 @@ class PlanTodayReadyBody extends StatelessWidget {
               width: double.infinity,
               height: 48,
               child: FilledButton(
-                onPressed: useRebuild ? onRebuildPlan : onRetry,
-                child: Text(
-                  useRebuild ? loc.recoveryPlanBuildCta : loc.recoveryPlanRetry,
-                ),
+                onPressed: primary,
+                child: Text(primaryLabel),
               ),
             ),
           ],
@@ -233,35 +216,26 @@ class PlanTodayReadyBody extends StatelessWidget {
         children: [
           Semantics(
             header: true,
-            liveRegion: true,
             child: Text(
-              loc.v2TodayReadyFirstStepTitle,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headlineSmall,
+              loc.v2TodayPreviewHeading,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
-          const SizedBox(height: 12),
-          Text(
-            loc.v2TodayReadyFirstStepBody,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 8),
+          Text(loc.v2TodayPreviewOrientation),
+          const SizedBox(height: 16),
           Semantics(
             header: true,
             label: '${loc.v2TodayPreviewActHeading}: $title',
             child: Text(
               title,
-              textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
           const SizedBox(height: 8),
           Semantics(
             label: timeLabel,
-            child: Text(
-              timeLabel,
-              textAlign: TextAlign.center,
-            ),
+            child: Text(timeLabel),
           ),
           const SizedBox(height: 16),
           Semantics(
@@ -297,28 +271,19 @@ class PlanTodayReadyBody extends StatelessWidget {
             label: '${loc.v2TodayPreviewBecauseHeading}: $because',
             child: Text(because),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 16),
+          Text(loc.v2TodayPreviewCompletionMeaning),
+          const SizedBox(height: 8),
           Text(
-            journeyMarked
-                ? loc.v2TodayReadyJourneySaved
-                : loc.v2TodayReadyProgressSaved,
+            loc.recoveryPlanSkipHint,
             style: Theme.of(context).textTheme.bodySmall,
-            textAlign: TextAlign.center,
           ),
           const SizedBox(height: 32),
           SizedBox(
             height: 48,
             child: FilledButton(
-              onPressed: onStay,
-              child: Text(loc.v2TodayReadyPrimaryCta),
-            ),
-          ),
-          const SizedBox(height: 12),
-          SizedBox(
-            height: 48,
-            child: OutlinedButton(
-              onPressed: onOpenPreview,
-              child: Text(loc.v2TodayReadyReviewPreview),
+              onPressed: onContinue,
+              child: Text(loc.v2TodayPreviewContinueCta),
             ),
           ),
         ],

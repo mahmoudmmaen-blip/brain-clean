@@ -20,6 +20,10 @@ class V2OnboardingState {
     this.brainCheckReady = false,
     this.profileRevealed = false,
     this.profileSessionId,
+    this.planRevealed = false,
+    this.planId,
+    this.todayPreviewed = false,
+    this.journeyCompletedAt,
   });
 
   final V2OnboardingStatus status;
@@ -37,9 +41,17 @@ class V2OnboardingState {
 
   /// ONB-07 milestone reached (Profile reveal shown for a session).
   final bool profileRevealed;
-
-  /// ProfilePack source session linked to ONB-07 (optional).
   final String? profileSessionId;
+
+  /// ONB-08 milestone — Plan reveal shown.
+  final bool planRevealed;
+  final String? planId;
+
+  /// ONB-09 milestone — Today preview shown.
+  final bool todayPreviewed;
+
+  /// ONB-10 completion timestamp (null until journey closed).
+  final DateTime? journeyCompletedAt;
 
   V2OnboardingProgress get progress => V2OnboardingProgress(
         currentStepIndex: currentStep.orderIndex,
@@ -51,6 +63,9 @@ class V2OnboardingState {
   bool get isTerminalReady =>
       status == V2OnboardingStatus.readyForBrainCheck ||
       status == V2OnboardingStatus.completed;
+
+  bool get isJourneyComplete =>
+      status == V2OnboardingStatus.completed && journeyCompletedAt != null;
 
   static V2OnboardingState fresh({DateTime? now, String? languageCode}) {
     final t = (now ?? DateTime.now()).toUtc();
@@ -82,6 +97,12 @@ class V2OnboardingState {
     bool? profileRevealed,
     String? profileSessionId,
     bool clearProfileSession = false,
+    bool? planRevealed,
+    String? planId,
+    bool clearPlanId = false,
+    bool? todayPreviewed,
+    DateTime? journeyCompletedAt,
+    bool clearJourneyCompletedAt = false,
   }) {
     return V2OnboardingState(
       status: status ?? this.status,
@@ -102,6 +123,12 @@ class V2OnboardingState {
       profileSessionId: clearProfileSession
           ? null
           : (profileSessionId ?? this.profileSessionId),
+      planRevealed: planRevealed ?? this.planRevealed,
+      planId: clearPlanId ? null : (planId ?? this.planId),
+      todayPreviewed: todayPreviewed ?? this.todayPreviewed,
+      journeyCompletedAt: clearJourneyCompletedAt
+          ? null
+          : (journeyCompletedAt ?? this.journeyCompletedAt),
     );
   }
 
@@ -120,12 +147,16 @@ class V2OnboardingState {
         'brainCheckReady': brainCheckReady,
         'profileRevealed': profileRevealed,
         if (profileSessionId != null) 'profileSessionId': profileSessionId,
+        'planRevealed': planRevealed,
+        if (planId != null) 'planId': planId,
+        'todayPreviewed': todayPreviewed,
+        if (journeyCompletedAt != null)
+          'journeyCompletedAt': journeyCompletedAt!.toUtc().toIso8601String(),
       };
 
   factory V2OnboardingState.fromJson(Map<String, dynamic> json) {
     final schema = json['schemaVersion'] as String?;
     if (schema != null && schema != V2OnboardingVersion.schema) {
-      // Unsupported schema → treat as corrupt for safe resume.
       throw FormatException('unsupported_onboarding_schema:$schema');
     }
     final ritual = V2RitualWindowX.fromWire(json['ritualWindow'] as String?);
@@ -148,6 +179,12 @@ class V2OnboardingState {
       brainCheckReady: json['brainCheckReady'] as bool? ?? false,
       profileRevealed: json['profileRevealed'] as bool? ?? false,
       profileSessionId: json['profileSessionId'] as String?,
+      planRevealed: json['planRevealed'] as bool? ?? false,
+      planId: json['planId'] as String?,
+      todayPreviewed: json['todayPreviewed'] as bool? ?? false,
+      journeyCompletedAt:
+          DateTime.tryParse(json['journeyCompletedAt'] as String? ?? '')
+              ?.toUtc(),
     );
   }
 }

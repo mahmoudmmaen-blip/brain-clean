@@ -206,12 +206,14 @@ void main() {
       await box.close();
     });
 
-    test('order of steps is ONB-01…06 plus ONB-07 milestone', () {
+    test('order of steps is ONB-01…06 plus ONB-07…09 milestones', () {
       expect(
         V2OnboardingStepX.preCheckOrdered.map((s) => s.screenId).toList(),
         ['ONB-01', 'ONB-02', 'ONB-03', 'ONB-04', 'ONB-05', 'ONB-06'],
       );
       expect(V2OnboardingStep.profileReveal.screenId, 'ONB-07');
+      expect(V2OnboardingStep.planReveal.screenId, 'ONB-08');
+      expect(V2OnboardingStep.todayPreview.screenId, 'ONB-09');
     });
 
     test('no remote persistence identifiers', () {

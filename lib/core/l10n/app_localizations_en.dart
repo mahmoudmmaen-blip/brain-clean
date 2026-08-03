@@ -1873,6 +1873,82 @@ class AppLocalizationsEn extends AppLocalizations {
       'Your daily session player arrives in a later step. Your Recovery Plan is saved on this device.';
 
   @override
+  String get recoveryPlanCalmOrientation => 'Your Recovery Plan';
+
+  @override
+  String get recoveryPlanCalmOrientationBody =>
+      'This plan is a practical estimate based on your current Brain Profile. It is not a diagnosis or treatment. You can adjust it later.';
+
+  @override
+  String get recoveryPlanFitsProfile =>
+      'It matches the priorities in your current profile estimate.';
+
+  @override
+  String get v2TodayPreviewTitle => 'Your first Today';
+
+  @override
+  String get v2TodayPreviewLoading => 'Loading Today preview';
+
+  @override
+  String get v2TodayPreviewHeading => 'Today preview';
+
+  @override
+  String get v2TodayPreviewOrientation =>
+      'Your day starts with one clear step. Completing it later will mark the day on your plan.';
+
+  @override
+  String get v2TodayPreviewActHeading => 'First step';
+
+  @override
+  String get v2TodayPreviewFallbackTitle => 'Today’s practice';
+
+  @override
+  String get v2TodayPreviewBecauseHeading => 'Why this step today';
+
+  @override
+  String get v2TodayPreviewCompletionMeaning =>
+      'Finishing this step later will count as your day done. Skipping stays allowed with no penalty.';
+
+  @override
+  String get v2TodayPreviewContinueCta => 'Continue — first step ready';
+
+  @override
+  String get v2TodayPreviewMissingAct =>
+      'Today’s step is not available yet. Rebuild your Recovery Plan.';
+
+  @override
+  String get v2TodayReadyLoading => 'Preparing your first step';
+
+  @override
+  String get v2TodayReadyFirstStepTitle => 'Your first step is ready';
+
+  @override
+  String get v2TodayReadyFirstStepBody =>
+      'Your Recovery Plan is saved. The daily session player arrives in a later step. You can leave and return without losing progress.';
+
+  @override
+  String get v2TodayReadyJourneySaved =>
+      'First-time setup is complete on this device.';
+
+  @override
+  String get v2TodayReadyProgressSaved =>
+      'Your progress is saved on this device.';
+
+  @override
+  String get v2TodayReadyPrimaryCta => 'Stay here for now';
+
+  @override
+  String get v2TodayReadyReviewPreview => 'Review Today preview';
+
+  @override
+  String get v2TodayReadyCorruptPlan =>
+      'This plan could not be read safely. Rebuild it calmly when you are ready.';
+
+  @override
+  String get v2TodayReadyPersistFailed =>
+      'Could not save progress right now. Try again.';
+
+  @override
   String get v2OnboardingLoading => 'Loading…';
 
   @override

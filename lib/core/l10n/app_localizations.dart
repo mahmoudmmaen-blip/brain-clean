@@ -3452,6 +3452,138 @@ abstract class AppLocalizations {
   /// **'Your daily session player arrives in a later step. Your Recovery Plan is saved on this device.'**
   String get recoveryPlanTodayReadyBody;
 
+  /// No description provided for @recoveryPlanCalmOrientation.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Recovery Plan'**
+  String get recoveryPlanCalmOrientation;
+
+  /// No description provided for @recoveryPlanCalmOrientationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This plan is a practical estimate based on your current Brain Profile. It is not a diagnosis or treatment. You can adjust it later.'**
+  String get recoveryPlanCalmOrientationBody;
+
+  /// No description provided for @recoveryPlanFitsProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'It matches the priorities in your current profile estimate.'**
+  String get recoveryPlanFitsProfile;
+
+  /// No description provided for @v2TodayPreviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your first Today'**
+  String get v2TodayPreviewTitle;
+
+  /// No description provided for @v2TodayPreviewLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Today preview'**
+  String get v2TodayPreviewLoading;
+
+  /// No description provided for @v2TodayPreviewHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Today preview'**
+  String get v2TodayPreviewHeading;
+
+  /// No description provided for @v2TodayPreviewOrientation.
+  ///
+  /// In en, this message translates to:
+  /// **'Your day starts with one clear step. Completing it later will mark the day on your plan.'**
+  String get v2TodayPreviewOrientation;
+
+  /// No description provided for @v2TodayPreviewActHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'First step'**
+  String get v2TodayPreviewActHeading;
+
+  /// No description provided for @v2TodayPreviewFallbackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Today’s practice'**
+  String get v2TodayPreviewFallbackTitle;
+
+  /// No description provided for @v2TodayPreviewBecauseHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Why this step today'**
+  String get v2TodayPreviewBecauseHeading;
+
+  /// No description provided for @v2TodayPreviewCompletionMeaning.
+  ///
+  /// In en, this message translates to:
+  /// **'Finishing this step later will count as your day done. Skipping stays allowed with no penalty.'**
+  String get v2TodayPreviewCompletionMeaning;
+
+  /// No description provided for @v2TodayPreviewContinueCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue — first step ready'**
+  String get v2TodayPreviewContinueCta;
+
+  /// No description provided for @v2TodayPreviewMissingAct.
+  ///
+  /// In en, this message translates to:
+  /// **'Today’s step is not available yet. Rebuild your Recovery Plan.'**
+  String get v2TodayPreviewMissingAct;
+
+  /// No description provided for @v2TodayReadyLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing your first step'**
+  String get v2TodayReadyLoading;
+
+  /// No description provided for @v2TodayReadyFirstStepTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your first step is ready'**
+  String get v2TodayReadyFirstStepTitle;
+
+  /// No description provided for @v2TodayReadyFirstStepBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Recovery Plan is saved. The daily session player arrives in a later step. You can leave and return without losing progress.'**
+  String get v2TodayReadyFirstStepBody;
+
+  /// No description provided for @v2TodayReadyJourneySaved.
+  ///
+  /// In en, this message translates to:
+  /// **'First-time setup is complete on this device.'**
+  String get v2TodayReadyJourneySaved;
+
+  /// No description provided for @v2TodayReadyProgressSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Your progress is saved on this device.'**
+  String get v2TodayReadyProgressSaved;
+
+  /// No description provided for @v2TodayReadyPrimaryCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Stay here for now'**
+  String get v2TodayReadyPrimaryCta;
+
+  /// No description provided for @v2TodayReadyReviewPreview.
+  ///
+  /// In en, this message translates to:
+  /// **'Review Today preview'**
+  String get v2TodayReadyReviewPreview;
+
+  /// No description provided for @v2TodayReadyCorruptPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'This plan could not be read safely. Rebuild it calmly when you are ready.'**
+  String get v2TodayReadyCorruptPlan;
+
+  /// No description provided for @v2TodayReadyPersistFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save progress right now. Try again.'**
+  String get v2TodayReadyPersistFailed;
+
   /// No description provided for @v2OnboardingLoading.
   ///
   /// In en, this message translates to:

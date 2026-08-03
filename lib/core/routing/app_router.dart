@@ -33,6 +33,7 @@ import '../../features/brain_profile/ui/brain_profile_reveal_screen.dart';
 import '../../features/brain_profile/ui/profile_ready_boundary_screen.dart';
 import '../../features/recovery_plan/ui/plan_building_screen.dart';
 import '../../features/recovery_plan/ui/plan_reveal_screen.dart';
+import '../../features/recovery_plan/ui/plan_today_preview_screen.dart';
 import '../../features/recovery_plan/ui/plan_today_ready_boundary_screen.dart';
 import '../../features/brain_check/ui/brain_check_complete_boundary_screen.dart';
 import '../../features/brain_check/ui/brain_check_flow_screen.dart';
@@ -420,6 +421,14 @@ GoRouter goRouter(GoRouterRef ref) {
         builder: (context, state) {
           final planId = state.uri.queryParameters['plan'];
           return PlanRevealScreen(planId: planId);
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.v2PlanTodayPreview,
+        name: 'v2PlanTodayPreview',
+        builder: (context, state) {
+          final planId = state.uri.queryParameters['plan'];
+          return PlanTodayPreviewScreen(planId: planId);
         },
       ),
       GoRoute(

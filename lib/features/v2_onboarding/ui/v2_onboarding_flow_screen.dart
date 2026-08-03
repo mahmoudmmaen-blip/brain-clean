@@ -216,7 +216,9 @@ class V2OnboardingFlowBody extends StatelessWidget {
           onStart: onStartCheck,
         );
       case V2OnboardingStep.profileReveal:
-        // ONB-07 is hosted by the Profile reveal route, not this shell.
+      case V2OnboardingStep.planReveal:
+      case V2OnboardingStep.todayPreview:
+        // ONB-07…09 are hosted by Profile / Plan / Today-preview routes.
         return OnbCheckIntroView(
           loc: loc,
           onStart: onStartCheck,

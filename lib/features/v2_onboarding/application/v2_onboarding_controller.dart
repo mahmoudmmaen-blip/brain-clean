@@ -119,13 +119,13 @@ class V2OnboardingController extends ChangeNotifier {
 
   /// Terminal Slice 5.1 handoff — idempotent.
   Future<void> markReadyForBrainCheck() async {
-    if (_state.status == V2OnboardingStatus.readyForBrainCheck ||
-        _state.status == V2OnboardingStatus.completed) {
-      // Idempotent completion.
+    if (_state.status == V2OnboardingStatus.completed) {
+      return;
+    }
+    if (_state.status == V2OnboardingStatus.readyForBrainCheck) {
       await _persist(
         _state.copyWith(
           brainCheckReady: true,
-          currentStep: V2OnboardingStep.checkIntro,
           updatedAt: _now,
         ),
       );
@@ -145,19 +145,89 @@ class V2OnboardingController extends ChangeNotifier {
   Future<void> markProfileRevealed({required String sessionId}) async {
     if (_state.profileRevealed &&
         _state.profileSessionId == sessionId &&
-        _state.currentStep == V2OnboardingStep.profileReveal) {
+        (_state.currentStep == V2OnboardingStep.profileReveal ||
+            _state.planRevealed ||
+            _state.isJourneyComplete)) {
       return;
     }
+    if (_state.isJourneyComplete) return;
     await _persist(
       _state.copyWith(
         currentStep: V2OnboardingStep.profileReveal,
         profileRevealed: true,
         profileSessionId: sessionId,
-        // Keep readyForBrainCheck unless already completed (ONB-10 reserved).
-        status: _state.status == V2OnboardingStatus.completed
-            ? V2OnboardingStatus.completed
-            : V2OnboardingStatus.readyForBrainCheck,
+        status: V2OnboardingStatus.readyForBrainCheck,
         brainCheckReady: true,
+        updatedAt: _now,
+      ),
+    );
+  }
+
+  /// ONB-08 Plan reveal milestone.
+  Future<void> markPlanRevealed({required String planId}) async {
+    if (_state.isJourneyComplete) return;
+    if (_state.planRevealed &&
+        _state.planId == planId &&
+        (_state.currentStep == V2OnboardingStep.planReveal ||
+            _state.todayPreviewed)) {
+      return;
+    }
+    await _persist(
+      _state.copyWith(
+        currentStep: V2OnboardingStep.planReveal,
+        planRevealed: true,
+        planId: planId,
+        profileRevealed: true,
+        brainCheckReady: true,
+        status: V2OnboardingStatus.readyForBrainCheck,
+        updatedAt: _now,
+      ),
+    );
+  }
+
+  /// ONB-09 Today preview milestone (not the session player).
+  Future<void> markTodayPreviewed({required String planId}) async {
+    if (_state.isJourneyComplete) return;
+    if (_state.todayPreviewed &&
+        _state.planId == planId &&
+        _state.currentStep == V2OnboardingStep.todayPreview) {
+      return;
+    }
+    await _persist(
+      _state.copyWith(
+        currentStep: V2OnboardingStep.todayPreview,
+        todayPreviewed: true,
+        planRevealed: true,
+        planId: planId,
+        profileRevealed: true,
+        brainCheckReady: true,
+        status: V2OnboardingStatus.readyForBrainCheck,
+        updatedAt: _now,
+      ),
+    );
+  }
+
+  /// ONB-10 — first-time journey complete (Today-ready handoff available).
+  ///
+  /// Requires a revealed plan. Idempotent. Does not delete history.
+  /// Does not migrate V1 onboarding or replace production startup.
+  Future<void> markJourneyCompleted({required String planId}) async {
+    if (planId.isEmpty || !_state.planRevealed) {
+      return;
+    }
+    if (_state.isJourneyComplete && _state.planId == planId) {
+      return;
+    }
+    await _persist(
+      _state.copyWith(
+        status: V2OnboardingStatus.completed,
+        currentStep: V2OnboardingStep.todayPreview,
+        brainCheckReady: true,
+        profileRevealed: true,
+        planRevealed: true,
+        todayPreviewed: true,
+        planId: planId,
+        journeyCompletedAt: _state.journeyCompletedAt ?? _now,
         updatedAt: _now,
       ),
     );

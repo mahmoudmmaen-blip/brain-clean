@@ -1,7 +1,7 @@
 /// Approved V2 onboarding steps (Build Spec §1).
 ///
 /// Pre-check linear path: ONB-01…ONB-06.
-/// Post-check: [profileReveal] (ONB-07) is recorded after Profile reveal.
+/// Post-check milestones: ONB-07…ONB-09 (ONB-10 uses [V2OnboardingStatus.completed]).
 enum V2OnboardingStep {
   /// ONB-01 Welcome
   welcome,
@@ -21,8 +21,14 @@ enum V2OnboardingStep {
   /// ONB-06 Brain Check intro
   checkIntro,
 
-  /// ONB-07 Post-check Profile reveal milestone (not part of pre-check UI).
+  /// ONB-07 Post-check Profile reveal milestone.
   profileReveal,
+
+  /// ONB-08 Plan reveal milestone.
+  planReveal,
+
+  /// ONB-09 Today preview / handoff milestone (not the session player).
+  todayPreview,
 }
 
 extension V2OnboardingStepX on V2OnboardingStep {
@@ -34,6 +40,8 @@ extension V2OnboardingStepX on V2OnboardingStep {
         V2OnboardingStep.ritual => 'ritual',
         V2OnboardingStep.checkIntro => 'checkIntro',
         V2OnboardingStep.profileReveal => 'profileReveal',
+        V2OnboardingStep.planReveal => 'planReveal',
+        V2OnboardingStep.todayPreview => 'todayPreview',
       };
 
   String get screenId => switch (this) {
@@ -44,15 +52,23 @@ extension V2OnboardingStepX on V2OnboardingStep {
         V2OnboardingStep.ritual => 'ONB-05',
         V2OnboardingStep.checkIntro => 'ONB-06',
         V2OnboardingStep.profileReveal => 'ONB-07',
+        V2OnboardingStep.planReveal => 'ONB-08',
+        V2OnboardingStep.todayPreview => 'ONB-09',
       };
 
-  /// Index within the pre-check path (0–5). ONB-07 reports as post-check.
+  /// Index within the pre-check path (0–5). Post-check steps report as step 6.
   int get orderIndex => switch (this) {
-        V2OnboardingStep.profileReveal => preCheckOrdered.length - 1,
+        V2OnboardingStep.profileReveal ||
+        V2OnboardingStep.planReveal ||
+        V2OnboardingStep.todayPreview =>
+          preCheckOrdered.length - 1,
         _ => index,
       };
 
-  bool get isPreCheckStep => this != V2OnboardingStep.profileReveal;
+  bool get isPreCheckStep =>
+      this != V2OnboardingStep.profileReveal &&
+      this != V2OnboardingStep.planReveal &&
+      this != V2OnboardingStep.todayPreview;
 
   /// Linear pre-check order used by the onboarding shell (always 6).
   static const preCheckOrdered = <V2OnboardingStep>[
@@ -80,6 +96,10 @@ extension V2OnboardingStepX on V2OnboardingStep {
         return V2OnboardingStep.checkIntro;
       case 'profileReveal':
         return V2OnboardingStep.profileReveal;
+      case 'planReveal':
+        return V2OnboardingStep.planReveal;
+      case 'todayPreview':
+        return V2OnboardingStep.todayPreview;
       case 'welcome':
       default:
         return V2OnboardingStep.welcome;
@@ -88,8 +108,7 @@ extension V2OnboardingStepX on V2OnboardingStep {
 
   /// Pre-check navigation only — ONB-06 has no next inside the shell.
   V2OnboardingStep? get next {
-    if (this == V2OnboardingStep.checkIntro ||
-        this == V2OnboardingStep.profileReveal) {
+    if (!isPreCheckStep || this == V2OnboardingStep.checkIntro) {
       return null;
     }
     final i = preCheckOrdered.indexOf(this);
@@ -98,7 +117,9 @@ extension V2OnboardingStepX on V2OnboardingStep {
   }
 
   V2OnboardingStep? get previous {
-    if (this == V2OnboardingStep.profileReveal) {
+    if (this == V2OnboardingStep.profileReveal ||
+        this == V2OnboardingStep.planReveal ||
+        this == V2OnboardingStep.todayPreview) {
       return V2OnboardingStep.checkIntro;
     }
     final i = preCheckOrdered.indexOf(this);

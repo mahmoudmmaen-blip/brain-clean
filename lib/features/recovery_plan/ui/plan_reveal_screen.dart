@@ -6,10 +6,12 @@ import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../brain_profile/domain/measurement_confidence.dart';
+import '../../v2_onboarding/data/v2_onboarding_repository_provider.dart';
 import '../data/recovery_plan_repository_provider.dart';
 import '../domain/recovery_plan.dart';
 import '../domain/recovery_plan_intensity.dart';
 import '../domain/recovery_plan_status.dart';
+import '../domain/today_act_presentation.dart';
 
 /// PLN-01 — calm Recovery Plan reveal + TodayAct preview.
 class PlanRevealScreen extends ConsumerStatefulWidget {
@@ -46,6 +48,11 @@ class _PlanRevealScreenState extends ConsumerState<PlanRevealScreen> {
       }
       plan ??= await repo.active();
       if (!mounted) return;
+      if (plan != null) {
+        final onboarding = ref.read(v2OnboardingControllerProvider);
+        await onboarding.markPlanRevealed(planId: plan.id);
+      }
+      if (!mounted) return;
       setState(() {
         _plan = plan;
         _missing = plan == null;
@@ -81,7 +88,7 @@ class _PlanRevealScreenState extends ConsumerState<PlanRevealScreen> {
           onGoHome: () => context.go(AppRoutes.home),
           onContinue: () {
             final id = _plan?.id ?? '';
-            context.go('${AppRoutes.v2PlanTodayReady}?plan=$id');
+            context.go('${AppRoutes.v2PlanTodayPreview}?plan=$id');
           },
           onRebuild: () => context.go(AppRoutes.v2PlanBuilding),
         ),
@@ -183,6 +190,16 @@ class PlanRevealBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          Semantics(
+            header: true,
+            child: Text(
+              loc.recoveryPlanCalmOrientation,
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(loc.recoveryPlanCalmOrientationBody),
+          const SizedBox(height: 16),
           if (isStarter) ...[
             Semantics(
               liveRegion: true,
@@ -195,13 +212,17 @@ class PlanRevealBody extends StatelessWidget {
           ],
           Semantics(
             header: true,
+            label:
+                '${loc.recoveryPlanMainFocus}: ${expl.mainFocusForLocale(languageCode)}',
             child: Text(
               loc.recoveryPlanMainFocus,
-              style: Theme.of(context).textTheme.titleLarge,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
           const SizedBox(height: 8),
           Text(expl.mainFocusForLocale(languageCode)),
+          const SizedBox(height: 8),
+          Text(loc.recoveryPlanFitsProfile),
           const SizedBox(height: 16),
           Semantics(
             header: true,
@@ -314,7 +335,21 @@ class PlanRevealBody extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          Text(today.because.forLocale(languageCode)),
+          Semantics(
+            label:
+                '${loc.v2TodayPreviewActHeading}: ${resolveTodayActTitle(p, languageCode) ?? loc.v2TodayPreviewFallbackTitle}',
+            child: Text(
+              resolveTodayActTitle(p, languageCode) ??
+                  loc.v2TodayPreviewFallbackTitle,
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Semantics(
+            label:
+                '${loc.v2TodayPreviewBecauseHeading}: ${today.because.forLocale(languageCode)}',
+            child: Text(today.because.forLocale(languageCode)),
+          ),
           const SizedBox(height: 8),
           Text(
             loc.recoveryPlanSkipHint,

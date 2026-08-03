@@ -1850,6 +1850,80 @@ class AppLocalizationsAr extends AppLocalizations {
       'مشغّل الجلسة اليومية يأتي في خطوة لاحقة. خطة التعافي محفوظة على هذا الجهاز.';
 
   @override
+  String get recoveryPlanCalmOrientation => 'خطة التعافي الخاصة بك';
+
+  @override
+  String get recoveryPlanCalmOrientationBody =>
+      'هذه الخطة تقدير عملي مبني على ملف الدماغ الحالي. ليست تشخيصاً ولا علاجاً. يمكنك تعديلها لاحقاً.';
+
+  @override
+  String get recoveryPlanFitsProfile => 'تتوافق مع أولويات تقدير ملفك الحالي.';
+
+  @override
+  String get v2TodayPreviewTitle => 'أول يوم لك';
+
+  @override
+  String get v2TodayPreviewLoading => 'جارٍ تحميل معاينة اليوم';
+
+  @override
+  String get v2TodayPreviewHeading => 'معاينة اليوم';
+
+  @override
+  String get v2TodayPreviewOrientation =>
+      'يومك يبدأ بخطوة واضحة واحدة. إكمالها لاحقاً سيُسجّل يومك في الخطة.';
+
+  @override
+  String get v2TodayPreviewActHeading => 'الخطوة الأولى';
+
+  @override
+  String get v2TodayPreviewFallbackTitle => 'ممارسة اليوم';
+
+  @override
+  String get v2TodayPreviewBecauseHeading => 'لماذا هذه الخطوة اليوم';
+
+  @override
+  String get v2TodayPreviewCompletionMeaning =>
+      'إنهاء هذه الخطوة لاحقاً يُحسب يوماً مكتملاً. التخطي مسموح بلا عقوبة.';
+
+  @override
+  String get v2TodayPreviewContinueCta => 'المتابعة — خطوتك الأولى جاهزة';
+
+  @override
+  String get v2TodayPreviewMissingAct =>
+      'خطوة اليوم غير متاحة بعد. أعد بناء خطة التعافي.';
+
+  @override
+  String get v2TodayReadyLoading => 'جارٍ تجهيز خطوتك الأولى';
+
+  @override
+  String get v2TodayReadyFirstStepTitle => 'خطوتك الأولى جاهزة';
+
+  @override
+  String get v2TodayReadyFirstStepBody =>
+      'خطة التعافي محفوظة. مشغّل الجلسة اليومية يأتي في خطوة لاحقة. يمكنك المغادرة والعودة دون فقدان التقدّم.';
+
+  @override
+  String get v2TodayReadyJourneySaved =>
+      'اكتمل الإعداد لأول مرة على هذا الجهاز.';
+
+  @override
+  String get v2TodayReadyProgressSaved => 'تقدّمك محفوظ على هذا الجهاز.';
+
+  @override
+  String get v2TodayReadyPrimaryCta => 'البقاء هنا الآن';
+
+  @override
+  String get v2TodayReadyReviewPreview => 'مراجعة معاينة اليوم';
+
+  @override
+  String get v2TodayReadyCorruptPlan =>
+      'تعذّر قراءة هذه الخطة بأمان. أعد بناءها بهدوء عندما تكون جاهزاً.';
+
+  @override
+  String get v2TodayReadyPersistFailed =>
+      'تعذّر حفظ التقدّم الآن. حاول مرة أخرى.';
+
+  @override
   String get v2OnboardingLoading => 'جارٍ التحميل…';
 
   @override

@@ -45,6 +45,9 @@ abstract final class AppRoutes {
   /// Temporary Today-ready boundary (no session player yet).
   static const v2PlanTodayReady = '/v2/plan/today-ready';
 
+  /// ONB-09 — Today preview (not the daily-session player).
+  static const v2PlanTodayPreview = '/v2/plan/today-preview';
+
   /// V2 onboarding foundation ONB-01…ONB-06.
   static const v2Onboarding = '/v2/onboarding';
 
