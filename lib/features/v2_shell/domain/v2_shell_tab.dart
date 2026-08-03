@@ -89,6 +89,7 @@ abstract final class V2ShellPaths {
       '/v2/onboarding',
       '/v2/reports/artifact',
       '/v2/reports/measurements',
+      '/v2/premium',
     ];
     for (final prefix in known) {
       if (path == prefix || path.startsWith('$prefix/')) return true;

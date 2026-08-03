@@ -323,6 +323,29 @@ class _ArtifactList extends StatelessWidget {
                 c.premiumLockedArtifactCount.toString(),
               ),
             ),
+            const SizedBox(height: 8),
+            Text(loc.v2PremiumOlderArchive),
+            const SizedBox(height: 8),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: FilledButton(
+                onPressed: () => context.go(
+                  '${AppRoutes.v2Premium}?source=reports_archive',
+                ),
+                child: Text(loc.v2ReportsPremiumOpen),
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: TextButton(
+                onPressed: () => context.go(
+                  '${AppRoutes.v2PremiumRestore}?source=reports_archive',
+                ),
+                child: Text(loc.v2ReportsPremiumRestore),
+              ),
+            ),
           ],
         ],
       ),

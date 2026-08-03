@@ -135,6 +135,28 @@ class MeasurementHistoryBody extends StatelessWidget {
                 c.premiumLockedMeasurementCount.toString(),
               ),
             ),
+            Text(loc.v2PremiumDeeperHistory),
+            const SizedBox(height: 8),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: FilledButton(
+                onPressed: () => context.go(
+                  '${AppRoutes.v2Premium}?source=reports_archive',
+                ),
+                child: Text(loc.v2ReportsPremiumOpen),
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: TextButton(
+                onPressed: () => context.go(
+                  '${AppRoutes.v2PremiumRestore}?source=reports_archive',
+                ),
+                child: Text(loc.v2ReportsPremiumRestore),
+              ),
+            ),
           ],
           if (c.showDomainHistory && c.domainHistory.isNotEmpty) ...[
             const SizedBox(height: 20),

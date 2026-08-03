@@ -47,6 +47,10 @@ import '../../features/v2_onboarding/ui/v2_onboarding_flow_screen.dart';
 import '../../features/v2_reports/ui/measurement_history_screen.dart';
 import '../../features/v2_reports/ui/reports_overview_screen.dart';
 import '../../features/v2_reports/ui/weekly_artifact_detail_screen.dart';
+import '../../features/v2_premium/ui/premium_overview_screen.dart';
+import '../../features/v2_premium/ui/premium_plans_screen.dart';
+import '../../features/v2_premium/ui/premium_status_screen.dart';
+import '../../features/v2_premium/ui/premium_success_screen.dart';
 import '../../features/v2_shell/domain/v2_shell_routes.dart';
 import '../../features/v2_shell/domain/v2_shell_tab.dart';
 import '../constants/app_routes.dart';
@@ -502,6 +506,49 @@ GoRouter goRouter(GoRouterRef ref) {
             path: 'measurements',
             name: 'v2ReportMeasurements',
             builder: (context, state) => const MeasurementHistoryScreen(),
+          ),
+        ],
+      ),
+      // Contextual Premium (not a tab) — PRE-01…PRE-03
+      GoRoute(
+        path: AppRoutes.v2Premium,
+        name: 'v2Premium',
+        builder: (context, state) {
+          final source = state.uri.queryParameters['source'];
+          return PremiumOverviewScreen(source: source);
+        },
+        routes: [
+          GoRoute(
+            path: 'plans',
+            name: 'v2PremiumPlans',
+            builder: (context, state) {
+              final source = state.uri.queryParameters['source'];
+              return PremiumPlansScreen(source: source);
+            },
+          ),
+          GoRoute(
+            path: 'success',
+            name: 'v2PremiumSuccess',
+            builder: (context, state) {
+              final source = state.uri.queryParameters['source'];
+              return PremiumSuccessScreen(source: source);
+            },
+          ),
+          GoRoute(
+            path: 'status',
+            name: 'v2PremiumStatus',
+            builder: (context, state) {
+              final source = state.uri.queryParameters['source'];
+              return PremiumStatusScreen(source: source);
+            },
+          ),
+          GoRoute(
+            path: 'restore',
+            name: 'v2PremiumRestore',
+            builder: (context, state) {
+              final source = state.uri.queryParameters['source'] ?? 'restore';
+              return PremiumStatusScreen(source: source, autoRestore: true);
+            },
           ),
         ],
       ),

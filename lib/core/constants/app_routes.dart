@@ -104,4 +104,19 @@ abstract final class AppRoutes {
 
   /// Temporary post-completion boundary (before Profile reveal).
   static const v2BrainCheckCompleteBoundary = '/v2/brain-check/complete';
+
+  /// PRE-01 — V2 Premium appreciation overview (contextual; not a tab).
+  static const v2Premium = '/v2/premium';
+
+  /// Purchase / plans surface (store offerings).
+  static const v2PremiumPlans = '/v2/premium/plans';
+
+  /// PRE-02 — Premium success.
+  static const v2PremiumSuccess = '/v2/premium/success';
+
+  /// PRE-03 — Manage / status.
+  static const v2PremiumStatus = '/v2/premium/status';
+
+  /// PRE-03 restore intent.
+  static const v2PremiumRestore = '/v2/premium/restore';
 }

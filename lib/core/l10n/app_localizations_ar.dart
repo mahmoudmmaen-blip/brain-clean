@@ -3091,4 +3091,153 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v2NavRouteNotFound => 'تعذّر العثور على هذه الصفحة';
+
+  @override
+  String get v2PremiumTitle => 'بريميوم';
+
+  @override
+  String get v2PremiumOrientation =>
+      'بريميوم يعمّق الاستمرارية بعد أن تحقق تقدماً ملموساً — ولا يفتح باب التعافي.';
+
+  @override
+  String get v2PremiumFreeCoreReassurance =>
+      'مسارك المجاني الأساسي يبقى متاحاً.';
+
+  @override
+  String get v2PremiumCurrentProgressRemains => 'تقدّمك الحالي يبقى متاحاً.';
+
+  @override
+  String get v2PremiumFourCapitalsHeading => 'ما يضيفه بريميوم';
+
+  @override
+  String get v2PremiumContinuity => 'الاستمرارية';
+
+  @override
+  String get v2PremiumContinuityBody =>
+      'أرشيف أعمق لتقارير الأسبوع والأدلة على المدى الطويل.';
+
+  @override
+  String get v2PremiumInterpretation => 'التفسير';
+
+  @override
+  String get v2PremiumInterpretationBody =>
+      'طبقات سياق حتمية معتمدة فقط — دون ادعاءات طبية بالذكاء الاصطناعي.';
+
+  @override
+  String get v2PremiumFit => 'الملاءمة';
+
+  @override
+  String get v2PremiumFitBody =>
+      'عمق تكيّف معتمد مستقبلاً دون تغيير صامت للخطة.';
+
+  @override
+  String get v2PremiumSupport => 'الدعم';
+
+  @override
+  String get v2PremiumSupportBody =>
+      'دعم استمرارية مستقبلي بموجب عقد منفصل — دون حصر الاستجابة العاجلة في بريميوم.';
+
+  @override
+  String get v2PremiumBenefitsBody =>
+      'بريميوم يوسّع حالياً الوصول إلى أرشيف التقارير الأقدم. أحدث إثبات والإثبات السابق يبقيان مجانيين.';
+
+  @override
+  String get v2PremiumViewPlans => 'عرض الخطط';
+
+  @override
+  String get v2PremiumRestorePurchases => 'استعادة المشتريات';
+
+  @override
+  String get v2PremiumPurchaseInProgress => 'جارٍ الشراء';
+
+  @override
+  String get v2PremiumPurchaseCompleted => 'اكتمل الشراء';
+
+  @override
+  String get v2PremiumPurchaseCancelled => 'أُلغي الشراء';
+
+  @override
+  String get v2PremiumPurchaseFailed =>
+      'تعذّر الشراء. يمكنك المحاولة مجدداً أو استعادة المشتريات.';
+
+  @override
+  String get v2PremiumPurchasePending => 'الشراء معلّق';
+
+  @override
+  String get v2PremiumNoPlansAvailable => 'لا تتوفر خطط حالياً.';
+
+  @override
+  String get v2PremiumStoreUnavailable => 'المتجر غير متاح';
+
+  @override
+  String get v2PremiumRestored => 'تمت الاستعادة';
+
+  @override
+  String get v2PremiumNothingToRestore => 'لا يوجد ما يُستعاد';
+
+  @override
+  String get v2PremiumRestoreFailed =>
+      'تعذّرت الاستعادة. يمكنك المحاولة لاحقاً.';
+
+  @override
+  String get v2PremiumRestoring => 'جارٍ استعادة المشتريات';
+
+  @override
+  String get v2PremiumSubscriptionExpired => 'انتهى الاشتراك';
+
+  @override
+  String get v2PremiumDeeperHistory => 'سجل أعمق';
+
+  @override
+  String get v2PremiumOlderArchive => 'أرشيف أقدم';
+
+  @override
+  String get v2PremiumManage => 'إدارة بريميوم';
+
+  @override
+  String get v2PremiumAlreadyActive => 'بريميوم مفعّل';
+
+  @override
+  String get v2PremiumFreeStatus => 'أنت على المسار المجاني الأساسي';
+
+  @override
+  String get v2PremiumLoading => 'جارٍ تحميل بريميوم';
+
+  @override
+  String get v2PremiumPurchaseCta => 'المتابعة مع بريميوم';
+
+  @override
+  String get v2PremiumContinue => 'متابعة';
+
+  @override
+  String get v2PremiumPeriodMonthly => 'فوترة شهرية';
+
+  @override
+  String get v2PremiumPeriodAnnual => 'فوترة سنوية';
+
+  @override
+  String get v2PremiumPeriodLifetime => 'مدى الحياة';
+
+  @override
+  String get v2PremiumTermsLink => 'الشروط';
+
+  @override
+  String get v2PremiumOfflineCached =>
+      'بدون اتصال — يُستخدم وضع بريميوم المحفوظ';
+
+  @override
+  String get v2PremiumOfflineUnknown =>
+      'بدون اتصال — حالة بريميوم غير معروفة. الشراء يحتاج اتصالاً.';
+
+  @override
+  String get v2PremiumUnavailableHere => 'لا يُعرض بريميوم على هذه الشاشة.';
+
+  @override
+  String get v2PremiumOpenFromArchive => 'عرض بريميوم للأرشيف الأقدم';
+
+  @override
+  String get v2ReportsPremiumOpen => 'فتح بريميوم';
+
+  @override
+  String get v2ReportsPremiumRestore => 'استعادة المشتريات';
 }

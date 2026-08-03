@@ -3135,4 +3135,154 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v2NavRouteNotFound => 'This page could not be found';
+
+  @override
+  String get v2PremiumTitle => 'Premium';
+
+  @override
+  String get v2PremiumOrientation =>
+      'Premium deepens continuity after you have already made progress — it does not unlock recovery.';
+
+  @override
+  String get v2PremiumFreeCoreReassurance =>
+      'Your Free core remains available.';
+
+  @override
+  String get v2PremiumCurrentProgressRemains =>
+      'Your current progress remains available.';
+
+  @override
+  String get v2PremiumFourCapitalsHeading => 'What Premium adds';
+
+  @override
+  String get v2PremiumContinuity => 'Continuity';
+
+  @override
+  String get v2PremiumContinuityBody =>
+      'Deeper WeeklyArtifact archive and long-horizon evidence history.';
+
+  @override
+  String get v2PremiumInterpretation => 'Interpretation';
+
+  @override
+  String get v2PremiumInterpretationBody =>
+      'Additional deterministic context layers only — never medical AI claims.';
+
+  @override
+  String get v2PremiumFit => 'Fit';
+
+  @override
+  String get v2PremiumFitBody =>
+      'Future approved adaptation depth without silent Plan changes.';
+
+  @override
+  String get v2PremiumSupport => 'Support';
+
+  @override
+  String get v2PremiumSupportBody =>
+      'Future continuity support under a separate contract — never Premium-only crisis care.';
+
+  @override
+  String get v2PremiumBenefitsBody =>
+      'Premium currently deepens older Reports archive access. Latest and previous proof stay Free.';
+
+  @override
+  String get v2PremiumViewPlans => 'View plans';
+
+  @override
+  String get v2PremiumRestorePurchases => 'Restore purchases';
+
+  @override
+  String get v2PremiumPurchaseInProgress => 'Purchase in progress';
+
+  @override
+  String get v2PremiumPurchaseCompleted => 'Purchase completed';
+
+  @override
+  String get v2PremiumPurchaseCancelled => 'Purchase cancelled';
+
+  @override
+  String get v2PremiumPurchaseFailed =>
+      'Purchase failed. You can try again or restore purchases.';
+
+  @override
+  String get v2PremiumPurchasePending => 'Purchase pending';
+
+  @override
+  String get v2PremiumNoPlansAvailable => 'No plans available right now.';
+
+  @override
+  String get v2PremiumStoreUnavailable => 'Store unavailable';
+
+  @override
+  String get v2PremiumRestored => 'Restored';
+
+  @override
+  String get v2PremiumNothingToRestore => 'Nothing to restore';
+
+  @override
+  String get v2PremiumRestoreFailed =>
+      'Restore failed. You can try again later.';
+
+  @override
+  String get v2PremiumRestoring => 'Restoring purchases';
+
+  @override
+  String get v2PremiumSubscriptionExpired => 'Subscription expired';
+
+  @override
+  String get v2PremiumDeeperHistory => 'Deeper history';
+
+  @override
+  String get v2PremiumOlderArchive => 'Older archive';
+
+  @override
+  String get v2PremiumManage => 'Manage Premium';
+
+  @override
+  String get v2PremiumAlreadyActive => 'Premium is active';
+
+  @override
+  String get v2PremiumFreeStatus => 'You are on the Free core';
+
+  @override
+  String get v2PremiumLoading => 'Loading Premium';
+
+  @override
+  String get v2PremiumPurchaseCta => 'Continue with Premium';
+
+  @override
+  String get v2PremiumContinue => 'Continue';
+
+  @override
+  String get v2PremiumPeriodMonthly => 'Monthly billing';
+
+  @override
+  String get v2PremiumPeriodAnnual => 'Annual billing';
+
+  @override
+  String get v2PremiumPeriodLifetime => 'Lifetime';
+
+  @override
+  String get v2PremiumTermsLink => 'Terms';
+
+  @override
+  String get v2PremiumOfflineCached => 'Offline — using saved Premium status';
+
+  @override
+  String get v2PremiumOfflineUnknown =>
+      'Offline — Premium status unknown. Purchases need a connection.';
+
+  @override
+  String get v2PremiumUnavailableHere =>
+      'Premium is not offered on this screen.';
+
+  @override
+  String get v2PremiumOpenFromArchive => 'View Premium for older archive';
+
+  @override
+  String get v2ReportsPremiumOpen => 'Open Premium';
+
+  @override
+  String get v2ReportsPremiumRestore => 'Restore purchases';
 }

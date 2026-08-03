@@ -419,6 +419,17 @@ class BrainProfileRevealBody extends StatelessWidget {
               child: Text(loc.brainProfileContinue),
             ),
           ),
+          const SizedBox(height: 8),
+          SizedBox(
+            height: 48,
+            child: TextButton(
+              key: const Key('v2_profile_premium_entry'),
+              onPressed: () => context.go(
+                '${AppRoutes.v2Premium}?source=profile',
+              ),
+              child: Text(loc.v2PremiumManage),
+            ),
+          ),
         ],
       ),
     );

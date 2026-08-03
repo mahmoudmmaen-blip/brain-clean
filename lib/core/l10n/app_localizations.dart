@@ -5600,6 +5600,282 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This page could not be found'**
   String get v2NavRouteNotFound;
+
+  /// No description provided for @v2PremiumTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium'**
+  String get v2PremiumTitle;
+
+  /// No description provided for @v2PremiumOrientation.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium deepens continuity after you have already made progress — it does not unlock recovery.'**
+  String get v2PremiumOrientation;
+
+  /// No description provided for @v2PremiumFreeCoreReassurance.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Free core remains available.'**
+  String get v2PremiumFreeCoreReassurance;
+
+  /// No description provided for @v2PremiumCurrentProgressRemains.
+  ///
+  /// In en, this message translates to:
+  /// **'Your current progress remains available.'**
+  String get v2PremiumCurrentProgressRemains;
+
+  /// No description provided for @v2PremiumFourCapitalsHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'What Premium adds'**
+  String get v2PremiumFourCapitalsHeading;
+
+  /// No description provided for @v2PremiumContinuity.
+  ///
+  /// In en, this message translates to:
+  /// **'Continuity'**
+  String get v2PremiumContinuity;
+
+  /// No description provided for @v2PremiumContinuityBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Deeper WeeklyArtifact archive and long-horizon evidence history.'**
+  String get v2PremiumContinuityBody;
+
+  /// No description provided for @v2PremiumInterpretation.
+  ///
+  /// In en, this message translates to:
+  /// **'Interpretation'**
+  String get v2PremiumInterpretation;
+
+  /// No description provided for @v2PremiumInterpretationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Additional deterministic context layers only — never medical AI claims.'**
+  String get v2PremiumInterpretationBody;
+
+  /// No description provided for @v2PremiumFit.
+  ///
+  /// In en, this message translates to:
+  /// **'Fit'**
+  String get v2PremiumFit;
+
+  /// No description provided for @v2PremiumFitBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Future approved adaptation depth without silent Plan changes.'**
+  String get v2PremiumFitBody;
+
+  /// No description provided for @v2PremiumSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Support'**
+  String get v2PremiumSupport;
+
+  /// No description provided for @v2PremiumSupportBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Future continuity support under a separate contract — never Premium-only crisis care.'**
+  String get v2PremiumSupportBody;
+
+  /// No description provided for @v2PremiumBenefitsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium currently deepens older Reports archive access. Latest and previous proof stay Free.'**
+  String get v2PremiumBenefitsBody;
+
+  /// No description provided for @v2PremiumViewPlans.
+  ///
+  /// In en, this message translates to:
+  /// **'View plans'**
+  String get v2PremiumViewPlans;
+
+  /// No description provided for @v2PremiumRestorePurchases.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore purchases'**
+  String get v2PremiumRestorePurchases;
+
+  /// No description provided for @v2PremiumPurchaseInProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase in progress'**
+  String get v2PremiumPurchaseInProgress;
+
+  /// No description provided for @v2PremiumPurchaseCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase completed'**
+  String get v2PremiumPurchaseCompleted;
+
+  /// No description provided for @v2PremiumPurchaseCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase cancelled'**
+  String get v2PremiumPurchaseCancelled;
+
+  /// No description provided for @v2PremiumPurchaseFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase failed. You can try again or restore purchases.'**
+  String get v2PremiumPurchaseFailed;
+
+  /// No description provided for @v2PremiumPurchasePending.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase pending'**
+  String get v2PremiumPurchasePending;
+
+  /// No description provided for @v2PremiumNoPlansAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No plans available right now.'**
+  String get v2PremiumNoPlansAvailable;
+
+  /// No description provided for @v2PremiumStoreUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Store unavailable'**
+  String get v2PremiumStoreUnavailable;
+
+  /// No description provided for @v2PremiumRestored.
+  ///
+  /// In en, this message translates to:
+  /// **'Restored'**
+  String get v2PremiumRestored;
+
+  /// No description provided for @v2PremiumNothingToRestore.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing to restore'**
+  String get v2PremiumNothingToRestore;
+
+  /// No description provided for @v2PremiumRestoreFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore failed. You can try again later.'**
+  String get v2PremiumRestoreFailed;
+
+  /// No description provided for @v2PremiumRestoring.
+  ///
+  /// In en, this message translates to:
+  /// **'Restoring purchases'**
+  String get v2PremiumRestoring;
+
+  /// No description provided for @v2PremiumSubscriptionExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription expired'**
+  String get v2PremiumSubscriptionExpired;
+
+  /// No description provided for @v2PremiumDeeperHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Deeper history'**
+  String get v2PremiumDeeperHistory;
+
+  /// No description provided for @v2PremiumOlderArchive.
+  ///
+  /// In en, this message translates to:
+  /// **'Older archive'**
+  String get v2PremiumOlderArchive;
+
+  /// No description provided for @v2PremiumManage.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Premium'**
+  String get v2PremiumManage;
+
+  /// No description provided for @v2PremiumAlreadyActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium is active'**
+  String get v2PremiumAlreadyActive;
+
+  /// No description provided for @v2PremiumFreeStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'You are on the Free core'**
+  String get v2PremiumFreeStatus;
+
+  /// No description provided for @v2PremiumLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Premium'**
+  String get v2PremiumLoading;
+
+  /// No description provided for @v2PremiumPurchaseCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Premium'**
+  String get v2PremiumPurchaseCta;
+
+  /// No description provided for @v2PremiumContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get v2PremiumContinue;
+
+  /// No description provided for @v2PremiumPeriodMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly billing'**
+  String get v2PremiumPeriodMonthly;
+
+  /// No description provided for @v2PremiumPeriodAnnual.
+  ///
+  /// In en, this message translates to:
+  /// **'Annual billing'**
+  String get v2PremiumPeriodAnnual;
+
+  /// No description provided for @v2PremiumPeriodLifetime.
+  ///
+  /// In en, this message translates to:
+  /// **'Lifetime'**
+  String get v2PremiumPeriodLifetime;
+
+  /// No description provided for @v2PremiumTermsLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms'**
+  String get v2PremiumTermsLink;
+
+  /// No description provided for @v2PremiumOfflineCached.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline — using saved Premium status'**
+  String get v2PremiumOfflineCached;
+
+  /// No description provided for @v2PremiumOfflineUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline — Premium status unknown. Purchases need a connection.'**
+  String get v2PremiumOfflineUnknown;
+
+  /// No description provided for @v2PremiumUnavailableHere.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium is not offered on this screen.'**
+  String get v2PremiumUnavailableHere;
+
+  /// No description provided for @v2PremiumOpenFromArchive.
+  ///
+  /// In en, this message translates to:
+  /// **'View Premium for older archive'**
+  String get v2PremiumOpenFromArchive;
+
+  /// No description provided for @v2ReportsPremiumOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Premium'**
+  String get v2ReportsPremiumOpen;
+
+  /// No description provided for @v2ReportsPremiumRestore.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore purchases'**
+  String get v2ReportsPremiumRestore;
 }
 
 class _AppLocalizationsDelegate

@@ -89,8 +89,16 @@ class WeeklyArtifactDetailBody extends StatelessWidget {
       return _Message(
         title: loc.v2ReportsPremiumGatedTitle,
         body: loc.v2ReportsPremiumGatedBody,
-        cta: loc.v2ReportsBackOverview,
-        onCta: onBack,
+        cta: loc.v2ReportsPremiumOpen,
+        onCta: () => context.go(
+          '${AppRoutes.v2Premium}?source=reports_archive',
+        ),
+        secondaryCta: loc.v2ReportsPremiumRestore,
+        onSecondaryCta: () => context.go(
+          '${AppRoutes.v2PremiumRestore}?source=reports_archive',
+        ),
+        tertiaryCta: loc.v2ReportsBackOverview,
+        onTertiaryCta: onBack,
       );
     }
 
@@ -256,12 +264,20 @@ class _Message extends StatelessWidget {
     required this.body,
     required this.cta,
     required this.onCta,
+    this.secondaryCta,
+    this.onSecondaryCta,
+    this.tertiaryCta,
+    this.onTertiaryCta,
   });
 
   final String title;
   final String body;
   final String cta;
   final VoidCallback onCta;
+  final String? secondaryCta;
+  final VoidCallback? onSecondaryCta;
+  final String? tertiaryCta;
+  final VoidCallback? onTertiaryCta;
 
   @override
   Widget build(BuildContext context) {
@@ -279,9 +295,32 @@ class _Message extends StatelessWidget {
           Text(body, textAlign: TextAlign.center),
           const SizedBox(height: 24),
           SizedBox(
+            width: double.infinity,
             height: 48,
             child: FilledButton(onPressed: onCta, child: Text(cta)),
           ),
+          if (secondaryCta != null && onSecondaryCta != null) ...[
+            const SizedBox(height: 8),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: TextButton(
+                onPressed: onSecondaryCta,
+                child: Text(secondaryCta!),
+              ),
+            ),
+          ],
+          if (tertiaryCta != null && onTertiaryCta != null) ...[
+            const SizedBox(height: 8),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: TextButton(
+                onPressed: onTertiaryCta,
+                child: Text(tertiaryCta!),
+              ),
+            ),
+          ],
         ],
       ),
     );
