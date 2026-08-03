@@ -2352,4 +2352,255 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get v2BrainCheckReadyBody =>
       'Your Brain Check entry is ready. Continue when you want to open or resume the questionnaire.';
+
+  @override
+  String get v2WeeklyReviewTitle => 'Weekly Review';
+
+  @override
+  String get v2WeeklySummaryTitle => 'Weekly Summary';
+
+  @override
+  String get v2WeeklyReviewLoading => 'Loading Weekly Review';
+
+  @override
+  String get v2WeeklyReviewExit => 'Exit';
+
+  @override
+  String get v2WeeklyReviewBack => 'Back';
+
+  @override
+  String get v2WeeklyReviewContinue => 'Continue';
+
+  @override
+  String get v2WeeklyReviewComplete => 'Complete review';
+
+  @override
+  String get v2WeeklyReviewRetry => 'Try again';
+
+  @override
+  String get v2WeeklyReviewBackToday => 'Back to Today';
+
+  @override
+  String get v2WeeklyReviewSaveFailed =>
+      'Could not save your review right now. Try again.';
+
+  @override
+  String get v2WeeklyReviewUnsupported =>
+      'This review format is not supported on this version.';
+
+  @override
+  String get v2WeeklyReviewNotReadyGeneric => 'Weekly Review is not ready yet';
+
+  @override
+  String get v2WeeklyReviewNotReadyGenericBody =>
+      'Come back after a completed week with at least one finished session.';
+
+  @override
+  String get v2WeeklyReviewNotReadyZeroTitle =>
+      'Not enough completed activity yet';
+
+  @override
+  String get v2WeeklyReviewNotReadyZeroBody =>
+      'Finish at least one Today session in a completed week to open Weekly Review.';
+
+  @override
+  String get v2WeeklyReviewNotReadyCurrentTitle =>
+      'This week is still in progress';
+
+  @override
+  String get v2WeeklyReviewNotReadyCurrentBody =>
+      'Weekly Review opens after the week ends. Keep going with Today when you are ready.';
+
+  @override
+  String get v2WeeklyReviewNotReadyMissingTitle =>
+      'Review sources are not ready';
+
+  @override
+  String get v2WeeklyReviewNotReadyMissingBody =>
+      'A local plan, profile, or progress record is missing. Continue through Today and return later.';
+
+  @override
+  String v2WeeklyReviewPeriodLabel(String start, String end) {
+    return 'Period $start – $end';
+  }
+
+  @override
+  String v2WeeklyReviewProgress(String current, String total) {
+    return 'Question $current of $total';
+  }
+
+  @override
+  String v2WeeklyReviewProgressSemantics(String current, String total) {
+    return 'Weekly Review question $current of $total';
+  }
+
+  @override
+  String get v2WeeklyReviewRequired => 'Required';
+
+  @override
+  String get v2WeeklyReviewMultiSelectHint => 'Optional. Choose up to two.';
+
+  @override
+  String get v2WeeklyReviewValidationHint =>
+      'Please choose a valid response to continue.';
+
+  @override
+  String get v2WeeklyReviewYes => 'Yes';
+
+  @override
+  String get v2WeeklyReviewNo => 'No';
+
+  @override
+  String get v2WeeklyReviewQManageability =>
+      'How manageable did the plan feel this week?';
+
+  @override
+  String get v2WeeklyReviewQPauseFocus =>
+      'How much did the sessions help you pause or focus?';
+
+  @override
+  String get v2WeeklyReviewQObstacle => 'What got in the way most often?';
+
+  @override
+  String get v2WeeklyReviewQSupport => 'What supported you? (optional)';
+
+  @override
+  String get v2WeeklyReviewQAccessibility =>
+      'Did you use an accessibility alternative this week? (optional)';
+
+  @override
+  String get v2WeeklyReviewOptTooLight => 'Too light';
+
+  @override
+  String get v2WeeklyReviewOptAboutRight => 'About right';
+
+  @override
+  String get v2WeeklyReviewOptTooDemanding => 'Too demanding';
+
+  @override
+  String get v2WeeklyReviewOptTime => 'Time';
+
+  @override
+  String get v2WeeklyReviewOptForgetfulness => 'Forgetfulness';
+
+  @override
+  String get v2WeeklyReviewOptLowEnergy => 'Low energy';
+
+  @override
+  String get v2WeeklyReviewOptInterruptions => 'Interruptions';
+
+  @override
+  String get v2WeeklyReviewOptUnclearStep => 'Unclear step';
+
+  @override
+  String get v2WeeklyReviewOptAccessEnv => 'Access or environment';
+
+  @override
+  String get v2WeeklyReviewOptNoMajorObstacle => 'No major obstacle';
+
+  @override
+  String get v2WeeklyReviewOptShorterPath => 'Shorter path';
+
+  @override
+  String get v2WeeklyReviewOptClearerTiming => 'Clearer timing';
+
+  @override
+  String get v2WeeklyReviewOptQuieterEnv => 'Quieter environment';
+
+  @override
+  String get v2WeeklyReviewOptA11yAlt => 'Accessibility alternative';
+
+  @override
+  String get v2WeeklyReviewOptStrongerReminder => 'Stronger reminder';
+
+  @override
+  String get v2WeeklyReviewOptSamePlan => 'Same plan is working';
+
+  @override
+  String get v2WeeklySummaryOrientation => 'This week’s pattern';
+
+  @override
+  String v2WeeklySummaryCompletedDays(String count) {
+    return 'Completed days: $count';
+  }
+
+  @override
+  String v2WeeklySummaryPathMix(String label) {
+    return 'Path mix: $label';
+  }
+
+  @override
+  String get v2WeeklySummaryPathMostlyMinimum => 'Mostly minimum';
+
+  @override
+  String get v2WeeklySummaryPathMostlyStandard => 'Mostly standard';
+
+  @override
+  String get v2WeeklySummaryPathBalanced => 'Balanced';
+
+  @override
+  String get v2WeeklySummaryPathSingle => 'Single session only';
+
+  @override
+  String get v2WeeklySummaryPatternHeading => 'Rhythm';
+
+  @override
+  String get v2WeeklySummaryRhythmSteady => 'Steady across several days';
+
+  @override
+  String get v2WeeklySummaryRhythmIntermittent =>
+      'Intermittent across the week';
+
+  @override
+  String get v2WeeklySummaryRhythmLimited => 'Limited history';
+
+  @override
+  String get v2WeeklySummaryObstacleHeading => 'What got in the way';
+
+  @override
+  String get v2WeeklySummarySupportHeading => 'What supported you';
+
+  @override
+  String get v2WeeklySummarySupportNone => 'No support noted';
+
+  @override
+  String get v2WeeklySummaryAttentionHeading => 'What may deserve attention';
+
+  @override
+  String get v2WeeklySummaryAttentionLoad =>
+      'Load may deserve a closer look later';
+
+  @override
+  String get v2WeeklySummaryAttentionSupport =>
+      'A bit more support may deserve attention later';
+
+  @override
+  String get v2WeeklySummaryAttentionPause =>
+      'Pause or focus felt low this week';
+
+  @override
+  String get v2WeeklySummaryAttentionObstacle =>
+      'An obstacle stood out this week';
+
+  @override
+  String get v2WeeklySummaryAttentionMaintain =>
+      'Keep observing with the current plan';
+
+  @override
+  String get v2WeeklySummaryEvidenceLimited =>
+      'Limited evidence — one completed session only';
+
+  @override
+  String get v2WeeklySummaryEvidenceDeveloping =>
+      'Early evidence — treat this as a quiet look-back';
+
+  @override
+  String get v2WeeklySummaryEvidenceSufficient =>
+      'Summary only — not a cause claim';
+
+  @override
+  String get v2WeeklySummaryPlanUnchanged => 'Your plan has not changed yet';
+
+  @override
+  String get v2WeeklySummaryCtaToday => 'Back to Today';
 }

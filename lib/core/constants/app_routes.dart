@@ -63,6 +63,12 @@ abstract final class AppRoutes {
   /// SES-04 leave.
   static const v2SessionLeave = '/v2/session/leave';
 
+  /// WRV-01 — Weekly Review questions (gated V2).
+  static const v2WeeklyReview = '/v2/weekly-review';
+
+  /// WRV-02 — Weekly Review summary (gated V2).
+  static const v2WeeklyReviewSummary = '/v2/weekly-review/summary';
+
   /// V2 onboarding foundation ONB-01…ONB-06.
   static const v2Onboarding = '/v2/onboarding';
 

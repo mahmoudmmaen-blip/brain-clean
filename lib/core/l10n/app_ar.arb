@@ -1121,5 +1121,106 @@
   "v2BrainCheckEntryAlreadyComplete": "فحص الدماغ مكتمل بالفعل. البدء من جديد متاح في خطوات لاحقة — ولم تُمسَ الإجابات.",
   "v2BrainCheckEntryError": "تعذّر تجهيز فحص الدماغ الآن.",
   "v2BrainCheckReadyTitle": "فحص الدماغ جاهز",
-  "v2BrainCheckReadyBody": "دخول فحص الدماغ جاهز. تابع عندما تريد فتح الاستبيان أو استئنافه."
+  "v2BrainCheckReadyBody": "دخول فحص الدماغ جاهز. تابع عندما تريد فتح الاستبيان أو استئنافه.",
+  "v2WeeklyReviewTitle": "المراجعة الأسبوعية",
+  "v2WeeklySummaryTitle": "ملخص الأسبوع",
+  "v2WeeklyReviewLoading": "جارٍ تحميل المراجعة الأسبوعية",
+  "v2WeeklyReviewExit": "خروج",
+  "v2WeeklyReviewBack": "رجوع",
+  "v2WeeklyReviewContinue": "متابعة",
+  "v2WeeklyReviewComplete": "إكمال المراجعة",
+  "v2WeeklyReviewRetry": "حاول مرة أخرى",
+  "v2WeeklyReviewBackToday": "العودة إلى اليوم",
+  "v2WeeklyReviewSaveFailed": "تعذّر حفظ مراجعتك الآن. حاول مرة أخرى.",
+  "v2WeeklyReviewUnsupported": "صيغة هذه المراجعة غير مدعومة في هذا الإصدار.",
+  "v2WeeklyReviewNotReadyGeneric": "المراجعة الأسبوعية غير جاهزة بعد",
+  "v2WeeklyReviewNotReadyGenericBody": "عُد بعد أسبوع مكتمل فيه جلسة واحدة منتهية على الأقل.",
+  "v2WeeklyReviewNotReadyZeroTitle": "لا يوجد نشاط مكتمل كافٍ بعد",
+  "v2WeeklyReviewNotReadyZeroBody": "أكمل جلسة اليوم مرة واحدة على الأقل في أسبوع منتهٍ لفتح المراجعة الأسبوعية.",
+  "v2WeeklyReviewNotReadyCurrentTitle": "هذا الأسبوع ما زال جارياً",
+  "v2WeeklyReviewNotReadyCurrentBody": "تُفتَح المراجعة الأسبوعية بعد انتهاء الأسبوع. تابع اليوم عندما تكون جاهزاً.",
+  "v2WeeklyReviewNotReadyMissingTitle": "مصادر المراجعة غير جاهزة",
+  "v2WeeklyReviewNotReadyMissingBody": "خطة أو ملف شخصي أو سجل تقدّم محلي مفقود. تابع عبر اليوم ثم عُد لاحقاً.",
+  "v2WeeklyReviewPeriodLabel": "الفترة {start} – {end}",
+  "@v2WeeklyReviewPeriodLabel": {
+    "placeholders": {
+      "start": { "type": "String" },
+      "end": { "type": "String" }
+    }
+  },
+  "v2WeeklyReviewProgress": "السؤال {current} من {total}",
+  "@v2WeeklyReviewProgress": {
+    "placeholders": {
+      "current": { "type": "String" },
+      "total": { "type": "String" }
+    }
+  },
+  "v2WeeklyReviewProgressSemantics": "سؤال المراجعة الأسبوعية {current} من {total}",
+  "@v2WeeklyReviewProgressSemantics": {
+    "placeholders": {
+      "current": { "type": "String" },
+      "total": { "type": "String" }
+    }
+  },
+  "v2WeeklyReviewRequired": "مطلوب",
+  "v2WeeklyReviewMultiSelectHint": "اختياري. اختر حتى خيارين.",
+  "v2WeeklyReviewValidationHint": "يرجى اختيار إجابة صالحة للمتابعة.",
+  "v2WeeklyReviewYes": "نعم",
+  "v2WeeklyReviewNo": "لا",
+  "v2WeeklyReviewQManageability": "ما مدى قابلية الخطة للإدارة هذا الأسبوع؟",
+  "v2WeeklyReviewQPauseFocus": "إلى أي مدى ساعدتك الجلسات على التمهّل أو التركيز؟",
+  "v2WeeklyReviewQObstacle": "ما الذي أعاقك في أغلب الأحيان؟",
+  "v2WeeklyReviewQSupport": "ما الذي ساعدك؟ (اختياري)",
+  "v2WeeklyReviewQAccessibility": "هل استخدمت بديلاً للوصولية هذا الأسبوع؟ (اختياري)",
+  "v2WeeklyReviewOptTooLight": "خفيف جداً",
+  "v2WeeklyReviewOptAboutRight": "مناسب تقريباً",
+  "v2WeeklyReviewOptTooDemanding": "متطلّب جداً",
+  "v2WeeklyReviewOptTime": "الوقت",
+  "v2WeeklyReviewOptForgetfulness": "النسيان",
+  "v2WeeklyReviewOptLowEnergy": "طاقة منخفضة",
+  "v2WeeklyReviewOptInterruptions": "مقاطعات",
+  "v2WeeklyReviewOptUnclearStep": "خطوة غير واضحة",
+  "v2WeeklyReviewOptAccessEnv": "الوصول أو البيئة",
+  "v2WeeklyReviewOptNoMajorObstacle": "لا عائق كبير",
+  "v2WeeklyReviewOptShorterPath": "مسار أقصر",
+  "v2WeeklyReviewOptClearerTiming": "توقيت أوضح",
+  "v2WeeklyReviewOptQuieterEnv": "بيئة أهدأ",
+  "v2WeeklyReviewOptA11yAlt": "بديل وصولية",
+  "v2WeeklyReviewOptStrongerReminder": "تذكير أقوى",
+  "v2WeeklyReviewOptSamePlan": "الخطة الحالية مناسبة",
+  "v2WeeklySummaryOrientation": "نمط هذا الأسبوع",
+  "v2WeeklySummaryCompletedDays": "الأيام المكتملة: {count}",
+  "@v2WeeklySummaryCompletedDays": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2WeeklySummaryPathMix": "مزيج المسارات: {label}",
+  "@v2WeeklySummaryPathMix": {
+    "placeholders": {
+      "label": { "type": "String" }
+    }
+  },
+  "v2WeeklySummaryPathMostlyMinimum": "غالباً الأدنى",
+  "v2WeeklySummaryPathMostlyStandard": "غالباً القياسي",
+  "v2WeeklySummaryPathBalanced": "متوازن",
+  "v2WeeklySummaryPathSingle": "جلسة واحدة فقط",
+  "v2WeeklySummaryPatternHeading": "الإيقاع",
+  "v2WeeklySummaryRhythmSteady": "ثابت عبر عدة أيام",
+  "v2WeeklySummaryRhythmIntermittent": "متقطّع عبر الأسبوع",
+  "v2WeeklySummaryRhythmLimited": "سجل محدود",
+  "v2WeeklySummaryObstacleHeading": "ما الذي أعاقك؟",
+  "v2WeeklySummarySupportHeading": "ما الذي ساعدك؟",
+  "v2WeeklySummarySupportNone": "لم يُذكر دعم",
+  "v2WeeklySummaryAttentionHeading": "ما قد يستحق الانتباه",
+  "v2WeeklySummaryAttentionLoad": "الحمل قد يستحق نظرة لاحقاً",
+  "v2WeeklySummaryAttentionSupport": "المزيد من الدعم قد يستحق الانتباه لاحقاً",
+  "v2WeeklySummaryAttentionPause": "التمهّل أو التركيز بدا منخفضاً هذا الأسبوع",
+  "v2WeeklySummaryAttentionObstacle": "برز عائق هذا الأسبوع",
+  "v2WeeklySummaryAttentionMaintain": "واصل الملاحظة مع الخطة الحالية",
+  "v2WeeklySummaryEvidenceLimited": "دليل محدود — جلسة مكتملة واحدة فقط",
+  "v2WeeklySummaryEvidenceDeveloping": "دليل مبكر — اعتبر هذا نظرة هادئة إلى الخلف",
+  "v2WeeklySummaryEvidenceSufficient": "ملخص فقط — ليس ادّعاء سبب",
+  "v2WeeklySummaryPlanUnchanged": "لم تتغير خطتك بعد",
+  "v2WeeklySummaryCtaToday": "العودة إلى اليوم"
 }

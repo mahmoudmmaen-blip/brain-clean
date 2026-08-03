@@ -977,5 +977,106 @@
   "v2BrainCheckEntryAlreadyComplete": "A Brain Check is already complete. Starting again is available from later product steps — answers were not wiped.",
   "v2BrainCheckEntryError": "Could not prepare Brain Check right now.",
   "v2BrainCheckReadyTitle": "Brain Check is ready",
-  "v2BrainCheckReadyBody": "Your Brain Check entry is ready. Continue when you want to open or resume the questionnaire."
+  "v2BrainCheckReadyBody": "Your Brain Check entry is ready. Continue when you want to open or resume the questionnaire.",
+  "v2WeeklyReviewTitle": "Weekly Review",
+  "v2WeeklySummaryTitle": "Weekly Summary",
+  "v2WeeklyReviewLoading": "Loading Weekly Review",
+  "v2WeeklyReviewExit": "Exit",
+  "v2WeeklyReviewBack": "Back",
+  "v2WeeklyReviewContinue": "Continue",
+  "v2WeeklyReviewComplete": "Complete review",
+  "v2WeeklyReviewRetry": "Try again",
+  "v2WeeklyReviewBackToday": "Back to Today",
+  "v2WeeklyReviewSaveFailed": "Could not save your review right now. Try again.",
+  "v2WeeklyReviewUnsupported": "This review format is not supported on this version.",
+  "v2WeeklyReviewNotReadyGeneric": "Weekly Review is not ready yet",
+  "v2WeeklyReviewNotReadyGenericBody": "Come back after a completed week with at least one finished session.",
+  "v2WeeklyReviewNotReadyZeroTitle": "Not enough completed activity yet",
+  "v2WeeklyReviewNotReadyZeroBody": "Finish at least one Today session in a completed week to open Weekly Review.",
+  "v2WeeklyReviewNotReadyCurrentTitle": "This week is still in progress",
+  "v2WeeklyReviewNotReadyCurrentBody": "Weekly Review opens after the week ends. Keep going with Today when you are ready.",
+  "v2WeeklyReviewNotReadyMissingTitle": "Review sources are not ready",
+  "v2WeeklyReviewNotReadyMissingBody": "A local plan, profile, or progress record is missing. Continue through Today and return later.",
+  "v2WeeklyReviewPeriodLabel": "Period {start} – {end}",
+  "@v2WeeklyReviewPeriodLabel": {
+    "placeholders": {
+      "start": { "type": "String" },
+      "end": { "type": "String" }
+    }
+  },
+  "v2WeeklyReviewProgress": "Question {current} of {total}",
+  "@v2WeeklyReviewProgress": {
+    "placeholders": {
+      "current": { "type": "String" },
+      "total": { "type": "String" }
+    }
+  },
+  "v2WeeklyReviewProgressSemantics": "Weekly Review question {current} of {total}",
+  "@v2WeeklyReviewProgressSemantics": {
+    "placeholders": {
+      "current": { "type": "String" },
+      "total": { "type": "String" }
+    }
+  },
+  "v2WeeklyReviewRequired": "Required",
+  "v2WeeklyReviewMultiSelectHint": "Optional. Choose up to two.",
+  "v2WeeklyReviewValidationHint": "Please choose a valid response to continue.",
+  "v2WeeklyReviewYes": "Yes",
+  "v2WeeklyReviewNo": "No",
+  "v2WeeklyReviewQManageability": "How manageable did the plan feel this week?",
+  "v2WeeklyReviewQPauseFocus": "How much did the sessions help you pause or focus?",
+  "v2WeeklyReviewQObstacle": "What got in the way most often?",
+  "v2WeeklyReviewQSupport": "What supported you? (optional)",
+  "v2WeeklyReviewQAccessibility": "Did you use an accessibility alternative this week? (optional)",
+  "v2WeeklyReviewOptTooLight": "Too light",
+  "v2WeeklyReviewOptAboutRight": "About right",
+  "v2WeeklyReviewOptTooDemanding": "Too demanding",
+  "v2WeeklyReviewOptTime": "Time",
+  "v2WeeklyReviewOptForgetfulness": "Forgetfulness",
+  "v2WeeklyReviewOptLowEnergy": "Low energy",
+  "v2WeeklyReviewOptInterruptions": "Interruptions",
+  "v2WeeklyReviewOptUnclearStep": "Unclear step",
+  "v2WeeklyReviewOptAccessEnv": "Access or environment",
+  "v2WeeklyReviewOptNoMajorObstacle": "No major obstacle",
+  "v2WeeklyReviewOptShorterPath": "Shorter path",
+  "v2WeeklyReviewOptClearerTiming": "Clearer timing",
+  "v2WeeklyReviewOptQuieterEnv": "Quieter environment",
+  "v2WeeklyReviewOptA11yAlt": "Accessibility alternative",
+  "v2WeeklyReviewOptStrongerReminder": "Stronger reminder",
+  "v2WeeklyReviewOptSamePlan": "Same plan is working",
+  "v2WeeklySummaryOrientation": "This week’s pattern",
+  "v2WeeklySummaryCompletedDays": "Completed days: {count}",
+  "@v2WeeklySummaryCompletedDays": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2WeeklySummaryPathMix": "Path mix: {label}",
+  "@v2WeeklySummaryPathMix": {
+    "placeholders": {
+      "label": { "type": "String" }
+    }
+  },
+  "v2WeeklySummaryPathMostlyMinimum": "Mostly minimum",
+  "v2WeeklySummaryPathMostlyStandard": "Mostly standard",
+  "v2WeeklySummaryPathBalanced": "Balanced",
+  "v2WeeklySummaryPathSingle": "Single session only",
+  "v2WeeklySummaryPatternHeading": "Rhythm",
+  "v2WeeklySummaryRhythmSteady": "Steady across several days",
+  "v2WeeklySummaryRhythmIntermittent": "Intermittent across the week",
+  "v2WeeklySummaryRhythmLimited": "Limited history",
+  "v2WeeklySummaryObstacleHeading": "What got in the way",
+  "v2WeeklySummarySupportHeading": "What supported you",
+  "v2WeeklySummarySupportNone": "No support noted",
+  "v2WeeklySummaryAttentionHeading": "What may deserve attention",
+  "v2WeeklySummaryAttentionLoad": "Load may deserve a closer look later",
+  "v2WeeklySummaryAttentionSupport": "A bit more support may deserve attention later",
+  "v2WeeklySummaryAttentionPause": "Pause or focus felt low this week",
+  "v2WeeklySummaryAttentionObstacle": "An obstacle stood out this week",
+  "v2WeeklySummaryAttentionMaintain": "Keep observing with the current plan",
+  "v2WeeklySummaryEvidenceLimited": "Limited evidence — one completed session only",
+  "v2WeeklySummaryEvidenceDeveloping": "Early evidence — treat this as a quiet look-back",
+  "v2WeeklySummaryEvidenceSufficient": "Summary only — not a cause claim",
+  "v2WeeklySummaryPlanUnchanged": "Your plan has not changed yet",
+  "v2WeeklySummaryCtaToday": "Back to Today"
 }

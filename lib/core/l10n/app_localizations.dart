@@ -4303,6 +4303,444 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your Brain Check entry is ready. Continue when you want to open or resume the questionnaire.'**
   String get v2BrainCheckReadyBody;
+
+  /// No description provided for @v2WeeklyReviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Review'**
+  String get v2WeeklyReviewTitle;
+
+  /// No description provided for @v2WeeklySummaryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Summary'**
+  String get v2WeeklySummaryTitle;
+
+  /// No description provided for @v2WeeklyReviewLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Weekly Review'**
+  String get v2WeeklyReviewLoading;
+
+  /// No description provided for @v2WeeklyReviewExit.
+  ///
+  /// In en, this message translates to:
+  /// **'Exit'**
+  String get v2WeeklyReviewExit;
+
+  /// No description provided for @v2WeeklyReviewBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get v2WeeklyReviewBack;
+
+  /// No description provided for @v2WeeklyReviewContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get v2WeeklyReviewContinue;
+
+  /// No description provided for @v2WeeklyReviewComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete review'**
+  String get v2WeeklyReviewComplete;
+
+  /// No description provided for @v2WeeklyReviewRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get v2WeeklyReviewRetry;
+
+  /// No description provided for @v2WeeklyReviewBackToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Today'**
+  String get v2WeeklyReviewBackToday;
+
+  /// No description provided for @v2WeeklyReviewSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save your review right now. Try again.'**
+  String get v2WeeklyReviewSaveFailed;
+
+  /// No description provided for @v2WeeklyReviewUnsupported.
+  ///
+  /// In en, this message translates to:
+  /// **'This review format is not supported on this version.'**
+  String get v2WeeklyReviewUnsupported;
+
+  /// No description provided for @v2WeeklyReviewNotReadyGeneric.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Review is not ready yet'**
+  String get v2WeeklyReviewNotReadyGeneric;
+
+  /// No description provided for @v2WeeklyReviewNotReadyGenericBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Come back after a completed week with at least one finished session.'**
+  String get v2WeeklyReviewNotReadyGenericBody;
+
+  /// No description provided for @v2WeeklyReviewNotReadyZeroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough completed activity yet'**
+  String get v2WeeklyReviewNotReadyZeroTitle;
+
+  /// No description provided for @v2WeeklyReviewNotReadyZeroBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish at least one Today session in a completed week to open Weekly Review.'**
+  String get v2WeeklyReviewNotReadyZeroBody;
+
+  /// No description provided for @v2WeeklyReviewNotReadyCurrentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This week is still in progress'**
+  String get v2WeeklyReviewNotReadyCurrentTitle;
+
+  /// No description provided for @v2WeeklyReviewNotReadyCurrentBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Review opens after the week ends. Keep going with Today when you are ready.'**
+  String get v2WeeklyReviewNotReadyCurrentBody;
+
+  /// No description provided for @v2WeeklyReviewNotReadyMissingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Review sources are not ready'**
+  String get v2WeeklyReviewNotReadyMissingTitle;
+
+  /// No description provided for @v2WeeklyReviewNotReadyMissingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A local plan, profile, or progress record is missing. Continue through Today and return later.'**
+  String get v2WeeklyReviewNotReadyMissingBody;
+
+  /// No description provided for @v2WeeklyReviewPeriodLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Period {start} – {end}'**
+  String v2WeeklyReviewPeriodLabel(String start, String end);
+
+  /// No description provided for @v2WeeklyReviewProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Question {current} of {total}'**
+  String v2WeeklyReviewProgress(String current, String total);
+
+  /// No description provided for @v2WeeklyReviewProgressSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Review question {current} of {total}'**
+  String v2WeeklyReviewProgressSemantics(String current, String total);
+
+  /// No description provided for @v2WeeklyReviewRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Required'**
+  String get v2WeeklyReviewRequired;
+
+  /// No description provided for @v2WeeklyReviewMultiSelectHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional. Choose up to two.'**
+  String get v2WeeklyReviewMultiSelectHint;
+
+  /// No description provided for @v2WeeklyReviewValidationHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Please choose a valid response to continue.'**
+  String get v2WeeklyReviewValidationHint;
+
+  /// No description provided for @v2WeeklyReviewYes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get v2WeeklyReviewYes;
+
+  /// No description provided for @v2WeeklyReviewNo.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get v2WeeklyReviewNo;
+
+  /// No description provided for @v2WeeklyReviewQManageability.
+  ///
+  /// In en, this message translates to:
+  /// **'How manageable did the plan feel this week?'**
+  String get v2WeeklyReviewQManageability;
+
+  /// No description provided for @v2WeeklyReviewQPauseFocus.
+  ///
+  /// In en, this message translates to:
+  /// **'How much did the sessions help you pause or focus?'**
+  String get v2WeeklyReviewQPauseFocus;
+
+  /// No description provided for @v2WeeklyReviewQObstacle.
+  ///
+  /// In en, this message translates to:
+  /// **'What got in the way most often?'**
+  String get v2WeeklyReviewQObstacle;
+
+  /// No description provided for @v2WeeklyReviewQSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'What supported you? (optional)'**
+  String get v2WeeklyReviewQSupport;
+
+  /// No description provided for @v2WeeklyReviewQAccessibility.
+  ///
+  /// In en, this message translates to:
+  /// **'Did you use an accessibility alternative this week? (optional)'**
+  String get v2WeeklyReviewQAccessibility;
+
+  /// No description provided for @v2WeeklyReviewOptTooLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Too light'**
+  String get v2WeeklyReviewOptTooLight;
+
+  /// No description provided for @v2WeeklyReviewOptAboutRight.
+  ///
+  /// In en, this message translates to:
+  /// **'About right'**
+  String get v2WeeklyReviewOptAboutRight;
+
+  /// No description provided for @v2WeeklyReviewOptTooDemanding.
+  ///
+  /// In en, this message translates to:
+  /// **'Too demanding'**
+  String get v2WeeklyReviewOptTooDemanding;
+
+  /// No description provided for @v2WeeklyReviewOptTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get v2WeeklyReviewOptTime;
+
+  /// No description provided for @v2WeeklyReviewOptForgetfulness.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgetfulness'**
+  String get v2WeeklyReviewOptForgetfulness;
+
+  /// No description provided for @v2WeeklyReviewOptLowEnergy.
+  ///
+  /// In en, this message translates to:
+  /// **'Low energy'**
+  String get v2WeeklyReviewOptLowEnergy;
+
+  /// No description provided for @v2WeeklyReviewOptInterruptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Interruptions'**
+  String get v2WeeklyReviewOptInterruptions;
+
+  /// No description provided for @v2WeeklyReviewOptUnclearStep.
+  ///
+  /// In en, this message translates to:
+  /// **'Unclear step'**
+  String get v2WeeklyReviewOptUnclearStep;
+
+  /// No description provided for @v2WeeklyReviewOptAccessEnv.
+  ///
+  /// In en, this message translates to:
+  /// **'Access or environment'**
+  String get v2WeeklyReviewOptAccessEnv;
+
+  /// No description provided for @v2WeeklyReviewOptNoMajorObstacle.
+  ///
+  /// In en, this message translates to:
+  /// **'No major obstacle'**
+  String get v2WeeklyReviewOptNoMajorObstacle;
+
+  /// No description provided for @v2WeeklyReviewOptShorterPath.
+  ///
+  /// In en, this message translates to:
+  /// **'Shorter path'**
+  String get v2WeeklyReviewOptShorterPath;
+
+  /// No description provided for @v2WeeklyReviewOptClearerTiming.
+  ///
+  /// In en, this message translates to:
+  /// **'Clearer timing'**
+  String get v2WeeklyReviewOptClearerTiming;
+
+  /// No description provided for @v2WeeklyReviewOptQuieterEnv.
+  ///
+  /// In en, this message translates to:
+  /// **'Quieter environment'**
+  String get v2WeeklyReviewOptQuieterEnv;
+
+  /// No description provided for @v2WeeklyReviewOptA11yAlt.
+  ///
+  /// In en, this message translates to:
+  /// **'Accessibility alternative'**
+  String get v2WeeklyReviewOptA11yAlt;
+
+  /// No description provided for @v2WeeklyReviewOptStrongerReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Stronger reminder'**
+  String get v2WeeklyReviewOptStrongerReminder;
+
+  /// No description provided for @v2WeeklyReviewOptSamePlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Same plan is working'**
+  String get v2WeeklyReviewOptSamePlan;
+
+  /// No description provided for @v2WeeklySummaryOrientation.
+  ///
+  /// In en, this message translates to:
+  /// **'This week’s pattern'**
+  String get v2WeeklySummaryOrientation;
+
+  /// No description provided for @v2WeeklySummaryCompletedDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed days: {count}'**
+  String v2WeeklySummaryCompletedDays(String count);
+
+  /// No description provided for @v2WeeklySummaryPathMix.
+  ///
+  /// In en, this message translates to:
+  /// **'Path mix: {label}'**
+  String v2WeeklySummaryPathMix(String label);
+
+  /// No description provided for @v2WeeklySummaryPathMostlyMinimum.
+  ///
+  /// In en, this message translates to:
+  /// **'Mostly minimum'**
+  String get v2WeeklySummaryPathMostlyMinimum;
+
+  /// No description provided for @v2WeeklySummaryPathMostlyStandard.
+  ///
+  /// In en, this message translates to:
+  /// **'Mostly standard'**
+  String get v2WeeklySummaryPathMostlyStandard;
+
+  /// No description provided for @v2WeeklySummaryPathBalanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Balanced'**
+  String get v2WeeklySummaryPathBalanced;
+
+  /// No description provided for @v2WeeklySummaryPathSingle.
+  ///
+  /// In en, this message translates to:
+  /// **'Single session only'**
+  String get v2WeeklySummaryPathSingle;
+
+  /// No description provided for @v2WeeklySummaryPatternHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Rhythm'**
+  String get v2WeeklySummaryPatternHeading;
+
+  /// No description provided for @v2WeeklySummaryRhythmSteady.
+  ///
+  /// In en, this message translates to:
+  /// **'Steady across several days'**
+  String get v2WeeklySummaryRhythmSteady;
+
+  /// No description provided for @v2WeeklySummaryRhythmIntermittent.
+  ///
+  /// In en, this message translates to:
+  /// **'Intermittent across the week'**
+  String get v2WeeklySummaryRhythmIntermittent;
+
+  /// No description provided for @v2WeeklySummaryRhythmLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Limited history'**
+  String get v2WeeklySummaryRhythmLimited;
+
+  /// No description provided for @v2WeeklySummaryObstacleHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'What got in the way'**
+  String get v2WeeklySummaryObstacleHeading;
+
+  /// No description provided for @v2WeeklySummarySupportHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'What supported you'**
+  String get v2WeeklySummarySupportHeading;
+
+  /// No description provided for @v2WeeklySummarySupportNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No support noted'**
+  String get v2WeeklySummarySupportNone;
+
+  /// No description provided for @v2WeeklySummaryAttentionHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'What may deserve attention'**
+  String get v2WeeklySummaryAttentionHeading;
+
+  /// No description provided for @v2WeeklySummaryAttentionLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Load may deserve a closer look later'**
+  String get v2WeeklySummaryAttentionLoad;
+
+  /// No description provided for @v2WeeklySummaryAttentionSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'A bit more support may deserve attention later'**
+  String get v2WeeklySummaryAttentionSupport;
+
+  /// No description provided for @v2WeeklySummaryAttentionPause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause or focus felt low this week'**
+  String get v2WeeklySummaryAttentionPause;
+
+  /// No description provided for @v2WeeklySummaryAttentionObstacle.
+  ///
+  /// In en, this message translates to:
+  /// **'An obstacle stood out this week'**
+  String get v2WeeklySummaryAttentionObstacle;
+
+  /// No description provided for @v2WeeklySummaryAttentionMaintain.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep observing with the current plan'**
+  String get v2WeeklySummaryAttentionMaintain;
+
+  /// No description provided for @v2WeeklySummaryEvidenceLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Limited evidence — one completed session only'**
+  String get v2WeeklySummaryEvidenceLimited;
+
+  /// No description provided for @v2WeeklySummaryEvidenceDeveloping.
+  ///
+  /// In en, this message translates to:
+  /// **'Early evidence — treat this as a quiet look-back'**
+  String get v2WeeklySummaryEvidenceDeveloping;
+
+  /// No description provided for @v2WeeklySummaryEvidenceSufficient.
+  ///
+  /// In en, this message translates to:
+  /// **'Summary only — not a cause claim'**
+  String get v2WeeklySummaryEvidenceSufficient;
+
+  /// No description provided for @v2WeeklySummaryPlanUnchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Your plan has not changed yet'**
+  String get v2WeeklySummaryPlanUnchanged;
+
+  /// No description provided for @v2WeeklySummaryCtaToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Today'**
+  String get v2WeeklySummaryCtaToday;
 }
 
 class _AppLocalizationsDelegate

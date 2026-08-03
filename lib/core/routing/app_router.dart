@@ -40,6 +40,8 @@ import '../../features/daily_session/ui/session_prepare_screen.dart';
 import '../../features/daily_session/ui/session_act_screen.dart';
 import '../../features/daily_session/ui/session_reflect_screen.dart';
 import '../../features/daily_session/ui/session_leave_screen.dart';
+import '../../features/weekly_review/ui/weekly_review_questions_screen.dart';
+import '../../features/weekly_review/ui/weekly_review_summary_screen.dart';
 import '../../features/brain_check/ui/brain_check_complete_boundary_screen.dart';
 import '../../features/brain_check/ui/brain_check_flow_screen.dart';
 import '../../features/v2_onboarding/ui/brain_check_entry_boundary_screen.dart';
@@ -481,6 +483,16 @@ GoRouter goRouter(GoRouterRef ref) {
           final done = state.uri.queryParameters['done'] != '0';
           return SessionLeaveScreen(sessionId: session, done: done);
         },
+      ),
+      GoRoute(
+        path: AppRoutes.v2WeeklyReview,
+        name: 'v2WeeklyReview',
+        builder: (context, state) => const WeeklyReviewQuestionsScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.v2WeeklyReviewSummary,
+        name: 'v2WeeklyReviewSummary',
+        builder: (context, state) => const WeeklyReviewSummaryScreen(),
       ),
       GoRoute(
         path: AppRoutes.v2Onboarding,

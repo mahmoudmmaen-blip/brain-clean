@@ -2321,4 +2321,249 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get v2BrainCheckReadyBody =>
       'دخول فحص الدماغ جاهز. تابع عندما تريد فتح الاستبيان أو استئنافه.';
+
+  @override
+  String get v2WeeklyReviewTitle => 'المراجعة الأسبوعية';
+
+  @override
+  String get v2WeeklySummaryTitle => 'ملخص الأسبوع';
+
+  @override
+  String get v2WeeklyReviewLoading => 'جارٍ تحميل المراجعة الأسبوعية';
+
+  @override
+  String get v2WeeklyReviewExit => 'خروج';
+
+  @override
+  String get v2WeeklyReviewBack => 'رجوع';
+
+  @override
+  String get v2WeeklyReviewContinue => 'متابعة';
+
+  @override
+  String get v2WeeklyReviewComplete => 'إكمال المراجعة';
+
+  @override
+  String get v2WeeklyReviewRetry => 'حاول مرة أخرى';
+
+  @override
+  String get v2WeeklyReviewBackToday => 'العودة إلى اليوم';
+
+  @override
+  String get v2WeeklyReviewSaveFailed =>
+      'تعذّر حفظ مراجعتك الآن. حاول مرة أخرى.';
+
+  @override
+  String get v2WeeklyReviewUnsupported =>
+      'صيغة هذه المراجعة غير مدعومة في هذا الإصدار.';
+
+  @override
+  String get v2WeeklyReviewNotReadyGeneric =>
+      'المراجعة الأسبوعية غير جاهزة بعد';
+
+  @override
+  String get v2WeeklyReviewNotReadyGenericBody =>
+      'عُد بعد أسبوع مكتمل فيه جلسة واحدة منتهية على الأقل.';
+
+  @override
+  String get v2WeeklyReviewNotReadyZeroTitle => 'لا يوجد نشاط مكتمل كافٍ بعد';
+
+  @override
+  String get v2WeeklyReviewNotReadyZeroBody =>
+      'أكمل جلسة اليوم مرة واحدة على الأقل في أسبوع منتهٍ لفتح المراجعة الأسبوعية.';
+
+  @override
+  String get v2WeeklyReviewNotReadyCurrentTitle => 'هذا الأسبوع ما زال جارياً';
+
+  @override
+  String get v2WeeklyReviewNotReadyCurrentBody =>
+      'تُفتَح المراجعة الأسبوعية بعد انتهاء الأسبوع. تابع اليوم عندما تكون جاهزاً.';
+
+  @override
+  String get v2WeeklyReviewNotReadyMissingTitle => 'مصادر المراجعة غير جاهزة';
+
+  @override
+  String get v2WeeklyReviewNotReadyMissingBody =>
+      'خطة أو ملف شخصي أو سجل تقدّم محلي مفقود. تابع عبر اليوم ثم عُد لاحقاً.';
+
+  @override
+  String v2WeeklyReviewPeriodLabel(String start, String end) {
+    return 'الفترة $start – $end';
+  }
+
+  @override
+  String v2WeeklyReviewProgress(String current, String total) {
+    return 'السؤال $current من $total';
+  }
+
+  @override
+  String v2WeeklyReviewProgressSemantics(String current, String total) {
+    return 'سؤال المراجعة الأسبوعية $current من $total';
+  }
+
+  @override
+  String get v2WeeklyReviewRequired => 'مطلوب';
+
+  @override
+  String get v2WeeklyReviewMultiSelectHint => 'اختياري. اختر حتى خيارين.';
+
+  @override
+  String get v2WeeklyReviewValidationHint =>
+      'يرجى اختيار إجابة صالحة للمتابعة.';
+
+  @override
+  String get v2WeeklyReviewYes => 'نعم';
+
+  @override
+  String get v2WeeklyReviewNo => 'لا';
+
+  @override
+  String get v2WeeklyReviewQManageability =>
+      'ما مدى قابلية الخطة للإدارة هذا الأسبوع؟';
+
+  @override
+  String get v2WeeklyReviewQPauseFocus =>
+      'إلى أي مدى ساعدتك الجلسات على التمهّل أو التركيز؟';
+
+  @override
+  String get v2WeeklyReviewQObstacle => 'ما الذي أعاقك في أغلب الأحيان؟';
+
+  @override
+  String get v2WeeklyReviewQSupport => 'ما الذي ساعدك؟ (اختياري)';
+
+  @override
+  String get v2WeeklyReviewQAccessibility =>
+      'هل استخدمت بديلاً للوصولية هذا الأسبوع؟ (اختياري)';
+
+  @override
+  String get v2WeeklyReviewOptTooLight => 'خفيف جداً';
+
+  @override
+  String get v2WeeklyReviewOptAboutRight => 'مناسب تقريباً';
+
+  @override
+  String get v2WeeklyReviewOptTooDemanding => 'متطلّب جداً';
+
+  @override
+  String get v2WeeklyReviewOptTime => 'الوقت';
+
+  @override
+  String get v2WeeklyReviewOptForgetfulness => 'النسيان';
+
+  @override
+  String get v2WeeklyReviewOptLowEnergy => 'طاقة منخفضة';
+
+  @override
+  String get v2WeeklyReviewOptInterruptions => 'مقاطعات';
+
+  @override
+  String get v2WeeklyReviewOptUnclearStep => 'خطوة غير واضحة';
+
+  @override
+  String get v2WeeklyReviewOptAccessEnv => 'الوصول أو البيئة';
+
+  @override
+  String get v2WeeklyReviewOptNoMajorObstacle => 'لا عائق كبير';
+
+  @override
+  String get v2WeeklyReviewOptShorterPath => 'مسار أقصر';
+
+  @override
+  String get v2WeeklyReviewOptClearerTiming => 'توقيت أوضح';
+
+  @override
+  String get v2WeeklyReviewOptQuieterEnv => 'بيئة أهدأ';
+
+  @override
+  String get v2WeeklyReviewOptA11yAlt => 'بديل وصولية';
+
+  @override
+  String get v2WeeklyReviewOptStrongerReminder => 'تذكير أقوى';
+
+  @override
+  String get v2WeeklyReviewOptSamePlan => 'الخطة الحالية مناسبة';
+
+  @override
+  String get v2WeeklySummaryOrientation => 'نمط هذا الأسبوع';
+
+  @override
+  String v2WeeklySummaryCompletedDays(String count) {
+    return 'الأيام المكتملة: $count';
+  }
+
+  @override
+  String v2WeeklySummaryPathMix(String label) {
+    return 'مزيج المسارات: $label';
+  }
+
+  @override
+  String get v2WeeklySummaryPathMostlyMinimum => 'غالباً الأدنى';
+
+  @override
+  String get v2WeeklySummaryPathMostlyStandard => 'غالباً القياسي';
+
+  @override
+  String get v2WeeklySummaryPathBalanced => 'متوازن';
+
+  @override
+  String get v2WeeklySummaryPathSingle => 'جلسة واحدة فقط';
+
+  @override
+  String get v2WeeklySummaryPatternHeading => 'الإيقاع';
+
+  @override
+  String get v2WeeklySummaryRhythmSteady => 'ثابت عبر عدة أيام';
+
+  @override
+  String get v2WeeklySummaryRhythmIntermittent => 'متقطّع عبر الأسبوع';
+
+  @override
+  String get v2WeeklySummaryRhythmLimited => 'سجل محدود';
+
+  @override
+  String get v2WeeklySummaryObstacleHeading => 'ما الذي أعاقك؟';
+
+  @override
+  String get v2WeeklySummarySupportHeading => 'ما الذي ساعدك؟';
+
+  @override
+  String get v2WeeklySummarySupportNone => 'لم يُذكر دعم';
+
+  @override
+  String get v2WeeklySummaryAttentionHeading => 'ما قد يستحق الانتباه';
+
+  @override
+  String get v2WeeklySummaryAttentionLoad => 'الحمل قد يستحق نظرة لاحقاً';
+
+  @override
+  String get v2WeeklySummaryAttentionSupport =>
+      'المزيد من الدعم قد يستحق الانتباه لاحقاً';
+
+  @override
+  String get v2WeeklySummaryAttentionPause =>
+      'التمهّل أو التركيز بدا منخفضاً هذا الأسبوع';
+
+  @override
+  String get v2WeeklySummaryAttentionObstacle => 'برز عائق هذا الأسبوع';
+
+  @override
+  String get v2WeeklySummaryAttentionMaintain =>
+      'واصل الملاحظة مع الخطة الحالية';
+
+  @override
+  String get v2WeeklySummaryEvidenceLimited =>
+      'دليل محدود — جلسة مكتملة واحدة فقط';
+
+  @override
+  String get v2WeeklySummaryEvidenceDeveloping =>
+      'دليل مبكر — اعتبر هذا نظرة هادئة إلى الخلف';
+
+  @override
+  String get v2WeeklySummaryEvidenceSufficient => 'ملخص فقط — ليس ادّعاء سبب';
+
+  @override
+  String get v2WeeklySummaryPlanUnchanged => 'لم تتغير خطتك بعد';
+
+  @override
+  String get v2WeeklySummaryCtaToday => 'العودة إلى اليوم';
 }

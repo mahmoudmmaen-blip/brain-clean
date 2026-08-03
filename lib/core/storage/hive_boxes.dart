@@ -31,4 +31,7 @@ abstract final class HiveBoxes {
 
   /// V2 Progress snapshots (append-only, local-first).
   static const progress = 'progress_v1';
+
+  /// V2 Weekly Review drafts + artifacts + signals (local-first).
+  static const weeklyReview = 'weekly_review_v1';
 }
