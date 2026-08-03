@@ -1371,6 +1371,7 @@
     }
   },
   "v2NavHome": "Home",
+  "v2NavToday": "Today",
   "v2NavCheck": "Brain Check",
   "v2NavPlan": "Plan",
   "v2NavProgress": "Progress",

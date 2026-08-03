@@ -5,7 +5,10 @@ import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/app_colors.dart';
 import '../domain/v2_shell_tab.dart';
 
-/// NAV-SHELL — six-tab V2 composition over existing screens (Slice 9.1).
+/// NAV-SHELL — canonical four-tab V2 composition (Slice 9.1A).
+///
+/// Tabs: Today · Plan · Progress · Profile.
+/// Brain Check and Reports remain contextual routes outside this bar.
 ///
 /// Navigation only: does not mutate Score, Plan, Progress, Reports, or Sessions.
 class V2NavigationShell extends StatelessWidget {
@@ -19,7 +22,8 @@ class V2NavigationShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
-    final index = navigationShell.currentIndex.clamp(0, V2ShellTab.values.length - 1);
+    final index =
+        navigationShell.currentIndex.clamp(0, V2ShellTab.values.length - 1);
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -35,16 +39,10 @@ class V2NavigationShell extends StatelessWidget {
         },
         destinations: [
           NavigationDestination(
-            icon: const Icon(Icons.home_outlined),
-            selectedIcon: const Icon(Icons.home),
-            label: loc.v2NavHome,
-            tooltip: loc.v2NavHome,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.psychology_outlined),
-            selectedIcon: const Icon(Icons.psychology),
-            label: loc.v2NavCheck,
-            tooltip: loc.v2NavCheck,
+            icon: const Icon(Icons.today_outlined),
+            selectedIcon: const Icon(Icons.today),
+            label: loc.v2NavToday,
+            tooltip: loc.v2NavToday,
           ),
           NavigationDestination(
             icon: const Icon(Icons.map_outlined),
@@ -57,12 +55,6 @@ class V2NavigationShell extends StatelessWidget {
             selectedIcon: const Icon(Icons.show_chart),
             label: loc.v2NavProgress,
             tooltip: loc.v2NavProgress,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.description_outlined),
-            selectedIcon: const Icon(Icons.description),
-            label: loc.v2NavReports,
-            tooltip: loc.v2NavReports,
           ),
           NavigationDestination(
             icon: const Icon(Icons.person_outline),

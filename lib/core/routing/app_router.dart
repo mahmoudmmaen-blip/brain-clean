@@ -41,8 +41,12 @@ import '../../features/weekly_review/ui/weekly_review_questions_screen.dart';
 import '../../features/weekly_review/ui/weekly_review_summary_screen.dart';
 import '../../features/brain_check/ui/brain_check_complete_boundary_screen.dart';
 import '../../features/brain_check/ui/brain_check_flow_screen.dart';
+import '../../features/v2_onboarding/ui/brain_check_entry_boundary_screen.dart';
 import '../../features/v2_onboarding/ui/brain_check_ready_boundary_screen.dart';
 import '../../features/v2_onboarding/ui/v2_onboarding_flow_screen.dart';
+import '../../features/v2_reports/ui/measurement_history_screen.dart';
+import '../../features/v2_reports/ui/reports_overview_screen.dart';
+import '../../features/v2_reports/ui/weekly_artifact_detail_screen.dart';
 import '../../features/v2_shell/domain/v2_shell_routes.dart';
 import '../../features/v2_shell/domain/v2_shell_tab.dart';
 import '../constants/app_routes.dart';
@@ -468,7 +472,39 @@ GoRouter goRouter(GoRouterRef ref) {
           return '${AppRoutes.v2Check}?${q.join('&')}';
         },
       ),
+      // Canonical four-tab shell: Today · Plan · Progress · Profile
       buildV2NavigationShellRoute(),
+      // Contextual Brain Check (not a primary tab)
+      GoRoute(
+        path: AppRoutes.v2Check,
+        name: 'v2Check',
+        builder: (context, state) {
+          final mode = state.uri.queryParameters['mode'] ?? 'lite';
+          final source = state.uri.queryParameters['source'] ?? 'shell';
+          return BrainCheckEntryBoundaryScreen(mode: mode, source: source);
+        },
+      ),
+      // Contextual Reports proof surface (not a primary tab)
+      GoRoute(
+        path: AppRoutes.v2Reports,
+        name: 'v2Reports',
+        builder: (context, state) => const ReportsOverviewScreen(),
+        routes: [
+          GoRoute(
+            path: 'artifact',
+            name: 'v2ReportArtifact',
+            builder: (context, state) {
+              final id = state.uri.queryParameters['id'];
+              return WeeklyArtifactDetailScreen(artifactId: id);
+            },
+          ),
+          GoRoute(
+            path: 'measurements',
+            name: 'v2ReportMeasurements',
+            builder: (context, state) => const MeasurementHistoryScreen(),
+          ),
+        ],
+      ),
       GoRoute(
         path: AppRoutes.v2SessionPrepare,
         name: 'v2SessionPrepare',

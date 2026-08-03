@@ -11,7 +11,7 @@ import 'package:go_router/go_router.dart';
 
 import 'helpers/localized_test_app.dart';
 
-/// Minimal V2 shell router for Slice 9.1 navigation tests (no Hive / biz logic).
+/// Minimal V2 shell + contextual routes for Slice 9.1A (no Hive / biz logic).
 GoRouter _shellRouter({
   required bool flagOn,
   String initial = AppRoutes.v2Home,
@@ -47,9 +47,20 @@ GoRouter _shellRouter({
       ),
       GoRoute(
         path: AppRoutes.v2BrainCheckEntry,
-        redirect: (context, state) => AppRoutes.v2Check,
+        redirect: (context, state) {
+          final mode = state.uri.queryParameters['mode'];
+          final source = state.uri.queryParameters['source'];
+          final q = <String>[];
+          if (mode != null && mode.isNotEmpty) {
+            q.add('mode=${Uri.encodeComponent(mode)}');
+          }
+          if (source != null && source.isNotEmpty) {
+            q.add('source=${Uri.encodeComponent(source)}');
+          }
+          if (q.isEmpty) return AppRoutes.v2Check;
+          return '${AppRoutes.v2Check}?${q.join('&')}';
+        },
       ),
-      // Lightweight shell stand-ins (avoid Hive-backed product screens).
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           return V2NavigationShell(navigationShell: navigationShell);
@@ -62,12 +73,63 @@ GoRouter _shellRouter({
                   path: tab.pathPrefix,
                   pageBuilder: (context, state) => NoTransitionPage<void>(
                     child: Scaffold(
-                      body: Text('TAB_${tab.name.toUpperCase()}'),
+                      body: Column(
+                        children: [
+                          Text('TAB_${tab.name.toUpperCase()}'),
+                          if (tab == V2ShellTab.progress)
+                            TextButton(
+                              onPressed: () =>
+                                  GoRouter.of(context).go(AppRoutes.v2Reports),
+                              child: const Text('OPEN_REPORTS'),
+                            ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
+        ],
+      ),
+      // Contextual Brain Check (outside primary tabs)
+      GoRoute(
+        path: AppRoutes.v2Check,
+        builder: (context, state) {
+          final mode = state.uri.queryParameters['mode'] ?? 'lite';
+          final source = state.uri.queryParameters['source'] ?? 'shell';
+          return Scaffold(
+            body: Text('CHECK_CONTEXTUAL mode=$mode source=$source'),
+          );
+        },
+      ),
+      // Contextual Reports (outside primary tabs)
+      GoRoute(
+        path: AppRoutes.v2Reports,
+        builder: (context, state) => Scaffold(
+          body: Column(
+            children: [
+              const Text('REPORTS_CONTEXTUAL'),
+              TextButton(
+                onPressed: () =>
+                    GoRouter.of(context).go(AppRoutes.v2Progress),
+                child: const Text('BACK_PROGRESS'),
+              ),
+            ],
+          ),
+        ),
+        routes: [
+          GoRoute(
+            path: 'artifact',
+            builder: (context, state) {
+              final id = state.uri.queryParameters['id'] ?? '';
+              return Scaffold(body: Text('ARTIFACT_DETAIL id=$id'));
+            },
+          ),
+          GoRoute(
+            path: 'measurements',
+            builder: (context, state) =>
+                const Scaffold(body: Text('MEASUREMENT_HISTORY')),
+          ),
         ],
       ),
     ],
@@ -85,33 +147,61 @@ void main() {
     V2FeatureBoundary.enableBrainProfileRoutes = false;
   });
 
-  group('V2ShellTab / paths', () {
-    test('six roots and location mapping', () {
-      expect(V2ShellPaths.roots, hasLength(6));
-      expect(V2ShellTabX.fromLocation('/v2/home'), V2ShellTab.home);
-      expect(V2ShellTabX.fromLocation('/v2/today'), V2ShellTab.home);
-      expect(V2ShellTabX.fromLocation('/v2/check'), V2ShellTab.check);
+  group('Canonical four-tab contract', () {
+    test('exactly four primary tabs in Build Spec order', () {
+      expect(V2ShellTab.values, hasLength(4));
+      expect(V2ShellPaths.primaryTabCount, 4);
+      expect(V2ShellPaths.roots, [
+        '/v2/home',
+        '/v2/plan',
+        '/v2/progress',
+        '/v2/profile',
+      ]);
+      expect(V2ShellTab.values.map((t) => t.name).toList(), [
+        'today',
+        'plan',
+        'progress',
+        'profile',
+      ]);
+    });
+
+    test('Brain Check and Reports are not primary tabs', () {
+      expect(
+        V2ShellTab.values.map((t) => t.name),
+        isNot(contains('check')),
+      );
+      expect(
+        V2ShellTab.values.map((t) => t.name),
+        isNot(contains('reports')),
+      );
+      expect(V2ShellTabX.fromLocation('/v2/check'), isNull);
+      expect(V2ShellTabX.fromLocation('/v2/reports'), isNull);
+      expect(V2ShellTabX.fromLocation('/v2/reports/artifact'), isNull);
+      expect(V2ShellTabX.fromLocation('/v2/reports/measurements'), isNull);
+      expect(V2ShellTabX.fromLocation('/v2/brain-check/flow'), isNull);
+    });
+
+    test('primary tab location mapping + aliases', () {
+      expect(V2ShellTabX.fromLocation('/v2/home'), V2ShellTab.today);
+      expect(V2ShellTabX.fromLocation('/v2/today'), V2ShellTab.today);
       expect(V2ShellTabX.fromLocation('/v2/plan'), V2ShellTab.plan);
       expect(V2ShellTabX.fromLocation('/v2/progress'), V2ShellTab.progress);
-      expect(V2ShellTabX.fromLocation('/v2/reports'), V2ShellTab.reports);
-      expect(
-        V2ShellTabX.fromLocation('/v2/reports/artifact'),
-        V2ShellTab.reports,
-      );
       expect(V2ShellTabX.fromLocation('/v2/profile'), V2ShellTab.profile);
-      expect(
-        V2ShellTabX.fromLocation('/v2/brain-profile'),
-        V2ShellTab.profile,
-      );
+      expect(V2ShellTabX.fromLocation('/v2/brain-profile'), V2ShellTab.profile);
       expect(V2ShellTabX.fromLocation('/v2/session/act'), isNull);
       expect(AppRoutes.v2Today, AppRoutes.v2Home);
       expect(AppRoutes.v2Home, '/v2/home');
       expect(AppRoutes.v2Check, '/v2/check');
+      expect(AppRoutes.v2PlanReveal, '/v2/plan');
+      expect(AppRoutes.v2Progress, '/v2/progress');
+      expect(AppRoutes.v2Reports, '/v2/reports');
       expect(AppRoutes.v2Profile, '/v2/profile');
     });
 
     test('known location gate + shell flag alias', () {
       expect(V2ShellPaths.isKnownV2Location('/v2/home'), isTrue);
+      expect(V2ShellPaths.isKnownV2Location('/v2/check'), isTrue);
+      expect(V2ShellPaths.isKnownV2Location('/v2/reports'), isTrue);
       expect(V2ShellPaths.isKnownV2Location('/v2/unknown-xyz'), isFalse);
       expect(V2ShellPaths.isKnownV2Location('/v2/session/prepare'), isTrue);
       V2FeatureBoundary.enableBrainProfileRoutes = true;
@@ -120,7 +210,7 @@ void main() {
       expect(V2FeatureBoundary.enableV2Shell, isFalse);
     });
 
-    test('production shell route factory builds', () {
+    test('production shell route factory builds four branches', () {
       expect(buildV2NavigationShellRoute(), isA<StatefulShellRoute>());
     });
   });
@@ -134,130 +224,236 @@ void main() {
       expect(find.byType(NavigationBar), findsNothing);
     });
 
-    testWidgets('ON enters V2 shell Home tab', (tester) async {
+    testWidgets('ON exposes four-tab V2 shell on Today', (tester) async {
       final router = _shellRouter(flagOn: true, initial: AppRoutes.v2Home);
       await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
       await tester.pump();
-      expect(find.text('TAB_HOME'), findsOneWidget);
+      expect(find.text('TAB_TODAY'), findsOneWidget);
       expect(find.byType(NavigationBar), findsOneWidget);
+      expect(find.byType(NavigationDestination), findsNWidgets(4));
       expect(find.byType(V2NavigationShell), findsOneWidget);
     });
   });
 
-  group('Deep links', () {
-    testWidgets('each shell deep link selects correct tab', (tester) async {
-      final paths = [
-        AppRoutes.v2Home,
-        AppRoutes.v2Check,
-        AppRoutes.v2PlanReveal,
-        AppRoutes.v2Progress,
-        AppRoutes.v2Reports,
-        AppRoutes.v2Profile,
-      ];
-      final labels = [
-        'TAB_HOME',
-        'TAB_CHECK',
-        'TAB_PLAN',
-        'TAB_PROGRESS',
-        'TAB_REPORTS',
-        'TAB_PROFILE',
+  group('Primary tab deep links', () {
+    testWidgets('Today / Plan / Progress / Profile select correct tabs', (
+      tester,
+    ) async {
+      final cases = <(String, String, int)>[
+        (AppRoutes.v2Home, 'TAB_TODAY', 0),
+        (AppRoutes.v2PlanReveal, 'TAB_PLAN', 1),
+        (AppRoutes.v2Progress, 'TAB_PROGRESS', 2),
+        (AppRoutes.v2Profile, 'TAB_PROFILE', 3),
       ];
 
-      for (var i = 0; i < paths.length; i++) {
-        final router = _shellRouter(flagOn: true, initial: paths[i]);
+      for (final (path, label, index) in cases) {
+        final router = _shellRouter(flagOn: true, initial: path);
         await tester.pumpWidget(
           createLocalizedRouterTestWidget(router: router),
         );
         await tester.pump();
-        expect(find.text(labels[i]), findsOneWidget);
+        expect(find.text(label), findsOneWidget);
         final bar = tester.widget<NavigationBar>(find.byType(NavigationBar));
-        expect(bar.selectedIndex, i);
+        expect(bar.selectedIndex, index);
       }
     });
 
-    testWidgets('legacy aliases redirect into shell tabs', (tester) async {
-      var router = _shellRouter(flagOn: true, initial: '/v2/today');
+    testWidgets('/v2/home and /v2/today aliases map to Today', (tester) async {
+      var router = _shellRouter(flagOn: true, initial: AppRoutes.v2Home);
       await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
       await tester.pump();
-      expect(find.text('TAB_HOME'), findsOneWidget);
+      expect(find.text('TAB_TODAY'), findsOneWidget);
 
-      router = _shellRouter(flagOn: true, initial: AppRoutes.v2BrainCheckEntry);
+      router = _shellRouter(flagOn: true, initial: '/v2/today');
       await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
       await tester.pump();
-      expect(find.text('TAB_CHECK'), findsOneWidget);
+      expect(find.text('TAB_TODAY'), findsOneWidget);
+    });
 
-      router = _shellRouter(flagOn: true, initial: AppRoutes.v2BrainProfile);
+    testWidgets('/v2/brain-profile aliases to Profile tab', (tester) async {
+      final router = _shellRouter(
+        flagOn: true,
+        initial: AppRoutes.v2BrainProfile,
+      );
       await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
       await tester.pump();
       expect(find.text('TAB_PROFILE'), findsOneWidget);
     });
 
-    testWidgets('invalid /v2 path recovers to Home', (tester) async {
-      final router = _shellRouter(flagOn: true, initial: '/v2/not-a-real-route');
+    testWidgets('invalid /v2 path recovers to Today', (tester) async {
+      final router =
+          _shellRouter(flagOn: true, initial: '/v2/not-a-real-route');
       await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
       await tester.pump();
-      expect(find.text('TAB_HOME'), findsOneWidget);
+      expect(find.text('TAB_TODAY'), findsOneWidget);
     });
   });
 
-  group('Tab switching / back stack', () {
-    testWidgets('tap destinations switches tabs and re-tap resets branch', (
+  group('Contextual Brain Check', () {
+    testWidgets('direct /v2/check opens outside tab bar', (tester) async {
+      final router = _shellRouter(flagOn: true, initial: AppRoutes.v2Check);
+      await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
+      await tester.pump();
+      expect(find.textContaining('CHECK_CONTEXTUAL'), findsOneWidget);
+      expect(find.byType(NavigationBar), findsNothing);
+    });
+
+    testWidgets('/v2/brain-check/entry alias opens Check', (tester) async {
+      final router = _shellRouter(
+        flagOn: true,
+        initial: AppRoutes.v2BrainCheckEntry,
+      );
+      await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
+      await tester.pump();
+      expect(find.textContaining('CHECK_CONTEXTUAL'), findsOneWidget);
+      expect(find.byType(NavigationBar), findsNothing);
+    });
+
+    testWidgets('Brain Check resume preserves query; no duplicate host', (
+      tester,
+    ) async {
+      final router = _shellRouter(
+        flagOn: true,
+        initial: '${AppRoutes.v2Check}?mode=full&source=profile',
+      );
+      await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
+      await tester.pump();
+      expect(
+        find.text('CHECK_CONTEXTUAL mode=full source=profile'),
+        findsOneWidget,
+      );
+      // Single contextual host — not also inside a tab branch.
+      expect(find.textContaining('CHECK_CONTEXTUAL'), findsOneWidget);
+    });
+  });
+
+  group('Contextual Reports', () {
+    testWidgets('direct /v2/reports opens outside tab bar', (tester) async {
+      final router = _shellRouter(flagOn: true, initial: AppRoutes.v2Reports);
+      await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
+      await tester.pump();
+      expect(find.text('REPORTS_CONTEXTUAL'), findsOneWidget);
+      expect(find.byType(NavigationBar), findsNothing);
+    });
+
+    testWidgets('Progress → Reports and Reports → Progress', (tester) async {
+      final router = _shellRouter(flagOn: true, initial: AppRoutes.v2Progress);
+      await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
+      await tester.pump();
+      expect(find.text('TAB_PROGRESS'), findsOneWidget);
+
+      await tester.tap(find.text('OPEN_REPORTS'));
+      await tester.pumpAndSettle();
+      expect(find.text('REPORTS_CONTEXTUAL'), findsOneWidget);
+      expect(find.byType(NavigationBar), findsNothing);
+
+      await tester.tap(find.text('BACK_PROGRESS'));
+      await tester.pumpAndSettle();
+      expect(find.text('TAB_PROGRESS'), findsOneWidget);
+      expect(find.byType(NavigationBar), findsOneWidget);
+    });
+
+    testWidgets('artifact deep link', (tester) async {
+      final router = _shellRouter(
+        flagOn: true,
+        initial: '${AppRoutes.v2Reports}/artifact?id=w1',
+      );
+      await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
+      await tester.pump();
+      expect(find.text('ARTIFACT_DETAIL id=w1'), findsOneWidget);
+      expect(find.byType(NavigationBar), findsNothing);
+    });
+
+    testWidgets('measurement-history deep link', (tester) async {
+      final router = _shellRouter(
+        flagOn: true,
+        initial: '${AppRoutes.v2Reports}/measurements',
+      );
+      await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
+      await tester.pump();
+      expect(find.text('MEASUREMENT_HISTORY'), findsOneWidget);
+      expect(find.byType(NavigationBar), findsNothing);
+    });
+  });
+
+  group('Tab switching / state preservation', () {
+    testWidgets('tap destinations switches tabs; re-tap resets branch', (
       tester,
     ) async {
       final router = _shellRouter(flagOn: true, initial: AppRoutes.v2Home);
       await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
       await tester.pump();
-      expect(find.text('TAB_HOME'), findsOneWidget);
+      expect(find.text('TAB_TODAY'), findsOneWidget);
+
+      await tester.tap(find.text('Plan'));
+      await tester.pump();
+      expect(find.text('TAB_PLAN'), findsOneWidget);
 
       await tester.tap(find.text('Progress'));
       await tester.pump();
       expect(find.text('TAB_PROGRESS'), findsOneWidget);
 
-      await tester.tap(find.text('Reports'));
+      await tester.tap(find.text('Profile'));
       await tester.pump();
-      expect(find.text('TAB_REPORTS'), findsOneWidget);
+      expect(find.text('TAB_PROFILE'), findsOneWidget);
 
-      // Re-select current tab (initialLocation: true) stays on Reports.
-      await tester.tap(find.text('Reports'));
+      // Re-select current tab (initialLocation: true) stays on Profile.
+      await tester.tap(find.text('Profile'));
       await tester.pump();
-      expect(find.text('TAB_REPORTS'), findsOneWidget);
+      expect(find.text('TAB_PROFILE'), findsOneWidget);
 
-      await tester.tap(find.text('Home'));
+      await tester.tap(find.text('Today'));
       await tester.pump();
-      expect(find.text('TAB_HOME'), findsOneWidget);
+      expect(find.text('TAB_TODAY'), findsOneWidget);
+    });
+
+    testWidgets('indexed stack preserves tab state across switches', (
+      tester,
+    ) async {
+      final router = _shellRouter(flagOn: true, initial: AppRoutes.v2Home);
+      await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
+      await tester.pump();
+
+      await tester.tap(find.text('Plan'));
+      await tester.pump();
+      expect(find.text('TAB_PLAN'), findsOneWidget);
+
+      await tester.tap(find.text('Today'));
+      await tester.pump();
+      expect(find.text('TAB_TODAY'), findsOneWidget);
+
+      await tester.tap(find.text('Plan'));
+      await tester.pump();
+      expect(find.text('TAB_PLAN'), findsOneWidget);
     });
   });
 
   group('Localization / RTL / a11y', () {
-    test('EN/AR tab labels present', () {
+    test('canonical EN/AR tab labels', () {
       final en = AppLocalizationsEn();
       final ar = AppLocalizationsAr();
-      expect(en.v2NavHome, 'Home');
-      expect(en.v2NavCheck, 'Brain Check');
+      expect(en.v2NavToday, 'Today');
       expect(en.v2NavPlan, 'Plan');
       expect(en.v2NavProgress, 'Progress');
-      expect(en.v2NavReports, 'Reports');
       expect(en.v2NavProfile, 'Profile');
-      expect(ar.v2NavHome, 'الرئيسية');
-      expect(ar.v2NavCheck, 'فحص الدماغ');
+      expect(ar.v2NavToday, 'اليوم');
       expect(ar.v2NavPlan, 'الخطة');
       expect(ar.v2NavProgress, 'التقدّم');
-      expect(ar.v2NavReports, 'التقارير');
       expect(ar.v2NavProfile, 'الملف');
+      // Contextual labels remain available for nested surfaces.
+      expect(en.v2NavCheck, 'Brain Check');
+      expect(en.v2NavReports, 'Reports');
+      expect(ar.v2NavCheck, 'فحص الدماغ');
+      expect(ar.v2NavReports, 'التقارير');
     });
 
-    testWidgets('LTR and RTL shell; 320dp + textScale 2.0', (tester) async {
+    testWidgets('LTR/RTL; 320dp; textScale 2.0; four destinations; targets', (
+      tester,
+    ) async {
       await tester.binding.setSurfaceSize(const Size(320, 720));
 
       for (final locale in const [Locale('en'), Locale('ar')]) {
         final router = _shellRouter(flagOn: true, initial: AppRoutes.v2Home);
-        await tester.pumpWidget(
-          createLocalizedRouterTestWidget(
-            router: router,
-            locale: locale,
-          ),
-        );
-        await tester.pump();
         await tester.pumpWidget(
           MediaQuery(
             data: const MediaQueryData(
@@ -271,11 +467,52 @@ void main() {
           ),
         );
         await tester.pump();
+
         expect(find.byType(NavigationBar), findsOneWidget);
-        expect(find.byType(NavigationDestination), findsNWidgets(6));
+        expect(find.byType(NavigationDestination), findsNWidgets(4));
+        expect(tester.takeException(), isNull);
+
+        final destinations = find.byType(NavigationDestination);
+        for (var i = 0; i < 4; i++) {
+          final size = tester.getSize(destinations.at(i));
+          expect(size.height, greaterThanOrEqualTo(48));
+        }
+
+        final bar = tester.widget<NavigationBar>(find.byType(NavigationBar));
+        expect(bar.selectedIndex, 0);
+
+        // Screen-reader labels via destination labels (locale-aware).
+        if (locale.languageCode == 'en') {
+          expect(find.text('Today'), findsWidgets);
+          expect(find.text('Plan'), findsWidgets);
+          expect(find.text('Progress'), findsWidgets);
+          expect(find.text('Profile'), findsWidgets);
+        } else {
+          expect(find.text('اليوم'), findsWidgets);
+          expect(find.text('الخطة'), findsWidgets);
+          expect(find.text('التقدّم'), findsWidgets);
+          expect(find.text('الملف'), findsWidgets);
+        }
       }
 
       await tester.binding.setSurfaceSize(null);
+    });
+  });
+
+  group('No duplicate generation on navigation', () {
+    testWidgets('tab switching does not open Check/Reports hosts', (
+      tester,
+    ) async {
+      final router = _shellRouter(flagOn: true, initial: AppRoutes.v2Home);
+      await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
+      await tester.pump();
+
+      for (final label in ['Plan', 'Progress', 'Profile', 'Today']) {
+        await tester.tap(find.text(label));
+        await tester.pump();
+        expect(find.textContaining('CHECK_CONTEXTUAL'), findsNothing);
+        expect(find.text('REPORTS_CONTEXTUAL'), findsNothing);
+      }
     });
   });
 

@@ -5,14 +5,12 @@ import '../../brain_profile/ui/brain_profile_reveal_screen.dart';
 import '../../daily_session/ui/today_home_screen.dart';
 import '../../progress/ui/progress_home_screen.dart';
 import '../../recovery_plan/ui/plan_reveal_screen.dart';
-import '../../v2_onboarding/ui/brain_check_entry_boundary_screen.dart';
-import '../../v2_reports/ui/measurement_history_screen.dart';
-import '../../v2_reports/ui/reports_overview_screen.dart';
-import '../../v2_reports/ui/weekly_artifact_detail_screen.dart';
 import '../ui/v2_navigation_shell.dart';
 import 'v2_shell_tab.dart';
 
-/// Builds the production StatefulShellRoute for V2 (navigation composition only).
+/// Builds the production four-tab StatefulShellRoute for V2.
+///
+/// Brain Check and Reports are registered outside this shell as contextual routes.
 StatefulShellRoute buildV2NavigationShellRoute() {
   return StatefulShellRoute.indexedStack(
     builder: (context, state, navigationShell) {
@@ -22,29 +20,11 @@ StatefulShellRoute buildV2NavigationShellRoute() {
       StatefulShellBranch(
         routes: [
           GoRoute(
-            path: V2ShellPaths.home,
+            path: V2ShellPaths.today,
             name: 'v2Home',
             pageBuilder: (context, state) => const NoTransitionPage<void>(
               child: TodayHomeScreen(),
             ),
-          ),
-        ],
-      ),
-      StatefulShellBranch(
-        routes: [
-          GoRoute(
-            path: V2ShellPaths.check,
-            name: 'v2Check',
-            pageBuilder: (context, state) {
-              final mode = state.uri.queryParameters['mode'] ?? 'lite';
-              final source = state.uri.queryParameters['source'] ?? 'shell';
-              return NoTransitionPage<void>(
-                child: BrainCheckEntryBoundaryScreen(
-                  mode: mode,
-                  source: source,
-                ),
-              );
-            },
           ),
         ],
       ),
@@ -70,32 +50,6 @@ StatefulShellRoute buildV2NavigationShellRoute() {
             pageBuilder: (context, state) => const NoTransitionPage<void>(
               child: ProgressHomeScreen(),
             ),
-          ),
-        ],
-      ),
-      StatefulShellBranch(
-        routes: [
-          GoRoute(
-            path: V2ShellPaths.reports,
-            name: 'v2Reports',
-            pageBuilder: (context, state) => const NoTransitionPage<void>(
-              child: ReportsOverviewScreen(),
-            ),
-            routes: [
-              GoRoute(
-                path: 'artifact',
-                name: 'v2ReportArtifact',
-                builder: (context, state) {
-                  final id = state.uri.queryParameters['id'];
-                  return WeeklyArtifactDetailScreen(artifactId: id);
-                },
-              ),
-              GoRoute(
-                path: 'measurements',
-                name: 'v2ReportMeasurements',
-                builder: (context, state) => const MeasurementHistoryScreen(),
-              ),
-            ],
           ),
         ],
       ),

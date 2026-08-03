@@ -1,10 +1,8 @@
-/// Canonical V2 shell tabs (Slice 9.1) — navigation composition only.
+/// Canonical V2 shell tabs (Slice 9.1A) — Build Spec NAV-SHELL four tabs only.
 enum V2ShellTab {
-  home,
-  check,
+  today,
   plan,
   progress,
-  reports,
   profile,
 }
 
@@ -18,58 +16,62 @@ extension V2ShellTabX on V2ShellTab {
 
   /// Path prefix that owns this tab.
   String get pathPrefix => switch (this) {
-        V2ShellTab.home => '/v2/home',
-        V2ShellTab.check => '/v2/check',
+        V2ShellTab.today => '/v2/home',
         V2ShellTab.plan => '/v2/plan',
         V2ShellTab.progress => '/v2/progress',
-        V2ShellTab.reports => '/v2/reports',
         V2ShellTab.profile => '/v2/profile',
       };
 
+  /// Maps a location to a **primary tab**, or null when the route is contextual
+  /// (Brain Check, Reports, Session, Weekly Review, builders, …).
   static V2ShellTab? fromLocation(String location) {
     final path = Uri.tryParse(location)?.path ?? location;
-    if (path == '/v2/home' || path == '/v2/today') return V2ShellTab.home;
-    if (path == '/v2/check') return V2ShellTab.check;
-    if (path == '/v2/plan' || path.startsWith('/v2/plan/')) {
-      // Building / preview / ready stay outside the shell tab.
-      if (path == '/v2/plan') return V2ShellTab.plan;
-      return null;
-    }
+    if (path == '/v2/home' || path == '/v2/today') return V2ShellTab.today;
+    if (path == '/v2/plan') return V2ShellTab.plan;
     if (path == '/v2/progress') return V2ShellTab.progress;
-    if (path == '/v2/reports' || path.startsWith('/v2/reports/')) {
-      return V2ShellTab.reports;
-    }
     if (path == '/v2/profile' || path == '/v2/brain-profile') {
       return V2ShellTab.profile;
     }
+    // Contextual destinations — not primary tabs.
+    if (path == '/v2/check' ||
+        path.startsWith('/v2/brain-check') ||
+        path == '/v2/reports' ||
+        path.startsWith('/v2/reports/')) {
+      return null;
+    }
+    if (path.startsWith('/v2/plan/')) return null;
     return null;
   }
 }
 
-/// Paths composed into the V2 shell (deep-link roots).
+/// Paths used by the V2 shell and preserved contextual surfaces.
 abstract final class V2ShellPaths {
-  static const home = '/v2/home';
-  static const check = '/v2/check';
+  static const today = '/v2/home';
+  static const home = today; // alias
   static const plan = '/v2/plan';
   static const progress = '/v2/progress';
-  static const reports = '/v2/reports';
   static const profile = '/v2/profile';
 
+  /// Contextual (not primary tabs).
+  static const check = '/v2/check';
+  static const reports = '/v2/reports';
+
+  /// Exactly four primary shell roots — Build Spec order.
   static const roots = <String>[
-    home,
-    check,
+    today,
     plan,
     progress,
-    reports,
     profile,
   ];
+
+  static const primaryTabCount = 4;
 
   /// Known `/v2/*` prefixes that are valid product surfaces (shell + flows).
   static bool isKnownV2Location(String location) {
     final path = Uri.tryParse(location)?.path ?? location;
     if (!path.startsWith('/v2/')) return false;
     const known = <String>[
-      home,
+      today,
       check,
       plan,
       progress,
@@ -91,7 +93,6 @@ abstract final class V2ShellPaths {
     for (final prefix in known) {
       if (path == prefix || path.startsWith('$prefix/')) return true;
     }
-    // Exact shell roots already covered; also allow exact matches above.
     return roots.contains(path);
   }
 }

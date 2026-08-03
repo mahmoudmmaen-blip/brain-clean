@@ -54,7 +54,7 @@ abstract final class AppRoutes {
   /// Alias of [v2Home] — preserved for existing call sites.
   static const v2Today = v2Home;
 
-  /// CHK tab root — Brain Check entry (hydrate only until user starts).
+  /// Contextual Brain Check entry (not a primary tab; hydrate until user starts).
   static const v2Check = '/v2/check';
 
   /// PRG-01 — V2 Progress proof experience.
@@ -78,7 +78,7 @@ abstract final class AppRoutes {
   /// WRV-02 — Weekly Review summary (gated V2).
   static const v2WeeklyReviewSummary = '/v2/weekly-review/summary';
 
-  /// RPT-01 — Reports overview (gated V2).
+  /// RPT-01 — Reports overview (contextual nested destination; not a primary tab).
   static const v2Reports = '/v2/reports';
 
   /// RPT-02 — Weekly Artifact detail (gated V2). Query: id=
@@ -93,7 +93,7 @@ abstract final class AppRoutes {
   /// V2 onboarding foundation ONB-01…ONB-06.
   static const v2Onboarding = '/v2/onboarding';
 
-  /// CHK-01 entry boundary (also available via [v2Check] shell tab).
+  /// CHK-01 entry boundary alias → [v2Check] contextual route.
   static const v2BrainCheckEntry = '/v2/brain-check/entry';
 
   /// CHK-02 / CHK-02B / CHK-04 questionnaire flow.

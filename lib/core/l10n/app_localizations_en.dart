@@ -3113,6 +3113,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2NavHome => 'Home';
 
   @override
+  String get v2NavToday => 'Today';
+
+  @override
   String get v2NavCheck => 'Brain Check';
 
   @override

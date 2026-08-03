@@ -3069,6 +3069,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2NavHome => 'الرئيسية';
 
   @override
+  String get v2NavToday => 'اليوم';
+
+  @override
   String get v2NavCheck => 'فحص الدماغ';
 
   @override

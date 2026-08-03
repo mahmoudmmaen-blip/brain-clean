@@ -5553,6 +5553,12 @@ abstract class AppLocalizations {
   /// **'Home'**
   String get v2NavHome;
 
+  /// No description provided for @v2NavToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get v2NavToday;
+
   /// No description provided for @v2NavCheck.
   ///
   /// In en, this message translates to:
