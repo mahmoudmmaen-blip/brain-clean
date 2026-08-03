@@ -1078,5 +1078,123 @@
   "v2WeeklySummaryEvidenceDeveloping": "Early evidence — treat this as a quiet look-back",
   "v2WeeklySummaryEvidenceSufficient": "Summary only — not a cause claim",
   "v2WeeklySummaryPlanUnchanged": "Your plan has not changed yet",
-  "v2WeeklySummaryCtaToday": "Back to Today"
+  "v2WeeklySummaryCtaToday": "Back to Today",
+  "v2WeeklySummaryCtaProgress": "Back to Progress",
+  "v2ProgressTitle": "Progress",
+  "v2ProgressOrientation": "Your progress",
+  "v2ProgressRetry": "Try again",
+  "v2ProgressBasedOnSessions": "Progress is based on completed sessions",
+  "v2ProgressHeadlineEmpty": "No completed sessions yet",
+  "v2ProgressHeadlineFirst": "Your first completed session is recorded",
+  "v2ProgressHeadlineFew": "A few completed days are on record",
+  "v2ProgressHeadlineRhythm": "A pattern is beginning to appear",
+  "v2ProgressHeadlineSteady": "A steadier pattern is visible",
+  "v2ProgressHeadlineLimited": "Evidence is still limited",
+  "v2ProgressHeadlineWeekly": "Weekly evidence is available to review",
+  "v2ProgressBetterHeading": "What is recorded",
+  "v2ProgressWhyHeading": "What the pattern shows",
+  "v2ProgressComparedHeading": "How it compares over time",
+  "v2ProgressCompletedDays": "Completed days: {count}",
+  "@v2ProgressCompletedDays": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ProgressCompletedSessions": "Completed sessions: {count}",
+  "@v2ProgressCompletedSessions": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ProgressMinimumPath": "Minimum path: {count}",
+  "@v2ProgressMinimumPath": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ProgressStandardPath": "Standard path: {count}",
+  "@v2ProgressStandardPath": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ProgressCompletionRate": "Completed-day rate: {percent}%",
+  "@v2ProgressCompletionRate": {
+    "placeholders": {
+      "percent": { "type": "String" }
+    }
+  },
+  "v2ProgressCurrentRhythm": "Current rhythm: {count} day(s)",
+  "@v2ProgressCurrentRhythm": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ProgressLongestRhythm": "Longest rhythm: {count} day(s)",
+  "@v2ProgressLongestRhythm": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ProgressFirstCompleted": "First completed day: {day}",
+  "@v2ProgressFirstCompleted": {
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+  "v2ProgressLastCompleted": "Last completed day: {day}",
+  "@v2ProgressLastCompleted": {
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+  "v2ProgressRecentActivity": "Recent activity",
+  "v2ProgressTimelineMinimum": "Minimum path",
+  "v2ProgressTimelineStandard": "Standard path",
+  "v2ProgressTimelineBothPaths": "Minimum and standard",
+  "v2ProgressTimelineEntry": "{day} · {path}",
+  "@v2ProgressTimelineEntry": {
+    "placeholders": {
+      "day": { "type": "String" },
+      "path": { "type": "String" }
+    }
+  },
+  "v2ProgressPathMostlyMinimum": "Mostly minimum path",
+  "v2ProgressPathMostlyStandard": "Mostly standard path",
+  "v2ProgressPathBalanced": "Balanced path mix",
+  "v2ProgressPathSingle": "Single session only",
+  "v2ProgressEvidenceEmpty": "Complete today’s action first to begin an honest record.",
+  "v2ProgressEvidenceLimited": "Evidence is still limited — one completed action so far.",
+  "v2ProgressEvidenceDeveloping": "A pattern is beginning to appear. This is observation, not a diagnosis.",
+  "v2ProgressEvidenceSufficient": "Enough completed activity for a quiet look-back. No cause claim.",
+  "v2ProgressScoreHeading": "Recovery Score snapshot",
+  "v2ProgressScoreValue": "Estimate: {value}",
+  "@v2ProgressScoreValue": {
+    "placeholders": {
+      "value": { "type": "String" }
+    }
+  },
+  "v2ProgressScoreUnavailable": "Score estimate not available on this device yet",
+  "v2ProgressScoreMeasured": "From Brain Check on {day}",
+  "@v2ProgressScoreMeasured": {
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+  "v2ProgressScoreDisclaimer": "Daily session completion does not instantly change this score. The score comes from Brain Check measurement, not from counting sessions.",
+  "v2ProgressWeeklyReviewHeading": "Weekly Review",
+  "v2ProgressWrNotEnough": "Not enough completed activity yet for a Weekly Review.",
+  "v2ProgressWrCurrentWeek": "This week is still in progress. Review opens after the week ends.",
+  "v2ProgressWrAvailable": "Weekly Review available",
+  "v2ProgressWrDraft": "Weekly Review draft in progress",
+  "v2ProgressWrCompleted": "Weekly Summary available",
+  "v2ProgressWrUnsupported": "This review format is not supported on this version.",
+  "v2ProgressWrMissingRefs": "Review sources are not ready yet. Continue through Today and return later.",
+  "v2ProgressWrError": "Weekly Review could not be prepared right now.",
+  "v2ProgressWrCtaStart": "Start Weekly Review",
+  "v2ProgressWrCtaContinue": "Continue Weekly Review",
+  "v2ProgressWrCtaSummary": "View Weekly Summary",
+  "v2ProgressWeeklyPreviewHeading": "Latest Weekly Summary",
+  "v2ProgressCtaToday": "Complete today’s action first",
+  "v2ProgressCtaContinueToday": "Back to Today"
 }

@@ -171,8 +171,8 @@ class WeeklyReviewSummaryBody extends StatelessWidget {
                 width: double.infinity,
                 height: 48,
                 child: FilledButton(
-                  onPressed: () => context.go(AppRoutes.v2Today),
-                  child: Text(loc.v2WeeklySummaryCtaToday),
+                  onPressed: () => context.go(AppRoutes.v2Progress),
+                  child: Text(loc.v2WeeklySummaryCtaProgress),
                 ),
               ),
             ],

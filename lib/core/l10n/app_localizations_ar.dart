@@ -2566,4 +2566,209 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v2WeeklySummaryCtaToday => 'العودة إلى اليوم';
+
+  @override
+  String get v2WeeklySummaryCtaProgress => 'العودة إلى التقدّم';
+
+  @override
+  String get v2ProgressTitle => 'التقدّم';
+
+  @override
+  String get v2ProgressOrientation => 'تقدّمك';
+
+  @override
+  String get v2ProgressRetry => 'حاول مرة أخرى';
+
+  @override
+  String get v2ProgressBasedOnSessions => 'يعتمد التقدّم على الجلسات المكتملة';
+
+  @override
+  String get v2ProgressHeadlineEmpty => 'لا جلسات مكتملة بعد';
+
+  @override
+  String get v2ProgressHeadlineFirst => 'حُفظت أول جلسة مكتملة لك';
+
+  @override
+  String get v2ProgressHeadlineFew => 'بضعة أيام مكتملة مسجّلة';
+
+  @override
+  String get v2ProgressHeadlineRhythm => 'بدأت ملامح نمط بالظهور';
+
+  @override
+  String get v2ProgressHeadlineSteady => 'يظهر نمط أكثر ثباتاً';
+
+  @override
+  String get v2ProgressHeadlineLimited => 'الدليل ما زال محدوداً';
+
+  @override
+  String get v2ProgressHeadlineWeekly => 'يتوفر دليل أسبوعي للمراجعة';
+
+  @override
+  String get v2ProgressBetterHeading => 'ما هو مسجّل';
+
+  @override
+  String get v2ProgressWhyHeading => 'ما يظهر من النمط';
+
+  @override
+  String get v2ProgressComparedHeading => 'كيف يقارن مع الوقت';
+
+  @override
+  String v2ProgressCompletedDays(String count) {
+    return 'الأيام المكتملة: $count';
+  }
+
+  @override
+  String v2ProgressCompletedSessions(String count) {
+    return 'الجلسات المكتملة: $count';
+  }
+
+  @override
+  String v2ProgressMinimumPath(String count) {
+    return 'المسار الأدنى: $count';
+  }
+
+  @override
+  String v2ProgressStandardPath(String count) {
+    return 'المسار القياسي: $count';
+  }
+
+  @override
+  String v2ProgressCompletionRate(String percent) {
+    return 'معدل الأيام المكتملة: $percent%';
+  }
+
+  @override
+  String v2ProgressCurrentRhythm(String count) {
+    return 'الإيقاع الحالي: $count يوم';
+  }
+
+  @override
+  String v2ProgressLongestRhythm(String count) {
+    return 'أطول إيقاع: $count يوم';
+  }
+
+  @override
+  String v2ProgressFirstCompleted(String day) {
+    return 'أول يوم مكتمل: $day';
+  }
+
+  @override
+  String v2ProgressLastCompleted(String day) {
+    return 'آخر يوم مكتمل: $day';
+  }
+
+  @override
+  String get v2ProgressRecentActivity => 'النشاط الأخير';
+
+  @override
+  String get v2ProgressTimelineMinimum => 'المسار الأدنى';
+
+  @override
+  String get v2ProgressTimelineStandard => 'المسار القياسي';
+
+  @override
+  String get v2ProgressTimelineBothPaths => 'الأدنى والقياسي';
+
+  @override
+  String v2ProgressTimelineEntry(String day, String path) {
+    return '$day · $path';
+  }
+
+  @override
+  String get v2ProgressPathMostlyMinimum => 'غالباً المسار الأدنى';
+
+  @override
+  String get v2ProgressPathMostlyStandard => 'غالباً المسار القياسي';
+
+  @override
+  String get v2ProgressPathBalanced => 'مزيج متوازن من المسارات';
+
+  @override
+  String get v2ProgressPathSingle => 'جلسة واحدة فقط';
+
+  @override
+  String get v2ProgressEvidenceEmpty =>
+      'أكمل فعل اليوم أولاً لتبدأ سجلاً صادقاً.';
+
+  @override
+  String get v2ProgressEvidenceLimited =>
+      'الدليل ما زال محدوداً — فعل مكتمل واحد حتى الآن.';
+
+  @override
+  String get v2ProgressEvidenceDeveloping =>
+      'بدأت ملامح نمط بالظهور. هذه ملاحظة وليست تشخيصاً.';
+
+  @override
+  String get v2ProgressEvidenceSufficient =>
+      'نشاط مكتمل كافٍ لنظرة هادئة إلى الخلف. بلا ادّعاء سبب.';
+
+  @override
+  String get v2ProgressScoreHeading => 'لقطة درجة التعافي';
+
+  @override
+  String v2ProgressScoreValue(String value) {
+    return 'التقدير: $value';
+  }
+
+  @override
+  String get v2ProgressScoreUnavailable =>
+      'تقدير الدرجة غير متاح بعد على هذا الجهاز';
+
+  @override
+  String v2ProgressScoreMeasured(String day) {
+    return 'من فحص الدماغ بتاريخ $day';
+  }
+
+  @override
+  String get v2ProgressScoreDisclaimer =>
+      'إكمال الجلسة اليومية لا يغيّر هذه الدرجة فوراً. تأتي الدرجة من قياس فحص الدماغ، لا من عدّ الجلسات.';
+
+  @override
+  String get v2ProgressWeeklyReviewHeading => 'المراجعة الأسبوعية';
+
+  @override
+  String get v2ProgressWrNotEnough =>
+      'لا يوجد نشاط مكتمل كافٍ بعد للمراجعة الأسبوعية.';
+
+  @override
+  String get v2ProgressWrCurrentWeek =>
+      'هذا الأسبوع ما زال جارياً. تُفتَح المراجعة بعد انتهائه.';
+
+  @override
+  String get v2ProgressWrAvailable => 'المراجعة الأسبوعية متاحة';
+
+  @override
+  String get v2ProgressWrDraft => 'مسودة المراجعة الأسبوعية قيد الإعداد';
+
+  @override
+  String get v2ProgressWrCompleted => 'ملخص الأسبوع متاح';
+
+  @override
+  String get v2ProgressWrUnsupported =>
+      'صيغة هذه المراجعة غير مدعومة في هذا الإصدار.';
+
+  @override
+  String get v2ProgressWrMissingRefs =>
+      'مصادر المراجعة غير جاهزة بعد. تابع عبر اليوم ثم عُد لاحقاً.';
+
+  @override
+  String get v2ProgressWrError => 'تعذّر تجهيز المراجعة الأسبوعية الآن.';
+
+  @override
+  String get v2ProgressWrCtaStart => 'ابدأ المراجعة الأسبوعية';
+
+  @override
+  String get v2ProgressWrCtaContinue => 'متابعة المراجعة الأسبوعية';
+
+  @override
+  String get v2ProgressWrCtaSummary => 'عرض ملخص الأسبوع';
+
+  @override
+  String get v2ProgressWeeklyPreviewHeading => 'أحدث ملخص أسبوعي';
+
+  @override
+  String get v2ProgressCtaToday => 'أكمل فعل اليوم أولاً';
+
+  @override
+  String get v2ProgressCtaContinueToday => 'العودة إلى اليوم';
 }

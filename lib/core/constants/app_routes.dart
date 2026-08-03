@@ -51,6 +51,9 @@ abstract final class AppRoutes {
   /// HOM-01 — V2 Today home.
   static const v2Today = '/v2/today';
 
+  /// PRG-01 — V2 Progress proof experience.
+  static const v2Progress = '/v2/progress';
+
   /// SES-01 prepare.
   static const v2SessionPrepare = '/v2/session/prepare';
 

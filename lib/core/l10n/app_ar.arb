@@ -1222,5 +1222,123 @@
   "v2WeeklySummaryEvidenceDeveloping": "دليل مبكر — اعتبر هذا نظرة هادئة إلى الخلف",
   "v2WeeklySummaryEvidenceSufficient": "ملخص فقط — ليس ادّعاء سبب",
   "v2WeeklySummaryPlanUnchanged": "لم تتغير خطتك بعد",
-  "v2WeeklySummaryCtaToday": "العودة إلى اليوم"
+  "v2WeeklySummaryCtaToday": "العودة إلى اليوم",
+  "v2WeeklySummaryCtaProgress": "العودة إلى التقدّم",
+  "v2ProgressTitle": "التقدّم",
+  "v2ProgressOrientation": "تقدّمك",
+  "v2ProgressRetry": "حاول مرة أخرى",
+  "v2ProgressBasedOnSessions": "يعتمد التقدّم على الجلسات المكتملة",
+  "v2ProgressHeadlineEmpty": "لا جلسات مكتملة بعد",
+  "v2ProgressHeadlineFirst": "حُفظت أول جلسة مكتملة لك",
+  "v2ProgressHeadlineFew": "بضعة أيام مكتملة مسجّلة",
+  "v2ProgressHeadlineRhythm": "بدأت ملامح نمط بالظهور",
+  "v2ProgressHeadlineSteady": "يظهر نمط أكثر ثباتاً",
+  "v2ProgressHeadlineLimited": "الدليل ما زال محدوداً",
+  "v2ProgressHeadlineWeekly": "يتوفر دليل أسبوعي للمراجعة",
+  "v2ProgressBetterHeading": "ما هو مسجّل",
+  "v2ProgressWhyHeading": "ما يظهر من النمط",
+  "v2ProgressComparedHeading": "كيف يقارن مع الوقت",
+  "v2ProgressCompletedDays": "الأيام المكتملة: {count}",
+  "@v2ProgressCompletedDays": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ProgressCompletedSessions": "الجلسات المكتملة: {count}",
+  "@v2ProgressCompletedSessions": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ProgressMinimumPath": "المسار الأدنى: {count}",
+  "@v2ProgressMinimumPath": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ProgressStandardPath": "المسار القياسي: {count}",
+  "@v2ProgressStandardPath": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ProgressCompletionRate": "معدل الأيام المكتملة: {percent}%",
+  "@v2ProgressCompletionRate": {
+    "placeholders": {
+      "percent": { "type": "String" }
+    }
+  },
+  "v2ProgressCurrentRhythm": "الإيقاع الحالي: {count} يوم",
+  "@v2ProgressCurrentRhythm": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ProgressLongestRhythm": "أطول إيقاع: {count} يوم",
+  "@v2ProgressLongestRhythm": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ProgressFirstCompleted": "أول يوم مكتمل: {day}",
+  "@v2ProgressFirstCompleted": {
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+  "v2ProgressLastCompleted": "آخر يوم مكتمل: {day}",
+  "@v2ProgressLastCompleted": {
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+  "v2ProgressRecentActivity": "النشاط الأخير",
+  "v2ProgressTimelineMinimum": "المسار الأدنى",
+  "v2ProgressTimelineStandard": "المسار القياسي",
+  "v2ProgressTimelineBothPaths": "الأدنى والقياسي",
+  "v2ProgressTimelineEntry": "{day} · {path}",
+  "@v2ProgressTimelineEntry": {
+    "placeholders": {
+      "day": { "type": "String" },
+      "path": { "type": "String" }
+    }
+  },
+  "v2ProgressPathMostlyMinimum": "غالباً المسار الأدنى",
+  "v2ProgressPathMostlyStandard": "غالباً المسار القياسي",
+  "v2ProgressPathBalanced": "مزيج متوازن من المسارات",
+  "v2ProgressPathSingle": "جلسة واحدة فقط",
+  "v2ProgressEvidenceEmpty": "أكمل فعل اليوم أولاً لتبدأ سجلاً صادقاً.",
+  "v2ProgressEvidenceLimited": "الدليل ما زال محدوداً — فعل مكتمل واحد حتى الآن.",
+  "v2ProgressEvidenceDeveloping": "بدأت ملامح نمط بالظهور. هذه ملاحظة وليست تشخيصاً.",
+  "v2ProgressEvidenceSufficient": "نشاط مكتمل كافٍ لنظرة هادئة إلى الخلف. بلا ادّعاء سبب.",
+  "v2ProgressScoreHeading": "لقطة درجة التعافي",
+  "v2ProgressScoreValue": "التقدير: {value}",
+  "@v2ProgressScoreValue": {
+    "placeholders": {
+      "value": { "type": "String" }
+    }
+  },
+  "v2ProgressScoreUnavailable": "تقدير الدرجة غير متاح بعد على هذا الجهاز",
+  "v2ProgressScoreMeasured": "من فحص الدماغ بتاريخ {day}",
+  "@v2ProgressScoreMeasured": {
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+  "v2ProgressScoreDisclaimer": "إكمال الجلسة اليومية لا يغيّر هذه الدرجة فوراً. تأتي الدرجة من قياس فحص الدماغ، لا من عدّ الجلسات.",
+  "v2ProgressWeeklyReviewHeading": "المراجعة الأسبوعية",
+  "v2ProgressWrNotEnough": "لا يوجد نشاط مكتمل كافٍ بعد للمراجعة الأسبوعية.",
+  "v2ProgressWrCurrentWeek": "هذا الأسبوع ما زال جارياً. تُفتَح المراجعة بعد انتهائه.",
+  "v2ProgressWrAvailable": "المراجعة الأسبوعية متاحة",
+  "v2ProgressWrDraft": "مسودة المراجعة الأسبوعية قيد الإعداد",
+  "v2ProgressWrCompleted": "ملخص الأسبوع متاح",
+  "v2ProgressWrUnsupported": "صيغة هذه المراجعة غير مدعومة في هذا الإصدار.",
+  "v2ProgressWrMissingRefs": "مصادر المراجعة غير جاهزة بعد. تابع عبر اليوم ثم عُد لاحقاً.",
+  "v2ProgressWrError": "تعذّر تجهيز المراجعة الأسبوعية الآن.",
+  "v2ProgressWrCtaStart": "ابدأ المراجعة الأسبوعية",
+  "v2ProgressWrCtaContinue": "متابعة المراجعة الأسبوعية",
+  "v2ProgressWrCtaSummary": "عرض ملخص الأسبوع",
+  "v2ProgressWeeklyPreviewHeading": "أحدث ملخص أسبوعي",
+  "v2ProgressCtaToday": "أكمل فعل اليوم أولاً",
+  "v2ProgressCtaContinueToday": "العودة إلى اليوم"
 }

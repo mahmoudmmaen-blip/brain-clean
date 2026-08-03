@@ -4741,6 +4741,348 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Back to Today'**
   String get v2WeeklySummaryCtaToday;
+
+  /// No description provided for @v2WeeklySummaryCtaProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Progress'**
+  String get v2WeeklySummaryCtaProgress;
+
+  /// No description provided for @v2ProgressTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress'**
+  String get v2ProgressTitle;
+
+  /// No description provided for @v2ProgressOrientation.
+  ///
+  /// In en, this message translates to:
+  /// **'Your progress'**
+  String get v2ProgressOrientation;
+
+  /// No description provided for @v2ProgressRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get v2ProgressRetry;
+
+  /// No description provided for @v2ProgressBasedOnSessions.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress is based on completed sessions'**
+  String get v2ProgressBasedOnSessions;
+
+  /// No description provided for @v2ProgressHeadlineEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No completed sessions yet'**
+  String get v2ProgressHeadlineEmpty;
+
+  /// No description provided for @v2ProgressHeadlineFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Your first completed session is recorded'**
+  String get v2ProgressHeadlineFirst;
+
+  /// No description provided for @v2ProgressHeadlineFew.
+  ///
+  /// In en, this message translates to:
+  /// **'A few completed days are on record'**
+  String get v2ProgressHeadlineFew;
+
+  /// No description provided for @v2ProgressHeadlineRhythm.
+  ///
+  /// In en, this message translates to:
+  /// **'A pattern is beginning to appear'**
+  String get v2ProgressHeadlineRhythm;
+
+  /// No description provided for @v2ProgressHeadlineSteady.
+  ///
+  /// In en, this message translates to:
+  /// **'A steadier pattern is visible'**
+  String get v2ProgressHeadlineSteady;
+
+  /// No description provided for @v2ProgressHeadlineLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Evidence is still limited'**
+  String get v2ProgressHeadlineLimited;
+
+  /// No description provided for @v2ProgressHeadlineWeekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly evidence is available to review'**
+  String get v2ProgressHeadlineWeekly;
+
+  /// No description provided for @v2ProgressBetterHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'What is recorded'**
+  String get v2ProgressBetterHeading;
+
+  /// No description provided for @v2ProgressWhyHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'What the pattern shows'**
+  String get v2ProgressWhyHeading;
+
+  /// No description provided for @v2ProgressComparedHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'How it compares over time'**
+  String get v2ProgressComparedHeading;
+
+  /// No description provided for @v2ProgressCompletedDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed days: {count}'**
+  String v2ProgressCompletedDays(String count);
+
+  /// No description provided for @v2ProgressCompletedSessions.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed sessions: {count}'**
+  String v2ProgressCompletedSessions(String count);
+
+  /// No description provided for @v2ProgressMinimumPath.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum path: {count}'**
+  String v2ProgressMinimumPath(String count);
+
+  /// No description provided for @v2ProgressStandardPath.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard path: {count}'**
+  String v2ProgressStandardPath(String count);
+
+  /// No description provided for @v2ProgressCompletionRate.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed-day rate: {percent}%'**
+  String v2ProgressCompletionRate(String percent);
+
+  /// No description provided for @v2ProgressCurrentRhythm.
+  ///
+  /// In en, this message translates to:
+  /// **'Current rhythm: {count} day(s)'**
+  String v2ProgressCurrentRhythm(String count);
+
+  /// No description provided for @v2ProgressLongestRhythm.
+  ///
+  /// In en, this message translates to:
+  /// **'Longest rhythm: {count} day(s)'**
+  String v2ProgressLongestRhythm(String count);
+
+  /// No description provided for @v2ProgressFirstCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'First completed day: {day}'**
+  String v2ProgressFirstCompleted(String day);
+
+  /// No description provided for @v2ProgressLastCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Last completed day: {day}'**
+  String v2ProgressLastCompleted(String day);
+
+  /// No description provided for @v2ProgressRecentActivity.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent activity'**
+  String get v2ProgressRecentActivity;
+
+  /// No description provided for @v2ProgressTimelineMinimum.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum path'**
+  String get v2ProgressTimelineMinimum;
+
+  /// No description provided for @v2ProgressTimelineStandard.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard path'**
+  String get v2ProgressTimelineStandard;
+
+  /// No description provided for @v2ProgressTimelineBothPaths.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum and standard'**
+  String get v2ProgressTimelineBothPaths;
+
+  /// No description provided for @v2ProgressTimelineEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'{day} · {path}'**
+  String v2ProgressTimelineEntry(String day, String path);
+
+  /// No description provided for @v2ProgressPathMostlyMinimum.
+  ///
+  /// In en, this message translates to:
+  /// **'Mostly minimum path'**
+  String get v2ProgressPathMostlyMinimum;
+
+  /// No description provided for @v2ProgressPathMostlyStandard.
+  ///
+  /// In en, this message translates to:
+  /// **'Mostly standard path'**
+  String get v2ProgressPathMostlyStandard;
+
+  /// No description provided for @v2ProgressPathBalanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Balanced path mix'**
+  String get v2ProgressPathBalanced;
+
+  /// No description provided for @v2ProgressPathSingle.
+  ///
+  /// In en, this message translates to:
+  /// **'Single session only'**
+  String get v2ProgressPathSingle;
+
+  /// No description provided for @v2ProgressEvidenceEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete today’s action first to begin an honest record.'**
+  String get v2ProgressEvidenceEmpty;
+
+  /// No description provided for @v2ProgressEvidenceLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Evidence is still limited — one completed action so far.'**
+  String get v2ProgressEvidenceLimited;
+
+  /// No description provided for @v2ProgressEvidenceDeveloping.
+  ///
+  /// In en, this message translates to:
+  /// **'A pattern is beginning to appear. This is observation, not a diagnosis.'**
+  String get v2ProgressEvidenceDeveloping;
+
+  /// No description provided for @v2ProgressEvidenceSufficient.
+  ///
+  /// In en, this message translates to:
+  /// **'Enough completed activity for a quiet look-back. No cause claim.'**
+  String get v2ProgressEvidenceSufficient;
+
+  /// No description provided for @v2ProgressScoreHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery Score snapshot'**
+  String get v2ProgressScoreHeading;
+
+  /// No description provided for @v2ProgressScoreValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimate: {value}'**
+  String v2ProgressScoreValue(String value);
+
+  /// No description provided for @v2ProgressScoreUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Score estimate not available on this device yet'**
+  String get v2ProgressScoreUnavailable;
+
+  /// No description provided for @v2ProgressScoreMeasured.
+  ///
+  /// In en, this message translates to:
+  /// **'From Brain Check on {day}'**
+  String v2ProgressScoreMeasured(String day);
+
+  /// No description provided for @v2ProgressScoreDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily session completion does not instantly change this score. The score comes from Brain Check measurement, not from counting sessions.'**
+  String get v2ProgressScoreDisclaimer;
+
+  /// No description provided for @v2ProgressWeeklyReviewHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Review'**
+  String get v2ProgressWeeklyReviewHeading;
+
+  /// No description provided for @v2ProgressWrNotEnough.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough completed activity yet for a Weekly Review.'**
+  String get v2ProgressWrNotEnough;
+
+  /// No description provided for @v2ProgressWrCurrentWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'This week is still in progress. Review opens after the week ends.'**
+  String get v2ProgressWrCurrentWeek;
+
+  /// No description provided for @v2ProgressWrAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Review available'**
+  String get v2ProgressWrAvailable;
+
+  /// No description provided for @v2ProgressWrDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Review draft in progress'**
+  String get v2ProgressWrDraft;
+
+  /// No description provided for @v2ProgressWrCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Summary available'**
+  String get v2ProgressWrCompleted;
+
+  /// No description provided for @v2ProgressWrUnsupported.
+  ///
+  /// In en, this message translates to:
+  /// **'This review format is not supported on this version.'**
+  String get v2ProgressWrUnsupported;
+
+  /// No description provided for @v2ProgressWrMissingRefs.
+  ///
+  /// In en, this message translates to:
+  /// **'Review sources are not ready yet. Continue through Today and return later.'**
+  String get v2ProgressWrMissingRefs;
+
+  /// No description provided for @v2ProgressWrError.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Review could not be prepared right now.'**
+  String get v2ProgressWrError;
+
+  /// No description provided for @v2ProgressWrCtaStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Weekly Review'**
+  String get v2ProgressWrCtaStart;
+
+  /// No description provided for @v2ProgressWrCtaContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue Weekly Review'**
+  String get v2ProgressWrCtaContinue;
+
+  /// No description provided for @v2ProgressWrCtaSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'View Weekly Summary'**
+  String get v2ProgressWrCtaSummary;
+
+  /// No description provided for @v2ProgressWeeklyPreviewHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest Weekly Summary'**
+  String get v2ProgressWeeklyPreviewHeading;
+
+  /// No description provided for @v2ProgressCtaToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete today’s action first'**
+  String get v2ProgressCtaToday;
+
+  /// No description provided for @v2ProgressCtaContinueToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Today'**
+  String get v2ProgressCtaContinueToday;
 }
 
 class _AppLocalizationsDelegate

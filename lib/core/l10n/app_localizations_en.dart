@@ -2603,4 +2603,213 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v2WeeklySummaryCtaToday => 'Back to Today';
+
+  @override
+  String get v2WeeklySummaryCtaProgress => 'Back to Progress';
+
+  @override
+  String get v2ProgressTitle => 'Progress';
+
+  @override
+  String get v2ProgressOrientation => 'Your progress';
+
+  @override
+  String get v2ProgressRetry => 'Try again';
+
+  @override
+  String get v2ProgressBasedOnSessions =>
+      'Progress is based on completed sessions';
+
+  @override
+  String get v2ProgressHeadlineEmpty => 'No completed sessions yet';
+
+  @override
+  String get v2ProgressHeadlineFirst =>
+      'Your first completed session is recorded';
+
+  @override
+  String get v2ProgressHeadlineFew => 'A few completed days are on record';
+
+  @override
+  String get v2ProgressHeadlineRhythm => 'A pattern is beginning to appear';
+
+  @override
+  String get v2ProgressHeadlineSteady => 'A steadier pattern is visible';
+
+  @override
+  String get v2ProgressHeadlineLimited => 'Evidence is still limited';
+
+  @override
+  String get v2ProgressHeadlineWeekly =>
+      'Weekly evidence is available to review';
+
+  @override
+  String get v2ProgressBetterHeading => 'What is recorded';
+
+  @override
+  String get v2ProgressWhyHeading => 'What the pattern shows';
+
+  @override
+  String get v2ProgressComparedHeading => 'How it compares over time';
+
+  @override
+  String v2ProgressCompletedDays(String count) {
+    return 'Completed days: $count';
+  }
+
+  @override
+  String v2ProgressCompletedSessions(String count) {
+    return 'Completed sessions: $count';
+  }
+
+  @override
+  String v2ProgressMinimumPath(String count) {
+    return 'Minimum path: $count';
+  }
+
+  @override
+  String v2ProgressStandardPath(String count) {
+    return 'Standard path: $count';
+  }
+
+  @override
+  String v2ProgressCompletionRate(String percent) {
+    return 'Completed-day rate: $percent%';
+  }
+
+  @override
+  String v2ProgressCurrentRhythm(String count) {
+    return 'Current rhythm: $count day(s)';
+  }
+
+  @override
+  String v2ProgressLongestRhythm(String count) {
+    return 'Longest rhythm: $count day(s)';
+  }
+
+  @override
+  String v2ProgressFirstCompleted(String day) {
+    return 'First completed day: $day';
+  }
+
+  @override
+  String v2ProgressLastCompleted(String day) {
+    return 'Last completed day: $day';
+  }
+
+  @override
+  String get v2ProgressRecentActivity => 'Recent activity';
+
+  @override
+  String get v2ProgressTimelineMinimum => 'Minimum path';
+
+  @override
+  String get v2ProgressTimelineStandard => 'Standard path';
+
+  @override
+  String get v2ProgressTimelineBothPaths => 'Minimum and standard';
+
+  @override
+  String v2ProgressTimelineEntry(String day, String path) {
+    return '$day · $path';
+  }
+
+  @override
+  String get v2ProgressPathMostlyMinimum => 'Mostly minimum path';
+
+  @override
+  String get v2ProgressPathMostlyStandard => 'Mostly standard path';
+
+  @override
+  String get v2ProgressPathBalanced => 'Balanced path mix';
+
+  @override
+  String get v2ProgressPathSingle => 'Single session only';
+
+  @override
+  String get v2ProgressEvidenceEmpty =>
+      'Complete today’s action first to begin an honest record.';
+
+  @override
+  String get v2ProgressEvidenceLimited =>
+      'Evidence is still limited — one completed action so far.';
+
+  @override
+  String get v2ProgressEvidenceDeveloping =>
+      'A pattern is beginning to appear. This is observation, not a diagnosis.';
+
+  @override
+  String get v2ProgressEvidenceSufficient =>
+      'Enough completed activity for a quiet look-back. No cause claim.';
+
+  @override
+  String get v2ProgressScoreHeading => 'Recovery Score snapshot';
+
+  @override
+  String v2ProgressScoreValue(String value) {
+    return 'Estimate: $value';
+  }
+
+  @override
+  String get v2ProgressScoreUnavailable =>
+      'Score estimate not available on this device yet';
+
+  @override
+  String v2ProgressScoreMeasured(String day) {
+    return 'From Brain Check on $day';
+  }
+
+  @override
+  String get v2ProgressScoreDisclaimer =>
+      'Daily session completion does not instantly change this score. The score comes from Brain Check measurement, not from counting sessions.';
+
+  @override
+  String get v2ProgressWeeklyReviewHeading => 'Weekly Review';
+
+  @override
+  String get v2ProgressWrNotEnough =>
+      'Not enough completed activity yet for a Weekly Review.';
+
+  @override
+  String get v2ProgressWrCurrentWeek =>
+      'This week is still in progress. Review opens after the week ends.';
+
+  @override
+  String get v2ProgressWrAvailable => 'Weekly Review available';
+
+  @override
+  String get v2ProgressWrDraft => 'Weekly Review draft in progress';
+
+  @override
+  String get v2ProgressWrCompleted => 'Weekly Summary available';
+
+  @override
+  String get v2ProgressWrUnsupported =>
+      'This review format is not supported on this version.';
+
+  @override
+  String get v2ProgressWrMissingRefs =>
+      'Review sources are not ready yet. Continue through Today and return later.';
+
+  @override
+  String get v2ProgressWrError =>
+      'Weekly Review could not be prepared right now.';
+
+  @override
+  String get v2ProgressWrCtaStart => 'Start Weekly Review';
+
+  @override
+  String get v2ProgressWrCtaContinue => 'Continue Weekly Review';
+
+  @override
+  String get v2ProgressWrCtaSummary => 'View Weekly Summary';
+
+  @override
+  String get v2ProgressWeeklyPreviewHeading => 'Latest Weekly Summary';
+
+  @override
+  String get v2ProgressCtaToday => 'Complete today’s action first';
+
+  @override
+  String get v2ProgressCtaContinueToday => 'Back to Today';
 }

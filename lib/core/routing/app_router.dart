@@ -36,6 +36,7 @@ import '../../features/recovery_plan/ui/plan_reveal_screen.dart';
 import '../../features/recovery_plan/ui/plan_today_preview_screen.dart';
 import '../../features/recovery_plan/ui/plan_today_ready_boundary_screen.dart';
 import '../../features/daily_session/ui/today_home_screen.dart';
+import '../../features/progress/ui/progress_home_screen.dart';
 import '../../features/daily_session/ui/session_prepare_screen.dart';
 import '../../features/daily_session/ui/session_act_screen.dart';
 import '../../features/daily_session/ui/session_reflect_screen.dart';
@@ -450,6 +451,11 @@ GoRouter goRouter(GoRouterRef ref) {
         path: AppRoutes.v2Today,
         name: 'v2Today',
         builder: (context, state) => const TodayHomeScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.v2Progress,
+        name: 'v2Progress',
+        builder: (context, state) => const ProgressHomeScreen(),
       ),
       GoRoute(
         path: AppRoutes.v2SessionPrepare,
