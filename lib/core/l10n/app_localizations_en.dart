@@ -2812,4 +2812,300 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v2ProgressCtaContinueToday => 'Back to Today';
+
+  @override
+  String get v2ProgressReportsEntry => 'Open Reports';
+
+  @override
+  String get v2ReportsTitle => 'Reports';
+
+  @override
+  String get v2ReportsEvidenceOverview => 'Evidence overview';
+
+  @override
+  String get v2ReportsWeeklyHistory => 'Weekly history';
+
+  @override
+  String get v2ReportsWeeklyReport => 'Weekly report';
+
+  @override
+  String get v2ReportsMeasurementHistory => 'Measurement history';
+
+  @override
+  String get v2ReportsEvidenceStillDeveloping =>
+      'Your evidence is still developing';
+
+  @override
+  String get v2ReportsNotEnoughMeasurements =>
+      'Not enough measurements to compare yet';
+
+  @override
+  String get v2ReportsComparedWithEarlier => 'Compared with your earlier check';
+
+  @override
+  String get v2ReportsSelfReportEstimate => 'This is a self-report estimate';
+
+  @override
+  String get v2ReportsNoCauseFromHistory =>
+      'No cause can be determined from this history';
+
+  @override
+  String get v2ReportsOrientation =>
+      'Reports gather honest local proof from completed sessions, weekly summaries, and valid self-report measurements.';
+
+  @override
+  String get v2ReportsOrientationNot =>
+      'Reports are not a diagnosis, not medical advice, and not a comparison with other people.';
+
+  @override
+  String get v2ReportsLoading => 'Loading reports';
+
+  @override
+  String get v2ReportsRetry => 'Try again';
+
+  @override
+  String get v2ReportsPersistFailed =>
+      'Could not load reports right now. Try again.';
+
+  @override
+  String get v2ReportsUnsupported =>
+      'This report format is not supported on this version.';
+
+  @override
+  String get v2ReportsEmptyBody =>
+      'Complete a Today session to begin an honest local evidence record. Nothing is invented when history is empty.';
+
+  @override
+  String get v2ReportsSnapshotMissing =>
+      'A saved progress snapshot is missing. Showing counts rebuilt from completed sessions only.';
+
+  @override
+  String get v2ReportsDepthNoEvidence => 'No evidence yet';
+
+  @override
+  String get v2ReportsDepthEarly => 'Early evidence';
+
+  @override
+  String get v2ReportsDepthDeveloping => 'Developing evidence';
+
+  @override
+  String get v2ReportsDepthEstablished => 'Established history';
+
+  @override
+  String get v2ReportsDepthNoEvidenceExplain =>
+      'No completed sessions are on record yet.';
+
+  @override
+  String get v2ReportsDepthDevelopingExplain =>
+      'Completed days and weekly summaries are building a clearer local record.';
+
+  @override
+  String get v2ReportsDepthEstablishedExplain =>
+      'Multiple weekly summaries and measurements form a longer local history.';
+
+  @override
+  String get v2ReportsSessionSummaryHeading => 'Completed activity';
+
+  @override
+  String v2ReportsCompletedSessions(String count) {
+    return 'Completed sessions: $count';
+  }
+
+  @override
+  String v2ReportsCompletedDays(String count) {
+    return 'Completed days: $count';
+  }
+
+  @override
+  String v2ReportsMinimumPath(String count) {
+    return 'Minimum path: $count';
+  }
+
+  @override
+  String v2ReportsStandardPath(String count) {
+    return 'Standard path: $count';
+  }
+
+  @override
+  String v2ReportsCurrentRhythm(String count) {
+    return 'Current rhythm: $count day(s)';
+  }
+
+  @override
+  String v2ReportsLongestRhythm(String count) {
+    return 'Longest rhythm: $count day(s)';
+  }
+
+  @override
+  String v2ReportsFirstCompleted(String day) {
+    return 'First completed day: $day';
+  }
+
+  @override
+  String v2ReportsLastCompleted(String day) {
+    return 'Last completed day: $day';
+  }
+
+  @override
+  String get v2ReportsMeasurementStatusHeading => 'Measurement history status';
+
+  @override
+  String get v2ReportsMeasurementNone => 'No valid measurements yet';
+
+  @override
+  String get v2ReportsMeasurementNoneBody =>
+      'A completed Brain Check creates a self-report measurement you can review here.';
+
+  @override
+  String get v2ReportsMeasurementBaseline =>
+      'One baseline measurement is on record';
+
+  @override
+  String get v2ReportsMeasurementComparable =>
+      'Comparable measurements are available';
+
+  @override
+  String get v2ReportsMeasurementIncompatible =>
+      'Measurements exist but are not comparable yet';
+
+  @override
+  String get v2ReportsMeasurementErrorBody =>
+      'Measurement history could not be prepared right now.';
+
+  @override
+  String v2ReportsLatestScore(String value) {
+    return 'Latest estimate: $value';
+  }
+
+  @override
+  String get v2ReportsNoArtifacts => 'No weekly reports yet';
+
+  @override
+  String v2ReportsWeeklyReportPeriod(String start, String end) {
+    return 'Week $start – $end';
+  }
+
+  @override
+  String v2ReportsPremiumArchiveHint(String count) {
+    return '$count older report(s) available with Premium archive';
+  }
+
+  @override
+  String get v2ReportsPremiumGatedTitle => 'Older archive';
+
+  @override
+  String get v2ReportsPremiumGatedBody =>
+      'Your latest and previous weekly reports stay free. Older archive depth is part of Premium. Current proof is never hidden.';
+
+  @override
+  String get v2ReportsArtifactMissing => 'Weekly report not found';
+
+  @override
+  String get v2ReportsArtifactMissingBody =>
+      'This weekly report is missing or unavailable. Return to Reports.';
+
+  @override
+  String get v2ReportsArtifactUnsupportedBody =>
+      'This weekly report format is not supported on this version.';
+
+  @override
+  String get v2ReportsArtifactCorrupt => 'Weekly report could not be read';
+
+  @override
+  String get v2ReportsArtifactCorruptBody =>
+      'This weekly report looks incomplete. Return to Reports.';
+
+  @override
+  String get v2ReportsCtaLatestArtifact => 'Open latest weekly report';
+
+  @override
+  String get v2ReportsOpenMeasurementHistory => 'Open measurement history';
+
+  @override
+  String get v2ReportsCtaToday => 'Complete today’s action first';
+
+  @override
+  String get v2ReportsBackProgress => 'Back to Progress';
+
+  @override
+  String get v2ReportsBackOverview => 'Back to Reports';
+
+  @override
+  String get v2ReportsComparisonHigher =>
+      'Your latest self-report estimate is higher than your earlier one.';
+
+  @override
+  String get v2ReportsComparisonLower =>
+      'Your latest self-report estimate is lower than your earlier one.';
+
+  @override
+  String get v2ReportsComparisonUnchanged =>
+      'Your latest self-report estimate is unchanged from your earlier one.';
+
+  @override
+  String get v2ReportsComparisonNotComparable =>
+      'These measurements are not comparable with each other.';
+
+  @override
+  String get v2ReportsTooEarlyToInterpret =>
+      'It may be too early to interpret this change.';
+
+  @override
+  String get v2ReportsLowConfidenceQualifier =>
+      'At least one measurement has higher uncertainty.';
+
+  @override
+  String get v2ReportsMeasurementListHeading => 'Your measurements';
+
+  @override
+  String v2ReportsMeasuredOn(String day) {
+    return 'Measured on $day';
+  }
+
+  @override
+  String v2ReportsScoreValue(String value) {
+    return 'Estimate: $value';
+  }
+
+  @override
+  String v2ReportsScoreBand(String band) {
+    return 'Band: $band';
+  }
+
+  @override
+  String v2ReportsScoreConfidence(String confidence) {
+    return 'Confidence: $confidence';
+  }
+
+  @override
+  String v2ReportsMeasurementSemantics(
+      String day, String score, String confidence) {
+    return 'Measurement on $day, estimate $score, confidence $confidence';
+  }
+
+  @override
+  String get v2ReportsConfidenceStrong => 'Strong';
+
+  @override
+  String get v2ReportsConfidenceModerate => 'Moderate';
+
+  @override
+  String get v2ReportsConfidenceProvisional => 'Provisional';
+
+  @override
+  String get v2ReportsDomainHistoryHeading => 'Domain history';
+
+  @override
+  String get v2ReportsDomainLatestOnly =>
+      'Latest domain snapshot only — not enough comparable domain history yet.';
+
+  @override
+  String v2ReportsDomainRow(String title, String value) {
+    return '$title: $value';
+  }
+
+  @override
+  String v2ReportsDomainHistoryRow(String title, String day, String value) {
+    return '$title on $day: $value';
+  }
 }

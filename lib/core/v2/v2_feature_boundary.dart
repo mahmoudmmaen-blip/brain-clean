@@ -17,4 +17,7 @@ abstract final class V2FeatureBoundary {
 
   /// HOM-01 / SES routes share the same gated V2 surface.
   static bool get enableTodaySessionRoutes => enableBrainProfileRoutes;
+
+  /// RPT-01 / RPT-02 / RPT-03 share the same gated V2 surface.
+  static bool get enableReportsRoutes => enableBrainProfileRoutes;
 }

@@ -5083,6 +5083,469 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Back to Today'**
   String get v2ProgressCtaContinueToday;
+
+  /// No description provided for @v2ProgressReportsEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Reports'**
+  String get v2ProgressReportsEntry;
+
+  /// No description provided for @v2ReportsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reports'**
+  String get v2ReportsTitle;
+
+  /// No description provided for @v2ReportsEvidenceOverview.
+  ///
+  /// In en, this message translates to:
+  /// **'Evidence overview'**
+  String get v2ReportsEvidenceOverview;
+
+  /// No description provided for @v2ReportsWeeklyHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly history'**
+  String get v2ReportsWeeklyHistory;
+
+  /// No description provided for @v2ReportsWeeklyReport.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly report'**
+  String get v2ReportsWeeklyReport;
+
+  /// No description provided for @v2ReportsMeasurementHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Measurement history'**
+  String get v2ReportsMeasurementHistory;
+
+  /// No description provided for @v2ReportsEvidenceStillDeveloping.
+  ///
+  /// In en, this message translates to:
+  /// **'Your evidence is still developing'**
+  String get v2ReportsEvidenceStillDeveloping;
+
+  /// No description provided for @v2ReportsNotEnoughMeasurements.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough measurements to compare yet'**
+  String get v2ReportsNotEnoughMeasurements;
+
+  /// No description provided for @v2ReportsComparedWithEarlier.
+  ///
+  /// In en, this message translates to:
+  /// **'Compared with your earlier check'**
+  String get v2ReportsComparedWithEarlier;
+
+  /// No description provided for @v2ReportsSelfReportEstimate.
+  ///
+  /// In en, this message translates to:
+  /// **'This is a self-report estimate'**
+  String get v2ReportsSelfReportEstimate;
+
+  /// No description provided for @v2ReportsNoCauseFromHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'No cause can be determined from this history'**
+  String get v2ReportsNoCauseFromHistory;
+
+  /// No description provided for @v2ReportsOrientation.
+  ///
+  /// In en, this message translates to:
+  /// **'Reports gather honest local proof from completed sessions, weekly summaries, and valid self-report measurements.'**
+  String get v2ReportsOrientation;
+
+  /// No description provided for @v2ReportsOrientationNot.
+  ///
+  /// In en, this message translates to:
+  /// **'Reports are not a diagnosis, not medical advice, and not a comparison with other people.'**
+  String get v2ReportsOrientationNot;
+
+  /// No description provided for @v2ReportsLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading reports'**
+  String get v2ReportsLoading;
+
+  /// No description provided for @v2ReportsRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get v2ReportsRetry;
+
+  /// No description provided for @v2ReportsPersistFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load reports right now. Try again.'**
+  String get v2ReportsPersistFailed;
+
+  /// No description provided for @v2ReportsUnsupported.
+  ///
+  /// In en, this message translates to:
+  /// **'This report format is not supported on this version.'**
+  String get v2ReportsUnsupported;
+
+  /// No description provided for @v2ReportsEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete a Today session to begin an honest local evidence record. Nothing is invented when history is empty.'**
+  String get v2ReportsEmptyBody;
+
+  /// No description provided for @v2ReportsSnapshotMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'A saved progress snapshot is missing. Showing counts rebuilt from completed sessions only.'**
+  String get v2ReportsSnapshotMissing;
+
+  /// No description provided for @v2ReportsDepthNoEvidence.
+  ///
+  /// In en, this message translates to:
+  /// **'No evidence yet'**
+  String get v2ReportsDepthNoEvidence;
+
+  /// No description provided for @v2ReportsDepthEarly.
+  ///
+  /// In en, this message translates to:
+  /// **'Early evidence'**
+  String get v2ReportsDepthEarly;
+
+  /// No description provided for @v2ReportsDepthDeveloping.
+  ///
+  /// In en, this message translates to:
+  /// **'Developing evidence'**
+  String get v2ReportsDepthDeveloping;
+
+  /// No description provided for @v2ReportsDepthEstablished.
+  ///
+  /// In en, this message translates to:
+  /// **'Established history'**
+  String get v2ReportsDepthEstablished;
+
+  /// No description provided for @v2ReportsDepthNoEvidenceExplain.
+  ///
+  /// In en, this message translates to:
+  /// **'No completed sessions are on record yet.'**
+  String get v2ReportsDepthNoEvidenceExplain;
+
+  /// No description provided for @v2ReportsDepthDevelopingExplain.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed days and weekly summaries are building a clearer local record.'**
+  String get v2ReportsDepthDevelopingExplain;
+
+  /// No description provided for @v2ReportsDepthEstablishedExplain.
+  ///
+  /// In en, this message translates to:
+  /// **'Multiple weekly summaries and measurements form a longer local history.'**
+  String get v2ReportsDepthEstablishedExplain;
+
+  /// No description provided for @v2ReportsSessionSummaryHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed activity'**
+  String get v2ReportsSessionSummaryHeading;
+
+  /// No description provided for @v2ReportsCompletedSessions.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed sessions: {count}'**
+  String v2ReportsCompletedSessions(String count);
+
+  /// No description provided for @v2ReportsCompletedDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed days: {count}'**
+  String v2ReportsCompletedDays(String count);
+
+  /// No description provided for @v2ReportsMinimumPath.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum path: {count}'**
+  String v2ReportsMinimumPath(String count);
+
+  /// No description provided for @v2ReportsStandardPath.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard path: {count}'**
+  String v2ReportsStandardPath(String count);
+
+  /// No description provided for @v2ReportsCurrentRhythm.
+  ///
+  /// In en, this message translates to:
+  /// **'Current rhythm: {count} day(s)'**
+  String v2ReportsCurrentRhythm(String count);
+
+  /// No description provided for @v2ReportsLongestRhythm.
+  ///
+  /// In en, this message translates to:
+  /// **'Longest rhythm: {count} day(s)'**
+  String v2ReportsLongestRhythm(String count);
+
+  /// No description provided for @v2ReportsFirstCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'First completed day: {day}'**
+  String v2ReportsFirstCompleted(String day);
+
+  /// No description provided for @v2ReportsLastCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Last completed day: {day}'**
+  String v2ReportsLastCompleted(String day);
+
+  /// No description provided for @v2ReportsMeasurementStatusHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Measurement history status'**
+  String get v2ReportsMeasurementStatusHeading;
+
+  /// No description provided for @v2ReportsMeasurementNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No valid measurements yet'**
+  String get v2ReportsMeasurementNone;
+
+  /// No description provided for @v2ReportsMeasurementNoneBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A completed Brain Check creates a self-report measurement you can review here.'**
+  String get v2ReportsMeasurementNoneBody;
+
+  /// No description provided for @v2ReportsMeasurementBaseline.
+  ///
+  /// In en, this message translates to:
+  /// **'One baseline measurement is on record'**
+  String get v2ReportsMeasurementBaseline;
+
+  /// No description provided for @v2ReportsMeasurementComparable.
+  ///
+  /// In en, this message translates to:
+  /// **'Comparable measurements are available'**
+  String get v2ReportsMeasurementComparable;
+
+  /// No description provided for @v2ReportsMeasurementIncompatible.
+  ///
+  /// In en, this message translates to:
+  /// **'Measurements exist but are not comparable yet'**
+  String get v2ReportsMeasurementIncompatible;
+
+  /// No description provided for @v2ReportsMeasurementErrorBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Measurement history could not be prepared right now.'**
+  String get v2ReportsMeasurementErrorBody;
+
+  /// No description provided for @v2ReportsLatestScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest estimate: {value}'**
+  String v2ReportsLatestScore(String value);
+
+  /// No description provided for @v2ReportsNoArtifacts.
+  ///
+  /// In en, this message translates to:
+  /// **'No weekly reports yet'**
+  String get v2ReportsNoArtifacts;
+
+  /// No description provided for @v2ReportsWeeklyReportPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Week {start} – {end}'**
+  String v2ReportsWeeklyReportPeriod(String start, String end);
+
+  /// No description provided for @v2ReportsPremiumArchiveHint.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} older report(s) available with Premium archive'**
+  String v2ReportsPremiumArchiveHint(String count);
+
+  /// No description provided for @v2ReportsPremiumGatedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Older archive'**
+  String get v2ReportsPremiumGatedTitle;
+
+  /// No description provided for @v2ReportsPremiumGatedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your latest and previous weekly reports stay free. Older archive depth is part of Premium. Current proof is never hidden.'**
+  String get v2ReportsPremiumGatedBody;
+
+  /// No description provided for @v2ReportsArtifactMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly report not found'**
+  String get v2ReportsArtifactMissing;
+
+  /// No description provided for @v2ReportsArtifactMissingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This weekly report is missing or unavailable. Return to Reports.'**
+  String get v2ReportsArtifactMissingBody;
+
+  /// No description provided for @v2ReportsArtifactUnsupportedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This weekly report format is not supported on this version.'**
+  String get v2ReportsArtifactUnsupportedBody;
+
+  /// No description provided for @v2ReportsArtifactCorrupt.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly report could not be read'**
+  String get v2ReportsArtifactCorrupt;
+
+  /// No description provided for @v2ReportsArtifactCorruptBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This weekly report looks incomplete. Return to Reports.'**
+  String get v2ReportsArtifactCorruptBody;
+
+  /// No description provided for @v2ReportsCtaLatestArtifact.
+  ///
+  /// In en, this message translates to:
+  /// **'Open latest weekly report'**
+  String get v2ReportsCtaLatestArtifact;
+
+  /// No description provided for @v2ReportsOpenMeasurementHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Open measurement history'**
+  String get v2ReportsOpenMeasurementHistory;
+
+  /// No description provided for @v2ReportsCtaToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete today’s action first'**
+  String get v2ReportsCtaToday;
+
+  /// No description provided for @v2ReportsBackProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Progress'**
+  String get v2ReportsBackProgress;
+
+  /// No description provided for @v2ReportsBackOverview.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Reports'**
+  String get v2ReportsBackOverview;
+
+  /// No description provided for @v2ReportsComparisonHigher.
+  ///
+  /// In en, this message translates to:
+  /// **'Your latest self-report estimate is higher than your earlier one.'**
+  String get v2ReportsComparisonHigher;
+
+  /// No description provided for @v2ReportsComparisonLower.
+  ///
+  /// In en, this message translates to:
+  /// **'Your latest self-report estimate is lower than your earlier one.'**
+  String get v2ReportsComparisonLower;
+
+  /// No description provided for @v2ReportsComparisonUnchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Your latest self-report estimate is unchanged from your earlier one.'**
+  String get v2ReportsComparisonUnchanged;
+
+  /// No description provided for @v2ReportsComparisonNotComparable.
+  ///
+  /// In en, this message translates to:
+  /// **'These measurements are not comparable with each other.'**
+  String get v2ReportsComparisonNotComparable;
+
+  /// No description provided for @v2ReportsTooEarlyToInterpret.
+  ///
+  /// In en, this message translates to:
+  /// **'It may be too early to interpret this change.'**
+  String get v2ReportsTooEarlyToInterpret;
+
+  /// No description provided for @v2ReportsLowConfidenceQualifier.
+  ///
+  /// In en, this message translates to:
+  /// **'At least one measurement has higher uncertainty.'**
+  String get v2ReportsLowConfidenceQualifier;
+
+  /// No description provided for @v2ReportsMeasurementListHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Your measurements'**
+  String get v2ReportsMeasurementListHeading;
+
+  /// No description provided for @v2ReportsMeasuredOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Measured on {day}'**
+  String v2ReportsMeasuredOn(String day);
+
+  /// No description provided for @v2ReportsScoreValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimate: {value}'**
+  String v2ReportsScoreValue(String value);
+
+  /// No description provided for @v2ReportsScoreBand.
+  ///
+  /// In en, this message translates to:
+  /// **'Band: {band}'**
+  String v2ReportsScoreBand(String band);
+
+  /// No description provided for @v2ReportsScoreConfidence.
+  ///
+  /// In en, this message translates to:
+  /// **'Confidence: {confidence}'**
+  String v2ReportsScoreConfidence(String confidence);
+
+  /// No description provided for @v2ReportsMeasurementSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Measurement on {day}, estimate {score}, confidence {confidence}'**
+  String v2ReportsMeasurementSemantics(
+      String day, String score, String confidence);
+
+  /// No description provided for @v2ReportsConfidenceStrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Strong'**
+  String get v2ReportsConfidenceStrong;
+
+  /// No description provided for @v2ReportsConfidenceModerate.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderate'**
+  String get v2ReportsConfidenceModerate;
+
+  /// No description provided for @v2ReportsConfidenceProvisional.
+  ///
+  /// In en, this message translates to:
+  /// **'Provisional'**
+  String get v2ReportsConfidenceProvisional;
+
+  /// No description provided for @v2ReportsDomainHistoryHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Domain history'**
+  String get v2ReportsDomainHistoryHeading;
+
+  /// No description provided for @v2ReportsDomainLatestOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest domain snapshot only — not enough comparable domain history yet.'**
+  String get v2ReportsDomainLatestOnly;
+
+  /// No description provided for @v2ReportsDomainRow.
+  ///
+  /// In en, this message translates to:
+  /// **'{title}: {value}'**
+  String v2ReportsDomainRow(String title, String value);
+
+  /// No description provided for @v2ReportsDomainHistoryRow.
+  ///
+  /// In en, this message translates to:
+  /// **'{title} on {day}: {value}'**
+  String v2ReportsDomainHistoryRow(String title, String day, String value);
 }
 
 class _AppLocalizationsDelegate

@@ -1196,5 +1196,178 @@
   "v2ProgressWrCtaSummary": "View Weekly Summary",
   "v2ProgressWeeklyPreviewHeading": "Latest Weekly Summary",
   "v2ProgressCtaToday": "Complete today’s action first",
-  "v2ProgressCtaContinueToday": "Back to Today"
+  "v2ProgressCtaContinueToday": "Back to Today",
+  "v2ProgressReportsEntry": "Open Reports",
+  "v2ReportsTitle": "Reports",
+  "v2ReportsEvidenceOverview": "Evidence overview",
+  "v2ReportsWeeklyHistory": "Weekly history",
+  "v2ReportsWeeklyReport": "Weekly report",
+  "v2ReportsMeasurementHistory": "Measurement history",
+  "v2ReportsEvidenceStillDeveloping": "Your evidence is still developing",
+  "v2ReportsNotEnoughMeasurements": "Not enough measurements to compare yet",
+  "v2ReportsComparedWithEarlier": "Compared with your earlier check",
+  "v2ReportsSelfReportEstimate": "This is a self-report estimate",
+  "v2ReportsNoCauseFromHistory": "No cause can be determined from this history",
+  "v2ReportsOrientation": "Reports gather honest local proof from completed sessions, weekly summaries, and valid self-report measurements.",
+  "v2ReportsOrientationNot": "Reports are not a diagnosis, not medical advice, and not a comparison with other people.",
+  "v2ReportsLoading": "Loading reports",
+  "v2ReportsRetry": "Try again",
+  "v2ReportsPersistFailed": "Could not load reports right now. Try again.",
+  "v2ReportsUnsupported": "This report format is not supported on this version.",
+  "v2ReportsEmptyBody": "Complete a Today session to begin an honest local evidence record. Nothing is invented when history is empty.",
+  "v2ReportsSnapshotMissing": "A saved progress snapshot is missing. Showing counts rebuilt from completed sessions only.",
+  "v2ReportsDepthNoEvidence": "No evidence yet",
+  "v2ReportsDepthEarly": "Early evidence",
+  "v2ReportsDepthDeveloping": "Developing evidence",
+  "v2ReportsDepthEstablished": "Established history",
+  "v2ReportsDepthNoEvidenceExplain": "No completed sessions are on record yet.",
+  "v2ReportsDepthDevelopingExplain": "Completed days and weekly summaries are building a clearer local record.",
+  "v2ReportsDepthEstablishedExplain": "Multiple weekly summaries and measurements form a longer local history.",
+  "v2ReportsSessionSummaryHeading": "Completed activity",
+  "v2ReportsCompletedSessions": "Completed sessions: {count}",
+  "@v2ReportsCompletedSessions": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ReportsCompletedDays": "Completed days: {count}",
+  "@v2ReportsCompletedDays": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ReportsMinimumPath": "Minimum path: {count}",
+  "@v2ReportsMinimumPath": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ReportsStandardPath": "Standard path: {count}",
+  "@v2ReportsStandardPath": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ReportsCurrentRhythm": "Current rhythm: {count} day(s)",
+  "@v2ReportsCurrentRhythm": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ReportsLongestRhythm": "Longest rhythm: {count} day(s)",
+  "@v2ReportsLongestRhythm": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ReportsFirstCompleted": "First completed day: {day}",
+  "@v2ReportsFirstCompleted": {
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+  "v2ReportsLastCompleted": "Last completed day: {day}",
+  "@v2ReportsLastCompleted": {
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+  "v2ReportsMeasurementStatusHeading": "Measurement history status",
+  "v2ReportsMeasurementNone": "No valid measurements yet",
+  "v2ReportsMeasurementNoneBody": "A completed Brain Check creates a self-report measurement you can review here.",
+  "v2ReportsMeasurementBaseline": "One baseline measurement is on record",
+  "v2ReportsMeasurementComparable": "Comparable measurements are available",
+  "v2ReportsMeasurementIncompatible": "Measurements exist but are not comparable yet",
+  "v2ReportsMeasurementErrorBody": "Measurement history could not be prepared right now.",
+  "v2ReportsLatestScore": "Latest estimate: {value}",
+  "@v2ReportsLatestScore": {
+    "placeholders": {
+      "value": { "type": "String" }
+    }
+  },
+  "v2ReportsNoArtifacts": "No weekly reports yet",
+  "v2ReportsWeeklyReportPeriod": "Week {start} – {end}",
+  "@v2ReportsWeeklyReportPeriod": {
+    "placeholders": {
+      "start": { "type": "String" },
+      "end": { "type": "String" }
+    }
+  },
+  "v2ReportsPremiumArchiveHint": "{count} older report(s) available with Premium archive",
+  "@v2ReportsPremiumArchiveHint": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ReportsPremiumGatedTitle": "Older archive",
+  "v2ReportsPremiumGatedBody": "Your latest and previous weekly reports stay free. Older archive depth is part of Premium. Current proof is never hidden.",
+  "v2ReportsArtifactMissing": "Weekly report not found",
+  "v2ReportsArtifactMissingBody": "This weekly report is missing or unavailable. Return to Reports.",
+  "v2ReportsArtifactUnsupportedBody": "This weekly report format is not supported on this version.",
+  "v2ReportsArtifactCorrupt": "Weekly report could not be read",
+  "v2ReportsArtifactCorruptBody": "This weekly report looks incomplete. Return to Reports.",
+  "v2ReportsCtaLatestArtifact": "Open latest weekly report",
+  "v2ReportsOpenMeasurementHistory": "Open measurement history",
+  "v2ReportsCtaToday": "Complete today’s action first",
+  "v2ReportsBackProgress": "Back to Progress",
+  "v2ReportsBackOverview": "Back to Reports",
+  "v2ReportsComparisonHigher": "Your latest self-report estimate is higher than your earlier one.",
+  "v2ReportsComparisonLower": "Your latest self-report estimate is lower than your earlier one.",
+  "v2ReportsComparisonUnchanged": "Your latest self-report estimate is unchanged from your earlier one.",
+  "v2ReportsComparisonNotComparable": "These measurements are not comparable with each other.",
+  "v2ReportsTooEarlyToInterpret": "It may be too early to interpret this change.",
+  "v2ReportsLowConfidenceQualifier": "At least one measurement has higher uncertainty.",
+  "v2ReportsMeasurementListHeading": "Your measurements",
+  "v2ReportsMeasuredOn": "Measured on {day}",
+  "@v2ReportsMeasuredOn": {
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+  "v2ReportsScoreValue": "Estimate: {value}",
+  "@v2ReportsScoreValue": {
+    "placeholders": {
+      "value": { "type": "String" }
+    }
+  },
+  "v2ReportsScoreBand": "Band: {band}",
+  "@v2ReportsScoreBand": {
+    "placeholders": {
+      "band": { "type": "String" }
+    }
+  },
+  "v2ReportsScoreConfidence": "Confidence: {confidence}",
+  "@v2ReportsScoreConfidence": {
+    "placeholders": {
+      "confidence": { "type": "String" }
+    }
+  },
+  "v2ReportsMeasurementSemantics": "Measurement on {day}, estimate {score}, confidence {confidence}",
+  "@v2ReportsMeasurementSemantics": {
+    "placeholders": {
+      "day": { "type": "String" },
+      "score": { "type": "String" },
+      "confidence": { "type": "String" }
+    }
+  },
+  "v2ReportsConfidenceStrong": "Strong",
+  "v2ReportsConfidenceModerate": "Moderate",
+  "v2ReportsConfidenceProvisional": "Provisional",
+  "v2ReportsDomainHistoryHeading": "Domain history",
+  "v2ReportsDomainLatestOnly": "Latest domain snapshot only — not enough comparable domain history yet.",
+  "v2ReportsDomainRow": "{title}: {value}",
+  "@v2ReportsDomainRow": {
+    "placeholders": {
+      "title": { "type": "String" },
+      "value": { "type": "String" }
+    }
+  },
+  "v2ReportsDomainHistoryRow": "{title} on {day}: {value}",
+  "@v2ReportsDomainHistoryRow": {
+    "placeholders": {
+      "title": { "type": "String" },
+      "day": { "type": "String" },
+      "value": { "type": "String" }
+    }
+  }
 }

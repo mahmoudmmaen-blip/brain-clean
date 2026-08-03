@@ -2771,4 +2771,297 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v2ProgressCtaContinueToday => 'العودة إلى اليوم';
+
+  @override
+  String get v2ProgressReportsEntry => 'فتح التقارير';
+
+  @override
+  String get v2ReportsTitle => 'التقارير';
+
+  @override
+  String get v2ReportsEvidenceOverview => 'نظرة عامة على الأدلة';
+
+  @override
+  String get v2ReportsWeeklyHistory => 'السجل الأسبوعي';
+
+  @override
+  String get v2ReportsWeeklyReport => 'تقرير الأسبوع';
+
+  @override
+  String get v2ReportsMeasurementHistory => 'سجل القياسات';
+
+  @override
+  String get v2ReportsEvidenceStillDeveloping =>
+      'ما زالت أدلتك في مرحلة التكوّن';
+
+  @override
+  String get v2ReportsNotEnoughMeasurements =>
+      'لا توجد قياسات كافية للمقارنة بعد';
+
+  @override
+  String get v2ReportsComparedWithEarlier => 'مقارنةً بفحصك السابق';
+
+  @override
+  String get v2ReportsSelfReportEstimate =>
+      'هذا تقدير قائم على إجاباتك الذاتية';
+
+  @override
+  String get v2ReportsNoCauseFromHistory => 'لا يمكن تحديد السبب من هذا السجل';
+
+  @override
+  String get v2ReportsOrientation =>
+      'تجمع التقارير أدلة محلية صادقة من الجلسات المكتملة وملخصات الأسابيع والقياسات الذاتية الصحيحة.';
+
+  @override
+  String get v2ReportsOrientationNot =>
+      'التقارير ليست تشخيصاً، وليست نصيحة طبية، وليست مقارنة مع أشخاص آخرين.';
+
+  @override
+  String get v2ReportsLoading => 'جارٍ تحميل التقارير';
+
+  @override
+  String get v2ReportsRetry => 'إعادة المحاولة';
+
+  @override
+  String get v2ReportsPersistFailed =>
+      'تعذّر تحميل التقارير الآن. حاول مرة أخرى.';
+
+  @override
+  String get v2ReportsUnsupported =>
+      'صيغة هذا التقرير غير مدعومة في هذا الإصدار.';
+
+  @override
+  String get v2ReportsEmptyBody =>
+      'أكمل جلسة اليوم لتبدأ سجلاً محلياً صادقاً. لا يُختلق شيء عندما يكون السجل فارغاً.';
+
+  @override
+  String get v2ReportsSnapshotMissing =>
+      'لقطة التقدّم المحفوظة مفقودة. تُعرض الأعداد المعاد بناؤها من الجلسات المكتملة فقط.';
+
+  @override
+  String get v2ReportsDepthNoEvidence => 'لا توجد أدلة بعد';
+
+  @override
+  String get v2ReportsDepthEarly => 'أدلة مبكرة';
+
+  @override
+  String get v2ReportsDepthDeveloping => 'أدلة قيد التكوّن';
+
+  @override
+  String get v2ReportsDepthEstablished => 'سجل راسخ';
+
+  @override
+  String get v2ReportsDepthNoEvidenceExplain =>
+      'لا توجد جلسات مكتملة مسجّلة بعد.';
+
+  @override
+  String get v2ReportsDepthDevelopingExplain =>
+      'الأيام المكتملة وملخصات الأسابيع تبني سجلاً محلياً أوضح.';
+
+  @override
+  String get v2ReportsDepthEstablishedExplain =>
+      'عدة ملخصات أسبوعية وقياسات تشكّل سجلاً محلياً أطول.';
+
+  @override
+  String get v2ReportsSessionSummaryHeading => 'النشاط المكتمل';
+
+  @override
+  String v2ReportsCompletedSessions(String count) {
+    return 'الجلسات المكتملة: $count';
+  }
+
+  @override
+  String v2ReportsCompletedDays(String count) {
+    return 'الأيام المكتملة: $count';
+  }
+
+  @override
+  String v2ReportsMinimumPath(String count) {
+    return 'المسار الأدنى: $count';
+  }
+
+  @override
+  String v2ReportsStandardPath(String count) {
+    return 'المسار القياسي: $count';
+  }
+
+  @override
+  String v2ReportsCurrentRhythm(String count) {
+    return 'الإيقاع الحالي: $count يوم/أيام';
+  }
+
+  @override
+  String v2ReportsLongestRhythm(String count) {
+    return 'أطول إيقاع: $count يوم/أيام';
+  }
+
+  @override
+  String v2ReportsFirstCompleted(String day) {
+    return 'أول يوم مكتمل: $day';
+  }
+
+  @override
+  String v2ReportsLastCompleted(String day) {
+    return 'آخر يوم مكتمل: $day';
+  }
+
+  @override
+  String get v2ReportsMeasurementStatusHeading => 'حالة سجل القياسات';
+
+  @override
+  String get v2ReportsMeasurementNone => 'لا توجد قياسات صحيحة بعد';
+
+  @override
+  String get v2ReportsMeasurementNoneBody =>
+      'يؤدي إكمال فحص الدماغ إلى إنشاء قياس ذاتي يمكنك مراجعته هنا.';
+
+  @override
+  String get v2ReportsMeasurementBaseline => 'يوجد قياس أساسي واحد مسجّل';
+
+  @override
+  String get v2ReportsMeasurementComparable => 'تتوفر قياسات قابلة للمقارنة';
+
+  @override
+  String get v2ReportsMeasurementIncompatible =>
+      'توجد قياسات لكنها غير قابلة للمقارنة بعد';
+
+  @override
+  String get v2ReportsMeasurementErrorBody => 'تعذّر إعداد سجل القياسات الآن.';
+
+  @override
+  String v2ReportsLatestScore(String value) {
+    return 'أحدث تقدير: $value';
+  }
+
+  @override
+  String get v2ReportsNoArtifacts => 'لا توجد تقارير أسبوعية بعد';
+
+  @override
+  String v2ReportsWeeklyReportPeriod(String start, String end) {
+    return 'الأسبوع $start – $end';
+  }
+
+  @override
+  String v2ReportsPremiumArchiveHint(String count) {
+    return '$count تقرير/تقارير أقدم متاحة مع أرشيف Premium';
+  }
+
+  @override
+  String get v2ReportsPremiumGatedTitle => 'الأرشيف الأقدم';
+
+  @override
+  String get v2ReportsPremiumGatedBody =>
+      'يبقى أحدث تقرير أسبوعي والتقرير السابق مجانيين. عمق الأرشيف الأقدم جزء من Premium. لا تُخفى الأدلة الحالية.';
+
+  @override
+  String get v2ReportsArtifactMissing => 'تقرير الأسبوع غير موجود';
+
+  @override
+  String get v2ReportsArtifactMissingBody =>
+      'تقرير الأسبوع هذا مفقود أو غير متاح. عد إلى التقارير.';
+
+  @override
+  String get v2ReportsArtifactUnsupportedBody =>
+      'صيغة تقرير الأسبوع هذا غير مدعومة في هذا الإصدار.';
+
+  @override
+  String get v2ReportsArtifactCorrupt => 'تعذّر قراءة تقرير الأسبوع';
+
+  @override
+  String get v2ReportsArtifactCorruptBody =>
+      'يبدو تقرير الأسبوع هذا غير مكتمل. عد إلى التقارير.';
+
+  @override
+  String get v2ReportsCtaLatestArtifact => 'فتح أحدث تقرير أسبوعي';
+
+  @override
+  String get v2ReportsOpenMeasurementHistory => 'فتح سجل القياسات';
+
+  @override
+  String get v2ReportsCtaToday => 'أكمل فعل اليوم أولاً';
+
+  @override
+  String get v2ReportsBackProgress => 'العودة إلى التقدّم';
+
+  @override
+  String get v2ReportsBackOverview => 'العودة إلى التقارير';
+
+  @override
+  String get v2ReportsComparisonHigher =>
+      'تقديرك الذاتي الأخير أعلى من تقديرك السابق.';
+
+  @override
+  String get v2ReportsComparisonLower =>
+      'تقديرك الذاتي الأخير أقل من تقديرك السابق.';
+
+  @override
+  String get v2ReportsComparisonUnchanged =>
+      'تقديرك الذاتي الأخير لم يتغيّر عن تقديرك السابق.';
+
+  @override
+  String get v2ReportsComparisonNotComparable =>
+      'هذه القياسات غير قابلة للمقارنة فيما بينها.';
+
+  @override
+  String get v2ReportsTooEarlyToInterpret =>
+      'قد يكون الوقت مبكراً لتفسير هذا التغيير.';
+
+  @override
+  String get v2ReportsLowConfidenceQualifier =>
+      'أحد القياسات على الأقل يحمل قدراً أكبر من عدم اليقين.';
+
+  @override
+  String get v2ReportsMeasurementListHeading => 'قياساتك';
+
+  @override
+  String v2ReportsMeasuredOn(String day) {
+    return 'تاريخ القياس: $day';
+  }
+
+  @override
+  String v2ReportsScoreValue(String value) {
+    return 'التقدير: $value';
+  }
+
+  @override
+  String v2ReportsScoreBand(String band) {
+    return 'النطاق: $band';
+  }
+
+  @override
+  String v2ReportsScoreConfidence(String confidence) {
+    return 'الثقة: $confidence';
+  }
+
+  @override
+  String v2ReportsMeasurementSemantics(
+      String day, String score, String confidence) {
+    return 'قياس في $day، تقدير $score، ثقة $confidence';
+  }
+
+  @override
+  String get v2ReportsConfidenceStrong => 'قوية';
+
+  @override
+  String get v2ReportsConfidenceModerate => 'متوسطة';
+
+  @override
+  String get v2ReportsConfidenceProvisional => 'أولية';
+
+  @override
+  String get v2ReportsDomainHistoryHeading => 'سجل المجالات';
+
+  @override
+  String get v2ReportsDomainLatestOnly =>
+      'أحدث لقطة للمجالات فقط — لا يوجد سجل مجالات كافٍ للمقارنة بعد.';
+
+  @override
+  String v2ReportsDomainRow(String title, String value) {
+    return '$title: $value';
+  }
+
+  @override
+  String v2ReportsDomainHistoryRow(String title, String day, String value) {
+    return '$title في $day: $value';
+  }
 }

@@ -16,6 +16,10 @@ abstract class WeeklyReviewRepository {
   Future<List<WeeklyReviewRecord>> history();
   Future<WeeklyArtifact?> artifactByReviewId(String reviewId);
   Future<WeeklyArtifact?> artifactById(String artifactId);
+
+  /// Completed WeeklyArtifacts, newest first (createdAt desc, periodId desc).
+  Future<List<WeeklyArtifact>> listArtifacts();
+
   Future<WeeklyReviewSignal?> signalByArtifactId(String artifactId);
   Future<WeeklyReviewSignal?> signalById(String signalId);
 
@@ -181,6 +185,24 @@ class WeeklyReviewLocalRepository implements WeeklyReviewRepository {
       if (a.artifactId == artifactId) return a;
     }
     return null;
+  }
+
+  @override
+  Future<List<WeeklyArtifact>> listArtifacts() async {
+    try {
+      final box = await _openBox();
+      await _ensureSchema(box);
+      final list = _decodeArtifacts(box.get(artifactsKey));
+      list.sort((a, b) {
+        final byCreated = b.createdAt.compareTo(a.createdAt);
+        if (byCreated != 0) return byCreated;
+        return b.periodId.compareTo(a.periodId);
+      });
+      return List<WeeklyArtifact>.unmodifiable(list);
+    } catch (e) {
+      debugPrint('WeeklyReviewLocalRepository.listArtifacts failed: $e');
+      return const [];
+    }
   }
 
   @override

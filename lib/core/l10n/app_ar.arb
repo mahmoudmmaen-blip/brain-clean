@@ -1340,5 +1340,178 @@
   "v2ProgressWrCtaSummary": "عرض ملخص الأسبوع",
   "v2ProgressWeeklyPreviewHeading": "أحدث ملخص أسبوعي",
   "v2ProgressCtaToday": "أكمل فعل اليوم أولاً",
-  "v2ProgressCtaContinueToday": "العودة إلى اليوم"
+  "v2ProgressCtaContinueToday": "العودة إلى اليوم",
+  "v2ProgressReportsEntry": "فتح التقارير",
+  "v2ReportsTitle": "التقارير",
+  "v2ReportsEvidenceOverview": "نظرة عامة على الأدلة",
+  "v2ReportsWeeklyHistory": "السجل الأسبوعي",
+  "v2ReportsWeeklyReport": "تقرير الأسبوع",
+  "v2ReportsMeasurementHistory": "سجل القياسات",
+  "v2ReportsEvidenceStillDeveloping": "ما زالت أدلتك في مرحلة التكوّن",
+  "v2ReportsNotEnoughMeasurements": "لا توجد قياسات كافية للمقارنة بعد",
+  "v2ReportsComparedWithEarlier": "مقارنةً بفحصك السابق",
+  "v2ReportsSelfReportEstimate": "هذا تقدير قائم على إجاباتك الذاتية",
+  "v2ReportsNoCauseFromHistory": "لا يمكن تحديد السبب من هذا السجل",
+  "v2ReportsOrientation": "تجمع التقارير أدلة محلية صادقة من الجلسات المكتملة وملخصات الأسابيع والقياسات الذاتية الصحيحة.",
+  "v2ReportsOrientationNot": "التقارير ليست تشخيصاً، وليست نصيحة طبية، وليست مقارنة مع أشخاص آخرين.",
+  "v2ReportsLoading": "جارٍ تحميل التقارير",
+  "v2ReportsRetry": "إعادة المحاولة",
+  "v2ReportsPersistFailed": "تعذّر تحميل التقارير الآن. حاول مرة أخرى.",
+  "v2ReportsUnsupported": "صيغة هذا التقرير غير مدعومة في هذا الإصدار.",
+  "v2ReportsEmptyBody": "أكمل جلسة اليوم لتبدأ سجلاً محلياً صادقاً. لا يُختلق شيء عندما يكون السجل فارغاً.",
+  "v2ReportsSnapshotMissing": "لقطة التقدّم المحفوظة مفقودة. تُعرض الأعداد المعاد بناؤها من الجلسات المكتملة فقط.",
+  "v2ReportsDepthNoEvidence": "لا توجد أدلة بعد",
+  "v2ReportsDepthEarly": "أدلة مبكرة",
+  "v2ReportsDepthDeveloping": "أدلة قيد التكوّن",
+  "v2ReportsDepthEstablished": "سجل راسخ",
+  "v2ReportsDepthNoEvidenceExplain": "لا توجد جلسات مكتملة مسجّلة بعد.",
+  "v2ReportsDepthDevelopingExplain": "الأيام المكتملة وملخصات الأسابيع تبني سجلاً محلياً أوضح.",
+  "v2ReportsDepthEstablishedExplain": "عدة ملخصات أسبوعية وقياسات تشكّل سجلاً محلياً أطول.",
+  "v2ReportsSessionSummaryHeading": "النشاط المكتمل",
+  "v2ReportsCompletedSessions": "الجلسات المكتملة: {count}",
+  "@v2ReportsCompletedSessions": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ReportsCompletedDays": "الأيام المكتملة: {count}",
+  "@v2ReportsCompletedDays": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ReportsMinimumPath": "المسار الأدنى: {count}",
+  "@v2ReportsMinimumPath": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ReportsStandardPath": "المسار القياسي: {count}",
+  "@v2ReportsStandardPath": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ReportsCurrentRhythm": "الإيقاع الحالي: {count} يوم/أيام",
+  "@v2ReportsCurrentRhythm": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ReportsLongestRhythm": "أطول إيقاع: {count} يوم/أيام",
+  "@v2ReportsLongestRhythm": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ReportsFirstCompleted": "أول يوم مكتمل: {day}",
+  "@v2ReportsFirstCompleted": {
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+  "v2ReportsLastCompleted": "آخر يوم مكتمل: {day}",
+  "@v2ReportsLastCompleted": {
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+  "v2ReportsMeasurementStatusHeading": "حالة سجل القياسات",
+  "v2ReportsMeasurementNone": "لا توجد قياسات صحيحة بعد",
+  "v2ReportsMeasurementNoneBody": "يؤدي إكمال فحص الدماغ إلى إنشاء قياس ذاتي يمكنك مراجعته هنا.",
+  "v2ReportsMeasurementBaseline": "يوجد قياس أساسي واحد مسجّل",
+  "v2ReportsMeasurementComparable": "تتوفر قياسات قابلة للمقارنة",
+  "v2ReportsMeasurementIncompatible": "توجد قياسات لكنها غير قابلة للمقارنة بعد",
+  "v2ReportsMeasurementErrorBody": "تعذّر إعداد سجل القياسات الآن.",
+  "v2ReportsLatestScore": "أحدث تقدير: {value}",
+  "@v2ReportsLatestScore": {
+    "placeholders": {
+      "value": { "type": "String" }
+    }
+  },
+  "v2ReportsNoArtifacts": "لا توجد تقارير أسبوعية بعد",
+  "v2ReportsWeeklyReportPeriod": "الأسبوع {start} – {end}",
+  "@v2ReportsWeeklyReportPeriod": {
+    "placeholders": {
+      "start": { "type": "String" },
+      "end": { "type": "String" }
+    }
+  },
+  "v2ReportsPremiumArchiveHint": "{count} تقرير/تقارير أقدم متاحة مع أرشيف Premium",
+  "@v2ReportsPremiumArchiveHint": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ReportsPremiumGatedTitle": "الأرشيف الأقدم",
+  "v2ReportsPremiumGatedBody": "يبقى أحدث تقرير أسبوعي والتقرير السابق مجانيين. عمق الأرشيف الأقدم جزء من Premium. لا تُخفى الأدلة الحالية.",
+  "v2ReportsArtifactMissing": "تقرير الأسبوع غير موجود",
+  "v2ReportsArtifactMissingBody": "تقرير الأسبوع هذا مفقود أو غير متاح. عد إلى التقارير.",
+  "v2ReportsArtifactUnsupportedBody": "صيغة تقرير الأسبوع هذا غير مدعومة في هذا الإصدار.",
+  "v2ReportsArtifactCorrupt": "تعذّر قراءة تقرير الأسبوع",
+  "v2ReportsArtifactCorruptBody": "يبدو تقرير الأسبوع هذا غير مكتمل. عد إلى التقارير.",
+  "v2ReportsCtaLatestArtifact": "فتح أحدث تقرير أسبوعي",
+  "v2ReportsOpenMeasurementHistory": "فتح سجل القياسات",
+  "v2ReportsCtaToday": "أكمل فعل اليوم أولاً",
+  "v2ReportsBackProgress": "العودة إلى التقدّم",
+  "v2ReportsBackOverview": "العودة إلى التقارير",
+  "v2ReportsComparisonHigher": "تقديرك الذاتي الأخير أعلى من تقديرك السابق.",
+  "v2ReportsComparisonLower": "تقديرك الذاتي الأخير أقل من تقديرك السابق.",
+  "v2ReportsComparisonUnchanged": "تقديرك الذاتي الأخير لم يتغيّر عن تقديرك السابق.",
+  "v2ReportsComparisonNotComparable": "هذه القياسات غير قابلة للمقارنة فيما بينها.",
+  "v2ReportsTooEarlyToInterpret": "قد يكون الوقت مبكراً لتفسير هذا التغيير.",
+  "v2ReportsLowConfidenceQualifier": "أحد القياسات على الأقل يحمل قدراً أكبر من عدم اليقين.",
+  "v2ReportsMeasurementListHeading": "قياساتك",
+  "v2ReportsMeasuredOn": "تاريخ القياس: {day}",
+  "@v2ReportsMeasuredOn": {
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+  "v2ReportsScoreValue": "التقدير: {value}",
+  "@v2ReportsScoreValue": {
+    "placeholders": {
+      "value": { "type": "String" }
+    }
+  },
+  "v2ReportsScoreBand": "النطاق: {band}",
+  "@v2ReportsScoreBand": {
+    "placeholders": {
+      "band": { "type": "String" }
+    }
+  },
+  "v2ReportsScoreConfidence": "الثقة: {confidence}",
+  "@v2ReportsScoreConfidence": {
+    "placeholders": {
+      "confidence": { "type": "String" }
+    }
+  },
+  "v2ReportsMeasurementSemantics": "قياس في {day}، تقدير {score}، ثقة {confidence}",
+  "@v2ReportsMeasurementSemantics": {
+    "placeholders": {
+      "day": { "type": "String" },
+      "score": { "type": "String" },
+      "confidence": { "type": "String" }
+    }
+  },
+  "v2ReportsConfidenceStrong": "قوية",
+  "v2ReportsConfidenceModerate": "متوسطة",
+  "v2ReportsConfidenceProvisional": "أولية",
+  "v2ReportsDomainHistoryHeading": "سجل المجالات",
+  "v2ReportsDomainLatestOnly": "أحدث لقطة للمجالات فقط — لا يوجد سجل مجالات كافٍ للمقارنة بعد.",
+  "v2ReportsDomainRow": "{title}: {value}",
+  "@v2ReportsDomainRow": {
+    "placeholders": {
+      "title": { "type": "String" },
+      "value": { "type": "String" }
+    }
+  },
+  "v2ReportsDomainHistoryRow": "{title} في {day}: {value}",
+  "@v2ReportsDomainHistoryRow": {
+    "placeholders": {
+      "title": { "type": "String" },
+      "day": { "type": "String" },
+      "value": { "type": "String" }
+    }
+  }
 }

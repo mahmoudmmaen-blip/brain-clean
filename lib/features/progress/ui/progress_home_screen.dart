@@ -142,6 +142,14 @@ class ProgressHomeBody extends StatelessWidget {
                 const SizedBox(height: 16),
                 _WeeklyPreview(summary: vm.weeklySummaryPreview!),
               ],
+              const SizedBox(height: 16),
+              OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  minimumSize: const Size(48, 48),
+                ),
+                onPressed: () => context.go(AppRoutes.v2Reports),
+                child: Text(loc.v2ProgressReportsEntry),
+              ),
               const SizedBox(height: 28),
               _PrimaryCta(vm: vm),
             ],

@@ -72,6 +72,15 @@ abstract final class AppRoutes {
   /// WRV-02 — Weekly Review summary (gated V2).
   static const v2WeeklyReviewSummary = '/v2/weekly-review/summary';
 
+  /// RPT-01 — Reports overview (gated V2).
+  static const v2Reports = '/v2/reports';
+
+  /// RPT-02 — Weekly Artifact detail (gated V2). Query: id=
+  static const v2ReportArtifact = '/v2/reports/artifact';
+
+  /// RPT-03 — Recovery measurement history (gated V2).
+  static const v2ReportMeasurements = '/v2/reports/measurements';
+
   /// V2 onboarding foundation ONB-01…ONB-06.
   static const v2Onboarding = '/v2/onboarding';
 

@@ -37,6 +37,9 @@ import '../../features/recovery_plan/ui/plan_today_preview_screen.dart';
 import '../../features/recovery_plan/ui/plan_today_ready_boundary_screen.dart';
 import '../../features/daily_session/ui/today_home_screen.dart';
 import '../../features/progress/ui/progress_home_screen.dart';
+import '../../features/v2_reports/ui/measurement_history_screen.dart';
+import '../../features/v2_reports/ui/reports_overview_screen.dart';
+import '../../features/v2_reports/ui/weekly_artifact_detail_screen.dart';
 import '../../features/daily_session/ui/session_prepare_screen.dart';
 import '../../features/daily_session/ui/session_act_screen.dart';
 import '../../features/daily_session/ui/session_reflect_screen.dart';
@@ -456,6 +459,24 @@ GoRouter goRouter(GoRouterRef ref) {
         path: AppRoutes.v2Progress,
         name: 'v2Progress',
         builder: (context, state) => const ProgressHomeScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.v2Reports,
+        name: 'v2Reports',
+        builder: (context, state) => const ReportsOverviewScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.v2ReportArtifact,
+        name: 'v2ReportArtifact',
+        builder: (context, state) {
+          final id = state.uri.queryParameters['id'];
+          return WeeklyArtifactDetailScreen(artifactId: id);
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.v2ReportMeasurements,
+        name: 'v2ReportMeasurements',
+        builder: (context, state) => const MeasurementHistoryScreen(),
       ),
       GoRoute(
         path: AppRoutes.v2SessionPrepare,
