@@ -11,4 +11,7 @@ abstract final class V2FeatureBoundary {
 
   /// V2 Recovery Plan routes share the Brain Profile feature gate.
   static bool get enableRecoveryPlanRoutes => enableBrainProfileRoutes;
+
+  /// V2 onboarding shares the same local feature gate (no startup change).
+  static bool get enableV2OnboardingRoutes => enableBrainProfileRoutes;
 }

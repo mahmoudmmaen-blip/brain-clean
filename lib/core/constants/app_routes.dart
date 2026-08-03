@@ -44,4 +44,13 @@ abstract final class AppRoutes {
 
   /// Temporary Today-ready boundary (no session player yet).
   static const v2PlanTodayReady = '/v2/plan/today-ready';
+
+  /// V2 onboarding foundation ONB-01…ONB-06.
+  static const v2Onboarding = '/v2/onboarding';
+
+  /// CHK-01 entry boundary (no full questionnaire UI yet).
+  static const v2BrainCheckEntry = '/v2/brain-check/entry';
+
+  /// Temporary boundary after Brain Check start/resume.
+  static const v2BrainCheckReadyBoundary = '/v2/brain-check/ready';
 }

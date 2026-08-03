@@ -34,6 +34,9 @@ import '../../features/brain_profile/ui/profile_ready_boundary_screen.dart';
 import '../../features/recovery_plan/ui/plan_building_screen.dart';
 import '../../features/recovery_plan/ui/plan_reveal_screen.dart';
 import '../../features/recovery_plan/ui/plan_today_ready_boundary_screen.dart';
+import '../../features/v2_onboarding/ui/brain_check_entry_boundary_screen.dart';
+import '../../features/v2_onboarding/ui/brain_check_ready_boundary_screen.dart';
+import '../../features/v2_onboarding/ui/v2_onboarding_flow_screen.dart';
 import '../constants/app_routes.dart';
 import '../security/biometric_lock_screen.dart';
 import '../security/security_status_provider.dart';
@@ -424,6 +427,25 @@ GoRouter goRouter(GoRouterRef ref) {
           final planId = state.uri.queryParameters['plan'];
           return PlanTodayReadyBoundaryScreen(planId: planId);
         },
+      ),
+      GoRoute(
+        path: AppRoutes.v2Onboarding,
+        name: 'v2Onboarding',
+        builder: (context, state) => const V2OnboardingFlowScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.v2BrainCheckEntry,
+        name: 'v2BrainCheckEntry',
+        builder: (context, state) {
+          final mode = state.uri.queryParameters['mode'] ?? 'lite';
+          final source = state.uri.queryParameters['source'] ?? 'onboarding';
+          return BrainCheckEntryBoundaryScreen(mode: mode, source: source);
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.v2BrainCheckReadyBoundary,
+        name: 'v2BrainCheckReadyBoundary',
+        builder: (context, state) => const BrainCheckReadyBoundaryScreen(),
       ),
     ],
     errorBuilder: (context, state) => Scaffold(

@@ -22,4 +22,7 @@ abstract final class HiveBoxes {
 
   /// V2 Recovery Plan history (RecoveryPlanPack append-only, local-first).
   static const recoveryPlan = 'recovery_plan_v1';
+
+  /// V2 onboarding foundation (ONB-01…ONB-06), local-first.
+  static const v2Onboarding = 'v2_onboarding_v1';
 }

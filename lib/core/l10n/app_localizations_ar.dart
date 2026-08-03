@@ -1680,4 +1680,193 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get recoveryPlanTodayReadyBody =>
       'مشغّل الجلسة اليومية يأتي في خطوة لاحقة. خطة التعافي محفوظة على هذا الجهاز.';
+
+  @override
+  String get v2OnboardingLoading => 'جارٍ التحميل…';
+
+  @override
+  String get v2OnboardingContinue => 'متابعة';
+
+  @override
+  String get v2OnboardingBack => 'رجوع';
+
+  @override
+  String get v2OnboardingRetry => 'حاول مرة أخرى';
+
+  @override
+  String get v2OnboardingRestart => 'ابدأ التهيئة من جديد';
+
+  @override
+  String get v2OnboardingGoHome => 'العودة إلى الرئيسية';
+
+  @override
+  String v2OnboardingProgressLabel(String current, String total) {
+    return 'الخطوة $current من $total';
+  }
+
+  @override
+  String v2OnboardingProgressSemantics(String current, String total) {
+    return 'خطوة التهيئة $current من $total';
+  }
+
+  @override
+  String get v2OnboardingLanguageArabic => 'العربية';
+
+  @override
+  String get v2OnboardingLanguageEnglish => 'English';
+
+  @override
+  String get v2OnboardingWelcomeTitle => 'مرحباً بك في Brain Clean';
+
+  @override
+  String get v2OnboardingWelcomeBody =>
+      'يساعدك Brain Clean على تقدير حالتك الحالية في التعافي، وبناء خطة تعافٍ مخصصة، وملاحظة التغيير مع الوقت — بهدوء ودون ادعاءات طبية.';
+
+  @override
+  String get v2OnboardingExpectationsTitle => 'ما الذي تتوقعه';
+
+  @override
+  String get v2OnboardingExpectationsBody =>
+      'مسار قصير وصادق — ليس تشخيصاً وليس ضماناً.';
+
+  @override
+  String get v2OnboardingExpectation1 =>
+      'جلسة يومية قصيرة عندما تكون جاهزاً — حوالي خمس دقائق.';
+
+  @override
+  String get v2OnboardingExpectation2 =>
+      'فحص دماغ مبني على تقرير ذاتي، وليس تشخيصاً طبياً.';
+
+  @override
+  String get v2OnboardingExpectation3 =>
+      'خطة عملية يمكن فهمها، مع تقدّم يمكن ملاحظته مع الوقت.';
+
+  @override
+  String get v2OnboardingExpectationsFootnote =>
+      'النتائج غير مضمونة. قد يتقدّم التقدّم ويتراجع.';
+
+  @override
+  String get v2OnboardingConsentTitle => 'قبل المتابعة';
+
+  @override
+  String get v2OnboardingConsentBody =>
+      'يرجى تأكيد فهمك لكيفية استخدام Brain Clean.';
+
+  @override
+  String get v2OnboardingConsentNonMedical =>
+      'أفهم أن Brain Clean ليس تشخيصاً طبياً ولا تقييماً سريرياً ولا علاجاً.';
+
+  @override
+  String get v2OnboardingConsentTerms =>
+      'أوافق على المتابعة وفق شروط استخدام التطبيق.';
+
+  @override
+  String get v2OnboardingConsentAnalytics =>
+      'اختياري: السماح بإشارات استخدام مجهولة للمنتج (متوقفة افتراضياً).';
+
+  @override
+  String get v2OnboardingConsentHint => 'حدّد المربعات المطلوبة للمتابعة.';
+
+  @override
+  String get v2OnboardingPrivacyTitle => 'بياناتك على هذا الجهاز';
+
+  @override
+  String get v2OnboardingPrivacyBody =>
+      'تُحسب إجابات فحص الدماغ الأساسية ودرجة التعافي وخطة التعافي وتُخزَّن محلياً على هذا الجهاز. يمكنك إيقاف فحص الدماغ واستئنافه. تبقى الشروحات قابلة للمراجعة. الدرجة لا يولّدها ذكاء اصطناعي.';
+
+  @override
+  String get v2OnboardingPrivacyFootnote =>
+      'قد تستخدم بعض ميزات المنتج الاختيارية الشبكة لاحقاً (مثل المزامنة أو الدعم أو الإعلانات عند تفعيلها). المتابعة تعمل دون اتصال.';
+
+  @override
+  String get v2OnboardingPrivacyPolicyLink => 'ملخص الخصوصية';
+
+  @override
+  String get v2OnboardingPrivacyCachedSummary =>
+      'يبقي Brain Clean بيانات الفحص والخطة الأساسية محلية أولاً. ميزات السحابة أو الشبكة الاختيارية منفصلة وغير مطلوبة لإكمال هذه التهيئة. هذا ليس شهادة خصوصية طبية.';
+
+  @override
+  String get v2OnboardingRitualTitle => 'متى تناسبك جلسة قصيرة عادةً؟';
+
+  @override
+  String get v2OnboardingRitualBody =>
+      'اختر نافذة لطيفة كتذكير. يمكنك تغيير ذلك لاحقاً.';
+
+  @override
+  String get v2OnboardingRitualMorning => 'صباحاً';
+
+  @override
+  String get v2OnboardingRitualAfternoon => 'ظهراً';
+
+  @override
+  String get v2OnboardingRitualEvening => 'مساءً';
+
+  @override
+  String get v2OnboardingRitualDecideLater => 'قرّر لاحقاً';
+
+  @override
+  String get v2OnboardingCheckIntroTitle => 'فحص الدماغ';
+
+  @override
+  String get v2OnboardingCheckIntroBody =>
+      'فحص الدماغ تقرير ذاتي قصير. ليس تشخيصاً طبياً، ولا كشفاً عن تلف دماغي، ولا اختبار ذكاء. تبقى إجاباتك على هذا الجهاز وتساعد في بناء خطة عملية.';
+
+  @override
+  String get v2OnboardingCheckIntroMeta =>
+      'فحص خفيف · بضع دقائق · قابل للاستئناف';
+
+  @override
+  String get v2OnboardingStartBrainCheck => 'ابدأ فحص الدماغ';
+
+  @override
+  String get v2OnboardingCorruptTitle => 'لنبدأ من جديد بهدوء';
+
+  @override
+  String get v2OnboardingCorruptBody =>
+      'تعذّر قراءة بيانات التهيئة بأمان. لم تُحذف إجابات فحص الدماغ. يمكنك بدء التهيئة مرة أخرى.';
+
+  @override
+  String get v2BrainCheckEntryTitle => 'فحص الدماغ';
+
+  @override
+  String get v2BrainCheckEntryLoading => 'جارٍ تجهيز فحص الدماغ…';
+
+  @override
+  String get v2BrainCheckEntryBody =>
+      'تقرير ذاتي هادئ للمساعدة على تقدير حالتك الحالية في التعافي.';
+
+  @override
+  String get v2BrainCheckEntryNonMedical =>
+      'ليس تشخيصاً طبياً. ليس علاجاً. ليس مقياساً للذكاء.';
+
+  @override
+  String get v2BrainCheckEntryDuration =>
+      'فحص خفيف · قصير · يمكنك التوقّف في أي وقت';
+
+  @override
+  String get v2BrainCheckEntryStart => 'ابدأ فحص الدماغ';
+
+  @override
+  String get v2BrainCheckEntryResume => 'استئناف فحص الدماغ';
+
+  @override
+  String get v2BrainCheckEntryResumeHint =>
+      'لديك فحص دماغ غير مكتمل على هذا الجهاز.';
+
+  @override
+  String get v2BrainCheckEntryStartOver => 'البدء من جديد';
+
+  @override
+  String get v2BrainCheckEntryAlreadyComplete =>
+      'فحص الدماغ مكتمل بالفعل. البدء من جديد متاح في خطوات لاحقة — ولم تُمسَ الإجابات.';
+
+  @override
+  String get v2BrainCheckEntryError => 'تعذّر تجهيز فحص الدماغ الآن.';
+
+  @override
+  String get v2BrainCheckReadyTitle => 'فحص الدماغ جاهز';
+
+  @override
+  String get v2BrainCheckReadyBody =>
+      'مسار الأسئلة الكامل يأتي في خطوة لاحقة. تم حفظ تسليم التهيئة ودخول الفحص على هذا الجهاز.';
 }

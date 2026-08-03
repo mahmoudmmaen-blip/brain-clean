@@ -3145,6 +3145,330 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your daily session player arrives in a later step. Your Recovery Plan is saved on this device.'**
   String get recoveryPlanTodayReadyBody;
+
+  /// No description provided for @v2OnboardingLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading…'**
+  String get v2OnboardingLoading;
+
+  /// No description provided for @v2OnboardingContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get v2OnboardingContinue;
+
+  /// No description provided for @v2OnboardingBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get v2OnboardingBack;
+
+  /// No description provided for @v2OnboardingRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get v2OnboardingRetry;
+
+  /// No description provided for @v2OnboardingRestart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start onboarding again'**
+  String get v2OnboardingRestart;
+
+  /// No description provided for @v2OnboardingGoHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Home'**
+  String get v2OnboardingGoHome;
+
+  /// No description provided for @v2OnboardingProgressLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Step {current} of {total}'**
+  String v2OnboardingProgressLabel(String current, String total);
+
+  /// No description provided for @v2OnboardingProgressSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Onboarding step {current} of {total}'**
+  String v2OnboardingProgressSemantics(String current, String total);
+
+  /// No description provided for @v2OnboardingLanguageArabic.
+  ///
+  /// In en, this message translates to:
+  /// **'العربية'**
+  String get v2OnboardingLanguageArabic;
+
+  /// No description provided for @v2OnboardingLanguageEnglish.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get v2OnboardingLanguageEnglish;
+
+  /// No description provided for @v2OnboardingWelcomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to Brain Clean'**
+  String get v2OnboardingWelcomeTitle;
+
+  /// No description provided for @v2OnboardingWelcomeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Clean helps you estimate your current recovery state, build a personalized recovery plan, and observe change over time — calmly, and without medical claims.'**
+  String get v2OnboardingWelcomeBody;
+
+  /// No description provided for @v2OnboardingExpectationsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What to expect'**
+  String get v2OnboardingExpectationsTitle;
+
+  /// No description provided for @v2OnboardingExpectationsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A short, honest path — not a diagnosis and not a guarantee.'**
+  String get v2OnboardingExpectationsBody;
+
+  /// No description provided for @v2OnboardingExpectation1.
+  ///
+  /// In en, this message translates to:
+  /// **'A brief daily Session when you are ready — about five minutes.'**
+  String get v2OnboardingExpectation1;
+
+  /// No description provided for @v2OnboardingExpectation2.
+  ///
+  /// In en, this message translates to:
+  /// **'A self-report Brain Check that is not a medical diagnosis.'**
+  String get v2OnboardingExpectation2;
+
+  /// No description provided for @v2OnboardingExpectation3.
+  ///
+  /// In en, this message translates to:
+  /// **'A practical plan you can understand, with progress you can observe over time.'**
+  String get v2OnboardingExpectation3;
+
+  /// No description provided for @v2OnboardingExpectationsFootnote.
+  ///
+  /// In en, this message translates to:
+  /// **'Results are not guaranteed. Progress can ebb and flow.'**
+  String get v2OnboardingExpectationsFootnote;
+
+  /// No description provided for @v2OnboardingConsentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Before you continue'**
+  String get v2OnboardingConsentTitle;
+
+  /// No description provided for @v2OnboardingConsentBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Please confirm you understand how Brain Clean is meant to be used.'**
+  String get v2OnboardingConsentBody;
+
+  /// No description provided for @v2OnboardingConsentNonMedical.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand Brain Clean is not a medical diagnosis, clinical assessment, or treatment.'**
+  String get v2OnboardingConsentNonMedical;
+
+  /// No description provided for @v2OnboardingConsentTerms.
+  ///
+  /// In en, this message translates to:
+  /// **'I agree to continue with the app’s terms of use.'**
+  String get v2OnboardingConsentTerms;
+
+  /// No description provided for @v2OnboardingConsentAnalytics.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional: allow anonymous product usage signals (off by default).'**
+  String get v2OnboardingConsentAnalytics;
+
+  /// No description provided for @v2OnboardingConsentHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Select the required boxes to continue.'**
+  String get v2OnboardingConsentHint;
+
+  /// No description provided for @v2OnboardingPrivacyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your data on this device'**
+  String get v2OnboardingPrivacyTitle;
+
+  /// No description provided for @v2OnboardingPrivacyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Core Brain Check answers, Recovery Score, and Recovery Plan are calculated and stored locally on this device. You can pause and resume a Brain Check. Explanations stay reviewable. The score is not generated by AI.'**
+  String get v2OnboardingPrivacyBody;
+
+  /// No description provided for @v2OnboardingPrivacyFootnote.
+  ///
+  /// In en, this message translates to:
+  /// **'Some optional product features may use the network later (for example sync, support, or ads when enabled). Continuing works offline.'**
+  String get v2OnboardingPrivacyFootnote;
+
+  /// No description provided for @v2OnboardingPrivacyPolicyLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy summary'**
+  String get v2OnboardingPrivacyPolicyLink;
+
+  /// No description provided for @v2OnboardingPrivacyCachedSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Clean keeps your core check and plan data local-first. Optional cloud or network features are separate and not required to finish this onboarding. This is not a medical privacy certification.'**
+  String get v2OnboardingPrivacyCachedSummary;
+
+  /// No description provided for @v2OnboardingRitualTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'When would a short Session usually fit?'**
+  String get v2OnboardingRitualTitle;
+
+  /// No description provided for @v2OnboardingRitualBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a gentle window as a reminder cue. You can change this later.'**
+  String get v2OnboardingRitualBody;
+
+  /// No description provided for @v2OnboardingRitualMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'Morning'**
+  String get v2OnboardingRitualMorning;
+
+  /// No description provided for @v2OnboardingRitualAfternoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Afternoon'**
+  String get v2OnboardingRitualAfternoon;
+
+  /// No description provided for @v2OnboardingRitualEvening.
+  ///
+  /// In en, this message translates to:
+  /// **'Evening'**
+  String get v2OnboardingRitualEvening;
+
+  /// No description provided for @v2OnboardingRitualDecideLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Decide later'**
+  String get v2OnboardingRitualDecideLater;
+
+  /// No description provided for @v2OnboardingCheckIntroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Check'**
+  String get v2OnboardingCheckIntroTitle;
+
+  /// No description provided for @v2OnboardingCheckIntroBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Check is a short self-report. It is not a medical diagnosis, not brain-damage detection, and not an intelligence test. Your answers stay on this device and help build a practical plan.'**
+  String get v2OnboardingCheckIntroBody;
+
+  /// No description provided for @v2OnboardingCheckIntroMeta.
+  ///
+  /// In en, this message translates to:
+  /// **'Lite Check · about a few minutes · resumable'**
+  String get v2OnboardingCheckIntroMeta;
+
+  /// No description provided for @v2OnboardingStartBrainCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Brain Check'**
+  String get v2OnboardingStartBrainCheck;
+
+  /// No description provided for @v2OnboardingCorruptTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Let’s start fresh'**
+  String get v2OnboardingCorruptTitle;
+
+  /// No description provided for @v2OnboardingCorruptBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved onboarding could not be read safely. Your Brain Check answers were not deleted. You can begin onboarding again.'**
+  String get v2OnboardingCorruptBody;
+
+  /// No description provided for @v2BrainCheckEntryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Check'**
+  String get v2BrainCheckEntryTitle;
+
+  /// No description provided for @v2BrainCheckEntryLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing Brain Check…'**
+  String get v2BrainCheckEntryLoading;
+
+  /// No description provided for @v2BrainCheckEntryBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A calm self-report to help estimate your current recovery state.'**
+  String get v2BrainCheckEntryBody;
+
+  /// No description provided for @v2BrainCheckEntryNonMedical.
+  ///
+  /// In en, this message translates to:
+  /// **'Not a medical diagnosis. Not treatment. Not a measure of intelligence.'**
+  String get v2BrainCheckEntryNonMedical;
+
+  /// No description provided for @v2BrainCheckEntryDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Lite Check · short · you can pause anytime'**
+  String get v2BrainCheckEntryDuration;
+
+  /// No description provided for @v2BrainCheckEntryStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Brain Check'**
+  String get v2BrainCheckEntryStart;
+
+  /// No description provided for @v2BrainCheckEntryResume.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume Brain Check'**
+  String get v2BrainCheckEntryResume;
+
+  /// No description provided for @v2BrainCheckEntryResumeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'You have an unfinished Brain Check on this device.'**
+  String get v2BrainCheckEntryResumeHint;
+
+  /// No description provided for @v2BrainCheckEntryStartOver.
+  ///
+  /// In en, this message translates to:
+  /// **'Start over'**
+  String get v2BrainCheckEntryStartOver;
+
+  /// No description provided for @v2BrainCheckEntryAlreadyComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'A Brain Check is already complete. Starting again is available from later product steps — answers were not wiped.'**
+  String get v2BrainCheckEntryAlreadyComplete;
+
+  /// No description provided for @v2BrainCheckEntryError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not prepare Brain Check right now.'**
+  String get v2BrainCheckEntryError;
+
+  /// No description provided for @v2BrainCheckReadyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Check is ready'**
+  String get v2BrainCheckReadyTitle;
+
+  /// No description provided for @v2BrainCheckReadyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The full question flow arrives in a later step. Your onboarding handoff and check entry are saved on this device.'**
+  String get v2BrainCheckReadyBody;
 }
 
 class _AppLocalizationsDelegate
