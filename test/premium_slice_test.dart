@@ -26,6 +26,7 @@ class FakePremiumStore implements PremiumStorePort {
   FakePremiumStore({
     this.entitled = false,
     this.online = true,
+    this.storeConfigured = true,
     this.offerings = const [],
     this.purchaseOutcome = PremiumPurchaseOutcome.success,
     this.restoreOutcome = PremiumRestoreOutcome.nothingToRestore,
@@ -34,6 +35,7 @@ class FakePremiumStore implements PremiumStorePort {
 
   bool entitled;
   bool online;
+  bool storeConfigured;
   List<PremiumOffering> offerings;
   PremiumPurchaseOutcome purchaseOutcome;
   PremiumRestoreOutcome restoreOutcome;
@@ -49,6 +51,9 @@ class FakePremiumStore implements PremiumStorePort {
 
   @override
   bool get isOnline => online;
+
+  @override
+  bool get isStoreConfigured => storeConfigured;
 
   @override
   Future<List<PremiumOffering>> loadOfferings() async {
@@ -80,7 +85,7 @@ class FakePremiumStore implements PremiumStorePort {
 List<PremiumOffering> sampleOfferings({bool withTrial = false}) {
   return [
     PremiumOffering(
-      productId: PremiumIdentifiers.stubMonthlyPlanId,
+      productId: PremiumIdentifiers.monthlyProductId,
       title: 'Monthly',
       priceString: 'SAR 18.99',
       period: SubscriptionPeriod.monthly,
@@ -88,13 +93,13 @@ List<PremiumOffering> sampleOfferings({bool withTrial = false}) {
       trialLabel: withTrial ? '7-day trial' : null,
     ),
     PremiumOffering(
-      productId: PremiumIdentifiers.stubAnnualPlanId,
+      productId: PremiumIdentifiers.yearlyProductId,
       title: 'Annual',
       priceString: 'SAR 149.99',
       period: SubscriptionPeriod.annual,
     ),
     PremiumOffering(
-      productId: PremiumIdentifiers.stubLifetimePlanId,
+      productId: PremiumIdentifiers.lifetimeProductId,
       title: 'Lifetime',
       priceString: 'SAR 399.99',
       period: SubscriptionPeriod.lifetime,

@@ -3,6 +3,7 @@ import 'package:brain_clean_mobile/core/constants/hive_meta_keys.dart';
 import 'package:brain_clean_mobile/core/data/app_meta_box_provider.dart';
 import 'package:brain_clean_mobile/core/theme/app_color_theme.dart';
 import 'package:brain_clean_mobile/core/theme/app_color_theme_provider.dart';
+import 'package:brain_clean_mobile/features/pro/application/subscription_service_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -14,6 +15,8 @@ ProviderContainer _container({
 }) {
   final container = ProviderContainer(
     overrides: [
+      // Theme gating tests exercise the local fake adapter + preferences only.
+      forceLocalSubscriptionAdapterProvider.overrideWithValue(true),
       appMetaBoxProvider.overrideWithValue(InMemoryHiveBox(seed)),
       appPreferencesProvider.overrideWith(
         () => isPro ? _ProPreferences() : _FreePreferences(),

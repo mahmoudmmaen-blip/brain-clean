@@ -25,9 +25,22 @@ abstract final class AppConfig {
         envKey: 'SUPABASE_ANON_KEY',
       );
 
+  /// Transitional single-slot key (current platform only when Android/iOS unset).
   static String get revenueCatApiKey => _resolve(
         defineValue: const String.fromEnvironment('REVENUECAT_API_KEY'),
         envKey: 'REVENUECAT_API_KEY',
+      );
+
+  /// Preferred Android public SDK key (Production Monetization Contract §5).
+  static String get revenueCatAndroidApiKey => _resolve(
+        defineValue: const String.fromEnvironment('REVENUECAT_ANDROID_API_KEY'),
+        envKey: 'REVENUECAT_ANDROID_API_KEY',
+      );
+
+  /// Preferred iOS public SDK key (Production Monetization Contract §5).
+  static String get revenueCatIosApiKey => _resolve(
+        defineValue: const String.fromEnvironment('REVENUECAT_IOS_API_KEY'),
+        envKey: 'REVENUECAT_IOS_API_KEY',
       );
 
   static String get xpHmacSecret => _resolve(
@@ -39,8 +52,25 @@ abstract final class AppConfig {
   static bool get hasValidSupabaseConfig =>
       supabaseUrl.isNotEmpty && supabaseAnonKey.isNotEmpty;
 
-  /// True when RevenueCat public SDK key is non-empty and not a placeholder.
-  static bool get hasValidRevenueCatApiKey => revenueCatApiKey.isNotEmpty;
+  /// True when a usable RevenueCat public SDK key is present for this build.
+  ///
+  /// Prefer calling [revenueCatPublicSdkKey] with an explicit platform in
+  /// production selection code.
+  static bool get hasValidRevenueCatApiKey =>
+      revenueCatAndroidApiKey.isNotEmpty ||
+      revenueCatIosApiKey.isNotEmpty ||
+      revenueCatApiKey.isNotEmpty;
+
+  /// Platform-appropriate public SDK key (never log the returned value).
+  ///
+  /// Prefers Android/iOS-specific defines; falls back to transitional
+  /// [revenueCatApiKey] when platform-specific keys are absent.
+  static String revenueCatPublicSdkKey({required bool isIOS}) {
+    final platformKey =
+        isIOS ? revenueCatIosApiKey : revenueCatAndroidApiKey;
+    if (platformKey.isNotEmpty) return platformKey;
+    return revenueCatApiKey;
+  }
 
   /// Set after anonymous Supabase sign-in (XP sync / Edge Functions).
   static String? supabaseUserId;

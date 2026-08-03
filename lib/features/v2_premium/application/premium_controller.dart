@@ -115,14 +115,18 @@ class PremiumController {
         return;
       }
       if (offerings.isEmpty) {
+        final unavailable = !_store.isStoreConfigured;
         _set(
           PremiumViewState(
-            phase: PremiumPurchasePhase.noOffering,
+            phase: unavailable
+                ? PremiumPurchasePhase.storeUnavailable
+                : PremiumPurchasePhase.noOffering,
             offerings: const [],
             isEntitled: false,
             source: source,
             busy: false,
-            messageKey: 'no_offering',
+            messageKey:
+                unavailable ? 'store_unavailable' : 'no_offering',
           ),
         );
         return;

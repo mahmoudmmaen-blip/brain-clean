@@ -1,12 +1,10 @@
+import '../../pro/domain/subscription_outcomes.dart';
 import '../../pro/domain/subscription_plan.dart';
 import '../../pro/domain/subscription_service.dart';
 import '../domain/premium_offering.dart';
 import '../domain/premium_store_port.dart';
 
-/// Adapts the existing [SubscriptionService] for V2 Premium.
-///
-/// Does not hardcode prices in UI — prices come from [SubscriptionPlan.priceString]
-/// supplied by the active subscription layer (store when wired; local stub for dev).
+/// Adapts [SubscriptionService] for V2 Premium (Production Monetization Contract).
 class SubscriptionPremiumStorePort implements PremiumStorePort {
   SubscriptionPremiumStorePort({
     required SubscriptionService service,
@@ -23,9 +21,6 @@ class SubscriptionPremiumStorePort implements PremiumStorePort {
   final bool Function() _isOnline;
   final String Function(SubscriptionPeriod period)? _periodTitle;
 
-  bool _inflightPurchase = false;
-  bool _inflightRestore = false;
-
   @override
   bool get isEntitled => _service.isPro;
 
@@ -36,12 +31,16 @@ class SubscriptionPremiumStorePort implements PremiumStorePort {
   bool get isOnline => _isOnline();
 
   @override
+  bool get isStoreConfigured => _service.isStoreConfigured;
+
+  @override
   Future<List<PremiumOffering>> loadOfferings() async {
+    await _service.ensureInitialized();
     if (!_isOnline()) {
       return const [];
     }
     try {
-      final plans = _service.plans;
+      final plans = await _service.loadOfferings();
       return plans
           .map(
             (p) => PremiumOffering(
@@ -49,7 +48,6 @@ class SubscriptionPremiumStorePort implements PremiumStorePort {
               title: _periodTitle?.call(p.period) ?? p.title,
               priceString: p.priceString,
               period: p.period,
-              // Local / current service does not confirm store trials.
               trialConfirmed: false,
               introPricingConfirmed: false,
             ),
@@ -62,44 +60,29 @@ class SubscriptionPremiumStorePort implements PremiumStorePort {
 
   @override
   Future<PremiumPurchaseOutcome> purchase(String productId) async {
-    if (_inflightPurchase) {
-      return PremiumPurchaseOutcome.failed;
-    }
-    if (_service.isPro) {
-      return PremiumPurchaseOutcome.alreadyEntitled;
-    }
-    _inflightPurchase = true;
-    try {
-      final ok = await _service.purchase(productId);
-      _onEntitlementMaybeChanged();
-      if (ok) return PremiumPurchaseOutcome.success;
-      return PremiumPurchaseOutcome.failed;
-    } catch (_) {
-      return PremiumPurchaseOutcome.failed;
-    } finally {
-      _inflightPurchase = false;
-    }
+    final result = await _service.purchasePlan(productId);
+    _onEntitlementMaybeChanged();
+    return switch (result) {
+      SubscriptionPurchaseResult.success => PremiumPurchaseOutcome.success,
+      SubscriptionPurchaseResult.cancelled => PremiumPurchaseOutcome.cancelled,
+      SubscriptionPurchaseResult.pending => PremiumPurchaseOutcome.pending,
+      SubscriptionPurchaseResult.alreadyEntitled =>
+        PremiumPurchaseOutcome.alreadyEntitled,
+      SubscriptionPurchaseResult.storeUnavailable =>
+        PremiumPurchaseOutcome.failed,
+      SubscriptionPurchaseResult.failed => PremiumPurchaseOutcome.failed,
+    };
   }
 
   @override
   Future<PremiumRestoreOutcome> restore() async {
-    if (_inflightRestore) {
-      // Idempotent: ignore overlapping restore.
-      return _service.isPro
-          ? PremiumRestoreOutcome.restored
-          : PremiumRestoreOutcome.nothingToRestore;
-    }
-    _inflightRestore = true;
-    try {
-      await _service.restorePurchases();
-      _onEntitlementMaybeChanged();
-      return _service.isPro
-          ? PremiumRestoreOutcome.restored
-          : PremiumRestoreOutcome.nothingToRestore;
-    } catch (_) {
-      return PremiumRestoreOutcome.failed;
-    } finally {
-      _inflightRestore = false;
-    }
+    final result = await _service.restoreEntitlements();
+    _onEntitlementMaybeChanged();
+    return switch (result) {
+      SubscriptionRestoreResult.restored => PremiumRestoreOutcome.restored,
+      SubscriptionRestoreResult.nothingToRestore =>
+        PremiumRestoreOutcome.nothingToRestore,
+      SubscriptionRestoreResult.failed => PremiumRestoreOutcome.failed,
+    };
   }
 }

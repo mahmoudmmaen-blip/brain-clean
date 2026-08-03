@@ -165,7 +165,15 @@
       </ul>
 
       <h3>5. In-app AI helpers (when cloud is enabled)</h3>
-      <p>If you use optional AI features (for example Safa / Emotion Oasis chat) in a cloud-enabled production build, the message text you send may be processed through our backend (Supabase Edge Functions) and AI providers solely to generate a reply.</p>
+      <p>If you use optional AI features — including <strong>Safa</strong> (صفا) contextual support, and legacy Emotion Oasis chat — in a cloud-enabled production build:</p>
+      <ul>
+        <li>The message text you type may be sent to an AI-backed service over the network.</li>
+        <li>Only that typed text and any context you <strong>explicitly select</strong> for that send are transmitted.</li>
+        <li>Brain Check answers, full Brain Profile values, Recovery Score internals, Weekly Review answers, Reports content, and private notes are <strong>not</strong> transferred automatically.</li>
+        <li>Requests go through our approved backend (<strong>Supabase Edge Functions</strong>) to AI providers; there is <strong>no</strong> NVIDIA path and the app does <strong>not</strong> embed a direct Claude API key.</li>
+        <li>Safa is <strong>not</strong> medical care, emergency services, or crisis counseling. Local offline fallback remains available, and you may decline Safa and continue using the rest of the app.</li>
+        <li>Raw conversation archives are not kept by default.</li>
+      </ul>
 
       <h3>6. Purchases (when enabled in a production build)</h3>
       <p>If Pro / billing is enabled in a production build, purchases are handled by <strong>Google Play Billing</strong> and <strong>RevenueCat</strong>.</p>
@@ -173,7 +181,7 @@
 
       <h3>7. What we do <strong>not</strong> collect in v1</h3>
       <ul>
-        <li><strong>No advertising SDKs</strong> in the current build — this app does <strong>not</strong> contain ads.</li>
+        <li><strong>No advertising in the current root V2 product surfaces</strong> — this release does <strong>not</strong> show ads; Premium is not sold as ad removal for this cut.</li>
         <li><strong>No</strong> Android Usage Access / installed-app usage / social-app usage-time collection in v1.</li>
         <li><strong>No</strong> collection of your name, email, or phone number through the anonymous auth flow described above.</li>
       </ul>
@@ -278,7 +286,15 @@
       </ul>
 
       <h3>5. المساعدات الذكية داخل التطبيق (عند تفعيل السحابة)</h3>
-      <p>إذا استخدمت ميزات الذكاء الاصطناعي الاختيارية (مثل صفا / دردشة واحة المشاعر) في نسخة إنتاج مفعَّلة سحابيًا، قد تُعالَج نصوص الرسائل التي ترسلها عبر خوادمنا (Supabase Edge Functions) ومزوّدي الذكاء الاصطناعي فقط لإنشاء الرد.</p>
+      <p>إذا استخدمت ميزات الذكاء الاصطناعي الاختيارية — بما في ذلك دعم <strong>صفا</strong> السياقي، ودردشة واحة المشاعر القديمة — في نسخة إنتاج مفعَّلة سحابيًا:</p>
+      <ul>
+        <li>قد يُرسَل نص الرسالة التي تكتبها إلى خدمة مدعومة بالذكاء الاصطناعي عبر الشبكة.</li>
+        <li>يُرسَل فقط ذلك النص المكتوب وأي سياق تختاره <strong>صراحة</strong> لذلك الإرسال.</li>
+        <li>لا تُنقل تلقائيًا إجابات فحص الدماغ، ولا قيم ملف الذهن الكاملة، ولا تفاصيل درجة التعافي الداخلية، ولا إجابات المراجعة الأسبوعية، ولا محتوى التقارير، ولا الملاحظات الخاصة.</li>
+        <li>تمرّ الطلبات عبر البنية الخلفية المعتمدة (<strong>Supabase Edge Functions</strong>) إلى مزوّدي الذكاء الاصطناعي؛ لا يوجد مسار NVIDIA، والتطبيق <strong>لا</strong> يضمّن مفتاح Claude مباشرًا على الجهاز.</li>
+        <li>صفا <strong>ليست</strong> رعاية طبية ولا خدمات طوارئ ولا استشارات أزمات. يبقى الدعم المحلي دون اتصال متاحًا، ويمكنك رفض صفا ومتابعة استخدام بقية التطبيق.</li>
+        <li>لا تُحفظ أرشيفات محادثات خام بشكل افتراضي.</li>
+      </ul>
 
       <h3>6. المشتريات (عند تفعيلها في نسخة الإنتاج)</h3>
       <p>إذا كان Pro / الفوترة مفعّلين في نسخة الإنتاج، تتم المشتريات عبر <strong>Google Play Billing</strong> و<strong>RevenueCat</strong>.</p>
@@ -286,7 +302,7 @@
 
       <h3>7. ما لا نجمعه في v1</h3>
       <ul>
-        <li><strong>لا</strong> توجد حزم إعلانات في البناء الحالي — التطبيق <strong>لا</strong> يحتوي على إعلانات.</li>
+        <li><strong>لا إعلانات في واجهات منتج V2 الأساسية الحالية</strong> — هذا الإصدار <strong>لا</strong> يعرض إعلانات؛ ولا يُباع بريميوم على أنه إزالة إعلانات في هذه المرحلة.</li>
         <li><strong>لا</strong> جمع لإحصاءات استخدام التطبيقات / صلاحية Usage Access / وقت تطبيقات التواصل في v1.</li>
         <li><strong>لا</strong> جمع لاسمك أو بريدك أو رقم هاتفك عبر مسار المصادقة المجهولة الموضّح أعلاه.</li>
       </ul>

@@ -23,6 +23,9 @@ abstract interface class PremiumStorePort {
 
   bool get isOnline;
 
+  /// False when production RevenueCat public SDK key is missing/unusable.
+  bool get isStoreConfigured;
+
   Future<List<PremiumOffering>> loadOfferings();
 
   Future<PremiumPurchaseOutcome> purchase(String productId);

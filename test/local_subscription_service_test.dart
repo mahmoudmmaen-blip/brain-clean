@@ -12,6 +12,7 @@ ProviderContainer _container() {
     overrides: [
       appMetaBoxProvider.overrideWithValue(InMemoryHiveBox()),
       appPreferencesProvider.overrideWith(_FreePreferences.new),
+      forceLocalSubscriptionAdapterProvider.overrideWithValue(true),
     ],
   );
   addTearDown(container.dispose);
