@@ -51,6 +51,12 @@ abstract final class AppRoutes {
   /// CHK-01 entry boundary (no full questionnaire UI yet).
   static const v2BrainCheckEntry = '/v2/brain-check/entry';
 
+  /// CHK-02 / CHK-02B / CHK-04 questionnaire flow.
+  static const v2BrainCheckFlow = '/v2/brain-check/flow';
+
   /// Temporary boundary after Brain Check start/resume.
   static const v2BrainCheckReadyBoundary = '/v2/brain-check/ready';
+
+  /// Temporary post-completion boundary (before Profile reveal).
+  static const v2BrainCheckCompleteBoundary = '/v2/brain-check/complete';
 }

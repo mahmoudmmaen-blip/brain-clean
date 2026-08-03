@@ -2798,6 +2798,198 @@ abstract class AppLocalizations {
   /// **'Could not save your answers. They are still on this screen.'**
   String get brainCheckSaveError;
 
+  /// No description provided for @brainCheckLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Brain Check…'**
+  String get brainCheckLoading;
+
+  /// No description provided for @brainCheckExit.
+  ///
+  /// In en, this message translates to:
+  /// **'Exit Brain Check'**
+  String get brainCheckExit;
+
+  /// No description provided for @brainCheckBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get brainCheckBack;
+
+  /// No description provided for @brainCheckSaving.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving…'**
+  String get brainCheckSaving;
+
+  /// No description provided for @brainCheckFinish.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish check'**
+  String get brainCheckFinish;
+
+  /// No description provided for @brainCheckSelectAnswerHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose an answer to continue.'**
+  String get brainCheckSelectAnswerHint;
+
+  /// No description provided for @brainCheckAutosaveHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Your answers save on this device as you go.'**
+  String get brainCheckAutosaveHint;
+
+  /// No description provided for @brainCheckAnswerChoices.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer choices'**
+  String get brainCheckAnswerChoices;
+
+  /// No description provided for @brainCheckAnswerSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected'**
+  String get brainCheckAnswerSelected;
+
+  /// No description provided for @brainCheckAnswerUnselected.
+  ///
+  /// In en, this message translates to:
+  /// **'Not selected'**
+  String get brainCheckAnswerUnselected;
+
+  /// No description provided for @brainCheckAnswerYes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get brainCheckAnswerYes;
+
+  /// No description provided for @brainCheckAnswerNo.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get brainCheckAnswerNo;
+
+  /// No description provided for @brainCheckLikert1.
+  ///
+  /// In en, this message translates to:
+  /// **'Strongly disagree'**
+  String get brainCheckLikert1;
+
+  /// No description provided for @brainCheckLikert2.
+  ///
+  /// In en, this message translates to:
+  /// **'Disagree'**
+  String get brainCheckLikert2;
+
+  /// No description provided for @brainCheckLikert3.
+  ///
+  /// In en, this message translates to:
+  /// **'Neutral'**
+  String get brainCheckLikert3;
+
+  /// No description provided for @brainCheckLikert4.
+  ///
+  /// In en, this message translates to:
+  /// **'Agree'**
+  String get brainCheckLikert4;
+
+  /// No description provided for @brainCheckLikert5.
+  ///
+  /// In en, this message translates to:
+  /// **'Strongly agree'**
+  String get brainCheckLikert5;
+
+  /// No description provided for @brainCheckFrequency1.
+  ///
+  /// In en, this message translates to:
+  /// **'Never'**
+  String get brainCheckFrequency1;
+
+  /// No description provided for @brainCheckFrequency2.
+  ///
+  /// In en, this message translates to:
+  /// **'Rarely'**
+  String get brainCheckFrequency2;
+
+  /// No description provided for @brainCheckFrequency3.
+  ///
+  /// In en, this message translates to:
+  /// **'Sometimes'**
+  String get brainCheckFrequency3;
+
+  /// No description provided for @brainCheckFrequency4.
+  ///
+  /// In en, this message translates to:
+  /// **'Often'**
+  String get brainCheckFrequency4;
+
+  /// No description provided for @brainCheckFrequency5.
+  ///
+  /// In en, this message translates to:
+  /// **'Very often'**
+  String get brainCheckFrequency5;
+
+  /// No description provided for @brainCheckBreakTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A short pause'**
+  String get brainCheckBreakTitle;
+
+  /// No description provided for @brainCheckBreakBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Next: {sectionTitle}'**
+  String brainCheckBreakBody(String sectionTitle);
+
+  /// No description provided for @brainCheckCompletionBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Thanks for finishing this self-report. Your check is ready to save on this device.'**
+  String get brainCheckCompletionBody;
+
+  /// No description provided for @brainCheckConfigError.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Check questions are unavailable right now.'**
+  String get brainCheckConfigError;
+
+  /// No description provided for @brainCheckRestartTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Start over?'**
+  String get brainCheckRestartTitle;
+
+  /// No description provided for @brainCheckRestartBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This clears your unfinished Brain Check answers on this device. Onboarding progress and past completed profiles stay untouched.'**
+  String get brainCheckRestartBody;
+
+  /// No description provided for @brainCheckRestartCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep going'**
+  String get brainCheckRestartCancel;
+
+  /// No description provided for @brainCheckRestartConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Start over'**
+  String get brainCheckRestartConfirm;
+
+  /// No description provided for @brainCheckCompleteBoundaryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Check saved'**
+  String get brainCheckCompleteBoundaryTitle;
+
+  /// No description provided for @brainCheckCompleteBoundaryBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your self-report is stored on this device. Profile reveal comes in the next product step.'**
+  String get brainCheckCompleteBoundaryBody;
+
   /// No description provided for @brainProfileTitle.
   ///
   /// In en, this message translates to:
@@ -3467,7 +3659,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2BrainCheckReadyBody.
   ///
   /// In en, this message translates to:
-  /// **'The full question flow arrives in a later step. Your onboarding handoff and check entry are saved on this device.'**
+  /// **'Your Brain Check entry is ready. Continue when you want to open or resume the questionnaire.'**
   String get v2BrainCheckReadyBody;
 }
 

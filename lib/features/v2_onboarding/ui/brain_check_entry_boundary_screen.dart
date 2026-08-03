@@ -76,19 +76,45 @@ class _BrainCheckEntryBoundaryScreenState
   Future<void> _startFresh() async {
     final controller = ref.read(brainCheckControllerProvider);
     if (controller.progress.phase == BrainCheckPhase.resumeGate) {
+      final confirmed = await _confirmRestart();
+      if (!confirmed || !mounted) return;
       await controller.restart(confirmed: true);
     } else {
       await controller.start(mode: _parsedMode, source: widget.source);
     }
     if (!mounted) return;
-    context.go(AppRoutes.v2BrainCheckReadyBoundary);
+    context.go(AppRoutes.v2BrainCheckFlow);
   }
 
   Future<void> _resume() async {
     final controller = ref.read(brainCheckControllerProvider);
     await controller.resume();
     if (!mounted) return;
-    context.go(AppRoutes.v2BrainCheckReadyBoundary);
+    context.go(AppRoutes.v2BrainCheckFlow);
+  }
+
+  Future<bool> _confirmRestart() async {
+    final loc = AppLocalizations.of(context)!;
+    final result = await showDialog<bool>(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          title: Text(loc.brainCheckRestartTitle),
+          content: Text(loc.brainCheckRestartBody),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(false),
+              child: Text(loc.brainCheckRestartCancel),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.of(ctx).pop(true),
+              child: Text(loc.brainCheckRestartConfirm),
+            ),
+          ],
+        );
+      },
+    );
+    return result ?? false;
   }
 
   @override

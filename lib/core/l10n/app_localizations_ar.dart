@@ -1496,6 +1496,108 @@ class AppLocalizationsAr extends AppLocalizations {
       'تعذّر حفظ إجاباتك. ما زالت موجودة على هذه الشاشة.';
 
   @override
+  String get brainCheckLoading => 'جارٍ تحميل فحص الدماغ…';
+
+  @override
+  String get brainCheckExit => 'خروج من فحص الدماغ';
+
+  @override
+  String get brainCheckBack => 'رجوع';
+
+  @override
+  String get brainCheckSaving => 'جارٍ الحفظ…';
+
+  @override
+  String get brainCheckFinish => 'إنهاء الفحص';
+
+  @override
+  String get brainCheckSelectAnswerHint => 'اختر إجابة للمتابعة.';
+
+  @override
+  String get brainCheckAutosaveHint =>
+      'تُحفظ إجاباتك على هذا الجهاز أثناء التقدّم.';
+
+  @override
+  String get brainCheckAnswerChoices => 'خيارات الإجابة';
+
+  @override
+  String get brainCheckAnswerSelected => 'محدد';
+
+  @override
+  String get brainCheckAnswerUnselected => 'غير محدد';
+
+  @override
+  String get brainCheckAnswerYes => 'نعم';
+
+  @override
+  String get brainCheckAnswerNo => 'لا';
+
+  @override
+  String get brainCheckLikert1 => 'أعارض بشدة';
+
+  @override
+  String get brainCheckLikert2 => 'أعارض';
+
+  @override
+  String get brainCheckLikert3 => 'محايد';
+
+  @override
+  String get brainCheckLikert4 => 'أوافق';
+
+  @override
+  String get brainCheckLikert5 => 'أوافق بشدة';
+
+  @override
+  String get brainCheckFrequency1 => 'أبداً';
+
+  @override
+  String get brainCheckFrequency2 => 'نادراً';
+
+  @override
+  String get brainCheckFrequency3 => 'أحياناً';
+
+  @override
+  String get brainCheckFrequency4 => 'غالباً';
+
+  @override
+  String get brainCheckFrequency5 => 'كثيراً جداً';
+
+  @override
+  String get brainCheckBreakTitle => 'استراحة قصيرة';
+
+  @override
+  String brainCheckBreakBody(String sectionTitle) {
+    return 'التالي: $sectionTitle';
+  }
+
+  @override
+  String get brainCheckCompletionBody =>
+      'شكراً لإنهاء هذا التقرير الذاتي. فحصك جاهز للحفظ على هذا الجهاز.';
+
+  @override
+  String get brainCheckConfigError => 'أسئلة فحص الدماغ غير متاحة الآن.';
+
+  @override
+  String get brainCheckRestartTitle => 'البدء من جديد؟';
+
+  @override
+  String get brainCheckRestartBody =>
+      'سيُمسح فحص الدماغ غير المكتمل على هذا الجهاز. تبقى خطوات التهيئة والملفات المكتملة السابقة دون مساس.';
+
+  @override
+  String get brainCheckRestartCancel => 'المتابعة';
+
+  @override
+  String get brainCheckRestartConfirm => 'البدء من جديد';
+
+  @override
+  String get brainCheckCompleteBoundaryTitle => 'تم حفظ فحص الدماغ';
+
+  @override
+  String get brainCheckCompleteBoundaryBody =>
+      'تقريرك الذاتي محفوظ على هذا الجهاز. كشف الملف يأتي في الخطوة التالية من المنتج.';
+
+  @override
   String get brainProfileTitle => 'ملف الدماغ';
 
   @override
@@ -1868,5 +1970,5 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v2BrainCheckReadyBody =>
-      'مسار الأسئلة الكامل يأتي في خطوة لاحقة. تم حفظ تسليم التهيئة ودخول الفحص على هذا الجهاز.';
+      'دخول فحص الدماغ جاهز. تابع عندما تريد فتح الاستبيان أو استئنافه.';
 }

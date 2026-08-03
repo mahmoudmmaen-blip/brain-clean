@@ -34,6 +34,8 @@ import '../../features/brain_profile/ui/profile_ready_boundary_screen.dart';
 import '../../features/recovery_plan/ui/plan_building_screen.dart';
 import '../../features/recovery_plan/ui/plan_reveal_screen.dart';
 import '../../features/recovery_plan/ui/plan_today_ready_boundary_screen.dart';
+import '../../features/brain_check/ui/brain_check_complete_boundary_screen.dart';
+import '../../features/brain_check/ui/brain_check_flow_screen.dart';
 import '../../features/v2_onboarding/ui/brain_check_entry_boundary_screen.dart';
 import '../../features/v2_onboarding/ui/brain_check_ready_boundary_screen.dart';
 import '../../features/v2_onboarding/ui/v2_onboarding_flow_screen.dart';
@@ -443,9 +445,19 @@ GoRouter goRouter(GoRouterRef ref) {
         },
       ),
       GoRoute(
+        path: AppRoutes.v2BrainCheckFlow,
+        name: 'v2BrainCheckFlow',
+        builder: (context, state) => const BrainCheckFlowScreen(),
+      ),
+      GoRoute(
         path: AppRoutes.v2BrainCheckReadyBoundary,
         name: 'v2BrainCheckReadyBoundary',
         builder: (context, state) => const BrainCheckReadyBoundaryScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.v2BrainCheckCompleteBoundary,
+        name: 'v2BrainCheckCompleteBoundary',
+        builder: (context, state) => const BrainCheckCompleteBoundaryScreen(),
       ),
     ],
     errorBuilder: (context, state) => Scaffold(

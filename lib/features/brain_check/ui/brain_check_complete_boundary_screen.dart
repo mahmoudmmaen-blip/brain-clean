@@ -5,9 +5,9 @@ import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/app_colors.dart';
 
-/// Temporary Slice 5.1 boundary — primary path now uses the questionnaire flow.
-class BrainCheckReadyBoundaryScreen extends StatelessWidget {
-  const BrainCheckReadyBoundaryScreen({super.key});
+/// Temporary post-check boundary after MeasurementEvent commit (no Profile yet).
+class BrainCheckCompleteBoundaryScreen extends StatelessWidget {
+  const BrainCheckCompleteBoundaryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,15 +23,23 @@ class BrainCheckReadyBoundaryScreen extends StatelessWidget {
               Semantics(
                 header: true,
                 child: Text(
-                  loc.v2BrainCheckReadyTitle,
+                  loc.brainCheckCompleteBoundaryTitle,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
               ),
               const SizedBox(height: 12),
               Text(
-                loc.v2BrainCheckReadyBody,
+                loc.brainCheckCompleteBoundaryBody,
                 textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                loc.brainCheckIntroNonMedical,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: AppColors.textSecondary,
+                    ),
               ),
               const SizedBox(height: 32),
               SizedBox(

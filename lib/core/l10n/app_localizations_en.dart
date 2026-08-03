@@ -1513,6 +1513,109 @@ class AppLocalizationsEn extends AppLocalizations {
       'Could not save your answers. They are still on this screen.';
 
   @override
+  String get brainCheckLoading => 'Loading Brain Check…';
+
+  @override
+  String get brainCheckExit => 'Exit Brain Check';
+
+  @override
+  String get brainCheckBack => 'Back';
+
+  @override
+  String get brainCheckSaving => 'Saving…';
+
+  @override
+  String get brainCheckFinish => 'Finish check';
+
+  @override
+  String get brainCheckSelectAnswerHint => 'Choose an answer to continue.';
+
+  @override
+  String get brainCheckAutosaveHint =>
+      'Your answers save on this device as you go.';
+
+  @override
+  String get brainCheckAnswerChoices => 'Answer choices';
+
+  @override
+  String get brainCheckAnswerSelected => 'Selected';
+
+  @override
+  String get brainCheckAnswerUnselected => 'Not selected';
+
+  @override
+  String get brainCheckAnswerYes => 'Yes';
+
+  @override
+  String get brainCheckAnswerNo => 'No';
+
+  @override
+  String get brainCheckLikert1 => 'Strongly disagree';
+
+  @override
+  String get brainCheckLikert2 => 'Disagree';
+
+  @override
+  String get brainCheckLikert3 => 'Neutral';
+
+  @override
+  String get brainCheckLikert4 => 'Agree';
+
+  @override
+  String get brainCheckLikert5 => 'Strongly agree';
+
+  @override
+  String get brainCheckFrequency1 => 'Never';
+
+  @override
+  String get brainCheckFrequency2 => 'Rarely';
+
+  @override
+  String get brainCheckFrequency3 => 'Sometimes';
+
+  @override
+  String get brainCheckFrequency4 => 'Often';
+
+  @override
+  String get brainCheckFrequency5 => 'Very often';
+
+  @override
+  String get brainCheckBreakTitle => 'A short pause';
+
+  @override
+  String brainCheckBreakBody(String sectionTitle) {
+    return 'Next: $sectionTitle';
+  }
+
+  @override
+  String get brainCheckCompletionBody =>
+      'Thanks for finishing this self-report. Your check is ready to save on this device.';
+
+  @override
+  String get brainCheckConfigError =>
+      'Brain Check questions are unavailable right now.';
+
+  @override
+  String get brainCheckRestartTitle => 'Start over?';
+
+  @override
+  String get brainCheckRestartBody =>
+      'This clears your unfinished Brain Check answers on this device. Onboarding progress and past completed profiles stay untouched.';
+
+  @override
+  String get brainCheckRestartCancel => 'Keep going';
+
+  @override
+  String get brainCheckRestartConfirm => 'Start over';
+
+  @override
+  String get brainCheckCompleteBoundaryTitle => 'Brain Check saved';
+
+  @override
+  String get brainCheckCompleteBoundaryBody =>
+      'Your self-report is stored on this device. Profile reveal comes in the next product step.';
+
+  @override
   String get brainProfileTitle => 'Brain Profile';
 
   @override
@@ -1893,5 +1996,5 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v2BrainCheckReadyBody =>
-      'The full question flow arrives in a later step. Your onboarding handoff and check entry are saved on this device.';
+      'Your Brain Check entry is ready. Continue when you want to open or resume the questionnaire.';
 }
