@@ -2102,6 +2102,38 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2SessionLeaveCta => 'العودة إلى اليوم';
 
   @override
+  String get v2ProgressEmptyTitle => 'لا تقدّم بعد';
+
+  @override
+  String get v2ProgressEmptyBody =>
+      'أكمل جلسة اليوم لتبدأ سجلاً محلياً صادقاً. لا يُختلق شيء عندما يكون السجل فارغاً.';
+
+  @override
+  String get v2ProgressLoading => 'جارٍ تحميل التقدّم';
+
+  @override
+  String get v2ProgressPersistFailed =>
+      'تعذّر حفظ التقدّم الآن. حاول مرة أخرى.';
+
+  @override
+  String get v2ProgressStatsSessions => 'الجلسات المكتملة';
+
+  @override
+  String get v2ProgressStatsMinimum => 'جلسات المسار الأدنى';
+
+  @override
+  String get v2ProgressStatsStandard => 'جلسات المسار القياسي';
+
+  @override
+  String get v2ProgressStatsRate => 'معدل الأيام المكتملة';
+
+  @override
+  String get v2ProgressStatsCurrentStreak => 'تتابع الأيام المكتملة الحالي';
+
+  @override
+  String get v2ProgressStatsLongestStreak => 'أطول تتابع أيام مكتملة';
+
+  @override
   String get v2OnboardingLoading => 'جارٍ التحميل…';
 
   @override

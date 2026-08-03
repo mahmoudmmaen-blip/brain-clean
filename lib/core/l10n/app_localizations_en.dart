@@ -2130,6 +2130,38 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2SessionLeaveCta => 'Back to Today';
 
   @override
+  String get v2ProgressEmptyTitle => 'No progress yet';
+
+  @override
+  String get v2ProgressEmptyBody =>
+      'Complete a Today session to start building an honest local record. Nothing is invented when history is empty.';
+
+  @override
+  String get v2ProgressLoading => 'Loading progress';
+
+  @override
+  String get v2ProgressPersistFailed =>
+      'Could not save progress right now. Try again.';
+
+  @override
+  String get v2ProgressStatsSessions => 'Sessions completed';
+
+  @override
+  String get v2ProgressStatsMinimum => 'Minimum path sessions';
+
+  @override
+  String get v2ProgressStatsStandard => 'Standard path sessions';
+
+  @override
+  String get v2ProgressStatsRate => 'Completed-day rate';
+
+  @override
+  String get v2ProgressStatsCurrentStreak => 'Current completed-day run';
+
+  @override
+  String get v2ProgressStatsLongestStreak => 'Longest completed-day run';
+
+  @override
   String get v2OnboardingLoading => 'Loading…';
 
   @override

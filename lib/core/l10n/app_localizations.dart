@@ -3920,6 +3920,66 @@ abstract class AppLocalizations {
   /// **'Back to Today'**
   String get v2SessionLeaveCta;
 
+  /// No description provided for @v2ProgressEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No progress yet'**
+  String get v2ProgressEmptyTitle;
+
+  /// No description provided for @v2ProgressEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete a Today session to start building an honest local record. Nothing is invented when history is empty.'**
+  String get v2ProgressEmptyBody;
+
+  /// No description provided for @v2ProgressLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading progress'**
+  String get v2ProgressLoading;
+
+  /// No description provided for @v2ProgressPersistFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save progress right now. Try again.'**
+  String get v2ProgressPersistFailed;
+
+  /// No description provided for @v2ProgressStatsSessions.
+  ///
+  /// In en, this message translates to:
+  /// **'Sessions completed'**
+  String get v2ProgressStatsSessions;
+
+  /// No description provided for @v2ProgressStatsMinimum.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum path sessions'**
+  String get v2ProgressStatsMinimum;
+
+  /// No description provided for @v2ProgressStatsStandard.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard path sessions'**
+  String get v2ProgressStatsStandard;
+
+  /// No description provided for @v2ProgressStatsRate.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed-day rate'**
+  String get v2ProgressStatsRate;
+
+  /// No description provided for @v2ProgressStatsCurrentStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Current completed-day run'**
+  String get v2ProgressStatsCurrentStreak;
+
+  /// No description provided for @v2ProgressStatsLongestStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Longest completed-day run'**
+  String get v2ProgressStatsLongestStreak;
+
   /// No description provided for @v2OnboardingLoading.
   ///
   /// In en, this message translates to:

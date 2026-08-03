@@ -35,6 +35,7 @@ abstract final class HiveBootstrap {
     HiveBoxes.recoveryPlan,
     HiveBoxes.v2Onboarding,
     HiveBoxes.dailySession,
+    HiveBoxes.progress,
   ];
 
   static Future<void> initialize() async {

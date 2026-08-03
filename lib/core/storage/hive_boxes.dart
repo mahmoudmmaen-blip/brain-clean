@@ -28,4 +28,7 @@ abstract final class HiveBoxes {
 
   /// V2 daily session + SessionMarked history (local-first).
   static const dailySession = 'daily_session_v1';
+
+  /// V2 Progress snapshots (append-only, local-first).
+  static const progress = 'progress_v1';
 }
