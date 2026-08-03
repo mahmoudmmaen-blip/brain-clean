@@ -121,7 +121,7 @@ class _PlanTodayReadyBoundaryScreenState
           onRetry: _load,
           onRebuildPlan: () => context.go(AppRoutes.v2PlanBuilding),
           onStay: () {
-            // Remain inside V2 Today-ready boundary (no unfinished Home shell).
+            context.go(AppRoutes.v2Today);
           },
           onOpenPreview: () {
             final id = _plan?.id ?? widget.planId ?? '';

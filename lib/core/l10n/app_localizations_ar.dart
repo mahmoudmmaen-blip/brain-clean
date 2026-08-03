@@ -1900,7 +1900,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v2TodayReadyFirstStepBody =>
-      'خطة التعافي محفوظة. مشغّل الجلسة اليومية يأتي في خطوة لاحقة. يمكنك المغادرة والعودة دون فقدان التقدّم.';
+      'خطة التعافي محفوظة. افتح اليوم لبدء جلستك اليومية الأولى عندما تكون جاهزاً. يمكنك المغادرة والعودة دون فقدان التقدّم.';
 
   @override
   String get v2TodayReadyJourneySaved =>
@@ -1910,7 +1910,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2TodayReadyProgressSaved => 'تقدّمك محفوظ على هذا الجهاز.';
 
   @override
-  String get v2TodayReadyPrimaryCta => 'البقاء هنا الآن';
+  String get v2TodayReadyPrimaryCta => 'افتح اليوم';
 
   @override
   String get v2TodayReadyReviewPreview => 'مراجعة معاينة اليوم';
@@ -1922,6 +1922,184 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get v2TodayReadyPersistFailed =>
       'تعذّر حفظ التقدّم الآن. حاول مرة أخرى.';
+
+  @override
+  String get v2TodayHomeTitle => 'اليوم';
+
+  @override
+  String get v2TodayHomeLoading => 'جارٍ تحميل اليوم';
+
+  @override
+  String get v2TodayHomeOrientation => 'يومك';
+
+  @override
+  String get v2TodayHomeOrientationBody =>
+      'فعل واحد واضح من خطة التعافي. بلا إضافات.';
+
+  @override
+  String get v2TodayHomeStandardPathHint =>
+      'المسار القياسي يضيف عمقاً معتمداً اختيارياً إن رغبت.';
+
+  @override
+  String get v2TodayHomeStatusHeading => 'الحالة';
+
+  @override
+  String get v2TodayHomeStatusReady => 'جاهز متى شئت';
+
+  @override
+  String get v2TodayHomeStatusInProgress => 'الجلسة قيد التنفيذ';
+
+  @override
+  String get v2TodayHomeStatusReflect => 'قاربت الانتهاء — أكمل التسجيل';
+
+  @override
+  String get v2TodayHomeStatusDone => 'انتهى لليوم';
+
+  @override
+  String get v2TodayHomeStatusPartial => 'حُفظت المحاولة — بلا عقوبة';
+
+  @override
+  String get v2TodayHomeCtaStart => 'ابدأ جلسة اليوم';
+
+  @override
+  String get v2TodayHomeCtaContinue => 'متابعة الجلسة';
+
+  @override
+  String get v2TodayHomeCtaViewCompleted => 'عرض الجلسة المكتملة';
+
+  @override
+  String get v2TodayHomeViewPlan => 'عرض خطة التعافي';
+
+  @override
+  String get v2SessionPrepareTitle => 'تهيئة';
+
+  @override
+  String get v2SessionPreparePurpose => 'ممارسة موجهة قصيرة من خطتك.';
+
+  @override
+  String get v2SessionPrepareIncludes => 'تتضمن هذه الجلسة:';
+
+  @override
+  String get v2SessionPathHeading => 'اختر مسارك';
+
+  @override
+  String get v2SessionPathNoShame =>
+      'المسار الأدنى مكتمل ومفيد. القياسي يضيف عمقاً اختيارياً.';
+
+  @override
+  String get v2SessionA11yHint => 'لكل خطوة بديل وصولية.';
+
+  @override
+  String get v2SessionStartCta => 'ابدأ';
+
+  @override
+  String get v2SessionClose => 'إغلاق';
+
+  @override
+  String get v2SessionActTitle => 'جلسة اليوم';
+
+  @override
+  String v2SessionProgress(String current, String total) {
+    return 'الخطوة $current من $total';
+  }
+
+  @override
+  String get v2SessionOptionalLabel => 'اختياري';
+
+  @override
+  String get v2SessionRequiredLabel => 'مطلوب';
+
+  @override
+  String get v2SessionStartTimer => 'بدء مؤقت اختياري';
+
+  @override
+  String v2SessionTimerContext(String seconds) {
+    return 'حوالي $seconds ثانية متبقية على المؤقت الاختياري';
+  }
+
+  @override
+  String get v2SessionMarkDone => 'تعليم الخطوة منتهية';
+
+  @override
+  String get v2SessionSkipOptional => 'تخطّ الخطوة الاختيارية';
+
+  @override
+  String get v2SessionEndEarly => 'إنهاء والتسجيل';
+
+  @override
+  String get v2SessionReflectTitle => 'تسجيل سريع';
+
+  @override
+  String get v2SessionReflectPrompt => 'كيف شعرت بجلسة اليوم؟';
+
+  @override
+  String get v2SessionReflectManageable => 'ما مدى قابليتها للإدارة؟';
+
+  @override
+  String get v2SessionReflectHelped => 'هل ساعدتك على التمهّل أو التركيز؟';
+
+  @override
+  String get v2SessionReflectObstacle => 'أي عائق؟ (اختياري)';
+
+  @override
+  String get v2SessionChipEasy => 'قابلة للإدارة';
+
+  @override
+  String get v2SessionChipOk => 'جيدة';
+
+  @override
+  String get v2SessionChipHard => 'صعبة';
+
+  @override
+  String get v2SessionChipYes => 'نعم';
+
+  @override
+  String get v2SessionChipSomewhat => 'إلى حد ما';
+
+  @override
+  String get v2SessionChipNotYet => 'ليس بعد';
+
+  @override
+  String get v2SessionChipNone => 'لا شيء';
+
+  @override
+  String get v2SessionChipDistraction => 'تشتت';
+
+  @override
+  String get v2SessionChipLowEnergy => 'طاقة منخفضة';
+
+  @override
+  String get v2SessionChipTime => 'وقت';
+
+  @override
+  String get v2SessionReflectSave => 'حفظ التسجيل';
+
+  @override
+  String get v2SessionReflectSkipChips => 'المتابعة دون اختيارات';
+
+  @override
+  String get v2SessionSaving => 'جارٍ الحفظ…';
+
+  @override
+  String get v2SessionLeaveSuccess => 'أحسنت — انتهيت لليوم';
+
+  @override
+  String get v2SessionLeavePartial => 'توقفت بلطف — لم يُفقد شيء';
+
+  @override
+  String v2SessionLeavePath(String path) {
+    return 'المسار: $path';
+  }
+
+  @override
+  String get v2SessionLeaveBody =>
+      'الكفاءة الهادئة كافية. غادر التطبيق عندما تكون جاهزاً.';
+
+  @override
+  String get v2SessionLeaveNext => 'غداً سيعرض اليوم خطوة واضحة واحدة من جديد.';
+
+  @override
+  String get v2SessionLeaveCta => 'العودة إلى اليوم';
 
   @override
   String get v2OnboardingLoading => 'جارٍ التحميل…';

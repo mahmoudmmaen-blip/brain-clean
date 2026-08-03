@@ -48,6 +48,21 @@ abstract final class AppRoutes {
   /// ONB-09 — Today preview (not the daily-session player).
   static const v2PlanTodayPreview = '/v2/plan/today-preview';
 
+  /// HOM-01 — V2 Today home.
+  static const v2Today = '/v2/today';
+
+  /// SES-01 prepare.
+  static const v2SessionPrepare = '/v2/session/prepare';
+
+  /// SES-02 act.
+  static const v2SessionAct = '/v2/session/act';
+
+  /// SES-03 reflect.
+  static const v2SessionReflect = '/v2/session/reflect';
+
+  /// SES-04 leave.
+  static const v2SessionLeave = '/v2/session/leave';
+
   /// V2 onboarding foundation ONB-01…ONB-06.
   static const v2Onboarding = '/v2/onboarding';
 

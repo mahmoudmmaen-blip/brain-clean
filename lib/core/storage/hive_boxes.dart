@@ -25,4 +25,7 @@ abstract final class HiveBoxes {
 
   /// V2 onboarding foundation (ONB-01…ONB-06), local-first.
   static const v2Onboarding = 'v2_onboarding_v1';
+
+  /// V2 daily session + SessionMarked history (local-first).
+  static const dailySession = 'daily_session_v1';
 }

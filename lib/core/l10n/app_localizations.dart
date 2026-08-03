@@ -3545,7 +3545,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2TodayReadyFirstStepBody.
   ///
   /// In en, this message translates to:
-  /// **'Your Recovery Plan is saved. The daily session player arrives in a later step. You can leave and return without losing progress.'**
+  /// **'Your Recovery Plan is saved. Open Today to begin your first daily session when you are ready. You can leave and return without losing progress.'**
   String get v2TodayReadyFirstStepBody;
 
   /// No description provided for @v2TodayReadyJourneySaved.
@@ -3563,7 +3563,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2TodayReadyPrimaryCta.
   ///
   /// In en, this message translates to:
-  /// **'Stay here for now'**
+  /// **'Open Today'**
   String get v2TodayReadyPrimaryCta;
 
   /// No description provided for @v2TodayReadyReviewPreview.
@@ -3583,6 +3583,342 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not save progress right now. Try again.'**
   String get v2TodayReadyPersistFailed;
+
+  /// No description provided for @v2TodayHomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get v2TodayHomeTitle;
+
+  /// No description provided for @v2TodayHomeLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Today'**
+  String get v2TodayHomeLoading;
+
+  /// No description provided for @v2TodayHomeOrientation.
+  ///
+  /// In en, this message translates to:
+  /// **'Your day'**
+  String get v2TodayHomeOrientation;
+
+  /// No description provided for @v2TodayHomeOrientationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'One clear action from your Recovery Plan. Nothing extra.'**
+  String get v2TodayHomeOrientationBody;
+
+  /// No description provided for @v2TodayHomeStandardPathHint.
+  ///
+  /// In en, this message translates to:
+  /// **'The standard path adds approved optional depth when you want it.'**
+  String get v2TodayHomeStandardPathHint;
+
+  /// No description provided for @v2TodayHomeStatusHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get v2TodayHomeStatusHeading;
+
+  /// No description provided for @v2TodayHomeStatusReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready when you are'**
+  String get v2TodayHomeStatusReady;
+
+  /// No description provided for @v2TodayHomeStatusInProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Session in progress'**
+  String get v2TodayHomeStatusInProgress;
+
+  /// No description provided for @v2TodayHomeStatusReflect.
+  ///
+  /// In en, this message translates to:
+  /// **'Almost done — finish check-in'**
+  String get v2TodayHomeStatusReflect;
+
+  /// No description provided for @v2TodayHomeStatusDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done for today'**
+  String get v2TodayHomeStatusDone;
+
+  /// No description provided for @v2TodayHomeStatusPartial.
+  ///
+  /// In en, this message translates to:
+  /// **'Attempt saved — no penalty'**
+  String get v2TodayHomeStatusPartial;
+
+  /// No description provided for @v2TodayHomeCtaStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start today’s session'**
+  String get v2TodayHomeCtaStart;
+
+  /// No description provided for @v2TodayHomeCtaContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue session'**
+  String get v2TodayHomeCtaContinue;
+
+  /// No description provided for @v2TodayHomeCtaViewCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'View completed session'**
+  String get v2TodayHomeCtaViewCompleted;
+
+  /// No description provided for @v2TodayHomeViewPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'View Recovery Plan'**
+  String get v2TodayHomeViewPlan;
+
+  /// No description provided for @v2SessionPrepareTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Prepare'**
+  String get v2SessionPrepareTitle;
+
+  /// No description provided for @v2SessionPreparePurpose.
+  ///
+  /// In en, this message translates to:
+  /// **'A short guided practice from your plan.'**
+  String get v2SessionPreparePurpose;
+
+  /// No description provided for @v2SessionPrepareIncludes.
+  ///
+  /// In en, this message translates to:
+  /// **'This session includes:'**
+  String get v2SessionPrepareIncludes;
+
+  /// No description provided for @v2SessionPathHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your path'**
+  String get v2SessionPathHeading;
+
+  /// No description provided for @v2SessionPathNoShame.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum is complete and useful. Standard adds optional depth.'**
+  String get v2SessionPathNoShame;
+
+  /// No description provided for @v2SessionA11yHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Each step offers an accessibility alternative.'**
+  String get v2SessionA11yHint;
+
+  /// No description provided for @v2SessionStartCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get v2SessionStartCta;
+
+  /// No description provided for @v2SessionClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get v2SessionClose;
+
+  /// No description provided for @v2SessionActTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Today’s Session'**
+  String get v2SessionActTitle;
+
+  /// No description provided for @v2SessionProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Step {current} of {total}'**
+  String v2SessionProgress(String current, String total);
+
+  /// No description provided for @v2SessionOptionalLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional'**
+  String get v2SessionOptionalLabel;
+
+  /// No description provided for @v2SessionRequiredLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Required'**
+  String get v2SessionRequiredLabel;
+
+  /// No description provided for @v2SessionStartTimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Start optional timer'**
+  String get v2SessionStartTimer;
+
+  /// No description provided for @v2SessionTimerContext.
+  ///
+  /// In en, this message translates to:
+  /// **'About {seconds} seconds left on the optional timer'**
+  String v2SessionTimerContext(String seconds);
+
+  /// No description provided for @v2SessionMarkDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark step done'**
+  String get v2SessionMarkDone;
+
+  /// No description provided for @v2SessionSkipOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip optional step'**
+  String get v2SessionSkipOptional;
+
+  /// No description provided for @v2SessionEndEarly.
+  ///
+  /// In en, this message translates to:
+  /// **'End and check in'**
+  String get v2SessionEndEarly;
+
+  /// No description provided for @v2SessionReflectTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick check-in'**
+  String get v2SessionReflectTitle;
+
+  /// No description provided for @v2SessionReflectPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'How did today’s session feel?'**
+  String get v2SessionReflectPrompt;
+
+  /// No description provided for @v2SessionReflectManageable.
+  ///
+  /// In en, this message translates to:
+  /// **'How manageable was it?'**
+  String get v2SessionReflectManageable;
+
+  /// No description provided for @v2SessionReflectHelped.
+  ///
+  /// In en, this message translates to:
+  /// **'Did it help you pause or focus?'**
+  String get v2SessionReflectHelped;
+
+  /// No description provided for @v2SessionReflectObstacle.
+  ///
+  /// In en, this message translates to:
+  /// **'Any obstacle? (optional)'**
+  String get v2SessionReflectObstacle;
+
+  /// No description provided for @v2SessionChipEasy.
+  ///
+  /// In en, this message translates to:
+  /// **'Manageable'**
+  String get v2SessionChipEasy;
+
+  /// No description provided for @v2SessionChipOk.
+  ///
+  /// In en, this message translates to:
+  /// **'Okay'**
+  String get v2SessionChipOk;
+
+  /// No description provided for @v2SessionChipHard.
+  ///
+  /// In en, this message translates to:
+  /// **'Hard'**
+  String get v2SessionChipHard;
+
+  /// No description provided for @v2SessionChipYes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get v2SessionChipYes;
+
+  /// No description provided for @v2SessionChipSomewhat.
+  ///
+  /// In en, this message translates to:
+  /// **'Somewhat'**
+  String get v2SessionChipSomewhat;
+
+  /// No description provided for @v2SessionChipNotYet.
+  ///
+  /// In en, this message translates to:
+  /// **'Not yet'**
+  String get v2SessionChipNotYet;
+
+  /// No description provided for @v2SessionChipNone.
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get v2SessionChipNone;
+
+  /// No description provided for @v2SessionChipDistraction.
+  ///
+  /// In en, this message translates to:
+  /// **'Distraction'**
+  String get v2SessionChipDistraction;
+
+  /// No description provided for @v2SessionChipLowEnergy.
+  ///
+  /// In en, this message translates to:
+  /// **'Low energy'**
+  String get v2SessionChipLowEnergy;
+
+  /// No description provided for @v2SessionChipTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get v2SessionChipTime;
+
+  /// No description provided for @v2SessionReflectSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save check-in'**
+  String get v2SessionReflectSave;
+
+  /// No description provided for @v2SessionReflectSkipChips.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue without chips'**
+  String get v2SessionReflectSkipChips;
+
+  /// No description provided for @v2SessionSaving.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving…'**
+  String get v2SessionSaving;
+
+  /// No description provided for @v2SessionLeaveSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Well done — you’re done for today'**
+  String get v2SessionLeaveSuccess;
+
+  /// No description provided for @v2SessionLeavePartial.
+  ///
+  /// In en, this message translates to:
+  /// **'You paused with care — nothing was lost'**
+  String get v2SessionLeavePartial;
+
+  /// No description provided for @v2SessionLeavePath.
+  ///
+  /// In en, this message translates to:
+  /// **'Path: {path}'**
+  String v2SessionLeavePath(String path);
+
+  /// No description provided for @v2SessionLeaveBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiet competence is enough. Leave the app when you are ready.'**
+  String get v2SessionLeaveBody;
+
+  /// No description provided for @v2SessionLeaveNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Tomorrow, Today will offer one clear next step again.'**
+  String get v2SessionLeaveNext;
+
+  /// No description provided for @v2SessionLeaveCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Today'**
+  String get v2SessionLeaveCta;
 
   /// No description provided for @v2OnboardingLoading.
   ///

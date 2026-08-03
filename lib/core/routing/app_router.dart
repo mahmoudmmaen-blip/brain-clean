@@ -35,6 +35,11 @@ import '../../features/recovery_plan/ui/plan_building_screen.dart';
 import '../../features/recovery_plan/ui/plan_reveal_screen.dart';
 import '../../features/recovery_plan/ui/plan_today_preview_screen.dart';
 import '../../features/recovery_plan/ui/plan_today_ready_boundary_screen.dart';
+import '../../features/daily_session/ui/today_home_screen.dart';
+import '../../features/daily_session/ui/session_prepare_screen.dart';
+import '../../features/daily_session/ui/session_act_screen.dart';
+import '../../features/daily_session/ui/session_reflect_screen.dart';
+import '../../features/daily_session/ui/session_leave_screen.dart';
 import '../../features/brain_check/ui/brain_check_complete_boundary_screen.dart';
 import '../../features/brain_check/ui/brain_check_flow_screen.dart';
 import '../../features/v2_onboarding/ui/brain_check_entry_boundary_screen.dart';
@@ -437,6 +442,44 @@ GoRouter goRouter(GoRouterRef ref) {
         builder: (context, state) {
           final planId = state.uri.queryParameters['plan'];
           return PlanTodayReadyBoundaryScreen(planId: planId);
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.v2Today,
+        name: 'v2Today',
+        builder: (context, state) => const TodayHomeScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.v2SessionPrepare,
+        name: 'v2SessionPrepare',
+        builder: (context, state) {
+          final session = state.uri.queryParameters['session'];
+          return SessionPrepareScreen(sessionId: session);
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.v2SessionAct,
+        name: 'v2SessionAct',
+        builder: (context, state) {
+          final session = state.uri.queryParameters['session'];
+          return SessionActScreen(sessionId: session);
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.v2SessionReflect,
+        name: 'v2SessionReflect',
+        builder: (context, state) {
+          final session = state.uri.queryParameters['session'];
+          return SessionReflectScreen(sessionId: session);
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.v2SessionLeave,
+        name: 'v2SessionLeave',
+        builder: (context, state) {
+          final session = state.uri.queryParameters['session'];
+          final done = state.uri.queryParameters['done'] != '0';
+          return SessionLeaveScreen(sessionId: session, done: done);
         },
       ),
       GoRoute(

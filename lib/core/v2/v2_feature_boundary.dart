@@ -14,4 +14,7 @@ abstract final class V2FeatureBoundary {
 
   /// V2 onboarding shares the same local feature gate (no startup change).
   static bool get enableV2OnboardingRoutes => enableBrainProfileRoutes;
+
+  /// HOM-01 / SES routes share the same gated V2 surface.
+  static bool get enableTodaySessionRoutes => enableBrainProfileRoutes;
 }

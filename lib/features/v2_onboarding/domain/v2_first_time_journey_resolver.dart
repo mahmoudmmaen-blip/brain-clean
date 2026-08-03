@@ -48,6 +48,7 @@ enum V2FirstTimeDestination {
   planReveal,
   todayPreview,
   todayReady,
+  todayHome,
   calmRecovery,
 }
 
@@ -93,6 +94,8 @@ class V2FirstTimeRouteDecision {
           return '${AppRoutes.v2PlanTodayReady}?plan=$id';
         }
         return AppRoutes.v2PlanTodayReady;
+      case V2FirstTimeDestination.todayHome:
+        return AppRoutes.v2Today;
       case V2FirstTimeDestination.calmRecovery:
         return AppRoutes.v2Onboarding;
     }
@@ -106,17 +109,25 @@ abstract final class V2FirstTimeJourneyResolver {
     final planId = snap.activePlanId ?? onb.planId;
 
     if (onb.isJourneyComplete || onb.status == V2OnboardingStatus.completed) {
+      if (!snap.hasActivePlan ||
+          snap.planCorrupt ||
+          snap.planUnsupportedVersion ||
+          !snap.hasTodayAct) {
+        return V2FirstTimeRouteDecision(
+          destination: V2FirstTimeDestination.todayHome,
+          reason: !snap.hasActivePlan
+              ? 'missing_plan'
+              : snap.planCorrupt
+                  ? 'corrupt_plan'
+                  : snap.planUnsupportedVersion
+                      ? 'unsupported_plan_version'
+                      : 'missing_today_act',
+          planId: planId,
+        );
+      }
       return V2FirstTimeRouteDecision(
-        destination: V2FirstTimeDestination.todayReady,
-        reason: !snap.hasActivePlan
-            ? 'missing_plan'
-            : snap.planCorrupt
-                ? 'corrupt_plan'
-                : snap.planUnsupportedVersion
-                    ? 'unsupported_plan_version'
-                    : !snap.hasTodayAct
-                        ? 'missing_today_act'
-                        : 'journey_complete',
+        destination: V2FirstTimeDestination.todayHome,
+        reason: 'journey_complete',
         planId: planId,
       );
     }

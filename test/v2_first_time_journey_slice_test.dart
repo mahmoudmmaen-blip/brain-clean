@@ -407,7 +407,7 @@ void main() {
           activePlanId: 'plan_1',
         ),
       );
-      expect(d.destination, V2FirstTimeDestination.todayReady);
+      expect(d.destination, V2FirstTimeDestination.todayHome);
       expect(d.reason, 'journey_complete');
     });
 

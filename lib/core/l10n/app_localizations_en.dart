@@ -1924,7 +1924,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v2TodayReadyFirstStepBody =>
-      'Your Recovery Plan is saved. The daily session player arrives in a later step. You can leave and return without losing progress.';
+      'Your Recovery Plan is saved. Open Today to begin your first daily session when you are ready. You can leave and return without losing progress.';
 
   @override
   String get v2TodayReadyJourneySaved =>
@@ -1935,7 +1935,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Your progress is saved on this device.';
 
   @override
-  String get v2TodayReadyPrimaryCta => 'Stay here for now';
+  String get v2TodayReadyPrimaryCta => 'Open Today';
 
   @override
   String get v2TodayReadyReviewPreview => 'Review Today preview';
@@ -1947,6 +1947,187 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get v2TodayReadyPersistFailed =>
       'Could not save progress right now. Try again.';
+
+  @override
+  String get v2TodayHomeTitle => 'Today';
+
+  @override
+  String get v2TodayHomeLoading => 'Loading Today';
+
+  @override
+  String get v2TodayHomeOrientation => 'Your day';
+
+  @override
+  String get v2TodayHomeOrientationBody =>
+      'One clear action from your Recovery Plan. Nothing extra.';
+
+  @override
+  String get v2TodayHomeStandardPathHint =>
+      'The standard path adds approved optional depth when you want it.';
+
+  @override
+  String get v2TodayHomeStatusHeading => 'Status';
+
+  @override
+  String get v2TodayHomeStatusReady => 'Ready when you are';
+
+  @override
+  String get v2TodayHomeStatusInProgress => 'Session in progress';
+
+  @override
+  String get v2TodayHomeStatusReflect => 'Almost done — finish check-in';
+
+  @override
+  String get v2TodayHomeStatusDone => 'Done for today';
+
+  @override
+  String get v2TodayHomeStatusPartial => 'Attempt saved — no penalty';
+
+  @override
+  String get v2TodayHomeCtaStart => 'Start today’s session';
+
+  @override
+  String get v2TodayHomeCtaContinue => 'Continue session';
+
+  @override
+  String get v2TodayHomeCtaViewCompleted => 'View completed session';
+
+  @override
+  String get v2TodayHomeViewPlan => 'View Recovery Plan';
+
+  @override
+  String get v2SessionPrepareTitle => 'Prepare';
+
+  @override
+  String get v2SessionPreparePurpose =>
+      'A short guided practice from your plan.';
+
+  @override
+  String get v2SessionPrepareIncludes => 'This session includes:';
+
+  @override
+  String get v2SessionPathHeading => 'Choose your path';
+
+  @override
+  String get v2SessionPathNoShame =>
+      'Minimum is complete and useful. Standard adds optional depth.';
+
+  @override
+  String get v2SessionA11yHint =>
+      'Each step offers an accessibility alternative.';
+
+  @override
+  String get v2SessionStartCta => 'Start';
+
+  @override
+  String get v2SessionClose => 'Close';
+
+  @override
+  String get v2SessionActTitle => 'Today’s Session';
+
+  @override
+  String v2SessionProgress(String current, String total) {
+    return 'Step $current of $total';
+  }
+
+  @override
+  String get v2SessionOptionalLabel => 'Optional';
+
+  @override
+  String get v2SessionRequiredLabel => 'Required';
+
+  @override
+  String get v2SessionStartTimer => 'Start optional timer';
+
+  @override
+  String v2SessionTimerContext(String seconds) {
+    return 'About $seconds seconds left on the optional timer';
+  }
+
+  @override
+  String get v2SessionMarkDone => 'Mark step done';
+
+  @override
+  String get v2SessionSkipOptional => 'Skip optional step';
+
+  @override
+  String get v2SessionEndEarly => 'End and check in';
+
+  @override
+  String get v2SessionReflectTitle => 'Quick check-in';
+
+  @override
+  String get v2SessionReflectPrompt => 'How did today’s session feel?';
+
+  @override
+  String get v2SessionReflectManageable => 'How manageable was it?';
+
+  @override
+  String get v2SessionReflectHelped => 'Did it help you pause or focus?';
+
+  @override
+  String get v2SessionReflectObstacle => 'Any obstacle? (optional)';
+
+  @override
+  String get v2SessionChipEasy => 'Manageable';
+
+  @override
+  String get v2SessionChipOk => 'Okay';
+
+  @override
+  String get v2SessionChipHard => 'Hard';
+
+  @override
+  String get v2SessionChipYes => 'Yes';
+
+  @override
+  String get v2SessionChipSomewhat => 'Somewhat';
+
+  @override
+  String get v2SessionChipNotYet => 'Not yet';
+
+  @override
+  String get v2SessionChipNone => 'None';
+
+  @override
+  String get v2SessionChipDistraction => 'Distraction';
+
+  @override
+  String get v2SessionChipLowEnergy => 'Low energy';
+
+  @override
+  String get v2SessionChipTime => 'Time';
+
+  @override
+  String get v2SessionReflectSave => 'Save check-in';
+
+  @override
+  String get v2SessionReflectSkipChips => 'Continue without chips';
+
+  @override
+  String get v2SessionSaving => 'Saving…';
+
+  @override
+  String get v2SessionLeaveSuccess => 'Well done — you’re done for today';
+
+  @override
+  String get v2SessionLeavePartial => 'You paused with care — nothing was lost';
+
+  @override
+  String v2SessionLeavePath(String path) {
+    return 'Path: $path';
+  }
+
+  @override
+  String get v2SessionLeaveBody =>
+      'Quiet competence is enough. Leave the app when you are ready.';
+
+  @override
+  String get v2SessionLeaveNext =>
+      'Tomorrow, Today will offer one clear next step again.';
+
+  @override
+  String get v2SessionLeaveCta => 'Back to Today';
 
   @override
   String get v2OnboardingLoading => 'Loading…';
