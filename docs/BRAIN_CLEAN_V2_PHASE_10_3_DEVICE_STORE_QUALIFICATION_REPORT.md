@@ -2,9 +2,10 @@
 
 **Document ID:** `BRAIN_CLEAN_V2_PHASE_10_3_DEVICE_STORE_QUALIFICATION_REPORT`  
 **File:** `docs/BRAIN_CLEAN_V2_PHASE_10_3_DEVICE_STORE_QUALIFICATION_REPORT.md`  
-**Status:** `PHASE_10_3_PARTIAL_DEVICE_QUALIFICATION`  
-**Date:** 2026-08-04  
-**Baseline HEAD (pre):** `d5d10a05438dcac418f374bd55845023d771d9f6`  
+**Status:** `PHASE_10_3R_BLOCKED_EXTERNAL_SETUP`  
+**Date:** 2026-08-04 (Phase 10.3) · **Requalification:** 2026-08-04 (Phase 10.3R)  
+**Baseline HEAD (pre 10.3):** `d5d10a05438dcac418f374bd55845023d771d9f6`  
+**Baseline HEAD (pre 10.3R):** `f17509843f0db0b4db8f361c2bc44bed1aad1bd3`  
 **Authorities:** Production Monetization & Privacy Contract V1; Phase 10.2 wiring report; Premium / Reports contracts  
 
 ---
@@ -268,8 +269,77 @@ No sensitive personal content sent during testing.
 
 ## 25. Exact next task
 
-**Device–store re-qualification on a Play test-track build** with terminal-local (non-chat) Android public SDK key injection, license tester account, and V2 surfaces explicitly enabled for QA — then decide Final Production Release Gate eligibility.
+See **§26 Phase 10.3R** — external Play test-track evidence is still required before store scenarios can be marked PASS.
 
 ---
 
-**End of Phase 10.3 report.**
+## 26. Phase 10.3R — Play test-track re-qualification (2026-08-04)
+
+### 26.1 Preflight
+
+| Check | Result |
+|---|---|
+| Branch | `v2/product-rebuild` |
+| HEAD | `f17509843f0db0b4db8f361c2bc44bed1aad1bd3` (exact match) |
+| Working tree | Clean at start |
+| Connected mobile | Only Android emulator `emulator-5554` |
+| Physical Play device via adb/flutter | **None** |
+
+### 26.2 Play installation verification (observed)
+
+Probed packages on `emulator-5554`:
+
+| Package | `installerPackageName` | `DEBUGGABLE` | Classification |
+|---|---|---|---|
+| `com.example.brain_clean_mobile` | `null` | **Yes** | Local debug (Phase 10.3) |
+| `com.puredays.app` | `null` | **Yes** | **Not verified as Play** (installer not `com.android.vending`) |
+
+Required Part 1 conditions **failed**:
+
+- No installer=`com.android.vending` Play package observed  
+- Only emulator connected; no separate Play-authorized physical device observed  
+- License tester eligibility **not observable** without a Play-installed, billing-capable session  
+- Valid-key / V2 / offerings / purchase / restore **not started** (blocked at external setup)
+
+Operator asserted that `com.puredays.app` is the Play Internal/Closed Testing build. **This report does not accept that assertion as qualification evidence** while `installerPackageName=null` and `DEBUGGABLE` remain observed.
+
+### 26.3 RevenueCat key handling (10.3R)
+
+| Step | Result |
+|---|---|
+| Interactive key collection | **Skipped** (stopped at Part 1) |
+| Env key present | **No** |
+| Key printed / persisted / committed | **No** |
+| Clear | `REVENUECAT_ANDROID_KEY_CLEARED=YES` |
+
+### 26.4 Scenarios still BLOCKED / NOT_TESTED after 10.3R
+
+Unchanged from Phase 10.3 for all store-dependent items: valid RC init, current offering, monthly/annual/lifetime packages, localized price, purchase sheet, purchase success/cancel, Brain Clean entitlement, Reports unlock, restore success/nothing/idempotency, entitled restart/offline cache, reinstall restore, expiration/relock, V2-enabled Premium/Safa device paths, TalkBack, full English locale switch.
+
+### 26.5 10.3R qualification matrix (delta focus)
+
+| # | Item | Status |
+|---|---|---|
+| 1 | Play test-track installation | **BLOCKED** |
+| 2 | License tester eligibility | **BLOCKED** |
+| 3 | V2 enabled | **BLOCKED** |
+| 4–22 | Valid RC / offerings / purchase / restore / entitled offline | **BLOCKED** / **NOT_TESTED** |
+| 23–27 | Free core / no mutation / AR / RTL (from 10.3) | Prior **PASS** unchanged |
+| 28–31 | Text scale / TalkBack / Safa / privacy navigation | Prior status unchanged |
+| 32–35 | Security / no ads / no UMP / no release artifact | **PASS** for this blocked stop |
+
+### 26.6 Final Production Release Gate
+
+**May not begin.** Store sandbox scenarios remain unqualified.
+
+### 26.7 Exact next task after blocked 10.3R
+
+1. Connect a device that has Brain Clean installed from Play Internal/Closed Testing (`installerPackageName=com.android.vending`).  
+2. Confirm the signed-in account is a Play license tester.  
+3. Confirm V2 is enabled in that test-track build.  
+4. Inject Android public SDK key only in local PowerShell (never chat) **or** confirm the Play build already embeds dart-define keys.  
+5. Re-run Phase 10.3R Parts 5–13 with live observation only.
+
+---
+
+**End of Phase 10.3 / 10.3R report.**
