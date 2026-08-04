@@ -58,8 +58,15 @@ void main() {
       expect(AppConfig.isPlaceholderConfigValue('your_revenuecat_key'), isTrue);
       expect(AppConfig.isPlaceholderConfigValue(''), isFalse);
       final label = AppConfig.configPresenceLabel('secret-key-value');
-      expect(label, isNot('secret-key-value'));
-      expect(label, startsWith('set('));
+      expect(label, 'configured');
+      expect(label, isNot(contains('secret')));
+      expect(label, isNot(contains('len=')));
+      expect(label, isNot(contains('prefix=')));
+      expect(label, isNot(startsWith('set(')));
+      expect(AppConfig.revenueCatInitLogLine(configured: true),
+          'RevenueCat initialization succeeded');
+      expect(AppConfig.revenueCatInitLogLine(configured: false),
+          'RevenueCat configuration unavailable');
     });
 
     test('platform key selection prefers Android/iOS slots', () {
@@ -511,8 +518,19 @@ void main() {
 
   group('security patterns', () {
     test('.env is gitignored conceptually and keys redacted in presence label', () {
-      expect(AppConfig.configPresenceLabel('super-secret-key'), startsWith('set('));
-      expect(AppConfig.configPresenceLabel('super-secret-key'), isNot(contains('super-secret-key')));
+      expect(AppConfig.configPresenceLabel('super-secret-key'), 'configured');
+      expect(AppConfig.configPresenceLabel('super-secret-key'),
+          isNot(contains('super-secret-key')));
+      expect(AppConfig.configPresenceLabel('super-secret-key'),
+          isNot(contains('len=')));
+      expect(AppConfig.configPresenceLabel('super-secret-key'),
+          isNot(contains('prefix=')));
+      expect(AppConfig.configPresenceLabel('super-secret-key'),
+          isNot(contains('goog')));
+      expect(AppConfig.revenueCatInitLogLine(configured: true),
+          isNot(contains('set(')));
+      expect(AppConfig.revenueCatInitLogLine(configured: false),
+          isNot(contains('set(')));
     });
   });
 }

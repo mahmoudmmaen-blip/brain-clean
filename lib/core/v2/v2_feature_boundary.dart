@@ -1,10 +1,30 @@
-/// Local-only gate for V2 product surfaces.
+/// Local + compile-time gate for V2 product surfaces.
 ///
-/// Production default keeps the V1 shell. Enable in tests or local builds
-/// without changing startup routing or replacing main navigation.
+/// Default (no dart-define): V1 shell remains the production default.
+/// Internal Testing / Play release embeds V2 via `--dart-define=V2_ENABLED=true`.
+/// Tests may still override at runtime without rebuilding.
 abstract final class V2FeatureBoundary {
+  /// Compile-time flag for release AABs (`--dart-define=V2_ENABLED=true`).
+  static const bool compileTimeV2Enabled =
+      bool.fromEnvironment('V2_ENABLED', defaultValue: false);
+
+  static bool? _runtimeOverride;
+
   /// When false, `/v2/*` routes redirect to Home (V1 remains default).
-  static bool enableBrainProfileRoutes = false;
+  ///
+  /// Resolution order: explicit runtime override (tests/debug) → compile-time
+  /// [compileTimeV2Enabled].
+  static bool get enableBrainProfileRoutes =>
+      _runtimeOverride ?? compileTimeV2Enabled;
+
+  static set enableBrainProfileRoutes(bool value) {
+    _runtimeOverride = value;
+  }
+
+  /// Clears any runtime override so compile-time / default resolution applies.
+  static void clearRuntimeOverride() {
+    _runtimeOverride = null;
+  }
 
   /// Temporary completion boundary until Slice 4 (Recovery Plan).
   static bool get profileReadyBoundaryEnabled => enableBrainProfileRoutes;
@@ -21,6 +41,6 @@ abstract final class V2FeatureBoundary {
   /// RPT-01 / RPT-02 / RPT-03 share the same gated V2 surface.
   static bool get enableReportsRoutes => enableBrainProfileRoutes;
 
-  /// Final V2 navigation shell (six tabs) shares the same gate.
+  /// Final V2 navigation shell shares the same gate.
   static bool get enableV2Shell => enableBrainProfileRoutes;
 }

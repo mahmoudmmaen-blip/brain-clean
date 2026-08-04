@@ -1,3 +1,6 @@
+import 'package:flutter/foundation.dart';
+
+import '../../../core/config/app_config.dart';
 import '../../../core/constants/hive_meta_keys.dart';
 import '../domain/purchases_sdk_port.dart';
 import '../domain/subscription_adapter_kind.dart';
@@ -58,6 +61,7 @@ class RevenueCatSubscriptionService implements SubscriptionService {
     final key = _apiKeyReader();
     if (key.isEmpty) {
       _initSucceeded = false;
+      debugPrint(AppConfig.revenueCatInitLogLine(configured: false));
       return;
     }
     try {
@@ -68,8 +72,10 @@ class RevenueCatSubscriptionService implements SubscriptionService {
       final info = await _sdk.getCustomerInfo();
       await _applySnapshot(info);
       _initSucceeded = true;
+      debugPrint(AppConfig.revenueCatInitLogLine(configured: true));
     } catch (_) {
       _initSucceeded = false;
+      debugPrint(AppConfig.revenueCatInitLogLine(configured: false));
     }
   }
 

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 
 import '../../core/application/app_preferences_provider.dart';
+import '../../core/config/app_config.dart';
 import '../../core/security/security_status_provider.dart';
 import '../../core/constants/app_routes.dart';
 import '../../core/l10n/app_localizations.dart';
@@ -166,8 +167,10 @@ class SettingsScreen extends ConsumerWidget {
           ListTile(
             title: Text(loc.settingsVersion,
                 style: const TextStyle(color: Color(0xFFE6EDF3))),
-            trailing: const Text('1.0.0',
-                style: TextStyle(color: Color(0xFF8B949E))),
+            trailing: Text(
+              AppConfig.appVersion,
+              style: const TextStyle(color: Color(0xFF8B949E)),
+            ),
           ),
           ListTile(
             title: Text(loc.settingsPrivacyPolicy,

@@ -11,9 +11,9 @@ abstract final class AppConfig {
   /// Displayed app version for Settings / More.
   ///
   /// MUST be bumped together with `pubspec.yaml` `version:` (name before `+`).
-  /// Example: pubspec `1.2.2+15` â†’ `appVersion = '1.2.3'`.
-  /// Do not add `package_info` â€” keep this constant as the single UI source.
-  static const String appVersion = '1.2.3';
+  /// Example: pubspec `2.0.0+17` → `appVersion = '2.0.0'`.
+  /// Do not add `package_info` — keep this constant as the single UI source.
+  static const String appVersion = '2.0.0';
 
   static String get supabaseUrl => _resolve(
         defineValue: const String.fromEnvironment('SUPABASE_URL'),
@@ -121,11 +121,21 @@ abstract final class AppConfig {
     return false;
   }
 
-  /// Short, non-secret hint for logs (never the full key).
+  /// Non-secret configuration state for logs.
+  ///
+  /// Never includes value, length, or prefix metadata.
   static String configPresenceLabel(String value) {
-    if (value.isEmpty) return 'missing';
-    if (value.length <= 4) return 'set(len=${value.length})';
-    return 'set(len=${value.length},prefix=${value.substring(0, 4)}â€¦)';
+    if (value.isEmpty || isPlaceholderConfigValue(value)) {
+      return 'unavailable';
+    }
+    return 'configured';
+  }
+
+  /// Human-safe RevenueCat initialization log line (never includes key metadata).
+  static String revenueCatInitLogLine({required bool configured}) {
+    return configured
+        ? 'RevenueCat initialization succeeded'
+        : 'RevenueCat configuration unavailable';
   }
 }
 
