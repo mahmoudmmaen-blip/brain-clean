@@ -340,6 +340,23 @@ Unchanged from Phase 10.3 for all store-dependent items: valid RC init, current 
 4. Inject Android public SDK key only in local PowerShell (never chat) **or** confirm the Play build already embeds dart-define keys.  
 5. Re-run Phase 10.3R Parts 5–13 with live observation only.
 
+### 26.8 Re-run attempt (same day, post-`5b10db2`)
+
+Operator re-invoked Phase 10.3R with expected baseline HEAD `f175098…`.
+
+| Check | Observed |
+|---|---|
+| Current HEAD at re-run start | `5b10db2b37ac5db11d9e2c748225641bda091007` (already contains §26) |
+| Exact match to prompt Expected HEAD `f175098…` | **No** (superseded by prior blocked 10.3R docs commit) |
+| Connected mobile | Emulator `emulator-5554` only |
+| Play installer (`com.android.vending`) | **Not observed** |
+| `com.puredays.app` / `com.example.brain_clean_mobile` | Still `installer=null`, `DEBUGGABLE` |
+| License tester session | **Not observed** |
+| Interactive RC key | Skipped (Part 1 stop); env absent; `REVENUECAT_ANDROID_KEY_CLEARED=YES` |
+| Parts 3–13 store scenarios | **Not started** |
+
+**Verdict unchanged:** `PHASE_10_3R_BLOCKED_EXTERNAL_SETUP`
+
 ---
 
 **End of Phase 10.3 / 10.3R report.**
