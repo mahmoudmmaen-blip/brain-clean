@@ -24,7 +24,7 @@ val canSignRelease = keystorePropertiesFile.exists()
     && releaseStoreFile.exists()
 
 android {
-    namespace = "com.example.brain_clean_mobile"
+    namespace = "com.brainclean.mobile"
     compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
@@ -39,8 +39,8 @@ android {
     }
 
     defaultConfig {
-        // Preserved Play-facing identity for this workspace (do not rename in 10.4).
-        applicationId = "com.example.brain_clean_mobile"
+        // Aligned with existing Google Play package name.
+        applicationId = "com.brainclean.mobile"
         minSdk = flutter.minSdkVersion
         targetSdk = 36
         versionCode = flutter.versionCode

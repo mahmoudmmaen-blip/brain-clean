@@ -50,12 +50,17 @@ void main() {
       expect(AppConfig.appVersion, '2.0.0');
     });
 
-    test('Android applicationId remains unchanged', () {
+    test('Android applicationId matches Google Play package', () {
       final gradle = File('android/app/build.gradle.kts').readAsStringSync();
       expect(
         gradle,
-        contains('applicationId = "com.example.brain_clean_mobile"'),
+        contains('applicationId = "com.brainclean.mobile"'),
       );
+      expect(
+        gradle,
+        contains('namespace = "com.brainclean.mobile"'),
+      );
+      expect(gradle, isNot(contains('com.example.brain_clean_mobile')));
       expect(gradle, isNot(contains('applicationIdSuffix')));
     });
   });
