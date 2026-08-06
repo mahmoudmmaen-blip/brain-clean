@@ -61,6 +61,7 @@ import '../security/biometric_lock_screen.dart';
 import '../security/security_status_provider.dart';
 import '../v2/v2_feature_boundary.dart';
 import 'app_navigator_key.dart';
+import 'startup_destination.dart';
 
 // 🌟 [NEW] إضافة مسار شاشة واحة المشاعر
 import '../../features/pro_modules/presentation/screens/emotion_oasis_screen.dart';
@@ -273,7 +274,7 @@ GoRouter goRouter(GoRouterRef ref) {
         return AppRoutes.biometricLock;
       }
       if (biometricUnlocked && location == AppRoutes.biometricLock) {
-        return AppRoutes.home;
+        return StartupDestination.resolve();
       }
       return null;
     },

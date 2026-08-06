@@ -11,7 +11,8 @@
 |---|---|
 | Google Play production-access waiting period | Still active per operator; Production approval not granted |
 | Production release not created | No V2 Production track live |
-| Store-installed V2 runtime qualification | Still required / ongoing via Play Closed Testing installs (billing truth needs Play installer path) |
+| Store-installed V2 runtime qualification | **Not satisfied by version 18** — store install showed Legacy startup; local startup correction exists; new store version + Play visual verify still required |
+| Nested `brain_clean_mobile/` mistaken Play build | Same `applicationId` as root — see `docs/ROOT_BUILD_AUTHORITY.md`; never build Play releases from the nested tree |
 
 These block **Production publication**, not the claim that development baseline exists.
 
@@ -22,7 +23,9 @@ These block **Production publication**, not the claim that development baseline 
 | Item | Source / honesty |
 |---|---|
 | Ads deferred on V2 root | Phase 10.2 / 10.4: no `google_mobile_ads` on root V2; ads policy deferred until a future ads contract |
-| Nested `brain_clean_mobile/` tree | Parallel/legacy nested project risk; root V2 is the Play release path |
+| Nested `brain_clean_mobile/` tree | Parallel/legacy nested project risk; **root only** is the Play release path (`docs/ROOT_BUILD_AUTHORITY.md`) |
+| Version 18 Closed Test not V2-qualified | Startup defect (Legacy `/home`); corrected locally; new versionCode upload still required |
+| Local startup correction pending store proof | Splash/biometric now use `StartupDestination` → `/v2/home` when V2 enabled; device/Play smoke still required |
 | Notification R8 / TypeToken runtime proof | Phase 10.4 recorded ProGuard keep for Gson TypeToken; **device runtime proof under R8** still called out as required when qualifying Play builds |
 | Supabase offline behavior | Root initializes Supabase config once; no anonymous auth service on root V2 path — treat network features as optional; do not assume offline sync |
 | Temporary first-time journey boundary screens | Earlier journey slices intentionally retained as gates |

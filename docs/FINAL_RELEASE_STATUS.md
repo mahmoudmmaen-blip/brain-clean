@@ -12,11 +12,13 @@
 | Classification | Status |
 |---|---|
 | Development | **DEVELOPMENT_COMPLETE** |
-| Google Play Closed Testing | **CLOSED_TEST_ACTIVE** |
+| Google Play Closed Testing | **CLOSED_TEST_ACTIVE_NOT_V2_QUALIFIED** |
 | Google Play Production | **PRODUCTION_PENDING_GOOGLE_PLAY** |
 
 **This application is not in Production.**  
 Do not claim production publication, production approval, or public store availability under Production track.
+
+**Do not claim Closed Testing `2.0.1+18` is V2-qualified.** Version 18 store installs exposed a startup defect (Legacy `/home` despite `V2_ENABLED=true`). Startup correction is implemented locally; a new store version and Play-installed V2 verification remain required.
 
 ---
 
@@ -40,7 +42,7 @@ Do not claim production publication, production approval, or public store availa
 | Track | Version | Status |
 |---|---|---|
 | Internal Testing | `2.0.0+17` | Prepared / historically used for V2 internal validation |
-| Closed Testing | `2.0.1+18` | **Active** — at least **12** opted-in testers reported by operator |
+| Closed Testing | `2.0.1+18` | **Active — NOT V2-qualified** (startup → Legacy `/home` on store install; local startup correction pending new upload) |
 | Production | — | **Not created** — production-access waiting period still active; Production approval **not** granted |
 
 ---
@@ -65,7 +67,7 @@ All of the following must be true before a Production release is created:
 | Layer | Definition of done |
 |---|---|
 | **Development** | V2 product surfaces implemented and integrated on `v2/product-rebuild`; automated suite green at last release engineering gates; package aligned with Play `com.brainclean.mobile`. |
-| **Closed Testing** | Signed Closed Testing release `2.0.1+18` live with required tester population. |
+| **Closed Testing** | Track active for package `com.brainclean.mobile`, but **`2.0.1+18` is not V2-qualified** until a corrected build is uploaded and Play-verified. |
 | **Production** | Play Production track live with reviewed, installable build — **not yet achieved**. |
 
 ---
@@ -93,7 +95,8 @@ Version bumps after `2.0.1+18` require a new intentional release slice.
 | Google Play production-access waiting period still active | **Release blocker** |
 | Production approval not granted | **Release blocker** |
 | Production release not created | **Release blocker** |
-| Full store-installed V2 runtime qualification (Play installer path) still required / ongoing after Closed Testing | **Release readiness gap** |
+| Full store-installed V2 runtime qualification (Play installer path) still required — version 18 is **not** V2-qualified after the startup defect | **Release readiness gap** |
+| Local startup correction lands cold start on `/v2/home` when V2 enabled; requires new versionCode + Play visual verification | **Release readiness gap** |
 
 These are **external Play / qualification** gates, not a claim that development is incomplete.
 
@@ -101,8 +104,8 @@ These are **external Play / qualification** gates, not a claim that development 
 
 ## Final project status summary
 
-Brain Clean V2 development on branch `v2/product-rebuild` is **closed as a development baseline** at HEAD `425147e` with Closed Testing **2.0.1+18** active for package `com.brainclean.mobile`.
+Brain Clean V2 development on branch `v2/product-rebuild` remains the development baseline; Closed Testing **`2.0.1+18` must not be treated as V2-qualified** after the version-18 startup defect. A local startup correction routes V2-enabled cold starts to the four-tab shell; a **new store version** is required before re-qualification.
 
 **Production remains pending Google Play.**
 
-**Closure verdict:** `DEVELOPMENT_CLOSED_PRODUCTION_PENDING`
+**Closure verdict:** `DEVELOPMENT_CLOSED_PRODUCTION_PENDING` (with **startup re-qualification required**)

@@ -1,11 +1,295 @@
 import 'dart:io';
 
 import 'package:brain_clean_mobile/core/config/app_config.dart';
+import 'package:brain_clean_mobile/core/constants/app_routes.dart';
+import 'package:brain_clean_mobile/core/l10n/app_localizations_en.dart';
+import 'package:brain_clean_mobile/core/routing/startup_destination.dart';
 import 'package:brain_clean_mobile/core/v2/v2_feature_boundary.dart';
+import 'package:brain_clean_mobile/features/v2_shell/domain/v2_shell_tab.dart';
+import 'package:brain_clean_mobile/features/v2_shell/ui/v2_navigation_shell.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
+
+import 'helpers/localized_test_app.dart';
+
+/// Stub four-tab shell for startup routing tests (no Hive / session deps).
+GoRouter _startupShellRouter({
+  required bool flagOn,
+  required String initial,
+}) {
+  return GoRouter(
+    initialLocation: initial,
+    redirect: (context, state) {
+      final path = state.uri.path;
+      if (path.startsWith('/v2/') && !flagOn) {
+        return AppRoutes.home;
+      }
+      if (path.startsWith('/v2/') &&
+          flagOn &&
+          !V2ShellPaths.isKnownV2Location(path)) {
+        return AppRoutes.v2Home;
+      }
+      return null;
+    },
+    routes: [
+      GoRoute(
+        path: AppRoutes.home,
+        builder: (context, state) => const Scaffold(body: Text('V1_HOME')),
+      ),
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return V2NavigationShell(navigationShell: navigationShell);
+        },
+        branches: [
+          for (final tab in V2ShellTab.values)
+            StatefulShellBranch(
+              routes: [
+                GoRoute(
+                  path: tab.pathPrefix,
+                  pageBuilder: (context, state) => NoTransitionPage<void>(
+                    child: Scaffold(body: Text('TAB_${tab.name.toUpperCase()}')),
+                  ),
+                ),
+              ],
+            ),
+        ],
+      ),
+    ],
+  );
+}
 
 void main() {
   tearDown(V2FeatureBoundary.clearRuntimeOverride);
+
+  group('StartupDestination resolver', () {
+    test('V2 enabled → /v2/home', () {
+      V2FeatureBoundary.enableBrainProfileRoutes = true;
+      expect(StartupDestination.resolve(), AppRoutes.v2Home);
+      expect(StartupDestination.resolve(), '/v2/home');
+    });
+
+    test('V2 disabled → /home', () {
+      V2FeatureBoundary.enableBrainProfileRoutes = false;
+      expect(StartupDestination.resolve(), AppRoutes.home);
+      expect(StartupDestination.resolve(), '/home');
+    });
+
+    test('resolver shares enableV2Shell / compile-time gate', () {
+      // Runtime override stands in for --dart-define=V2_ENABLED=true.
+      // Release binaries embed the same gate via compileTimeV2Enabled.
+      V2FeatureBoundary.clearRuntimeOverride();
+      expect(
+        V2FeatureBoundary.enableV2Shell,
+        V2FeatureBoundary.compileTimeV2Enabled,
+      );
+
+      V2FeatureBoundary.enableBrainProfileRoutes = true;
+      expect(V2FeatureBoundary.enableV2Shell, isTrue);
+      expect(StartupDestination.resolve(), AppRoutes.v2Home);
+
+      V2FeatureBoundary.enableBrainProfileRoutes = false;
+      expect(V2FeatureBoundary.enableV2Shell, isFalse);
+      expect(StartupDestination.resolve(), AppRoutes.home);
+    });
+
+    test('source: StartupDestination.resolve uses enableV2Shell', () {
+      final src =
+          File('lib/core/routing/startup_destination.dart').readAsStringSync();
+      expect(src, contains('V2FeatureBoundary.enableV2Shell'));
+      expect(src, contains('AppRoutes.v2Home'));
+      expect(src, contains('AppRoutes.home'));
+    });
+  });
+
+  group('Splash and biometric use StartupDestination', () {
+    test('splash ordinary completion uses StartupDestination.resolve', () {
+      final src = File('lib/features/splash/presentation/splash_screen.dart')
+          .readAsStringSync();
+      expect(src, contains('startup_destination.dart'));
+      expect(src, contains('StartupDestination.resolve()'));
+      expect(src, contains('AppRoutes.diagnostic'));
+      expect(
+        src,
+        isNot(
+          contains(
+            'resumeLiveSession ? AppRoutes.diagnostic : AppRoutes.home',
+          ),
+        ),
+      );
+    });
+
+    test('biometric unlock uses StartupDestination.resolve', () {
+      final src = File('lib/core/routing/app_router.dart').readAsStringSync();
+      expect(src, contains('startup_destination.dart'));
+      expect(src, contains('StartupDestination.resolve()'));
+      expect(
+        src,
+        isNot(
+          contains(
+            'if (biometricUnlocked && location == AppRoutes.biometricLock) {\n'
+            '        return AppRoutes.home;',
+          ),
+        ),
+      );
+      expect(
+        RegExp(
+          r'biometricUnlocked && location == AppRoutes\.biometricLock\)[\s\S]{0,80}'
+          r'StartupDestination\.resolve\(\)',
+        ).hasMatch(src),
+        isTrue,
+      );
+    });
+  });
+
+  group('V2 shell and V1 preservation', () {
+    testWidgets('V2 enabled shows four-tab shell Today·Plan·Progress·Profile',
+        (tester) async {
+      V2FeatureBoundary.enableBrainProfileRoutes = true;
+      final en = AppLocalizationsEn();
+      final router = _startupShellRouter(
+        flagOn: true,
+        initial: StartupDestination.resolve(),
+      );
+
+      await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(V2NavigationShell), findsOneWidget);
+      expect(find.text(en.v2NavToday), findsOneWidget);
+      expect(find.text(en.v2NavPlan), findsOneWidget);
+      expect(find.text(en.v2NavProgress), findsOneWidget);
+      expect(find.text(en.v2NavProfile), findsOneWidget);
+      expect(en.v2NavToday, 'Today');
+      expect(en.v2NavPlan, 'Plan');
+      expect(en.v2NavProgress, 'Progress');
+      expect(en.v2NavProfile, 'Profile');
+      expect(find.text('Exercises'), findsNothing);
+      expect(find.text('My Journey'), findsNothing);
+      expect(V2ShellTab.values.length, 4);
+    });
+
+    testWidgets('V2 disabled preserves V1 Home destination', (tester) async {
+      V2FeatureBoundary.enableBrainProfileRoutes = false;
+      expect(StartupDestination.resolve(), AppRoutes.home);
+
+      final router = _startupShellRouter(
+        flagOn: false,
+        initial: StartupDestination.resolve(),
+      );
+
+      await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
+      await tester.pumpAndSettle();
+
+      expect(find.text('V1_HOME'), findsOneWidget);
+      expect(find.byType(V2NavigationShell), findsNothing);
+    });
+
+    testWidgets('unknown V2 routes recover to /v2/home without loop',
+        (tester) async {
+      V2FeatureBoundary.enableBrainProfileRoutes = true;
+      var redirectCount = 0;
+      final router = GoRouter(
+        initialLocation: '/v2/not-a-real-route',
+        redirect: (context, state) {
+          redirectCount++;
+          expect(redirectCount, lessThan(6), reason: 'routing loop');
+          final path = state.uri.path;
+          if (path.startsWith('/v2/') && !V2FeatureBoundary.enableV2Shell) {
+            return AppRoutes.home;
+          }
+          if (path.startsWith('/v2/') &&
+              V2FeatureBoundary.enableV2Shell &&
+              !V2ShellPaths.isKnownV2Location(path)) {
+            return AppRoutes.v2Home;
+          }
+          return null;
+        },
+        routes: [
+          GoRoute(
+            path: AppRoutes.home,
+            builder: (_, __) => const Scaffold(body: Text('V1_HOME')),
+          ),
+          StatefulShellRoute.indexedStack(
+            builder: (context, state, navigationShell) {
+              return V2NavigationShell(navigationShell: navigationShell);
+            },
+            branches: [
+              for (final tab in V2ShellTab.values)
+                StatefulShellBranch(
+                  routes: [
+                    GoRoute(
+                      path: tab.pathPrefix,
+                      pageBuilder: (context, state) => NoTransitionPage<void>(
+                        child: Scaffold(
+                          body: Text('TAB_${tab.name.toUpperCase()}'),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+            ],
+          ),
+        ],
+      );
+
+      await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
+      await tester.pumpAndSettle();
+
+      expect(router.routerDelegate.currentConfiguration.uri.path, '/v2/home');
+      expect(find.byType(V2NavigationShell), findsOneWidget);
+    });
+
+    testWidgets('V2 disabled: /v2/* redirects to V1 Home without loop',
+        (tester) async {
+      V2FeatureBoundary.enableBrainProfileRoutes = false;
+      var redirectCount = 0;
+      final router = GoRouter(
+        initialLocation: AppRoutes.v2Home,
+        redirect: (context, state) {
+          redirectCount++;
+          expect(redirectCount, lessThan(6), reason: 'routing loop');
+          final path = state.uri.path;
+          if (path.startsWith('/v2/') && !V2FeatureBoundary.enableV2Shell) {
+            return AppRoutes.home;
+          }
+          return null;
+        },
+        routes: [
+          GoRoute(
+            path: AppRoutes.home,
+            builder: (_, __) => const Scaffold(body: Text('V1_HOME')),
+          ),
+          StatefulShellRoute.indexedStack(
+            builder: (context, state, navigationShell) {
+              return V2NavigationShell(navigationShell: navigationShell);
+            },
+            branches: [
+              for (final tab in V2ShellTab.values)
+                StatefulShellBranch(
+                  routes: [
+                    GoRoute(
+                      path: tab.pathPrefix,
+                      pageBuilder: (context, state) => NoTransitionPage<void>(
+                        child: Scaffold(
+                          body: Text('TAB_${tab.name.toUpperCase()}'),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+            ],
+          ),
+        ],
+      );
+
+      await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
+      await tester.pumpAndSettle();
+
+      expect(find.text('V1_HOME'), findsOneWidget);
+      expect(router.routerDelegate.currentConfiguration.uri.path, '/home');
+    });
+  });
 
   group('V2 release enablement', () {
     test('runtime override OFF preserves V1 gate behavior', () {
@@ -36,18 +320,19 @@ void main() {
     test('compile-time V2_ENABLED defaults false in unit test binary', () {
       // Suite runs without --dart-define=V2_ENABLED=true.
       // Release AAB passes the define at flutter build time.
+      // This does not replace a real release-device smoke test.
       expect(V2FeatureBoundary.compileTimeV2Enabled, isFalse);
     });
   });
 
   group('Release candidate identity', () {
-    test('pubspec and AppConfig report 2.0.0 / build 17', () {
+    test('pubspec and AppConfig report 2.0.1 / build 18', () {
       final pubspec = File('pubspec.yaml').readAsStringSync();
       expect(
         pubspec,
-        contains(RegExp(r'^version:\s*2\.0\.0\+17\s*$', multiLine: true)),
+        contains(RegExp(r'^version:\s*2\.0\.1\+18\s*$', multiLine: true)),
       );
-      expect(AppConfig.appVersion, '2.0.0');
+      expect(AppConfig.appVersion, '2.0.1');
     });
 
     test('Android applicationId matches Google Play package', () {
@@ -62,6 +347,19 @@ void main() {
       );
       expect(gradle, isNot(contains('com.example.brain_clean_mobile')));
       expect(gradle, isNot(contains('applicationIdSuffix')));
+    });
+  });
+
+  group('Root Play build authority', () {
+    test('ROOT_BUILD_AUTHORITY.md documents root-only Play builds', () {
+      final doc = File('docs/ROOT_BUILD_AUTHORITY.md').readAsStringSync();
+      expect(doc, contains('repository root'));
+      expect(doc, contains('pubspec.yaml'));
+      expect(doc, contains('android'));
+      expect(doc, contains('brain_clean_mobile/'));
+      expect(doc.toLowerCase(), contains('never build'));
+      expect(doc, contains('com.brainclean.mobile'));
+      expect(doc, contains('V2_ENABLED=true'));
     });
   });
 

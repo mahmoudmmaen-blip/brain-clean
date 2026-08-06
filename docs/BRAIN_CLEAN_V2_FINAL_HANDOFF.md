@@ -25,7 +25,7 @@ Read this file first when reopening the project.
 | Classification | Value |
 |---|---|
 | Development | **DEVELOPMENT_COMPLETE** |
-| Closed Testing | **CLOSED_TEST_ACTIVE** (`2.0.1+18`, ≥12 opted-in testers) |
+| Closed Testing | **CLOSED_TEST_ACTIVE_NOT_V2_QUALIFIED** (`2.0.1+18`; startup defect observed on store install) |
 | Production | **PRODUCTION_PENDING_GOOGLE_PLAY** |
 
 **Not in Production.** Do not claim public Production publication.
@@ -85,7 +85,7 @@ Subject: build(android): bump closed test release to 2.0.1+18
 | Track | Version | Status |
 |---|---|---|
 | Internal Testing | `2.0.0+17` | Historical V2 internal prep |
-| Closed Testing | `2.0.1+18` | **Active** |
+| Closed Testing | `2.0.1+18` | **Active but NOT V2-qualified** — version 18 store build exposed startup → Legacy `/home`; startup correction is local-only until a new version is uploaded and Play-verified |
 | Production | — | Waiting period / not approved / not created |
 
 ---
@@ -94,7 +94,10 @@ Subject: build(android): bump closed test release to 2.0.1+18
 
 - Automated Flutter analyze/tests green at release engineering gates
 - Device/store qualification evidence captured in Phase 10.x reports (bounded)
-- Ongoing Closed Testing / Play-installer validation remains important until Production
+- **Closed Testing `2.0.1+18` is NOT V2-qualified:** store install exposed a startup defect (cold start landed on Legacy `/home` even with `V2_ENABLED=true`)
+- Startup correction is implemented locally (splash + biometric → `/v2/home` when V2 shell enabled)
+- A **new store version** and Play-installed V2 visual verification are still required before claiming V2 Closed Test qualification
+- See `docs/ROOT_BUILD_AUTHORITY.md` — Play builds must come from repository root only
 
 ---
 
@@ -123,6 +126,7 @@ Do not commit the AAB or the real key.
 
 | Path | Role |
 |---|---|
+| `docs/ROOT_BUILD_AUTHORITY.md` | **Play build cwd authority** — root only; never nested `brain_clean_mobile/` |
 | `pubspec.yaml` | Version `2.0.1+18` |
 | `android/app/build.gradle.kts` | `applicationId` / `namespace` / signing wiring |
 | `android/key.properties` | Local signing (ignored) |
