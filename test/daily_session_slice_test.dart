@@ -321,7 +321,13 @@ void main() {
           ),
         ),
       );
+      expect(find.byKey(const Key('v2_today_empty_state')), findsOneWidget);
       expect(find.text(loc.recoveryPlanMissing), findsOneWidget);
+      expect(find.text(loc.recoveryPlanMissingProfile), findsOneWidget);
+      expect(
+        find.widgetWithText(FilledButton, loc.recoveryPlanBuildCta),
+        findsOneWidget,
+      );
     });
   });
 

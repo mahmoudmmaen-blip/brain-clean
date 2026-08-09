@@ -117,12 +117,29 @@ class TodayHomeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final titleStyle = theme.textTheme.headlineSmall?.copyWith(
+      color: AppColors.textPrimary,
+      fontWeight: FontWeight.w700,
+    );
+    final sectionStyle = theme.textTheme.titleMedium?.copyWith(
+      color: AppColors.textPrimary,
+      fontWeight: FontWeight.w600,
+    );
+    final bodyStyle = theme.textTheme.bodyLarge?.copyWith(
+      color: AppColors.textSecondary,
+      height: 1.45,
+    );
+
     if (loading) {
       return Center(
         child: Semantics(
           liveRegion: true,
           label: loc.v2TodayHomeLoading,
-          child: Text(loc.v2TodayHomeLoading),
+          child: Text(
+            loc.v2TodayHomeLoading,
+            style: bodyStyle,
+          ),
         ),
       );
     }
@@ -135,31 +152,62 @@ class TodayHomeBody extends StatelessWidget {
         'persistence_failed' => loc.v2TodayReadyPersistFailed,
         _ => loc.recoveryPlanGenerationError,
       };
+      final isEmptyPlan = errorKey == 'missing_plan';
       final rebuild = errorKey == 'missing_plan' ||
           errorKey == 'unsupported_plan_version' ||
           errorKey == 'missing_today_act';
-      return Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Semantics(
-              header: true,
-              liveRegion: true,
-              child: Text(message, textAlign: TextAlign.center),
-            ),
-            const SizedBox(height: 24),
-            SizedBox(
-              width: double.infinity,
-              height: 48,
-              child: FilledButton(
-                onPressed: rebuild ? onBuildPlan : onRetry,
+      final support =
+          isEmptyPlan ? loc.recoveryPlanMissingProfile : null;
+
+      return KeyedSubtree(
+        key: const Key('v2_today_empty_state'),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Icon(
+                Icons.calendar_today_outlined,
+                size: 40,
+                color: AppColors.primary.withValues(alpha: 0.9),
+              ),
+              const SizedBox(height: 24),
+              Semantics(
+                header: true,
+                liveRegion: true,
                 child: Text(
-                  rebuild ? loc.recoveryPlanBuildCta : loc.recoveryPlanRetry,
+                  message,
+                  textAlign: TextAlign.center,
+                  style: titleStyle,
                 ),
               ),
-            ),
-          ],
+              if (support != null) ...[
+                const SizedBox(height: 12),
+                Text(
+                  support,
+                  textAlign: TextAlign.center,
+                  style: bodyStyle,
+                ),
+              ],
+              const SizedBox(height: 32),
+              SizedBox(
+                width: double.infinity,
+                height: 48,
+                child: FilledButton(
+                  onPressed: rebuild ? onBuildPlan : onRetry,
+                  style: FilledButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    foregroundColor: AppColors.textPrimary,
+                    minimumSize: const Size(48, 48),
+                  ),
+                  child: Text(
+                    rebuild ? loc.recoveryPlanBuildCta : loc.recoveryPlanRetry,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       );
     }
@@ -178,7 +226,7 @@ class TodayHomeBody extends StatelessWidget {
     final ctaLabel = _ctaLabel(loc, session);
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.fromLTRB(24, 16, 24, 32),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -186,73 +234,76 @@ class TodayHomeBody extends StatelessWidget {
             header: true,
             child: Text(
               loc.v2TodayHomeOrientation,
-              style: Theme.of(context).textTheme.titleLarge,
+              style: theme.textTheme.titleLarge?.copyWith(
+                color: AppColors.textPrimary,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
           const SizedBox(height: 8),
-          Text(loc.v2TodayHomeOrientationBody),
-          const SizedBox(height: 20),
+          Text(loc.v2TodayHomeOrientationBody, style: bodyStyle),
+          const SizedBox(height: 24),
           Semantics(
             header: true,
             label: '${loc.v2TodayPreviewActHeading}: $title',
-            child: Text(
-              title,
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
+            child: Text(title, style: titleStyle),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 16),
           Semantics(
             header: true,
-            child: Text(
-              loc.v2TodayPreviewBecauseHeading,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
+            child: Text(loc.v2TodayPreviewBecauseHeading, style: sectionStyle),
           ),
           const SizedBox(height: 8),
           Semantics(
             label: '${loc.v2TodayPreviewBecauseHeading}: $because',
-            child: Text(because),
+            child: Text(because, style: bodyStyle),
           ),
           const SizedBox(height: 16),
           Semantics(
             label: timeLabel,
-            child: Text(timeLabel),
+            child: Text(timeLabel, style: bodyStyle),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 24),
           Semantics(
             header: true,
-            child: Text(
-              loc.recoveryPlanMinimumPath,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
+            child: Text(loc.recoveryPlanMinimumPath, style: sectionStyle),
           ),
           const SizedBox(height: 8),
           if (minLabels.isEmpty)
-            Text(loc.recoveryPlanNoSteps)
+            Text(loc.recoveryPlanNoSteps, style: bodyStyle)
           else
             ...minLabels.map(
               (l) => Padding(
-                padding: const EdgeInsets.only(bottom: 6),
-                child: Text(l),
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Text(l, style: bodyStyle),
               ),
             ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 16),
           Semantics(
             header: true,
-            child: Text(
-              loc.recoveryPlanStandardPath,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
+            child: Text(loc.recoveryPlanStandardPath, style: sectionStyle),
           ),
           const SizedBox(height: 8),
-          Text(loc.v2TodayHomeStandardPathHint),
-          const SizedBox(height: 16),
+          Text(loc.v2TodayHomeStandardPathHint, style: bodyStyle),
+          const SizedBox(height: 20),
           Semantics(
             liveRegion: true,
             label: '${loc.v2TodayHomeStatusHeading}: $statusLabel',
-            child: Text(
-              statusLabel,
-              style: Theme.of(context).textTheme.titleSmall,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: AppColors.card,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: AppColors.border),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                child: Text(
+                  statusLabel,
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+              ),
             ),
           ),
           const SizedBox(height: 28),
@@ -260,6 +311,11 @@ class TodayHomeBody extends StatelessWidget {
             height: 48,
             child: FilledButton(
               onPressed: onPrimary,
+              style: FilledButton.styleFrom(
+                backgroundColor: AppColors.primary,
+                foregroundColor: AppColors.textPrimary,
+                minimumSize: const Size(48, 48),
+              ),
               child: Text(ctaLabel),
             ),
           ),
@@ -268,15 +324,24 @@ class TodayHomeBody extends StatelessWidget {
             height: 48,
             child: OutlinedButton(
               onPressed: onViewPlan,
+              style: OutlinedButton.styleFrom(
+                foregroundColor: AppColors.textPrimary,
+                side: const BorderSide(color: AppColors.border),
+                minimumSize: const Size(48, 48),
+              ),
               child: Text(loc.v2TodayHomeViewPlan),
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 8),
           SizedBox(
             height: 48,
             child: TextButton(
               key: const Key('v2_today_safa_entry'),
               onPressed: onOpenSafa,
+              style: TextButton.styleFrom(
+                foregroundColor: AppColors.textSecondary,
+                minimumSize: const Size(48, 48),
+              ),
               child: Text(loc.v2SafaEntryToday),
             ),
           ),
