@@ -329,6 +329,87 @@ void main() {
         findsOneWidget,
       );
     });
+
+    testWidgets('empty state scrolls without overflow on short height',
+        (tester) async {
+      final loc = await AppLocalizations.delegate.load(const Locale('en'));
+      await tester.binding.setSurfaceSize(const Size(320, 480));
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+      await tester.pumpWidget(
+        MediaQuery(
+          data: const MediaQueryData(size: Size(320, 480)),
+          child: wrap(
+            SizedBox(
+              width: 320,
+              height: 400,
+              child: TodayHomeBody(
+                loc: loc,
+                languageCode: 'en',
+                loading: false,
+                errorKey: 'missing_plan',
+                plan: null,
+                session: null,
+                onRetry: () {},
+                onBuildPlan: () {},
+                onPrimary: () {},
+                onViewPlan: () {},
+                onOpenSafa: () {},
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.byType(SingleChildScrollView), findsOneWidget);
+      expect(tester.takeException(), isNull);
+      expect(
+        find.widgetWithText(FilledButton, loc.recoveryPlanBuildCta),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('loaded Today clears Safa and paths at narrow / phone widths',
+        (tester) async {
+      final plan = RecoveryPlanEngineV1.generate(_pack());
+      final loc = await AppLocalizations.delegate.load(const Locale('en'));
+      for (final size in const [
+        Size(320, 640),
+        Size(360, 800),
+        Size(412, 915),
+      ]) {
+        await tester.binding.setSurfaceSize(size);
+        await tester.pumpWidget(
+          MediaQuery(
+            data: MediaQueryData(size: size),
+            child: wrap(
+              SizedBox(
+                width: size.width,
+                height: size.height - 80,
+                child: TodayHomeBody(
+                  loc: loc,
+                  languageCode: 'en',
+                  loading: false,
+                  errorKey: null,
+                  plan: plan,
+                  session: null,
+                  onRetry: () {},
+                  onBuildPlan: () {},
+                  onPrimary: () {},
+                  onViewPlan: () {},
+                  onOpenSafa: () {},
+                ),
+              ),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+        expect(tester.takeException(), isNull);
+        await tester.ensureVisible(find.byKey(const Key('v2_today_safa_entry')));
+        expect(find.byKey(const Key('v2_today_safa_entry')), findsOneWidget);
+        expect(find.byKey(const Key('v2_today_path_row_0')), findsWidgets);
+      }
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+    });
   });
 
   group('handoff + boundary', () {

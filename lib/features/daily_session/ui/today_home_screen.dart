@@ -12,6 +12,10 @@ import '../data/daily_session_controller_provider.dart';
 import '../domain/daily_session.dart';
 import '../domain/daily_session_status.dart';
 
+/// Clearance below last CTA so Safa cannot sit against the shell [NavigationBar].
+/// Body is already laid above the bar; this is visual breathing room only.
+const double _kTodayContentBottomClearance = 40;
+
 /// HOM-01 — calm Today home (one action, not a warehouse).
 class TodayHomeScreen extends ConsumerStatefulWidget {
   const TodayHomeScreen({super.key});
@@ -38,25 +42,25 @@ class _TodayHomeScreenState extends ConsumerState<TodayHomeScreen> {
         title: Text(loc.v2TodayHomeTitle),
         backgroundColor: AppColors.background,
       ),
-      body: SafeArea(
-        child: TodayHomeBody(
-          loc: loc,
-          languageCode: isAr ? 'ar' : 'en',
-          loading: controller.loading,
-          errorKey: controller.errorKey,
-          plan: controller.plan,
-          session: controller.session,
-          onRetry: controller.loadToday,
-          onBuildPlan: () => context.go(AppRoutes.v2PlanBuilding),
-          onPrimary: () => _onPrimary(context, controller),
-          onViewPlan: () {
-            final id = controller.plan?.id;
-            if (id == null) return;
-            context.go('${AppRoutes.v2PlanReveal}?plan=$id');
-          },
-          onOpenSafa: () => context.go(
-            '${AppRoutes.v2Safa}?origin=today&returnTo=${Uri.encodeComponent(AppRoutes.v2Home)}',
-          ),
+      // AppBar owns top inset; shell NavigationBar owns bottom. Extra SafeArea
+      // here shrank the body (~20px) and caused BOTTOM OVERFLOWED on short heights.
+      body: TodayHomeBody(
+        loc: loc,
+        languageCode: isAr ? 'ar' : 'en',
+        loading: controller.loading,
+        errorKey: controller.errorKey,
+        plan: controller.plan,
+        session: controller.session,
+        onRetry: controller.loadToday,
+        onBuildPlan: () => context.go(AppRoutes.v2PlanBuilding),
+        onPrimary: () => _onPrimary(context, controller),
+        onViewPlan: () {
+          final id = controller.plan?.id;
+          if (id == null) return;
+          context.go('${AppRoutes.v2PlanReveal}?plan=$id');
+        },
+        onOpenSafa: () => context.go(
+          '${AppRoutes.v2Safa}?origin=today&returnTo=${Uri.encodeComponent(AppRoutes.v2Home)}',
         ),
       ),
     );
@@ -128,7 +132,11 @@ class TodayHomeBody extends StatelessWidget {
     );
     final bodyStyle = theme.textTheme.bodyLarge?.copyWith(
       color: AppColors.textSecondary,
-      height: 1.45,
+      height: 1.5,
+    );
+    final pathStyle = bodyStyle?.copyWith(
+      color: AppColors.textPrimary,
+      height: 1.5,
     );
 
     if (loading) {
@@ -161,53 +169,72 @@ class TodayHomeBody extends StatelessWidget {
 
       return KeyedSubtree(
         key: const Key('v2_today_empty_state'),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Icon(
-                Icons.calendar_today_outlined,
-                size: 40,
-                color: AppColors.primary.withValues(alpha: 0.9),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            const topPad = 24.0;
+            final minBodyHeight = (constraints.maxHeight -
+                    topPad -
+                    _kTodayContentBottomClearance)
+                .clamp(0.0, double.infinity);
+            return SingleChildScrollView(
+              padding: const EdgeInsets.fromLTRB(
+                24,
+                topPad,
+                24,
+                _kTodayContentBottomClearance,
               ),
-              const SizedBox(height: 24),
-              Semantics(
-                header: true,
-                liveRegion: true,
-                child: Text(
-                  message,
-                  textAlign: TextAlign.center,
-                  style: titleStyle,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: minBodyHeight),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Icon(
+                      Icons.calendar_today_outlined,
+                      size: 40,
+                      color: AppColors.primary.withValues(alpha: 0.9),
+                    ),
+                    const SizedBox(height: 24),
+                    Semantics(
+                      header: true,
+                      liveRegion: true,
+                      child: Text(
+                        message,
+                        textAlign: TextAlign.center,
+                        style: titleStyle,
+                      ),
+                    ),
+                    if (support != null) ...[
+                      const SizedBox(height: 12),
+                      Text(
+                        support,
+                        textAlign: TextAlign.center,
+                        style: bodyStyle,
+                      ),
+                    ],
+                    const SizedBox(height: 32),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 48,
+                      child: FilledButton(
+                        onPressed: rebuild ? onBuildPlan : onRetry,
+                        style: FilledButton.styleFrom(
+                          backgroundColor: AppColors.primary,
+                          foregroundColor: AppColors.textPrimary,
+                          minimumSize: const Size(48, 48),
+                        ),
+                        child: Text(
+                          rebuild
+                              ? loc.recoveryPlanBuildCta
+                              : loc.recoveryPlanRetry,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              if (support != null) ...[
-                const SizedBox(height: 12),
-                Text(
-                  support,
-                  textAlign: TextAlign.center,
-                  style: bodyStyle,
-                ),
-              ],
-              const SizedBox(height: 32),
-              SizedBox(
-                width: double.infinity,
-                height: 48,
-                child: FilledButton(
-                  onPressed: rebuild ? onBuildPlan : onRetry,
-                  style: FilledButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    foregroundColor: AppColors.textPrimary,
-                    minimumSize: const Size(48, 48),
-                  ),
-                  child: Text(
-                    rebuild ? loc.recoveryPlanBuildCta : loc.recoveryPlanRetry,
-                  ),
-                ),
-              ),
-            ],
-          ),
+            );
+          },
         ),
       );
     }
@@ -226,7 +253,12 @@ class TodayHomeBody extends StatelessWidget {
     final ctaLabel = _ctaLabel(loc, session);
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(24, 16, 24, 32),
+      padding: const EdgeInsets.fromLTRB(
+        24,
+        16,
+        24,
+        _kTodayContentBottomClearance,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -268,17 +300,35 @@ class TodayHomeBody extends StatelessWidget {
             header: true,
             child: Text(loc.recoveryPlanMinimumPath, style: sectionStyle),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 12),
           if (minLabels.isEmpty)
             Text(loc.recoveryPlanNoSteps, style: bodyStyle)
           else
-            ...minLabels.map(
-              (l) => Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Text(l, style: bodyStyle),
+            ...minLabels.asMap().entries.map(
+              (entry) => Padding(
+                key: Key('v2_today_path_row_${entry.key}'),
+                padding: const EdgeInsets.only(bottom: 12),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: AppColors.card,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: AppColors.border),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 14,
+                    ),
+                    child: Text(
+                      entry.value,
+                      style: pathStyle,
+                      softWrap: true,
+                    ),
+                  ),
+                ),
               ),
             ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 8),
           Semantics(
             header: true,
             child: Text(loc.recoveryPlanStandardPath, style: sectionStyle),
