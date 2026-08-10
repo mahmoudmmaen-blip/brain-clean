@@ -1860,6 +1860,23 @@ class AppLocalizationsAr extends AppLocalizations {
   String get recoveryPlanFitsProfile => 'تتوافق مع أولويات تقدير ملفك الحالي.';
 
   @override
+  String get recoveryPlanTodayFitHeading => 'كيف يتوافق اليوم';
+
+  @override
+  String get recoveryPlanOpenToday => 'افتح اليوم';
+
+  @override
+  String get recoveryPlanAboutDetails => 'لماذا هذه الخطة';
+
+  @override
+  String get recoveryPlanPathDetails => 'تفاصيل المسار';
+
+  @override
+  String recoveryPlanStepCount(int count) {
+    return '$count خطوات';
+  }
+
+  @override
   String get v2TodayPreviewTitle => 'أول يوم لك';
 
   @override

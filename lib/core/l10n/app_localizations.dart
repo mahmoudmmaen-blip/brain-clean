@@ -3470,6 +3470,36 @@ abstract class AppLocalizations {
   /// **'It matches the priorities in your current profile estimate.'**
   String get recoveryPlanFitsProfile;
 
+  /// No description provided for @recoveryPlanTodayFitHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'How today fits'**
+  String get recoveryPlanTodayFitHeading;
+
+  /// No description provided for @recoveryPlanOpenToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Today'**
+  String get recoveryPlanOpenToday;
+
+  /// No description provided for @recoveryPlanAboutDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Why this plan'**
+  String get recoveryPlanAboutDetails;
+
+  /// No description provided for @recoveryPlanPathDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Path details'**
+  String get recoveryPlanPathDetails;
+
+  /// No description provided for @recoveryPlanStepCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} steps'**
+  String recoveryPlanStepCount(int count);
+
   /// No description provided for @v2TodayPreviewTitle.
   ///
   /// In en, this message translates to:

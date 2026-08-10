@@ -955,6 +955,16 @@
   "recoveryPlanCalmOrientation": "خطة التعافي الخاصة بك",
   "recoveryPlanCalmOrientationBody": "هذه الخطة تقدير عملي مبني على ملف الدماغ الحالي. ليست تشخيصاً ولا علاجاً. يمكنك تعديلها لاحقاً.",
   "recoveryPlanFitsProfile": "تتوافق مع أولويات تقدير ملفك الحالي.",
+  "recoveryPlanTodayFitHeading": "كيف يتوافق اليوم",
+  "recoveryPlanOpenToday": "افتح اليوم",
+  "recoveryPlanAboutDetails": "لماذا هذه الخطة",
+  "recoveryPlanPathDetails": "تفاصيل المسار",
+  "recoveryPlanStepCount": "{count} خطوات",
+  "@recoveryPlanStepCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
   "v2TodayPreviewTitle": "أول يوم لك",
   "v2TodayPreviewLoading": "جارٍ تحميل معاينة اليوم",
   "v2TodayPreviewHeading": "معاينة اليوم",

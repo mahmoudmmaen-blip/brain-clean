@@ -314,7 +314,8 @@ void main() {
       );
       expect(a.id, b.id);
       expect(a.contentHash, b.contentHash);
-      expect(a.steps.map((s) => s.practiceId), b.steps.map((s) => s.practiceId));
+      expect(
+          a.steps.map((s) => s.practiceId), b.steps.map((s) => s.practiceId));
     });
 
     test('Free and Premium produce identical core plan', () {
@@ -352,8 +353,7 @@ void main() {
         confidence: MeasurementConfidence.moderate,
       );
       final plan = RecoveryPlanEngineV1.generate(pack);
-      final blob =
-          '${plan.todayBecause.textEn} ${plan.todayBecause.textAr} '
+      final blob = '${plan.todayBecause.textEn} ${plan.todayBecause.textAr} '
           '${plan.explanation.whyFitsEn} ${plan.explanation.nonMedicalBoundaryEn}';
       for (final bad in [
         'diagnosis',
@@ -492,7 +492,8 @@ void main() {
         domainAggregationModelVersion: ProfileVersion.domainAggregationModel,
       );
       final pri = PrioritySelector.select(pack);
-      expect(pri.priorities.map((p) => p.domainId), isNot(contains('full_attention')));
+      expect(pri.priorities.map((p) => p.domainId),
+          isNot(contains('full_attention')));
       expect(pri.priorities.first.domainId, 'full_mood');
     });
   });
@@ -512,7 +513,8 @@ void main() {
       );
       final pri = PrioritySelector.select(pack);
       expect(
-        IntensitySelector.select(pack: pack, priorityCount: pri.priorities.length),
+        IntensitySelector.select(
+            pack: pack, priorityCount: pri.priorities.length),
         RecoveryPlanIntensity.light,
       );
     });
@@ -704,7 +706,8 @@ void main() {
       expect(find.textContaining('Brain Check'), findsOneWidget);
     });
 
-    testWidgets('PLN-01 ready shows because without internal ids', (tester) async {
+    testWidgets('PLN-01 ready shows because without internal ids',
+        (tester) async {
       final pack = syntheticFull(
         domainScores: {
           'full_attention': 30,
@@ -818,6 +821,166 @@ void main() {
         ),
       );
       expect(find.text(loc.recoveryPlanBuilding), findsOneWidget);
+    });
+
+    testWidgets('shell Plan thesis early, paths collapsed, soft Open Today',
+        (tester) async {
+      final pack = syntheticFull(
+        domainScores: {
+          'full_attention': 30,
+          'full_mood': 55,
+          'full_habits': 60,
+          'full_intention': 70,
+        },
+        overall: 54,
+        band: RecoveryScoreBand.findingSteadiness,
+        confidence: MeasurementConfidence.strong,
+      );
+      final plan = RecoveryPlanEngineV1.generate(pack);
+      final loc = await AppLocalizations.delegate.load(const Locale('en'));
+      var continued = false;
+      await tester.pumpWidget(
+        MaterialApp(
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          home: Scaffold(
+            body: PlanRevealBody(
+              loc: loc,
+              languageCode: 'en',
+              loading: false,
+              missing: false,
+              plan: plan,
+              presentation: PlanRevealPresentation.shellOrientation,
+              onGoHome: () {},
+              onContinue: () => continued = true,
+              onRebuild: () {},
+            ),
+          ),
+        ),
+      );
+      expect(find.text(loc.recoveryPlanMainFocus), findsOneWidget);
+      expect(find.text(loc.recoveryPlanTodayFitHeading), findsOneWidget);
+      expect(find.text(loc.recoveryPlanPathDetails), findsOneWidget);
+      expect(find.text(loc.recoveryPlanAboutDetails), findsOneWidget);
+      // Full path dumps / a11y alts are not expanded in the first viewport.
+      expect(find.text(loc.recoveryPlanSkipHint), findsNothing);
+      expect(
+        find.widgetWithText(FilledButton, loc.recoveryPlanContinueToday),
+        findsNothing,
+      );
+      expect(
+        find.widgetWithText(OutlinedButton, loc.recoveryPlanOpenToday),
+        findsOneWidget,
+      );
+      expect(
+        find.text(plan.explanation.mainFocusForLocale('en')),
+        findsWidgets,
+      );
+      await tester.ensureVisible(find.text(loc.recoveryPlanOpenToday));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text(loc.recoveryPlanOpenToday));
+      expect(continued, isTrue);
+      // No session execution controls.
+      expect(find.text(loc.v2TodayHomeCtaStart), findsNothing);
+      expect(find.text(loc.v2TodayHomeCtaContinue), findsNothing);
+    });
+
+    testWidgets('shell Plan Arabic RTL + 320 width scrolls', (tester) async {
+      final pack = syntheticFull(
+        domainScores: {
+          'full_attention': 30,
+          'full_mood': 55,
+          'full_habits': 60,
+          'full_intention': 70,
+        },
+        overall: 54,
+        band: RecoveryScoreBand.findingSteadiness,
+        confidence: MeasurementConfidence.strong,
+      );
+      final plan = RecoveryPlanEngineV1.generate(pack);
+      final loc = await AppLocalizations.delegate.load(const Locale('ar'));
+      await tester.binding.setSurfaceSize(const Size(320, 640));
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+      await tester.pumpWidget(
+        MediaQuery(
+          data: const MediaQueryData(size: Size(320, 640)),
+          child: MaterialApp(
+            locale: const Locale('ar'),
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: AppLocalizations.supportedLocales,
+            home: Scaffold(
+              body: PlanRevealBody(
+                loc: loc,
+                languageCode: 'ar',
+                loading: false,
+                missing: false,
+                plan: plan,
+                presentation: PlanRevealPresentation.shellOrientation,
+                onGoHome: () {},
+                onContinue: () {},
+                onRebuild: () {},
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(tester.takeException(), isNull);
+      expect(find.byType(SingleChildScrollView), findsOneWidget);
+      expect(find.text(loc.recoveryPlanTodayFitHeading), findsOneWidget);
+      final ctx = tester.element(find.text(loc.recoveryPlanTodayFitHeading));
+      expect(Directionality.of(ctx), TextDirection.rtl);
+    });
+
+    testWidgets('shell empty Plan offers Build without session CTAs',
+        (tester) async {
+      final loc = await AppLocalizations.delegate.load(const Locale('en'));
+      var rebuild = false;
+      var home = false;
+      await tester.pumpWidget(
+        MaterialApp(
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          home: Scaffold(
+            body: PlanRevealBody(
+              loc: loc,
+              languageCode: 'en',
+              loading: false,
+              missing: true,
+              plan: null,
+              presentation: PlanRevealPresentation.shellOrientation,
+              onGoHome: () => home = true,
+              onContinue: () {},
+              onRebuild: () => rebuild = true,
+            ),
+          ),
+        ),
+      );
+      expect(find.text(loc.recoveryPlanMissing), findsOneWidget);
+      expect(find.text(loc.recoveryPlanBuildCta), findsOneWidget);
+      await tester.tap(find.text(loc.recoveryPlanBuildCta));
+      expect(rebuild, isTrue);
+      await tester.tap(find.text(loc.recoveryPlanGoHome));
+      expect(home, isTrue);
+      expect(find.text(loc.v2TodayHomeCtaStart), findsNothing);
+    });
+
+    test('shell empty go-home target is V2 Today not legacy /home', () {
+      expect(AppRoutes.v2Home, '/v2/home');
+      expect(AppRoutes.home, isNot(AppRoutes.v2Home));
     });
 
     test('feature boundary keeps V1 default', () {

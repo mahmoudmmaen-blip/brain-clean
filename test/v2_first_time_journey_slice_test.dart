@@ -430,7 +430,8 @@ void main() {
   });
 
   group('PLN-01 + ONB-09 + Today-ready UI', () {
-    testWidgets('PLN-01 shows focus, priorities, stronger, confidence, time, paths, because, TodayAct',
+    testWidgets(
+        'PLN-01 shows focus, priorities, stronger, confidence, time, paths, because, TodayAct',
         (tester) async {
       final plan = RecoveryPlanEngineV1.generate(_pack());
       final loc = await AppLocalizations.delegate.load(const Locale('en'));
@@ -464,6 +465,10 @@ void main() {
       expect(find.text(title!), findsWidgets);
       expect(find.widgetWithText(FilledButton, loc.recoveryPlanContinueToday),
           findsOneWidget);
+      // First-time PLN-01 must not use shell soft CTA / collapsed path chrome.
+      expect(find.text(loc.recoveryPlanOpenToday), findsNothing);
+      expect(find.text(loc.recoveryPlanPathDetails), findsNothing);
+      expect(AppRoutes.v2PlanTodayPreview, '/v2/plan/today-preview');
     });
 
     testWidgets('ONB-09 preview body fields', (tester) async {
@@ -524,7 +529,8 @@ void main() {
       expect(find.text(loc.v2TodayReadyFirstStepTitle), findsOneWidget);
       expect(find.byType(SingleChildScrollView), findsOneWidget);
       expect(tester.takeException(), isNull);
-      final targets = tester.widgetList<FilledButton>(find.byType(FilledButton));
+      final targets =
+          tester.widgetList<FilledButton>(find.byType(FilledButton));
       for (final b in targets) {
         expect(b, isNotNull);
       }
@@ -586,7 +592,8 @@ void main() {
       expect(V2FeatureBoundary.enableRecoveryPlanRoutes, isFalse);
     });
 
-    test('no HOM-01 / SES player / ads / premium / safa routes in Slice 5.4', () {
+    test('no HOM-01 / SES player / ads / premium / safa routes in Slice 5.4',
+        () {
       expect(AppRoutes.v2PlanTodayReady.contains('session'), isFalse);
       expect(AppRoutes.v2PlanTodayPreview.contains('safa'), isFalse);
       expect(AppRoutes.v2PlanTodayReady.contains('premium'), isFalse);

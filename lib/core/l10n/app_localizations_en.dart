@@ -1884,6 +1884,23 @@ class AppLocalizationsEn extends AppLocalizations {
       'It matches the priorities in your current profile estimate.';
 
   @override
+  String get recoveryPlanTodayFitHeading => 'How today fits';
+
+  @override
+  String get recoveryPlanOpenToday => 'Open Today';
+
+  @override
+  String get recoveryPlanAboutDetails => 'Why this plan';
+
+  @override
+  String get recoveryPlanPathDetails => 'Path details';
+
+  @override
+  String recoveryPlanStepCount(int count) {
+    return '$count steps';
+  }
+
+  @override
   String get v2TodayPreviewTitle => 'Your first Today';
 
   @override
