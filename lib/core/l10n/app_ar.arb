@@ -1352,6 +1352,7 @@
   "v2ProgressCtaToday": "أكمل فعل اليوم أولاً",
   "v2ProgressCtaContinueToday": "العودة إلى اليوم",
   "v2ProgressReportsEntry": "فتح التقارير",
+  "v2ProgressPatternDetails": "تفاصيل النمط",
   "v2ReportsTitle": "التقارير",
   "v2ReportsEvidenceOverview": "نظرة عامة على الأدلة",
   "v2ReportsWeeklyHistory": "السجل الأسبوعي",

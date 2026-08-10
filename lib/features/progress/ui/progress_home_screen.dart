@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_design_constants.dart';
 import '../../weekly_review/domain/weekly_review_enums.dart';
 import '../../weekly_review/domain/weekly_review_summary.dart';
 import '../application/progress_experience_controller.dart';
@@ -14,6 +15,10 @@ import '../domain/progress_timeline.dart';
 import '../domain/progress_view_model.dart';
 
 /// PRG-01 — words-first Progress proof experience + Weekly Review entry.
+///
+/// Phase A hierarchy (decision-first):
+/// identity → direction headline → compact movement → next action →
+/// progressive pattern/history → contextual Weekly Review → quiet Reports.
 class ProgressHomeScreen extends ConsumerStatefulWidget {
   const ProgressHomeScreen({super.key});
 
@@ -68,6 +73,8 @@ class ProgressHomeBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    final muted = theme.colorScheme.onSurfaceVariant;
     final c = controller;
 
     if (c.phase == ProgressExperiencePhase.loading) {
@@ -92,71 +99,137 @@ class ProgressHomeBody extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         return SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.fromLTRB(24, 16, 24, 28),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Semantics(
-                header: true,
-                child: Text(
-                  loc.v2ProgressOrientation,
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
+              // 1 Identity — soft orientation under AppBar title
+              Text(
+                loc.v2ProgressOrientation,
+                style: theme.textTheme.labelMedium?.copyWith(color: muted),
               ),
               const SizedBox(height: 8),
+              // 2 Direction / meaningful summary
               Semantics(
+                header: true,
                 liveRegion: true,
                 child: Text(
                   _headline(loc, vm.proofHeadline),
-                  style: Theme.of(context).textTheme.headlineSmall,
+                  style: theme.textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.w700,
+                    height: 1.28,
+                  ),
                 ),
               ),
               const SizedBox(height: 8),
               Text(
                 loc.v2ProgressBasedOnSessions,
-                style: Theme.of(context).textTheme.bodySmall,
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: muted,
+                  height: 1.4,
+                ),
               ),
               if (vm.isEmpty) ...[
-                const SizedBox(height: 24),
-                Text(loc.v2ProgressEmptyBody),
+                const SizedBox(height: 20),
+                Text(
+                  loc.v2ProgressEmptyBody,
+                  style: theme.textTheme.bodyMedium?.copyWith(height: 1.4),
+                ),
               ] else ...[
                 const SizedBox(height: 24),
-                _BetterBlock(vm: vm),
-                const SizedBox(height: 20),
-                _WhyBlock(vm: vm),
-                const SizedBox(height: 20),
-                _ComparedBlock(vm: vm),
+                // 3 Compact supporting movement indicators
+                _MovementBlock(vm: vm, muted: muted),
                 const SizedBox(height: 12),
                 Text(
                   _evidence(loc, vm.evidenceDepth),
-                  style: Theme.of(context).textTheme.bodySmall,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: muted,
+                    height: 1.4,
+                  ),
                 ),
+              ],
+              // 4 Contextual next action — early, before history density
+              const SizedBox(height: 28),
+              _PrimaryCta(vm: vm),
+              if (!vm.isEmpty) ...[
+                const SizedBox(height: 24),
+                Divider(
+                  height: 1,
+                  thickness: 1,
+                  color:
+                      theme.colorScheme.outlineVariant.withValues(alpha: 0.45),
+                ),
+                const SizedBox(height: 4),
+                // 5–6 Progressive pattern + history
+                _DetailExpansion(
+                  title: loc.v2ProgressPatternDetails,
+                  subtitle: _patternSubtitle(loc, vm),
+                  child: _PatternDetails(vm: vm),
+                ),
+                if (vm.recentTimeline.isNotEmpty)
+                  _DetailExpansion(
+                    title: loc.v2ProgressRecentActivity,
+                    subtitle: vm.lastCompletedDayKey ??
+                        loc.v2ProgressCompletedDays(
+                            vm.completedDays.toString()),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        for (final e in vm.recentTimeline)
+                          _TimelineRow(entry: e),
+                      ],
+                    ),
+                  ),
                 if (vm.showScoreRow) ...[
-                  const SizedBox(height: 20),
-                  _ScoreRow(vm: vm),
+                  const SizedBox(height: 12),
+                  _ScoreRow(vm: vm, muted: muted),
                 ],
               ],
+              // 7 Weekly Review — emphasis only when actionable
               const SizedBox(height: 24),
               _ReviewEntry(vm: vm),
               if (vm.weeklySummaryPreview != null) ...[
                 const SizedBox(height: 16),
-                _WeeklyPreview(summary: vm.weeklySummaryPreview!),
+                _WeeklyPreview(
+                  summary: vm.weeklySummaryPreview!,
+                  showSummaryCta: vm.primaryDestination !=
+                      ProgressNextDestination.weeklyReviewSummary,
+                ),
               ],
+              // 8 Quiet secondary exit to Reports
               const SizedBox(height: 16),
               OutlinedButton(
                 style: OutlinedButton.styleFrom(
                   minimumSize: const Size(48, 48),
+                  foregroundColor: muted,
                 ),
                 onPressed: () => context.go(AppRoutes.v2Reports),
                 child: Text(loc.v2ProgressReportsEntry),
               ),
-              const SizedBox(height: 28),
-              _PrimaryCta(vm: vm),
             ],
           ),
         );
       },
     );
+  }
+
+  static String _patternSubtitle(AppLocalizations loc, ProgressViewModel vm) {
+    final mix = vm.pathMixHint;
+    if (mix != null) return _mix(loc, mix);
+    return loc.v2ProgressCompletionRate(vm.completionRatePercent.toString());
+  }
+
+  static String _mix(AppLocalizations loc, PathMixLabel mix) {
+    switch (mix) {
+      case PathMixLabel.mostlyMinimum:
+        return loc.v2ProgressPathMostlyMinimum;
+      case PathMixLabel.mostlyStandard:
+        return loc.v2ProgressPathMostlyStandard;
+      case PathMixLabel.balanced:
+        return loc.v2ProgressPathBalanced;
+      case PathMixLabel.singleSessionOnly:
+        return loc.v2ProgressPathSingle;
+    }
   }
 
   static String _headline(AppLocalizations loc, ProgressProofHeadline h) {
@@ -192,13 +265,16 @@ class ProgressHomeBody extends StatelessWidget {
   }
 }
 
-class _BetterBlock extends StatelessWidget {
-  const _BetterBlock({required this.vm});
+class _MovementBlock extends StatelessWidget {
+  const _MovementBlock({required this.vm, required this.muted});
   final ProgressViewModel vm;
+  final Color muted;
 
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    final mix = vm.pathMixHint;
     return Semantics(
       container: true,
       label: loc.v2ProgressBetterHeading,
@@ -207,98 +283,160 @@ class _BetterBlock extends StatelessWidget {
         children: [
           Text(
             loc.v2ProgressBetterHeading,
-            style: Theme.of(context).textTheme.titleMedium,
+            style: theme.textTheme.labelLarge?.copyWith(color: muted),
           ),
           const SizedBox(height: 8),
-          Text(loc.v2ProgressCompletedDays(vm.completedDays.toString())),
           Text(
-            loc.v2ProgressCompletedSessions(
-              vm.totalCompletedSessions.toString(),
+            loc.v2ProgressCompletedDays(vm.completedDays.toString()),
+            style: theme.textTheme.bodyLarge?.copyWith(
+              fontWeight: FontWeight.w500,
+              height: 1.35,
             ),
           ),
+          Text(
+            loc.v2ProgressCompletedSessions(
+                vm.totalCompletedSessions.toString()),
+            style: theme.textTheme.bodyLarge?.copyWith(
+              fontWeight: FontWeight.w500,
+              height: 1.35,
+            ),
+          ),
+          if (mix != null) ...[
+            const SizedBox(height: 6),
+            Text(
+              ProgressHomeBody._mix(loc, mix),
+              style: theme.textTheme.bodyMedium?.copyWith(height: 1.35),
+            ),
+          ],
+          const SizedBox(height: 6),
+          Text(
+            loc.v2ProgressCurrentRhythm(vm.currentRhythmDays.toString()),
+            style: theme.textTheme.bodyMedium?.copyWith(height: 1.35),
+          ),
         ],
       ),
     );
   }
 }
 
-class _WhyBlock extends StatelessWidget {
-  const _WhyBlock({required this.vm});
+class _PatternDetails extends StatelessWidget {
+  const _PatternDetails({required this.vm});
   final ProgressViewModel vm;
 
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
-    final mix = vm.pathMixHint;
-    return Semantics(
-      container: true,
-      label: loc.v2ProgressWhyHeading,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            loc.v2ProgressWhyHeading,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          const SizedBox(height: 8),
-          Text(loc.v2ProgressMinimumPath(vm.minimumPathCount.toString())),
-          Text(loc.v2ProgressStandardPath(vm.standardPathCount.toString())),
-          if (mix != null) Text(_mix(loc, mix)),
-          Text(
-            loc.v2ProgressCompletionRate(vm.completionRatePercent.toString()),
-          ),
-        ],
-      ),
+    final theme = Theme.of(context);
+    final muted = theme.colorScheme.onSurfaceVariant;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          loc.v2ProgressWhyHeading,
+          style: theme.textTheme.labelMedium?.copyWith(color: muted),
+        ),
+        const SizedBox(height: 6),
+        Text(loc.v2ProgressMinimumPath(vm.minimumPathCount.toString())),
+        Text(loc.v2ProgressStandardPath(vm.standardPathCount.toString())),
+        Text(
+          loc.v2ProgressCompletionRate(vm.completionRatePercent.toString()),
+        ),
+        const SizedBox(height: 12),
+        Text(
+          loc.v2ProgressComparedHeading,
+          style: theme.textTheme.labelMedium?.copyWith(color: muted),
+        ),
+        const SizedBox(height: 6),
+        Text(loc.v2ProgressLongestRhythm(vm.longestRhythmDays.toString())),
+        if (vm.firstCompletedDayKey != null)
+          Text(loc.v2ProgressFirstCompleted(vm.firstCompletedDayKey!)),
+        if (vm.lastCompletedDayKey != null)
+          Text(loc.v2ProgressLastCompleted(vm.lastCompletedDayKey!)),
+      ],
     );
-  }
-
-  static String _mix(AppLocalizations loc, PathMixLabel mix) {
-    switch (mix) {
-      case PathMixLabel.mostlyMinimum:
-        return loc.v2ProgressPathMostlyMinimum;
-      case PathMixLabel.mostlyStandard:
-        return loc.v2ProgressPathMostlyStandard;
-      case PathMixLabel.balanced:
-        return loc.v2ProgressPathBalanced;
-      case PathMixLabel.singleSessionOnly:
-        return loc.v2ProgressPathSingle;
-    }
   }
 }
 
-class _ComparedBlock extends StatelessWidget {
-  const _ComparedBlock({required this.vm});
-  final ProgressViewModel vm;
+class _DetailExpansion extends StatefulWidget {
+  const _DetailExpansion({
+    required this.title,
+    required this.subtitle,
+    required this.child,
+  });
+
+  final String title;
+  final String subtitle;
+  final Widget child;
+
+  @override
+  State<_DetailExpansion> createState() => _DetailExpansionState();
+}
+
+class _DetailExpansionState extends State<_DetailExpansion> {
+  var _expanded = false;
 
   @override
   Widget build(BuildContext context) {
-    final loc = AppLocalizations.of(context)!;
-    return Semantics(
-      container: true,
-      label: loc.v2ProgressComparedHeading,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            loc.v2ProgressComparedHeading,
-            style: Theme.of(context).textTheme.titleMedium,
+    final theme = Theme.of(context);
+    final muted = theme.colorScheme.onSurfaceVariant;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Material(
+          type: MaterialType.transparency,
+          child: InkWell(
+            onTap: () => setState(() => _expanded = !_expanded),
+            borderRadius: BorderRadius.circular(8),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                minHeight: AppDesignConstants.minTouchTarget,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 6),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.title,
+                            style: theme.textTheme.labelLarge?.copyWith(
+                              fontWeight: FontWeight.w600,
+                              color: muted,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            widget.subtitle,
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: muted,
+                              height: 1.3,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Icon(
+                      _expanded ? Icons.expand_less : Icons.expand_more,
+                      size: 22,
+                      color: muted,
+                      semanticLabel: widget.title,
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
-          const SizedBox(height: 8),
-          Text(loc.v2ProgressCurrentRhythm(vm.currentRhythmDays.toString())),
-          Text(loc.v2ProgressLongestRhythm(vm.longestRhythmDays.toString())),
-          if (vm.firstCompletedDayKey != null)
-            Text(loc.v2ProgressFirstCompleted(vm.firstCompletedDayKey!)),
-          if (vm.lastCompletedDayKey != null)
-            Text(loc.v2ProgressLastCompleted(vm.lastCompletedDayKey!)),
-          const SizedBox(height: 12),
-          Text(
-            loc.v2ProgressRecentActivity,
-            style: Theme.of(context).textTheme.titleSmall,
+        ),
+        if (_expanded) ...[
+          const SizedBox(height: 2),
+          Padding(
+            padding: const EdgeInsetsDirectional.only(start: 2, bottom: 6),
+            child: widget.child,
           ),
-          const SizedBox(height: 8),
-          for (final e in vm.recentTimeline) _TimelineRow(entry: e),
         ],
-      ),
+      ],
     );
   }
 }
@@ -326,12 +464,14 @@ class _TimelineRow extends StatelessWidget {
 }
 
 class _ScoreRow extends StatelessWidget {
-  const _ScoreRow({required this.vm});
+  const _ScoreRow({required this.vm, required this.muted});
   final ProgressViewModel vm;
+  final Color muted;
 
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
     final valueText = vm.scoreDisplayValue != null
         ? loc.v2ProgressScoreValue(vm.scoreDisplayValue.toString())
         : loc.v2ProgressScoreUnavailable;
@@ -343,7 +483,7 @@ class _ScoreRow extends StatelessWidget {
         children: [
           Text(
             loc.v2ProgressScoreHeading,
-            style: Theme.of(context).textTheme.titleMedium,
+            style: theme.textTheme.labelLarge?.copyWith(color: muted),
           ),
           const SizedBox(height: 8),
           Text(valueText),
@@ -352,7 +492,10 @@ class _ScoreRow extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             loc.v2ProgressScoreDisclaimer,
-            style: Theme.of(context).textTheme.bodySmall,
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: muted,
+              height: 1.4,
+            ),
           ),
         ],
       ),
@@ -364,57 +507,98 @@ class _ReviewEntry extends StatelessWidget {
   const _ReviewEntry({required this.vm});
   final ProgressViewModel vm;
 
+  bool get _actionable {
+    switch (vm.weeklyReviewCardState) {
+      case ProgressWeeklyReviewCardState.available:
+      case ProgressWeeklyReviewCardState.draftInProgress:
+      case ProgressWeeklyReviewCardState.completed:
+      case ProgressWeeklyReviewCardState.summaryAvailable:
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  /// Primary CTA already carries Start/Continue/Summary when due —
+  /// avoid a second competing Weekly action button.
+  bool get _primaryCoversWeeklyAction {
+    switch (vm.primaryDestination) {
+      case ProgressNextDestination.weeklyReviewQuestions:
+      case ProgressNextDestination.weeklyReviewSummary:
+        return true;
+      case ProgressNextDestination.today:
+      case ProgressNextDestination.none:
+        return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    final muted = theme.colorScheme.onSurfaceVariant;
     final state = vm.weeklyReviewCardState;
     final route = _routeFor(state);
     final cta = _ctaFor(loc, state);
+    final showInlineCta =
+        route != null && cta != null && !_primaryCoversWeeklyAction;
+
+    final content = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          loc.v2ProgressWeeklyReviewHeading,
+          style: _actionable
+              ? theme.textTheme.titleMedium
+              : theme.textTheme.labelLarge?.copyWith(color: muted),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          _statusText(loc, state),
+          style: theme.textTheme.bodyMedium?.copyWith(
+            color: _actionable ? null : muted,
+            height: 1.35,
+          ),
+        ),
+        if (vm.weeklyPeriodStartDayKey != null &&
+            vm.weeklyPeriodEndDayKey != null) ...[
+          const SizedBox(height: 4),
+          Text(
+            loc.v2WeeklyReviewPeriodLabel(
+              vm.weeklyPeriodStartDayKey!,
+              vm.weeklyPeriodEndDayKey!,
+            ),
+            style: theme.textTheme.bodySmall?.copyWith(color: muted),
+          ),
+        ],
+        if (showInlineCta) ...[
+          const SizedBox(height: 12),
+          SizedBox(
+            width: double.infinity,
+            height: 48,
+            child: OutlinedButton(
+              onPressed: () => context.go(route),
+              child: Text(cta),
+            ),
+          ),
+        ],
+      ],
+    );
 
     return Semantics(
       container: true,
       liveRegion: true,
       label: loc.v2ProgressWeeklyReviewHeading,
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: AppColors.card,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              loc.v2ProgressWeeklyReviewHeading,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            const SizedBox(height: 8),
-            Text(_statusText(loc, state)),
-            if (vm.weeklyPeriodStartDayKey != null &&
-                vm.weeklyPeriodEndDayKey != null) ...[
-              const SizedBox(height: 4),
-              Text(
-                loc.v2WeeklyReviewPeriodLabel(
-                  vm.weeklyPeriodStartDayKey!,
-                  vm.weeklyPeriodEndDayKey!,
-                ),
-                style: Theme.of(context).textTheme.bodySmall,
+      child: _actionable
+          ? Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: AppColors.card,
+                borderRadius: BorderRadius.circular(8),
               ),
-            ],
-            if (route != null && cta != null) ...[
-              const SizedBox(height: 12),
-              SizedBox(
-                width: double.infinity,
-                height: 48,
-                child: OutlinedButton(
-                  onPressed: () => context.go(route),
-                  child: Text(cta),
-                ),
-              ),
-            ],
-          ],
-        ),
-      ),
+              child: content,
+            )
+          : content,
     );
   }
 
@@ -475,12 +659,18 @@ class _ReviewEntry extends StatelessWidget {
 }
 
 class _WeeklyPreview extends StatelessWidget {
-  const _WeeklyPreview({required this.summary});
+  const _WeeklyPreview({
+    required this.summary,
+    required this.showSummaryCta,
+  });
   final WeeklyReviewSummary summary;
+  final bool showSummaryCta;
 
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    final muted = theme.colorScheme.onSurfaceVariant;
     return Semantics(
       container: true,
       label: loc.v2ProgressWeeklyPreviewHeading,
@@ -489,7 +679,7 @@ class _WeeklyPreview extends StatelessWidget {
         children: [
           Text(
             loc.v2ProgressWeeklyPreviewHeading,
-            style: Theme.of(context).textTheme.titleMedium,
+            style: theme.textTheme.labelLarge?.copyWith(color: muted),
           ),
           const SizedBox(height: 8),
           Text(
@@ -506,15 +696,17 @@ class _WeeklyPreview extends StatelessWidget {
           Text(_path(loc, summary.pathMixLabel)),
           Text(_rhythm(loc, summary.rhythmLabel)),
           Text(loc.v2WeeklySummaryPlanUnchanged),
-          const SizedBox(height: 12),
-          SizedBox(
-            width: double.infinity,
-            height: 48,
-            child: OutlinedButton(
-              onPressed: () => context.go(AppRoutes.v2WeeklyReviewSummary),
-              child: Text(loc.v2ProgressWrCtaSummary),
+          if (showSummaryCta) ...[
+            const SizedBox(height: 12),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: OutlinedButton(
+                onPressed: () => context.go(AppRoutes.v2WeeklyReviewSummary),
+                child: Text(loc.v2ProgressWrCtaSummary),
+              ),
             ),
-          ),
+          ],
         ],
       ),
     );
@@ -555,22 +747,21 @@ class _PrimaryCta extends StatelessWidget {
     final dest = vm.primaryDestination;
     final label = switch (dest) {
       ProgressNextDestination.weeklyReviewQuestions =>
-        vm.weeklyReviewCardState == ProgressWeeklyReviewCardState.draftInProgress
+        vm.weeklyReviewCardState ==
+                ProgressWeeklyReviewCardState.draftInProgress
             ? loc.v2ProgressWrCtaContinue
             : loc.v2ProgressWrCtaStart,
-      ProgressNextDestination.weeklyReviewSummary =>
-        loc.v2ProgressWrCtaSummary,
-      ProgressNextDestination.today || ProgressNextDestination.none =>
-        vm.isEmpty
-            ? loc.v2ProgressCtaToday
-            : loc.v2ProgressCtaContinueToday,
+      ProgressNextDestination.weeklyReviewSummary => loc.v2ProgressWrCtaSummary,
+      ProgressNextDestination.today ||
+      ProgressNextDestination.none =>
+        vm.isEmpty ? loc.v2ProgressCtaToday : loc.v2ProgressCtaContinueToday,
     };
     final route = switch (dest) {
-      ProgressNextDestination.weeklyReviewQuestions =>
-        AppRoutes.v2WeeklyReview,
+      ProgressNextDestination.weeklyReviewQuestions => AppRoutes.v2WeeklyReview,
       ProgressNextDestination.weeklyReviewSummary =>
         AppRoutes.v2WeeklyReviewSummary,
-      ProgressNextDestination.today || ProgressNextDestination.none =>
+      ProgressNextDestination.today ||
+      ProgressNextDestination.none =>
         AppRoutes.v2Today,
     };
 

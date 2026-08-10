@@ -219,9 +219,8 @@ void main() {
           _session(
             id: 's$i',
             dayKey: '2026-07-${27 + i}',
-            path: i.isEven
-                ? DailySessionPath.minimum
-                : DailySessionPath.standard,
+            path:
+                i.isEven ? DailySessionPath.minimum : DailySessionPath.standard,
           ),
       ];
       // Extra older sessions outside recent limit window of same week — still one week.
@@ -261,8 +260,10 @@ void main() {
 
     test('draft / completed weekly review state + summary preview', () {
       final sessions = [
-        _session(id: 's1', dayKey: '2026-07-28', path: DailySessionPath.minimum),
-        _session(id: 's2', dayKey: '2026-07-29', path: DailySessionPath.standard),
+        _session(
+            id: 's1', dayKey: '2026-07-28', path: DailySessionPath.minimum),
+        _session(
+            id: 's2', dayKey: '2026-07-29', path: DailySessionPath.standard),
       ];
       final snap = ProgressEngine.build(
         sessions: sessions,
@@ -331,7 +332,8 @@ void main() {
       );
       expect(vmDone.weeklySummaryPreview, isNotNull);
       expect(vmDone.weeklySummaryPreview!.planUnchangedNotice, isTrue);
-      expect(vmDone.proofHeadline, ProgressProofHeadline.weeklyEvidenceAvailable);
+      expect(
+          vmDone.proofHeadline, ProgressProofHeadline.weeklyEvidenceAvailable);
       // Preview must not need raw responses on the model surface.
       expect(vmDone.weeklySummaryPreview, isA<WeeklyReviewSummary>());
     });
@@ -434,7 +436,8 @@ void main() {
       expect(ar.v2ProgressWrAvailable, contains('المراجعة'));
       expect(en.v2WeeklySummaryCtaProgress, 'Back to Progress');
       expect(ar.v2WeeklySummaryCtaProgress, 'العودة إلى التقدّم');
-      expect(en.v2ProgressScoreDisclaimer.toLowerCase(), contains('does not instantly'));
+      expect(en.v2ProgressScoreDisclaimer.toLowerCase(),
+          contains('does not instantly'));
       final corpus = [
         en.v2ProgressHeadlineEmpty,
         en.v2ProgressEvidenceLimited,
@@ -502,7 +505,8 @@ void main() {
           ),
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
       expect(find.byType(SingleChildScrollView), findsOneWidget);
       expect(find.byType(FilledButton), findsOneWidget);
       expect(
@@ -510,6 +514,93 @@ void main() {
         greaterThanOrEqualTo(48),
       );
       expect(find.textContaining('completed sessions'), findsWidgets);
+      // Empty: no pattern-details disclosure / invented history chrome.
+      expect(find.text('Pattern details'), findsNothing);
+      expect(find.text('What is recorded'), findsNothing);
+    });
+
+    testWidgets('decision-first: primary CTA before pattern details',
+        (tester) async {
+      final s = _session(
+        id: 's1',
+        dayKey: '2026-07-28',
+        path: DailySessionPath.minimum,
+      );
+      final snap = ProgressEngine.build(
+        sessions: [s],
+        nowUtc: DateTime.utc(2026, 8, 3),
+        asOfDayKey: '2026-08-03',
+        activePlanId: 'plan_a',
+        profilePackId: 'pack_a',
+      );
+      final c = ProgressExperienceController(
+        sessions: DailySessionLocalRepository(box: sessionBox),
+        progress: ProgressLocalRepository(box: progressBox),
+        reviews: WeeklyReviewLocalRepository(box: reviewBox),
+        clock: () => DateTime.utc(2026, 8, 3, 12),
+        timeZoneOffset: Duration.zero,
+      );
+      c.phase = ProgressExperiencePhase.ready;
+      c.viewModel = ProgressExperienceBuilder.build(
+        snapshot: snap,
+        sessionHistory: [s],
+        profilePack: null,
+        previousPeriod: WeeklyPeriodResolver.previousCompletedWeek(
+          localNow: DateTime(2026, 8, 3),
+          timezoneOffset: Duration.zero,
+        ),
+        localNow: DateTime(2026, 8, 3),
+        timezoneOffset: Duration.zero,
+        reviewForPeriod: null,
+        artifactSummary: null,
+        schemasSupported: true,
+      );
+
+      await tester.pumpWidget(
+        MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: MediaQuery(
+            data: const MediaQueryData(size: Size(411, 820)),
+            child: ProgressHomeBody(controller: c, onRetry: () {}),
+          ),
+        ),
+      );
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+
+      final headline = find.text('Your first completed session is recorded');
+      final movement = find.text('What is recorded');
+      final cta = find.byType(FilledButton);
+      final details = find.text('Pattern details');
+      final recent = find.text('Recent activity');
+
+      expect(headline, findsOneWidget);
+      expect(movement, findsOneWidget);
+      expect(cta, findsOneWidget);
+      expect(details, findsOneWidget);
+      expect(recent, findsOneWidget);
+
+      // Product contract: insight → movement → next action → progressive detail.
+      expect(
+        tester.getTopLeft(headline).dy,
+        lessThan(tester.getTopLeft(movement).dy),
+      );
+      expect(
+        tester.getTopLeft(movement).dy,
+        lessThan(tester.getTopLeft(cta).dy),
+      );
+      expect(
+        tester.getTopLeft(cta).dy,
+        lessThan(tester.getTopLeft(details).dy),
+      );
+      expect(
+        tester.getTopLeft(details).dy,
+        lessThan(tester.getTopLeft(recent).dy),
+      );
+
+      // Details stay collapsed — no dense timeline lines until opened.
+      expect(find.textContaining('2026-07-28 ·'), findsNothing);
     });
 
     test('feature flag OFF', () {

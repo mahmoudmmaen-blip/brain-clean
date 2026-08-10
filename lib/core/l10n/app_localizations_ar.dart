@@ -2793,6 +2793,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2ProgressReportsEntry => 'فتح التقارير';
 
   @override
+  String get v2ProgressPatternDetails => 'تفاصيل النمط';
+
+  @override
   String get v2ReportsTitle => 'التقارير';
 
   @override

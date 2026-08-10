@@ -5120,6 +5120,12 @@ abstract class AppLocalizations {
   /// **'Open Reports'**
   String get v2ProgressReportsEntry;
 
+  /// No description provided for @v2ProgressPatternDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Pattern details'**
+  String get v2ProgressPatternDetails;
+
   /// No description provided for @v2ReportsTitle.
   ///
   /// In en, this message translates to:

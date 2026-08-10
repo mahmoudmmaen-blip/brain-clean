@@ -2834,6 +2834,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2ProgressReportsEntry => 'Open Reports';
 
   @override
+  String get v2ProgressPatternDetails => 'Pattern details';
+
+  @override
   String get v2ReportsTitle => 'Reports';
 
   @override
