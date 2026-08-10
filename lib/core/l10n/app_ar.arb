@@ -1281,13 +1281,13 @@
   "v2ProgressCurrentRhythm": "الإيقاع الحالي: {count} يوم",
   "@v2ProgressCurrentRhythm": {
     "placeholders": {
-      "count": { "type": "String" }
+      "count": { "type": "int" }
     }
   },
   "v2ProgressLongestRhythm": "أطول إيقاع: {count} يوم",
   "@v2ProgressLongestRhythm": {
     "placeholders": {
-      "count": { "type": "String" }
+      "count": { "type": "int" }
     }
   },
   "v2ProgressFirstCompleted": "أول يوم مكتمل: {day}",

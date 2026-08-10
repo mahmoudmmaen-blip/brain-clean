@@ -4895,14 +4895,14 @@ abstract class AppLocalizations {
   /// No description provided for @v2ProgressCurrentRhythm.
   ///
   /// In en, this message translates to:
-  /// **'Current rhythm: {count} day(s)'**
-  String v2ProgressCurrentRhythm(String count);
+  /// **'{count, plural, =1{Current rhythm: 1 day} other{Current rhythm: {count} days}}'**
+  String v2ProgressCurrentRhythm(int count);
 
   /// No description provided for @v2ProgressLongestRhythm.
   ///
   /// In en, this message translates to:
-  /// **'Longest rhythm: {count} day(s)'**
-  String v2ProgressLongestRhythm(String count);
+  /// **'{count, plural, =1{Longest rhythm: 1 day} other{Longest rhythm: {count} days}}'**
+  String v2ProgressLongestRhythm(int count);
 
   /// No description provided for @v2ProgressFirstCompleted.
   ///

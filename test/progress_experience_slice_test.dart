@@ -432,6 +432,11 @@ void main() {
       final ar = AppLocalizationsAr();
       expect(en.v2ProgressTitle, 'Progress');
       expect(ar.v2ProgressTitle, 'التقدّم');
+      expect(en.v2ProgressCurrentRhythm(1), 'Current rhythm: 1 day');
+      expect(en.v2ProgressCurrentRhythm(2), 'Current rhythm: 2 days');
+      expect(en.v2ProgressLongestRhythm(1), 'Longest rhythm: 1 day');
+      expect(en.v2ProgressLongestRhythm(0), 'Longest rhythm: 0 days');
+      expect(ar.v2ProgressCurrentRhythm(1), contains('يوم'));
       expect(en.v2ProgressWrAvailable, contains('Weekly Review'));
       expect(ar.v2ProgressWrAvailable, contains('المراجعة'));
       expect(en.v2WeeklySummaryCtaProgress, 'Back to Progress');

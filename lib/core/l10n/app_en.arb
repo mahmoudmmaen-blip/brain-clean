@@ -1134,16 +1134,16 @@
       "percent": { "type": "String" }
     }
   },
-  "v2ProgressCurrentRhythm": "Current rhythm: {count} day(s)",
+  "v2ProgressCurrentRhythm": "{count, plural, =1{Current rhythm: 1 day} other{Current rhythm: {count} days}}",
   "@v2ProgressCurrentRhythm": {
     "placeholders": {
-      "count": { "type": "String" }
+      "count": { "type": "int" }
     }
   },
-  "v2ProgressLongestRhythm": "Longest rhythm: {count} day(s)",
+  "v2ProgressLongestRhythm": "{count, plural, =1{Longest rhythm: 1 day} other{Longest rhythm: {count} days}}",
   "@v2ProgressLongestRhythm": {
     "placeholders": {
-      "count": { "type": "String" }
+      "count": { "type": "int" }
     }
   },
   "v2ProgressFirstCompleted": "First completed day: {day}",

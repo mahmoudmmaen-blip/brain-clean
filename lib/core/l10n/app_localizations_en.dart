@@ -2695,13 +2695,17 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String v2ProgressCurrentRhythm(String count) {
-    return 'Current rhythm: $count day(s)';
+  String v2ProgressCurrentRhythm(int count) {
+    return count == 1
+        ? 'Current rhythm: 1 day'
+        : 'Current rhythm: $count days';
   }
 
   @override
-  String v2ProgressLongestRhythm(String count) {
-    return 'Longest rhythm: $count day(s)';
+  String v2ProgressLongestRhythm(int count) {
+    return count == 1
+        ? 'Longest rhythm: 1 day'
+        : 'Longest rhythm: $count days';
   }
 
   @override

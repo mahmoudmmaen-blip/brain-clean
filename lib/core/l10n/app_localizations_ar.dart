@@ -2655,12 +2655,12 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String v2ProgressCurrentRhythm(String count) {
+  String v2ProgressCurrentRhythm(int count) {
     return 'الإيقاع الحالي: $count يوم';
   }
 
   @override
-  String v2ProgressLongestRhythm(String count) {
+  String v2ProgressLongestRhythm(int count) {
     return 'أطول إيقاع: $count يوم';
   }
 

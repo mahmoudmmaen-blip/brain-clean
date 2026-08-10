@@ -327,7 +327,7 @@ class _MovementBlock extends StatelessWidget {
           ],
           const SizedBox(height: 4),
           Text(
-            loc.v2ProgressCurrentRhythm(vm.currentRhythmDays.toString()),
+            loc.v2ProgressCurrentRhythm(vm.currentRhythmDays),
             style: theme.textTheme.bodySmall?.copyWith(
               color: muted,
               height: 1.35,
@@ -374,7 +374,7 @@ class _PatternDetails extends StatelessWidget {
           style: theme.textTheme.labelMedium?.copyWith(color: muted),
         ),
         const SizedBox(height: 4),
-        Text(loc.v2ProgressLongestRhythm(vm.longestRhythmDays.toString()),
+        Text(loc.v2ProgressLongestRhythm(vm.longestRhythmDays),
             style: valueStyle),
         if (vm.firstCompletedDayKey != null)
           Text(loc.v2ProgressFirstCompleted(vm.firstCompletedDayKey!),
