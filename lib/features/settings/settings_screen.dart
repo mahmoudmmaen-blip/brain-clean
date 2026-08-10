@@ -5,9 +5,10 @@ import 'package:hive/hive.dart';
 
 import '../../core/application/app_preferences_provider.dart';
 import '../../core/config/app_config.dart';
-import '../../core/security/security_status_provider.dart';
 import '../../core/constants/app_routes.dart';
 import '../../core/l10n/app_localizations.dart';
+import '../../core/security/security_status_provider.dart';
+import '../../core/services/external_link_service.dart';
 import '../../core/services/smart_notification_service.dart';
 import '../../core/storage/hive_boxes.dart';
 import '../../core/theme/app_color_theme.dart';
@@ -16,6 +17,8 @@ import '../pro/application/subscription_service_provider.dart';
 
 const settingsProTileKey = Key('settings_pro_tile');
 const settingsResetKey = Key('settings_reset_data');
+const settingsPrivacyPolicyKey = Key('settings_privacy_policy');
+const settingsContactUsKey = Key('settings_contact_us');
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -60,6 +63,18 @@ class SettingsScreen extends ConsumerWidget {
     if (context.mounted) context.go(AppRoutes.splash);
   }
 
+  Future<void> _openExternal(
+    BuildContext context,
+    Future<bool> Function() open,
+  ) async {
+    final loc = AppLocalizations.of(context)!;
+    final ok = await open();
+    if (!context.mounted || ok) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(loc.settingsLinkUnavailable)),
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = AppLocalizations.of(context)!;
@@ -82,15 +97,19 @@ class SettingsScreen extends ConsumerWidget {
             title: Text(
               isPro ? loc.settingsProActive : loc.settingsUpgradeToPro,
               style: TextStyle(
-                color: isPro
-                    ? const Color(0xFF1D9E75)
-                    : const Color(0xFFE6EDF3),
+                color:
+                    isPro ? const Color(0xFF1D9E75) : const Color(0xFFE6EDF3),
                 fontWeight: FontWeight.w600,
               ),
             ),
             trailing: isPro
                 ? null
-                : const Icon(Icons.chevron_left, color: Color(0xFF8B949E)),
+                : Icon(
+                    Directionality.of(context) == TextDirection.rtl
+                        ? Icons.chevron_left
+                        : Icons.chevron_right,
+                    color: const Color(0xFF8B949E),
+                  ),
             onTap: isPro ? null : () => context.push(AppRoutes.proPaywall),
           ),
           const Divider(color: Color(0xFF30363D)),
@@ -128,8 +147,7 @@ class SettingsScreen extends ConsumerWidget {
             title: Text(loc.settingsBiometricLock,
                 style: const TextStyle(color: Color(0xFFE6EDF3))),
             subtitle: Text(loc.settingsBiometricLockSubtitle,
-                style: const TextStyle(
-                    color: Color(0xFF8B949E), fontSize: 12)),
+                style: const TextStyle(color: Color(0xFF8B949E), fontSize: 12)),
             value: ref.watch(biometricLockSettingsProvider),
             activeThumbColor: const Color(0xFF1D9E75),
             onChanged: (enabled) async {
@@ -138,9 +156,7 @@ class SettingsScreen extends ConsumerWidget {
                   .setEnabled(enabled);
               if (!ok && context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                      content:
-                          Text(loc.settingsBiometricUnavailable)),
+                  SnackBar(content: Text(loc.settingsBiometricUnavailable)),
                 );
               }
             },
@@ -151,16 +167,11 @@ class SettingsScreen extends ConsumerWidget {
             key: settingsResetKey,
             title: Text(loc.settingsResetData,
                 style: const TextStyle(color: Color(0xFFEF4444))),
+            subtitle: Text(
+              loc.settingsResetDataConfirmBody,
+              style: const TextStyle(color: Color(0xFF8B949E), fontSize: 12),
+            ),
             onTap: () => _confirmReset(context, ref),
-          ),
-          ListTile(
-            title: Text(loc.settingsExportData,
-                style: const TextStyle(color: Color(0xFFE6EDF3))),
-            onTap: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(loc.settingsComingSoon)),
-              );
-            },
           ),
           const Divider(color: Color(0xFF30363D)),
           _SectionHeader(loc.settingsAboutSection),
@@ -173,14 +184,34 @@ class SettingsScreen extends ConsumerWidget {
             ),
           ),
           ListTile(
+            key: settingsPrivacyPolicyKey,
             title: Text(loc.settingsPrivacyPolicy,
                 style: const TextStyle(color: Color(0xFFE6EDF3))),
-            onTap: () {},
+            trailing: Icon(
+              Directionality.of(context) == TextDirection.rtl
+                  ? Icons.chevron_left
+                  : Icons.chevron_right,
+              color: const Color(0xFF8B949E),
+            ),
+            onTap: () => _openExternal(
+              context,
+              externalLinkService.openPrivacyPolicy,
+            ),
           ),
           ListTile(
+            key: settingsContactUsKey,
             title: Text(loc.settingsContactUs,
                 style: const TextStyle(color: Color(0xFFE6EDF3))),
-            onTap: () {},
+            trailing: Icon(
+              Directionality.of(context) == TextDirection.rtl
+                  ? Icons.chevron_left
+                  : Icons.chevron_right,
+              color: const Color(0xFF8B949E),
+            ),
+            onTap: () => _openExternal(
+              context,
+              externalLinkService.openContactEmail,
+            ),
           ),
         ],
       ),
@@ -242,9 +273,7 @@ class _ColorThemeSection extends ConsumerWidget {
               if (locked) {
                 context.push(AppRoutes.proPaywall);
               } else {
-                ref
-                    .read(selectedColorThemeProvider.notifier)
-                    .select(themeDef);
+                ref.read(selectedColorThemeProvider.notifier).select(themeDef);
               }
             },
           );
@@ -291,14 +320,12 @@ class _ColorThemeSwatch extends StatelessWidget {
                     color: theme.accent,
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color:
-                          selected ? Colors.white : Colors.transparent,
+                      color: selected ? Colors.white : Colors.transparent,
                       width: 2.5,
                     ),
                   ),
                   child: selected
-                      ? const Icon(Icons.check,
-                          color: Colors.white, size: 20)
+                      ? const Icon(Icons.check, color: Colors.white, size: 20)
                       : null,
                 ),
                 if (locked)
@@ -309,15 +336,14 @@ class _ColorThemeSwatch extends StatelessWidget {
                       color: Colors.black.withValues(alpha: 0.45),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.lock,
-                        color: Colors.white, size: 18),
+                    child:
+                        const Icon(Icons.lock, color: Colors.white, size: 18),
                   ),
               ],
             ),
             const SizedBox(height: 6),
             Text(label,
-                style: const TextStyle(
-                    color: Color(0xFF8B949E), fontSize: 12)),
+                style: const TextStyle(color: Color(0xFF8B949E), fontSize: 12)),
           ],
         ),
       ),

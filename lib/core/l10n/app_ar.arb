@@ -399,6 +399,7 @@
   "settingsResetDataConfirmBody": "سيتم حذف جميع بياناتك المحلية. هل أنت متأكد؟",
   "settingsExportData": "تصدير بياناتي",
   "settingsComingSoon": "قريباً...",
+  "settingsLinkUnavailable": "تعذّر فتح هذا الرابط على هذا الجهاز.",
   "settingsAboutSection": "حول التطبيق",
   "settingsVersion": "الإصدار",
   "settingsPrivacyPolicy": "سياسة الخصوصية",
@@ -1649,10 +1650,15 @@
   "v2ProfilePreferencesHint": "المظهر والإشعارات وقفل المقاييس الحيوية",
   "v2ProfileSectionPrivacy": "الخصوصية والبيانات",
   "v2ProfilePrivacyRow": "ضوابط الخصوصية والبيانات",
-  "v2ProfilePrivacyHint": "مسح البيانات المحلية والخيارات ذات الصلة",
+  "v2ProfilePrivacyHint": "مسح البيانات المحلية (يتطلب تأكيداً)",
   "v2ProfileSectionSubscription": "الاشتراك",
   "v2ProfileSubscriptionHint": "حالة بريميوم والخطط والاستعادة",
   "v2ProfileSectionHelp": "المساعدة والدعم",
   "v2ProfileHelpHint": "دعم موجز لخطوة هادئة تالية",
-  "v2ProfileSectionAbout": "حول التطبيق"
+  "v2ProfileSectionAbout": "حول التطبيق",
+  "v2ProfileEditNameTitle": "الاسم الظاهر",
+  "v2ProfileEditNameHint": "اختياري — يظهر على هذا الجهاز فقط",
+  "v2ProfileNameSaveFailed": "تعذّر حفظ الاسم. حاول مرة أخرى.",
+  "v2ProfileLegalHint": "يفتح سياسة الخصوصية في المتصفح",
+  "v2ProfileContactHint": "يفتح تطبيق البريد"
 }

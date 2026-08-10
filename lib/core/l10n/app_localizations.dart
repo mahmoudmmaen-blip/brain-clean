@@ -1508,6 +1508,12 @@ abstract class AppLocalizations {
   /// **'Coming soon…'**
   String get settingsComingSoon;
 
+  /// No description provided for @settingsLinkUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open this link on this device.'**
+  String get settingsLinkUnavailable;
+
   /// No description provided for @settingsAboutSection.
   ///
   /// In en, this message translates to:
@@ -6211,6 +6217,7 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'Open Safa'**
+  String get v2SafaEntryProfile;
 
   /// No description provided for @v2ProfileTitle.
   ///
@@ -6324,7 +6331,37 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'About'**
-  String get v2ProfileSectionAbout;  String get v2SafaEntryProfile;
+  String get v2ProfileSectionAbout;
+
+  /// No description provided for @v2ProfileEditNameTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Display name'**
+  String get v2ProfileEditNameTitle;
+
+  /// No description provided for @v2ProfileEditNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional — shown only on this device'**
+  String get v2ProfileEditNameHint;
+
+  /// No description provided for @v2ProfileNameSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save your name. Please try again.'**
+  String get v2ProfileNameSaveFailed;
+
+  /// No description provided for @v2ProfileLegalHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Opens the privacy policy in your browser'**
+  String get v2ProfileLegalHint;
+
+  /// No description provided for @v2ProfileContactHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Opens your email app'**
+  String get v2ProfileContactHint;
 }
 
 class _AppLocalizationsDelegate

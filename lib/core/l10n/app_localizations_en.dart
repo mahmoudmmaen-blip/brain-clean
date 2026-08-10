@@ -797,6 +797,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsComingSoon => 'Coming soon…';
 
   @override
+  String get settingsLinkUnavailable =>
+      'Could not open this link on this device.';
+
+  @override
   String get settingsAboutSection => 'About';
 
   @override
@@ -3476,8 +3480,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2SafaEntryToday => 'Ask Safa for support';
 
   @override
-
-  @override
   String get v2ProfileTitle => 'Profile';
 
   @override
@@ -3520,7 +3522,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2ProfilePrivacyRow => 'Privacy & data controls';
 
   @override
-  String get v2ProfilePrivacyHint => 'Local data reset and related options';
+  String get v2ProfilePrivacyHint =>
+      'Reset local data (confirmation required)';
 
   @override
   String get v2ProfileSectionSubscription => 'Subscription';
@@ -3536,5 +3539,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2ProfileHelpHint => 'Short support for a calm next step';
 
   @override
-  String get v2ProfileSectionAbout => 'About';  String get v2SafaEntryProfile => 'Open Safa';
+  String get v2ProfileSectionAbout => 'About';
+
+  @override
+  String get v2SafaEntryProfile => 'Open Safa';
+
+  @override
+  String get v2ProfileEditNameTitle => 'Display name';
+
+  @override
+  String get v2ProfileEditNameHint => 'Optional — shown only on this device';
+
+  @override
+  String get v2ProfileNameSaveFailed =>
+      'Could not save your name. Please try again.';
+
+  @override
+  String get v2ProfileLegalHint => 'Opens the privacy policy in your browser';
+
+  @override
+  String get v2ProfileContactHint => 'Opens your email app';
 }

@@ -325,6 +325,7 @@
   "settingsResetDataConfirmBody": "All local data will be deleted. Are you sure?",
   "settingsExportData": "Export my data",
   "settingsComingSoon": "Coming soon…",
+  "settingsLinkUnavailable": "Could not open this link on this device.",
   "settingsAboutSection": "About",
   "settingsVersion": "Version",
   "settingsPrivacyPolicy": "Privacy policy",
@@ -1505,10 +1506,15 @@
   "v2ProfilePreferencesHint": "Appearance, notifications, and biometric lock",
   "v2ProfileSectionPrivacy": "Privacy & data",
   "v2ProfilePrivacyRow": "Privacy & data controls",
-  "v2ProfilePrivacyHint": "Local data reset and related options",
+  "v2ProfilePrivacyHint": "Reset local data (confirmation required)",
   "v2ProfileSectionSubscription": "Subscription",
   "v2ProfileSubscriptionHint": "Premium status, plans, and restore",
   "v2ProfileSectionHelp": "Help & support",
   "v2ProfileHelpHint": "Short support for a calm next step",
-  "v2ProfileSectionAbout": "About"
+  "v2ProfileSectionAbout": "About",
+  "v2ProfileEditNameTitle": "Display name",
+  "v2ProfileEditNameHint": "Optional — shown only on this device",
+  "v2ProfileNameSaveFailed": "Could not save your name. Please try again.",
+  "v2ProfileLegalHint": "Opens the privacy policy in your browser",
+  "v2ProfileContactHint": "Opens your email app"
 }

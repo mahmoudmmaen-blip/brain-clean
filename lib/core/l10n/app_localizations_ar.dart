@@ -788,6 +788,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settingsComingSoon => 'قريباً...';
 
   @override
+  String get settingsLinkUnavailable =>
+      'تعذّر فتح هذا الرابط على هذا الجهاز.';
+
+  @override
   String get settingsAboutSection => 'حول التطبيق';
 
   @override
@@ -3484,5 +3488,24 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2ProfileHelpHint => 'دعم موجز لخطوة هادئة تالية';
 
   @override
-  String get v2ProfileSectionAbout => 'حول التطبيق';  String get v2SafaEntryProfile => 'افتح صفا';
+  String get v2ProfileSectionAbout => 'حول التطبيق';
+
+  @override
+  String get v2SafaEntryProfile => 'افتح صفا';
+
+  @override
+  String get v2ProfileEditNameTitle => 'الاسم الظاهر';
+
+  @override
+  String get v2ProfileEditNameHint => 'اختياري — يظهر على هذا الجهاز فقط';
+
+  @override
+  String get v2ProfileNameSaveFailed =>
+      'تعذّر حفظ الاسم. حاول مرة أخرى.';
+
+  @override
+  String get v2ProfileLegalHint => 'يفتح سياسة الخصوصية في المتصفح';
+
+  @override
+  String get v2ProfileContactHint => 'يفتح تطبيق البريد';
 }
