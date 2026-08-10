@@ -863,6 +863,8 @@ void main() {
         ),
       );
       expect(find.text(loc.recoveryPlanMainFocus), findsOneWidget);
+      expect(find.text(loc.recoveryPlanPrioritiesHeading), findsOneWidget);
+      expect(find.text(loc.recoveryPlanTimeHeading), findsOneWidget);
       expect(find.text(loc.recoveryPlanTodayFitHeading), findsOneWidget);
       expect(find.text(loc.recoveryPlanPathDetails), findsOneWidget);
       expect(find.text(loc.recoveryPlanAboutDetails), findsOneWidget);
@@ -939,6 +941,58 @@ void main() {
       expect(find.text(loc.recoveryPlanTodayFitHeading), findsOneWidget);
       final ctx = tester.element(find.text(loc.recoveryPlanTodayFitHeading));
       expect(Directionality.of(ctx), TextDirection.rtl);
+    });
+
+    testWidgets('shell Plan tolerates larger text scale at 320',
+        (tester) async {
+      final pack = syntheticFull(
+        domainScores: {
+          'full_attention': 30,
+          'full_mood': 55,
+          'full_habits': 60,
+          'full_intention': 70,
+        },
+        overall: 54,
+        band: RecoveryScoreBand.findingSteadiness,
+        confidence: MeasurementConfidence.strong,
+      );
+      final plan = RecoveryPlanEngineV1.generate(pack);
+      final loc = await AppLocalizations.delegate.load(const Locale('en'));
+      await tester.binding.setSurfaceSize(const Size(320, 640));
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+      await tester.pumpWidget(
+        MediaQuery(
+          data: const MediaQueryData(
+            size: Size(320, 640),
+            textScaler: TextScaler.linear(1.3),
+          ),
+          child: MaterialApp(
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            home: Scaffold(
+              body: PlanRevealBody(
+                loc: loc,
+                languageCode: 'en',
+                loading: false,
+                missing: false,
+                plan: plan,
+                presentation: PlanRevealPresentation.shellOrientation,
+                onGoHome: () {},
+                onContinue: () {},
+                onRebuild: () {},
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(tester.takeException(), isNull);
+      expect(find.text(loc.recoveryPlanMainFocus), findsOneWidget);
+      expect(find.text(loc.recoveryPlanOpenToday), findsOneWidget);
     });
 
     testWidgets('shell empty Plan offers Build without session CTAs',

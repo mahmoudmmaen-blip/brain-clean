@@ -179,10 +179,11 @@ class PlanRevealBody extends StatelessWidget {
     }
 
     if (missing || plan == null) {
+      final theme = Theme.of(context);
       return LayoutBuilder(
         builder: (context, constraints) {
           return SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.fromLTRB(24, 20, 24, 24),
             child: ConstrainedBox(
               constraints: BoxConstraints(
                 minHeight:
@@ -196,10 +197,13 @@ class PlanRevealBody extends StatelessWidget {
                     child: Text(
                       loc.recoveryPlanMissing,
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.titleMedium,
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        height: 1.3,
+                      ),
                     ),
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 20),
                   SizedBox(
                     width: double.infinity,
                     height: AppDesignConstants.minTouchTarget,
@@ -208,11 +212,14 @@ class PlanRevealBody extends StatelessWidget {
                       child: Text(loc.recoveryPlanBuildCta),
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 10),
                   SizedBox(
                     width: double.infinity,
                     height: AppDesignConstants.minTouchTarget,
                     child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: theme.colorScheme.onSurfaceVariant,
+                      ),
                       onPressed: onGoHome,
                       child: Text(loc.recoveryPlanGoHome),
                     ),
@@ -243,6 +250,18 @@ class PlanRevealBody extends StatelessWidget {
   }
 }
 
+// Shell Plan rhythm — tighter than Phase A document stack.
+const double _kShellPadTop = 12;
+const double _kShellPadH = 24;
+const double _kShellPadBottom = 24;
+const double _kShellGapThesisBody = 6;
+const double _kShellGapAfterThesis = 18;
+const double _kShellGapSupportBlocks = 10;
+const double _kShellGapSection = 16;
+const double _kShellGapLabelBody = 6;
+const double _kShellGapBeforeDetails = 14;
+const double _kShellGapDetailsCta = 20;
+
 /// Established shell Plan — orientation-first, not another Today.
 class _ShellPlanOrientation extends StatelessWidget {
   const _ShellPlanOrientation({
@@ -260,6 +279,7 @@ class _ShellPlanOrientation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final muted = theme.colorScheme.onSurfaceVariant;
     final expl = plan.explanation;
     final today = plan.dayTemplate.todayPreview;
     final isStarter = plan.isStarterFallback ||
@@ -274,13 +294,20 @@ class _ShellPlanOrientation extends StatelessWidget {
       '${plan.cadence.minPathMinutesMin}',
       '${plan.cadence.standardPathMinutesMax}',
     );
+    final intensityLabel = plan.intensity.labelForLocale(languageCode);
     final actTitle = resolveTodayActTitle(plan, languageCode) ??
         loc.v2TodayPreviewFallbackTitle;
     final minSteps = _resolvedSteps(plan, today.minimumPathStepIds);
     final stdSteps = _resolvedSteps(plan, today.standardPathStepIds);
+    final sectionLabel = theme.textTheme.labelLarge?.copyWith(color: muted);
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(24, 20, 24, 32),
+      padding: const EdgeInsets.fromLTRB(
+        _kShellPadH,
+        _kShellPadTop,
+        _kShellPadH,
+        _kShellPadBottom,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -290,12 +317,13 @@ class _ShellPlanOrientation extends StatelessWidget {
               liveRegion: true,
               child: Text(
                 loc.recoveryPlanStarterBadge,
-                style: theme.textTheme.labelLarge?.copyWith(
+                style: theme.textTheme.labelMedium?.copyWith(
                   color: theme.colorScheme.primary,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 8),
           ],
           Semantics(
             header: true,
@@ -303,105 +331,109 @@ class _ShellPlanOrientation extends StatelessWidget {
                 '${loc.recoveryPlanMainFocus}: ${expl.mainFocusForLocale(languageCode)}',
             child: Text(
               loc.recoveryPlanMainFocus,
-              style: theme.textTheme.labelLarge?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant,
-              ),
+              style: theme.textTheme.labelMedium?.copyWith(color: muted),
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: _kShellGapThesisBody),
           Text(
             expl.mainFocusForLocale(languageCode),
             style: theme.textTheme.headlineSmall?.copyWith(
-              fontWeight: FontWeight.w600,
-              height: 1.35,
+              fontWeight: FontWeight.w700,
+              height: 1.28,
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: _kShellGapThesisBody),
           Text(
             loc.recoveryPlanCalmOrientationBody,
             style: theme.textTheme.bodySmall?.copyWith(
-              color: theme.colorScheme.onSurfaceVariant,
+              color: muted,
               height: 1.4,
             ),
           ),
 
-          // 3 Support context
-          const SizedBox(height: 24),
-          Text(
-            loc.recoveryPlanPrioritiesHeading,
-            style: theme.textTheme.titleSmall,
-          ),
-          const SizedBox(height: 8),
+          // 3 Support context — compact chips, not a second hero
+          const SizedBox(height: _kShellGapAfterThesis),
+          Text(loc.recoveryPlanPrioritiesHeading, style: sectionLabel),
+          const SizedBox(height: _kShellGapLabelBody),
           if (plan.priority.priorities.isEmpty)
             Text(
               loc.recoveryPlanNoPriorities,
-              style: theme.textTheme.bodyMedium,
+              style: theme.textTheme.bodyMedium?.copyWith(color: muted),
             )
           else
-            ...plan.priority.priorities.map(
-              (d) => Padding(
-                padding: const EdgeInsets.only(bottom: 4),
-                child: Text(
-                  '· ${d.titleForLocale(languageCode)}',
-                  style: theme.textTheme.bodyMedium,
-                ),
-              ),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                for (final d in plan.priority.priorities)
+                  _PlanSupportChip(
+                    label: d.titleForLocale(languageCode),
+                    semanticLabel:
+                        '${loc.recoveryPlanPrioritiesHeading}: ${d.titleForLocale(languageCode)}',
+                  ),
+              ],
             ),
           if (plan.priority.strongerDomainId != null) ...[
-            const SizedBox(height: 12),
-            Text(
-              loc.recoveryPlanStrongerHeading,
-              style: theme.textTheme.titleSmall,
-            ),
-            const SizedBox(height: 6),
-            Text(
-              plan.priority.strongerTitleForLocale(languageCode),
-              style: theme.textTheme.bodyMedium,
+            const SizedBox(height: _kShellGapSupportBlocks),
+            Text(loc.recoveryPlanStrongerHeading, style: sectionLabel),
+            const SizedBox(height: _kShellGapLabelBody),
+            Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: _PlanSupportChip(
+                label: plan.priority.strongerTitleForLocale(languageCode),
+                semanticLabel:
+                    '${loc.recoveryPlanStrongerHeading}: ${plan.priority.strongerTitleForLocale(languageCode)}',
+              ),
             ),
           ],
 
-          // 4 Daily shape
-          const SizedBox(height: 24),
-          Text(
-            loc.recoveryPlanTimeHeading,
-            style: theme.textTheme.titleSmall,
-          ),
-          const SizedBox(height: 6),
+          // 4 Daily shape — one concise effort line
+          const SizedBox(height: _kShellGapSection),
+          Text(loc.recoveryPlanTimeHeading, style: sectionLabel),
+          const SizedBox(height: _kShellGapLabelBody),
           Semantics(
             label:
-                '$timeLabel. ${loc.recoveryPlanIntensityLabel}: ${plan.intensity.labelForLocale(languageCode)}',
+                '$timeLabel. ${loc.recoveryPlanIntensityLabel}: $intensityLabel',
             child: Text(
-              '$timeLabel · ${plan.intensity.labelForLocale(languageCode)}',
-              style: theme.textTheme.bodyLarge,
+              '$timeLabel · $intensityLabel',
+              style: theme.textTheme.bodyLarge?.copyWith(
+                fontWeight: FontWeight.w500,
+                height: 1.3,
+              ),
             ),
           ),
 
           // 5 Today's place (orientation only)
-          const SizedBox(height: 24),
+          const SizedBox(height: _kShellGapSection),
           Semantics(
             header: true,
-            child: Text(
-              loc.recoveryPlanTodayFitHeading,
-              style: theme.textTheme.titleSmall,
-            ),
+            child: Text(loc.recoveryPlanTodayFitHeading, style: sectionLabel),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: _kShellGapLabelBody),
           Text(
             actTitle,
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w600,
+              height: 1.3,
             ),
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 4),
           Text(
             today.because.forLocale(languageCode),
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: theme.colorScheme.onSurfaceVariant,
+              color: muted,
+              height: 1.4,
             ),
           ),
 
-          // 6 Depth — paths + trust (true progressive disclosure)
-          const SizedBox(height: 20),
+          // 6 Depth — demoted progressive disclosure
+          const SizedBox(height: _kShellGapBeforeDetails),
+          Divider(
+            height: 1,
+            thickness: 1,
+            color: theme.colorScheme.outlineVariant.withValues(alpha: 0.45),
+          ),
+          const SizedBox(height: 4),
           _PlanDetailExpansion(
             title: loc.recoveryPlanPathDetails,
             subtitle:
@@ -412,16 +444,16 @@ class _ShellPlanOrientation extends StatelessWidget {
               children: [
                 Text(
                   loc.recoveryPlanMinimumPath,
-                  style: theme.textTheme.labelLarge,
+                  style: theme.textTheme.labelMedium?.copyWith(color: muted),
                 ),
-                const SizedBox(height: 6),
+                const SizedBox(height: 4),
                 ..._compactPathNames(loc, languageCode, minSteps),
-                const SizedBox(height: 12),
+                const SizedBox(height: 10),
                 Text(
                   loc.recoveryPlanStandardPath,
-                  style: theme.textTheme.labelLarge,
+                  style: theme.textTheme.labelMedium?.copyWith(color: muted),
                 ),
-                const SizedBox(height: 6),
+                const SizedBox(height: 4),
                 ..._compactPathNames(loc, languageCode, stdSteps),
               ],
             ),
@@ -434,42 +466,93 @@ class _ShellPlanOrientation extends StatelessWidget {
               children: [
                 ...expl.becauseLinesForLocale(languageCode).map(
                       (line) => Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: Text(line, style: theme.textTheme.bodyMedium),
+                        padding: const EdgeInsets.only(bottom: 6),
+                        child: Text(
+                          line,
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            height: 1.4,
+                          ),
+                        ),
                       ),
                     ),
                 Text(
                   expl.nonMedicalForLocale(languageCode),
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant,
+                    color: muted,
+                    height: 1.4,
                   ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 6),
                 Text(
                   expl.whyMayChangeForLocale(languageCode),
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant,
+                    color: muted,
+                    height: 1.4,
                   ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 6),
                 Text(
                   loc.recoveryPlanSkipHint,
-                  style: theme.textTheme.bodySmall,
+                  style: theme.textTheme.bodySmall?.copyWith(color: muted),
                 ),
               ],
             ),
           ),
 
           // 7 Soft navigation to shell Today (not session execution)
-          const SizedBox(height: 28),
+          const SizedBox(height: _kShellGapDetailsCta),
           SizedBox(
             height: AppDesignConstants.minTouchTarget,
             child: OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                foregroundColor: muted,
+                side: BorderSide(
+                  color: theme.colorScheme.outline.withValues(alpha: 0.55),
+                ),
+              ),
               onPressed: onContinue,
               child: Text(loc.recoveryPlanOpenToday),
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// Non-interactive support label — chip look without implying a tap.
+class _PlanSupportChip extends StatelessWidget {
+  const _PlanSupportChip({
+    required this.label,
+    required this.semanticLabel,
+  });
+
+  final String label;
+  final String semanticLabel;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Semantics(
+      label: semanticLabel,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: AppColors.card.withValues(alpha: 0.55),
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: AppColors.border.withValues(alpha: 0.65),
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+          child: Text(
+            label,
+            style: theme.textTheme.labelLarge?.copyWith(
+              color: theme.colorScheme.onSurface,
+              height: 1.2,
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -726,7 +809,7 @@ List<Widget> _compactPathNames(
   return [
     for (final step in steps)
       Padding(
-        padding: const EdgeInsets.only(bottom: 6),
+        padding: const EdgeInsets.only(bottom: 4),
         child: Semantics(
           label: [
             step.nameForLocale(languageCode),
@@ -738,6 +821,7 @@ List<Widget> _compactPathNames(
             child: Text(
               '· ${step.nameForLocale(languageCode)}'
               '${step.optional ? ' (${loc.recoveryPlanOptionalTag})' : ''}',
+              style: const TextStyle(height: 1.3),
             ),
           ),
         ),
@@ -803,6 +887,7 @@ class _PlanDetailExpansionState extends State<_PlanDetailExpansion> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final muted = theme.colorScheme.onSurfaceVariant;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -814,21 +899,35 @@ class _PlanDetailExpansionState extends State<_PlanDetailExpansion> {
               minHeight: AppDesignConstants.minTouchTarget,
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
+              padding: const EdgeInsets.symmetric(vertical: 6),
               child: Row(
                 children: [
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(widget.title, style: theme.textTheme.titleSmall),
+                        Text(
+                          widget.title,
+                          style: theme.textTheme.labelLarge?.copyWith(
+                            fontWeight: FontWeight.w600,
+                            color: muted,
+                          ),
+                        ),
                         const SizedBox(height: 2),
-                        Text(widget.subtitle, style: theme.textTheme.bodySmall),
+                        Text(
+                          widget.subtitle,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: muted,
+                            height: 1.3,
+                          ),
+                        ),
                       ],
                     ),
                   ),
                   Icon(
                     _expanded ? Icons.expand_less : Icons.expand_more,
+                    size: 22,
+                    color: muted,
                     semanticLabel: widget.title,
                   ),
                 ],
@@ -837,9 +936,11 @@ class _PlanDetailExpansionState extends State<_PlanDetailExpansion> {
           ),
         ),
         if (_expanded) ...[
-          const SizedBox(height: 4),
-          widget.child,
-          const SizedBox(height: 8),
+          const SizedBox(height: 2),
+          Padding(
+            padding: const EdgeInsetsDirectional.only(start: 2, bottom: 6),
+            child: widget.child,
+          ),
         ],
       ],
     );
