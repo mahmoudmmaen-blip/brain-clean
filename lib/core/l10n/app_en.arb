@@ -1491,5 +1491,24 @@
     }
   },
   "v2SafaEntryToday": "Ask Safa for support",
-  "v2SafaEntryProfile": "Open Safa"
+  "v2SafaEntryProfile": "Open Safa",
+  "v2ProfileTitle": "Profile",
+  "v2ProfileDefaultIdentity": "Your profile",
+  "v2ProfileOrientation": "Preferences, privacy, and personal controls — not another progress dashboard.",
+  "v2ProfileSectionRecovery": "Recovery setup",
+  "v2ProfileBrainProfile": "Brain Profile",
+  "v2ProfileBrainProfileLoading": "Checking your assessment…",
+  "v2ProfileBrainProfileReady": "View your latest assessment",
+  "v2ProfileBrainProfileMissing": "Complete Brain Check to build this",
+  "v2ProfileSectionPreferences": "Preferences",
+  "v2ProfilePreferencesRow": "Preferences & settings",
+  "v2ProfilePreferencesHint": "Appearance, notifications, and biometric lock",
+  "v2ProfileSectionPrivacy": "Privacy & data",
+  "v2ProfilePrivacyRow": "Privacy & data controls",
+  "v2ProfilePrivacyHint": "Local data reset and related options",
+  "v2ProfileSectionSubscription": "Subscription",
+  "v2ProfileSubscriptionHint": "Premium status, plans, and restore",
+  "v2ProfileSectionHelp": "Help & support",
+  "v2ProfileHelpHint": "Short support for a calm next step",
+  "v2ProfileSectionAbout": "About"
 }

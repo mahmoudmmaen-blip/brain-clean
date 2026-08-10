@@ -1635,5 +1635,24 @@
     }
   },
   "v2SafaEntryToday": "اطلب دعم صفا",
-  "v2SafaEntryProfile": "افتح صفا"
+  "v2SafaEntryProfile": "افتح صفا",
+  "v2ProfileTitle": "الملف",
+  "v2ProfileDefaultIdentity": "ملفك",
+  "v2ProfileOrientation": "التفضيلات والخصوصية والضوابط الشخصية — وليس لوحة تقدّم أخرى.",
+  "v2ProfileSectionRecovery": "إعداد التعافي",
+  "v2ProfileBrainProfile": "الملف الدماغي",
+  "v2ProfileBrainProfileLoading": "جارٍ التحقق من تقييمك…",
+  "v2ProfileBrainProfileReady": "عرض أحدث تقييم لديك",
+  "v2ProfileBrainProfileMissing": "أكمل فحص الدماغ لإنشاء هذا",
+  "v2ProfileSectionPreferences": "التفضيلات",
+  "v2ProfilePreferencesRow": "التفضيلات والإعدادات",
+  "v2ProfilePreferencesHint": "المظهر والإشعارات وقفل المقاييس الحيوية",
+  "v2ProfileSectionPrivacy": "الخصوصية والبيانات",
+  "v2ProfilePrivacyRow": "ضوابط الخصوصية والبيانات",
+  "v2ProfilePrivacyHint": "مسح البيانات المحلية والخيارات ذات الصلة",
+  "v2ProfileSectionSubscription": "الاشتراك",
+  "v2ProfileSubscriptionHint": "حالة بريميوم والخطط والاستعادة",
+  "v2ProfileSectionHelp": "المساعدة والدعم",
+  "v2ProfileHelpHint": "دعم موجز لخطوة هادئة تالية",
+  "v2ProfileSectionAbout": "حول التطبيق"
 }

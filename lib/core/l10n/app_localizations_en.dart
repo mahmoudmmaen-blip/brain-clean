@@ -3476,5 +3476,65 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2SafaEntryToday => 'Ask Safa for support';
 
   @override
-  String get v2SafaEntryProfile => 'Open Safa';
+
+  @override
+  String get v2ProfileTitle => 'Profile';
+
+  @override
+  String get v2ProfileDefaultIdentity => 'Your profile';
+
+  @override
+  String get v2ProfileOrientation =>
+      'Preferences, privacy, and personal controls — not another progress dashboard.';
+
+  @override
+  String get v2ProfileSectionRecovery => 'Recovery setup';
+
+  @override
+  String get v2ProfileBrainProfile => 'Brain Profile';
+
+  @override
+  String get v2ProfileBrainProfileLoading => 'Checking your assessment…';
+
+  @override
+  String get v2ProfileBrainProfileReady => 'View your latest assessment';
+
+  @override
+  String get v2ProfileBrainProfileMissing =>
+      'Complete Brain Check to build this';
+
+  @override
+  String get v2ProfileSectionPreferences => 'Preferences';
+
+  @override
+  String get v2ProfilePreferencesRow => 'Preferences & settings';
+
+  @override
+  String get v2ProfilePreferencesHint =>
+      'Appearance, notifications, and biometric lock';
+
+  @override
+  String get v2ProfileSectionPrivacy => 'Privacy & data';
+
+  @override
+  String get v2ProfilePrivacyRow => 'Privacy & data controls';
+
+  @override
+  String get v2ProfilePrivacyHint => 'Local data reset and related options';
+
+  @override
+  String get v2ProfileSectionSubscription => 'Subscription';
+
+  @override
+  String get v2ProfileSubscriptionHint =>
+      'Premium status, plans, and restore';
+
+  @override
+  String get v2ProfileSectionHelp => 'Help & support';
+
+  @override
+  String get v2ProfileHelpHint => 'Short support for a calm next step';
+
+  @override
+  String get v2ProfileSectionAbout => 'About';  String get v2SafaEntryProfile => 'Open Safa';
 }

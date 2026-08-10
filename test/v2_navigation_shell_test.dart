@@ -43,7 +43,9 @@ GoRouter _shellRouter({
       ),
       GoRoute(
         path: AppRoutes.v2BrainProfile,
-        redirect: (context, state) => AppRoutes.v2Profile,
+        builder: (context, state) => const Scaffold(
+          body: Text('BRAIN_PROFILE_CONTEXTUAL'),
+        ),
       ),
       GoRoute(
         path: AppRoutes.v2BrainCheckEntry,
@@ -110,8 +112,7 @@ GoRouter _shellRouter({
             children: [
               const Text('REPORTS_CONTEXTUAL'),
               TextButton(
-                onPressed: () =>
-                    GoRouter.of(context).go(AppRoutes.v2Progress),
+                onPressed: () => GoRouter.of(context).go(AppRoutes.v2Progress),
                 child: const Text('BACK_PROGRESS'),
               ),
             ],
@@ -187,7 +188,7 @@ void main() {
       expect(V2ShellTabX.fromLocation('/v2/plan'), V2ShellTab.plan);
       expect(V2ShellTabX.fromLocation('/v2/progress'), V2ShellTab.progress);
       expect(V2ShellTabX.fromLocation('/v2/profile'), V2ShellTab.profile);
-      expect(V2ShellTabX.fromLocation('/v2/brain-profile'), V2ShellTab.profile);
+      expect(V2ShellTabX.fromLocation('/v2/brain-profile'), isNull);
       expect(V2ShellTabX.fromLocation('/v2/session/act'), isNull);
       expect(AppRoutes.v2Today, AppRoutes.v2Home);
       expect(AppRoutes.v2Home, '/v2/home');
@@ -270,14 +271,15 @@ void main() {
       expect(find.text('TAB_TODAY'), findsOneWidget);
     });
 
-    testWidgets('/v2/brain-profile aliases to Profile tab', (tester) async {
+    testWidgets('/v2/brain-profile opens outside tab bar', (tester) async {
       final router = _shellRouter(
         flagOn: true,
         initial: AppRoutes.v2BrainProfile,
       );
       await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
       await tester.pump();
-      expect(find.text('TAB_PROFILE'), findsOneWidget);
+      expect(find.text('BRAIN_PROFILE_CONTEXTUAL'), findsOneWidget);
+      expect(find.byType(NavigationBar), findsNothing);
     });
 
     testWidgets('invalid /v2 path recovers to Today', (tester) async {

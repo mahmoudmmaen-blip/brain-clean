@@ -29,6 +29,7 @@ import '../../features/reports/weekly_report_screen.dart';
 import '../../features/settings/settings_screen.dart';
 import '../../features/splash/presentation/splash_screen.dart';
 import '../../features/brain_profile/ui/brain_check_building_screen.dart';
+import '../../features/brain_profile/ui/brain_profile_reveal_screen.dart';
 import '../../features/brain_profile/ui/profile_ready_boundary_screen.dart';
 import '../../features/recovery_plan/ui/plan_building_screen.dart';
 import '../../features/recovery_plan/ui/plan_today_preview_screen.dart';
@@ -413,7 +414,7 @@ GoRouter goRouter(GoRouterRef ref) {
           return BreathingFrictionScreen(currentBhi: bhi);
         },
       ),
-      
+
       // 🌟 [NEW] مسار واحة المشاعر
       GoRoute(
         path: '/emotion-oasis',
@@ -430,12 +431,9 @@ GoRouter goRouter(GoRouterRef ref) {
       GoRoute(
         path: AppRoutes.v2BrainProfile,
         name: 'v2BrainProfile',
-        redirect: (context, state) {
+        builder: (context, state) {
           final session = state.uri.queryParameters['session'];
-          if (session != null && session.isNotEmpty) {
-            return '${AppRoutes.v2Profile}?session=${Uri.encodeComponent(session)}';
-          }
-          return AppRoutes.v2Profile;
+          return BrainProfileRevealScreen(sessionId: session);
         },
       ),
       GoRoute(

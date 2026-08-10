@@ -29,12 +29,12 @@ extension V2ShellTabX on V2ShellTab {
     if (path == '/v2/home' || path == '/v2/today') return V2ShellTab.today;
     if (path == '/v2/plan') return V2ShellTab.plan;
     if (path == '/v2/progress') return V2ShellTab.progress;
-    if (path == '/v2/profile' || path == '/v2/brain-profile') {
-      return V2ShellTab.profile;
-    }
+    if (path == '/v2/profile') return V2ShellTab.profile;
     // Contextual destinations — not primary tabs.
     if (path == '/v2/check' ||
         path.startsWith('/v2/brain-check') ||
+        path == '/v2/brain-profile' ||
+        path.startsWith('/v2/brain-profile/') ||
         path == '/v2/reports' ||
         path.startsWith('/v2/reports/') ||
         path == '/v2/safa' ||

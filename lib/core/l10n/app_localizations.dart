@@ -6211,7 +6211,120 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'Open Safa'**
-  String get v2SafaEntryProfile;
+
+  /// No description provided for @v2ProfileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get v2ProfileTitle;
+
+  /// No description provided for @v2ProfileDefaultIdentity.
+  ///
+  /// In en, this message translates to:
+  /// **'Your profile'**
+  String get v2ProfileDefaultIdentity;
+
+  /// No description provided for @v2ProfileOrientation.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferences, privacy, and personal controls — not another progress dashboard.'**
+  String get v2ProfileOrientation;
+
+  /// No description provided for @v2ProfileSectionRecovery.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery setup'**
+  String get v2ProfileSectionRecovery;
+
+  /// No description provided for @v2ProfileBrainProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Profile'**
+  String get v2ProfileBrainProfile;
+
+  /// No description provided for @v2ProfileBrainProfileLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking your assessment…'**
+  String get v2ProfileBrainProfileLoading;
+
+  /// No description provided for @v2ProfileBrainProfileReady.
+  ///
+  /// In en, this message translates to:
+  /// **'View your latest assessment'**
+  String get v2ProfileBrainProfileReady;
+
+  /// No description provided for @v2ProfileBrainProfileMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete Brain Check to build this'**
+  String get v2ProfileBrainProfileMissing;
+
+  /// No description provided for @v2ProfileSectionPreferences.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferences'**
+  String get v2ProfileSectionPreferences;
+
+  /// No description provided for @v2ProfilePreferencesRow.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferences & settings'**
+  String get v2ProfilePreferencesRow;
+
+  /// No description provided for @v2ProfilePreferencesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance, notifications, and biometric lock'**
+  String get v2ProfilePreferencesHint;
+
+  /// No description provided for @v2ProfileSectionPrivacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy & data'**
+  String get v2ProfileSectionPrivacy;
+
+  /// No description provided for @v2ProfilePrivacyRow.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy & data controls'**
+  String get v2ProfilePrivacyRow;
+
+  /// No description provided for @v2ProfilePrivacyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Local data reset and related options'**
+  String get v2ProfilePrivacyHint;
+
+  /// No description provided for @v2ProfileSectionSubscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription'**
+  String get v2ProfileSectionSubscription;
+
+  /// No description provided for @v2ProfileSubscriptionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium status, plans, and restore'**
+  String get v2ProfileSubscriptionHint;
+
+  /// No description provided for @v2ProfileSectionHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Help & support'**
+  String get v2ProfileSectionHelp;
+
+  /// No description provided for @v2ProfileHelpHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Short support for a calm next step'**
+  String get v2ProfileHelpHint;
+
+  /// No description provided for @v2ProfileSectionAbout.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get v2ProfileSectionAbout;  String get v2SafaEntryProfile;
 }
 
 class _AppLocalizationsDelegate

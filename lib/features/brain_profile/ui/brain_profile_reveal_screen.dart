@@ -54,8 +54,7 @@ class _BrainProfileRevealScreenState
       if (widget.sessionId != null && widget.sessionId!.isNotEmpty) {
         pack = await repo.findBySourceSessionId(widget.sessionId!);
         final latest = await repo.latest();
-        historical =
-            pack != null && latest != null && pack.id != latest.id;
+        historical = pack != null && latest != null && pack.id != latest.id;
       } else {
         pack = await repo.latest();
       }
@@ -147,7 +146,7 @@ class _BrainProfileRevealScreenState
           historical: _historical,
           pack: _pack,
           onDomainTap: _openDomain,
-          onGoHome: () => context.go(AppRoutes.home),
+          onGoHome: () => context.go(AppRoutes.v2Home),
           onContinue: _continueToPlan,
         ),
       ),
@@ -182,7 +181,8 @@ class BrainProfileRevealBody extends StatelessWidget {
 
   String _confidenceLabel(MeasurementConfidence c) {
     return switch (c) {
-      MeasurementConfidence.provisional => loc.brainProfileConfidenceProvisional,
+      MeasurementConfidence.provisional =>
+        loc.brainProfileConfidenceProvisional,
       MeasurementConfidence.moderate => loc.brainProfileConfidenceModerate,
       // Contract §10.4: Strong (ARB key retained for compatibility).
       MeasurementConfidence.strong => loc.brainProfileConfidenceSolid,
@@ -417,28 +417,6 @@ class BrainProfileRevealBody extends StatelessWidget {
             child: FilledButton(
               onPressed: canContinue ? onContinue : null,
               child: Text(loc.brainProfileContinue),
-            ),
-          ),
-          const SizedBox(height: 8),
-          SizedBox(
-            height: 48,
-            child: TextButton(
-              key: const Key('v2_profile_safa_entry'),
-              onPressed: () => context.go(
-                '${AppRoutes.v2Safa}?origin=profile&returnTo=${Uri.encodeComponent(AppRoutes.v2Profile)}',
-              ),
-              child: Text(loc.v2SafaEntryProfile),
-            ),
-          ),
-          const SizedBox(height: 8),
-          SizedBox(
-            height: 48,
-            child: TextButton(
-              key: const Key('v2_profile_premium_entry'),
-              onPressed: () => context.go(
-                '${AppRoutes.v2Premium}?source=profile',
-              ),
-              child: Text(loc.v2PremiumManage),
             ),
           ),
         ],

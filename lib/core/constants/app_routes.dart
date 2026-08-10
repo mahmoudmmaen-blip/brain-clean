@@ -87,7 +87,8 @@ abstract final class AppRoutes {
   /// RPT-03 — Recovery measurement history (gated V2).
   static const v2ReportMeasurements = '/v2/reports/measurements';
 
-  /// PRF tab root — Brain Profile reveal (shell deep link `/v2/profile`).
+  /// Profile tab root — personal control center (shell `/v2/profile`).
+  /// Brain Profile assessment reveal lives at [v2BrainProfile].
   static const v2Profile = '/v2/profile';
 
   /// V2 onboarding foundation ONB-01…ONB-06.

@@ -3423,5 +3423,66 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2SafaEntryToday => 'اطلب دعم صفا';
 
   @override
-  String get v2SafaEntryProfile => 'افتح صفا';
+
+  @override
+  String get v2ProfileTitle => 'الملف';
+
+  @override
+  String get v2ProfileDefaultIdentity => 'ملفك';
+
+  @override
+  String get v2ProfileOrientation =>
+      'التفضيلات والخصوصية والضوابط الشخصية — وليس لوحة تقدّم أخرى.';
+
+  @override
+  String get v2ProfileSectionRecovery => 'إعداد التعافي';
+
+  @override
+  String get v2ProfileBrainProfile => 'الملف الدماغي';
+
+  @override
+  String get v2ProfileBrainProfileLoading => 'جارٍ التحقق من تقييمك…';
+
+  @override
+  String get v2ProfileBrainProfileReady => 'عرض أحدث تقييم لديك';
+
+  @override
+  String get v2ProfileBrainProfileMissing =>
+      'أكمل فحص الدماغ لإنشاء هذا';
+
+  @override
+  String get v2ProfileSectionPreferences => 'التفضيلات';
+
+  @override
+  String get v2ProfilePreferencesRow => 'التفضيلات والإعدادات';
+
+  @override
+  String get v2ProfilePreferencesHint =>
+      'المظهر والإشعارات وقفل المقاييس الحيوية';
+
+  @override
+  String get v2ProfileSectionPrivacy => 'الخصوصية والبيانات';
+
+  @override
+  String get v2ProfilePrivacyRow => 'ضوابط الخصوصية والبيانات';
+
+  @override
+  String get v2ProfilePrivacyHint =>
+      'مسح البيانات المحلية والخيارات ذات الصلة';
+
+  @override
+  String get v2ProfileSectionSubscription => 'الاشتراك';
+
+  @override
+  String get v2ProfileSubscriptionHint =>
+      'حالة بريميوم والخطط والاستعادة';
+
+  @override
+  String get v2ProfileSectionHelp => 'المساعدة والدعم';
+
+  @override
+  String get v2ProfileHelpHint => 'دعم موجز لخطوة هادئة تالية';
+
+  @override
+  String get v2ProfileSectionAbout => 'حول التطبيق';  String get v2SafaEntryProfile => 'افتح صفا';
 }

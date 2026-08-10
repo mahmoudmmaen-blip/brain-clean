@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../brain_profile/ui/brain_profile_reveal_screen.dart';
 import '../../daily_session/ui/today_home_screen.dart';
+import '../../profile/ui/v2_profile_home_screen.dart';
 import '../../progress/ui/progress_home_screen.dart';
 import '../../recovery_plan/ui/plan_reveal_screen.dart';
 import '../ui/v2_navigation_shell.dart';
@@ -58,12 +58,9 @@ StatefulShellRoute buildV2NavigationShellRoute() {
           GoRoute(
             path: V2ShellPaths.profile,
             name: 'v2Profile',
-            pageBuilder: (context, state) {
-              final session = state.uri.queryParameters['session'];
-              return NoTransitionPage<void>(
-                child: BrainProfileRevealScreen(sessionId: session),
-              );
-            },
+            pageBuilder: (context, state) => const NoTransitionPage<void>(
+              child: V2ProfileHomeScreen(),
+            ),
           ),
         ],
       ),
