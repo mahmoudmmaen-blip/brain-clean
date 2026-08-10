@@ -367,8 +367,11 @@ void main() {
       );
       await tester.pumpAndSettle();
       expect(find.text(loc.v2TodayHomeStatusDone), findsOneWidget);
+      expect(find.byKey(const Key('v2_today_primary_cta')), findsOneWidget);
+      expect(find.text(loc.v2TodayHomeCtaViewCompleted), findsOneWidget);
+      // Resolved day: primary stays available as quieter outlined action.
       expect(
-        find.widgetWithText(FilledButton, loc.v2TodayHomeCtaViewCompleted),
+        find.widgetWithText(OutlinedButton, loc.v2TodayHomeCtaViewCompleted),
         findsOneWidget,
       );
       expect(find.byKey(const Key('v2_today_standard_hint')), findsNothing);

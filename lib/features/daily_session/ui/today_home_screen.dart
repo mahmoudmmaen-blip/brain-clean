@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_design_constants.dart';
 import '../../recovery_plan/domain/recovery_plan.dart';
 import '../../recovery_plan/domain/today_act_presentation.dart';
 import '../application/daily_session_controller.dart';
@@ -15,6 +16,19 @@ import '../domain/daily_session_status.dart';
 /// Clearance below last CTA so Safa cannot sit against the shell [NavigationBar].
 /// Body is already laid above the bar; this is visual breathing room only.
 const double _kTodayContentBottomClearance = 40;
+
+/// Today loaded density rhythm (Phase B) — keep hierarchy; tune only spacing.
+const double _kTodayPadH = 24;
+const double _kTodayPadTop = 20;
+const double _kTodayGapActTime = 8;
+const double _kTodayGapTimeStatus = 12;
+const double _kTodayGapStatusCta = 22;
+const double _kTodayGapCtaSupport = 28;
+const double _kTodayGapSupportTitleBody = 6;
+const double _kTodayGapSupportSections = 16;
+const double _kTodayGapAfterSupport = 20;
+const double _kTodayGapCtaToSecondary = 28;
+const double _kTodayGapSecondaryCluster = 4;
 
 /// HOM-01 — calm Today home (one action, not a warehouse).
 class TodayHomeScreen extends ConsumerStatefulWidget {
@@ -123,21 +137,42 @@ class TodayHomeBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final titleStyle = theme.textTheme.headlineSmall?.copyWith(
+    final actStyle = theme.textTheme.headlineSmall?.copyWith(
       color: AppColors.textPrimary,
       fontWeight: FontWeight.w700,
+      height: 1.25,
     );
-    final sectionStyle = theme.textTheme.titleMedium?.copyWith(
-      color: AppColors.textPrimary,
+    final emptyTitleStyle = actStyle;
+    final supportHeadingStyle = theme.textTheme.titleSmall?.copyWith(
+      color: AppColors.textSecondary,
       fontWeight: FontWeight.w600,
+      height: 1.3,
     );
-    final bodyStyle = theme.textTheme.bodyLarge?.copyWith(
+    final bodyStyle = theme.textTheme.bodyMedium?.copyWith(
       color: AppColors.textSecondary,
       height: 1.5,
     );
-    final pathStyle = bodyStyle?.copyWith(
-      color: AppColors.textPrimary,
+    final supportBodyStyle = theme.textTheme.bodyMedium?.copyWith(
+      color: AppColors.textSecondary,
       height: 1.5,
+    );
+    final pathStyle = theme.textTheme.bodyMedium?.copyWith(
+      color: AppColors.textSecondary,
+      height: 1.45,
+    );
+    final timeStyle = theme.textTheme.bodyMedium?.copyWith(
+      color: AppColors.textSecondary,
+      height: 1.35,
+      fontWeight: FontWeight.w400,
+    );
+    final statusStyle = theme.textTheme.labelLarge?.copyWith(
+      color: AppColors.textPrimary,
+      fontWeight: FontWeight.w500,
+      height: 1.2,
+    );
+    final secondaryActionStyle = theme.textTheme.labelLarge?.copyWith(
+      color: AppColors.textSecondary,
+      fontWeight: FontWeight.w500,
     );
 
     if (loading) {
@@ -177,9 +212,9 @@ class TodayHomeBody extends StatelessWidget {
                     .clamp(0.0, double.infinity);
             return SingleChildScrollView(
               padding: const EdgeInsets.fromLTRB(
-                24,
+                _kTodayPadH,
                 topPad,
-                24,
+                _kTodayPadH,
                 _kTodayContentBottomClearance,
               ),
               child: ConstrainedBox(
@@ -200,7 +235,7 @@ class TodayHomeBody extends StatelessWidget {
                       child: Text(
                         message,
                         textAlign: TextAlign.center,
-                        style: titleStyle,
+                        style: emptyTitleStyle,
                       ),
                     ),
                     if (support != null) ...[
@@ -214,13 +249,16 @@ class TodayHomeBody extends StatelessWidget {
                     const SizedBox(height: 32),
                     SizedBox(
                       width: double.infinity,
-                      height: 48,
+                      height: AppDesignConstants.minTouchTarget,
                       child: FilledButton(
                         onPressed: rebuild ? onBuildPlan : onRetry,
                         style: FilledButton.styleFrom(
                           backgroundColor: AppColors.primary,
                           foregroundColor: AppColors.textPrimary,
-                          minimumSize: const Size(48, 48),
+                          minimumSize: const Size(
+                            AppDesignConstants.minTouchTarget,
+                            AppDesignConstants.minTouchTarget,
+                          ),
                         ),
                         child: Text(
                           rebuild
@@ -255,16 +293,17 @@ class TodayHomeBody extends StatelessWidget {
     final statusLabel = _statusLabel(loc, session);
     final ctaLabel = _ctaLabel(loc, session);
     final showSupportingDetail = _showSupportingDetail(session);
-    final quietHintStyle = theme.textTheme.bodyMedium?.copyWith(
+    final resolvedPrimary = _isResolvedPrimary(session);
+    final quietHintStyle = theme.textTheme.bodySmall?.copyWith(
       color: AppColors.textSecondary,
       height: 1.45,
     );
 
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(
-        24,
-        16,
-        24,
+        _kTodayPadH,
+        _kTodayPadTop,
+        _kTodayPadH,
         _kTodayContentBottomClearance,
       ),
       child: Column(
@@ -277,21 +316,21 @@ class TodayHomeBody extends StatelessWidget {
             child: Text(
               title,
               key: const Key('v2_today_act_title'),
-              style: titleStyle,
+              style: actStyle,
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: _kTodayGapActTime),
           // Zone B — Effort with the Act.
           Semantics(
             label: timeLabel,
             child: Text(
               timeLabel,
               key: const Key('v2_today_time'),
-              style: quietHintStyle,
+              style: timeStyle,
             ),
           ),
-          const SizedBox(height: 16),
-          // Zone C — Compact session status (not a full peer card).
+          const SizedBox(height: _kTodayGapTimeStatus),
+          // Zone C — Compact status chip (subtle surface, not a peer card).
           Semantics(
             liveRegion: true,
             label: '${loc.v2TodayHomeStatusHeading}: $statusLabel',
@@ -300,107 +339,132 @@ class TodayHomeBody extends StatelessWidget {
               child: DecoratedBox(
                 key: const Key('v2_today_status_chip'),
                 decoration: BoxDecoration(
-                  color: AppColors.card,
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: AppColors.border),
+                  color: AppColors.card.withValues(alpha: 0.65),
+                  borderRadius: BorderRadius.circular(
+                    AppDesignConstants.radiusButton,
+                  ),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 12,
                     vertical: 8,
                   ),
-                  child: Text(
-                    statusLabel,
-                    style: theme.textTheme.labelLarge?.copyWith(
-                      color: AppColors.textPrimary,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  child: Text(statusLabel, style: statusStyle),
                 ),
               ),
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: _kTodayGapStatusCta),
           // Zone D — Primary CTA early.
           SizedBox(
-            height: 48,
-            child: FilledButton(
-              key: const Key('v2_today_primary_cta'),
-              onPressed: onPrimary,
-              style: FilledButton.styleFrom(
-                backgroundColor: AppColors.primary,
-                foregroundColor: AppColors.textPrimary,
-                minimumSize: const Size(48, 48),
-              ),
-              child: Text(ctaLabel),
-            ),
+            height: AppDesignConstants.minTouchTarget,
+            child: resolvedPrimary
+                ? OutlinedButton(
+                    key: const Key('v2_today_primary_cta'),
+                    onPressed: onPrimary,
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: AppColors.textPrimary,
+                      side: BorderSide(
+                        color: AppColors.border.withValues(alpha: 0.9),
+                      ),
+                      minimumSize: const Size(
+                        AppDesignConstants.minTouchTarget,
+                        AppDesignConstants.minTouchTarget,
+                      ),
+                    ),
+                    child: Text(ctaLabel),
+                  )
+                : FilledButton(
+                    key: const Key('v2_today_primary_cta'),
+                    onPressed: onPrimary,
+                    style: FilledButton.styleFrom(
+                      backgroundColor: AppColors.primary,
+                      foregroundColor: AppColors.textPrimary,
+                      minimumSize: const Size(
+                        AppDesignConstants.minTouchTarget,
+                        AppDesignConstants.minTouchTarget,
+                      ),
+                    ),
+                    child: Text(ctaLabel),
+                  ),
           ),
           if (showSupportingDetail) ...[
-            const SizedBox(height: 28),
+            const SizedBox(height: _kTodayGapCtaSupport),
             Semantics(
               header: true,
               child: Text(
                 loc.v2TodayPreviewBecauseHeading,
-                style: sectionStyle,
+                style: supportHeadingStyle,
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: _kTodayGapSupportTitleBody),
             Semantics(
               label: '${loc.v2TodayPreviewBecauseHeading}: $because',
-              child: Text(because, style: bodyStyle),
+              child: Text(because, style: supportBodyStyle),
             ),
             if (extraMinLabels.isNotEmpty) ...[
-              const SizedBox(height: 20),
+              const SizedBox(height: _kTodayGapSupportSections),
               Semantics(
                 header: true,
                 child: Text(
                   loc.recoveryPlanMinimumPath,
-                  style: sectionStyle,
+                  style: supportHeadingStyle,
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: _kTodayGapSupportTitleBody),
               ...extraMinLabels.asMap().entries.map(
                     (entry) => Padding(
                       key: Key('v2_today_path_row_${entry.key}'),
-                      padding: const EdgeInsets.only(bottom: 8),
+                      padding: const EdgeInsets.only(bottom: 6),
                       child: Text(
-                        entry.value,
+                        '· ${entry.value}',
                         style: pathStyle,
                         softWrap: true,
                       ),
                     ),
                   ),
             ],
-            const SizedBox(height: 16),
+            const SizedBox(height: _kTodayGapSupportSections),
             // Standard path: progressive hint only (selection on Prepare).
             Text(
               loc.v2TodayHomeStandardPathHint,
               key: const Key('v2_today_standard_hint'),
               style: quietHintStyle,
             ),
-          ],
-          const SizedBox(height: 24),
+            const SizedBox(height: _kTodayGapAfterSupport),
+          ] else
+            const SizedBox(height: _kTodayGapCtaToSecondary),
           SizedBox(
-            height: 48,
+            height: AppDesignConstants.minTouchTarget,
             child: OutlinedButton(
               onPressed: onViewPlan,
               style: OutlinedButton.styleFrom(
-                foregroundColor: AppColors.textPrimary,
-                side: const BorderSide(color: AppColors.border),
-                minimumSize: const Size(48, 48),
+                foregroundColor: AppColors.textSecondary,
+                side: BorderSide(
+                  color: AppColors.border.withValues(alpha: 0.75),
+                ),
+                minimumSize: const Size(
+                  AppDesignConstants.minTouchTarget,
+                  AppDesignConstants.minTouchTarget,
+                ),
+                textStyle: secondaryActionStyle,
               ),
               child: Text(loc.v2TodayHomeViewPlan),
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: _kTodayGapSecondaryCluster),
           SizedBox(
-            height: 48,
+            height: AppDesignConstants.minTouchTarget,
             child: TextButton(
               key: const Key('v2_today_safa_entry'),
               onPressed: onOpenSafa,
               style: TextButton.styleFrom(
                 foregroundColor: AppColors.textSecondary,
-                minimumSize: const Size(48, 48),
+                minimumSize: const Size(
+                  AppDesignConstants.minTouchTarget,
+                  AppDesignConstants.minTouchTarget,
+                ),
+                textStyle: secondaryActionStyle,
               ),
               child: Text(loc.v2SafaEntryToday),
             ),
@@ -422,6 +486,13 @@ class TodayHomeBody extends StatelessWidget {
       DailySessionStatus.completed => false,
       DailySessionStatus.partial => false,
     };
+  }
+
+  /// Completed / partial primary actions stay available but visually quieter.
+  static bool _isResolvedPrimary(DailySession? session) {
+    if (session == null) return false;
+    return session.status == DailySessionStatus.completed ||
+        session.status == DailySessionStatus.partial;
   }
 
   static bool _samePathLabel(String a, String b) =>
