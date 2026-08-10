@@ -51,8 +51,8 @@ class V2NavigationShell extends StatelessWidget {
             tooltip: loc.v2NavPlan,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.show_chart_outlined),
-            selectedIcon: const Icon(Icons.show_chart),
+            icon: const Icon(Icons.insights_outlined),
+            selectedIcon: const Icon(Icons.insights),
             label: loc.v2NavProgress,
             tooltip: loc.v2NavProgress,
           ),

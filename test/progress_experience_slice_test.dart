@@ -601,6 +601,189 @@ void main() {
 
       // Details stay collapsed — no dense timeline lines until opened.
       expect(find.textContaining('2026-07-28 ·'), findsNothing);
+
+      // Compact movement: one calm summary line, not a number stack.
+      expect(
+        find.textContaining('Completed days: 1 · Completed sessions: 1'),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('Phase B: empty WR stays quiet (no period chrome)',
+        (tester) async {
+      final c = ProgressExperienceController(
+        sessions: DailySessionLocalRepository(box: sessionBox),
+        progress: ProgressLocalRepository(box: progressBox),
+        reviews: WeeklyReviewLocalRepository(box: reviewBox),
+        clock: () => DateTime.utc(2026, 8, 3, 12),
+        timeZoneOffset: Duration.zero,
+      );
+      c.phase = ProgressExperiencePhase.empty;
+      c.viewModel = ProgressExperienceBuilder.build(
+        snapshot: ProgressEngine.build(
+          sessions: const [],
+          nowUtc: DateTime.utc(2026, 8, 3),
+          asOfDayKey: '2026-08-03',
+        ),
+        sessionHistory: const [],
+        profilePack: null,
+        previousPeriod: WeeklyPeriodResolver.previousCompletedWeek(
+          localNow: DateTime(2026, 8, 3),
+          timezoneOffset: Duration.zero,
+        ),
+        localNow: DateTime(2026, 8, 3),
+        timezoneOffset: Duration.zero,
+        reviewForPeriod: null,
+        artifactSummary: null,
+        schemasSupported: true,
+      );
+
+      await tester.pumpWidget(
+        MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: MediaQuery(
+            data: const MediaQueryData(size: Size(411, 820)),
+            child: ProgressHomeBody(controller: c, onRetry: () {}),
+          ),
+        ),
+      );
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+
+      expect(find.text('Weekly Review'), findsOneWidget);
+      expect(
+          find.textContaining('Not enough completed activity'), findsOneWidget);
+      expect(find.textContaining('Period '), findsNothing);
+      expect(find.text('Start Weekly Review'), findsNothing);
+      // One primary decision only.
+      expect(find.byType(FilledButton), findsOneWidget);
+      expect(
+          find.text(AppLocalizationsEn().v2ProgressCtaToday), findsOneWidget);
+    });
+
+    testWidgets(
+        'Phase B: WR-due primary CTA only; score after details; expand OK',
+        (tester) async {
+      final s = _session(
+        id: 's1',
+        dayKey: '2026-07-28',
+        path: DailySessionPath.minimum,
+      );
+      final snap = ProgressEngine.build(
+        sessions: [s],
+        nowUtc: DateTime.utc(2026, 8, 3),
+        asOfDayKey: '2026-08-03',
+        activePlanId: 'plan_a',
+        profilePackId: 'pack_a',
+      );
+      final c = ProgressExperienceController(
+        sessions: DailySessionLocalRepository(box: sessionBox),
+        progress: ProgressLocalRepository(box: progressBox),
+        reviews: WeeklyReviewLocalRepository(box: reviewBox),
+        clock: () => DateTime.utc(2026, 8, 3, 12),
+        timeZoneOffset: Duration.zero,
+      );
+      c.phase = ProgressExperiencePhase.ready;
+      c.viewModel = ProgressExperienceBuilder.build(
+        snapshot: snap,
+        sessionHistory: [s],
+        profilePack: null,
+        previousPeriod: WeeklyPeriodResolver.previousCompletedWeek(
+          localNow: DateTime(2026, 8, 3),
+          timezoneOffset: Duration.zero,
+        ),
+        localNow: DateTime(2026, 8, 3),
+        timezoneOffset: Duration.zero,
+        reviewForPeriod: null,
+        artifactSummary: null,
+        schemasSupported: true,
+      );
+
+      await tester.pumpWidget(
+        MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: MediaQuery(
+            data: const MediaQueryData(
+              size: Size(320, 780),
+              textScaler: TextScaler.linear(1.3),
+            ),
+            child: ProgressHomeBody(controller: c, onRetry: () {}),
+          ),
+        ),
+      );
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+
+      expect(find.text('Start Weekly Review'), findsOneWidget);
+      expect(find.byType(FilledButton), findsOneWidget);
+      expect(find.widgetWithText(OutlinedButton, 'Start Weekly Review'),
+          findsNothing);
+      expect(find.text('Weekly Review available'), findsOneWidget);
+
+      final cta = find.text('Start Weekly Review');
+      final details = find.text('Pattern details');
+      expect(
+        tester.getTopLeft(cta).dy,
+        lessThan(tester.getTopLeft(details).dy),
+      );
+
+      await tester.tap(details);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(find.textContaining('Minimum path:'), findsOneWidget);
+      expect(find.textContaining('Completed-day rate:'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('Phase B: Arabic empty Progress at 320 scrolls',
+        (tester) async {
+      final c = ProgressExperienceController(
+        sessions: DailySessionLocalRepository(box: sessionBox),
+        progress: ProgressLocalRepository(box: progressBox),
+        reviews: WeeklyReviewLocalRepository(box: reviewBox),
+        clock: () => DateTime.utc(2026, 8, 3, 12),
+        timeZoneOffset: Duration.zero,
+      );
+      c.phase = ProgressExperiencePhase.empty;
+      c.viewModel = ProgressExperienceBuilder.build(
+        snapshot: ProgressEngine.build(
+          sessions: const [],
+          nowUtc: DateTime.utc(2026, 8, 3),
+          asOfDayKey: '2026-08-03',
+        ),
+        sessionHistory: const [],
+        profilePack: null,
+        previousPeriod: WeeklyPeriodResolver.previousCompletedWeek(
+          localNow: DateTime(2026, 8, 3),
+          timezoneOffset: Duration.zero,
+        ),
+        localNow: DateTime(2026, 8, 3),
+        timezoneOffset: Duration.zero,
+        reviewForPeriod: null,
+        artifactSummary: null,
+        schemasSupported: true,
+      );
+
+      await tester.pumpWidget(
+        MaterialApp(
+          locale: const Locale('ar'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: MediaQuery(
+            data: const MediaQueryData(size: Size(320, 640)),
+            child: ProgressHomeBody(controller: c, onRetry: () {}),
+          ),
+        ),
+      );
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(find.text('التقدّم'), findsNothing); // AppBar not in body
+      expect(find.text('تقدّمك'), findsOneWidget);
+      expect(find.text('لا جلسات مكتملة بعد'), findsOneWidget);
+      expect(find.byType(FilledButton), findsOneWidget);
+      expect(tester.takeException(), isNull);
     });
 
     test('feature flag OFF', () {

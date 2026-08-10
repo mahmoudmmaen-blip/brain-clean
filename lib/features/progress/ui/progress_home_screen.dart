@@ -14,9 +14,19 @@ import '../domain/progress_experience_enums.dart';
 import '../domain/progress_timeline.dart';
 import '../domain/progress_view_model.dart';
 
+/// Vertical rhythm for Progress Phase B polish (hierarchy unchanged).
+const double _kGapIdentityHeadline = 8;
+const double _kGapHeadlineSupport = 8;
+const double _kGapToMovement = 20;
+const double _kGapMovementEvidence = 10;
+const double _kGapBeforeCta = 24;
+const double _kGapAfterCta = 20;
+const double _kGapBeforeReview = 20;
+const double _kGapBeforeReports = 12;
+
 /// PRG-01 — words-first Progress proof experience + Weekly Review entry.
 ///
-/// Phase A hierarchy (decision-first):
+/// Locked hierarchy (Phase A):
 /// identity → direction headline → compact movement → next action →
 /// progressive pattern/history → contextual Weekly Review → quiet Reports.
 class ProgressHomeScreen extends ConsumerStatefulWidget {
@@ -99,7 +109,7 @@ class ProgressHomeBody extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         return SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(24, 16, 24, 28),
+          padding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -108,7 +118,7 @@ class ProgressHomeBody extends StatelessWidget {
                 loc.v2ProgressOrientation,
                 style: theme.textTheme.labelMedium?.copyWith(color: muted),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: _kGapIdentityHeadline),
               // 2 Direction / meaningful summary
               Semantics(
                 header: true,
@@ -121,7 +131,7 @@ class ProgressHomeBody extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: _kGapHeadlineSupport),
               Text(
                 loc.v2ProgressBasedOnSessions,
                 style: theme.textTheme.bodySmall?.copyWith(
@@ -130,16 +140,19 @@ class ProgressHomeBody extends StatelessWidget {
                 ),
               ),
               if (vm.isEmpty) ...[
-                const SizedBox(height: 20),
+                const SizedBox(height: _kGapToMovement),
                 Text(
                   loc.v2ProgressEmptyBody,
-                  style: theme.textTheme.bodyMedium?.copyWith(height: 1.4),
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    height: 1.4,
+                    color: muted,
+                  ),
                 ),
               ] else ...[
-                const SizedBox(height: 24),
+                const SizedBox(height: _kGapToMovement),
                 // 3 Compact supporting movement indicators
                 _MovementBlock(vm: vm, muted: muted),
-                const SizedBox(height: 12),
+                const SizedBox(height: _kGapMovementEvidence),
                 Text(
                   _evidence(loc, vm.evidenceDepth),
                   style: theme.textTheme.bodySmall?.copyWith(
@@ -149,17 +162,17 @@ class ProgressHomeBody extends StatelessWidget {
                 ),
               ],
               // 4 Contextual next action — early, before history density
-              const SizedBox(height: 28),
+              const SizedBox(height: _kGapBeforeCta),
               _PrimaryCta(vm: vm),
               if (!vm.isEmpty) ...[
-                const SizedBox(height: 24),
+                const SizedBox(height: _kGapAfterCta),
                 Divider(
                   height: 1,
                   thickness: 1,
                   color:
-                      theme.colorScheme.outlineVariant.withValues(alpha: 0.45),
+                      theme.colorScheme.outlineVariant.withValues(alpha: 0.35),
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 2),
                 // 5–6 Progressive pattern + history
                 _DetailExpansion(
                   title: loc.v2ProgressPatternDetails,
@@ -181,15 +194,15 @@ class ProgressHomeBody extends StatelessWidget {
                     ),
                   ),
                 if (vm.showScoreRow) ...[
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 8),
                   _ScoreRow(vm: vm, muted: muted),
                 ],
               ],
               // 7 Weekly Review — emphasis only when actionable
-              const SizedBox(height: 24),
+              const SizedBox(height: _kGapBeforeReview),
               _ReviewEntry(vm: vm),
               if (vm.weeklySummaryPreview != null) ...[
-                const SizedBox(height: 16),
+                const SizedBox(height: 14),
                 _WeeklyPreview(
                   summary: vm.weeklySummaryPreview!,
                   showSummaryCta: vm.primaryDestination !=
@@ -197,14 +210,19 @@ class ProgressHomeBody extends StatelessWidget {
                 ),
               ],
               // 8 Quiet secondary exit to Reports
-              const SizedBox(height: 16),
-              OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                  minimumSize: const Size(48, 48),
-                  foregroundColor: muted,
+              const SizedBox(height: _kGapBeforeReports),
+              SizedBox(
+                height: AppDesignConstants.minTouchTarget,
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: muted,
+                    side: BorderSide(
+                      color: theme.colorScheme.outline.withValues(alpha: 0.55),
+                    ),
+                  ),
+                  onPressed: () => context.go(AppRoutes.v2Reports),
+                  child: Text(loc.v2ProgressReportsEntry),
                 ),
-                onPressed: () => context.go(AppRoutes.v2Reports),
-                child: Text(loc.v2ProgressReportsEntry),
               ),
             ],
           ),
@@ -275,6 +293,9 @@ class _MovementBlock extends StatelessWidget {
     final loc = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final mix = vm.pathMixHint;
+    final days = loc.v2ProgressCompletedDays(vm.completedDays.toString());
+    final sessions =
+        loc.v2ProgressCompletedSessions(vm.totalCompletedSessions.toString());
     return Semantics(
       container: true,
       label: loc.v2ProgressBetterHeading,
@@ -285,33 +306,32 @@ class _MovementBlock extends StatelessWidget {
             loc.v2ProgressBetterHeading,
             style: theme.textTheme.labelLarge?.copyWith(color: muted),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 6),
+          // One calm summary line — not a dashboard stack of big numbers.
           Text(
-            loc.v2ProgressCompletedDays(vm.completedDays.toString()),
-            style: theme.textTheme.bodyLarge?.copyWith(
-              fontWeight: FontWeight.w500,
-              height: 1.35,
-            ),
-          ),
-          Text(
-            loc.v2ProgressCompletedSessions(
-                vm.totalCompletedSessions.toString()),
+            '$days · $sessions',
             style: theme.textTheme.bodyLarge?.copyWith(
               fontWeight: FontWeight.w500,
               height: 1.35,
             ),
           ),
           if (mix != null) ...[
-            const SizedBox(height: 6),
+            const SizedBox(height: 4),
             Text(
               ProgressHomeBody._mix(loc, mix),
-              style: theme.textTheme.bodyMedium?.copyWith(height: 1.35),
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: muted,
+                height: 1.35,
+              ),
             ),
           ],
-          const SizedBox(height: 6),
+          const SizedBox(height: 4),
           Text(
             loc.v2ProgressCurrentRhythm(vm.currentRhythmDays.toString()),
-            style: theme.textTheme.bodyMedium?.copyWith(height: 1.35),
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: muted,
+              height: 1.35,
+            ),
           ),
         ],
       ),
@@ -328,6 +348,10 @@ class _PatternDetails extends StatelessWidget {
     final loc = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final muted = theme.colorScheme.onSurfaceVariant;
+    final valueStyle = theme.textTheme.bodyMedium?.copyWith(
+      color: muted,
+      height: 1.4,
+    );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -335,23 +359,29 @@ class _PatternDetails extends StatelessWidget {
           loc.v2ProgressWhyHeading,
           style: theme.textTheme.labelMedium?.copyWith(color: muted),
         ),
-        const SizedBox(height: 6),
-        Text(loc.v2ProgressMinimumPath(vm.minimumPathCount.toString())),
-        Text(loc.v2ProgressStandardPath(vm.standardPathCount.toString())),
+        const SizedBox(height: 4),
+        Text(loc.v2ProgressMinimumPath(vm.minimumPathCount.toString()),
+            style: valueStyle),
+        Text(loc.v2ProgressStandardPath(vm.standardPathCount.toString()),
+            style: valueStyle),
         Text(
           loc.v2ProgressCompletionRate(vm.completionRatePercent.toString()),
+          style: valueStyle,
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 10),
         Text(
           loc.v2ProgressComparedHeading,
           style: theme.textTheme.labelMedium?.copyWith(color: muted),
         ),
-        const SizedBox(height: 6),
-        Text(loc.v2ProgressLongestRhythm(vm.longestRhythmDays.toString())),
+        const SizedBox(height: 4),
+        Text(loc.v2ProgressLongestRhythm(vm.longestRhythmDays.toString()),
+            style: valueStyle),
         if (vm.firstCompletedDayKey != null)
-          Text(loc.v2ProgressFirstCompleted(vm.firstCompletedDayKey!)),
+          Text(loc.v2ProgressFirstCompleted(vm.firstCompletedDayKey!),
+              style: valueStyle),
         if (vm.lastCompletedDayKey != null)
-          Text(loc.v2ProgressLastCompleted(vm.lastCompletedDayKey!)),
+          Text(loc.v2ProgressLastCompleted(vm.lastCompletedDayKey!),
+              style: valueStyle),
       ],
     );
   }
@@ -432,7 +462,7 @@ class _DetailExpansionState extends State<_DetailExpansion> {
         if (_expanded) ...[
           const SizedBox(height: 2),
           Padding(
-            padding: const EdgeInsetsDirectional.only(start: 2, bottom: 6),
+            padding: const EdgeInsetsDirectional.only(start: 2, bottom: 8),
             child: widget.child,
           ),
         ],
@@ -448,6 +478,8 @@ class _TimelineRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    final muted = theme.colorScheme.onSurfaceVariant;
     final path = entry.usedMinimumPath && entry.usedStandardPath
         ? loc.v2ProgressTimelineBothPaths
         : entry.usedStandardPath
@@ -457,7 +489,13 @@ class _TimelineRow extends StatelessWidget {
       label: loc.v2ProgressTimelineEntry(entry.dayKey, path),
       child: Padding(
         padding: const EdgeInsets.only(bottom: 6),
-        child: Text(loc.v2ProgressTimelineEntry(entry.dayKey, path)),
+        child: Text(
+          loc.v2ProgressTimelineEntry(entry.dayKey, path),
+          style: theme.textTheme.bodyMedium?.copyWith(
+            color: muted,
+            height: 1.35,
+          ),
+        ),
       ),
     );
   }
@@ -475,6 +513,10 @@ class _ScoreRow extends StatelessWidget {
     final valueText = vm.scoreDisplayValue != null
         ? loc.v2ProgressScoreValue(vm.scoreDisplayValue.toString())
         : loc.v2ProgressScoreUnavailable;
+    final quiet = theme.textTheme.bodySmall?.copyWith(
+      color: muted,
+      height: 1.4,
+    );
     return Semantics(
       container: true,
       label: loc.v2ProgressScoreHeading,
@@ -483,20 +525,17 @@ class _ScoreRow extends StatelessWidget {
         children: [
           Text(
             loc.v2ProgressScoreHeading,
-            style: theme.textTheme.labelLarge?.copyWith(color: muted),
+            style: theme.textTheme.labelMedium?.copyWith(color: muted),
           ),
-          const SizedBox(height: 8),
-          Text(valueText),
+          const SizedBox(height: 6),
+          Text(valueText, style: quiet),
           if (vm.scoreMeasuredDayKey != null)
-            Text(loc.v2ProgressScoreMeasured(vm.scoreMeasuredDayKey!)),
-          const SizedBox(height: 4),
-          Text(
-            loc.v2ProgressScoreDisclaimer,
-            style: theme.textTheme.bodySmall?.copyWith(
-              color: muted,
-              height: 1.4,
+            Text(
+              loc.v2ProgressScoreMeasured(vm.scoreMeasuredDayKey!),
+              style: quiet,
             ),
-          ),
+          const SizedBox(height: 4),
+          Text(loc.v2ProgressScoreDisclaimer, style: quiet),
         ],
       ),
     );
@@ -532,6 +571,14 @@ class _ReviewEntry extends StatelessWidget {
     }
   }
 
+  bool get _showPeriod {
+    // When there is not enough activity, period metadata adds noise.
+    return vm.weeklyReviewCardState !=
+            ProgressWeeklyReviewCardState.notEnoughActivity &&
+        vm.weeklyPeriodStartDayKey != null &&
+        vm.weeklyPeriodEndDayKey != null;
+  }
+
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
@@ -549,10 +596,13 @@ class _ReviewEntry extends StatelessWidget {
         Text(
           loc.v2ProgressWeeklyReviewHeading,
           style: _actionable
-              ? theme.textTheme.titleMedium
-              : theme.textTheme.labelLarge?.copyWith(color: muted),
+              ? theme.textTheme.labelLarge?.copyWith(
+                  color: theme.colorScheme.onSurface,
+                  fontWeight: FontWeight.w600,
+                )
+              : theme.textTheme.labelMedium?.copyWith(color: muted),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 6),
         Text(
           _statusText(loc, state),
           style: theme.textTheme.bodyMedium?.copyWith(
@@ -560,8 +610,7 @@ class _ReviewEntry extends StatelessWidget {
             height: 1.35,
           ),
         ),
-        if (vm.weeklyPeriodStartDayKey != null &&
-            vm.weeklyPeriodEndDayKey != null) ...[
+        if (_showPeriod) ...[
           const SizedBox(height: 4),
           Text(
             loc.v2WeeklyReviewPeriodLabel(
@@ -575,8 +624,14 @@ class _ReviewEntry extends StatelessWidget {
           const SizedBox(height: 12),
           SizedBox(
             width: double.infinity,
-            height: 48,
+            height: AppDesignConstants.minTouchTarget,
             child: OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                foregroundColor: muted,
+                side: BorderSide(
+                  color: theme.colorScheme.outline.withValues(alpha: 0.55),
+                ),
+              ),
               onPressed: () => context.go(route),
               child: Text(cta),
             ),
@@ -590,13 +645,18 @@ class _ReviewEntry extends StatelessWidget {
       liveRegion: true,
       label: loc.v2ProgressWeeklyReviewHeading,
       child: _actionable
-          ? Container(
-              padding: const EdgeInsets.all(16),
+          ? DecoratedBox(
               decoration: BoxDecoration(
-                color: AppColors.card,
+                color: AppColors.card.withValues(alpha: 0.55),
                 borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: AppColors.border.withValues(alpha: 0.55),
+                ),
               ),
-              child: content,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
+                child: content,
+              ),
             )
           : content,
     );
@@ -671,6 +731,10 @@ class _WeeklyPreview extends StatelessWidget {
     final loc = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final muted = theme.colorScheme.onSurfaceVariant;
+    final quiet = theme.textTheme.bodySmall?.copyWith(
+      color: muted,
+      height: 1.35,
+    );
     return Semantics(
       container: true,
       label: loc.v2ProgressWeeklyPreviewHeading,
@@ -679,29 +743,37 @@ class _WeeklyPreview extends StatelessWidget {
         children: [
           Text(
             loc.v2ProgressWeeklyPreviewHeading,
-            style: theme.textTheme.labelLarge?.copyWith(color: muted),
+            style: theme.textTheme.labelMedium?.copyWith(color: muted),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 6),
           Text(
             loc.v2WeeklyReviewPeriodLabel(
               summary.periodStartDayKey,
               summary.periodEndDayKey,
             ),
+            style: quiet,
           ),
           Text(
             loc.v2WeeklySummaryCompletedDays(
               summary.completedDayCount.toString(),
             ),
+            style: quiet,
           ),
-          Text(_path(loc, summary.pathMixLabel)),
-          Text(_rhythm(loc, summary.rhythmLabel)),
-          Text(loc.v2WeeklySummaryPlanUnchanged),
+          Text(_path(loc, summary.pathMixLabel), style: quiet),
+          Text(_rhythm(loc, summary.rhythmLabel), style: quiet),
+          Text(loc.v2WeeklySummaryPlanUnchanged, style: quiet),
           if (showSummaryCta) ...[
-            const SizedBox(height: 12),
+            const SizedBox(height: 10),
             SizedBox(
               width: double.infinity,
-              height: 48,
+              height: AppDesignConstants.minTouchTarget,
               child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: muted,
+                  side: BorderSide(
+                    color: theme.colorScheme.outline.withValues(alpha: 0.55),
+                  ),
+                ),
                 onPressed: () => context.go(AppRoutes.v2WeeklyReviewSummary),
                 child: Text(loc.v2ProgressWrCtaSummary),
               ),
@@ -767,7 +839,7 @@ class _PrimaryCta extends StatelessWidget {
 
     return SizedBox(
       width: double.infinity,
-      height: 48,
+      height: AppDesignConstants.minTouchTarget,
       child: FilledButton(
         onPressed: () => context.go(route),
         child: Text(label),
@@ -805,7 +877,7 @@ class _Pad extends StatelessWidget {
                 const SizedBox(height: 24),
                 SizedBox(
                   width: double.infinity,
-                  height: 48,
+                  height: AppDesignConstants.minTouchTarget,
                   child: FilledButton(onPressed: onCta, child: Text(cta)),
                 ),
               ],
