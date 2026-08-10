@@ -155,7 +155,8 @@ void main() {
       final sessBox = await Hive.openBox<dynamic>('sessions');
       final plans = RecoveryPlanLocalRepository(box: planBox);
       final sessions = DailySessionLocalRepository(box: sessBox);
-      final plan = await plans.saveIfNew(RecoveryPlanEngineV1.generate(_pack()));
+      final plan =
+          await plans.saveIfNew(RecoveryPlanEngineV1.generate(_pack()));
       var clock = DateTime.utc(2026, 8, 3, 10);
       final c = DailySessionController(
         sessions: sessions,
@@ -184,7 +185,8 @@ void main() {
       final sessBox = await Hive.openBox<dynamic>('sessions2');
       final plans = RecoveryPlanLocalRepository(box: planBox);
       final sessions = DailySessionLocalRepository(box: sessBox);
-      final plan = await plans.saveIfNew(RecoveryPlanEngineV1.generate(_pack()));
+      final plan =
+          await plans.saveIfNew(RecoveryPlanEngineV1.generate(_pack()));
       final scoreBefore = plan.explanation.mainFocusEn;
       final c = DailySessionController(
         sessions: sessions,
@@ -233,7 +235,7 @@ void main() {
   });
 
   group('HOM-01 UI', () {
-    testWidgets('shows one action, because, paths; no score hero / grid',
+    testWidgets('action-first: Act + time + status + Start CTA before support',
         (tester) async {
       final plan = RecoveryPlanEngineV1.generate(_pack());
       final loc = await AppLocalizations.delegate.load(const Locale('en'));
@@ -263,16 +265,114 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      expect(find.text(loc.v2TodayHomeOrientation), findsOneWidget);
-      expect(find.text(loc.v2TodayPreviewBecauseHeading), findsOneWidget);
-      expect(find.text(loc.recoveryPlanMinimumPath), findsOneWidget);
-      expect(find.text(loc.recoveryPlanStandardPath), findsOneWidget);
-      expect(find.widgetWithText(FilledButton, loc.v2TodayHomeCtaStart),
-          findsOneWidget);
+
+      // Generic orientation no longer dominates loaded Today.
+      expect(find.text(loc.v2TodayHomeOrientation), findsNothing);
+      expect(find.byKey(const Key('v2_today_act_title')), findsOneWidget);
+      expect(find.byKey(const Key('v2_today_time')), findsOneWidget);
+      expect(find.byKey(const Key('v2_today_status_chip')), findsOneWidget);
+      expect(find.text(loc.v2TodayHomeStatusReady), findsOneWidget);
+      expect(
+        find.byKey(const Key('v2_today_primary_cta')),
+        findsOneWidget,
+      );
+      expect(
+        find.widgetWithText(FilledButton, loc.v2TodayHomeCtaStart),
+        findsOneWidget,
+      );
+      expect(find.text(loc.v2TodayHomeViewPlan), findsOneWidget);
+      expect(find.byKey(const Key('v2_today_safa_entry')), findsOneWidget);
+      // Standard path is progressive hint only — not a peer section header.
+      expect(find.text(loc.recoveryPlanStandardPath), findsNothing);
+      expect(find.byKey(const Key('v2_today_standard_hint')), findsOneWidget);
       expect(find.textContaining('Games'), findsNothing);
       expect(find.textContaining('XP'), findsNothing);
       expect(find.byType(SingleChildScrollView), findsOneWidget);
+
+      final actY =
+          tester.getTopLeft(find.byKey(const Key('v2_today_act_title'))).dy;
+      final ctaY =
+          tester.getTopLeft(find.byKey(const Key('v2_today_primary_cta'))).dy;
+      final viewPlanY =
+          tester.getTopLeft(find.text(loc.v2TodayHomeViewPlan)).dy;
+      final safaY =
+          tester.getTopLeft(find.byKey(const Key('v2_today_safa_entry'))).dy;
+      expect(actY, lessThan(ctaY));
+      expect(ctaY, lessThan(viewPlanY));
+      expect(viewPlanY, lessThan(safaY));
       expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('in-progress: Continue CTA; supporting path detail demoted',
+        (tester) async {
+      final plan = RecoveryPlanEngineV1.generate(_pack());
+      final loc = await AppLocalizations.delegate.load(const Locale('en'));
+      final session = DailySession.draftFor(
+        plan: plan,
+        nowLocal: DateTime(2026, 8, 2, 10),
+      ).copyWith(status: DailySessionStatus.inProgress);
+      await tester.pumpWidget(
+        wrap(
+          TodayHomeBody(
+            loc: loc,
+            languageCode: 'en',
+            loading: false,
+            errorKey: null,
+            plan: plan,
+            session: session,
+            onRetry: () {},
+            onBuildPlan: () {},
+            onPrimary: () {},
+            onViewPlan: () {},
+            onOpenSafa: () {},
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text(loc.v2TodayHomeStatusInProgress), findsOneWidget);
+      expect(
+        find.widgetWithText(FilledButton, loc.v2TodayHomeCtaContinue),
+        findsOneWidget,
+      );
+      expect(find.byKey(const Key('v2_today_standard_hint')), findsNothing);
+      expect(find.text(loc.v2TodayPreviewBecauseHeading), findsNothing);
+      expect(find.byKey(const Key('v2_today_safa_entry')), findsOneWidget);
+      expect(find.text(loc.v2TodayHomeViewPlan), findsOneWidget);
+    });
+
+    testWidgets('completed: View completed CTA; path education hidden',
+        (tester) async {
+      final plan = RecoveryPlanEngineV1.generate(_pack());
+      final loc = await AppLocalizations.delegate.load(const Locale('en'));
+      final session = DailySession.draftFor(
+        plan: plan,
+        nowLocal: DateTime(2026, 8, 2, 10),
+      ).copyWith(status: DailySessionStatus.completed);
+      await tester.pumpWidget(
+        wrap(
+          TodayHomeBody(
+            loc: loc,
+            languageCode: 'en',
+            loading: false,
+            errorKey: null,
+            plan: plan,
+            session: session,
+            onRetry: () {},
+            onBuildPlan: () {},
+            onPrimary: () {},
+            onViewPlan: () {},
+            onOpenSafa: () {},
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text(loc.v2TodayHomeStatusDone), findsOneWidget);
+      expect(
+        find.widgetWithText(FilledButton, loc.v2TodayHomeCtaViewCompleted),
+        findsOneWidget,
+      );
+      expect(find.byKey(const Key('v2_today_standard_hint')), findsNothing);
+      expect(find.byKey(const Key('v2_today_safa_entry')), findsOneWidget);
     });
 
     testWidgets('Arabic RTL', (tester) async {
@@ -297,8 +397,8 @@ void main() {
         ),
       );
       expect(find.text(loc.v2TodayHomeTitle), findsNothing); // body only
-      expect(find.text(loc.v2TodayHomeOrientation), findsOneWidget);
-      final ctx = tester.element(find.text(loc.v2TodayHomeOrientation));
+      expect(find.byKey(const Key('v2_today_act_title')), findsOneWidget);
+      final ctx = tester.element(find.byKey(const Key('v2_today_act_title')));
       expect(Directionality.of(ctx), TextDirection.rtl);
     });
 
@@ -368,7 +468,7 @@ void main() {
       );
     });
 
-    testWidgets('loaded Today clears Safa and paths at narrow / phone widths',
+    testWidgets('loaded Today clears Act + CTA + Safa at narrow / phone widths',
         (tester) async {
       final plan = RecoveryPlanEngineV1.generate(_pack());
       final loc = await AppLocalizations.delegate.load(const Locale('en'));
@@ -404,9 +504,11 @@ void main() {
         );
         await tester.pumpAndSettle();
         expect(tester.takeException(), isNull);
-        await tester.ensureVisible(find.byKey(const Key('v2_today_safa_entry')));
+        expect(find.byKey(const Key('v2_today_act_title')), findsOneWidget);
+        expect(find.byKey(const Key('v2_today_primary_cta')), findsOneWidget);
+        await tester
+            .ensureVisible(find.byKey(const Key('v2_today_safa_entry')));
         expect(find.byKey(const Key('v2_today_safa_entry')), findsOneWidget);
-        expect(find.byKey(const Key('v2_today_path_row_0')), findsWidgets);
       }
       addTearDown(() => tester.binding.setSurfaceSize(null));
     });
@@ -492,7 +594,8 @@ void main() {
 
     test('draft respects max time ceiling from plan', () {
       final plan = RecoveryPlanEngineV1.generate(_pack());
-      expect(plan.dayTemplate.todayPreview.estimatedMinutesMax, lessThanOrEqualTo(20));
+      expect(plan.dayTemplate.todayPreview.estimatedMinutesMax,
+          lessThanOrEqualTo(20));
       expect(plan.dayTemplate.todayPreview.standardPathStepIds.length,
           lessThanOrEqualTo(plan.intensity.maxTotalSteps));
     });

@@ -28,7 +28,8 @@ class _TodayHomeScreenState extends ConsumerState<TodayHomeScreen> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => ref.read(dailySessionControllerProvider).loadToday());
+    Future.microtask(
+        () => ref.read(dailySessionControllerProvider).loadToday());
   }
 
   @override
@@ -164,18 +165,16 @@ class TodayHomeBody extends StatelessWidget {
       final rebuild = errorKey == 'missing_plan' ||
           errorKey == 'unsupported_plan_version' ||
           errorKey == 'missing_today_act';
-      final support =
-          isEmptyPlan ? loc.recoveryPlanMissingProfile : null;
+      final support = isEmptyPlan ? loc.recoveryPlanMissingProfile : null;
 
       return KeyedSubtree(
         key: const Key('v2_today_empty_state'),
         child: LayoutBuilder(
           builder: (context, constraints) {
             const topPad = 24.0;
-            final minBodyHeight = (constraints.maxHeight -
-                    topPad -
-                    _kTodayContentBottomClearance)
-                .clamp(0.0, double.infinity);
+            final minBodyHeight =
+                (constraints.maxHeight - topPad - _kTodayContentBottomClearance)
+                    .clamp(0.0, double.infinity);
             return SingleChildScrollView(
               padding: const EdgeInsets.fromLTRB(
                 24,
@@ -241,16 +240,25 @@ class TodayHomeBody extends StatelessWidget {
 
     final p = plan!;
     final today = p.dayTemplate.todayPreview;
-    final title =
-        resolveTodayActTitle(p, languageCode) ?? loc.v2TodayPreviewFallbackTitle;
+    final title = resolveTodayActTitle(p, languageCode) ??
+        loc.v2TodayPreviewFallbackTitle;
     final because = today.because.forLocale(languageCode);
     final timeLabel = loc.recoveryPlanTimeRange(
       '${today.estimatedMinutesMin}',
       '${today.estimatedMinutesMax}',
     );
     final minLabels = resolveTodayMinimumPathLabels(p, languageCode);
+    // Avoid repeating the hero Act as a peer minimum-path card.
+    final extraMinLabels = minLabels
+        .where((label) => !_samePathLabel(label, title))
+        .toList(growable: false);
     final statusLabel = _statusLabel(loc, session);
     final ctaLabel = _ctaLabel(loc, session);
+    final showSupportingDetail = _showSupportingDetail(session);
+    final quietHintStyle = theme.textTheme.bodyMedium?.copyWith(
+      color: AppColors.textSecondary,
+      height: 1.45,
+    );
 
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(
@@ -262,104 +270,62 @@ class TodayHomeBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Semantics(
-            header: true,
-            child: Text(
-              loc.v2TodayHomeOrientation,
-              style: theme.textTheme.titleLarge?.copyWith(
-                color: AppColors.textPrimary,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(loc.v2TodayHomeOrientationBody, style: bodyStyle),
-          const SizedBox(height: 24),
+          // Zone A — Act hero (action-first).
           Semantics(
             header: true,
             label: '${loc.v2TodayPreviewActHeading}: $title',
-            child: Text(title, style: titleStyle),
+            child: Text(
+              title,
+              key: const Key('v2_today_act_title'),
+              style: titleStyle,
+            ),
           ),
-          const SizedBox(height: 16),
-          Semantics(
-            header: true,
-            child: Text(loc.v2TodayPreviewBecauseHeading, style: sectionStyle),
-          ),
-          const SizedBox(height: 8),
-          Semantics(
-            label: '${loc.v2TodayPreviewBecauseHeading}: $because',
-            child: Text(because, style: bodyStyle),
-          ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 10),
+          // Zone B — Effort with the Act.
           Semantics(
             label: timeLabel,
-            child: Text(timeLabel, style: bodyStyle),
-          ),
-          const SizedBox(height: 24),
-          Semantics(
-            header: true,
-            child: Text(loc.recoveryPlanMinimumPath, style: sectionStyle),
-          ),
-          const SizedBox(height: 12),
-          if (minLabels.isEmpty)
-            Text(loc.recoveryPlanNoSteps, style: bodyStyle)
-          else
-            ...minLabels.asMap().entries.map(
-              (entry) => Padding(
-                key: Key('v2_today_path_row_${entry.key}'),
-                padding: const EdgeInsets.only(bottom: 12),
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: AppColors.card,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: AppColors.border),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 14,
-                      vertical: 14,
-                    ),
-                    child: Text(
-                      entry.value,
-                      style: pathStyle,
-                      softWrap: true,
-                    ),
-                  ),
-                ),
-              ),
+            child: Text(
+              timeLabel,
+              key: const Key('v2_today_time'),
+              style: quietHintStyle,
             ),
-          const SizedBox(height: 8),
-          Semantics(
-            header: true,
-            child: Text(loc.recoveryPlanStandardPath, style: sectionStyle),
           ),
-          const SizedBox(height: 8),
-          Text(loc.v2TodayHomeStandardPathHint, style: bodyStyle),
-          const SizedBox(height: 20),
+          const SizedBox(height: 16),
+          // Zone C — Compact session status (not a full peer card).
           Semantics(
             liveRegion: true,
             label: '${loc.v2TodayHomeStatusHeading}: $statusLabel',
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                color: AppColors.card,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: AppColors.border),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: Text(
-                  statusLabel,
-                  style: theme.textTheme.titleSmall?.copyWith(
-                    color: AppColors.textPrimary,
+            child: Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: DecoratedBox(
+                key: const Key('v2_today_status_chip'),
+                decoration: BoxDecoration(
+                  color: AppColors.card,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: AppColors.border),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
+                  child: Text(
+                    statusLabel,
+                    style: theme.textTheme.labelLarge?.copyWith(
+                      color: AppColors.textPrimary,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ),
             ),
           ),
-          const SizedBox(height: 28),
+          const SizedBox(height: 20),
+          // Zone D — Primary CTA early.
           SizedBox(
             height: 48,
             child: FilledButton(
+              key: const Key('v2_today_primary_cta'),
               onPressed: onPrimary,
               style: FilledButton.styleFrom(
                 backgroundColor: AppColors.primary,
@@ -369,7 +335,51 @@ class TodayHomeBody extends StatelessWidget {
               child: Text(ctaLabel),
             ),
           ),
-          const SizedBox(height: 12),
+          if (showSupportingDetail) ...[
+            const SizedBox(height: 28),
+            Semantics(
+              header: true,
+              child: Text(
+                loc.v2TodayPreviewBecauseHeading,
+                style: sectionStyle,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Semantics(
+              label: '${loc.v2TodayPreviewBecauseHeading}: $because',
+              child: Text(because, style: bodyStyle),
+            ),
+            if (extraMinLabels.isNotEmpty) ...[
+              const SizedBox(height: 20),
+              Semantics(
+                header: true,
+                child: Text(
+                  loc.recoveryPlanMinimumPath,
+                  style: sectionStyle,
+                ),
+              ),
+              const SizedBox(height: 8),
+              ...extraMinLabels.asMap().entries.map(
+                    (entry) => Padding(
+                      key: Key('v2_today_path_row_${entry.key}'),
+                      padding: const EdgeInsets.only(bottom: 8),
+                      child: Text(
+                        entry.value,
+                        style: pathStyle,
+                        softWrap: true,
+                      ),
+                    ),
+                  ),
+            ],
+            const SizedBox(height: 16),
+            // Standard path: progressive hint only (selection on Prepare).
+            Text(
+              loc.v2TodayHomeStandardPathHint,
+              key: const Key('v2_today_standard_hint'),
+              style: quietHintStyle,
+            ),
+          ],
+          const SizedBox(height: 24),
           SizedBox(
             height: 48,
             child: OutlinedButton(
@@ -399,6 +409,23 @@ class TodayHomeBody extends StatelessWidget {
       ),
     );
   }
+
+  /// Ready / not-started surfaces may show path education; active or done days do not.
+  static bool _showSupportingDetail(DailySession? session) {
+    if (session == null) return true;
+    return switch (session.status) {
+      DailySessionStatus.notStarted => true,
+      DailySessionStatus.prepared => true,
+      DailySessionStatus.invalid => true,
+      DailySessionStatus.inProgress => false,
+      DailySessionStatus.reflecting => false,
+      DailySessionStatus.completed => false,
+      DailySessionStatus.partial => false,
+    };
+  }
+
+  static bool _samePathLabel(String a, String b) =>
+      a.trim().toLowerCase() == b.trim().toLowerCase();
 
   String _statusLabel(AppLocalizations loc, DailySession? session) {
     if (session == null) return loc.v2TodayHomeStatusReady;
