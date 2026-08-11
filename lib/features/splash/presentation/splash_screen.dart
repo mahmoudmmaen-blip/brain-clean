@@ -11,7 +11,6 @@ import '../../../core/constants/app_routes.dart';
 import '../../../core/routing/startup_destination.dart';
 import '../../../core/security/security_status_provider.dart';
 import '../../../core/l10n/app_localizations.dart';
-import '../../../core/theme/app_theme.dart';
 
 /// Cold-start gate: hydrates Hive + Riverpod, then home or **live session** resume.
 class SplashScreen extends ConsumerStatefulWidget {
@@ -100,9 +99,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     final resumeLiveSession =
         snapshot.hasDraftProgress && !snapshot.hasCommittedSession;
     context.go(
-      resumeLiveSession
-          ? AppRoutes.diagnostic
-          : StartupDestination.resolve(),
+      resumeLiveSession ? AppRoutes.diagnostic : StartupDestination.resolve(),
     );
   }
 
@@ -127,18 +124,20 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(
-                      Icons.psychology_outlined,
-                      size: 64,
-                      color: AppTheme.gold,
+                    Image.asset(
+                      'assets/branding/brain_clean_mark.png',
+                      width: 88,
+                      height: 88,
+                      filterQuality: FilterQuality.high,
                     ),
                     const SizedBox(height: 24),
                     Text(
                       _typedTitle,
-                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                            fontWeight: FontWeight.w700,
-                            color: const Color(0xFFE6EDF3),
-                          ),
+                      style:
+                          Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                fontWeight: FontWeight.w700,
+                                color: const Color(0xFFE6EDF3),
+                              ),
                     ),
                     const SizedBox(height: 12),
                     AnimatedOpacity(
