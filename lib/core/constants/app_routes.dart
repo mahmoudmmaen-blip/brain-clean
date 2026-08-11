@@ -121,6 +121,14 @@ abstract final class AppRoutes {
   /// PRE-03 restore intent.
   static const v2PremiumRestore = '/v2/premium/restore';
 
+  /// Canonical Premium overview with attribution [source].
+  static String v2PremiumWithSource(String source) =>
+      '$v2Premium?source=${Uri.encodeComponent(source)}';
+
+  /// Canonical Premium status with attribution [source].
+  static String v2PremiumStatusWithSource(String source) =>
+      '$v2PremiumStatus?source=${Uri.encodeComponent(source)}';
+
   /// SAF-01 — Contextual Safa support (not a tab). Query: origin=, returnTo=, view=
   static const v2Safa = '/v2/safa';
 }

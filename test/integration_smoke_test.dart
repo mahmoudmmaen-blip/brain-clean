@@ -11,8 +11,6 @@ import 'package:brain_clean_mobile/features/dashboard/domain/daily_snapshot.dart
 import 'package:brain_clean_mobile/features/home/presentation/home_screen.dart';
 import 'package:brain_clean_mobile/features/home/presentation/widgets/global_progress_tracker.dart';
 import 'package:brain_clean_mobile/features/onboarding/onboarding_screen.dart';
-import 'package:brain_clean_mobile/features/pro/pro_paywall_screen.dart'
-    show proPaywallKey;
 import 'package:brain_clean_mobile/features/recovery/data/recovery_protocol_hive_repository.dart';
 import 'package:brain_clean_mobile/features/recovery/data/recovery_protocol_storage_provider.dart';
 import 'package:brain_clean_mobile/features/home/presentation/home_streak_provider.dart';
@@ -26,7 +24,8 @@ import 'helpers/hive_test_fixtures.dart';
 import 'helpers/localized_test_app.dart';
 
 void main() {
-  testWidgets('onboarding skip flow reaches home with BCS ring and emotion card',
+  testWidgets(
+      'onboarding skip flow reaches home with BCS ring and emotion card',
       (tester) async {
     final metaBox = InMemoryHiveBox();
     final container = ProviderContainer(
@@ -92,7 +91,8 @@ void main() {
     await tester.pump(const Duration(seconds: 3));
   });
 
-  testWidgets('GlobalProgressTracker clamps BCS display to 0–100', (tester) async {
+  testWidgets('GlobalProgressTracker clamps BCS display to 0–100',
+      (tester) async {
     await tester.pumpWidget(
       createLocalizedTestWidget(
         const GlobalProgressTracker(
@@ -142,7 +142,8 @@ void main() {
     expect(all.last.bcsValue, 17);
   });
 
-  testWidgets('non-Pro emotion wheel tap opens paywall from home', (tester) async {
+  testWidgets('non-Pro emotion wheel tap opens paywall from home',
+      (tester) async {
     final metaBox = InMemoryHiveBox();
     final container = ProviderContainer(
       overrides: [
@@ -185,7 +186,8 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
 
-    expect(find.byKey(proPaywallKey), findsOneWidget);
+    expect(find.byKey(const Key('v2_premium_restore')), findsOneWidget);
+    expect(find.text('بريميوم'), findsWidgets);
 
     await tester.pump(const Duration(seconds: 3));
   });

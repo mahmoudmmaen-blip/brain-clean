@@ -3145,7 +3145,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v2PremiumInterpretationBody =>
-      'طبقات سياق حتمية معتمدة فقط — دون ادعاءات طبية بالذكاء الاصطناعي.';
+      'طبقات سياق حتمية مخطّط لها فقط — دون ادعاءات طبية بالذكاء الاصطناعي. غير مفعّلة بعد.';
 
   @override
   String get v2PremiumFit => 'الملاءمة';
@@ -3162,8 +3162,25 @@ class AppLocalizationsAr extends AppLocalizations {
       'دعم استمرارية مستقبلي بموجب عقد منفصل — دون حصر الاستجابة العاجلة في بريميوم.';
 
   @override
+  String get v2PremiumIncludesNowHeading => 'مشمول في بريميوم الآن';
+
+  @override
+  String get v2PremiumIncludeArchive =>
+      'أرشيف التقارير الأقدم بعد أحدث إثبات والإثبات السابق';
+
+  @override
+  String get v2PremiumIncludeThemes => 'ثيمات ألوان حصرية';
+
+  @override
+  String get v2PremiumIncludeTools =>
+      'أدوات مختارة: دائرة الأحاسيس، الصمت، الكلمات المتقاطعة، الألعاب، والاختبار المعرفي';
+
+  @override
+  String get v2PremiumIncludeChart => 'مخطط التقدّم لسبعة أيام';
+
+  @override
   String get v2PremiumBenefitsBody =>
-      'بريميوم يوسّع حالياً الوصول إلى أرشيف التقارير الأقدم. أحدث إثبات والإثبات السابق يبقيان مجانيين.';
+      'أحدث إثبات أسبوعي والإثبات السابق يبقيان مجانيين. بريميوم يعمّق الاستمرارية — ولا يفتح باب التعافي.';
 
   @override
   String get v2PremiumViewPlans => 'عرض الخطط';

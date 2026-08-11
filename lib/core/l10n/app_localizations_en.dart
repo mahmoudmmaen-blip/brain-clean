@@ -3194,7 +3194,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v2PremiumInterpretationBody =>
-      'Additional deterministic context layers only — never medical AI claims.';
+      'Planned deterministic context layers only — never medical AI claims. Not active yet.';
 
   @override
   String get v2PremiumFit => 'Fit';
@@ -3211,8 +3211,25 @@ class AppLocalizationsEn extends AppLocalizations {
       'Future continuity support under a separate contract — never Premium-only crisis care.';
 
   @override
+  String get v2PremiumIncludesNowHeading => 'Included with Premium now';
+
+  @override
+  String get v2PremiumIncludeArchive =>
+      'Older Reports archive beyond the latest and previous proof';
+
+  @override
+  String get v2PremiumIncludeThemes => 'Exclusive color themes';
+
+  @override
+  String get v2PremiumIncludeTools =>
+      'Selected tools: emotion wheel, silence, crossword, games, and cognitive test';
+
+  @override
+  String get v2PremiumIncludeChart => 'Seven-day progress chart';
+
+  @override
   String get v2PremiumBenefitsBody =>
-      'Premium currently deepens older Reports archive access. Latest and previous proof stay Free.';
+      'Latest and previous Weekly proof stay Free. Premium deepens continuity — it does not unlock recovery.';
 
   @override
   String get v2PremiumViewPlans => 'View plans';

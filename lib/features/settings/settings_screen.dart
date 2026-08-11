@@ -110,7 +110,11 @@ class SettingsScreen extends ConsumerWidget {
                         : Icons.chevron_right,
                     color: const Color(0xFF8B949E),
                   ),
-            onTap: isPro ? null : () => context.push(AppRoutes.proPaywall),
+            onTap: () => context.push(
+              isPro
+                  ? AppRoutes.v2PremiumStatusWithSource('settings')
+                  : AppRoutes.v2PremiumWithSource('settings'),
+            ),
           ),
           const Divider(color: Color(0xFF30363D)),
           _SectionHeader(loc.settingsAppearanceSection),
@@ -271,7 +275,7 @@ class _ColorThemeSection extends ConsumerWidget {
             selected: themeDef == selected,
             onTap: () {
               if (locked) {
-                context.push(AppRoutes.proPaywall);
+                context.push(AppRoutes.v2PremiumWithSource('theme'));
               } else {
                 ref.read(selectedColorThemeProvider.notifier).select(themeDef);
               }

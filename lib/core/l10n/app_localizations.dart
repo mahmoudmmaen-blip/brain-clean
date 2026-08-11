@@ -5694,7 +5694,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2PremiumInterpretationBody.
   ///
   /// In en, this message translates to:
-  /// **'Additional deterministic context layers only — never medical AI claims.'**
+  /// **'Planned deterministic context layers only — never medical AI claims. Not active yet.'**
   String get v2PremiumInterpretationBody;
 
   /// No description provided for @v2PremiumFit.
@@ -5721,10 +5721,40 @@ abstract class AppLocalizations {
   /// **'Future continuity support under a separate contract — never Premium-only crisis care.'**
   String get v2PremiumSupportBody;
 
+  /// No description provided for @v2PremiumIncludesNowHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Included with Premium now'**
+  String get v2PremiumIncludesNowHeading;
+
+  /// No description provided for @v2PremiumIncludeArchive.
+  ///
+  /// In en, this message translates to:
+  /// **'Older Reports archive beyond the latest and previous proof'**
+  String get v2PremiumIncludeArchive;
+
+  /// No description provided for @v2PremiumIncludeThemes.
+  ///
+  /// In en, this message translates to:
+  /// **'Exclusive color themes'**
+  String get v2PremiumIncludeThemes;
+
+  /// No description provided for @v2PremiumIncludeTools.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected tools: emotion wheel, silence, crossword, games, and cognitive test'**
+  String get v2PremiumIncludeTools;
+
+  /// No description provided for @v2PremiumIncludeChart.
+  ///
+  /// In en, this message translates to:
+  /// **'Seven-day progress chart'**
+  String get v2PremiumIncludeChart;
+
   /// No description provided for @v2PremiumBenefitsBody.
   ///
   /// In en, this message translates to:
-  /// **'Premium currently deepens older Reports archive access. Latest and previous proof stay Free.'**
+  /// **'Latest and previous Weekly proof stay Free. Premium deepens continuity — it does not unlock recovery.'**
   String get v2PremiumBenefitsBody;
 
   /// No description provided for @v2PremiumViewPlans.

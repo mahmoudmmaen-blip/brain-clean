@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
+import '../../../core/services/external_link_service.dart';
 import '../application/premium_controller.dart';
 import '../data/premium_controller_provider.dart';
 import '../domain/premium_purchase_phase.dart';
@@ -102,7 +103,9 @@ class _PremiumOverviewScreenState extends ConsumerState<PremiumOverviewScreen> {
             ),
           ),
           const SizedBox(height: 12),
-          _Capital(title: loc.v2PremiumContinuity, body: loc.v2PremiumContinuityBody),
+          _Capital(
+              title: loc.v2PremiumContinuity,
+              body: loc.v2PremiumContinuityBody),
           _Capital(
             title: loc.v2PremiumInterpretation,
             body: loc.v2PremiumInterpretationBody,
@@ -110,6 +113,19 @@ class _PremiumOverviewScreenState extends ConsumerState<PremiumOverviewScreen> {
           _Capital(title: loc.v2PremiumFit, body: loc.v2PremiumFitBody),
           _Capital(title: loc.v2PremiumSupport, body: loc.v2PremiumSupportBody),
           const SizedBox(height: 16),
+          Semantics(
+            header: true,
+            child: Text(
+              loc.v2PremiumIncludesNowHeading,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+          ),
+          const SizedBox(height: 8),
+          _IncludeBullet(loc.v2PremiumIncludeArchive),
+          _IncludeBullet(loc.v2PremiumIncludeThemes),
+          _IncludeBullet(loc.v2PremiumIncludeTools),
+          _IncludeBullet(loc.v2PremiumIncludeChart),
+          const SizedBox(height: 12),
           Text(loc.v2PremiumBenefitsBody),
           const SizedBox(height: 24),
           if (state.phase == PremiumPurchasePhase.loading)
@@ -183,7 +199,15 @@ class _PremiumOverviewScreenState extends ConsumerState<PremiumOverviewScreen> {
             spacing: 12,
             children: [
               TextButton(
-                onPressed: () => context.push(AppRoutes.settings),
+                onPressed: () async {
+                  final opened = await externalLinkService.openPrivacyPolicy();
+                  if (!context.mounted) return;
+                  if (!opened) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(loc.settingsLinkUnavailable)),
+                    );
+                  }
+                },
                 child: Text(loc.settingsPrivacyPolicy),
               ),
               TextButton(
@@ -218,6 +242,28 @@ class _Capital extends StatelessWidget {
           Text(title, style: Theme.of(context).textTheme.titleSmall),
           const SizedBox(height: 4),
           Text(body),
+        ],
+      ),
+    );
+  }
+}
+
+class _IncludeBullet extends StatelessWidget {
+  const _IncludeBullet(this.text);
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 6),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '• ',
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+          Expanded(child: Text(text)),
         ],
       ),
     );

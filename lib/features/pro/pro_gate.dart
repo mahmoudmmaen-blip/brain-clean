@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/constants/app_routes.dart';
 import 'application/subscription_service_provider.dart';
 
-/// Routes to [destination] for Pro users, otherwise opens the paywall.
+/// Routes to [destination] for Pro users, otherwise opens V2 Premium.
 void navigateWithProGate(
   BuildContext context,
   WidgetRef ref,
@@ -14,7 +14,7 @@ void navigateWithProGate(
   if (ref.read(isProUserProvider)) {
     context.push(destination);
   } else {
-    context.push(AppRoutes.proPaywall);
+    context.push(AppRoutes.v2PremiumWithSource('pro_gate'));
   }
 }
 
@@ -27,6 +27,6 @@ void navigateSilenceWithProGate(
   if (ref.read(isProUserProvider)) {
     context.push('/silence-challenge/$streakDays');
   } else {
-    context.push(AppRoutes.proPaywall);
+    context.push(AppRoutes.v2PremiumWithSource('pro_gate'));
   }
 }

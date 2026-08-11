@@ -28,7 +28,11 @@ abstract final class PremiumEligibility {
         s == 'reports_archive' ||
         s == 'restore' ||
         s == 'deep_link' ||
-        s == 'manage') {
+        s == 'manage' ||
+        s == 'pro_gate' ||
+        s == 'legacy_paywall' ||
+        s == 'theme' ||
+        s == 'chart') {
       return true;
     }
     // Soft post-proof (artifact) — only when not a forbidden window.

@@ -223,6 +223,11 @@ void main() {
     test('forbidden auto sources blocked; explicit allowed', () {
       expect(PremiumEligibility.allowsExplicitEntry('profile'), isTrue);
       expect(PremiumEligibility.allowsExplicitEntry('reports_archive'), isTrue);
+      expect(PremiumEligibility.allowsExplicitEntry('settings'), isTrue);
+      expect(PremiumEligibility.allowsExplicitEntry('pro_gate'), isTrue);
+      expect(PremiumEligibility.allowsExplicitEntry('legacy_paywall'), isTrue);
+      expect(PremiumEligibility.allowsExplicitEntry('theme'), isTrue);
+      expect(PremiumEligibility.allowsExplicitEntry('chart'), isTrue);
       expect(PremiumEligibility.allowsExplicitEntry('onboarding'), isFalse);
       expect(PremiumEligibility.allowsExplicitEntry('session'), isFalse);
       expect(PremiumEligibility.allowsExplicitEntry('sos'), isFalse);
@@ -282,7 +287,8 @@ void main() {
       await c.hydrate(source: 'profile');
       expect(c.state.phase, PremiumPurchasePhase.offeringReady);
       expect(c.state.offerings, hasLength(3));
-      expect(c.state.offerings.any((o) => o.priceString.contains('SAR')), isTrue);
+      expect(
+          c.state.offerings.any((o) => o.priceString.contains('SAR')), isTrue);
 
       final en = AppLocalizationsEn();
       expect(en.v2PremiumTitle, 'Premium');
@@ -298,7 +304,8 @@ void main() {
 
     test('store throw → store_unavailable', () async {
       final c = PremiumController(
-        store: FakePremiumStore(offerings: sampleOfferings(), throwOnLoad: true),
+        store:
+            FakePremiumStore(offerings: sampleOfferings(), throwOnLoad: true),
       );
       await c.hydrate(source: 'profile');
       expect(c.state.phase, PremiumPurchasePhase.storeUnavailable);
@@ -460,6 +467,14 @@ void main() {
       expect(find.text('Fit'), findsOneWidget);
       expect(find.text('Support'), findsOneWidget);
       await tester.scrollUntilVisible(
+        find.text('Included with Premium now'),
+        200,
+        scrollable: find.byType(Scrollable).first,
+      );
+      expect(find.text('Included with Premium now'), findsOneWidget);
+      expect(find.textContaining('Older Reports archive'), findsOneWidget);
+      expect(find.textContaining('Not active yet'), findsOneWidget);
+      await tester.scrollUntilVisible(
         find.byKey(const Key('v2_premium_view_plans')),
         200,
         scrollable: find.byType(Scrollable).first,
@@ -468,7 +483,9 @@ void main() {
       expect(find.byKey(const Key('v2_premium_restore')), findsOneWidget);
       expect(find.textContaining('Unlock recovery'), findsNothing);
       expect(find.textContaining('Don’t lose'), findsNothing);
-      expect(find.textContaining('Pro'), findsNothing);
+      expect(find.textContaining('full potential'), findsNothing);
+      expect(find.textContaining('cloud sync'), findsNothing);
+      expect(find.textContaining('Brain Clean Pro'), findsNothing);
     });
 
     testWidgets('flag OFF preserves V1 for /v2/premium', (tester) async {

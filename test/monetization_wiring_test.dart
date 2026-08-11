@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:brain_clean_mobile/core/application/app_preferences_provider.dart';
 import 'package:brain_clean_mobile/core/config/app_config.dart';
+import 'package:brain_clean_mobile/core/constants/app_routes.dart';
 import 'package:brain_clean_mobile/core/constants/hive_meta_keys.dart';
 import 'package:brain_clean_mobile/core/data/app_meta_box_provider.dart';
 import 'package:brain_clean_mobile/core/l10n/app_localizations_ar.dart';
@@ -156,7 +157,8 @@ void main() {
 
     test('maps offerings including optional lifetime absence', () async {
       final sdk = FakePurchasesSdkPort(
-        offerings: FakePurchasesSdkPort.defaultOfferings(includeLifetime: false),
+        offerings:
+            FakePurchasesSdkPort.defaultOfferings(includeLifetime: false),
       );
       final service = RevenueCatSubscriptionService(
         sdk: sdk,
@@ -170,12 +172,14 @@ void main() {
           PremiumIdentifiers.yearlyProductId,
         ]),
       );
-      expect(plans.any((p) => p.id == PremiumIdentifiers.lifetimeProductId), isFalse);
+      expect(plans.any((p) => p.id == PremiumIdentifiers.lifetimeProductId),
+          isFalse);
       expect(plans.every((p) => !p.priceString.contains(r'$4.99')), isTrue);
     });
 
     test('unknown products ignored by evaluator', () {
-      expect(StoreEntitlementEvaluator.isProductionProductId('other_sku'), isFalse);
+      expect(StoreEntitlementEvaluator.isProductionProductId('other_sku'),
+          isFalse);
       expect(
         StoreEntitlementEvaluator.periodForProductId('weird'),
         isNull,
@@ -191,7 +195,8 @@ void main() {
         apiKeyReader: () => 'goog_test_public_sdk_key',
       );
       await service.loadOfferings();
-      final ok = await service.purchasePlan(PremiumIdentifiers.monthlyProductId);
+      final ok =
+          await service.purchasePlan(PremiumIdentifiers.monthlyProductId);
       expect(ok, SubscriptionPurchaseResult.success);
       expect(service.isPro, isTrue);
       expect(PremiumIdentifiers.entitlementId, 'Brain Clean');
@@ -259,8 +264,10 @@ void main() {
         apiKeyReader: () => 'goog_test_public_sdk_key',
       );
       await service.ensureInitialized();
-      expect(await service.restoreEntitlements(), SubscriptionRestoreResult.restored);
-      expect(await service.restoreEntitlements(), SubscriptionRestoreResult.restored);
+      expect(await service.restoreEntitlements(),
+          SubscriptionRestoreResult.restored);
+      expect(await service.restoreEntitlements(),
+          SubscriptionRestoreResult.restored);
 
       final sdkNone = FakePurchasesSdkPort(entitled: false);
       final sNone = RevenueCatSubscriptionService(
@@ -283,7 +290,8 @@ void main() {
         apiKeyReader: () => 'goog_test_public_sdk_key',
       );
       await sFail.ensureInitialized();
-      expect(await sFail.restoreEntitlements(), SubscriptionRestoreResult.failed);
+      expect(
+          await sFail.restoreEntitlements(), SubscriptionRestoreResult.failed);
     });
 
     test('CustomerInfo listener updates entitlement', () async {
@@ -303,7 +311,8 @@ void main() {
       expect(service.isPro, isTrue);
     });
 
-    test('Hive-only true cannot unlock RC service without verification', () async {
+    test('Hive-only true cannot unlock RC service without verification',
+        () async {
       final box = InMemoryHiveBox({
         HiveMetaKeys.isProUser: true,
         HiveMetaKeys.storeVerifiedPremium: false,
@@ -352,7 +361,8 @@ void main() {
       expect(PremiumIdentifiers.monthlyProductId, 'brainclean_monthly');
       expect(PremiumIdentifiers.yearlyProductId, 'brainclean_yearly');
       expect(PremiumIdentifiers.lifetimeProductId, 'brainclean_lifetime');
-      expect(PremiumIdentifiers.stubMonthlyPlanId, isNot(PremiumIdentifiers.monthlyProductId));
+      expect(PremiumIdentifiers.stubMonthlyPlanId,
+          isNot(PremiumIdentifiers.monthlyProductId));
     });
   });
 
@@ -370,14 +380,16 @@ void main() {
         onEntitlementMaybeChanged: () {},
       );
       expect(
-        ReportsArchiveGate.canAccessArtifactIndex(2, isPremium: port.isEntitled),
+        ReportsArchiveGate.canAccessArtifactIndex(2,
+            isPremium: port.isEntitled),
         isFalse,
       );
       await port.loadOfferings();
       await port.purchase(PremiumIdentifiers.monthlyProductId);
       expect(port.isEntitled, isTrue);
       expect(
-        ReportsArchiveGate.canAccessArtifactIndex(2, isPremium: port.isEntitled),
+        ReportsArchiveGate.canAccessArtifactIndex(2,
+            isPremium: port.isEntitled),
         isTrue,
       );
       expect(
@@ -419,6 +431,27 @@ void main() {
   });
 
   group('ads deferred + copy + privacy + navigation', () {
+    test('honest Premium includes current entitlement — not vague unlock copy',
+        () {
+      final en = AppLocalizationsEn();
+      final ar = AppLocalizationsAr();
+      expect(en.v2PremiumIncludesNowHeading, contains('Included'));
+      expect(en.v2PremiumIncludeArchive, contains('archive'));
+      expect(en.v2PremiumIncludeThemes, contains('themes'));
+      expect(en.v2PremiumIncludeTools, contains('emotion'));
+      expect(en.v2PremiumIncludeChart, contains('chart'));
+      expect(en.v2PremiumInterpretationBody, contains('Not active yet'));
+      expect(en.v2PremiumBenefitsBody.toLowerCase(),
+          isNot(contains('full potential')));
+      expect(en.v2PremiumBenefitsBody.toLowerCase(),
+          isNot(contains('cloud sync')));
+      expect(ar.v2PremiumIncludesNowHeading, isNotEmpty);
+      expect(ar.v2PremiumIncludeArchive, isNotEmpty);
+      expect(AppRoutes.v2PremiumWithSource('settings'),
+          contains('source=settings'));
+      expect(AppRoutes.proPaywall, '/pro-paywall');
+    });
+
     test('no ad-removal Premium copy', () {
       final en = AppLocalizationsEn();
       final ar = AppLocalizationsAr();
@@ -435,7 +468,8 @@ void main() {
       }
     });
 
-    test('Safa privacy disclosure EN/AR present in privacy documents', () async {
+    test('Safa privacy disclosure EN/AR present in privacy documents',
+        () async {
       final html = await File('docs/privacy-policy/index.html').readAsString();
       expect(html, contains('explicitly select'));
       expect(html, contains('transferred automatically'));
@@ -444,9 +478,11 @@ void main() {
       expect(html, contains('NVIDIA'));
       expect(html, contains('صراحة'));
       expect(html, contains('ليست</strong> رعاية طبية'));
-      final en = await File('brain_clean_mobile/PRIVACY_POLICY.md').readAsString();
+      final en =
+          await File('brain_clean_mobile/PRIVACY_POLICY.md').readAsString();
       expect(en, contains('Raw conversation archives are not kept by default'));
-      final ar = await File('brain_clean_mobile/PRIVACY_POLICY_AR.md').readAsString();
+      final ar =
+          await File('brain_clean_mobile/PRIVACY_POLICY_AR.md').readAsString();
       expect(ar, contains('لا تُحفظ أرشيفات محادثات خام بشكل افتراضي'));
     });
 
@@ -489,7 +525,8 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      expect(find.text(AppLocalizationsEn().v2PremiumStoreUnavailable), findsOneWidget);
+      expect(find.text(AppLocalizationsEn().v2PremiumStoreUnavailable),
+          findsOneWidget);
     });
 
     testWidgets('Arabic RTL label Premium', (tester) async {
@@ -517,7 +554,8 @@ void main() {
   });
 
   group('security patterns', () {
-    test('.env is gitignored conceptually and keys redacted in presence label', () {
+    test('.env is gitignored conceptually and keys redacted in presence label',
+        () {
       expect(AppConfig.configPresenceLabel('super-secret-key'), 'configured');
       expect(AppConfig.configPresenceLabel('super-secret-key'),
           isNot(contains('super-secret-key')));

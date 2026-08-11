@@ -6,7 +6,6 @@ import 'package:brain_clean_mobile/core/routing/app_router.dart';
 import 'package:brain_clean_mobile/core/theme/app_theme.dart';
 import 'package:brain_clean_mobile/features/home/presentation/home_screen.dart';
 import 'package:brain_clean_mobile/features/onboarding/onboarding_screen.dart';
-import 'package:brain_clean_mobile/features/pro/pro_paywall_screen.dart' show proPaywallKey;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -58,7 +57,8 @@ void main() {
     expect(find.byType(HomeScreen), findsNothing);
   });
 
-  testWidgets('OnboardingScreen shows PageView and skip button', (tester) async {
+  testWidgets('OnboardingScreen shows PageView and skip button',
+      (tester) async {
     await tester.pumpWidget(
       MaterialApp(
         locale: const Locale('ar'),
@@ -74,7 +74,8 @@ void main() {
     expect(find.byType(PageView), findsOneWidget);
   });
 
-  testWidgets('non-Pro user tapping emotion wheel opens paywall', (tester) async {
+  testWidgets('non-Pro user tapping emotion wheel opens paywall',
+      (tester) async {
     final metaBox = InMemoryHiveBox();
     final container = ProviderContainer(
       overrides: [
@@ -116,7 +117,8 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
 
-    expect(find.byKey(proPaywallKey), findsOneWidget);
+    expect(find.byKey(const Key('v2_premium_restore')), findsOneWidget);
+    expect(find.text('بريميوم'), findsWidgets);
   });
 }
 

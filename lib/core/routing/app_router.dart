@@ -22,7 +22,6 @@ import '../../features/games/games_hub_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
 import '../../features/pomodoro/pomodoro_screen.dart';
 import '../../features/onboarding/onboarding_screen.dart';
-import '../../features/pro/pro_paywall_screen.dart';
 import '../../features/recovery/presentation/recovery_grid_screen.dart';
 import '../../features/profile/profile_screen.dart';
 import '../../features/reports/weekly_report_screen.dart';
@@ -248,8 +247,13 @@ GoRouter goRouter(GoRouterRef ref) {
       final location = state.uri.path;
       if (location == AppRoutes.splash) return null;
       // V2 surfaces stay behind local feature boundary; V1 remains default.
+      // Premium purchase/manage remains available in V1 mode (shared entitlement).
       if (location.startsWith('/v2/') &&
           !V2FeatureBoundary.enableBrainProfileRoutes) {
+        if (location == AppRoutes.v2Premium ||
+            location.startsWith('${AppRoutes.v2Premium}/')) {
+          return null;
+        }
         return AppRoutes.home;
       }
       // Unknown V2 paths recover to Home tab (when shell enabled).
@@ -303,7 +307,9 @@ GoRouter goRouter(GoRouterRef ref) {
       GoRoute(
         path: AppRoutes.proPaywall,
         name: ProPaywallRoute.name,
-        builder: (context, state) => const ProPaywallScreen(),
+        // Legacy V1 path — redirect to store-backed V2 Premium (honest offerings).
+        redirect: (context, state) =>
+            AppRoutes.v2PremiumWithSource('legacy_paywall'),
       ),
       GoRoute(
         path: AppRoutes.settings,
