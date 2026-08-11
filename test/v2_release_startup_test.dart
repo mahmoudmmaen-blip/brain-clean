@@ -331,7 +331,7 @@ void main() {
       final pubspec = File('pubspec.yaml').readAsStringSync();
       expect(
         pubspec,
-        contains(RegExp(r'^version:\s*2\.0\.1\+19\s*$', multiLine: true)),
+        contains(RegExp(r'^version:\s*2\.0\.1\+20\s*$', multiLine: true)),
       );
       expect(AppConfig.appVersion, '2.0.1');
     });

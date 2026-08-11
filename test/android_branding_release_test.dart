@@ -86,6 +86,20 @@ void main() {
       ).readAsStringSync();
       expect(gradle, contains('applicationId = "com.brainclean.mobile"'));
     });
+
+    test('release manifest declares Advertising ID permission for Play', () {
+      final manifest = File(
+        '${Directory.current.path}/android/app/src/main/AndroidManifest.xml',
+      ).readAsStringSync();
+      expect(
+        manifest,
+        contains('com.google.android.gms.permission.AD_ID'),
+      );
+      expect(
+        manifest,
+        isNot(contains('tools:node="remove"')),
+      );
+    });
   });
 
   group('V2 shell IA unchanged by branding', () {

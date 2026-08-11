@@ -11,7 +11,7 @@ abstract final class AppConfig {
   /// Displayed app version for Settings / More.
   ///
   /// MUST be bumped together with `pubspec.yaml` `version:` (name before `+`).
-  /// Example: pubspec `2.0.1+19` → `appVersion = '2.0.1'`.
+  /// Example: pubspec `2.0.1+20` → `appVersion = '2.0.1'`.
   /// Do not add `package_info` — keep this constant as the single UI source.
   static const String appVersion = '2.0.1';
 
