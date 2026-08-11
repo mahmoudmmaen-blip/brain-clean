@@ -155,9 +155,10 @@ void main() {
   });
 
   group('ExternalLinkService', () {
-    test('privacy and contact URIs are configured', () {
+    test('privacy and contact URIs are configured; terms URL absent', () {
       expect(ExternalLinkService.privacyPolicyUrl, startsWith('https://'));
       expect(ExternalLinkService.contactEmailUri, startsWith('mailto:'));
+      expect(ExternalLinkService.termsOfUseUrl, isNull);
     });
 
     test('openUri invokes platform channel', () async {

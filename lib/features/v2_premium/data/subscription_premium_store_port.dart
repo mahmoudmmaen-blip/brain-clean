@@ -5,6 +5,9 @@ import '../domain/premium_offering.dart';
 import '../domain/premium_store_port.dart';
 
 /// Adapts [SubscriptionService] for V2 Premium (Production Monetization Contract).
+///
+/// Trial/intro fields stay unconfirmed here until a deliberate store passthrough
+/// lands. Never invent trial duration or eligibility in this adapter.
 class SubscriptionPremiumStorePort implements PremiumStorePort {
   SubscriptionPremiumStorePort({
     required SubscriptionService service,

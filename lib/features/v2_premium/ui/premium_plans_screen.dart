@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
+import '../../../core/services/external_link_service.dart';
 import '../../pro/domain/subscription_plan.dart';
 import '../application/premium_controller.dart';
 import '../data/premium_controller_provider.dart';
@@ -162,12 +163,17 @@ class _PremiumPlansScreenState extends ConsumerState<PremiumPlansScreen> {
                   },
           ),
           TextButton(
-            onPressed: () => context.push(AppRoutes.settings),
+            key: const Key('v2_premium_plans_privacy'),
+            onPressed: () async {
+              final opened = await externalLinkService.openPrivacyPolicy();
+              if (!context.mounted) return;
+              if (!opened) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(loc.settingsLinkUnavailable)),
+                );
+              }
+            },
             child: Text(loc.settingsPrivacyPolicy),
-          ),
-          TextButton(
-            onPressed: () => context.push(AppRoutes.settings),
-            child: Text(loc.v2PremiumTermsLink),
           ),
         ],
       ),

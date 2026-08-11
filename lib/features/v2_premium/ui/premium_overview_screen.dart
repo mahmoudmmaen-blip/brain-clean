@@ -195,26 +195,18 @@ class _PremiumOverviewScreenState extends ConsumerState<PremiumOverviewScreen> {
             ),
           ),
           const SizedBox(height: 16),
-          Wrap(
-            spacing: 12,
-            children: [
-              TextButton(
-                onPressed: () async {
-                  final opened = await externalLinkService.openPrivacyPolicy();
-                  if (!context.mounted) return;
-                  if (!opened) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(loc.settingsLinkUnavailable)),
-                    );
-                  }
-                },
-                child: Text(loc.settingsPrivacyPolicy),
-              ),
-              TextButton(
-                onPressed: () => context.push(AppRoutes.settings),
-                child: Text(loc.v2PremiumTermsLink),
-              ),
-            ],
+          TextButton(
+            key: const Key('v2_premium_privacy'),
+            onPressed: () async {
+              final opened = await externalLinkService.openPrivacyPolicy();
+              if (!context.mounted) return;
+              if (!opened) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(loc.settingsLinkUnavailable)),
+                );
+              }
+            },
+            child: Text(loc.settingsPrivacyPolicy),
           ),
           const SizedBox(height: 8),
           PremiumSecondaryButton(

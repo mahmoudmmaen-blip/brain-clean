@@ -15,9 +15,19 @@ class ExternalLinkService {
       'https://mahmoudmmaen-blip.github.io/brain-clean/privacy-policy/';
   static const contactEmailUri = 'mailto:brainclean.app@gmail.com';
 
+  /// No Terms URL is configured in-repo. Do not invent one; omit Terms CTAs.
+  static const String? termsOfUseUrl = null;
+
   Future<bool> openPrivacyPolicy() => openUri(privacyPolicyUrl);
 
   Future<bool> openContactEmail() => openUri(contactEmailUri);
+
+  /// Opens Terms only when [termsOfUseUrl] is configured.
+  Future<bool> openTermsOfUse() async {
+    final url = termsOfUseUrl;
+    if (url == null || url.isEmpty) return false;
+    return openUri(url);
+  }
 
   Future<bool> openUri(String uri) async {
     try {

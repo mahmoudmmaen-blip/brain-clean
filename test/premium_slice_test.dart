@@ -481,11 +481,15 @@ void main() {
       );
       expect(find.text('View plans'), findsWidgets);
       expect(find.byKey(const Key('v2_premium_restore')), findsOneWidget);
+      expect(find.byKey(const Key('v2_premium_privacy')), findsOneWidget);
+      expect(find.text(AppLocalizationsEn().v2PremiumTermsLink), findsNothing);
       expect(find.textContaining('Unlock recovery'), findsNothing);
       expect(find.textContaining('Don’t lose'), findsNothing);
       expect(find.textContaining('full potential'), findsNothing);
       expect(find.textContaining('cloud sync'), findsNothing);
       expect(find.textContaining('Brain Clean Pro'), findsNothing);
+      expect(find.textContaining('free trial'), findsNothing);
+      expect(find.textContaining('Free trial'), findsNothing);
     });
 
     testWidgets('flag OFF preserves V1 for /v2/premium', (tester) async {

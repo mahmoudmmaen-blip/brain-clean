@@ -7,6 +7,7 @@ import 'package:brain_clean_mobile/core/constants/hive_meta_keys.dart';
 import 'package:brain_clean_mobile/core/data/app_meta_box_provider.dart';
 import 'package:brain_clean_mobile/core/l10n/app_localizations_ar.dart';
 import 'package:brain_clean_mobile/core/l10n/app_localizations_en.dart';
+import 'package:brain_clean_mobile/core/services/external_link_service.dart';
 import 'package:brain_clean_mobile/core/v2/v2_feature_boundary.dart';
 import 'package:brain_clean_mobile/features/pro/application/subscription_service_provider.dart';
 import 'package:brain_clean_mobile/features/pro/data/fake_purchases_sdk_port.dart';
@@ -450,6 +451,58 @@ void main() {
       expect(AppRoutes.v2PremiumWithSource('settings'),
           contains('source=settings'));
       expect(AppRoutes.proPaywall, '/pro-paywall');
+    });
+
+    test('terms URL absent; privacy configured; openTermsOfUse is no-op',
+        () async {
+      expect(ExternalLinkService.termsOfUseUrl, isNull);
+      expect(ExternalLinkService.privacyPolicyUrl, startsWith('https://'));
+      final service = ExternalLinkService();
+      expect(await service.openTermsOfUse(), isFalse);
+    });
+
+    test(
+        'SubscriptionPremiumStorePort never confirms trial without passthrough',
+        () async {
+      final sdk = FakePurchasesSdkPort(
+        offerings: FakePurchasesSdkPort.defaultOfferings(withTrial: true),
+      );
+      final meta = InMemoryHiveBox();
+      final container = ProviderContainer(
+        overrides: [
+          appMetaBoxProvider.overrideWithValue(meta),
+          appPreferencesProvider.overrideWith(_FreePreferences.new),
+          forceLocalSubscriptionAdapterProvider.overrideWithValue(false),
+          revenueCatPlatformIsIosProvider.overrideWithValue(false),
+          revenueCatApiKeyOverrideProvider
+              .overrideWithValue('goog_test_public_sdk_key'),
+          purchasesSdkPortProvider.overrideWithValue(sdk),
+        ],
+      );
+      addTearDown(container.dispose);
+      final service = container.read(subscriptionServiceProvider);
+      expect(service, isA<RevenueCatSubscriptionService>());
+      final port = SubscriptionPremiumStorePort(
+        service: service,
+        onEntitlementMaybeChanged: () {},
+      );
+      final offerings = await port.loadOfferings();
+      expect(offerings, isNotEmpty);
+      // Even when the SDK surface carries trial metadata, the V2 port stays
+      // non-affirming until an intentional passthrough is approved.
+      for (final o in offerings) {
+        expect(o.trialConfirmed, isFalse);
+        expect(o.trialLabel, isNull);
+        expect(o.introPricingConfirmed, isFalse);
+      }
+    });
+
+    test('legacy pro-paywall path maps to V2 Premium source', () {
+      expect(AppRoutes.proPaywall, '/pro-paywall');
+      expect(
+        AppRoutes.v2PremiumWithSource('legacy_paywall'),
+        '/v2/premium?source=legacy_paywall',
+      );
     });
 
     test('no ad-removal Premium copy', () {
