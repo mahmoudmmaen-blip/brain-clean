@@ -48,7 +48,8 @@ GoRouter _startupShellRouter({
                 GoRoute(
                   path: tab.pathPrefix,
                   pageBuilder: (context, state) => NoTransitionPage<void>(
-                    child: Scaffold(body: Text('TAB_${tab.name.toUpperCase()}')),
+                    child:
+                        Scaffold(body: Text('TAB_${tab.name.toUpperCase()}')),
                   ),
                 ),
               ],
@@ -330,7 +331,7 @@ void main() {
       final pubspec = File('pubspec.yaml').readAsStringSync();
       expect(
         pubspec,
-        contains(RegExp(r'^version:\s*2\.0\.1\+18\s*$', multiLine: true)),
+        contains(RegExp(r'^version:\s*2\.0\.1\+19\s*$', multiLine: true)),
       );
       expect(AppConfig.appVersion, '2.0.1');
     });
@@ -428,7 +429,8 @@ void main() {
       expect('SupabaseConfig.initialize'.allMatches(mainSrc).length, 1);
       expect(mainSrc, isNot(contains('signInAnonymously')));
       expect(mainSrc, isNot(contains('SupabaseAuthService')));
-      expect(File('lib/core/network/supabase_client.dart').existsSync(), isTrue);
+      expect(
+          File('lib/core/network/supabase_client.dart').existsSync(), isTrue);
       expect(
         File('lib/core/services/supabase_auth_service.dart').existsSync(),
         isFalse,

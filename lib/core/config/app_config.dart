@@ -1,4 +1,4 @@
-﻿import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Runtime configuration.
 ///
@@ -11,7 +11,7 @@ abstract final class AppConfig {
   /// Displayed app version for Settings / More.
   ///
   /// MUST be bumped together with `pubspec.yaml` `version:` (name before `+`).
-  /// Example: pubspec `2.0.1+18` → `appVersion = '2.0.1'`.
+  /// Example: pubspec `2.0.1+19` → `appVersion = '2.0.1'`.
   /// Do not add `package_info` — keep this constant as the single UI source.
   static const String appVersion = '2.0.1';
 
@@ -66,8 +66,7 @@ abstract final class AppConfig {
   /// Prefers Android/iOS-specific defines; falls back to transitional
   /// [revenueCatApiKey] when platform-specific keys are absent.
   static String revenueCatPublicSdkKey({required bool isIOS}) {
-    final platformKey =
-        isIOS ? revenueCatIosApiKey : revenueCatAndroidApiKey;
+    final platformKey = isIOS ? revenueCatIosApiKey : revenueCatAndroidApiKey;
     if (platformKey.isNotEmpty) return platformKey;
     return revenueCatApiKey;
   }
@@ -80,7 +79,8 @@ abstract final class AppConfig {
     required String defineValue,
     required String envKey,
   }) {
-    final raw = defineValue.trim().isNotEmpty ? defineValue.trim() : _env(envKey);
+    final raw =
+        defineValue.trim().isNotEmpty ? defineValue.trim() : _env(envKey);
     if (raw.isEmpty || isPlaceholderConfigValue(raw)) return '';
     return raw;
   }
@@ -138,5 +138,3 @@ abstract final class AppConfig {
         : 'RevenueCat configuration unavailable';
   }
 }
-
-
