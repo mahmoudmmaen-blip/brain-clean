@@ -95,10 +95,8 @@ void main() {
         manifest,
         contains('com.google.android.gms.permission.AD_ID'),
       );
-      expect(
-        manifest,
-        isNot(contains('tools:node="remove"')),
-      );
+      expect(manifest, contains('tools:node="replace"'));
+      expect(manifest, isNot(contains('tools:node="remove"')));
     });
   });
 
