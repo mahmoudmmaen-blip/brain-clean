@@ -785,6 +785,7 @@ void main() {
               onGoHome: () {},
               onContinue: () {},
               onRebuild: () {},
+              onStartBrainCheck: () {},
             ),
           ),
         ),
@@ -834,6 +835,7 @@ void main() {
                 onGoHome: () {},
                 onContinue: () {},
                 onRebuild: () {},
+                onStartBrainCheck: () {},
               ),
             ),
           ),
@@ -905,6 +907,7 @@ void main() {
               onGoHome: () {},
               onContinue: () => continued = true,
               onRebuild: () {},
+              onStartBrainCheck: () {},
             ),
           ),
         ),
@@ -977,6 +980,7 @@ void main() {
                 onGoHome: () {},
                 onContinue: () {},
                 onRebuild: () {},
+                onStartBrainCheck: () {},
               ),
             ),
           ),
@@ -1031,6 +1035,7 @@ void main() {
                 onGoHome: () {},
                 onContinue: () {},
                 onRebuild: () {},
+                onStartBrainCheck: () {},
               ),
             ),
           ),
@@ -1042,11 +1047,12 @@ void main() {
       expect(find.text(loc.recoveryPlanOpenToday), findsOneWidget);
     });
 
-    testWidgets('shell empty Plan offers Build without session CTAs',
+    testWidgets('shell empty with ProfilePack offers Build Recovery Plan',
         (tester) async {
       final loc = await AppLocalizations.delegate.load(const Locale('en'));
       var rebuild = false;
       var home = false;
+      var check = false;
       await tester.pumpWidget(
         MaterialApp(
           localizationsDelegates: const [
@@ -1062,21 +1068,68 @@ void main() {
               loading: false,
               missing: true,
               plan: null,
+              hasProfilePack: true,
               presentation: PlanRevealPresentation.shellOrientation,
               onGoHome: () => home = true,
               onContinue: () {},
               onRebuild: () => rebuild = true,
+              onStartBrainCheck: () => check = true,
             ),
           ),
         ),
       );
       expect(find.text(loc.recoveryPlanMissing), findsOneWidget);
       expect(find.text(loc.recoveryPlanBuildCta), findsOneWidget);
-      await tester.tap(find.text(loc.recoveryPlanBuildCta));
+      expect(find.text(loc.v2BrainCheckEntryStart), findsNothing);
+      await tester.tap(find.byKey(const Key('v2_program_setup_cta')));
+      await tester.pump();
       expect(rebuild, isTrue);
+      expect(check, isFalse);
       await tester.tap(find.text(loc.recoveryPlanGoHome));
+      await tester.pump();
       expect(home, isTrue);
       expect(find.text(loc.v2TodayHomeCtaStart), findsNothing);
+    });
+
+    testWidgets('shell empty without ProfilePack offers Start Brain Check',
+        (tester) async {
+      final loc = await AppLocalizations.delegate.load(const Locale('en'));
+      var rebuild = 0;
+      var check = 0;
+      await tester.pumpWidget(
+        MaterialApp(
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          home: Scaffold(
+            body: PlanRevealBody(
+              loc: loc,
+              languageCode: 'en',
+              loading: false,
+              missing: true,
+              plan: null,
+              hasProfilePack: false,
+              presentation: PlanRevealPresentation.shellOrientation,
+              onGoHome: () {},
+              onContinue: () {},
+              onRebuild: () => rebuild++,
+              onStartBrainCheck: () => check++,
+            ),
+          ),
+        ),
+      );
+      await tester.pump();
+      expect(find.text(loc.v2BrainCheckEntryStart), findsOneWidget);
+      expect(find.text(loc.recoveryPlanBuildCta), findsNothing);
+      await tester.tap(find.byKey(const Key('v2_program_setup_cta')));
+      await tester.pump();
+      await tester.tap(find.byKey(const Key('v2_program_setup_cta')));
+      await tester.pump();
+      expect(check, 2);
+      expect(rebuild, 0);
     });
 
     test('shell empty go-home target is V2 Today not legacy /home', () {

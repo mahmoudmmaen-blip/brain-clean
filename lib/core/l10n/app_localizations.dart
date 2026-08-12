@@ -5610,7 +5610,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2NavPlan.
   ///
   /// In en, this message translates to:
-  /// **'Plan'**
+  /// **'Program'**
   String get v2NavPlan;
 
   /// No description provided for @v2NavProgress.
@@ -6330,7 +6330,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2ProfilePrivacyHint.
   ///
   /// In en, this message translates to:
-  /// **'Local data reset and related options'**
+  /// **'Reset local data (confirmation required)'**
   String get v2ProfilePrivacyHint;
 
   /// No description provided for @v2ProfileSectionSubscription.

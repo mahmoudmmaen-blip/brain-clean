@@ -6,7 +6,9 @@ import '../../../core/application/app_preferences_provider.dart';
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../brain_profile/data/brain_profile_repository_provider.dart';
 import '../../v2_onboarding/data/v2_onboarding_repository_provider.dart';
+import '../../v2_onboarding/domain/v2_setup_recovery.dart';
 import '../data/recovery_plan_repository_provider.dart';
 import '../domain/recovery_plan.dart';
 import '../domain/recovery_plan_versions.dart';
@@ -29,6 +31,7 @@ class _PlanTodayReadyBoundaryScreenState
   var _loading = true;
   String? _errorKey;
   var _journeyMarked = false;
+  var _hasProfilePack = false;
 
   @override
   void initState() {
@@ -51,9 +54,18 @@ class _PlanTodayReadyBoundaryScreenState
       plan ??= await repo.active();
       if (!mounted) return;
       if (plan == null) {
+        var hasPack = false;
+        try {
+          final pack = await ref.read(brainProfileRepositoryProvider).latest();
+          hasPack = pack != null;
+        } catch (_) {
+          hasPack = false;
+        }
+        if (!mounted) return;
         setState(() {
           _plan = null;
           _errorKey = 'missing_plan';
+          _hasProfilePack = hasPack;
           _loading = false;
         });
         return;
@@ -119,9 +131,13 @@ class _PlanTodayReadyBoundaryScreenState
           loading: _loading,
           errorKey: _errorKey,
           plan: _plan,
+          hasProfilePack: _hasProfilePack,
           journeyMarked: _journeyMarked,
           onRetry: _load,
           onRebuildPlan: () => context.go(AppRoutes.v2PlanBuilding),
+          onStartBrainCheck: () => context.go(
+            V2SetupRecovery.brainCheckLocation(source: 'today_ready'),
+          ),
           onStay: () {
             context.go(AppRoutes.v2Today);
           },
@@ -147,8 +163,10 @@ class PlanTodayReadyBody extends StatelessWidget {
     required this.journeyMarked,
     required this.onRetry,
     required this.onRebuildPlan,
+    required this.onStartBrainCheck,
     required this.onStay,
     required this.onOpenPreview,
+    this.hasProfilePack = false,
   });
 
   final AppLocalizations loc;
@@ -159,8 +177,10 @@ class PlanTodayReadyBody extends StatelessWidget {
   final bool journeyMarked;
   final VoidCallback onRetry;
   final VoidCallback onRebuildPlan;
+  final VoidCallback onStartBrainCheck;
   final VoidCallback onStay;
   final VoidCallback onOpenPreview;
+  final bool hasProfilePack;
 
   @override
   Widget build(BuildContext context) {
@@ -183,7 +203,14 @@ class PlanTodayReadyBody extends StatelessWidget {
         'persistence_failed' => loc.v2TodayReadyPersistFailed,
         _ => loc.recoveryPlanGenerationError,
       };
-      final useRebuild = errorKey == 'missing_plan' ||
+      final isMissingPlan = errorKey == 'missing_plan';
+      final startCheck = isMissingPlan &&
+          V2SetupRecovery.resolve(
+                hasProfilePack: hasProfilePack,
+                hasValidPlan: false,
+              ) ==
+              V2SetupRecoveryAction.startBrainCheck;
+      final useRebuild = isMissingPlan ||
           errorKey == 'corrupt_plan' ||
           errorKey == 'unsupported_version' ||
           errorKey == 'missing_today_act';
@@ -201,14 +228,31 @@ class PlanTodayReadyBody extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
+            if (startCheck) ...[
+              const SizedBox(height: 12),
+              Text(
+                loc.recoveryPlanMissingProfile,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ],
             const SizedBox(height: 24),
             SizedBox(
               width: double.infinity,
               height: 48,
               child: FilledButton(
-                onPressed: useRebuild ? onRebuildPlan : onRetry,
+                key: const Key('v2_today_ready_setup_cta'),
+                onPressed: startCheck
+                    ? onStartBrainCheck
+                    : useRebuild
+                        ? onRebuildPlan
+                        : onRetry,
                 child: Text(
-                  useRebuild ? loc.recoveryPlanBuildCta : loc.recoveryPlanRetry,
+                  startCheck
+                      ? loc.v2BrainCheckEntryStart
+                      : useRebuild
+                          ? loc.recoveryPlanBuildCta
+                          : loc.recoveryPlanRetry,
                 ),
               ),
             ),

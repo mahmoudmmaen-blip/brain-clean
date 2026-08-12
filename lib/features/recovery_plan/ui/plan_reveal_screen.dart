@@ -6,8 +6,10 @@ import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_design_constants.dart';
+import '../../brain_profile/data/brain_profile_repository_provider.dart';
 import '../../brain_profile/domain/measurement_confidence.dart';
 import '../../v2_onboarding/data/v2_onboarding_repository_provider.dart';
+import '../../v2_onboarding/domain/v2_setup_recovery.dart';
 import '../data/recovery_plan_repository_provider.dart';
 import '../domain/recovery_plan.dart';
 import '../domain/recovery_plan_intensity.dart';
@@ -38,6 +40,7 @@ class _PlanRevealScreenState extends ConsumerState<PlanRevealScreen> {
   RecoveryPlan? _plan;
   var _loading = true;
   var _missing = false;
+  var _hasProfilePack = false;
 
   @override
   void initState() {
@@ -75,6 +78,16 @@ class _PlanRevealScreenState extends ConsumerState<PlanRevealScreen> {
       plan ??= await repo.active();
       if (!mounted) return;
 
+      var hasPack = plan != null;
+      if (plan == null) {
+        try {
+          final pack = await ref.read(brainProfileRepositoryProvider).latest();
+          hasPack = pack != null;
+        } catch (_) {
+          hasPack = false;
+        }
+      }
+
       // First-time reveal still marks PLN-01. Skip redundant writes on shell.
       if (plan != null && !shellMode) {
         await onboarding.markPlanRevealed(planId: plan.id);
@@ -84,6 +97,7 @@ class _PlanRevealScreenState extends ConsumerState<PlanRevealScreen> {
       setState(() {
         _plan = plan;
         _missing = plan == null;
+        _hasProfilePack = hasPack;
         _loading = false;
       });
     } catch (_) {
@@ -91,6 +105,7 @@ class _PlanRevealScreenState extends ConsumerState<PlanRevealScreen> {
       setState(() {
         _plan = null;
         _missing = true;
+        _hasProfilePack = false;
         _loading = false;
       });
     }
@@ -122,6 +137,7 @@ class _PlanRevealScreenState extends ConsumerState<PlanRevealScreen> {
           loading: _loading,
           missing: _missing,
           plan: _plan,
+          hasProfilePack: _hasProfilePack,
           presentation: presentation,
           onGoHome: () => context.go(AppRoutes.v2Home),
           onContinue: () {
@@ -133,6 +149,9 @@ class _PlanRevealScreenState extends ConsumerState<PlanRevealScreen> {
             }
           },
           onRebuild: () => context.go(AppRoutes.v2PlanBuilding),
+          onStartBrainCheck: () => context.go(
+            V2SetupRecovery.brainCheckLocation(source: 'program'),
+          ),
         ),
       ),
     );
@@ -151,6 +170,8 @@ class PlanRevealBody extends StatelessWidget {
     required this.onGoHome,
     required this.onContinue,
     required this.onRebuild,
+    required this.onStartBrainCheck,
+    this.hasProfilePack = false,
     this.presentation = PlanRevealPresentation.firstTimeReveal,
   });
 
@@ -162,6 +183,8 @@ class PlanRevealBody extends StatelessWidget {
   final VoidCallback onGoHome;
   final VoidCallback onContinue;
   final VoidCallback onRebuild;
+  final VoidCallback onStartBrainCheck;
+  final bool hasProfilePack;
   final PlanRevealPresentation presentation;
 
   bool get _isShell => presentation == PlanRevealPresentation.shellOrientation;
@@ -180,6 +203,11 @@ class PlanRevealBody extends StatelessWidget {
 
     if (missing || plan == null) {
       final theme = Theme.of(context);
+      final startCheck = V2SetupRecovery.resolve(
+            hasProfilePack: hasProfilePack,
+            hasValidPlan: false,
+          ) ==
+          V2SetupRecoveryAction.startBrainCheck;
       return LayoutBuilder(
         builder: (context, constraints) {
           return SingleChildScrollView(
@@ -203,13 +231,29 @@ class PlanRevealBody extends StatelessWidget {
                       ),
                     ),
                   ),
+                  if (startCheck) ...[
+                    const SizedBox(height: 12),
+                    Text(
+                      loc.recoveryPlanMissingProfile,
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
                   const SizedBox(height: 20),
                   SizedBox(
                     width: double.infinity,
                     height: AppDesignConstants.minTouchTarget,
                     child: FilledButton(
-                      onPressed: onRebuild,
-                      child: Text(loc.recoveryPlanBuildCta),
+                      key: const Key('v2_program_setup_cta'),
+                      onPressed: startCheck ? onStartBrainCheck : onRebuild,
+                      child: Text(
+                        startCheck
+                            ? loc.v2BrainCheckEntryStart
+                            : loc.recoveryPlanBuildCta,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 10),

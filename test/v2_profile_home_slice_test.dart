@@ -67,7 +67,9 @@ void main() {
       expect(find.byKey(const Key('v2_profile_identity')), findsOneWidget);
       expect(find.text(loc.v2ProfileSectionRecovery), findsOneWidget);
       expect(find.text(loc.v2ProfileSectionPreferences), findsOneWidget);
-      expect(find.text(loc.v2ProfileSectionPrivacy), findsOneWidget);
+      expect(find.text(loc.v2ProfileSectionPrivacy), findsNothing);
+      expect(find.byKey(const Key('v2_profile_settings_row')), findsOneWidget);
+      expect(find.byKey(const Key('v2_profile_privacy_row')), findsNothing);
       expect(find.text(loc.v2ProfileSectionSubscription), findsOneWidget);
       expect(find.text(loc.v2ProfileSectionHelp), findsOneWidget);
       expect(find.text(loc.v2ProfileSectionAbout), findsOneWidget);
@@ -96,6 +98,68 @@ void main() {
       await tester.tap(find.byKey(const Key('v2_profile_contact_row')));
       await tester.pump();
       expect(contact, isTrue);
+    });
+
+    testWidgets(
+        'single Settings gateway remains; Brain Profile Premium Safa intact',
+        (tester) async {
+      final loc = AppLocalizationsEn();
+      var settings = false;
+      var brain = false;
+      var premium = false;
+      var safa = false;
+      await tester.pumpWidget(
+        createLocalizedTestWidget(
+          profileBody(
+            loc: loc,
+            hasBrainProfile: true,
+            onOpenBrainProfile: () => brain = true,
+            onEdit: () {},
+            onPrivacyPolicy: () {},
+            onContact: () {},
+          ),
+        ),
+      );
+      // Rebuild with wired callbacks via local body.
+      await tester.pumpWidget(
+        createLocalizedTestWidget(
+          Scaffold(
+            body: V2ProfileHomeBody(
+              loc: loc,
+              displayName: 'Alex',
+              loadingSetup: false,
+              hasBrainProfile: true,
+              subscriptionSubtitle: loc.v2PremiumFreeStatus,
+              appVersion: '2.0.0-test',
+              onEditDisplayName: () {},
+              onOpenBrainProfile: () => brain = true,
+              onOpenSettings: () => settings = true,
+              onOpenPremium: () => premium = true,
+              onOpenSafa: () => safa = true,
+              onOpenPrivacyPolicy: () {},
+              onOpenContact: () {},
+            ),
+          ),
+        ),
+      );
+      await tester.pump();
+      expect(find.byKey(const Key('v2_profile_settings_row')), findsOneWidget);
+      expect(find.byKey(const Key('v2_profile_privacy_row')), findsNothing);
+      await tester.tap(find.byKey(const Key('v2_profile_settings_row')));
+      await tester.pump();
+      expect(settings, isTrue);
+      await tester.tap(find.byKey(const Key('v2_profile_brain_profile_row')));
+      await tester.pump();
+      expect(brain, isTrue);
+      await tester
+          .ensureVisible(find.byKey(const Key('v2_profile_premium_row')));
+      await tester.tap(find.byKey(const Key('v2_profile_premium_row')));
+      await tester.pump();
+      expect(premium, isTrue);
+      await tester.ensureVisible(find.byKey(const Key('v2_profile_safa_row')));
+      await tester.tap(find.byKey(const Key('v2_profile_safa_row')));
+      await tester.pump();
+      expect(safa, isTrue);
     });
 
     testWidgets('missing ProfilePack row starts Brain Check, not reveal',
@@ -176,7 +240,7 @@ void main() {
       );
       await tester.pump();
       expect(find.text(loc.settingsPrivacyPolicy), findsOneWidget);
-      expect(find.text(loc.v2ProfilePrivacyHint), findsOneWidget);
+      expect(find.text(loc.v2ProfilePreferencesHint), findsOneWidget);
       expect(find.textContaining('v2Profile'), findsNothing);
     });
 

@@ -81,6 +81,10 @@ void main() {
       expect(ar.v2BrainCheckEntryStart, 'ابدأ فحص الدماغ');
       expect(en.recoveryPlanBuildCta, 'Build Recovery Plan');
       expect(ar.recoveryPlanBuildCta, 'ابنِ خطة التعافي');
+      expect(en.v2NavPlan, 'Program');
+      expect(ar.v2NavPlan, 'البرنامج');
+      expect(en.recoveryPlanTitle, 'Recovery Plan');
+      expect(ar.recoveryPlanTitle, 'خطة التعافي');
     });
   });
 

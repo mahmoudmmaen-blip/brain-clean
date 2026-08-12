@@ -788,8 +788,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settingsComingSoon => 'قريباً...';
 
   @override
-  String get settingsLinkUnavailable =>
-      'تعذّر فتح هذا الرابط على هذا الجهاز.';
+  String get settingsLinkUnavailable => 'تعذّر فتح هذا الرابط على هذا الجهاز.';
 
   @override
   String get settingsAboutSection => 'حول التطبيق';
@@ -3099,7 +3098,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2NavCheck => 'فحص الدماغ';
 
   @override
-  String get v2NavPlan => 'الخطة';
+  String get v2NavPlan => 'البرنامج';
 
   @override
   String get v2NavProgress => 'التقدّم';
@@ -3444,6 +3443,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2SafaEntryToday => 'اطلب دعم صفا';
 
   @override
+  String get v2SafaEntryProfile => 'افتح صفا';
 
   @override
   String get v2ProfileTitle => 'الملف';
@@ -3468,8 +3468,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2ProfileBrainProfileReady => 'عرض أحدث تقييم لديك';
 
   @override
-  String get v2ProfileBrainProfileMissing =>
-      'أكمل فحص الدماغ لإنشاء هذا';
+  String get v2ProfileBrainProfileMissing => 'أكمل فحص الدماغ لإنشاء هذا';
 
   @override
   String get v2ProfileSectionPreferences => 'التفضيلات';
@@ -3479,7 +3478,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v2ProfilePreferencesHint =>
-      'المظهر والإشعارات وقفل المقاييس الحيوية';
+      'المظهر والإشعارات وقفل المقاييس الحيوية والخصوصية والبيانات';
 
   @override
   String get v2ProfileSectionPrivacy => 'الخصوصية والبيانات';
@@ -3488,15 +3487,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2ProfilePrivacyRow => 'ضوابط الخصوصية والبيانات';
 
   @override
-  String get v2ProfilePrivacyHint =>
-      'مسح البيانات المحلية والخيارات ذات الصلة';
+  String get v2ProfilePrivacyHint => 'مسح البيانات المحلية (يتطلب تأكيداً)';
 
   @override
   String get v2ProfileSectionSubscription => 'الاشتراك';
 
   @override
-  String get v2ProfileSubscriptionHint =>
-      'حالة بريميوم والخطط والاستعادة';
+  String get v2ProfileSubscriptionHint => 'حالة بريميوم والخطط والاستعادة';
 
   @override
   String get v2ProfileSectionHelp => 'المساعدة والدعم';
@@ -3508,17 +3505,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2ProfileSectionAbout => 'حول التطبيق';
 
   @override
-  String get v2SafaEntryProfile => 'افتح صفا';
-
-  @override
   String get v2ProfileEditNameTitle => 'الاسم الظاهر';
 
   @override
   String get v2ProfileEditNameHint => 'اختياري — يظهر على هذا الجهاز فقط';
 
   @override
-  String get v2ProfileNameSaveFailed =>
-      'تعذّر حفظ الاسم. حاول مرة أخرى.';
+  String get v2ProfileNameSaveFailed => 'تعذّر حفظ الاسم. حاول مرة أخرى.';
 
   @override
   String get v2ProfileLegalHint => 'يفتح سياسة الخصوصية في المتصفح';

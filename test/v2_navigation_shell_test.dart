@@ -387,7 +387,7 @@ void main() {
       await tester.pump();
       expect(find.text('TAB_TODAY'), findsOneWidget);
 
-      await tester.tap(find.text('Plan'));
+      await tester.tap(find.text('Program'));
       await tester.pump();
       expect(find.text('TAB_PLAN'), findsOneWidget);
 
@@ -416,7 +416,7 @@ void main() {
       await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
       await tester.pump();
 
-      await tester.tap(find.text('Plan'));
+      await tester.tap(find.text('Program'));
       await tester.pump();
       expect(find.text('TAB_PLAN'), findsOneWidget);
 
@@ -424,7 +424,7 @@ void main() {
       await tester.pump();
       expect(find.text('TAB_TODAY'), findsOneWidget);
 
-      await tester.tap(find.text('Plan'));
+      await tester.tap(find.text('Program'));
       await tester.pump();
       expect(find.text('TAB_PLAN'), findsOneWidget);
     });
@@ -435,11 +435,11 @@ void main() {
       final en = AppLocalizationsEn();
       final ar = AppLocalizationsAr();
       expect(en.v2NavToday, 'Today');
-      expect(en.v2NavPlan, 'Plan');
+      expect(en.v2NavPlan, 'Program');
       expect(en.v2NavProgress, 'Progress');
       expect(en.v2NavProfile, 'Profile');
       expect(ar.v2NavToday, 'اليوم');
-      expect(ar.v2NavPlan, 'الخطة');
+      expect(ar.v2NavPlan, 'البرنامج');
       expect(ar.v2NavProgress, 'التقدّم');
       expect(ar.v2NavProfile, 'الملف');
       // Contextual labels remain available for nested surfaces.
@@ -486,12 +486,12 @@ void main() {
         // Screen-reader labels via destination labels (locale-aware).
         if (locale.languageCode == 'en') {
           expect(find.text('Today'), findsWidgets);
-          expect(find.text('Plan'), findsWidgets);
+          expect(find.text('Program'), findsWidgets);
           expect(find.text('Progress'), findsWidgets);
           expect(find.text('Profile'), findsWidgets);
         } else {
           expect(find.text('اليوم'), findsWidgets);
-          expect(find.text('الخطة'), findsWidgets);
+          expect(find.text('البرنامج'), findsWidgets);
           expect(find.text('التقدّم'), findsWidgets);
           expect(find.text('الملف'), findsWidgets);
         }
@@ -509,7 +509,7 @@ void main() {
       await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
       await tester.pump();
 
-      for (final label in ['Plan', 'Progress', 'Profile', 'Today']) {
+      for (final label in ['Program', 'Progress', 'Profile', 'Today']) {
         await tester.tap(find.text(label));
         await tester.pump();
         expect(find.textContaining('CHECK_CONTEXTUAL'), findsNothing);

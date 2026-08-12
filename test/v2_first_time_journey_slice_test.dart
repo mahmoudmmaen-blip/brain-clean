@@ -446,6 +446,7 @@ void main() {
             onGoHome: () {},
             onContinue: () {},
             onRebuild: () {},
+            onStartBrainCheck: () {},
           ),
         ),
       );
@@ -519,6 +520,7 @@ void main() {
               journeyMarked: true,
               onRetry: () {},
               onRebuildPlan: () {},
+              onStartBrainCheck: () {},
               onStay: () {},
               onOpenPreview: () {},
             ),
@@ -551,6 +553,7 @@ void main() {
             journeyMarked: true,
             onRetry: () {},
             onRebuildPlan: () {},
+            onStartBrainCheck: () {},
             onStay: () {},
             onOpenPreview: () {},
           ),
@@ -562,8 +565,11 @@ void main() {
       expect(Directionality.of(ctx), TextDirection.rtl);
     });
 
-    testWidgets('missing plan error offers rebuild', (tester) async {
+    testWidgets('missing plan without ProfilePack offers Brain Check',
+        (tester) async {
       final loc = await AppLocalizations.delegate.load(const Locale('en'));
+      var rebuild = false;
+      var check = false;
       await tester.pumpWidget(
         wrap(
           PlanTodayReadyBody(
@@ -572,16 +578,57 @@ void main() {
             loading: false,
             errorKey: 'missing_plan',
             plan: null,
+            hasProfilePack: false,
             journeyMarked: false,
             onRetry: () {},
-            onRebuildPlan: () {},
+            onRebuildPlan: () => rebuild = true,
+            onStartBrainCheck: () => check = true,
             onStay: () {},
             onOpenPreview: () {},
           ),
         ),
       );
+      await tester.pump();
+      expect(find.text(loc.recoveryPlanMissing), findsOneWidget);
+      expect(find.text(loc.v2BrainCheckEntryStart), findsOneWidget);
+      expect(find.text(loc.recoveryPlanBuildCta), findsNothing);
+      await tester.tap(find.byKey(const Key('v2_today_ready_setup_cta')));
+      await tester.pump();
+      expect(check, isTrue);
+      expect(rebuild, isFalse);
+    });
+
+    testWidgets('missing plan with ProfilePack offers Build Recovery Plan',
+        (tester) async {
+      final loc = await AppLocalizations.delegate.load(const Locale('en'));
+      var rebuild = false;
+      var check = false;
+      await tester.pumpWidget(
+        wrap(
+          PlanTodayReadyBody(
+            loc: loc,
+            languageCode: 'en',
+            loading: false,
+            errorKey: 'missing_plan',
+            plan: null,
+            hasProfilePack: true,
+            journeyMarked: false,
+            onRetry: () {},
+            onRebuildPlan: () => rebuild = true,
+            onStartBrainCheck: () => check = true,
+            onStay: () {},
+            onOpenPreview: () {},
+          ),
+        ),
+      );
+      await tester.pump();
       expect(find.text(loc.recoveryPlanMissing), findsOneWidget);
       expect(find.text(loc.recoveryPlanBuildCta), findsOneWidget);
+      expect(find.text(loc.v2BrainCheckEntryStart), findsNothing);
+      await tester.tap(find.byKey(const Key('v2_today_ready_setup_cta')));
+      await tester.pump();
+      expect(rebuild, isTrue);
+      expect(check, isFalse);
     });
   });
 

@@ -2700,16 +2700,24 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String v2ProgressCurrentRhythm(int count) {
-    return count == 1
-        ? 'Current rhythm: 1 day'
-        : 'Current rhythm: $count days';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Current rhythm: $count days',
+      one: 'Current rhythm: 1 day',
+    );
+    return '$_temp0';
   }
 
   @override
   String v2ProgressLongestRhythm(int count) {
-    return count == 1
-        ? 'Longest rhythm: 1 day'
-        : 'Longest rhythm: $count days';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Longest rhythm: $count days',
+      one: 'Longest rhythm: 1 day',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -3147,7 +3155,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2NavCheck => 'Brain Check';
 
   @override
-  String get v2NavPlan => 'Plan';
+  String get v2NavPlan => 'Program';
 
   @override
   String get v2NavProgress => 'Progress';
@@ -3497,6 +3505,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2SafaEntryToday => 'Ask Safa for support';
 
   @override
+  String get v2SafaEntryProfile => 'Open Safa';
+
+  @override
   String get v2ProfileTitle => 'Profile';
 
   @override
@@ -3530,7 +3541,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v2ProfilePreferencesHint =>
-      'Appearance, notifications, and biometric lock';
+      'Appearance, notifications, biometric lock, and privacy & data';
 
   @override
   String get v2ProfileSectionPrivacy => 'Privacy & data';
@@ -3539,15 +3550,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2ProfilePrivacyRow => 'Privacy & data controls';
 
   @override
-  String get v2ProfilePrivacyHint =>
-      'Reset local data (confirmation required)';
+  String get v2ProfilePrivacyHint => 'Reset local data (confirmation required)';
 
   @override
   String get v2ProfileSectionSubscription => 'Subscription';
 
   @override
-  String get v2ProfileSubscriptionHint =>
-      'Premium status, plans, and restore';
+  String get v2ProfileSubscriptionHint => 'Premium status, plans, and restore';
 
   @override
   String get v2ProfileSectionHelp => 'Help & support';
@@ -3557,9 +3566,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v2ProfileSectionAbout => 'About';
-
-  @override
-  String get v2SafaEntryProfile => 'Open Safa';
 
   @override
   String get v2ProfileEditNameTitle => 'Display name';

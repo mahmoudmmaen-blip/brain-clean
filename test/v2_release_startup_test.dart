@@ -359,7 +359,8 @@ void main() {
   });
 
   group('V2 shell and V1 preservation', () {
-    testWidgets('V2 enabled shows four-tab shell Today·Plan·Progress·Profile',
+    testWidgets(
+        'V2 enabled shows four-tab shell Today·Program·Progress·Profile',
         (tester) async {
       V2FeatureBoundary.enableBrainProfileRoutes = true;
       final en = AppLocalizationsEn();
@@ -377,7 +378,7 @@ void main() {
       expect(find.text(en.v2NavProgress), findsOneWidget);
       expect(find.text(en.v2NavProfile), findsOneWidget);
       expect(en.v2NavToday, 'Today');
-      expect(en.v2NavPlan, 'Plan');
+      expect(en.v2NavPlan, 'Program');
       expect(en.v2NavProgress, 'Progress');
       expect(en.v2NavProfile, 'Profile');
       expect(find.text('Exercises'), findsNothing);
