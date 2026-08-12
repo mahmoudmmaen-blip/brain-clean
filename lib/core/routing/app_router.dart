@@ -269,17 +269,23 @@ GoRouter goRouter(GoRouterRef ref) {
           return AppRoutes.v2Home;
         }
       }
-      if (!prefs.hasSeenOnboarding && location != AppRoutes.onboarding) {
-        return AppRoutes.onboarding;
+      if (!prefs.hasSeenOnboarding) {
+        final onboardingRedirect =
+            StartupDestination.redirectIfOnboardingIncomplete(location);
+        if (onboardingRedirect != null) {
+          return onboardingRedirect;
+        }
       }
       if (biometricEnabled &&
           !biometricUnlocked &&
           location != AppRoutes.biometricLock &&
-          location != AppRoutes.onboarding) {
+          !StartupDestination.isOnboardingLocation(location)) {
         return AppRoutes.biometricLock;
       }
       if (biometricUnlocked && location == AppRoutes.biometricLock) {
-        return StartupDestination.resolve();
+        return prefs.hasSeenOnboarding
+            ? StartupDestination.resolve()
+            : StartupDestination.onboarding();
       }
       return null;
     },

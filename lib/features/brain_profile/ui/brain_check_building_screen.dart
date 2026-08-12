@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
+import '../../../core/routing/startup_destination.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../brain_check/data/brain_check_local_repository_provider.dart';
 import '../data/brain_profile_repository_provider.dart';
@@ -83,7 +84,8 @@ class _BrainCheckBuildingScreenState
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final isAr = Localizations.localeOf(context).languageCode == 'ar';
-    final reduceMotion = MediaQuery.maybeOf(context)?.disableAnimations ?? false;
+    final reduceMotion =
+        MediaQuery.maybeOf(context)?.disableAnimations ?? false;
     final error = _missingEvent
         ? loc.brainProfileMissingEvent
         : (isAr
@@ -100,7 +102,7 @@ class _BrainCheckBuildingScreenState
           missingEvent: _missingEvent,
           reduceMotion: reduceMotion,
           onRetry: _build,
-          onGoHome: () => context.go(AppRoutes.home),
+          onGoHome: () => context.go(StartupDestination.resolve()),
           onGoEntry: () => context.go(AppRoutes.v2BrainCheckEntry),
         ),
       ),

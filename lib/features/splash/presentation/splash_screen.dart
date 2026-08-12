@@ -92,7 +92,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
     final hasSeen = ref.read(hasSeenOnboardingProvider);
     if (!hasSeen) {
-      context.go(AppRoutes.onboarding);
+      context.go(StartupDestination.onboarding());
       return;
     }
 

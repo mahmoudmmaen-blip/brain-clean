@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/application/app_preferences_provider.dart';
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/app_colors.dart';
@@ -88,6 +89,7 @@ class _PlanTodayReadyBoundaryScreenState
         await onboarding.markTodayPreviewed(planId: plan.id);
       }
       await onboarding.markJourneyCompleted(planId: plan.id);
+      await ref.read(appPreferencesProvider.notifier).completeOnboarding();
       if (!mounted) return;
       setState(() {
         _plan = plan;

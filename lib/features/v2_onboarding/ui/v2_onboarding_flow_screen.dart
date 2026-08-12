@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/providers/locale_provider.dart';
+import '../../../core/routing/startup_destination.dart';
 import '../../../core/theme/app_colors.dart';
 import '../application/v2_onboarding_controller.dart';
 import '../data/v2_onboarding_repository_provider.dart';
@@ -57,7 +58,7 @@ class _V2OnboardingFlowScreenState
                     onRestart: () => controller.clearCorruptAndStart(
                       languageCode: locale.languageCode,
                     ),
-                    onHome: () => context.go(AppRoutes.home),
+                    onHome: () => context.go(StartupDestination.resolve()),
                   )
                 : V2OnboardingFlowBody(
                     loc: loc,
@@ -206,8 +207,7 @@ class V2OnboardingFlowBody extends StatelessWidget {
         return OnbRitualView(
           loc: loc,
           selected: controller.state.ritualWindow,
-          onContinue: (window) =>
-              controller.setRitual(window, skip: false),
+          onContinue: (window) => controller.setRitual(window, skip: false),
           onSkip: () => controller.setRitual(null, skip: true),
         );
       case V2OnboardingStep.checkIntro:

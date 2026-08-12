@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
+import '../../../core/routing/startup_destination.dart';
 import '../../../core/theme/app_colors.dart';
 import '../data/recovery_plan_repository_provider.dart';
 import '../domain/recovery_plan.dart';
@@ -75,7 +76,7 @@ class _PlanBuildingScreenState extends ConsumerState<PlanBuildingScreen> {
           errorKey: _errorKey,
           plan: _plan,
           onRetry: _build,
-          onGoHome: () => context.go(AppRoutes.home),
+          onGoHome: () => context.go(StartupDestination.resolve()),
         ),
       ),
     );
@@ -173,9 +174,7 @@ class PlanBuildingBody extends StatelessWidget {
     return Center(
       child: Semantics(
         liveRegion: true,
-        label: isStarter
-            ? loc.recoveryPlanStarterReady
-            : loc.recoveryPlanReady,
+        label: isStarter ? loc.recoveryPlanStarterReady : loc.recoveryPlanReady,
         child: Text(
           isStarter ? loc.recoveryPlanStarterReady : loc.recoveryPlanReady,
         ),

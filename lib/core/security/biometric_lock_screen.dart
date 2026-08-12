@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../constants/app_routes.dart';
 import '../l10n/app_localizations.dart';
+import '../routing/startup_destination.dart';
 import '../theme/app_design_constants.dart';
 import 'security_status_provider.dart';
 
@@ -59,7 +59,7 @@ class BiometricLockScreen extends ConsumerWidget {
                         .read(biometricAuthControllerProvider.notifier)
                         .authenticate();
                     if (ok && context.mounted) {
-                      context.go(AppRoutes.home);
+                      context.go(StartupDestination.resolve());
                     }
                   },
                   icon: const Icon(Icons.lock_open_rounded),

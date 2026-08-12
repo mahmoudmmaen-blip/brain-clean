@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/application/app_preferences_provider.dart';
 import '../../core/constants/app_routes.dart';
 import '../../core/l10n/app_localizations.dart';
+import '../../core/routing/startup_destination.dart';
 
 const onboardingPageViewKey = Key('onboarding_page_view');
 const onboardingSkipKey = Key('onboarding_skip_button');
@@ -49,7 +50,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               alignment: Alignment.centerLeft,
               child: TextButton(
                 key: onboardingSkipKey,
-                onPressed: () => _finish(destination: AppRoutes.home),
+                onPressed: () =>
+                    _finish(destination: StartupDestination.resolve()),
                 child: Text(
                   loc.onboardingSkip,
                   style: const TextStyle(color: Color(0xFF8B949E)),
@@ -111,8 +113,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   height: 52,
                   child: FilledButton(
                     key: onboardingStartQuizKey,
-                    onPressed: () =>
-                        _finish(destination: AppRoutes.diagnostic),
+                    onPressed: () => _finish(destination: AppRoutes.diagnostic),
                     style: FilledButton.styleFrom(
                       backgroundColor: const Color(0xFF1D9E75),
                     ),

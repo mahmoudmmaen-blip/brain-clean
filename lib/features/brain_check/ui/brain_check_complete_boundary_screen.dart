@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
+import '../../../core/routing/startup_destination.dart';
 import '../../../core/theme/app_colors.dart';
 
 /// Safe post-check recovery boundary — continues into CHK-03 Profile build.
@@ -46,8 +47,7 @@ class BrainCheckCompleteBoundaryScreen extends StatelessWidget {
                 width: double.infinity,
                 height: 48,
                 child: FilledButton(
-                  onPressed: () =>
-                      context.go(AppRoutes.v2BrainCheckBuilding),
+                  onPressed: () => context.go(AppRoutes.v2BrainCheckBuilding),
                   child: Text(loc.brainCheckCompleteBoundaryContinue),
                 ),
               ),
@@ -56,7 +56,7 @@ class BrainCheckCompleteBoundaryScreen extends StatelessWidget {
                 width: double.infinity,
                 height: 48,
                 child: OutlinedButton(
-                  onPressed: () => context.go(AppRoutes.home),
+                  onPressed: () => context.go(StartupDestination.resolve()),
                   child: Text(loc.v2OnboardingGoHome),
                 ),
               ),

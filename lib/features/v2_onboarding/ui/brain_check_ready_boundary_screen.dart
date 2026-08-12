@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
+import '../../../core/routing/startup_destination.dart';
 import '../../../core/theme/app_colors.dart';
 
 /// Temporary Slice 5.1 boundary — primary path now uses the questionnaire flow.
@@ -38,7 +39,7 @@ class BrainCheckReadyBoundaryScreen extends StatelessWidget {
                 width: double.infinity,
                 height: 48,
                 child: FilledButton(
-                  onPressed: () => context.go(AppRoutes.home),
+                  onPressed: () => context.go(StartupDestination.resolve()),
                   child: Text(loc.v2OnboardingGoHome),
                 ),
               ),

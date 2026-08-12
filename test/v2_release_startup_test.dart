@@ -94,16 +94,85 @@ void main() {
       expect(StartupDestination.resolve(), AppRoutes.home);
     });
 
+    test('V2 enabled → /v2/onboarding; V2 disabled → /onboarding', () {
+      V2FeatureBoundary.enableBrainProfileRoutes = true;
+      expect(StartupDestination.onboarding(), AppRoutes.v2Onboarding);
+      expect(StartupDestination.onboarding(), '/v2/onboarding');
+
+      V2FeatureBoundary.enableBrainProfileRoutes = false;
+      expect(StartupDestination.onboarding(), AppRoutes.onboarding);
+      expect(StartupDestination.onboarding(), '/onboarding');
+    });
+
+    test('V2 first-time redirect keeps Check/Plan path; blocks V1 Home', () {
+      V2FeatureBoundary.enableBrainProfileRoutes = true;
+      expect(
+        StartupDestination.redirectIfOnboardingIncomplete('/v2/onboarding'),
+        isNull,
+      );
+      expect(
+        StartupDestination.redirectIfOnboardingIncomplete('/v2/check'),
+        isNull,
+      );
+      expect(
+        StartupDestination.redirectIfOnboardingIncomplete(
+          '/v2/check?mode=lite&source=onboarding',
+        ),
+        isNull,
+      );
+      expect(
+        StartupDestination.redirectIfOnboardingIncomplete('/v2/plan/building'),
+        isNull,
+      );
+      expect(
+        StartupDestination.redirectIfOnboardingIncomplete('/onboarding'),
+        AppRoutes.v2Onboarding,
+      );
+      expect(
+        StartupDestination.redirectIfOnboardingIncomplete('/home'),
+        AppRoutes.v2Onboarding,
+      );
+      expect(
+        StartupDestination.redirectIfOnboardingIncomplete('/v2/home'),
+        AppRoutes.v2Onboarding,
+      );
+    });
+
+    test('V2 disabled first-time redirect stays on V1 onboarding', () {
+      V2FeatureBoundary.enableBrainProfileRoutes = false;
+      expect(
+        StartupDestination.redirectIfOnboardingIncomplete('/onboarding'),
+        isNull,
+      );
+      expect(
+        StartupDestination.redirectIfOnboardingIncomplete('/home'),
+        AppRoutes.onboarding,
+      );
+      expect(
+        StartupDestination.redirectIfOnboardingIncomplete('/v2/onboarding'),
+        AppRoutes.onboarding,
+      );
+    });
+
     test('source: StartupDestination.resolve uses enableV2Shell', () {
       final src =
           File('lib/core/routing/startup_destination.dart').readAsStringSync();
       expect(src, contains('V2FeatureBoundary.enableV2Shell'));
       expect(src, contains('AppRoutes.v2Home'));
       expect(src, contains('AppRoutes.home'));
+      expect(src, contains('AppRoutes.v2Onboarding'));
+      expect(src, contains('redirectIfOnboardingIncomplete'));
     });
   });
 
   group('Splash and biometric use StartupDestination', () {
+    test('splash first-run uses StartupDestination.onboarding', () {
+      final src = File('lib/features/splash/presentation/splash_screen.dart')
+          .readAsStringSync();
+      expect(src, contains('StartupDestination.onboarding()'));
+      expect(src, isNot(contains('context.go(AppRoutes.onboarding)')));
+    });
+
     test('splash ordinary completion uses StartupDestination.resolve', () {
       final src = File('lib/features/splash/presentation/splash_screen.dart')
           .readAsStringSync();
@@ -124,6 +193,17 @@ void main() {
       final src = File('lib/core/routing/app_router.dart').readAsStringSync();
       expect(src, contains('startup_destination.dart'));
       expect(src, contains('StartupDestination.resolve()'));
+      expect(src, contains('StartupDestination.onboarding()'));
+      expect(src, contains('redirectIfOnboardingIncomplete'));
+      expect(
+        src,
+        isNot(
+          contains(
+            'if (!prefs.hasSeenOnboarding && location != AppRoutes.onboarding) {\n'
+            '        return AppRoutes.onboarding;',
+          ),
+        ),
+      );
       expect(
         src,
         isNot(
@@ -133,13 +213,148 @@ void main() {
           ),
         ),
       );
-      expect(
-        RegExp(
-          r'biometricUnlocked && location == AppRoutes\.biometricLock\)[\s\S]{0,80}'
-          r'StartupDestination\.resolve\(\)',
-        ).hasMatch(src),
-        isTrue,
+    });
+
+    test('biometric lock button uses StartupDestination not V1 /home', () {
+      final src = File('lib/core/security/biometric_lock_screen.dart')
+          .readAsStringSync();
+      expect(src, contains('StartupDestination.resolve()'));
+      expect(src, isNot(contains('AppRoutes.home')));
+    });
+
+    test('V2 onboarding Start Brain Check still hands off to /v2/check', () {
+      final src =
+          File('lib/features/v2_onboarding/ui/v2_onboarding_flow_screen.dart')
+              .readAsStringSync();
+      expect(src, contains('AppRoutes.v2BrainCheckEntry'));
+      expect(src, contains('mode=lite'));
+      expect(src, contains('source=onboarding'));
+      expect(src, contains('StartupDestination.resolve()'));
+      expect(src, isNot(contains('AppRoutes.home')));
+    });
+
+    test(
+        'Today-ready completion marks V1 hasSeenOnboarding for returning users',
+        () {
+      final src = File(
+        'lib/features/recovery_plan/ui/plan_today_ready_boundary_screen.dart',
+      ).readAsStringSync();
+      expect(src, contains('completeOnboarding()'));
+      expect(src, contains('markJourneyCompleted'));
+    });
+  });
+
+  group('First-time V2 journey routing', () {
+    GoRouter firstTimeRouter({
+      required bool hasSeenOnboarding,
+      required String initial,
+    }) {
+      return GoRouter(
+        initialLocation: initial,
+        redirect: (context, state) {
+          final location = state.uri.path;
+          if (location.startsWith('/v2/') && !V2FeatureBoundary.enableV2Shell) {
+            return AppRoutes.home;
+          }
+          if (!hasSeenOnboarding) {
+            return StartupDestination.redirectIfOnboardingIncomplete(location);
+          }
+          return null;
+        },
+        routes: [
+          GoRoute(
+            path: AppRoutes.home,
+            builder: (_, __) => const Scaffold(body: Text('V1_HOME')),
+          ),
+          GoRoute(
+            path: AppRoutes.onboarding,
+            builder: (_, __) => const Scaffold(body: Text('V1_ONBOARDING')),
+          ),
+          GoRoute(
+            path: AppRoutes.v2Onboarding,
+            builder: (_, __) => const Scaffold(body: Text('V2_ONBOARDING')),
+          ),
+          GoRoute(
+            path: AppRoutes.v2Check,
+            builder: (_, __) => const Scaffold(body: Text('V2_CHECK')),
+          ),
+          GoRoute(
+            path: AppRoutes.v2Home,
+            builder: (_, __) => const Scaffold(body: Text('V2_TODAY')),
+          ),
+        ],
       );
+    }
+
+    testWidgets('V2 fresh install: /home and /onboarding become /v2/onboarding',
+        (tester) async {
+      V2FeatureBoundary.enableBrainProfileRoutes = true;
+      final router = firstTimeRouter(
+        hasSeenOnboarding: false,
+        initial: AppRoutes.home,
+      );
+      await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
+      await tester.pump();
+      await tester.pump();
+
+      expect(find.text('V2_ONBOARDING'), findsOneWidget);
+      expect(find.text('V1_ONBOARDING'), findsNothing);
+      expect(find.text('V1_HOME'), findsNothing);
+
+      router.go(AppRoutes.onboarding);
+      await tester.pump();
+      await tester.pump();
+      expect(find.text('V2_ONBOARDING'), findsOneWidget);
+      expect(find.text('V1_ONBOARDING'), findsNothing);
+    });
+
+    testWidgets('V2 onboarding Start Brain Check path stays on /v2/check',
+        (tester) async {
+      V2FeatureBoundary.enableBrainProfileRoutes = true;
+      final router = firstTimeRouter(
+        hasSeenOnboarding: false,
+        initial: AppRoutes.v2Onboarding,
+      );
+      await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
+      await tester.pump();
+      expect(find.text('V2_ONBOARDING'), findsOneWidget);
+
+      router.go('${AppRoutes.v2Check}?mode=lite&source=onboarding');
+      await tester.pump();
+      await tester.pump();
+      expect(find.text('V2_CHECK'), findsOneWidget);
+      expect(find.text('V1_HOME'), findsNothing);
+    });
+
+    testWidgets('V2 returning user stays on /v2/home', (tester) async {
+      V2FeatureBoundary.enableBrainProfileRoutes = true;
+      final router = firstTimeRouter(
+        hasSeenOnboarding: true,
+        initial: StartupDestination.resolve(),
+      );
+      await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
+      await tester.pump();
+      await tester.pump();
+
+      expect(find.text('V2_TODAY'), findsOneWidget);
+      expect(find.text('V1_HOME'), findsNothing);
+      expect(find.text('V2_ONBOARDING'), findsNothing);
+    });
+
+    testWidgets('V2 disabled fresh install still uses V1 onboarding',
+        (tester) async {
+      V2FeatureBoundary.enableBrainProfileRoutes = false;
+      final router = firstTimeRouter(
+        hasSeenOnboarding: false,
+        initial: AppRoutes.home,
+      );
+      await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
+      await tester.pump();
+      await tester.pump();
+
+      expect(find.text('V1_ONBOARDING'), findsOneWidget);
+      expect(find.text('V2_ONBOARDING'), findsNothing);
+      expect(find.text('V1_HOME'), findsNothing);
     });
   });
 

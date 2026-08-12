@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
+import '../../../core/routing/startup_destination.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../brain_check/application/brain_check_controller_provider.dart';
 import '../../brain_check/domain/brain_check_mode.dart';
@@ -134,7 +135,7 @@ class _BrainCheckEntryBoundaryScreenState
           phase: _phase,
           onStart: _startFresh,
           onResume: _resume,
-          onGoHome: () => context.go(AppRoutes.home),
+          onGoHome: () => context.go(StartupDestination.resolve()),
           onRetry: _hydrate,
         ),
       ),
