@@ -6,6 +6,7 @@ import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/routing/startup_destination.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../v2_onboarding/domain/v2_setup_recovery.dart';
 import '../data/recovery_plan_repository_provider.dart';
 import '../domain/recovery_plan.dart';
 import '../domain/recovery_plan_status.dart';
@@ -76,6 +77,9 @@ class _PlanBuildingScreenState extends ConsumerState<PlanBuildingScreen> {
           errorKey: _errorKey,
           plan: _plan,
           onRetry: _build,
+          onStartBrainCheck: () => context.go(
+            V2SetupRecovery.brainCheckLocation(source: 'plan_building'),
+          ),
           onGoHome: () => context.go(StartupDestination.resolve()),
         ),
       ),
@@ -92,6 +96,7 @@ class PlanBuildingBody extends StatelessWidget {
     required this.errorKey,
     required this.plan,
     required this.onRetry,
+    required this.onStartBrainCheck,
     required this.onGoHome,
   });
 
@@ -100,6 +105,7 @@ class PlanBuildingBody extends StatelessWidget {
   final String? errorKey;
   final RecoveryPlan? plan;
   final VoidCallback onRetry;
+  final VoidCallback onStartBrainCheck;
   final VoidCallback onGoHome;
 
   @override
@@ -126,6 +132,7 @@ class PlanBuildingBody extends StatelessWidget {
     }
 
     if (errorKey != null) {
+      final missingProfile = errorKey == 'missing_profile';
       final message = switch (errorKey) {
         'missing_profile' => loc.recoveryPlanMissingProfile,
         'score_unavailable' => loc.recoveryPlanScoreUnavailable,
@@ -151,8 +158,13 @@ class PlanBuildingBody extends StatelessWidget {
               width: double.infinity,
               height: 48,
               child: FilledButton(
-                onPressed: onRetry,
-                child: Text(loc.recoveryPlanRetry),
+                key: const Key('v2_plan_building_primary_cta'),
+                onPressed: missingProfile ? onStartBrainCheck : onRetry,
+                child: Text(
+                  missingProfile
+                      ? loc.v2BrainCheckEntryStart
+                      : loc.recoveryPlanRetry,
+                ),
               ),
             ),
             const SizedBox(height: 12),

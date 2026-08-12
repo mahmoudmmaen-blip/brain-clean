@@ -1,8 +1,10 @@
+import 'package:brain_clean_mobile/core/constants/app_routes.dart';
 import 'package:brain_clean_mobile/core/l10n/app_localizations.dart';
 import 'package:brain_clean_mobile/core/l10n/app_localizations_ar.dart';
 import 'package:brain_clean_mobile/core/l10n/app_localizations_en.dart';
 import 'package:brain_clean_mobile/core/services/external_link_service.dart';
 import 'package:brain_clean_mobile/features/profile/ui/v2_profile_home_screen.dart';
+import 'package:brain_clean_mobile/features/v2_onboarding/domain/v2_setup_recovery.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -18,6 +20,8 @@ void main() {
       VoidCallback? onEdit,
       VoidCallback? onPrivacyPolicy,
       VoidCallback? onContact,
+      VoidCallback? onOpenBrainProfile,
+      bool hasBrainProfile = true,
       String? subscription,
     }) {
       return Scaffold(
@@ -25,11 +29,11 @@ void main() {
           loc: loc,
           displayName: 'Alex',
           loadingSetup: false,
-          hasBrainProfile: true,
+          hasBrainProfile: hasBrainProfile,
           subscriptionSubtitle: subscription ?? 'You are on the Free core',
           appVersion: '2.0.0-test',
           onEditDisplayName: onEdit ?? () {},
-          onOpenBrainProfile: () {},
+          onOpenBrainProfile: onOpenBrainProfile ?? () {},
           onOpenSettings: () {},
           onOpenPremium: () {},
           onOpenSafa: () {},
@@ -92,6 +96,55 @@ void main() {
       await tester.tap(find.byKey(const Key('v2_profile_contact_row')));
       await tester.pump();
       expect(contact, isTrue);
+    });
+
+    testWidgets('missing ProfilePack row starts Brain Check, not reveal',
+        (tester) async {
+      final loc = AppLocalizationsEn();
+      var opened = '';
+      await tester.pumpWidget(
+        createLocalizedTestWidget(
+          profileBody(
+            loc: loc,
+            hasBrainProfile: false,
+            onOpenBrainProfile: () {
+              opened = V2SetupRecovery.profileBrainActionLocation(
+                hasProfilePack: false,
+              );
+            },
+          ),
+        ),
+      );
+      await tester.pump();
+      expect(find.text(loc.v2ProfileBrainProfileMissing), findsOneWidget);
+      await tester.tap(find.byKey(const Key('v2_profile_brain_profile_row')));
+      await tester.pump();
+      expect(opened, '/v2/check?mode=lite&source=profile');
+      expect(opened, isNot(AppRoutes.v2BrainProfile));
+    });
+
+    testWidgets('existing ProfilePack row keeps Brain Profile reveal',
+        (tester) async {
+      final loc = AppLocalizationsEn();
+      var opened = '';
+      await tester.pumpWidget(
+        createLocalizedTestWidget(
+          profileBody(
+            loc: loc,
+            hasBrainProfile: true,
+            onOpenBrainProfile: () {
+              opened = V2SetupRecovery.profileBrainActionLocation(
+                hasProfilePack: true,
+              );
+            },
+          ),
+        ),
+      );
+      await tester.pump();
+      expect(find.text(loc.v2ProfileBrainProfileReady), findsOneWidget);
+      await tester.tap(find.byKey(const Key('v2_profile_brain_profile_row')));
+      await tester.pump();
+      expect(opened, AppRoutes.v2BrainProfile);
     });
 
     testWidgets('Arabic RTL trust labels', (tester) async {

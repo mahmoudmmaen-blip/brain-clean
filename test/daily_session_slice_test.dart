@@ -34,6 +34,7 @@ import 'package:brain_clean_mobile/features/v2_onboarding/domain/v2_first_time_j
 import 'package:brain_clean_mobile/features/v2_onboarding/domain/v2_onboarding_state.dart';
 import 'package:brain_clean_mobile/features/v2_onboarding/domain/v2_onboarding_status.dart';
 import 'package:brain_clean_mobile/features/v2_onboarding/domain/v2_onboarding_step.dart';
+import 'package:brain_clean_mobile/features/v2_onboarding/domain/v2_setup_recovery.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -150,6 +151,41 @@ void main() {
       expect(k2, '2026-08-03');
     });
 
+    test('missing plan without ProfilePack reports hasProfilePack false',
+        () async {
+      final planBox = await Hive.openBox<dynamic>('plans_np');
+      final sessBox = await Hive.openBox<dynamic>('sessions_np');
+      final c = DailySessionController(
+        sessions: DailySessionLocalRepository(box: sessBox),
+        plans: RecoveryPlanLocalRepository(box: planBox),
+        clock: () => DateTime.utc(2026, 8, 3, 10),
+        timeZoneOffset: Duration.zero,
+        profilePackExists: () async => false,
+      );
+      await c.loadToday();
+      expect(c.errorKey, 'missing_plan');
+      expect(c.hasProfilePack, isFalse);
+      await planBox.close();
+      await sessBox.close();
+    });
+
+    test('missing plan with ProfilePack reports hasProfilePack true', () async {
+      final planBox = await Hive.openBox<dynamic>('plans_wp');
+      final sessBox = await Hive.openBox<dynamic>('sessions_wp');
+      final c = DailySessionController(
+        sessions: DailySessionLocalRepository(box: sessBox),
+        plans: RecoveryPlanLocalRepository(box: planBox),
+        clock: () => DateTime.utc(2026, 8, 3, 10),
+        timeZoneOffset: Duration.zero,
+        profilePackExists: () async => true,
+      );
+      await c.loadToday();
+      expect(c.errorKey, 'missing_plan');
+      expect(c.hasProfilePack, isTrue);
+      await planBox.close();
+      await sessBox.close();
+    });
+
     test('one canonical session; repeated ensure is idempotent', () async {
       final planBox = await Hive.openBox<dynamic>('plans');
       final sessBox = await Hive.openBox<dynamic>('sessions');
@@ -257,6 +293,7 @@ void main() {
               session: null,
               onRetry: () {},
               onBuildPlan: () {},
+              onStartBrainCheck: () {},
               onPrimary: () {},
               onViewPlan: () {},
               onOpenSafa: () {},
@@ -322,6 +359,7 @@ void main() {
             session: session,
             onRetry: () {},
             onBuildPlan: () {},
+            onStartBrainCheck: () {},
             onPrimary: () {},
             onViewPlan: () {},
             onOpenSafa: () {},
@@ -359,6 +397,7 @@ void main() {
             session: session,
             onRetry: () {},
             onBuildPlan: () {},
+            onStartBrainCheck: () {},
             onPrimary: () {},
             onViewPlan: () {},
             onOpenSafa: () {},
@@ -392,6 +431,7 @@ void main() {
             session: null,
             onRetry: () {},
             onBuildPlan: () {},
+            onStartBrainCheck: () {},
             onPrimary: () {},
             onViewPlan: () {},
             onOpenSafa: () {},
@@ -418,6 +458,7 @@ void main() {
             session: null,
             onRetry: () {},
             onBuildPlan: () {},
+            onStartBrainCheck: () {},
             onPrimary: () {},
             onViewPlan: () {},
             onOpenSafa: () {},
@@ -428,9 +469,83 @@ void main() {
       expect(find.text(loc.recoveryPlanMissing), findsOneWidget);
       expect(find.text(loc.recoveryPlanMissingProfile), findsOneWidget);
       expect(
+        find.widgetWithText(FilledButton, loc.v2BrainCheckEntryStart),
+        findsOneWidget,
+      );
+      expect(
+        find.widgetWithText(FilledButton, loc.recoveryPlanBuildCta),
+        findsNothing,
+      );
+    });
+
+    testWidgets('no ProfilePack Start Brain Check CTA routes to V2 Check',
+        (tester) async {
+      final loc = await AppLocalizations.delegate.load(const Locale('en'));
+      var destination = '';
+      await tester.pumpWidget(
+        wrap(
+          TodayHomeBody(
+            loc: loc,
+            languageCode: 'en',
+            loading: false,
+            errorKey: 'missing_plan',
+            plan: null,
+            session: null,
+            hasProfilePack: false,
+            onRetry: () {},
+            onBuildPlan: () {},
+            onStartBrainCheck: () {
+              destination = V2SetupRecovery.brainCheckLocation(source: 'today');
+            },
+            onPrimary: () {},
+            onViewPlan: () {},
+            onOpenSafa: () {},
+          ),
+        ),
+      );
+      await tester.pump();
+      await tester.tap(find.byKey(const Key('v2_today_setup_cta')));
+      await tester.pump();
+      expect(destination, '/v2/check?mode=lite&source=today');
+      expect(destination, startsWith(AppRoutes.v2Check));
+    });
+
+    testWidgets('ProfilePack without plan offers Build Recovery Plan',
+        (tester) async {
+      final loc = await AppLocalizations.delegate.load(const Locale('en'));
+      var built = false;
+      await tester.pumpWidget(
+        wrap(
+          TodayHomeBody(
+            loc: loc,
+            languageCode: 'en',
+            loading: false,
+            errorKey: 'missing_plan',
+            plan: null,
+            session: null,
+            hasProfilePack: true,
+            onRetry: () {},
+            onBuildPlan: () => built = true,
+            onStartBrainCheck: () {},
+            onPrimary: () {},
+            onViewPlan: () {},
+            onOpenSafa: () {},
+          ),
+        ),
+      );
+      await tester.pump();
+      expect(
         find.widgetWithText(FilledButton, loc.recoveryPlanBuildCta),
         findsOneWidget,
       );
+      expect(
+        find.widgetWithText(FilledButton, loc.v2BrainCheckEntryStart),
+        findsNothing,
+      );
+      expect(find.text(loc.recoveryPlanMissingProfile), findsNothing);
+      await tester.tap(find.byKey(const Key('v2_today_setup_cta')));
+      await tester.pump();
+      expect(built, isTrue);
     });
 
     testWidgets('empty state scrolls without overflow on short height',
@@ -454,6 +569,7 @@ void main() {
                 session: null,
                 onRetry: () {},
                 onBuildPlan: () {},
+                onStartBrainCheck: () {},
                 onPrimary: () {},
                 onViewPlan: () {},
                 onOpenSafa: () {},
@@ -466,7 +582,7 @@ void main() {
       expect(find.byType(SingleChildScrollView), findsOneWidget);
       expect(tester.takeException(), isNull);
       expect(
-        find.widgetWithText(FilledButton, loc.recoveryPlanBuildCta),
+        find.widgetWithText(FilledButton, loc.v2BrainCheckEntryStart),
         findsOneWidget,
       );
     });
@@ -497,6 +613,7 @@ void main() {
                   session: null,
                   onRetry: () {},
                   onBuildPlan: () {},
+                  onStartBrainCheck: () {},
                   onPrimary: () {},
                   onViewPlan: () {},
                   onOpenSafa: () {},

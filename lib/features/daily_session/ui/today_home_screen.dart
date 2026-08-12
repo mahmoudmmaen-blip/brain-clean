@@ -8,6 +8,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_design_constants.dart';
 import '../../recovery_plan/domain/recovery_plan.dart';
 import '../../recovery_plan/domain/today_act_presentation.dart';
+import '../../v2_onboarding/domain/v2_setup_recovery.dart';
 import '../application/daily_session_controller.dart';
 import '../data/daily_session_controller_provider.dart';
 import '../domain/daily_session.dart';
@@ -66,8 +67,12 @@ class _TodayHomeScreenState extends ConsumerState<TodayHomeScreen> {
         errorKey: controller.errorKey,
         plan: controller.plan,
         session: controller.session,
+        hasProfilePack: controller.hasProfilePack,
         onRetry: controller.loadToday,
         onBuildPlan: () => context.go(AppRoutes.v2PlanBuilding),
+        onStartBrainCheck: () => context.go(
+          V2SetupRecovery.brainCheckLocation(source: 'today'),
+        ),
         onPrimary: () => _onPrimary(context, controller),
         onViewPlan: () {
           final id = controller.plan?.id;
@@ -117,6 +122,8 @@ class TodayHomeBody extends StatelessWidget {
     required this.session,
     required this.onRetry,
     required this.onBuildPlan,
+    required this.onStartBrainCheck,
+    this.hasProfilePack = false,
     required this.onPrimary,
     required this.onViewPlan,
     required this.onOpenSafa,
@@ -130,6 +137,8 @@ class TodayHomeBody extends StatelessWidget {
   final DailySession? session;
   final VoidCallback onRetry;
   final VoidCallback onBuildPlan;
+  final VoidCallback onStartBrainCheck;
+  final bool hasProfilePack;
   final VoidCallback onPrimary;
   final VoidCallback onViewPlan;
   final VoidCallback onOpenSafa;
@@ -200,7 +209,14 @@ class TodayHomeBody extends StatelessWidget {
       final rebuild = errorKey == 'missing_plan' ||
           errorKey == 'unsupported_plan_version' ||
           errorKey == 'missing_today_act';
-      final support = isEmptyPlan ? loc.recoveryPlanMissingProfile : null;
+      final startCheck = isEmptyPlan &&
+          V2SetupRecovery.resolve(
+                hasProfilePack: hasProfilePack,
+                hasValidPlan: false,
+              ) ==
+              V2SetupRecoveryAction.startBrainCheck;
+      final support =
+          isEmptyPlan && startCheck ? loc.recoveryPlanMissingProfile : null;
 
       return KeyedSubtree(
         key: const Key('v2_today_empty_state'),
@@ -251,7 +267,12 @@ class TodayHomeBody extends StatelessWidget {
                       width: double.infinity,
                       height: AppDesignConstants.minTouchTarget,
                       child: FilledButton(
-                        onPressed: rebuild ? onBuildPlan : onRetry,
+                        key: const Key('v2_today_setup_cta'),
+                        onPressed: startCheck
+                            ? onStartBrainCheck
+                            : rebuild
+                                ? onBuildPlan
+                                : onRetry,
                         style: FilledButton.styleFrom(
                           backgroundColor: AppColors.primary,
                           foregroundColor: AppColors.textPrimary,
@@ -261,9 +282,11 @@ class TodayHomeBody extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          rebuild
-                              ? loc.recoveryPlanBuildCta
-                              : loc.recoveryPlanRetry,
+                          startCheck
+                              ? loc.v2BrainCheckEntryStart
+                              : rebuild
+                                  ? loc.recoveryPlanBuildCta
+                                  : loc.recoveryPlanRetry,
                         ),
                       ),
                     ),

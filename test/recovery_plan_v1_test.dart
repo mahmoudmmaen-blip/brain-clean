@@ -699,11 +699,57 @@ void main() {
             errorKey: 'missing_profile',
             plan: null,
             onRetry: () {},
+            onStartBrainCheck: () {},
             onGoHome: () {},
           ),
         ),
       );
-      expect(find.textContaining('Brain Check'), findsOneWidget);
+      final loc = await AppLocalizations.delegate.load(const Locale('en'));
+      expect(find.text(loc.recoveryPlanMissingProfile), findsOneWidget);
+      expect(
+        find.widgetWithText(FilledButton, loc.v2BrainCheckEntryStart),
+        findsOneWidget,
+      );
+      expect(
+        find.widgetWithText(FilledButton, loc.recoveryPlanRetry),
+        findsNothing,
+      );
+      expect(find.text(loc.recoveryPlanGoHome), findsOneWidget);
+    });
+
+    testWidgets('PLN-00 missing_profile Start Brain Check does not Retry-loop',
+        (tester) async {
+      final loc = await AppLocalizations.delegate.load(const Locale('en'));
+      var retries = 0;
+      var checks = 0;
+      await tester.pumpWidget(
+        MaterialApp(
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: PlanBuildingBody(
+            loc: loc,
+            loading: false,
+            errorKey: 'missing_profile',
+            plan: null,
+            onRetry: () => retries++,
+            onStartBrainCheck: () => checks++,
+            onGoHome: () {},
+          ),
+        ),
+      );
+      await tester.pump();
+      await tester.tap(find.byKey(const Key('v2_plan_building_primary_cta')));
+      await tester.pump();
+      await tester.tap(find.byKey(const Key('v2_plan_building_primary_cta')));
+      await tester.pump();
+      expect(checks, 2);
+      expect(retries, 0);
+      expect(find.text(loc.recoveryPlanRetry), findsNothing);
     });
 
     testWidgets('PLN-01 ready shows because without internal ids',
@@ -816,6 +862,7 @@ void main() {
             errorKey: null,
             plan: null,
             onRetry: () {},
+            onStartBrainCheck: () {},
             onGoHome: () {},
           ),
         ),

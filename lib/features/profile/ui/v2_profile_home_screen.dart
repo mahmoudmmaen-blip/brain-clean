@@ -11,6 +11,7 @@ import '../../../core/services/external_link_service.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../brain_profile/data/brain_profile_repository_provider.dart';
 import '../../pro/application/subscription_service_provider.dart';
+import '../../v2_onboarding/domain/v2_setup_recovery.dart';
 
 /// Quiet vertical rhythm — Phase A hierarchy unchanged.
 const double _kGapAfterIdentity = 6;
@@ -154,7 +155,16 @@ class _V2ProfileHomeScreenState extends ConsumerState<V2ProfileHomeScreen> {
               isPro ? loc.v2PremiumAlreadyActive : loc.v2PremiumFreeStatus,
           appVersion: AppConfig.appVersion,
           onEditDisplayName: _editDisplayName,
-          onOpenBrainProfile: () => context.push(AppRoutes.v2BrainProfile),
+          onOpenBrainProfile: () {
+            final location = V2SetupRecovery.profileBrainActionLocation(
+              hasProfilePack: _hasBrainProfile,
+            );
+            if (!_hasBrainProfile) {
+              context.go(location);
+            } else {
+              context.push(location);
+            }
+          },
           onOpenSettings: () => context.push(AppRoutes.settings),
           onOpenPremium: () => context.go(
             '${AppRoutes.v2Premium}?source=profile',

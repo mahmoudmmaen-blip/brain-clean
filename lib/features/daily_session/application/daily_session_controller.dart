@@ -19,25 +19,30 @@ class DailySessionController extends ChangeNotifier {
     required RecoveryPlanRepository plans,
     SessionClock clock = systemSessionClock,
     Duration? timeZoneOffset,
+    Future<bool> Function()? profilePackExists,
   })  : _sessions = sessions,
         _plans = plans,
         _clock = clock,
-        _timeZoneOffset = timeZoneOffset;
+        _timeZoneOffset = timeZoneOffset,
+        _profilePackExists = profilePackExists;
 
   final DailySessionRepository _sessions;
   final RecoveryPlanRepository _plans;
   final SessionClock _clock;
   final Duration? _timeZoneOffset;
+  final Future<bool> Function()? _profilePackExists;
 
   RecoveryPlan? _plan;
   DailySession? _session;
   String? _errorKey;
   var _loading = false;
+  var _hasProfilePack = false;
 
   RecoveryPlan? get plan => _plan;
   DailySession? get session => _session;
   String? get errorKey => _errorKey;
   bool get loading => _loading;
+  bool get hasProfilePack => _hasProfilePack;
 
   DateTime get _nowLocal {
     final now = _clock();
@@ -61,6 +66,7 @@ class DailySessionController extends ChangeNotifier {
         _plan = null;
         _session = null;
         _errorKey = 'missing_plan';
+        _hasProfilePack = await _lookupProfilePack();
         _loading = false;
         notifyListeners();
         return;
@@ -98,6 +104,7 @@ class DailySessionController extends ChangeNotifier {
       _plan = plan;
       _session = session;
       _errorKey = null;
+      _hasProfilePack = true;
       _loading = false;
       notifyListeners();
     } catch (e) {
@@ -105,6 +112,17 @@ class DailySessionController extends ChangeNotifier {
       _errorKey = 'persistence_failed';
       _loading = false;
       notifyListeners();
+    }
+  }
+
+  Future<bool> _lookupProfilePack() async {
+    final lookup = _profilePackExists;
+    if (lookup == null) return false;
+    try {
+      return await lookup();
+    } catch (e) {
+      debugPrint('DailySessionController.profilePackExists failed: $e');
+      return false;
     }
   }
 
