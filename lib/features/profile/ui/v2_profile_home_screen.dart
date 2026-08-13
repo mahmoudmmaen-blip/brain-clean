@@ -9,16 +9,17 @@ import '../../../core/l10n/app_localizations.dart';
 import '../../../core/presentation/language_toggle_button.dart';
 import '../../../core/services/external_link_service.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_design_constants.dart';
+import '../../../core/theme/v2_shell_visual.dart';
 import '../../brain_profile/data/brain_profile_repository_provider.dart';
 import '../../pro/application/subscription_service_provider.dart';
 import '../../v2_onboarding/domain/v2_setup_recovery.dart';
 
 /// Quiet vertical rhythm — Phase A hierarchy unchanged.
-const double _kGapAfterIdentity = 6;
-const double _kGapBeforeFirstSection = 24;
-const double _kGapBetweenSections = 18;
-const double _kGapSectionToRow = 2;
-const double _kBottomScrollPadding = 40;
+const double _kGapAfterIdentity = AppDesignConstants.v2GapInline;
+const double _kGapBeforeFirstSection = AppDesignConstants.v2GapMajor;
+const double _kGapBetweenSections = AppDesignConstants.v2GapSection;
+const double _kGapSectionToRow = AppDesignConstants.v2GapSectionLabel;
 const int _kDisplayNameMaxLength = 40;
 
 /// V2 Profile tab — calm personal control center (not Brain Profile analytics).
@@ -95,9 +96,10 @@ class _V2ProfileHomeScreenState extends ConsumerState<V2ProfileHomeScreen> {
               onPressed: () => Navigator.of(ctx).pop(),
               child: Text(loc.commonCancel),
             ),
-            TextButton(
+            FilledButton(
               key: const Key('v2_profile_name_save'),
               onPressed: () => Navigator.of(ctx).pop(controller.text),
+              style: V2ShellVisual.primaryFilled(),
               child: Text(loc.commonConfirm),
             ),
           ],
@@ -139,6 +141,10 @@ class _V2ProfileHomeScreenState extends ConsumerState<V2ProfileHomeScreen> {
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: AppColors.background,
+        foregroundColor: AppColors.textPrimary,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
         title: Semantics(
           header: true,
           child: Text(loc.v2ProfileTitle),
@@ -219,7 +225,7 @@ class V2ProfileHomeBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(20, 4, 20, _kBottomScrollPadding),
+      padding: V2ShellVisual.pagePadding(top: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -229,7 +235,8 @@ class V2ProfileHomeBody extends StatelessWidget {
             child: InkWell(
               key: const Key('v2_profile_identity'),
               onTap: onEditDisplayName,
-              borderRadius: BorderRadius.circular(8),
+              borderRadius:
+                  BorderRadius.circular(AppDesignConstants.radiusChip),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4),
                 child: Row(
@@ -237,10 +244,7 @@ class V2ProfileHomeBody extends StatelessWidget {
                     Expanded(
                       child: Text(
                         displayName,
-                        style: theme.textTheme.titleLarge?.copyWith(
-                          color: AppColors.textPrimary,
-                          fontWeight: FontWeight.w600,
-                        ),
+                        style: V2ShellVisual.heroTitle(theme),
                       ),
                     ),
                     Icon(
@@ -256,13 +260,10 @@ class V2ProfileHomeBody extends StatelessWidget {
           const SizedBox(height: _kGapAfterIdentity),
           Text(
             loc.v2ProfileOrientation,
-            style: theme.textTheme.bodyMedium?.copyWith(
-              color: AppColors.textSecondary,
-              height: 1.35,
-            ),
+            style: V2ShellVisual.bodyMuted(theme),
           ),
           const SizedBox(height: _kGapBeforeFirstSection),
-          _SectionLabel(loc.v2ProfileSectionRecovery),
+          V2SectionLabel(loc.v2ProfileSectionRecovery),
           const SizedBox(height: _kGapSectionToRow),
           _ProfileRow(
             key: const Key('v2_profile_brain_profile_row'),
@@ -275,7 +276,7 @@ class V2ProfileHomeBody extends StatelessWidget {
             onTap: onOpenBrainProfile,
           ),
           const SizedBox(height: _kGapBetweenSections),
-          _SectionLabel(loc.v2ProfileSectionPreferences),
+          V2SectionLabel(loc.v2ProfileSectionPreferences),
           const SizedBox(height: _kGapSectionToRow),
           _ProfileRow(
             key: const Key('v2_profile_settings_row'),
@@ -284,7 +285,7 @@ class V2ProfileHomeBody extends StatelessWidget {
             onTap: onOpenSettings,
           ),
           const SizedBox(height: _kGapBetweenSections),
-          _SectionLabel(loc.v2ProfileSectionSubscription),
+          V2SectionLabel(loc.v2ProfileSectionSubscription),
           const SizedBox(height: _kGapSectionToRow),
           _ProfileRow(
             key: const Key('v2_profile_premium_row'),
@@ -293,7 +294,7 @@ class V2ProfileHomeBody extends StatelessWidget {
             onTap: onOpenPremium,
           ),
           const SizedBox(height: _kGapBetweenSections),
-          _SectionLabel(loc.v2ProfileSectionHelp),
+          V2SectionLabel(loc.v2ProfileSectionHelp),
           const SizedBox(height: _kGapSectionToRow),
           _ProfileRow(
             key: const Key('v2_profile_safa_row'),
@@ -302,7 +303,7 @@ class V2ProfileHomeBody extends StatelessWidget {
             onTap: onOpenSafa,
           ),
           const SizedBox(height: _kGapBetweenSections),
-          _SectionLabel(loc.v2ProfileSectionAbout),
+          V2SectionLabel(loc.v2ProfileSectionAbout),
           const SizedBox(height: _kGapSectionToRow),
           Padding(
             key: const Key('v2_profile_version_row'),
@@ -346,27 +347,6 @@ class V2ProfileHomeBody extends StatelessWidget {
   }
 }
 
-class _SectionLabel extends StatelessWidget {
-  const _SectionLabel(this.label);
-
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Semantics(
-      header: true,
-      child: Text(
-        label,
-        style: Theme.of(context).textTheme.labelLarge?.copyWith(
-              color: AppColors.textSecondary,
-              fontWeight: FontWeight.w600,
-              letterSpacing: 0.2,
-            ),
-      ),
-    );
-  }
-}
-
 class _ProfileRow extends StatelessWidget {
   const _ProfileRow({
     super.key,
@@ -386,9 +366,11 @@ class _ProfileRow extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(AppDesignConstants.radiusChip),
         child: ConstrainedBox(
-          constraints: const BoxConstraints(minHeight: 48),
+          constraints: const BoxConstraints(
+            minHeight: AppDesignConstants.minTouchTarget,
+          ),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Row(
@@ -418,7 +400,7 @@ class _ProfileRow extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(width: 8),
+                const SizedBox(width: AppDesignConstants.v2GapTight),
                 Padding(
                   padding: const EdgeInsets.only(top: 2),
                   child: Icon(

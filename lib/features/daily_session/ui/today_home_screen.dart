@@ -6,6 +6,7 @@ import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_design_constants.dart';
+import '../../../core/theme/v2_shell_visual.dart';
 import '../../recovery_plan/domain/recovery_plan.dart';
 import '../../recovery_plan/domain/today_act_presentation.dart';
 import '../../v2_onboarding/domain/v2_setup_recovery.dart';
@@ -15,21 +16,20 @@ import '../domain/daily_session.dart';
 import '../domain/daily_session_status.dart';
 
 /// Clearance below last CTA so Safa cannot sit against the shell [NavigationBar].
-/// Body is already laid above the bar; this is visual breathing room only.
-const double _kTodayContentBottomClearance = 40;
+const double _kTodayContentBottomClearance = AppDesignConstants.v2PadBottom;
 
-/// Today loaded density rhythm (Phase B) — keep hierarchy; tune only spacing.
-const double _kTodayPadH = 24;
-const double _kTodayPadTop = 20;
-const double _kTodayGapActTime = 8;
-const double _kTodayGapTimeStatus = 12;
-const double _kTodayGapStatusCta = 22;
-const double _kTodayGapCtaSupport = 28;
-const double _kTodayGapSupportTitleBody = 6;
-const double _kTodayGapSupportSections = 16;
-const double _kTodayGapAfterSupport = 20;
-const double _kTodayGapCtaToSecondary = 28;
-const double _kTodayGapSecondaryCluster = 4;
+/// Today loaded density — hierarchy locked; spacing aligned to V2 rhythm.
+const double _kTodayPadH = AppDesignConstants.v2PadH;
+const double _kTodayPadTop = AppDesignConstants.v2PadTop;
+const double _kTodayGapActTime = AppDesignConstants.v2GapTight;
+const double _kTodayGapTimeStatus = AppDesignConstants.v2GapControl;
+const double _kTodayGapStatusCta = AppDesignConstants.v2GapSection;
+const double _kTodayGapCtaSupport = AppDesignConstants.v2GapMajor;
+const double _kTodayGapSupportTitleBody = AppDesignConstants.v2GapInline;
+const double _kTodayGapSupportSections = AppDesignConstants.v2GapControl + 4;
+const double _kTodayGapAfterSupport = AppDesignConstants.v2GapSection;
+const double _kTodayGapCtaToSecondary = AppDesignConstants.v2GapMajor;
+const double _kTodayGapSecondaryCluster = AppDesignConstants.v2GapInline;
 
 /// HOM-01 — calm Today home (one action, not a warehouse).
 class TodayHomeScreen extends ConsumerStatefulWidget {
@@ -57,6 +57,10 @@ class _TodayHomeScreenState extends ConsumerState<TodayHomeScreen> {
       appBar: AppBar(
         title: Text(loc.v2TodayHomeTitle),
         backgroundColor: AppColors.background,
+        foregroundColor: AppColors.textPrimary,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
       ),
       // AppBar owns top inset; shell NavigationBar owns bottom. Extra SafeArea
       // here shrank the body (~20px) and caused BOTTOM OVERFLOWED on short heights.
@@ -146,38 +150,19 @@ class TodayHomeBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final actStyle = theme.textTheme.headlineSmall?.copyWith(
-      color: AppColors.textPrimary,
-      fontWeight: FontWeight.w700,
-      height: 1.25,
-    );
+    final actStyle = V2ShellVisual.heroTitle(theme);
     final emptyTitleStyle = actStyle;
-    final supportHeadingStyle = theme.textTheme.titleSmall?.copyWith(
-      color: AppColors.textSecondary,
-      fontWeight: FontWeight.w600,
-      height: 1.3,
-    );
-    final bodyStyle = theme.textTheme.bodyMedium?.copyWith(
-      color: AppColors.textSecondary,
-      height: 1.5,
-    );
-    final supportBodyStyle = theme.textTheme.bodyMedium?.copyWith(
-      color: AppColors.textSecondary,
-      height: 1.5,
-    );
+    final supportHeadingStyle = V2ShellVisual.sectionLabel(theme);
+    final bodyStyle = V2ShellVisual.bodyMuted(theme);
+    final supportBodyStyle = bodyStyle;
     final pathStyle = theme.textTheme.bodyMedium?.copyWith(
       color: AppColors.textSecondary,
       height: 1.45,
     );
     final timeStyle = theme.textTheme.bodyMedium?.copyWith(
       color: AppColors.textSecondary,
-      height: 1.35,
-      fontWeight: FontWeight.w400,
-    );
-    final statusStyle = theme.textTheme.labelLarge?.copyWith(
-      color: AppColors.textPrimary,
+      height: 1.4,
       fontWeight: FontWeight.w500,
-      height: 1.2,
     );
     final secondaryActionStyle = theme.textTheme.labelLarge?.copyWith(
       color: AppColors.textSecondary,
@@ -354,26 +339,13 @@ class TodayHomeBody extends StatelessWidget {
           ),
           const SizedBox(height: _kTodayGapTimeStatus),
           // Zone C — Compact status chip (subtle surface, not a peer card).
-          Semantics(
-            liveRegion: true,
-            label: '${loc.v2TodayHomeStatusHeading}: $statusLabel',
-            child: Align(
-              alignment: AlignmentDirectional.centerStart,
-              child: DecoratedBox(
-                key: const Key('v2_today_status_chip'),
-                decoration: BoxDecoration(
-                  color: AppColors.card.withValues(alpha: 0.65),
-                  borderRadius: BorderRadius.circular(
-                    AppDesignConstants.radiusButton,
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 8,
-                  ),
-                  child: Text(statusLabel, style: statusStyle),
-                ),
+          Align(
+            alignment: AlignmentDirectional.centerStart,
+            child: KeyedSubtree(
+              key: const Key('v2_today_status_chip'),
+              child: V2QuietChip(
+                label: statusLabel,
+                semanticLabel: '${loc.v2TodayHomeStatusHeading}: $statusLabel',
               ),
             ),
           ),
@@ -385,29 +357,16 @@ class TodayHomeBody extends StatelessWidget {
                 ? OutlinedButton(
                     key: const Key('v2_today_primary_cta'),
                     onPressed: onPrimary,
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: AppColors.textPrimary,
-                      side: BorderSide(
-                        color: AppColors.border.withValues(alpha: 0.9),
-                      ),
-                      minimumSize: const Size(
-                        AppDesignConstants.minTouchTarget,
-                        AppDesignConstants.minTouchTarget,
-                      ),
+                    style: V2ShellVisual.secondaryOutlined().copyWith(
+                      foregroundColor:
+                          WidgetStateProperty.all(AppColors.textPrimary),
                     ),
                     child: Text(ctaLabel),
                   )
                 : FilledButton(
                     key: const Key('v2_today_primary_cta'),
                     onPressed: onPrimary,
-                    style: FilledButton.styleFrom(
-                      backgroundColor: AppColors.primary,
-                      foregroundColor: AppColors.textPrimary,
-                      minimumSize: const Size(
-                        AppDesignConstants.minTouchTarget,
-                        AppDesignConstants.minTouchTarget,
-                      ),
-                    ),
+                    style: V2ShellVisual.primaryFilled(),
                     child: Text(ctaLabel),
                   ),
           ),
@@ -461,16 +420,8 @@ class TodayHomeBody extends StatelessWidget {
             height: AppDesignConstants.minTouchTarget,
             child: OutlinedButton(
               onPressed: onViewPlan,
-              style: OutlinedButton.styleFrom(
-                foregroundColor: AppColors.textSecondary,
-                side: BorderSide(
-                  color: AppColors.border.withValues(alpha: 0.75),
-                ),
-                minimumSize: const Size(
-                  AppDesignConstants.minTouchTarget,
-                  AppDesignConstants.minTouchTarget,
-                ),
-                textStyle: secondaryActionStyle,
+              style: V2ShellVisual.secondaryOutlined().copyWith(
+                textStyle: WidgetStateProperty.all(secondaryActionStyle),
               ),
               child: Text(loc.v2TodayHomeViewPlan),
             ),
@@ -481,13 +432,8 @@ class TodayHomeBody extends StatelessWidget {
             child: TextButton(
               key: const Key('v2_today_safa_entry'),
               onPressed: onOpenSafa,
-              style: TextButton.styleFrom(
-                foregroundColor: AppColors.textSecondary,
-                minimumSize: const Size(
-                  AppDesignConstants.minTouchTarget,
-                  AppDesignConstants.minTouchTarget,
-                ),
-                textStyle: secondaryActionStyle,
+              style: V2ShellVisual.tertiaryText().copyWith(
+                textStyle: WidgetStateProperty.all(secondaryActionStyle),
               ),
               child: Text(loc.v2SafaEntryToday),
             ),

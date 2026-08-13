@@ -6,6 +6,7 @@ import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_design_constants.dart';
+import '../../../core/theme/v2_shell_visual.dart';
 import '../../brain_profile/data/brain_profile_repository_provider.dart';
 import '../../brain_profile/domain/measurement_confidence.dart';
 import '../../v2_onboarding/data/v2_onboarding_repository_provider.dart';
@@ -129,6 +130,10 @@ class _PlanRevealScreenState extends ConsumerState<PlanRevealScreen> {
       appBar: AppBar(
         title: Text(loc.recoveryPlanTitle),
         backgroundColor: AppColors.background,
+        foregroundColor: AppColors.textPrimary,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
       ),
       body: SafeArea(
         child: PlanRevealBody(
@@ -211,11 +216,13 @@ class PlanRevealBody extends StatelessWidget {
       return LayoutBuilder(
         builder: (context, constraints) {
           return SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(24, 20, 24, 24),
+            padding: V2ShellVisual.pagePadding(),
             child: ConstrainedBox(
               constraints: BoxConstraints(
-                minHeight:
-                    constraints.maxHeight > 48 ? constraints.maxHeight - 48 : 0,
+                minHeight: constraints.maxHeight >
+                        AppDesignConstants.minTouchTarget
+                    ? constraints.maxHeight - AppDesignConstants.minTouchTarget
+                    : 0,
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -225,30 +232,25 @@ class PlanRevealBody extends StatelessWidget {
                     child: Text(
                       loc.recoveryPlanMissing,
                       textAlign: TextAlign.center,
-                      style: theme.textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.w600,
-                        height: 1.3,
-                      ),
+                      style: V2ShellVisual.heroTitle(theme),
                     ),
                   ),
                   if (startCheck) ...[
-                    const SizedBox(height: 12),
+                    const SizedBox(height: AppDesignConstants.v2GapControl),
                     Text(
                       loc.recoveryPlanMissingProfile,
                       textAlign: TextAlign.center,
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: theme.colorScheme.onSurfaceVariant,
-                        height: 1.4,
-                      ),
+                      style: V2ShellVisual.bodyMuted(theme),
                     ),
                   ],
-                  const SizedBox(height: 20),
+                  const SizedBox(height: AppDesignConstants.v2GapSection),
                   SizedBox(
                     width: double.infinity,
                     height: AppDesignConstants.minTouchTarget,
                     child: FilledButton(
                       key: const Key('v2_program_setup_cta'),
                       onPressed: startCheck ? onStartBrainCheck : onRebuild,
+                      style: V2ShellVisual.primaryFilled(),
                       child: Text(
                         startCheck
                             ? loc.v2BrainCheckEntryStart
@@ -256,14 +258,12 @@ class PlanRevealBody extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: AppDesignConstants.v2GapTight),
                   SizedBox(
                     width: double.infinity,
                     height: AppDesignConstants.minTouchTarget,
                     child: OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor: theme.colorScheme.onSurfaceVariant,
-                      ),
+                      style: V2ShellVisual.secondaryOutlined(),
                       onPressed: onGoHome,
                       child: Text(loc.recoveryPlanGoHome),
                     ),
@@ -294,17 +294,14 @@ class PlanRevealBody extends StatelessWidget {
   }
 }
 
-// Shell Plan rhythm — tighter than Phase A document stack.
-const double _kShellPadTop = 12;
-const double _kShellPadH = 24;
-const double _kShellPadBottom = 24;
-const double _kShellGapThesisBody = 6;
-const double _kShellGapAfterThesis = 18;
-const double _kShellGapSupportBlocks = 10;
-const double _kShellGapSection = 16;
-const double _kShellGapLabelBody = 6;
-const double _kShellGapBeforeDetails = 14;
-const double _kShellGapDetailsCta = 20;
+// Shell Program rhythm — shared V2 tokens.
+const double _kShellGapThesisBody = AppDesignConstants.v2GapInline;
+const double _kShellGapAfterThesis = AppDesignConstants.v2GapSection;
+const double _kShellGapSupportBlocks = AppDesignConstants.v2GapControl;
+const double _kShellGapSection = AppDesignConstants.v2GapSection;
+const double _kShellGapLabelBody = AppDesignConstants.v2GapSectionLabel;
+const double _kShellGapBeforeDetails = AppDesignConstants.v2GapControl;
+const double _kShellGapDetailsCta = AppDesignConstants.v2GapSection;
 
 /// Established shell Plan — orientation-first, not another Today.
 class _ShellPlanOrientation extends StatelessWidget {
@@ -343,15 +340,9 @@ class _ShellPlanOrientation extends StatelessWidget {
         loc.v2TodayPreviewFallbackTitle;
     final minSteps = _resolvedSteps(plan, today.minimumPathStepIds);
     final stdSteps = _resolvedSteps(plan, today.standardPathStepIds);
-    final sectionLabel = theme.textTheme.labelLarge?.copyWith(color: muted);
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(
-        _kShellPadH,
-        _kShellPadTop,
-        _kShellPadH,
-        _kShellPadBottom,
-      ),
+      padding: V2ShellVisual.pagePadding(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -362,12 +353,12 @@ class _ShellPlanOrientation extends StatelessWidget {
               child: Text(
                 loc.recoveryPlanStarterBadge,
                 style: theme.textTheme.labelMedium?.copyWith(
-                  color: theme.colorScheme.primary,
+                  color: AppColors.primary,
                   fontWeight: FontWeight.w600,
                 ),
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: AppDesignConstants.v2GapTight),
           ],
           Semantics(
             header: true,
@@ -381,36 +372,30 @@ class _ShellPlanOrientation extends StatelessWidget {
           const SizedBox(height: _kShellGapThesisBody),
           Text(
             expl.mainFocusForLocale(languageCode),
-            style: theme.textTheme.headlineSmall?.copyWith(
-              fontWeight: FontWeight.w700,
-              height: 1.28,
-            ),
+            style: V2ShellVisual.heroTitle(theme),
           ),
           const SizedBox(height: _kShellGapThesisBody),
           Text(
             loc.recoveryPlanCalmOrientationBody,
-            style: theme.textTheme.bodySmall?.copyWith(
-              color: muted,
-              height: 1.4,
-            ),
+            style: V2ShellVisual.captionMuted(theme),
           ),
 
           // 3 Support context — compact chips, not a second hero
           const SizedBox(height: _kShellGapAfterThesis),
-          Text(loc.recoveryPlanPrioritiesHeading, style: sectionLabel),
+          V2SectionLabel(loc.recoveryPlanPrioritiesHeading),
           const SizedBox(height: _kShellGapLabelBody),
           if (plan.priority.priorities.isEmpty)
             Text(
               loc.recoveryPlanNoPriorities,
-              style: theme.textTheme.bodyMedium?.copyWith(color: muted),
+              style: V2ShellVisual.bodyMuted(theme),
             )
           else
             Wrap(
-              spacing: 8,
-              runSpacing: 8,
+              spacing: AppDesignConstants.v2GapTight,
+              runSpacing: AppDesignConstants.v2GapTight,
               children: [
                 for (final d in plan.priority.priorities)
-                  _PlanSupportChip(
+                  V2QuietChip(
                     label: d.titleForLocale(languageCode),
                     semanticLabel:
                         '${loc.recoveryPlanPrioritiesHeading}: ${d.titleForLocale(languageCode)}',
@@ -419,11 +404,11 @@ class _ShellPlanOrientation extends StatelessWidget {
             ),
           if (plan.priority.strongerDomainId != null) ...[
             const SizedBox(height: _kShellGapSupportBlocks),
-            Text(loc.recoveryPlanStrongerHeading, style: sectionLabel),
+            V2SectionLabel(loc.recoveryPlanStrongerHeading),
             const SizedBox(height: _kShellGapLabelBody),
             Align(
               alignment: AlignmentDirectional.centerStart,
-              child: _PlanSupportChip(
+              child: V2QuietChip(
                 label: plan.priority.strongerTitleForLocale(languageCode),
                 semanticLabel:
                     '${loc.recoveryPlanStrongerHeading}: ${plan.priority.strongerTitleForLocale(languageCode)}',
@@ -433,7 +418,7 @@ class _ShellPlanOrientation extends StatelessWidget {
 
           // 4 Daily shape — one concise effort line
           const SizedBox(height: _kShellGapSection),
-          Text(loc.recoveryPlanTimeHeading, style: sectionLabel),
+          V2SectionLabel(loc.recoveryPlanTimeHeading),
           const SizedBox(height: _kShellGapLabelBody),
           Semantics(
             label:
@@ -449,10 +434,7 @@ class _ShellPlanOrientation extends StatelessWidget {
 
           // 5 Today's place (orientation only)
           const SizedBox(height: _kShellGapSection),
-          Semantics(
-            header: true,
-            child: Text(loc.recoveryPlanTodayFitHeading, style: sectionLabel),
-          ),
+          V2SectionLabel(loc.recoveryPlanTodayFitHeading),
           const SizedBox(height: _kShellGapLabelBody),
           Text(
             actTitle,
@@ -461,13 +443,10 @@ class _ShellPlanOrientation extends StatelessWidget {
               height: 1.3,
             ),
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: AppDesignConstants.v2GapInline - 2),
           Text(
             today.because.forLocale(languageCode),
-            style: theme.textTheme.bodyMedium?.copyWith(
-              color: muted,
-              height: 1.4,
-            ),
+            style: V2ShellVisual.bodyMuted(theme),
           ),
 
           // 6 Depth — demoted progressive disclosure
@@ -548,55 +527,12 @@ class _ShellPlanOrientation extends StatelessWidget {
           SizedBox(
             height: AppDesignConstants.minTouchTarget,
             child: OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                foregroundColor: muted,
-                side: BorderSide(
-                  color: theme.colorScheme.outline.withValues(alpha: 0.55),
-                ),
-              ),
+              style: V2ShellVisual.secondaryOutlined(),
               onPressed: onContinue,
               child: Text(loc.recoveryPlanOpenToday),
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-/// Non-interactive support label — chip look without implying a tap.
-class _PlanSupportChip extends StatelessWidget {
-  const _PlanSupportChip({
-    required this.label,
-    required this.semanticLabel,
-  });
-
-  final String label;
-  final String semanticLabel;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Semantics(
-      label: semanticLabel,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: AppColors.card.withValues(alpha: 0.55),
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: AppColors.border.withValues(alpha: 0.65),
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-          child: Text(
-            label,
-            style: theme.textTheme.labelLarge?.copyWith(
-              color: theme.colorScheme.onSurface,
-              height: 1.2,
-            ),
-          ),
-        ),
       ),
     );
   }
@@ -819,6 +755,7 @@ class _FirstTimePlanReveal extends StatelessWidget {
           SizedBox(
             height: AppDesignConstants.minTouchTarget,
             child: FilledButton(
+              style: V2ShellVisual.primaryFilled(),
               onPressed: onContinue,
               child: Text(loc.recoveryPlanContinueToday),
             ),

@@ -6,6 +6,7 @@ import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_design_constants.dart';
+import '../../../core/theme/v2_shell_visual.dart';
 import '../../weekly_review/domain/weekly_review_enums.dart';
 import '../../weekly_review/domain/weekly_review_summary.dart';
 import '../application/progress_experience_controller.dart';
@@ -14,15 +15,15 @@ import '../domain/progress_experience_enums.dart';
 import '../domain/progress_timeline.dart';
 import '../domain/progress_view_model.dart';
 
-/// Vertical rhythm for Progress Phase B polish (hierarchy unchanged).
-const double _kGapIdentityHeadline = 8;
-const double _kGapHeadlineSupport = 8;
-const double _kGapToMovement = 20;
-const double _kGapMovementEvidence = 10;
-const double _kGapBeforeCta = 24;
-const double _kGapAfterCta = 20;
-const double _kGapBeforeReview = 20;
-const double _kGapBeforeReports = 12;
+/// Vertical rhythm for Progress — shared V2 tokens (hierarchy unchanged).
+const double _kGapIdentityHeadline = AppDesignConstants.v2GapTight;
+const double _kGapHeadlineSupport = AppDesignConstants.v2GapTight;
+const double _kGapToMovement = AppDesignConstants.v2GapSection;
+const double _kGapMovementEvidence = AppDesignConstants.v2GapControl;
+const double _kGapBeforeCta = AppDesignConstants.v2GapMajor;
+const double _kGapAfterCta = AppDesignConstants.v2GapSection;
+const double _kGapBeforeReview = AppDesignConstants.v2GapSection;
+const double _kGapBeforeReports = AppDesignConstants.v2GapControl;
 
 /// PRG-01 — words-first Progress proof experience + Weekly Review entry.
 ///
@@ -54,6 +55,10 @@ class _ProgressHomeScreenState extends ConsumerState<ProgressHomeScreen> {
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: AppColors.background,
+        foregroundColor: AppColors.textPrimary,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
         title: Semantics(
           header: true,
           child: Text(loc.v2ProgressTitle),
@@ -109,7 +114,7 @@ class ProgressHomeBody extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         return SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
+          padding: V2ShellVisual.pagePadding(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -125,28 +130,19 @@ class ProgressHomeBody extends StatelessWidget {
                 liveRegion: true,
                 child: Text(
                   _headline(loc, vm.proofHeadline),
-                  style: theme.textTheme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    height: 1.28,
-                  ),
+                  style: V2ShellVisual.heroTitle(theme),
                 ),
               ),
               const SizedBox(height: _kGapHeadlineSupport),
               Text(
                 loc.v2ProgressBasedOnSessions,
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: muted,
-                  height: 1.4,
-                ),
+                style: V2ShellVisual.captionMuted(theme),
               ),
               if (vm.isEmpty) ...[
                 const SizedBox(height: _kGapToMovement),
                 Text(
                   loc.v2ProgressEmptyBody,
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    height: 1.4,
-                    color: muted,
-                  ),
+                  style: V2ShellVisual.bodyMuted(theme),
                 ),
               ] else ...[
                 const SizedBox(height: _kGapToMovement),
@@ -155,10 +151,7 @@ class ProgressHomeBody extends StatelessWidget {
                 const SizedBox(height: _kGapMovementEvidence),
                 Text(
                   _evidence(loc, vm.evidenceDepth),
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: muted,
-                    height: 1.4,
-                  ),
+                  style: V2ShellVisual.captionMuted(theme),
                 ),
               ],
               // 4 Contextual next action — early, before history density
@@ -194,7 +187,7 @@ class ProgressHomeBody extends StatelessWidget {
                     ),
                   ),
                 if (vm.showScoreRow) ...[
-                  const SizedBox(height: 8),
+                  const SizedBox(height: AppDesignConstants.v2GapTight),
                   _ScoreRow(vm: vm, muted: muted),
                 ],
               ],
@@ -202,7 +195,7 @@ class ProgressHomeBody extends StatelessWidget {
               const SizedBox(height: _kGapBeforeReview),
               _ReviewEntry(vm: vm),
               if (vm.weeklySummaryPreview != null) ...[
-                const SizedBox(height: 14),
+                const SizedBox(height: AppDesignConstants.v2GapControl),
                 _WeeklyPreview(
                   summary: vm.weeklySummaryPreview!,
                   showSummaryCta: vm.primaryDestination !=
@@ -214,12 +207,7 @@ class ProgressHomeBody extends StatelessWidget {
               SizedBox(
                 height: AppDesignConstants.minTouchTarget,
                 child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    foregroundColor: muted,
-                    side: BorderSide(
-                      color: theme.colorScheme.outline.withValues(alpha: 0.55),
-                    ),
-                  ),
+                  style: V2ShellVisual.secondaryOutlined(),
                   onPressed: () => context.go(AppRoutes.v2Reports),
                   child: Text(loc.v2ProgressReportsEntry),
                 ),
@@ -621,17 +609,12 @@ class _ReviewEntry extends StatelessWidget {
           ),
         ],
         if (showInlineCta) ...[
-          const SizedBox(height: 12),
+          const SizedBox(height: AppDesignConstants.v2GapControl),
           SizedBox(
             width: double.infinity,
             height: AppDesignConstants.minTouchTarget,
             child: OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                foregroundColor: muted,
-                side: BorderSide(
-                  color: theme.colorScheme.outline.withValues(alpha: 0.55),
-                ),
-              ),
+              style: V2ShellVisual.secondaryOutlined(),
               onPressed: () => context.go(route),
               child: Text(cta),
             ),
@@ -644,21 +627,7 @@ class _ReviewEntry extends StatelessWidget {
       container: true,
       liveRegion: true,
       label: loc.v2ProgressWeeklyReviewHeading,
-      child: _actionable
-          ? DecoratedBox(
-              decoration: BoxDecoration(
-                color: AppColors.card.withValues(alpha: 0.55),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: AppColors.border.withValues(alpha: 0.55),
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
-                child: content,
-              ),
-            )
-          : content,
+      child: _actionable ? V2TonalSurface(child: content) : content,
     );
   }
 
@@ -763,17 +732,12 @@ class _WeeklyPreview extends StatelessWidget {
           Text(_rhythm(loc, summary.rhythmLabel), style: quiet),
           Text(loc.v2WeeklySummaryPlanUnchanged, style: quiet),
           if (showSummaryCta) ...[
-            const SizedBox(height: 10),
+            const SizedBox(height: AppDesignConstants.v2GapTight),
             SizedBox(
               width: double.infinity,
               height: AppDesignConstants.minTouchTarget,
-              child: OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: muted,
-                  side: BorderSide(
-                    color: theme.colorScheme.outline.withValues(alpha: 0.55),
-                  ),
-                ),
+              child: TextButton(
+                style: V2ShellVisual.tertiaryText(),
                 onPressed: () => context.go(AppRoutes.v2WeeklyReviewSummary),
                 child: Text(loc.v2ProgressWrCtaSummary),
               ),
@@ -841,6 +805,7 @@ class _PrimaryCta extends StatelessWidget {
       width: double.infinity,
       height: AppDesignConstants.minTouchTarget,
       child: FilledButton(
+        style: V2ShellVisual.primaryFilled(),
         onPressed: () => context.go(route),
         child: Text(label),
       ),
@@ -864,9 +829,14 @@ class _Pad extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         return SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
+          padding: V2ShellVisual.pagePadding(),
           child: ConstrainedBox(
-            constraints: BoxConstraints(minHeight: constraints.maxHeight - 48),
+            constraints: BoxConstraints(
+              minHeight: constraints.maxHeight >
+                      AppDesignConstants.minTouchTarget
+                  ? constraints.maxHeight - AppDesignConstants.minTouchTarget
+                  : 0,
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -874,11 +844,15 @@ class _Pad extends StatelessWidget {
                   liveRegion: true,
                   child: Text(title, textAlign: TextAlign.center),
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: AppDesignConstants.v2GapMajor),
                 SizedBox(
                   width: double.infinity,
                   height: AppDesignConstants.minTouchTarget,
-                  child: FilledButton(onPressed: onCta, child: Text(cta)),
+                  child: FilledButton(
+                    style: V2ShellVisual.primaryFilled(),
+                    onPressed: onCta,
+                    child: Text(cta),
+                  ),
                 ),
               ],
             ),
