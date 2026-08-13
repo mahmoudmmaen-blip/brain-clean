@@ -543,11 +543,11 @@ void main() {
   });
 
   group('Release candidate identity', () {
-    test('pubspec and AppConfig report 2.0.1 / build 22', () {
+    test('pubspec and AppConfig report 2.0.1 / build 23', () {
       final pubspec = File('pubspec.yaml').readAsStringSync();
       expect(
         pubspec,
-        contains(RegExp(r'^version:\s*2\.0\.1\+22\s*$', multiLine: true)),
+        contains(RegExp(r'^version:\s*2\.0\.1\+23\s*$', multiLine: true)),
       );
       expect(AppConfig.appVersion, '2.0.1');
     });
