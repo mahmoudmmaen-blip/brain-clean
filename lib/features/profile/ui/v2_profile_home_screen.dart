@@ -16,7 +16,6 @@ import '../../pro/application/subscription_service_provider.dart';
 import '../../v2_onboarding/domain/v2_setup_recovery.dart';
 
 /// Quiet vertical rhythm — Phase A hierarchy unchanged.
-const double _kGapAfterIdentity = AppDesignConstants.v2GapInline;
 const double _kGapBeforeFirstSection = AppDesignConstants.v2GapMajor;
 const double _kGapBetweenSections = AppDesignConstants.v2GapSection;
 const double _kGapSectionToRow = AppDesignConstants.v2GapSectionLabel;
@@ -145,10 +144,8 @@ class _V2ProfileHomeScreenState extends ConsumerState<V2ProfileHomeScreen> {
         elevation: 0,
         scrolledUnderElevation: 0,
         surfaceTintColor: Colors.transparent,
-        title: Semantics(
-          header: true,
-          child: Text(loc.v2ProfileTitle),
-        ),
+        automaticallyImplyLeading: false,
+        title: const SizedBox.shrink(),
         actions: const [LanguageToggleButton()],
       ),
       body: SafeArea(
@@ -229,6 +226,11 @@ class V2ProfileHomeBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          V2PageHeader(
+            title: loc.v2ProfileTitle,
+            subtitle: loc.v2ProfileOrientation,
+          ),
+          const SizedBox(height: _kGapBeforeFirstSection),
           Semantics(
             header: true,
             label: '${loc.v2ProfileEditNameTitle}. $displayName',
@@ -257,89 +259,105 @@ class V2ProfileHomeBody extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: _kGapAfterIdentity),
-          Text(
-            loc.v2ProfileOrientation,
-            style: V2ShellVisual.bodyMuted(theme),
-          ),
-          const SizedBox(height: _kGapBeforeFirstSection),
+          const SizedBox(height: _kGapBetweenSections),
           V2SectionLabel(loc.v2ProfileSectionRecovery),
           const SizedBox(height: _kGapSectionToRow),
-          _ProfileRow(
-            key: const Key('v2_profile_brain_profile_row'),
-            title: loc.v2ProfileBrainProfile,
-            subtitle: loadingSetup
-                ? loc.v2ProfileBrainProfileLoading
-                : hasBrainProfile
-                    ? loc.v2ProfileBrainProfileReady
-                    : loc.v2ProfileBrainProfileMissing,
-            onTap: onOpenBrainProfile,
+          V2SettingsGroup(
+            children: [
+              _ProfileRow(
+                key: const Key('v2_profile_brain_profile_row'),
+                title: loc.v2ProfileBrainProfile,
+                subtitle: loadingSetup
+                    ? loc.v2ProfileBrainProfileLoading
+                    : hasBrainProfile
+                        ? loc.v2ProfileBrainProfileReady
+                        : loc.v2ProfileBrainProfileMissing,
+                onTap: onOpenBrainProfile,
+              ),
+            ],
           ),
           const SizedBox(height: _kGapBetweenSections),
           V2SectionLabel(loc.v2ProfileSectionPreferences),
           const SizedBox(height: _kGapSectionToRow),
-          _ProfileRow(
-            key: const Key('v2_profile_settings_row'),
-            title: loc.v2ProfilePreferencesRow,
-            subtitle: loc.v2ProfilePreferencesHint,
-            onTap: onOpenSettings,
+          V2SettingsGroup(
+            children: [
+              _ProfileRow(
+                key: const Key('v2_profile_settings_row'),
+                title: loc.v2ProfilePreferencesRow,
+                subtitle: loc.v2ProfilePreferencesHint,
+                onTap: onOpenSettings,
+              ),
+            ],
           ),
           const SizedBox(height: _kGapBetweenSections),
           V2SectionLabel(loc.v2ProfileSectionSubscription),
           const SizedBox(height: _kGapSectionToRow),
-          _ProfileRow(
-            key: const Key('v2_profile_premium_row'),
-            title: loc.v2PremiumManage,
-            subtitle: subscriptionSubtitle,
-            onTap: onOpenPremium,
+          V2SettingsGroup(
+            children: [
+              _ProfileRow(
+                key: const Key('v2_profile_premium_row'),
+                title: loc.v2PremiumManage,
+                subtitle: subscriptionSubtitle,
+                onTap: onOpenPremium,
+              ),
+            ],
           ),
           const SizedBox(height: _kGapBetweenSections),
           V2SectionLabel(loc.v2ProfileSectionHelp),
           const SizedBox(height: _kGapSectionToRow),
-          _ProfileRow(
-            key: const Key('v2_profile_safa_row'),
-            title: loc.v2SafaEntryProfile,
-            subtitle: loc.v2ProfileHelpHint,
-            onTap: onOpenSafa,
+          V2SettingsGroup(
+            children: [
+              _ProfileRow(
+                key: const Key('v2_profile_safa_row'),
+                title: loc.v2SafaEntryProfile,
+                subtitle: loc.v2ProfileHelpHint,
+                onTap: onOpenSafa,
+              ),
+            ],
           ),
           const SizedBox(height: _kGapBetweenSections),
           V2SectionLabel(loc.v2ProfileSectionAbout),
           const SizedBox(height: _kGapSectionToRow),
-          Padding(
-            key: const Key('v2_profile_version_row'),
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  loc.settingsVersion,
-                  softWrap: true,
-                  style: theme.textTheme.titleSmall?.copyWith(
-                    color: AppColors.textPrimary,
-                  ),
+          V2SettingsGroup(
+            children: [
+              Padding(
+                key: const Key('v2_profile_version_row'),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      loc.settingsVersion,
+                      softWrap: true,
+                      style: theme.textTheme.titleSmall?.copyWith(
+                        color: AppColors.textPrimary,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      appVersion,
+                      softWrap: true,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 2),
-                Text(
-                  appVersion,
-                  softWrap: true,
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: AppColors.textSecondary,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          _ProfileRow(
-            key: const Key('v2_profile_privacy_policy_row'),
-            title: loc.settingsPrivacyPolicy,
-            subtitle: loc.v2ProfileLegalHint,
-            onTap: onOpenPrivacyPolicy,
-          ),
-          _ProfileRow(
-            key: const Key('v2_profile_contact_row'),
-            title: loc.settingsContactUs,
-            subtitle: loc.v2ProfileContactHint,
-            onTap: onOpenContact,
+              ),
+              _ProfileRow(
+                key: const Key('v2_profile_privacy_policy_row'),
+                title: loc.settingsPrivacyPolicy,
+                subtitle: loc.v2ProfileLegalHint,
+                onTap: onOpenPrivacyPolicy,
+              ),
+              _ProfileRow(
+                key: const Key('v2_profile_contact_row'),
+                title: loc.settingsContactUs,
+                subtitle: loc.v2ProfileContactHint,
+                onTap: onOpenContact,
+              ),
+            ],
           ),
         ],
       ),

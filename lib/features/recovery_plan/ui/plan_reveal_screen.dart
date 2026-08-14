@@ -128,9 +128,8 @@ class _PlanRevealScreenState extends ConsumerState<PlanRevealScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: Text(loc.recoveryPlanTitle),
+        toolbarHeight: 0,
         backgroundColor: AppColors.background,
-        foregroundColor: AppColors.textPrimary,
         elevation: 0,
         scrolledUnderElevation: 0,
         surfaceTintColor: Colors.transparent,
@@ -346,7 +345,11 @@ class _ShellPlanOrientation extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // 1–2 Program thesis (dominant)
+          V2PageHeader(
+            title: loc.recoveryPlanTitle,
+            subtitle: loc.recoveryPlanCalmOrientationBody,
+          ),
+          const SizedBox(height: AppDesignConstants.v2GapSection),
           if (isStarter) ...[
             Semantics(
               liveRegion: true,
@@ -360,27 +363,27 @@ class _ShellPlanOrientation extends StatelessWidget {
             ),
             const SizedBox(height: AppDesignConstants.v2GapTight),
           ],
-          Semantics(
-            header: true,
-            label:
-                '${loc.recoveryPlanMainFocus}: ${expl.mainFocusForLocale(languageCode)}',
-            child: Text(
-              loc.recoveryPlanMainFocus,
-              style: theme.textTheme.labelMedium?.copyWith(color: muted),
+          V2HeroCard(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Semantics(
+                  header: true,
+                  label:
+                      '${loc.recoveryPlanMainFocus}: ${expl.mainFocusForLocale(languageCode)}',
+                  child: Text(
+                    loc.recoveryPlanMainFocus,
+                    style: V2ShellVisual.metricEyebrow(theme),
+                  ),
+                ),
+                const SizedBox(height: _kShellGapThesisBody),
+                Text(
+                  expl.mainFocusForLocale(languageCode),
+                  style: V2ShellVisual.heroTitle(theme),
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: _kShellGapThesisBody),
-          Text(
-            expl.mainFocusForLocale(languageCode),
-            style: V2ShellVisual.heroTitle(theme),
-          ),
-          const SizedBox(height: _kShellGapThesisBody),
-          Text(
-            loc.recoveryPlanCalmOrientationBody,
-            style: V2ShellVisual.captionMuted(theme),
-          ),
-
-          // 3 Support context — compact chips, not a second hero
           const SizedBox(height: _kShellGapAfterThesis),
           V2SectionLabel(loc.recoveryPlanPrioritiesHeading),
           const SizedBox(height: _kShellGapLabelBody),
@@ -415,41 +418,44 @@ class _ShellPlanOrientation extends StatelessWidget {
               ),
             ),
           ],
-
-          // 4 Daily shape — one concise effort line
           const SizedBox(height: _kShellGapSection),
-          V2SectionLabel(loc.recoveryPlanTimeHeading),
-          const SizedBox(height: _kShellGapLabelBody),
-          Semantics(
-            label:
-                '$timeLabel. ${loc.recoveryPlanIntensityLabel}: $intensityLabel',
-            child: Text(
-              '$timeLabel · $intensityLabel',
-              style: theme.textTheme.bodyLarge?.copyWith(
-                fontWeight: FontWeight.w500,
-                height: 1.3,
+          V2MetricRow(
+            tiles: [
+              V2MetricTile(
+                label: loc.recoveryPlanTimeHeading,
+                value: timeLabel,
+                semanticLabel: timeLabel,
               ),
-            ),
+              V2MetricTile(
+                label: loc.recoveryPlanIntensityLabel,
+                value: intensityLabel,
+                semanticLabel:
+                    '${loc.recoveryPlanIntensityLabel}: $intensityLabel',
+              ),
+            ],
           ),
-
-          // 5 Today's place (orientation only)
           const SizedBox(height: _kShellGapSection),
           V2SectionLabel(loc.recoveryPlanTodayFitHeading),
           const SizedBox(height: _kShellGapLabelBody),
-          Text(
-            actTitle,
-            style: theme.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w600,
-              height: 1.3,
+          V2InfoCard(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  actTitle,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                    height: 1.3,
+                  ),
+                ),
+                const SizedBox(height: AppDesignConstants.v2GapInline - 2),
+                Text(
+                  today.because.forLocale(languageCode),
+                  style: V2ShellVisual.bodyMuted(theme),
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: AppDesignConstants.v2GapInline - 2),
-          Text(
-            today.because.forLocale(languageCode),
-            style: V2ShellVisual.bodyMuted(theme),
-          ),
-
-          // 6 Depth — demoted progressive disclosure
           const SizedBox(height: _kShellGapBeforeDetails),
           Divider(
             height: 1,

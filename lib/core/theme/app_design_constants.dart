@@ -27,9 +27,15 @@ abstract final class AppDesignConstants {
   static const Color accentError = Color(0xFFDC2626);
 
   static const double radiusCard = 14;
+  static const double radiusHeroCard = 16;
   static const double radiusButton = 14;
   static const double radiusChip = 10;
   static const double minTouchTarget = 48;
+
+  // Premium metric typography (Health/Fitness-inspired hierarchy).
+  static const double v2MetricValueSize = 28;
+  static const double v2MetricValueHeight = 1.15;
+  static const double v2PageTitleSize = 26;
 
   // V2 shell visual rhythm — shared across Today / Program / Progress / Profile.
   static const double v2PadH = 24;

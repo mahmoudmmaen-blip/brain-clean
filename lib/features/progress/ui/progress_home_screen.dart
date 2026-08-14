@@ -16,7 +16,6 @@ import '../domain/progress_timeline.dart';
 import '../domain/progress_view_model.dart';
 
 /// Vertical rhythm for Progress — shared V2 tokens (hierarchy unchanged).
-const double _kGapIdentityHeadline = AppDesignConstants.v2GapTight;
 const double _kGapHeadlineSupport = AppDesignConstants.v2GapTight;
 const double _kGapToMovement = AppDesignConstants.v2GapSection;
 const double _kGapMovementEvidence = AppDesignConstants.v2GapControl;
@@ -54,15 +53,11 @@ class _ProgressHomeScreenState extends ConsumerState<ProgressHomeScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
+        toolbarHeight: 0,
         backgroundColor: AppColors.background,
-        foregroundColor: AppColors.textPrimary,
         elevation: 0,
         scrolledUnderElevation: 0,
         surfaceTintColor: Colors.transparent,
-        title: Semantics(
-          header: true,
-          child: Text(loc.v2ProgressTitle),
-        ),
       ),
       body: SafeArea(
         child: ProgressHomeBody(
@@ -118,25 +113,30 @@ class ProgressHomeBody extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // 1 Identity — soft orientation under AppBar title
-              Text(
-                loc.v2ProgressOrientation,
-                style: theme.textTheme.labelMedium?.copyWith(color: muted),
+              V2PageHeader(
+                title: loc.v2ProgressTitle,
+                subtitle: loc.v2ProgressOrientation,
               ),
-              const SizedBox(height: _kGapIdentityHeadline),
-              // 2 Direction / meaningful summary
-              Semantics(
-                header: true,
-                liveRegion: true,
-                child: Text(
-                  _headline(loc, vm.proofHeadline),
-                  style: V2ShellVisual.heroTitle(theme),
+              const SizedBox(height: AppDesignConstants.v2GapSection),
+              V2HeroCard(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Semantics(
+                      header: true,
+                      liveRegion: true,
+                      child: Text(
+                        _headline(loc, vm.proofHeadline),
+                        style: V2ShellVisual.heroTitle(theme),
+                      ),
+                    ),
+                    const SizedBox(height: _kGapHeadlineSupport),
+                    Text(
+                      loc.v2ProgressBasedOnSessions,
+                      style: V2ShellVisual.captionMuted(theme),
+                    ),
+                  ],
                 ),
-              ),
-              const SizedBox(height: _kGapHeadlineSupport),
-              Text(
-                loc.v2ProgressBasedOnSessions,
-                style: V2ShellVisual.captionMuted(theme),
               ),
               if (vm.isEmpty) ...[
                 const SizedBox(height: _kGapToMovement),
@@ -146,8 +146,36 @@ class ProgressHomeBody extends StatelessWidget {
                 ),
               ] else ...[
                 const SizedBox(height: _kGapToMovement),
-                // 3 Compact supporting movement indicators
-                _MovementBlock(vm: vm, muted: muted),
+                V2MetricRow(
+                  tiles: [
+                    V2MetricTile(
+                      label: loc.v2ProgressBetterHeading,
+                      value: vm.completedDays.toString(),
+                      caption: loc.v2ProgressCompletedDays(
+                        vm.completedDays.toString(),
+                      ),
+                    ),
+                    V2MetricTile(
+                      label: loc.v2ProgressStatsSessions,
+                      value: vm.totalCompletedSessions.toString(),
+                      caption: loc.v2ProgressCompletedSessions(
+                        vm.totalCompletedSessions.toString(),
+                      ),
+                    ),
+                  ],
+                ),
+                if (vm.pathMixHint != null) ...[
+                  const SizedBox(height: _kGapMovementEvidence),
+                  Text(
+                    _mix(loc, vm.pathMixHint!),
+                    style: V2ShellVisual.captionMuted(theme),
+                  ),
+                ],
+                const SizedBox(height: AppDesignConstants.v2GapTight),
+                Text(
+                  loc.v2ProgressCurrentRhythm(vm.currentRhythmDays),
+                  style: V2ShellVisual.captionMuted(theme),
+                ),
                 const SizedBox(height: _kGapMovementEvidence),
                 Text(
                   _evidence(loc, vm.evidenceDepth),
@@ -268,62 +296,6 @@ class ProgressHomeBody extends StatelessWidget {
       case ProgressEvidenceDepth.sufficient:
         return loc.v2ProgressEvidenceSufficient;
     }
-  }
-}
-
-class _MovementBlock extends StatelessWidget {
-  const _MovementBlock({required this.vm, required this.muted});
-  final ProgressViewModel vm;
-  final Color muted;
-
-  @override
-  Widget build(BuildContext context) {
-    final loc = AppLocalizations.of(context)!;
-    final theme = Theme.of(context);
-    final mix = vm.pathMixHint;
-    final days = loc.v2ProgressCompletedDays(vm.completedDays.toString());
-    final sessions =
-        loc.v2ProgressCompletedSessions(vm.totalCompletedSessions.toString());
-    return Semantics(
-      container: true,
-      label: loc.v2ProgressBetterHeading,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            loc.v2ProgressBetterHeading,
-            style: theme.textTheme.labelLarge?.copyWith(color: muted),
-          ),
-          const SizedBox(height: 6),
-          // One calm summary line — not a dashboard stack of big numbers.
-          Text(
-            '$days · $sessions',
-            style: theme.textTheme.bodyLarge?.copyWith(
-              fontWeight: FontWeight.w500,
-              height: 1.35,
-            ),
-          ),
-          if (mix != null) ...[
-            const SizedBox(height: 4),
-            Text(
-              ProgressHomeBody._mix(loc, mix),
-              style: theme.textTheme.bodySmall?.copyWith(
-                color: muted,
-                height: 1.35,
-              ),
-            ),
-          ],
-          const SizedBox(height: 4),
-          Text(
-            loc.v2ProgressCurrentRhythm(vm.currentRhythmDays),
-            style: theme.textTheme.bodySmall?.copyWith(
-              color: muted,
-              height: 1.35,
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }
 

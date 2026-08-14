@@ -607,11 +607,12 @@ void main() {
       // Details stay collapsed — no dense timeline lines until opened.
       expect(find.textContaining('2026-07-28 ·'), findsNothing);
 
-      // Compact movement: one calm summary line, not a number stack.
-      expect(
-        find.textContaining('Completed days: 1 · Completed sessions: 1'),
-        findsOneWidget,
-      );
+      // Compact movement: metric tiles with eyebrow labels and large values.
+      expect(find.text('What is recorded'), findsOneWidget);
+      expect(find.text('Sessions completed'), findsOneWidget);
+      expect(find.text('1'), findsNWidgets(2));
+      expect(find.textContaining('Completed days: 1'), findsOneWidget);
+      expect(find.textContaining('Completed sessions: 1'), findsOneWidget);
     });
 
     testWidgets('Phase B: empty WR stays quiet (no period chrome)',
@@ -734,9 +735,9 @@ void main() {
         lessThan(tester.getTopLeft(details).dy),
       );
 
+      await tester.ensureVisible(details);
       await tester.tap(details);
-      await tester.pump();
-      await tester.pump(const Duration(milliseconds: 50));
+      await tester.pumpAndSettle();
       expect(find.textContaining('Minimum path:'), findsOneWidget);
       expect(find.textContaining('Completed-day rate:'), findsOneWidget);
       expect(tester.takeException(), isNull);
@@ -784,7 +785,7 @@ void main() {
       );
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 50));
-      expect(find.text('التقدّم'), findsNothing); // AppBar not in body
+      expect(find.text('التقدّم'), findsOneWidget); // V2PageHeader in body
       expect(find.text('تقدّمك'), findsOneWidget);
       expect(find.text('لا جلسات مكتملة بعد'), findsOneWidget);
       expect(find.byType(FilledButton), findsOneWidget);

@@ -439,7 +439,7 @@ void main() {
           locale: const Locale('ar'),
         ),
       );
-      expect(find.text(loc.v2TodayHomeTitle), findsNothing); // body only
+      expect(find.text(loc.v2TodayHomeTitle), findsOneWidget); // V2PageHeader
       expect(find.byKey(const Key('v2_today_act_title')), findsOneWidget);
       final ctx = tester.element(find.byKey(const Key('v2_today_act_title')));
       expect(Directionality.of(ctx), TextDirection.rtl);

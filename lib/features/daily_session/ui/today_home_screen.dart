@@ -55,9 +55,8 @@ class _TodayHomeScreenState extends ConsumerState<TodayHomeScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: Text(loc.v2TodayHomeTitle),
+        toolbarHeight: 0,
         backgroundColor: AppColors.background,
-        foregroundColor: AppColors.textPrimary,
         elevation: 0,
         scrolledUnderElevation: 0,
         surfaceTintColor: Colors.transparent,
@@ -317,105 +316,122 @@ class TodayHomeBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Zone A — Act hero (action-first).
-          Semantics(
-            header: true,
-            label: '${loc.v2TodayPreviewActHeading}: $title',
-            child: Text(
-              title,
-              key: const Key('v2_today_act_title'),
-              style: actStyle,
-            ),
+          V2PageHeader(
+            title: loc.v2TodayHomeTitle,
+            subtitle: loc.v2TodayHomeOrientationBody,
           ),
-          const SizedBox(height: _kTodayGapActTime),
-          // Zone B — Effort with the Act.
-          Semantics(
-            label: timeLabel,
-            child: Text(
-              timeLabel,
-              key: const Key('v2_today_time'),
-              style: timeStyle,
-            ),
-          ),
-          const SizedBox(height: _kTodayGapTimeStatus),
-          // Zone C — Compact status chip (subtle surface, not a peer card).
-          Align(
-            alignment: AlignmentDirectional.centerStart,
-            child: KeyedSubtree(
-              key: const Key('v2_today_status_chip'),
-              child: V2QuietChip(
-                label: statusLabel,
-                semanticLabel: '${loc.v2TodayHomeStatusHeading}: $statusLabel',
-              ),
-            ),
-          ),
-          const SizedBox(height: _kTodayGapStatusCta),
-          // Zone D — Primary CTA early.
-          SizedBox(
-            height: AppDesignConstants.minTouchTarget,
-            child: resolvedPrimary
-                ? OutlinedButton(
-                    key: const Key('v2_today_primary_cta'),
-                    onPressed: onPrimary,
-                    style: V2ShellVisual.secondaryOutlined().copyWith(
-                      foregroundColor:
-                          WidgetStateProperty.all(AppColors.textPrimary),
-                    ),
-                    child: Text(ctaLabel),
-                  )
-                : FilledButton(
-                    key: const Key('v2_today_primary_cta'),
-                    onPressed: onPrimary,
-                    style: V2ShellVisual.primaryFilled(),
-                    child: Text(ctaLabel),
+          const SizedBox(height: AppDesignConstants.v2GapSection),
+          V2HeroCard(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Semantics(
+                  header: true,
+                  label: '${loc.v2TodayPreviewActHeading}: $title',
+                  child: Text(
+                    title,
+                    key: const Key('v2_today_act_title'),
+                    style: actStyle,
                   ),
+                ),
+                const SizedBox(height: _kTodayGapActTime),
+                Semantics(
+                  label: timeLabel,
+                  child: Text(
+                    timeLabel,
+                    key: const Key('v2_today_time'),
+                    style: timeStyle,
+                  ),
+                ),
+                const SizedBox(height: _kTodayGapTimeStatus),
+                Align(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: KeyedSubtree(
+                    key: const Key('v2_today_status_chip'),
+                    child: V2QuietChip(
+                      label: statusLabel,
+                      semanticLabel:
+                          '${loc.v2TodayHomeStatusHeading}: $statusLabel',
+                    ),
+                  ),
+                ),
+                const SizedBox(height: _kTodayGapStatusCta),
+                SizedBox(
+                  height: AppDesignConstants.minTouchTarget,
+                  child: resolvedPrimary
+                      ? OutlinedButton(
+                          key: const Key('v2_today_primary_cta'),
+                          onPressed: onPrimary,
+                          style: V2ShellVisual.secondaryOutlined().copyWith(
+                            foregroundColor:
+                                WidgetStateProperty.all(AppColors.textPrimary),
+                          ),
+                          child: Text(ctaLabel),
+                        )
+                      : FilledButton(
+                          key: const Key('v2_today_primary_cta'),
+                          onPressed: onPrimary,
+                          style: V2ShellVisual.primaryFilled(),
+                          child: Text(ctaLabel),
+                        ),
+                ),
+              ],
+            ),
           ),
           if (showSupportingDetail) ...[
             const SizedBox(height: _kTodayGapCtaSupport),
-            Semantics(
-              header: true,
-              child: Text(
-                loc.v2TodayPreviewBecauseHeading,
-                style: supportHeadingStyle,
-              ),
-            ),
-            const SizedBox(height: _kTodayGapSupportTitleBody),
-            Semantics(
-              label: '${loc.v2TodayPreviewBecauseHeading}: $because',
-              child: Text(because, style: supportBodyStyle),
-            ),
-            if (extraMinLabels.isNotEmpty) ...[
-              const SizedBox(height: _kTodayGapSupportSections),
-              Semantics(
-                header: true,
-                child: Text(
-                  loc.recoveryPlanMinimumPath,
-                  style: supportHeadingStyle,
-                ),
-              ),
-              const SizedBox(height: _kTodayGapSupportTitleBody),
-              ...extraMinLabels.asMap().entries.map(
-                    (entry) => Padding(
-                      key: Key('v2_today_path_row_${entry.key}'),
-                      padding: const EdgeInsets.only(bottom: 6),
-                      child: Text(
-                        '· ${entry.value}',
-                        style: pathStyle,
-                        softWrap: true,
-                      ),
+            V2InfoCard(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Semantics(
+                    header: true,
+                    child: Text(
+                      loc.v2TodayPreviewBecauseHeading,
+                      style: supportHeadingStyle,
                     ),
                   ),
-            ],
-            const SizedBox(height: _kTodayGapSupportSections),
-            // Standard path: progressive hint only (selection on Prepare).
-            Text(
-              loc.v2TodayHomeStandardPathHint,
-              key: const Key('v2_today_standard_hint'),
-              style: quietHintStyle,
+                  const SizedBox(height: _kTodayGapSupportTitleBody),
+                  Semantics(
+                    label: '${loc.v2TodayPreviewBecauseHeading}: $because',
+                    child: Text(because, style: supportBodyStyle),
+                  ),
+                  if (extraMinLabels.isNotEmpty) ...[
+                    const SizedBox(height: _kTodayGapSupportSections),
+                    Semantics(
+                      header: true,
+                      child: Text(
+                        loc.recoveryPlanMinimumPath,
+                        style: supportHeadingStyle,
+                      ),
+                    ),
+                    const SizedBox(height: _kTodayGapSupportTitleBody),
+                    ...extraMinLabels.asMap().entries.map(
+                          (entry) => Padding(
+                            key: Key('v2_today_path_row_${entry.key}'),
+                            padding: const EdgeInsets.only(bottom: 6),
+                            child: Text(
+                              '· ${entry.value}',
+                              style: pathStyle,
+                              softWrap: true,
+                            ),
+                          ),
+                        ),
+                  ],
+                  const SizedBox(height: _kTodayGapSupportSections),
+                  Text(
+                    loc.v2TodayHomeStandardPathHint,
+                    key: const Key('v2_today_standard_hint'),
+                    style: quietHintStyle,
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: _kTodayGapAfterSupport),
           ] else
             const SizedBox(height: _kTodayGapCtaToSecondary),
+          V2SectionLabel(loc.recoveryPlanTitle),
+          const SizedBox(height: AppDesignConstants.v2GapSectionLabel),
           SizedBox(
             height: AppDesignConstants.minTouchTarget,
             child: OutlinedButton(
