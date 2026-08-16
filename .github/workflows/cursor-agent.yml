@@ -1,0 +1,46 @@
+﻿name: Cursor Cloud Agent Task
+
+on:
+  workflow_dispatch:
+    inputs:
+      prompt:
+        description: 'البرومبت اللي عايز تبعته لـ Cursor Agent'
+        required: true
+        type: string
+  push:
+    paths:
+      - 'tasks/*.txt'
+
+jobs:
+  run-cursor-agent:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run Cursor automation (manual trigger)
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
+          GITHUB_REPO_URL: https://github.com/${{ github.repository }}
+        run: |
+          python cursor_automation.py "${{ github.event.inputs.prompt }}"
+
+      - name: Run Cursor automation (from tasks/ file)
+        if: github.event_name == 'push'
+        env:
+          CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
+          GITHUB_REPO_URL: https://github.com/${{ github.repository }}
+        run: |
+          for f in tasks/*.txt; do
+            echo "=== Running task: $f ==="
+            python cursor_automation.py "$(cat "$f")"
+          done
