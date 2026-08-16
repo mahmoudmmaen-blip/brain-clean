@@ -13,6 +13,7 @@ import '../../core/services/smart_notification_service.dart';
 import '../../core/storage/hive_boxes.dart';
 import '../../core/theme/app_color_theme.dart';
 import '../../core/theme/app_color_theme_provider.dart';
+import '../../core/theme/app_colors.dart';
 import '../pro/application/subscription_service_provider.dart';
 
 const settingsProTileKey = Key('settings_pro_tile');
@@ -118,7 +119,7 @@ class SettingsScreen extends ConsumerWidget {
           ),
           const Divider(color: Color(0xFF30363D)),
           _SectionHeader(loc.settingsAppearanceSection),
-          _ColorThemeSection(isPro: isPro),
+          const _ColorThemeSection(),
           const Divider(color: Color(0xFF30363D)),
           _SectionHeader(loc.settingsNotificationsSection),
           SwitchListTile(
@@ -241,19 +242,16 @@ class _SectionHeader extends StatelessWidget {
 }
 
 String _colorThemeName(AppLocalizations loc, AppColorTheme theme) {
+  // Temporary reuse of existing l10n keys (Midnight ≈ Dark, Daylight ≈ Light).
+  // Prefer dedicated keys e.g. colorThemeMorningDark / colorThemeMorningLight later.
   return switch (theme) {
-    AppColorTheme.midnight => loc.colorThemeMidnightName,
-    AppColorTheme.aurora => loc.colorThemeAuroraName,
-    AppColorTheme.pine => loc.colorThemePineName,
-    AppColorTheme.solar => loc.colorThemeSolarName,
-    AppColorTheme.slate => loc.colorThemeSlateName,
-    AppColorTheme.daylight => loc.colorThemeDaylightName,
+    AppColorTheme.dark => loc.colorThemeMidnightName,
+    AppColorTheme.light => loc.colorThemeDaylightName,
   };
 }
 
 class _ColorThemeSection extends ConsumerWidget {
-  const _ColorThemeSection({required this.isPro});
-  final bool isPro;
+  const _ColorThemeSection();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -266,19 +264,13 @@ class _ColorThemeSection extends ConsumerWidget {
         spacing: 18,
         runSpacing: 16,
         children: AppColorTheme.values.map((themeDef) {
-          final locked = themeDef.isPro && !isPro;
           return _ColorThemeSwatch(
             key: Key('color_theme_swatch_${themeDef.name}'),
             theme: themeDef,
             label: _colorThemeName(loc, themeDef),
-            locked: locked,
             selected: themeDef == selected,
             onTap: () {
-              if (locked) {
-                context.push(AppRoutes.v2PremiumWithSource('theme'));
-              } else {
-                ref.read(selectedColorThemeProvider.notifier).select(themeDef);
-              }
+              ref.read(selectedColorThemeProvider.notifier).select(themeDef);
             },
           );
         }).toList(),
@@ -292,19 +284,23 @@ class _ColorThemeSwatch extends StatelessWidget {
     super.key,
     required this.theme,
     required this.label,
-    required this.locked,
     required this.selected,
     required this.onTap,
   });
 
   final AppColorTheme theme;
   final String label;
-  final bool locked;
   final bool selected;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
+    final preview = theme == AppColorTheme.dark
+        ? AppColors.background
+        : AppColors.backgroundLight;
+    final checkColor = theme == AppColorTheme.dark
+        ? AppColors.textPrimary
+        : AppColors.textPrimaryLight;
     return Semantics(
       label: label,
       selected: selected,
@@ -314,36 +310,20 @@ class _ColorThemeSwatch extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                Container(
-                  width: 44,
-                  height: 44,
-                  decoration: BoxDecoration(
-                    color: theme.accent,
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: selected ? Colors.white : Colors.transparent,
-                      width: 2.5,
-                    ),
-                  ),
-                  child: selected
-                      ? const Icon(Icons.check, color: Colors.white, size: 20)
-                      : null,
+            Container(
+              width: 44,
+              height: 44,
+              decoration: BoxDecoration(
+                color: preview,
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: selected ? AppColors.primary : AppColors.border,
+                  width: selected ? 2.5 : 1.5,
                 ),
-                if (locked)
-                  Container(
-                    width: 44,
-                    height: 44,
-                    decoration: BoxDecoration(
-                      color: Colors.black.withValues(alpha: 0.45),
-                      shape: BoxShape.circle,
-                    ),
-                    child:
-                        const Icon(Icons.lock, color: Colors.white, size: 18),
-                  ),
-              ],
+              ),
+              child: selected
+                  ? Icon(Icons.check, color: checkColor, size: 20)
+                  : null,
             ),
             const SizedBox(height: 6),
             Text(label,

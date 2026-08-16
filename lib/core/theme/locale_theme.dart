@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'app_color_theme.dart';
+import 'app_colors.dart';
 
 class LocaleTheme {
   static ThemeData themed({
@@ -9,32 +11,40 @@ class LocaleTheme {
   }) {
     final brightness = theme.brightness;
     final isDark = brightness == Brightness.dark;
-    final primary = theme.accent;
+    final primary = AppColors.primary;
+    final background =
+        isDark ? AppColors.background : AppColors.backgroundLight;
+    final surface = isDark ? AppColors.card : AppColors.cardLight;
+    final outline = isDark ? AppColors.border : AppColors.borderLight;
+    final baseTextTheme =
+        isDark ? ThemeData.dark().textTheme : ThemeData.light().textTheme;
 
     return ThemeData(
       useMaterial3: true,
       brightness: brightness,
       // الخطوط تتغير تلقائياً بناءً على اللغة
-      fontFamily: locale.languageCode == 'ar' ? 'Cairo' : 'Roboto',
+      textTheme: locale.languageCode == 'ar'
+          ? GoogleFonts.cairoTextTheme(baseTextTheme)
+          : GoogleFonts.robotoTextTheme(baseTextTheme),
       // --- الألوان الفاخرة المزدوجة (Premium Dual-Theme Canvas) ---
-      scaffoldBackgroundColor: theme.background,
+      scaffoldBackgroundColor: background,
       colorScheme: isDark
           ? ColorScheme.dark(
-              background: theme.background,
-              surface: theme.surface, // زجاجي نقي للوضع المظلم
+              background: background,
+              surface: surface, // زجاجي نقي للوضع المظلم
               primary: primary,
-              outline: const Color(0xFF232D38), // خطوط هيكلية ناعمة
+              outline: outline, // خطوط هيكلية ناعمة
             )
           : ColorScheme.light(
-              background: theme.background,
-              surface: theme.surface, // كروت بيضاء ناصعة للوضع الفاتح
+              background: background,
+              surface: surface, // كروت بيضاء ناصعة للوضع الفاتح
               primary: primary,
-              outline: const Color(0xFFE2E8F0),
+              outline: outline,
             ),
       cardTheme: CardThemeData(
         elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        color: theme.surface,
+        color: surface,
       ),
     );
   }

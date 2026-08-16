@@ -84,7 +84,7 @@ class ProgressHomeBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    final muted = theme.colorScheme.onSurfaceVariant;
+    final muted = AppColors.textSecondary;
     final c = controller;
 
     if (c.phase == ProgressExperiencePhase.loading) {
@@ -190,8 +190,7 @@ class ProgressHomeBody extends StatelessWidget {
                 Divider(
                   height: 1,
                   thickness: 1,
-                  color:
-                      theme.colorScheme.outlineVariant.withValues(alpha: 0.35),
+                  color: AppColors.border.withValues(alpha: 0.35),
                 ),
                 const SizedBox(height: 2),
                 // 5–6 Progressive pattern + history
@@ -307,7 +306,7 @@ class _PatternDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    final muted = theme.colorScheme.onSurfaceVariant;
+    final muted = AppColors.textSecondary;
     final valueStyle = theme.textTheme.bodyMedium?.copyWith(
       color: muted,
       height: 1.4,
@@ -368,7 +367,7 @@ class _DetailExpansionState extends State<_DetailExpansion> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final muted = theme.colorScheme.onSurfaceVariant;
+    final muted = AppColors.textSecondary;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -439,7 +438,7 @@ class _TimelineRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    final muted = theme.colorScheme.onSurfaceVariant;
+    final muted = AppColors.textSecondary;
     final path = entry.usedMinimumPath && entry.usedStandardPath
         ? loc.v2ProgressTimelineBothPaths
         : entry.usedStandardPath
@@ -543,7 +542,7 @@ class _ReviewEntry extends StatelessWidget {
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    final muted = theme.colorScheme.onSurfaceVariant;
+    final muted = AppColors.textSecondary;
     final state = vm.weeklyReviewCardState;
     final route = _routeFor(state);
     final cta = _ctaFor(loc, state);
@@ -557,7 +556,7 @@ class _ReviewEntry extends StatelessWidget {
           loc.v2ProgressWeeklyReviewHeading,
           style: _actionable
               ? theme.textTheme.labelLarge?.copyWith(
-                  color: theme.colorScheme.onSurface,
+                  color: AppColors.textPrimary,
                   fontWeight: FontWeight.w600,
                 )
               : theme.textTheme.labelMedium?.copyWith(color: muted),
@@ -671,7 +670,7 @@ class _WeeklyPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    final muted = theme.colorScheme.onSurfaceVariant;
+    final muted = AppColors.textSecondary;
     final quiet = theme.textTheme.bodySmall?.copyWith(
       color: muted,
       height: 1.35,

@@ -6312,7 +6312,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2ProfilePreferencesHint.
   ///
   /// In en, this message translates to:
-  /// **'Appearance, notifications, and biometric lock'**
+  /// **'Appearance, notifications, biometric lock, and privacy & data'**
   String get v2ProfilePreferencesHint;
 
   /// No description provided for @v2ProfileSectionPrivacy.

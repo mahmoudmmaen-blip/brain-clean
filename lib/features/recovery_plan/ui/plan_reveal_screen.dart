@@ -319,7 +319,7 @@ class _ShellPlanOrientation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final muted = theme.colorScheme.onSurfaceVariant;
+    const muted = AppColors.textSecondary;
     final expl = plan.explanation;
     final today = plan.dayTemplate.todayPreview;
     final isStarter = plan.isStarterFallback ||
@@ -545,6 +545,7 @@ class _ShellPlanOrientation extends StatelessWidget {
 }
 
 /// First-time PLN-01 document — preserve onboarding contract.
+/// Uses V2ShellVisual polish; paths/confidence stay visible (not PathDetails chrome).
 class _FirstTimePlanReveal extends StatelessWidget {
   const _FirstTimePlanReveal({
     required this.loc,
@@ -560,6 +561,8 @@ class _FirstTimePlanReveal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    const muted = AppColors.textSecondary;
     final expl = plan.explanation;
     final today = plan.dayTemplate.todayPreview;
     final isStarter = plan.isStarterFallback ||
@@ -574,118 +577,122 @@ class _FirstTimePlanReveal extends StatelessWidget {
       '${plan.cadence.minPathMinutesMin}',
       '${plan.cadence.standardPathMinutesMax}',
     );
+    final intensityLabel = plan.intensity.labelForLocale(languageCode);
+    final actTitle = resolveTodayActTitle(plan, languageCode) ??
+        loc.v2TodayPreviewFallbackTitle;
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(24),
+      padding: V2ShellVisual.pagePadding(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Semantics(
-            header: true,
-            child: Text(
-              loc.recoveryPlanCalmOrientation,
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
+          V2PageHeader(
+            title: loc.recoveryPlanCalmOrientation,
+            subtitle: loc.recoveryPlanCalmOrientationBody,
           ),
-          const SizedBox(height: 8),
-          Text(loc.recoveryPlanCalmOrientationBody),
-          const SizedBox(height: 16),
+          const SizedBox(height: AppDesignConstants.v2GapSection),
           if (isStarter) ...[
             Semantics(
               liveRegion: true,
               child: Text(
                 loc.recoveryPlanStarterBadge,
-                style: Theme.of(context).textTheme.labelLarge,
-              ),
-            ),
-            const SizedBox(height: 12),
-          ],
-          Semantics(
-            header: true,
-            label:
-                '${loc.recoveryPlanMainFocus}: ${expl.mainFocusForLocale(languageCode)}',
-            child: Text(
-              loc.recoveryPlanMainFocus,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(expl.mainFocusForLocale(languageCode)),
-          const SizedBox(height: 8),
-          Text(loc.recoveryPlanFitsProfile),
-          const SizedBox(height: 16),
-          Semantics(
-            header: true,
-            child: Text(
-              loc.recoveryPlanPrioritiesHeading,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-          ),
-          const SizedBox(height: 8),
-          if (plan.priority.priorities.isEmpty)
-            Text(loc.recoveryPlanNoPriorities)
-          else
-            ...plan.priority.priorities.map(
-              (d) => Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Semantics(
-                  label:
-                      '${loc.recoveryPlanPrioritiesHeading}: ${d.titleForLocale(languageCode)}',
-                  child: Text(d.titleForLocale(languageCode)),
+                style: theme.textTheme.labelMedium?.copyWith(
+                  color: AppColors.primary,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
+            const SizedBox(height: AppDesignConstants.v2GapTight),
+          ],
+          V2HeroCard(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Semantics(
+                  header: true,
+                  label:
+                      '${loc.recoveryPlanMainFocus}: ${expl.mainFocusForLocale(languageCode)}',
+                  child: Text(
+                    loc.recoveryPlanMainFocus,
+                    style: V2ShellVisual.metricEyebrow(theme),
+                  ),
+                ),
+                const SizedBox(height: _kShellGapThesisBody),
+                Text(
+                  expl.mainFocusForLocale(languageCode),
+                  style: V2ShellVisual.heroTitle(theme),
+                ),
+                const SizedBox(height: AppDesignConstants.v2GapTight),
+                Text(
+                  loc.recoveryPlanFitsProfile,
+                  style: V2ShellVisual.bodyMuted(theme),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: _kShellGapAfterThesis),
+          V2SectionLabel(loc.recoveryPlanPrioritiesHeading),
+          const SizedBox(height: _kShellGapLabelBody),
+          if (plan.priority.priorities.isEmpty)
+            Text(
+              loc.recoveryPlanNoPriorities,
+              style: V2ShellVisual.bodyMuted(theme),
+            )
+          else
+            Wrap(
+              spacing: AppDesignConstants.v2GapTight,
+              runSpacing: AppDesignConstants.v2GapTight,
+              children: [
+                for (final d in plan.priority.priorities)
+                  V2QuietChip(
+                    label: d.titleForLocale(languageCode),
+                    semanticLabel:
+                        '${loc.recoveryPlanPrioritiesHeading}: ${d.titleForLocale(languageCode)}',
+                  ),
+              ],
+            ),
           if (plan.priority.strongerDomainId != null) ...[
-            const SizedBox(height: 8),
-            Semantics(
-              header: true,
-              child: Text(
-                loc.recoveryPlanStrongerHeading,
-                style: Theme.of(context).textTheme.titleMedium,
+            const SizedBox(height: _kShellGapSupportBlocks),
+            V2SectionLabel(loc.recoveryPlanStrongerHeading),
+            const SizedBox(height: _kShellGapLabelBody),
+            Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: V2QuietChip(
+                label: plan.priority.strongerTitleForLocale(languageCode),
+                semanticLabel:
+                    '${loc.recoveryPlanStrongerHeading}: ${plan.priority.strongerTitleForLocale(languageCode)}',
               ),
             ),
-            const SizedBox(height: 8),
-            Text(plan.priority.strongerTitleForLocale(languageCode)),
           ],
-          const SizedBox(height: 16),
-          Semantics(
-            header: true,
-            child: Text(
-              loc.recoveryPlanConfidenceHeading,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-          ),
-          const SizedBox(height: 8),
+          const SizedBox(height: _kShellGapSection),
+          V2SectionLabel(loc.recoveryPlanConfidenceHeading),
+          const SizedBox(height: _kShellGapLabelBody),
           Semantics(
             label: '${loc.recoveryPlanConfidenceHeading}: $confidenceLabel',
-            child: Text(confidenceLabel),
-          ),
-          const SizedBox(height: 16),
-          Semantics(
-            header: true,
             child: Text(
-              loc.recoveryPlanTimeHeading,
-              style: Theme.of(context).textTheme.titleMedium,
+              confidenceLabel,
+              style: V2ShellVisual.bodyMuted(theme),
             ),
           ),
-          const SizedBox(height: 8),
-          Semantics(
-            label: timeLabel,
-            child: Text(timeLabel),
+          const SizedBox(height: _kShellGapSection),
+          V2MetricRow(
+            tiles: [
+              V2MetricTile(
+                label: loc.recoveryPlanTimeHeading,
+                value: timeLabel,
+                semanticLabel: timeLabel,
+              ),
+              V2MetricTile(
+                label: loc.recoveryPlanIntensityLabel,
+                value: intensityLabel,
+                semanticLabel:
+                    '${loc.recoveryPlanIntensityLabel}: $intensityLabel',
+              ),
+            ],
           ),
-          const SizedBox(height: 8),
-          Text(
-            '${loc.recoveryPlanIntensityLabel}: ${plan.intensity.labelForLocale(languageCode)}',
-          ),
-          const SizedBox(height: 16),
-          Semantics(
-            header: true,
-            child: Text(
-              loc.recoveryPlanMinimumPath,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-          ),
-          const SizedBox(height: 8),
+          const SizedBox(height: _kShellGapSection),
+          V2SectionLabel(loc.recoveryPlanMinimumPath),
+          const SizedBox(height: _kShellGapLabelBody),
           ..._pathSteps(
             context,
             loc,
@@ -693,15 +700,9 @@ class _FirstTimePlanReveal extends StatelessWidget {
             today.minimumPathStepIds,
             languageCode,
           ),
-          const SizedBox(height: 16),
-          Semantics(
-            header: true,
-            child: Text(
-              loc.recoveryPlanStandardPath,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-          ),
-          const SizedBox(height: 8),
+          const SizedBox(height: _kShellGapSection),
+          V2SectionLabel(loc.recoveryPlanStandardPath),
+          const SizedBox(height: _kShellGapLabelBody),
           ..._pathSteps(
             context,
             loc,
@@ -709,56 +710,79 @@ class _FirstTimePlanReveal extends StatelessWidget {
             today.standardPathStepIds,
             languageCode,
           ),
-          const SizedBox(height: 16),
-          Semantics(
-            header: true,
-            child: Text(
-              loc.recoveryPlanBecauseHeading,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-          ),
-          const SizedBox(height: 8),
-          ...expl.becauseLinesForLocale(languageCode).map(
-                (line) => Padding(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: Text(line),
+          const SizedBox(height: _kShellGapSection),
+          V2SectionLabel(loc.recoveryPlanBecauseHeading),
+          const SizedBox(height: _kShellGapLabelBody),
+          V2InfoCard(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                ...expl.becauseLinesForLocale(languageCode).map(
+                      (line) => Padding(
+                        padding: const EdgeInsets.only(bottom: 6),
+                        child: Text(
+                          line,
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            height: 1.4,
+                          ),
+                        ),
+                      ),
+                    ),
+                Text(
+                  expl.nonMedicalForLocale(languageCode),
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: muted,
+                    height: 1.4,
+                  ),
                 ),
-              ),
-          const SizedBox(height: 8),
-          Text(expl.nonMedicalForLocale(languageCode)),
-          const SizedBox(height: 8),
-          Text(expl.whyMayChangeForLocale(languageCode)),
-          const SizedBox(height: 16),
-          Semantics(
-            header: true,
-            child: Text(
-              loc.recoveryPlanTodayPreview,
-              style: Theme.of(context).textTheme.titleMedium,
+                const SizedBox(height: 6),
+                Text(
+                  expl.whyMayChangeForLocale(languageCode),
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: muted,
+                    height: 1.4,
+                  ),
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 8),
-          Semantics(
-            label:
-                '${loc.v2TodayPreviewActHeading}: ${resolveTodayActTitle(plan, languageCode) ?? loc.v2TodayPreviewFallbackTitle}',
-            child: Text(
-              resolveTodayActTitle(plan, languageCode) ??
-                  loc.v2TodayPreviewFallbackTitle,
-              style: Theme.of(context).textTheme.titleSmall,
+          const SizedBox(height: _kShellGapSection),
+          V2SectionLabel(loc.recoveryPlanTodayPreview),
+          const SizedBox(height: _kShellGapLabelBody),
+          V2InfoCard(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Semantics(
+                  label: '${loc.v2TodayPreviewActHeading}: $actTitle',
+                  child: Text(
+                    actTitle,
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      height: 1.3,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: AppDesignConstants.v2GapInline - 2),
+                Semantics(
+                  label:
+                      '${loc.v2TodayPreviewBecauseHeading}: ${today.because.forLocale(languageCode)}',
+                  child: Text(
+                    today.because.forLocale(languageCode),
+                    style: V2ShellVisual.bodyMuted(theme),
+                  ),
+                ),
+                const SizedBox(height: AppDesignConstants.v2GapTight),
+                Text(
+                  loc.recoveryPlanSkipHint,
+                  style: theme.textTheme.bodySmall?.copyWith(color: muted),
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 8),
-          Semantics(
-            label:
-                '${loc.v2TodayPreviewBecauseHeading}: ${today.because.forLocale(languageCode)}',
-            child: Text(today.because.forLocale(languageCode)),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            loc.recoveryPlanSkipHint,
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
-          const SizedBox(height: 32),
+          const SizedBox(height: _kShellGapDetailsCta),
           SizedBox(
+            width: double.infinity,
             height: AppDesignConstants.minTouchTarget,
             child: FilledButton(
               style: V2ShellVisual.primaryFilled(),
@@ -874,7 +898,7 @@ class _PlanDetailExpansionState extends State<_PlanDetailExpansion> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final muted = theme.colorScheme.onSurfaceVariant;
+    const muted = AppColors.textSecondary;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [

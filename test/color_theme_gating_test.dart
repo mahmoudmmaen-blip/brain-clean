@@ -15,7 +15,6 @@ ProviderContainer _container({
 }) {
   final container = ProviderContainer(
     overrides: [
-      // Theme gating tests exercise the local fake adapter + preferences only.
       forceLocalSubscriptionAdapterProvider.overrideWithValue(true),
       appMetaBoxProvider.overrideWithValue(InMemoryHiveBox(seed)),
       appPreferencesProvider.overrideWith(
@@ -29,44 +28,65 @@ ProviderContainer _container({
 
 void main() {
   group('SelectedColorThemeNotifier / effectiveColorThemeProvider', () {
-    test('defaults to midnight when no key stored', () {
+    test('defaults to dark when no key stored', () {
       expect(
         _container().read(selectedColorThemeProvider),
-        AppColorTheme.midnight,
+        AppColorTheme.dark,
       );
     });
 
-    test('restores persisted theme from Hive on build', () {
-      final c = _container(
-        seed: {
-          HiveMetaKeys.selectedColorThemeId: AppColorTheme.aurora.name,
-        },
-      );
-      expect(c.read(selectedColorThemeProvider), AppColorTheme.aurora);
-    });
-
-    test('pro user keeps a pro theme as effective', () async {
-      final c = _container(isPro: true);
-      await c.read(selectedColorThemeProvider.notifier).select(AppColorTheme.pine);
-      expect(c.read(selectedColorThemeProvider), AppColorTheme.pine);
-      expect(c.read(effectiveColorThemeProvider), AppColorTheme.pine);
-    });
-
-    test('free user selecting a pro theme falls back effectively to midnight',
+    test('selecting dark and light updates selectedColorThemeProvider',
         () async {
-      final c = _container(isPro: false);
-      await c.read(selectedColorThemeProvider.notifier).select(AppColorTheme.pine);
-      expect(c.read(selectedColorThemeProvider), AppColorTheme.pine);
-      expect(c.read(effectiveColorThemeProvider), AppColorTheme.midnight);
+      final c = _container();
+      await c.read(selectedColorThemeProvider.notifier).select(AppColorTheme.light);
+      expect(c.read(selectedColorThemeProvider), AppColorTheme.light);
+      expect(c.read(effectiveColorThemeProvider), AppColorTheme.light);
+
+      await c.read(selectedColorThemeProvider.notifier).select(AppColorTheme.dark);
+      expect(c.read(selectedColorThemeProvider), AppColorTheme.dark);
+      expect(c.read(effectiveColorThemeProvider), AppColorTheme.dark);
     });
 
-    test('free user can keep a free theme', () async {
-      final c = _container(isPro: false);
-      await c
+    test('both dark and light are accessible without Pro', () async {
+      final free = _container(isPro: false);
+      await free
           .read(selectedColorThemeProvider.notifier)
-          .select(AppColorTheme.aurora);
-      expect(c.read(selectedColorThemeProvider), AppColorTheme.aurora);
-      expect(c.read(effectiveColorThemeProvider), AppColorTheme.aurora);
+          .select(AppColorTheme.light);
+      expect(free.read(selectedColorThemeProvider), AppColorTheme.light);
+      expect(free.read(effectiveColorThemeProvider), AppColorTheme.light);
+
+      await free
+          .read(selectedColorThemeProvider.notifier)
+          .select(AppColorTheme.dark);
+      expect(free.read(selectedColorThemeProvider), AppColorTheme.dark);
+      expect(free.read(effectiveColorThemeProvider), AppColorTheme.dark);
+    });
+
+    test('legacy persisted names map to dark or light', () {
+      expect(
+        _container(seed: {
+          HiveMetaKeys.selectedColorThemeId: 'midnight',
+        }).read(selectedColorThemeProvider),
+        AppColorTheme.dark,
+      );
+      expect(
+        _container(seed: {
+          HiveMetaKeys.selectedColorThemeId: 'aurora',
+        }).read(selectedColorThemeProvider),
+        AppColorTheme.dark,
+      );
+      expect(
+        _container(seed: {
+          HiveMetaKeys.selectedColorThemeId: 'daylight',
+        }).read(selectedColorThemeProvider),
+        AppColorTheme.light,
+      );
+      expect(
+        _container(seed: {
+          HiveMetaKeys.selectedColorThemeId: 'light',
+        }).read(selectedColorThemeProvider),
+        AppColorTheme.light,
+      );
     });
   });
 }
