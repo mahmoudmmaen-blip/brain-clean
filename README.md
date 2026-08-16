@@ -27,3 +27,4 @@ flutter run -d <device_id>
 ```
 
 Brain Clean is a Flutter app that helps Arabic-speaking users recover from screen addiction and rebuild focus through a 30-day challenge, cognitive tools, and an AI coach.
+It is built for iOS and Android with a fully Arabic RTL experience.
