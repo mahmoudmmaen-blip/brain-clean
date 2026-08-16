@@ -1,3 +1,4 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -119,24 +120,58 @@ class ProgressHomeBody extends StatelessWidget {
               ),
               const SizedBox(height: AppDesignConstants.v2GapSection),
               V2HeroCard(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Semantics(
-                      header: true,
-                      liveRegion: true,
-                      child: Text(
-                        _headline(loc, vm.proofHeadline),
-                        style: V2ShellVisual.heroTitle(theme),
+                child: vm.isEmpty
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Semantics(
+                            header: true,
+                            liveRegion: true,
+                            child: Text(
+                              _headline(loc, vm.proofHeadline),
+                              style: V2ShellVisual.heroTitle(theme),
+                            ),
+                          ),
+                          const SizedBox(height: _kGapHeadlineSupport),
+                          Text(
+                            loc.v2ProgressBasedOnSessions,
+                            style: V2ShellVisual.captionMuted(theme),
+                          ),
+                        ],
+                      )
+                    : Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Semantics(
+                                  header: true,
+                                  liveRegion: true,
+                                  child: Text(
+                                    _headline(loc, vm.proofHeadline),
+                                    style: V2ShellVisual.heroTitle(theme),
+                                  ),
+                                ),
+                                const SizedBox(height: _kGapHeadlineSupport),
+                                Text(
+                                  loc.v2ProgressBasedOnSessions,
+                                  style: V2ShellVisual.captionMuted(theme),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            width: AppDesignConstants.v2GapSection,
+                          ),
+                          _CompletionRing(
+                            percent: vm.completionRatePercent,
+                            centerLabel: '${vm.completionRatePercent}%',
+                            centerCaption: loc.v2ProgressStatsRate,
+                          ),
+                        ],
                       ),
-                    ),
-                    const SizedBox(height: _kGapHeadlineSupport),
-                    Text(
-                      loc.v2ProgressBasedOnSessions,
-                      style: V2ShellVisual.captionMuted(theme),
-                    ),
-                  ],
-                ),
               ),
               if (vm.isEmpty) ...[
                 const SizedBox(height: _kGapToMovement),
@@ -830,6 +865,76 @@ class _Pad extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class _CompletionRing extends StatelessWidget {
+  const _CompletionRing({
+    required this.percent,
+    required this.centerLabel,
+    required this.centerCaption,
+  });
+
+  final int percent; // 0-100
+  final String centerLabel;
+  final String centerCaption;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final clamped = percent.clamp(0, 100);
+    return SizedBox(
+      width: 96,
+      height: 96,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          PieChart(
+            PieChartData(
+              startDegreeOffset: -90,
+              sectionsSpace: 0,
+              centerSpaceRadius: 34,
+              sections: [
+                PieChartSectionData(
+                  value: clamped.toDouble(),
+                  color: AppColors.primary,
+                  radius: 12,
+                  showTitle: false,
+                ),
+                PieChartSectionData(
+                  value: (100 - clamped).toDouble(),
+                  color: AppColors.border.withValues(alpha: 0.35),
+                  radius: 12,
+                  showTitle: false,
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            width: 64,
+            height: 64,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    centerLabel,
+                    textAlign: TextAlign.center,
+                    style: V2ShellVisual.metricValue(theme),
+                  ),
+                  Text(
+                    centerCaption,
+                    textAlign: TextAlign.center,
+                    style: V2ShellVisual.metricCaption(theme),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
