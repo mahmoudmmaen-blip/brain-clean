@@ -13,6 +13,10 @@
 - Biometric Lock + Root Detection
 - Fully Arabic RTL, Cairo Font
 
+## Tech
+- Flutter
+- Riverpod
+
 ## Tech Stack
 Flutter • Riverpod • Hive (AES-256) • Supabase • RevenueCat • GoRouter • Freezed
 
