@@ -50,6 +50,20 @@ abstract final class HiveBootstrap {
     _initialized = true;
   }
 
+  /// Clears every opened durable box. Used for confirmed account deletion.
+  static Future<void> clearAllDurableBoxes() async {
+    for (final name in _durableBoxes) {
+      try {
+        if (Hive.isBoxOpen(name)) {
+          await Hive.box<dynamic>(name).clear();
+        }
+      } catch (error, stackTrace) {
+        debugPrint('HiveBootstrap: failed to clear $name: $error');
+        debugPrint('$stackTrace');
+      }
+    }
+  }
+
   /// Opens all durable boxes before UI hydration (cold-start safety).
   static Future<void> warmUpPersistentBoxes() async {
     await initialize();

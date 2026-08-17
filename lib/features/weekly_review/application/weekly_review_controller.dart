@@ -19,6 +19,7 @@ import '../domain/weekly_review_response.dart';
 import '../domain/weekly_review_signal.dart';
 import '../domain/weekly_review_signal_engine.dart';
 import '../domain/weekly_review_source_reference.dart';
+import '../domain/weekly_activity_facts.dart';
 import '../domain/weekly_review_summary.dart';
 import '../domain/weekly_review_summary_engine.dart';
 import '../domain/weekly_review_version.dart';
@@ -63,6 +64,7 @@ class WeeklyReviewController extends ChangeNotifier {
   WeeklyArtifact? artifact;
   WeeklyReviewSignal? signal;
   WeeklyReviewSummary? summary;
+  WeeklyActivityFacts? activityFacts;
   String? errorKey;
   WeeklyReviewNotEligibleReason? notEligibleReason;
   String? validationError;
@@ -125,6 +127,9 @@ class WeeklyReviewController extends ChangeNotifier {
         if (artifact != null) {
           signal = await _reviews.signalByArtifactId(artifact!.artifactId);
         }
+        final history = await _sessions.history();
+        final snapshot = await _progress.latest();
+        _applyFacts(target, history, snapshot);
         phase = WeeklyReviewUiPhase.completed;
         notEligibleReason = WeeklyReviewNotEligibleReason.alreadyCompleted;
         notifyListeners();
@@ -155,6 +160,7 @@ class WeeklyReviewController extends ChangeNotifier {
         existingForPeriod: existing,
       );
       eligibility = result;
+      _applyFacts(target, history, snapshot);
 
       if (result.alreadyCompleted && result.existingCompleted != null) {
         record = result.existingCompleted;
@@ -386,6 +392,7 @@ class WeeklyReviewController extends ChangeNotifier {
       artifact = result.artifact;
       signal = result.signal;
       summary = result.artifact.summary;
+      _applyFacts(p, history, await _progress.latest());
       phase = WeeklyReviewUiPhase.completed;
       notifyListeners();
       return true;
@@ -395,6 +402,24 @@ class WeeklyReviewController extends ChangeNotifier {
       phase = WeeklyReviewUiPhase.saveFailed;
       notifyListeners();
       return false;
+    }
+  }
+
+  void _applyFacts(
+    WeeklyPeriod target,
+    List<DailySession> history,
+    ProgressSnapshot? snapshot,
+  ) {
+    try {
+      activityFacts = WeeklyActivityFacts.fromHistory(
+        period: target,
+        history: history,
+        snapshot: snapshot,
+      );
+    } catch (error, stackTrace) {
+      debugPrint('WeeklyReviewController facts failed: $error');
+      debugPrint('$stackTrace');
+      activityFacts = WeeklyActivityFacts.empty(target);
     }
   }
 }

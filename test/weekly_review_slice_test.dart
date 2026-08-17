@@ -19,6 +19,7 @@ import 'package:brain_clean_mobile/features/progress/data/progress_repository.da
 import 'package:brain_clean_mobile/features/progress/domain/progress_engine.dart';
 import 'package:brain_clean_mobile/features/weekly_review/application/weekly_review_controller.dart';
 import 'package:brain_clean_mobile/features/weekly_review/data/weekly_review_repository.dart';
+import 'package:brain_clean_mobile/features/weekly_review/domain/weekly_activity_facts.dart';
 import 'package:brain_clean_mobile/features/weekly_review/domain/weekly_period_resolver.dart';
 import 'package:brain_clean_mobile/features/weekly_review/domain/weekly_review_eligibility.dart';
 import 'package:brain_clean_mobile/features/weekly_review/domain/weekly_review_enums.dart';
@@ -240,6 +241,69 @@ void main() {
       );
       expect(p.timezoneOffsetMinutes, 120);
       expect(p.startDayKey, '2026-07-27');
+    });
+  });
+
+  group('WeeklyActivityFacts from existing Progress/session history', () {
+    test('empty week is honest zeros; no new persisted state', () {
+      final period = WeeklyPeriodResolver.previousCompletedWeek(
+        localNow: DateTime(2026, 8, 3),
+        timezoneOffset: Duration.zero,
+      );
+      final facts = WeeklyActivityFacts.fromHistory(
+        period: period,
+        history: const [],
+      );
+      expect(facts.isEmpty, isTrue);
+      expect(facts.completedSessions, 0);
+      expect(facts.completedDays, 0);
+      expect(facts.requiredStepsCompleted, 0);
+      expect(facts.adherencePercent, 0);
+      expect(facts.currentStreak, 0);
+    });
+
+    test('reuses ProgressEngine window stats for tasks, streak, adherence', () {
+      final period = WeeklyPeriodResolver.previousCompletedWeek(
+        localNow: DateTime(2026, 8, 3),
+        timezoneOffset: Duration.zero,
+      );
+      final sessions = [
+        _session(
+          id: 's1',
+          dayKey: '2026-07-27',
+          path: DailySessionPath.standard,
+        ),
+        _session(
+          id: 's2',
+          dayKey: '2026-07-28',
+          path: DailySessionPath.minimum,
+        ),
+        _session(
+          id: 's3',
+          dayKey: '2026-08-05',
+          path: DailySessionPath.standard,
+        ),
+      ];
+      final snapshot = ProgressEngine.build(
+        sessions: sessions,
+        nowUtc: DateTime.utc(2026, 8, 3),
+        asOfDayKey: '2026-08-03',
+      );
+      final facts = WeeklyActivityFacts.fromHistory(
+        period: period,
+        history: sessions,
+        snapshot: snapshot,
+      );
+      expect(period.startDayKey, '2026-07-27');
+      expect(period.endDayKey, '2026-08-02');
+      expect(facts.completedSessions, 2);
+      expect(facts.completedDays, 2);
+      expect(facts.requiredStepsCompleted, 2);
+      expect(facts.adherencePercent, 29); // 2/7
+      expect(facts.weekStreak, 0);
+      expect(facts.longestWeekStreak, 2);
+      expect(facts.currentStreak, snapshot.statistics.currentStreak);
+      expect(facts.longestStreak, snapshot.statistics.longestStreak);
     });
   });
 
@@ -904,6 +968,16 @@ void main() {
       );
       c.phase = WeeklyReviewUiPhase.completed;
       c.summary = sum;
+      c.activityFacts = WeeklyActivityFacts.fromHistory(
+        period: period,
+        history: [
+          _session(
+            id: 's1',
+            dayKey: '2026-07-28',
+            path: DailySessionPath.minimum,
+          ),
+        ],
+      );
 
       await tester.pumpWidget(
         MaterialApp(
@@ -921,6 +995,9 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.byType(SingleChildScrollView), findsOneWidget);
       expect(find.textContaining('plan has not changed'), findsOneWidget);
+      expect(find.text('Last 7 days'), findsOneWidget);
+      expect(find.text('Tasks completed'), findsOneWidget);
+      expect(find.text('Plan adherence'), findsOneWidget);
     });
 
     test('feature flag OFF preserves V1 gate constant', () {

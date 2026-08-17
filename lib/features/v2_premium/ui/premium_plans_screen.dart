@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/services/external_link_service.dart';
+import '../../../core/theme/app_colors.dart';
 import '../../pro/domain/subscription_plan.dart';
 import '../application/premium_controller.dart';
 import '../data/premium_controller_provider.dart';
@@ -208,9 +209,7 @@ class _PlanTile extends StatelessWidget {
             minimumSize: const Size(48, 56),
             alignment: AlignmentDirectional.centerStart,
             side: BorderSide(
-              color: selected
-                  ? Theme.of(context).colorScheme.primary
-                  : Theme.of(context).dividerColor,
+              color: selected ? AppColors.primary : AppColors.border,
               width: selected ? 2 : 1,
             ),
           ),

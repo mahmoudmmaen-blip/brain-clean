@@ -1235,6 +1235,29 @@
   "v2WeeklySummaryPlanUnchanged": "لم تتغير خطتك بعد",
   "v2WeeklySummaryCtaToday": "العودة إلى اليوم",
   "v2WeeklySummaryCtaProgress": "العودة إلى التقدّم",
+  "v2WeeklyFactsSection": "آخر 7 أيام",
+  "v2WeeklyFactsTasks": "المهام المكتملة",
+  "v2WeeklyFactsTasksCaption": "{count} خطوات مطلوبة",
+  "@v2WeeklyFactsTasksCaption": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2WeeklyFactsStreak": "السلسلة",
+  "v2WeeklyFactsStreakCaption": "{current} الآن · {best} الأفضل",
+  "@v2WeeklyFactsStreakCaption": {
+    "placeholders": {
+      "current": { "type": "String" },
+      "best": { "type": "String" }
+    }
+  },
+  "v2WeeklyFactsAdherence": "الالتزام بالخطة",
+  "v2WeeklyFactsAdherenceCaption": "{days} من 7 أيام",
+  "@v2WeeklyFactsAdherenceCaption": {
+    "placeholders": {
+      "days": { "type": "String" }
+    }
+  },
   "v2ProgressTitle": "التقدّم",
   "v2ProgressOrientation": "تقدّمك",
   "v2ProgressRetry": "حاول مرة أخرى",
@@ -1665,5 +1688,21 @@
   "v2ProfileEditNameHint": "اختياري — يظهر على هذا الجهاز فقط",
   "v2ProfileNameSaveFailed": "تعذّر حفظ الاسم. حاول مرة أخرى.",
   "v2ProfileLegalHint": "يفتح سياسة الخصوصية في المتصفح",
-  "v2ProfileContactHint": "يفتح تطبيق البريد"
+  "v2ProfileContactHint": "يفتح تطبيق البريد",
+  "settingsOrientation": "المظهر واللغة والإشعارات وحسابك على هذا الجهاز.",
+  "settingsProfileSection": "الملف",
+  "settingsLanguageSection": "اللغة",
+  "settingsLanguageArabic": "العربية",
+  "settingsLanguageEnglish": "English",
+  "settingsLogout": "تسجيل الخروج",
+  "settingsLogoutConfirmTitle": "تسجيل الخروج؟",
+  "settingsLogoutConfirmBody": "ستعود إلى بداية التطبيق. تبقى بيانات التعافي على هذا الجهاز حتى تحذفها.",
+  "settingsDeleteAccount": "حذف الحساب",
+  "settingsDeleteAccountConfirmTitle": "حذف الحساب؟",
+  "settingsDeleteAccountConfirmBody": "سيتم حذف جميع البيانات المحلية على هذا الجهاز نهائياً. لا يمكن التراجع.",
+  "colorThemeMorningDark": "داكن",
+  "colorThemeMorningLight": "فاتح",
+  "settingsThemeDarkSubtitle": "لوحة Morning Light الداكنة",
+  "settingsThemeLightSubtitle": "لوحة Morning Light الفاتحة",
+  "settingsActionFailed": "تعذّر إكمال هذا الإجراء. حاول مرة أخرى."
 }

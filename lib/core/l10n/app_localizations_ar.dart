@@ -2591,6 +2591,33 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2WeeklySummaryCtaProgress => 'العودة إلى التقدّم';
 
   @override
+  String get v2WeeklyFactsSection => 'آخر 7 أيام';
+
+  @override
+  String get v2WeeklyFactsTasks => 'المهام المكتملة';
+
+  @override
+  String v2WeeklyFactsTasksCaption(String count) {
+    return '$count خطوات مطلوبة';
+  }
+
+  @override
+  String get v2WeeklyFactsStreak => 'السلسلة';
+
+  @override
+  String v2WeeklyFactsStreakCaption(String current, String best) {
+    return '$current الآن · $best الأفضل';
+  }
+
+  @override
+  String get v2WeeklyFactsAdherence => 'الالتزام بالخطة';
+
+  @override
+  String v2WeeklyFactsAdherenceCaption(String days) {
+    return '$days من 7 أيام';
+  }
+
+  @override
   String get v2ProgressTitle => 'التقدّم';
 
   @override
@@ -3518,4 +3545,55 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v2ProfileContactHint => 'يفتح تطبيق البريد';
+
+  @override
+  String get settingsOrientation =>
+      'المظهر واللغة والإشعارات وحسابك على هذا الجهاز.';
+
+  @override
+  String get settingsProfileSection => 'الملف';
+
+  @override
+  String get settingsLanguageSection => 'اللغة';
+
+  @override
+  String get settingsLanguageArabic => 'العربية';
+
+  @override
+  String get settingsLanguageEnglish => 'English';
+
+  @override
+  String get settingsLogout => 'تسجيل الخروج';
+
+  @override
+  String get settingsLogoutConfirmTitle => 'تسجيل الخروج؟';
+
+  @override
+  String get settingsLogoutConfirmBody =>
+      'ستعود إلى بداية التطبيق. تبقى بيانات التعافي على هذا الجهاز حتى تحذفها.';
+
+  @override
+  String get settingsDeleteAccount => 'حذف الحساب';
+
+  @override
+  String get settingsDeleteAccountConfirmTitle => 'حذف الحساب؟';
+
+  @override
+  String get settingsDeleteAccountConfirmBody =>
+      'سيتم حذف جميع البيانات المحلية على هذا الجهاز نهائياً. لا يمكن التراجع.';
+
+  @override
+  String get colorThemeMorningDark => 'داكن';
+
+  @override
+  String get colorThemeMorningLight => 'فاتح';
+
+  @override
+  String get settingsThemeDarkSubtitle => 'لوحة Morning Light الداكنة';
+
+  @override
+  String get settingsThemeLightSubtitle => 'لوحة Morning Light الفاتحة';
+
+  @override
+  String get settingsActionFailed => 'تعذّر إكمال هذا الإجراء. حاول مرة أخرى.';
 }

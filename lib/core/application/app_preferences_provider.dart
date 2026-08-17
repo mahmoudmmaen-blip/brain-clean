@@ -141,6 +141,9 @@ class AppPreferences extends _$AppPreferences {
   Future<void> completeOnboarding() =>
       _persist(HiveMetaKeys.hasSeenOnboarding, true);
 
+  Future<void> markOnboardingIncomplete() =>
+      _persist(HiveMetaKeys.hasSeenOnboarding, false);
+
   Future<void> setProUser(bool value) =>
       _persist(HiveMetaKeys.isProUser, value);
 

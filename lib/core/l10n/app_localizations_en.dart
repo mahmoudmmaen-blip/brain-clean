@@ -2629,6 +2629,33 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2WeeklySummaryCtaProgress => 'Back to Progress';
 
   @override
+  String get v2WeeklyFactsSection => 'Last 7 days';
+
+  @override
+  String get v2WeeklyFactsTasks => 'Tasks completed';
+
+  @override
+  String v2WeeklyFactsTasksCaption(String count) {
+    return '$count required steps';
+  }
+
+  @override
+  String get v2WeeklyFactsStreak => 'Streak';
+
+  @override
+  String v2WeeklyFactsStreakCaption(String current, String best) {
+    return '$current now · $best best';
+  }
+
+  @override
+  String get v2WeeklyFactsAdherence => 'Plan adherence';
+
+  @override
+  String v2WeeklyFactsAdherenceCaption(String days) {
+    return '$days of 7 days';
+  }
+
+  @override
   String get v2ProgressTitle => 'Progress';
 
   @override
@@ -3582,4 +3609,56 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v2ProfileContactHint => 'Opens your email app';
+
+  @override
+  String get settingsOrientation =>
+      'Appearance, language, notifications, and your account on this device.';
+
+  @override
+  String get settingsProfileSection => 'Profile';
+
+  @override
+  String get settingsLanguageSection => 'Language';
+
+  @override
+  String get settingsLanguageArabic => 'Arabic';
+
+  @override
+  String get settingsLanguageEnglish => 'English';
+
+  @override
+  String get settingsLogout => 'Log out';
+
+  @override
+  String get settingsLogoutConfirmTitle => 'Log out?';
+
+  @override
+  String get settingsLogoutConfirmBody =>
+      'You will return to the start of the app. Your recovery data stays on this device until you delete it.';
+
+  @override
+  String get settingsDeleteAccount => 'Delete account';
+
+  @override
+  String get settingsDeleteAccountConfirmTitle => 'Delete account?';
+
+  @override
+  String get settingsDeleteAccountConfirmBody =>
+      'All local data on this device will be permanently deleted. This cannot be undone.';
+
+  @override
+  String get colorThemeMorningDark => 'Dark';
+
+  @override
+  String get colorThemeMorningLight => 'Light';
+
+  @override
+  String get settingsThemeDarkSubtitle => 'Morning Light dark canvas';
+
+  @override
+  String get settingsThemeLightSubtitle => 'Morning Light bright canvas';
+
+  @override
+  String get settingsActionFailed =>
+      'Could not complete that action. Please try again.';
 }

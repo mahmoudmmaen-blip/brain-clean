@@ -5,8 +5,11 @@ import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_design_constants.dart';
+import '../../../core/theme/v2_shell_visual.dart';
 import '../application/weekly_review_controller.dart';
 import '../data/weekly_review_controller_provider.dart';
+import '../domain/weekly_activity_facts.dart';
 import '../domain/weekly_review_enums.dart';
 import '../domain/weekly_review_summary.dart';
 
@@ -41,9 +44,16 @@ class _WeeklyReviewSummaryScreenState
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: AppColors.background,
+        foregroundColor: AppColors.textPrimary,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
         title: Semantics(
           header: true,
-          child: Text(loc.v2WeeklySummaryTitle),
+          child: Text(
+            loc.v2WeeklySummaryTitle,
+            style: const TextStyle(color: AppColors.textPrimary),
+          ),
         ),
       ),
       body: SafeArea(
@@ -62,33 +72,40 @@ class WeeklyReviewSummaryBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
     final c = controller;
 
     if (c.phase == WeeklyReviewUiPhase.loading) {
       return Center(
         child: Semantics(
           liveRegion: true,
-          child: Text(loc.v2WeeklyReviewLoading),
+          child: Text(
+            loc.v2WeeklyReviewLoading,
+            style: const TextStyle(color: AppColors.textSecondary),
+          ),
         ),
       );
     }
 
     final summary = c.summary ?? c.artifact?.summary;
-    if (summary == null) {
+    final facts = c.activityFacts;
+    if (summary == null && facts == null) {
       return Padding(
-        padding: const EdgeInsets.all(24),
+        padding: V2ShellVisual.pagePadding(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               loc.v2WeeklyReviewNotReadyGeneric,
               textAlign: TextAlign.center,
+              style: const TextStyle(color: AppColors.textPrimary),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: AppDesignConstants.v2GapSection),
             SizedBox(
               width: double.infinity,
-              height: 48,
+              height: AppDesignConstants.minTouchTarget,
               child: FilledButton(
+                style: V2ShellVisual.primaryFilled(),
                 onPressed: () => context.go(AppRoutes.v2WeeklyReview),
                 child: Text(loc.v2WeeklyReviewContinue),
               ),
@@ -101,76 +118,95 @@ class WeeklyReviewSummaryBody extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         return SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
+          padding: V2ShellVisual.pagePadding(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Semantics(
-                header: true,
-                child: Text(
-                  loc.v2WeeklySummaryOrientation,
-                  style: Theme.of(context).textTheme.headlineSmall,
+              V2PageHeader(
+                title: loc.v2WeeklySummaryOrientation,
+                subtitle: loc.v2WeeklyReviewPeriodLabel(
+                  summary?.periodStartDayKey ?? facts!.startDayKey,
+                  summary?.periodEndDayKey ?? facts!.endDayKey,
                 ),
               ),
-              const SizedBox(height: 8),
-              Text(
-                loc.v2WeeklyReviewPeriodLabel(
-                  summary.periodStartDayKey,
-                  summary.periodEndDayKey,
+              if (facts != null) ...[
+                const SizedBox(height: AppDesignConstants.v2GapSection),
+                V2SectionLabel(loc.v2WeeklyFactsSection),
+                const SizedBox(height: AppDesignConstants.v2GapSectionLabel),
+                _WeeklyFactsCard(facts: facts),
+              ],
+              if (summary != null) ...[
+                const SizedBox(height: AppDesignConstants.v2GapSection),
+                _line(
+                  loc.v2WeeklySummaryCompletedDays(
+                    summary.completedDayCount.toString(),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              _line(
-                context,
-                loc.v2WeeklySummaryCompletedDays(
-                  summary.completedDayCount.toString(),
+                _line(
+                  loc.v2WeeklySummaryPathMix(_pathLabel(loc, summary)),
                 ),
-              ),
-              _line(
-                context,
-                loc.v2WeeklySummaryPathMix(_pathLabel(loc, summary)),
-              ),
-              _line(
-                context,
-                loc.v2WeeklySummaryPatternHeading,
-              ),
-              Text(_patternLabel(loc, summary)),
-              const SizedBox(height: 12),
-              Text(
-                loc.v2WeeklySummaryObstacleHeading,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              Text(_obstacleLabel(loc, summary.obstacleResponse)),
-              const SizedBox(height: 12),
-              Text(
-                loc.v2WeeklySummarySupportHeading,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              Text(_supportLabel(loc, summary.supportResponses)),
-              const SizedBox(height: 12),
-              Text(
-                loc.v2WeeklySummaryAttentionHeading,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              Text(_attentionLabel(loc, summary.attentionNext)),
-              const SizedBox(height: 12),
-              Text(
-                _evidenceLabel(loc, summary),
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              const SizedBox(height: 20),
-              Semantics(
-                liveRegion: true,
-                child: Text(
-                  loc.v2WeeklySummaryPlanUnchanged,
-                  style: Theme.of(context).textTheme.titleMedium,
+                _line(loc.v2WeeklySummaryPatternHeading),
+                Text(
+                  _patternLabel(loc, summary),
+                  style: const TextStyle(color: AppColors.textPrimary),
                 ),
-              ),
-              const SizedBox(height: 32),
+                const SizedBox(height: AppDesignConstants.v2GapControl),
+                Text(
+                  loc.v2WeeklySummaryObstacleHeading,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                Text(
+                  _obstacleLabel(loc, summary.obstacleResponse),
+                  style: const TextStyle(color: AppColors.textPrimary),
+                ),
+                const SizedBox(height: AppDesignConstants.v2GapControl),
+                Text(
+                  loc.v2WeeklySummarySupportHeading,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                Text(
+                  _supportLabel(loc, summary.supportResponses),
+                  style: const TextStyle(color: AppColors.textPrimary),
+                ),
+                const SizedBox(height: AppDesignConstants.v2GapControl),
+                Text(
+                  loc.v2WeeklySummaryAttentionHeading,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                Text(
+                  _attentionLabel(loc, summary.attentionNext),
+                  style: const TextStyle(color: AppColors.textPrimary),
+                ),
+                const SizedBox(height: AppDesignConstants.v2GapControl),
+                Text(
+                  _evidenceLabel(loc, summary),
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: AppColors.textSecondary,
+                  ),
+                ),
+                const SizedBox(height: AppDesignConstants.v2GapSection),
+                Semantics(
+                  liveRegion: true,
+                  child: Text(
+                    loc.v2WeeklySummaryPlanUnchanged,
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ),
+              ],
+              const SizedBox(height: AppDesignConstants.v2GapMajor),
               SizedBox(
                 width: double.infinity,
-                height: 48,
+                height: AppDesignConstants.minTouchTarget,
                 child: FilledButton(
+                  style: V2ShellVisual.primaryFilled(),
                   onPressed: () => context.go(AppRoutes.v2Progress),
                   child: Text(loc.v2WeeklySummaryCtaProgress),
                 ),
@@ -182,10 +218,13 @@ class WeeklyReviewSummaryBody extends StatelessWidget {
     );
   }
 
-  Widget _line(BuildContext context, String text) {
+  Widget _line(String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
-      child: Text(text),
+      child: Text(
+        text,
+        style: const TextStyle(color: AppColors.textPrimary),
+      ),
     );
   }
 
@@ -280,5 +319,50 @@ class WeeklyReviewSummaryBody extends StatelessWidget {
       case EvidenceDepth.sufficientForWeeklySummary:
         return loc.v2WeeklySummaryEvidenceSufficient;
     }
+  }
+}
+
+class _WeeklyFactsCard extends StatelessWidget {
+  const _WeeklyFactsCard({required this.facts});
+
+  final WeeklyActivityFacts facts;
+
+  @override
+  Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+    return V2HeroCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          V2MetricRow(
+            tiles: [
+              V2MetricTile(
+                label: loc.v2WeeklyFactsTasks,
+                value: facts.completedSessions.toString(),
+                caption: loc.v2WeeklyFactsTasksCaption(
+                  facts.requiredStepsCompleted.toString(),
+                ),
+              ),
+              V2MetricTile(
+                label: loc.v2WeeklyFactsStreak,
+                value: facts.currentStreak.toString(),
+                caption: loc.v2WeeklyFactsStreakCaption(
+                  facts.currentStreak.toString(),
+                  facts.longestStreak.toString(),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppDesignConstants.v2GapSection),
+          V2MetricTile(
+            label: loc.v2WeeklyFactsAdherence,
+            value: '${facts.adherencePercent}%',
+            caption: loc.v2WeeklyFactsAdherenceCaption(
+              facts.completedDays.toString(),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

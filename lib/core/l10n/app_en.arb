@@ -1091,6 +1091,29 @@
   "v2WeeklySummaryPlanUnchanged": "Your plan has not changed yet",
   "v2WeeklySummaryCtaToday": "Back to Today",
   "v2WeeklySummaryCtaProgress": "Back to Progress",
+  "v2WeeklyFactsSection": "Last 7 days",
+  "v2WeeklyFactsTasks": "Tasks completed",
+  "v2WeeklyFactsTasksCaption": "{count} required steps",
+  "@v2WeeklyFactsTasksCaption": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2WeeklyFactsStreak": "Streak",
+  "v2WeeklyFactsStreakCaption": "{current} now · {best} best",
+  "@v2WeeklyFactsStreakCaption": {
+    "placeholders": {
+      "current": { "type": "String" },
+      "best": { "type": "String" }
+    }
+  },
+  "v2WeeklyFactsAdherence": "Plan adherence",
+  "v2WeeklyFactsAdherenceCaption": "{days} of 7 days",
+  "@v2WeeklyFactsAdherenceCaption": {
+    "placeholders": {
+      "days": { "type": "String" }
+    }
+  },
   "v2ProgressTitle": "Progress",
   "v2ProgressOrientation": "Your progress",
   "v2ProgressRetry": "Try again",
@@ -1521,5 +1544,21 @@
   "v2ProfileEditNameHint": "Optional — shown only on this device",
   "v2ProfileNameSaveFailed": "Could not save your name. Please try again.",
   "v2ProfileLegalHint": "Opens the privacy policy in your browser",
-  "v2ProfileContactHint": "Opens your email app"
+  "v2ProfileContactHint": "Opens your email app",
+  "settingsOrientation": "Appearance, language, notifications, and your account on this device.",
+  "settingsProfileSection": "Profile",
+  "settingsLanguageSection": "Language",
+  "settingsLanguageArabic": "Arabic",
+  "settingsLanguageEnglish": "English",
+  "settingsLogout": "Log out",
+  "settingsLogoutConfirmTitle": "Log out?",
+  "settingsLogoutConfirmBody": "You will return to the start of the app. Your recovery data stays on this device until you delete it.",
+  "settingsDeleteAccount": "Delete account",
+  "settingsDeleteAccountConfirmTitle": "Delete account?",
+  "settingsDeleteAccountConfirmBody": "All local data on this device will be permanently deleted. This cannot be undone.",
+  "colorThemeMorningDark": "Dark",
+  "colorThemeMorningLight": "Light",
+  "settingsThemeDarkSubtitle": "Morning Light dark canvas",
+  "settingsThemeLightSubtitle": "Morning Light bright canvas",
+  "settingsActionFailed": "Could not complete that action. Please try again."
 }

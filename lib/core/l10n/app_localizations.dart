@@ -4784,6 +4784,48 @@ abstract class AppLocalizations {
   /// **'Back to Progress'**
   String get v2WeeklySummaryCtaProgress;
 
+  /// No description provided for @v2WeeklyFactsSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Last 7 days'**
+  String get v2WeeklyFactsSection;
+
+  /// No description provided for @v2WeeklyFactsTasks.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks completed'**
+  String get v2WeeklyFactsTasks;
+
+  /// No description provided for @v2WeeklyFactsTasksCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} required steps'**
+  String v2WeeklyFactsTasksCaption(String count);
+
+  /// No description provided for @v2WeeklyFactsStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak'**
+  String get v2WeeklyFactsStreak;
+
+  /// No description provided for @v2WeeklyFactsStreakCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'{current} now · {best} best'**
+  String v2WeeklyFactsStreakCaption(String current, String best);
+
+  /// No description provided for @v2WeeklyFactsAdherence.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan adherence'**
+  String get v2WeeklyFactsAdherence;
+
+  /// No description provided for @v2WeeklyFactsAdherenceCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'{days} of 7 days'**
+  String v2WeeklyFactsAdherenceCaption(String days);
+
   /// No description provided for @v2ProgressTitle.
   ///
   /// In en, this message translates to:
@@ -6392,6 +6434,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Opens your email app'**
   String get v2ProfileContactHint;
+
+  /// No description provided for @settingsOrientation.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance, language, notifications, and your account on this device.'**
+  String get settingsOrientation;
+
+  /// No description provided for @settingsProfileSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get settingsProfileSection;
+
+  /// No description provided for @settingsLanguageSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get settingsLanguageSection;
+
+  /// No description provided for @settingsLanguageArabic.
+  ///
+  /// In en, this message translates to:
+  /// **'Arabic'**
+  String get settingsLanguageArabic;
+
+  /// No description provided for @settingsLanguageEnglish.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get settingsLanguageEnglish;
+
+  /// No description provided for @settingsLogout.
+  ///
+  /// In en, this message translates to:
+  /// **'Log out'**
+  String get settingsLogout;
+
+  /// No description provided for @settingsLogoutConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Log out?'**
+  String get settingsLogoutConfirmTitle;
+
+  /// No description provided for @settingsLogoutConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You will return to the start of the app. Your recovery data stays on this device until you delete it.'**
+  String get settingsLogoutConfirmBody;
+
+  /// No description provided for @settingsDeleteAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete account'**
+  String get settingsDeleteAccount;
+
+  /// No description provided for @settingsDeleteAccountConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete account?'**
+  String get settingsDeleteAccountConfirmTitle;
+
+  /// No description provided for @settingsDeleteAccountConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'All local data on this device will be permanently deleted. This cannot be undone.'**
+  String get settingsDeleteAccountConfirmBody;
+
+  /// No description provided for @colorThemeMorningDark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get colorThemeMorningDark;
+
+  /// No description provided for @colorThemeMorningLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get colorThemeMorningLight;
+
+  /// No description provided for @settingsThemeDarkSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Morning Light dark canvas'**
+  String get settingsThemeDarkSubtitle;
+
+  /// No description provided for @settingsThemeLightSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Morning Light bright canvas'**
+  String get settingsThemeLightSubtitle;
+
+  /// No description provided for @settingsActionFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not complete that action. Please try again.'**
+  String get settingsActionFailed;
 }
 
 class _AppLocalizationsDelegate

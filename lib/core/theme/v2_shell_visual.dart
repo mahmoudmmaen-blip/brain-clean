@@ -343,6 +343,126 @@ class V2SettingsGroup extends StatelessWidget {
   }
 }
 
+/// Tappable settings row used inside [V2SettingsGroup].
+class V2SettingsRow extends StatelessWidget {
+  const V2SettingsRow({
+    super.key,
+    required this.title,
+    this.subtitle,
+    this.onTap,
+    this.trailing,
+    this.destructive = false,
+    this.showChevron = true,
+  });
+
+  final String title;
+  final String? subtitle;
+  final VoidCallback? onTap;
+  final Widget? trailing;
+  final bool destructive;
+  final bool showChevron;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final titleColor =
+        destructive ? AppColors.danger : AppColors.textPrimary;
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(AppDesignConstants.radiusChip),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(
+            minHeight: AppDesignConstants.minTouchTarget,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        softWrap: true,
+                        style: theme.textTheme.titleSmall?.copyWith(
+                          color: titleColor,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      if (subtitle != null && subtitle!.isNotEmpty) ...[
+                        const SizedBox(height: 2),
+                        Text(
+                          subtitle!,
+                          softWrap: true,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: AppColors.textSecondary,
+                            height: 1.3,
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+                if (trailing != null) ...[
+                  const SizedBox(width: AppDesignConstants.v2GapTight),
+                  trailing!,
+                ] else if (showChevron && onTap != null) ...[
+                  const SizedBox(width: AppDesignConstants.v2GapTight),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 2),
+                    child: Icon(
+                      Directionality.of(context) == TextDirection.rtl
+                          ? Icons.chevron_left
+                          : Icons.chevron_right,
+                      color: AppColors.textSecondary.withValues(alpha: 0.8),
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Switch row used inside [V2SettingsGroup].
+class V2SettingsSwitchRow extends StatelessWidget {
+  const V2SettingsSwitchRow({
+    super.key,
+    required this.title,
+    required this.value,
+    required this.onChanged,
+    this.subtitle,
+  });
+
+  final String title;
+  final String? subtitle;
+  final bool value;
+  final ValueChanged<bool> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return V2SettingsRow(
+      title: title,
+      subtitle: subtitle,
+      showChevron: false,
+      onTap: () => onChanged(!value),
+      trailing: Switch.adaptive(
+        value: value,
+        activeThumbColor: AppColors.primary,
+        activeTrackColor: AppColors.primary.withValues(alpha: 0.38),
+        onChanged: onChanged,
+      ),
+    );
+  }
+}
+
 /// Compact, quiet status chip — not a peer card.
 class V2QuietChip extends StatelessWidget {
   const V2QuietChip({
