@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/l10n/app_localizations.dart';
+import '../../core/presentation/app_snack_bar.dart';
+import '../../core/presentation/confirm_dialog.dart';
 import '../../core/providers/locale_provider.dart';
 import 'ambient_sound_player.dart';
 import 'application/single_task_provider.dart';
@@ -43,47 +45,23 @@ class _SingleTaskScreenState extends ConsumerState<SingleTaskScreen> {
 
   Future<void> _confirmAbandon() async {
     final loc = AppLocalizations.of(context)!;
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: const Color(0xFF161B22),
-        title: Text(
-          loc.singleTaskPauseTitle,
-          style: const TextStyle(color: Color(0xFFE6EDF3)),
-        ),
-        content: Text(
-          loc.singleTaskPauseBody,
-          style: const TextStyle(color: Color(0xFF8B949E)),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(false),
-            child: Text(
-              loc.commonCancel,
-              style: const TextStyle(color: Color(0xFF8B949E)),
-            ),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(true),
-            child: Text(loc.commonConfirm),
-          ),
-        ],
-      ),
+    final confirmed = await showConfirmDialog(
+      context,
+      title: loc.singleTaskPauseTitle,
+      message: loc.singleTaskPauseBody,
+      confirmLabel: loc.commonConfirm,
+      cancelLabel: loc.commonCancel,
     );
-    if (confirmed == true && mounted) {
+    if (confirmed && mounted) {
       final abandoned =
           ref.read(singleTaskControllerProvider.notifier).abandonTask();
       if (abandoned) {
         final isAr = ref.read(localeProvider).languageCode == 'ar';
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              isAr
-                  ? 'المهمة غير المكتملة تضعف التركيز قليلاً'
-                  : loc.singleTaskAbandonSnack,
-            ),
-            backgroundColor: const Color(0xFFDA3633),
-          ),
+        showErrorSnackBar(
+          context,
+          isAr
+              ? 'المهمة غير المكتملة تضعف التركيز قليلاً'
+              : loc.singleTaskAbandonSnack,
         );
       }
     }
@@ -122,17 +100,13 @@ class _SingleTaskScreenState extends ConsumerState<SingleTaskScreen> {
                       ref
                           .read(singleTaskControllerProvider.notifier)
                           .completeTask();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            isAr
-                                ? 'أحسنت! +${bonus.toStringAsFixed(0)} نقاط تركيز'
-                                : loc.singleTaskFocusRewardSnackBonus(
-                                    bonus.toStringAsFixed(0),
-                                  ),
-                          ),
-                          backgroundColor: const Color(0xFF1D9E75),
-                        ),
+                      showSuccessSnackBar(
+                        context,
+                        isAr
+                            ? 'أحسنت! +${bonus.toStringAsFixed(0)} نقاط تركيز'
+                            : loc.singleTaskFocusRewardSnackBonus(
+                                bonus.toStringAsFixed(0),
+                              ),
                       );
                     },
                     onAbandon: _confirmAbandon,

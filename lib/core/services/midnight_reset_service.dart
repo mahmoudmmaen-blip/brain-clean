@@ -10,6 +10,7 @@ import '../../features/dashboard/application/habit_state_provider.dart';
 import '../../features/dashboard/data/daily_snapshots_repository.dart';
 import '../../features/dashboard/domain/daily_snapshot.dart';
 import '../../features/diagnostic/presentation/bc_score_provider.dart';
+import '../utils/date_format_utils.dart';
 
 /// Runs once per calendar day on app resume — snapshots BCS and resets habits.
 class MidnightResetService with WidgetsBindingObserver {
@@ -27,8 +28,7 @@ class MidnightResetService with WidgetsBindingObserver {
     return DateTime(now.year, now.month, now.day);
   }
 
-  static String formatDate(DateTime dt) =>
-      '${dt.year}-${dt.month.toString().padLeft(2, '0')}-${dt.day.toString().padLeft(2, '0')}';
+  static String formatDate(DateTime dt) => DateFormatUtils.dayKey(dt);
 
   Future<void> triggerResetIfNeeded() async {
     try {

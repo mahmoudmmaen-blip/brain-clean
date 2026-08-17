@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/l10n/app_localizations.dart';
+import '../../core/presentation/confirm_dialog.dart';
+import '../../core/utils/date_format_utils.dart';
 import '../diagnostic/presentation/bc_score_provider.dart';
 import '../gamification/data/xp_ledger_constants.dart';
 import '../gamification/domain/xp_source.dart';
@@ -55,36 +57,15 @@ class _DelayedGratificationScreenState
     return loc.delayedGratQuoteDefault;
   }
 
-  Future<bool> _confirmAbandon() async {
+  Future<bool> _confirmAbandon() {
     final loc = AppLocalizations.of(context)!;
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: const Color(0xFF161B22),
-        title: Text(
-          loc.delayedGratGiveUpTitle,
-          style: const TextStyle(color: Color(0xFFE6EDF3)),
-        ),
-        content: Text(
-          loc.delayedGratGiveUpBody,
-          style: const TextStyle(color: Color(0xFF8B949E)),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(false),
-            child: Text(
-              loc.commonCancel,
-              style: const TextStyle(color: Color(0xFF8B949E)),
-            ),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(true),
-            child: Text(loc.delayedGratGiveUpButton),
-          ),
-        ],
-      ),
+    return showConfirmDialog(
+      context,
+      title: loc.delayedGratGiveUpTitle,
+      message: loc.delayedGratGiveUpBody,
+      confirmLabel: loc.delayedGratGiveUpButton,
+      cancelLabel: loc.commonCancel,
     );
-    return confirmed == true;
   }
 
   Future<void> _onSuccess() async {
@@ -128,11 +109,7 @@ class _DelayedGratificationScreenState
     );
   }
 
-  String get _countdownText {
-    final m = (_remainingSeconds ~/ 60).toString().padLeft(2, '0');
-    final s = (_remainingSeconds % 60).toString().padLeft(2, '0');
-    return '$m:$s';
-  }
+  String get _countdownText => DateFormatUtils.countdown(_remainingSeconds);
 
   double get _progress {
     if (DelayedGratificationScreen.totalSeconds <= 0) return 0;

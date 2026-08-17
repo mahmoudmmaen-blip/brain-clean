@@ -7,6 +7,8 @@ import '../../core/application/app_preferences_provider.dart';
 import '../../core/security/security_status_provider.dart';
 import '../../core/constants/app_routes.dart';
 import '../../core/l10n/app_localizations.dart';
+import '../../core/presentation/app_snack_bar.dart';
+import '../../core/presentation/confirm_dialog.dart';
 import '../../core/services/smart_notification_service.dart';
 import '../../core/storage/hive_boxes.dart';
 import '../../core/theme/app_color_theme.dart';
@@ -22,28 +24,15 @@ class SettingsScreen extends ConsumerWidget {
 
   Future<void> _confirmReset(BuildContext context, WidgetRef ref) async {
     final loc = AppLocalizations.of(context)!;
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: AppColors.card,
-        title: Text(loc.settingsResetDataConfirmTitle,
-            style: const TextStyle(color: AppColors.textPrimary)),
-        content: Text(loc.settingsResetDataConfirmBody,
-            style: const TextStyle(color: AppColors.textSecondary)),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(false),
-            child: Text(loc.commonCancel),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(true),
-            child: Text(loc.commonConfirm,
-                style: const TextStyle(color: AppColors.danger)),
-          ),
-        ],
-      ),
+    final confirmed = await showConfirmDialog(
+      context,
+      title: loc.settingsResetDataConfirmTitle,
+      message: loc.settingsResetDataConfirmBody,
+      confirmLabel: loc.commonConfirm,
+      cancelLabel: loc.commonCancel,
+      destructive: true,
     );
-    if (confirmed != true || !context.mounted) return;
+    if (!confirmed || !context.mounted) return;
 
     for (final name in [
       HiveBoxes.recoveryProtocol,
@@ -137,11 +126,7 @@ class SettingsScreen extends ConsumerWidget {
                   .read(biometricLockSettingsProvider.notifier)
                   .setEnabled(enabled);
               if (!ok && context.mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                      content:
-                          Text(loc.settingsBiometricUnavailable)),
-                );
+                showAppSnackBar(context, loc.settingsBiometricUnavailable);
               }
             },
           ),
@@ -157,9 +142,7 @@ class SettingsScreen extends ConsumerWidget {
             title: Text(loc.settingsExportData,
                 style: const TextStyle(color: AppColors.textPrimary)),
             onTap: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(loc.settingsComingSoon)),
-              );
+              showAppSnackBar(context, loc.settingsComingSoon);
             },
           ),
           const Divider(color: AppColors.border),

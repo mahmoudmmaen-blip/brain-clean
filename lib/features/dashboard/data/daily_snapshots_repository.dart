@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 
 import '../../../core/storage/hive_boxes.dart';
+import '../../../core/utils/date_format_utils.dart';
 import '../domain/daily_snapshot.dart';
 
 /// Local persistence for 7-day BCS history.
@@ -37,8 +38,7 @@ class DailySnapshotsRepository {
     }
   }
 
-  static String _dateKey(DateTime date) =>
-      '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+  static String _dateKey(DateTime date) => DateFormatUtils.dayKey(date);
 }
 
 final dailySnapshotsBoxProvider = Provider<Box<dynamic>>((ref) {

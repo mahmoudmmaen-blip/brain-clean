@@ -1,3 +1,4 @@
+import '../../../core/utils/date_format_utils.dart';
 import '../../games/domain/game_scoring.dart';
 import '../../games/domain/n_back_logic.dart';
 import '../../games/domain/speed_sort_logic.dart';
@@ -42,11 +43,7 @@ abstract final class XpLedgerConstants {
   }
 
   /// UTC calendar day key for idempotency windows.
-  static String utcDayKey(DateTime utc) {
-    final d = utc.toUtc();
-    return '${d.year}-${d.month.toString().padLeft(2, '0')}-'
-        '${d.day.toString().padLeft(2, '0')}';
-  }
+  static String utcDayKey(DateTime utc) => DateFormatUtils.utcDayKey(utc);
 
   /// Max achievable XP from game scoring for plausibility checks.
   static int maxPlausibleGameXp(String? refId) {

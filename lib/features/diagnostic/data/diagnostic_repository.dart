@@ -13,13 +13,7 @@ class DiagnosticRepository {
 
   final SupabaseClient? _clientOverride;
 
-  SupabaseClient? get _client {
-    if (_clientOverride != null) return _clientOverride;
-    if (SupabaseConfig.url.isEmpty || SupabaseConfig.anonKey.isEmpty) {
-      return null;
-    }
-    return SupabaseConfig.client;
-  }
+  SupabaseClient? get _client => _clientOverride ?? SupabaseConfig.clientOrNull;
 
   /// Full snake_case payload derived from [DiagnosticSession.toRepositoryPayload].
   Map<String, dynamic> toSnakeCasePayload(DiagnosticSession session) =>
@@ -31,7 +25,7 @@ class DiagnosticRepository {
       final client = _client;
       if (client == null) return null;
 
-      final userId = client.auth.currentUser?.id;
+      final userId = client.authenticatedUserId;
       if (userId == null) return null;
 
       final rows = await client
@@ -96,14 +90,7 @@ class DiagnosticRepository {
       final client = _client;
       if (client == null) return;
 
-      final userId = client.auth.currentUser?.id;
-      if (userId == null) return;
-
-      await client.from(table).upsert({
-        'user_id': userId,
-        ...toSnakeCasePayload(session),
-        'updated_at': DateTime.now().toUtc().toIso8601String(),
-      });
+      await client.upsertForCurrentUser(table, toSnakeCasePayload(session));
     } catch (e) {
       throw DiagnosticSyncException(
         'Could not save your diagnostic. Please try again.',

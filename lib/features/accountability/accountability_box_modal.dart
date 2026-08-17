@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/l10n/app_localizations.dart';
+import '../../core/presentation/app_snack_bar.dart';
 import '../diagnostic/presentation/bc_score_provider.dart';
 
 const accountabilityModalKey = Key('accountability_box_modal');
@@ -112,12 +113,7 @@ class _AccountabilityBoxBodyState extends ConsumerState<_AccountabilityBoxBody> 
     if (!mounted) return;
     final loc = AppLocalizations.of(context)!;
     Navigator.of(context).pop();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(loc.accountabilityPenaltyRecorded),
-        backgroundColor: const Color(0xFF1D9E75),
-      ),
-    );
+    showSuccessSnackBar(context, loc.accountabilityPenaltyRecorded);
   }
 
   @override
