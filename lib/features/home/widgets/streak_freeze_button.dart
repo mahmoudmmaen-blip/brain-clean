@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/providers/locale_provider.dart';
+import '../../../core/presentation/confirm_dialog.dart';
 import '../../../core/theme/app_colors.dart';
 import '../application/streak_freeze_provider.dart';
 
@@ -15,31 +16,14 @@ class StreakFreezeButton extends ConsumerWidget {
   Future<void> _confirmFreeze(BuildContext context, WidgetRef ref) async {
     final loc = AppLocalizations.of(context)!;
     final isArabic = ref.read(localeProvider).languageCode == 'ar';
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: AppColors.card,
-        title: Text(
-          isArabic ? 'تجميد Streak ❄️' : 'Streak Freeze ❄️',
-          style: const TextStyle(color: AppColors.textPrimary),
-        ),
-        content: Text(
-          loc.streakFreezeConfirm,
-          style: const TextStyle(color: AppColors.textSecondary),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(false),
-            child: Text(loc.commonCancel),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(true),
-            child: Text(loc.commonConfirm),
-          ),
-        ],
-      ),
+    final confirmed = await showConfirmDialog(
+      context,
+      title: isArabic ? 'تجميد Streak ❄️' : 'Streak Freeze ❄️',
+      message: loc.streakFreezeConfirm,
+      confirmLabel: loc.commonConfirm,
+      cancelLabel: loc.commonCancel,
     );
-    if (confirmed == true) {
+    if (confirmed) {
       ref.read(streakFreezeControllerProvider.notifier).useFreeze();
     }
   }

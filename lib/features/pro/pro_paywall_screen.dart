@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/l10n/app_localizations.dart';
+import '../../core/presentation/app_snack_bar.dart';
 import 'application/subscription_service_provider.dart';
 import 'domain/subscription_plan.dart';
 
@@ -39,12 +40,7 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
     if (!mounted) return;
     setState(() => _busy = false);
     if (!ok) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(loc.proWelcomeSnack),
-        backgroundColor: const Color(0xFF1D9E75),
-      ),
-    );
+    showSuccessSnackBar(context, loc.proWelcomeSnack);
     if (mounted) context.pop();
   }
 
@@ -56,10 +52,9 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
     final isPro = ref.refresh(isProUserProvider);
     if (!mounted) return;
     setState(() => _busy = false);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(isPro ? loc.proRestoreSuccess : loc.proRestoreNone),
-      ),
+    showAppSnackBar(
+      context,
+      isPro ? loc.proRestoreSuccess : loc.proRestoreNone,
     );
   }
 

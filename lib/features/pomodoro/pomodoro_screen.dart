@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/l10n/app_localizations.dart';
 import '../../core/presentation/language_toggle_button.dart';
 import '../../core/providers/locale_provider.dart';
+import '../../core/utils/date_format_utils.dart';
 import 'application/pomodoro_provider.dart';
 import 'domain/pomodoro_logic.dart';
 import 'widgets/pomodoro_timer_ring.dart';
@@ -25,11 +26,7 @@ class PomodoroScreen extends ConsumerWidget {
     }
   }
 
-  String _formatTime(int seconds) {
-    final m = (seconds ~/ 60).toString().padLeft(2, '0');
-    final s = (seconds % 60).toString().padLeft(2, '0');
-    return '$m:$s';
-  }
+  String _formatTime(int seconds) => DateFormatUtils.countdown(seconds);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

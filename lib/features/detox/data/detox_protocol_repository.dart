@@ -24,13 +24,7 @@ class DetoxProtocolRepository {
 
   final SupabaseClient? _clientOverride;
 
-  SupabaseClient? get _client {
-    if (_clientOverride != null) return _clientOverride;
-    if (SupabaseConfig.url.isEmpty || SupabaseConfig.anonKey.isEmpty) {
-      return null;
-    }
-    return SupabaseConfig.client;
-  }
+  SupabaseClient? get _client => _clientOverride ?? SupabaseConfig.clientOrNull;
 
   /// Maps a scored [DetoxProtocolState] to camelCase local data, then transforms.
   Map<String, dynamic> transformLocalMetricsToFirestorePayload(
@@ -84,14 +78,7 @@ class DetoxProtocolRepository {
       final client = _client;
       if (client == null) return;
 
-      final userId = client.auth.currentUser?.id;
-      if (userId == null) return;
-
-      await client.from(table).upsert({
-        'user_id': userId,
-        ...firestorePayload,
-        'updated_at': DateTime.now().toUtc().toIso8601String(),
-      });
+      await client.upsertForCurrentUser(table, firestorePayload);
     } catch (e) {
       if (e is ArgumentError) rethrow;
       throw DetoxProtocolSyncException(
@@ -116,7 +103,7 @@ class DetoxProtocolRepository {
       final client = _client;
       if (client == null) return null;
 
-      final userId = client.auth.currentUser?.id;
+      final userId = client.authenticatedUserId;
       if (userId == null) return null;
 
       final row = await client

@@ -13,15 +13,7 @@ class XpSyncApi {
 
   final SupabaseClient? _clientOverride;
 
-  SupabaseClient? get _client {
-    if (_clientOverride != null) return _clientOverride;
-    try {
-      if (SupabaseConfig.url.isEmpty) return null;
-      return SupabaseConfig.client;
-    } catch (_) {
-      return null;
-    }
-  }
+  SupabaseClient? get _client => _clientOverride ?? SupabaseConfig.clientOrNull;
 
   bool get hasAuthenticatedSession {
     final client = _client;

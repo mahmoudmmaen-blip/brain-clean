@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/l10n/app_localizations.dart';
+import '../../../core/presentation/app_snack_bar.dart';
 import '../../../core/presentation/language_toggle_button.dart';
 import '../../../core/providers/locale_provider.dart';
+import '../../../core/utils/date_format_utils.dart';
 import '../../diagnostic/presentation/bc_score_provider.dart';
 import '../../gamification/domain/xp_source.dart';
 import 'domain/crossword_logic.dart';
@@ -103,17 +105,13 @@ class _CrosswordScreenState extends ConsumerState<CrosswordScreen>
     }
     setState(() => _completed = true);
     final isAr = ref.read(localeProvider).languageCode == 'ar';
-    final minutes = elapsed.inMinutes;
-    final seconds = elapsed.inSeconds % 60;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          isAr
-              ? 'أكملت اللغز في $minutes:${seconds.toString().padLeft(2, '0')}!'
-              : 'Puzzle complete in $minutes:${seconds.toString().padLeft(2, '0')}!',
-        ),
-        backgroundColor: const Color(0xFF1D9E75),
-      ),
+    final elapsedText =
+        DateFormatUtils.countdown(elapsed.inSeconds, padMinutes: false);
+    showSuccessSnackBar(
+      context,
+      isAr
+          ? 'أكملت اللغز في $elapsedText!'
+          : 'Puzzle complete in $elapsedText!',
     );
   }
 

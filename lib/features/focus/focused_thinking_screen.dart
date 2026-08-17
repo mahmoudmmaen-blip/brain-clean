@@ -5,8 +5,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/data/app_meta_box_provider.dart';
 import '../../core/l10n/app_localizations.dart';
+import '../../core/presentation/app_snack_bar.dart';
 import '../../core/presentation/language_toggle_button.dart';
 import '../../core/providers/locale_provider.dart';
+import '../../core/utils/date_format_utils.dart';
 import '../diagnostic/presentation/bc_score_provider.dart';
 import '../gamification/data/xp_ledger_constants.dart';
 import '../gamification/domain/xp_source.dart';
@@ -137,23 +139,16 @@ class _FocusedThinkingScreenState extends ConsumerState<FocusedThinkingScreen> {
       _showFocusBanner = false;
     });
     final isAr = _isArabic;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          isAr
-              ? 'عد إلى $_topic — التشتت طبيعي'
-              : 'Return to $_topic — distraction is normal',
-        ),
-        duration: const Duration(seconds: 3),
-      ),
+    showAppSnackBar(
+      context,
+      isAr
+          ? 'عد إلى $_topic — التشتت طبيعي'
+          : 'Return to $_topic — distraction is normal',
+      duration: const Duration(seconds: 3),
     );
   }
 
-  String _formatTime(int seconds) {
-    final m = (seconds ~/ 60).toString().padLeft(2, '0');
-    final s = (seconds % 60).toString().padLeft(2, '0');
-    return '$m:$s';
-  }
+  String _formatTime(int seconds) => DateFormatUtils.countdown(seconds);
 
   @override
   Widget build(BuildContext context) {

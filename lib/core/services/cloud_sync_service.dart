@@ -17,29 +17,21 @@ CloudSyncService cloudSyncService(CloudSyncServiceRef ref) {
 class CloudSyncService {
   const CloudSyncService();
 
-  SupabaseClient? get _client {
-    try {
-      if (SupabaseConfig.url.isEmpty) return null;
-      return SupabaseConfig.client;
-    } catch (_) {
-      return null;
-    }
-  }
-
-  String? get _userId => _client?.auth.currentSession?.user.id;
+  SupabaseClient? get _client => SupabaseConfig.clientOrNull;
 
   Future<void> syncDailySnapshot(DailySnapshot snapshot) async {
     if (RootDetector.isCompromised) return;
     final client = _client;
     if (client == null || client.auth.currentSession == null) return;
-    final userId = _userId;
-    if (userId == null) return;
     try {
-      await client.from('daily_snapshots').upsert({
-        'user_id': userId,
-        'date': snapshot.date.toIso8601String(),
-        'bcs_value': snapshot.bcsValue,
-      });
+      await client.upsertForCurrentUser(
+        'daily_snapshots',
+        {
+          'date': snapshot.date.toIso8601String(),
+          'bcs_value': snapshot.bcsValue,
+        },
+        stampUpdatedAt: false,
+      );
     } catch (_) {
       return;
     }
@@ -49,16 +41,17 @@ class CloudSyncService {
     if (RootDetector.isCompromised) return;
     final client = _client;
     if (client == null || client.auth.currentSession == null) return;
-    final userId = _userId;
-    if (userId == null) return;
     try {
-      await client.from('emotion_logs').upsert({
-        'user_id': userId,
-        'timestamp': entry.timestamp.toIso8601String(),
-        'emotion_label': entry.label,
-        'category': entry.category,
-        'recovery_impact': entry.recoveryImpact,
-      });
+      await client.upsertForCurrentUser(
+        'emotion_logs',
+        {
+          'timestamp': entry.timestamp.toIso8601String(),
+          'emotion_label': entry.label,
+          'category': entry.category,
+          'recovery_impact': entry.recoveryImpact,
+        },
+        stampUpdatedAt: false,
+      );
     } catch (_) {
       return;
     }

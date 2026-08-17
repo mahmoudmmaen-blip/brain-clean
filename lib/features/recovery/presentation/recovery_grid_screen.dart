@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/l10n/app_localizations.dart';
+import '../../../core/presentation/app_snack_bar.dart';
 import '../../../core/theme/app_design_constants.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/theme_extensions.dart';
@@ -28,11 +29,10 @@ class RecoveryGridScreen extends ConsumerWidget {
     ref.listen(recoveryProtocolControllerProvider, (previous, next) {
       if (!next.hasValue || !next.hasError) return;
       if (previous?.hasValue == true && previous!.hasError) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(loc.recoveryStorageSaveError),
-          behavior: SnackBarBehavior.floating,
-        ),
+      showAppSnackBar(
+        context,
+        loc.recoveryStorageSaveError,
+        behavior: SnackBarBehavior.floating,
       );
     });
 
@@ -514,10 +514,9 @@ class _RecoveryGridBody extends ConsumerWidget {
         .read(recoveryProtocolControllerProvider.notifier)
         .applyPenaltyForSelectedDay();
     if (!context.mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(AppLocalizations.of(context)!.recoveryPenaltyApplied),
-      ),
+    showAppSnackBar(
+      context,
+      AppLocalizations.of(context)!.recoveryPenaltyApplied,
     );
   }
 }
