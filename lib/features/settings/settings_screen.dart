@@ -11,6 +11,7 @@ import '../../core/services/smart_notification_service.dart';
 import '../../core/storage/hive_boxes.dart';
 import '../../core/theme/app_color_theme.dart';
 import '../../core/theme/app_color_theme_provider.dart';
+import '../../core/theme/app_colors.dart';
 import '../pro/application/subscription_service_provider.dart';
 
 const settingsProTileKey = Key('settings_pro_tile');
@@ -24,11 +25,11 @@ class SettingsScreen extends ConsumerWidget {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        backgroundColor: const Color(0xFF161B22),
+        backgroundColor: AppColors.card,
         title: Text(loc.settingsResetDataConfirmTitle,
-            style: const TextStyle(color: Color(0xFFE6EDF3))),
+            style: const TextStyle(color: AppColors.textPrimary)),
         content: Text(loc.settingsResetDataConfirmBody,
-            style: const TextStyle(color: Color(0xFF8B949E))),
+            style: const TextStyle(color: AppColors.textSecondary)),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
@@ -37,7 +38,7 @@ class SettingsScreen extends ConsumerWidget {
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(true),
             child: Text(loc.commonConfirm,
-                style: const TextStyle(color: Color(0xFFEF4444))),
+                style: const TextStyle(color: AppColors.danger)),
           ),
         ],
       ),
@@ -66,12 +67,12 @@ class SettingsScreen extends ConsumerWidget {
     final isPro = ref.watch(isProUserProvider);
 
     return Scaffold(
-      backgroundColor: const Color(0xFF0D1117),
+      backgroundColor: AppColors.background,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF0D1117),
+        backgroundColor: AppColors.background,
         title: Text(loc.settingsTitle,
-            style: const TextStyle(color: Color(0xFFE6EDF3))),
-        iconTheme: const IconThemeData(color: Color(0xFF8B949E)),
+            style: const TextStyle(color: AppColors.textPrimary)),
+        iconTheme: const IconThemeData(color: AppColors.textSecondary),
       ),
       body: ListView(
         children: [
@@ -82,26 +83,26 @@ class SettingsScreen extends ConsumerWidget {
               isPro ? loc.settingsProActive : loc.settingsUpgradeToPro,
               style: TextStyle(
                 color: isPro
-                    ? const Color(0xFF1D9E75)
-                    : const Color(0xFFE6EDF3),
+                    ? AppColors.primary
+                    : AppColors.textPrimary,
                 fontWeight: FontWeight.w600,
               ),
             ),
             trailing: isPro
                 ? null
-                : const Icon(Icons.chevron_left, color: Color(0xFF8B949E)),
+                : const Icon(Icons.chevron_left, color: AppColors.textSecondary),
             onTap: isPro ? null : () => context.push(AppRoutes.proPaywall),
           ),
-          const Divider(color: Color(0xFF30363D)),
+          const Divider(color: AppColors.border),
           _SectionHeader(loc.settingsAppearanceSection),
           _ColorThemeSection(isPro: isPro),
-          const Divider(color: Color(0xFF30363D)),
+          const Divider(color: AppColors.border),
           _SectionHeader(loc.settingsNotificationsSection),
           SwitchListTile(
             title: Text(loc.settingsEmotionNotifications,
-                style: const TextStyle(color: Color(0xFFE6EDF3))),
+                style: const TextStyle(color: AppColors.textPrimary)),
             value: prefs.emotionNotificationsEnabled,
-            activeThumbColor: const Color(0xFF1D9E75),
+            activeThumbColor: AppColors.primary,
             onChanged: (v) async {
               await ref
                   .read(appPreferencesProvider.notifier)
@@ -111,9 +112,9 @@ class SettingsScreen extends ConsumerWidget {
           ),
           SwitchListTile(
             title: Text(loc.settingsDailyFocusReminder,
-                style: const TextStyle(color: Color(0xFFE6EDF3))),
+                style: const TextStyle(color: AppColors.textPrimary)),
             value: prefs.dailyFocusReminderEnabled,
-            activeThumbColor: const Color(0xFF1D9E75),
+            activeThumbColor: AppColors.primary,
             onChanged: (v) async {
               await ref
                   .read(appPreferencesProvider.notifier)
@@ -121,16 +122,16 @@ class SettingsScreen extends ConsumerWidget {
               await ref.read(smartNotificationServiceProvider).rescheduleAll();
             },
           ),
-          const Divider(color: Color(0xFF30363D)),
+          const Divider(color: AppColors.border),
           _SectionHeader(loc.settingsSecuritySection),
           SwitchListTile(
             title: Text(loc.settingsBiometricLock,
-                style: const TextStyle(color: Color(0xFFE6EDF3))),
+                style: const TextStyle(color: AppColors.textPrimary)),
             subtitle: Text(loc.settingsBiometricLockSubtitle,
                 style: const TextStyle(
-                    color: Color(0xFF8B949E), fontSize: 12)),
+                    color: AppColors.textSecondary, fontSize: 12)),
             value: ref.watch(biometricLockSettingsProvider),
-            activeThumbColor: const Color(0xFF1D9E75),
+            activeThumbColor: AppColors.primary,
             onChanged: (enabled) async {
               final ok = await ref
                   .read(biometricLockSettingsProvider.notifier)
@@ -144,39 +145,39 @@ class SettingsScreen extends ConsumerWidget {
               }
             },
           ),
-          const Divider(color: Color(0xFF30363D)),
+          const Divider(color: AppColors.border),
           _SectionHeader(loc.settingsDataSection),
           ListTile(
             key: settingsResetKey,
             title: Text(loc.settingsResetData,
-                style: const TextStyle(color: Color(0xFFEF4444))),
+                style: const TextStyle(color: AppColors.danger)),
             onTap: () => _confirmReset(context, ref),
           ),
           ListTile(
             title: Text(loc.settingsExportData,
-                style: const TextStyle(color: Color(0xFFE6EDF3))),
+                style: const TextStyle(color: AppColors.textPrimary)),
             onTap: () {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(loc.settingsComingSoon)),
               );
             },
           ),
-          const Divider(color: Color(0xFF30363D)),
+          const Divider(color: AppColors.border),
           _SectionHeader(loc.settingsAboutSection),
           ListTile(
             title: Text(loc.settingsVersion,
-                style: const TextStyle(color: Color(0xFFE6EDF3))),
+                style: const TextStyle(color: AppColors.textPrimary)),
             trailing: const Text('1.0.0',
-                style: TextStyle(color: Color(0xFF8B949E))),
+                style: TextStyle(color: AppColors.textSecondary)),
           ),
           ListTile(
             title: Text(loc.settingsPrivacyPolicy,
-                style: const TextStyle(color: Color(0xFFE6EDF3))),
+                style: const TextStyle(color: AppColors.textPrimary)),
             onTap: () {},
           ),
           ListTile(
             title: Text(loc.settingsContactUs,
-                style: const TextStyle(color: Color(0xFFE6EDF3))),
+                style: const TextStyle(color: AppColors.textPrimary)),
             onTap: () {},
           ),
         ],
@@ -195,7 +196,7 @@ class _SectionHeader extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
       child: Text(label,
           style: const TextStyle(
-              color: Color(0xFF8B949E),
+              color: AppColors.textSecondary,
               fontSize: 13,
               fontWeight: FontWeight.w600)),
     );
@@ -314,7 +315,7 @@ class _ColorThemeSwatch extends StatelessWidget {
             const SizedBox(height: 6),
             Text(label,
                 style: const TextStyle(
-                    color: Color(0xFF8B949E), fontSize: 12)),
+                    color: AppColors.textSecondary, fontSize: 12)),
           ],
         ),
       ),
