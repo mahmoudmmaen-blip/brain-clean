@@ -1,0 +1,11 @@
+﻿Do NOT make any changes. Run this command and paste the full output:
+
+find lib/features -type d -iname "*onboard*" -o -type d -iname "*brain_check*" -o -type d -iname "*brain_profile*"
+
+Then run:
+find lib/features/v2_onboarding lib/features/brain_check lib/features/brain_profile -name "*.dart" 2>/dev/null | sort
+
+Then run:
+find lib/features/v2_premium -name "*.dart" 2>/dev/null | sort
+
+Just report the file lists — do not read file contents yet.
