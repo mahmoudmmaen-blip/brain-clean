@@ -29,6 +29,9 @@ class InMemoryHiveBox implements Box<dynamic> {
   Iterable get values => _store.values;
 
   @override
+  int get length => _store.length;
+
+  @override
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
 
