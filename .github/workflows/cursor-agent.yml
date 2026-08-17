@@ -31,8 +31,9 @@ jobs:
         env:
           CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
           GITHUB_REPO_URL: https://github.com/${{ github.repository }}
+          AGENT_PROMPT: ${{ github.event.inputs.prompt }}
         run: |
-          python cursor_automation.py "${{ github.event.inputs.prompt }}"
+          python cursor_automation.py "$AGENT_PROMPT"
 
       - name: Run Cursor automation (from tasks/ file)
         if: github.event_name == 'push'

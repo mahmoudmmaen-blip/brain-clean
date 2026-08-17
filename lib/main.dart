@@ -20,7 +20,13 @@ import 'features/gamification/application/xp_sync_service.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await dotenv.load(fileName: ".env");
+  // Local development convenience only: release builds must pass secrets via
+  // `--dart-define`, and `.env` is never bundled as an asset.
+  try {
+    await dotenv.load(fileName: ".env");
+  } catch (_) {
+    dotenv.testLoad(fileInput: '');
+  }
 
   await HiveBootstrap.initialize();
   await RootDetector.checkAndFlag();

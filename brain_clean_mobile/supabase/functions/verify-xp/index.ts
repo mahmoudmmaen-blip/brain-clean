@@ -3,6 +3,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { createHmac } from "https://deno.land/std@0.177.0/node/crypto.ts";
 
 const HMAC_SECRET = Deno.env.get("XP_HMAC_SECRET") ?? "";
+const MAX_ENTRIES_PER_REQUEST = 200;
 
 interface XpEntry {
   id: string;
@@ -33,8 +34,23 @@ serve(async (req) => {
   }
 
   try {
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+
+    // Service-role writes are only allowed on behalf of an authenticated caller.
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader?.startsWith("Bearer ")) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
+    }
+    const userClient = createClient(supabaseUrl, Deno.env.get("SUPABASE_ANON_KEY")!, {
+      global: { headers: { Authorization: authHeader } },
+    });
+    const { data: userData, error: userError } = await userClient.auth.getUser();
+    if (userError || !userData?.user) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
+    }
+
     const supabase = createClient(
-      Deno.env.get("SUPABASE_URL")!,
+      supabaseUrl,
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
@@ -42,6 +58,18 @@ serve(async (req) => {
 
     if (!entries || !Array.isArray(entries) || entries.length === 0) {
       return new Response(JSON.stringify({ error: "No entries" }), { status: 400 });
+    }
+
+    if (entries.length > MAX_ENTRIES_PER_REQUEST) {
+      return new Response(JSON.stringify({ error: "Too many entries" }), { status: 413 });
+    }
+
+    if (typeof device_id !== "string" || device_id.trim().length === 0) {
+      return new Response(JSON.stringify({ error: "Invalid device_id" }), { status: 400 });
+    }
+
+    if (HMAC_SECRET.length === 0) {
+      return new Response(JSON.stringify({ error: "Server not configured" }), { status: 503 });
     }
 
     const results: Record<string, "verified" | "rejected"> = {};
@@ -95,7 +123,8 @@ serve(async (req) => {
     return new Response(JSON.stringify({ results, verified_total: verifiedTotal }), {
       headers: { "Content-Type": "application/json" },
     });
-  } catch (err) {
-    return new Response(JSON.stringify({ error: String(err) }), { status: 500 });
+  } catch (_err) {
+    // Internal details are never echoed back to the client.
+    return new Response(JSON.stringify({ error: "Internal error" }), { status: 500 });
   }
 });
