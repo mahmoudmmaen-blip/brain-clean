@@ -3,6 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../features/dashboard/domain/daily_snapshot.dart';
 import '../../features/emotions/domain/emotion_log_entry.dart';
+import '../diagnostics/app_error_logger.dart';
 import '../network/supabase_client.dart';
 import '../security/root_detector.dart';
 
@@ -21,7 +22,8 @@ class CloudSyncService {
     try {
       if (SupabaseConfig.url.isEmpty) return null;
       return SupabaseConfig.client;
-    } catch (_) {
+    } catch (error, stackTrace) {
+      logAppError('CloudSyncService._client', error, stackTrace);
       return null;
     }
   }
@@ -40,8 +42,8 @@ class CloudSyncService {
         'date': snapshot.date.toIso8601String(),
         'bcs_value': snapshot.bcsValue,
       });
-    } catch (_) {
-      return;
+    } catch (error, stackTrace) {
+      logAppError('CloudSyncService.syncDailySnapshot', error, stackTrace);
     }
   }
 
@@ -59,8 +61,8 @@ class CloudSyncService {
         'category': entry.category,
         'recovery_impact': entry.recoveryImpact,
       });
-    } catch (_) {
-      return;
+    } catch (error, stackTrace) {
+      logAppError('CloudSyncService.syncEmotionLog', error, stackTrace);
     }
   }
 }

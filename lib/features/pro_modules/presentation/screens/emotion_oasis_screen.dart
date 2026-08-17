@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // 🚨 ملاحظة: لو السطر ده تحته خط أحمر، امسحه واضغط (Ctrl + .) على كلمة nvidiaAiServiceProvider تحت واختار Import library
+import 'package:brain_clean_mobile/core/diagnostics/app_error_logger.dart';
 import 'package:brain_clean_mobile/core/services/nvidia_ai_service.dart';
 
 class EmotionOasisScreen extends ConsumerStatefulWidget {
@@ -14,6 +15,7 @@ class EmotionOasisScreen extends ConsumerStatefulWidget {
 class _EmotionOasisScreenState extends ConsumerState<EmotionOasisScreen> {
   final TextEditingController _controller = TextEditingController();
   String _response = '';
+  String _errorMessage = '';
   bool _isLoading = false;
 
   Future<void> _analyze() async {
@@ -22,20 +24,35 @@ class _EmotionOasisScreenState extends ConsumerState<EmotionOasisScreen> {
     setState(() {
       _isLoading = true;
       _response = '';
+      _errorMessage = '';
     });
 
     // إخفاء الكيبورد أثناء التحليل
     FocusScope.of(context).unfocus();
 
     final service = ref.read(nvidiaAiServiceProvider);
-    final result = await service.analyzeEmotion(_controller.text);
-
-    if (!mounted) return;
-    
-    setState(() {
-      _response = result;
-      _isLoading = false;
-    });
+    try {
+      final result = await service.analyzeEmotion(_controller.text);
+      if (!mounted) return;
+      setState(() {
+        _response = result;
+        _isLoading = false;
+      });
+    } on NvidiaAiException catch (error, stackTrace) {
+      logAppError('EmotionOasisScreen._analyze', error, stackTrace);
+      if (!mounted) return;
+      setState(() {
+        _errorMessage = error.message;
+        _isLoading = false;
+      });
+    } catch (error, stackTrace) {
+      logAppError('EmotionOasisScreen._analyze', error, stackTrace);
+      if (!mounted) return;
+      setState(() {
+        _errorMessage = 'حدث خطأ غير متوقع — حاول مرة أخرى.';
+        _isLoading = false;
+      });
+    }
   }
 
   @override
@@ -87,6 +104,17 @@ class _EmotionOasisScreenState extends ConsumerState<EmotionOasisScreen> {
                     ),
             ),
             const SizedBox(height: 24),
+            if (_errorMessage.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 16),
+                child: Text(
+                  _errorMessage,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: theme.colorScheme.error,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
             if (_response.isNotEmpty)
               Expanded(
                 child: Container(

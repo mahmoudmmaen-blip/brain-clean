@@ -2,6 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../core/constants/hive_meta_keys.dart';
 import '../../../core/data/app_meta_box_provider.dart';
+import '../../../core/diagnostics/app_error_logger.dart';
 
 part 'games_scores_provider.g.dart';
 
@@ -40,7 +41,8 @@ class GamesBestScoresController extends _$GamesBestScoresController {
         speedSort:
             box.get(HiveMetaKeys.gameBestSpeedSort, defaultValue: 0) as int,
       );
-    } catch (_) {
+    } catch (error, stackTrace) {
+      logAppError('GamesBestScoresController._load', error, stackTrace);
       return const GamesBestScores();
     }
   }
@@ -108,6 +110,12 @@ class GamesBestScoresController extends _$GamesBestScoresController {
   Future<void> _persist(String key, int value) async {
     try {
       await ref.read(appMetaBoxProvider).put(key, value);
-    } catch (_) {}
+    } catch (error, stackTrace) {
+      logAppError(
+        'GamesBestScoresController._persist($key)',
+        error,
+        stackTrace,
+      );
+    }
   }
 }

@@ -159,9 +159,11 @@ class DetoxAiCoachService {
         user: prompt.user,
       );
       return processModelOutput(raw);
-    } catch (e) {
+    } catch (error, stackTrace) {
       throw DetoxAiCoachException(
         'Could not fetch AI coaching insight. Your check-in is still saved.',
+        cause: error,
+        causeStackTrace: stackTrace,
       );
     }
   }
@@ -177,10 +179,14 @@ class DetoxAiCoachService {
 
 /// User-friendly failure — never surfaces raw parser/HTTP exceptions.
 class DetoxAiCoachException implements Exception {
-  DetoxAiCoachException(this.message);
+  DetoxAiCoachException(this.message, {this.cause, this.causeStackTrace});
 
   final String message;
 
+  /// Underlying parser/HTTP failure, kept for logs — never shown to users.
+  final Object? cause;
+  final StackTrace? causeStackTrace;
+
   @override
-  String toString() => message;
+  String toString() => cause == null ? message : '$message (cause: $cause)';
 }

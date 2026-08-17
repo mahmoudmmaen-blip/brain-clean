@@ -17,13 +17,9 @@ class ProfileEmotionsData {
 
 @riverpod
 Future<ProfileEmotionsData> profileEmotions(ProfileEmotionsRef ref) async {
-  try {
-    final repo = ref.watch(emotionLogRepositoryProvider);
-    return ProfileEmotionsData(
-      count: repo.count,
-      recent: repo.recentEntries(limit: 5),
-    );
-  } catch (error, _) {
-    throw Exception(error);
-  }
+  final repo = ref.watch(emotionLogRepositoryProvider);
+  return ProfileEmotionsData(
+    count: repo.count,
+    recent: repo.recentEntries(limit: 5),
+  );
 }

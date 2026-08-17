@@ -2,6 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../core/constants/hive_meta_keys.dart';
 import '../../core/data/app_meta_box_provider.dart';
+import '../../core/diagnostics/app_error_logger.dart';
 
 part 'app_preferences_provider.g.dart';
 
@@ -104,7 +105,8 @@ class AppPreferences extends _$AppPreferences {
             )
             as int,
       );
-    } catch (_) {
+    } catch (error, stackTrace) {
+      logAppError('AppPreferencesController.build', error, stackTrace);
       return AppPreferencesState.testDefaults;
     }
   }
@@ -114,7 +116,8 @@ class AppPreferences extends _$AppPreferences {
       final box = ref.read(appMetaBoxProvider);
       await box.put(key, value);
       ref.invalidateSelf();
-    } catch (_) {
+    } catch (error, stackTrace) {
+      logAppError('AppPreferencesController._persist($key)', error, stackTrace);
       state = _patchFromKey(key, value);
     }
   }

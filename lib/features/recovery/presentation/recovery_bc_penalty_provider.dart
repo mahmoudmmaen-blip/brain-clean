@@ -1,5 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../core/diagnostics/app_error_logger.dart';
 import '../../diagnostic/data/diagnostic_repository_provider.dart';
 import '../../diagnostic/domain/pillar_bound_evaluation.dart';
 import '../../diagnostic/presentation/bc_score_provider.dart';
@@ -51,9 +52,12 @@ class RecoveryDiagnosticPenaltySync extends _$RecoveryDiagnosticPenaltySync {
     final updated = committed.withRecoveryPenaltyTotal(totalDeduction);
     ref.read(bcScoreSessionProvider.notifier).commit(updated);
     try {
-      await ref.read(diagnosticRepositoryProvider).upsertSession(session: updated);
-    } catch (_) {
+      await ref
+          .read(diagnosticRepositoryProvider)
+          .upsertSession(session: updated);
+    } catch (error, stackTrace) {
       // Local recovery state remains authoritative; sync retries on next open.
+      logAppError('RecoveryBcPenalty.upsertSession', error, stackTrace);
     }
   }
 }

@@ -3,6 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../core/application/app_preferences_provider.dart';
 import '../../../core/constants/hive_meta_keys.dart';
 import '../../../core/data/app_meta_box_provider.dart';
+import '../../../core/diagnostics/app_error_logger.dart';
 import '../../diagnostic/presentation/bc_score_provider.dart';
 import '../../gamification/data/xp_ledger_constants.dart';
 import '../../gamification/domain/xp_source.dart';
@@ -59,7 +60,8 @@ class SingleTaskController extends _$SingleTaskController {
         difficultyStars: difficulty.clamp(1, 3),
         isLocked: true,
       );
-    } catch (_) {
+    } catch (error, stackTrace) {
+      logAppError('SingleTaskController.build', error, stackTrace);
       return SingleTaskState.idle;
     }
   }
@@ -78,8 +80,9 @@ class SingleTaskController extends _$SingleTaskController {
       await box.put(HiveMetaKeys.singleTaskIsLocked, true);
       await box.put(HiveMetaKeys.singleTaskCategory, next.category.name);
       await box.put(HiveMetaKeys.singleTaskDifficulty, next.difficultyStars);
-    } catch (_) {
+    } catch (error, stackTrace) {
       // Local persistence is best-effort.
+      logAppError('SingleTaskController._persist', error, stackTrace);
     }
   }
 

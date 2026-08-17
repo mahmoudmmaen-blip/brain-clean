@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../core/diagnostics/app_error_logger.dart';
 import '../../core/l10n/app_localizations.dart';
 import '../../core/providers/locale_provider.dart';
 import '../../core/theme/app_colors.dart';
@@ -46,12 +47,10 @@ class ShareButton extends ConsumerWidget {
       final file = File('${dir.path}/brain_clean_share.png');
       await file.writeAsBytes(byteData.buffer.asUint8List());
 
-      await Share.shareXFiles(
-        [XFile(file.path)],
-        text: 'Brain Clean',
-      );
-    } catch (_) {
+      await Share.shareXFiles([XFile(file.path)], text: 'Brain Clean');
+    } catch (error, stackTrace) {
       // Share may fail in tests.
+      logAppError('ShareCardGenerator.captureAndShare', error, stackTrace);
     }
   }
 }

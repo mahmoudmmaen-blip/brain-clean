@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/data/app_meta_box_provider.dart';
+import '../../core/diagnostics/app_error_logger.dart';
 import '../../core/l10n/app_localizations.dart';
 import '../../core/presentation/language_toggle_button.dart';
 import '../../core/providers/locale_provider.dart';
@@ -120,7 +121,20 @@ class _FocusedThinkingScreenState extends ConsumerState<FocusedThinkingScreen> {
       await repo.appendEntry(_topic, text);
       setState(() => _insightsCount++);
       _insightController.clear();
-    } catch (_) {}
+    } catch (error, stackTrace) {
+      logAppError('FocusedThinkingScreen._saveInsight', error, stackTrace);
+      if (!mounted) return;
+      final isAr = _isArabic;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            isAr
+                ? 'لم يتم حفظ الملاحظة — حاول مرة أخرى'
+                : 'Could not save your insight — please try again',
+          ),
+        ),
+      );
+    }
   }
 
   void _onFocusYes() {

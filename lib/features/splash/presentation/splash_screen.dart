@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/bootstrap/app_hydration_provider.dart';
 import '../../../core/application/app_preferences_provider.dart';
 import '../../../core/constants/app_routes.dart';
+import '../../../core/diagnostics/app_error_logger.dart';
 import '../../../core/security/security_status_provider.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/app_theme.dart';
@@ -68,8 +69,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     );
     try {
       snapshot = await ref.read(appHydrationProvider.future);
-    } catch (_) {
+    } catch (error, stackTrace) {
       // Local Hive remains authoritative; route using defaults below.
+      logAppError('SplashScreen._hydrateAndRoute', error, stackTrace);
     }
 
     final elapsed = DateTime.now().difference(started);

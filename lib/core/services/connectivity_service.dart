@@ -1,5 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../diagnostics/app_error_logger.dart';
 import '../network/supabase_client.dart';
 
 part 'connectivity_service.g.dart';
@@ -13,7 +14,8 @@ bool connectivityOnline(ConnectivityOnlineRef ref) {
     if (SupabaseConfig.url.isEmpty) return false;
     final session = SupabaseConfig.client.auth.currentSession;
     return session != null;
-  } catch (_) {
+  } catch (error, stackTrace) {
+    logAppError('connectivityOnline', error, stackTrace);
     return false;
   }
 }

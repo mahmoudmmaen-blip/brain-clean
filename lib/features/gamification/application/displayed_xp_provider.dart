@@ -1,5 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../core/diagnostics/app_error_logger.dart';
 import '../data/xp_ledger_repository_provider.dart';
 import 'verified_xp_provider.dart';
 
@@ -10,7 +11,8 @@ part 'displayed_xp_provider.g.dart';
 int? serverTotalXp(ServerTotalXpRef ref) {
   try {
     return ref.watch(xpLedgerRepositoryProvider).readCachedServerTotalXp();
-  } catch (_) {
+  } catch (error, stackTrace) {
+    logAppError('serverTotalXp', error, stackTrace);
     return null;
   }
 }

@@ -4,6 +4,7 @@ import 'package:timezone/data/latest.dart' as tz_data;
 import 'package:timezone/timezone.dart' as tz;
 
 import '../application/app_preferences_provider.dart';
+import '../diagnostics/app_error_logger.dart';
 import '../providers/locale_provider.dart';
 import 'app_notification_service.dart';
 
@@ -81,8 +82,9 @@ class SmartNotificationService {
           details: details,
         );
       }
-    } catch (_) {
+    } catch (error, stackTrace) {
       // Best-effort scheduling.
+      logAppError('SmartNotificationService.scheduleAll', error, stackTrace);
     }
   }
 

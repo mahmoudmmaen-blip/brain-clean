@@ -2,6 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../core/constants/hive_meta_keys.dart';
 import '../../../core/data/app_meta_box_provider.dart';
+import '../../../core/diagnostics/app_error_logger.dart';
 
 part 'streak_freeze_provider.g.dart';
 
@@ -41,7 +42,8 @@ class StreakFreezeController extends _$StreakFreezeController {
         lastFreezeUsedDate:
             lastRaw != null ? DateTime.tryParse(lastRaw) : null,
       );
-    } catch (_) {
+    } catch (error, stackTrace) {
+      logAppError('StreakFreezeController.build', error, stackTrace);
       return StreakFreezeState.initial;
     }
   }
@@ -57,8 +59,9 @@ class StreakFreezeController extends _$StreakFreezeController {
           next.lastFreezeUsedDate!.toIso8601String(),
         );
       }
-    } catch (_) {
+    } catch (error, stackTrace) {
       // Best-effort.
+      logAppError('StreakFreezeController._persist', error, stackTrace);
     }
   }
 

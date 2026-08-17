@@ -1,6 +1,7 @@
 import 'package:hive/hive.dart';
 
 import '../../../core/constants/hive_meta_keys.dart';
+import '../../../core/diagnostics/app_error_logger.dart';
 
 /// Persists focused-thinking insight notes to Hive.
 class ThinkingLogRepository {
@@ -14,7 +15,9 @@ class ThinkingLogRepository {
       if (raw is List) {
         return raw.map((e) => e.toString()).toList();
       }
-    } catch (_) {}
+    } catch (error, stackTrace) {
+      logAppError('ThinkingLogRepository.loadEntries', error, stackTrace);
+    }
     return [];
   }
 
