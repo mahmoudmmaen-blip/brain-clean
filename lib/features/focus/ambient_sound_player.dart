@@ -1,6 +1,8 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/diagnostics/app_error_logger.dart';
+
 enum AmbientSound {
   rain('rain', '🌧️', 'مطر', 'Rain', 'assets/sounds/rain.mp3'),
   waves('waves', '🌊', 'أمواج', 'Waves', 'assets/sounds/waves.mp3'),
@@ -77,7 +79,8 @@ class AmbientSoundController extends StateNotifier<AmbientSoundState> {
         isPlaying: true,
         volume: state.volume,
       );
-    } catch (_) {
+    } catch (error, stackTrace) {
+      logAppError('AmbientSoundPlayer.play', error, stackTrace);
       state = AmbientSoundState(
         active: sound,
         isPlaying: false,

@@ -1,3 +1,4 @@
+import '../../../core/diagnostics/app_error_logger.dart';
 import 'recovery_day_record.dart';
 import 'recovery_persistence_exception.dart';
 import 'recovery_protocol_json_keys.dart';
@@ -203,7 +204,8 @@ abstract final class RecoveryHivePayload {
         state,
         migratedFromLegacy: migrated,
       );
-    } catch (_) {
+    } catch (error, stackTrace) {
+      logAppError('RecoveryHivePayload.decode', error, stackTrace);
       return const RecoveryProtocolLoadResult.corrupt();
     }
   }

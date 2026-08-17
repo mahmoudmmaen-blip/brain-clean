@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/diagnostics/app_error_logger.dart';
 import '../../core/l10n/app_localizations.dart';
 import '../../core/presentation/language_toggle_button.dart';
 import '../../core/providers/locale_provider.dart';
@@ -40,7 +41,9 @@ class WeeklyReportScreen extends ConsumerWidget {
             ? snapshots.sublist(snapshots.length - 7).map((s) => s.bcsValue).toList()
             : snapshots.map((s) => s.bcsValue).toList();
       }
-    } catch (_) {}
+    } catch (error, stackTrace) {
+      logAppError('WeeklyReportScreen.loadSnapshots', error, stackTrace);
+    }
 
     final emotions = ref.watch(profileEmotionsProvider).maybeWhen(
           data: (d) => d.recent,

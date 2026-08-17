@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../core/diagnostics/app_error_logger.dart';
 import '../../../core/network/supabase_client.dart';
 import '../domain/bhi_pillar_json_keys.dart';
 import '../domain/diagnostic_session.dart';
@@ -68,8 +69,8 @@ class DiagnosticRepository {
                     ?.toDouble() ??
                 0,
       });
-    } catch (e) {
-      debugPrint('DiagnosticRepository.fetchLatest: $e');
+    } catch (error, stackTrace) {
+      logAppError('DiagnosticRepository.fetchLatest', error, stackTrace);
       return null;
     }
   }
@@ -104,19 +105,25 @@ class DiagnosticRepository {
         ...toSnakeCasePayload(session),
         'updated_at': DateTime.now().toUtc().toIso8601String(),
       });
-    } catch (e) {
+    } catch (error, stackTrace) {
       throw DiagnosticSyncException(
         'Could not save your diagnostic. Please try again.',
+        cause: error,
+        causeStackTrace: stackTrace,
       );
     }
   }
 }
 
 class DiagnosticSyncException implements Exception {
-  DiagnosticSyncException(this.message);
+  DiagnosticSyncException(this.message, {this.cause, this.causeStackTrace});
 
   final String message;
 
+  /// Underlying failure (network, Postgres, serialization), when known.
+  final Object? cause;
+  final StackTrace? causeStackTrace;
+
   @override
-  String toString() => message;
+  String toString() => cause == null ? message : '$message (cause: $cause)';
 }

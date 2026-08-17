@@ -268,8 +268,9 @@ abstract final class HiveBootstrap {
       if (await file.exists()) {
         await file.delete();
       }
-    } catch (_) {
-      // ignore
+    } catch (error, stackTrace) {
+      debugPrint('HiveBootstrap: could not delete $path: $error');
+      debugPrintStack(stackTrace: stackTrace);
     }
   }
 

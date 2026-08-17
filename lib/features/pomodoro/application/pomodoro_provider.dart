@@ -4,6 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../core/constants/hive_meta_keys.dart';
 import '../../../core/data/app_meta_box_provider.dart';
+import '../../../core/diagnostics/app_error_logger.dart';
 import '../../../core/providers/locale_provider.dart';
 import '../../../core/services/app_notification_service.dart';
 import '../../diagnostic/presentation/bc_score_provider.dart';
@@ -76,8 +77,10 @@ class PomodoroController extends _$PomodoroController {
       final storedDate = box.get(HiveMetaKeys.pomodoroSessionsDate) as String?;
       final today = _todayKey();
       if (storedDate != today) return 0;
-      return box.get(HiveMetaKeys.pomodoroSessionsToday, defaultValue: 0) as int;
-    } catch (_) {
+      return box.get(HiveMetaKeys.pomodoroSessionsToday, defaultValue: 0)
+          as int;
+    } catch (error, stackTrace) {
+      logAppError('PomodoroController._readSessionsToday', error, stackTrace);
       return 0;
     }
   }
@@ -87,7 +90,13 @@ class PomodoroController extends _$PomodoroController {
       final box = ref.read(appMetaBoxProvider);
       await box.put(HiveMetaKeys.pomodoroSessionsDate, _todayKey());
       await box.put(HiveMetaKeys.pomodoroSessionsToday, count);
-    } catch (_) {}
+    } catch (error, stackTrace) {
+      logAppError(
+        'PomodoroController._persistSessionsToday',
+        error,
+        stackTrace,
+      );
+    }
   }
 
   String _todayKey() {
@@ -197,6 +206,8 @@ class PomodoroController extends _$PomodoroController {
             ? 'خذ استراحة ☕'
             : 'Take a break ☕',
       );
-    } catch (_) {}
+    } catch (error, stackTrace) {
+      logAppError('PomodoroController._notifyPhaseComplete', error, stackTrace);
+    }
   }
 }

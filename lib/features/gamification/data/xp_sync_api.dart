@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../core/diagnostics/app_error_logger.dart';
 import '../../../core/network/supabase_client.dart';
 import '../domain/xp_ledger_entry.dart';
 import '../domain/xp_server_verdict.dart';
@@ -18,7 +19,8 @@ class XpSyncApi {
     try {
       if (SupabaseConfig.url.isEmpty) return null;
       return SupabaseConfig.client;
-    } catch (_) {
+    } catch (error, stackTrace) {
+      logAppError('XpSyncApi._client', error, stackTrace);
       return null;
     }
   }

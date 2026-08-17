@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/constants/hive_meta_keys.dart';
+import '../../core/diagnostics/app_error_logger.dart';
 import '../../features/home/application/streak_freeze_provider.dart';
 import '../../core/services/app_notification_service.dart';
 import '../../core/data/app_meta_box_provider.dart';
@@ -45,8 +46,13 @@ class MidnightResetService with WidgetsBindingObserver {
       try {
         await _read(dailySnapshotsRepositoryProvider).save(snapshot);
         await _read(cloudSyncServiceProvider).syncDailySnapshot(snapshot);
-      } catch (_) {
-        // Local save is best-effort; continue reset flow.
+      } catch (error, stackTrace) {
+        // Continue the reset flow — the snapshot is not worth blocking on.
+        logAppError(
+          'MidnightResetService.saveDailySnapshot',
+          error,
+          stackTrace,
+        );
       }
 
       _read(habitStateProvider.notifier).resetAll();
@@ -65,7 +71,13 @@ class MidnightResetService with WidgetsBindingObserver {
                 ? 'تم استخدام تجميد الـ Streak ❄️'
                 : 'Streak freeze used ❄️',
           );
-        } catch (_) {}
+        } catch (error, stackTrace) {
+          logAppError(
+            'MidnightResetService.notifyStreakFreeze',
+            error,
+            stackTrace,
+          );
+        }
       }
 
       if (today.weekday == DateTime.monday) {
@@ -74,8 +86,13 @@ class MidnightResetService with WidgetsBindingObserver {
       }
 
       await meta.put(HiveMetaKeys.lastResetDate, formatDate(today));
-    } catch (_) {
+    } catch (error, stackTrace) {
       // Hive boxes may be unavailable in tests or during cold start races.
+      logAppError(
+        'MidnightResetService.triggerResetIfNeeded',
+        error,
+        stackTrace,
+      );
     }
   }
 

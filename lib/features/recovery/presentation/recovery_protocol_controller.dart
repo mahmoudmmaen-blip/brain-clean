@@ -1,5 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../core/diagnostics/app_error_logger.dart';
 import '../data/recovery_protocol_storage.dart';
 import '../data/recovery_protocol_storage_provider.dart';
 import 'recovery_bc_penalty_provider.dart';
@@ -126,8 +127,13 @@ class RecoveryProtocolController extends _$RecoveryProtocolController {
   Future<void> resetProtocolStorage() async {
     try {
       await _storage.clear();
-    } catch (_) {
+    } catch (error, stackTrace) {
       // Best-effort clear before fresh state.
+      logAppError(
+        'RecoveryProtocolController.resetProtocolStorage',
+        error,
+        stackTrace,
+      );
     }
     ref.read(recoveryLoadMetaNotifierProvider.notifier).clearNotice();
     state = AsyncValue.data(
@@ -151,8 +157,13 @@ class RecoveryProtocolController extends _$RecoveryProtocolController {
   Future<void> _persistQuietly(RecoveryProtocolState next) async {
     try {
       await _storage.save(next);
-    } catch (_) {
+    } catch (error, stackTrace) {
       // First-run save is best-effort; UI still shows fresh state.
+      logAppError(
+        'RecoveryProtocolController._persistQuietly',
+        error,
+        stackTrace,
+      );
     }
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/constants/hive_meta_keys.dart';
 import '../../core/data/app_meta_box_provider.dart';
+import '../../core/diagnostics/app_error_logger.dart';
 import '../../core/l10n/app_localizations.dart';
 import '../../core/providers/locale_provider.dart';
 import '../../core/services/app_notification_service.dart';
@@ -63,8 +64,9 @@ class _LevelProgressWidgetState extends ConsumerState<LevelProgressWidget> {
                   : 'Congrats! You reached $name level 🎉',
             );
       }
-    } catch (_) {
+    } catch (error, stackTrace) {
       // Best-effort celebration.
+      logAppError('LevelProgressWidget._celebrateLevelUp', error, stackTrace);
     }
   }
 

@@ -6,6 +6,7 @@ import 'package:timezone/timezone.dart' as tz;
 import '../../features/diagnostic/presentation/bc_score_provider.dart';
 import '../../features/home/presentation/home_streak_provider.dart';
 import '../../features/reports/weekly_report_logic.dart';
+import '../diagnostics/app_error_logger.dart';
 import '../providers/locale_provider.dart';
 import 'app_notification_service.dart';
 
@@ -69,8 +70,9 @@ class WeeklyReportService {
         matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
         payload: weeklyReportPayload,
       );
-    } catch (_) {
+    } catch (error, stackTrace) {
       // Scheduling may fail in tests or without permissions.
+      logAppError('WeeklyReportService.schedule', error, stackTrace);
     }
   }
 }

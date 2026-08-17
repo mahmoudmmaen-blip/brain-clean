@@ -92,10 +92,12 @@ class DetoxProtocolRepository {
         ...firestorePayload,
         'updated_at': DateTime.now().toUtc().toIso8601String(),
       });
-    } catch (e) {
-      if (e is ArgumentError) rethrow;
+    } catch (error, stackTrace) {
+      if (error is ArgumentError) rethrow;
       throw DetoxProtocolSyncException(
         'Could not save detox check-ins. Please try again.',
+        cause: error,
+        causeStackTrace: stackTrace,
       );
     }
   }
@@ -142,9 +144,11 @@ class DetoxProtocolRepository {
       ).copyWith(
         lastSyncedAt: DateTime.tryParse(row['updated_at'] as String? ?? ''),
       );
-    } catch (e) {
+    } catch (error, stackTrace) {
       throw DetoxProtocolSyncException(
         'Could not load detox check-ins. Please try again.',
+        cause: error,
+        causeStackTrace: stackTrace,
       );
     }
   }
@@ -175,10 +179,14 @@ class DetoxProtocolRepository {
 }
 
 class DetoxProtocolSyncException implements Exception {
-  DetoxProtocolSyncException(this.message);
+  DetoxProtocolSyncException(this.message, {this.cause, this.causeStackTrace});
 
   final String message;
 
+  /// Underlying failure (network, Postgres, serialization), when known.
+  final Object? cause;
+  final StackTrace? causeStackTrace;
+
   @override
-  String toString() => message;
+  String toString() => cause == null ? message : '$message (cause: $cause)';
 }

@@ -10,8 +10,11 @@ class NvidiaAiService {
   final String _apiKey = dotenv.env['NVIDIA_API_KEY'] ?? ''; 
   static const String _endpoint = 'https://integrate.api.nvidia.com/v1/chat/completions';
 
+  /// Throws [NvidiaAiException] when the coaching reply cannot be produced.
   Future<String> analyzeEmotion(String userText) async {
-    if (_apiKey.isEmpty) return "يرجى ضبط مفتاح الـ API في ملف .env.";
+    if (_apiKey.isEmpty) {
+      throw NvidiaAiException("يرجى ضبط مفتاح الـ API في ملف .env.");
+    }
 
     try {
       final response = await http.post(
@@ -31,14 +34,41 @@ class NvidiaAiService {
         }),
       );
 
-      if (response.statusCode == 200) {
-        final data = jsonDecode(utf8.decode(response.bodyBytes));
-        return data['choices'][0]['message']['content'].toString().trim();
-      } else {
-        return "خطأ في السيرفر: ${response.statusCode}";
+      if (response.statusCode != 200) {
+        throw NvidiaAiException(
+          "خطأ في السيرفر: ${response.statusCode}",
+          statusCode: response.statusCode,
+        );
       }
-    } catch (e) {
-      return "خطأ في الاتصال: $e";
+
+      final data = jsonDecode(utf8.decode(response.bodyBytes));
+      return data['choices'][0]['message']['content'].toString().trim();
+    } on NvidiaAiException {
+      rethrow;
+    } catch (error, stackTrace) {
+      throw NvidiaAiException(
+        "خطأ في الاتصال بالمرشد — حاول مرة أخرى.",
+        cause: error,
+        causeStackTrace: stackTrace,
+      );
     }
   }
+}
+
+/// Coaching request failure — [message] is safe to show to the user.
+class NvidiaAiException implements Exception {
+  NvidiaAiException(
+    this.message, {
+    this.cause,
+    this.causeStackTrace,
+    this.statusCode,
+  });
+
+  final String message;
+  final Object? cause;
+  final StackTrace? causeStackTrace;
+  final int? statusCode;
+
+  @override
+  String toString() => cause == null ? message : '$message (cause: $cause)';
 }

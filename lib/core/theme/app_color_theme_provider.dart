@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constants/hive_meta_keys.dart';
 import '../data/app_meta_box_provider.dart';
+import '../diagnostics/app_error_logger.dart';
 import '../../features/pro/application/subscription_service_provider.dart';
 import 'app_color_theme.dart';
 
@@ -12,7 +13,8 @@ class SelectedColorThemeNotifier extends Notifier<AppColorTheme> {
       final box = ref.watch(appMetaBoxProvider);
       final stored = box.get(HiveMetaKeys.selectedColorThemeId) as String?;
       return AppColorTheme.values.asNameMap()[stored] ?? AppColorTheme.midnight;
-    } catch (_) {
+    } catch (error, stackTrace) {
+      logAppError('SelectedColorThemeNotifier.build', error, stackTrace);
       return AppColorTheme.midnight;
     }
   }
@@ -21,8 +23,9 @@ class SelectedColorThemeNotifier extends Notifier<AppColorTheme> {
     try {
       final box = ref.read(appMetaBoxProvider);
       await box.put(HiveMetaKeys.selectedColorThemeId, theme.name);
-    } catch (_) {
+    } catch (error, stackTrace) {
       // Hive unavailable (e.g. widget tests) — fall back to in-memory state.
+      logAppError('SelectedColorThemeNotifier.select', error, stackTrace);
     }
     state = theme;
   }

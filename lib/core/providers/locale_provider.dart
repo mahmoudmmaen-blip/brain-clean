@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constants/hive_meta_keys.dart';
 import '../data/app_meta_box_provider.dart';
+import '../diagnostics/app_error_logger.dart';
 import '../services/smart_notification_service.dart';
 import '../services/weekly_report_service.dart';
 
@@ -12,7 +13,8 @@ Locale readPersistedLocale(T Function<T>(ProviderListenable<T> provider) read) {
     final box = read(appMetaBoxProvider);
     final code = box.get(HiveMetaKeys.locale, defaultValue: 'ar') as String;
     return Locale(code);
-  } catch (_) {
+  } catch (error, stackTrace) {
+    logAppError('readPersistedLocale', error, stackTrace);
     return const Locale('ar');
   }
 }
@@ -27,12 +29,11 @@ Future<void> persistLocale(
   Locale locale,
 ) async {
   try {
-    await ref.read(appMetaBoxProvider).put(
-          HiveMetaKeys.locale,
-          locale.languageCode,
-        );
-  } catch (_) {
-    // Best-effort persistence.
+    await ref
+        .read(appMetaBoxProvider)
+        .put(HiveMetaKeys.locale, locale.languageCode);
+  } catch (error, stackTrace) {
+    logAppError('persistLocale', error, stackTrace);
   }
 }
 
@@ -46,7 +47,9 @@ Future<void> toggleLocale(WidgetRef ref) async {
   try {
     ref.read(smartNotificationServiceProvider).rescheduleAll();
     ref.read(weeklyReportServiceProvider).schedule();
-  } catch (_) {}
+  } catch (error, stackTrace) {
+    logAppError('toggleLocale.rescheduleNotifications', error, stackTrace);
+  }
 }
 
 String localeFlagEmoji(Locale locale) =>

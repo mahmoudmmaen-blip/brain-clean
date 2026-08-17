@@ -1,5 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../core/diagnostics/app_error_logger.dart';
 import '../../diagnostic/presentation/bc_score_provider.dart';
 import '../data/emotion_log_repository.dart';
 import '../domain/emotion_log_entry.dart';
@@ -107,8 +108,9 @@ class EmotionNotifier extends _$EmotionNotifier {
               timestamp: timestamp,
             ),
           );
-    } catch (_) {
+    } catch (error, stackTrace) {
       // Logging is best-effort; BCS update remains authoritative.
+      logAppError('EmotionController.logEmotion', error, stackTrace);
     }
 
     final sessionAfter = ref.read(bcScoreSessionProvider);
