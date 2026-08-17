@@ -23,7 +23,7 @@ class ProGatedSevenDayChart extends ConsumerWidget {
 
     return GestureDetector(
       key: proLockedChartKey,
-      onTap: () => context.push(AppRoutes.proPaywall),
+      onTap: () => context.push(AppRoutes.v2PremiumWithSource('chart')),
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
@@ -49,7 +49,8 @@ class ProGatedSevenDayChart extends ConsumerWidget {
                   const SizedBox(height: 4),
                   Text(
                     loc.proGatedChartSubtitle,
-                    style: const TextStyle(color: Color(0xFF8B949E), fontSize: 13),
+                    style:
+                        const TextStyle(color: Color(0xFF8B949E), fontSize: 13),
                   ),
                 ],
               ),

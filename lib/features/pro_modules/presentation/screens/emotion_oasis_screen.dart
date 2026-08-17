@@ -1,8 +1,6 @@
+import 'package:brain_clean_mobile/core/services/claude_ai_service_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-// 🚨 ملاحظة: لو السطر ده تحته خط أحمر، امسحه واضغط (Ctrl + .) على كلمة nvidiaAiServiceProvider تحت واختار Import library
-import 'package:brain_clean_mobile/core/services/nvidia_ai_service.dart';
 
 class EmotionOasisScreen extends ConsumerStatefulWidget {
   const EmotionOasisScreen({super.key});
@@ -27,13 +25,14 @@ class _EmotionOasisScreenState extends ConsumerState<EmotionOasisScreen> {
     // إخفاء الكيبورد أثناء التحليل
     FocusScope.of(context).unfocus();
 
-    final service = ref.read(nvidiaAiServiceProvider);
-    final result = await service.analyzeEmotion(_controller.text);
+    final service = ref.read(claudeAiServiceProvider);
+    final result = await service.chat(_controller.text.trim());
 
     if (!mounted) return;
-    
+
     setState(() {
-      _response = result;
+      _response = result ??
+          'عذراً، صفا غير متاحة الآن. حاول مرة أخرى لاحقاً.';
       _isLoading = false;
     });
   }

@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
 
-/// Brain Clean design tokens — dark-first UI.
+/// Brain Clean design tokens — Morning Light identity.
 abstract final class AppColors {
-  static const background = Color(0xFF0D1117);
-  static const card = Color(0xFF161B22);
-  static const border = Color(0xFF30363D);
-  static const primary = Color(0xFF1D9E75);
-  static const primaryDark = Color(0xFF0F7A5A);
-  static const textPrimary = Color(0xFFE6EDF3);
-  static const textSecondary = Color(0xFF8B949E);
-  static const danger = Color(0xFFEF4444);
-  static const warning = Color(0xFFF59E0B);
-  static const info = Color(0xFF3B82F6);
+  static const background = Color(0xFF15130F);
+  static const card = Color(0xFF1E1A14);
+  static const border = Color(0xFF332C21);
+  static const primary = Color(0xFFD97245);
+  static const primaryDark = Color(0xFFB8613B);
+  static const positive = Color(0xFF5B8266);
+  static const textPrimary = Color(0xFFF2EBDE);
+  static const textSecondary = Color(0xFFA99A85);
+  static const danger = Color(0xFFC2564A);
+  static const warning = Color(0xFFD9A24B);
+  static const info = Color(0xFF6E93A8);
+
+  // Light-mode counterparts (primary/positive/danger/warning/info shared).
+  static const backgroundLight = Color(0xFFFBF8F3);
+  static const cardLight = Color(0xFFFFFFFF);
+  static const borderLight = Color(0xFFE5DDCE);
+  static const textPrimaryLight = Color(0xFF231F19);
+  static const textSecondaryLight = Color(0xFF6B6154);
 }

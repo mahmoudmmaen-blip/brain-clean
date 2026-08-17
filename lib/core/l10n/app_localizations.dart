@@ -1508,6 +1508,12 @@ abstract class AppLocalizations {
   /// **'Coming soon…'**
   String get settingsComingSoon;
 
+  /// No description provided for @settingsLinkUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open this link on this device.'**
+  String get settingsLinkUnavailable;
+
   /// No description provided for @settingsAboutSection.
   ///
   /// In en, this message translates to:
@@ -2731,6 +2737,3799 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Warning: this device may be compromised. Local data only — cloud sync is disabled.'**
   String get securityCompromisedBanner;
+
+  /// No description provided for @brainCheckTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Check'**
+  String get brainCheckTitle;
+
+  /// No description provided for @brainCheckIntroNonMedical.
+  ///
+  /// In en, this message translates to:
+  /// **'This is a self-check, not a medical diagnosis.'**
+  String get brainCheckIntroNonMedical;
+
+  /// No description provided for @brainCheckStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Brain Check'**
+  String get brainCheckStart;
+
+  /// No description provided for @brainCheckContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get brainCheckContinue;
+
+  /// No description provided for @brainCheckStartOver.
+  ///
+  /// In en, this message translates to:
+  /// **'Start over'**
+  String get brainCheckStartOver;
+
+  /// No description provided for @brainCheckEmptyState.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Brain Check to build your profile.'**
+  String get brainCheckEmptyState;
+
+  /// No description provided for @brainCheckQuestionProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Question {current} of {total}'**
+  String brainCheckQuestionProgress(int current, int total);
+
+  /// No description provided for @brainCheckSectionProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Part {current} of {total}'**
+  String brainCheckSectionProgress(int current, int total);
+
+  /// No description provided for @brainCheckComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Check complete'**
+  String get brainCheckComplete;
+
+  /// No description provided for @brainCheckResumeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue your Brain Check?'**
+  String get brainCheckResumeTitle;
+
+  /// No description provided for @brainCheckSaveError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save your answers. They are still on this screen.'**
+  String get brainCheckSaveError;
+
+  /// No description provided for @brainCheckLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Brain Check…'**
+  String get brainCheckLoading;
+
+  /// No description provided for @brainCheckExit.
+  ///
+  /// In en, this message translates to:
+  /// **'Exit Brain Check'**
+  String get brainCheckExit;
+
+  /// No description provided for @brainCheckBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get brainCheckBack;
+
+  /// No description provided for @brainCheckSaving.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving…'**
+  String get brainCheckSaving;
+
+  /// No description provided for @brainCheckFinish.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish check'**
+  String get brainCheckFinish;
+
+  /// No description provided for @brainCheckSelectAnswerHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose an answer to continue.'**
+  String get brainCheckSelectAnswerHint;
+
+  /// No description provided for @brainCheckAutosaveHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Your answers save on this device as you go.'**
+  String get brainCheckAutosaveHint;
+
+  /// No description provided for @brainCheckAnswerChoices.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer choices'**
+  String get brainCheckAnswerChoices;
+
+  /// No description provided for @brainCheckAnswerSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected'**
+  String get brainCheckAnswerSelected;
+
+  /// No description provided for @brainCheckAnswerUnselected.
+  ///
+  /// In en, this message translates to:
+  /// **'Not selected'**
+  String get brainCheckAnswerUnselected;
+
+  /// No description provided for @brainCheckAnswerYes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get brainCheckAnswerYes;
+
+  /// No description provided for @brainCheckAnswerNo.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get brainCheckAnswerNo;
+
+  /// No description provided for @brainCheckLikert1.
+  ///
+  /// In en, this message translates to:
+  /// **'Strongly disagree'**
+  String get brainCheckLikert1;
+
+  /// No description provided for @brainCheckLikert2.
+  ///
+  /// In en, this message translates to:
+  /// **'Disagree'**
+  String get brainCheckLikert2;
+
+  /// No description provided for @brainCheckLikert3.
+  ///
+  /// In en, this message translates to:
+  /// **'Neutral'**
+  String get brainCheckLikert3;
+
+  /// No description provided for @brainCheckLikert4.
+  ///
+  /// In en, this message translates to:
+  /// **'Agree'**
+  String get brainCheckLikert4;
+
+  /// No description provided for @brainCheckLikert5.
+  ///
+  /// In en, this message translates to:
+  /// **'Strongly agree'**
+  String get brainCheckLikert5;
+
+  /// No description provided for @brainCheckFrequency1.
+  ///
+  /// In en, this message translates to:
+  /// **'Never'**
+  String get brainCheckFrequency1;
+
+  /// No description provided for @brainCheckFrequency2.
+  ///
+  /// In en, this message translates to:
+  /// **'Rarely'**
+  String get brainCheckFrequency2;
+
+  /// No description provided for @brainCheckFrequency3.
+  ///
+  /// In en, this message translates to:
+  /// **'Sometimes'**
+  String get brainCheckFrequency3;
+
+  /// No description provided for @brainCheckFrequency4.
+  ///
+  /// In en, this message translates to:
+  /// **'Often'**
+  String get brainCheckFrequency4;
+
+  /// No description provided for @brainCheckFrequency5.
+  ///
+  /// In en, this message translates to:
+  /// **'Very often'**
+  String get brainCheckFrequency5;
+
+  /// No description provided for @brainCheckBreakTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A short pause'**
+  String get brainCheckBreakTitle;
+
+  /// No description provided for @brainCheckBreakBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Next: {sectionTitle}'**
+  String brainCheckBreakBody(String sectionTitle);
+
+  /// No description provided for @brainCheckCompletionBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Thanks for finishing this self-report. Your check is ready to save on this device.'**
+  String get brainCheckCompletionBody;
+
+  /// No description provided for @brainCheckConfigError.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Check questions are unavailable right now.'**
+  String get brainCheckConfigError;
+
+  /// No description provided for @brainCheckRestartTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Start over?'**
+  String get brainCheckRestartTitle;
+
+  /// No description provided for @brainCheckRestartBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This clears your unfinished Brain Check answers on this device. Onboarding progress and past completed profiles stay untouched.'**
+  String get brainCheckRestartBody;
+
+  /// No description provided for @brainCheckRestartCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep going'**
+  String get brainCheckRestartCancel;
+
+  /// No description provided for @brainCheckRestartConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Start over'**
+  String get brainCheckRestartConfirm;
+
+  /// No description provided for @brainCheckCompleteBoundaryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Check saved'**
+  String get brainCheckCompleteBoundaryTitle;
+
+  /// No description provided for @brainCheckCompleteBoundaryBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your self-report is stored on this device. Continue to build your Brain Profile snapshot.'**
+  String get brainCheckCompleteBoundaryBody;
+
+  /// No description provided for @brainCheckCompleteBoundaryContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Build Brain Profile'**
+  String get brainCheckCompleteBoundaryContinue;
+
+  /// No description provided for @brainProfileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Profile'**
+  String get brainProfileTitle;
+
+  /// No description provided for @brainProfileBuilding.
+  ///
+  /// In en, this message translates to:
+  /// **'Building your Brain Profile…'**
+  String get brainProfileBuilding;
+
+  /// No description provided for @brainProfileLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Brain Profile'**
+  String get brainProfileLoading;
+
+  /// No description provided for @brainProfileMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'No Brain Profile yet'**
+  String get brainProfileMissing;
+
+  /// No description provided for @brainProfileEmptyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete a Brain Check to create your first snapshot.'**
+  String get brainProfileEmptyHint;
+
+  /// No description provided for @brainProfileUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile calculation is unavailable right now.'**
+  String get brainProfileUnavailable;
+
+  /// No description provided for @brainProfileRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get brainProfileRetry;
+
+  /// No description provided for @brainProfileGoHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Home'**
+  String get brainProfileGoHome;
+
+  /// No description provided for @brainProfileOrientation.
+  ///
+  /// In en, this message translates to:
+  /// **'A calm look at your snapshot'**
+  String get brainProfileOrientation;
+
+  /// No description provided for @brainProfileScoreHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery Score estimate'**
+  String get brainProfileScoreHeading;
+
+  /// No description provided for @brainProfileScorePendingLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimate pending'**
+  String get brainProfileScorePendingLabel;
+
+  /// No description provided for @brainProfileScorePendingSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery Score estimate is pending. Domain summaries are available from your answers.'**
+  String get brainProfileScorePendingSemantics;
+
+  /// No description provided for @brainProfileScoreSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery Score estimate: {value}'**
+  String brainProfileScoreSemantics(String value);
+
+  /// No description provided for @brainProfileConfidenceHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Confidence'**
+  String get brainProfileConfidenceHeading;
+
+  /// No description provided for @brainProfileConfidenceProvisional.
+  ///
+  /// In en, this message translates to:
+  /// **'Provisional'**
+  String get brainProfileConfidenceProvisional;
+
+  /// No description provided for @brainProfileConfidenceModerate.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderate'**
+  String get brainProfileConfidenceModerate;
+
+  /// No description provided for @brainProfileConfidenceSolid.
+  ///
+  /// In en, this message translates to:
+  /// **'Strong'**
+  String get brainProfileConfidenceSolid;
+
+  /// No description provided for @brainProfileBandHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Current band'**
+  String get brainProfileBandHeading;
+
+  /// No description provided for @brainProfileBandMeaning.
+  ///
+  /// In en, this message translates to:
+  /// **'A calm product label for this self-report estimate — not a clinical severity.'**
+  String get brainProfileBandMeaning;
+
+  /// No description provided for @brainProfileMeansHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'What this means'**
+  String get brainProfileMeansHeading;
+
+  /// No description provided for @brainProfileMeansBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This is a self-reported starting snapshot. It highlights stronger reported areas and current support priorities based on your Brain Check answers.'**
+  String get brainProfileMeansBody;
+
+  /// No description provided for @brainProfileDoesNotMeanHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'What this does not mean'**
+  String get brainProfileDoesNotMeanHeading;
+
+  /// No description provided for @brainProfileScoreUnavailableLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimate unavailable'**
+  String get brainProfileScoreUnavailableLabel;
+
+  /// No description provided for @brainProfileScoreUnavailableSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery Score estimate is unavailable. No number is shown.'**
+  String get brainProfileScoreUnavailableSemantics;
+
+  /// No description provided for @brainProfileScoreUnavailableBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A Recovery Score could not be estimated from this check. Your answers remain saved. Complete a valid Brain Check to continue to a Recovery Plan.'**
+  String get brainProfileScoreUnavailableBody;
+
+  /// No description provided for @brainProfileContinueUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'A Recovery Plan needs a valid Recovery Score estimate.'**
+  String get brainProfileContinueUnavailable;
+
+  /// No description provided for @brainProfileMissingEvent.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete a Brain Check first.'**
+  String get brainProfileMissingEvent;
+
+  /// No description provided for @brainProfileBuildingHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing your self-report snapshot on this device…'**
+  String get brainProfileBuildingHint;
+
+  /// No description provided for @brainProfileDomainEstimateHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Current estimate'**
+  String get brainProfileDomainEstimateHeading;
+
+  /// No description provided for @brainProfileDomainStrongerLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Stronger reported area'**
+  String get brainProfileDomainStrongerLabel;
+
+  /// No description provided for @brainProfileDomainSupportLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Current support priority'**
+  String get brainProfileDomainSupportLabel;
+
+  /// No description provided for @brainProfileDomainNeutralLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Based on your current answers'**
+  String get brainProfileDomainNeutralLabel;
+
+  /// No description provided for @brainProfileDomainBasedOnAnswers.
+  ///
+  /// In en, this message translates to:
+  /// **'Based on themes from your current Brain Check answers — not raw scores.'**
+  String get brainProfileDomainBasedOnAnswers;
+
+  /// No description provided for @brainProfileDomainNonMedical.
+  ///
+  /// In en, this message translates to:
+  /// **'Not a medical diagnosis. Not brain-damage detection. Not an intelligence score.'**
+  String get brainProfileDomainNonMedical;
+
+  /// No description provided for @brainProfileDomainPlanPreviewHint.
+  ///
+  /// In en, this message translates to:
+  /// **'A gentle Recovery Plan step may focus here next — that comes after you continue.'**
+  String get brainProfileDomainPlanPreviewHint;
+
+  /// No description provided for @brainProfileDomainsHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Domain summary'**
+  String get brainProfileDomainsHeading;
+
+  /// No description provided for @brainProfileDomainNoData.
+  ///
+  /// In en, this message translates to:
+  /// **'No answers in this area yet'**
+  String get brainProfileDomainNoData;
+
+  /// No description provided for @brainProfileDomainMean.
+  ///
+  /// In en, this message translates to:
+  /// **'Reported average: {value}'**
+  String brainProfileDomainMean(String value);
+
+  /// No description provided for @brainProfileDomainClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get brainProfileDomainClose;
+
+  /// No description provided for @brainProfileExplainHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'What this means'**
+  String get brainProfileExplainHeading;
+
+  /// No description provided for @brainProfileContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue to Recovery Plan'**
+  String get brainProfileContinue;
+
+  /// No description provided for @brainProfileReadyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Brain Profile is ready'**
+  String get brainProfileReadyTitle;
+
+  /// No description provided for @brainProfileReadyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Recovery Plan is the next calm step when you continue from your Profile.'**
+  String get brainProfileReadyBody;
+
+  /// No description provided for @brainProfileHistoricalBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Earlier snapshot'**
+  String get brainProfileHistoricalBadge;
+
+  /// No description provided for @recoveryPlanTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery Plan'**
+  String get recoveryPlanTitle;
+
+  /// No description provided for @recoveryPlanBuilding.
+  ///
+  /// In en, this message translates to:
+  /// **'Building your Recovery Plan…'**
+  String get recoveryPlanBuilding;
+
+  /// No description provided for @recoveryPlanLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Recovery Plan'**
+  String get recoveryPlanLoading;
+
+  /// No description provided for @recoveryPlanReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Recovery Plan is ready'**
+  String get recoveryPlanReady;
+
+  /// No description provided for @recoveryPlanStarterReady.
+  ///
+  /// In en, this message translates to:
+  /// **'A calm starter plan is ready'**
+  String get recoveryPlanStarterReady;
+
+  /// No description provided for @recoveryPlanMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'No Recovery Plan yet'**
+  String get recoveryPlanMissing;
+
+  /// No description provided for @recoveryPlanMissingProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete a Brain Check and Brain Profile first.'**
+  String get recoveryPlanMissingProfile;
+
+  /// No description provided for @recoveryPlanScoreUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'A full plan needs a valid Recovery Score estimate. A starter plan may still be available.'**
+  String get recoveryPlanScoreUnavailable;
+
+  /// No description provided for @recoveryPlanUnsupportedVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'This plan model is not supported on this version.'**
+  String get recoveryPlanUnsupportedVersion;
+
+  /// No description provided for @recoveryPlanGenerationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not build your plan right now. Try again.'**
+  String get recoveryPlanGenerationError;
+
+  /// No description provided for @recoveryPlanRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get recoveryPlanRetry;
+
+  /// No description provided for @recoveryPlanGoHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Home'**
+  String get recoveryPlanGoHome;
+
+  /// No description provided for @recoveryPlanBuildCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Build Recovery Plan'**
+  String get recoveryPlanBuildCta;
+
+  /// No description provided for @recoveryPlanMainFocus.
+  ///
+  /// In en, this message translates to:
+  /// **'Main focus'**
+  String get recoveryPlanMainFocus;
+
+  /// No description provided for @recoveryPlanPrioritiesHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Priority support'**
+  String get recoveryPlanPrioritiesHeading;
+
+  /// No description provided for @recoveryPlanNoPriorities.
+  ///
+  /// In en, this message translates to:
+  /// **'No priority domains in this starter plan'**
+  String get recoveryPlanNoPriorities;
+
+  /// No description provided for @recoveryPlanStrongerHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Already helping'**
+  String get recoveryPlanStrongerHeading;
+
+  /// No description provided for @recoveryPlanConfidenceHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Confidence'**
+  String get recoveryPlanConfidenceHeading;
+
+  /// No description provided for @recoveryPlanTimeHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily time'**
+  String get recoveryPlanTimeHeading;
+
+  /// No description provided for @recoveryPlanTimeRange.
+  ///
+  /// In en, this message translates to:
+  /// **'About {min}–{max} minutes'**
+  String recoveryPlanTimeRange(String min, String max);
+
+  /// No description provided for @recoveryPlanIntensityLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Intensity'**
+  String get recoveryPlanIntensityLabel;
+
+  /// No description provided for @recoveryPlanMinimumPath.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum path'**
+  String get recoveryPlanMinimumPath;
+
+  /// No description provided for @recoveryPlanStandardPath.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard path'**
+  String get recoveryPlanStandardPath;
+
+  /// No description provided for @recoveryPlanBecauseHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Why this plan today'**
+  String get recoveryPlanBecauseHeading;
+
+  /// No description provided for @recoveryPlanTodayPreview.
+  ///
+  /// In en, this message translates to:
+  /// **'Today preview'**
+  String get recoveryPlanTodayPreview;
+
+  /// No description provided for @recoveryPlanContinueToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue to Today'**
+  String get recoveryPlanContinueToday;
+
+  /// No description provided for @recoveryPlanSkipHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Skipping a step never counts as a penalty.'**
+  String get recoveryPlanSkipHint;
+
+  /// No description provided for @recoveryPlanOptionalTag.
+  ///
+  /// In en, this message translates to:
+  /// **'optional'**
+  String get recoveryPlanOptionalTag;
+
+  /// No description provided for @recoveryPlanNoSteps.
+  ///
+  /// In en, this message translates to:
+  /// **'No steps listed'**
+  String get recoveryPlanNoSteps;
+
+  /// No description provided for @recoveryPlanStarterBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Starter plan'**
+  String get recoveryPlanStarterBadge;
+
+  /// No description provided for @recoveryPlanTodayReadyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Today is ready to begin'**
+  String get recoveryPlanTodayReadyTitle;
+
+  /// No description provided for @recoveryPlanTodayReadyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your daily session player arrives in a later step. Your Recovery Plan is saved on this device.'**
+  String get recoveryPlanTodayReadyBody;
+
+  /// No description provided for @recoveryPlanCalmOrientation.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Recovery Plan'**
+  String get recoveryPlanCalmOrientation;
+
+  /// No description provided for @recoveryPlanCalmOrientationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This plan is a practical estimate based on your current Brain Profile. It is not a diagnosis or treatment. You can adjust it later.'**
+  String get recoveryPlanCalmOrientationBody;
+
+  /// No description provided for @recoveryPlanFitsProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'It matches the priorities in your current profile estimate.'**
+  String get recoveryPlanFitsProfile;
+
+  /// No description provided for @recoveryPlanTodayFitHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'How today fits'**
+  String get recoveryPlanTodayFitHeading;
+
+  /// No description provided for @recoveryPlanOpenToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Today'**
+  String get recoveryPlanOpenToday;
+
+  /// No description provided for @recoveryPlanAboutDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Why this plan'**
+  String get recoveryPlanAboutDetails;
+
+  /// No description provided for @recoveryPlanPathDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Path details'**
+  String get recoveryPlanPathDetails;
+
+  /// No description provided for @recoveryPlanStepCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} steps'**
+  String recoveryPlanStepCount(int count);
+
+  /// No description provided for @v2TodayPreviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your first Today'**
+  String get v2TodayPreviewTitle;
+
+  /// No description provided for @v2TodayPreviewLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Today preview'**
+  String get v2TodayPreviewLoading;
+
+  /// No description provided for @v2TodayPreviewHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Today preview'**
+  String get v2TodayPreviewHeading;
+
+  /// No description provided for @v2TodayPreviewOrientation.
+  ///
+  /// In en, this message translates to:
+  /// **'Your day starts with one clear step. Completing it later will mark the day on your plan.'**
+  String get v2TodayPreviewOrientation;
+
+  /// No description provided for @v2TodayPreviewActHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'First step'**
+  String get v2TodayPreviewActHeading;
+
+  /// No description provided for @v2TodayPreviewFallbackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Today’s practice'**
+  String get v2TodayPreviewFallbackTitle;
+
+  /// No description provided for @v2TodayPreviewBecauseHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Why this step today'**
+  String get v2TodayPreviewBecauseHeading;
+
+  /// No description provided for @v2TodayPreviewCompletionMeaning.
+  ///
+  /// In en, this message translates to:
+  /// **'Finishing this step later will count as your day done. Skipping stays allowed with no penalty.'**
+  String get v2TodayPreviewCompletionMeaning;
+
+  /// No description provided for @v2TodayPreviewContinueCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue — first step ready'**
+  String get v2TodayPreviewContinueCta;
+
+  /// No description provided for @v2TodayPreviewMissingAct.
+  ///
+  /// In en, this message translates to:
+  /// **'Today’s step is not available yet. Rebuild your Recovery Plan.'**
+  String get v2TodayPreviewMissingAct;
+
+  /// No description provided for @v2TodayReadyLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing your first step'**
+  String get v2TodayReadyLoading;
+
+  /// No description provided for @v2TodayReadyFirstStepTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your first step is ready'**
+  String get v2TodayReadyFirstStepTitle;
+
+  /// No description provided for @v2TodayReadyFirstStepBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Recovery Plan is saved. Open Today to begin your first daily session when you are ready. You can leave and return without losing progress.'**
+  String get v2TodayReadyFirstStepBody;
+
+  /// No description provided for @v2TodayReadyJourneySaved.
+  ///
+  /// In en, this message translates to:
+  /// **'First-time setup is complete on this device.'**
+  String get v2TodayReadyJourneySaved;
+
+  /// No description provided for @v2TodayReadyProgressSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Your progress is saved on this device.'**
+  String get v2TodayReadyProgressSaved;
+
+  /// No description provided for @v2TodayReadyPrimaryCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Today'**
+  String get v2TodayReadyPrimaryCta;
+
+  /// No description provided for @v2TodayReadyReviewPreview.
+  ///
+  /// In en, this message translates to:
+  /// **'Review Today preview'**
+  String get v2TodayReadyReviewPreview;
+
+  /// No description provided for @v2TodayReadyCorruptPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'This plan could not be read safely. Rebuild it calmly when you are ready.'**
+  String get v2TodayReadyCorruptPlan;
+
+  /// No description provided for @v2TodayReadyPersistFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save progress right now. Try again.'**
+  String get v2TodayReadyPersistFailed;
+
+  /// No description provided for @v2TodayHomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get v2TodayHomeTitle;
+
+  /// No description provided for @v2TodayHomeLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Today'**
+  String get v2TodayHomeLoading;
+
+  /// No description provided for @v2TodayHomeOrientation.
+  ///
+  /// In en, this message translates to:
+  /// **'Your day'**
+  String get v2TodayHomeOrientation;
+
+  /// No description provided for @v2TodayHomeOrientationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'One clear action from your Recovery Plan. Nothing extra.'**
+  String get v2TodayHomeOrientationBody;
+
+  /// No description provided for @v2TodayHomeStandardPathHint.
+  ///
+  /// In en, this message translates to:
+  /// **'The standard path adds approved optional depth when you want it.'**
+  String get v2TodayHomeStandardPathHint;
+
+  /// No description provided for @v2TodayHomeStatusHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get v2TodayHomeStatusHeading;
+
+  /// No description provided for @v2TodayHomeStatusReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready when you are'**
+  String get v2TodayHomeStatusReady;
+
+  /// No description provided for @v2TodayHomeStatusInProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Session in progress'**
+  String get v2TodayHomeStatusInProgress;
+
+  /// No description provided for @v2TodayHomeStatusReflect.
+  ///
+  /// In en, this message translates to:
+  /// **'Almost done — finish check-in'**
+  String get v2TodayHomeStatusReflect;
+
+  /// No description provided for @v2TodayHomeStatusDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done for today'**
+  String get v2TodayHomeStatusDone;
+
+  /// No description provided for @v2TodayHomeStatusPartial.
+  ///
+  /// In en, this message translates to:
+  /// **'Attempt saved — no penalty'**
+  String get v2TodayHomeStatusPartial;
+
+  /// No description provided for @v2TodayHomeCtaStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start today’s session'**
+  String get v2TodayHomeCtaStart;
+
+  /// No description provided for @v2TodayHomeCtaContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue session'**
+  String get v2TodayHomeCtaContinue;
+
+  /// No description provided for @v2TodayHomeCtaViewCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'View completed session'**
+  String get v2TodayHomeCtaViewCompleted;
+
+  /// No description provided for @v2TodayHomeViewPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'View Recovery Plan'**
+  String get v2TodayHomeViewPlan;
+
+  /// No description provided for @v2SessionPrepareTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Prepare'**
+  String get v2SessionPrepareTitle;
+
+  /// No description provided for @v2SessionPreparePurpose.
+  ///
+  /// In en, this message translates to:
+  /// **'A short guided practice from your plan.'**
+  String get v2SessionPreparePurpose;
+
+  /// No description provided for @v2SessionPrepareIncludes.
+  ///
+  /// In en, this message translates to:
+  /// **'This session includes:'**
+  String get v2SessionPrepareIncludes;
+
+  /// No description provided for @v2SessionPathHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your path'**
+  String get v2SessionPathHeading;
+
+  /// No description provided for @v2SessionPathNoShame.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum is complete and useful. Standard adds optional depth.'**
+  String get v2SessionPathNoShame;
+
+  /// No description provided for @v2SessionA11yHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Each step offers an accessibility alternative.'**
+  String get v2SessionA11yHint;
+
+  /// No description provided for @v2SessionStartCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get v2SessionStartCta;
+
+  /// No description provided for @v2SessionClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get v2SessionClose;
+
+  /// No description provided for @v2SessionActTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Today’s Session'**
+  String get v2SessionActTitle;
+
+  /// No description provided for @v2SessionProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Step {current} of {total}'**
+  String v2SessionProgress(String current, String total);
+
+  /// No description provided for @v2SessionOptionalLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional'**
+  String get v2SessionOptionalLabel;
+
+  /// No description provided for @v2SessionRequiredLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Required'**
+  String get v2SessionRequiredLabel;
+
+  /// No description provided for @v2SessionStartTimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Start optional timer'**
+  String get v2SessionStartTimer;
+
+  /// No description provided for @v2SessionTimerContext.
+  ///
+  /// In en, this message translates to:
+  /// **'About {seconds} seconds left on the optional timer'**
+  String v2SessionTimerContext(String seconds);
+
+  /// No description provided for @v2SessionMarkDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark step done'**
+  String get v2SessionMarkDone;
+
+  /// No description provided for @v2SessionSkipOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip optional step'**
+  String get v2SessionSkipOptional;
+
+  /// No description provided for @v2SessionEndEarly.
+  ///
+  /// In en, this message translates to:
+  /// **'End and check in'**
+  String get v2SessionEndEarly;
+
+  /// No description provided for @v2SessionReflectTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick check-in'**
+  String get v2SessionReflectTitle;
+
+  /// No description provided for @v2SessionReflectPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'How did today’s session feel?'**
+  String get v2SessionReflectPrompt;
+
+  /// No description provided for @v2SessionReflectManageable.
+  ///
+  /// In en, this message translates to:
+  /// **'How manageable was it?'**
+  String get v2SessionReflectManageable;
+
+  /// No description provided for @v2SessionReflectHelped.
+  ///
+  /// In en, this message translates to:
+  /// **'Did it help you pause or focus?'**
+  String get v2SessionReflectHelped;
+
+  /// No description provided for @v2SessionReflectObstacle.
+  ///
+  /// In en, this message translates to:
+  /// **'Any obstacle? (optional)'**
+  String get v2SessionReflectObstacle;
+
+  /// No description provided for @v2SessionChipEasy.
+  ///
+  /// In en, this message translates to:
+  /// **'Manageable'**
+  String get v2SessionChipEasy;
+
+  /// No description provided for @v2SessionChipOk.
+  ///
+  /// In en, this message translates to:
+  /// **'Okay'**
+  String get v2SessionChipOk;
+
+  /// No description provided for @v2SessionChipHard.
+  ///
+  /// In en, this message translates to:
+  /// **'Hard'**
+  String get v2SessionChipHard;
+
+  /// No description provided for @v2SessionChipYes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get v2SessionChipYes;
+
+  /// No description provided for @v2SessionChipSomewhat.
+  ///
+  /// In en, this message translates to:
+  /// **'Somewhat'**
+  String get v2SessionChipSomewhat;
+
+  /// No description provided for @v2SessionChipNotYet.
+  ///
+  /// In en, this message translates to:
+  /// **'Not yet'**
+  String get v2SessionChipNotYet;
+
+  /// No description provided for @v2SessionChipNone.
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get v2SessionChipNone;
+
+  /// No description provided for @v2SessionChipDistraction.
+  ///
+  /// In en, this message translates to:
+  /// **'Distraction'**
+  String get v2SessionChipDistraction;
+
+  /// No description provided for @v2SessionChipLowEnergy.
+  ///
+  /// In en, this message translates to:
+  /// **'Low energy'**
+  String get v2SessionChipLowEnergy;
+
+  /// No description provided for @v2SessionChipTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get v2SessionChipTime;
+
+  /// No description provided for @v2SessionReflectSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save check-in'**
+  String get v2SessionReflectSave;
+
+  /// No description provided for @v2SessionReflectSkipChips.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue without chips'**
+  String get v2SessionReflectSkipChips;
+
+  /// No description provided for @v2SessionSaving.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving…'**
+  String get v2SessionSaving;
+
+  /// No description provided for @v2SessionLeaveSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Well done — you’re done for today'**
+  String get v2SessionLeaveSuccess;
+
+  /// No description provided for @v2SessionLeavePartial.
+  ///
+  /// In en, this message translates to:
+  /// **'You paused with care — nothing was lost'**
+  String get v2SessionLeavePartial;
+
+  /// No description provided for @v2SessionLeavePath.
+  ///
+  /// In en, this message translates to:
+  /// **'Path: {path}'**
+  String v2SessionLeavePath(String path);
+
+  /// No description provided for @v2SessionLeaveBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiet competence is enough. Leave the app when you are ready.'**
+  String get v2SessionLeaveBody;
+
+  /// No description provided for @v2SessionLeaveNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Tomorrow, Today will offer one clear next step again.'**
+  String get v2SessionLeaveNext;
+
+  /// No description provided for @v2SessionLeaveCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Today'**
+  String get v2SessionLeaveCta;
+
+  /// No description provided for @v2ProgressEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No progress yet'**
+  String get v2ProgressEmptyTitle;
+
+  /// No description provided for @v2ProgressEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete a Today session to start building an honest local record. Nothing is invented when history is empty.'**
+  String get v2ProgressEmptyBody;
+
+  /// No description provided for @v2ProgressLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading progress'**
+  String get v2ProgressLoading;
+
+  /// No description provided for @v2ProgressPersistFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save progress right now. Try again.'**
+  String get v2ProgressPersistFailed;
+
+  /// No description provided for @v2ProgressStatsSessions.
+  ///
+  /// In en, this message translates to:
+  /// **'Sessions completed'**
+  String get v2ProgressStatsSessions;
+
+  /// No description provided for @v2ProgressStatsMinimum.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum path sessions'**
+  String get v2ProgressStatsMinimum;
+
+  /// No description provided for @v2ProgressStatsStandard.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard path sessions'**
+  String get v2ProgressStatsStandard;
+
+  /// No description provided for @v2ProgressStatsRate.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed-day rate'**
+  String get v2ProgressStatsRate;
+
+  /// No description provided for @v2ProgressStatsCurrentStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Current completed-day run'**
+  String get v2ProgressStatsCurrentStreak;
+
+  /// No description provided for @v2ProgressStatsLongestStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Longest completed-day run'**
+  String get v2ProgressStatsLongestStreak;
+
+  /// No description provided for @v2OnboardingLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading…'**
+  String get v2OnboardingLoading;
+
+  /// No description provided for @v2OnboardingContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get v2OnboardingContinue;
+
+  /// No description provided for @v2OnboardingBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get v2OnboardingBack;
+
+  /// No description provided for @v2OnboardingRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get v2OnboardingRetry;
+
+  /// No description provided for @v2OnboardingRestart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start onboarding again'**
+  String get v2OnboardingRestart;
+
+  /// No description provided for @v2OnboardingGoHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Home'**
+  String get v2OnboardingGoHome;
+
+  /// No description provided for @v2OnboardingProgressLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Step {current} of {total}'**
+  String v2OnboardingProgressLabel(String current, String total);
+
+  /// No description provided for @v2OnboardingProgressSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Onboarding step {current} of {total}'**
+  String v2OnboardingProgressSemantics(String current, String total);
+
+  /// No description provided for @v2OnboardingLanguageArabic.
+  ///
+  /// In en, this message translates to:
+  /// **'العربية'**
+  String get v2OnboardingLanguageArabic;
+
+  /// No description provided for @v2OnboardingLanguageEnglish.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get v2OnboardingLanguageEnglish;
+
+  /// No description provided for @v2OnboardingWelcomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to Brain Clean'**
+  String get v2OnboardingWelcomeTitle;
+
+  /// No description provided for @v2OnboardingWelcomeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Clean helps you estimate your current recovery state, build a personalized recovery plan, and observe change over time — calmly, and without medical claims.'**
+  String get v2OnboardingWelcomeBody;
+
+  /// No description provided for @v2OnboardingExpectationsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What to expect'**
+  String get v2OnboardingExpectationsTitle;
+
+  /// No description provided for @v2OnboardingExpectationsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A short, honest path — not a diagnosis and not a guarantee.'**
+  String get v2OnboardingExpectationsBody;
+
+  /// No description provided for @v2OnboardingExpectation1.
+  ///
+  /// In en, this message translates to:
+  /// **'A brief daily Session when you are ready — about five minutes.'**
+  String get v2OnboardingExpectation1;
+
+  /// No description provided for @v2OnboardingExpectation2.
+  ///
+  /// In en, this message translates to:
+  /// **'A self-report Brain Check that is not a medical diagnosis.'**
+  String get v2OnboardingExpectation2;
+
+  /// No description provided for @v2OnboardingExpectation3.
+  ///
+  /// In en, this message translates to:
+  /// **'A practical plan you can understand, with progress you can observe over time.'**
+  String get v2OnboardingExpectation3;
+
+  /// No description provided for @v2OnboardingExpectationsFootnote.
+  ///
+  /// In en, this message translates to:
+  /// **'Results are not guaranteed. Progress can ebb and flow.'**
+  String get v2OnboardingExpectationsFootnote;
+
+  /// No description provided for @v2OnboardingConsentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Before you continue'**
+  String get v2OnboardingConsentTitle;
+
+  /// No description provided for @v2OnboardingConsentBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Please confirm you understand how Brain Clean is meant to be used.'**
+  String get v2OnboardingConsentBody;
+
+  /// No description provided for @v2OnboardingConsentNonMedical.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand Brain Clean is not a medical diagnosis, clinical assessment, or treatment.'**
+  String get v2OnboardingConsentNonMedical;
+
+  /// No description provided for @v2OnboardingConsentTerms.
+  ///
+  /// In en, this message translates to:
+  /// **'I agree to continue with the app’s terms of use.'**
+  String get v2OnboardingConsentTerms;
+
+  /// No description provided for @v2OnboardingConsentAnalytics.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional: allow anonymous product usage signals (off by default).'**
+  String get v2OnboardingConsentAnalytics;
+
+  /// No description provided for @v2OnboardingConsentHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Select the required boxes to continue.'**
+  String get v2OnboardingConsentHint;
+
+  /// No description provided for @v2OnboardingPrivacyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your data on this device'**
+  String get v2OnboardingPrivacyTitle;
+
+  /// No description provided for @v2OnboardingPrivacyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Core Brain Check answers, Recovery Score, and Recovery Plan are calculated and stored locally on this device. You can pause and resume a Brain Check. Explanations stay reviewable. The score is not generated by AI.'**
+  String get v2OnboardingPrivacyBody;
+
+  /// No description provided for @v2OnboardingPrivacyFootnote.
+  ///
+  /// In en, this message translates to:
+  /// **'Some optional product features may use the network later (for example sync, support, or ads when enabled). Continuing works offline.'**
+  String get v2OnboardingPrivacyFootnote;
+
+  /// No description provided for @v2OnboardingPrivacyPolicyLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy summary'**
+  String get v2OnboardingPrivacyPolicyLink;
+
+  /// No description provided for @v2OnboardingPrivacyCachedSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Clean keeps your core check and plan data local-first. Optional cloud or network features are separate and not required to finish this onboarding. This is not a medical privacy certification.'**
+  String get v2OnboardingPrivacyCachedSummary;
+
+  /// No description provided for @v2OnboardingRitualTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'When would a short Session usually fit?'**
+  String get v2OnboardingRitualTitle;
+
+  /// No description provided for @v2OnboardingRitualBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a gentle window as a reminder cue. You can change this later.'**
+  String get v2OnboardingRitualBody;
+
+  /// No description provided for @v2OnboardingRitualMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'Morning'**
+  String get v2OnboardingRitualMorning;
+
+  /// No description provided for @v2OnboardingRitualAfternoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Afternoon'**
+  String get v2OnboardingRitualAfternoon;
+
+  /// No description provided for @v2OnboardingRitualEvening.
+  ///
+  /// In en, this message translates to:
+  /// **'Evening'**
+  String get v2OnboardingRitualEvening;
+
+  /// No description provided for @v2OnboardingRitualDecideLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Decide later'**
+  String get v2OnboardingRitualDecideLater;
+
+  /// No description provided for @v2OnboardingCheckIntroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Check'**
+  String get v2OnboardingCheckIntroTitle;
+
+  /// No description provided for @v2OnboardingCheckIntroBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Check is a short self-report. It is not a medical diagnosis, not brain-damage detection, and not an intelligence test. Your answers stay on this device and help build a practical plan.'**
+  String get v2OnboardingCheckIntroBody;
+
+  /// No description provided for @v2OnboardingCheckIntroMeta.
+  ///
+  /// In en, this message translates to:
+  /// **'Lite Check · about a few minutes · resumable'**
+  String get v2OnboardingCheckIntroMeta;
+
+  /// No description provided for @v2OnboardingStartBrainCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Brain Check'**
+  String get v2OnboardingStartBrainCheck;
+
+  /// No description provided for @v2OnboardingCorruptTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Let’s start fresh'**
+  String get v2OnboardingCorruptTitle;
+
+  /// No description provided for @v2OnboardingCorruptBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved onboarding could not be read safely. Your Brain Check answers were not deleted. You can begin onboarding again.'**
+  String get v2OnboardingCorruptBody;
+
+  /// No description provided for @v2BrainCheckEntryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Check'**
+  String get v2BrainCheckEntryTitle;
+
+  /// No description provided for @v2BrainCheckEntryLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing Brain Check…'**
+  String get v2BrainCheckEntryLoading;
+
+  /// No description provided for @v2BrainCheckEntryBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A calm self-report to help estimate your current recovery state.'**
+  String get v2BrainCheckEntryBody;
+
+  /// No description provided for @v2BrainCheckEntryNonMedical.
+  ///
+  /// In en, this message translates to:
+  /// **'Not a medical diagnosis. Not treatment. Not a measure of intelligence.'**
+  String get v2BrainCheckEntryNonMedical;
+
+  /// No description provided for @v2BrainCheckEntryDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Lite Check · short · you can pause anytime'**
+  String get v2BrainCheckEntryDuration;
+
+  /// No description provided for @v2BrainCheckEntryStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Brain Check'**
+  String get v2BrainCheckEntryStart;
+
+  /// No description provided for @v2BrainCheckEntryResume.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume Brain Check'**
+  String get v2BrainCheckEntryResume;
+
+  /// No description provided for @v2BrainCheckEntryResumeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'You have an unfinished Brain Check on this device.'**
+  String get v2BrainCheckEntryResumeHint;
+
+  /// No description provided for @v2BrainCheckEntryStartOver.
+  ///
+  /// In en, this message translates to:
+  /// **'Start over'**
+  String get v2BrainCheckEntryStartOver;
+
+  /// No description provided for @v2BrainCheckEntryAlreadyComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'A Brain Check is already complete. Starting again is available from later product steps — answers were not wiped.'**
+  String get v2BrainCheckEntryAlreadyComplete;
+
+  /// No description provided for @v2BrainCheckEntryError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not prepare Brain Check right now.'**
+  String get v2BrainCheckEntryError;
+
+  /// No description provided for @v2BrainCheckReadyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Check is ready'**
+  String get v2BrainCheckReadyTitle;
+
+  /// No description provided for @v2BrainCheckReadyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Brain Check entry is ready. Continue when you want to open or resume the questionnaire.'**
+  String get v2BrainCheckReadyBody;
+
+  /// No description provided for @v2WeeklyReviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Review'**
+  String get v2WeeklyReviewTitle;
+
+  /// No description provided for @v2WeeklySummaryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Summary'**
+  String get v2WeeklySummaryTitle;
+
+  /// No description provided for @v2WeeklyReviewLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Weekly Review'**
+  String get v2WeeklyReviewLoading;
+
+  /// No description provided for @v2WeeklyReviewExit.
+  ///
+  /// In en, this message translates to:
+  /// **'Exit'**
+  String get v2WeeklyReviewExit;
+
+  /// No description provided for @v2WeeklyReviewBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get v2WeeklyReviewBack;
+
+  /// No description provided for @v2WeeklyReviewContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get v2WeeklyReviewContinue;
+
+  /// No description provided for @v2WeeklyReviewComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete review'**
+  String get v2WeeklyReviewComplete;
+
+  /// No description provided for @v2WeeklyReviewRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get v2WeeklyReviewRetry;
+
+  /// No description provided for @v2WeeklyReviewBackToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Today'**
+  String get v2WeeklyReviewBackToday;
+
+  /// No description provided for @v2WeeklyReviewSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save your review right now. Try again.'**
+  String get v2WeeklyReviewSaveFailed;
+
+  /// No description provided for @v2WeeklyReviewUnsupported.
+  ///
+  /// In en, this message translates to:
+  /// **'This review format is not supported on this version.'**
+  String get v2WeeklyReviewUnsupported;
+
+  /// No description provided for @v2WeeklyReviewNotReadyGeneric.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Review is not ready yet'**
+  String get v2WeeklyReviewNotReadyGeneric;
+
+  /// No description provided for @v2WeeklyReviewNotReadyGenericBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Come back after a completed week with at least one finished session.'**
+  String get v2WeeklyReviewNotReadyGenericBody;
+
+  /// No description provided for @v2WeeklyReviewNotReadyZeroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough completed activity yet'**
+  String get v2WeeklyReviewNotReadyZeroTitle;
+
+  /// No description provided for @v2WeeklyReviewNotReadyZeroBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish at least one Today session in a completed week to open Weekly Review.'**
+  String get v2WeeklyReviewNotReadyZeroBody;
+
+  /// No description provided for @v2WeeklyReviewNotReadyCurrentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This week is still in progress'**
+  String get v2WeeklyReviewNotReadyCurrentTitle;
+
+  /// No description provided for @v2WeeklyReviewNotReadyCurrentBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Review opens after the week ends. Keep going with Today when you are ready.'**
+  String get v2WeeklyReviewNotReadyCurrentBody;
+
+  /// No description provided for @v2WeeklyReviewNotReadyMissingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Review sources are not ready'**
+  String get v2WeeklyReviewNotReadyMissingTitle;
+
+  /// No description provided for @v2WeeklyReviewNotReadyMissingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A local plan, profile, or progress record is missing. Continue through Today and return later.'**
+  String get v2WeeklyReviewNotReadyMissingBody;
+
+  /// No description provided for @v2WeeklyReviewPeriodLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Period {start} – {end}'**
+  String v2WeeklyReviewPeriodLabel(String start, String end);
+
+  /// No description provided for @v2WeeklyReviewProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Question {current} of {total}'**
+  String v2WeeklyReviewProgress(String current, String total);
+
+  /// No description provided for @v2WeeklyReviewProgressSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Review question {current} of {total}'**
+  String v2WeeklyReviewProgressSemantics(String current, String total);
+
+  /// No description provided for @v2WeeklyReviewRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Required'**
+  String get v2WeeklyReviewRequired;
+
+  /// No description provided for @v2WeeklyReviewMultiSelectHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional. Choose up to two.'**
+  String get v2WeeklyReviewMultiSelectHint;
+
+  /// No description provided for @v2WeeklyReviewValidationHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Please choose a valid response to continue.'**
+  String get v2WeeklyReviewValidationHint;
+
+  /// No description provided for @v2WeeklyReviewYes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get v2WeeklyReviewYes;
+
+  /// No description provided for @v2WeeklyReviewNo.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get v2WeeklyReviewNo;
+
+  /// No description provided for @v2WeeklyReviewQManageability.
+  ///
+  /// In en, this message translates to:
+  /// **'How manageable did the plan feel this week?'**
+  String get v2WeeklyReviewQManageability;
+
+  /// No description provided for @v2WeeklyReviewQPauseFocus.
+  ///
+  /// In en, this message translates to:
+  /// **'How much did the sessions help you pause or focus?'**
+  String get v2WeeklyReviewQPauseFocus;
+
+  /// No description provided for @v2WeeklyReviewQObstacle.
+  ///
+  /// In en, this message translates to:
+  /// **'What got in the way most often?'**
+  String get v2WeeklyReviewQObstacle;
+
+  /// No description provided for @v2WeeklyReviewQSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'What supported you? (optional)'**
+  String get v2WeeklyReviewQSupport;
+
+  /// No description provided for @v2WeeklyReviewQAccessibility.
+  ///
+  /// In en, this message translates to:
+  /// **'Did you use an accessibility alternative this week? (optional)'**
+  String get v2WeeklyReviewQAccessibility;
+
+  /// No description provided for @v2WeeklyReviewOptTooLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Too light'**
+  String get v2WeeklyReviewOptTooLight;
+
+  /// No description provided for @v2WeeklyReviewOptAboutRight.
+  ///
+  /// In en, this message translates to:
+  /// **'About right'**
+  String get v2WeeklyReviewOptAboutRight;
+
+  /// No description provided for @v2WeeklyReviewOptTooDemanding.
+  ///
+  /// In en, this message translates to:
+  /// **'Too demanding'**
+  String get v2WeeklyReviewOptTooDemanding;
+
+  /// No description provided for @v2WeeklyReviewOptTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get v2WeeklyReviewOptTime;
+
+  /// No description provided for @v2WeeklyReviewOptForgetfulness.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgetfulness'**
+  String get v2WeeklyReviewOptForgetfulness;
+
+  /// No description provided for @v2WeeklyReviewOptLowEnergy.
+  ///
+  /// In en, this message translates to:
+  /// **'Low energy'**
+  String get v2WeeklyReviewOptLowEnergy;
+
+  /// No description provided for @v2WeeklyReviewOptInterruptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Interruptions'**
+  String get v2WeeklyReviewOptInterruptions;
+
+  /// No description provided for @v2WeeklyReviewOptUnclearStep.
+  ///
+  /// In en, this message translates to:
+  /// **'Unclear step'**
+  String get v2WeeklyReviewOptUnclearStep;
+
+  /// No description provided for @v2WeeklyReviewOptAccessEnv.
+  ///
+  /// In en, this message translates to:
+  /// **'Access or environment'**
+  String get v2WeeklyReviewOptAccessEnv;
+
+  /// No description provided for @v2WeeklyReviewOptNoMajorObstacle.
+  ///
+  /// In en, this message translates to:
+  /// **'No major obstacle'**
+  String get v2WeeklyReviewOptNoMajorObstacle;
+
+  /// No description provided for @v2WeeklyReviewOptShorterPath.
+  ///
+  /// In en, this message translates to:
+  /// **'Shorter path'**
+  String get v2WeeklyReviewOptShorterPath;
+
+  /// No description provided for @v2WeeklyReviewOptClearerTiming.
+  ///
+  /// In en, this message translates to:
+  /// **'Clearer timing'**
+  String get v2WeeklyReviewOptClearerTiming;
+
+  /// No description provided for @v2WeeklyReviewOptQuieterEnv.
+  ///
+  /// In en, this message translates to:
+  /// **'Quieter environment'**
+  String get v2WeeklyReviewOptQuieterEnv;
+
+  /// No description provided for @v2WeeklyReviewOptA11yAlt.
+  ///
+  /// In en, this message translates to:
+  /// **'Accessibility alternative'**
+  String get v2WeeklyReviewOptA11yAlt;
+
+  /// No description provided for @v2WeeklyReviewOptStrongerReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Stronger reminder'**
+  String get v2WeeklyReviewOptStrongerReminder;
+
+  /// No description provided for @v2WeeklyReviewOptSamePlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Same plan is working'**
+  String get v2WeeklyReviewOptSamePlan;
+
+  /// No description provided for @v2WeeklySummaryOrientation.
+  ///
+  /// In en, this message translates to:
+  /// **'This week’s pattern'**
+  String get v2WeeklySummaryOrientation;
+
+  /// No description provided for @v2WeeklySummaryCompletedDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed days: {count}'**
+  String v2WeeklySummaryCompletedDays(String count);
+
+  /// No description provided for @v2WeeklySummaryPathMix.
+  ///
+  /// In en, this message translates to:
+  /// **'Path mix: {label}'**
+  String v2WeeklySummaryPathMix(String label);
+
+  /// No description provided for @v2WeeklySummaryPathMostlyMinimum.
+  ///
+  /// In en, this message translates to:
+  /// **'Mostly minimum'**
+  String get v2WeeklySummaryPathMostlyMinimum;
+
+  /// No description provided for @v2WeeklySummaryPathMostlyStandard.
+  ///
+  /// In en, this message translates to:
+  /// **'Mostly standard'**
+  String get v2WeeklySummaryPathMostlyStandard;
+
+  /// No description provided for @v2WeeklySummaryPathBalanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Balanced'**
+  String get v2WeeklySummaryPathBalanced;
+
+  /// No description provided for @v2WeeklySummaryPathSingle.
+  ///
+  /// In en, this message translates to:
+  /// **'Single session only'**
+  String get v2WeeklySummaryPathSingle;
+
+  /// No description provided for @v2WeeklySummaryPatternHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Rhythm'**
+  String get v2WeeklySummaryPatternHeading;
+
+  /// No description provided for @v2WeeklySummaryRhythmSteady.
+  ///
+  /// In en, this message translates to:
+  /// **'Steady across several days'**
+  String get v2WeeklySummaryRhythmSteady;
+
+  /// No description provided for @v2WeeklySummaryRhythmIntermittent.
+  ///
+  /// In en, this message translates to:
+  /// **'Intermittent across the week'**
+  String get v2WeeklySummaryRhythmIntermittent;
+
+  /// No description provided for @v2WeeklySummaryRhythmLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Limited history'**
+  String get v2WeeklySummaryRhythmLimited;
+
+  /// No description provided for @v2WeeklySummaryObstacleHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'What got in the way'**
+  String get v2WeeklySummaryObstacleHeading;
+
+  /// No description provided for @v2WeeklySummarySupportHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'What supported you'**
+  String get v2WeeklySummarySupportHeading;
+
+  /// No description provided for @v2WeeklySummarySupportNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No support noted'**
+  String get v2WeeklySummarySupportNone;
+
+  /// No description provided for @v2WeeklySummaryAttentionHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'What may deserve attention'**
+  String get v2WeeklySummaryAttentionHeading;
+
+  /// No description provided for @v2WeeklySummaryAttentionLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Load may deserve a closer look later'**
+  String get v2WeeklySummaryAttentionLoad;
+
+  /// No description provided for @v2WeeklySummaryAttentionSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'A bit more support may deserve attention later'**
+  String get v2WeeklySummaryAttentionSupport;
+
+  /// No description provided for @v2WeeklySummaryAttentionPause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause or focus felt low this week'**
+  String get v2WeeklySummaryAttentionPause;
+
+  /// No description provided for @v2WeeklySummaryAttentionObstacle.
+  ///
+  /// In en, this message translates to:
+  /// **'An obstacle stood out this week'**
+  String get v2WeeklySummaryAttentionObstacle;
+
+  /// No description provided for @v2WeeklySummaryAttentionMaintain.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep observing with the current plan'**
+  String get v2WeeklySummaryAttentionMaintain;
+
+  /// No description provided for @v2WeeklySummaryEvidenceLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Limited evidence — one completed session only'**
+  String get v2WeeklySummaryEvidenceLimited;
+
+  /// No description provided for @v2WeeklySummaryEvidenceDeveloping.
+  ///
+  /// In en, this message translates to:
+  /// **'Early evidence — treat this as a quiet look-back'**
+  String get v2WeeklySummaryEvidenceDeveloping;
+
+  /// No description provided for @v2WeeklySummaryEvidenceSufficient.
+  ///
+  /// In en, this message translates to:
+  /// **'Summary only — not a cause claim'**
+  String get v2WeeklySummaryEvidenceSufficient;
+
+  /// No description provided for @v2WeeklySummaryPlanUnchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Your plan has not changed yet'**
+  String get v2WeeklySummaryPlanUnchanged;
+
+  /// No description provided for @v2WeeklySummaryCtaToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Today'**
+  String get v2WeeklySummaryCtaToday;
+
+  /// No description provided for @v2WeeklySummaryCtaProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Progress'**
+  String get v2WeeklySummaryCtaProgress;
+
+  /// No description provided for @v2WeeklyFactsSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Last 7 days'**
+  String get v2WeeklyFactsSection;
+
+  /// No description provided for @v2WeeklyFactsTasks.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks completed'**
+  String get v2WeeklyFactsTasks;
+
+  /// No description provided for @v2WeeklyFactsTasksCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} required steps'**
+  String v2WeeklyFactsTasksCaption(String count);
+
+  /// No description provided for @v2WeeklyFactsStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak'**
+  String get v2WeeklyFactsStreak;
+
+  /// No description provided for @v2WeeklyFactsStreakCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'{current} now · {best} best'**
+  String v2WeeklyFactsStreakCaption(String current, String best);
+
+  /// No description provided for @v2WeeklyFactsAdherence.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan adherence'**
+  String get v2WeeklyFactsAdherence;
+
+  /// No description provided for @v2WeeklyFactsAdherenceCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'{days} of 7 days'**
+  String v2WeeklyFactsAdherenceCaption(String days);
+
+  /// No description provided for @v2ProgressTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress'**
+  String get v2ProgressTitle;
+
+  /// No description provided for @v2ProgressOrientation.
+  ///
+  /// In en, this message translates to:
+  /// **'Your progress'**
+  String get v2ProgressOrientation;
+
+  /// No description provided for @v2ProgressRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get v2ProgressRetry;
+
+  /// No description provided for @v2ProgressBasedOnSessions.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress is based on completed sessions'**
+  String get v2ProgressBasedOnSessions;
+
+  /// No description provided for @v2ProgressHeadlineEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No completed sessions yet'**
+  String get v2ProgressHeadlineEmpty;
+
+  /// No description provided for @v2ProgressHeadlineFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Your first completed session is recorded'**
+  String get v2ProgressHeadlineFirst;
+
+  /// No description provided for @v2ProgressHeadlineFew.
+  ///
+  /// In en, this message translates to:
+  /// **'A few completed days are on record'**
+  String get v2ProgressHeadlineFew;
+
+  /// No description provided for @v2ProgressHeadlineRhythm.
+  ///
+  /// In en, this message translates to:
+  /// **'A pattern is beginning to appear'**
+  String get v2ProgressHeadlineRhythm;
+
+  /// No description provided for @v2ProgressHeadlineSteady.
+  ///
+  /// In en, this message translates to:
+  /// **'A steadier pattern is visible'**
+  String get v2ProgressHeadlineSteady;
+
+  /// No description provided for @v2ProgressHeadlineLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Evidence is still limited'**
+  String get v2ProgressHeadlineLimited;
+
+  /// No description provided for @v2ProgressHeadlineWeekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly evidence is available to review'**
+  String get v2ProgressHeadlineWeekly;
+
+  /// No description provided for @v2ProgressBetterHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'What is recorded'**
+  String get v2ProgressBetterHeading;
+
+  /// No description provided for @v2ProgressWhyHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'What the pattern shows'**
+  String get v2ProgressWhyHeading;
+
+  /// No description provided for @v2ProgressComparedHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'How it compares over time'**
+  String get v2ProgressComparedHeading;
+
+  /// No description provided for @v2ProgressCompletedDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed days: {count}'**
+  String v2ProgressCompletedDays(String count);
+
+  /// No description provided for @v2ProgressCompletedSessions.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed sessions: {count}'**
+  String v2ProgressCompletedSessions(String count);
+
+  /// No description provided for @v2ProgressMinimumPath.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum path: {count}'**
+  String v2ProgressMinimumPath(String count);
+
+  /// No description provided for @v2ProgressStandardPath.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard path: {count}'**
+  String v2ProgressStandardPath(String count);
+
+  /// No description provided for @v2ProgressCompletionRate.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed-day rate: {percent}%'**
+  String v2ProgressCompletionRate(String percent);
+
+  /// No description provided for @v2ProgressCurrentRhythm.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Current rhythm: 1 day} other{Current rhythm: {count} days}}'**
+  String v2ProgressCurrentRhythm(int count);
+
+  /// No description provided for @v2ProgressLongestRhythm.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Longest rhythm: 1 day} other{Longest rhythm: {count} days}}'**
+  String v2ProgressLongestRhythm(int count);
+
+  /// No description provided for @v2ProgressFirstCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'First completed day: {day}'**
+  String v2ProgressFirstCompleted(String day);
+
+  /// No description provided for @v2ProgressLastCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Last completed day: {day}'**
+  String v2ProgressLastCompleted(String day);
+
+  /// No description provided for @v2ProgressRecentActivity.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent activity'**
+  String get v2ProgressRecentActivity;
+
+  /// No description provided for @v2ProgressTimelineMinimum.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum path'**
+  String get v2ProgressTimelineMinimum;
+
+  /// No description provided for @v2ProgressTimelineStandard.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard path'**
+  String get v2ProgressTimelineStandard;
+
+  /// No description provided for @v2ProgressTimelineBothPaths.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum and standard'**
+  String get v2ProgressTimelineBothPaths;
+
+  /// No description provided for @v2ProgressTimelineEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'{day} · {path}'**
+  String v2ProgressTimelineEntry(String day, String path);
+
+  /// No description provided for @v2ProgressPathMostlyMinimum.
+  ///
+  /// In en, this message translates to:
+  /// **'Mostly minimum path'**
+  String get v2ProgressPathMostlyMinimum;
+
+  /// No description provided for @v2ProgressPathMostlyStandard.
+  ///
+  /// In en, this message translates to:
+  /// **'Mostly standard path'**
+  String get v2ProgressPathMostlyStandard;
+
+  /// No description provided for @v2ProgressPathBalanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Balanced path mix'**
+  String get v2ProgressPathBalanced;
+
+  /// No description provided for @v2ProgressPathSingle.
+  ///
+  /// In en, this message translates to:
+  /// **'Single session only'**
+  String get v2ProgressPathSingle;
+
+  /// No description provided for @v2ProgressEvidenceEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete today’s action first to begin an honest record.'**
+  String get v2ProgressEvidenceEmpty;
+
+  /// No description provided for @v2ProgressEvidenceLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Evidence is still limited — one completed action so far.'**
+  String get v2ProgressEvidenceLimited;
+
+  /// No description provided for @v2ProgressEvidenceDeveloping.
+  ///
+  /// In en, this message translates to:
+  /// **'A pattern is beginning to appear. This is observation, not a diagnosis.'**
+  String get v2ProgressEvidenceDeveloping;
+
+  /// No description provided for @v2ProgressEvidenceSufficient.
+  ///
+  /// In en, this message translates to:
+  /// **'Enough completed activity for a quiet look-back. No cause claim.'**
+  String get v2ProgressEvidenceSufficient;
+
+  /// No description provided for @v2ProgressScoreHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery Score snapshot'**
+  String get v2ProgressScoreHeading;
+
+  /// No description provided for @v2ProgressScoreValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimate: {value}'**
+  String v2ProgressScoreValue(String value);
+
+  /// No description provided for @v2ProgressScoreUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Score estimate not available on this device yet'**
+  String get v2ProgressScoreUnavailable;
+
+  /// No description provided for @v2ProgressScoreMeasured.
+  ///
+  /// In en, this message translates to:
+  /// **'From Brain Check on {day}'**
+  String v2ProgressScoreMeasured(String day);
+
+  /// No description provided for @v2ProgressScoreDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily session completion does not instantly change this score. The score comes from Brain Check measurement, not from counting sessions.'**
+  String get v2ProgressScoreDisclaimer;
+
+  /// No description provided for @v2ProgressWeeklyReviewHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Review'**
+  String get v2ProgressWeeklyReviewHeading;
+
+  /// No description provided for @v2ProgressWrNotEnough.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough completed activity yet for a Weekly Review.'**
+  String get v2ProgressWrNotEnough;
+
+  /// No description provided for @v2ProgressWrCurrentWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'This week is still in progress. Review opens after the week ends.'**
+  String get v2ProgressWrCurrentWeek;
+
+  /// No description provided for @v2ProgressWrAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Review available'**
+  String get v2ProgressWrAvailable;
+
+  /// No description provided for @v2ProgressWrDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Review draft in progress'**
+  String get v2ProgressWrDraft;
+
+  /// No description provided for @v2ProgressWrCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Summary available'**
+  String get v2ProgressWrCompleted;
+
+  /// No description provided for @v2ProgressWrUnsupported.
+  ///
+  /// In en, this message translates to:
+  /// **'This review format is not supported on this version.'**
+  String get v2ProgressWrUnsupported;
+
+  /// No description provided for @v2ProgressWrMissingRefs.
+  ///
+  /// In en, this message translates to:
+  /// **'Review sources are not ready yet. Continue through Today and return later.'**
+  String get v2ProgressWrMissingRefs;
+
+  /// No description provided for @v2ProgressWrError.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Review could not be prepared right now.'**
+  String get v2ProgressWrError;
+
+  /// No description provided for @v2ProgressWrCtaStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Weekly Review'**
+  String get v2ProgressWrCtaStart;
+
+  /// No description provided for @v2ProgressWrCtaContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue Weekly Review'**
+  String get v2ProgressWrCtaContinue;
+
+  /// No description provided for @v2ProgressWrCtaSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'View Weekly Summary'**
+  String get v2ProgressWrCtaSummary;
+
+  /// No description provided for @v2ProgressWeeklyPreviewHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest Weekly Summary'**
+  String get v2ProgressWeeklyPreviewHeading;
+
+  /// No description provided for @v2ProgressCtaToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete today’s action first'**
+  String get v2ProgressCtaToday;
+
+  /// No description provided for @v2ProgressCtaContinueToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Today'**
+  String get v2ProgressCtaContinueToday;
+
+  /// No description provided for @v2ProgressReportsEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Reports'**
+  String get v2ProgressReportsEntry;
+
+  /// No description provided for @v2ProgressPatternDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Pattern details'**
+  String get v2ProgressPatternDetails;
+
+  /// No description provided for @v2ReportsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reports'**
+  String get v2ReportsTitle;
+
+  /// No description provided for @v2ReportsEvidenceOverview.
+  ///
+  /// In en, this message translates to:
+  /// **'Evidence overview'**
+  String get v2ReportsEvidenceOverview;
+
+  /// No description provided for @v2ReportsWeeklyHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly history'**
+  String get v2ReportsWeeklyHistory;
+
+  /// No description provided for @v2ReportsWeeklyReport.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly report'**
+  String get v2ReportsWeeklyReport;
+
+  /// No description provided for @v2ReportsMeasurementHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Measurement history'**
+  String get v2ReportsMeasurementHistory;
+
+  /// No description provided for @v2ReportsEvidenceStillDeveloping.
+  ///
+  /// In en, this message translates to:
+  /// **'Your evidence is still developing'**
+  String get v2ReportsEvidenceStillDeveloping;
+
+  /// No description provided for @v2ReportsNotEnoughMeasurements.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough measurements to compare yet'**
+  String get v2ReportsNotEnoughMeasurements;
+
+  /// No description provided for @v2ReportsComparedWithEarlier.
+  ///
+  /// In en, this message translates to:
+  /// **'Compared with your earlier check'**
+  String get v2ReportsComparedWithEarlier;
+
+  /// No description provided for @v2ReportsSelfReportEstimate.
+  ///
+  /// In en, this message translates to:
+  /// **'This is a self-report estimate'**
+  String get v2ReportsSelfReportEstimate;
+
+  /// No description provided for @v2ReportsNoCauseFromHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'No cause can be determined from this history'**
+  String get v2ReportsNoCauseFromHistory;
+
+  /// No description provided for @v2ReportsOrientation.
+  ///
+  /// In en, this message translates to:
+  /// **'Reports gather honest local proof from completed sessions, weekly summaries, and valid self-report measurements.'**
+  String get v2ReportsOrientation;
+
+  /// No description provided for @v2ReportsOrientationNot.
+  ///
+  /// In en, this message translates to:
+  /// **'Reports are not a diagnosis, not medical advice, and not a comparison with other people.'**
+  String get v2ReportsOrientationNot;
+
+  /// No description provided for @v2ReportsLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading reports'**
+  String get v2ReportsLoading;
+
+  /// No description provided for @v2ReportsRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get v2ReportsRetry;
+
+  /// No description provided for @v2ReportsPersistFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load reports right now. Try again.'**
+  String get v2ReportsPersistFailed;
+
+  /// No description provided for @v2ReportsUnsupported.
+  ///
+  /// In en, this message translates to:
+  /// **'This report format is not supported on this version.'**
+  String get v2ReportsUnsupported;
+
+  /// No description provided for @v2ReportsEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete a Today session to begin an honest local evidence record. Nothing is invented when history is empty.'**
+  String get v2ReportsEmptyBody;
+
+  /// No description provided for @v2ReportsSnapshotMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'A saved progress snapshot is missing. Showing counts rebuilt from completed sessions only.'**
+  String get v2ReportsSnapshotMissing;
+
+  /// No description provided for @v2ReportsDepthNoEvidence.
+  ///
+  /// In en, this message translates to:
+  /// **'No evidence yet'**
+  String get v2ReportsDepthNoEvidence;
+
+  /// No description provided for @v2ReportsDepthEarly.
+  ///
+  /// In en, this message translates to:
+  /// **'Early evidence'**
+  String get v2ReportsDepthEarly;
+
+  /// No description provided for @v2ReportsDepthDeveloping.
+  ///
+  /// In en, this message translates to:
+  /// **'Developing evidence'**
+  String get v2ReportsDepthDeveloping;
+
+  /// No description provided for @v2ReportsDepthEstablished.
+  ///
+  /// In en, this message translates to:
+  /// **'Established history'**
+  String get v2ReportsDepthEstablished;
+
+  /// No description provided for @v2ReportsDepthNoEvidenceExplain.
+  ///
+  /// In en, this message translates to:
+  /// **'No completed sessions are on record yet.'**
+  String get v2ReportsDepthNoEvidenceExplain;
+
+  /// No description provided for @v2ReportsDepthDevelopingExplain.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed days and weekly summaries are building a clearer local record.'**
+  String get v2ReportsDepthDevelopingExplain;
+
+  /// No description provided for @v2ReportsDepthEstablishedExplain.
+  ///
+  /// In en, this message translates to:
+  /// **'Multiple weekly summaries and measurements form a longer local history.'**
+  String get v2ReportsDepthEstablishedExplain;
+
+  /// No description provided for @v2ReportsSessionSummaryHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed activity'**
+  String get v2ReportsSessionSummaryHeading;
+
+  /// No description provided for @v2ReportsCompletedSessions.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed sessions: {count}'**
+  String v2ReportsCompletedSessions(String count);
+
+  /// No description provided for @v2ReportsCompletedDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed days: {count}'**
+  String v2ReportsCompletedDays(String count);
+
+  /// No description provided for @v2ReportsMinimumPath.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum path: {count}'**
+  String v2ReportsMinimumPath(String count);
+
+  /// No description provided for @v2ReportsStandardPath.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard path: {count}'**
+  String v2ReportsStandardPath(String count);
+
+  /// No description provided for @v2ReportsCurrentRhythm.
+  ///
+  /// In en, this message translates to:
+  /// **'Current rhythm: {count} day(s)'**
+  String v2ReportsCurrentRhythm(String count);
+
+  /// No description provided for @v2ReportsLongestRhythm.
+  ///
+  /// In en, this message translates to:
+  /// **'Longest rhythm: {count} day(s)'**
+  String v2ReportsLongestRhythm(String count);
+
+  /// No description provided for @v2ReportsFirstCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'First completed day: {day}'**
+  String v2ReportsFirstCompleted(String day);
+
+  /// No description provided for @v2ReportsLastCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Last completed day: {day}'**
+  String v2ReportsLastCompleted(String day);
+
+  /// No description provided for @v2ReportsMeasurementStatusHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Measurement history status'**
+  String get v2ReportsMeasurementStatusHeading;
+
+  /// No description provided for @v2ReportsMeasurementNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No valid measurements yet'**
+  String get v2ReportsMeasurementNone;
+
+  /// No description provided for @v2ReportsMeasurementNoneBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A completed Brain Check creates a self-report measurement you can review here.'**
+  String get v2ReportsMeasurementNoneBody;
+
+  /// No description provided for @v2ReportsMeasurementBaseline.
+  ///
+  /// In en, this message translates to:
+  /// **'One baseline measurement is on record'**
+  String get v2ReportsMeasurementBaseline;
+
+  /// No description provided for @v2ReportsMeasurementComparable.
+  ///
+  /// In en, this message translates to:
+  /// **'Comparable measurements are available'**
+  String get v2ReportsMeasurementComparable;
+
+  /// No description provided for @v2ReportsMeasurementIncompatible.
+  ///
+  /// In en, this message translates to:
+  /// **'Measurements exist but are not comparable yet'**
+  String get v2ReportsMeasurementIncompatible;
+
+  /// No description provided for @v2ReportsMeasurementErrorBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Measurement history could not be prepared right now.'**
+  String get v2ReportsMeasurementErrorBody;
+
+  /// No description provided for @v2ReportsLatestScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest estimate: {value}'**
+  String v2ReportsLatestScore(String value);
+
+  /// No description provided for @v2ReportsNoArtifacts.
+  ///
+  /// In en, this message translates to:
+  /// **'No weekly reports yet'**
+  String get v2ReportsNoArtifacts;
+
+  /// No description provided for @v2ReportsWeeklyReportPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Week {start} – {end}'**
+  String v2ReportsWeeklyReportPeriod(String start, String end);
+
+  /// No description provided for @v2ReportsPremiumArchiveHint.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} older report(s) available with Premium archive'**
+  String v2ReportsPremiumArchiveHint(String count);
+
+  /// No description provided for @v2ReportsPremiumGatedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Older archive'**
+  String get v2ReportsPremiumGatedTitle;
+
+  /// No description provided for @v2ReportsPremiumGatedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your latest and previous weekly reports stay free. Older archive depth is part of Premium. Current proof is never hidden.'**
+  String get v2ReportsPremiumGatedBody;
+
+  /// No description provided for @v2ReportsArtifactMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly report not found'**
+  String get v2ReportsArtifactMissing;
+
+  /// No description provided for @v2ReportsArtifactMissingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This weekly report is missing or unavailable. Return to Reports.'**
+  String get v2ReportsArtifactMissingBody;
+
+  /// No description provided for @v2ReportsArtifactUnsupportedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This weekly report format is not supported on this version.'**
+  String get v2ReportsArtifactUnsupportedBody;
+
+  /// No description provided for @v2ReportsArtifactCorrupt.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly report could not be read'**
+  String get v2ReportsArtifactCorrupt;
+
+  /// No description provided for @v2ReportsArtifactCorruptBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This weekly report looks incomplete. Return to Reports.'**
+  String get v2ReportsArtifactCorruptBody;
+
+  /// No description provided for @v2ReportsCtaLatestArtifact.
+  ///
+  /// In en, this message translates to:
+  /// **'Open latest weekly report'**
+  String get v2ReportsCtaLatestArtifact;
+
+  /// No description provided for @v2ReportsOpenMeasurementHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Open measurement history'**
+  String get v2ReportsOpenMeasurementHistory;
+
+  /// No description provided for @v2ReportsCtaToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete today’s action first'**
+  String get v2ReportsCtaToday;
+
+  /// No description provided for @v2ReportsBackProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Progress'**
+  String get v2ReportsBackProgress;
+
+  /// No description provided for @v2ReportsBackOverview.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Reports'**
+  String get v2ReportsBackOverview;
+
+  /// No description provided for @v2ReportsComparisonHigher.
+  ///
+  /// In en, this message translates to:
+  /// **'Your latest self-report estimate is higher than your earlier one.'**
+  String get v2ReportsComparisonHigher;
+
+  /// No description provided for @v2ReportsComparisonLower.
+  ///
+  /// In en, this message translates to:
+  /// **'Your latest self-report estimate is lower than your earlier one.'**
+  String get v2ReportsComparisonLower;
+
+  /// No description provided for @v2ReportsComparisonUnchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Your latest self-report estimate is unchanged from your earlier one.'**
+  String get v2ReportsComparisonUnchanged;
+
+  /// No description provided for @v2ReportsComparisonNotComparable.
+  ///
+  /// In en, this message translates to:
+  /// **'These measurements are not comparable with each other.'**
+  String get v2ReportsComparisonNotComparable;
+
+  /// No description provided for @v2ReportsTooEarlyToInterpret.
+  ///
+  /// In en, this message translates to:
+  /// **'It may be too early to interpret this change.'**
+  String get v2ReportsTooEarlyToInterpret;
+
+  /// No description provided for @v2ReportsLowConfidenceQualifier.
+  ///
+  /// In en, this message translates to:
+  /// **'At least one measurement has higher uncertainty.'**
+  String get v2ReportsLowConfidenceQualifier;
+
+  /// No description provided for @v2ReportsMeasurementListHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Your measurements'**
+  String get v2ReportsMeasurementListHeading;
+
+  /// No description provided for @v2ReportsMeasuredOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Measured on {day}'**
+  String v2ReportsMeasuredOn(String day);
+
+  /// No description provided for @v2ReportsScoreValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimate: {value}'**
+  String v2ReportsScoreValue(String value);
+
+  /// No description provided for @v2ReportsScoreBand.
+  ///
+  /// In en, this message translates to:
+  /// **'Band: {band}'**
+  String v2ReportsScoreBand(String band);
+
+  /// No description provided for @v2ReportsScoreConfidence.
+  ///
+  /// In en, this message translates to:
+  /// **'Confidence: {confidence}'**
+  String v2ReportsScoreConfidence(String confidence);
+
+  /// No description provided for @v2ReportsMeasurementSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Measurement on {day}, estimate {score}, confidence {confidence}'**
+  String v2ReportsMeasurementSemantics(
+      String day, String score, String confidence);
+
+  /// No description provided for @v2ReportsConfidenceStrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Strong'**
+  String get v2ReportsConfidenceStrong;
+
+  /// No description provided for @v2ReportsConfidenceModerate.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderate'**
+  String get v2ReportsConfidenceModerate;
+
+  /// No description provided for @v2ReportsConfidenceProvisional.
+  ///
+  /// In en, this message translates to:
+  /// **'Provisional'**
+  String get v2ReportsConfidenceProvisional;
+
+  /// No description provided for @v2ReportsDomainHistoryHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Domain history'**
+  String get v2ReportsDomainHistoryHeading;
+
+  /// No description provided for @v2ReportsDomainLatestOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest domain snapshot only — not enough comparable domain history yet.'**
+  String get v2ReportsDomainLatestOnly;
+
+  /// No description provided for @v2ReportsDomainRow.
+  ///
+  /// In en, this message translates to:
+  /// **'{title}: {value}'**
+  String v2ReportsDomainRow(String title, String value);
+
+  /// No description provided for @v2ReportsDomainHistoryRow.
+  ///
+  /// In en, this message translates to:
+  /// **'{title} on {day}: {value}'**
+  String v2ReportsDomainHistoryRow(String title, String day, String value);
+
+  /// No description provided for @v2NavHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get v2NavHome;
+
+  /// No description provided for @v2NavToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get v2NavToday;
+
+  /// No description provided for @v2NavCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Check'**
+  String get v2NavCheck;
+
+  /// No description provided for @v2NavPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Program'**
+  String get v2NavPlan;
+
+  /// No description provided for @v2NavProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress'**
+  String get v2NavProgress;
+
+  /// No description provided for @v2NavReports.
+  ///
+  /// In en, this message translates to:
+  /// **'Reports'**
+  String get v2NavReports;
+
+  /// No description provided for @v2NavProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get v2NavProfile;
+
+  /// No description provided for @v2NavRecoverHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Home'**
+  String get v2NavRecoverHome;
+
+  /// No description provided for @v2NavRouteNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'This page could not be found'**
+  String get v2NavRouteNotFound;
+
+  /// No description provided for @v2PremiumTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium'**
+  String get v2PremiumTitle;
+
+  /// No description provided for @v2PremiumOrientation.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium deepens continuity after you have already made progress — it does not unlock recovery.'**
+  String get v2PremiumOrientation;
+
+  /// No description provided for @v2PremiumFreeCoreReassurance.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Free core remains available.'**
+  String get v2PremiumFreeCoreReassurance;
+
+  /// No description provided for @v2PremiumCurrentProgressRemains.
+  ///
+  /// In en, this message translates to:
+  /// **'Your current progress remains available.'**
+  String get v2PremiumCurrentProgressRemains;
+
+  /// No description provided for @v2PremiumFourCapitalsHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'What Premium adds'**
+  String get v2PremiumFourCapitalsHeading;
+
+  /// No description provided for @v2PremiumContinuity.
+  ///
+  /// In en, this message translates to:
+  /// **'Continuity'**
+  String get v2PremiumContinuity;
+
+  /// No description provided for @v2PremiumContinuityBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Deeper WeeklyArtifact archive and long-horizon evidence history.'**
+  String get v2PremiumContinuityBody;
+
+  /// No description provided for @v2PremiumInterpretation.
+  ///
+  /// In en, this message translates to:
+  /// **'Interpretation'**
+  String get v2PremiumInterpretation;
+
+  /// No description provided for @v2PremiumInterpretationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Planned deterministic context layers only — never medical AI claims. Not active yet.'**
+  String get v2PremiumInterpretationBody;
+
+  /// No description provided for @v2PremiumFit.
+  ///
+  /// In en, this message translates to:
+  /// **'Fit'**
+  String get v2PremiumFit;
+
+  /// No description provided for @v2PremiumFitBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Future approved adaptation depth without silent Plan changes.'**
+  String get v2PremiumFitBody;
+
+  /// No description provided for @v2PremiumSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Support'**
+  String get v2PremiumSupport;
+
+  /// No description provided for @v2PremiumSupportBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Future continuity support under a separate contract — never Premium-only crisis care.'**
+  String get v2PremiumSupportBody;
+
+  /// No description provided for @v2PremiumIncludesNowHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Included with Premium now'**
+  String get v2PremiumIncludesNowHeading;
+
+  /// No description provided for @v2PremiumIncludeArchive.
+  ///
+  /// In en, this message translates to:
+  /// **'Older Reports archive beyond the latest and previous proof'**
+  String get v2PremiumIncludeArchive;
+
+  /// No description provided for @v2PremiumIncludeThemes.
+  ///
+  /// In en, this message translates to:
+  /// **'Exclusive color themes'**
+  String get v2PremiumIncludeThemes;
+
+  /// No description provided for @v2PremiumIncludeTools.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected tools: emotion wheel, silence, crossword, games, and cognitive test'**
+  String get v2PremiumIncludeTools;
+
+  /// No description provided for @v2PremiumIncludeChart.
+  ///
+  /// In en, this message translates to:
+  /// **'Seven-day progress chart'**
+  String get v2PremiumIncludeChart;
+
+  /// No description provided for @v2PremiumBenefitsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest and previous Weekly proof stay Free. Premium deepens continuity — it does not unlock recovery.'**
+  String get v2PremiumBenefitsBody;
+
+  /// No description provided for @v2PremiumViewPlans.
+  ///
+  /// In en, this message translates to:
+  /// **'View plans'**
+  String get v2PremiumViewPlans;
+
+  /// No description provided for @v2PremiumRestorePurchases.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore purchases'**
+  String get v2PremiumRestorePurchases;
+
+  /// No description provided for @v2PremiumPurchaseInProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase in progress'**
+  String get v2PremiumPurchaseInProgress;
+
+  /// No description provided for @v2PremiumPurchaseCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase completed'**
+  String get v2PremiumPurchaseCompleted;
+
+  /// No description provided for @v2PremiumPurchaseCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase cancelled'**
+  String get v2PremiumPurchaseCancelled;
+
+  /// No description provided for @v2PremiumPurchaseFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase failed. You can try again or restore purchases.'**
+  String get v2PremiumPurchaseFailed;
+
+  /// No description provided for @v2PremiumPurchasePending.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase pending'**
+  String get v2PremiumPurchasePending;
+
+  /// No description provided for @v2PremiumNoPlansAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No plans available right now.'**
+  String get v2PremiumNoPlansAvailable;
+
+  /// No description provided for @v2PremiumStoreUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Store unavailable'**
+  String get v2PremiumStoreUnavailable;
+
+  /// No description provided for @v2PremiumRestored.
+  ///
+  /// In en, this message translates to:
+  /// **'Restored'**
+  String get v2PremiumRestored;
+
+  /// No description provided for @v2PremiumNothingToRestore.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing to restore'**
+  String get v2PremiumNothingToRestore;
+
+  /// No description provided for @v2PremiumRestoreFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore failed. You can try again later.'**
+  String get v2PremiumRestoreFailed;
+
+  /// No description provided for @v2PremiumRestoring.
+  ///
+  /// In en, this message translates to:
+  /// **'Restoring purchases'**
+  String get v2PremiumRestoring;
+
+  /// No description provided for @v2PremiumSubscriptionExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription expired'**
+  String get v2PremiumSubscriptionExpired;
+
+  /// No description provided for @v2PremiumDeeperHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Deeper history'**
+  String get v2PremiumDeeperHistory;
+
+  /// No description provided for @v2PremiumOlderArchive.
+  ///
+  /// In en, this message translates to:
+  /// **'Older archive'**
+  String get v2PremiumOlderArchive;
+
+  /// No description provided for @v2PremiumManage.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Premium'**
+  String get v2PremiumManage;
+
+  /// No description provided for @v2PremiumAlreadyActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium is active'**
+  String get v2PremiumAlreadyActive;
+
+  /// No description provided for @v2PremiumFreeStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'You are on the Free core'**
+  String get v2PremiumFreeStatus;
+
+  /// No description provided for @v2PremiumLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Premium'**
+  String get v2PremiumLoading;
+
+  /// No description provided for @v2PremiumPurchaseCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Premium'**
+  String get v2PremiumPurchaseCta;
+
+  /// No description provided for @v2PremiumContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get v2PremiumContinue;
+
+  /// No description provided for @v2PremiumPeriodMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly billing'**
+  String get v2PremiumPeriodMonthly;
+
+  /// No description provided for @v2PremiumPeriodAnnual.
+  ///
+  /// In en, this message translates to:
+  /// **'Annual billing'**
+  String get v2PremiumPeriodAnnual;
+
+  /// No description provided for @v2PremiumPeriodLifetime.
+  ///
+  /// In en, this message translates to:
+  /// **'Lifetime'**
+  String get v2PremiumPeriodLifetime;
+
+  /// No description provided for @v2PremiumTermsLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms'**
+  String get v2PremiumTermsLink;
+
+  /// No description provided for @v2PremiumOfflineCached.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline — using saved Premium status'**
+  String get v2PremiumOfflineCached;
+
+  /// No description provided for @v2PremiumOfflineUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline — Premium status unknown. Purchases need a connection.'**
+  String get v2PremiumOfflineUnknown;
+
+  /// No description provided for @v2PremiumUnavailableHere.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium is not offered on this screen.'**
+  String get v2PremiumUnavailableHere;
+
+  /// No description provided for @v2PremiumOpenFromArchive.
+  ///
+  /// In en, this message translates to:
+  /// **'View Premium for older archive'**
+  String get v2PremiumOpenFromArchive;
+
+  /// No description provided for @v2ReportsPremiumOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Premium'**
+  String get v2ReportsPremiumOpen;
+
+  /// No description provided for @v2ReportsPremiumRestore.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore purchases'**
+  String get v2ReportsPremiumRestore;
+
+  /// No description provided for @v2SafaTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Safa'**
+  String get v2SafaTitle;
+
+  /// No description provided for @v2SafaPurpose.
+  ///
+  /// In en, this message translates to:
+  /// **'Short support to help you continue with one calm next step.'**
+  String get v2SafaPurpose;
+
+  /// No description provided for @v2SafaAiLimitation.
+  ///
+  /// In en, this message translates to:
+  /// **'Safa may use an AI service over the network. It is not medical care and not emergency services.'**
+  String get v2SafaAiLimitation;
+
+  /// No description provided for @v2SafaPrivacyNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'Before sending: only what you type and explicitly select will be sent. You can continue without Safa or cancel.'**
+  String get v2SafaPrivacyNotice;
+
+  /// No description provided for @v2SafaAcknowledgeNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand'**
+  String get v2SafaAcknowledgeNotice;
+
+  /// No description provided for @v2SafaContinueWithout.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue without Safa'**
+  String get v2SafaContinueWithout;
+
+  /// No description provided for @v2SafaConsentBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Send only your typed message and any context you select. Safa is not medical or emergency support.'**
+  String get v2SafaConsentBody;
+
+  /// No description provided for @v2SafaConsentAllow.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow one network reply'**
+  String get v2SafaConsentAllow;
+
+  /// No description provided for @v2SafaConsentDecline.
+  ///
+  /// In en, this message translates to:
+  /// **'Use offline support'**
+  String get v2SafaConsentDecline;
+
+  /// No description provided for @v2SafaContextOptionalHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional context (nothing is preselected)'**
+  String get v2SafaContextOptionalHeading;
+
+  /// No description provided for @v2SafaContextNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No extra context'**
+  String get v2SafaContextNone;
+
+  /// No description provided for @v2SafaContextDifficult.
+  ///
+  /// In en, this message translates to:
+  /// **'Difficult moment'**
+  String get v2SafaContextDifficult;
+
+  /// No description provided for @v2SafaContextClarify.
+  ///
+  /// In en, this message translates to:
+  /// **'Clarify a step'**
+  String get v2SafaContextClarify;
+
+  /// No description provided for @v2SafaContextContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Help continuing'**
+  String get v2SafaContextContinue;
+
+  /// No description provided for @v2SafaIncludeApprovedContext.
+  ///
+  /// In en, this message translates to:
+  /// **'Include a short context I approve for this send only'**
+  String get v2SafaIncludeApprovedContext;
+
+  /// No description provided for @v2SafaInputLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your message'**
+  String get v2SafaInputLabel;
+
+  /// No description provided for @v2SafaInputHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write briefly what you need help with'**
+  String get v2SafaInputHint;
+
+  /// No description provided for @v2SafaSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get v2SafaSend;
+
+  /// No description provided for @v2SafaSending.
+  ///
+  /// In en, this message translates to:
+  /// **'Sending'**
+  String get v2SafaSending;
+
+  /// No description provided for @v2SafaResponseHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Safa reply'**
+  String get v2SafaResponseHeading;
+
+  /// No description provided for @v2SafaSuggestedReturn.
+  ///
+  /// In en, this message translates to:
+  /// **'Return to where you left'**
+  String get v2SafaSuggestedReturn;
+
+  /// No description provided for @v2SafaSuggestedReturnToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Return to Today'**
+  String get v2SafaSuggestedReturnToday;
+
+  /// No description provided for @v2SafaFallbackGrounding.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause: breathe slowly for one minute'**
+  String get v2SafaFallbackGrounding;
+
+  /// No description provided for @v2SafaFallbackSimplify.
+  ///
+  /// In en, this message translates to:
+  /// **'Simplify: do only the smallest next step'**
+  String get v2SafaFallbackSimplify;
+
+  /// No description provided for @v2SafaRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get v2SafaRetry;
+
+  /// No description provided for @v2SafaUseLocalFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'Use offline support'**
+  String get v2SafaUseLocalFallback;
+
+  /// No description provided for @v2SafaOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'You are offline. Offline support is available.'**
+  String get v2SafaOffline;
+
+  /// No description provided for @v2SafaTimeout.
+  ///
+  /// In en, this message translates to:
+  /// **'The request timed out. Offline support is available.'**
+  String get v2SafaTimeout;
+
+  /// No description provided for @v2SafaServiceUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Safa is temporarily unavailable. Offline support is available.'**
+  String get v2SafaServiceUnavailable;
+
+  /// No description provided for @v2SafaInvalidResponse.
+  ///
+  /// In en, this message translates to:
+  /// **'The reply could not be shown safely. Offline support is available.'**
+  String get v2SafaInvalidResponse;
+
+  /// No description provided for @v2SafaInputTooLong.
+  ///
+  /// In en, this message translates to:
+  /// **'Please shorten your message (500 characters max).'**
+  String get v2SafaInputTooLong;
+
+  /// No description provided for @v2SafaSessionComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'This support session has reached its limit. Choose a next step or leave.'**
+  String get v2SafaSessionComplete;
+
+  /// No description provided for @v2SafaClearSession.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear this session'**
+  String get v2SafaClearSession;
+
+  /// No description provided for @v2SafaReturn.
+  ///
+  /// In en, this message translates to:
+  /// **'Return'**
+  String get v2SafaReturn;
+
+  /// No description provided for @v2SafaUrgentHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'I need urgent help'**
+  String get v2SafaUrgentHelp;
+
+  /// No description provided for @v2SafaUrgentBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Safa is stopping the conversation here. Safa cannot provide emergency care.'**
+  String get v2SafaUrgentBody;
+
+  /// No description provided for @v2SafaUrgentLocalEmergency.
+  ///
+  /// In en, this message translates to:
+  /// **'If you may be in immediate danger, contact your local emergency services. This app does not replace them.'**
+  String get v2SafaUrgentLocalEmergency;
+
+  /// No description provided for @v2SafaNotMedical.
+  ///
+  /// In en, this message translates to:
+  /// **'Safa is not medical or emergency support.'**
+  String get v2SafaNotMedical;
+
+  /// No description provided for @v2SafaOnlyTypedSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Only what you type and select will be sent.'**
+  String get v2SafaOnlyTypedSent;
+
+  /// No description provided for @v2SafaStartLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a new Safa session later'**
+  String get v2SafaStartLater;
+
+  /// No description provided for @v2SafaLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Opening Safa'**
+  String get v2SafaLoading;
+
+  /// No description provided for @v2SafaStateIdle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready when you are.'**
+  String get v2SafaStateIdle;
+
+  /// No description provided for @v2SafaStateReady.
+  ///
+  /// In en, this message translates to:
+  /// **'You can write a short message.'**
+  String get v2SafaStateReady;
+
+  /// No description provided for @v2SafaStateResponseReady.
+  ///
+  /// In en, this message translates to:
+  /// **'A short reply is ready.'**
+  String get v2SafaStateResponseReady;
+
+  /// No description provided for @v2SafaStateLocalFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline support is shown below.'**
+  String get v2SafaStateLocalFallback;
+
+  /// No description provided for @v2SafaUserCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled. You can return or try again later.'**
+  String get v2SafaUserCancelled;
+
+  /// No description provided for @v2SafaCleared.
+  ///
+  /// In en, this message translates to:
+  /// **'Session cleared.'**
+  String get v2SafaCleared;
+
+  /// No description provided for @v2SafaSessionLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'Support turns: {used} of {max}'**
+  String v2SafaSessionLimit(String used, String max);
+
+  /// No description provided for @v2SafaEntryToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask Safa for support'**
+  String get v2SafaEntryToday;
+
+  /// No description provided for @v2SafaEntryProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Safa'**
+  String get v2SafaEntryProfile;
+
+  /// No description provided for @v2ProfileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get v2ProfileTitle;
+
+  /// No description provided for @v2ProfileDefaultIdentity.
+  ///
+  /// In en, this message translates to:
+  /// **'Your profile'**
+  String get v2ProfileDefaultIdentity;
+
+  /// No description provided for @v2ProfileOrientation.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferences, privacy, and personal controls — not another progress dashboard.'**
+  String get v2ProfileOrientation;
+
+  /// No description provided for @v2ProfileSectionRecovery.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery setup'**
+  String get v2ProfileSectionRecovery;
+
+  /// No description provided for @v2ProfileBrainProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Profile'**
+  String get v2ProfileBrainProfile;
+
+  /// No description provided for @v2ProfileBrainProfileLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking your assessment…'**
+  String get v2ProfileBrainProfileLoading;
+
+  /// No description provided for @v2ProfileBrainProfileReady.
+  ///
+  /// In en, this message translates to:
+  /// **'View your latest assessment'**
+  String get v2ProfileBrainProfileReady;
+
+  /// No description provided for @v2ProfileBrainProfileMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete Brain Check to build this'**
+  String get v2ProfileBrainProfileMissing;
+
+  /// No description provided for @v2ProfileSectionPreferences.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferences'**
+  String get v2ProfileSectionPreferences;
+
+  /// No description provided for @v2ProfilePreferencesRow.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferences & settings'**
+  String get v2ProfilePreferencesRow;
+
+  /// No description provided for @v2ProfilePreferencesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance, notifications, biometric lock, and privacy & data'**
+  String get v2ProfilePreferencesHint;
+
+  /// No description provided for @v2ProfileSectionPrivacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy & data'**
+  String get v2ProfileSectionPrivacy;
+
+  /// No description provided for @v2ProfilePrivacyRow.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy & data controls'**
+  String get v2ProfilePrivacyRow;
+
+  /// No description provided for @v2ProfilePrivacyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset local data (confirmation required)'**
+  String get v2ProfilePrivacyHint;
+
+  /// No description provided for @v2ProfileSectionSubscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription'**
+  String get v2ProfileSectionSubscription;
+
+  /// No description provided for @v2ProfileSubscriptionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium status, plans, and restore'**
+  String get v2ProfileSubscriptionHint;
+
+  /// No description provided for @v2ProfileSectionHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Help & support'**
+  String get v2ProfileSectionHelp;
+
+  /// No description provided for @v2ProfileHelpHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Short support for a calm next step'**
+  String get v2ProfileHelpHint;
+
+  /// No description provided for @v2ProfileSectionAbout.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get v2ProfileSectionAbout;
+
+  /// No description provided for @v2ProfileEditNameTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Display name'**
+  String get v2ProfileEditNameTitle;
+
+  /// No description provided for @v2ProfileEditNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional — shown only on this device'**
+  String get v2ProfileEditNameHint;
+
+  /// No description provided for @v2ProfileNameSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save your name. Please try again.'**
+  String get v2ProfileNameSaveFailed;
+
+  /// No description provided for @v2ProfileLegalHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Opens the privacy policy in your browser'**
+  String get v2ProfileLegalHint;
+
+  /// No description provided for @v2ProfileContactHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Opens your email app'**
+  String get v2ProfileContactHint;
+
+  /// No description provided for @settingsOrientation.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance, language, notifications, and your account on this device.'**
+  String get settingsOrientation;
+
+  /// No description provided for @settingsProfileSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get settingsProfileSection;
+
+  /// No description provided for @settingsLanguageSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get settingsLanguageSection;
+
+  /// No description provided for @settingsLanguageArabic.
+  ///
+  /// In en, this message translates to:
+  /// **'Arabic'**
+  String get settingsLanguageArabic;
+
+  /// No description provided for @settingsLanguageEnglish.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get settingsLanguageEnglish;
+
+  /// No description provided for @settingsLogout.
+  ///
+  /// In en, this message translates to:
+  /// **'Log out'**
+  String get settingsLogout;
+
+  /// No description provided for @settingsLogoutConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Log out?'**
+  String get settingsLogoutConfirmTitle;
+
+  /// No description provided for @settingsLogoutConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You will return to the start of the app. Your recovery data stays on this device until you delete it.'**
+  String get settingsLogoutConfirmBody;
+
+  /// No description provided for @settingsDeleteAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete account'**
+  String get settingsDeleteAccount;
+
+  /// No description provided for @settingsDeleteAccountConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete account?'**
+  String get settingsDeleteAccountConfirmTitle;
+
+  /// No description provided for @settingsDeleteAccountConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'All local data on this device will be permanently deleted. This cannot be undone.'**
+  String get settingsDeleteAccountConfirmBody;
+
+  /// No description provided for @colorThemeMorningDark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get colorThemeMorningDark;
+
+  /// No description provided for @colorThemeMorningLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get colorThemeMorningLight;
+
+  /// No description provided for @settingsThemeDarkSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Morning Light dark canvas'**
+  String get settingsThemeDarkSubtitle;
+
+  /// No description provided for @settingsThemeLightSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Morning Light bright canvas'**
+  String get settingsThemeLightSubtitle;
+
+  /// No description provided for @settingsActionFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not complete that action. Please try again.'**
+  String get settingsActionFailed;
 }
 
 class _AppLocalizationsDelegate

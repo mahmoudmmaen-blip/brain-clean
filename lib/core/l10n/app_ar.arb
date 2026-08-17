@@ -399,6 +399,7 @@
   "settingsResetDataConfirmBody": "سيتم حذف جميع بياناتك المحلية. هل أنت متأكد؟",
   "settingsExportData": "تصدير بياناتي",
   "settingsComingSoon": "قريباً...",
+  "settingsLinkUnavailable": "تعذّر فتح هذا الرابط على هذا الجهاز.",
   "settingsAboutSection": "حول التطبيق",
   "settingsVersion": "الإصدار",
   "settingsPrivacyPolicy": "سياسة الخصوصية",
@@ -798,5 +799,910 @@
   "biometricLockTitle": "التطبيق مقفل",
   "biometricLockSubtitle": "استخدم بصمتك أو رمز الجهاز للمتابعة",
   "biometricLockButton": "فتح Brain Clean",
-  "securityCompromisedBanner": "تحذير: الجهاز قد يكون معدّلاً. بياناتك محلية فقط — تم تعطيل المزامنة السحابية."
+  "securityCompromisedBanner": "تحذير: الجهاز قد يكون معدّلاً. بياناتك محلية فقط — تم تعطيل المزامنة السحابية.",
+  "brainCheckTitle": "فحص الدماغ",
+  "brainCheckIntroNonMedical": "هذا فحص ذاتي، وليس تشخيصاً طبياً.",
+  "brainCheckStart": "ابدأ فحص الدماغ",
+  "brainCheckContinue": "متابعة",
+  "brainCheckStartOver": "البدء من جديد",
+  "brainCheckEmptyState": "ابدأ فحص الدماغ لبناء ملفك.",
+  "brainCheckQuestionProgress": "السؤال {current} من {total}",
+  "@brainCheckQuestionProgress": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "brainCheckSectionProgress": "الجزء {current} من {total}",
+  "@brainCheckSectionProgress": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "brainCheckComplete": "اكتمل الفحص",
+  "brainCheckResumeTitle": "هل تريد متابعة فحص الدماغ؟",
+  "brainCheckSaveError": "تعذّر حفظ إجاباتك. ما زالت موجودة على هذه الشاشة.",
+  "brainCheckLoading": "جارٍ تحميل فحص الدماغ…",
+  "brainCheckExit": "خروج من فحص الدماغ",
+  "brainCheckBack": "رجوع",
+  "brainCheckSaving": "جارٍ الحفظ…",
+  "brainCheckFinish": "إنهاء الفحص",
+  "brainCheckSelectAnswerHint": "اختر إجابة للمتابعة.",
+  "brainCheckAutosaveHint": "تُحفظ إجاباتك على هذا الجهاز أثناء التقدّم.",
+  "brainCheckAnswerChoices": "خيارات الإجابة",
+  "brainCheckAnswerSelected": "محدد",
+  "brainCheckAnswerUnselected": "غير محدد",
+  "brainCheckAnswerYes": "نعم",
+  "brainCheckAnswerNo": "لا",
+  "brainCheckLikert1": "أعارض بشدة",
+  "brainCheckLikert2": "أعارض",
+  "brainCheckLikert3": "محايد",
+  "brainCheckLikert4": "أوافق",
+  "brainCheckLikert5": "أوافق بشدة",
+  "brainCheckFrequency1": "أبداً",
+  "brainCheckFrequency2": "نادراً",
+  "brainCheckFrequency3": "أحياناً",
+  "brainCheckFrequency4": "غالباً",
+  "brainCheckFrequency5": "كثيراً جداً",
+  "brainCheckBreakTitle": "استراحة قصيرة",
+  "brainCheckBreakBody": "التالي: {sectionTitle}",
+  "@brainCheckBreakBody": {
+    "placeholders": {
+      "sectionTitle": { "type": "String" }
+    }
+  },
+  "brainCheckCompletionBody": "شكراً لإنهاء هذا التقرير الذاتي. فحصك جاهز للحفظ على هذا الجهاز.",
+  "brainCheckConfigError": "أسئلة فحص الدماغ غير متاحة الآن.",
+  "brainCheckRestartTitle": "البدء من جديد؟",
+  "brainCheckRestartBody": "سيُمسح فحص الدماغ غير المكتمل على هذا الجهاز. تبقى خطوات التهيئة والملفات المكتملة السابقة دون مساس.",
+  "brainCheckRestartCancel": "المتابعة",
+  "brainCheckRestartConfirm": "البدء من جديد",
+  "brainCheckCompleteBoundaryTitle": "تم حفظ فحص الدماغ",
+  "brainCheckCompleteBoundaryBody": "تقريرك الذاتي محفوظ على هذا الجهاز. تابع لبناء لقطة ملف الدماغ.",
+  "brainCheckCompleteBoundaryContinue": "ابنِ ملف الدماغ",
+  "brainProfileTitle": "ملف الدماغ",
+  "brainProfileBuilding": "جارٍ بناء ملف الدماغ…",
+  "brainProfileLoading": "جارٍ تحميل ملف الدماغ",
+  "brainProfileMissing": "لا يوجد ملف دماغ بعد",
+  "brainProfileEmptyHint": "أكمل فحص الدماغ لإنشاء أول لقطة.",
+  "brainProfileUnavailable": "حساب الملف غير متاح الآن.",
+  "brainProfileRetry": "حاول مرة أخرى",
+  "brainProfileGoHome": "العودة إلى الرئيسية",
+  "brainProfileOrientation": "نظرة هادئة على لقطتك",
+  "brainProfileScoreHeading": "تقدير درجة التعافي",
+  "brainProfileScorePendingLabel": "التقدير قيد الانتظار",
+  "brainProfileScorePendingSemantics": "تقدير درجة التعافي قيد الانتظار. ملخصات المجالات متاحة من إجاباتك.",
+  "brainProfileScoreSemantics": "تقدير درجة التعافي: {value}",
+  "@brainProfileScoreSemantics": {
+    "placeholders": {
+      "value": { "type": "String" }
+    }
+  },
+  "brainProfileConfidenceHeading": "الثقة",
+  "brainProfileConfidenceProvisional": "أولية",
+  "brainProfileConfidenceModerate": "متوسطة",
+  "brainProfileConfidenceSolid": "قوية",
+  "brainProfileBandHeading": "النطاق الحالي",
+  "brainProfileBandMeaning": "تسمية هادئة لتقدير التقرير الذاتي — وليست شدة سريرية.",
+  "brainProfileMeansHeading": "ماذا يعني هذا",
+  "brainProfileMeansBody": "هذه لقطة بداية مبلَّغ عنها ذاتياً. تُبرز المناطق الأقوى كما ظهرت وأولويات الدعم الحالية بناءً على إجابات فحص الدماغ.",
+  "brainProfileDoesNotMeanHeading": "ماذا لا يعني هذا",
+  "brainProfileScoreUnavailableLabel": "التقدير غير متاح",
+  "brainProfileScoreUnavailableSemantics": "تقدير درجة التعافي غير متاح. لا يُعرض رقم.",
+  "brainProfileScoreUnavailableBody": "تعذّر تقدير درجة التعافي من هذا الفحص. تبقى إجاباتك محفوظة. أكمل فحصاً صالحاً للمتابعة إلى خطة التعافي.",
+  "brainProfileContinueUnavailable": "خطة التعافي تحتاج تقدير درجة تعافٍ صالح.",
+  "brainProfileMissingEvent": "أكمل فحص الدماغ أولاً.",
+  "brainProfileBuildingHint": "جارٍ تجهيز لقطة تقريرك الذاتي على هذا الجهاز…",
+  "brainProfileDomainEstimateHeading": "التقدير الحالي",
+  "brainProfileDomainStrongerLabel": "منطقة أقوى كما ظهرت",
+  "brainProfileDomainSupportLabel": "أولوية دعم حالية",
+  "brainProfileDomainNeutralLabel": "بناءً على إجاباتك الحالية",
+  "brainProfileDomainBasedOnAnswers": "بناءً على موضوعات من إجابات فحص الدماغ الحالية — وليس درجات خام.",
+  "brainProfileDomainNonMedical": "ليس تشخيصاً طبياً. وليس كشفاً عن تلف دماغي. وليس درجة ذكاء.",
+  "brainProfileDomainPlanPreviewHint": "قد تركّز خطوة لطيفة من خطة التعافي هنا لاحقاً — وذلك بعد المتابعة.",
+  "brainProfileDomainsHeading": "ملخص المجالات",
+  "brainProfileDomainNoData": "لا إجابات في هذا المجال بعد",
+  "brainProfileDomainMean": "المتوسط المبلّغ عنه: {value}",
+  "@brainProfileDomainMean": {
+    "placeholders": {
+      "value": { "type": "String" }
+    }
+  },
+  "brainProfileDomainClose": "إغلاق",
+  "brainProfileExplainHeading": "ماذا يعني هذا",
+  "brainProfileContinue": "المتابعة إلى خطة التعافي",
+  "brainProfileReadyTitle": "ملف الدماغ جاهز",
+  "brainProfileReadyBody": "خطة التعافي هي الخطوة الهادئة التالية عند المتابعة من ملفك.",
+  "brainProfileHistoricalBadge": "لقطة سابقة",
+  "recoveryPlanTitle": "خطة التعافي",
+  "recoveryPlanBuilding": "جارٍ بناء خطة التعافي…",
+  "recoveryPlanLoading": "جارٍ تحميل خطة التعافي",
+  "recoveryPlanReady": "خطة التعافي جاهزة",
+  "recoveryPlanStarterReady": "خطة بداية هادئة جاهزة",
+  "recoveryPlanMissing": "لا توجد خطة تعافٍ بعد",
+  "recoveryPlanMissingProfile": "أكمل فحص الدماغ وملف الدماغ أولاً.",
+  "recoveryPlanScoreUnavailable": "الخطة الكاملة تحتاج تقدير درجة تعافٍ صالح. قد تبقى خطة البداية متاحة.",
+  "recoveryPlanUnsupportedVersion": "نموذج الخطة هذا غير مدعوم في هذا الإصدار.",
+  "recoveryPlanGenerationError": "تعذّر بناء خطتك الآن. حاول مرة أخرى.",
+  "recoveryPlanRetry": "حاول مرة أخرى",
+  "recoveryPlanGoHome": "العودة إلى الرئيسية",
+  "recoveryPlanBuildCta": "ابنِ خطة التعافي",
+  "recoveryPlanMainFocus": "التركيز الرئيسي",
+  "recoveryPlanPrioritiesHeading": "دعم الأولوية",
+  "recoveryPlanNoPriorities": "لا مجالات أولوية في خطة البداية هذه",
+  "recoveryPlanStrongerHeading": "ما يساعدك بالفعل",
+  "recoveryPlanConfidenceHeading": "الثقة",
+  "recoveryPlanTimeHeading": "الوقت اليومي",
+  "recoveryPlanTimeRange": "حوالي {min}–{max} دقيقة",
+  "@recoveryPlanTimeRange": {
+    "placeholders": {
+      "min": { "type": "String" },
+      "max": { "type": "String" }
+    }
+  },
+  "recoveryPlanIntensityLabel": "الشدة",
+  "recoveryPlanMinimumPath": "المسار الأدنى",
+  "recoveryPlanStandardPath": "المسار القياسي",
+  "recoveryPlanBecauseHeading": "لماذا هذه الخطة اليوم",
+  "recoveryPlanTodayPreview": "معاينة اليوم",
+  "recoveryPlanContinueToday": "المتابعة إلى اليوم",
+  "recoveryPlanSkipHint": "تخطي خطوة لا يُحسب أبداً كعقوبة.",
+  "recoveryPlanOptionalTag": "اختياري",
+  "recoveryPlanNoSteps": "لا خطوات مدرجة",
+  "recoveryPlanStarterBadge": "خطة بداية",
+  "recoveryPlanTodayReadyTitle": "اليوم جاهز للبدء",
+  "recoveryPlanTodayReadyBody": "مشغّل الجلسة اليومية يأتي في خطوة لاحقة. خطة التعافي محفوظة على هذا الجهاز.",
+  "recoveryPlanCalmOrientation": "خطة التعافي الخاصة بك",
+  "recoveryPlanCalmOrientationBody": "هذه الخطة تقدير عملي مبني على ملف الدماغ الحالي. ليست تشخيصاً ولا علاجاً. يمكنك تعديلها لاحقاً.",
+  "recoveryPlanFitsProfile": "تتوافق مع أولويات تقدير ملفك الحالي.",
+  "recoveryPlanTodayFitHeading": "كيف يتوافق اليوم",
+  "recoveryPlanOpenToday": "افتح اليوم",
+  "recoveryPlanAboutDetails": "لماذا هذه الخطة",
+  "recoveryPlanPathDetails": "تفاصيل المسار",
+  "recoveryPlanStepCount": "{count} خطوات",
+  "@recoveryPlanStepCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "v2TodayPreviewTitle": "أول يوم لك",
+  "v2TodayPreviewLoading": "جارٍ تحميل معاينة اليوم",
+  "v2TodayPreviewHeading": "معاينة اليوم",
+  "v2TodayPreviewOrientation": "يومك يبدأ بخطوة واضحة واحدة. إكمالها لاحقاً سيُسجّل يومك في الخطة.",
+  "v2TodayPreviewActHeading": "الخطوة الأولى",
+  "v2TodayPreviewFallbackTitle": "ممارسة اليوم",
+  "v2TodayPreviewBecauseHeading": "لماذا هذه الخطوة اليوم",
+  "v2TodayPreviewCompletionMeaning": "إنهاء هذه الخطوة لاحقاً يُحسب يوماً مكتملاً. التخطي مسموح بلا عقوبة.",
+  "v2TodayPreviewContinueCta": "المتابعة — خطوتك الأولى جاهزة",
+  "v2TodayPreviewMissingAct": "خطوة اليوم غير متاحة بعد. أعد بناء خطة التعافي.",
+  "v2TodayReadyLoading": "جارٍ تجهيز خطوتك الأولى",
+  "v2TodayReadyFirstStepTitle": "خطوتك الأولى جاهزة",
+  "v2TodayReadyFirstStepBody": "خطة التعافي محفوظة. افتح اليوم لبدء جلستك اليومية الأولى عندما تكون جاهزاً. يمكنك المغادرة والعودة دون فقدان التقدّم.",
+  "v2TodayReadyJourneySaved": "اكتمل الإعداد لأول مرة على هذا الجهاز.",
+  "v2TodayReadyProgressSaved": "تقدّمك محفوظ على هذا الجهاز.",
+  "v2TodayReadyPrimaryCta": "افتح اليوم",
+  "v2TodayReadyReviewPreview": "مراجعة معاينة اليوم",
+  "v2TodayReadyCorruptPlan": "تعذّر قراءة هذه الخطة بأمان. أعد بناءها بهدوء عندما تكون جاهزاً.",
+  "v2TodayReadyPersistFailed": "تعذّر حفظ التقدّم الآن. حاول مرة أخرى.",
+  "v2TodayHomeTitle": "اليوم",
+  "v2TodayHomeLoading": "جارٍ تحميل اليوم",
+  "v2TodayHomeOrientation": "يومك",
+  "v2TodayHomeOrientationBody": "فعل واحد واضح من خطة التعافي. بلا إضافات.",
+  "v2TodayHomeStandardPathHint": "المسار القياسي يضيف عمقاً معتمداً اختيارياً إن رغبت.",
+  "v2TodayHomeStatusHeading": "الحالة",
+  "v2TodayHomeStatusReady": "جاهز متى شئت",
+  "v2TodayHomeStatusInProgress": "الجلسة قيد التنفيذ",
+  "v2TodayHomeStatusReflect": "قاربت الانتهاء — أكمل التسجيل",
+  "v2TodayHomeStatusDone": "انتهى لليوم",
+  "v2TodayHomeStatusPartial": "حُفظت المحاولة — بلا عقوبة",
+  "v2TodayHomeCtaStart": "ابدأ جلسة اليوم",
+  "v2TodayHomeCtaContinue": "متابعة الجلسة",
+  "v2TodayHomeCtaViewCompleted": "عرض الجلسة المكتملة",
+  "v2TodayHomeViewPlan": "عرض خطة التعافي",
+  "v2SessionPrepareTitle": "تهيئة",
+  "v2SessionPreparePurpose": "ممارسة موجهة قصيرة من خطتك.",
+  "v2SessionPrepareIncludes": "تتضمن هذه الجلسة:",
+  "v2SessionPathHeading": "اختر مسارك",
+  "v2SessionPathNoShame": "المسار الأدنى مكتمل ومفيد. القياسي يضيف عمقاً اختيارياً.",
+  "v2SessionA11yHint": "لكل خطوة بديل وصولية.",
+  "v2SessionStartCta": "ابدأ",
+  "v2SessionClose": "إغلاق",
+  "v2SessionActTitle": "جلسة اليوم",
+  "v2SessionProgress": "الخطوة {current} من {total}",
+  "@v2SessionProgress": {
+    "placeholders": {
+      "current": { "type": "String" },
+      "total": { "type": "String" }
+    }
+  },
+  "v2SessionOptionalLabel": "اختياري",
+  "v2SessionRequiredLabel": "مطلوب",
+  "v2SessionStartTimer": "بدء مؤقت اختياري",
+  "v2SessionTimerContext": "حوالي {seconds} ثانية متبقية على المؤقت الاختياري",
+  "@v2SessionTimerContext": {
+    "placeholders": {
+      "seconds": { "type": "String" }
+    }
+  },
+  "v2SessionMarkDone": "تعليم الخطوة منتهية",
+  "v2SessionSkipOptional": "تخطّ الخطوة الاختيارية",
+  "v2SessionEndEarly": "إنهاء والتسجيل",
+  "v2SessionReflectTitle": "تسجيل سريع",
+  "v2SessionReflectPrompt": "كيف شعرت بجلسة اليوم؟",
+  "v2SessionReflectManageable": "ما مدى قابليتها للإدارة؟",
+  "v2SessionReflectHelped": "هل ساعدتك على التمهّل أو التركيز؟",
+  "v2SessionReflectObstacle": "أي عائق؟ (اختياري)",
+  "v2SessionChipEasy": "قابلة للإدارة",
+  "v2SessionChipOk": "جيدة",
+  "v2SessionChipHard": "صعبة",
+  "v2SessionChipYes": "نعم",
+  "v2SessionChipSomewhat": "إلى حد ما",
+  "v2SessionChipNotYet": "ليس بعد",
+  "v2SessionChipNone": "لا شيء",
+  "v2SessionChipDistraction": "تشتت",
+  "v2SessionChipLowEnergy": "طاقة منخفضة",
+  "v2SessionChipTime": "وقت",
+  "v2SessionReflectSave": "حفظ التسجيل",
+  "v2SessionReflectSkipChips": "المتابعة دون اختيارات",
+  "v2SessionSaving": "جارٍ الحفظ…",
+  "v2SessionLeaveSuccess": "أحسنت — انتهيت لليوم",
+  "v2SessionLeavePartial": "توقفت بلطف — لم يُفقد شيء",
+  "v2SessionLeavePath": "المسار: {path}",
+  "@v2SessionLeavePath": {
+    "placeholders": {
+      "path": { "type": "String" }
+    }
+  },
+  "v2SessionLeaveBody": "الكفاءة الهادئة كافية. غادر التطبيق عندما تكون جاهزاً.",
+  "v2SessionLeaveNext": "غداً سيعرض اليوم خطوة واضحة واحدة من جديد.",
+  "v2SessionLeaveCta": "العودة إلى اليوم",
+  "v2ProgressEmptyTitle": "لا تقدّم بعد",
+  "v2ProgressEmptyBody": "أكمل جلسة اليوم لتبدأ سجلاً محلياً صادقاً. لا يُختلق شيء عندما يكون السجل فارغاً.",
+  "v2ProgressLoading": "جارٍ تحميل التقدّم",
+  "v2ProgressPersistFailed": "تعذّر حفظ التقدّم الآن. حاول مرة أخرى.",
+  "v2ProgressStatsSessions": "الجلسات المكتملة",
+  "v2ProgressStatsMinimum": "جلسات المسار الأدنى",
+  "v2ProgressStatsStandard": "جلسات المسار القياسي",
+  "v2ProgressStatsRate": "معدل الأيام المكتملة",
+  "v2ProgressStatsCurrentStreak": "تتابع الأيام المكتملة الحالي",
+  "v2ProgressStatsLongestStreak": "أطول تتابع أيام مكتملة",
+  "v2OnboardingLoading": "جارٍ التحميل…",
+  "v2OnboardingContinue": "متابعة",
+  "v2OnboardingBack": "رجوع",
+  "v2OnboardingRetry": "حاول مرة أخرى",
+  "v2OnboardingRestart": "ابدأ التهيئة من جديد",
+  "v2OnboardingGoHome": "العودة إلى الرئيسية",
+  "v2OnboardingProgressLabel": "الخطوة {current} من {total}",
+  "@v2OnboardingProgressLabel": {
+    "placeholders": {
+      "current": { "type": "String" },
+      "total": { "type": "String" }
+    }
+  },
+  "v2OnboardingProgressSemantics": "خطوة التهيئة {current} من {total}",
+  "@v2OnboardingProgressSemantics": {
+    "placeholders": {
+      "current": { "type": "String" },
+      "total": { "type": "String" }
+    }
+  },
+  "v2OnboardingLanguageArabic": "العربية",
+  "v2OnboardingLanguageEnglish": "English",
+  "v2OnboardingWelcomeTitle": "مرحباً بك في Brain Clean",
+  "v2OnboardingWelcomeBody": "يساعدك Brain Clean على تقدير حالتك الحالية في التعافي، وبناء خطة تعافٍ مخصصة، وملاحظة التغيير مع الوقت — بهدوء ودون ادعاءات طبية.",
+  "v2OnboardingExpectationsTitle": "ما الذي تتوقعه",
+  "v2OnboardingExpectationsBody": "مسار قصير وصادق — ليس تشخيصاً وليس ضماناً.",
+  "v2OnboardingExpectation1": "جلسة يومية قصيرة عندما تكون جاهزاً — حوالي خمس دقائق.",
+  "v2OnboardingExpectation2": "فحص دماغ مبني على تقرير ذاتي، وليس تشخيصاً طبياً.",
+  "v2OnboardingExpectation3": "خطة عملية يمكن فهمها، مع تقدّم يمكن ملاحظته مع الوقت.",
+  "v2OnboardingExpectationsFootnote": "النتائج غير مضمونة. قد يتقدّم التقدّم ويتراجع.",
+  "v2OnboardingConsentTitle": "قبل المتابعة",
+  "v2OnboardingConsentBody": "يرجى تأكيد فهمك لكيفية استخدام Brain Clean.",
+  "v2OnboardingConsentNonMedical": "أفهم أن Brain Clean ليس تشخيصاً طبياً ولا تقييماً سريرياً ولا علاجاً.",
+  "v2OnboardingConsentTerms": "أوافق على المتابعة وفق شروط استخدام التطبيق.",
+  "v2OnboardingConsentAnalytics": "اختياري: السماح بإشارات استخدام مجهولة للمنتج (متوقفة افتراضياً).",
+  "v2OnboardingConsentHint": "حدّد المربعات المطلوبة للمتابعة.",
+  "v2OnboardingPrivacyTitle": "بياناتك على هذا الجهاز",
+  "v2OnboardingPrivacyBody": "تُحسب إجابات فحص الدماغ الأساسية ودرجة التعافي وخطة التعافي وتُخزَّن محلياً على هذا الجهاز. يمكنك إيقاف فحص الدماغ واستئنافه. تبقى الشروحات قابلة للمراجعة. الدرجة لا يولّدها ذكاء اصطناعي.",
+  "v2OnboardingPrivacyFootnote": "قد تستخدم بعض ميزات المنتج الاختيارية الشبكة لاحقاً (مثل المزامنة أو الدعم أو الإعلانات عند تفعيلها). المتابعة تعمل دون اتصال.",
+  "v2OnboardingPrivacyPolicyLink": "ملخص الخصوصية",
+  "v2OnboardingPrivacyCachedSummary": "يبقي Brain Clean بيانات الفحص والخطة الأساسية محلية أولاً. ميزات السحابة أو الشبكة الاختيارية منفصلة وغير مطلوبة لإكمال هذه التهيئة. هذا ليس شهادة خصوصية طبية.",
+  "v2OnboardingRitualTitle": "متى تناسبك جلسة قصيرة عادةً؟",
+  "v2OnboardingRitualBody": "اختر نافذة لطيفة كتذكير. يمكنك تغيير ذلك لاحقاً.",
+  "v2OnboardingRitualMorning": "صباحاً",
+  "v2OnboardingRitualAfternoon": "ظهراً",
+  "v2OnboardingRitualEvening": "مساءً",
+  "v2OnboardingRitualDecideLater": "قرّر لاحقاً",
+  "v2OnboardingCheckIntroTitle": "فحص الدماغ",
+  "v2OnboardingCheckIntroBody": "فحص الدماغ تقرير ذاتي قصير. ليس تشخيصاً طبياً، ولا كشفاً عن تلف دماغي، ولا اختبار ذكاء. تبقى إجاباتك على هذا الجهاز وتساعد في بناء خطة عملية.",
+  "v2OnboardingCheckIntroMeta": "فحص خفيف · بضع دقائق · قابل للاستئناف",
+  "v2OnboardingStartBrainCheck": "ابدأ فحص الدماغ",
+  "v2OnboardingCorruptTitle": "لنبدأ من جديد بهدوء",
+  "v2OnboardingCorruptBody": "تعذّر قراءة بيانات التهيئة بأمان. لم تُحذف إجابات فحص الدماغ. يمكنك بدء التهيئة مرة أخرى.",
+  "v2BrainCheckEntryTitle": "فحص الدماغ",
+  "v2BrainCheckEntryLoading": "جارٍ تجهيز فحص الدماغ…",
+  "v2BrainCheckEntryBody": "تقرير ذاتي هادئ للمساعدة على تقدير حالتك الحالية في التعافي.",
+  "v2BrainCheckEntryNonMedical": "ليس تشخيصاً طبياً. ليس علاجاً. ليس مقياساً للذكاء.",
+  "v2BrainCheckEntryDuration": "فحص خفيف · قصير · يمكنك التوقّف في أي وقت",
+  "v2BrainCheckEntryStart": "ابدأ فحص الدماغ",
+  "v2BrainCheckEntryResume": "استئناف فحص الدماغ",
+  "v2BrainCheckEntryResumeHint": "لديك فحص دماغ غير مكتمل على هذا الجهاز.",
+  "v2BrainCheckEntryStartOver": "البدء من جديد",
+  "v2BrainCheckEntryAlreadyComplete": "فحص الدماغ مكتمل بالفعل. البدء من جديد متاح في خطوات لاحقة — ولم تُمسَ الإجابات.",
+  "v2BrainCheckEntryError": "تعذّر تجهيز فحص الدماغ الآن.",
+  "v2BrainCheckReadyTitle": "فحص الدماغ جاهز",
+  "v2BrainCheckReadyBody": "دخول فحص الدماغ جاهز. تابع عندما تريد فتح الاستبيان أو استئنافه.",
+  "v2WeeklyReviewTitle": "المراجعة الأسبوعية",
+  "v2WeeklySummaryTitle": "ملخص الأسبوع",
+  "v2WeeklyReviewLoading": "جارٍ تحميل المراجعة الأسبوعية",
+  "v2WeeklyReviewExit": "خروج",
+  "v2WeeklyReviewBack": "رجوع",
+  "v2WeeklyReviewContinue": "متابعة",
+  "v2WeeklyReviewComplete": "إكمال المراجعة",
+  "v2WeeklyReviewRetry": "حاول مرة أخرى",
+  "v2WeeklyReviewBackToday": "العودة إلى اليوم",
+  "v2WeeklyReviewSaveFailed": "تعذّر حفظ مراجعتك الآن. حاول مرة أخرى.",
+  "v2WeeklyReviewUnsupported": "صيغة هذه المراجعة غير مدعومة في هذا الإصدار.",
+  "v2WeeklyReviewNotReadyGeneric": "المراجعة الأسبوعية غير جاهزة بعد",
+  "v2WeeklyReviewNotReadyGenericBody": "عُد بعد أسبوع مكتمل فيه جلسة واحدة منتهية على الأقل.",
+  "v2WeeklyReviewNotReadyZeroTitle": "لا يوجد نشاط مكتمل كافٍ بعد",
+  "v2WeeklyReviewNotReadyZeroBody": "أكمل جلسة اليوم مرة واحدة على الأقل في أسبوع منتهٍ لفتح المراجعة الأسبوعية.",
+  "v2WeeklyReviewNotReadyCurrentTitle": "هذا الأسبوع ما زال جارياً",
+  "v2WeeklyReviewNotReadyCurrentBody": "تُفتَح المراجعة الأسبوعية بعد انتهاء الأسبوع. تابع اليوم عندما تكون جاهزاً.",
+  "v2WeeklyReviewNotReadyMissingTitle": "مصادر المراجعة غير جاهزة",
+  "v2WeeklyReviewNotReadyMissingBody": "خطة أو ملف شخصي أو سجل تقدّم محلي مفقود. تابع عبر اليوم ثم عُد لاحقاً.",
+  "v2WeeklyReviewPeriodLabel": "الفترة {start} – {end}",
+  "@v2WeeklyReviewPeriodLabel": {
+    "placeholders": {
+      "start": { "type": "String" },
+      "end": { "type": "String" }
+    }
+  },
+  "v2WeeklyReviewProgress": "السؤال {current} من {total}",
+  "@v2WeeklyReviewProgress": {
+    "placeholders": {
+      "current": { "type": "String" },
+      "total": { "type": "String" }
+    }
+  },
+  "v2WeeklyReviewProgressSemantics": "سؤال المراجعة الأسبوعية {current} من {total}",
+  "@v2WeeklyReviewProgressSemantics": {
+    "placeholders": {
+      "current": { "type": "String" },
+      "total": { "type": "String" }
+    }
+  },
+  "v2WeeklyReviewRequired": "مطلوب",
+  "v2WeeklyReviewMultiSelectHint": "اختياري. اختر حتى خيارين.",
+  "v2WeeklyReviewValidationHint": "يرجى اختيار إجابة صالحة للمتابعة.",
+  "v2WeeklyReviewYes": "نعم",
+  "v2WeeklyReviewNo": "لا",
+  "v2WeeklyReviewQManageability": "ما مدى قابلية الخطة للإدارة هذا الأسبوع؟",
+  "v2WeeklyReviewQPauseFocus": "إلى أي مدى ساعدتك الجلسات على التمهّل أو التركيز؟",
+  "v2WeeklyReviewQObstacle": "ما الذي أعاقك في أغلب الأحيان؟",
+  "v2WeeklyReviewQSupport": "ما الذي ساعدك؟ (اختياري)",
+  "v2WeeklyReviewQAccessibility": "هل استخدمت بديلاً للوصولية هذا الأسبوع؟ (اختياري)",
+  "v2WeeklyReviewOptTooLight": "خفيف جداً",
+  "v2WeeklyReviewOptAboutRight": "مناسب تقريباً",
+  "v2WeeklyReviewOptTooDemanding": "متطلّب جداً",
+  "v2WeeklyReviewOptTime": "الوقت",
+  "v2WeeklyReviewOptForgetfulness": "النسيان",
+  "v2WeeklyReviewOptLowEnergy": "طاقة منخفضة",
+  "v2WeeklyReviewOptInterruptions": "مقاطعات",
+  "v2WeeklyReviewOptUnclearStep": "خطوة غير واضحة",
+  "v2WeeklyReviewOptAccessEnv": "الوصول أو البيئة",
+  "v2WeeklyReviewOptNoMajorObstacle": "لا عائق كبير",
+  "v2WeeklyReviewOptShorterPath": "مسار أقصر",
+  "v2WeeklyReviewOptClearerTiming": "توقيت أوضح",
+  "v2WeeklyReviewOptQuieterEnv": "بيئة أهدأ",
+  "v2WeeklyReviewOptA11yAlt": "بديل وصولية",
+  "v2WeeklyReviewOptStrongerReminder": "تذكير أقوى",
+  "v2WeeklyReviewOptSamePlan": "الخطة الحالية مناسبة",
+  "v2WeeklySummaryOrientation": "نمط هذا الأسبوع",
+  "v2WeeklySummaryCompletedDays": "الأيام المكتملة: {count}",
+  "@v2WeeklySummaryCompletedDays": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2WeeklySummaryPathMix": "مزيج المسارات: {label}",
+  "@v2WeeklySummaryPathMix": {
+    "placeholders": {
+      "label": { "type": "String" }
+    }
+  },
+  "v2WeeklySummaryPathMostlyMinimum": "غالباً الأدنى",
+  "v2WeeklySummaryPathMostlyStandard": "غالباً القياسي",
+  "v2WeeklySummaryPathBalanced": "متوازن",
+  "v2WeeklySummaryPathSingle": "جلسة واحدة فقط",
+  "v2WeeklySummaryPatternHeading": "الإيقاع",
+  "v2WeeklySummaryRhythmSteady": "ثابت عبر عدة أيام",
+  "v2WeeklySummaryRhythmIntermittent": "متقطّع عبر الأسبوع",
+  "v2WeeklySummaryRhythmLimited": "سجل محدود",
+  "v2WeeklySummaryObstacleHeading": "ما الذي أعاقك؟",
+  "v2WeeklySummarySupportHeading": "ما الذي ساعدك؟",
+  "v2WeeklySummarySupportNone": "لم يُذكر دعم",
+  "v2WeeklySummaryAttentionHeading": "ما قد يستحق الانتباه",
+  "v2WeeklySummaryAttentionLoad": "الحمل قد يستحق نظرة لاحقاً",
+  "v2WeeklySummaryAttentionSupport": "المزيد من الدعم قد يستحق الانتباه لاحقاً",
+  "v2WeeklySummaryAttentionPause": "التمهّل أو التركيز بدا منخفضاً هذا الأسبوع",
+  "v2WeeklySummaryAttentionObstacle": "برز عائق هذا الأسبوع",
+  "v2WeeklySummaryAttentionMaintain": "واصل الملاحظة مع الخطة الحالية",
+  "v2WeeklySummaryEvidenceLimited": "دليل محدود — جلسة مكتملة واحدة فقط",
+  "v2WeeklySummaryEvidenceDeveloping": "دليل مبكر — اعتبر هذا نظرة هادئة إلى الخلف",
+  "v2WeeklySummaryEvidenceSufficient": "ملخص فقط — ليس ادّعاء سبب",
+  "v2WeeklySummaryPlanUnchanged": "لم تتغير خطتك بعد",
+  "v2WeeklySummaryCtaToday": "العودة إلى اليوم",
+  "v2WeeklySummaryCtaProgress": "العودة إلى التقدّم",
+  "v2WeeklyFactsSection": "آخر 7 أيام",
+  "v2WeeklyFactsTasks": "المهام المكتملة",
+  "v2WeeklyFactsTasksCaption": "{count} خطوات مطلوبة",
+  "@v2WeeklyFactsTasksCaption": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2WeeklyFactsStreak": "السلسلة",
+  "v2WeeklyFactsStreakCaption": "{current} الآن · {best} الأفضل",
+  "@v2WeeklyFactsStreakCaption": {
+    "placeholders": {
+      "current": { "type": "String" },
+      "best": { "type": "String" }
+    }
+  },
+  "v2WeeklyFactsAdherence": "الالتزام بالخطة",
+  "v2WeeklyFactsAdherenceCaption": "{days} من 7 أيام",
+  "@v2WeeklyFactsAdherenceCaption": {
+    "placeholders": {
+      "days": { "type": "String" }
+    }
+  },
+  "v2ProgressTitle": "التقدّم",
+  "v2ProgressOrientation": "تقدّمك",
+  "v2ProgressRetry": "حاول مرة أخرى",
+  "v2ProgressBasedOnSessions": "يعتمد التقدّم على الجلسات المكتملة",
+  "v2ProgressHeadlineEmpty": "لا جلسات مكتملة بعد",
+  "v2ProgressHeadlineFirst": "حُفظت أول جلسة مكتملة لك",
+  "v2ProgressHeadlineFew": "بضعة أيام مكتملة مسجّلة",
+  "v2ProgressHeadlineRhythm": "بدأت ملامح نمط بالظهور",
+  "v2ProgressHeadlineSteady": "يظهر نمط أكثر ثباتاً",
+  "v2ProgressHeadlineLimited": "الدليل ما زال محدوداً",
+  "v2ProgressHeadlineWeekly": "يتوفر دليل أسبوعي للمراجعة",
+  "v2ProgressBetterHeading": "ما هو مسجّل",
+  "v2ProgressWhyHeading": "ما يظهر من النمط",
+  "v2ProgressComparedHeading": "كيف يقارن مع الوقت",
+  "v2ProgressCompletedDays": "الأيام المكتملة: {count}",
+  "@v2ProgressCompletedDays": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ProgressCompletedSessions": "الجلسات المكتملة: {count}",
+  "@v2ProgressCompletedSessions": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ProgressMinimumPath": "المسار الأدنى: {count}",
+  "@v2ProgressMinimumPath": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ProgressStandardPath": "المسار القياسي: {count}",
+  "@v2ProgressStandardPath": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ProgressCompletionRate": "معدل الأيام المكتملة: {percent}%",
+  "@v2ProgressCompletionRate": {
+    "placeholders": {
+      "percent": { "type": "String" }
+    }
+  },
+  "v2ProgressCurrentRhythm": "الإيقاع الحالي: {count} يوم",
+  "@v2ProgressCurrentRhythm": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "v2ProgressLongestRhythm": "أطول إيقاع: {count} يوم",
+  "@v2ProgressLongestRhythm": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "v2ProgressFirstCompleted": "أول يوم مكتمل: {day}",
+  "@v2ProgressFirstCompleted": {
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+  "v2ProgressLastCompleted": "آخر يوم مكتمل: {day}",
+  "@v2ProgressLastCompleted": {
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+  "v2ProgressRecentActivity": "النشاط الأخير",
+  "v2ProgressTimelineMinimum": "المسار الأدنى",
+  "v2ProgressTimelineStandard": "المسار القياسي",
+  "v2ProgressTimelineBothPaths": "الأدنى والقياسي",
+  "v2ProgressTimelineEntry": "{day} · {path}",
+  "@v2ProgressTimelineEntry": {
+    "placeholders": {
+      "day": { "type": "String" },
+      "path": { "type": "String" }
+    }
+  },
+  "v2ProgressPathMostlyMinimum": "غالباً المسار الأدنى",
+  "v2ProgressPathMostlyStandard": "غالباً المسار القياسي",
+  "v2ProgressPathBalanced": "مزيج متوازن من المسارات",
+  "v2ProgressPathSingle": "جلسة واحدة فقط",
+  "v2ProgressEvidenceEmpty": "أكمل فعل اليوم أولاً لتبدأ سجلاً صادقاً.",
+  "v2ProgressEvidenceLimited": "الدليل ما زال محدوداً — فعل مكتمل واحد حتى الآن.",
+  "v2ProgressEvidenceDeveloping": "بدأت ملامح نمط بالظهور. هذه ملاحظة وليست تشخيصاً.",
+  "v2ProgressEvidenceSufficient": "نشاط مكتمل كافٍ لنظرة هادئة إلى الخلف. بلا ادّعاء سبب.",
+  "v2ProgressScoreHeading": "لقطة درجة التعافي",
+  "v2ProgressScoreValue": "التقدير: {value}",
+  "@v2ProgressScoreValue": {
+    "placeholders": {
+      "value": { "type": "String" }
+    }
+  },
+  "v2ProgressScoreUnavailable": "تقدير الدرجة غير متاح بعد على هذا الجهاز",
+  "v2ProgressScoreMeasured": "من فحص الدماغ بتاريخ {day}",
+  "@v2ProgressScoreMeasured": {
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+  "v2ProgressScoreDisclaimer": "إكمال الجلسة اليومية لا يغيّر هذه الدرجة فوراً. تأتي الدرجة من قياس فحص الدماغ، لا من عدّ الجلسات.",
+  "v2ProgressWeeklyReviewHeading": "المراجعة الأسبوعية",
+  "v2ProgressWrNotEnough": "لا يوجد نشاط مكتمل كافٍ بعد للمراجعة الأسبوعية.",
+  "v2ProgressWrCurrentWeek": "هذا الأسبوع ما زال جارياً. تُفتَح المراجعة بعد انتهائه.",
+  "v2ProgressWrAvailable": "المراجعة الأسبوعية متاحة",
+  "v2ProgressWrDraft": "مسودة المراجعة الأسبوعية قيد الإعداد",
+  "v2ProgressWrCompleted": "ملخص الأسبوع متاح",
+  "v2ProgressWrUnsupported": "صيغة هذه المراجعة غير مدعومة في هذا الإصدار.",
+  "v2ProgressWrMissingRefs": "مصادر المراجعة غير جاهزة بعد. تابع عبر اليوم ثم عُد لاحقاً.",
+  "v2ProgressWrError": "تعذّر تجهيز المراجعة الأسبوعية الآن.",
+  "v2ProgressWrCtaStart": "ابدأ المراجعة الأسبوعية",
+  "v2ProgressWrCtaContinue": "متابعة المراجعة الأسبوعية",
+  "v2ProgressWrCtaSummary": "عرض ملخص الأسبوع",
+  "v2ProgressWeeklyPreviewHeading": "أحدث ملخص أسبوعي",
+  "v2ProgressCtaToday": "أكمل فعل اليوم أولاً",
+  "v2ProgressCtaContinueToday": "العودة إلى اليوم",
+  "v2ProgressReportsEntry": "فتح التقارير",
+  "v2ProgressPatternDetails": "تفاصيل النمط",
+  "v2ReportsTitle": "التقارير",
+  "v2ReportsEvidenceOverview": "نظرة عامة على الأدلة",
+  "v2ReportsWeeklyHistory": "السجل الأسبوعي",
+  "v2ReportsWeeklyReport": "تقرير الأسبوع",
+  "v2ReportsMeasurementHistory": "سجل القياسات",
+  "v2ReportsEvidenceStillDeveloping": "ما زالت أدلتك في مرحلة التكوّن",
+  "v2ReportsNotEnoughMeasurements": "لا توجد قياسات كافية للمقارنة بعد",
+  "v2ReportsComparedWithEarlier": "مقارنةً بفحصك السابق",
+  "v2ReportsSelfReportEstimate": "هذا تقدير قائم على إجاباتك الذاتية",
+  "v2ReportsNoCauseFromHistory": "لا يمكن تحديد السبب من هذا السجل",
+  "v2ReportsOrientation": "تجمع التقارير أدلة محلية صادقة من الجلسات المكتملة وملخصات الأسابيع والقياسات الذاتية الصحيحة.",
+  "v2ReportsOrientationNot": "التقارير ليست تشخيصاً، وليست نصيحة طبية، وليست مقارنة مع أشخاص آخرين.",
+  "v2ReportsLoading": "جارٍ تحميل التقارير",
+  "v2ReportsRetry": "إعادة المحاولة",
+  "v2ReportsPersistFailed": "تعذّر تحميل التقارير الآن. حاول مرة أخرى.",
+  "v2ReportsUnsupported": "صيغة هذا التقرير غير مدعومة في هذا الإصدار.",
+  "v2ReportsEmptyBody": "أكمل جلسة اليوم لتبدأ سجلاً محلياً صادقاً. لا يُختلق شيء عندما يكون السجل فارغاً.",
+  "v2ReportsSnapshotMissing": "لقطة التقدّم المحفوظة مفقودة. تُعرض الأعداد المعاد بناؤها من الجلسات المكتملة فقط.",
+  "v2ReportsDepthNoEvidence": "لا توجد أدلة بعد",
+  "v2ReportsDepthEarly": "أدلة مبكرة",
+  "v2ReportsDepthDeveloping": "أدلة قيد التكوّن",
+  "v2ReportsDepthEstablished": "سجل راسخ",
+  "v2ReportsDepthNoEvidenceExplain": "لا توجد جلسات مكتملة مسجّلة بعد.",
+  "v2ReportsDepthDevelopingExplain": "الأيام المكتملة وملخصات الأسابيع تبني سجلاً محلياً أوضح.",
+  "v2ReportsDepthEstablishedExplain": "عدة ملخصات أسبوعية وقياسات تشكّل سجلاً محلياً أطول.",
+  "v2ReportsSessionSummaryHeading": "النشاط المكتمل",
+  "v2ReportsCompletedSessions": "الجلسات المكتملة: {count}",
+  "@v2ReportsCompletedSessions": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ReportsCompletedDays": "الأيام المكتملة: {count}",
+  "@v2ReportsCompletedDays": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ReportsMinimumPath": "المسار الأدنى: {count}",
+  "@v2ReportsMinimumPath": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ReportsStandardPath": "المسار القياسي: {count}",
+  "@v2ReportsStandardPath": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ReportsCurrentRhythm": "الإيقاع الحالي: {count} يوم/أيام",
+  "@v2ReportsCurrentRhythm": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ReportsLongestRhythm": "أطول إيقاع: {count} يوم/أيام",
+  "@v2ReportsLongestRhythm": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ReportsFirstCompleted": "أول يوم مكتمل: {day}",
+  "@v2ReportsFirstCompleted": {
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+  "v2ReportsLastCompleted": "آخر يوم مكتمل: {day}",
+  "@v2ReportsLastCompleted": {
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+  "v2ReportsMeasurementStatusHeading": "حالة سجل القياسات",
+  "v2ReportsMeasurementNone": "لا توجد قياسات صحيحة بعد",
+  "v2ReportsMeasurementNoneBody": "يؤدي إكمال فحص الدماغ إلى إنشاء قياس ذاتي يمكنك مراجعته هنا.",
+  "v2ReportsMeasurementBaseline": "يوجد قياس أساسي واحد مسجّل",
+  "v2ReportsMeasurementComparable": "تتوفر قياسات قابلة للمقارنة",
+  "v2ReportsMeasurementIncompatible": "توجد قياسات لكنها غير قابلة للمقارنة بعد",
+  "v2ReportsMeasurementErrorBody": "تعذّر إعداد سجل القياسات الآن.",
+  "v2ReportsLatestScore": "أحدث تقدير: {value}",
+  "@v2ReportsLatestScore": {
+    "placeholders": {
+      "value": { "type": "String" }
+    }
+  },
+  "v2ReportsNoArtifacts": "لا توجد تقارير أسبوعية بعد",
+  "v2ReportsWeeklyReportPeriod": "الأسبوع {start} – {end}",
+  "@v2ReportsWeeklyReportPeriod": {
+    "placeholders": {
+      "start": { "type": "String" },
+      "end": { "type": "String" }
+    }
+  },
+  "v2ReportsPremiumArchiveHint": "{count} تقرير/تقارير أقدم متاحة مع أرشيف Premium",
+  "@v2ReportsPremiumArchiveHint": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ReportsPremiumGatedTitle": "الأرشيف الأقدم",
+  "v2ReportsPremiumGatedBody": "يبقى أحدث تقرير أسبوعي والتقرير السابق مجانيين. عمق الأرشيف الأقدم جزء من Premium. لا تُخفى الأدلة الحالية.",
+  "v2ReportsArtifactMissing": "تقرير الأسبوع غير موجود",
+  "v2ReportsArtifactMissingBody": "تقرير الأسبوع هذا مفقود أو غير متاح. عد إلى التقارير.",
+  "v2ReportsArtifactUnsupportedBody": "صيغة تقرير الأسبوع هذا غير مدعومة في هذا الإصدار.",
+  "v2ReportsArtifactCorrupt": "تعذّر قراءة تقرير الأسبوع",
+  "v2ReportsArtifactCorruptBody": "يبدو تقرير الأسبوع هذا غير مكتمل. عد إلى التقارير.",
+  "v2ReportsCtaLatestArtifact": "فتح أحدث تقرير أسبوعي",
+  "v2ReportsOpenMeasurementHistory": "فتح سجل القياسات",
+  "v2ReportsCtaToday": "أكمل فعل اليوم أولاً",
+  "v2ReportsBackProgress": "العودة إلى التقدّم",
+  "v2ReportsBackOverview": "العودة إلى التقارير",
+  "v2ReportsComparisonHigher": "تقديرك الذاتي الأخير أعلى من تقديرك السابق.",
+  "v2ReportsComparisonLower": "تقديرك الذاتي الأخير أقل من تقديرك السابق.",
+  "v2ReportsComparisonUnchanged": "تقديرك الذاتي الأخير لم يتغيّر عن تقديرك السابق.",
+  "v2ReportsComparisonNotComparable": "هذه القياسات غير قابلة للمقارنة فيما بينها.",
+  "v2ReportsTooEarlyToInterpret": "قد يكون الوقت مبكراً لتفسير هذا التغيير.",
+  "v2ReportsLowConfidenceQualifier": "أحد القياسات على الأقل يحمل قدراً أكبر من عدم اليقين.",
+  "v2ReportsMeasurementListHeading": "قياساتك",
+  "v2ReportsMeasuredOn": "تاريخ القياس: {day}",
+  "@v2ReportsMeasuredOn": {
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+  "v2ReportsScoreValue": "التقدير: {value}",
+  "@v2ReportsScoreValue": {
+    "placeholders": {
+      "value": { "type": "String" }
+    }
+  },
+  "v2ReportsScoreBand": "النطاق: {band}",
+  "@v2ReportsScoreBand": {
+    "placeholders": {
+      "band": { "type": "String" }
+    }
+  },
+  "v2ReportsScoreConfidence": "الثقة: {confidence}",
+  "@v2ReportsScoreConfidence": {
+    "placeholders": {
+      "confidence": { "type": "String" }
+    }
+  },
+  "v2ReportsMeasurementSemantics": "قياس في {day}، تقدير {score}، ثقة {confidence}",
+  "@v2ReportsMeasurementSemantics": {
+    "placeholders": {
+      "day": { "type": "String" },
+      "score": { "type": "String" },
+      "confidence": { "type": "String" }
+    }
+  },
+  "v2ReportsConfidenceStrong": "قوية",
+  "v2ReportsConfidenceModerate": "متوسطة",
+  "v2ReportsConfidenceProvisional": "أولية",
+  "v2ReportsDomainHistoryHeading": "سجل المجالات",
+  "v2ReportsDomainLatestOnly": "أحدث لقطة للمجالات فقط — لا يوجد سجل مجالات كافٍ للمقارنة بعد.",
+  "v2ReportsDomainRow": "{title}: {value}",
+  "@v2ReportsDomainRow": {
+    "placeholders": {
+      "title": { "type": "String" },
+      "value": { "type": "String" }
+    }
+  },
+  "v2ReportsDomainHistoryRow": "{title} في {day}: {value}",
+  "@v2ReportsDomainHistoryRow": {
+    "placeholders": {
+      "title": { "type": "String" },
+      "day": { "type": "String" },
+      "value": { "type": "String" }
+    }
+  },
+  "v2NavHome": "الرئيسية",
+  "v2NavToday": "اليوم",
+  "v2NavCheck": "فحص الدماغ",
+  "v2NavPlan": "البرنامج",
+  "v2NavProgress": "التقدّم",
+  "v2NavReports": "التقارير",
+  "v2NavProfile": "الملف",
+  "v2NavRecoverHome": "العودة إلى الرئيسية",
+  "v2NavRouteNotFound": "تعذّر العثور على هذه الصفحة",
+  "v2PremiumTitle": "بريميوم",
+  "v2PremiumOrientation": "بريميوم يعمّق الاستمرارية بعد أن تحقق تقدماً ملموساً — ولا يفتح باب التعافي.",
+  "v2PremiumFreeCoreReassurance": "مسارك المجاني الأساسي يبقى متاحاً.",
+  "v2PremiumCurrentProgressRemains": "تقدّمك الحالي يبقى متاحاً.",
+  "v2PremiumFourCapitalsHeading": "ما يضيفه بريميوم",
+  "v2PremiumContinuity": "الاستمرارية",
+  "v2PremiumContinuityBody": "أرشيف أعمق لتقارير الأسبوع والأدلة على المدى الطويل.",
+  "v2PremiumInterpretation": "التفسير",
+  "v2PremiumInterpretationBody": "طبقات سياق حتمية مخطّط لها فقط — دون ادعاءات طبية بالذكاء الاصطناعي. غير مفعّلة بعد.",
+  "v2PremiumFit": "الملاءمة",
+  "v2PremiumFitBody": "عمق تكيّف معتمد مستقبلاً دون تغيير صامت للخطة.",
+  "v2PremiumSupport": "الدعم",
+  "v2PremiumSupportBody": "دعم استمرارية مستقبلي بموجب عقد منفصل — دون حصر الاستجابة العاجلة في بريميوم.",
+  "v2PremiumIncludesNowHeading": "مشمول في بريميوم الآن",
+  "v2PremiumIncludeArchive": "أرشيف التقارير الأقدم بعد أحدث إثبات والإثبات السابق",
+  "v2PremiumIncludeThemes": "ثيمات ألوان حصرية",
+  "v2PremiumIncludeTools": "أدوات مختارة: دائرة الأحاسيس، الصمت، الكلمات المتقاطعة، الألعاب، والاختبار المعرفي",
+  "v2PremiumIncludeChart": "مخطط التقدّم لسبعة أيام",
+  "v2PremiumBenefitsBody": "أحدث إثبات أسبوعي والإثبات السابق يبقيان مجانيين. بريميوم يعمّق الاستمرارية — ولا يفتح باب التعافي.",
+  "v2PremiumViewPlans": "عرض الخطط",
+  "v2PremiumRestorePurchases": "استعادة المشتريات",
+  "v2PremiumPurchaseInProgress": "جارٍ الشراء",
+  "v2PremiumPurchaseCompleted": "اكتمل الشراء",
+  "v2PremiumPurchaseCancelled": "أُلغي الشراء",
+  "v2PremiumPurchaseFailed": "تعذّر الشراء. يمكنك المحاولة مجدداً أو استعادة المشتريات.",
+  "v2PremiumPurchasePending": "الشراء معلّق",
+  "v2PremiumNoPlansAvailable": "لا تتوفر خطط حالياً.",
+  "v2PremiumStoreUnavailable": "المتجر غير متاح",
+  "v2PremiumRestored": "تمت الاستعادة",
+  "v2PremiumNothingToRestore": "لا يوجد ما يُستعاد",
+  "v2PremiumRestoreFailed": "تعذّرت الاستعادة. يمكنك المحاولة لاحقاً.",
+  "v2PremiumRestoring": "جارٍ استعادة المشتريات",
+  "v2PremiumSubscriptionExpired": "انتهى الاشتراك",
+  "v2PremiumDeeperHistory": "سجل أعمق",
+  "v2PremiumOlderArchive": "أرشيف أقدم",
+  "v2PremiumManage": "إدارة بريميوم",
+  "v2PremiumAlreadyActive": "بريميوم مفعّل",
+  "v2PremiumFreeStatus": "أنت على المسار المجاني الأساسي",
+  "v2PremiumLoading": "جارٍ تحميل بريميوم",
+  "v2PremiumPurchaseCta": "المتابعة مع بريميوم",
+  "v2PremiumContinue": "متابعة",
+  "v2PremiumPeriodMonthly": "فوترة شهرية",
+  "v2PremiumPeriodAnnual": "فوترة سنوية",
+  "v2PremiumPeriodLifetime": "مدى الحياة",
+  "v2PremiumTermsLink": "الشروط",
+  "v2PremiumOfflineCached": "بدون اتصال — يُستخدم وضع بريميوم المحفوظ",
+  "v2PremiumOfflineUnknown": "بدون اتصال — حالة بريميوم غير معروفة. الشراء يحتاج اتصالاً.",
+  "v2PremiumUnavailableHere": "لا يُعرض بريميوم على هذه الشاشة.",
+  "v2PremiumOpenFromArchive": "عرض بريميوم للأرشيف الأقدم",
+  "v2ReportsPremiumOpen": "فتح بريميوم",
+  "v2ReportsPremiumRestore": "استعادة المشتريات",
+"v2SafaTitle": "صفا",
+  "v2SafaPurpose": "دعم موجز لمساعدتك على المتابعة بخطوة هادئة واحدة.",
+  "v2SafaAiLimitation": "قد تستخدم صفا خدمة ذكاء اصطناعي عبر الشبكة. ليست رعاية طبية وليست خدمات طوارئ.",
+  "v2SafaPrivacyNotice": "قبل الإرسال: يُرسل فقط ما تكتبه وما تختاره صراحة. يمكنك المتابعة بدون صفا أو الإلغاء.",
+  "v2SafaAcknowledgeNotice": "فهمت",
+  "v2SafaContinueWithout": "المتابعة بدون صفا",
+  "v2SafaConsentBody": "أرسِل فقط رسالتك المكتوبة وأي سياق تختاره. صفا ليست دعمًا طبيًا ولا طوارئ.",
+  "v2SafaConsentAllow": "السماح برد واحد عبر الشبكة",
+  "v2SafaConsentDecline": "استخدم الدعم دون اتصال",
+  "v2SafaContextOptionalHeading": "سياق اختياري (لا شيء محدد مسبقًا)",
+  "v2SafaContextNone": "بدون سياق إضافي",
+  "v2SafaContextDifficult": "لحظة صعبة",
+  "v2SafaContextClarify": "توضيح خطوة",
+  "v2SafaContextContinue": "مساعدة على المتابعة",
+  "v2SafaIncludeApprovedContext": "ضمّن سياقًا قصيرًا أوافق عليه لهذا الإرسال فقط",
+  "v2SafaInputLabel": "رسالتك",
+  "v2SafaInputHint": "اكتب باختصار ما تحتاج المساعدة فيه",
+  "v2SafaSend": "إرسال",
+  "v2SafaSending": "جارٍ الإرسال",
+  "v2SafaResponseHeading": "رد صفا",
+  "v2SafaSuggestedReturn": "العودة إلى حيث توقفت",
+  "v2SafaSuggestedReturnToday": "العودة إلى اليوم",
+  "v2SafaFallbackGrounding": "تهدئة: تنفّس ببطء لدقيقة واحدة",
+  "v2SafaFallbackSimplify": "تبسيط: نفّذ أصغر خطوة تالية فقط",
+  "v2SafaRetry": "إعادة المحاولة",
+  "v2SafaUseLocalFallback": "استخدم الدعم دون اتصال",
+  "v2SafaOffline": "أنت دون اتصال. الدعم دون اتصال متاح.",
+  "v2SafaTimeout": "انتهت مهلة الطلب. الدعم دون اتصال متاح.",
+  "v2SafaServiceUnavailable": "صفا غير متاحة مؤقتًا. الدعم دون اتصال متاح.",
+  "v2SafaInvalidResponse": "تعذّر عرض الرد بأمان. الدعم دون اتصال متاح.",
+  "v2SafaInputTooLong": "يُرجى اختصار رسالتك (الحد الأقصى 500 حرف).",
+  "v2SafaSessionComplete": "وصلت جلسة الدعم هذه إلى حدها. اختر خطوة تالية أو غادر.",
+  "v2SafaClearSession": "مسح هذه الجلسة",
+  "v2SafaReturn": "رجوع",
+  "v2SafaUrgentHelp": "أحتاج مساعدة عاجلة",
+  "v2SafaUrgentBody": "توقف صفا المحادثة هنا. لا تستطيع صفا تقديم رعاية الطوارئ.",
+  "v2SafaUrgentLocalEmergency": "إذا كنت قد تكون في خطر فوري، اتصل بخدمات الطوارئ المحلية. هذا التطبيق لا يحل محلها.",
+  "v2SafaNotMedical": "صفا ليست دعمًا طبيًا ولا طوارئ.",
+  "v2SafaOnlyTypedSent": "يُرسل فقط ما تكتبه وتختاره.",
+  "v2SafaStartLater": "ابدأ جلسة صفا جديدة لاحقًا",
+  "v2SafaLoading": "جارٍ فتح صفا",
+  "v2SafaStateIdle": "جاهز عندما تكون مستعدًا.",
+  "v2SafaStateReady": "يمكنك كتابة رسالة قصيرة.",
+  "v2SafaStateResponseReady": "رد موجز جاهز.",
+  "v2SafaStateLocalFallback": "الدعم دون اتصال ظاهر أدناه.",
+  "v2SafaUserCancelled": "تم الإلغاء. يمكنك الرجوع أو المحاولة لاحقًا.",
+  "v2SafaCleared": "تم مسح الجلسة.",
+  "v2SafaSessionLimit": "جولات الدعم: {used} من {max}",
+  "@v2SafaSessionLimit": {
+    "placeholders": {
+      "used": {"type": "String"},
+      "max": {"type": "String"}
+    }
+  },
+  "v2SafaEntryToday": "اطلب دعم صفا",
+  "v2SafaEntryProfile": "افتح صفا",
+  "v2ProfileTitle": "الملف",
+  "v2ProfileDefaultIdentity": "ملفك",
+  "v2ProfileOrientation": "التفضيلات والخصوصية والضوابط الشخصية — وليس لوحة تقدّم أخرى.",
+  "v2ProfileSectionRecovery": "إعداد التعافي",
+  "v2ProfileBrainProfile": "الملف الدماغي",
+  "v2ProfileBrainProfileLoading": "جارٍ التحقق من تقييمك…",
+  "v2ProfileBrainProfileReady": "عرض أحدث تقييم لديك",
+  "v2ProfileBrainProfileMissing": "أكمل فحص الدماغ لإنشاء هذا",
+  "v2ProfileSectionPreferences": "التفضيلات",
+  "v2ProfilePreferencesRow": "التفضيلات والإعدادات",
+  "v2ProfilePreferencesHint": "المظهر والإشعارات وقفل المقاييس الحيوية والخصوصية والبيانات",
+  "v2ProfileSectionPrivacy": "الخصوصية والبيانات",
+  "v2ProfilePrivacyRow": "ضوابط الخصوصية والبيانات",
+  "v2ProfilePrivacyHint": "مسح البيانات المحلية (يتطلب تأكيداً)",
+  "v2ProfileSectionSubscription": "الاشتراك",
+  "v2ProfileSubscriptionHint": "حالة بريميوم والخطط والاستعادة",
+  "v2ProfileSectionHelp": "المساعدة والدعم",
+  "v2ProfileHelpHint": "دعم موجز لخطوة هادئة تالية",
+  "v2ProfileSectionAbout": "حول التطبيق",
+  "v2ProfileEditNameTitle": "الاسم الظاهر",
+  "v2ProfileEditNameHint": "اختياري — يظهر على هذا الجهاز فقط",
+  "v2ProfileNameSaveFailed": "تعذّر حفظ الاسم. حاول مرة أخرى.",
+  "v2ProfileLegalHint": "يفتح سياسة الخصوصية في المتصفح",
+  "v2ProfileContactHint": "يفتح تطبيق البريد",
+  "settingsOrientation": "المظهر واللغة والإشعارات وحسابك على هذا الجهاز.",
+  "settingsProfileSection": "الملف",
+  "settingsLanguageSection": "اللغة",
+  "settingsLanguageArabic": "العربية",
+  "settingsLanguageEnglish": "English",
+  "settingsLogout": "تسجيل الخروج",
+  "settingsLogoutConfirmTitle": "تسجيل الخروج؟",
+  "settingsLogoutConfirmBody": "ستعود إلى بداية التطبيق. تبقى بيانات التعافي على هذا الجهاز حتى تحذفها.",
+  "settingsDeleteAccount": "حذف الحساب",
+  "settingsDeleteAccountConfirmTitle": "حذف الحساب؟",
+  "settingsDeleteAccountConfirmBody": "سيتم حذف جميع البيانات المحلية على هذا الجهاز نهائياً. لا يمكن التراجع.",
+  "colorThemeMorningDark": "داكن",
+  "colorThemeMorningLight": "فاتح",
+  "settingsThemeDarkSubtitle": "لوحة Morning Light الداكنة",
+  "settingsThemeLightSubtitle": "لوحة Morning Light الفاتحة",
+  "settingsActionFailed": "تعذّر إكمال هذا الإجراء. حاول مرة أخرى."
 }

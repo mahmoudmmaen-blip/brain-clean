@@ -30,6 +30,13 @@ abstract final class HiveBootstrap {
     HiveBoxes.journalSpaces,
     HiveBoxes.goldenMemories,
     HiveBoxes.xpLedger,
+    HiveBoxes.brainCheck,
+    HiveBoxes.brainProfile,
+    HiveBoxes.recoveryPlan,
+    HiveBoxes.v2Onboarding,
+    HiveBoxes.dailySession,
+    HiveBoxes.progress,
+    HiveBoxes.weeklyReview,
   ];
 
   static Future<void> initialize() async {
@@ -41,6 +48,20 @@ abstract final class HiveBootstrap {
     _registerGamificationAdapters();
     _registerProModulesAdapters();
     _initialized = true;
+  }
+
+  /// Clears every opened durable box. Used for confirmed account deletion.
+  static Future<void> clearAllDurableBoxes() async {
+    for (final name in _durableBoxes) {
+      try {
+        if (Hive.isBoxOpen(name)) {
+          await Hive.box<dynamic>(name).clear();
+        }
+      } catch (error, stackTrace) {
+        debugPrint('HiveBootstrap: failed to clear $name: $error');
+        debugPrint('$stackTrace');
+      }
+    }
   }
 
   /// Opens all durable boxes before UI hydration (cold-start safety).

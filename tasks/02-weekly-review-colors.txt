@@ -1,0 +1,16 @@
+﻿Do two things across BOTH files below. Do not touch routing, providers, business logic, or any other file.
+
+Files:
+- lib/features/weekly_review/ui/weekly_review_questions_screen.dart
+- lib/features/weekly_review/ui/weekly_review_summary_screen.dart
+
+PART A — Color consistency fix (same pattern already fixed in plan_reveal_screen.dart, progress_home_screen.dart, v2_profile_home_screen.dart, and settings_screen.dart):
+In both files, replace every occurrence of `theme.colorScheme.onSurfaceVariant` with `AppColors.textSecondary`, `theme.colorScheme.outline` with `AppColors.border`, `theme.colorScheme.onSurface` with `AppColors.textPrimary`, and `theme.colorScheme.surface` (when used for a card/container background, not the Scaffold default) with `AppColors.card`. List any raw hardcoded hex Color(0xFF...) values you find that do not match an AppColors constant instead of guessing what to replace them with. Make sure the app_colors.dart import exists in both files (add if missing).
+
+PART B — Full content dump:
+After Part A's edits, include the FULL raw content of BOTH files in the PR description, each clearly labeled with its path.
+
+PART C — Validation:
+Run flutter analyze (must show "No issues found!") and flutter test (report pass count). Include both outputs in the PR description.
+
+Do not modify any other screen file.

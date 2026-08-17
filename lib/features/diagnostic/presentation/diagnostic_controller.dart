@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../core/constants/app_routes.dart';
 import '../../../core/routing/app_router.dart';
+import '../../../core/routing/startup_destination.dart';
 import '../../cognitive_tests/application/cognitive_test_results_provider.dart';
 import '../../cognitive_tests/domain/cognitive_test_scorer.dart';
 import '../../detox/presentation/detox_protocol_controller.dart';
@@ -29,7 +29,8 @@ DiagnosticModel diagnosticLiveModel(DiagnosticLiveModelRef ref) {
   ref.watch(diagnosticControllerProvider);
   ref.watch(detoxProtocolDataProvider);
   final cognitive = ref.watch(cognitiveTestResultsProvider);
-  final base = ref.read(diagnosticControllerProvider.notifier).computeLiveModel();
+  final base =
+      ref.read(diagnosticControllerProvider.notifier).computeLiveModel();
   return CognitiveTestScorer.applyCognitiveToModel(
     base,
     visualAttention: cognitive.visualAttention,
@@ -115,8 +116,7 @@ class DiagnosticController extends _$DiagnosticController {
       DiagnosticSessionComposer.buildLiveSession(
         metrics: currentMetrics,
         model: computeLiveModel(),
-        questionnaire:
-            questionnaire ?? ref.read(diagnosticSessionFlowProvider),
+        questionnaire: questionnaire ?? ref.read(diagnosticSessionFlowProvider),
         recoveryPenaltyTotal: recoveryPenaltyTotal,
         requireComplete: requireComplete,
       );
@@ -250,7 +250,7 @@ class DiagnosticController extends _$DiagnosticController {
       _invalidateAndResyncDetox();
 
       state = AsyncData(currentMetrics);
-      ref.read(goRouterProvider).go(AppRoutes.home);
+      ref.read(goRouterProvider).go(StartupDestination.resolve());
     } on DiagnosticSyncException catch (error, stackTrace) {
       state = AsyncError<DiagnosticMetrics>(error, stackTrace).copyWithPrevious(
         AsyncData(currentMetrics),

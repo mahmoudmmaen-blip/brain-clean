@@ -27,6 +27,9 @@ abstract final class HiveMetaKeys {
   static const gameBestNBack = 'gameBestNBack';
   static const gameBestSpeedSort = 'gameBestSpeedSort';
 
+  /// Local mirror: last **store-verified** Premium entitlement (not authoritative alone).
+  static const storeVerifiedPremium = 'storeVerifiedPremium';
+
   /// Set to `true` after one-time Hive AES migration ([HiveBootstrap]).
   static const boxesEncryptedV1 = 'boxesEncryptedV1';
 

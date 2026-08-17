@@ -35,11 +35,6 @@ abstract final class AppConfig {
         envKey: 'XP_HMAC_SECRET',
       );
 
-  static String get nvidiaApiKey => _resolve(
-        defineValue: const String.fromEnvironment('NVIDIA_API_KEY'),
-        envKey: 'NVIDIA_API_KEY',
-      );
-
   /// True when both Supabase URL and anon key are non-empty and not placeholders.
   static bool get hasValidSupabaseConfig =>
       supabaseUrl.isNotEmpty && supabaseAnonKey.isNotEmpty;

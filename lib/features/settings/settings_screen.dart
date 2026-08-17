@@ -1,51 +1,208 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hive/hive.dart';
 
 import '../../core/application/app_preferences_provider.dart';
-import '../../core/security/security_status_provider.dart';
+import '../../core/config/app_config.dart';
 import '../../core/constants/app_routes.dart';
 import '../../core/l10n/app_localizations.dart';
-import '../../core/presentation/app_snack_bar.dart';
-import '../../core/presentation/confirm_dialog.dart';
+import '../../core/providers/locale_provider.dart';
+import '../../core/security/security_status_provider.dart';
+import '../../core/services/external_link_service.dart';
 import '../../core/services/smart_notification_service.dart';
-import '../../core/storage/hive_boxes.dart';
+import '../../core/services/weekly_report_service.dart';
+import '../../core/storage/hive_bootstrap.dart';
 import '../../core/theme/app_color_theme.dart';
 import '../../core/theme/app_color_theme_provider.dart';
 import '../../core/theme/app_colors.dart';
+import '../../core/theme/app_design_constants.dart';
+import '../../core/theme/v2_shell_visual.dart';
 import '../pro/application/subscription_service_provider.dart';
 
 const settingsProTileKey = Key('settings_pro_tile');
 const settingsResetKey = Key('settings_reset_data');
+const settingsPrivacyPolicyKey = Key('settings_privacy_policy');
+const settingsContactUsKey = Key('settings_contact_us');
+const settingsLogoutKey = Key('settings_logout');
+const settingsDeleteAccountKey = Key('settings_delete_account');
+const settingsProfileIdentityKey = Key('settings_profile_identity');
+const settingsLanguageArKey = Key('settings_language_ar');
+const settingsLanguageEnKey = Key('settings_language_en');
+
+const double _kGapBeforeFirstSection = AppDesignConstants.v2GapMajor;
+const double _kGapBetweenSections = AppDesignConstants.v2GapSection;
+const double _kGapSectionToRow = AppDesignConstants.v2GapSectionLabel;
+const int _kDisplayNameMaxLength = 40;
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
 
-  Future<void> _confirmReset(BuildContext context, WidgetRef ref) async {
+  Future<bool> _confirmDestructive(
+    BuildContext context, {
+    required String title,
+    required String body,
+  }) async {
     final loc = AppLocalizations.of(context)!;
-    final confirmed = await showConfirmDialog(
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: AppColors.card,
+        title: Text(
+          title,
+          style: const TextStyle(color: AppColors.textPrimary),
+        ),
+        content: Text(
+          body,
+          style: const TextStyle(color: AppColors.textSecondary),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(false),
+            style: TextButton.styleFrom(
+              foregroundColor: AppColors.textSecondary,
+            ),
+            child: Text(loc.commonCancel),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(true),
+            style: TextButton.styleFrom(
+              foregroundColor: AppColors.danger,
+            ),
+            child: Text(loc.commonConfirm),
+          ),
+        ],
+      ),
+    );
+    return confirmed == true;
+  }
+
+  Future<void> _editDisplayName(BuildContext context, WidgetRef ref) async {
+    final loc = AppLocalizations.of(context)!;
+    final current = ref.read(appPreferencesProvider).profileDisplayName.trim();
+    final controller = TextEditingController(text: current);
+    final saved = await showDialog<String>(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          backgroundColor: AppColors.card,
+          title: Text(
+            loc.v2ProfileEditNameTitle,
+            style: const TextStyle(color: AppColors.textPrimary),
+          ),
+          content: TextField(
+            controller: controller,
+            autofocus: true,
+            maxLength: _kDisplayNameMaxLength,
+            textCapitalization: TextCapitalization.words,
+            style: const TextStyle(color: AppColors.textPrimary),
+            decoration: InputDecoration(
+              hintText: loc.v2ProfileEditNameHint,
+              hintStyle: const TextStyle(color: AppColors.textSecondary),
+              counterStyle: const TextStyle(color: AppColors.textSecondary),
+            ),
+            onSubmitted: (value) => Navigator.of(ctx).pop(value),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(),
+              style: TextButton.styleFrom(
+                foregroundColor: AppColors.textSecondary,
+              ),
+              child: Text(loc.commonCancel),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.of(ctx).pop(controller.text),
+              style: V2ShellVisual.primaryFilled(),
+              child: Text(loc.commonConfirm),
+            ),
+          ],
+        );
+      },
+    );
+    controller.dispose();
+    if (saved == null || !context.mounted) return;
+    try {
+      await ref
+          .read(appPreferencesProvider.notifier)
+          .setProfileDisplayName(saved);
+    } catch (_) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(loc.v2ProfileNameSaveFailed)),
+      );
+    }
+  }
+
+  Future<void> _openExternal(
+    BuildContext context,
+    Future<bool> Function() open,
+  ) async {
+    final loc = AppLocalizations.of(context)!;
+    try {
+      final ok = await open();
+      if (!context.mounted || ok) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(loc.settingsLinkUnavailable)),
+      );
+    } catch (_) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(loc.settingsLinkUnavailable)),
+      );
+    }
+  }
+
+  Future<void> _selectLanguage(WidgetRef ref, Locale next) async {
+    try {
+      ref.read(localeProvider.notifier).state = next;
+      await persistLocale(ref, next);
+      ref.read(smartNotificationServiceProvider).rescheduleAll();
+      ref.read(weeklyReportServiceProvider).schedule();
+    } catch (_) {
+      // Locale still updates in memory; persistence is best-effort.
+    }
+  }
+
+  Future<void> _logout(BuildContext context, WidgetRef ref) async {
+    final loc = AppLocalizations.of(context)!;
+    final confirmed = await _confirmDestructive(
       context,
-      title: loc.settingsResetDataConfirmTitle,
-      message: loc.settingsResetDataConfirmBody,
-      confirmLabel: loc.commonConfirm,
-      cancelLabel: loc.commonCancel,
-      destructive: true,
+      title: loc.settingsLogoutConfirmTitle,
+      body: loc.settingsLogoutConfirmBody,
     );
     if (!confirmed || !context.mounted) return;
-
-    for (final name in [
-      HiveBoxes.recoveryProtocol,
-      HiveBoxes.diagnosticPersistence,
-      HiveBoxes.emotionLog,
-      HiveBoxes.dailySnapshots,
-      HiveBoxes.appMeta,
-    ]) {
-      if (Hive.isBoxOpen(name)) {
-        await Hive.box(name).clear();
-      }
+    try {
+      await ref
+          .read(appPreferencesProvider.notifier)
+          .markOnboardingIncomplete();
+    } catch (_) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(loc.settingsActionFailed)),
+      );
+      return;
     }
-    ref.invalidate(appPreferencesProvider);
+    if (context.mounted) context.go(AppRoutes.splash);
+  }
+
+  Future<void> _deleteAccount(BuildContext context, WidgetRef ref) async {
+    final loc = AppLocalizations.of(context)!;
+    final confirmed = await _confirmDestructive(
+      context,
+      title: loc.settingsDeleteAccountConfirmTitle,
+      body: loc.settingsDeleteAccountConfirmBody,
+    );
+    if (!confirmed || !context.mounted) return;
+    try {
+      await HiveBootstrap.clearAllDurableBoxes();
+      ref.invalidate(appPreferencesProvider);
+    } catch (_) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(loc.settingsActionFailed)),
+      );
+      return;
+    }
     if (context.mounted) context.go(AppRoutes.splash);
   }
 
@@ -54,114 +211,302 @@ class SettingsScreen extends ConsumerWidget {
     final loc = AppLocalizations.of(context)!;
     final prefs = ref.watch(appPreferencesProvider);
     final isPro = ref.watch(isProUserProvider);
+    final locale = ref.watch(localeProvider);
+    final selectedTheme = ref.watch(selectedColorThemeProvider);
+    final stored = prefs.profileDisplayName.trim();
+    final displayName =
+        stored.isEmpty ? loc.v2ProfileDefaultIdentity : stored;
 
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: AppColors.background,
-        title: Text(loc.settingsTitle,
-            style: const TextStyle(color: AppColors.textPrimary)),
-        iconTheme: const IconThemeData(color: AppColors.textSecondary),
+        foregroundColor: AppColors.textPrimary,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
       ),
-      body: ListView(
-        children: [
-          _SectionHeader(loc.settingsAccountSection),
-          ListTile(
-            key: settingsProTileKey,
-            title: Text(
-              isPro ? loc.settingsProActive : loc.settingsUpgradeToPro,
-              style: TextStyle(
-                color: isPro
-                    ? AppColors.primary
-                    : AppColors.textPrimary,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            trailing: isPro
-                ? null
-                : const Icon(Icons.chevron_left, color: AppColors.textSecondary),
-            onTap: isPro ? null : () => context.push(AppRoutes.proPaywall),
+      body: SafeArea(
+        child: SettingsHomeBody(
+          loc: loc,
+          displayName: displayName,
+          isPro: isPro,
+          locale: locale,
+          selectedTheme: selectedTheme,
+          emotionNotificationsEnabled: prefs.emotionNotificationsEnabled,
+          dailyFocusReminderEnabled: prefs.dailyFocusReminderEnabled,
+          biometricLockEnabled: ref.watch(biometricLockSettingsProvider),
+          appVersion: AppConfig.appVersion,
+          onEditDisplayName: () => _editDisplayName(context, ref),
+          onOpenPremium: () => context.push(
+            isPro
+                ? AppRoutes.v2PremiumStatusWithSource('settings')
+                : AppRoutes.v2PremiumWithSource('settings'),
           ),
-          const Divider(color: AppColors.border),
-          _SectionHeader(loc.settingsAppearanceSection),
-          _ColorThemeSection(isPro: isPro),
-          const Divider(color: AppColors.border),
-          _SectionHeader(loc.settingsNotificationsSection),
-          SwitchListTile(
-            title: Text(loc.settingsEmotionNotifications,
-                style: const TextStyle(color: AppColors.textPrimary)),
-            value: prefs.emotionNotificationsEnabled,
-            activeThumbColor: AppColors.primary,
-            onChanged: (v) async {
+          onSelectLanguage: (next) => _selectLanguage(ref, next),
+          onSelectTheme: (theme) async {
+            try {
+              await ref
+                  .read(selectedColorThemeProvider.notifier)
+                  .select(theme);
+            } catch (_) {}
+          },
+          onEmotionNotificationsChanged: (v) async {
+            try {
               await ref
                   .read(appPreferencesProvider.notifier)
                   .setEmotionNotifications(v);
-              await ref.read(smartNotificationServiceProvider).rescheduleAll();
-            },
-          ),
-          SwitchListTile(
-            title: Text(loc.settingsDailyFocusReminder,
-                style: const TextStyle(color: AppColors.textPrimary)),
-            value: prefs.dailyFocusReminderEnabled,
-            activeThumbColor: AppColors.primary,
-            onChanged: (v) async {
+              await ref
+                  .read(smartNotificationServiceProvider)
+                  .rescheduleAll();
+            } catch (_) {}
+          },
+          onDailyFocusReminderChanged: (v) async {
+            try {
               await ref
                   .read(appPreferencesProvider.notifier)
                   .setDailyFocusReminder(v);
-              await ref.read(smartNotificationServiceProvider).rescheduleAll();
-            },
-          ),
-          const Divider(color: AppColors.border),
-          _SectionHeader(loc.settingsSecuritySection),
-          SwitchListTile(
-            title: Text(loc.settingsBiometricLock,
-                style: const TextStyle(color: AppColors.textPrimary)),
-            subtitle: Text(loc.settingsBiometricLockSubtitle,
-                style: const TextStyle(
-                    color: AppColors.textSecondary, fontSize: 12)),
-            value: ref.watch(biometricLockSettingsProvider),
-            activeThumbColor: AppColors.primary,
-            onChanged: (enabled) async {
+              await ref
+                  .read(smartNotificationServiceProvider)
+                  .rescheduleAll();
+            } catch (_) {}
+          },
+          onBiometricLockChanged: (enabled) async {
+            try {
               final ok = await ref
                   .read(biometricLockSettingsProvider.notifier)
                   .setEnabled(enabled);
               if (!ok && context.mounted) {
-                showAppSnackBar(context, loc.settingsBiometricUnavailable);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(loc.settingsBiometricUnavailable)),
+                );
               }
-            },
+            } catch (_) {
+              if (!context.mounted) return;
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(loc.settingsBiometricUnavailable)),
+              );
+            }
+          },
+          onLogout: () => _logout(context, ref),
+          onDeleteAccount: () => _deleteAccount(context, ref),
+          onOpenPrivacyPolicy: () => _openExternal(
+            context,
+            externalLinkService.openPrivacyPolicy,
           ),
-          const Divider(color: AppColors.border),
-          _SectionHeader(loc.settingsDataSection),
-          ListTile(
-            key: settingsResetKey,
-            title: Text(loc.settingsResetData,
-                style: const TextStyle(color: AppColors.danger)),
-            onTap: () => _confirmReset(context, ref),
+          onOpenContact: () => _openExternal(
+            context,
+            externalLinkService.openContactEmail,
           ),
-          ListTile(
-            title: Text(loc.settingsExportData,
-                style: const TextStyle(color: AppColors.textPrimary)),
-            onTap: () {
-              showAppSnackBar(context, loc.settingsComingSoon);
-            },
+        ),
+      ),
+    );
+  }
+}
+
+@visibleForTesting
+class SettingsHomeBody extends StatelessWidget {
+  const SettingsHomeBody({
+    super.key,
+    required this.loc,
+    required this.displayName,
+    required this.isPro,
+    required this.locale,
+    required this.selectedTheme,
+    required this.emotionNotificationsEnabled,
+    required this.dailyFocusReminderEnabled,
+    required this.biometricLockEnabled,
+    required this.appVersion,
+    required this.onEditDisplayName,
+    required this.onOpenPremium,
+    required this.onSelectLanguage,
+    required this.onSelectTheme,
+    required this.onEmotionNotificationsChanged,
+    required this.onDailyFocusReminderChanged,
+    required this.onBiometricLockChanged,
+    required this.onLogout,
+    required this.onDeleteAccount,
+    required this.onOpenPrivacyPolicy,
+    required this.onOpenContact,
+  });
+
+  final AppLocalizations loc;
+  final String displayName;
+  final bool isPro;
+  final Locale locale;
+  final AppColorTheme selectedTheme;
+  final bool emotionNotificationsEnabled;
+  final bool dailyFocusReminderEnabled;
+  final bool biometricLockEnabled;
+  final String appVersion;
+  final VoidCallback onEditDisplayName;
+  final VoidCallback onOpenPremium;
+  final ValueChanged<Locale> onSelectLanguage;
+  final ValueChanged<AppColorTheme> onSelectTheme;
+  final ValueChanged<bool> onEmotionNotificationsChanged;
+  final ValueChanged<bool> onDailyFocusReminderChanged;
+  final ValueChanged<bool> onBiometricLockChanged;
+  final VoidCallback onLogout;
+  final VoidCallback onDeleteAccount;
+  final VoidCallback onOpenPrivacyPolicy;
+  final VoidCallback onOpenContact;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      padding: V2ShellVisual.pagePadding(top: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          V2PageHeader(
+            title: loc.settingsTitle,
+            subtitle: loc.settingsOrientation,
           ),
-          const Divider(color: AppColors.border),
-          _SectionHeader(loc.settingsAboutSection),
-          ListTile(
-            title: Text(loc.settingsVersion,
-                style: const TextStyle(color: AppColors.textPrimary)),
-            trailing: const Text('1.0.0',
-                style: TextStyle(color: AppColors.textSecondary)),
+          const SizedBox(height: _kGapBeforeFirstSection),
+          V2SectionLabel(loc.settingsProfileSection),
+          const SizedBox(height: _kGapSectionToRow),
+          V2SettingsGroup(
+            children: [
+              V2SettingsRow(
+                key: settingsProfileIdentityKey,
+                title: displayName,
+                subtitle: loc.v2ProfileEditNameHint,
+                onTap: onEditDisplayName,
+                trailing: Icon(
+                  Icons.edit_outlined,
+                  size: 20,
+                  color: AppColors.textSecondary.withValues(alpha: 0.85),
+                ),
+              ),
+              V2SettingsRow(
+                key: settingsProTileKey,
+                title: isPro
+                    ? loc.settingsProActive
+                    : loc.settingsUpgradeToPro,
+                subtitle: isPro
+                    ? loc.v2PremiumAlreadyActive
+                    : loc.v2PremiumFreeStatus,
+                onTap: onOpenPremium,
+              ),
+            ],
           ),
-          ListTile(
-            title: Text(loc.settingsPrivacyPolicy,
-                style: const TextStyle(color: AppColors.textPrimary)),
-            onTap: () {},
+          const SizedBox(height: _kGapBetweenSections),
+          V2SectionLabel(loc.settingsNotificationsSection),
+          const SizedBox(height: _kGapSectionToRow),
+          V2SettingsGroup(
+            children: [
+              V2SettingsSwitchRow(
+                title: loc.settingsEmotionNotifications,
+                value: emotionNotificationsEnabled,
+                onChanged: onEmotionNotificationsChanged,
+              ),
+              V2SettingsSwitchRow(
+                title: loc.settingsDailyFocusReminder,
+                value: dailyFocusReminderEnabled,
+                onChanged: onDailyFocusReminderChanged,
+              ),
+            ],
           ),
-          ListTile(
-            title: Text(loc.settingsContactUs,
-                style: const TextStyle(color: AppColors.textPrimary)),
-            onTap: () {},
+          const SizedBox(height: _kGapBetweenSections),
+          V2SectionLabel(loc.settingsAppearanceSection),
+          const SizedBox(height: _kGapSectionToRow),
+          V2SettingsGroup(
+            children: [
+              _ThemeChoiceRow(
+                theme: AppColorTheme.dark,
+                label: loc.colorThemeMorningDark,
+                subtitle: loc.settingsThemeDarkSubtitle,
+                selected: selectedTheme == AppColorTheme.dark,
+                onTap: () => onSelectTheme(AppColorTheme.dark),
+              ),
+              _ThemeChoiceRow(
+                theme: AppColorTheme.light,
+                label: loc.colorThemeMorningLight,
+                subtitle: loc.settingsThemeLightSubtitle,
+                selected: selectedTheme == AppColorTheme.light,
+                onTap: () => onSelectTheme(AppColorTheme.light),
+              ),
+            ],
+          ),
+          const SizedBox(height: _kGapBetweenSections),
+          V2SectionLabel(loc.settingsLanguageSection),
+          const SizedBox(height: _kGapSectionToRow),
+          V2SettingsGroup(
+            children: [
+              V2SettingsRow(
+                key: settingsLanguageArKey,
+                title: loc.settingsLanguageArabic,
+                showChevron: false,
+                onTap: () => onSelectLanguage(const Locale('ar')),
+                trailing: _SelectedMark(selected: locale.languageCode == 'ar'),
+              ),
+              V2SettingsRow(
+                key: settingsLanguageEnKey,
+                title: loc.settingsLanguageEnglish,
+                showChevron: false,
+                onTap: () => onSelectLanguage(const Locale('en')),
+                trailing: _SelectedMark(selected: locale.languageCode == 'en'),
+              ),
+            ],
+          ),
+          const SizedBox(height: _kGapBetweenSections),
+          V2SectionLabel(loc.settingsSecuritySection),
+          const SizedBox(height: _kGapSectionToRow),
+          V2SettingsGroup(
+            children: [
+              V2SettingsSwitchRow(
+                title: loc.settingsBiometricLock,
+                subtitle: loc.settingsBiometricLockSubtitle,
+                value: biometricLockEnabled,
+                onChanged: onBiometricLockChanged,
+              ),
+            ],
+          ),
+          const SizedBox(height: _kGapBetweenSections),
+          V2SectionLabel(loc.settingsAccountSection),
+          const SizedBox(height: _kGapSectionToRow),
+          V2SettingsGroup(
+            children: [
+              V2SettingsRow(
+                key: settingsLogoutKey,
+                title: loc.settingsLogout,
+                onTap: onLogout,
+              ),
+              KeyedSubtree(
+                key: settingsResetKey,
+                child: V2SettingsRow(
+                  key: settingsDeleteAccountKey,
+                  title: loc.settingsDeleteAccount,
+                  subtitle: loc.settingsDeleteAccountConfirmBody,
+                  destructive: true,
+                  onTap: onDeleteAccount,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: _kGapBetweenSections),
+          V2SectionLabel(loc.settingsAboutSection),
+          const SizedBox(height: _kGapSectionToRow),
+          V2SettingsGroup(
+            children: [
+              V2SettingsRow(
+                title: loc.settingsVersion,
+                subtitle: appVersion,
+                showChevron: false,
+              ),
+              V2SettingsRow(
+                key: settingsPrivacyPolicyKey,
+                title: loc.settingsPrivacyPolicy,
+                subtitle: loc.v2ProfileLegalHint,
+                onTap: onOpenPrivacyPolicy,
+              ),
+              V2SettingsRow(
+                key: settingsContactUsKey,
+                title: loc.settingsContactUs,
+                subtitle: loc.v2ProfileContactHint,
+                onTap: onOpenContact,
+              ),
+            ],
           ),
         ],
       ),
@@ -169,139 +514,69 @@ class SettingsScreen extends ConsumerWidget {
   }
 }
 
-class _SectionHeader extends StatelessWidget {
-  const _SectionHeader(this.label);
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-      child: Text(label,
-          style: const TextStyle(
-              color: AppColors.textSecondary,
-              fontSize: 13,
-              fontWeight: FontWeight.w600)),
-    );
-  }
-}
-
-String _colorThemeName(AppLocalizations loc, AppColorTheme theme) {
-  return switch (theme) {
-    AppColorTheme.midnight => loc.colorThemeMidnightName,
-    AppColorTheme.aurora => loc.colorThemeAuroraName,
-    AppColorTheme.pine => loc.colorThemePineName,
-    AppColorTheme.solar => loc.colorThemeSolarName,
-    AppColorTheme.slate => loc.colorThemeSlateName,
-    AppColorTheme.daylight => loc.colorThemeDaylightName,
-  };
-}
-
-class _ColorThemeSection extends ConsumerWidget {
-  const _ColorThemeSection({required this.isPro});
-  final bool isPro;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final loc = AppLocalizations.of(context)!;
-    final selected = ref.watch(selectedColorThemeProvider);
-
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-      child: Wrap(
-        spacing: 18,
-        runSpacing: 16,
-        children: AppColorTheme.values.map((themeDef) {
-          final locked = themeDef.isPro && !isPro;
-          return _ColorThemeSwatch(
-            key: Key('color_theme_swatch_${themeDef.name}'),
-            theme: themeDef,
-            label: _colorThemeName(loc, themeDef),
-            locked: locked,
-            selected: themeDef == selected,
-            onTap: () {
-              if (locked) {
-                context.push(AppRoutes.proPaywall);
-              } else {
-                ref
-                    .read(selectedColorThemeProvider.notifier)
-                    .select(themeDef);
-              }
-            },
-          );
-        }).toList(),
-      ),
-    );
-  }
-}
-
-class _ColorThemeSwatch extends StatelessWidget {
-  const _ColorThemeSwatch({
-    super.key,
+class _ThemeChoiceRow extends StatelessWidget {
+  const _ThemeChoiceRow({
     required this.theme,
     required this.label,
-    required this.locked,
+    required this.subtitle,
     required this.selected,
     required this.onTap,
   });
 
   final AppColorTheme theme;
   final String label;
-  final bool locked;
+  final String subtitle;
   final bool selected;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Semantics(
-      label: label,
-      selected: selected,
-      button: true,
-      child: GestureDetector(
-        onTap: onTap,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                Container(
-                  width: 44,
-                  height: 44,
-                  decoration: BoxDecoration(
-                    color: theme.accent,
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color:
-                          selected ? Colors.white : Colors.transparent,
-                      width: 2.5,
-                    ),
-                  ),
-                  child: selected
-                      ? const Icon(Icons.check,
-                          color: Colors.white, size: 20)
-                      : null,
-                ),
-                if (locked)
-                  Container(
-                    width: 44,
-                    height: 44,
-                    decoration: BoxDecoration(
-                      color: Colors.black.withValues(alpha: 0.45),
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(Icons.lock,
-                        color: Colors.white, size: 18),
-                  ),
-              ],
+    final preview = theme == AppColorTheme.dark
+        ? AppColors.background
+        : AppColors.backgroundLight;
+    final checkColor = theme == AppColorTheme.dark
+        ? AppColors.textPrimary
+        : AppColors.textPrimaryLight;
+    return V2SettingsRow(
+      title: label,
+      subtitle: subtitle,
+      showChevron: false,
+      onTap: onTap,
+      trailing: Semantics(
+        label: label,
+        selected: selected,
+        button: true,
+        child: Container(
+          key: Key('color_theme_swatch_${theme.name}'),
+          width: 44,
+          height: 44,
+          decoration: BoxDecoration(
+            color: preview,
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: selected ? AppColors.primary : AppColors.border,
+              width: selected ? 2.5 : 1.5,
             ),
-            const SizedBox(height: 6),
-            Text(label,
-                style: const TextStyle(
-                    color: AppColors.textSecondary, fontSize: 12)),
-          ],
+          ),
+          child: selected
+              ? Icon(Icons.check, color: checkColor, size: 20)
+              : null,
         ),
       ),
+    );
+  }
+}
+
+class _SelectedMark extends StatelessWidget {
+  const _SelectedMark({required this.selected});
+
+  final bool selected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Icon(
+      selected ? Icons.check_circle : Icons.circle_outlined,
+      color: selected ? AppColors.primary : AppColors.border,
     );
   }
 }

@@ -6,7 +6,7 @@
 - BCI Score (Brain Clarity Index): 60% Assessment + 40% Adherence
 - 30-Day Recovery Challenge
 - Pomodoro & Focus Tools
-- AI Coach: Safa (powered by NVIDIA AI)
+- AI Coach: Safa (Claude via secure Edge Function)
 - Cognitive Tests (Visual + Memory)
 - 6 Color Themes (2 free, 4 Pro)
 - XP Gamification (10 Arabic levels, 0–10,000 XP)

@@ -325,6 +325,7 @@
   "settingsResetDataConfirmBody": "All local data will be deleted. Are you sure?",
   "settingsExportData": "Export my data",
   "settingsComingSoon": "Coming soon…",
+  "settingsLinkUnavailable": "Could not open this link on this device.",
   "settingsAboutSection": "About",
   "settingsVersion": "Version",
   "settingsPrivacyPolicy": "Privacy policy",
@@ -654,5 +655,910 @@
   "biometricLockTitle": "App locked",
   "biometricLockSubtitle": "Use your fingerprint or device PIN to continue",
   "biometricLockButton": "Unlock Brain Clean",
-  "securityCompromisedBanner": "Warning: this device may be compromised. Local data only — cloud sync is disabled."
+  "securityCompromisedBanner": "Warning: this device may be compromised. Local data only — cloud sync is disabled.",
+  "brainCheckTitle": "Brain Check",
+  "brainCheckIntroNonMedical": "This is a self-check, not a medical diagnosis.",
+  "brainCheckStart": "Start Brain Check",
+  "brainCheckContinue": "Continue",
+  "brainCheckStartOver": "Start over",
+  "brainCheckEmptyState": "Start Brain Check to build your profile.",
+  "brainCheckQuestionProgress": "Question {current} of {total}",
+  "@brainCheckQuestionProgress": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "brainCheckSectionProgress": "Part {current} of {total}",
+  "@brainCheckSectionProgress": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "brainCheckComplete": "Check complete",
+  "brainCheckResumeTitle": "Continue your Brain Check?",
+  "brainCheckSaveError": "Could not save your answers. They are still on this screen.",
+  "brainCheckLoading": "Loading Brain Check…",
+  "brainCheckExit": "Exit Brain Check",
+  "brainCheckBack": "Back",
+  "brainCheckSaving": "Saving…",
+  "brainCheckFinish": "Finish check",
+  "brainCheckSelectAnswerHint": "Choose an answer to continue.",
+  "brainCheckAutosaveHint": "Your answers save on this device as you go.",
+  "brainCheckAnswerChoices": "Answer choices",
+  "brainCheckAnswerSelected": "Selected",
+  "brainCheckAnswerUnselected": "Not selected",
+  "brainCheckAnswerYes": "Yes",
+  "brainCheckAnswerNo": "No",
+  "brainCheckLikert1": "Strongly disagree",
+  "brainCheckLikert2": "Disagree",
+  "brainCheckLikert3": "Neutral",
+  "brainCheckLikert4": "Agree",
+  "brainCheckLikert5": "Strongly agree",
+  "brainCheckFrequency1": "Never",
+  "brainCheckFrequency2": "Rarely",
+  "brainCheckFrequency3": "Sometimes",
+  "brainCheckFrequency4": "Often",
+  "brainCheckFrequency5": "Very often",
+  "brainCheckBreakTitle": "A short pause",
+  "brainCheckBreakBody": "Next: {sectionTitle}",
+  "@brainCheckBreakBody": {
+    "placeholders": {
+      "sectionTitle": { "type": "String" }
+    }
+  },
+  "brainCheckCompletionBody": "Thanks for finishing this self-report. Your check is ready to save on this device.",
+  "brainCheckConfigError": "Brain Check questions are unavailable right now.",
+  "brainCheckRestartTitle": "Start over?",
+  "brainCheckRestartBody": "This clears your unfinished Brain Check answers on this device. Onboarding progress and past completed profiles stay untouched.",
+  "brainCheckRestartCancel": "Keep going",
+  "brainCheckRestartConfirm": "Start over",
+  "brainCheckCompleteBoundaryTitle": "Brain Check saved",
+  "brainCheckCompleteBoundaryBody": "Your self-report is stored on this device. Continue to build your Brain Profile snapshot.",
+  "brainCheckCompleteBoundaryContinue": "Build Brain Profile",
+  "brainProfileTitle": "Brain Profile",
+  "brainProfileBuilding": "Building your Brain Profile…",
+  "brainProfileLoading": "Loading Brain Profile",
+  "brainProfileMissing": "No Brain Profile yet",
+  "brainProfileEmptyHint": "Complete a Brain Check to create your first snapshot.",
+  "brainProfileUnavailable": "Profile calculation is unavailable right now.",
+  "brainProfileRetry": "Try again",
+  "brainProfileGoHome": "Back to Home",
+  "brainProfileOrientation": "A calm look at your snapshot",
+  "brainProfileScoreHeading": "Recovery Score estimate",
+  "brainProfileScorePendingLabel": "Estimate pending",
+  "brainProfileScorePendingSemantics": "Recovery Score estimate is pending. Domain summaries are available from your answers.",
+  "brainProfileScoreSemantics": "Recovery Score estimate: {value}",
+  "@brainProfileScoreSemantics": {
+    "placeholders": {
+      "value": { "type": "String" }
+    }
+  },
+  "brainProfileConfidenceHeading": "Confidence",
+  "brainProfileConfidenceProvisional": "Provisional",
+  "brainProfileConfidenceModerate": "Moderate",
+  "brainProfileConfidenceSolid": "Strong",
+  "brainProfileBandHeading": "Current band",
+  "brainProfileBandMeaning": "A calm product label for this self-report estimate — not a clinical severity.",
+  "brainProfileMeansHeading": "What this means",
+  "brainProfileMeansBody": "This is a self-reported starting snapshot. It highlights stronger reported areas and current support priorities based on your Brain Check answers.",
+  "brainProfileDoesNotMeanHeading": "What this does not mean",
+  "brainProfileScoreUnavailableLabel": "Estimate unavailable",
+  "brainProfileScoreUnavailableSemantics": "Recovery Score estimate is unavailable. No number is shown.",
+  "brainProfileScoreUnavailableBody": "A Recovery Score could not be estimated from this check. Your answers remain saved. Complete a valid Brain Check to continue to a Recovery Plan.",
+  "brainProfileContinueUnavailable": "A Recovery Plan needs a valid Recovery Score estimate.",
+  "brainProfileMissingEvent": "Complete a Brain Check first.",
+  "brainProfileBuildingHint": "Preparing your self-report snapshot on this device…",
+  "brainProfileDomainEstimateHeading": "Current estimate",
+  "brainProfileDomainStrongerLabel": "Stronger reported area",
+  "brainProfileDomainSupportLabel": "Current support priority",
+  "brainProfileDomainNeutralLabel": "Based on your current answers",
+  "brainProfileDomainBasedOnAnswers": "Based on themes from your current Brain Check answers — not raw scores.",
+  "brainProfileDomainNonMedical": "Not a medical diagnosis. Not brain-damage detection. Not an intelligence score.",
+  "brainProfileDomainPlanPreviewHint": "A gentle Recovery Plan step may focus here next — that comes after you continue.",
+  "brainProfileDomainsHeading": "Domain summary",
+  "brainProfileDomainNoData": "No answers in this area yet",
+  "brainProfileDomainMean": "Reported average: {value}",
+  "@brainProfileDomainMean": {
+    "placeholders": {
+      "value": { "type": "String" }
+    }
+  },
+  "brainProfileDomainClose": "Close",
+  "brainProfileExplainHeading": "What this means",
+  "brainProfileContinue": "Continue to Recovery Plan",
+  "brainProfileReadyTitle": "Your Brain Profile is ready",
+  "brainProfileReadyBody": "Your Recovery Plan is the next calm step when you continue from your Profile.",
+  "brainProfileHistoricalBadge": "Earlier snapshot",
+  "recoveryPlanTitle": "Recovery Plan",
+  "recoveryPlanBuilding": "Building your Recovery Plan…",
+  "recoveryPlanLoading": "Loading Recovery Plan",
+  "recoveryPlanReady": "Your Recovery Plan is ready",
+  "recoveryPlanStarterReady": "A calm starter plan is ready",
+  "recoveryPlanMissing": "No Recovery Plan yet",
+  "recoveryPlanMissingProfile": "Complete a Brain Check and Brain Profile first.",
+  "recoveryPlanScoreUnavailable": "A full plan needs a valid Recovery Score estimate. A starter plan may still be available.",
+  "recoveryPlanUnsupportedVersion": "This plan model is not supported on this version.",
+  "recoveryPlanGenerationError": "Could not build your plan right now. Try again.",
+  "recoveryPlanRetry": "Try again",
+  "recoveryPlanGoHome": "Back to Home",
+  "recoveryPlanBuildCta": "Build Recovery Plan",
+  "recoveryPlanMainFocus": "Main focus",
+  "recoveryPlanPrioritiesHeading": "Priority support",
+  "recoveryPlanNoPriorities": "No priority domains in this starter plan",
+  "recoveryPlanStrongerHeading": "Already helping",
+  "recoveryPlanConfidenceHeading": "Confidence",
+  "recoveryPlanTimeHeading": "Daily time",
+  "recoveryPlanTimeRange": "About {min}–{max} minutes",
+  "@recoveryPlanTimeRange": {
+    "placeholders": {
+      "min": { "type": "String" },
+      "max": { "type": "String" }
+    }
+  },
+  "recoveryPlanIntensityLabel": "Intensity",
+  "recoveryPlanMinimumPath": "Minimum path",
+  "recoveryPlanStandardPath": "Standard path",
+  "recoveryPlanBecauseHeading": "Why this plan today",
+  "recoveryPlanTodayPreview": "Today preview",
+  "recoveryPlanContinueToday": "Continue to Today",
+  "recoveryPlanSkipHint": "Skipping a step never counts as a penalty.",
+  "recoveryPlanOptionalTag": "optional",
+  "recoveryPlanNoSteps": "No steps listed",
+  "recoveryPlanStarterBadge": "Starter plan",
+  "recoveryPlanTodayReadyTitle": "Today is ready to begin",
+  "recoveryPlanTodayReadyBody": "Your daily session player arrives in a later step. Your Recovery Plan is saved on this device.",
+  "recoveryPlanCalmOrientation": "Your Recovery Plan",
+  "recoveryPlanCalmOrientationBody": "This plan is a practical estimate based on your current Brain Profile. It is not a diagnosis or treatment. You can adjust it later.",
+  "recoveryPlanFitsProfile": "It matches the priorities in your current profile estimate.",
+  "recoveryPlanTodayFitHeading": "How today fits",
+  "recoveryPlanOpenToday": "Open Today",
+  "recoveryPlanAboutDetails": "Why this plan",
+  "recoveryPlanPathDetails": "Path details",
+  "recoveryPlanStepCount": "{count} steps",
+  "@recoveryPlanStepCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "v2TodayPreviewTitle": "Your first Today",
+  "v2TodayPreviewLoading": "Loading Today preview",
+  "v2TodayPreviewHeading": "Today preview",
+  "v2TodayPreviewOrientation": "Your day starts with one clear step. Completing it later will mark the day on your plan.",
+  "v2TodayPreviewActHeading": "First step",
+  "v2TodayPreviewFallbackTitle": "Today’s practice",
+  "v2TodayPreviewBecauseHeading": "Why this step today",
+  "v2TodayPreviewCompletionMeaning": "Finishing this step later will count as your day done. Skipping stays allowed with no penalty.",
+  "v2TodayPreviewContinueCta": "Continue — first step ready",
+  "v2TodayPreviewMissingAct": "Today’s step is not available yet. Rebuild your Recovery Plan.",
+  "v2TodayReadyLoading": "Preparing your first step",
+  "v2TodayReadyFirstStepTitle": "Your first step is ready",
+  "v2TodayReadyFirstStepBody": "Your Recovery Plan is saved. Open Today to begin your first daily session when you are ready. You can leave and return without losing progress.",
+  "v2TodayReadyJourneySaved": "First-time setup is complete on this device.",
+  "v2TodayReadyProgressSaved": "Your progress is saved on this device.",
+  "v2TodayReadyPrimaryCta": "Open Today",
+  "v2TodayReadyReviewPreview": "Review Today preview",
+  "v2TodayReadyCorruptPlan": "This plan could not be read safely. Rebuild it calmly when you are ready.",
+  "v2TodayReadyPersistFailed": "Could not save progress right now. Try again.",
+  "v2TodayHomeTitle": "Today",
+  "v2TodayHomeLoading": "Loading Today",
+  "v2TodayHomeOrientation": "Your day",
+  "v2TodayHomeOrientationBody": "One clear action from your Recovery Plan. Nothing extra.",
+  "v2TodayHomeStandardPathHint": "The standard path adds approved optional depth when you want it.",
+  "v2TodayHomeStatusHeading": "Status",
+  "v2TodayHomeStatusReady": "Ready when you are",
+  "v2TodayHomeStatusInProgress": "Session in progress",
+  "v2TodayHomeStatusReflect": "Almost done — finish check-in",
+  "v2TodayHomeStatusDone": "Done for today",
+  "v2TodayHomeStatusPartial": "Attempt saved — no penalty",
+  "v2TodayHomeCtaStart": "Start today’s session",
+  "v2TodayHomeCtaContinue": "Continue session",
+  "v2TodayHomeCtaViewCompleted": "View completed session",
+  "v2TodayHomeViewPlan": "View Recovery Plan",
+  "v2SessionPrepareTitle": "Prepare",
+  "v2SessionPreparePurpose": "A short guided practice from your plan.",
+  "v2SessionPrepareIncludes": "This session includes:",
+  "v2SessionPathHeading": "Choose your path",
+  "v2SessionPathNoShame": "Minimum is complete and useful. Standard adds optional depth.",
+  "v2SessionA11yHint": "Each step offers an accessibility alternative.",
+  "v2SessionStartCta": "Start",
+  "v2SessionClose": "Close",
+  "v2SessionActTitle": "Today’s Session",
+  "v2SessionProgress": "Step {current} of {total}",
+  "@v2SessionProgress": {
+    "placeholders": {
+      "current": { "type": "String" },
+      "total": { "type": "String" }
+    }
+  },
+  "v2SessionOptionalLabel": "Optional",
+  "v2SessionRequiredLabel": "Required",
+  "v2SessionStartTimer": "Start optional timer",
+  "v2SessionTimerContext": "About {seconds} seconds left on the optional timer",
+  "@v2SessionTimerContext": {
+    "placeholders": {
+      "seconds": { "type": "String" }
+    }
+  },
+  "v2SessionMarkDone": "Mark step done",
+  "v2SessionSkipOptional": "Skip optional step",
+  "v2SessionEndEarly": "End and check in",
+  "v2SessionReflectTitle": "Quick check-in",
+  "v2SessionReflectPrompt": "How did today’s session feel?",
+  "v2SessionReflectManageable": "How manageable was it?",
+  "v2SessionReflectHelped": "Did it help you pause or focus?",
+  "v2SessionReflectObstacle": "Any obstacle? (optional)",
+  "v2SessionChipEasy": "Manageable",
+  "v2SessionChipOk": "Okay",
+  "v2SessionChipHard": "Hard",
+  "v2SessionChipYes": "Yes",
+  "v2SessionChipSomewhat": "Somewhat",
+  "v2SessionChipNotYet": "Not yet",
+  "v2SessionChipNone": "None",
+  "v2SessionChipDistraction": "Distraction",
+  "v2SessionChipLowEnergy": "Low energy",
+  "v2SessionChipTime": "Time",
+  "v2SessionReflectSave": "Save check-in",
+  "v2SessionReflectSkipChips": "Continue without chips",
+  "v2SessionSaving": "Saving…",
+  "v2SessionLeaveSuccess": "Well done — you’re done for today",
+  "v2SessionLeavePartial": "You paused with care — nothing was lost",
+  "v2SessionLeavePath": "Path: {path}",
+  "@v2SessionLeavePath": {
+    "placeholders": {
+      "path": { "type": "String" }
+    }
+  },
+  "v2SessionLeaveBody": "Quiet competence is enough. Leave the app when you are ready.",
+  "v2SessionLeaveNext": "Tomorrow, Today will offer one clear next step again.",
+  "v2SessionLeaveCta": "Back to Today",
+  "v2ProgressEmptyTitle": "No progress yet",
+  "v2ProgressEmptyBody": "Complete a Today session to start building an honest local record. Nothing is invented when history is empty.",
+  "v2ProgressLoading": "Loading progress",
+  "v2ProgressPersistFailed": "Could not save progress right now. Try again.",
+  "v2ProgressStatsSessions": "Sessions completed",
+  "v2ProgressStatsMinimum": "Minimum path sessions",
+  "v2ProgressStatsStandard": "Standard path sessions",
+  "v2ProgressStatsRate": "Completed-day rate",
+  "v2ProgressStatsCurrentStreak": "Current completed-day run",
+  "v2ProgressStatsLongestStreak": "Longest completed-day run",
+  "v2OnboardingLoading": "Loading…",
+  "v2OnboardingContinue": "Continue",
+  "v2OnboardingBack": "Back",
+  "v2OnboardingRetry": "Try again",
+  "v2OnboardingRestart": "Start onboarding again",
+  "v2OnboardingGoHome": "Back to Home",
+  "v2OnboardingProgressLabel": "Step {current} of {total}",
+  "@v2OnboardingProgressLabel": {
+    "placeholders": {
+      "current": { "type": "String" },
+      "total": { "type": "String" }
+    }
+  },
+  "v2OnboardingProgressSemantics": "Onboarding step {current} of {total}",
+  "@v2OnboardingProgressSemantics": {
+    "placeholders": {
+      "current": { "type": "String" },
+      "total": { "type": "String" }
+    }
+  },
+  "v2OnboardingLanguageArabic": "العربية",
+  "v2OnboardingLanguageEnglish": "English",
+  "v2OnboardingWelcomeTitle": "Welcome to Brain Clean",
+  "v2OnboardingWelcomeBody": "Brain Clean helps you estimate your current recovery state, build a personalized recovery plan, and observe change over time — calmly, and without medical claims.",
+  "v2OnboardingExpectationsTitle": "What to expect",
+  "v2OnboardingExpectationsBody": "A short, honest path — not a diagnosis and not a guarantee.",
+  "v2OnboardingExpectation1": "A brief daily Session when you are ready — about five minutes.",
+  "v2OnboardingExpectation2": "A self-report Brain Check that is not a medical diagnosis.",
+  "v2OnboardingExpectation3": "A practical plan you can understand, with progress you can observe over time.",
+  "v2OnboardingExpectationsFootnote": "Results are not guaranteed. Progress can ebb and flow.",
+  "v2OnboardingConsentTitle": "Before you continue",
+  "v2OnboardingConsentBody": "Please confirm you understand how Brain Clean is meant to be used.",
+  "v2OnboardingConsentNonMedical": "I understand Brain Clean is not a medical diagnosis, clinical assessment, or treatment.",
+  "v2OnboardingConsentTerms": "I agree to continue with the app’s terms of use.",
+  "v2OnboardingConsentAnalytics": "Optional: allow anonymous product usage signals (off by default).",
+  "v2OnboardingConsentHint": "Select the required boxes to continue.",
+  "v2OnboardingPrivacyTitle": "Your data on this device",
+  "v2OnboardingPrivacyBody": "Core Brain Check answers, Recovery Score, and Recovery Plan are calculated and stored locally on this device. You can pause and resume a Brain Check. Explanations stay reviewable. The score is not generated by AI.",
+  "v2OnboardingPrivacyFootnote": "Some optional product features may use the network later (for example sync, support, or ads when enabled). Continuing works offline.",
+  "v2OnboardingPrivacyPolicyLink": "Privacy summary",
+  "v2OnboardingPrivacyCachedSummary": "Brain Clean keeps your core check and plan data local-first. Optional cloud or network features are separate and not required to finish this onboarding. This is not a medical privacy certification.",
+  "v2OnboardingRitualTitle": "When would a short Session usually fit?",
+  "v2OnboardingRitualBody": "Choose a gentle window as a reminder cue. You can change this later.",
+  "v2OnboardingRitualMorning": "Morning",
+  "v2OnboardingRitualAfternoon": "Afternoon",
+  "v2OnboardingRitualEvening": "Evening",
+  "v2OnboardingRitualDecideLater": "Decide later",
+  "v2OnboardingCheckIntroTitle": "Brain Check",
+  "v2OnboardingCheckIntroBody": "Brain Check is a short self-report. It is not a medical diagnosis, not brain-damage detection, and not an intelligence test. Your answers stay on this device and help build a practical plan.",
+  "v2OnboardingCheckIntroMeta": "Lite Check · about a few minutes · resumable",
+  "v2OnboardingStartBrainCheck": "Start Brain Check",
+  "v2OnboardingCorruptTitle": "Let’s start fresh",
+  "v2OnboardingCorruptBody": "Saved onboarding could not be read safely. Your Brain Check answers were not deleted. You can begin onboarding again.",
+  "v2BrainCheckEntryTitle": "Brain Check",
+  "v2BrainCheckEntryLoading": "Preparing Brain Check…",
+  "v2BrainCheckEntryBody": "A calm self-report to help estimate your current recovery state.",
+  "v2BrainCheckEntryNonMedical": "Not a medical diagnosis. Not treatment. Not a measure of intelligence.",
+  "v2BrainCheckEntryDuration": "Lite Check · short · you can pause anytime",
+  "v2BrainCheckEntryStart": "Start Brain Check",
+  "v2BrainCheckEntryResume": "Resume Brain Check",
+  "v2BrainCheckEntryResumeHint": "You have an unfinished Brain Check on this device.",
+  "v2BrainCheckEntryStartOver": "Start over",
+  "v2BrainCheckEntryAlreadyComplete": "A Brain Check is already complete. Starting again is available from later product steps — answers were not wiped.",
+  "v2BrainCheckEntryError": "Could not prepare Brain Check right now.",
+  "v2BrainCheckReadyTitle": "Brain Check is ready",
+  "v2BrainCheckReadyBody": "Your Brain Check entry is ready. Continue when you want to open or resume the questionnaire.",
+  "v2WeeklyReviewTitle": "Weekly Review",
+  "v2WeeklySummaryTitle": "Weekly Summary",
+  "v2WeeklyReviewLoading": "Loading Weekly Review",
+  "v2WeeklyReviewExit": "Exit",
+  "v2WeeklyReviewBack": "Back",
+  "v2WeeklyReviewContinue": "Continue",
+  "v2WeeklyReviewComplete": "Complete review",
+  "v2WeeklyReviewRetry": "Try again",
+  "v2WeeklyReviewBackToday": "Back to Today",
+  "v2WeeklyReviewSaveFailed": "Could not save your review right now. Try again.",
+  "v2WeeklyReviewUnsupported": "This review format is not supported on this version.",
+  "v2WeeklyReviewNotReadyGeneric": "Weekly Review is not ready yet",
+  "v2WeeklyReviewNotReadyGenericBody": "Come back after a completed week with at least one finished session.",
+  "v2WeeklyReviewNotReadyZeroTitle": "Not enough completed activity yet",
+  "v2WeeklyReviewNotReadyZeroBody": "Finish at least one Today session in a completed week to open Weekly Review.",
+  "v2WeeklyReviewNotReadyCurrentTitle": "This week is still in progress",
+  "v2WeeklyReviewNotReadyCurrentBody": "Weekly Review opens after the week ends. Keep going with Today when you are ready.",
+  "v2WeeklyReviewNotReadyMissingTitle": "Review sources are not ready",
+  "v2WeeklyReviewNotReadyMissingBody": "A local plan, profile, or progress record is missing. Continue through Today and return later.",
+  "v2WeeklyReviewPeriodLabel": "Period {start} – {end}",
+  "@v2WeeklyReviewPeriodLabel": {
+    "placeholders": {
+      "start": { "type": "String" },
+      "end": { "type": "String" }
+    }
+  },
+  "v2WeeklyReviewProgress": "Question {current} of {total}",
+  "@v2WeeklyReviewProgress": {
+    "placeholders": {
+      "current": { "type": "String" },
+      "total": { "type": "String" }
+    }
+  },
+  "v2WeeklyReviewProgressSemantics": "Weekly Review question {current} of {total}",
+  "@v2WeeklyReviewProgressSemantics": {
+    "placeholders": {
+      "current": { "type": "String" },
+      "total": { "type": "String" }
+    }
+  },
+  "v2WeeklyReviewRequired": "Required",
+  "v2WeeklyReviewMultiSelectHint": "Optional. Choose up to two.",
+  "v2WeeklyReviewValidationHint": "Please choose a valid response to continue.",
+  "v2WeeklyReviewYes": "Yes",
+  "v2WeeklyReviewNo": "No",
+  "v2WeeklyReviewQManageability": "How manageable did the plan feel this week?",
+  "v2WeeklyReviewQPauseFocus": "How much did the sessions help you pause or focus?",
+  "v2WeeklyReviewQObstacle": "What got in the way most often?",
+  "v2WeeklyReviewQSupport": "What supported you? (optional)",
+  "v2WeeklyReviewQAccessibility": "Did you use an accessibility alternative this week? (optional)",
+  "v2WeeklyReviewOptTooLight": "Too light",
+  "v2WeeklyReviewOptAboutRight": "About right",
+  "v2WeeklyReviewOptTooDemanding": "Too demanding",
+  "v2WeeklyReviewOptTime": "Time",
+  "v2WeeklyReviewOptForgetfulness": "Forgetfulness",
+  "v2WeeklyReviewOptLowEnergy": "Low energy",
+  "v2WeeklyReviewOptInterruptions": "Interruptions",
+  "v2WeeklyReviewOptUnclearStep": "Unclear step",
+  "v2WeeklyReviewOptAccessEnv": "Access or environment",
+  "v2WeeklyReviewOptNoMajorObstacle": "No major obstacle",
+  "v2WeeklyReviewOptShorterPath": "Shorter path",
+  "v2WeeklyReviewOptClearerTiming": "Clearer timing",
+  "v2WeeklyReviewOptQuieterEnv": "Quieter environment",
+  "v2WeeklyReviewOptA11yAlt": "Accessibility alternative",
+  "v2WeeklyReviewOptStrongerReminder": "Stronger reminder",
+  "v2WeeklyReviewOptSamePlan": "Same plan is working",
+  "v2WeeklySummaryOrientation": "This week’s pattern",
+  "v2WeeklySummaryCompletedDays": "Completed days: {count}",
+  "@v2WeeklySummaryCompletedDays": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2WeeklySummaryPathMix": "Path mix: {label}",
+  "@v2WeeklySummaryPathMix": {
+    "placeholders": {
+      "label": { "type": "String" }
+    }
+  },
+  "v2WeeklySummaryPathMostlyMinimum": "Mostly minimum",
+  "v2WeeklySummaryPathMostlyStandard": "Mostly standard",
+  "v2WeeklySummaryPathBalanced": "Balanced",
+  "v2WeeklySummaryPathSingle": "Single session only",
+  "v2WeeklySummaryPatternHeading": "Rhythm",
+  "v2WeeklySummaryRhythmSteady": "Steady across several days",
+  "v2WeeklySummaryRhythmIntermittent": "Intermittent across the week",
+  "v2WeeklySummaryRhythmLimited": "Limited history",
+  "v2WeeklySummaryObstacleHeading": "What got in the way",
+  "v2WeeklySummarySupportHeading": "What supported you",
+  "v2WeeklySummarySupportNone": "No support noted",
+  "v2WeeklySummaryAttentionHeading": "What may deserve attention",
+  "v2WeeklySummaryAttentionLoad": "Load may deserve a closer look later",
+  "v2WeeklySummaryAttentionSupport": "A bit more support may deserve attention later",
+  "v2WeeklySummaryAttentionPause": "Pause or focus felt low this week",
+  "v2WeeklySummaryAttentionObstacle": "An obstacle stood out this week",
+  "v2WeeklySummaryAttentionMaintain": "Keep observing with the current plan",
+  "v2WeeklySummaryEvidenceLimited": "Limited evidence — one completed session only",
+  "v2WeeklySummaryEvidenceDeveloping": "Early evidence — treat this as a quiet look-back",
+  "v2WeeklySummaryEvidenceSufficient": "Summary only — not a cause claim",
+  "v2WeeklySummaryPlanUnchanged": "Your plan has not changed yet",
+  "v2WeeklySummaryCtaToday": "Back to Today",
+  "v2WeeklySummaryCtaProgress": "Back to Progress",
+  "v2WeeklyFactsSection": "Last 7 days",
+  "v2WeeklyFactsTasks": "Tasks completed",
+  "v2WeeklyFactsTasksCaption": "{count} required steps",
+  "@v2WeeklyFactsTasksCaption": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2WeeklyFactsStreak": "Streak",
+  "v2WeeklyFactsStreakCaption": "{current} now · {best} best",
+  "@v2WeeklyFactsStreakCaption": {
+    "placeholders": {
+      "current": { "type": "String" },
+      "best": { "type": "String" }
+    }
+  },
+  "v2WeeklyFactsAdherence": "Plan adherence",
+  "v2WeeklyFactsAdherenceCaption": "{days} of 7 days",
+  "@v2WeeklyFactsAdherenceCaption": {
+    "placeholders": {
+      "days": { "type": "String" }
+    }
+  },
+  "v2ProgressTitle": "Progress",
+  "v2ProgressOrientation": "Your progress",
+  "v2ProgressRetry": "Try again",
+  "v2ProgressBasedOnSessions": "Progress is based on completed sessions",
+  "v2ProgressHeadlineEmpty": "No completed sessions yet",
+  "v2ProgressHeadlineFirst": "Your first completed session is recorded",
+  "v2ProgressHeadlineFew": "A few completed days are on record",
+  "v2ProgressHeadlineRhythm": "A pattern is beginning to appear",
+  "v2ProgressHeadlineSteady": "A steadier pattern is visible",
+  "v2ProgressHeadlineLimited": "Evidence is still limited",
+  "v2ProgressHeadlineWeekly": "Weekly evidence is available to review",
+  "v2ProgressBetterHeading": "What is recorded",
+  "v2ProgressWhyHeading": "What the pattern shows",
+  "v2ProgressComparedHeading": "How it compares over time",
+  "v2ProgressCompletedDays": "Completed days: {count}",
+  "@v2ProgressCompletedDays": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ProgressCompletedSessions": "Completed sessions: {count}",
+  "@v2ProgressCompletedSessions": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ProgressMinimumPath": "Minimum path: {count}",
+  "@v2ProgressMinimumPath": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ProgressStandardPath": "Standard path: {count}",
+  "@v2ProgressStandardPath": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ProgressCompletionRate": "Completed-day rate: {percent}%",
+  "@v2ProgressCompletionRate": {
+    "placeholders": {
+      "percent": { "type": "String" }
+    }
+  },
+  "v2ProgressCurrentRhythm": "{count, plural, =1{Current rhythm: 1 day} other{Current rhythm: {count} days}}",
+  "@v2ProgressCurrentRhythm": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "v2ProgressLongestRhythm": "{count, plural, =1{Longest rhythm: 1 day} other{Longest rhythm: {count} days}}",
+  "@v2ProgressLongestRhythm": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "v2ProgressFirstCompleted": "First completed day: {day}",
+  "@v2ProgressFirstCompleted": {
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+  "v2ProgressLastCompleted": "Last completed day: {day}",
+  "@v2ProgressLastCompleted": {
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+  "v2ProgressRecentActivity": "Recent activity",
+  "v2ProgressTimelineMinimum": "Minimum path",
+  "v2ProgressTimelineStandard": "Standard path",
+  "v2ProgressTimelineBothPaths": "Minimum and standard",
+  "v2ProgressTimelineEntry": "{day} · {path}",
+  "@v2ProgressTimelineEntry": {
+    "placeholders": {
+      "day": { "type": "String" },
+      "path": { "type": "String" }
+    }
+  },
+  "v2ProgressPathMostlyMinimum": "Mostly minimum path",
+  "v2ProgressPathMostlyStandard": "Mostly standard path",
+  "v2ProgressPathBalanced": "Balanced path mix",
+  "v2ProgressPathSingle": "Single session only",
+  "v2ProgressEvidenceEmpty": "Complete today’s action first to begin an honest record.",
+  "v2ProgressEvidenceLimited": "Evidence is still limited — one completed action so far.",
+  "v2ProgressEvidenceDeveloping": "A pattern is beginning to appear. This is observation, not a diagnosis.",
+  "v2ProgressEvidenceSufficient": "Enough completed activity for a quiet look-back. No cause claim.",
+  "v2ProgressScoreHeading": "Recovery Score snapshot",
+  "v2ProgressScoreValue": "Estimate: {value}",
+  "@v2ProgressScoreValue": {
+    "placeholders": {
+      "value": { "type": "String" }
+    }
+  },
+  "v2ProgressScoreUnavailable": "Score estimate not available on this device yet",
+  "v2ProgressScoreMeasured": "From Brain Check on {day}",
+  "@v2ProgressScoreMeasured": {
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+  "v2ProgressScoreDisclaimer": "Daily session completion does not instantly change this score. The score comes from Brain Check measurement, not from counting sessions.",
+  "v2ProgressWeeklyReviewHeading": "Weekly Review",
+  "v2ProgressWrNotEnough": "Not enough completed activity yet for a Weekly Review.",
+  "v2ProgressWrCurrentWeek": "This week is still in progress. Review opens after the week ends.",
+  "v2ProgressWrAvailable": "Weekly Review available",
+  "v2ProgressWrDraft": "Weekly Review draft in progress",
+  "v2ProgressWrCompleted": "Weekly Summary available",
+  "v2ProgressWrUnsupported": "This review format is not supported on this version.",
+  "v2ProgressWrMissingRefs": "Review sources are not ready yet. Continue through Today and return later.",
+  "v2ProgressWrError": "Weekly Review could not be prepared right now.",
+  "v2ProgressWrCtaStart": "Start Weekly Review",
+  "v2ProgressWrCtaContinue": "Continue Weekly Review",
+  "v2ProgressWrCtaSummary": "View Weekly Summary",
+  "v2ProgressWeeklyPreviewHeading": "Latest Weekly Summary",
+  "v2ProgressCtaToday": "Complete today’s action first",
+  "v2ProgressCtaContinueToday": "Back to Today",
+  "v2ProgressReportsEntry": "Open Reports",
+  "v2ProgressPatternDetails": "Pattern details",
+  "v2ReportsTitle": "Reports",
+  "v2ReportsEvidenceOverview": "Evidence overview",
+  "v2ReportsWeeklyHistory": "Weekly history",
+  "v2ReportsWeeklyReport": "Weekly report",
+  "v2ReportsMeasurementHistory": "Measurement history",
+  "v2ReportsEvidenceStillDeveloping": "Your evidence is still developing",
+  "v2ReportsNotEnoughMeasurements": "Not enough measurements to compare yet",
+  "v2ReportsComparedWithEarlier": "Compared with your earlier check",
+  "v2ReportsSelfReportEstimate": "This is a self-report estimate",
+  "v2ReportsNoCauseFromHistory": "No cause can be determined from this history",
+  "v2ReportsOrientation": "Reports gather honest local proof from completed sessions, weekly summaries, and valid self-report measurements.",
+  "v2ReportsOrientationNot": "Reports are not a diagnosis, not medical advice, and not a comparison with other people.",
+  "v2ReportsLoading": "Loading reports",
+  "v2ReportsRetry": "Try again",
+  "v2ReportsPersistFailed": "Could not load reports right now. Try again.",
+  "v2ReportsUnsupported": "This report format is not supported on this version.",
+  "v2ReportsEmptyBody": "Complete a Today session to begin an honest local evidence record. Nothing is invented when history is empty.",
+  "v2ReportsSnapshotMissing": "A saved progress snapshot is missing. Showing counts rebuilt from completed sessions only.",
+  "v2ReportsDepthNoEvidence": "No evidence yet",
+  "v2ReportsDepthEarly": "Early evidence",
+  "v2ReportsDepthDeveloping": "Developing evidence",
+  "v2ReportsDepthEstablished": "Established history",
+  "v2ReportsDepthNoEvidenceExplain": "No completed sessions are on record yet.",
+  "v2ReportsDepthDevelopingExplain": "Completed days and weekly summaries are building a clearer local record.",
+  "v2ReportsDepthEstablishedExplain": "Multiple weekly summaries and measurements form a longer local history.",
+  "v2ReportsSessionSummaryHeading": "Completed activity",
+  "v2ReportsCompletedSessions": "Completed sessions: {count}",
+  "@v2ReportsCompletedSessions": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ReportsCompletedDays": "Completed days: {count}",
+  "@v2ReportsCompletedDays": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ReportsMinimumPath": "Minimum path: {count}",
+  "@v2ReportsMinimumPath": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ReportsStandardPath": "Standard path: {count}",
+  "@v2ReportsStandardPath": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ReportsCurrentRhythm": "Current rhythm: {count} day(s)",
+  "@v2ReportsCurrentRhythm": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ReportsLongestRhythm": "Longest rhythm: {count} day(s)",
+  "@v2ReportsLongestRhythm": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ReportsFirstCompleted": "First completed day: {day}",
+  "@v2ReportsFirstCompleted": {
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+  "v2ReportsLastCompleted": "Last completed day: {day}",
+  "@v2ReportsLastCompleted": {
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+  "v2ReportsMeasurementStatusHeading": "Measurement history status",
+  "v2ReportsMeasurementNone": "No valid measurements yet",
+  "v2ReportsMeasurementNoneBody": "A completed Brain Check creates a self-report measurement you can review here.",
+  "v2ReportsMeasurementBaseline": "One baseline measurement is on record",
+  "v2ReportsMeasurementComparable": "Comparable measurements are available",
+  "v2ReportsMeasurementIncompatible": "Measurements exist but are not comparable yet",
+  "v2ReportsMeasurementErrorBody": "Measurement history could not be prepared right now.",
+  "v2ReportsLatestScore": "Latest estimate: {value}",
+  "@v2ReportsLatestScore": {
+    "placeholders": {
+      "value": { "type": "String" }
+    }
+  },
+  "v2ReportsNoArtifacts": "No weekly reports yet",
+  "v2ReportsWeeklyReportPeriod": "Week {start} – {end}",
+  "@v2ReportsWeeklyReportPeriod": {
+    "placeholders": {
+      "start": { "type": "String" },
+      "end": { "type": "String" }
+    }
+  },
+  "v2ReportsPremiumArchiveHint": "{count} older report(s) available with Premium archive",
+  "@v2ReportsPremiumArchiveHint": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "v2ReportsPremiumGatedTitle": "Older archive",
+  "v2ReportsPremiumGatedBody": "Your latest and previous weekly reports stay free. Older archive depth is part of Premium. Current proof is never hidden.",
+  "v2ReportsArtifactMissing": "Weekly report not found",
+  "v2ReportsArtifactMissingBody": "This weekly report is missing or unavailable. Return to Reports.",
+  "v2ReportsArtifactUnsupportedBody": "This weekly report format is not supported on this version.",
+  "v2ReportsArtifactCorrupt": "Weekly report could not be read",
+  "v2ReportsArtifactCorruptBody": "This weekly report looks incomplete. Return to Reports.",
+  "v2ReportsCtaLatestArtifact": "Open latest weekly report",
+  "v2ReportsOpenMeasurementHistory": "Open measurement history",
+  "v2ReportsCtaToday": "Complete today’s action first",
+  "v2ReportsBackProgress": "Back to Progress",
+  "v2ReportsBackOverview": "Back to Reports",
+  "v2ReportsComparisonHigher": "Your latest self-report estimate is higher than your earlier one.",
+  "v2ReportsComparisonLower": "Your latest self-report estimate is lower than your earlier one.",
+  "v2ReportsComparisonUnchanged": "Your latest self-report estimate is unchanged from your earlier one.",
+  "v2ReportsComparisonNotComparable": "These measurements are not comparable with each other.",
+  "v2ReportsTooEarlyToInterpret": "It may be too early to interpret this change.",
+  "v2ReportsLowConfidenceQualifier": "At least one measurement has higher uncertainty.",
+  "v2ReportsMeasurementListHeading": "Your measurements",
+  "v2ReportsMeasuredOn": "Measured on {day}",
+  "@v2ReportsMeasuredOn": {
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+  "v2ReportsScoreValue": "Estimate: {value}",
+  "@v2ReportsScoreValue": {
+    "placeholders": {
+      "value": { "type": "String" }
+    }
+  },
+  "v2ReportsScoreBand": "Band: {band}",
+  "@v2ReportsScoreBand": {
+    "placeholders": {
+      "band": { "type": "String" }
+    }
+  },
+  "v2ReportsScoreConfidence": "Confidence: {confidence}",
+  "@v2ReportsScoreConfidence": {
+    "placeholders": {
+      "confidence": { "type": "String" }
+    }
+  },
+  "v2ReportsMeasurementSemantics": "Measurement on {day}, estimate {score}, confidence {confidence}",
+  "@v2ReportsMeasurementSemantics": {
+    "placeholders": {
+      "day": { "type": "String" },
+      "score": { "type": "String" },
+      "confidence": { "type": "String" }
+    }
+  },
+  "v2ReportsConfidenceStrong": "Strong",
+  "v2ReportsConfidenceModerate": "Moderate",
+  "v2ReportsConfidenceProvisional": "Provisional",
+  "v2ReportsDomainHistoryHeading": "Domain history",
+  "v2ReportsDomainLatestOnly": "Latest domain snapshot only — not enough comparable domain history yet.",
+  "v2ReportsDomainRow": "{title}: {value}",
+  "@v2ReportsDomainRow": {
+    "placeholders": {
+      "title": { "type": "String" },
+      "value": { "type": "String" }
+    }
+  },
+  "v2ReportsDomainHistoryRow": "{title} on {day}: {value}",
+  "@v2ReportsDomainHistoryRow": {
+    "placeholders": {
+      "title": { "type": "String" },
+      "day": { "type": "String" },
+      "value": { "type": "String" }
+    }
+  },
+  "v2NavHome": "Home",
+  "v2NavToday": "Today",
+  "v2NavCheck": "Brain Check",
+  "v2NavPlan": "Program",
+  "v2NavProgress": "Progress",
+  "v2NavReports": "Reports",
+  "v2NavProfile": "Profile",
+  "v2NavRecoverHome": "Back to Home",
+  "v2NavRouteNotFound": "This page could not be found",
+  "v2PremiumTitle": "Premium",
+  "v2PremiumOrientation": "Premium deepens continuity after you have already made progress — it does not unlock recovery.",
+  "v2PremiumFreeCoreReassurance": "Your Free core remains available.",
+  "v2PremiumCurrentProgressRemains": "Your current progress remains available.",
+  "v2PremiumFourCapitalsHeading": "What Premium adds",
+  "v2PremiumContinuity": "Continuity",
+  "v2PremiumContinuityBody": "Deeper WeeklyArtifact archive and long-horizon evidence history.",
+  "v2PremiumInterpretation": "Interpretation",
+  "v2PremiumInterpretationBody": "Planned deterministic context layers only — never medical AI claims. Not active yet.",
+  "v2PremiumFit": "Fit",
+  "v2PremiumFitBody": "Future approved adaptation depth without silent Plan changes.",
+  "v2PremiumSupport": "Support",
+  "v2PremiumSupportBody": "Future continuity support under a separate contract — never Premium-only crisis care.",
+  "v2PremiumIncludesNowHeading": "Included with Premium now",
+  "v2PremiumIncludeArchive": "Older Reports archive beyond the latest and previous proof",
+  "v2PremiumIncludeThemes": "Exclusive color themes",
+  "v2PremiumIncludeTools": "Selected tools: emotion wheel, silence, crossword, games, and cognitive test",
+  "v2PremiumIncludeChart": "Seven-day progress chart",
+  "v2PremiumBenefitsBody": "Latest and previous Weekly proof stay Free. Premium deepens continuity — it does not unlock recovery.",
+  "v2PremiumViewPlans": "View plans",
+  "v2PremiumRestorePurchases": "Restore purchases",
+  "v2PremiumPurchaseInProgress": "Purchase in progress",
+  "v2PremiumPurchaseCompleted": "Purchase completed",
+  "v2PremiumPurchaseCancelled": "Purchase cancelled",
+  "v2PremiumPurchaseFailed": "Purchase failed. You can try again or restore purchases.",
+  "v2PremiumPurchasePending": "Purchase pending",
+  "v2PremiumNoPlansAvailable": "No plans available right now.",
+  "v2PremiumStoreUnavailable": "Store unavailable",
+  "v2PremiumRestored": "Restored",
+  "v2PremiumNothingToRestore": "Nothing to restore",
+  "v2PremiumRestoreFailed": "Restore failed. You can try again later.",
+  "v2PremiumRestoring": "Restoring purchases",
+  "v2PremiumSubscriptionExpired": "Subscription expired",
+  "v2PremiumDeeperHistory": "Deeper history",
+  "v2PremiumOlderArchive": "Older archive",
+  "v2PremiumManage": "Manage Premium",
+  "v2PremiumAlreadyActive": "Premium is active",
+  "v2PremiumFreeStatus": "You are on the Free core",
+  "v2PremiumLoading": "Loading Premium",
+  "v2PremiumPurchaseCta": "Continue with Premium",
+  "v2PremiumContinue": "Continue",
+  "v2PremiumPeriodMonthly": "Monthly billing",
+  "v2PremiumPeriodAnnual": "Annual billing",
+  "v2PremiumPeriodLifetime": "Lifetime",
+  "v2PremiumTermsLink": "Terms",
+  "v2PremiumOfflineCached": "Offline — using saved Premium status",
+  "v2PremiumOfflineUnknown": "Offline — Premium status unknown. Purchases need a connection.",
+  "v2PremiumUnavailableHere": "Premium is not offered on this screen.",
+  "v2PremiumOpenFromArchive": "View Premium for older archive",
+  "v2ReportsPremiumOpen": "Open Premium",
+  "v2ReportsPremiumRestore": "Restore purchases",
+"v2SafaTitle": "Safa",
+  "v2SafaPurpose": "Short support to help you continue with one calm next step.",
+  "v2SafaAiLimitation": "Safa may use an AI service over the network. It is not medical care and not emergency services.",
+  "v2SafaPrivacyNotice": "Before sending: only what you type and explicitly select will be sent. You can continue without Safa or cancel.",
+  "v2SafaAcknowledgeNotice": "I understand",
+  "v2SafaContinueWithout": "Continue without Safa",
+  "v2SafaConsentBody": "Send only your typed message and any context you select. Safa is not medical or emergency support.",
+  "v2SafaConsentAllow": "Allow one network reply",
+  "v2SafaConsentDecline": "Use offline support",
+  "v2SafaContextOptionalHeading": "Optional context (nothing is preselected)",
+  "v2SafaContextNone": "No extra context",
+  "v2SafaContextDifficult": "Difficult moment",
+  "v2SafaContextClarify": "Clarify a step",
+  "v2SafaContextContinue": "Help continuing",
+  "v2SafaIncludeApprovedContext": "Include a short context I approve for this send only",
+  "v2SafaInputLabel": "Your message",
+  "v2SafaInputHint": "Write briefly what you need help with",
+  "v2SafaSend": "Send",
+  "v2SafaSending": "Sending",
+  "v2SafaResponseHeading": "Safa reply",
+  "v2SafaSuggestedReturn": "Return to where you left",
+  "v2SafaSuggestedReturnToday": "Return to Today",
+  "v2SafaFallbackGrounding": "Pause: breathe slowly for one minute",
+  "v2SafaFallbackSimplify": "Simplify: do only the smallest next step",
+  "v2SafaRetry": "Retry",
+  "v2SafaUseLocalFallback": "Use offline support",
+  "v2SafaOffline": "You are offline. Offline support is available.",
+  "v2SafaTimeout": "The request timed out. Offline support is available.",
+  "v2SafaServiceUnavailable": "Safa is temporarily unavailable. Offline support is available.",
+  "v2SafaInvalidResponse": "The reply could not be shown safely. Offline support is available.",
+  "v2SafaInputTooLong": "Please shorten your message (500 characters max).",
+  "v2SafaSessionComplete": "This support session has reached its limit. Choose a next step or leave.",
+  "v2SafaClearSession": "Clear this session",
+  "v2SafaReturn": "Return",
+  "v2SafaUrgentHelp": "I need urgent help",
+  "v2SafaUrgentBody": "Safa is stopping the conversation here. Safa cannot provide emergency care.",
+  "v2SafaUrgentLocalEmergency": "If you may be in immediate danger, contact your local emergency services. This app does not replace them.",
+  "v2SafaNotMedical": "Safa is not medical or emergency support.",
+  "v2SafaOnlyTypedSent": "Only what you type and select will be sent.",
+  "v2SafaStartLater": "Start a new Safa session later",
+  "v2SafaLoading": "Opening Safa",
+  "v2SafaStateIdle": "Ready when you are.",
+  "v2SafaStateReady": "You can write a short message.",
+  "v2SafaStateResponseReady": "A short reply is ready.",
+  "v2SafaStateLocalFallback": "Offline support is shown below.",
+  "v2SafaUserCancelled": "Cancelled. You can return or try again later.",
+  "v2SafaCleared": "Session cleared.",
+  "v2SafaSessionLimit": "Support turns: {used} of {max}",
+  "@v2SafaSessionLimit": {
+    "placeholders": {
+      "used": {"type": "String"},
+      "max": {"type": "String"}
+    }
+  },
+  "v2SafaEntryToday": "Ask Safa for support",
+  "v2SafaEntryProfile": "Open Safa",
+  "v2ProfileTitle": "Profile",
+  "v2ProfileDefaultIdentity": "Your profile",
+  "v2ProfileOrientation": "Preferences, privacy, and personal controls — not another progress dashboard.",
+  "v2ProfileSectionRecovery": "Recovery setup",
+  "v2ProfileBrainProfile": "Brain Profile",
+  "v2ProfileBrainProfileLoading": "Checking your assessment…",
+  "v2ProfileBrainProfileReady": "View your latest assessment",
+  "v2ProfileBrainProfileMissing": "Complete Brain Check to build this",
+  "v2ProfileSectionPreferences": "Preferences",
+  "v2ProfilePreferencesRow": "Preferences & settings",
+  "v2ProfilePreferencesHint": "Appearance, notifications, biometric lock, and privacy & data",
+  "v2ProfileSectionPrivacy": "Privacy & data",
+  "v2ProfilePrivacyRow": "Privacy & data controls",
+  "v2ProfilePrivacyHint": "Reset local data (confirmation required)",
+  "v2ProfileSectionSubscription": "Subscription",
+  "v2ProfileSubscriptionHint": "Premium status, plans, and restore",
+  "v2ProfileSectionHelp": "Help & support",
+  "v2ProfileHelpHint": "Short support for a calm next step",
+  "v2ProfileSectionAbout": "About",
+  "v2ProfileEditNameTitle": "Display name",
+  "v2ProfileEditNameHint": "Optional — shown only on this device",
+  "v2ProfileNameSaveFailed": "Could not save your name. Please try again.",
+  "v2ProfileLegalHint": "Opens the privacy policy in your browser",
+  "v2ProfileContactHint": "Opens your email app",
+  "settingsOrientation": "Appearance, language, notifications, and your account on this device.",
+  "settingsProfileSection": "Profile",
+  "settingsLanguageSection": "Language",
+  "settingsLanguageArabic": "Arabic",
+  "settingsLanguageEnglish": "English",
+  "settingsLogout": "Log out",
+  "settingsLogoutConfirmTitle": "Log out?",
+  "settingsLogoutConfirmBody": "You will return to the start of the app. Your recovery data stays on this device until you delete it.",
+  "settingsDeleteAccount": "Delete account",
+  "settingsDeleteAccountConfirmTitle": "Delete account?",
+  "settingsDeleteAccountConfirmBody": "All local data on this device will be permanently deleted. This cannot be undone.",
+  "colorThemeMorningDark": "Dark",
+  "colorThemeMorningLight": "Light",
+  "settingsThemeDarkSubtitle": "Morning Light dark canvas",
+  "settingsThemeLightSubtitle": "Morning Light bright canvas",
+  "settingsActionFailed": "Could not complete that action. Please try again."
 }

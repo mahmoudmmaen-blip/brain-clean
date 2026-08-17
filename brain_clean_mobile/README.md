@@ -14,7 +14,7 @@
 - تمارين تركيز، تنفس، ومهام يومية
 
 ## Tech Stack
-Flutter · Riverpod · Supabase · RevenueCat · NVIDIA AI · Hive AES-256
+Flutter · Riverpod · Supabase · RevenueCat · Claude (Edge) · Hive AES-256
 
 ## How to Run
 ```bash

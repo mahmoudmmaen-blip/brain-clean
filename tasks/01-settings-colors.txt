@@ -1,0 +1,12 @@
+﻿Do two things in lib/features/settings/settings_screen.dart. Do not touch routing, providers, business logic, or any other file.
+
+PART A — Color consistency fix (same pattern already fixed in plan_reveal_screen.dart, progress_home_screen.dart, and v2_profile_home_screen.dart):
+Replace every occurrence of `theme.colorScheme.onSurfaceVariant` with `AppColors.textSecondary`, `theme.colorScheme.outline` with `AppColors.border`, `theme.colorScheme.onSurface` with `AppColors.textPrimary`, and `theme.colorScheme.surface` (when used for a card/container background, not the Scaffold default) with `AppColors.card`. List any raw hardcoded hex Color(0xFF...) values you find that do not match an AppColors constant instead of guessing what to replace them with. Make sure `import '../../core/theme/app_colors.dart';` exists (add if missing).
+
+PART B — Full content dump:
+After Part A's edits, include the FULL raw content of the file in the PR description, clearly labeled.
+
+PART C — Validation:
+Run flutter analyze (must show "No issues found!") and flutter test (report pass count). Include both outputs in the PR description.
+
+Do not modify any other screen file.

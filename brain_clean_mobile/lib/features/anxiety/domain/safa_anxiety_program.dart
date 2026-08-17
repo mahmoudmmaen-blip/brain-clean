@@ -3,7 +3,7 @@ import '../domain/anxiety_dominant_type.dart';
 import '../domain/anxiety_level.dart';
 import 'safa_program_fallback.dart';
 
-/// Local Safa program text when NVIDIA AI is unavailable.
+/// Local Safa program text when AI chat is unavailable.
 String safaProgramFallbackForLevel(AppLocalizations loc, AnxietyLevel level) {
   return switch (level) {
     AnxietyLevel.calm => loc.safaProgramFallbackCalm,

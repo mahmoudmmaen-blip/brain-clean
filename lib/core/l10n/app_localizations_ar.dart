@@ -788,6 +788,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settingsComingSoon => 'قريباً...';
 
   @override
+  String get settingsLinkUnavailable => 'تعذّر فتح هذا الرابط على هذا الجهاز.';
+
+  @override
   String get settingsAboutSection => 'حول التطبيق';
 
   @override
@@ -1456,4 +1459,2141 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get securityCompromisedBanner =>
       'تحذير: الجهاز قد يكون معدّلاً. بياناتك محلية فقط — تم تعطيل المزامنة السحابية.';
+
+  @override
+  String get brainCheckTitle => 'فحص الدماغ';
+
+  @override
+  String get brainCheckIntroNonMedical => 'هذا فحص ذاتي، وليس تشخيصاً طبياً.';
+
+  @override
+  String get brainCheckStart => 'ابدأ فحص الدماغ';
+
+  @override
+  String get brainCheckContinue => 'متابعة';
+
+  @override
+  String get brainCheckStartOver => 'البدء من جديد';
+
+  @override
+  String get brainCheckEmptyState => 'ابدأ فحص الدماغ لبناء ملفك.';
+
+  @override
+  String brainCheckQuestionProgress(int current, int total) {
+    return 'السؤال $current من $total';
+  }
+
+  @override
+  String brainCheckSectionProgress(int current, int total) {
+    return 'الجزء $current من $total';
+  }
+
+  @override
+  String get brainCheckComplete => 'اكتمل الفحص';
+
+  @override
+  String get brainCheckResumeTitle => 'هل تريد متابعة فحص الدماغ؟';
+
+  @override
+  String get brainCheckSaveError =>
+      'تعذّر حفظ إجاباتك. ما زالت موجودة على هذه الشاشة.';
+
+  @override
+  String get brainCheckLoading => 'جارٍ تحميل فحص الدماغ…';
+
+  @override
+  String get brainCheckExit => 'خروج من فحص الدماغ';
+
+  @override
+  String get brainCheckBack => 'رجوع';
+
+  @override
+  String get brainCheckSaving => 'جارٍ الحفظ…';
+
+  @override
+  String get brainCheckFinish => 'إنهاء الفحص';
+
+  @override
+  String get brainCheckSelectAnswerHint => 'اختر إجابة للمتابعة.';
+
+  @override
+  String get brainCheckAutosaveHint =>
+      'تُحفظ إجاباتك على هذا الجهاز أثناء التقدّم.';
+
+  @override
+  String get brainCheckAnswerChoices => 'خيارات الإجابة';
+
+  @override
+  String get brainCheckAnswerSelected => 'محدد';
+
+  @override
+  String get brainCheckAnswerUnselected => 'غير محدد';
+
+  @override
+  String get brainCheckAnswerYes => 'نعم';
+
+  @override
+  String get brainCheckAnswerNo => 'لا';
+
+  @override
+  String get brainCheckLikert1 => 'أعارض بشدة';
+
+  @override
+  String get brainCheckLikert2 => 'أعارض';
+
+  @override
+  String get brainCheckLikert3 => 'محايد';
+
+  @override
+  String get brainCheckLikert4 => 'أوافق';
+
+  @override
+  String get brainCheckLikert5 => 'أوافق بشدة';
+
+  @override
+  String get brainCheckFrequency1 => 'أبداً';
+
+  @override
+  String get brainCheckFrequency2 => 'نادراً';
+
+  @override
+  String get brainCheckFrequency3 => 'أحياناً';
+
+  @override
+  String get brainCheckFrequency4 => 'غالباً';
+
+  @override
+  String get brainCheckFrequency5 => 'كثيراً جداً';
+
+  @override
+  String get brainCheckBreakTitle => 'استراحة قصيرة';
+
+  @override
+  String brainCheckBreakBody(String sectionTitle) {
+    return 'التالي: $sectionTitle';
+  }
+
+  @override
+  String get brainCheckCompletionBody =>
+      'شكراً لإنهاء هذا التقرير الذاتي. فحصك جاهز للحفظ على هذا الجهاز.';
+
+  @override
+  String get brainCheckConfigError => 'أسئلة فحص الدماغ غير متاحة الآن.';
+
+  @override
+  String get brainCheckRestartTitle => 'البدء من جديد؟';
+
+  @override
+  String get brainCheckRestartBody =>
+      'سيُمسح فحص الدماغ غير المكتمل على هذا الجهاز. تبقى خطوات التهيئة والملفات المكتملة السابقة دون مساس.';
+
+  @override
+  String get brainCheckRestartCancel => 'المتابعة';
+
+  @override
+  String get brainCheckRestartConfirm => 'البدء من جديد';
+
+  @override
+  String get brainCheckCompleteBoundaryTitle => 'تم حفظ فحص الدماغ';
+
+  @override
+  String get brainCheckCompleteBoundaryBody =>
+      'تقريرك الذاتي محفوظ على هذا الجهاز. تابع لبناء لقطة ملف الدماغ.';
+
+  @override
+  String get brainCheckCompleteBoundaryContinue => 'ابنِ ملف الدماغ';
+
+  @override
+  String get brainProfileTitle => 'ملف الدماغ';
+
+  @override
+  String get brainProfileBuilding => 'جارٍ بناء ملف الدماغ…';
+
+  @override
+  String get brainProfileLoading => 'جارٍ تحميل ملف الدماغ';
+
+  @override
+  String get brainProfileMissing => 'لا يوجد ملف دماغ بعد';
+
+  @override
+  String get brainProfileEmptyHint => 'أكمل فحص الدماغ لإنشاء أول لقطة.';
+
+  @override
+  String get brainProfileUnavailable => 'حساب الملف غير متاح الآن.';
+
+  @override
+  String get brainProfileRetry => 'حاول مرة أخرى';
+
+  @override
+  String get brainProfileGoHome => 'العودة إلى الرئيسية';
+
+  @override
+  String get brainProfileOrientation => 'نظرة هادئة على لقطتك';
+
+  @override
+  String get brainProfileScoreHeading => 'تقدير درجة التعافي';
+
+  @override
+  String get brainProfileScorePendingLabel => 'التقدير قيد الانتظار';
+
+  @override
+  String get brainProfileScorePendingSemantics =>
+      'تقدير درجة التعافي قيد الانتظار. ملخصات المجالات متاحة من إجاباتك.';
+
+  @override
+  String brainProfileScoreSemantics(String value) {
+    return 'تقدير درجة التعافي: $value';
+  }
+
+  @override
+  String get brainProfileConfidenceHeading => 'الثقة';
+
+  @override
+  String get brainProfileConfidenceProvisional => 'أولية';
+
+  @override
+  String get brainProfileConfidenceModerate => 'متوسطة';
+
+  @override
+  String get brainProfileConfidenceSolid => 'قوية';
+
+  @override
+  String get brainProfileBandHeading => 'النطاق الحالي';
+
+  @override
+  String get brainProfileBandMeaning =>
+      'تسمية هادئة لتقدير التقرير الذاتي — وليست شدة سريرية.';
+
+  @override
+  String get brainProfileMeansHeading => 'ماذا يعني هذا';
+
+  @override
+  String get brainProfileMeansBody =>
+      'هذه لقطة بداية مبلَّغ عنها ذاتياً. تُبرز المناطق الأقوى كما ظهرت وأولويات الدعم الحالية بناءً على إجابات فحص الدماغ.';
+
+  @override
+  String get brainProfileDoesNotMeanHeading => 'ماذا لا يعني هذا';
+
+  @override
+  String get brainProfileScoreUnavailableLabel => 'التقدير غير متاح';
+
+  @override
+  String get brainProfileScoreUnavailableSemantics =>
+      'تقدير درجة التعافي غير متاح. لا يُعرض رقم.';
+
+  @override
+  String get brainProfileScoreUnavailableBody =>
+      'تعذّر تقدير درجة التعافي من هذا الفحص. تبقى إجاباتك محفوظة. أكمل فحصاً صالحاً للمتابعة إلى خطة التعافي.';
+
+  @override
+  String get brainProfileContinueUnavailable =>
+      'خطة التعافي تحتاج تقدير درجة تعافٍ صالح.';
+
+  @override
+  String get brainProfileMissingEvent => 'أكمل فحص الدماغ أولاً.';
+
+  @override
+  String get brainProfileBuildingHint =>
+      'جارٍ تجهيز لقطة تقريرك الذاتي على هذا الجهاز…';
+
+  @override
+  String get brainProfileDomainEstimateHeading => 'التقدير الحالي';
+
+  @override
+  String get brainProfileDomainStrongerLabel => 'منطقة أقوى كما ظهرت';
+
+  @override
+  String get brainProfileDomainSupportLabel => 'أولوية دعم حالية';
+
+  @override
+  String get brainProfileDomainNeutralLabel => 'بناءً على إجاباتك الحالية';
+
+  @override
+  String get brainProfileDomainBasedOnAnswers =>
+      'بناءً على موضوعات من إجابات فحص الدماغ الحالية — وليس درجات خام.';
+
+  @override
+  String get brainProfileDomainNonMedical =>
+      'ليس تشخيصاً طبياً. وليس كشفاً عن تلف دماغي. وليس درجة ذكاء.';
+
+  @override
+  String get brainProfileDomainPlanPreviewHint =>
+      'قد تركّز خطوة لطيفة من خطة التعافي هنا لاحقاً — وذلك بعد المتابعة.';
+
+  @override
+  String get brainProfileDomainsHeading => 'ملخص المجالات';
+
+  @override
+  String get brainProfileDomainNoData => 'لا إجابات في هذا المجال بعد';
+
+  @override
+  String brainProfileDomainMean(String value) {
+    return 'المتوسط المبلّغ عنه: $value';
+  }
+
+  @override
+  String get brainProfileDomainClose => 'إغلاق';
+
+  @override
+  String get brainProfileExplainHeading => 'ماذا يعني هذا';
+
+  @override
+  String get brainProfileContinue => 'المتابعة إلى خطة التعافي';
+
+  @override
+  String get brainProfileReadyTitle => 'ملف الدماغ جاهز';
+
+  @override
+  String get brainProfileReadyBody =>
+      'خطة التعافي هي الخطوة الهادئة التالية عند المتابعة من ملفك.';
+
+  @override
+  String get brainProfileHistoricalBadge => 'لقطة سابقة';
+
+  @override
+  String get recoveryPlanTitle => 'خطة التعافي';
+
+  @override
+  String get recoveryPlanBuilding => 'جارٍ بناء خطة التعافي…';
+
+  @override
+  String get recoveryPlanLoading => 'جارٍ تحميل خطة التعافي';
+
+  @override
+  String get recoveryPlanReady => 'خطة التعافي جاهزة';
+
+  @override
+  String get recoveryPlanStarterReady => 'خطة بداية هادئة جاهزة';
+
+  @override
+  String get recoveryPlanMissing => 'لا توجد خطة تعافٍ بعد';
+
+  @override
+  String get recoveryPlanMissingProfile => 'أكمل فحص الدماغ وملف الدماغ أولاً.';
+
+  @override
+  String get recoveryPlanScoreUnavailable =>
+      'الخطة الكاملة تحتاج تقدير درجة تعافٍ صالح. قد تبقى خطة البداية متاحة.';
+
+  @override
+  String get recoveryPlanUnsupportedVersion =>
+      'نموذج الخطة هذا غير مدعوم في هذا الإصدار.';
+
+  @override
+  String get recoveryPlanGenerationError =>
+      'تعذّر بناء خطتك الآن. حاول مرة أخرى.';
+
+  @override
+  String get recoveryPlanRetry => 'حاول مرة أخرى';
+
+  @override
+  String get recoveryPlanGoHome => 'العودة إلى الرئيسية';
+
+  @override
+  String get recoveryPlanBuildCta => 'ابنِ خطة التعافي';
+
+  @override
+  String get recoveryPlanMainFocus => 'التركيز الرئيسي';
+
+  @override
+  String get recoveryPlanPrioritiesHeading => 'دعم الأولوية';
+
+  @override
+  String get recoveryPlanNoPriorities => 'لا مجالات أولوية في خطة البداية هذه';
+
+  @override
+  String get recoveryPlanStrongerHeading => 'ما يساعدك بالفعل';
+
+  @override
+  String get recoveryPlanConfidenceHeading => 'الثقة';
+
+  @override
+  String get recoveryPlanTimeHeading => 'الوقت اليومي';
+
+  @override
+  String recoveryPlanTimeRange(String min, String max) {
+    return 'حوالي $min–$max دقيقة';
+  }
+
+  @override
+  String get recoveryPlanIntensityLabel => 'الشدة';
+
+  @override
+  String get recoveryPlanMinimumPath => 'المسار الأدنى';
+
+  @override
+  String get recoveryPlanStandardPath => 'المسار القياسي';
+
+  @override
+  String get recoveryPlanBecauseHeading => 'لماذا هذه الخطة اليوم';
+
+  @override
+  String get recoveryPlanTodayPreview => 'معاينة اليوم';
+
+  @override
+  String get recoveryPlanContinueToday => 'المتابعة إلى اليوم';
+
+  @override
+  String get recoveryPlanSkipHint => 'تخطي خطوة لا يُحسب أبداً كعقوبة.';
+
+  @override
+  String get recoveryPlanOptionalTag => 'اختياري';
+
+  @override
+  String get recoveryPlanNoSteps => 'لا خطوات مدرجة';
+
+  @override
+  String get recoveryPlanStarterBadge => 'خطة بداية';
+
+  @override
+  String get recoveryPlanTodayReadyTitle => 'اليوم جاهز للبدء';
+
+  @override
+  String get recoveryPlanTodayReadyBody =>
+      'مشغّل الجلسة اليومية يأتي في خطوة لاحقة. خطة التعافي محفوظة على هذا الجهاز.';
+
+  @override
+  String get recoveryPlanCalmOrientation => 'خطة التعافي الخاصة بك';
+
+  @override
+  String get recoveryPlanCalmOrientationBody =>
+      'هذه الخطة تقدير عملي مبني على ملف الدماغ الحالي. ليست تشخيصاً ولا علاجاً. يمكنك تعديلها لاحقاً.';
+
+  @override
+  String get recoveryPlanFitsProfile => 'تتوافق مع أولويات تقدير ملفك الحالي.';
+
+  @override
+  String get recoveryPlanTodayFitHeading => 'كيف يتوافق اليوم';
+
+  @override
+  String get recoveryPlanOpenToday => 'افتح اليوم';
+
+  @override
+  String get recoveryPlanAboutDetails => 'لماذا هذه الخطة';
+
+  @override
+  String get recoveryPlanPathDetails => 'تفاصيل المسار';
+
+  @override
+  String recoveryPlanStepCount(int count) {
+    return '$count خطوات';
+  }
+
+  @override
+  String get v2TodayPreviewTitle => 'أول يوم لك';
+
+  @override
+  String get v2TodayPreviewLoading => 'جارٍ تحميل معاينة اليوم';
+
+  @override
+  String get v2TodayPreviewHeading => 'معاينة اليوم';
+
+  @override
+  String get v2TodayPreviewOrientation =>
+      'يومك يبدأ بخطوة واضحة واحدة. إكمالها لاحقاً سيُسجّل يومك في الخطة.';
+
+  @override
+  String get v2TodayPreviewActHeading => 'الخطوة الأولى';
+
+  @override
+  String get v2TodayPreviewFallbackTitle => 'ممارسة اليوم';
+
+  @override
+  String get v2TodayPreviewBecauseHeading => 'لماذا هذه الخطوة اليوم';
+
+  @override
+  String get v2TodayPreviewCompletionMeaning =>
+      'إنهاء هذه الخطوة لاحقاً يُحسب يوماً مكتملاً. التخطي مسموح بلا عقوبة.';
+
+  @override
+  String get v2TodayPreviewContinueCta => 'المتابعة — خطوتك الأولى جاهزة';
+
+  @override
+  String get v2TodayPreviewMissingAct =>
+      'خطوة اليوم غير متاحة بعد. أعد بناء خطة التعافي.';
+
+  @override
+  String get v2TodayReadyLoading => 'جارٍ تجهيز خطوتك الأولى';
+
+  @override
+  String get v2TodayReadyFirstStepTitle => 'خطوتك الأولى جاهزة';
+
+  @override
+  String get v2TodayReadyFirstStepBody =>
+      'خطة التعافي محفوظة. افتح اليوم لبدء جلستك اليومية الأولى عندما تكون جاهزاً. يمكنك المغادرة والعودة دون فقدان التقدّم.';
+
+  @override
+  String get v2TodayReadyJourneySaved =>
+      'اكتمل الإعداد لأول مرة على هذا الجهاز.';
+
+  @override
+  String get v2TodayReadyProgressSaved => 'تقدّمك محفوظ على هذا الجهاز.';
+
+  @override
+  String get v2TodayReadyPrimaryCta => 'افتح اليوم';
+
+  @override
+  String get v2TodayReadyReviewPreview => 'مراجعة معاينة اليوم';
+
+  @override
+  String get v2TodayReadyCorruptPlan =>
+      'تعذّر قراءة هذه الخطة بأمان. أعد بناءها بهدوء عندما تكون جاهزاً.';
+
+  @override
+  String get v2TodayReadyPersistFailed =>
+      'تعذّر حفظ التقدّم الآن. حاول مرة أخرى.';
+
+  @override
+  String get v2TodayHomeTitle => 'اليوم';
+
+  @override
+  String get v2TodayHomeLoading => 'جارٍ تحميل اليوم';
+
+  @override
+  String get v2TodayHomeOrientation => 'يومك';
+
+  @override
+  String get v2TodayHomeOrientationBody =>
+      'فعل واحد واضح من خطة التعافي. بلا إضافات.';
+
+  @override
+  String get v2TodayHomeStandardPathHint =>
+      'المسار القياسي يضيف عمقاً معتمداً اختيارياً إن رغبت.';
+
+  @override
+  String get v2TodayHomeStatusHeading => 'الحالة';
+
+  @override
+  String get v2TodayHomeStatusReady => 'جاهز متى شئت';
+
+  @override
+  String get v2TodayHomeStatusInProgress => 'الجلسة قيد التنفيذ';
+
+  @override
+  String get v2TodayHomeStatusReflect => 'قاربت الانتهاء — أكمل التسجيل';
+
+  @override
+  String get v2TodayHomeStatusDone => 'انتهى لليوم';
+
+  @override
+  String get v2TodayHomeStatusPartial => 'حُفظت المحاولة — بلا عقوبة';
+
+  @override
+  String get v2TodayHomeCtaStart => 'ابدأ جلسة اليوم';
+
+  @override
+  String get v2TodayHomeCtaContinue => 'متابعة الجلسة';
+
+  @override
+  String get v2TodayHomeCtaViewCompleted => 'عرض الجلسة المكتملة';
+
+  @override
+  String get v2TodayHomeViewPlan => 'عرض خطة التعافي';
+
+  @override
+  String get v2SessionPrepareTitle => 'تهيئة';
+
+  @override
+  String get v2SessionPreparePurpose => 'ممارسة موجهة قصيرة من خطتك.';
+
+  @override
+  String get v2SessionPrepareIncludes => 'تتضمن هذه الجلسة:';
+
+  @override
+  String get v2SessionPathHeading => 'اختر مسارك';
+
+  @override
+  String get v2SessionPathNoShame =>
+      'المسار الأدنى مكتمل ومفيد. القياسي يضيف عمقاً اختيارياً.';
+
+  @override
+  String get v2SessionA11yHint => 'لكل خطوة بديل وصولية.';
+
+  @override
+  String get v2SessionStartCta => 'ابدأ';
+
+  @override
+  String get v2SessionClose => 'إغلاق';
+
+  @override
+  String get v2SessionActTitle => 'جلسة اليوم';
+
+  @override
+  String v2SessionProgress(String current, String total) {
+    return 'الخطوة $current من $total';
+  }
+
+  @override
+  String get v2SessionOptionalLabel => 'اختياري';
+
+  @override
+  String get v2SessionRequiredLabel => 'مطلوب';
+
+  @override
+  String get v2SessionStartTimer => 'بدء مؤقت اختياري';
+
+  @override
+  String v2SessionTimerContext(String seconds) {
+    return 'حوالي $seconds ثانية متبقية على المؤقت الاختياري';
+  }
+
+  @override
+  String get v2SessionMarkDone => 'تعليم الخطوة منتهية';
+
+  @override
+  String get v2SessionSkipOptional => 'تخطّ الخطوة الاختيارية';
+
+  @override
+  String get v2SessionEndEarly => 'إنهاء والتسجيل';
+
+  @override
+  String get v2SessionReflectTitle => 'تسجيل سريع';
+
+  @override
+  String get v2SessionReflectPrompt => 'كيف شعرت بجلسة اليوم؟';
+
+  @override
+  String get v2SessionReflectManageable => 'ما مدى قابليتها للإدارة؟';
+
+  @override
+  String get v2SessionReflectHelped => 'هل ساعدتك على التمهّل أو التركيز؟';
+
+  @override
+  String get v2SessionReflectObstacle => 'أي عائق؟ (اختياري)';
+
+  @override
+  String get v2SessionChipEasy => 'قابلة للإدارة';
+
+  @override
+  String get v2SessionChipOk => 'جيدة';
+
+  @override
+  String get v2SessionChipHard => 'صعبة';
+
+  @override
+  String get v2SessionChipYes => 'نعم';
+
+  @override
+  String get v2SessionChipSomewhat => 'إلى حد ما';
+
+  @override
+  String get v2SessionChipNotYet => 'ليس بعد';
+
+  @override
+  String get v2SessionChipNone => 'لا شيء';
+
+  @override
+  String get v2SessionChipDistraction => 'تشتت';
+
+  @override
+  String get v2SessionChipLowEnergy => 'طاقة منخفضة';
+
+  @override
+  String get v2SessionChipTime => 'وقت';
+
+  @override
+  String get v2SessionReflectSave => 'حفظ التسجيل';
+
+  @override
+  String get v2SessionReflectSkipChips => 'المتابعة دون اختيارات';
+
+  @override
+  String get v2SessionSaving => 'جارٍ الحفظ…';
+
+  @override
+  String get v2SessionLeaveSuccess => 'أحسنت — انتهيت لليوم';
+
+  @override
+  String get v2SessionLeavePartial => 'توقفت بلطف — لم يُفقد شيء';
+
+  @override
+  String v2SessionLeavePath(String path) {
+    return 'المسار: $path';
+  }
+
+  @override
+  String get v2SessionLeaveBody =>
+      'الكفاءة الهادئة كافية. غادر التطبيق عندما تكون جاهزاً.';
+
+  @override
+  String get v2SessionLeaveNext => 'غداً سيعرض اليوم خطوة واضحة واحدة من جديد.';
+
+  @override
+  String get v2SessionLeaveCta => 'العودة إلى اليوم';
+
+  @override
+  String get v2ProgressEmptyTitle => 'لا تقدّم بعد';
+
+  @override
+  String get v2ProgressEmptyBody =>
+      'أكمل جلسة اليوم لتبدأ سجلاً محلياً صادقاً. لا يُختلق شيء عندما يكون السجل فارغاً.';
+
+  @override
+  String get v2ProgressLoading => 'جارٍ تحميل التقدّم';
+
+  @override
+  String get v2ProgressPersistFailed =>
+      'تعذّر حفظ التقدّم الآن. حاول مرة أخرى.';
+
+  @override
+  String get v2ProgressStatsSessions => 'الجلسات المكتملة';
+
+  @override
+  String get v2ProgressStatsMinimum => 'جلسات المسار الأدنى';
+
+  @override
+  String get v2ProgressStatsStandard => 'جلسات المسار القياسي';
+
+  @override
+  String get v2ProgressStatsRate => 'معدل الأيام المكتملة';
+
+  @override
+  String get v2ProgressStatsCurrentStreak => 'تتابع الأيام المكتملة الحالي';
+
+  @override
+  String get v2ProgressStatsLongestStreak => 'أطول تتابع أيام مكتملة';
+
+  @override
+  String get v2OnboardingLoading => 'جارٍ التحميل…';
+
+  @override
+  String get v2OnboardingContinue => 'متابعة';
+
+  @override
+  String get v2OnboardingBack => 'رجوع';
+
+  @override
+  String get v2OnboardingRetry => 'حاول مرة أخرى';
+
+  @override
+  String get v2OnboardingRestart => 'ابدأ التهيئة من جديد';
+
+  @override
+  String get v2OnboardingGoHome => 'العودة إلى الرئيسية';
+
+  @override
+  String v2OnboardingProgressLabel(String current, String total) {
+    return 'الخطوة $current من $total';
+  }
+
+  @override
+  String v2OnboardingProgressSemantics(String current, String total) {
+    return 'خطوة التهيئة $current من $total';
+  }
+
+  @override
+  String get v2OnboardingLanguageArabic => 'العربية';
+
+  @override
+  String get v2OnboardingLanguageEnglish => 'English';
+
+  @override
+  String get v2OnboardingWelcomeTitle => 'مرحباً بك في Brain Clean';
+
+  @override
+  String get v2OnboardingWelcomeBody =>
+      'يساعدك Brain Clean على تقدير حالتك الحالية في التعافي، وبناء خطة تعافٍ مخصصة، وملاحظة التغيير مع الوقت — بهدوء ودون ادعاءات طبية.';
+
+  @override
+  String get v2OnboardingExpectationsTitle => 'ما الذي تتوقعه';
+
+  @override
+  String get v2OnboardingExpectationsBody =>
+      'مسار قصير وصادق — ليس تشخيصاً وليس ضماناً.';
+
+  @override
+  String get v2OnboardingExpectation1 =>
+      'جلسة يومية قصيرة عندما تكون جاهزاً — حوالي خمس دقائق.';
+
+  @override
+  String get v2OnboardingExpectation2 =>
+      'فحص دماغ مبني على تقرير ذاتي، وليس تشخيصاً طبياً.';
+
+  @override
+  String get v2OnboardingExpectation3 =>
+      'خطة عملية يمكن فهمها، مع تقدّم يمكن ملاحظته مع الوقت.';
+
+  @override
+  String get v2OnboardingExpectationsFootnote =>
+      'النتائج غير مضمونة. قد يتقدّم التقدّم ويتراجع.';
+
+  @override
+  String get v2OnboardingConsentTitle => 'قبل المتابعة';
+
+  @override
+  String get v2OnboardingConsentBody =>
+      'يرجى تأكيد فهمك لكيفية استخدام Brain Clean.';
+
+  @override
+  String get v2OnboardingConsentNonMedical =>
+      'أفهم أن Brain Clean ليس تشخيصاً طبياً ولا تقييماً سريرياً ولا علاجاً.';
+
+  @override
+  String get v2OnboardingConsentTerms =>
+      'أوافق على المتابعة وفق شروط استخدام التطبيق.';
+
+  @override
+  String get v2OnboardingConsentAnalytics =>
+      'اختياري: السماح بإشارات استخدام مجهولة للمنتج (متوقفة افتراضياً).';
+
+  @override
+  String get v2OnboardingConsentHint => 'حدّد المربعات المطلوبة للمتابعة.';
+
+  @override
+  String get v2OnboardingPrivacyTitle => 'بياناتك على هذا الجهاز';
+
+  @override
+  String get v2OnboardingPrivacyBody =>
+      'تُحسب إجابات فحص الدماغ الأساسية ودرجة التعافي وخطة التعافي وتُخزَّن محلياً على هذا الجهاز. يمكنك إيقاف فحص الدماغ واستئنافه. تبقى الشروحات قابلة للمراجعة. الدرجة لا يولّدها ذكاء اصطناعي.';
+
+  @override
+  String get v2OnboardingPrivacyFootnote =>
+      'قد تستخدم بعض ميزات المنتج الاختيارية الشبكة لاحقاً (مثل المزامنة أو الدعم أو الإعلانات عند تفعيلها). المتابعة تعمل دون اتصال.';
+
+  @override
+  String get v2OnboardingPrivacyPolicyLink => 'ملخص الخصوصية';
+
+  @override
+  String get v2OnboardingPrivacyCachedSummary =>
+      'يبقي Brain Clean بيانات الفحص والخطة الأساسية محلية أولاً. ميزات السحابة أو الشبكة الاختيارية منفصلة وغير مطلوبة لإكمال هذه التهيئة. هذا ليس شهادة خصوصية طبية.';
+
+  @override
+  String get v2OnboardingRitualTitle => 'متى تناسبك جلسة قصيرة عادةً؟';
+
+  @override
+  String get v2OnboardingRitualBody =>
+      'اختر نافذة لطيفة كتذكير. يمكنك تغيير ذلك لاحقاً.';
+
+  @override
+  String get v2OnboardingRitualMorning => 'صباحاً';
+
+  @override
+  String get v2OnboardingRitualAfternoon => 'ظهراً';
+
+  @override
+  String get v2OnboardingRitualEvening => 'مساءً';
+
+  @override
+  String get v2OnboardingRitualDecideLater => 'قرّر لاحقاً';
+
+  @override
+  String get v2OnboardingCheckIntroTitle => 'فحص الدماغ';
+
+  @override
+  String get v2OnboardingCheckIntroBody =>
+      'فحص الدماغ تقرير ذاتي قصير. ليس تشخيصاً طبياً، ولا كشفاً عن تلف دماغي، ولا اختبار ذكاء. تبقى إجاباتك على هذا الجهاز وتساعد في بناء خطة عملية.';
+
+  @override
+  String get v2OnboardingCheckIntroMeta =>
+      'فحص خفيف · بضع دقائق · قابل للاستئناف';
+
+  @override
+  String get v2OnboardingStartBrainCheck => 'ابدأ فحص الدماغ';
+
+  @override
+  String get v2OnboardingCorruptTitle => 'لنبدأ من جديد بهدوء';
+
+  @override
+  String get v2OnboardingCorruptBody =>
+      'تعذّر قراءة بيانات التهيئة بأمان. لم تُحذف إجابات فحص الدماغ. يمكنك بدء التهيئة مرة أخرى.';
+
+  @override
+  String get v2BrainCheckEntryTitle => 'فحص الدماغ';
+
+  @override
+  String get v2BrainCheckEntryLoading => 'جارٍ تجهيز فحص الدماغ…';
+
+  @override
+  String get v2BrainCheckEntryBody =>
+      'تقرير ذاتي هادئ للمساعدة على تقدير حالتك الحالية في التعافي.';
+
+  @override
+  String get v2BrainCheckEntryNonMedical =>
+      'ليس تشخيصاً طبياً. ليس علاجاً. ليس مقياساً للذكاء.';
+
+  @override
+  String get v2BrainCheckEntryDuration =>
+      'فحص خفيف · قصير · يمكنك التوقّف في أي وقت';
+
+  @override
+  String get v2BrainCheckEntryStart => 'ابدأ فحص الدماغ';
+
+  @override
+  String get v2BrainCheckEntryResume => 'استئناف فحص الدماغ';
+
+  @override
+  String get v2BrainCheckEntryResumeHint =>
+      'لديك فحص دماغ غير مكتمل على هذا الجهاز.';
+
+  @override
+  String get v2BrainCheckEntryStartOver => 'البدء من جديد';
+
+  @override
+  String get v2BrainCheckEntryAlreadyComplete =>
+      'فحص الدماغ مكتمل بالفعل. البدء من جديد متاح في خطوات لاحقة — ولم تُمسَ الإجابات.';
+
+  @override
+  String get v2BrainCheckEntryError => 'تعذّر تجهيز فحص الدماغ الآن.';
+
+  @override
+  String get v2BrainCheckReadyTitle => 'فحص الدماغ جاهز';
+
+  @override
+  String get v2BrainCheckReadyBody =>
+      'دخول فحص الدماغ جاهز. تابع عندما تريد فتح الاستبيان أو استئنافه.';
+
+  @override
+  String get v2WeeklyReviewTitle => 'المراجعة الأسبوعية';
+
+  @override
+  String get v2WeeklySummaryTitle => 'ملخص الأسبوع';
+
+  @override
+  String get v2WeeklyReviewLoading => 'جارٍ تحميل المراجعة الأسبوعية';
+
+  @override
+  String get v2WeeklyReviewExit => 'خروج';
+
+  @override
+  String get v2WeeklyReviewBack => 'رجوع';
+
+  @override
+  String get v2WeeklyReviewContinue => 'متابعة';
+
+  @override
+  String get v2WeeklyReviewComplete => 'إكمال المراجعة';
+
+  @override
+  String get v2WeeklyReviewRetry => 'حاول مرة أخرى';
+
+  @override
+  String get v2WeeklyReviewBackToday => 'العودة إلى اليوم';
+
+  @override
+  String get v2WeeklyReviewSaveFailed =>
+      'تعذّر حفظ مراجعتك الآن. حاول مرة أخرى.';
+
+  @override
+  String get v2WeeklyReviewUnsupported =>
+      'صيغة هذه المراجعة غير مدعومة في هذا الإصدار.';
+
+  @override
+  String get v2WeeklyReviewNotReadyGeneric =>
+      'المراجعة الأسبوعية غير جاهزة بعد';
+
+  @override
+  String get v2WeeklyReviewNotReadyGenericBody =>
+      'عُد بعد أسبوع مكتمل فيه جلسة واحدة منتهية على الأقل.';
+
+  @override
+  String get v2WeeklyReviewNotReadyZeroTitle => 'لا يوجد نشاط مكتمل كافٍ بعد';
+
+  @override
+  String get v2WeeklyReviewNotReadyZeroBody =>
+      'أكمل جلسة اليوم مرة واحدة على الأقل في أسبوع منتهٍ لفتح المراجعة الأسبوعية.';
+
+  @override
+  String get v2WeeklyReviewNotReadyCurrentTitle => 'هذا الأسبوع ما زال جارياً';
+
+  @override
+  String get v2WeeklyReviewNotReadyCurrentBody =>
+      'تُفتَح المراجعة الأسبوعية بعد انتهاء الأسبوع. تابع اليوم عندما تكون جاهزاً.';
+
+  @override
+  String get v2WeeklyReviewNotReadyMissingTitle => 'مصادر المراجعة غير جاهزة';
+
+  @override
+  String get v2WeeklyReviewNotReadyMissingBody =>
+      'خطة أو ملف شخصي أو سجل تقدّم محلي مفقود. تابع عبر اليوم ثم عُد لاحقاً.';
+
+  @override
+  String v2WeeklyReviewPeriodLabel(String start, String end) {
+    return 'الفترة $start – $end';
+  }
+
+  @override
+  String v2WeeklyReviewProgress(String current, String total) {
+    return 'السؤال $current من $total';
+  }
+
+  @override
+  String v2WeeklyReviewProgressSemantics(String current, String total) {
+    return 'سؤال المراجعة الأسبوعية $current من $total';
+  }
+
+  @override
+  String get v2WeeklyReviewRequired => 'مطلوب';
+
+  @override
+  String get v2WeeklyReviewMultiSelectHint => 'اختياري. اختر حتى خيارين.';
+
+  @override
+  String get v2WeeklyReviewValidationHint =>
+      'يرجى اختيار إجابة صالحة للمتابعة.';
+
+  @override
+  String get v2WeeklyReviewYes => 'نعم';
+
+  @override
+  String get v2WeeklyReviewNo => 'لا';
+
+  @override
+  String get v2WeeklyReviewQManageability =>
+      'ما مدى قابلية الخطة للإدارة هذا الأسبوع؟';
+
+  @override
+  String get v2WeeklyReviewQPauseFocus =>
+      'إلى أي مدى ساعدتك الجلسات على التمهّل أو التركيز؟';
+
+  @override
+  String get v2WeeklyReviewQObstacle => 'ما الذي أعاقك في أغلب الأحيان؟';
+
+  @override
+  String get v2WeeklyReviewQSupport => 'ما الذي ساعدك؟ (اختياري)';
+
+  @override
+  String get v2WeeklyReviewQAccessibility =>
+      'هل استخدمت بديلاً للوصولية هذا الأسبوع؟ (اختياري)';
+
+  @override
+  String get v2WeeklyReviewOptTooLight => 'خفيف جداً';
+
+  @override
+  String get v2WeeklyReviewOptAboutRight => 'مناسب تقريباً';
+
+  @override
+  String get v2WeeklyReviewOptTooDemanding => 'متطلّب جداً';
+
+  @override
+  String get v2WeeklyReviewOptTime => 'الوقت';
+
+  @override
+  String get v2WeeklyReviewOptForgetfulness => 'النسيان';
+
+  @override
+  String get v2WeeklyReviewOptLowEnergy => 'طاقة منخفضة';
+
+  @override
+  String get v2WeeklyReviewOptInterruptions => 'مقاطعات';
+
+  @override
+  String get v2WeeklyReviewOptUnclearStep => 'خطوة غير واضحة';
+
+  @override
+  String get v2WeeklyReviewOptAccessEnv => 'الوصول أو البيئة';
+
+  @override
+  String get v2WeeklyReviewOptNoMajorObstacle => 'لا عائق كبير';
+
+  @override
+  String get v2WeeklyReviewOptShorterPath => 'مسار أقصر';
+
+  @override
+  String get v2WeeklyReviewOptClearerTiming => 'توقيت أوضح';
+
+  @override
+  String get v2WeeklyReviewOptQuieterEnv => 'بيئة أهدأ';
+
+  @override
+  String get v2WeeklyReviewOptA11yAlt => 'بديل وصولية';
+
+  @override
+  String get v2WeeklyReviewOptStrongerReminder => 'تذكير أقوى';
+
+  @override
+  String get v2WeeklyReviewOptSamePlan => 'الخطة الحالية مناسبة';
+
+  @override
+  String get v2WeeklySummaryOrientation => 'نمط هذا الأسبوع';
+
+  @override
+  String v2WeeklySummaryCompletedDays(String count) {
+    return 'الأيام المكتملة: $count';
+  }
+
+  @override
+  String v2WeeklySummaryPathMix(String label) {
+    return 'مزيج المسارات: $label';
+  }
+
+  @override
+  String get v2WeeklySummaryPathMostlyMinimum => 'غالباً الأدنى';
+
+  @override
+  String get v2WeeklySummaryPathMostlyStandard => 'غالباً القياسي';
+
+  @override
+  String get v2WeeklySummaryPathBalanced => 'متوازن';
+
+  @override
+  String get v2WeeklySummaryPathSingle => 'جلسة واحدة فقط';
+
+  @override
+  String get v2WeeklySummaryPatternHeading => 'الإيقاع';
+
+  @override
+  String get v2WeeklySummaryRhythmSteady => 'ثابت عبر عدة أيام';
+
+  @override
+  String get v2WeeklySummaryRhythmIntermittent => 'متقطّع عبر الأسبوع';
+
+  @override
+  String get v2WeeklySummaryRhythmLimited => 'سجل محدود';
+
+  @override
+  String get v2WeeklySummaryObstacleHeading => 'ما الذي أعاقك؟';
+
+  @override
+  String get v2WeeklySummarySupportHeading => 'ما الذي ساعدك؟';
+
+  @override
+  String get v2WeeklySummarySupportNone => 'لم يُذكر دعم';
+
+  @override
+  String get v2WeeklySummaryAttentionHeading => 'ما قد يستحق الانتباه';
+
+  @override
+  String get v2WeeklySummaryAttentionLoad => 'الحمل قد يستحق نظرة لاحقاً';
+
+  @override
+  String get v2WeeklySummaryAttentionSupport =>
+      'المزيد من الدعم قد يستحق الانتباه لاحقاً';
+
+  @override
+  String get v2WeeklySummaryAttentionPause =>
+      'التمهّل أو التركيز بدا منخفضاً هذا الأسبوع';
+
+  @override
+  String get v2WeeklySummaryAttentionObstacle => 'برز عائق هذا الأسبوع';
+
+  @override
+  String get v2WeeklySummaryAttentionMaintain =>
+      'واصل الملاحظة مع الخطة الحالية';
+
+  @override
+  String get v2WeeklySummaryEvidenceLimited =>
+      'دليل محدود — جلسة مكتملة واحدة فقط';
+
+  @override
+  String get v2WeeklySummaryEvidenceDeveloping =>
+      'دليل مبكر — اعتبر هذا نظرة هادئة إلى الخلف';
+
+  @override
+  String get v2WeeklySummaryEvidenceSufficient => 'ملخص فقط — ليس ادّعاء سبب';
+
+  @override
+  String get v2WeeklySummaryPlanUnchanged => 'لم تتغير خطتك بعد';
+
+  @override
+  String get v2WeeklySummaryCtaToday => 'العودة إلى اليوم';
+
+  @override
+  String get v2WeeklySummaryCtaProgress => 'العودة إلى التقدّم';
+
+  @override
+  String get v2WeeklyFactsSection => 'آخر 7 أيام';
+
+  @override
+  String get v2WeeklyFactsTasks => 'المهام المكتملة';
+
+  @override
+  String v2WeeklyFactsTasksCaption(String count) {
+    return '$count خطوات مطلوبة';
+  }
+
+  @override
+  String get v2WeeklyFactsStreak => 'السلسلة';
+
+  @override
+  String v2WeeklyFactsStreakCaption(String current, String best) {
+    return '$current الآن · $best الأفضل';
+  }
+
+  @override
+  String get v2WeeklyFactsAdherence => 'الالتزام بالخطة';
+
+  @override
+  String v2WeeklyFactsAdherenceCaption(String days) {
+    return '$days من 7 أيام';
+  }
+
+  @override
+  String get v2ProgressTitle => 'التقدّم';
+
+  @override
+  String get v2ProgressOrientation => 'تقدّمك';
+
+  @override
+  String get v2ProgressRetry => 'حاول مرة أخرى';
+
+  @override
+  String get v2ProgressBasedOnSessions => 'يعتمد التقدّم على الجلسات المكتملة';
+
+  @override
+  String get v2ProgressHeadlineEmpty => 'لا جلسات مكتملة بعد';
+
+  @override
+  String get v2ProgressHeadlineFirst => 'حُفظت أول جلسة مكتملة لك';
+
+  @override
+  String get v2ProgressHeadlineFew => 'بضعة أيام مكتملة مسجّلة';
+
+  @override
+  String get v2ProgressHeadlineRhythm => 'بدأت ملامح نمط بالظهور';
+
+  @override
+  String get v2ProgressHeadlineSteady => 'يظهر نمط أكثر ثباتاً';
+
+  @override
+  String get v2ProgressHeadlineLimited => 'الدليل ما زال محدوداً';
+
+  @override
+  String get v2ProgressHeadlineWeekly => 'يتوفر دليل أسبوعي للمراجعة';
+
+  @override
+  String get v2ProgressBetterHeading => 'ما هو مسجّل';
+
+  @override
+  String get v2ProgressWhyHeading => 'ما يظهر من النمط';
+
+  @override
+  String get v2ProgressComparedHeading => 'كيف يقارن مع الوقت';
+
+  @override
+  String v2ProgressCompletedDays(String count) {
+    return 'الأيام المكتملة: $count';
+  }
+
+  @override
+  String v2ProgressCompletedSessions(String count) {
+    return 'الجلسات المكتملة: $count';
+  }
+
+  @override
+  String v2ProgressMinimumPath(String count) {
+    return 'المسار الأدنى: $count';
+  }
+
+  @override
+  String v2ProgressStandardPath(String count) {
+    return 'المسار القياسي: $count';
+  }
+
+  @override
+  String v2ProgressCompletionRate(String percent) {
+    return 'معدل الأيام المكتملة: $percent%';
+  }
+
+  @override
+  String v2ProgressCurrentRhythm(int count) {
+    return 'الإيقاع الحالي: $count يوم';
+  }
+
+  @override
+  String v2ProgressLongestRhythm(int count) {
+    return 'أطول إيقاع: $count يوم';
+  }
+
+  @override
+  String v2ProgressFirstCompleted(String day) {
+    return 'أول يوم مكتمل: $day';
+  }
+
+  @override
+  String v2ProgressLastCompleted(String day) {
+    return 'آخر يوم مكتمل: $day';
+  }
+
+  @override
+  String get v2ProgressRecentActivity => 'النشاط الأخير';
+
+  @override
+  String get v2ProgressTimelineMinimum => 'المسار الأدنى';
+
+  @override
+  String get v2ProgressTimelineStandard => 'المسار القياسي';
+
+  @override
+  String get v2ProgressTimelineBothPaths => 'الأدنى والقياسي';
+
+  @override
+  String v2ProgressTimelineEntry(String day, String path) {
+    return '$day · $path';
+  }
+
+  @override
+  String get v2ProgressPathMostlyMinimum => 'غالباً المسار الأدنى';
+
+  @override
+  String get v2ProgressPathMostlyStandard => 'غالباً المسار القياسي';
+
+  @override
+  String get v2ProgressPathBalanced => 'مزيج متوازن من المسارات';
+
+  @override
+  String get v2ProgressPathSingle => 'جلسة واحدة فقط';
+
+  @override
+  String get v2ProgressEvidenceEmpty =>
+      'أكمل فعل اليوم أولاً لتبدأ سجلاً صادقاً.';
+
+  @override
+  String get v2ProgressEvidenceLimited =>
+      'الدليل ما زال محدوداً — فعل مكتمل واحد حتى الآن.';
+
+  @override
+  String get v2ProgressEvidenceDeveloping =>
+      'بدأت ملامح نمط بالظهور. هذه ملاحظة وليست تشخيصاً.';
+
+  @override
+  String get v2ProgressEvidenceSufficient =>
+      'نشاط مكتمل كافٍ لنظرة هادئة إلى الخلف. بلا ادّعاء سبب.';
+
+  @override
+  String get v2ProgressScoreHeading => 'لقطة درجة التعافي';
+
+  @override
+  String v2ProgressScoreValue(String value) {
+    return 'التقدير: $value';
+  }
+
+  @override
+  String get v2ProgressScoreUnavailable =>
+      'تقدير الدرجة غير متاح بعد على هذا الجهاز';
+
+  @override
+  String v2ProgressScoreMeasured(String day) {
+    return 'من فحص الدماغ بتاريخ $day';
+  }
+
+  @override
+  String get v2ProgressScoreDisclaimer =>
+      'إكمال الجلسة اليومية لا يغيّر هذه الدرجة فوراً. تأتي الدرجة من قياس فحص الدماغ، لا من عدّ الجلسات.';
+
+  @override
+  String get v2ProgressWeeklyReviewHeading => 'المراجعة الأسبوعية';
+
+  @override
+  String get v2ProgressWrNotEnough =>
+      'لا يوجد نشاط مكتمل كافٍ بعد للمراجعة الأسبوعية.';
+
+  @override
+  String get v2ProgressWrCurrentWeek =>
+      'هذا الأسبوع ما زال جارياً. تُفتَح المراجعة بعد انتهائه.';
+
+  @override
+  String get v2ProgressWrAvailable => 'المراجعة الأسبوعية متاحة';
+
+  @override
+  String get v2ProgressWrDraft => 'مسودة المراجعة الأسبوعية قيد الإعداد';
+
+  @override
+  String get v2ProgressWrCompleted => 'ملخص الأسبوع متاح';
+
+  @override
+  String get v2ProgressWrUnsupported =>
+      'صيغة هذه المراجعة غير مدعومة في هذا الإصدار.';
+
+  @override
+  String get v2ProgressWrMissingRefs =>
+      'مصادر المراجعة غير جاهزة بعد. تابع عبر اليوم ثم عُد لاحقاً.';
+
+  @override
+  String get v2ProgressWrError => 'تعذّر تجهيز المراجعة الأسبوعية الآن.';
+
+  @override
+  String get v2ProgressWrCtaStart => 'ابدأ المراجعة الأسبوعية';
+
+  @override
+  String get v2ProgressWrCtaContinue => 'متابعة المراجعة الأسبوعية';
+
+  @override
+  String get v2ProgressWrCtaSummary => 'عرض ملخص الأسبوع';
+
+  @override
+  String get v2ProgressWeeklyPreviewHeading => 'أحدث ملخص أسبوعي';
+
+  @override
+  String get v2ProgressCtaToday => 'أكمل فعل اليوم أولاً';
+
+  @override
+  String get v2ProgressCtaContinueToday => 'العودة إلى اليوم';
+
+  @override
+  String get v2ProgressReportsEntry => 'فتح التقارير';
+
+  @override
+  String get v2ProgressPatternDetails => 'تفاصيل النمط';
+
+  @override
+  String get v2ReportsTitle => 'التقارير';
+
+  @override
+  String get v2ReportsEvidenceOverview => 'نظرة عامة على الأدلة';
+
+  @override
+  String get v2ReportsWeeklyHistory => 'السجل الأسبوعي';
+
+  @override
+  String get v2ReportsWeeklyReport => 'تقرير الأسبوع';
+
+  @override
+  String get v2ReportsMeasurementHistory => 'سجل القياسات';
+
+  @override
+  String get v2ReportsEvidenceStillDeveloping =>
+      'ما زالت أدلتك في مرحلة التكوّن';
+
+  @override
+  String get v2ReportsNotEnoughMeasurements =>
+      'لا توجد قياسات كافية للمقارنة بعد';
+
+  @override
+  String get v2ReportsComparedWithEarlier => 'مقارنةً بفحصك السابق';
+
+  @override
+  String get v2ReportsSelfReportEstimate =>
+      'هذا تقدير قائم على إجاباتك الذاتية';
+
+  @override
+  String get v2ReportsNoCauseFromHistory => 'لا يمكن تحديد السبب من هذا السجل';
+
+  @override
+  String get v2ReportsOrientation =>
+      'تجمع التقارير أدلة محلية صادقة من الجلسات المكتملة وملخصات الأسابيع والقياسات الذاتية الصحيحة.';
+
+  @override
+  String get v2ReportsOrientationNot =>
+      'التقارير ليست تشخيصاً، وليست نصيحة طبية، وليست مقارنة مع أشخاص آخرين.';
+
+  @override
+  String get v2ReportsLoading => 'جارٍ تحميل التقارير';
+
+  @override
+  String get v2ReportsRetry => 'إعادة المحاولة';
+
+  @override
+  String get v2ReportsPersistFailed =>
+      'تعذّر تحميل التقارير الآن. حاول مرة أخرى.';
+
+  @override
+  String get v2ReportsUnsupported =>
+      'صيغة هذا التقرير غير مدعومة في هذا الإصدار.';
+
+  @override
+  String get v2ReportsEmptyBody =>
+      'أكمل جلسة اليوم لتبدأ سجلاً محلياً صادقاً. لا يُختلق شيء عندما يكون السجل فارغاً.';
+
+  @override
+  String get v2ReportsSnapshotMissing =>
+      'لقطة التقدّم المحفوظة مفقودة. تُعرض الأعداد المعاد بناؤها من الجلسات المكتملة فقط.';
+
+  @override
+  String get v2ReportsDepthNoEvidence => 'لا توجد أدلة بعد';
+
+  @override
+  String get v2ReportsDepthEarly => 'أدلة مبكرة';
+
+  @override
+  String get v2ReportsDepthDeveloping => 'أدلة قيد التكوّن';
+
+  @override
+  String get v2ReportsDepthEstablished => 'سجل راسخ';
+
+  @override
+  String get v2ReportsDepthNoEvidenceExplain =>
+      'لا توجد جلسات مكتملة مسجّلة بعد.';
+
+  @override
+  String get v2ReportsDepthDevelopingExplain =>
+      'الأيام المكتملة وملخصات الأسابيع تبني سجلاً محلياً أوضح.';
+
+  @override
+  String get v2ReportsDepthEstablishedExplain =>
+      'عدة ملخصات أسبوعية وقياسات تشكّل سجلاً محلياً أطول.';
+
+  @override
+  String get v2ReportsSessionSummaryHeading => 'النشاط المكتمل';
+
+  @override
+  String v2ReportsCompletedSessions(String count) {
+    return 'الجلسات المكتملة: $count';
+  }
+
+  @override
+  String v2ReportsCompletedDays(String count) {
+    return 'الأيام المكتملة: $count';
+  }
+
+  @override
+  String v2ReportsMinimumPath(String count) {
+    return 'المسار الأدنى: $count';
+  }
+
+  @override
+  String v2ReportsStandardPath(String count) {
+    return 'المسار القياسي: $count';
+  }
+
+  @override
+  String v2ReportsCurrentRhythm(String count) {
+    return 'الإيقاع الحالي: $count يوم/أيام';
+  }
+
+  @override
+  String v2ReportsLongestRhythm(String count) {
+    return 'أطول إيقاع: $count يوم/أيام';
+  }
+
+  @override
+  String v2ReportsFirstCompleted(String day) {
+    return 'أول يوم مكتمل: $day';
+  }
+
+  @override
+  String v2ReportsLastCompleted(String day) {
+    return 'آخر يوم مكتمل: $day';
+  }
+
+  @override
+  String get v2ReportsMeasurementStatusHeading => 'حالة سجل القياسات';
+
+  @override
+  String get v2ReportsMeasurementNone => 'لا توجد قياسات صحيحة بعد';
+
+  @override
+  String get v2ReportsMeasurementNoneBody =>
+      'يؤدي إكمال فحص الدماغ إلى إنشاء قياس ذاتي يمكنك مراجعته هنا.';
+
+  @override
+  String get v2ReportsMeasurementBaseline => 'يوجد قياس أساسي واحد مسجّل';
+
+  @override
+  String get v2ReportsMeasurementComparable => 'تتوفر قياسات قابلة للمقارنة';
+
+  @override
+  String get v2ReportsMeasurementIncompatible =>
+      'توجد قياسات لكنها غير قابلة للمقارنة بعد';
+
+  @override
+  String get v2ReportsMeasurementErrorBody => 'تعذّر إعداد سجل القياسات الآن.';
+
+  @override
+  String v2ReportsLatestScore(String value) {
+    return 'أحدث تقدير: $value';
+  }
+
+  @override
+  String get v2ReportsNoArtifacts => 'لا توجد تقارير أسبوعية بعد';
+
+  @override
+  String v2ReportsWeeklyReportPeriod(String start, String end) {
+    return 'الأسبوع $start – $end';
+  }
+
+  @override
+  String v2ReportsPremiumArchiveHint(String count) {
+    return '$count تقرير/تقارير أقدم متاحة مع أرشيف Premium';
+  }
+
+  @override
+  String get v2ReportsPremiumGatedTitle => 'الأرشيف الأقدم';
+
+  @override
+  String get v2ReportsPremiumGatedBody =>
+      'يبقى أحدث تقرير أسبوعي والتقرير السابق مجانيين. عمق الأرشيف الأقدم جزء من Premium. لا تُخفى الأدلة الحالية.';
+
+  @override
+  String get v2ReportsArtifactMissing => 'تقرير الأسبوع غير موجود';
+
+  @override
+  String get v2ReportsArtifactMissingBody =>
+      'تقرير الأسبوع هذا مفقود أو غير متاح. عد إلى التقارير.';
+
+  @override
+  String get v2ReportsArtifactUnsupportedBody =>
+      'صيغة تقرير الأسبوع هذا غير مدعومة في هذا الإصدار.';
+
+  @override
+  String get v2ReportsArtifactCorrupt => 'تعذّر قراءة تقرير الأسبوع';
+
+  @override
+  String get v2ReportsArtifactCorruptBody =>
+      'يبدو تقرير الأسبوع هذا غير مكتمل. عد إلى التقارير.';
+
+  @override
+  String get v2ReportsCtaLatestArtifact => 'فتح أحدث تقرير أسبوعي';
+
+  @override
+  String get v2ReportsOpenMeasurementHistory => 'فتح سجل القياسات';
+
+  @override
+  String get v2ReportsCtaToday => 'أكمل فعل اليوم أولاً';
+
+  @override
+  String get v2ReportsBackProgress => 'العودة إلى التقدّم';
+
+  @override
+  String get v2ReportsBackOverview => 'العودة إلى التقارير';
+
+  @override
+  String get v2ReportsComparisonHigher =>
+      'تقديرك الذاتي الأخير أعلى من تقديرك السابق.';
+
+  @override
+  String get v2ReportsComparisonLower =>
+      'تقديرك الذاتي الأخير أقل من تقديرك السابق.';
+
+  @override
+  String get v2ReportsComparisonUnchanged =>
+      'تقديرك الذاتي الأخير لم يتغيّر عن تقديرك السابق.';
+
+  @override
+  String get v2ReportsComparisonNotComparable =>
+      'هذه القياسات غير قابلة للمقارنة فيما بينها.';
+
+  @override
+  String get v2ReportsTooEarlyToInterpret =>
+      'قد يكون الوقت مبكراً لتفسير هذا التغيير.';
+
+  @override
+  String get v2ReportsLowConfidenceQualifier =>
+      'أحد القياسات على الأقل يحمل قدراً أكبر من عدم اليقين.';
+
+  @override
+  String get v2ReportsMeasurementListHeading => 'قياساتك';
+
+  @override
+  String v2ReportsMeasuredOn(String day) {
+    return 'تاريخ القياس: $day';
+  }
+
+  @override
+  String v2ReportsScoreValue(String value) {
+    return 'التقدير: $value';
+  }
+
+  @override
+  String v2ReportsScoreBand(String band) {
+    return 'النطاق: $band';
+  }
+
+  @override
+  String v2ReportsScoreConfidence(String confidence) {
+    return 'الثقة: $confidence';
+  }
+
+  @override
+  String v2ReportsMeasurementSemantics(
+      String day, String score, String confidence) {
+    return 'قياس في $day، تقدير $score، ثقة $confidence';
+  }
+
+  @override
+  String get v2ReportsConfidenceStrong => 'قوية';
+
+  @override
+  String get v2ReportsConfidenceModerate => 'متوسطة';
+
+  @override
+  String get v2ReportsConfidenceProvisional => 'أولية';
+
+  @override
+  String get v2ReportsDomainHistoryHeading => 'سجل المجالات';
+
+  @override
+  String get v2ReportsDomainLatestOnly =>
+      'أحدث لقطة للمجالات فقط — لا يوجد سجل مجالات كافٍ للمقارنة بعد.';
+
+  @override
+  String v2ReportsDomainRow(String title, String value) {
+    return '$title: $value';
+  }
+
+  @override
+  String v2ReportsDomainHistoryRow(String title, String day, String value) {
+    return '$title في $day: $value';
+  }
+
+  @override
+  String get v2NavHome => 'الرئيسية';
+
+  @override
+  String get v2NavToday => 'اليوم';
+
+  @override
+  String get v2NavCheck => 'فحص الدماغ';
+
+  @override
+  String get v2NavPlan => 'البرنامج';
+
+  @override
+  String get v2NavProgress => 'التقدّم';
+
+  @override
+  String get v2NavReports => 'التقارير';
+
+  @override
+  String get v2NavProfile => 'الملف';
+
+  @override
+  String get v2NavRecoverHome => 'العودة إلى الرئيسية';
+
+  @override
+  String get v2NavRouteNotFound => 'تعذّر العثور على هذه الصفحة';
+
+  @override
+  String get v2PremiumTitle => 'بريميوم';
+
+  @override
+  String get v2PremiumOrientation =>
+      'بريميوم يعمّق الاستمرارية بعد أن تحقق تقدماً ملموساً — ولا يفتح باب التعافي.';
+
+  @override
+  String get v2PremiumFreeCoreReassurance =>
+      'مسارك المجاني الأساسي يبقى متاحاً.';
+
+  @override
+  String get v2PremiumCurrentProgressRemains => 'تقدّمك الحالي يبقى متاحاً.';
+
+  @override
+  String get v2PremiumFourCapitalsHeading => 'ما يضيفه بريميوم';
+
+  @override
+  String get v2PremiumContinuity => 'الاستمرارية';
+
+  @override
+  String get v2PremiumContinuityBody =>
+      'أرشيف أعمق لتقارير الأسبوع والأدلة على المدى الطويل.';
+
+  @override
+  String get v2PremiumInterpretation => 'التفسير';
+
+  @override
+  String get v2PremiumInterpretationBody =>
+      'طبقات سياق حتمية مخطّط لها فقط — دون ادعاءات طبية بالذكاء الاصطناعي. غير مفعّلة بعد.';
+
+  @override
+  String get v2PremiumFit => 'الملاءمة';
+
+  @override
+  String get v2PremiumFitBody =>
+      'عمق تكيّف معتمد مستقبلاً دون تغيير صامت للخطة.';
+
+  @override
+  String get v2PremiumSupport => 'الدعم';
+
+  @override
+  String get v2PremiumSupportBody =>
+      'دعم استمرارية مستقبلي بموجب عقد منفصل — دون حصر الاستجابة العاجلة في بريميوم.';
+
+  @override
+  String get v2PremiumIncludesNowHeading => 'مشمول في بريميوم الآن';
+
+  @override
+  String get v2PremiumIncludeArchive =>
+      'أرشيف التقارير الأقدم بعد أحدث إثبات والإثبات السابق';
+
+  @override
+  String get v2PremiumIncludeThemes => 'ثيمات ألوان حصرية';
+
+  @override
+  String get v2PremiumIncludeTools =>
+      'أدوات مختارة: دائرة الأحاسيس، الصمت، الكلمات المتقاطعة، الألعاب، والاختبار المعرفي';
+
+  @override
+  String get v2PremiumIncludeChart => 'مخطط التقدّم لسبعة أيام';
+
+  @override
+  String get v2PremiumBenefitsBody =>
+      'أحدث إثبات أسبوعي والإثبات السابق يبقيان مجانيين. بريميوم يعمّق الاستمرارية — ولا يفتح باب التعافي.';
+
+  @override
+  String get v2PremiumViewPlans => 'عرض الخطط';
+
+  @override
+  String get v2PremiumRestorePurchases => 'استعادة المشتريات';
+
+  @override
+  String get v2PremiumPurchaseInProgress => 'جارٍ الشراء';
+
+  @override
+  String get v2PremiumPurchaseCompleted => 'اكتمل الشراء';
+
+  @override
+  String get v2PremiumPurchaseCancelled => 'أُلغي الشراء';
+
+  @override
+  String get v2PremiumPurchaseFailed =>
+      'تعذّر الشراء. يمكنك المحاولة مجدداً أو استعادة المشتريات.';
+
+  @override
+  String get v2PremiumPurchasePending => 'الشراء معلّق';
+
+  @override
+  String get v2PremiumNoPlansAvailable => 'لا تتوفر خطط حالياً.';
+
+  @override
+  String get v2PremiumStoreUnavailable => 'المتجر غير متاح';
+
+  @override
+  String get v2PremiumRestored => 'تمت الاستعادة';
+
+  @override
+  String get v2PremiumNothingToRestore => 'لا يوجد ما يُستعاد';
+
+  @override
+  String get v2PremiumRestoreFailed =>
+      'تعذّرت الاستعادة. يمكنك المحاولة لاحقاً.';
+
+  @override
+  String get v2PremiumRestoring => 'جارٍ استعادة المشتريات';
+
+  @override
+  String get v2PremiumSubscriptionExpired => 'انتهى الاشتراك';
+
+  @override
+  String get v2PremiumDeeperHistory => 'سجل أعمق';
+
+  @override
+  String get v2PremiumOlderArchive => 'أرشيف أقدم';
+
+  @override
+  String get v2PremiumManage => 'إدارة بريميوم';
+
+  @override
+  String get v2PremiumAlreadyActive => 'بريميوم مفعّل';
+
+  @override
+  String get v2PremiumFreeStatus => 'أنت على المسار المجاني الأساسي';
+
+  @override
+  String get v2PremiumLoading => 'جارٍ تحميل بريميوم';
+
+  @override
+  String get v2PremiumPurchaseCta => 'المتابعة مع بريميوم';
+
+  @override
+  String get v2PremiumContinue => 'متابعة';
+
+  @override
+  String get v2PremiumPeriodMonthly => 'فوترة شهرية';
+
+  @override
+  String get v2PremiumPeriodAnnual => 'فوترة سنوية';
+
+  @override
+  String get v2PremiumPeriodLifetime => 'مدى الحياة';
+
+  @override
+  String get v2PremiumTermsLink => 'الشروط';
+
+  @override
+  String get v2PremiumOfflineCached =>
+      'بدون اتصال — يُستخدم وضع بريميوم المحفوظ';
+
+  @override
+  String get v2PremiumOfflineUnknown =>
+      'بدون اتصال — حالة بريميوم غير معروفة. الشراء يحتاج اتصالاً.';
+
+  @override
+  String get v2PremiumUnavailableHere => 'لا يُعرض بريميوم على هذه الشاشة.';
+
+  @override
+  String get v2PremiumOpenFromArchive => 'عرض بريميوم للأرشيف الأقدم';
+
+  @override
+  String get v2ReportsPremiumOpen => 'فتح بريميوم';
+
+  @override
+  String get v2ReportsPremiumRestore => 'استعادة المشتريات';
+
+  @override
+  String get v2SafaTitle => 'صفا';
+
+  @override
+  String get v2SafaPurpose =>
+      'دعم موجز لمساعدتك على المتابعة بخطوة هادئة واحدة.';
+
+  @override
+  String get v2SafaAiLimitation =>
+      'قد تستخدم صفا خدمة ذكاء اصطناعي عبر الشبكة. ليست رعاية طبية وليست خدمات طوارئ.';
+
+  @override
+  String get v2SafaPrivacyNotice =>
+      'قبل الإرسال: يُرسل فقط ما تكتبه وما تختاره صراحة. يمكنك المتابعة بدون صفا أو الإلغاء.';
+
+  @override
+  String get v2SafaAcknowledgeNotice => 'فهمت';
+
+  @override
+  String get v2SafaContinueWithout => 'المتابعة بدون صفا';
+
+  @override
+  String get v2SafaConsentBody =>
+      'أرسِل فقط رسالتك المكتوبة وأي سياق تختاره. صفا ليست دعمًا طبيًا ولا طوارئ.';
+
+  @override
+  String get v2SafaConsentAllow => 'السماح برد واحد عبر الشبكة';
+
+  @override
+  String get v2SafaConsentDecline => 'استخدم الدعم دون اتصال';
+
+  @override
+  String get v2SafaContextOptionalHeading =>
+      'سياق اختياري (لا شيء محدد مسبقًا)';
+
+  @override
+  String get v2SafaContextNone => 'بدون سياق إضافي';
+
+  @override
+  String get v2SafaContextDifficult => 'لحظة صعبة';
+
+  @override
+  String get v2SafaContextClarify => 'توضيح خطوة';
+
+  @override
+  String get v2SafaContextContinue => 'مساعدة على المتابعة';
+
+  @override
+  String get v2SafaIncludeApprovedContext =>
+      'ضمّن سياقًا قصيرًا أوافق عليه لهذا الإرسال فقط';
+
+  @override
+  String get v2SafaInputLabel => 'رسالتك';
+
+  @override
+  String get v2SafaInputHint => 'اكتب باختصار ما تحتاج المساعدة فيه';
+
+  @override
+  String get v2SafaSend => 'إرسال';
+
+  @override
+  String get v2SafaSending => 'جارٍ الإرسال';
+
+  @override
+  String get v2SafaResponseHeading => 'رد صفا';
+
+  @override
+  String get v2SafaSuggestedReturn => 'العودة إلى حيث توقفت';
+
+  @override
+  String get v2SafaSuggestedReturnToday => 'العودة إلى اليوم';
+
+  @override
+  String get v2SafaFallbackGrounding => 'تهدئة: تنفّس ببطء لدقيقة واحدة';
+
+  @override
+  String get v2SafaFallbackSimplify => 'تبسيط: نفّذ أصغر خطوة تالية فقط';
+
+  @override
+  String get v2SafaRetry => 'إعادة المحاولة';
+
+  @override
+  String get v2SafaUseLocalFallback => 'استخدم الدعم دون اتصال';
+
+  @override
+  String get v2SafaOffline => 'أنت دون اتصال. الدعم دون اتصال متاح.';
+
+  @override
+  String get v2SafaTimeout => 'انتهت مهلة الطلب. الدعم دون اتصال متاح.';
+
+  @override
+  String get v2SafaServiceUnavailable =>
+      'صفا غير متاحة مؤقتًا. الدعم دون اتصال متاح.';
+
+  @override
+  String get v2SafaInvalidResponse =>
+      'تعذّر عرض الرد بأمان. الدعم دون اتصال متاح.';
+
+  @override
+  String get v2SafaInputTooLong => 'يُرجى اختصار رسالتك (الحد الأقصى 500 حرف).';
+
+  @override
+  String get v2SafaSessionComplete =>
+      'وصلت جلسة الدعم هذه إلى حدها. اختر خطوة تالية أو غادر.';
+
+  @override
+  String get v2SafaClearSession => 'مسح هذه الجلسة';
+
+  @override
+  String get v2SafaReturn => 'رجوع';
+
+  @override
+  String get v2SafaUrgentHelp => 'أحتاج مساعدة عاجلة';
+
+  @override
+  String get v2SafaUrgentBody =>
+      'توقف صفا المحادثة هنا. لا تستطيع صفا تقديم رعاية الطوارئ.';
+
+  @override
+  String get v2SafaUrgentLocalEmergency =>
+      'إذا كنت قد تكون في خطر فوري، اتصل بخدمات الطوارئ المحلية. هذا التطبيق لا يحل محلها.';
+
+  @override
+  String get v2SafaNotMedical => 'صفا ليست دعمًا طبيًا ولا طوارئ.';
+
+  @override
+  String get v2SafaOnlyTypedSent => 'يُرسل فقط ما تكتبه وتختاره.';
+
+  @override
+  String get v2SafaStartLater => 'ابدأ جلسة صفا جديدة لاحقًا';
+
+  @override
+  String get v2SafaLoading => 'جارٍ فتح صفا';
+
+  @override
+  String get v2SafaStateIdle => 'جاهز عندما تكون مستعدًا.';
+
+  @override
+  String get v2SafaStateReady => 'يمكنك كتابة رسالة قصيرة.';
+
+  @override
+  String get v2SafaStateResponseReady => 'رد موجز جاهز.';
+
+  @override
+  String get v2SafaStateLocalFallback => 'الدعم دون اتصال ظاهر أدناه.';
+
+  @override
+  String get v2SafaUserCancelled =>
+      'تم الإلغاء. يمكنك الرجوع أو المحاولة لاحقًا.';
+
+  @override
+  String get v2SafaCleared => 'تم مسح الجلسة.';
+
+  @override
+  String v2SafaSessionLimit(String used, String max) {
+    return 'جولات الدعم: $used من $max';
+  }
+
+  @override
+  String get v2SafaEntryToday => 'اطلب دعم صفا';
+
+  @override
+  String get v2SafaEntryProfile => 'افتح صفا';
+
+  @override
+  String get v2ProfileTitle => 'الملف';
+
+  @override
+  String get v2ProfileDefaultIdentity => 'ملفك';
+
+  @override
+  String get v2ProfileOrientation =>
+      'التفضيلات والخصوصية والضوابط الشخصية — وليس لوحة تقدّم أخرى.';
+
+  @override
+  String get v2ProfileSectionRecovery => 'إعداد التعافي';
+
+  @override
+  String get v2ProfileBrainProfile => 'الملف الدماغي';
+
+  @override
+  String get v2ProfileBrainProfileLoading => 'جارٍ التحقق من تقييمك…';
+
+  @override
+  String get v2ProfileBrainProfileReady => 'عرض أحدث تقييم لديك';
+
+  @override
+  String get v2ProfileBrainProfileMissing => 'أكمل فحص الدماغ لإنشاء هذا';
+
+  @override
+  String get v2ProfileSectionPreferences => 'التفضيلات';
+
+  @override
+  String get v2ProfilePreferencesRow => 'التفضيلات والإعدادات';
+
+  @override
+  String get v2ProfilePreferencesHint =>
+      'المظهر والإشعارات وقفل المقاييس الحيوية والخصوصية والبيانات';
+
+  @override
+  String get v2ProfileSectionPrivacy => 'الخصوصية والبيانات';
+
+  @override
+  String get v2ProfilePrivacyRow => 'ضوابط الخصوصية والبيانات';
+
+  @override
+  String get v2ProfilePrivacyHint => 'مسح البيانات المحلية (يتطلب تأكيداً)';
+
+  @override
+  String get v2ProfileSectionSubscription => 'الاشتراك';
+
+  @override
+  String get v2ProfileSubscriptionHint => 'حالة بريميوم والخطط والاستعادة';
+
+  @override
+  String get v2ProfileSectionHelp => 'المساعدة والدعم';
+
+  @override
+  String get v2ProfileHelpHint => 'دعم موجز لخطوة هادئة تالية';
+
+  @override
+  String get v2ProfileSectionAbout => 'حول التطبيق';
+
+  @override
+  String get v2ProfileEditNameTitle => 'الاسم الظاهر';
+
+  @override
+  String get v2ProfileEditNameHint => 'اختياري — يظهر على هذا الجهاز فقط';
+
+  @override
+  String get v2ProfileNameSaveFailed => 'تعذّر حفظ الاسم. حاول مرة أخرى.';
+
+  @override
+  String get v2ProfileLegalHint => 'يفتح سياسة الخصوصية في المتصفح';
+
+  @override
+  String get v2ProfileContactHint => 'يفتح تطبيق البريد';
+
+  @override
+  String get settingsOrientation =>
+      'المظهر واللغة والإشعارات وحسابك على هذا الجهاز.';
+
+  @override
+  String get settingsProfileSection => 'الملف';
+
+  @override
+  String get settingsLanguageSection => 'اللغة';
+
+  @override
+  String get settingsLanguageArabic => 'العربية';
+
+  @override
+  String get settingsLanguageEnglish => 'English';
+
+  @override
+  String get settingsLogout => 'تسجيل الخروج';
+
+  @override
+  String get settingsLogoutConfirmTitle => 'تسجيل الخروج؟';
+
+  @override
+  String get settingsLogoutConfirmBody =>
+      'ستعود إلى بداية التطبيق. تبقى بيانات التعافي على هذا الجهاز حتى تحذفها.';
+
+  @override
+  String get settingsDeleteAccount => 'حذف الحساب';
+
+  @override
+  String get settingsDeleteAccountConfirmTitle => 'حذف الحساب؟';
+
+  @override
+  String get settingsDeleteAccountConfirmBody =>
+      'سيتم حذف جميع البيانات المحلية على هذا الجهاز نهائياً. لا يمكن التراجع.';
+
+  @override
+  String get colorThemeMorningDark => 'داكن';
+
+  @override
+  String get colorThemeMorningLight => 'فاتح';
+
+  @override
+  String get settingsThemeDarkSubtitle => 'لوحة Morning Light الداكنة';
+
+  @override
+  String get settingsThemeLightSubtitle => 'لوحة Morning Light الفاتحة';
+
+  @override
+  String get settingsActionFailed => 'تعذّر إكمال هذا الإجراء. حاول مرة أخرى.';
 }

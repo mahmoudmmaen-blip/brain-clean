@@ -113,7 +113,7 @@
   <div class="wrap">
     <header>
       <h1>Brain Clean — Privacy Policy</h1>
-      <p class="meta"><strong>Last updated:</strong> 28 July 2026</p>
+      <p class="meta"><strong>Last updated:</strong> 25 July 2026</p>
       <p class="meta"><strong>Contact:</strong> <a href="mailto:brainclean.app@gmail.com">brainclean.app@gmail.com</a></p>
       <p class="meta">Public privacy policy for the Brain Clean Android app (<code>com.brainclean.mobile</code>).</p>
       <nav aria-label="Language">
@@ -144,12 +144,10 @@
         <li>XP / progress ledger data</li>
         <li>Optional biometric app-lock preference</li>
       </ul>
-      <p>The <strong>current Android release</strong> does <strong>not</strong> require you to create an account. It is <strong>local-first</strong>: journals, mood history, Daily Program progress, and recovery data stay on your device unless a future feature explicitly says otherwise.</p>
       <p>Worry journal and similar free-text notes are designed to remain <strong>local on your device</strong> in v1.</p>
       <p>Local durable storage may be encrypted on device where the app implements secure storage.</p>
 
       <h3>4. Account and cloud features (when enabled in a production build)</h3>
-      <p>The current Android release does <strong>not</strong> require account sign-in. The following applies only when cloud features are enabled in a future or specially configured build.</p>
       <p>If a production build is configured with cloud credentials, the app may:</p>
       <ul>
         <li>Create an <strong>anonymous</strong> account (a random user ID; the app does not ask for email/password for this flow)</li>
@@ -167,10 +165,18 @@
       </ul>
 
       <h3>5. In-app AI helpers (when cloud is enabled)</h3>
-      <p>If you use optional AI features (for example Safa / Emotion Oasis chat) in a cloud-enabled production build, the message text you send may be processed through our backend (Supabase Edge Functions) and AI providers solely to generate a reply.</p>
+      <p>If you use optional AI features — including <strong>Safa</strong> (صفا) contextual support, and legacy Emotion Oasis chat — in a cloud-enabled production build:</p>
+      <ul>
+        <li>The message text you type may be sent to an AI-backed service over the network.</li>
+        <li>Only that typed text and any context you <strong>explicitly select</strong> for that send are transmitted.</li>
+        <li>Brain Check answers, full Brain Profile values, Recovery Score internals, Weekly Review answers, Reports content, and private notes are <strong>not</strong> transferred automatically.</li>
+        <li>Requests go through our approved backend (<strong>Supabase Edge Functions</strong>) to AI providers; there is <strong>no</strong> NVIDIA path and the app does <strong>not</strong> embed a direct Claude API key.</li>
+        <li>Safa is <strong>not</strong> medical care, emergency services, or crisis counseling. Local offline fallback remains available, and you may decline Safa and continue using the rest of the app.</li>
+        <li>Raw conversation archives are not kept by default.</li>
+      </ul>
 
       <h3>6. Purchases and subscriptions</h3>
-      <p>Purchases and subscriptions are processed through <strong>Google Play Billing</strong> and <strong>RevenueCat</strong>.</p>
+      <p>If Pro / billing is enabled in a production build, purchases and subscriptions are processed through <strong>Google Play Billing</strong> and <strong>RevenueCat</strong>.</p>
       <p>RevenueCat may process purchase history and anonymous subscription entitlement identifiers to manage Pro access.</p>
       <p>Brain Clean does <strong>not</strong> receive or store your full payment card details.</p>
 
@@ -209,10 +215,10 @@
 
       <h3>12. Sharing</h3>
       <p>We do <strong>not sell</strong> your personal information.</p>
-      <p>We use service providers needed to run the app, such as:</p>
+      <p>When cloud, billing, or advertising is enabled in a production build, we use service providers needed to run the app, such as:</p>
       <ul>
         <li><strong>Google Mobile Ads (AdMob)</strong> for banner advertising in the free version</li>
-        <li><strong>Supabase</strong> (authentication, database, Edge Functions) when cloud is enabled</li>
+        <li><strong>Supabase</strong> (authentication, database, Edge Functions)</li>
         <li><strong>AI providers</strong> reached via our Edge Functions when you use AI chat features</li>
         <li><strong>RevenueCat</strong> and <strong>Google Play</strong> for purchases / entitlements</li>
       </ul>
@@ -227,11 +233,12 @@
 
       <h3>14. Retention and deletion requests</h3>
       <ul>
-        <li><strong>Local app data:</strong> you can delete it through <strong>Reset All Data</strong> in the app, by clearing app storage in Android settings, or by uninstalling the app.</li>
+        <li><strong>Local data</strong> is typically removed when you clear app storage or uninstall the app, or through <strong>Reset All Data</strong> in the app.</li>
         <li><strong>RevenueCat / subscription records:</strong> email <a href="mailto:brainclean.app@gmail.com"><strong>brainclean.app@gmail.com</strong></a> to request deletion of associated customer records. Please include your <strong>Support ID</strong> if available.</li>
         <li><strong>Cloud data</strong> (when cloud was enabled): email <a href="mailto:brainclean.app@gmail.com"><strong>brainclean.app@gmail.com</strong></a> and request deletion of your anonymous account / associated server records.</li>
       </ul>
-      <p>We will process deletion requests in accordance with applicable law and technical constraints. Please include enough detail for us to identify the relevant records where possible.</p>
+      <p>We will delete or anonymize associated server-side records within a reasonable period, subject to legal obligations and technical constraints.</p>
+      <p>Please include enough detail for us to identify the relevant anonymous account where possible (for example approximate install date or other non-sensitive context you can share).</p>
 
       <h3>15. Children</h3>
       <p>Brain Clean is not directed at children under 13 (or under the higher age required in your country). Do not use the app if you are under the applicable age.</p>
@@ -268,12 +275,10 @@
         <li>بيانات نقاط XP / التقدّم</li>
         <li>تفضيل قفل التطبيق بالقياسات الحيوية (اختياري)</li>
       </ul>
-      <p><strong>إصدار Android الحالي</strong> <strong>لا</strong> يتطلب إنشاء حساب. التطبيق <strong>محلي أولًا</strong>: المذكرات، وسجل المزاج، وتقدّم البرنامج اليومي، وبيانات التعافي تبقى على جهازك ما لم تنص ميزة مستقبلية صراحة على غير ذلك.</p>
       <p>نصوص دفتر القلق والملاحظات الحرة مصمّمة لتبقى <strong>محلية على جهازك</strong> في الإصدار v1.</p>
       <p>قد يُشفَّر التخزين المحلي الدائم حيث يطبّق التطبيق التخزين الآمن.</p>
 
       <h3>4. الحساب والميزات السحابية (عند تفعيلها في نسخة الإنتاج)</h3>
-      <p>إصدار Android الحالي <strong>لا</strong> يتطلب تسجيل دخول. ما يلي ينطبق فقط عند تفعيل الميزات السحابية في نسخة مستقبلية أو مُعدّة خصيصًا.</p>
       <p>إذا تم ضبط نسخة الإنتاج بإعدادات سحابية صالحة، قد يقوم التطبيق بـ:</p>
       <ul>
         <li>إنشاء حساب <strong>مجهول</strong> (معرّف مستخدم عشوائي؛ التطبيق لا يطلب بريدًا/كلمة مرور في هذا المسار)</li>
@@ -291,10 +296,18 @@
       </ul>
 
       <h3>5. المساعدات الذكية داخل التطبيق (عند تفعيل السحابة)</h3>
-      <p>إذا استخدمت ميزات الذكاء الاصطناعي الاختيارية (مثل صفا / دردشة واحة المشاعر) في نسخة إنتاج مفعَّلة سحابيًا، قد تُعالَج نصوص الرسائل التي ترسلها عبر خوادمنا (Supabase Edge Functions) ومزوّدي الذكاء الاصطناعي فقط لإنشاء الرد.</p>
+      <p>إذا استخدمت ميزات الذكاء الاصطناعي الاختيارية — بما في ذلك دعم <strong>صفا</strong> السياقي، ودردشة واحة المشاعر القديمة — في نسخة إنتاج مفعَّلة سحابيًا:</p>
+      <ul>
+        <li>قد يُرسَل نص الرسالة التي تكتبها إلى خدمة مدعومة بالذكاء الاصطناعي عبر الشبكة.</li>
+        <li>يُرسَل فقط ذلك النص المكتوب وأي سياق تختاره <strong>صراحة</strong> لذلك الإرسال.</li>
+        <li>لا تُنقل تلقائيًا إجابات فحص الدماغ، ولا قيم ملف الذهن الكاملة، ولا تفاصيل درجة التعافي الداخلية، ولا إجابات المراجعة الأسبوعية، ولا محتوى التقارير، ولا الملاحظات الخاصة.</li>
+        <li>تمرّ الطلبات عبر البنية الخلفية المعتمدة (<strong>Supabase Edge Functions</strong>) إلى مزوّدي الذكاء الاصطناعي؛ لا يوجد مسار NVIDIA، والتطبيق <strong>لا</strong> يضمّن مفتاح Claude مباشرًا على الجهاز.</li>
+        <li>صفا <strong>ليست</strong> رعاية طبية ولا خدمات طوارئ ولا استشارات أزمات. يبقى الدعم المحلي دون اتصال متاحًا، ويمكنك رفض صفا ومتابعة استخدام بقية التطبيق.</li>
+        <li>لا تُحفظ أرشيفات محادثات خام بشكل افتراضي.</li>
+      </ul>
 
       <h3>6. المشتريات والاشتراكات</h3>
-      <p>تتم المشتريات والاشتراكات عبر <strong>Google Play Billing</strong> و<strong>RevenueCat</strong>.</p>
+      <p>إذا كان Pro / الفوترة مفعّلين في نسخة الإنتاج، تتم المشتريات والاشتراكات عبر <strong>Google Play Billing</strong> و<strong>RevenueCat</strong>.</p>
       <p>قد تعالج RevenueCat سجل المشتريات ومعرّفات صلاحيات الاشتراك المجهولة لإدارة وصول Pro.</p>
       <p>Brain Clean <strong>لا</strong> يستلم و<strong>لا</strong> يخزّن بيانات بطاقتك الكاملة.</p>
 
@@ -333,10 +346,10 @@
 
       <h3>12. المشاركة</h3>
       <p>نحن <strong>لا نبيع</strong> معلوماتك الشخصية.</p>
-      <p>نستخدم مزوّدي خدمة ضروريين لتشغيل التطبيق، مثل:</p>
+      <p>عند تفعيل السحابة أو الفوترة أو الإعلانات في نسخة الإنتاج، نستخدم مزوّدي خدمة ضروريين لتشغيل التطبيق، مثل:</p>
       <ul>
         <li><strong>Google Mobile Ads (AdMob)</strong> لإعلانات البانر في النسخة المجانية</li>
-        <li><strong>Supabase</strong> (المصادقة، قاعدة البيانات، Edge Functions) عند تفعيل السحابة</li>
+        <li><strong>Supabase</strong> (المصادقة، قاعدة البيانات، Edge Functions)</li>
         <li><strong>مزوّدو الذكاء الاصطناعي</strong> عبر Edge Functions عند استخدام الدردشة الذكية</li>
         <li><strong>RevenueCat</strong> و<strong>Google Play</strong> للمشتريات / الصلاحيات</li>
       </ul>
@@ -351,11 +364,12 @@
 
       <h3>14. الاحتفاظ وطلب الحذف</h3>
       <ul>
-        <li><strong>بيانات التطبيق المحلية:</strong> يمكنك حذفها عبر <strong>إعادة ضبط جميع البيانات</strong> في التطبيق، أو مسح بيانات التطبيق من إعدادات Android، أو إلغاء التثبيت.</li>
+        <li><strong>البيانات المحلية</strong> تُزال عادةً عند مسح بيانات التطبيق أو إلغاء التثبيت، أو عبر <strong>إعادة ضبط جميع البيانات</strong> في التطبيق.</li>
         <li><strong>سجلات RevenueCat / الاشتراك:</strong> راسل <a href="mailto:brainclean.app@gmail.com"><strong>brainclean.app@gmail.com</strong></a> لطلب حذف السجلات المرتبطة. يُرجى تضمين <strong>معرّف الدعم (Support ID)</strong> إن وُجد.</li>
         <li><strong>البيانات السحابية</strong> (إن وُجدت): راسل <a href="mailto:brainclean.app@gmail.com"><strong>brainclean.app@gmail.com</strong></a> واطلب حذف حسابك المجهول / السجلات المرتبطة على الخادم.</li>
       </ul>
-      <p>سنعالج طلبات الحذف وفق القانون المعمول به والقيود التقنية. يُفضَّل تضمين تفاصيل تساعد على تحديد السجلات ذات الصلة عند الإمكان.</p>
+      <p>سنحذف أو نُجهّل السجلات المرتبطة على الخادم خلال مدة معقولة، مع مراعاة الالتزامات القانونية والقيود التقنية.</p>
+      <p>يُفضَّل تضمين تفاصيل تساعد على تحديد الحساب المجهول عند الإمكان (مثل تاريخ تقريبي للتثبيت أو سياق غير حسّاس يمكنك مشاركته).</p>
 
       <h3>15. الأطفال</h3>
       <p>التطبيق غير موجّه لمن هم دون 13 عامًا (أو دون السن الأعلى المطلوب في بلدك). لا تستخدم التطبيق إن كنت دون السن المعمول به.</p>
@@ -371,7 +385,7 @@
     </section>
 
     <footer>
-      Brain Clean · Privacy Policy · 28 July 2026
+      Brain Clean · Privacy Policy · 25 July 2026
     </footer>
   </div>
 </body>

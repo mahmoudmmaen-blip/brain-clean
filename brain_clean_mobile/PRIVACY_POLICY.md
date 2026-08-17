@@ -57,7 +57,14 @@ When cloud sync is enabled and you are signed in anonymously, the app may sync d
 
 ### 5. In-app AI helpers (when cloud is enabled)
 
-If you use optional AI features (for example Safa / Emotion Oasis chat) in a cloud-enabled production build, the message text you send may be processed through our backend (Supabase Edge Functions) and AI providers solely to generate a reply.
+If you use optional AI features — including **Safa** (صفا) contextual support, and legacy Emotion Oasis chat — in a cloud-enabled production build:
+
+- The message text you type may be sent to an AI-backed service over the network.
+- Only that typed text and any context you **explicitly select** for that send are transmitted.
+- Brain Check answers, full Brain Profile values, Recovery Score internals, Weekly Review answers, Reports content, and private notes are **not** transferred automatically.
+- Requests go through our approved backend (**Supabase Edge Functions**) to AI providers; there is **no** NVIDIA path and the app does **not** embed a direct Claude API key.
+- Safa is **not** medical care, emergency services, or crisis counseling. Local offline fallback remains available, and you may decline Safa and continue using the rest of the app.
+- Raw conversation archives are not kept by default.
 
 ### 6. Purchases (when enabled in a production build)
 
@@ -67,7 +74,7 @@ We do **not** store your full payment card details in the Brain Clean app.
 
 ### 7. What we do **not** collect in v1
 
-- **No advertising SDKs** in the current build — this app does **not** contain ads.  
+- **No advertising in the current root V2 product surfaces** — this release does **not** show ads; Premium is not sold as ad removal for this cut.  
 - **No** Android Usage Access / installed-app usage / social-app usage-time collection in v1.  
 - **No** collection of your name, email, or phone number through the anonymous auth flow described above.
 

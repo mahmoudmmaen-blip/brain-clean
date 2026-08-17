@@ -62,13 +62,17 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final isPro = ref.watch(isProUserProvider);
-    final plans = ref.watch(subscriptionServiceProvider).plans;
-    _selectedPlanId ??= plans
-        .firstWhere(
-          (p) => p.period == SubscriptionPeriod.annual,
-          orElse: () => plans.first,
-        )
-        .id;
+    final service = ref.watch(subscriptionServiceProvider);
+    final plans = service.plans;
+    final storeConfigured = service.isStoreConfigured;
+    if (plans.isNotEmpty) {
+      _selectedPlanId ??= plans
+          .firstWhere(
+            (p) => p.period == SubscriptionPeriod.annual,
+            orElse: () => plans.first,
+          )
+          .id;
+    }
 
     final features = [
       loc.proFeatureColorThemes,
@@ -162,7 +166,19 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
                     ],
                   ),
                 )
-              else ...[
+              else if (!storeConfigured || plans.isEmpty) ...[
+                Semantics(
+                  liveRegion: true,
+                  child: Text(
+                    loc.v2PremiumStoreUnavailable,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Color(0xFF8B949E),
+                    ),
+                  ),
+                ),
+              ] else ...[
                 ...plans.map((plan) {
                   final selected = plan.id == _selectedPlanId;
                   final isBestValue =
@@ -246,10 +262,16 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
                   ),
                   child: ElevatedButton(
                     key: proSubscribeKey,
-                    onPressed: _busy
+                    onPressed: _busy || _selectedPlanId == null
                         ? null
-                        : () => _upgrade(plans
-                            .firstWhere((p) => p.id == _selectedPlanId)),
+                        : () {
+                            final matches = plans
+                                .where((p) => p.id == _selectedPlanId)
+                                .toList(growable: false);
+                            if (matches.isNotEmpty) {
+                              _upgrade(matches.first);
+                            }
+                          },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,
                       shadowColor: Colors.transparent,
