@@ -46,9 +46,13 @@ class _WeeklyReviewQuestionsScreenState
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: AppColors.background,
+        foregroundColor: AppColors.textPrimary,
         title: Semantics(
           header: true,
-          child: Text(loc.v2WeeklyReviewTitle),
+          child: Text(
+            loc.v2WeeklyReviewTitle,
+            style: const TextStyle(color: AppColors.textPrimary),
+          ),
         ),
         actions: [
           TextButton(
@@ -56,6 +60,9 @@ class _WeeklyReviewQuestionsScreenState
               c.exitPreservingDraft();
               context.go(AppRoutes.v2Today);
             },
+            style: TextButton.styleFrom(
+              foregroundColor: AppColors.textSecondary,
+            ),
             child: Text(loc.v2WeeklyReviewExit),
           ),
         ],
@@ -83,7 +90,10 @@ class WeeklyReviewQuestionsBody extends StatelessWidget {
         child: Semantics(
           liveRegion: true,
           label: loc.v2WeeklyReviewLoading,
-          child: Text(loc.v2WeeklyReviewLoading),
+          child: Text(
+            loc.v2WeeklyReviewLoading,
+            style: const TextStyle(color: AppColors.textSecondary),
+          ),
         ),
       );
     }
@@ -143,35 +153,46 @@ class WeeklyReviewQuestionsBody extends StatelessWidget {
                       period.startDayKey,
                       period.endDayKey,
                     ),
-                    style: Theme.of(context).textTheme.titleMedium,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: AppColors.textPrimary,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 8),
                 Semantics(
                   liveRegion: true,
                   label: loc.v2WeeklyReviewProgressSemantics(step, total),
-                  child: Text(loc.v2WeeklyReviewProgress(step, total)),
+                  child: Text(
+                    loc.v2WeeklyReviewProgress(step, total),
+                    style: const TextStyle(color: AppColors.textSecondary),
+                  ),
                 ),
                 const SizedBox(height: 24),
                 Semantics(
                   header: true,
                   child: Text(
                     _questionPrompt(loc, question.id),
-                    style: Theme.of(context).textTheme.headlineSmall,
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      color: AppColors.textPrimary,
+                    ),
                   ),
                 ),
                 if (question.required) ...[
                   const SizedBox(height: 4),
                   Text(
                     loc.v2WeeklyReviewRequired,
-                    style: Theme.of(context).textTheme.bodySmall,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: AppColors.textSecondary,
+                    ),
                   ),
                 ],
                 if (question.type == WeeklyReviewQuestionType.multiSelect) ...[
                   const SizedBox(height: 4),
                   Text(
                     loc.v2WeeklyReviewMultiSelectHint,
-                    style: Theme.of(context).textTheme.bodySmall,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: AppColors.textSecondary,
+                    ),
                   ),
                 ],
                 const SizedBox(height: 20),
@@ -511,12 +532,18 @@ class _MessagePad extends StatelessWidget {
                   child: Text(
                     title,
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headlineSmall,
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      color: AppColors.textPrimary,
+                    ),
                   ),
                 ),
                 if (body != null) ...[
                   const SizedBox(height: 12),
-                  Text(body!, textAlign: TextAlign.center),
+                  Text(
+                    body!,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(color: AppColors.textSecondary),
+                  ),
                 ],
                 const SizedBox(height: 32),
                 SizedBox(

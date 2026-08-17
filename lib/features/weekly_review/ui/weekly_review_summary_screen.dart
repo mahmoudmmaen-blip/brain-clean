@@ -41,9 +41,13 @@ class _WeeklyReviewSummaryScreenState
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: AppColors.background,
+        foregroundColor: AppColors.textPrimary,
         title: Semantics(
           header: true,
-          child: Text(loc.v2WeeklySummaryTitle),
+          child: Text(
+            loc.v2WeeklySummaryTitle,
+            style: const TextStyle(color: AppColors.textPrimary),
+          ),
         ),
       ),
       body: SafeArea(
@@ -68,7 +72,10 @@ class WeeklyReviewSummaryBody extends StatelessWidget {
       return Center(
         child: Semantics(
           liveRegion: true,
-          child: Text(loc.v2WeeklyReviewLoading),
+          child: Text(
+            loc.v2WeeklyReviewLoading,
+            style: const TextStyle(color: AppColors.textSecondary),
+          ),
         ),
       );
     }
@@ -83,6 +90,7 @@ class WeeklyReviewSummaryBody extends StatelessWidget {
             Text(
               loc.v2WeeklyReviewNotReadyGeneric,
               textAlign: TextAlign.center,
+              style: const TextStyle(color: AppColors.textPrimary),
             ),
             const SizedBox(height: 24),
             SizedBox(
@@ -109,7 +117,9 @@ class WeeklyReviewSummaryBody extends StatelessWidget {
                 header: true,
                 child: Text(
                   loc.v2WeeklySummaryOrientation,
-                  style: Theme.of(context).textTheme.headlineSmall,
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    color: AppColors.textPrimary,
+                  ),
                 ),
               ),
               const SizedBox(height: 8),
@@ -118,6 +128,7 @@ class WeeklyReviewSummaryBody extends StatelessWidget {
                   summary.periodStartDayKey,
                   summary.periodEndDayKey,
                 ),
+                style: const TextStyle(color: AppColors.textSecondary),
               ),
               const SizedBox(height: 20),
               _line(
@@ -134,36 +145,58 @@ class WeeklyReviewSummaryBody extends StatelessWidget {
                 context,
                 loc.v2WeeklySummaryPatternHeading,
               ),
-              Text(_patternLabel(loc, summary)),
+              Text(
+                _patternLabel(loc, summary),
+                style: const TextStyle(color: AppColors.textPrimary),
+              ),
               const SizedBox(height: 12),
               Text(
                 loc.v2WeeklySummaryObstacleHeading,
-                style: Theme.of(context).textTheme.titleMedium,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: AppColors.textPrimary,
+                ),
               ),
-              Text(_obstacleLabel(loc, summary.obstacleResponse)),
+              Text(
+                _obstacleLabel(loc, summary.obstacleResponse),
+                style: const TextStyle(color: AppColors.textPrimary),
+              ),
               const SizedBox(height: 12),
               Text(
                 loc.v2WeeklySummarySupportHeading,
-                style: Theme.of(context).textTheme.titleMedium,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: AppColors.textPrimary,
+                ),
               ),
-              Text(_supportLabel(loc, summary.supportResponses)),
+              Text(
+                _supportLabel(loc, summary.supportResponses),
+                style: const TextStyle(color: AppColors.textPrimary),
+              ),
               const SizedBox(height: 12),
               Text(
                 loc.v2WeeklySummaryAttentionHeading,
-                style: Theme.of(context).textTheme.titleMedium,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: AppColors.textPrimary,
+                ),
               ),
-              Text(_attentionLabel(loc, summary.attentionNext)),
+              Text(
+                _attentionLabel(loc, summary.attentionNext),
+                style: const TextStyle(color: AppColors.textPrimary),
+              ),
               const SizedBox(height: 12),
               Text(
                 _evidenceLabel(loc, summary),
-                style: Theme.of(context).textTheme.bodySmall,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: AppColors.textSecondary,
+                ),
               ),
               const SizedBox(height: 20),
               Semantics(
                 liveRegion: true,
                 child: Text(
                   loc.v2WeeklySummaryPlanUnchanged,
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    color: AppColors.textPrimary,
+                  ),
                 ),
               ),
               const SizedBox(height: 32),
@@ -185,7 +218,10 @@ class WeeklyReviewSummaryBody extends StatelessWidget {
   Widget _line(BuildContext context, String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
-      child: Text(text),
+      child: Text(
+        text,
+        style: const TextStyle(color: AppColors.textPrimary),
+      ),
     );
   }
 
