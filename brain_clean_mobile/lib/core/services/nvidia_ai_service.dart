@@ -43,12 +43,6 @@ class NvidiaAiService {
   }) async {
     if (_apiKey.isEmpty) return null;
 
-    debugPrint('SAFA_DEBUG: apiKey length = ${_apiKey.length}');
-    debugPrint(
-      'SAFA_DEBUG: apiKey first 8 = ${_apiKey.length > 8 ? _apiKey.substring(0, 8) : "TOO_SHORT"}',
-    );
-    debugPrint('SAFA_DEBUG: message = $userMessage');
-
     http.Response? response;
     try {
       response = await http
@@ -71,8 +65,7 @@ class NvidiaAiService {
           .timeout(const Duration(seconds: 30));
 
       if (response.statusCode != 200) {
-        debugPrint('SAFA_ERROR: status=${response.statusCode}');
-        debugPrint('SAFA_ERROR: body=${response.body}');
+        debugPrint('NvidiaAiService: status=${response.statusCode}');
         return null;
       }
 
@@ -85,11 +78,9 @@ class NvidiaAiService {
       return content.toString().trim();
     } catch (e) {
       if (response != null) {
-        debugPrint('SAFA_ERROR: status=${response.statusCode}');
-        debugPrint('SAFA_ERROR: body=${response.body}');
+        debugPrint('NvidiaAiService: status=${response.statusCode}');
       }
-      debugPrint('SAFA_DEBUG: error = $e');
-      debugPrint('NvidiaAiService: request failed: $e');
+      debugPrint('NvidiaAiService: request failed: ${e.runtimeType}');
       return null;
     }
   }

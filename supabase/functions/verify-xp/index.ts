@@ -17,11 +17,28 @@ import {
   utcDayKey,
 } from "./xp_constants.ts";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type",
-};
+/// Comma-separated browser origins allowed to call this function.
+const ALLOWED_ORIGINS = (Deno.env.get("ALLOWED_ORIGINS") ?? "")
+  .split(",")
+  .map((o) => o.trim())
+  .filter((o) => o.length > 0);
+
+/// Upper bound on entries accepted per request.
+const MAX_ENTRIES_PER_REQUEST = 200;
+
+function corsHeaders(req: Request): Record<string, string> {
+  const origin = req.headers.get("Origin");
+  const headers: Record<string, string> = {
+    "Access-Control-Allow-Headers":
+      "authorization, x-client-info, apikey, content-type",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Vary": "Origin",
+  };
+  if (origin && ALLOWED_ORIGINS.includes(origin)) {
+    headers["Access-Control-Allow-Origin"] = origin;
+  }
+  return headers;
+}
 
 interface ClientEntry {
   id: string;
@@ -37,10 +54,10 @@ interface Verdict {
   reason?: string;
 }
 
-function jsonResponse(body: unknown, status = 200): Response {
+function jsonResponse(req: Request, body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), {
     status,
-    headers: { ...corsHeaders, "Content-Type": "application/json" },
+    headers: { ...corsHeaders(req), "Content-Type": "application/json" },
   });
 }
 
@@ -50,13 +67,16 @@ function isValidSource(s: string): s is XpSource {
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
-    return new Response("ok", { headers: corsHeaders });
+    return new Response("ok", { headers: corsHeaders(req) });
+  }
+  if (req.method !== "POST") {
+    return jsonResponse(req, { error: "Method not allowed" }, 405);
   }
 
   try {
     const authHeader = req.headers.get("Authorization");
     if (!authHeader?.startsWith("Bearer ")) {
-      return jsonResponse({ error: "Missing or invalid Authorization" }, 401);
+      return jsonResponse(req, { error: "Missing or invalid Authorization" }, 401);
     }
 
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
@@ -68,7 +88,7 @@ Deno.serve(async (req) => {
     });
     const { data: userData, error: userError } = await userClient.auth.getUser();
     if (userError || !userData?.user) {
-      return jsonResponse({ error: "Unauthorized" }, 401);
+      return jsonResponse(req, { error: "Unauthorized" }, 401);
     }
     const userId = userData.user.id;
 
@@ -80,7 +100,14 @@ Deno.serve(async (req) => {
       : (payload as { entries?: ClientEntry[] })?.entries ?? [];
 
     if (!Array.isArray(entries) || entries.length === 0) {
-      return jsonResponse({ verdicts: [], serverTotalXp: await sumAccepted(admin, userId) });
+      return jsonResponse(req, {
+        verdicts: [],
+        serverTotalXp: await sumAccepted(admin, userId),
+      });
+    }
+
+    if (entries.length > MAX_ENTRIES_PER_REQUEST) {
+      return jsonResponse(req, { error: "Too many entries" }, 413);
     }
 
     const serverNow = Date.now();
@@ -92,10 +119,10 @@ Deno.serve(async (req) => {
     }
 
     const serverTotalXp = await sumAccepted(admin, userId);
-    return jsonResponse({ verdicts, serverTotalXp });
+    return jsonResponse(req, { verdicts, serverTotalXp });
   } catch (e) {
     console.error("verify-xp error:", e);
-    return jsonResponse({ error: "Internal error" }, 500);
+    return jsonResponse(req, { error: "Internal error" }, 500);
   }
 });
 
@@ -124,11 +151,13 @@ async function processEntry(
     return { id: id ?? "unknown", status: "rejected", reason: "invalid_payload" };
   }
 
-  // Idempotency: prior verdict by primary key.
+  // Idempotency: prior verdict by primary key, scoped to the caller so a
+  // guessed id belonging to another user never returns a verdict.
   const { data: existing } = await admin
     .from("xp_ledger")
     .select("status, reject_reason")
     .eq("id", id)
+    .eq("user_id", userId)
     .maybeSingle();
 
   if (existing) {
