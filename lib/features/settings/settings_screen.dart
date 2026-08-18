@@ -6,6 +6,8 @@ import '../../core/application/app_preferences_provider.dart';
 import '../../core/config/app_config.dart';
 import '../../core/constants/app_routes.dart';
 import '../../core/l10n/app_localizations.dart';
+import '../../core/presentation/app_snack_bar.dart';
+import '../../core/presentation/confirm_dialog.dart';
 import '../../core/providers/locale_provider.dart';
 import '../../core/security/security_status_provider.dart';
 import '../../core/services/external_link_service.dart';
@@ -36,45 +38,6 @@ const int _kDisplayNameMaxLength = 40;
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
-
-  Future<bool> _confirmDestructive(
-    BuildContext context, {
-    required String title,
-    required String body,
-  }) async {
-    final loc = AppLocalizations.of(context)!;
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: AppColors.card,
-        title: Text(
-          title,
-          style: const TextStyle(color: AppColors.textPrimary),
-        ),
-        content: Text(
-          body,
-          style: const TextStyle(color: AppColors.textSecondary),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(false),
-            style: TextButton.styleFrom(
-              foregroundColor: AppColors.textSecondary,
-            ),
-            child: Text(loc.commonCancel),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(true),
-            style: TextButton.styleFrom(
-              foregroundColor: AppColors.danger,
-            ),
-            child: Text(loc.commonConfirm),
-          ),
-        ],
-      ),
-    );
-    return confirmed == true;
-  }
 
   Future<void> _editDisplayName(BuildContext context, WidgetRef ref) async {
     final loc = AppLocalizations.of(context)!;
@@ -127,9 +90,7 @@ class SettingsScreen extends ConsumerWidget {
           .setProfileDisplayName(saved);
     } catch (_) {
       if (!context.mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(loc.v2ProfileNameSaveFailed)),
-      );
+      showAppSnackBar(context, loc.v2ProfileNameSaveFailed);
     }
   }
 
@@ -141,14 +102,10 @@ class SettingsScreen extends ConsumerWidget {
     try {
       final ok = await open();
       if (!context.mounted || ok) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(loc.settingsLinkUnavailable)),
-      );
+      showAppSnackBar(context, loc.settingsLinkUnavailable);
     } catch (_) {
       if (!context.mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(loc.settingsLinkUnavailable)),
-      );
+      showAppSnackBar(context, loc.settingsLinkUnavailable);
     }
   }
 
@@ -165,10 +122,13 @@ class SettingsScreen extends ConsumerWidget {
 
   Future<void> _logout(BuildContext context, WidgetRef ref) async {
     final loc = AppLocalizations.of(context)!;
-    final confirmed = await _confirmDestructive(
+    final confirmed = await showConfirmDialog(
       context,
       title: loc.settingsLogoutConfirmTitle,
-      body: loc.settingsLogoutConfirmBody,
+      message: loc.settingsLogoutConfirmBody,
+      confirmLabel: loc.commonConfirm,
+      cancelLabel: loc.commonCancel,
+      destructive: true,
     );
     if (!confirmed || !context.mounted) return;
     try {
@@ -177,9 +137,7 @@ class SettingsScreen extends ConsumerWidget {
           .markOnboardingIncomplete();
     } catch (_) {
       if (!context.mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(loc.settingsActionFailed)),
-      );
+      showAppSnackBar(context, loc.settingsActionFailed);
       return;
     }
     if (context.mounted) context.go(AppRoutes.splash);
@@ -187,10 +145,13 @@ class SettingsScreen extends ConsumerWidget {
 
   Future<void> _deleteAccount(BuildContext context, WidgetRef ref) async {
     final loc = AppLocalizations.of(context)!;
-    final confirmed = await _confirmDestructive(
+    final confirmed = await showConfirmDialog(
       context,
       title: loc.settingsDeleteAccountConfirmTitle,
-      body: loc.settingsDeleteAccountConfirmBody,
+      message: loc.settingsDeleteAccountConfirmBody,
+      confirmLabel: loc.commonConfirm,
+      cancelLabel: loc.commonCancel,
+      destructive: true,
     );
     if (!confirmed || !context.mounted) return;
     try {
@@ -198,9 +159,7 @@ class SettingsScreen extends ConsumerWidget {
       ref.invalidate(appPreferencesProvider);
     } catch (_) {
       if (!context.mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(loc.settingsActionFailed)),
-      );
+      showAppSnackBar(context, loc.settingsActionFailed);
       return;
     }
     if (context.mounted) context.go(AppRoutes.splash);
@@ -277,15 +236,11 @@ class SettingsScreen extends ConsumerWidget {
                   .read(biometricLockSettingsProvider.notifier)
                   .setEnabled(enabled);
               if (!ok && context.mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(loc.settingsBiometricUnavailable)),
-                );
+                showAppSnackBar(context, loc.settingsBiometricUnavailable);
               }
             } catch (_) {
               if (!context.mounted) return;
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(loc.settingsBiometricUnavailable)),
-              );
+              showAppSnackBar(context, loc.settingsBiometricUnavailable);
             }
           },
           onLogout: () => _logout(context, ref),
