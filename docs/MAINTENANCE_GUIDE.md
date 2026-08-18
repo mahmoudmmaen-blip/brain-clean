@@ -51,7 +51,7 @@ flutter test
 | Docs-only | No bump | No bump |
 | Hotfix to store | New code | New code > last Play-accepted code |
 
-Current Closed Testing baseline: **2.0.1+18**.
+Current Android binary in `pubspec.yaml`: **2.0.1+23**. Closed Testing `2.0.1+18` is historical and not V2-qualified.
 
 ---
 
