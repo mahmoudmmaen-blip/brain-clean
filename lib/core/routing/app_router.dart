@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -12,7 +13,6 @@ import '../../features/diagnostic/presentation/diagnostic_screen.dart';
 import '../../features/diagnostic/presentation/visual_cognitive_test_screen.dart'
     as diagnostic_visual;
 import '../../features/emotions/presentation/emotion_wheel_screen.dart';
-import '../../features/focus/breathing_friction_screen.dart';
 import '../../features/focus/delayed_gratification_screen.dart';
 import '../../features/focus/silence_challenge_screen.dart';
 import '../../features/focus/focused_thinking_screen.dart';
@@ -44,6 +44,7 @@ import '../../features/brain_check/ui/brain_check_flow_screen.dart';
 import '../../features/v2_onboarding/ui/brain_check_entry_boundary_screen.dart';
 import '../../features/v2_onboarding/ui/brain_check_ready_boundary_screen.dart';
 import '../../features/v2_onboarding/ui/v2_onboarding_flow_screen.dart';
+import '../../features/interactive_diagnostic/ui/interactive_diagnostic_flow_screen.dart';
 import '../../features/v2_reports/ui/measurement_history_screen.dart';
 import '../../features/v2_reports/ui/reports_overview_screen.dart';
 import '../../features/v2_reports/ui/weekly_artifact_detail_screen.dart';
@@ -61,6 +62,7 @@ import '../security/biometric_lock_screen.dart';
 import '../security/security_status_provider.dart';
 import '../v2/v2_feature_boundary.dart';
 import 'app_navigator_key.dart';
+import 'go_router_refresh_notifier.dart';
 import 'startup_destination.dart';
 
 // 🌟 [NEW] إضافة مسار شاشة واحة المشاعر
@@ -170,18 +172,6 @@ class DelayedGratificationRoute {
   static String get location => AppRoutes.delayedGratification;
 }
 
-/// Typed route for breathing friction with path param [currentBhi].
-class BreathingFrictionRoute {
-  const BreathingFrictionRoute({required this.currentBhi});
-
-  final int currentBhi;
-
-  static const name = 'breathingFriction';
-  static const path = '/breathing-friction/:currentBhi';
-
-  static String location(int currentBhi) => '/breathing-friction/$currentBhi';
-}
-
 /// Typed route for Pomodoro focus timer.
 class PomodoroRoute {
   const PomodoroRoute();
@@ -233,18 +223,29 @@ class WeeklyReportRoute {
 }
 
 /// App shell — splash hydrates Hive, then routes to home or **live session** resume.
-@riverpod
+@Riverpod(keepAlive: true)
 GoRouter goRouter(GoRouterRef ref) {
-  final prefs = ref.watch(appPreferencesProvider);
-  final biometricEnabled = ref.watch(biometricLockSettingsProvider);
-  final biometricUnlocked = ref.watch(biometricSessionProvider);
+  final refresh = GoRouterRefreshNotifier();
+  ref.onDispose(refresh.dispose);
+
+  ref.listen(appPreferencesProvider, (_, __) => refresh.refresh());
+  ref.listen(biometricLockSettingsProvider, (_, __) => refresh.refresh());
+  ref.listen(biometricSessionProvider, (_, __) => refresh.refresh());
 
   return GoRouter(
+    refreshListenable: refresh,
     navigatorKey: appNavigatorKey,
     initialLocation: AppRoutes.splash,
     debugLogDiagnostics: true,
     redirect: (context, state) {
       final location = state.uri.path;
+      final prefs = ref.read(appPreferencesProvider);
+      if (kDebugMode && location != AppRoutes.splash) {
+        debugPrint(
+          '[RouterRedirect] path=$location '
+          'hasSeenOnboarding=${prefs.hasSeenOnboarding}',
+        );
+      }
       if (location == AppRoutes.splash) return null;
       // V2 surfaces stay behind local feature boundary; V1 remains default.
       // Premium purchase/manage remains available in V1 mode (shared entitlement).
@@ -273,9 +274,17 @@ GoRouter goRouter(GoRouterRef ref) {
         final onboardingRedirect =
             StartupDestination.redirectIfOnboardingIncomplete(location);
         if (onboardingRedirect != null) {
+          if (kDebugMode) {
+            debugPrint(
+              '[RouterRedirect] onboarding gate → $onboardingRedirect '
+              '(hasSeenOnboarding=false)',
+            );
+          }
           return onboardingRedirect;
         }
       }
+      final biometricEnabled = ref.read(biometricLockSettingsProvider);
+      final biometricUnlocked = ref.read(biometricSessionProvider);
       if (biometricEnabled &&
           !biometricUnlocked &&
           location != AppRoutes.biometricLock &&
@@ -417,15 +426,6 @@ GoRouter goRouter(GoRouterRef ref) {
         name: DelayedGratificationRoute.name,
         builder: (context, state) => const DelayedGratificationScreen(),
       ),
-      GoRoute(
-        path: BreathingFrictionRoute.path,
-        name: BreathingFrictionRoute.name,
-        builder: (context, state) {
-          final bhiParam = state.pathParameters['currentBhi'];
-          final bhi = int.tryParse(bhiParam ?? '') ?? 50;
-          return BreathingFrictionScreen(currentBhi: bhi);
-        },
-      ),
 
       // 🌟 [NEW] مسار واحة المشاعر
       GoRoute(
@@ -496,8 +496,9 @@ GoRouter goRouter(GoRouterRef ref) {
           return '${AppRoutes.v2Check}?${q.join('&')}';
         },
       ),
-      // Canonical four-tab shell: Today · Plan · Progress · Profile
+      // Pro mock five-tab shell: Home · Exercises · Progress · Pro · Profile
       buildV2NavigationShellRoute(),
+      buildV2PlanRevealRoute(),
       // Contextual Brain Check (not a primary tab)
       GoRoute(
         path: AppRoutes.v2Check,
@@ -507,6 +508,11 @@ GoRouter goRouter(GoRouterRef ref) {
           final source = state.uri.queryParameters['source'] ?? 'shell';
           return BrainCheckEntryBoundaryScreen(mode: mode, source: source);
         },
+      ),
+      GoRoute(
+        path: AppRoutes.v2InteractiveDiagnostic,
+        name: 'v2InteractiveDiagnostic',
+        builder: (context, state) => const InteractiveDiagnosticFlowScreen(),
       ),
       // Contextual Reports proof surface (not a primary tab)
       GoRoute(

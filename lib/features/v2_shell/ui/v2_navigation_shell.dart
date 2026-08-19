@@ -6,12 +6,9 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_design_constants.dart';
 import '../domain/v2_shell_tab.dart';
 
-/// NAV-SHELL — canonical four-tab V2 composition (Slice 9.1A).
+/// NAV-SHELL — Pro mock five-tab composition.
 ///
-/// Tabs: Today · Program · Progress · Profile.
-/// Brain Check and Reports remain contextual routes outside this bar.
-///
-/// Navigation only: does not mutate Score, Plan, Progress, Reports, or Sessions.
+/// Tabs: Home · Exercises · Progress · Pro · Profile.
 class V2NavigationShell extends StatelessWidget {
   const V2NavigationShell({
     super.key,
@@ -27,16 +24,20 @@ class V2NavigationShell extends StatelessWidget {
         navigationShell.currentIndex.clamp(0, V2ShellTab.values.length - 1);
     final theme = Theme.of(context);
 
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      body: navigationShell,
-      bottomNavigationBar: DecoratedBox(
-        decoration: BoxDecoration(
-          color: AppColors.background,
+    return BackButtonListener(
+      onBackButtonPressed: () async {
+        if (index == 0) return false;
+        navigationShell.goBranch(0);
+        return true;
+      },
+      child: Scaffold(
+        backgroundColor: AppColors.background,
+        body: navigationShell,
+        bottomNavigationBar: DecoratedBox(
+        decoration: const BoxDecoration(
+          color: AppColors.navBar,
           border: Border(
-            top: BorderSide(
-              color: AppColors.border.withValues(alpha: 0.55),
-            ),
+            top: BorderSide(color: AppColors.border),
           ),
         ),
         child: NavigationBarTheme(
@@ -46,31 +47,29 @@ class V2NavigationShell extends StatelessWidget {
             elevation: 0,
             shadowColor: Colors.transparent,
             surfaceTintColor: Colors.transparent,
-            indicatorColor: AppColors.primary.withValues(alpha: 0.22),
-            indicatorShape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
+            indicatorColor: Colors.transparent,
             overlayColor: const WidgetStatePropertyAll(Colors.transparent),
             labelTextStyle: WidgetStateProperty.resolveWith((states) {
               final selected = states.contains(WidgetState.selected);
               return theme.textTheme.labelMedium?.copyWith(
-                color: selected ? AppColors.primary : AppColors.textSecondary,
+                color: selected ? AppColors.primary : AppColors.textTertiary,
                 fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
                 height: 1.15,
-                fontSize: selected ? 12.5 : 12,
+                fontSize: 10.5,
               );
             }),
             iconTheme: WidgetStateProperty.resolveWith((states) {
               final selected = states.contains(WidgetState.selected);
               return IconThemeData(
-                size: selected ? 24 : 22,
-                color: selected ? AppColors.primary : AppColors.textSecondary,
+                size: selected ? 22 : 20,
+                color: selected ? AppColors.primary : AppColors.textTertiary,
               );
             }),
           ),
           child: NavigationBar(
             selectedIndex: index,
             backgroundColor: Colors.transparent,
+            labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
             onDestinationSelected: (i) {
               navigationShell.goBranch(
                 i,
@@ -79,22 +78,28 @@ class V2NavigationShell extends StatelessWidget {
             },
             destinations: [
               NavigationDestination(
-                icon: const Icon(Icons.today_outlined),
-                selectedIcon: const Icon(Icons.today),
-                label: loc.v2NavToday,
-                tooltip: loc.v2NavToday,
+                icon: const Icon(Icons.home_outlined),
+                selectedIcon: const Icon(Icons.home),
+                label: loc.v2NavHome,
+                tooltip: loc.v2NavHome,
               ),
               NavigationDestination(
-                icon: const Icon(Icons.map_outlined),
-                selectedIcon: const Icon(Icons.map),
-                label: loc.v2NavPlan,
-                tooltip: loc.v2NavPlan,
+                icon: const Icon(Icons.psychology_outlined),
+                selectedIcon: const Icon(Icons.psychology),
+                label: loc.v2NavExercises,
+                tooltip: loc.v2NavExercises,
               ),
               NavigationDestination(
-                icon: const Icon(Icons.insights_outlined),
-                selectedIcon: const Icon(Icons.insights),
+                icon: const Icon(Icons.show_chart_outlined),
+                selectedIcon: const Icon(Icons.show_chart),
                 label: loc.v2NavProgress,
                 tooltip: loc.v2NavProgress,
+              ),
+              NavigationDestination(
+                icon: const Icon(Icons.workspace_premium_outlined),
+                selectedIcon: const Icon(Icons.workspace_premium),
+                label: loc.v2NavPro,
+                tooltip: loc.v2NavPro,
               ),
               NavigationDestination(
                 icon: const Icon(Icons.person_outline),
@@ -106,6 +111,7 @@ class V2NavigationShell extends StatelessWidget {
           ),
         ),
       ),
+    ),
     );
   }
 }

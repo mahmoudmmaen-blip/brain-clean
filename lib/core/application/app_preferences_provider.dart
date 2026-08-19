@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../core/constants/hive_meta_keys.dart';
@@ -113,8 +114,20 @@ class AppPreferences extends _$AppPreferences {
     try {
       final box = ref.read(appMetaBoxProvider);
       await box.put(key, value);
+      await box.flush();
       ref.invalidateSelf();
-    } catch (_) {
+      if (kDebugMode && key == HiveMetaKeys.hasSeenOnboarding) {
+        final persisted = box.get(key, defaultValue: false);
+        debugPrint(
+          '[AppPreferences] persisted hasSeenOnboarding=$persisted (requested=$value)',
+        );
+      }
+    } catch (error) {
+      if (kDebugMode && key == HiveMetaKeys.hasSeenOnboarding) {
+        debugPrint(
+          '[AppPreferences] Hive persist failed for hasSeenOnboarding: $error',
+        );
+      }
       state = _patchFromKey(key, value);
     }
   }

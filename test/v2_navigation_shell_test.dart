@@ -148,25 +148,27 @@ void main() {
     V2FeatureBoundary.enableBrainProfileRoutes = false;
   });
 
-  group('Canonical four-tab contract', () {
-    test('exactly four primary tabs in Build Spec order', () {
-      expect(V2ShellTab.values, hasLength(4));
-      expect(V2ShellPaths.primaryTabCount, 4);
+  group('Canonical five-tab contract', () {
+    test('exactly five primary tabs in Pro mock order', () {
+      expect(V2ShellTab.values, hasLength(5));
+      expect(V2ShellPaths.primaryTabCount, 5);
       expect(V2ShellPaths.roots, [
         '/v2/home',
-        '/v2/plan',
+        '/v2/exercises',
         '/v2/progress',
+        '/v2/pro',
         '/v2/profile',
       ]);
       expect(V2ShellTab.values.map((t) => t.name).toList(), [
         'today',
-        'plan',
+        'exercises',
         'progress',
+        'pro',
         'profile',
       ]);
     });
 
-    test('Brain Check and Reports are not primary tabs', () {
+    test('Brain Check, Reports, and Plan are not primary tabs', () {
       expect(
         V2ShellTab.values.map((t) => t.name),
         isNot(contains('check')),
@@ -180,18 +182,23 @@ void main() {
       expect(V2ShellTabX.fromLocation('/v2/reports/artifact'), isNull);
       expect(V2ShellTabX.fromLocation('/v2/reports/measurements'), isNull);
       expect(V2ShellTabX.fromLocation('/v2/brain-check/flow'), isNull);
+      expect(V2ShellTabX.fromLocation('/v2/plan'), isNull);
+      expect(V2ShellTabX.fromLocation('/v2/premium'), isNull);
     });
 
     test('primary tab location mapping + aliases', () {
       expect(V2ShellTabX.fromLocation('/v2/home'), V2ShellTab.today);
       expect(V2ShellTabX.fromLocation('/v2/today'), V2ShellTab.today);
-      expect(V2ShellTabX.fromLocation('/v2/plan'), V2ShellTab.plan);
+      expect(V2ShellTabX.fromLocation('/v2/exercises'), V2ShellTab.exercises);
       expect(V2ShellTabX.fromLocation('/v2/progress'), V2ShellTab.progress);
+      expect(V2ShellTabX.fromLocation('/v2/pro'), V2ShellTab.pro);
       expect(V2ShellTabX.fromLocation('/v2/profile'), V2ShellTab.profile);
       expect(V2ShellTabX.fromLocation('/v2/brain-profile'), isNull);
       expect(V2ShellTabX.fromLocation('/v2/session/act'), isNull);
       expect(AppRoutes.v2Today, AppRoutes.v2Home);
       expect(AppRoutes.v2Home, '/v2/home');
+      expect(AppRoutes.v2Exercises, '/v2/exercises');
+      expect(AppRoutes.v2Pro, '/v2/pro');
       expect(AppRoutes.v2Check, '/v2/check');
       expect(AppRoutes.v2PlanReveal, '/v2/plan');
       expect(AppRoutes.v2Progress, '/v2/progress');
@@ -211,7 +218,7 @@ void main() {
       expect(V2FeatureBoundary.enableV2Shell, isFalse);
     });
 
-    test('production shell route factory builds four branches', () {
+    test('production shell route factory builds five branches', () {
       expect(buildV2NavigationShellRoute(), isA<StatefulShellRoute>());
     });
   });
@@ -225,26 +232,27 @@ void main() {
       expect(find.byType(NavigationBar), findsNothing);
     });
 
-    testWidgets('ON exposes four-tab V2 shell on Today', (tester) async {
+    testWidgets('ON exposes five-tab V2 shell on Home', (tester) async {
       final router = _shellRouter(flagOn: true, initial: AppRoutes.v2Home);
       await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
       await tester.pump();
       expect(find.text('TAB_TODAY'), findsOneWidget);
       expect(find.byType(NavigationBar), findsOneWidget);
-      expect(find.byType(NavigationDestination), findsNWidgets(4));
+      expect(find.byType(NavigationDestination), findsNWidgets(5));
       expect(find.byType(V2NavigationShell), findsOneWidget);
     });
   });
 
   group('Primary tab deep links', () {
-    testWidgets('Today / Plan / Progress / Profile select correct tabs', (
+    testWidgets('Home / Exercises / Progress / Pro / Profile select correct tabs', (
       tester,
     ) async {
       final cases = <(String, String, int)>[
         (AppRoutes.v2Home, 'TAB_TODAY', 0),
-        (AppRoutes.v2PlanReveal, 'TAB_PLAN', 1),
+        (AppRoutes.v2Exercises, 'TAB_EXERCISES', 1),
         (AppRoutes.v2Progress, 'TAB_PROGRESS', 2),
-        (AppRoutes.v2Profile, 'TAB_PROFILE', 3),
+        (AppRoutes.v2Pro, 'TAB_PRO', 3),
+        (AppRoutes.v2Profile, 'TAB_PROFILE', 4),
       ];
 
       for (final (path, label, index) in cases) {
@@ -387,13 +395,17 @@ void main() {
       await tester.pump();
       expect(find.text('TAB_TODAY'), findsOneWidget);
 
-      await tester.tap(find.text('Program'));
+      await tester.tap(find.text('Exercises'));
       await tester.pump();
-      expect(find.text('TAB_PLAN'), findsOneWidget);
+      expect(find.text('TAB_EXERCISES'), findsOneWidget);
 
       await tester.tap(find.text('Progress'));
       await tester.pump();
       expect(find.text('TAB_PROGRESS'), findsOneWidget);
+
+      await tester.tap(find.text('Pro'));
+      await tester.pump();
+      expect(find.text('TAB_PRO'), findsOneWidget);
 
       await tester.tap(find.text('Profile'));
       await tester.pump();
@@ -404,7 +416,7 @@ void main() {
       await tester.pump();
       expect(find.text('TAB_PROFILE'), findsOneWidget);
 
-      await tester.tap(find.text('Today'));
+      await tester.tap(find.text('Home'));
       await tester.pump();
       expect(find.text('TAB_TODAY'), findsOneWidget);
     });
@@ -416,17 +428,32 @@ void main() {
       await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
       await tester.pump();
 
-      await tester.tap(find.text('Program'));
+      await tester.tap(find.text('Exercises'));
       await tester.pump();
-      expect(find.text('TAB_PLAN'), findsOneWidget);
+      expect(find.text('TAB_EXERCISES'), findsOneWidget);
 
-      await tester.tap(find.text('Today'));
+      await tester.tap(find.text('Home'));
       await tester.pump();
       expect(find.text('TAB_TODAY'), findsOneWidget);
 
-      await tester.tap(find.text('Program'));
+      await tester.tap(find.text('Exercises'));
       await tester.pump();
-      expect(find.text('TAB_PLAN'), findsOneWidget);
+      expect(find.text('TAB_EXERCISES'), findsOneWidget);
+    });
+
+    testWidgets('system back from non-home tab returns to Home tab', (
+      tester,
+    ) async {
+      final router = _shellRouter(flagOn: true, initial: AppRoutes.v2Progress);
+      await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
+      await tester.pumpAndSettle();
+
+      expect(find.text('TAB_PROGRESS'), findsOneWidget);
+
+      await tester.binding.handlePopRoute();
+      await tester.pumpAndSettle();
+
+      expect(find.text('TAB_TODAY'), findsOneWidget);
     });
   });
 
@@ -434,13 +461,15 @@ void main() {
     test('canonical EN/AR tab labels', () {
       final en = AppLocalizationsEn();
       final ar = AppLocalizationsAr();
-      expect(en.v2NavToday, 'Today');
-      expect(en.v2NavPlan, 'Program');
+      expect(en.v2NavHome, 'Home');
+      expect(en.v2NavExercises, 'Exercises');
       expect(en.v2NavProgress, 'Progress');
+      expect(en.v2NavPro, 'Pro');
       expect(en.v2NavProfile, 'Profile');
-      expect(ar.v2NavToday, 'اليوم');
-      expect(ar.v2NavPlan, 'البرنامج');
-      expect(ar.v2NavProgress, 'التقدّم');
+      expect(ar.v2NavHome, 'الرئيسية');
+      expect(ar.v2NavExercises, 'التمارين');
+      expect(ar.v2NavProgress, 'التقدم');
+      expect(ar.v2NavPro, 'Pro');
       expect(ar.v2NavProfile, 'الملف');
       // Contextual labels remain available for nested surfaces.
       expect(en.v2NavCheck, 'Brain Check');
@@ -449,7 +478,7 @@ void main() {
       expect(ar.v2NavReports, 'التقارير');
     });
 
-    testWidgets('LTR/RTL; 320dp; textScale 2.0; four destinations; targets', (
+    testWidgets('LTR/RTL; 320dp; textScale 2.0; five destinations; targets', (
       tester,
     ) async {
       await tester.binding.setSurfaceSize(const Size(320, 720));
@@ -471,11 +500,11 @@ void main() {
         await tester.pump();
 
         expect(find.byType(NavigationBar), findsOneWidget);
-        expect(find.byType(NavigationDestination), findsNWidgets(4));
+        expect(find.byType(NavigationDestination), findsNWidgets(5));
         expect(tester.takeException(), isNull);
 
         final destinations = find.byType(NavigationDestination);
-        for (var i = 0; i < 4; i++) {
+        for (var i = 0; i < 5; i++) {
           final size = tester.getSize(destinations.at(i));
           expect(size.height, greaterThanOrEqualTo(48));
         }
@@ -485,14 +514,16 @@ void main() {
 
         // Screen-reader labels via destination labels (locale-aware).
         if (locale.languageCode == 'en') {
-          expect(find.text('Today'), findsWidgets);
-          expect(find.text('Program'), findsWidgets);
+          expect(find.text('Home'), findsWidgets);
+          expect(find.text('Exercises'), findsWidgets);
           expect(find.text('Progress'), findsWidgets);
+          expect(find.text('Pro'), findsWidgets);
           expect(find.text('Profile'), findsWidgets);
         } else {
-          expect(find.text('اليوم'), findsWidgets);
-          expect(find.text('البرنامج'), findsWidgets);
-          expect(find.text('التقدّم'), findsWidgets);
+          expect(find.text('الرئيسية'), findsWidgets);
+          expect(find.text('التمارين'), findsWidgets);
+          expect(find.text('التقدم'), findsWidgets);
+          expect(find.text('Pro'), findsWidgets);
           expect(find.text('الملف'), findsWidgets);
         }
       }
@@ -509,7 +540,7 @@ void main() {
       await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
       await tester.pump();
 
-      for (final label in ['Program', 'Progress', 'Profile', 'Today']) {
+      for (final label in ['Exercises', 'Progress', 'Pro', 'Profile', 'Home']) {
         await tester.tap(find.text(label));
         await tester.pump();
         expect(find.textContaining('CHECK_CONTEXTUAL'), findsNothing);

@@ -10,6 +10,7 @@ import '../../../core/routing/startup_destination.dart';
 import '../../../core/theme/app_colors.dart';
 import '../application/v2_onboarding_controller.dart';
 import '../data/v2_onboarding_repository_provider.dart';
+import '../domain/v2_onboarding_progress.dart';
 import '../domain/v2_onboarding_status.dart';
 import '../domain/v2_onboarding_step.dart';
 import 'v2_onboarding_step_views.dart';
@@ -70,6 +71,12 @@ class _V2OnboardingFlowScreenState
                       final code = ref.read(localeProvider).languageCode;
                       await controller.setLanguageCode(code);
                     },
+                    onRitualComplete: (window, {required skip}) async {
+                      await controller.setRitual(window, skip: skip);
+                      await ref
+                          .read(appPreferencesProvider.notifier)
+                          .completeOnboarding();
+                    },
                     onStartCheck: () async {
                       await controller.markReadyForBrainCheck();
                       await ref
@@ -101,6 +108,7 @@ class V2OnboardingFlowBody extends StatelessWidget {
     required this.controller,
     required this.languageCode,
     required this.onToggleLanguage,
+    required this.onRitualComplete,
     required this.onStartCheck,
     required this.onSkipCheck,
   });
@@ -109,6 +117,8 @@ class V2OnboardingFlowBody extends StatelessWidget {
   final V2OnboardingController controller;
   final String languageCode;
   final VoidCallback onToggleLanguage;
+  final Future<void> Function(V2RitualWindow? window, {required bool skip})
+      onRitualComplete;
   final VoidCallback onStartCheck;
   final VoidCallback onSkipCheck;
 
@@ -221,8 +231,8 @@ class V2OnboardingFlowBody extends StatelessWidget {
         return OnbRitualView(
           loc: loc,
           selected: controller.state.ritualWindow,
-          onContinue: (window) => controller.setRitual(window, skip: false),
-          onSkip: () => controller.setRitual(null, skip: true),
+          onContinue: (window) => onRitualComplete(window, skip: false),
+          onSkip: () => onRitualComplete(null, skip: true),
         );
       case V2OnboardingStep.checkIntro:
         return OnbCheckIntroView(

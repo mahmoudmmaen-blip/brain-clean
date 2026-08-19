@@ -371,6 +371,7 @@ void main() {
             controller: controller,
             languageCode: 'en',
             onToggleLanguage: () {},
+            onRitualComplete: (_, {required skip}) async {},
             onStartCheck: () {},
             onSkipCheck: () {},
           ),

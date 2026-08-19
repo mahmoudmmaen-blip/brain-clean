@@ -6,13 +6,13 @@ part of 'app_router.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$goRouterHash() => r'1a08aecfd58d97292a12c49f9f06148a3c1ba7e1';
+String _$goRouterHash() => r'69f2876bd240bd30c9a192a42f69acb61b731c0e';
 
 /// App shell — splash hydrates Hive, then routes to home or **live session** resume.
 ///
 /// Copied from [goRouter].
 @ProviderFor(goRouter)
-final goRouterProvider = AutoDisposeProvider<GoRouter>.internal(
+final goRouterProvider = Provider<GoRouter>.internal(
   goRouter,
   name: r'goRouterProvider',
   debugGetCreateSourceHash:
@@ -21,6 +21,6 @@ final goRouterProvider = AutoDisposeProvider<GoRouter>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef GoRouterRef = AutoDisposeProviderRef<GoRouter>;
+typedef GoRouterRef = ProviderRef<GoRouter>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

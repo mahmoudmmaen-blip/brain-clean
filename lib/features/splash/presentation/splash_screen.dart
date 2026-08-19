@@ -91,6 +91,12 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     }
 
     final hasSeen = ref.read(hasSeenOnboardingProvider);
+    if (kDebugMode) {
+      debugPrint(
+        '[SplashColdStart] hasSeenOnboarding=$hasSeen '
+        'destination=${hasSeen ? StartupDestination.resolve() : StartupDestination.onboarding()}',
+      );
+    }
     if (!hasSeen) {
       context.go(StartupDestination.onboarding());
       return;
