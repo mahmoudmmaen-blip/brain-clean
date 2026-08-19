@@ -433,7 +433,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Walk, stretch, or light exercise for at least 20 minutes';
 
   @override
-  String get recoveryTaskDistractionTitle => 'Distraction management protocol';
+  String get recoveryTaskDistractionTitle => 'Temporary Distraction protocol';
 
   @override
   String get recoveryTaskDistractionSubtitle =>
@@ -444,7 +444,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get recoveryTaskMentalSubtitle =>
-      'Journaling, breathwork, or guided recovery check-in';
+      'Journaling or guided recovery check-in';
 
   @override
   String get recoveryDayComplete => 'All five habits completed for this day.';
@@ -505,6 +505,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Local data was reset because it could not be read. A new protocol has started.';
 
   @override
+  String get homeFocusJourneyTitle => 'Focus Journey';
+
+  @override
   String get homeStreakDays => 'Days';
 
   @override
@@ -517,14 +520,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeStreakSeconds => 'Sec';
 
   @override
-  String get homeDistractionButton => 'Temporary distraction';
+  String get homeDistractionButton => 'Temporary Distraction';
 
   @override
-  String get homeDistractionConfirmTitle => 'Confirm distraction';
+  String get homeDistractionConfirmTitle => 'Confirm Temporary Distraction';
 
   @override
   String get homeDistractionConfirmMessage =>
-      'Are you sure? 12 hours will be deducted from your streak.';
+      'Are you sure? 12 hours will be deducted from your Focus Journey.';
 
   @override
   String get homeDistractionConfirm => 'Confirm';
@@ -599,7 +602,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get accountabilityPenAltruistic5 => 'Community check-in skipped';
 
   @override
-  String get accountabilityPenMental1 => 'Skipped breathwork';
+  String get accountabilityPenMental1 => 'Skipped mental recovery block';
 
   @override
   String get accountabilityPenMental2 => 'Avoided journaling';
@@ -612,20 +615,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get accountabilityPenMental5 => 'Escalated screen binge';
-
-  @override
-  String get breathingInhale => 'Inhale…';
-
-  @override
-  String get breathingHold => 'Hold…';
-
-  @override
-  String get breathingExhale => 'Exhale…';
-
-  @override
-  String breathingCountdownSeconds(int seconds) {
-    return '$seconds seconds remaining';
-  }
 
   @override
   String get commonCancel => 'Cancel';
@@ -1002,7 +991,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeAccountabilityBox => 'Accountability box';
 
   @override
-  String get homeDistractionConfirmAction => 'Confirm distraction';
+  String get homeDistractionConfirmAction => 'Confirm Temporary Distraction';
 
   @override
   String get splashSubtitle => 'Reset your brain';
@@ -1032,7 +1021,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profileAchievements => 'Your achievements';
 
   @override
-  String get profileBadgeStreak7 => '7-day streak';
+  String get profileBadgeStreak7 => '7-day Focus Journey';
 
   @override
   String get profileBadgeCleanBrain => 'Clean brain';
@@ -1122,26 +1111,23 @@ class AppLocalizationsEn extends AppLocalizations {
   String get accountabilityModalPenMental5 => 'Journal writing';
 
   @override
-  String get breathingInhaleSlow => 'Inhale slowly…';
-
-  @override
-  String get breathingExhaleFull => 'Exhale fully…';
-
-  @override
   String get asyncErrorRetry => 'Something went wrong. Please try again.';
 
   @override
   String get chartEmptyState => 'No data yet — start your journey today';
 
   @override
-  String get homeStreakMotivation => 'Start your first focus session now 🚀';
+  String get homeStreakMotivation => 'Start your Focus Journey now 🚀';
 
   @override
   String get dailyQuoteSource => 'Neuroscience';
 
   @override
+  String get focusJourneyFreezeTitle => 'Focus Journey Freeze ❄️';
+
+  @override
   String get streakFreezeConfirm =>
-      'Use streak freeze? Available once per week';
+      'Use Focus Journey freeze? Available once per week';
 
   @override
   String get shareProgressLabel => 'Share Progress';
@@ -1155,7 +1141,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get weeklyReportTitle => 'Weekly Report';
 
   @override
-  String get weeklyReportStreakDays => 'Focus days this week';
+  String get weeklyReportStreakDays => 'Focus Journey days this week';
 
   @override
   String get weeklyReportAvgBcs => 'Average BCS';
@@ -1279,6 +1265,45 @@ class AppLocalizationsEn extends AppLocalizations {
   String get gameColorWordPrompt => 'Tap the color of the ink';
 
   @override
+  String gameStroopResult(int correct, int total) {
+    return '$correct / $total correct';
+  }
+
+  @override
+  String gameStroopStats(int correct, int wrong) {
+    return '$correct correct · $wrong wrong';
+  }
+
+  @override
+  String get gameDigitSpanIntro =>
+      'Digits appear one at a time. Memorize the order, then enter them on the keypad.';
+
+  @override
+  String get gameDigitSpanWatch => 'Watch the digits';
+
+  @override
+  String get gameDigitSpanClear => 'Clear';
+
+  @override
+  String get gameDigitSpanDelete => 'Delete';
+
+  @override
+  String get gameDigitSpanCorrect => 'Correct!';
+
+  @override
+  String get gameDigitSpanWrong => 'Not quite — try the next sequence';
+
+  @override
+  String gameDigitSpanLevel(int digits) {
+    return 'Length: $digits digits';
+  }
+
+  @override
+  String gameDigitSpanLengthLabel(int digits) {
+    return 'Best span this session: $digits';
+  }
+
+  @override
   String get focusedThinkingTitle => 'Focused Thinking Challenge';
 
   @override
@@ -1312,7 +1337,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String focusedThinkingDistractions(int count) {
-    return 'Distractions logged: $count';
+    return 'Temporary Distractions logged: $count';
   }
 
   @override
@@ -1368,6 +1393,23 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get gameNBackMatch => 'Match!';
+
+  @override
+  String get gameNBackNext => 'Next';
+
+  @override
+  String get gameNBackIntroDetail =>
+      'A square lights up on the 3×3 grid. Press Match if it is in the same place as 2 steps ago; otherwise press Next.';
+
+  @override
+  String gameNBackStats(int correct, int wrong) {
+    return '$correct correct · $wrong wrong';
+  }
+
+  @override
+  String gameNBackSessionResult(int correct, int wrong) {
+    return 'Done — $correct correct, $wrong wrong';
+  }
 
   @override
   String gameNBackResult(int n) {
@@ -2017,6 +2059,52 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2TodayHomeViewPlan => 'View Recovery Plan';
 
   @override
+  String get homeGreetingMorning => 'Good morning';
+
+  @override
+  String get homeGreetingAfternoon => 'Good afternoon';
+
+  @override
+  String get homeGreetingEvening => 'Good evening';
+
+  @override
+  String homeGreetingName(String name) {
+    return 'Hello, $name 👋';
+  }
+
+  @override
+  String get homeFocusLevelTag => 'Current focus level';
+
+  @override
+  String homeFocusImprovement(int percent) {
+    return 'Up $percent% from first assessment';
+  }
+
+  @override
+  String get homeFocusImprovementPending =>
+      'Complete a Brain Check to track improvement';
+
+  @override
+  String get homeMetricStreakLabel => 'Day streak';
+
+  @override
+  String get homeMetricExercisesLabel => 'Today\'s exercises';
+
+  @override
+  String get homeSuggestedExerciseBadge => 'Suggested';
+
+  @override
+  String get homeProgramPathTitle => 'Current path';
+
+  @override
+  String homeProgramPathDay(int current, int total) {
+    return 'Day $current of $total';
+  }
+
+  @override
+  String get homeTodaySessionHeading => 'Today\'s session';
+
+  @override
   String get v2SessionPrepareTitle => 'Prepare';
 
   @override
@@ -2111,7 +2199,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2SessionChipNone => 'None';
 
   @override
-  String get v2SessionChipDistraction => 'Distraction';
+  String get v2SessionChipDistraction => 'Temporary Distraction';
 
   @override
   String get v2SessionChipLowEnergy => 'Low energy';
@@ -2320,6 +2408,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v2OnboardingStartBrainCheck => 'Start Brain Check';
+
+  @override
+  String get v2OnboardingSkipBrainCheck => 'Skip for now';
 
   @override
   String get v2OnboardingCorruptTitle => 'Let’s start fresh';
@@ -2640,7 +2731,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get v2WeeklyFactsStreak => 'Streak';
+  String get v2WeeklyFactsStreak => 'Focus Journey';
 
   @override
   String v2WeeklyFactsStreakCaption(String current, String best) {
@@ -2875,6 +2966,38 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v2ProgressReportsEntry => 'Open Reports';
+
+  @override
+  String get v2ProgressPillarsHeading => 'Cognitive pillars';
+
+  @override
+  String get v2ProgressPillarsEmpty =>
+      'Complete a quick diagnostic to track focus, memory, screen habits, and sleep over time.';
+
+  @override
+  String get v2ProgressPillarsFirstDiagnostic => 'Start first diagnostic';
+
+  @override
+  String get v2ProgressLiveVsDayOne => 'Live vs day one';
+
+  @override
+  String v2ProgressOverallDelta(String delta) {
+    return 'Average change: $delta';
+  }
+
+  @override
+  String v2ProgressBaselineDate(String date) {
+    return 'First snapshot: $date';
+  }
+
+  @override
+  String get v2ProgressChartDayOne => 'Day 1';
+
+  @override
+  String get v2ProgressChartToday => 'Today';
+
+  @override
+  String get v2ProgressWeeklyRediagnosis => 'Re-run weekly diagnostic';
 
   @override
   String get v2ProgressPatternDetails => 'Pattern details';
@@ -3185,13 +3308,207 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2NavPlan => 'Program';
 
   @override
+  String get v2NavExercises => 'Exercises';
+
+  @override
   String get v2NavProgress => 'Progress';
+
+  @override
+  String get v2NavPro => 'Pro';
 
   @override
   String get v2NavReports => 'Reports';
 
   @override
   String get v2NavProfile => 'Profile';
+
+  @override
+  String get v2ExercisesLibraryTitle => 'Exercise library';
+
+  @override
+  String get v2ExercisesFilterAll => 'All';
+
+  @override
+  String get v2ExercisesFilterFocus => 'Focus';
+
+  @override
+  String get v2ExercisesFilterMemory => 'Memory';
+
+  @override
+  String get v2ExercisesFilterReading => 'Reading';
+
+  @override
+  String get v2ExercisesFilterMentalFitness => 'Mental fitness';
+
+  @override
+  String get v2ExercisesSectionFree => 'Free';
+
+  @override
+  String get v2ExercisesSectionPro => 'Pro';
+
+  @override
+  String get v2ExercisesProBadge => 'Pro';
+
+  @override
+  String get v2ExercisesEmptyFilter => 'No exercises match this filter yet.';
+
+  @override
+  String get v2ExercisesNBackTitle => 'N-Back';
+
+  @override
+  String get v2ExercisesNBackSubtitle =>
+      'Dual N-Back protocol for working memory';
+
+  @override
+  String get v2ExercisesStroopTitle => 'Stroop test';
+
+  @override
+  String get v2ExercisesStroopSubtitle =>
+      'Inhibit distraction by naming ink color, not the word';
+
+  @override
+  String get v2ExercisesDigitSpanTitle => 'Digit span';
+
+  @override
+  String get v2ExercisesDigitSpanSubtitle =>
+      'Hold and recall growing number sequences';
+
+  @override
+  String get v2ExercisesGoNoGoTitle => 'Impulse control (Go / No-Go)';
+
+  @override
+  String get v2ExercisesGoNoGoSubtitle =>
+      'Train response inhibition under time pressure';
+
+  @override
+  String get v2ExercisesReadingComprehensionTitle =>
+      'Focused reading + comprehension';
+
+  @override
+  String get v2ExercisesReadingComprehensionSubtitle =>
+      'Read without distractions, then answer recall questions';
+
+  @override
+  String get v2ExercisesHiitTitle => 'Focus HIIT';
+
+  @override
+  String get v2ExercisesHiitSubtitle =>
+      'Short math bursts to sharpen sustained attention';
+
+  @override
+  String get v2ExercisesPatternMatchTitle => 'Visual pattern matching';
+
+  @override
+  String get v2ExercisesPatternMatchSubtitle =>
+      'Memorize and recreate grid patterns from memory';
+
+  @override
+  String get v2ExercisesReadingTitle => 'Focused reading session (10 min)';
+
+  @override
+  String get v2ExercisesReadingSubtitle =>
+      'Distraction-free reading to extend attention span';
+
+  @override
+  String get v2ExercisesDetoxTitle => 'Boredom challenge (no social media)';
+
+  @override
+  String get v2ExercisesDetoxSubtitle =>
+      'Reset dopamine and restore mental patience';
+
+  @override
+  String get v2ExercisesAccountabilityTitle => 'Daily accountability box';
+
+  @override
+  String get v2ExercisesAccountabilitySubtitle =>
+      'Honestly review screen pulls and distractions';
+
+  @override
+  String get diagFlowTitle => 'Quick diagnostic';
+
+  @override
+  String get diagIntroTitle => '5 quick questions';
+
+  @override
+  String get diagIntroBody =>
+      'Answer honestly — there are no right or wrong answers. This snapshot helps personalize your recovery program.';
+
+  @override
+  String get diagIntroMetricsTitle => 'What we measure';
+
+  @override
+  String get diagMetricAttention => 'Attention span';
+
+  @override
+  String get diagMetricWorkingMemory => 'Working memory';
+
+  @override
+  String get diagMetricScreenHabits => 'Screen habits';
+
+  @override
+  String get diagMetricSleepQuality => 'Sleep quality';
+
+  @override
+  String get diagIntroDurationHint => 'About 2 minutes · 5 questions';
+
+  @override
+  String get diagIntroStart => 'Start diagnostic';
+
+  @override
+  String diagQuestionProgress(int current, int total) {
+    return 'Question $current of $total';
+  }
+
+  @override
+  String get diagQ1Stem => 'I can stay with one task without switching apps.';
+
+  @override
+  String get diagQ2Stem => 'I can hold several items in mind while working.';
+
+  @override
+  String get diagQ3Stem => 'I notice when I start scrolling without a purpose.';
+
+  @override
+  String get diagQ4Stem => 'I can put my phone away during important tasks.';
+
+  @override
+  String get diagQ5Stem => 'I wake up feeling rested most mornings.';
+
+  @override
+  String get diagBack => 'Back';
+
+  @override
+  String get diagContinue => 'Continue';
+
+  @override
+  String get diagFinish => 'See results';
+
+  @override
+  String get diagResultTitle => 'Your snapshot';
+
+  @override
+  String get diagResultOverallLabel => 'Overall score';
+
+  @override
+  String get diagResultBreakdownTitle => 'Breakdown by area';
+
+  @override
+  String get diagResultWeakestHint => 'Priority focus for your program';
+
+  @override
+  String diagResultPlanUpdated(String area) {
+    return 'Your program was updated to support $area first.';
+  }
+
+  @override
+  String get diagResultPlanUpdating => 'Updating your personalized program…';
+
+  @override
+  String get diagResultPlanError =>
+      'Could not update your program. You can retry from Plan.';
+
+  @override
+  String get diagResultContinue => 'View my program';
 
   @override
   String get v2NavRecoverHome => 'Back to Home';
@@ -3265,6 +3582,48 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get v2PremiumBenefitsBody =>
       'Latest and previous Weekly proof stay Free. Premium deepens continuity — it does not unlock recovery.';
+
+  @override
+  String get v2PremiumPlanMonthlyTitle => 'Premium monthly';
+
+  @override
+  String get v2PremiumPlanMonthlyPrice => '49 SAR / month';
+
+  @override
+  String get v2PremiumPlanMonthlySubtitle => 'Full access, cancel anytime';
+
+  @override
+  String get v2PremiumPlanAnnualTitle => 'Annual saver';
+
+  @override
+  String get v2PremiumPlanAnnualPrice => '399 SAR / year';
+
+  @override
+  String get v2PremiumPlanAnnualSubtitle => 'Best value — save vs monthly';
+
+  @override
+  String get v2PremiumPlanAnnualBadge => 'Save 32%';
+
+  @override
+  String get v2PremiumFeaturesHeading => 'Everything in Pro';
+
+  @override
+  String get v2PremiumFeatureNoAds => 'Remove all ads';
+
+  @override
+  String get v2PremiumFeatureBiometric => 'Biometric app lock';
+
+  @override
+  String get v2PremiumFeatureCloudSync => 'Cloud sync across devices';
+
+  @override
+  String get v2PremiumFeatureStealth => 'Stealth mode icon';
+
+  @override
+  String get v2PremiumFeatureFullStats => 'Full statistics and detailed charts';
+
+  @override
+  String get v2PremiumFeatureWeeklyArchive => 'Deep weekly report archive';
 
   @override
   String get v2PremiumViewPlans => 'View plans';
@@ -3439,7 +3798,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2SafaSuggestedReturnToday => 'Return to Today';
 
   @override
-  String get v2SafaFallbackGrounding => 'Pause: breathe slowly for one minute';
+  String get v2SafaFallbackGrounding =>
+      'Pause: take one calm minute before continuing';
 
   @override
   String get v2SafaFallbackSimplify =>
@@ -3546,6 +3906,24 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v2ProfileSectionRecovery => 'Recovery setup';
+
+  @override
+  String get v2ProfilePurityHeading => 'Purity journey';
+
+  @override
+  String v2ProfilePurityDay(int days) {
+    return 'Day $days';
+  }
+
+  @override
+  String get v2ProfilePuritySubtitle =>
+      'Days on your recovery path since you started';
+
+  @override
+  String get v2ProfileNotificationsRow => 'Daily reminders';
+
+  @override
+  String get v2ProfileNotificationsHint => 'Session and check-in notifications';
 
   @override
   String get v2ProfileBrainProfile => 'Brain Profile';

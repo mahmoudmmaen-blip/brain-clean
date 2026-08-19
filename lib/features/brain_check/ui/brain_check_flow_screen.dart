@@ -103,8 +103,7 @@ class _BrainCheckFlowScreenState extends ConsumerState<BrainCheckFlowScreen> {
   }
 
   void _exitSafe() {
-    // Draft remains; return to CHK-01 entry for resume.
-    context.go(AppRoutes.v2BrainCheckEntry);
+    context.go(AppRoutes.v2Home);
   }
 
   @override

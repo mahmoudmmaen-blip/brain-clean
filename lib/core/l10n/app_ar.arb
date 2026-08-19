@@ -263,10 +263,10 @@
   "recoveryTaskNutritionSubtitle": "وجبات داعمة للدماغ دون محفزات التهاب",
   "recoveryTaskMovementTitle": "20 دقيقة حركة",
   "recoveryTaskMovementSubtitle": "مشي أو تمدد أو نشاط خفيف لمدة 20 دقيقة على الأقل",
-  "recoveryTaskDistractionTitle": "بروتوكول إدارة التشتت",
+  "recoveryTaskDistractionTitle": "بروتوكول التشتت المؤقت",
   "recoveryTaskDistractionSubtitle": "إكمال روتين حماية التركيز اليومي",
   "recoveryTaskMentalTitle": "دعم ذهني",
-  "recoveryTaskMentalSubtitle": "تدوين أو تنفس موجّه أو جلسة دعم للتعافي",
+  "recoveryTaskMentalSubtitle": "تدوين أو جلسة دعم موجّهة للتعافي",
   "recoveryDayComplete": "اكتملت العادات الخمس لهذا اليوم.",
   "recoveryMissedHabitsTitle": "تسجيل غير مكتمل",
   "recoveryMissedHabitsSubtitle": "فاتتك بعض العادات. افتح غرفة المسؤولية لتسجيل المساءلة.",
@@ -297,13 +297,14 @@
   "recoveryStorageReset": "بدء بروتوكول جديد",
   "recoveryStorageMigratedNotice": "تم ترقية تقدمك المحفوظ إلى التنسيق الأحدث.",
   "recoveryStorageRecoveredNotice": "تم إعادة ضبط البيانات المحلية لأنها لم تُقرأ بشكل صحيح. بدأ بروتوكول جديد.",
+  "homeFocusJourneyTitle": "رحلة التركيز",
   "homeStreakDays": "أيام",
   "homeStreakHours": "ساعات",
   "homeStreakMinutes": "دقائق",
   "homeStreakSeconds": "ثوانٍ",
-  "homeDistractionButton": "تشتت مؤقت",
-  "homeDistractionConfirmTitle": "تأكيد التشتت",
-  "homeDistractionConfirmMessage": "هل أنت متأكد؟ سيتم خصم 12 ساعة من streak.",
+  "homeDistractionButton": "التشتت المؤقت",
+  "homeDistractionConfirmTitle": "تأكيد التشتت المؤقت",
+  "homeDistractionConfirmMessage": "هل أنت متأكد؟ سيتم خصم 12 ساعة من رحلة التركيز.",
   "homeDistractionConfirm": "تأكيد",
   "homeDistractionCancel": "إلغاء",
   "homeOpenAccountability": "غرفة المساءلة الرقمية",
@@ -328,22 +329,11 @@
   "accountabilityPenAltruistic3": "تجاهل طلب دعم",
   "accountabilityPenAltruistic4": "تركيز ذاتي مفرط",
   "accountabilityPenAltruistic5": "تخطي متابعة المجتمع",
-  "accountabilityPenMental1": "تخطي تمارين التنفس",
+  "accountabilityPenMental1": "تخطي كتلة التعافي الذهني",
   "accountabilityPenMental2": "تجنب التدوين",
   "accountabilityPenMental3": "حلقة أفكار سلبية",
   "accountabilityPenMental4": "تفويت فحص ذهني",
   "accountabilityPenMental5": "إدمان شاشة متصاعد",
-  "breathingInhale": "استنشق...",
-  "breathingHold": "احتبس...",
-  "breathingExhale": "أخرج...",
-  "breathingCountdownSeconds": "متبقي {seconds} ثانية",
-  "@breathingCountdownSeconds": {
-    "placeholders": {
-      "seconds": {
-        "type": "int"
-      }
-    }
-  },
   "commonCancel": "إلغاء",
   "commonConfirm": "تأكيد",
   "commonOk": "حسناً",
@@ -512,7 +502,7 @@
   "homeQuickDelayedGrat": "تأخير الإشباع ⏳",
   "homeQuickCognitiveTest": "اختبر تركيزك 🧪",
   "homeAccountabilityBox": "صندوق المساءلة",
-  "homeDistractionConfirmAction": "تأكيد التشتت",
+  "homeDistractionConfirmAction": "تأكيد التشتت المؤقت",
   "splashSubtitle": "أعد ضبط دماغك",
   "profileDefaultName": "مستخدم Brain Clean",
   "profileProBadge": "Pro ⭐",
@@ -522,7 +512,7 @@
   "profileRecentEmotions": "أحاسيسك الأخيرة",
   "profileNoEmotionsYet": "لم تسجل أي أحاسيس بعد",
   "profileAchievements": "إنجازاتك",
-  "profileBadgeStreak7": "7 أيام متواصلة",
+  "profileBadgeStreak7": "رحلة تركيز لمدة 7 أيام",
   "profileBadgeCleanBrain": "دماغ نظيف",
   "profileBadgeSilenceHero": "بطل الصمت",
   "profileBadgeSingleTask": "مهمة واحدة",
@@ -552,13 +542,12 @@
   "accountabilityModalPenMental3": "تعلم كلمة جديدة",
   "accountabilityModalPenMental4": "تأمل موجّه",
   "accountabilityModalPenMental5": "كتابة يوميات",
-  "breathingInhaleSlow": "استنشق ببطء...",
-  "breathingExhaleFull": "أخرج الهواء...",
   "asyncErrorRetry": "حدث خطأ، حاول مجدداً",
   "chartEmptyState": "لا توجد بيانات بعد، ابدأ رحلتك اليوم",
-  "homeStreakMotivation": "ابدأ أول جلسة تركيز الآن 🚀",
+  "homeStreakMotivation": "ابدأ رحلة التركيز الآن 🚀",
   "dailyQuoteSource": "علم الأعصاب",
-  "streakFreezeConfirm": "هل تريد تجميد الـ Streak؟ متاح مرة أسبوعياً",
+  "focusJourneyFreezeTitle": "تجميد رحلة التركيز ❄️",
+  "streakFreezeConfirm": "هل تريد تجميد رحلة التركيز؟ متاح مرة أسبوعياً",
   "shareProgressLabel": "شارك تقدمك",
   "levelPointsToNext": "{points} نقطة للمستوى التالي",
   "@levelPointsToNext": {
@@ -569,7 +558,7 @@
     }
   },
   "weeklyReportTitle": "تقرير الأسبوع",
-  "weeklyReportStreakDays": "أيام التركيز هذا الأسبوع",
+  "weeklyReportStreakDays": "أيام رحلة التركيز هذا الأسبوع",
   "weeklyReportAvgBcs": "متوسط BCS",
   "weeklyReportBestEmotion": "أبرز إحساس",
   "weeklyReportChallenges": "التحديات المكتملة",
@@ -664,6 +653,38 @@
     }
   },
   "gameColorWordPrompt": "اضغط لون الحبر",
+  "gameStroopResult": "{correct} / {total} صحيحة",
+  "@gameStroopResult": {
+    "placeholders": {
+      "correct": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "gameStroopStats": "{correct} صحيحة · {wrong} خاطئة",
+  "@gameStroopStats": {
+    "placeholders": {
+      "correct": { "type": "int" },
+      "wrong": { "type": "int" }
+    }
+  },
+  "gameDigitSpanIntro": "تظهر الأرقام واحداً تلو الآخر. احفظ ترتيبها ثم أدخلها على لوحة المفاتيح.",
+  "gameDigitSpanWatch": "راقب الأرقام",
+  "gameDigitSpanClear": "مسح",
+  "gameDigitSpanDelete": "حذف",
+  "gameDigitSpanCorrect": "صحيح!",
+  "gameDigitSpanWrong": "ليست مطابقة — جرب التسلسل التالي",
+  "gameDigitSpanLevel": "الطول: {digits} أرقام",
+  "@gameDigitSpanLevel": {
+    "placeholders": {
+      "digits": { "type": "int" }
+    }
+  },
+  "gameDigitSpanLengthLabel": "أفضل مدى في هذه الجلسة: {digits}",
+  "@gameDigitSpanLengthLabel": {
+    "placeholders": {
+      "digits": { "type": "int" }
+    }
+  },
   "focusedThinkingTitle": "تحدي التفكير المركّز",
   "focusedThinkingSubtitle": "اختر موضوعاً واحداً فقط وفكر فيه بعمق",
   "focusedThinkingDurationLabel": "المدة",
@@ -687,7 +708,7 @@
       }
     }
   },
-  "focusedThinkingDistractions": "تشتت مسجّل: {count}",
+  "focusedThinkingDistractions": "التشتت المؤقت المسجّل: {count}",
   "@focusedThinkingDistractions": {
     "placeholders": {
       "count": {
@@ -731,6 +752,22 @@
     }
   },
   "gameNBackMatch": "تطابق!",
+  "gameNBackNext": "التالي",
+  "gameNBackIntroDetail": "يضيء مربع في شبكة 3×3. اضغط تطابق إذا كان في نفس موضع خطوتين سابقتين؛ وإلا اضغط التالي.",
+  "gameNBackStats": "{correct} صحيحة · {wrong} خاطئة",
+  "@gameNBackStats": {
+    "placeholders": {
+      "correct": { "type": "int" },
+      "wrong": { "type": "int" }
+    }
+  },
+  "gameNBackSessionResult": "انتهى — {correct} صحيحة، {wrong} خاطئة",
+  "@gameNBackSessionResult": {
+    "placeholders": {
+      "correct": { "type": "int" },
+      "wrong": { "type": "int" }
+    }
+  },
   "gameNBackResult": "أعلى N: {n}",
   "@gameNBackResult": {
     "placeholders": {
@@ -1000,6 +1037,35 @@
   "v2TodayHomeCtaContinue": "متابعة الجلسة",
   "v2TodayHomeCtaViewCompleted": "عرض الجلسة المكتملة",
   "v2TodayHomeViewPlan": "عرض خطة التعافي",
+  "homeGreetingMorning": "صباح الخير",
+  "homeGreetingAfternoon": "مساء الخير",
+  "homeGreetingEvening": "مساء الخير",
+  "homeGreetingName": "أهلاً، {name} 👋",
+  "@homeGreetingName": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "homeFocusLevelTag": "مستوى التركيز الحالي",
+  "homeFocusImprovement": "تحسّن {percent}% عن أول تشخيص",
+  "@homeFocusImprovement": {
+    "placeholders": {
+      "percent": { "type": "int" }
+    }
+  },
+  "homeFocusImprovementPending": "أكمل فحص الدماغ لتتبّع التحسّن",
+  "homeMetricStreakLabel": "أيام متواصلة",
+  "homeMetricExercisesLabel": "تمارين اليوم",
+  "homeSuggestedExerciseBadge": "مقترح",
+  "homeProgramPathTitle": "المسار الحالي",
+  "homeProgramPathDay": "يوم {current} من {total}",
+  "@homeProgramPathDay": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "homeTodaySessionHeading": "جلسة اليوم",
   "v2SessionPrepareTitle": "تهيئة",
   "v2SessionPreparePurpose": "ممارسة موجهة قصيرة من خطتك.",
   "v2SessionPrepareIncludes": "تتضمن هذه الجلسة:",
@@ -1040,7 +1106,7 @@
   "v2SessionChipSomewhat": "إلى حد ما",
   "v2SessionChipNotYet": "ليس بعد",
   "v2SessionChipNone": "لا شيء",
-  "v2SessionChipDistraction": "تشتت",
+  "v2SessionChipDistraction": "التشتت المؤقت",
   "v2SessionChipLowEnergy": "طاقة منخفضة",
   "v2SessionChipTime": "وقت",
   "v2SessionReflectSave": "حفظ التسجيل",
@@ -1118,6 +1184,7 @@
   "v2OnboardingCheckIntroBody": "فحص الدماغ تقرير ذاتي قصير. ليس تشخيصاً طبياً، ولا كشفاً عن تلف دماغي، ولا اختبار ذكاء. تبقى إجاباتك على هذا الجهاز وتساعد في بناء خطة عملية.",
   "v2OnboardingCheckIntroMeta": "فحص خفيف · بضع دقائق · قابل للاستئناف",
   "v2OnboardingStartBrainCheck": "ابدأ فحص الدماغ",
+  "v2OnboardingSkipBrainCheck": "تخطَّ الآن",
   "v2OnboardingCorruptTitle": "لنبدأ من جديد بهدوء",
   "v2OnboardingCorruptBody": "تعذّر قراءة بيانات التهيئة بأمان. لم تُحذف إجابات فحص الدماغ. يمكنك بدء التهيئة مرة أخرى.",
   "v2BrainCheckEntryTitle": "فحص الدماغ",
@@ -1243,7 +1310,7 @@
       "count": { "type": "String" }
     }
   },
-  "v2WeeklyFactsStreak": "السلسلة",
+  "v2WeeklyFactsStreak": "رحلة التركيز",
   "v2WeeklyFactsStreakCaption": "{current} الآن · {best} الأفضل",
   "@v2WeeklyFactsStreakCaption": {
     "placeholders": {
@@ -1376,6 +1443,21 @@
   "v2ProgressCtaToday": "أكمل فعل اليوم أولاً",
   "v2ProgressCtaContinueToday": "العودة إلى اليوم",
   "v2ProgressReportsEntry": "فتح التقارير",
+  "v2ProgressPillarsHeading": "محاور الدماغ",
+  "v2ProgressPillarsEmpty": "أكمل تشخيصاً سريعاً لتتبع التركيز والذاكرة وعادات الشاشة والنوم مع الوقت.",
+  "v2ProgressPillarsFirstDiagnostic": "ابدأ أول تشخيص",
+  "v2ProgressLiveVsDayOne": "الأداء الحي مقابل اليوم الأول",
+  "v2ProgressOverallDelta": "متوسط التغيّر: {delta}",
+  "@v2ProgressOverallDelta": {
+    "placeholders": { "delta": { "type": "String" } }
+  },
+  "v2ProgressBaselineDate": "أول لقطة: {date}",
+  "@v2ProgressBaselineDate": {
+    "placeholders": { "date": { "type": "String" } }
+  },
+  "v2ProgressChartDayOne": "اليوم 1",
+  "v2ProgressChartToday": "اليوم",
+  "v2ProgressWeeklyRediagnosis": "إعادة التشخيص الأسبوعي",
   "v2ProgressPatternDetails": "تفاصيل النمط",
   "v2ReportsTitle": "التقارير",
   "v2ReportsEvidenceOverview": "نظرة عامة على الأدلة",
@@ -1553,9 +1635,79 @@
   "v2NavToday": "اليوم",
   "v2NavCheck": "فحص الدماغ",
   "v2NavPlan": "البرنامج",
-  "v2NavProgress": "التقدّم",
+  "v2NavExercises": "التمارين",
+  "v2NavProgress": "التقدم",
+  "v2NavPro": "Pro",
   "v2NavReports": "التقارير",
   "v2NavProfile": "الملف",
+  "v2ExercisesLibraryTitle": "مكتبة التمارين",
+  "v2ExercisesFilterAll": "الكل",
+  "v2ExercisesFilterFocus": "تركيز",
+  "v2ExercisesFilterMemory": "ذاكرة",
+  "v2ExercisesFilterReading": "قراءة",
+  "v2ExercisesFilterMentalFitness": "لياقة ذهنية",
+  "v2ExercisesSectionFree": "مجاني",
+  "v2ExercisesSectionPro": "Pro",
+  "v2ExercisesProBadge": "Pro",
+  "v2ExercisesEmptyFilter": "لا توجد تمارين لهذا التصنيف بعد.",
+  "v2ExercisesNBackTitle": "N-Back",
+  "v2ExercisesNBackSubtitle": "بروتوكول Dual N-Back للذاكرة العاملة",
+  "v2ExercisesStroopTitle": "اختبار سترووب",
+  "v2ExercisesStroopSubtitle": "تثبيط التشتت عبر تسمية لون الحبر لا الكلمة",
+  "v2ExercisesDigitSpanTitle": "مدى الأرقام",
+  "v2ExercisesDigitSpanSubtitle": "احفظ سلاسل أرقام متزايدة وأعد استدعاءها",
+  "v2ExercisesGoNoGoTitle": "التحكم الاندفاعي (Go / No-Go)",
+  "v2ExercisesGoNoGoSubtitle": "تدريب كبح الاستجابة تحت ضغط الوقت",
+  "v2ExercisesReadingComprehensionTitle": "قراءة مركّزة + فهم الأسئلة",
+  "v2ExercisesReadingComprehensionSubtitle": "اقرأ بلا مشتتات ثم أجب عن أسئلة الاستيعاب",
+  "v2ExercisesHiitTitle": "تمارين رياضية سريعة للتركيز",
+  "v2ExercisesHiitSubtitle": "جولات حسابية قصيرة لشحذ الانتباه المستمر",
+  "v2ExercisesPatternMatchTitle": "مطابقة الأنماط المرئية",
+  "v2ExercisesPatternMatchSubtitle": "احفظ نمط الشبكة وأعد إنشاءه من الذاكرة",
+  "v2ExercisesReadingTitle": "جلسة قراءة مركّزة (10 دقائق)",
+  "v2ExercisesReadingSubtitle": "قراءة خالية من المشتتات لزيادة مدى الانتباه",
+  "v2ExercisesDetoxTitle": "تحدي الملل (بدون سوشيال ميديا)",
+  "v2ExercisesDetoxSubtitle": "إعادة ضبط الدوبامين واستعادة الصبر العقلي",
+  "v2ExercisesAccountabilityTitle": "صندوق المساءلة اليومية",
+  "v2ExercisesAccountabilitySubtitle": "تقييم سحب الشاشة والمشتتات بصراحة",
+  "diagFlowTitle": "تشخيص سريع",
+  "diagIntroTitle": "5 أسئلة سريعة",
+  "diagIntroBody": "أجب بصدق — لا إجابات صحيحة أو خاطئة. هذه اللقطة تساعد على تخصيص برنامج تعافيك.",
+  "diagIntroMetricsTitle": "ما الذي نقيسه",
+  "diagMetricAttention": "مدى الانتباه",
+  "diagMetricWorkingMemory": "الذاكرة العاملة",
+  "diagMetricScreenHabits": "عادات الشاشة",
+  "diagMetricSleepQuality": "جودة النوم",
+  "diagIntroDurationHint": "حوالي دقيقتين · 5 أسئلة",
+  "diagIntroStart": "ابدأ التشخيص",
+  "diagQuestionProgress": "السؤال {current} من {total}",
+  "@diagQuestionProgress": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "diagQ1Stem": "أستطيع البقاء مع مهمة واحدة دون تبديل التطبيقات.",
+  "diagQ2Stem": "أستطيع تذكّر عدة أمور في ذهني أثناء العمل.",
+  "diagQ3Stem": "ألاحظ عندما أبدأ التصفح بدون هدف.",
+  "diagQ4Stem": "أستطيع إبعاد هاتفي أثناء المهام المهمة.",
+  "diagQ5Stem": "أستيقظ وأنا أشعر بالراحة في معظم الأيام.",
+  "diagBack": "رجوع",
+  "diagContinue": "متابعة",
+  "diagFinish": "عرض النتيجة",
+  "diagResultTitle": "لقطتك",
+  "diagResultOverallLabel": "النتيجة الإجمالية",
+  "diagResultBreakdownTitle": "تفصيل حسب المجال",
+  "diagResultWeakestHint": "تركيز البرنامج الشخصي",
+  "diagResultPlanUpdated": "تم تحديث برنامجك ليدعم {area} أولاً.",
+  "@diagResultPlanUpdated": {
+    "placeholders": {
+      "area": { "type": "String" }
+    }
+  },
+  "diagResultPlanUpdating": "جاري تحديث برنامجك الشخصي…",
+  "diagResultPlanError": "تعذّر تحديث البرنامج. يمكنك إعادة المحاولة من خطة التعافي.",
+  "diagResultContinue": "عرض برنامجي",
   "v2NavRecoverHome": "العودة إلى الرئيسية",
   "v2NavRouteNotFound": "تعذّر العثور على هذه الصفحة",
   "v2PremiumTitle": "بريميوم",
@@ -1577,6 +1729,20 @@
   "v2PremiumIncludeTools": "أدوات مختارة: دائرة الأحاسيس، الصمت، الكلمات المتقاطعة، الألعاب، والاختبار المعرفي",
   "v2PremiumIncludeChart": "مخطط التقدّم لسبعة أيام",
   "v2PremiumBenefitsBody": "أحدث إثبات أسبوعي والإثبات السابق يبقيان مجانيين. بريميوم يعمّق الاستمرارية — ولا يفتح باب التعافي.",
+  "v2PremiumPlanMonthlyTitle": "الباقة الشهرية المميزة",
+  "v2PremiumPlanMonthlyPrice": "49 ر.س / شهر",
+  "v2PremiumPlanMonthlySubtitle": "وصول كامل — إلغاء في أي وقت",
+  "v2PremiumPlanAnnualTitle": "الباقة السنوية الموفرة",
+  "v2PremiumPlanAnnualPrice": "399 ر.س / سنة",
+  "v2PremiumPlanAnnualSubtitle": "أفضل قيمة — وفّر مقارنة بالشهرية",
+  "v2PremiumPlanAnnualBadge": "وفّر 32%",
+  "v2PremiumFeaturesHeading": "كل مزايا Pro",
+  "v2PremiumFeatureNoAds": "إزالة كل الإعلانات",
+  "v2PremiumFeatureBiometric": "قفل بيومتري للتطبيق",
+  "v2PremiumFeatureCloudSync": "مزامنة سحابية بين الأجهزة",
+  "v2PremiumFeatureStealth": "أيقونة تمويه (Stealth)",
+  "v2PremiumFeatureFullStats": "إحصائيات كاملة ورسوم تفصيلية",
+  "v2PremiumFeatureWeeklyArchive": "أرشيف تقارير أسبوعية عميق",
   "v2PremiumViewPlans": "عرض الخطط",
   "v2PremiumRestorePurchases": "استعادة المشتريات",
   "v2PremiumPurchaseInProgress": "جارٍ الشراء",
@@ -1631,7 +1797,7 @@
   "v2SafaResponseHeading": "رد صفا",
   "v2SafaSuggestedReturn": "العودة إلى حيث توقفت",
   "v2SafaSuggestedReturnToday": "العودة إلى اليوم",
-  "v2SafaFallbackGrounding": "تهدئة: تنفّس ببطء لدقيقة واحدة",
+  "v2SafaFallbackGrounding": "تهدئة: خذ دقيقة هادئة قبل المتابعة",
   "v2SafaFallbackSimplify": "تبسيط: نفّذ أصغر خطوة تالية فقط",
   "v2SafaRetry": "إعادة المحاولة",
   "v2SafaUseLocalFallback": "استخدم الدعم دون اتصال",
@@ -1669,6 +1835,14 @@
   "v2ProfileDefaultIdentity": "ملفك",
   "v2ProfileOrientation": "التفضيلات والخصوصية والضوابط الشخصية — وليس لوحة تقدّم أخرى.",
   "v2ProfileSectionRecovery": "إعداد التعافي",
+  "v2ProfilePurityHeading": "رحلة النقاء",
+  "v2ProfilePurityDay": "اليوم {days}",
+  "@v2ProfilePurityDay": {
+    "placeholders": { "days": { "type": "int" } }
+  },
+  "v2ProfilePuritySubtitle": "أيام على مسار تعافيك منذ البداية",
+  "v2ProfileNotificationsRow": "التنبيهات اليومية",
+  "v2ProfileNotificationsHint": "تذكيرات الجلسة والمتابعة",
   "v2ProfileBrainProfile": "الملف الدماغي",
   "v2ProfileBrainProfileLoading": "جارٍ التحقق من تقييمك…",
   "v2ProfileBrainProfileReady": "عرض أحدث تقييم لديك",

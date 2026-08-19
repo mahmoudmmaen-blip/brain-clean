@@ -372,6 +372,7 @@ void main() {
             languageCode: 'en',
             onToggleLanguage: () {},
             onStartCheck: () {},
+            onSkipCheck: () {},
           ),
         ),
       );

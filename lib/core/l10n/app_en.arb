@@ -201,10 +201,10 @@
   "recoveryTaskNutritionSubtitle": "Brain-supportive meals without inflammatory triggers",
   "recoveryTaskMovementTitle": "20 minutes of movement",
   "recoveryTaskMovementSubtitle": "Walk, stretch, or light exercise for at least 20 minutes",
-  "recoveryTaskDistractionTitle": "Distraction management protocol",
+  "recoveryTaskDistractionTitle": "Temporary Distraction protocol",
   "recoveryTaskDistractionSubtitle": "Completed your daily focus-protection routine",
   "recoveryTaskMentalTitle": "Mental support",
-  "recoveryTaskMentalSubtitle": "Journaling, breathwork, or guided recovery check-in",
+  "recoveryTaskMentalSubtitle": "Journaling or guided recovery check-in",
   "recoveryDayComplete": "All five habits completed for this day.",
   "recoveryMissedHabitsTitle": "Incomplete check-in",
   "recoveryMissedHabitsSubtitle": "Some habits were missed. Open the accountability room to record responsibility.",
@@ -227,13 +227,14 @@
   "recoveryStorageReset": "Start fresh protocol",
   "recoveryStorageMigratedNotice": "Your saved progress was upgraded to the latest format.",
   "recoveryStorageRecoveredNotice": "Local data was reset because it could not be read. A new protocol has started.",
+  "homeFocusJourneyTitle": "Focus Journey",
   "homeStreakDays": "Days",
   "homeStreakHours": "Hours",
   "homeStreakMinutes": "Min",
   "homeStreakSeconds": "Sec",
-  "homeDistractionButton": "Temporary distraction",
-  "homeDistractionConfirmTitle": "Confirm distraction",
-  "homeDistractionConfirmMessage": "Are you sure? 12 hours will be deducted from your streak.",
+  "homeDistractionButton": "Temporary Distraction",
+  "homeDistractionConfirmTitle": "Confirm Temporary Distraction",
+  "homeDistractionConfirmMessage": "Are you sure? 12 hours will be deducted from your Focus Journey.",
   "homeDistractionConfirm": "Confirm",
   "homeDistractionCancel": "Cancel",
   "homeOpenAccountability": "Digital accountability room",
@@ -258,18 +259,11 @@
   "accountabilityPenAltruistic3": "Ignored support request",
   "accountabilityPenAltruistic4": "Self-focused relapse",
   "accountabilityPenAltruistic5": "Community check-in skipped",
-  "accountabilityPenMental1": "Skipped breathwork",
+  "accountabilityPenMental1": "Skipped mental recovery block",
   "accountabilityPenMental2": "Avoided journaling",
   "accountabilityPenMental3": "Rumination spiral",
   "accountabilityPenMental4": "Missed mental check-in",
   "accountabilityPenMental5": "Escalated screen binge",
-  "breathingInhale": "Inhale…",
-  "breathingHold": "Hold…",
-  "breathingExhale": "Exhale…",
-  "breathingCountdownSeconds": "{seconds} seconds remaining",
-  "@breathingCountdownSeconds": {
-    "placeholders": { "seconds": { "type": "int" } }
-  },
   "commonCancel": "Cancel",
   "commonConfirm": "Confirm",
   "commonOk": "OK",
@@ -414,7 +408,7 @@
   "homeQuickDelayedGrat": "Delayed gratification ⏳",
   "homeQuickCognitiveTest": "Test your focus 🧪",
   "homeAccountabilityBox": "Accountability box",
-  "homeDistractionConfirmAction": "Confirm distraction",
+  "homeDistractionConfirmAction": "Confirm Temporary Distraction",
   "splashSubtitle": "Reset your brain",
   "profileDefaultName": "Brain Clean user",
   "profileProBadge": "Pro ⭐",
@@ -424,7 +418,7 @@
   "profileRecentEmotions": "Recent emotions",
   "profileNoEmotionsYet": "No emotions logged yet",
   "profileAchievements": "Your achievements",
-  "profileBadgeStreak7": "7-day streak",
+  "profileBadgeStreak7": "7-day Focus Journey",
   "profileBadgeCleanBrain": "Clean brain",
   "profileBadgeSilenceHero": "Silence hero",
   "profileBadgeSingleTask": "Single task",
@@ -454,13 +448,12 @@
   "accountabilityModalPenMental3": "Learn a new word",
   "accountabilityModalPenMental4": "Guided meditation",
   "accountabilityModalPenMental5": "Journal writing",
-  "breathingInhaleSlow": "Inhale slowly…",
-  "breathingExhaleFull": "Exhale fully…",
   "asyncErrorRetry": "Something went wrong. Please try again.",
   "chartEmptyState": "No data yet — start your journey today",
-  "homeStreakMotivation": "Start your first focus session now 🚀",
+  "homeStreakMotivation": "Start your Focus Journey now 🚀",
   "dailyQuoteSource": "Neuroscience",
-  "streakFreezeConfirm": "Use streak freeze? Available once per week",
+  "focusJourneyFreezeTitle": "Focus Journey Freeze ❄️",
+  "streakFreezeConfirm": "Use Focus Journey freeze? Available once per week",
   "shareProgressLabel": "Share Progress",
   "levelPointsToNext": "{points} points to next level",
   "@levelPointsToNext": {
@@ -469,7 +462,7 @@
     }
   },
   "weeklyReportTitle": "Weekly Report",
-  "weeklyReportStreakDays": "Focus days this week",
+  "weeklyReportStreakDays": "Focus Journey days this week",
   "weeklyReportAvgBcs": "Average BCS",
   "weeklyReportBestEmotion": "Top emotion",
   "weeklyReportChallenges": "Challenges completed",
@@ -546,6 +539,38 @@
     }
   },
   "gameColorWordPrompt": "Tap the color of the ink",
+  "gameStroopResult": "{correct} / {total} correct",
+  "@gameStroopResult": {
+    "placeholders": {
+      "correct": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "gameStroopStats": "{correct} correct · {wrong} wrong",
+  "@gameStroopStats": {
+    "placeholders": {
+      "correct": { "type": "int" },
+      "wrong": { "type": "int" }
+    }
+  },
+  "gameDigitSpanIntro": "Digits appear one at a time. Memorize the order, then enter them on the keypad.",
+  "gameDigitSpanWatch": "Watch the digits",
+  "gameDigitSpanClear": "Clear",
+  "gameDigitSpanDelete": "Delete",
+  "gameDigitSpanCorrect": "Correct!",
+  "gameDigitSpanWrong": "Not quite — try the next sequence",
+  "gameDigitSpanLevel": "Length: {digits} digits",
+  "@gameDigitSpanLevel": {
+    "placeholders": {
+      "digits": { "type": "int" }
+    }
+  },
+  "gameDigitSpanLengthLabel": "Best span this session: {digits}",
+  "@gameDigitSpanLengthLabel": {
+    "placeholders": {
+      "digits": { "type": "int" }
+    }
+  },
   "focusedThinkingTitle": "Focused Thinking Challenge",
   "focusedThinkingSubtitle": "Pick one topic and think about it deeply",
   "focusedThinkingDurationLabel": "Duration",
@@ -565,7 +590,7 @@
       "percent": { "type": "int" }
     }
   },
-  "focusedThinkingDistractions": "Distractions logged: {count}",
+  "focusedThinkingDistractions": "Temporary Distractions logged: {count}",
   "@focusedThinkingDistractions": {
     "placeholders": {
       "count": { "type": "int" }
@@ -599,6 +624,22 @@
     }
   },
   "gameNBackMatch": "Match!",
+  "gameNBackNext": "Next",
+  "gameNBackIntroDetail": "A square lights up on the 3×3 grid. Press Match if it is in the same place as 2 steps ago; otherwise press Next.",
+  "gameNBackStats": "{correct} correct · {wrong} wrong",
+  "@gameNBackStats": {
+    "placeholders": {
+      "correct": { "type": "int" },
+      "wrong": { "type": "int" }
+    }
+  },
+  "gameNBackSessionResult": "Done — {correct} correct, {wrong} wrong",
+  "@gameNBackSessionResult": {
+    "placeholders": {
+      "correct": { "type": "int" },
+      "wrong": { "type": "int" }
+    }
+  },
   "gameNBackResult": "Max N reached: {n}",
   "@gameNBackResult": {
     "placeholders": {
@@ -856,6 +897,35 @@
   "v2TodayHomeCtaContinue": "Continue session",
   "v2TodayHomeCtaViewCompleted": "View completed session",
   "v2TodayHomeViewPlan": "View Recovery Plan",
+  "homeGreetingMorning": "Good morning",
+  "homeGreetingAfternoon": "Good afternoon",
+  "homeGreetingEvening": "Good evening",
+  "homeGreetingName": "Hello, {name} 👋",
+  "@homeGreetingName": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "homeFocusLevelTag": "Current focus level",
+  "homeFocusImprovement": "Up {percent}% from first assessment",
+  "@homeFocusImprovement": {
+    "placeholders": {
+      "percent": { "type": "int" }
+    }
+  },
+  "homeFocusImprovementPending": "Complete a Brain Check to track improvement",
+  "homeMetricStreakLabel": "Day streak",
+  "homeMetricExercisesLabel": "Today's exercises",
+  "homeSuggestedExerciseBadge": "Suggested",
+  "homeProgramPathTitle": "Current path",
+  "homeProgramPathDay": "Day {current} of {total}",
+  "@homeProgramPathDay": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "homeTodaySessionHeading": "Today's session",
   "v2SessionPrepareTitle": "Prepare",
   "v2SessionPreparePurpose": "A short guided practice from your plan.",
   "v2SessionPrepareIncludes": "This session includes:",
@@ -896,7 +966,7 @@
   "v2SessionChipSomewhat": "Somewhat",
   "v2SessionChipNotYet": "Not yet",
   "v2SessionChipNone": "None",
-  "v2SessionChipDistraction": "Distraction",
+  "v2SessionChipDistraction": "Temporary Distraction",
   "v2SessionChipLowEnergy": "Low energy",
   "v2SessionChipTime": "Time",
   "v2SessionReflectSave": "Save check-in",
@@ -974,6 +1044,7 @@
   "v2OnboardingCheckIntroBody": "Brain Check is a short self-report. It is not a medical diagnosis, not brain-damage detection, and not an intelligence test. Your answers stay on this device and help build a practical plan.",
   "v2OnboardingCheckIntroMeta": "Lite Check · about a few minutes · resumable",
   "v2OnboardingStartBrainCheck": "Start Brain Check",
+  "v2OnboardingSkipBrainCheck": "Skip for now",
   "v2OnboardingCorruptTitle": "Let’s start fresh",
   "v2OnboardingCorruptBody": "Saved onboarding could not be read safely. Your Brain Check answers were not deleted. You can begin onboarding again.",
   "v2BrainCheckEntryTitle": "Brain Check",
@@ -1099,7 +1170,7 @@
       "count": { "type": "String" }
     }
   },
-  "v2WeeklyFactsStreak": "Streak",
+  "v2WeeklyFactsStreak": "Focus Journey",
   "v2WeeklyFactsStreakCaption": "{current} now · {best} best",
   "@v2WeeklyFactsStreakCaption": {
     "placeholders": {
@@ -1232,6 +1303,21 @@
   "v2ProgressCtaToday": "Complete today’s action first",
   "v2ProgressCtaContinueToday": "Back to Today",
   "v2ProgressReportsEntry": "Open Reports",
+  "v2ProgressPillarsHeading": "Cognitive pillars",
+  "v2ProgressPillarsEmpty": "Complete a quick diagnostic to track focus, memory, screen habits, and sleep over time.",
+  "v2ProgressPillarsFirstDiagnostic": "Start first diagnostic",
+  "v2ProgressLiveVsDayOne": "Live vs day one",
+  "v2ProgressOverallDelta": "Average change: {delta}",
+  "@v2ProgressOverallDelta": {
+    "placeholders": { "delta": { "type": "String" } }
+  },
+  "v2ProgressBaselineDate": "First snapshot: {date}",
+  "@v2ProgressBaselineDate": {
+    "placeholders": { "date": { "type": "String" } }
+  },
+  "v2ProgressChartDayOne": "Day 1",
+  "v2ProgressChartToday": "Today",
+  "v2ProgressWeeklyRediagnosis": "Re-run weekly diagnostic",
   "v2ProgressPatternDetails": "Pattern details",
   "v2ReportsTitle": "Reports",
   "v2ReportsEvidenceOverview": "Evidence overview",
@@ -1409,9 +1495,79 @@
   "v2NavToday": "Today",
   "v2NavCheck": "Brain Check",
   "v2NavPlan": "Program",
+  "v2NavExercises": "Exercises",
   "v2NavProgress": "Progress",
+  "v2NavPro": "Pro",
   "v2NavReports": "Reports",
   "v2NavProfile": "Profile",
+  "v2ExercisesLibraryTitle": "Exercise library",
+  "v2ExercisesFilterAll": "All",
+  "v2ExercisesFilterFocus": "Focus",
+  "v2ExercisesFilterMemory": "Memory",
+  "v2ExercisesFilterReading": "Reading",
+  "v2ExercisesFilterMentalFitness": "Mental fitness",
+  "v2ExercisesSectionFree": "Free",
+  "v2ExercisesSectionPro": "Pro",
+  "v2ExercisesProBadge": "Pro",
+  "v2ExercisesEmptyFilter": "No exercises match this filter yet.",
+  "v2ExercisesNBackTitle": "N-Back",
+  "v2ExercisesNBackSubtitle": "Dual N-Back protocol for working memory",
+  "v2ExercisesStroopTitle": "Stroop test",
+  "v2ExercisesStroopSubtitle": "Inhibit distraction by naming ink color, not the word",
+  "v2ExercisesDigitSpanTitle": "Digit span",
+  "v2ExercisesDigitSpanSubtitle": "Hold and recall growing number sequences",
+  "v2ExercisesGoNoGoTitle": "Impulse control (Go / No-Go)",
+  "v2ExercisesGoNoGoSubtitle": "Train response inhibition under time pressure",
+  "v2ExercisesReadingComprehensionTitle": "Focused reading + comprehension",
+  "v2ExercisesReadingComprehensionSubtitle": "Read without distractions, then answer recall questions",
+  "v2ExercisesHiitTitle": "Focus HIIT",
+  "v2ExercisesHiitSubtitle": "Short math bursts to sharpen sustained attention",
+  "v2ExercisesPatternMatchTitle": "Visual pattern matching",
+  "v2ExercisesPatternMatchSubtitle": "Memorize and recreate grid patterns from memory",
+  "v2ExercisesReadingTitle": "Focused reading session (10 min)",
+  "v2ExercisesReadingSubtitle": "Distraction-free reading to extend attention span",
+  "v2ExercisesDetoxTitle": "Boredom challenge (no social media)",
+  "v2ExercisesDetoxSubtitle": "Reset dopamine and restore mental patience",
+  "v2ExercisesAccountabilityTitle": "Daily accountability box",
+  "v2ExercisesAccountabilitySubtitle": "Honestly review screen pulls and distractions",
+  "diagFlowTitle": "Quick diagnostic",
+  "diagIntroTitle": "5 quick questions",
+  "diagIntroBody": "Answer honestly — there are no right or wrong answers. This snapshot helps personalize your recovery program.",
+  "diagIntroMetricsTitle": "What we measure",
+  "diagMetricAttention": "Attention span",
+  "diagMetricWorkingMemory": "Working memory",
+  "diagMetricScreenHabits": "Screen habits",
+  "diagMetricSleepQuality": "Sleep quality",
+  "diagIntroDurationHint": "About 2 minutes · 5 questions",
+  "diagIntroStart": "Start diagnostic",
+  "diagQuestionProgress": "Question {current} of {total}",
+  "@diagQuestionProgress": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "diagQ1Stem": "I can stay with one task without switching apps.",
+  "diagQ2Stem": "I can hold several items in mind while working.",
+  "diagQ3Stem": "I notice when I start scrolling without a purpose.",
+  "diagQ4Stem": "I can put my phone away during important tasks.",
+  "diagQ5Stem": "I wake up feeling rested most mornings.",
+  "diagBack": "Back",
+  "diagContinue": "Continue",
+  "diagFinish": "See results",
+  "diagResultTitle": "Your snapshot",
+  "diagResultOverallLabel": "Overall score",
+  "diagResultBreakdownTitle": "Breakdown by area",
+  "diagResultWeakestHint": "Priority focus for your program",
+  "diagResultPlanUpdated": "Your program was updated to support {area} first.",
+  "@diagResultPlanUpdated": {
+    "placeholders": {
+      "area": { "type": "String" }
+    }
+  },
+  "diagResultPlanUpdating": "Updating your personalized program…",
+  "diagResultPlanError": "Could not update your program. You can retry from Plan.",
+  "diagResultContinue": "View my program",
   "v2NavRecoverHome": "Back to Home",
   "v2NavRouteNotFound": "This page could not be found",
   "v2PremiumTitle": "Premium",
@@ -1433,6 +1589,20 @@
   "v2PremiumIncludeTools": "Selected tools: emotion wheel, silence, crossword, games, and cognitive test",
   "v2PremiumIncludeChart": "Seven-day progress chart",
   "v2PremiumBenefitsBody": "Latest and previous Weekly proof stay Free. Premium deepens continuity — it does not unlock recovery.",
+  "v2PremiumPlanMonthlyTitle": "Premium monthly",
+  "v2PremiumPlanMonthlyPrice": "49 SAR / month",
+  "v2PremiumPlanMonthlySubtitle": "Full access, cancel anytime",
+  "v2PremiumPlanAnnualTitle": "Annual saver",
+  "v2PremiumPlanAnnualPrice": "399 SAR / year",
+  "v2PremiumPlanAnnualSubtitle": "Best value — save vs monthly",
+  "v2PremiumPlanAnnualBadge": "Save 32%",
+  "v2PremiumFeaturesHeading": "Everything in Pro",
+  "v2PremiumFeatureNoAds": "Remove all ads",
+  "v2PremiumFeatureBiometric": "Biometric app lock",
+  "v2PremiumFeatureCloudSync": "Cloud sync across devices",
+  "v2PremiumFeatureStealth": "Stealth mode icon",
+  "v2PremiumFeatureFullStats": "Full statistics and detailed charts",
+  "v2PremiumFeatureWeeklyArchive": "Deep weekly report archive",
   "v2PremiumViewPlans": "View plans",
   "v2PremiumRestorePurchases": "Restore purchases",
   "v2PremiumPurchaseInProgress": "Purchase in progress",
@@ -1487,7 +1657,7 @@
   "v2SafaResponseHeading": "Safa reply",
   "v2SafaSuggestedReturn": "Return to where you left",
   "v2SafaSuggestedReturnToday": "Return to Today",
-  "v2SafaFallbackGrounding": "Pause: breathe slowly for one minute",
+  "v2SafaFallbackGrounding": "Pause: take one calm minute before continuing",
   "v2SafaFallbackSimplify": "Simplify: do only the smallest next step",
   "v2SafaRetry": "Retry",
   "v2SafaUseLocalFallback": "Use offline support",
@@ -1525,6 +1695,14 @@
   "v2ProfileDefaultIdentity": "Your profile",
   "v2ProfileOrientation": "Preferences, privacy, and personal controls — not another progress dashboard.",
   "v2ProfileSectionRecovery": "Recovery setup",
+  "v2ProfilePurityHeading": "Purity journey",
+  "v2ProfilePurityDay": "Day {days}",
+  "@v2ProfilePurityDay": {
+    "placeholders": { "days": { "type": "int" } }
+  },
+  "v2ProfilePuritySubtitle": "Days on your recovery path since you started",
+  "v2ProfileNotificationsRow": "Daily reminders",
+  "v2ProfileNotificationsHint": "Session and check-in notifications",
   "v2ProfileBrainProfile": "Brain Profile",
   "v2ProfileBrainProfileLoading": "Checking your assessment…",
   "v2ProfileBrainProfileReady": "View your latest assessment",

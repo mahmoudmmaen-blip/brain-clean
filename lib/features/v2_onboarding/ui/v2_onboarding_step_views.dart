@@ -377,10 +377,12 @@ class OnbCheckIntroView extends StatelessWidget {
     super.key,
     required this.loc,
     required this.onStart,
+    required this.onSkip,
   });
 
   final AppLocalizations loc;
   final VoidCallback onStart;
+  final VoidCallback onSkip;
 
   @override
   Widget build(BuildContext context) {
@@ -390,6 +392,8 @@ class OnbCheckIntroView extends StatelessWidget {
       footnote: loc.v2OnboardingCheckIntroMeta,
       ctaLabel: loc.v2OnboardingStartBrainCheck,
       onCta: onStart,
+      secondaryLabel: loc.v2OnboardingSkipBrainCheck,
+      onSecondary: onSkip,
     );
   }
 }

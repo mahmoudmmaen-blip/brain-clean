@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/application/app_preferences_provider.dart';
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/providers/locale_provider.dart';
@@ -71,10 +72,21 @@ class _V2OnboardingFlowScreenState
                     },
                     onStartCheck: () async {
                       await controller.markReadyForBrainCheck();
+                      await ref
+                          .read(appPreferencesProvider.notifier)
+                          .completeOnboarding();
                       if (!context.mounted) return;
                       context.go(
                         '${AppRoutes.v2BrainCheckEntry}?mode=lite&source=onboarding',
                       );
+                    },
+                    onSkipCheck: () async {
+                      await controller.markReadyForBrainCheck();
+                      await ref
+                          .read(appPreferencesProvider.notifier)
+                          .completeOnboarding();
+                      if (!context.mounted) return;
+                      context.go(StartupDestination.resolve());
                     },
                   ),
       ),
@@ -90,6 +102,7 @@ class V2OnboardingFlowBody extends StatelessWidget {
     required this.languageCode,
     required this.onToggleLanguage,
     required this.onStartCheck,
+    required this.onSkipCheck,
   });
 
   final AppLocalizations loc;
@@ -97,6 +110,7 @@ class V2OnboardingFlowBody extends StatelessWidget {
   final String languageCode;
   final VoidCallback onToggleLanguage;
   final VoidCallback onStartCheck;
+  final VoidCallback onSkipCheck;
 
   @override
   Widget build(BuildContext context) {
@@ -214,6 +228,7 @@ class V2OnboardingFlowBody extends StatelessWidget {
         return OnbCheckIntroView(
           loc: loc,
           onStart: onStartCheck,
+          onSkip: onSkipCheck,
         );
       case V2OnboardingStep.profileReveal:
       case V2OnboardingStep.planReveal:
@@ -222,6 +237,7 @@ class V2OnboardingFlowBody extends StatelessWidget {
         return OnbCheckIntroView(
           loc: loc,
           onStart: onStartCheck,
+          onSkip: onSkipCheck,
         );
     }
   }

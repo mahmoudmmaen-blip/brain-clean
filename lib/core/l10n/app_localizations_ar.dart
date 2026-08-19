@@ -428,7 +428,7 @@ class AppLocalizationsAr extends AppLocalizations {
       'مشي أو تمدد أو نشاط خفيف لمدة 20 دقيقة على الأقل';
 
   @override
-  String get recoveryTaskDistractionTitle => 'بروتوكول إدارة التشتت';
+  String get recoveryTaskDistractionTitle => 'بروتوكول التشتت المؤقت';
 
   @override
   String get recoveryTaskDistractionSubtitle =>
@@ -438,8 +438,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get recoveryTaskMentalTitle => 'دعم ذهني';
 
   @override
-  String get recoveryTaskMentalSubtitle =>
-      'تدوين أو تنفس موجّه أو جلسة دعم للتعافي';
+  String get recoveryTaskMentalSubtitle => 'تدوين أو جلسة دعم موجّهة للتعافي';
 
   @override
   String get recoveryDayComplete => 'اكتملت العادات الخمس لهذا اليوم.';
@@ -499,6 +498,9 @@ class AppLocalizationsAr extends AppLocalizations {
       'تم إعادة ضبط البيانات المحلية لأنها لم تُقرأ بشكل صحيح. بدأ بروتوكول جديد.';
 
   @override
+  String get homeFocusJourneyTitle => 'رحلة التركيز';
+
+  @override
   String get homeStreakDays => 'أيام';
 
   @override
@@ -511,14 +513,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get homeStreakSeconds => 'ثوانٍ';
 
   @override
-  String get homeDistractionButton => 'تشتت مؤقت';
+  String get homeDistractionButton => 'التشتت المؤقت';
 
   @override
-  String get homeDistractionConfirmTitle => 'تأكيد التشتت';
+  String get homeDistractionConfirmTitle => 'تأكيد التشتت المؤقت';
 
   @override
   String get homeDistractionConfirmMessage =>
-      'هل أنت متأكد؟ سيتم خصم 12 ساعة من streak.';
+      'هل أنت متأكد؟ سيتم خصم 12 ساعة من رحلة التركيز.';
 
   @override
   String get homeDistractionConfirm => 'تأكيد';
@@ -593,7 +595,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get accountabilityPenAltruistic5 => 'تخطي متابعة المجتمع';
 
   @override
-  String get accountabilityPenMental1 => 'تخطي تمارين التنفس';
+  String get accountabilityPenMental1 => 'تخطي كتلة التعافي الذهني';
 
   @override
   String get accountabilityPenMental2 => 'تجنب التدوين';
@@ -606,20 +608,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get accountabilityPenMental5 => 'إدمان شاشة متصاعد';
-
-  @override
-  String get breathingInhale => 'استنشق...';
-
-  @override
-  String get breathingHold => 'احتبس...';
-
-  @override
-  String get breathingExhale => 'أخرج...';
-
-  @override
-  String breathingCountdownSeconds(int seconds) {
-    return 'متبقي $seconds ثانية';
-  }
 
   @override
   String get commonCancel => 'إلغاء';
@@ -988,7 +976,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get homeAccountabilityBox => 'صندوق المساءلة';
 
   @override
-  String get homeDistractionConfirmAction => 'تأكيد التشتت';
+  String get homeDistractionConfirmAction => 'تأكيد التشتت المؤقت';
 
   @override
   String get splashSubtitle => 'أعد ضبط دماغك';
@@ -1018,7 +1006,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get profileAchievements => 'إنجازاتك';
 
   @override
-  String get profileBadgeStreak7 => '7 أيام متواصلة';
+  String get profileBadgeStreak7 => 'رحلة تركيز لمدة 7 أيام';
 
   @override
   String get profileBadgeCleanBrain => 'دماغ نظيف';
@@ -1108,26 +1096,23 @@ class AppLocalizationsAr extends AppLocalizations {
   String get accountabilityModalPenMental5 => 'كتابة يوميات';
 
   @override
-  String get breathingInhaleSlow => 'استنشق ببطء...';
-
-  @override
-  String get breathingExhaleFull => 'أخرج الهواء...';
-
-  @override
   String get asyncErrorRetry => 'حدث خطأ، حاول مجدداً';
 
   @override
   String get chartEmptyState => 'لا توجد بيانات بعد، ابدأ رحلتك اليوم';
 
   @override
-  String get homeStreakMotivation => 'ابدأ أول جلسة تركيز الآن 🚀';
+  String get homeStreakMotivation => 'ابدأ رحلة التركيز الآن 🚀';
 
   @override
   String get dailyQuoteSource => 'علم الأعصاب';
 
   @override
+  String get focusJourneyFreezeTitle => 'تجميد رحلة التركيز ❄️';
+
+  @override
   String get streakFreezeConfirm =>
-      'هل تريد تجميد الـ Streak؟ متاح مرة أسبوعياً';
+      'هل تريد تجميد رحلة التركيز؟ متاح مرة أسبوعياً';
 
   @override
   String get shareProgressLabel => 'شارك تقدمك';
@@ -1141,7 +1126,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get weeklyReportTitle => 'تقرير الأسبوع';
 
   @override
-  String get weeklyReportStreakDays => 'أيام التركيز هذا الأسبوع';
+  String get weeklyReportStreakDays => 'أيام رحلة التركيز هذا الأسبوع';
 
   @override
   String get weeklyReportAvgBcs => 'متوسط BCS';
@@ -1266,6 +1251,45 @@ class AppLocalizationsAr extends AppLocalizations {
   String get gameColorWordPrompt => 'اضغط لون الحبر';
 
   @override
+  String gameStroopResult(int correct, int total) {
+    return '$correct / $total صحيحة';
+  }
+
+  @override
+  String gameStroopStats(int correct, int wrong) {
+    return '$correct صحيحة · $wrong خاطئة';
+  }
+
+  @override
+  String get gameDigitSpanIntro =>
+      'تظهر الأرقام واحداً تلو الآخر. احفظ ترتيبها ثم أدخلها على لوحة المفاتيح.';
+
+  @override
+  String get gameDigitSpanWatch => 'راقب الأرقام';
+
+  @override
+  String get gameDigitSpanClear => 'مسح';
+
+  @override
+  String get gameDigitSpanDelete => 'حذف';
+
+  @override
+  String get gameDigitSpanCorrect => 'صحيح!';
+
+  @override
+  String get gameDigitSpanWrong => 'ليست مطابقة — جرب التسلسل التالي';
+
+  @override
+  String gameDigitSpanLevel(int digits) {
+    return 'الطول: $digits أرقام';
+  }
+
+  @override
+  String gameDigitSpanLengthLabel(int digits) {
+    return 'أفضل مدى في هذه الجلسة: $digits';
+  }
+
+  @override
   String get focusedThinkingTitle => 'تحدي التفكير المركّز';
 
   @override
@@ -1298,7 +1322,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String focusedThinkingDistractions(int count) {
-    return 'تشتت مسجّل: $count';
+    return 'التشتت المؤقت المسجّل: $count';
   }
 
   @override
@@ -1353,6 +1377,23 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get gameNBackMatch => 'تطابق!';
+
+  @override
+  String get gameNBackNext => 'التالي';
+
+  @override
+  String get gameNBackIntroDetail =>
+      'يضيء مربع في شبكة 3×3. اضغط تطابق إذا كان في نفس موضع خطوتين سابقتين؛ وإلا اضغط التالي.';
+
+  @override
+  String gameNBackStats(int correct, int wrong) {
+    return '$correct صحيحة · $wrong خاطئة';
+  }
+
+  @override
+  String gameNBackSessionResult(int correct, int wrong) {
+    return 'انتهى — $correct صحيحة، $wrong خاطئة';
+  }
 
   @override
   String gameNBackResult(int n) {
@@ -1991,6 +2032,51 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2TodayHomeViewPlan => 'عرض خطة التعافي';
 
   @override
+  String get homeGreetingMorning => 'صباح الخير';
+
+  @override
+  String get homeGreetingAfternoon => 'مساء الخير';
+
+  @override
+  String get homeGreetingEvening => 'مساء الخير';
+
+  @override
+  String homeGreetingName(String name) {
+    return 'أهلاً، $name 👋';
+  }
+
+  @override
+  String get homeFocusLevelTag => 'مستوى التركيز الحالي';
+
+  @override
+  String homeFocusImprovement(int percent) {
+    return 'تحسّن $percent% عن أول تشخيص';
+  }
+
+  @override
+  String get homeFocusImprovementPending => 'أكمل فحص الدماغ لتتبّع التحسّن';
+
+  @override
+  String get homeMetricStreakLabel => 'أيام متواصلة';
+
+  @override
+  String get homeMetricExercisesLabel => 'تمارين اليوم';
+
+  @override
+  String get homeSuggestedExerciseBadge => 'مقترح';
+
+  @override
+  String get homeProgramPathTitle => 'المسار الحالي';
+
+  @override
+  String homeProgramPathDay(int current, int total) {
+    return 'يوم $current من $total';
+  }
+
+  @override
+  String get homeTodaySessionHeading => 'جلسة اليوم';
+
+  @override
   String get v2SessionPrepareTitle => 'تهيئة';
 
   @override
@@ -2083,7 +2169,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2SessionChipNone => 'لا شيء';
 
   @override
-  String get v2SessionChipDistraction => 'تشتت';
+  String get v2SessionChipDistraction => 'التشتت المؤقت';
 
   @override
   String get v2SessionChipLowEnergy => 'طاقة منخفضة';
@@ -2289,6 +2375,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v2OnboardingStartBrainCheck => 'ابدأ فحص الدماغ';
+
+  @override
+  String get v2OnboardingSkipBrainCheck => 'تخطَّ الآن';
 
   @override
   String get v2OnboardingCorruptTitle => 'لنبدأ من جديد بهدوء';
@@ -2602,7 +2691,7 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get v2WeeklyFactsStreak => 'السلسلة';
+  String get v2WeeklyFactsStreak => 'رحلة التركيز';
 
   @override
   String v2WeeklyFactsStreakCaption(String current, String best) {
@@ -2821,6 +2910,38 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v2ProgressReportsEntry => 'فتح التقارير';
+
+  @override
+  String get v2ProgressPillarsHeading => 'محاور الدماغ';
+
+  @override
+  String get v2ProgressPillarsEmpty =>
+      'أكمل تشخيصاً سريعاً لتتبع التركيز والذاكرة وعادات الشاشة والنوم مع الوقت.';
+
+  @override
+  String get v2ProgressPillarsFirstDiagnostic => 'ابدأ أول تشخيص';
+
+  @override
+  String get v2ProgressLiveVsDayOne => 'الأداء الحي مقابل اليوم الأول';
+
+  @override
+  String v2ProgressOverallDelta(String delta) {
+    return 'متوسط التغيّر: $delta';
+  }
+
+  @override
+  String v2ProgressBaselineDate(String date) {
+    return 'أول لقطة: $date';
+  }
+
+  @override
+  String get v2ProgressChartDayOne => 'اليوم 1';
+
+  @override
+  String get v2ProgressChartToday => 'اليوم';
+
+  @override
+  String get v2ProgressWeeklyRediagnosis => 'إعادة التشخيص الأسبوعي';
 
   @override
   String get v2ProgressPatternDetails => 'تفاصيل النمط';
@@ -3128,13 +3249,205 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2NavPlan => 'البرنامج';
 
   @override
-  String get v2NavProgress => 'التقدّم';
+  String get v2NavExercises => 'التمارين';
+
+  @override
+  String get v2NavProgress => 'التقدم';
+
+  @override
+  String get v2NavPro => 'Pro';
 
   @override
   String get v2NavReports => 'التقارير';
 
   @override
   String get v2NavProfile => 'الملف';
+
+  @override
+  String get v2ExercisesLibraryTitle => 'مكتبة التمارين';
+
+  @override
+  String get v2ExercisesFilterAll => 'الكل';
+
+  @override
+  String get v2ExercisesFilterFocus => 'تركيز';
+
+  @override
+  String get v2ExercisesFilterMemory => 'ذاكرة';
+
+  @override
+  String get v2ExercisesFilterReading => 'قراءة';
+
+  @override
+  String get v2ExercisesFilterMentalFitness => 'لياقة ذهنية';
+
+  @override
+  String get v2ExercisesSectionFree => 'مجاني';
+
+  @override
+  String get v2ExercisesSectionPro => 'Pro';
+
+  @override
+  String get v2ExercisesProBadge => 'Pro';
+
+  @override
+  String get v2ExercisesEmptyFilter => 'لا توجد تمارين لهذا التصنيف بعد.';
+
+  @override
+  String get v2ExercisesNBackTitle => 'N-Back';
+
+  @override
+  String get v2ExercisesNBackSubtitle => 'بروتوكول Dual N-Back للذاكرة العاملة';
+
+  @override
+  String get v2ExercisesStroopTitle => 'اختبار سترووب';
+
+  @override
+  String get v2ExercisesStroopSubtitle =>
+      'تثبيط التشتت عبر تسمية لون الحبر لا الكلمة';
+
+  @override
+  String get v2ExercisesDigitSpanTitle => 'مدى الأرقام';
+
+  @override
+  String get v2ExercisesDigitSpanSubtitle =>
+      'احفظ سلاسل أرقام متزايدة وأعد استدعاءها';
+
+  @override
+  String get v2ExercisesGoNoGoTitle => 'التحكم الاندفاعي (Go / No-Go)';
+
+  @override
+  String get v2ExercisesGoNoGoSubtitle => 'تدريب كبح الاستجابة تحت ضغط الوقت';
+
+  @override
+  String get v2ExercisesReadingComprehensionTitle =>
+      'قراءة مركّزة + فهم الأسئلة';
+
+  @override
+  String get v2ExercisesReadingComprehensionSubtitle =>
+      'اقرأ بلا مشتتات ثم أجب عن أسئلة الاستيعاب';
+
+  @override
+  String get v2ExercisesHiitTitle => 'تمارين رياضية سريعة للتركيز';
+
+  @override
+  String get v2ExercisesHiitSubtitle =>
+      'جولات حسابية قصيرة لشحذ الانتباه المستمر';
+
+  @override
+  String get v2ExercisesPatternMatchTitle => 'مطابقة الأنماط المرئية';
+
+  @override
+  String get v2ExercisesPatternMatchSubtitle =>
+      'احفظ نمط الشبكة وأعد إنشاءه من الذاكرة';
+
+  @override
+  String get v2ExercisesReadingTitle => 'جلسة قراءة مركّزة (10 دقائق)';
+
+  @override
+  String get v2ExercisesReadingSubtitle =>
+      'قراءة خالية من المشتتات لزيادة مدى الانتباه';
+
+  @override
+  String get v2ExercisesDetoxTitle => 'تحدي الملل (بدون سوشيال ميديا)';
+
+  @override
+  String get v2ExercisesDetoxSubtitle =>
+      'إعادة ضبط الدوبامين واستعادة الصبر العقلي';
+
+  @override
+  String get v2ExercisesAccountabilityTitle => 'صندوق المساءلة اليومية';
+
+  @override
+  String get v2ExercisesAccountabilitySubtitle =>
+      'تقييم سحب الشاشة والمشتتات بصراحة';
+
+  @override
+  String get diagFlowTitle => 'تشخيص سريع';
+
+  @override
+  String get diagIntroTitle => '5 أسئلة سريعة';
+
+  @override
+  String get diagIntroBody =>
+      'أجب بصدق — لا إجابات صحيحة أو خاطئة. هذه اللقطة تساعد على تخصيص برنامج تعافيك.';
+
+  @override
+  String get diagIntroMetricsTitle => 'ما الذي نقيسه';
+
+  @override
+  String get diagMetricAttention => 'مدى الانتباه';
+
+  @override
+  String get diagMetricWorkingMemory => 'الذاكرة العاملة';
+
+  @override
+  String get diagMetricScreenHabits => 'عادات الشاشة';
+
+  @override
+  String get diagMetricSleepQuality => 'جودة النوم';
+
+  @override
+  String get diagIntroDurationHint => 'حوالي دقيقتين · 5 أسئلة';
+
+  @override
+  String get diagIntroStart => 'ابدأ التشخيص';
+
+  @override
+  String diagQuestionProgress(int current, int total) {
+    return 'السؤال $current من $total';
+  }
+
+  @override
+  String get diagQ1Stem => 'أستطيع البقاء مع مهمة واحدة دون تبديل التطبيقات.';
+
+  @override
+  String get diagQ2Stem => 'أستطيع تذكّر عدة أمور في ذهني أثناء العمل.';
+
+  @override
+  String get diagQ3Stem => 'ألاحظ عندما أبدأ التصفح بدون هدف.';
+
+  @override
+  String get diagQ4Stem => 'أستطيع إبعاد هاتفي أثناء المهام المهمة.';
+
+  @override
+  String get diagQ5Stem => 'أستيقظ وأنا أشعر بالراحة في معظم الأيام.';
+
+  @override
+  String get diagBack => 'رجوع';
+
+  @override
+  String get diagContinue => 'متابعة';
+
+  @override
+  String get diagFinish => 'عرض النتيجة';
+
+  @override
+  String get diagResultTitle => 'لقطتك';
+
+  @override
+  String get diagResultOverallLabel => 'النتيجة الإجمالية';
+
+  @override
+  String get diagResultBreakdownTitle => 'تفصيل حسب المجال';
+
+  @override
+  String get diagResultWeakestHint => 'تركيز البرنامج الشخصي';
+
+  @override
+  String diagResultPlanUpdated(String area) {
+    return 'تم تحديث برنامجك ليدعم $area أولاً.';
+  }
+
+  @override
+  String get diagResultPlanUpdating => 'جاري تحديث برنامجك الشخصي…';
+
+  @override
+  String get diagResultPlanError =>
+      'تعذّر تحديث البرنامج. يمكنك إعادة المحاولة من خطة التعافي.';
+
+  @override
+  String get diagResultContinue => 'عرض برنامجي';
 
   @override
   String get v2NavRecoverHome => 'العودة إلى الرئيسية';
@@ -3207,6 +3520,48 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get v2PremiumBenefitsBody =>
       'أحدث إثبات أسبوعي والإثبات السابق يبقيان مجانيين. بريميوم يعمّق الاستمرارية — ولا يفتح باب التعافي.';
+
+  @override
+  String get v2PremiumPlanMonthlyTitle => 'الباقة الشهرية المميزة';
+
+  @override
+  String get v2PremiumPlanMonthlyPrice => '49 ر.س / شهر';
+
+  @override
+  String get v2PremiumPlanMonthlySubtitle => 'وصول كامل — إلغاء في أي وقت';
+
+  @override
+  String get v2PremiumPlanAnnualTitle => 'الباقة السنوية الموفرة';
+
+  @override
+  String get v2PremiumPlanAnnualPrice => '399 ر.س / سنة';
+
+  @override
+  String get v2PremiumPlanAnnualSubtitle => 'أفضل قيمة — وفّر مقارنة بالشهرية';
+
+  @override
+  String get v2PremiumPlanAnnualBadge => 'وفّر 32%';
+
+  @override
+  String get v2PremiumFeaturesHeading => 'كل مزايا Pro';
+
+  @override
+  String get v2PremiumFeatureNoAds => 'إزالة كل الإعلانات';
+
+  @override
+  String get v2PremiumFeatureBiometric => 'قفل بيومتري للتطبيق';
+
+  @override
+  String get v2PremiumFeatureCloudSync => 'مزامنة سحابية بين الأجهزة';
+
+  @override
+  String get v2PremiumFeatureStealth => 'أيقونة تمويه (Stealth)';
+
+  @override
+  String get v2PremiumFeatureFullStats => 'إحصائيات كاملة ورسوم تفصيلية';
+
+  @override
+  String get v2PremiumFeatureWeeklyArchive => 'أرشيف تقارير أسبوعية عميق';
 
   @override
   String get v2PremiumViewPlans => 'عرض الخطط';
@@ -3381,7 +3736,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2SafaSuggestedReturnToday => 'العودة إلى اليوم';
 
   @override
-  String get v2SafaFallbackGrounding => 'تهدئة: تنفّس ببطء لدقيقة واحدة';
+  String get v2SafaFallbackGrounding => 'تهدئة: خذ دقيقة هادئة قبل المتابعة';
 
   @override
   String get v2SafaFallbackSimplify => 'تبسيط: نفّذ أصغر خطوة تالية فقط';
@@ -3484,6 +3839,23 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v2ProfileSectionRecovery => 'إعداد التعافي';
+
+  @override
+  String get v2ProfilePurityHeading => 'رحلة النقاء';
+
+  @override
+  String v2ProfilePurityDay(int days) {
+    return 'اليوم $days';
+  }
+
+  @override
+  String get v2ProfilePuritySubtitle => 'أيام على مسار تعافيك منذ البداية';
+
+  @override
+  String get v2ProfileNotificationsRow => 'التنبيهات اليومية';
+
+  @override
+  String get v2ProfileNotificationsHint => 'تذكيرات الجلسة والمتابعة';
 
   @override
   String get v2ProfileBrainProfile => 'الملف الدماغي';

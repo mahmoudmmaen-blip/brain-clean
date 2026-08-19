@@ -821,7 +821,7 @@ abstract class AppLocalizations {
   /// No description provided for @recoveryTaskDistractionTitle.
   ///
   /// In en, this message translates to:
-  /// **'Distraction management protocol'**
+  /// **'Temporary Distraction protocol'**
   String get recoveryTaskDistractionTitle;
 
   /// No description provided for @recoveryTaskDistractionSubtitle.
@@ -839,7 +839,7 @@ abstract class AppLocalizations {
   /// No description provided for @recoveryTaskMentalSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Journaling, breathwork, or guided recovery check-in'**
+  /// **'Journaling or guided recovery check-in'**
   String get recoveryTaskMentalSubtitle;
 
   /// No description provided for @recoveryDayComplete.
@@ -938,6 +938,12 @@ abstract class AppLocalizations {
   /// **'Local data was reset because it could not be read. A new protocol has started.'**
   String get recoveryStorageRecoveredNotice;
 
+  /// No description provided for @homeFocusJourneyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus Journey'**
+  String get homeFocusJourneyTitle;
+
   /// No description provided for @homeStreakDays.
   ///
   /// In en, this message translates to:
@@ -965,19 +971,19 @@ abstract class AppLocalizations {
   /// No description provided for @homeDistractionButton.
   ///
   /// In en, this message translates to:
-  /// **'Temporary distraction'**
+  /// **'Temporary Distraction'**
   String get homeDistractionButton;
 
   /// No description provided for @homeDistractionConfirmTitle.
   ///
   /// In en, this message translates to:
-  /// **'Confirm distraction'**
+  /// **'Confirm Temporary Distraction'**
   String get homeDistractionConfirmTitle;
 
   /// No description provided for @homeDistractionConfirmMessage.
   ///
   /// In en, this message translates to:
-  /// **'Are you sure? 12 hours will be deducted from your streak.'**
+  /// **'Are you sure? 12 hours will be deducted from your Focus Journey.'**
   String get homeDistractionConfirmMessage;
 
   /// No description provided for @homeDistractionConfirm.
@@ -1127,7 +1133,7 @@ abstract class AppLocalizations {
   /// No description provided for @accountabilityPenMental1.
   ///
   /// In en, this message translates to:
-  /// **'Skipped breathwork'**
+  /// **'Skipped mental recovery block'**
   String get accountabilityPenMental1;
 
   /// No description provided for @accountabilityPenMental2.
@@ -1153,30 +1159,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Escalated screen binge'**
   String get accountabilityPenMental5;
-
-  /// No description provided for @breathingInhale.
-  ///
-  /// In en, this message translates to:
-  /// **'Inhale…'**
-  String get breathingInhale;
-
-  /// No description provided for @breathingHold.
-  ///
-  /// In en, this message translates to:
-  /// **'Hold…'**
-  String get breathingHold;
-
-  /// No description provided for @breathingExhale.
-  ///
-  /// In en, this message translates to:
-  /// **'Exhale…'**
-  String get breathingExhale;
-
-  /// No description provided for @breathingCountdownSeconds.
-  ///
-  /// In en, this message translates to:
-  /// **'{seconds} seconds remaining'**
-  String breathingCountdownSeconds(int seconds);
 
   /// No description provided for @commonCancel.
   ///
@@ -1883,7 +1865,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeDistractionConfirmAction.
   ///
   /// In en, this message translates to:
-  /// **'Confirm distraction'**
+  /// **'Confirm Temporary Distraction'**
   String get homeDistractionConfirmAction;
 
   /// No description provided for @splashSubtitle.
@@ -1943,7 +1925,7 @@ abstract class AppLocalizations {
   /// No description provided for @profileBadgeStreak7.
   ///
   /// In en, this message translates to:
-  /// **'7-day streak'**
+  /// **'7-day Focus Journey'**
   String get profileBadgeStreak7;
 
   /// No description provided for @profileBadgeCleanBrain.
@@ -2120,18 +2102,6 @@ abstract class AppLocalizations {
   /// **'Journal writing'**
   String get accountabilityModalPenMental5;
 
-  /// No description provided for @breathingInhaleSlow.
-  ///
-  /// In en, this message translates to:
-  /// **'Inhale slowly…'**
-  String get breathingInhaleSlow;
-
-  /// No description provided for @breathingExhaleFull.
-  ///
-  /// In en, this message translates to:
-  /// **'Exhale fully…'**
-  String get breathingExhaleFull;
-
   /// No description provided for @asyncErrorRetry.
   ///
   /// In en, this message translates to:
@@ -2147,7 +2117,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeStreakMotivation.
   ///
   /// In en, this message translates to:
-  /// **'Start your first focus session now 🚀'**
+  /// **'Start your Focus Journey now 🚀'**
   String get homeStreakMotivation;
 
   /// No description provided for @dailyQuoteSource.
@@ -2156,10 +2126,16 @@ abstract class AppLocalizations {
   /// **'Neuroscience'**
   String get dailyQuoteSource;
 
+  /// No description provided for @focusJourneyFreezeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus Journey Freeze ❄️'**
+  String get focusJourneyFreezeTitle;
+
   /// No description provided for @streakFreezeConfirm.
   ///
   /// In en, this message translates to:
-  /// **'Use streak freeze? Available once per week'**
+  /// **'Use Focus Journey freeze? Available once per week'**
   String get streakFreezeConfirm;
 
   /// No description provided for @shareProgressLabel.
@@ -2183,7 +2159,7 @@ abstract class AppLocalizations {
   /// No description provided for @weeklyReportStreakDays.
   ///
   /// In en, this message translates to:
-  /// **'Focus days this week'**
+  /// **'Focus Journey days this week'**
   String get weeklyReportStreakDays;
 
   /// No description provided for @weeklyReportAvgBcs.
@@ -2396,6 +2372,66 @@ abstract class AppLocalizations {
   /// **'Tap the color of the ink'**
   String get gameColorWordPrompt;
 
+  /// No description provided for @gameStroopResult.
+  ///
+  /// In en, this message translates to:
+  /// **'{correct} / {total} correct'**
+  String gameStroopResult(int correct, int total);
+
+  /// No description provided for @gameStroopStats.
+  ///
+  /// In en, this message translates to:
+  /// **'{correct} correct · {wrong} wrong'**
+  String gameStroopStats(int correct, int wrong);
+
+  /// No description provided for @gameDigitSpanIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Digits appear one at a time. Memorize the order, then enter them on the keypad.'**
+  String get gameDigitSpanIntro;
+
+  /// No description provided for @gameDigitSpanWatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch the digits'**
+  String get gameDigitSpanWatch;
+
+  /// No description provided for @gameDigitSpanClear.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get gameDigitSpanClear;
+
+  /// No description provided for @gameDigitSpanDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get gameDigitSpanDelete;
+
+  /// No description provided for @gameDigitSpanCorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct!'**
+  String get gameDigitSpanCorrect;
+
+  /// No description provided for @gameDigitSpanWrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Not quite — try the next sequence'**
+  String get gameDigitSpanWrong;
+
+  /// No description provided for @gameDigitSpanLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Length: {digits} digits'**
+  String gameDigitSpanLevel(int digits);
+
+  /// No description provided for @gameDigitSpanLengthLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Best span this session: {digits}'**
+  String gameDigitSpanLengthLabel(int digits);
+
   /// No description provided for @focusedThinkingTitle.
   ///
   /// In en, this message translates to:
@@ -2453,7 +2489,7 @@ abstract class AppLocalizations {
   /// No description provided for @focusedThinkingDistractions.
   ///
   /// In en, this message translates to:
-  /// **'Distractions logged: {count}'**
+  /// **'Temporary Distractions logged: {count}'**
   String focusedThinkingDistractions(int count);
 
   /// No description provided for @focusedThinkingInsightsSaved.
@@ -2551,6 +2587,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Match!'**
   String get gameNBackMatch;
+
+  /// No description provided for @gameNBackNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get gameNBackNext;
+
+  /// No description provided for @gameNBackIntroDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'A square lights up on the 3×3 grid. Press Match if it is in the same place as 2 steps ago; otherwise press Next.'**
+  String get gameNBackIntroDetail;
+
+  /// No description provided for @gameNBackStats.
+  ///
+  /// In en, this message translates to:
+  /// **'{correct} correct · {wrong} wrong'**
+  String gameNBackStats(int correct, int wrong);
+
+  /// No description provided for @gameNBackSessionResult.
+  ///
+  /// In en, this message translates to:
+  /// **'Done — {correct} correct, {wrong} wrong'**
+  String gameNBackSessionResult(int correct, int wrong);
 
   /// No description provided for @gameNBackResult.
   ///
@@ -3710,6 +3770,84 @@ abstract class AppLocalizations {
   /// **'View Recovery Plan'**
   String get v2TodayHomeViewPlan;
 
+  /// No description provided for @homeGreetingMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'Good morning'**
+  String get homeGreetingMorning;
+
+  /// No description provided for @homeGreetingAfternoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Good afternoon'**
+  String get homeGreetingAfternoon;
+
+  /// No description provided for @homeGreetingEvening.
+  ///
+  /// In en, this message translates to:
+  /// **'Good evening'**
+  String get homeGreetingEvening;
+
+  /// No description provided for @homeGreetingName.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello, {name} 👋'**
+  String homeGreetingName(String name);
+
+  /// No description provided for @homeFocusLevelTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Current focus level'**
+  String get homeFocusLevelTag;
+
+  /// No description provided for @homeFocusImprovement.
+  ///
+  /// In en, this message translates to:
+  /// **'Up {percent}% from first assessment'**
+  String homeFocusImprovement(int percent);
+
+  /// No description provided for @homeFocusImprovementPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete a Brain Check to track improvement'**
+  String get homeFocusImprovementPending;
+
+  /// No description provided for @homeMetricStreakLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Day streak'**
+  String get homeMetricStreakLabel;
+
+  /// No description provided for @homeMetricExercisesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s exercises'**
+  String get homeMetricExercisesLabel;
+
+  /// No description provided for @homeSuggestedExerciseBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested'**
+  String get homeSuggestedExerciseBadge;
+
+  /// No description provided for @homeProgramPathTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Current path'**
+  String get homeProgramPathTitle;
+
+  /// No description provided for @homeProgramPathDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Day {current} of {total}'**
+  String homeProgramPathDay(int current, int total);
+
+  /// No description provided for @homeTodaySessionHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s session'**
+  String get homeTodaySessionHeading;
+
   /// No description provided for @v2SessionPrepareTitle.
   ///
   /// In en, this message translates to:
@@ -3887,7 +4025,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2SessionChipDistraction.
   ///
   /// In en, this message translates to:
-  /// **'Distraction'**
+  /// **'Temporary Distraction'**
   String get v2SessionChipDistraction;
 
   /// No description provided for @v2SessionChipLowEnergy.
@@ -4249,6 +4387,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Start Brain Check'**
   String get v2OnboardingStartBrainCheck;
+
+  /// No description provided for @v2OnboardingSkipBrainCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip for now'**
+  String get v2OnboardingSkipBrainCheck;
 
   /// No description provided for @v2OnboardingCorruptTitle.
   ///
@@ -4805,7 +4949,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2WeeklyFactsStreak.
   ///
   /// In en, this message translates to:
-  /// **'Streak'**
+  /// **'Focus Journey'**
   String get v2WeeklyFactsStreak;
 
   /// No description provided for @v2WeeklyFactsStreakCaption.
@@ -5167,6 +5311,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Open Reports'**
   String get v2ProgressReportsEntry;
+
+  /// No description provided for @v2ProgressPillarsHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Cognitive pillars'**
+  String get v2ProgressPillarsHeading;
+
+  /// No description provided for @v2ProgressPillarsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete a quick diagnostic to track focus, memory, screen habits, and sleep over time.'**
+  String get v2ProgressPillarsEmpty;
+
+  /// No description provided for @v2ProgressPillarsFirstDiagnostic.
+  ///
+  /// In en, this message translates to:
+  /// **'Start first diagnostic'**
+  String get v2ProgressPillarsFirstDiagnostic;
+
+  /// No description provided for @v2ProgressLiveVsDayOne.
+  ///
+  /// In en, this message translates to:
+  /// **'Live vs day one'**
+  String get v2ProgressLiveVsDayOne;
+
+  /// No description provided for @v2ProgressOverallDelta.
+  ///
+  /// In en, this message translates to:
+  /// **'Average change: {delta}'**
+  String v2ProgressOverallDelta(String delta);
+
+  /// No description provided for @v2ProgressBaselineDate.
+  ///
+  /// In en, this message translates to:
+  /// **'First snapshot: {date}'**
+  String v2ProgressBaselineDate(String date);
+
+  /// No description provided for @v2ProgressChartDayOne.
+  ///
+  /// In en, this message translates to:
+  /// **'Day 1'**
+  String get v2ProgressChartDayOne;
+
+  /// No description provided for @v2ProgressChartToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get v2ProgressChartToday;
+
+  /// No description provided for @v2ProgressWeeklyRediagnosis.
+  ///
+  /// In en, this message translates to:
+  /// **'Re-run weekly diagnostic'**
+  String get v2ProgressWeeklyRediagnosis;
 
   /// No description provided for @v2ProgressPatternDetails.
   ///
@@ -5655,11 +5853,23 @@ abstract class AppLocalizations {
   /// **'Program'**
   String get v2NavPlan;
 
+  /// No description provided for @v2NavExercises.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercises'**
+  String get v2NavExercises;
+
   /// No description provided for @v2NavProgress.
   ///
   /// In en, this message translates to:
   /// **'Progress'**
   String get v2NavProgress;
+
+  /// No description provided for @v2NavPro.
+  ///
+  /// In en, this message translates to:
+  /// **'Pro'**
+  String get v2NavPro;
 
   /// No description provided for @v2NavReports.
   ///
@@ -5672,6 +5882,348 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Profile'**
   String get v2NavProfile;
+
+  /// No description provided for @v2ExercisesLibraryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercise library'**
+  String get v2ExercisesLibraryTitle;
+
+  /// No description provided for @v2ExercisesFilterAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get v2ExercisesFilterAll;
+
+  /// No description provided for @v2ExercisesFilterFocus.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus'**
+  String get v2ExercisesFilterFocus;
+
+  /// No description provided for @v2ExercisesFilterMemory.
+  ///
+  /// In en, this message translates to:
+  /// **'Memory'**
+  String get v2ExercisesFilterMemory;
+
+  /// No description provided for @v2ExercisesFilterReading.
+  ///
+  /// In en, this message translates to:
+  /// **'Reading'**
+  String get v2ExercisesFilterReading;
+
+  /// No description provided for @v2ExercisesFilterMentalFitness.
+  ///
+  /// In en, this message translates to:
+  /// **'Mental fitness'**
+  String get v2ExercisesFilterMentalFitness;
+
+  /// No description provided for @v2ExercisesSectionFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Free'**
+  String get v2ExercisesSectionFree;
+
+  /// No description provided for @v2ExercisesSectionPro.
+  ///
+  /// In en, this message translates to:
+  /// **'Pro'**
+  String get v2ExercisesSectionPro;
+
+  /// No description provided for @v2ExercisesProBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Pro'**
+  String get v2ExercisesProBadge;
+
+  /// No description provided for @v2ExercisesEmptyFilter.
+  ///
+  /// In en, this message translates to:
+  /// **'No exercises match this filter yet.'**
+  String get v2ExercisesEmptyFilter;
+
+  /// No description provided for @v2ExercisesNBackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'N-Back'**
+  String get v2ExercisesNBackTitle;
+
+  /// No description provided for @v2ExercisesNBackSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Dual N-Back protocol for working memory'**
+  String get v2ExercisesNBackSubtitle;
+
+  /// No description provided for @v2ExercisesStroopTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Stroop test'**
+  String get v2ExercisesStroopTitle;
+
+  /// No description provided for @v2ExercisesStroopSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Inhibit distraction by naming ink color, not the word'**
+  String get v2ExercisesStroopSubtitle;
+
+  /// No description provided for @v2ExercisesDigitSpanTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Digit span'**
+  String get v2ExercisesDigitSpanTitle;
+
+  /// No description provided for @v2ExercisesDigitSpanSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold and recall growing number sequences'**
+  String get v2ExercisesDigitSpanSubtitle;
+
+  /// No description provided for @v2ExercisesGoNoGoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Impulse control (Go / No-Go)'**
+  String get v2ExercisesGoNoGoTitle;
+
+  /// No description provided for @v2ExercisesGoNoGoSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Train response inhibition under time pressure'**
+  String get v2ExercisesGoNoGoSubtitle;
+
+  /// No description provided for @v2ExercisesReadingComprehensionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Focused reading + comprehension'**
+  String get v2ExercisesReadingComprehensionTitle;
+
+  /// No description provided for @v2ExercisesReadingComprehensionSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Read without distractions, then answer recall questions'**
+  String get v2ExercisesReadingComprehensionSubtitle;
+
+  /// No description provided for @v2ExercisesHiitTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus HIIT'**
+  String get v2ExercisesHiitTitle;
+
+  /// No description provided for @v2ExercisesHiitSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Short math bursts to sharpen sustained attention'**
+  String get v2ExercisesHiitSubtitle;
+
+  /// No description provided for @v2ExercisesPatternMatchTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Visual pattern matching'**
+  String get v2ExercisesPatternMatchTitle;
+
+  /// No description provided for @v2ExercisesPatternMatchSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Memorize and recreate grid patterns from memory'**
+  String get v2ExercisesPatternMatchSubtitle;
+
+  /// No description provided for @v2ExercisesReadingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Focused reading session (10 min)'**
+  String get v2ExercisesReadingTitle;
+
+  /// No description provided for @v2ExercisesReadingSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Distraction-free reading to extend attention span'**
+  String get v2ExercisesReadingSubtitle;
+
+  /// No description provided for @v2ExercisesDetoxTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Boredom challenge (no social media)'**
+  String get v2ExercisesDetoxTitle;
+
+  /// No description provided for @v2ExercisesDetoxSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset dopamine and restore mental patience'**
+  String get v2ExercisesDetoxSubtitle;
+
+  /// No description provided for @v2ExercisesAccountabilityTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily accountability box'**
+  String get v2ExercisesAccountabilityTitle;
+
+  /// No description provided for @v2ExercisesAccountabilitySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Honestly review screen pulls and distractions'**
+  String get v2ExercisesAccountabilitySubtitle;
+
+  /// No description provided for @diagFlowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick diagnostic'**
+  String get diagFlowTitle;
+
+  /// No description provided for @diagIntroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'5 quick questions'**
+  String get diagIntroTitle;
+
+  /// No description provided for @diagIntroBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer honestly — there are no right or wrong answers. This snapshot helps personalize your recovery program.'**
+  String get diagIntroBody;
+
+  /// No description provided for @diagIntroMetricsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What we measure'**
+  String get diagIntroMetricsTitle;
+
+  /// No description provided for @diagMetricAttention.
+  ///
+  /// In en, this message translates to:
+  /// **'Attention span'**
+  String get diagMetricAttention;
+
+  /// No description provided for @diagMetricWorkingMemory.
+  ///
+  /// In en, this message translates to:
+  /// **'Working memory'**
+  String get diagMetricWorkingMemory;
+
+  /// No description provided for @diagMetricScreenHabits.
+  ///
+  /// In en, this message translates to:
+  /// **'Screen habits'**
+  String get diagMetricScreenHabits;
+
+  /// No description provided for @diagMetricSleepQuality.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep quality'**
+  String get diagMetricSleepQuality;
+
+  /// No description provided for @diagIntroDurationHint.
+  ///
+  /// In en, this message translates to:
+  /// **'About 2 minutes · 5 questions'**
+  String get diagIntroDurationHint;
+
+  /// No description provided for @diagIntroStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start diagnostic'**
+  String get diagIntroStart;
+
+  /// No description provided for @diagQuestionProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Question {current} of {total}'**
+  String diagQuestionProgress(int current, int total);
+
+  /// No description provided for @diagQ1Stem.
+  ///
+  /// In en, this message translates to:
+  /// **'I can stay with one task without switching apps.'**
+  String get diagQ1Stem;
+
+  /// No description provided for @diagQ2Stem.
+  ///
+  /// In en, this message translates to:
+  /// **'I can hold several items in mind while working.'**
+  String get diagQ2Stem;
+
+  /// No description provided for @diagQ3Stem.
+  ///
+  /// In en, this message translates to:
+  /// **'I notice when I start scrolling without a purpose.'**
+  String get diagQ3Stem;
+
+  /// No description provided for @diagQ4Stem.
+  ///
+  /// In en, this message translates to:
+  /// **'I can put my phone away during important tasks.'**
+  String get diagQ4Stem;
+
+  /// No description provided for @diagQ5Stem.
+  ///
+  /// In en, this message translates to:
+  /// **'I wake up feeling rested most mornings.'**
+  String get diagQ5Stem;
+
+  /// No description provided for @diagBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get diagBack;
+
+  /// No description provided for @diagContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get diagContinue;
+
+  /// No description provided for @diagFinish.
+  ///
+  /// In en, this message translates to:
+  /// **'See results'**
+  String get diagFinish;
+
+  /// No description provided for @diagResultTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your snapshot'**
+  String get diagResultTitle;
+
+  /// No description provided for @diagResultOverallLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Overall score'**
+  String get diagResultOverallLabel;
+
+  /// No description provided for @diagResultBreakdownTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Breakdown by area'**
+  String get diagResultBreakdownTitle;
+
+  /// No description provided for @diagResultWeakestHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Priority focus for your program'**
+  String get diagResultWeakestHint;
+
+  /// No description provided for @diagResultPlanUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Your program was updated to support {area} first.'**
+  String diagResultPlanUpdated(String area);
+
+  /// No description provided for @diagResultPlanUpdating.
+  ///
+  /// In en, this message translates to:
+  /// **'Updating your personalized program…'**
+  String get diagResultPlanUpdating;
+
+  /// No description provided for @diagResultPlanError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update your program. You can retry from Plan.'**
+  String get diagResultPlanError;
+
+  /// No description provided for @diagResultContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'View my program'**
+  String get diagResultContinue;
 
   /// No description provided for @v2NavRecoverHome.
   ///
@@ -5798,6 +6350,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Latest and previous Weekly proof stay Free. Premium deepens continuity — it does not unlock recovery.'**
   String get v2PremiumBenefitsBody;
+
+  /// No description provided for @v2PremiumPlanMonthlyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium monthly'**
+  String get v2PremiumPlanMonthlyTitle;
+
+  /// No description provided for @v2PremiumPlanMonthlyPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'49 SAR / month'**
+  String get v2PremiumPlanMonthlyPrice;
+
+  /// No description provided for @v2PremiumPlanMonthlySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Full access, cancel anytime'**
+  String get v2PremiumPlanMonthlySubtitle;
+
+  /// No description provided for @v2PremiumPlanAnnualTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Annual saver'**
+  String get v2PremiumPlanAnnualTitle;
+
+  /// No description provided for @v2PremiumPlanAnnualPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'399 SAR / year'**
+  String get v2PremiumPlanAnnualPrice;
+
+  /// No description provided for @v2PremiumPlanAnnualSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Best value — save vs monthly'**
+  String get v2PremiumPlanAnnualSubtitle;
+
+  /// No description provided for @v2PremiumPlanAnnualBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Save 32%'**
+  String get v2PremiumPlanAnnualBadge;
+
+  /// No description provided for @v2PremiumFeaturesHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Everything in Pro'**
+  String get v2PremiumFeaturesHeading;
+
+  /// No description provided for @v2PremiumFeatureNoAds.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove all ads'**
+  String get v2PremiumFeatureNoAds;
+
+  /// No description provided for @v2PremiumFeatureBiometric.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric app lock'**
+  String get v2PremiumFeatureBiometric;
+
+  /// No description provided for @v2PremiumFeatureCloudSync.
+  ///
+  /// In en, this message translates to:
+  /// **'Cloud sync across devices'**
+  String get v2PremiumFeatureCloudSync;
+
+  /// No description provided for @v2PremiumFeatureStealth.
+  ///
+  /// In en, this message translates to:
+  /// **'Stealth mode icon'**
+  String get v2PremiumFeatureStealth;
+
+  /// No description provided for @v2PremiumFeatureFullStats.
+  ///
+  /// In en, this message translates to:
+  /// **'Full statistics and detailed charts'**
+  String get v2PremiumFeatureFullStats;
+
+  /// No description provided for @v2PremiumFeatureWeeklyArchive.
+  ///
+  /// In en, this message translates to:
+  /// **'Deep weekly report archive'**
+  String get v2PremiumFeatureWeeklyArchive;
 
   /// No description provided for @v2PremiumViewPlans.
   ///
@@ -6126,7 +6762,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2SafaFallbackGrounding.
   ///
   /// In en, this message translates to:
-  /// **'Pause: breathe slowly for one minute'**
+  /// **'Pause: take one calm minute before continuing'**
   String get v2SafaFallbackGrounding;
 
   /// No description provided for @v2SafaFallbackSimplify.
@@ -6314,6 +6950,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Recovery setup'**
   String get v2ProfileSectionRecovery;
+
+  /// No description provided for @v2ProfilePurityHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Purity journey'**
+  String get v2ProfilePurityHeading;
+
+  /// No description provided for @v2ProfilePurityDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Day {days}'**
+  String v2ProfilePurityDay(int days);
+
+  /// No description provided for @v2ProfilePuritySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Days on your recovery path since you started'**
+  String get v2ProfilePuritySubtitle;
+
+  /// No description provided for @v2ProfileNotificationsRow.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily reminders'**
+  String get v2ProfileNotificationsRow;
+
+  /// No description provided for @v2ProfileNotificationsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Session and check-in notifications'**
+  String get v2ProfileNotificationsHint;
 
   /// No description provided for @v2ProfileBrainProfile.
   ///

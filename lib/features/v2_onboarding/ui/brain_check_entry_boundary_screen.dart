@@ -126,6 +126,10 @@ class _BrainCheckEntryBoundaryScreenState
       appBar: AppBar(
         title: Text(loc.v2BrainCheckEntryTitle),
         backgroundColor: AppColors.background,
+        leading: IconButton(
+          icon: const Icon(Icons.close),
+          onPressed: () => context.go(StartupDestination.resolve()),
+        ),
       ),
       body: SafeArea(
         child: BrainCheckEntryBody(
@@ -277,6 +281,14 @@ class BrainCheckEntryBody extends StatelessWidget {
               child: FilledButton(
                 onPressed: onStart,
                 child: Text(loc.v2BrainCheckEntryStart),
+              ),
+            ),
+            const SizedBox(height: 12),
+            SizedBox(
+              height: 48,
+              child: OutlinedButton(
+                onPressed: onGoHome,
+                child: Text(loc.v2OnboardingSkipBrainCheck),
               ),
             ),
           ],
