@@ -50,3 +50,6 @@ app.*.map.json
 
 # Accidental nested clone of this repo inside the mobile package (never track).
 brain_clean_mobile/brain-clean-v2/
+
+# Local share archive (never track).
+brain-clean-v2-share.zip
