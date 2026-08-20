@@ -47,3 +47,6 @@ app.*.map.json
 
 # Local secrets
 .env
+
+# Accidental nested clone of this repo inside the mobile package (never track).
+brain_clean_mobile/brain-clean-v2/

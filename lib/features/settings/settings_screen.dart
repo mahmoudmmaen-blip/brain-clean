@@ -383,7 +383,7 @@ class SettingsHomeBody extends StatelessWidget {
               ),
               _ThemeChoiceRow(
                 theme: AppColorTheme.amoled,
-                label: loc.colorThemeAmoled,
+                label: loc.colorThemeAmoledName,
                 subtitle: loc.settingsThemeAmoledSubtitle,
                 selected: selectedTheme == AppColorTheme.amoled,
                 onTap: () => onSelectTheme(AppColorTheme.amoled),
@@ -493,16 +493,28 @@ class _ThemeChoiceRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final preview = switch (theme) {
-      AppColorTheme.dark => AppColors.background,
-      AppColorTheme.light => AppColors.backgroundLight,
-      AppColorTheme.amoled => AppColors.backgroundAmoled,
+    final (bg, card, border) = switch (theme) {
+      AppColorTheme.dark => (
+          AppColors.background,
+          AppColors.card,
+          AppColors.border,
+        ),
+      AppColorTheme.light => (
+          AppColors.backgroundLight,
+          AppColors.cardLight,
+          AppColors.borderLight,
+        ),
+      AppColorTheme.amoled => (
+          AppColors.backgroundAmoled,
+          AppColors.cardAmoled,
+          AppColors.borderAmoled,
+        ),
     };
     final checkColor = switch (theme) {
       AppColorTheme.light => AppColors.textPrimaryLight,
       AppColorTheme.dark || AppColorTheme.amoled => AppColors.textPrimary,
     };
-    final borderColor = selected ? AppColors.primary : AppColors.of(context).border;
+    final ringColor = selected ? AppColors.primary : border;
     return V2SettingsRow(
       title: label,
       subtitle: subtitle,
@@ -517,16 +529,26 @@ class _ThemeChoiceRow extends StatelessWidget {
           width: 44,
           height: 44,
           decoration: BoxDecoration(
-            color: preview,
+            color: bg,
             shape: BoxShape.circle,
             border: Border.all(
-              color: borderColor,
+              color: ringColor,
               width: selected ? 2.5 : 1.5,
             ),
           ),
-          child: selected
-              ? Icon(Icons.check, color: checkColor, size: 20)
-              : null,
+          child: Center(
+            child: selected
+                ? Icon(Icons.check, color: checkColor, size: 20)
+                : Container(
+                    width: 18,
+                    height: 18,
+                    decoration: BoxDecoration(
+                      color: card,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: border, width: 1),
+                    ),
+                  ),
+          ),
         ),
       ),
     );

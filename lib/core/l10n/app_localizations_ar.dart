@@ -4058,6 +4058,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get colorThemeAmoled => 'أسود';
 
   @override
+  String get colorThemeAmoledName => 'أسود';
+
+  @override
   String get settingsThemeDarkSubtitle => 'لوحة Morning Light الداكنة';
 
   @override

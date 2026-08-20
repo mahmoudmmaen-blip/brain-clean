@@ -1787,6 +1787,7 @@
   "colorThemeMorningDark": "Dark",
   "colorThemeMorningLight": "Light",
   "colorThemeAmoled": "AMOLED",
+  "colorThemeAmoledName": "AMOLED",
   "settingsThemeDarkSubtitle": "Morning Light dark canvas",
   "settingsThemeLightSubtitle": "Morning Light bright canvas",
   "settingsThemeAmoledSubtitle": "Pure black for OLED screens",

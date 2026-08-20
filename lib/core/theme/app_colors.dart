@@ -54,12 +54,10 @@ abstract final class AppColors {
   static const heroGradientTopLight = Color(0xFFE8F5EF);
   static const heroGradientBottomLight = Color(0xFFF4F7F6);
 
-  // --- AMOLED (pure black surfaces; accents/text match dark) ---
+  // --- AMOLED (pure black; border override; all else inherits dark) ---
   static const backgroundAmoled = Color(0xFF000000);
   static const cardAmoled = Color(0xFF0A0A0A);
-  /// Secondary card / "card2" on AMOLED.
-  static const cardSecondaryAmoled = Color(0xFF111111);
-  // Remaining AMOLED surface aliases reuse dark tokens via [AppPalette.amoled].
+  static const borderAmoled = Color(0xFF1A1A1A);
 
   /// Active palette from [ThemeData.extensions], falling back to dark.
   static AppPalette of(BuildContext context) {

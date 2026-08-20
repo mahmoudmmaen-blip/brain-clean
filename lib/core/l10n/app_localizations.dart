@@ -7341,6 +7341,12 @@ abstract class AppLocalizations {
   /// **'AMOLED'**
   String get colorThemeAmoled;
 
+  /// No description provided for @colorThemeAmoledName.
+  ///
+  /// In en, this message translates to:
+  /// **'AMOLED'**
+  String get colorThemeAmoledName;
+
   /// No description provided for @settingsThemeDarkSubtitle.
   ///
   /// In en, this message translates to:

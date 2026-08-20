@@ -4129,6 +4129,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get colorThemeAmoled => 'AMOLED';
 
   @override
+  String get colorThemeAmoledName => 'AMOLED';
+
+  @override
   String get settingsThemeDarkSubtitle => 'Morning Light dark canvas';
 
   @override
