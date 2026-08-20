@@ -1,0 +1,179 @@
+name: Flutter CI
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'docs/**'
+      - '**.md'
+      - 'brain_clean_mobile/**'
+  pull_request:
+    branches: [main]
+    paths-ignore:
+      - 'docs/**'
+      - '**.md'
+      - 'brain_clean_mobile/**'
+  workflow_dispatch:
+
+concurrency:
+  group: flutter-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  FLUTTER_VERSION: '3.41.7'
+  JAVA_VERSION: '17'
+  # GitHub-hosted runners have ~7 GB RAM. -Xmx8G in android/gradle.properties OOMs.
+  GRADLE_OPTS: '-Dorg.gradle.jvmargs=-Xmx1536m -XX:MaxMetaspaceSize=512m -XX:ReservedCodeCacheSize=256m -Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2 -Dorg.gradle.parallel=false'
+
+jobs:
+  analyze-and-test:
+    name: Analyze + test
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - name: Provide placeholder env (gitignored .env)
+        run: cp .env.example .env
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Analyze
+        run: flutter analyze
+
+      - name: Test
+        run: flutter test --reporter expanded
+
+  android-apk:
+    name: Debug APK (V2)
+    needs: analyze-and-test
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - name: Provide placeholder env
+        run: cp .env.example .env
+
+      - name: Cap Gradle heap for the runner
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('android/gradle.properties')
+          text = p.read_text(encoding='utf-8')
+          text = text.replace('-Xmx8G', '-Xmx1536m')
+          text = text.replace('MaxMetaspaceSize=4G', 'MaxMetaspaceSize=512m')
+          text = text.replace('ReservedCodeCacheSize=512m', 'ReservedCodeCacheSize=256m')
+          if 'org.gradle.workers.max' not in text:
+              text += '\norg.gradle.workers.max=2\norg.gradle.parallel=false\n'
+          p.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Build debug APK
+        run: flutter build apk --debug --dart-define=V2_ENABLED=true
+
+      - name: Upload debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug-apk
+          path: build/app/outputs/flutter-apk/app-debug.apk
+          if-no-files-found: error
+
+  android-aab:
+    name: Release AAB (V2)
+    needs: analyze-and-test
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - name: Provide placeholder env
+        run: cp .env.example .env
+
+      - name: Cap Gradle heap for the runner
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('android/gradle.properties')
+          text = p.read_text(encoding='utf-8')
+          text = text.replace('-Xmx8G', '-Xmx1536m')
+          text = text.replace('MaxMetaspaceSize=4G', 'MaxMetaspaceSize=512m')
+          text = text.replace('ReservedCodeCacheSize=512m', 'ReservedCodeCacheSize=256m')
+          if 'org.gradle.workers.max' not in text:
+              text += '\norg.gradle.workers.max=2\norg.gradle.parallel=false\n'
+          p.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Install release keystore from secrets
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+        run: |
+          if [ -z "$ANDROID_KEYSTORE_BASE64" ]; then
+            echo "No ANDROID_KEYSTORE_BASE64 secret — release AAB will use debug signing (not for Play)."
+            exit 0
+          fi
+          mkdir -p android/app
+          echo "$ANDROID_KEYSTORE_BASE64" | base64 -d > android/app/brain-clean-release-key.jks
+          cat > android/key.properties <<EOF
+          storePassword=$ANDROID_KEYSTORE_PASSWORD
+          keyPassword=$ANDROID_KEY_PASSWORD
+          keyAlias=${ANDROID_KEY_ALIAS:-brainclean}
+          storeFile=brain-clean-release-key.jks
+          EOF
+
+      - name: Build release AAB
+        run: flutter build appbundle --release --dart-define=V2_ENABLED=true
+
+      - name: Upload release AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-aab
+          path: build/app/outputs/bundle/release/app-release.aab
+          if-no-files-found: error

@@ -122,10 +122,10 @@ class _BrainCheckEntryBoundaryScreenState
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text(loc.v2BrainCheckEntryTitle),
-        backgroundColor: AppColors.background,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         leading: IconButton(
           icon: const Icon(Icons.close),
           onPressed: () => context.go(StartupDestination.resolve()),

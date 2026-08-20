@@ -36,9 +36,9 @@ class _MeasurementHistoryScreenState
     final c = ref.watch(reportsControllerProvider);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: Semantics(
           header: true,
           child: Text(loc.v2ReportsMeasurementHistory),

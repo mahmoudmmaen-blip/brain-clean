@@ -41,7 +41,7 @@ typedef HomeStreakSnapshotRef = AutoDisposeProviderRef<HomeStreakSnapshot>;
 String _$homeStreakRetrogradeHash() =>
     r'5a0264a9f82943ae05e586f0b4bf732b947f9827';
 
-/// Cumulative retrograde (e.g. −12h distraction penalty).
+/// Cumulative retrograde (e.g. −12h Temporary Distraction penalty).
 ///
 /// Copied from [HomeStreakRetrograde].
 @ProviderFor(HomeStreakRetrograde)

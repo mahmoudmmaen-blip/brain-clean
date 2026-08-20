@@ -2,18 +2,27 @@ import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../core/network/supabase_client.dart';
+import '../../../core/security/secure_remote_write.dart';
 import '../domain/bhi_pillar_json_keys.dart';
 import '../domain/diagnostic_session.dart';
 
 /// Persists committed diagnostic sessions (BHI + Brain Rot + questionnaire).
 class DiagnosticRepository {
-  DiagnosticRepository({SupabaseClient? client}) : _clientOverride = client;
+  DiagnosticRepository({
+    SupabaseClient? client,
+    SecureRemoteWrite? remoteWrite,
+  })  : _clientOverride = client,
+        _remoteWrite = remoteWrite;
 
   static const table = 'user_diagnostics';
 
   final SupabaseClient? _clientOverride;
+  final SecureRemoteWrite? _remoteWrite;
 
   SupabaseClient? get _client => _clientOverride ?? SupabaseConfig.clientOrNull;
+
+  SecureRemoteWrite get _writer =>
+      _remoteWrite ?? SecureRemoteWrite(client: _client);
 
   /// Full snake_case payload derived from [DiagnosticSession.toRepositoryPayload].
   Map<String, dynamic> toSnakeCasePayload(DiagnosticSession session) =>
@@ -87,10 +96,16 @@ class DiagnosticRepository {
   Future<void> upsertSession({required DiagnosticSession session}) async {
     session.ensurePillarBoundCoherence();
     try {
-      final client = _client;
-      if (client == null) return;
-
-      await client.upsertForCurrentUser(table, toSnakeCasePayload(session));
+      final ok = await _writer.upsert(
+        table: table,
+        row: {
+          BhiPillarJsonKeys.sessionJsonSnake: session.toJson(),
+          BhiPillarJsonKeys.bcScoreSnake: session.bcScore,
+          BhiPillarJsonKeys.committedAtSnake:
+              session.committedAt.toUtc().toIso8601String(),
+        },
+      );
+      if (!ok) return;
     } catch (e) {
       throw DiagnosticSyncException(
         'Could not save your diagnostic. Please try again.',

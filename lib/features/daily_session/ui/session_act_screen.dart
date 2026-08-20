@@ -115,10 +115,10 @@ class _SessionActScreenState extends ConsumerState<SessionActScreen>
           );
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text(loc.v2SessionActTitle),
-        backgroundColor: AppColors.background,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           tooltip: loc.v2OnboardingBack,

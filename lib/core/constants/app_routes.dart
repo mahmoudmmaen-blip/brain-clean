@@ -10,7 +10,6 @@ abstract final class AppRoutes {
   static const cognitiveVisual = '/cognitive/visual';
   static const cognitiveTest = '/cognitive-test';
   static const cognitiveMemory = '/cognitive/memory';
-  static const breathingFriction = '/breathing-friction';
   static const emotionWheel = '/emotion-wheel';
   static const silenceChallenge = '/silence-challenge';
   static const singleTask = '/single-task';
@@ -47,6 +46,12 @@ abstract final class AppRoutes {
 
   /// ONB-09 — Today preview (not the daily-session player).
   static const v2PlanTodayPreview = '/v2/plan/today-preview';
+
+  /// V2 Exercises library tab (shell `/v2/exercises`).
+  static const v2Exercises = '/v2/exercises';
+
+  /// V2 Pro tab root (shell `/v2/pro`).
+  static const v2Pro = '/v2/pro';
 
   /// HOM-01 — V2 Today / Home tab (shell deep link `/v2/home`).
   static const v2Home = '/v2/home';
@@ -131,4 +136,7 @@ abstract final class AppRoutes {
 
   /// SAF-01 — Contextual Safa support (not a tab). Query: origin=, returnTo=, view=
   static const v2Safa = '/v2/safa';
+
+  /// Interactive diagnostic: DiagIntro → DiagQ → DiagResult.
+  static const v2InteractiveDiagnostic = '/v2/diagnostic';
 }

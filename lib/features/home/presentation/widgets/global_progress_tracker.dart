@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/l10n/app_localizations.dart';
+import '../../../../core/presentation/glow_progress.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_design_constants.dart';
-import '../../../../core/theme/app_theme.dart';
+import '../../../../core/theme/v2_shell_visual.dart';
 import '../../../../core/theme/theme_extensions.dart';
 import '../../../diagnostic/domain/pillar_bound_evaluation.dart';
 import '../../../diagnostic/presentation/widgets/bc_score_colors.dart';
@@ -82,45 +83,75 @@ class _GlobalProgressTrackerState extends State<GlobalProgressTracker>
     final targetProgress = clampBcsProgress(clampedBcs);
     final showGlow = widget.hasSession && clampedBcs > 80;
 
-    return Card(
+    return DecoratedBox(
       key: globalProgressTrackerKey,
-      elevation: context.isLightTheme ? 2 : 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
-        side: BorderSide(color: context.borderMuted),
-      ),
+      decoration: V2ShellVisual.heroCardDecoration(Theme.of(context)),
       child: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.fromLTRB(20, 22, 20, 22),
         child: Row(
           children: [
             SizedBox(
-              width: 120,
-              height: 120,
+              width: 124,
+              height: 124,
               child: TweenAnimationBuilder<double>(
                 tween: Tween(begin: 0, end: targetProgress),
                 duration: const Duration(milliseconds: 900),
                 curve: Curves.easeOutCubic,
                 builder: (context, value, _) {
-                  Widget ring = CircularProgressIndicator(
-                    value: value,
-                    strokeWidth: 10,
-                    backgroundColor: context.surfaceMuted,
+                  Widget ring = GlowProgressRing(
+                    progress: value,
+                    size: 124,
+                    strokeWidth: 11,
                     color: scoreColor,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            widget.hasSession
+                                ? '${clampedBcs.round()}%'
+                                : '—',
+                            style: AppDesignConstants.cairo(
+                              fontSize: 44,
+                              fontWeight: FontWeight.w900,
+                              color: scoreColor,
+                              height: 1.05,
+                              letterSpacing: -1.2,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          loc.bcScoreHeroLabel,
+                          style: AppDesignConstants.cairo(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.textSecondary,
+                            letterSpacing: 0.6,
+                            height: 1.2,
+                          ),
+                          textAlign: TextAlign.center,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
                   );
 
                   if (showGlow && _glowController != null) {
                     ring = AnimatedBuilder(
                       animation: _glowController!,
                       builder: (context, child) {
-                        final glow = 0.35 + 0.25 * _glowController!.value;
-                        return Container(
+                        final glow = 0.22 + 0.2 * _glowController!.value;
+                        return DecoratedBox(
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             boxShadow: [
                               BoxShadow(
                                 color: scoreColor.withValues(alpha: glow),
-                                blurRadius: 18 + 8 * _glowController!.value,
-                                spreadRadius: 2 * _glowController!.value,
+                                blurRadius: 20 + 10 * _glowController!.value,
+                                spreadRadius: 1.5 * _glowController!.value,
                               ),
                             ],
                           ),
@@ -131,37 +162,7 @@ class _GlobalProgressTrackerState extends State<GlobalProgressTracker>
                     );
                   }
 
-                  return Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      ring,
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            widget.hasSession
-                                ? '${clampedBcs.round()}%'
-                                : '—',
-                            style: AppDesignConstants.cairo(
-                              fontSize: 28,
-                              fontWeight: FontWeight.w800,
-                              color: scoreColor,
-                            ),
-                          ),
-                          Text(
-                            loc.bcScoreHeroLabel,
-                            style: AppDesignConstants.cairo(
-                              fontSize: 9,
-                              fontWeight: FontWeight.w700,
-                              color: context.textMuted,
-                              letterSpacing: 0.8,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    ],
-                  );
+                  return ring;
                 },
               ),
             ),
@@ -174,35 +175,34 @@ class _GlobalProgressTrackerState extends State<GlobalProgressTracker>
                     loc.homeChallengeProgressTitle,
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           fontWeight: FontWeight.w700,
+                          color: AppColors.textPrimary,
+                          height: 1.3,
                         ),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 16),
                   TweenAnimationBuilder<double>(
                     tween: Tween(
                       begin: 0,
-                      end: widget.challengeProgress.clamp(0, 1),
+                      end: widget.challengeProgress.clamp(0.0, 1.0),
                     ),
                     duration: const Duration(milliseconds: 900),
                     curve: Curves.easeOutCubic,
                     builder: (context, value, _) {
-                      return ClipRRect(
-                        borderRadius: BorderRadius.circular(6),
-                        child: LinearProgressIndicator(
-                          value: value,
-                          minHeight: 10,
-                          backgroundColor: context.surfaceMuted,
-                          color: AppTheme.success,
-                        ),
+                      return GlowProgressBar(
+                        progress: value,
+                        height: 10,
+                        color: AppColors.primary,
                       );
                     },
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 10),
                   Text(
                     loc.homeChallengeProgressPercent(challengePct),
                     textAlign: TextAlign.end,
-                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                          color: AppTheme.success,
-                          fontWeight: FontWeight.w700,
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: -0.2,
                         ),
                   ),
                 ],

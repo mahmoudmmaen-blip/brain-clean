@@ -3,4 +3,4 @@ main = "index.js"
 compatibility_date = "2024-01-01"
 
 [vars]
-# Set ANTHROPIC_API_KEY in Cloudflare dashboard → Workers → Settings → Variables
+# ANTHROPIC_API_KEY must not be set. This worker is retired (HTTP 410).

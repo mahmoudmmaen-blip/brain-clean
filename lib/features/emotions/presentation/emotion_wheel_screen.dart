@@ -36,9 +36,9 @@ class EmotionWheelScreen extends ConsumerWidget {
     });
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: Text(
           loc.emotionWheelTitle,
           style: const TextStyle(color: AppColors.textPrimary),

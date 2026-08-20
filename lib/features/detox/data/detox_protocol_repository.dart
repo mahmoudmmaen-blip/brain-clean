@@ -1,6 +1,7 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../core/network/supabase_client.dart';
+import '../../../core/security/secure_remote_write.dart';
 import '../../diagnostic/domain/diagnostic_model.dart';
 import '../domain/daily_check_in_input.dart';
 import '../domain/detox_protocol_firestore.dart';
@@ -13,8 +14,11 @@ import '../domain/detox_protocol_state.dart';
 /// keys. Every write passes through [_toFirestorePayload] before reaching
 /// the backend.
 class DetoxProtocolRepository {
-  DetoxProtocolRepository({SupabaseClient? client})
-      : _clientOverride = client;
+  DetoxProtocolRepository({
+    SupabaseClient? client,
+    SecureRemoteWrite? remoteWrite,
+  })  : _clientOverride = client,
+        _remoteWrite = remoteWrite;
 
   static const table = 'detox_protocol';
 
@@ -23,8 +27,12 @@ class DetoxProtocolRepository {
   static const _keyBodySnake = 'body_activated';
 
   final SupabaseClient? _clientOverride;
+  final SecureRemoteWrite? _remoteWrite;
 
   SupabaseClient? get _client => _clientOverride ?? SupabaseConfig.clientOrNull;
+
+  SecureRemoteWrite get _writer =>
+      _remoteWrite ?? SecureRemoteWrite(client: _client);
 
   /// Maps a scored [DetoxProtocolState] to camelCase local data, then transforms.
   Map<String, dynamic> transformLocalMetricsToFirestorePayload(
@@ -75,10 +83,8 @@ class DetoxProtocolRepository {
     final firestorePayload = _toFirestorePayload(payload);
 
     try {
-      final client = _client;
-      if (client == null) return;
-
-      await client.upsertForCurrentUser(table, firestorePayload);
+      final ok = await _writer.upsert(table: table, row: firestorePayload);
+      if (!ok) return;
     } catch (e) {
       if (e is ArgumentError) rethrow;
       throw DetoxProtocolSyncException(

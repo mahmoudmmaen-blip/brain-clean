@@ -74,6 +74,7 @@ void main() {
     expect(find.text(loc.settingsAppearanceSection), findsOneWidget);
     expect(find.byKey(const Key('color_theme_swatch_dark')), findsOneWidget);
     expect(find.byKey(const Key('color_theme_swatch_light')), findsOneWidget);
+    expect(find.byKey(const Key('color_theme_swatch_amoled')), findsOneWidget);
     expect(find.text(loc.settingsLanguageSection), findsOneWidget);
     expect(find.byKey(settingsLanguageArKey), findsOneWidget);
     expect(find.byKey(settingsLanguageEnKey), findsOneWidget);

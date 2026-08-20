@@ -114,7 +114,7 @@ class _BrainCheckFlowScreenState extends ConsumerState<BrainCheckFlowScreen> {
 
     if (!controller.isHydrated) {
       return Scaffold(
-        backgroundColor: AppColors.background,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: Center(
           child: Semantics(
             liveRegion: true,
@@ -145,9 +145,9 @@ class _BrainCheckFlowScreenState extends ConsumerState<BrainCheckFlowScreen> {
     }
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: Text(loc.brainCheckTitle),
         leading: IconButton(
           tooltip: loc.brainCheckExit,

@@ -68,9 +68,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     }
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: Text(displayName, style: const TextStyle(color: AppColors.textPrimary)),
         iconTheme: const IconThemeData(color: AppColors.textSecondary),
         actions: const [LanguageToggleButton()],

@@ -40,10 +40,11 @@ abstract final class StartupDestination {
       return path == AppRoutes.onboarding;
     }
     if (path == AppRoutes.v2Onboarding) return true;
-    // Plan reveal is `/v2/plan` (also the Plan tab). First-time PLN-01 uses it.
+    // Plan reveal is contextual `/v2/plan` (not a primary tab). First-time PLN-01 uses it.
     if (path == AppRoutes.v2PlanReveal) return true;
     const firstTimePrefixes = <String>[
       AppRoutes.v2Check,
+      AppRoutes.v2InteractiveDiagnostic,
       '/v2/brain-check',
       AppRoutes.v2BrainProfile,
       '/v2/plan/',

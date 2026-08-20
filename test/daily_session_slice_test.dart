@@ -37,6 +37,7 @@ import 'package:brain_clean_mobile/features/v2_onboarding/domain/v2_onboarding_s
 import 'package:brain_clean_mobile/features/v2_onboarding/domain/v2_setup_recovery.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
@@ -127,16 +128,18 @@ void main() {
   });
 
   Widget wrap(Widget child, {Locale locale = const Locale('en')}) {
-    return MaterialApp(
-      locale: locale,
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: AppLocalizations.supportedLocales,
-      home: Scaffold(body: child),
+    return ProviderScope(
+      child: MaterialApp(
+        locale: locale,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: Scaffold(body: child),
+      ),
     );
   }
 
@@ -319,12 +322,14 @@ void main() {
       );
       expect(find.text(loc.v2TodayHomeViewPlan), findsOneWidget);
       expect(find.byKey(const Key('v2_today_safa_entry')), findsOneWidget);
-      // Standard path is progressive hint only — not a peer section header.
+      // Confusing optional-path framing removed from Home redesign.
       expect(find.text(loc.recoveryPlanStandardPath), findsNothing);
-      expect(find.byKey(const Key('v2_today_standard_hint')), findsOneWidget);
+      expect(find.byKey(const Key('v2_today_standard_hint')), findsNothing);
       expect(find.textContaining('Games'), findsNothing);
       expect(find.textContaining('XP'), findsNothing);
       expect(find.byType(SingleChildScrollView), findsOneWidget);
+      expect(find.byKey(const Key('home_pomodoro_card')), findsOneWidget);
+      expect(find.byKey(const Key('home_date_prev')), findsOneWidget);
 
       final actY =
           tester.getTopLeft(find.byKey(const Key('v2_today_act_title'))).dy;
@@ -340,7 +345,7 @@ void main() {
       expect(tester.takeException(), isNull);
     });
 
-    testWidgets('in-progress: Continue CTA; supporting path detail demoted',
+    testWidgets('in-progress: Continue CTA; no optional-path clutter',
         (tester) async {
       final plan = RecoveryPlanEngineV1.generate(_pack());
       final loc = await AppLocalizations.delegate.load(const Locale('en'));
@@ -429,6 +434,7 @@ void main() {
             errorKey: null,
             plan: plan,
             session: null,
+            userDisplayName: 'فيصل',
             onRetry: () {},
             onBuildPlan: () {},
             onStartBrainCheck: () {},
@@ -439,7 +445,8 @@ void main() {
           locale: const Locale('ar'),
         ),
       );
-      expect(find.text(loc.v2TodayHomeTitle), findsOneWidget); // V2PageHeader
+      expect(find.text(loc.homeGreetingName('فيصل')), findsOneWidget);
+      expect(find.byKey(const Key('home_focus_hero')), findsOneWidget);
       expect(find.byKey(const Key('v2_today_act_title')), findsOneWidget);
       final ctx = tester.element(find.byKey(const Key('v2_today_act_title')));
       expect(Directionality.of(ctx), TextDirection.rtl);
@@ -468,10 +475,7 @@ void main() {
       expect(find.byKey(const Key('v2_today_empty_state')), findsOneWidget);
       expect(find.text(loc.recoveryPlanMissing), findsOneWidget);
       expect(find.text(loc.recoveryPlanMissingProfile), findsOneWidget);
-      expect(
-        find.widgetWithText(FilledButton, loc.v2BrainCheckEntryStart),
-        findsOneWidget,
-      );
+      expect(find.byKey(const Key('home_brain_check_cta')), findsOneWidget);
       expect(
         find.widgetWithText(FilledButton, loc.recoveryPlanBuildCta),
         findsNothing,
@@ -504,7 +508,8 @@ void main() {
         ),
       );
       await tester.pump();
-      await tester.tap(find.byKey(const Key('v2_today_setup_cta')));
+      await tester.ensureVisible(find.byKey(const Key('home_brain_check_cta')));
+      await tester.tap(find.byKey(const Key('home_brain_check_cta')));
       await tester.pump();
       expect(destination, '/v2/check?mode=lite&source=today');
       expect(destination, startsWith(AppRoutes.v2Check));
@@ -543,6 +548,7 @@ void main() {
         findsNothing,
       );
       expect(find.text(loc.recoveryPlanMissingProfile), findsNothing);
+      await tester.ensureVisible(find.byKey(const Key('v2_today_setup_cta')));
       await tester.tap(find.byKey(const Key('v2_today_setup_cta')));
       await tester.pump();
       expect(built, isTrue);
@@ -581,10 +587,7 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.byType(SingleChildScrollView), findsOneWidget);
       expect(tester.takeException(), isNull);
-      expect(
-        find.widgetWithText(FilledButton, loc.v2BrainCheckEntryStart),
-        findsOneWidget,
-      );
+      expect(find.byKey(const Key('home_brain_check_cta')), findsOneWidget);
     });
 
     testWidgets('loaded Today clears Act + CTA + Safa at narrow / phone widths',

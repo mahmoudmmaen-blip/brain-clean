@@ -44,7 +44,7 @@ class _V2OnboardingFlowScreenState
     final locale = ref.watch(localeProvider);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: !controller.isHydrated
             ? Center(

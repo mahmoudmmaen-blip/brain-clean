@@ -61,9 +61,9 @@ class WeeklyReportScreen extends ConsumerWidget {
 
     return Scaffold(
       key: weeklyReportScreenKey,
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: Text(loc.weeklyReportTitle),
         actions: const [LanguageToggleButton()],
       ),

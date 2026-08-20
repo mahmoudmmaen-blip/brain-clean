@@ -123,7 +123,7 @@ class _PlanTodayReadyBoundaryScreenState
     final loc = AppLocalizations.of(context)!;
     final isAr = Localizations.localeOf(context).languageCode == 'ar';
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: PlanTodayReadyBody(
           loc: loc,

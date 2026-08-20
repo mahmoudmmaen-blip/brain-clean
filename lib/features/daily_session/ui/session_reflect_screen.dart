@@ -53,10 +53,10 @@ class _SessionReflectScreenState extends ConsumerState<SessionReflectScreen> {
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text(loc.v2SessionReflectTitle),
-        backgroundColor: AppColors.background,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
       body: SafeArea(
         child: SingleChildScrollView(

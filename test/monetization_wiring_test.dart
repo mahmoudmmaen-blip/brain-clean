@@ -539,8 +539,8 @@ void main() {
       expect(ar, contains('لا تُحفظ أرشيفات محادثات خام بشكل افتراضي'));
     });
 
-    test('Safa not a tab; Premium not a tab', () {
-      expect(V2ShellTab.values.length, 4);
+    test('Safa not a tab; contextual Premium flow not a tab mapping', () {
+      expect(V2ShellTab.values.length, 5);
       expect(V2ShellTabX.fromLocation('/v2/premium'), isNull);
       expect(V2ShellTabX.fromLocation('/v2/safa'), isNull);
     });

@@ -5,11 +5,23 @@ enum PomodoroPhase {
   longBreak,
 }
 
+/// Default focus durations offered on Home (minutes).
+const int kPomodoroFocusMinutesShort = 25;
+const int kPomodoroFocusMinutesLong = 50;
+
 /// Duration in seconds for each phase.
-int pomodoroPhaseDurationSeconds(PomodoroPhase phase) {
+///
+/// [focusMinutes] overrides the default 25-minute focus block when provided.
+int pomodoroPhaseDurationSeconds(
+  PomodoroPhase phase, {
+  int focusMinutes = kPomodoroFocusMinutesShort,
+}) {
   switch (phase) {
     case PomodoroPhase.focus:
-      return 25 * 60;
+      final minutes = focusMinutes == kPomodoroFocusMinutesLong
+          ? kPomodoroFocusMinutesLong
+          : kPomodoroFocusMinutesShort;
+      return minutes * 60;
     case PomodoroPhase.shortBreak:
       return 5 * 60;
     case PomodoroPhase.longBreak:

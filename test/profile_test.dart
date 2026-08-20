@@ -88,7 +88,7 @@ void main() {
       ),
       findsNothing,
     );
-    expect(find.text('7 أيام متواصلة'), findsOneWidget);
+    expect(find.text('رحلة تركيز لمدة 7 أيام'), findsOneWidget);
   });
 
   testWidgets('recent emotions empty state when log is empty', (tester) async {

@@ -43,9 +43,9 @@ class _WeeklyReviewQuestionsScreenState
     }
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         foregroundColor: AppColors.textPrimary,
         title: Semantics(
           header: true,

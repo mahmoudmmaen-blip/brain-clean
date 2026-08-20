@@ -80,11 +80,11 @@ void main() {
       expect(en.v2BrainCheckEntryStart, 'Start Brain Check');
       expect(ar.v2BrainCheckEntryStart, 'ابدأ فحص الدماغ');
       expect(en.recoveryPlanBuildCta, 'Build Recovery Plan');
-      expect(ar.recoveryPlanBuildCta, 'ابنِ خطة التعافي');
+      expect(ar.recoveryPlanBuildCta, 'ابنِ برنامجك اليومي');
       expect(en.v2NavPlan, 'Program');
       expect(ar.v2NavPlan, 'البرنامج');
       expect(en.recoveryPlanTitle, 'Recovery Plan');
-      expect(ar.recoveryPlanTitle, 'خطة التعافي');
+      expect(ar.recoveryPlanTitle, 'برنامجك اليومي');
     });
   });
 
@@ -130,12 +130,13 @@ void main() {
     });
   });
 
-  group('four-tab shell topology', () {
-    test('Today Plan Progress Profile unchanged', () {
+  group('five-tab shell topology', () {
+    test('Home Exercises Progress Pro Profile', () {
       expect(V2ShellTab.values, [
         V2ShellTab.today,
-        V2ShellTab.plan,
+        V2ShellTab.exercises,
         V2ShellTab.progress,
+        V2ShellTab.pro,
         V2ShellTab.profile,
       ]);
     });

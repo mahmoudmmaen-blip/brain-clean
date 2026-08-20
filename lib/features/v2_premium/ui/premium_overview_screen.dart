@@ -5,10 +5,12 @@ import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/services/external_link_service.dart';
+import '../../../core/theme/app_colors.dart';
 import '../application/premium_controller.dart';
 import '../data/premium_controller_provider.dart';
 import '../domain/premium_purchase_phase.dart';
 import '../domain/premium_view_state.dart';
+import 'premium_plan_cards.dart';
 import 'premium_shared_widgets.dart';
 
 /// PRE-01 — Appreciation-first Premium overview.
@@ -16,9 +18,11 @@ class PremiumOverviewScreen extends ConsumerStatefulWidget {
   const PremiumOverviewScreen({
     super.key,
     this.source,
+    this.embeddedInShell = false,
   });
 
   final String? source;
+  final bool embeddedInShell;
 
   @override
   ConsumerState<PremiumOverviewScreen> createState() =>
@@ -27,6 +31,7 @@ class PremiumOverviewScreen extends ConsumerStatefulWidget {
 
 class _PremiumOverviewScreenState extends ConsumerState<PremiumOverviewScreen> {
   late final PremiumController _controller;
+  PremiumPlanChoice _selectedPlan = PremiumPlanChoice.monthly;
 
   @override
   void initState() {
@@ -58,6 +63,7 @@ class _PremiumOverviewScreenState extends ConsumerState<PremiumOverviewScreen> {
   PremiumViewState get _state => _controller.state;
 
   void _close() {
+    if (widget.embeddedInShell) return;
     final source = widget.source;
     if (source == 'reports' || source == 'reports_archive') {
       context.go(AppRoutes.v2Reports);
@@ -70,11 +76,189 @@ class _PremiumOverviewScreenState extends ConsumerState<PremiumOverviewScreen> {
     }
   }
 
+  List<Widget> _bodyChildren(
+    BuildContext context,
+    AppLocalizations loc,
+    PremiumViewState state,
+    String status,
+  ) {
+    return [
+      Semantics(
+        header: true,
+        child: Text(
+          loc.v2PremiumOrientation,
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+      ),
+      const SizedBox(height: 12),
+      Text(loc.v2PremiumFreeCoreReassurance),
+      const SizedBox(height: 8),
+      Text(loc.v2PremiumCurrentProgressRemains),
+      const SizedBox(height: 24),
+      PremiumPlanCards(
+        loc: loc,
+        selectedPlan: _selectedPlan,
+        onSelectMonthly: () => setState(
+          () => _selectedPlan = PremiumPlanChoice.monthly,
+        ),
+        onSelectAnnual: () => setState(
+          () => _selectedPlan = PremiumPlanChoice.annual,
+        ),
+      ),
+      const SizedBox(height: 24),
+      Semantics(
+        header: true,
+        child: Text(
+          loc.v2PremiumFourCapitalsHeading,
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+      ),
+      const SizedBox(height: 12),
+      _Capital(
+        title: loc.v2PremiumContinuity,
+        body: loc.v2PremiumContinuityBody,
+      ),
+      _Capital(
+        title: loc.v2PremiumInterpretation,
+        body: loc.v2PremiumInterpretationBody,
+      ),
+      _Capital(title: loc.v2PremiumFit, body: loc.v2PremiumFitBody),
+      _Capital(title: loc.v2PremiumSupport, body: loc.v2PremiumSupportBody),
+      const SizedBox(height: 16),
+      Semantics(
+        header: true,
+        child: Text(
+          loc.v2PremiumIncludesNowHeading,
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+      ),
+      const SizedBox(height: 8),
+      _IncludeBullet(loc.v2PremiumIncludeArchive),
+      _IncludeBullet(loc.v2PremiumIncludeThemes),
+      _IncludeBullet(loc.v2PremiumIncludeTools),
+      _IncludeBullet(loc.v2PremiumIncludeChart),
+      const SizedBox(height: 12),
+      Text(loc.v2PremiumBenefitsBody),
+      const SizedBox(height: 24),
+      if (state.phase == PremiumPurchasePhase.loading)
+        Semantics(
+          liveRegion: true,
+          child: Text(loc.v2PremiumLoading),
+        )
+      else if (state.isEntitled ||
+          state.phase == PremiumPurchasePhase.alreadyEntitled ||
+          state.phase == PremiumPurchasePhase.purchased ||
+          state.phase == PremiumPurchasePhase.restored) ...[
+        Semantics(
+          liveRegion: true,
+          child: Text(loc.v2PremiumAlreadyActive),
+        ),
+        const SizedBox(height: 16),
+        PremiumPrimaryButton(
+          label: loc.v2PremiumManage,
+          onPressed: () => context.go(
+            '${AppRoutes.v2PremiumStatus}?source=${Uri.encodeComponent(widget.source ?? 'profile')}',
+          ),
+        ),
+      ] else ...[
+        PremiumPrimaryButton(
+          key: const Key('v2_premium_view_plans'),
+          label: loc.v2PremiumViewPlans,
+          onPressed: state.phase == PremiumPurchasePhase.noOffering ||
+                  state.phase == PremiumPurchasePhase.storeUnavailable ||
+                  state.phase == PremiumPurchasePhase.offlineUnknown
+              ? null
+              : () => context.go(
+                    '${AppRoutes.v2PremiumPlans}?source=${Uri.encodeComponent(widget.source ?? 'profile')}',
+                  ),
+        ),
+        if (state.phase == PremiumPurchasePhase.noOffering ||
+            state.phase == PremiumPurchasePhase.storeUnavailable) ...[
+          const SizedBox(height: 12),
+          Semantics(liveRegion: true, child: Text(status)),
+        ],
+      ],
+      const SizedBox(height: 8),
+      PremiumSecondaryButton(
+        key: const Key('v2_premium_restore'),
+        label: loc.v2PremiumRestorePurchases,
+        onPressed: state.busy
+            ? null
+            : () async {
+                await _controller.restore();
+                if (!context.mounted) return;
+                if (_controller.state.isEntitled) {
+                  context.go(
+                    '${AppRoutes.v2PremiumSuccess}?source=${Uri.encodeComponent(widget.source ?? 'restore')}',
+                  );
+                }
+              },
+      ),
+      KeyedSubtree(
+        key: Key('v2_premium_phase_${state.phase.name}'),
+        child: const SizedBox.shrink(),
+      ),
+      const SizedBox(height: 8),
+      PremiumSecondaryButton(
+        label: loc.v2PremiumManage,
+        onPressed: () => context.go(
+          '${AppRoutes.v2PremiumStatus}?source=${Uri.encodeComponent(widget.source ?? 'profile')}',
+        ),
+      ),
+      const SizedBox(height: 16),
+      TextButton(
+        key: const Key('v2_premium_privacy'),
+        onPressed: () async {
+          final opened = await externalLinkService.openPrivacyPolicy();
+          if (!context.mounted) return;
+          if (!opened) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(loc.settingsLinkUnavailable)),
+            );
+          }
+        },
+        child: Text(loc.settingsPrivacyPolicy),
+      ),
+      if (!widget.embeddedInShell) ...[
+        const SizedBox(height: 8),
+        PremiumSecondaryButton(
+          label: MaterialLocalizations.of(context).closeButtonLabel,
+          onPressed: _close,
+        ),
+      ],
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final state = _state;
     final status = premiumStatusMessage(loc, state);
+    final children = _bodyChildren(context, loc, state, status);
+
+    if (widget.embeddedInShell) {
+      return Scaffold(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        body: SafeArea(
+          child: ListView(
+            padding: const EdgeInsets.fromLTRB(24, 16, 24, 40),
+            children: [
+              Semantics(
+                header: true,
+                child: Text(
+                  loc.v2NavPro,
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              ...children,
+            ],
+          ),
+        ),
+      );
+    }
 
     return PremiumScaffold(
       title: loc.v2PremiumTitle,
@@ -82,138 +266,7 @@ class _PremiumOverviewScreenState extends ConsumerState<PremiumOverviewScreen> {
       statusAnnouncement: status,
       child: ListView(
         padding: const EdgeInsets.all(24),
-        children: [
-          Semantics(
-            header: true,
-            child: Text(
-              loc.v2PremiumOrientation,
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-          ),
-          const SizedBox(height: 12),
-          Text(loc.v2PremiumFreeCoreReassurance),
-          const SizedBox(height: 8),
-          Text(loc.v2PremiumCurrentProgressRemains),
-          const SizedBox(height: 24),
-          Semantics(
-            header: true,
-            child: Text(
-              loc.v2PremiumFourCapitalsHeading,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-          ),
-          const SizedBox(height: 12),
-          _Capital(
-              title: loc.v2PremiumContinuity,
-              body: loc.v2PremiumContinuityBody),
-          _Capital(
-            title: loc.v2PremiumInterpretation,
-            body: loc.v2PremiumInterpretationBody,
-          ),
-          _Capital(title: loc.v2PremiumFit, body: loc.v2PremiumFitBody),
-          _Capital(title: loc.v2PremiumSupport, body: loc.v2PremiumSupportBody),
-          const SizedBox(height: 16),
-          Semantics(
-            header: true,
-            child: Text(
-              loc.v2PremiumIncludesNowHeading,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-          ),
-          const SizedBox(height: 8),
-          _IncludeBullet(loc.v2PremiumIncludeArchive),
-          _IncludeBullet(loc.v2PremiumIncludeThemes),
-          _IncludeBullet(loc.v2PremiumIncludeTools),
-          _IncludeBullet(loc.v2PremiumIncludeChart),
-          const SizedBox(height: 12),
-          Text(loc.v2PremiumBenefitsBody),
-          const SizedBox(height: 24),
-          if (state.phase == PremiumPurchasePhase.loading)
-            Semantics(
-              liveRegion: true,
-              child: Text(loc.v2PremiumLoading),
-            )
-          else if (state.isEntitled ||
-              state.phase == PremiumPurchasePhase.alreadyEntitled ||
-              state.phase == PremiumPurchasePhase.purchased ||
-              state.phase == PremiumPurchasePhase.restored) ...[
-            Semantics(
-              liveRegion: true,
-              child: Text(loc.v2PremiumAlreadyActive),
-            ),
-            const SizedBox(height: 16),
-            PremiumPrimaryButton(
-              label: loc.v2PremiumManage,
-              onPressed: () => context.go(
-                '${AppRoutes.v2PremiumStatus}?source=${Uri.encodeComponent(widget.source ?? 'profile')}',
-              ),
-            ),
-          ] else ...[
-            PremiumPrimaryButton(
-              key: const Key('v2_premium_view_plans'),
-              label: loc.v2PremiumViewPlans,
-              onPressed: state.phase == PremiumPurchasePhase.noOffering ||
-                      state.phase == PremiumPurchasePhase.storeUnavailable ||
-                      state.phase == PremiumPurchasePhase.offlineUnknown
-                  ? null
-                  : () => context.go(
-                        '${AppRoutes.v2PremiumPlans}?source=${Uri.encodeComponent(widget.source ?? 'profile')}',
-                      ),
-            ),
-            if (state.phase == PremiumPurchasePhase.noOffering ||
-                state.phase == PremiumPurchasePhase.storeUnavailable) ...[
-              const SizedBox(height: 12),
-              Semantics(liveRegion: true, child: Text(status)),
-            ],
-          ],
-          const SizedBox(height: 8),
-          PremiumSecondaryButton(
-            key: const Key('v2_premium_restore'),
-            label: loc.v2PremiumRestorePurchases,
-            onPressed: state.busy
-                ? null
-                : () async {
-                    await _controller.restore();
-                    if (!context.mounted) return;
-                    if (_controller.state.isEntitled) {
-                      context.go(
-                        '${AppRoutes.v2PremiumSuccess}?source=${Uri.encodeComponent(widget.source ?? 'restore')}',
-                      );
-                    }
-                  },
-          ),
-          // Debug-stable key for phase-dependent primary actions region.
-          KeyedSubtree(
-            key: Key('v2_premium_phase_${state.phase.name}'),
-            child: const SizedBox.shrink(),
-          ),
-          const SizedBox(height: 8),
-          PremiumSecondaryButton(
-            label: loc.v2PremiumManage,
-            onPressed: () => context.go(
-              '${AppRoutes.v2PremiumStatus}?source=${Uri.encodeComponent(widget.source ?? 'profile')}',
-            ),
-          ),
-          const SizedBox(height: 16),
-          TextButton(
-            key: const Key('v2_premium_privacy'),
-            onPressed: () async {
-              final opened = await externalLinkService.openPrivacyPolicy();
-              if (!context.mounted) return;
-              if (!opened) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(loc.settingsLinkUnavailable)),
-                );
-              }
-            },
-            child: Text(loc.settingsPrivacyPolicy),
-          ),
-          const SizedBox(height: 8),
-          PremiumSecondaryButton(
-            label: MaterialLocalizations.of(context).closeButtonLabel,
-            onPressed: _close,
-          ),
-        ],
+        children: children,
       ),
     );
   }

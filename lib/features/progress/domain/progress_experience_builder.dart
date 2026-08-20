@@ -13,10 +13,12 @@ import 'progress_experience_enums.dart';
 import 'progress_snapshot.dart';
 import 'progress_timeline.dart';
 import 'progress_view_model.dart';
+import 'progress_weekly_bar_day.dart';
 
 /// Pure deterministic builder — no network, no Plan/Score mutation.
 abstract final class ProgressExperienceBuilder {
   static const recentTimelineLimit = 7;
+  static const weeklyReviewCooldownDays = 7;
 
   static ProgressViewModel build({
     required ProgressSnapshot? snapshot,
@@ -28,6 +30,7 @@ abstract final class ProgressExperienceBuilder {
     required WeeklyReviewRecord? reviewForPeriod,
     required WeeklyReviewSummary? artifactSummary,
     required bool schemasSupported,
+    WeeklyReviewRecord? latestCompletedReview,
   }) {
     final completed = ProgressEngine.completedSessions(sessionHistory);
 
@@ -40,6 +43,14 @@ abstract final class ProgressExperienceBuilder {
         );
 
     final recent = _recent(effective.timeline.entries);
+    final weeklyBars = buildWeeklyBars(
+      localNow: localNow,
+      timeline: effective.timeline.entries,
+    );
+    final cooldownDays = daysUntilWeeklyReviewUnlock(
+      localNow: localNow,
+      latestCompleted: latestCompletedReview,
+    );
 
     final weeklyState = _weeklyState(
       period: previousPeriod,
@@ -49,6 +60,7 @@ abstract final class ProgressExperienceBuilder {
       snapshot: effective,
       review: reviewForPeriod,
       schemasSupported: schemasSupported,
+      cooldownDaysRemaining: cooldownDays,
     );
 
     final primary = _primary(
@@ -66,6 +78,7 @@ abstract final class ProgressExperienceBuilder {
       firstDay: effective.summary.firstCompletedDayKey,
       lastDay: effective.summary.lastCompletedDayKey,
       recentTimeline: recent,
+      weeklyBars: weeklyBars,
       planId: effective.summary.activePlanId ??
           (completed.isNotEmpty ? completed.last.source.planId : null),
       profilePackId: effective.summary.profilePackId ?? profilePack?.id,
@@ -85,11 +98,58 @@ abstract final class ProgressExperienceBuilder {
       weeklyStart: previousPeriod.startDayKey,
       weeklyEnd: previousPeriod.endDayKey,
       weeklyPreview: artifactSummary,
+      daysUntilWeeklyReviewUnlock: cooldownDays,
       primary: primary,
       snapshotId: effective.id,
       asOfDayKey: effective.asOfDayKey,
       hasCompletedWeeklyArtifact: artifactSummary != null,
     );
+  }
+
+  /// Last 7 local calendar days — completed if any session finished that day.
+  static List<ProgressWeeklyBarDay> buildWeeklyBars({
+    required DateTime localNow,
+    required List<ProgressTimelineEntry> timeline,
+  }) {
+    final completedKeys = <String>{
+      for (final e in timeline)
+        if (e.fullCompletions > 0 || e.requiredStepsCompleted > 0) e.dayKey,
+    };
+    final today = DateTime(localNow.year, localNow.month, localNow.day);
+    final out = <ProgressWeeklyBarDay>[];
+    for (var i = 6; i >= 0; i--) {
+      final day = today.subtract(Duration(days: i));
+      final key = DailyDayKey.fromLocal(day);
+      out.add(
+        ProgressWeeklyBarDay(
+          dayKey: key,
+          weekdayLabel: _weekdayLabel(day.weekday),
+          completed: completedKeys.contains(key),
+        ),
+      );
+    }
+    return List.unmodifiable(out);
+  }
+
+  static String _weekdayLabel(int weekday) {
+    // Mon=1 … Sun=7
+    const labels = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+    return labels[(weekday - 1).clamp(0, 6)];
+  }
+
+  /// Days remaining before weekly review unlocks (null when unlocked).
+  static int? daysUntilWeeklyReviewUnlock({
+    required DateTime localNow,
+    required WeeklyReviewRecord? latestCompleted,
+  }) {
+    final completedAt = latestCompleted?.completedAt;
+    if (completedAt == null) return null;
+    final lastLocal = completedAt.toLocal();
+    final lastDay = DateTime(lastLocal.year, lastLocal.month, lastLocal.day);
+    final today = DateTime(localNow.year, localNow.month, localNow.day);
+    final elapsed = today.difference(lastDay).inDays;
+    if (elapsed >= weeklyReviewCooldownDays) return null;
+    return weeklyReviewCooldownDays - elapsed;
   }
 
   static List<ProgressTimelineEntry> _recent(
@@ -111,6 +171,7 @@ abstract final class ProgressExperienceBuilder {
     required ProgressSnapshot snapshot,
     required WeeklyReviewRecord? review,
     required bool schemasSupported,
+    required int? cooldownDaysRemaining,
   }) {
     if (!schemasSupported) {
       return ProgressWeeklyReviewCardState.unsupportedVersion;
@@ -120,6 +181,11 @@ abstract final class ProgressExperienceBuilder {
     }
     if (review != null && review.isDraft) {
       return ProgressWeeklyReviewCardState.draftInProgress;
+    }
+
+    // Explicit 7-day cooldown after last completed review.
+    if (cooldownDaysRemaining != null && cooldownDaysRemaining > 0) {
+      return ProgressWeeklyReviewCardState.currentWeekInProgress;
     }
 
     final planId = snapshot.summary.activePlanId;

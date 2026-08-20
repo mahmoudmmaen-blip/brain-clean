@@ -535,7 +535,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get accountabilityRoomTitle => 'غرفة المساءلة الرقمية';
 
   @override
-  String get accountabilityPenaltyRecorded => 'تم تسجيل العقوبة ✓';
+  String get accountabilityPenaltyRecorded => 'تم تسجيل المساءلة ✓';
 
   @override
   String get accountabilityCatPhysical => 'جسدية';
@@ -1724,11 +1724,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get brainProfileScoreUnavailableBody =>
-      'تعذّر تقدير درجة التعافي من هذا الفحص. تبقى إجاباتك محفوظة. أكمل فحصاً صالحاً للمتابعة إلى خطة التعافي.';
+      'تعذّر تقدير درجة التعافي من هذا الفحص. تبقى إجاباتك محفوظة. أكمل فحصاً صالحاً للمتابعة إلى برنامجك اليومي.';
 
   @override
   String get brainProfileContinueUnavailable =>
-      'خطة التعافي تحتاج تقدير درجة تعافٍ صالح.';
+      'برنامجك اليومي تحتاج تقدير درجة تعافٍ صالح.';
 
   @override
   String get brainProfileMissingEvent => 'أكمل فحص الدماغ أولاً.';
@@ -1759,7 +1759,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get brainProfileDomainPlanPreviewHint =>
-      'قد تركّز خطوة لطيفة من خطة التعافي هنا لاحقاً — وذلك بعد المتابعة.';
+      'قد تركّز خطوة لطيفة من برنامجك اليومي هنا لاحقاً — وذلك بعد المتابعة.';
 
   @override
   String get brainProfileDomainsHeading => 'ملخص المجالات';
@@ -1779,29 +1779,29 @@ class AppLocalizationsAr extends AppLocalizations {
   String get brainProfileExplainHeading => 'ماذا يعني هذا';
 
   @override
-  String get brainProfileContinue => 'المتابعة إلى خطة التعافي';
+  String get brainProfileContinue => 'المتابعة إلى برنامجك اليومي';
 
   @override
   String get brainProfileReadyTitle => 'ملف الدماغ جاهز';
 
   @override
   String get brainProfileReadyBody =>
-      'خطة التعافي هي الخطوة الهادئة التالية عند المتابعة من ملفك.';
+      'برنامجك اليومي هي الخطوة الهادئة التالية عند المتابعة من ملفك.';
 
   @override
   String get brainProfileHistoricalBadge => 'لقطة سابقة';
 
   @override
-  String get recoveryPlanTitle => 'خطة التعافي';
+  String get recoveryPlanTitle => 'برنامجك اليومي';
 
   @override
-  String get recoveryPlanBuilding => 'جارٍ بناء خطة التعافي…';
+  String get recoveryPlanBuilding => 'جارٍ بناء برنامجك اليومي…';
 
   @override
-  String get recoveryPlanLoading => 'جارٍ تحميل خطة التعافي';
+  String get recoveryPlanLoading => 'جارٍ تحميل برنامجك اليومي';
 
   @override
-  String get recoveryPlanReady => 'خطة التعافي جاهزة';
+  String get recoveryPlanReady => 'برنامجك اليومي جاهزة';
 
   @override
   String get recoveryPlanStarterReady => 'خطة بداية هادئة جاهزة';
@@ -1831,7 +1831,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get recoveryPlanGoHome => 'العودة إلى الرئيسية';
 
   @override
-  String get recoveryPlanBuildCta => 'ابنِ خطة التعافي';
+  String get recoveryPlanBuildCta => 'ابنِ برنامجك اليومي';
 
   @override
   String get recoveryPlanMainFocus => 'التركيز الرئيسي';
@@ -1875,7 +1875,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get recoveryPlanContinueToday => 'المتابعة إلى اليوم';
 
   @override
-  String get recoveryPlanSkipHint => 'تخطي خطوة لا يُحسب أبداً كعقوبة.';
+  String get recoveryPlanSkipHint => 'تخطي خطوة لا يُحسب أبداً ضدك.';
 
   @override
   String get recoveryPlanOptionalTag => 'اختياري';
@@ -1891,10 +1891,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get recoveryPlanTodayReadyBody =>
-      'مشغّل الجلسة اليومية يأتي في خطوة لاحقة. خطة التعافي محفوظة على هذا الجهاز.';
+      'مشغّل الجلسة اليومية يأتي في خطوة لاحقة. برنامجك اليومي محفوظة على هذا الجهاز.';
 
   @override
-  String get recoveryPlanCalmOrientation => 'خطة التعافي الخاصة بك';
+  String get recoveryPlanCalmOrientation => 'برنامجك اليومي الخاصة بك';
 
   @override
   String get recoveryPlanCalmOrientationBody =>
@@ -1944,14 +1944,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v2TodayPreviewCompletionMeaning =>
-      'إنهاء هذه الخطوة لاحقاً يُحسب يوماً مكتملاً. التخطي مسموح بلا عقوبة.';
+      'إنهاء هذه الخطوة لاحقاً يُحسب يوماً مكتملاً. التخطي مسموح دون أثر سلبي.';
 
   @override
   String get v2TodayPreviewContinueCta => 'المتابعة — خطوتك الأولى جاهزة';
 
   @override
   String get v2TodayPreviewMissingAct =>
-      'خطوة اليوم غير متاحة بعد. أعد بناء خطة التعافي.';
+      'خطوة اليوم غير متاحة بعد. أعد بناء برنامجك اليومي.';
 
   @override
   String get v2TodayReadyLoading => 'جارٍ تجهيز خطوتك الأولى';
@@ -1961,7 +1961,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v2TodayReadyFirstStepBody =>
-      'خطة التعافي محفوظة. افتح اليوم لبدء جلستك اليومية الأولى عندما تكون جاهزاً. يمكنك المغادرة والعودة دون فقدان التقدّم.';
+      'برنامجك اليومي محفوظة. افتح اليوم لبدء جلستك اليومية الأولى عندما تكون جاهزاً. يمكنك المغادرة والعودة دون فقدان التقدّم.';
 
   @override
   String get v2TodayReadyJourneySaved =>
@@ -1995,11 +1995,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v2TodayHomeOrientationBody =>
-      'فعل واحد واضح من خطة التعافي. بلا إضافات.';
+      'فعل واحد واضح من برنامجك اليومي. بلا إضافات.';
 
   @override
   String get v2TodayHomeStandardPathHint =>
-      'المسار القياسي يضيف عمقاً معتمداً اختيارياً إن رغبت.';
+      'التزم بممارسة اليوم — خطوات صغيرة تعيد بناء التركيز.';
 
   @override
   String get v2TodayHomeStatusHeading => 'الحالة';
@@ -2017,19 +2017,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2TodayHomeStatusDone => 'انتهى لليوم';
 
   @override
-  String get v2TodayHomeStatusPartial => 'حُفظت المحاولة — بلا عقوبة';
+  String get v2TodayHomeStatusPartial => 'حُفظ التقدّم — تابع غداً';
 
   @override
-  String get v2TodayHomeCtaStart => 'ابدأ جلسة اليوم';
+  String get v2TodayHomeCtaStart => 'ابدأ برنامجك اليومي';
 
   @override
-  String get v2TodayHomeCtaContinue => 'متابعة الجلسة';
+  String get v2TodayHomeCtaContinue => 'متابعة البرنامج';
 
   @override
   String get v2TodayHomeCtaViewCompleted => 'عرض الجلسة المكتملة';
 
   @override
-  String get v2TodayHomeViewPlan => 'عرض خطة التعافي';
+  String get v2TodayHomeViewPlan => 'عرض برنامجك اليومي';
 
   @override
   String get homeGreetingMorning => 'صباح الخير';
@@ -2042,19 +2042,19 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String homeGreetingName(String name) {
-    return 'أهلاً، $name 👋';
+    return 'أهلاً، $name';
   }
 
   @override
-  String get homeFocusLevelTag => 'مستوى التركيز الحالي';
+  String get homeFocusLevelTag => 'نسبة التعافي';
 
   @override
   String homeFocusImprovement(int percent) {
-    return 'تحسّن $percent% عن أول تشخيص';
+    return 'تحسّن $percent% عن أول فحص';
   }
 
   @override
-  String get homeFocusImprovementPending => 'أكمل فحص الدماغ لتتبّع التحسّن';
+  String get homeFocusImprovementPending => 'أكمل فحص الدماغ لتتبّع التعافي';
 
   @override
   String get homeMetricStreakLabel => 'أيام متواصلة';
@@ -2066,7 +2066,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get homeSuggestedExerciseBadge => 'مقترح';
 
   @override
-  String get homeProgramPathTitle => 'المسار الحالي';
+  String get homeProgramPathTitle => 'برنامجك اليومي';
 
   @override
   String homeProgramPathDay(int current, int total) {
@@ -2074,7 +2074,61 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get homeTodaySessionHeading => 'جلسة اليوم';
+  String get homeTodaySessionHeading => 'برنامجك اليومي';
+
+  @override
+  String get homeDateTodayLabel => 'اليوم';
+
+  @override
+  String get homeDatePrevDay => 'اليوم السابق';
+
+  @override
+  String get homeDateNextDay => 'اليوم التالي';
+
+  @override
+  String get homeReturnToToday => 'العودة إلى اليوم';
+
+  @override
+  String get homePomodoroTitle => 'مؤقّت التركيز';
+
+  @override
+  String get homePomodoroStart => 'ابدأ';
+
+  @override
+  String get homePomodoroPause => 'إيقاف مؤقت';
+
+  @override
+  String get homePomodoroMinutesShort => '٢٥ دقيقة';
+
+  @override
+  String get homePomodoroMinutesLong => '٥٠ دقيقة';
+
+  @override
+  String get homeBrainCheckBadgeTitle => 'اكتمل ملفك الذهني — ابدأ الفحص';
+
+  @override
+  String get homeBrainCheckBadgeCta => 'ابدأ فحص الدماغ';
+
+  @override
+  String get homeBrainCheckScoreTitle => 'فحص الدماغ';
+
+  @override
+  String homeBrainCheckScoreValue(int score) {
+    return 'النتيجة $score';
+  }
+
+  @override
+  String get homeBrainCheckRedo => 'إعادة';
+
+  @override
+  String get homeDailyProgramEmptyTitle => 'ابنِ برنامجك اليومي';
+
+  @override
+  String get homeDailyProgramEmptyBody =>
+      'ممارسة يومية قصيرة لتقليل وقت الشاشة وإعادة بناء التركيز — خطوة واضحة واحدة كل يوم.';
+
+  @override
+  String get homeDailyProgramEmptyCta => 'إعداد البرنامج';
 
   @override
   String get v2SessionPrepareTitle => 'تهيئة';
@@ -2330,7 +2384,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v2OnboardingPrivacyBody =>
-      'تُحسب إجابات فحص الدماغ الأساسية ودرجة التعافي وخطة التعافي وتُخزَّن محلياً على هذا الجهاز. يمكنك إيقاف فحص الدماغ واستئنافه. تبقى الشروحات قابلة للمراجعة. الدرجة لا يولّدها ذكاء اصطناعي.';
+      'تُحسب إجابات فحص الدماغ الأساسية ودرجة التعافي وبرنامجك اليومي وتُخزَّن محلياً على هذا الجهاز. يمكنك إيقاف فحص الدماغ واستئنافه. تبقى الشروحات قابلة للمراجعة. الدرجة لا يولّدها ذكاء اصطناعي.';
 
   @override
   String get v2OnboardingPrivacyFootnote =>
@@ -2871,6 +2925,12 @@ class AppLocalizationsAr extends AppLocalizations {
       'هذا الأسبوع ما زال جارياً. تُفتَح المراجعة بعد انتهائه.';
 
   @override
+  String v2ProgressWrAvailableInDays(int days) => 'متاح بعد $days أيام';
+
+  @override
+  String get v2ProgressWeeklyChartHeading => 'آخر 7 أيام';
+
+  @override
   String get v2ProgressWrAvailable => 'المراجعة الأسبوعية متاحة';
 
   @override
@@ -3276,10 +3336,25 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2ExercisesFilterMemory => 'ذاكرة';
 
   @override
+  String get v2ExercisesFilterSpeed => 'سرعة';
+
+  @override
   String get v2ExercisesFilterReading => 'قراءة';
 
   @override
   String get v2ExercisesFilterMentalFitness => 'لياقة ذهنية';
+
+  @override
+  String get v2ExercisesDifficultyEasy => 'سهل';
+
+  @override
+  String get v2ExercisesDifficultyMedium => 'متوسط';
+
+  @override
+  String get v2ExercisesDifficultyHard => 'صعب';
+
+  @override
+  String v2ExercisesMinutes(int count) => '$count د';
 
   @override
   String get v2ExercisesSectionFree => 'مجاني';
@@ -3444,7 +3519,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get diagResultPlanError =>
-      'تعذّر تحديث البرنامج. يمكنك إعادة المحاولة من خطة التعافي.';
+      'تعذّر تحديث البرنامج. يمكنك إعادة المحاولة من برنامجك اليومي.';
 
   @override
   String get diagResultContinue => 'عرض برنامجي';
@@ -3870,6 +3945,25 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2ProfileBrainProfileMissing => 'أكمل فحص الدماغ لإنشاء هذا';
 
   @override
+  String get v2ProfileBaselineTestTitle => 'فحص أساسي للدماغ';
+
+  @override
+  String get v2ProfileBaselineTestSubtitle =>
+      'مرة واحدة — يمكنك إعادته في أي وقت';
+
+  @override
+  String get v2ProfileWeeklyTestTitle => 'فحص دماغ أسبوعي';
+
+  @override
+  String get v2ProfileWeeklyTestSubtitle => 'يُفتح كل 7 أيام';
+
+  @override
+  String v2ProfileWeeklyTestLocked(int days) => 'متاح بعد $days أيام';
+
+  @override
+  String get v2ProfileWeeklyTestReady => 'جاهز — ابدأ فحص هذا الأسبوع';
+
+  @override
   String get v2ProfileSectionPreferences => 'التفضيلات';
 
   @override
@@ -3961,10 +4055,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get colorThemeMorningLight => 'فاتح';
 
   @override
+  String get colorThemeAmoled => 'أسود';
+
+  @override
   String get settingsThemeDarkSubtitle => 'لوحة Morning Light الداكنة';
 
   @override
   String get settingsThemeLightSubtitle => 'لوحة Morning Light الفاتحة';
+
+  @override
+  String get settingsThemeAmoledSubtitle => 'أسود خالص لشاشات OLED';
 
   @override
   String get settingsActionFailed => 'تعذّر إكمال هذا الإجراء. حاول مرة أخرى.';

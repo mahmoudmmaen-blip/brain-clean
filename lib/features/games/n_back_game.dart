@@ -5,13 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/l10n/app_localizations.dart';
-import '../../core/providers/locale_provider.dart';
+import '../../core/theme/app_colors.dart';
 import '../diagnostic/presentation/bc_score_provider.dart';
 import '../gamification/domain/xp_source.dart';
 import 'application/games_scores_provider.dart';
 import 'domain/n_back_logic.dart';
+import 'domain/n_back_session.dart';
 
-/// Visual N-back working-memory training game.
+/// Dual N-back — 3×3 grid, fixed 2-back, Match / Next responses.
 class NBackGameScreen extends ConsumerStatefulWidget {
   const NBackGameScreen({super.key});
 
@@ -20,114 +21,96 @@ class NBackGameScreen extends ConsumerStatefulWidget {
 }
 
 class _NBackGameScreenState extends ConsumerState<NBackGameScreen> {
-  static const _stimuliPerRound = 20;
   static const _gridSize = 9;
+  static const _pauseAfterResponseMs = 350;
+
   final _random = Random();
+  late NBackSession _session;
 
   bool _showIntro = true;
-  bool _playing = false;
-  bool _finished = false;
-  int _nLevel = 1;
-  int _maxN = 1;
-  int _stimulusIndex = 0;
-  int _correctStreak = 0;
-  int _correctTotal = 0;
-  int? _activeCell;
-  final List<int?> _history = [];
+  bool _bonusApplied = false;
+  Timer? _timer;
 
-  Timer? _stimulusTimer;
+  @override
+  void initState() {
+    super.initState();
+    _session = NBackSession(nLevel: 2);
+  }
 
   @override
   void dispose() {
-    _stimulusTimer?.cancel();
+    _timer?.cancel();
     super.dispose();
   }
 
   void _startGame() {
     setState(() {
       _showIntro = false;
-      _playing = true;
-      _finished = false;
-      _nLevel = 1;
-      _maxN = 1;
-      _stimulusIndex = 0;
-      _correctStreak = 0;
-      _correctTotal = 0;
-      _history.clear();
-      _activeCell = null;
+      _bonusApplied = false;
+      _session = NBackSession(nLevel: 2);
     });
-    _scheduleNextStimulus();
+    _presentNextStimulus();
   }
 
-  void _scheduleNextStimulus() {
-    _stimulusTimer?.cancel();
-    _stimulusTimer = Timer(const Duration(seconds: 1), () {
-      if (!mounted || !_playing) return;
-      final cell = _random.nextInt(_gridSize);
-      setState(() {
-        _activeCell = cell;
-        _history.add(cell);
-        if (_history.length > _nLevel + 1) {
-          _history.removeAt(0);
-        }
-        _stimulusIndex++;
-      });
-      if (_stimulusIndex >= _stimuliPerRound) {
-        _finishGame();
-        return;
-      }
-      _scheduleNextStimulus();
+  void _presentNextStimulus() {
+    if (_session.finished || !mounted) return;
+    final cell = _random.nextInt(_gridSize);
+    setState(() {
+      _session.presentStimulus(cell);
     });
   }
 
-  void _onMatchTap() {
-    if (!_playing || _activeCell == null) return;
-    if (_history.length <= _nLevel) return;
-    final nBackIndex = _history.length - 1 - _nLevel;
-    final match = _history[nBackIndex] == _activeCell;
-    if (match) {
-      _correctTotal++;
-      _correctStreak++;
-      if (_correctStreak >= 10) {
-        _nLevel = nBackLevelAfterCorrect(
-          currentN: _nLevel,
-          correctStreak: _correctStreak,
-        );
-        if (_nLevel > _maxN) _maxN = _nLevel;
-        _correctStreak = 0;
-      }
-    } else {
-      _correctStreak = 0;
+  void _afterResponse() {
+    _timer?.cancel();
+    if (_session.finished) {
+      setState(() {});
+      _finishGame();
+      return;
     }
     setState(() {});
+    _timer = Timer(
+      const Duration(milliseconds: _pauseAfterResponseMs),
+      _presentNextStimulus,
+    );
+  }
+
+  void _onMatch() {
+    if (!_session.canRespond) return;
+    _session.respondMatch();
+    _afterResponse();
+  }
+
+  void _onNext() {
+    if (!_session.canRespond) return;
+    _session.respondNext();
+    _afterResponse();
   }
 
   void _finishGame() {
-    _stimulusTimer?.cancel();
-    final bonus = nBackBcsBonus(_maxN);
+    if (_bonusApplied) return;
+    _bonusApplied = true;
+    _timer?.cancel();
+    final maxN = _session.nLevel;
+    final bonus = nBackBcsBonus(maxN);
     ref.read(bcScoreProvider.notifier).applyBonus(
           bonus,
           xpSource: XpSource.game,
           xpRefId: 'n_back:${DateTime.now().millisecondsSinceEpoch}',
         );
-    ref.read(gamesBestScoresControllerProvider.notifier).updateNBackBest(_maxN);
-    setState(() {
-      _playing = false;
-      _finished = true;
-      _activeCell = null;
-    });
+    ref.read(gamesBestScoresControllerProvider.notifier).updateNBackBest(maxN);
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
-    final isAr = ref.watch(localeProvider).languageCode == 'ar';
+    final theme = Theme.of(context);
 
     if (_showIntro) {
       return Scaffold(
-        backgroundColor: const Color(0xFF0D1117),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         appBar: AppBar(
-          backgroundColor: const Color(0xFF0D1117),
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           title: Text(loc.gameNBackTitle),
         ),
         body: Padding(
@@ -136,14 +119,16 @@ class _NBackGameScreenState extends ConsumerState<NBackGameScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                loc.gameNBackIntro,
-                style: const TextStyle(color: Color(0xFFE6EDF3), fontSize: 16),
+                loc.gameNBackIntroDetail,
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  color: AppColors.textSecondary,
+                  height: 1.45,
+                ),
               ),
               const Spacer(),
               FilledButton(
                 onPressed: _startGame,
                 style: FilledButton.styleFrom(
-                  backgroundColor: const Color(0xFF1D9E75),
                   minimumSize: const Size.fromHeight(52),
                 ),
                 child: Text(loc.gameStart),
@@ -154,10 +139,12 @@ class _NBackGameScreenState extends ConsumerState<NBackGameScreen> {
       );
     }
 
+    final playing = !_session.finished;
+
     return Scaffold(
-      backgroundColor: const Color(0xFF0D1117),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF0D1117),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: Text(loc.gameNBackTitle),
       ),
       body: Padding(
@@ -165,49 +152,104 @@ class _NBackGameScreenState extends ConsumerState<NBackGameScreen> {
         child: Column(
           children: [
             Text(
-              _finished
-                  ? loc.gameNBackResult(_maxN)
-                  : loc.gameNBackLevel(_nLevel, _stimulusIndex, _stimuliPerRound),
-              style: const TextStyle(color: Color(0xFF8B949E)),
+              playing
+                  ? loc.gameNBackLevel(
+                      _session.nLevel,
+                      _session.stimulusIndex,
+                      _session.stimuliPerRound,
+                    )
+                  : loc.gameNBackSessionResult(
+                      _session.correctCount,
+                      _session.incorrectCount,
+                    ),
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: AppColors.textSecondary,
+              ),
+              textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 8),
+            if (playing)
+              Text(
+                loc.gameNBackStats(
+                  _session.correctCount,
+                  _session.incorrectCount,
+                ),
+                style: theme.textTheme.labelLarge?.copyWith(
+                  color: AppColors.primary,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            const SizedBox(height: 20),
             AspectRatio(
               aspectRatio: 1,
               child: GridView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
+                  crossAxisSpacing: 8,
+                  mainAxisSpacing: 8,
                 ),
                 itemCount: _gridSize,
                 itemBuilder: (context, index) {
-                  final lit = _activeCell == index;
-                  return Container(
-                    margin: const EdgeInsets.all(4),
+                  final lit = _session.activeCell == index;
+                  return AnimatedContainer(
+                    duration: const Duration(milliseconds: 180),
                     decoration: BoxDecoration(
-                      color: lit
-                          ? const Color(0xFF1D9E75)
-                          : const Color(0xFF30363D),
-                      borderRadius: BorderRadius.circular(8),
+                      color: lit ? AppColors.primary : AppColors.card,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: lit ? AppColors.primary : AppColors.border,
+                      ),
+                      boxShadow: lit
+                          ? [
+                              BoxShadow(
+                                color: AppColors.primary.withValues(alpha: 0.35),
+                                blurRadius: 12,
+                              ),
+                            ]
+                          : null,
                     ),
                   );
                 },
               ),
             ),
             const SizedBox(height: 24),
-            if (_playing)
-              FilledButton(
-                onPressed: _onMatchTap,
-                style: FilledButton.styleFrom(
-                  backgroundColor: const Color(0xFF3B82F6),
-                  minimumSize: const Size.fromHeight(52),
-                ),
-                child: Text(loc.gameNBackMatch),
+            if (playing) ...[
+              Row(
+                children: [
+                  Expanded(
+                    child: FilledButton(
+                      onPressed: _session.canRespond ? _onMatch : null,
+                      style: FilledButton.styleFrom(
+                        minimumSize: const Size.fromHeight(52),
+                      ),
+                      child: Text(loc.gameNBackMatch),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: _session.canRespond ? _onNext : null,
+                      style: OutlinedButton.styleFrom(
+                        minimumSize: const Size.fromHeight(52),
+                        foregroundColor: AppColors.textPrimary,
+                        side: const BorderSide(color: AppColors.border),
+                      ),
+                      child: Text(loc.gameNBackNext),
+                    ),
+                  ),
+                ],
               ),
-            if (_finished)
+            ] else ...[
               Text(
-                loc.gameNBackBonus(nBackBcsBonus(_maxN).toStringAsFixed(0)),
-                style: const TextStyle(color: Color(0xFF1D9E75)),
+                loc.gameNBackBonus(
+                  nBackBcsBonus(_session.nLevel).toStringAsFixed(0),
+                ),
+                style: theme.textTheme.titleMedium?.copyWith(
+                  color: AppColors.primary,
+                ),
               ),
+            ],
           ],
         ),
       ),

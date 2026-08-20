@@ -11,9 +11,12 @@ import '../../../core/services/external_link_service.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_design_constants.dart';
 import '../../../core/theme/v2_shell_visual.dart';
+import '../../brain_check/data/brain_check_local_repository_provider.dart';
 import '../../brain_profile/data/brain_profile_repository_provider.dart';
+import '../../home/presentation/home_streak_provider.dart';
 import '../../pro/application/subscription_service_provider.dart';
 import '../../v2_onboarding/domain/v2_setup_recovery.dart';
+import '../../../core/services/smart_notification_service.dart';
 
 /// Quiet vertical rhythm — Phase A hierarchy unchanged.
 const double _kGapBeforeFirstSection = AppDesignConstants.v2GapMajor;
@@ -37,6 +40,7 @@ class V2ProfileHomeScreen extends ConsumerStatefulWidget {
 class _V2ProfileHomeScreenState extends ConsumerState<V2ProfileHomeScreen> {
   var _loadingSetup = true;
   var _hasBrainProfile = false;
+  int? _daysUntilWeeklyCheck;
 
   @override
   void initState() {
@@ -49,18 +53,34 @@ class _V2ProfileHomeScreenState extends ConsumerState<V2ProfileHomeScreen> {
     setState(() => _loadingSetup = true);
     try {
       final pack = await ref.read(brainProfileRepositoryProvider).latest();
+      final result =
+          await ref.read(brainCheckLocalRepositoryProvider).loadResult();
       if (!mounted) return;
       setState(() {
         _hasBrainProfile = pack != null;
+        _daysUntilWeeklyCheck = _weeklyUnlockDays(result?.completedAt);
         _loadingSetup = false;
       });
     } catch (_) {
       if (!mounted) return;
       setState(() {
         _hasBrainProfile = false;
+        _daysUntilWeeklyCheck = null;
         _loadingSetup = false;
       });
     }
+  }
+
+  /// Null = unlocked; >0 = locked for that many days.
+  static int? _weeklyUnlockDays(DateTime? lastCompletedUtc) {
+    if (lastCompletedUtc == null) return null;
+    final last = lastCompletedUtc.toLocal();
+    final lastDay = DateTime(last.year, last.month, last.day);
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final elapsed = today.difference(lastDay).inDays;
+    if (elapsed >= 7) return null;
+    return 7 - elapsed;
   }
 
   Future<void> _editDisplayName() async {
@@ -133,13 +153,14 @@ class _V2ProfileHomeScreenState extends ConsumerState<V2ProfileHomeScreen> {
     final loc = AppLocalizations.of(context)!;
     final prefs = ref.watch(appPreferencesProvider);
     final isPro = ref.watch(isProUserProvider);
+    final streak = ref.watch(homeStreakSnapshotProvider);
     final stored = prefs.profileDisplayName.trim();
     final displayName = stored.isEmpty ? loc.v2ProfileDefaultIdentity : stored;
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         foregroundColor: AppColors.textPrimary,
         elevation: 0,
         scrolledUnderElevation: 0,
@@ -152,12 +173,31 @@ class _V2ProfileHomeScreenState extends ConsumerState<V2ProfileHomeScreen> {
         child: V2ProfileHomeBody(
           loc: loc,
           displayName: displayName,
+          purityDays: streak.days,
+          notificationsEnabled: prefs.emotionNotificationsEnabled,
           loadingSetup: _loadingSetup,
           hasBrainProfile: _hasBrainProfile,
+          daysUntilWeeklyCheck: _daysUntilWeeklyCheck,
           subscriptionSubtitle:
               isPro ? loc.v2PremiumAlreadyActive : loc.v2PremiumFreeStatus,
+          isPro: isPro,
           appVersion: AppConfig.appVersion,
           onEditDisplayName: _editDisplayName,
+          onNotificationsChanged: (enabled) async {
+            try {
+              await ref
+                  .read(appPreferencesProvider.notifier)
+                  .setEmotionNotifications(enabled);
+              await ref
+                  .read(smartNotificationServiceProvider)
+                  .rescheduleAll();
+            } catch (_) {
+              if (!mounted) return;
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(loc.v2ProfileNameSaveFailed)),
+              );
+            }
+          },
           onOpenBrainProfile: () {
             final location = V2SetupRecovery.profileBrainActionLocation(
               hasProfilePack: _hasBrainProfile,
@@ -167,6 +207,14 @@ class _V2ProfileHomeScreenState extends ConsumerState<V2ProfileHomeScreen> {
             } else {
               context.push(location);
             }
+          },
+          onOpenBaselineCheck: () =>
+              context.go(V2SetupRecovery.baselineBrainCheckLocation()),
+          onOpenWeeklyCheck: () {
+            if (_daysUntilWeeklyCheck != null && _daysUntilWeeklyCheck! > 0) {
+              return;
+            }
+            context.go(V2SetupRecovery.weeklyBrainCheckLocation());
           },
           onOpenSettings: () => context.push(AppRoutes.settings),
           onOpenPremium: () => context.go(
@@ -191,12 +239,19 @@ class V2ProfileHomeBody extends StatelessWidget {
     super.key,
     required this.loc,
     required this.displayName,
+    required this.purityDays,
+    required this.notificationsEnabled,
     required this.loadingSetup,
     required this.hasBrainProfile,
+    required this.daysUntilWeeklyCheck,
     required this.subscriptionSubtitle,
+    required this.isPro,
     required this.appVersion,
     required this.onEditDisplayName,
+    required this.onNotificationsChanged,
     required this.onOpenBrainProfile,
+    required this.onOpenBaselineCheck,
+    required this.onOpenWeeklyCheck,
     required this.onOpenSettings,
     required this.onOpenPremium,
     required this.onOpenSafa,
@@ -206,12 +261,19 @@ class V2ProfileHomeBody extends StatelessWidget {
 
   final AppLocalizations loc;
   final String displayName;
+  final int purityDays;
+  final bool notificationsEnabled;
   final bool loadingSetup;
   final bool hasBrainProfile;
+  final int? daysUntilWeeklyCheck;
   final String subscriptionSubtitle;
+  final bool isPro;
   final String appVersion;
   final VoidCallback onEditDisplayName;
+  final ValueChanged<bool> onNotificationsChanged;
   final VoidCallback onOpenBrainProfile;
+  final VoidCallback onOpenBaselineCheck;
+  final VoidCallback onOpenWeeklyCheck;
   final VoidCallback onOpenSettings;
   final VoidCallback onOpenPremium;
   final VoidCallback onOpenSafa;
@@ -260,6 +322,35 @@ class V2ProfileHomeBody extends StatelessWidget {
             ),
           ),
           const SizedBox(height: _kGapBetweenSections),
+          V2HeroCard(
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        loc.v2ProfilePurityHeading,
+                        style: V2ShellVisual.sectionLabel(theme),
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        loc.v2ProfilePurityDay(purityDays),
+                        style: V2ShellVisual.heroMetricValue(theme),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        loc.v2ProfilePuritySubtitle,
+                        style: V2ShellVisual.captionMuted(theme),
+                      ),
+                    ],
+                  ),
+                ),
+                Text('🌿', style: theme.textTheme.displaySmall),
+              ],
+            ),
+          ),
+          const SizedBox(height: _kGapBetweenSections),
           V2SectionLabel(loc.v2ProfileSectionRecovery),
           const SizedBox(height: _kGapSectionToRow),
           V2SettingsGroup(
@@ -274,6 +365,28 @@ class V2ProfileHomeBody extends StatelessWidget {
                         : loc.v2ProfileBrainProfileMissing,
                 onTap: onOpenBrainProfile,
               ),
+              _ProfileRow(
+                key: const Key('v2_profile_baseline_check_row'),
+                title: loc.v2ProfileBaselineTestTitle,
+                subtitle: loc.v2ProfileBaselineTestSubtitle,
+                onTap: onOpenBaselineCheck,
+              ),
+              _ProfileRow(
+                key: const Key('v2_profile_weekly_check_row'),
+                title: loc.v2ProfileWeeklyTestTitle,
+                subtitle: loadingSetup
+                    ? loc.v2ProfileBrainProfileLoading
+                    : (daysUntilWeeklyCheck != null &&
+                            daysUntilWeeklyCheck! > 0)
+                        ? loc.v2ProfileWeeklyTestLocked(daysUntilWeeklyCheck!)
+                        : hasBrainProfile
+                            ? loc.v2ProfileWeeklyTestReady
+                            : loc.v2ProfileWeeklyTestSubtitle,
+                onTap: (daysUntilWeeklyCheck != null &&
+                        daysUntilWeeklyCheck! > 0)
+                    ? null
+                    : onOpenWeeklyCheck,
+              ),
             ],
           ),
           const SizedBox(height: _kGapBetweenSections),
@@ -287,6 +400,40 @@ class V2ProfileHomeBody extends StatelessWidget {
                 subtitle: loc.v2ProfilePreferencesHint,
                 onTap: onOpenSettings,
               ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 6),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            loc.v2ProfileNotificationsRow,
+                            style: theme.textTheme.titleSmall?.copyWith(
+                              color: AppColors.textPrimary,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            loc.v2ProfileNotificationsHint,
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: AppColors.textSecondary,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Switch.adaptive(
+                      key: const Key('v2_profile_notifications_switch'),
+                      value: notificationsEnabled,
+                      activeThumbColor: AppColors.primary,
+                      onChanged: onNotificationsChanged,
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
           const SizedBox(height: _kGapBetweenSections),
@@ -296,7 +443,7 @@ class V2ProfileHomeBody extends StatelessWidget {
             children: [
               _ProfileRow(
                 key: const Key('v2_profile_premium_row'),
-                title: loc.v2PremiumManage,
+                title: isPro ? loc.v2PremiumManage : loc.v2PremiumViewPlans,
                 subtitle: subscriptionSubtitle,
                 onTap: onOpenPremium,
               ),
@@ -375,7 +522,7 @@ class _ProfileRow extends StatelessWidget {
 
   final String title;
   final String subtitle;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {

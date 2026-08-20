@@ -71,9 +71,9 @@ class _InteractiveDiagnosticFlowScreenState
     );
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
         leading: controller.phase == InteractiveDiagnosticPhase.intro
             ? IconButton(

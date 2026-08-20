@@ -1,6 +1,14 @@
-import "jsr:@supabase/functions-js/edge-runtime.d.ts";
+/**
+ * safa-chat — Claude proxy. Provider keys never leave this function.
+ * There is no third-party GPU-cloud AI path.
+ * CLAUDE_API_KEY is a Supabase secret only (rotate in Dashboard → Secrets).
+ */
+import {
+  corsHeaders,
+  jsonResponse,
+  requireAuthenticatedUser,
+} from "../_shared/jwt.ts";
 
-const CLAUDE_API_KEY = Deno.env.get("CLAUDE_API_KEY")!;
 const SYSTEM_PROMPT = `أنت صفا، مساعدة دعم نفسي في تطبيق Brain Clean. اتبعي القواعد دي بالترتيب:
 
 ١. أول رد: اعترفي بالمشاعر بجملة واحدة حقيقية ومحددة تعكس تفاصيل الموقف اللي قاله المستخدم فعلاً — مش جملة عامة زي "ده صعب" فقط، لازم تربطيها بموضوعه تحديداً (مثال: خناقة مع زميل ≠ نفس رد التوتر من الشغل).
@@ -20,32 +28,75 @@ const SYSTEM_PROMPT = `أنت صفا، مساعدة دعم نفسي في تطب�
 
 ٦. لو حد بيقول كلام خطير (إيذاء نفس، أذى لحد تاني) قولي: "ده مهم - كلم حد قريب منك دلوقتي" وبس، من غير أي اقتراح تاني.`;
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type",
-};
+const MAX_MESSAGE_CHARS = 500;
+const RATE_WINDOW_MS = 10 * 60 * 1000;
+const RATE_MAX = 20;
+const hits = new Map<string, number[]>();
 
-function json(body: unknown, status = 200) {
-  return new Response(JSON.stringify(body), {
-    status,
-    headers: { ...corsHeaders, "content-type": "application/json" },
-  });
+const ALLOWED_BODY_KEYS = new Set([
+  "message",
+  "locale",
+  "origin",
+  "contextCategory",
+  "approvedContextSummary",
+  "approvedStepTitle",
+  "sessionToken",
+]);
+
+function rateLimited(userId: string): boolean {
+  const now = Date.now();
+  const prior = (hits.get(userId) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
+  if (prior.length >= RATE_MAX) {
+    hits.set(userId, prior);
+    return true;
+  }
+  prior.push(now);
+  hits.set(userId, prior);
+  return false;
 }
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
   }
+  if (req.method !== "POST") {
+    return jsonResponse({ error: "Method not allowed" }, 405);
+  }
+
   try {
-    const { message } = await req.json();
-    if (typeof message !== "string" || message.trim().length === 0) {
-      return json({ reply: null, error: "message required" }, 400);
+    const caller = await requireAuthenticatedUser(req);
+    if (caller instanceof Response) return caller;
+
+    const claudeKey = Deno.env.get("CLAUDE_API_KEY") ?? "";
+    if (!claudeKey) {
+      console.error("SAFA_FN_ERR missing CLAUDE_API_KEY");
+      return jsonResponse({ reply: null }, 200);
     }
+
+    if (rateLimited(caller.userId)) {
+      return jsonResponse({ error: "Rate limited" }, 429);
+    }
+
+    const raw: unknown = await req.json();
+    if (raw == null || typeof raw !== "object" || Array.isArray(raw)) {
+      return jsonResponse({ reply: null, error: "message required" }, 400);
+    }
+    const body = raw as Record<string, unknown>;
+    for (const key of Object.keys(body)) {
+      if (!ALLOWED_BODY_KEYS.has(key)) {
+        return jsonResponse({ error: "Invalid payload" }, 400);
+      }
+    }
+
+    const message = typeof body.message === "string" ? body.message.trim() : "";
+    if (!message || message.length > MAX_MESSAGE_CHARS) {
+      return jsonResponse({ reply: null, error: "message required" }, 400);
+    }
+
     const resp = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
-        "x-api-key": CLAUDE_API_KEY,
+        "x-api-key": claudeKey,
         "anthropic-version": "2023-06-01",
         "content-type": "application/json",
       },
@@ -57,14 +108,14 @@ Deno.serve(async (req) => {
       }),
     });
     if (!resp.ok) {
-      console.error("CLAUDE_ERR", resp.status, await resp.text());
-      return json({ reply: null }, 200);
+      console.error("CLAUDE_ERR", resp.status);
+      return jsonResponse({ reply: null }, 200);
     }
     const data = await resp.json();
     const reply = data?.content?.[0]?.text?.toString().trim() ?? null;
-    return json({ reply }, 200);
+    return jsonResponse({ reply }, 200);
   } catch (e) {
-    console.error("SAFA_FN_ERR", e);
-    return json({ reply: null }, 200);
+    console.error("SAFA_FN_ERR");
+    return jsonResponse({ reply: null }, 200);
   }
 });

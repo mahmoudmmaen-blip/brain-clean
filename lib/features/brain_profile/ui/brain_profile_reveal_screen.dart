@@ -132,10 +132,10 @@ class _BrainProfileRevealScreenState
     final loc = AppLocalizations.of(context)!;
     final isAr = Localizations.localeOf(context).languageCode == 'ar';
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text(loc.brainProfileTitle),
-        backgroundColor: AppColors.background,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
       body: SafeArea(
         child: BrainProfileRevealBody(

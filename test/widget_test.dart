@@ -23,7 +23,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:brain_clean_mobile/features/accountability/accountability_box_modal.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/bc_score_provider.dart';
-import 'package:brain_clean_mobile/features/focus/breathing_friction_screen.dart';
 import 'package:brain_clean_mobile/features/home/presentation/home_streak_provider.dart';
 
 import 'helpers/diagnostic_provider_overrides.dart';
@@ -289,21 +288,7 @@ void main() {
 
     final after = container.read(bcScoreSessionProvider)!.bcScore;
     expect(before - after, 15);
-    expect(find.text('تم تسجيل العقوبة ✓'), findsOneWidget);
-  });
-
-  testWidgets('breathing friction screen shows inhale phase and countdown',
-      (tester) async {
-    await tester.pumpWidget(
-      createLocalizedTestWidget(
-        const BreathingFrictionScreen(currentBhi: 70),
-        locale: const Locale('ar'),
-      ),
-    );
-    await tester.pump();
-
-    expect(find.textContaining('استنشق'), findsOneWidget);
-    expect(find.byType(LinearProgressIndicator), findsOneWidget);
+    expect(find.text('تم تسجيل المساءلة ✓'), findsOneWidget);
   });
 }
 

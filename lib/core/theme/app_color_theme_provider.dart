@@ -5,12 +5,15 @@ import '../data/app_meta_box_provider.dart';
 import '../../features/pro/application/subscription_service_provider.dart';
 import 'app_color_theme.dart';
 
-/// Maps persisted theme ids (including legacy 6-theme names) to the 2-mode enum.
+/// Maps persisted theme ids (including legacy 6-theme names) to the 3-mode enum.
 AppColorTheme appColorThemeFromStoredName(String? stored) {
   switch (stored) {
     case 'light':
     case 'daylight':
       return AppColorTheme.light;
+    case 'amoled':
+    case 'black':
+      return AppColorTheme.amoled;
     case 'dark':
     case 'midnight':
     case 'aurora':

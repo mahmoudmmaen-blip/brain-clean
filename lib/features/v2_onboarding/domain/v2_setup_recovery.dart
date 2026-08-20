@@ -20,8 +20,12 @@ abstract final class V2SetupRecovery {
   }
 
   /// Existing V2 Brain Check entry (lite). [source] is attribution only.
-  static String brainCheckLocation({required String source}) {
-    return '${AppRoutes.v2Check}?mode=lite&source=${Uri.encodeComponent(source)}';
+  static String brainCheckLocation({
+    required String source,
+    String mode = 'lite',
+  }) {
+    return '${AppRoutes.v2Check}?mode=${Uri.encodeComponent(mode)}'
+        '&source=${Uri.encodeComponent(source)}';
   }
 
   /// Profile recovery row: Check when pack is missing, reveal when it exists.
@@ -29,4 +33,10 @@ abstract final class V2SetupRecovery {
     if (!hasProfilePack) return brainCheckLocation(source: 'profile');
     return AppRoutes.v2BrainProfile;
   }
+
+  static String baselineBrainCheckLocation() =>
+      brainCheckLocation(source: 'profile_baseline', mode: 'lite');
+
+  static String weeklyBrainCheckLocation() =>
+      brainCheckLocation(source: 'profile_weekly', mode: 'pulse');
 }

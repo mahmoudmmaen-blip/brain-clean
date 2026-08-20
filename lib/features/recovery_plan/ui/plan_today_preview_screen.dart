@@ -94,10 +94,10 @@ class _PlanTodayPreviewScreenState extends ConsumerState<PlanTodayPreviewScreen>
     final loc = AppLocalizations.of(context)!;
     final isAr = Localizations.localeOf(context).languageCode == 'ar';
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text(loc.v2TodayPreviewTitle),
-        backgroundColor: AppColors.background,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
       body: SafeArea(
         child: PlanTodayPreviewBody(

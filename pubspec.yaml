@@ -1,7 +1,7 @@
 name: brain_clean_mobile
 description: "A neuro-scientific digital detox mobile app."
 publish_to: 'none'
-version: 2.0.1+23
+version: 2.0.1+24
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -52,7 +52,7 @@ flutter:
   generate: true
   uses-material-design: true
   assets:
-    - .env
+    - .env.example
     - assets/branding/brain_clean_mark.png
     - assets/branding/brain_clean_mark_512.png
     - assets/sounds/rain.mp3

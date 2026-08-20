@@ -93,7 +93,7 @@ class _BrainCheckBuildingScreenState
             : (_errorEn ?? _errorAr ?? loc.brainProfileUnavailable));
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: BrainCheckBuildingBody(
           loc: loc,

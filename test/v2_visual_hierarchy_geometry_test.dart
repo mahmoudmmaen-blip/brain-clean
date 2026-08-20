@@ -30,6 +30,7 @@ import 'package:brain_clean_mobile/features/weekly_review/domain/weekly_review_r
 import 'package:brain_clean_mobile/features/weekly_review/domain/weekly_review_signal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// Visual-hierarchy geometry gates for V2 primary tabs.
@@ -91,16 +92,18 @@ void main() {
   }
 
   Widget wrap(Widget child, {Locale locale = const Locale('en')}) {
-    return MaterialApp(
-      locale: locale,
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: AppLocalizations.supportedLocales,
-      home: Scaffold(body: child),
+    return ProviderScope(
+      child: MaterialApp(
+        locale: locale,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: Scaffold(body: child),
+      ),
     );
   }
 
@@ -144,7 +147,7 @@ void main() {
         );
         await pumpBounded(tester);
         expectNoOverflow(tester);
-        expect(find.byType(FilledButton), findsOneWidget);
+        expect(find.byKey(const Key('v2_today_primary_cta')), findsOneWidget);
         expect(
           tester.getSize(find.byKey(const Key('v2_today_primary_cta'))).height,
           greaterThanOrEqualTo(AppDesignConstants.minTouchTarget),
@@ -304,12 +307,19 @@ void main() {
               V2ProfileHomeBody(
                 loc: loc,
                 displayName: locale.languageCode == 'ar' ? 'أحمد' : 'Alex',
+                purityDays: 12,
+                notificationsEnabled: true,
                 loadingSetup: false,
                 hasBrainProfile: true,
+                daysUntilWeeklyCheck: null,
                 subscriptionSubtitle: loc.v2PremiumFreeStatus,
+                isPro: false,
                 appVersion: '2.0.1+22',
                 onEditDisplayName: () {},
+                onNotificationsChanged: (_) {},
                 onOpenBrainProfile: () {},
+          onOpenBaselineCheck: () {},
+          onOpenWeeklyCheck: () {},
                 onOpenSettings: () {},
                 onOpenPremium: () {},
                 onOpenSafa: () {},

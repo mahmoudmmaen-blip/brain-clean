@@ -23,6 +23,8 @@ class V2NavigationShell extends StatelessWidget {
     final index =
         navigationShell.currentIndex.clamp(0, V2ShellTab.values.length - 1);
     final theme = Theme.of(context);
+    final palette = AppColors.of(context);
+    final inactive = palette.textSecondary.withValues(alpha: 0.92);
 
     return BackButtonListener(
       onBackButtonPressed: () async {
@@ -31,87 +33,112 @@ class V2NavigationShell extends StatelessWidget {
         return true;
       },
       child: Scaffold(
-        backgroundColor: AppColors.background,
+        backgroundColor: theme.scaffoldBackgroundColor,
         body: navigationShell,
         bottomNavigationBar: DecoratedBox(
-        decoration: const BoxDecoration(
-          color: AppColors.navBar,
-          border: Border(
-            top: BorderSide(color: AppColors.border),
+          decoration: BoxDecoration(
+            color: palette.navBar,
+            border: Border(
+              top: BorderSide(color: palette.border, width: 1.2),
+            ),
           ),
-        ),
-        child: NavigationBarTheme(
-          data: NavigationBarThemeData(
-            height: AppDesignConstants.v2NavHeight,
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            shadowColor: Colors.transparent,
-            surfaceTintColor: Colors.transparent,
-            indicatorColor: Colors.transparent,
-            overlayColor: const WidgetStatePropertyAll(Colors.transparent),
-            labelTextStyle: WidgetStateProperty.resolveWith((states) {
-              final selected = states.contains(WidgetState.selected);
-              return theme.textTheme.labelMedium?.copyWith(
-                color: selected ? AppColors.primary : AppColors.textTertiary,
-                fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
-                height: 1.15,
-                fontSize: 10.5,
-              );
-            }),
-            iconTheme: WidgetStateProperty.resolveWith((states) {
-              final selected = states.contains(WidgetState.selected);
-              return IconThemeData(
-                size: selected ? 22 : 20,
-                color: selected ? AppColors.primary : AppColors.textTertiary,
-              );
-            }),
-          ),
-          child: NavigationBar(
-            selectedIndex: index,
-            backgroundColor: Colors.transparent,
-            labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-            onDestinationSelected: (i) {
-              navigationShell.goBranch(
-                i,
-                initialLocation: i == navigationShell.currentIndex,
-              );
-            },
-            destinations: [
-              NavigationDestination(
-                icon: const Icon(Icons.home_outlined),
-                selectedIcon: const Icon(Icons.home),
-                label: loc.v2NavHome,
-                tooltip: loc.v2NavHome,
-              ),
-              NavigationDestination(
-                icon: const Icon(Icons.psychology_outlined),
-                selectedIcon: const Icon(Icons.psychology),
-                label: loc.v2NavExercises,
-                tooltip: loc.v2NavExercises,
-              ),
-              NavigationDestination(
-                icon: const Icon(Icons.show_chart_outlined),
-                selectedIcon: const Icon(Icons.show_chart),
-                label: loc.v2NavProgress,
-                tooltip: loc.v2NavProgress,
-              ),
-              NavigationDestination(
-                icon: const Icon(Icons.workspace_premium_outlined),
-                selectedIcon: const Icon(Icons.workspace_premium),
-                label: loc.v2NavPro,
-                tooltip: loc.v2NavPro,
-              ),
-              NavigationDestination(
-                icon: const Icon(Icons.person_outline),
-                selectedIcon: const Icon(Icons.person),
-                label: loc.v2NavProfile,
-                tooltip: loc.v2NavProfile,
-              ),
-            ],
+          child: NavigationBarTheme(
+            data: NavigationBarThemeData(
+              height: AppDesignConstants.v2NavHeight,
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              shadowColor: Colors.transparent,
+              surfaceTintColor: Colors.transparent,
+              indicatorColor: AppColors.primary.withValues(alpha: 0.14),
+              overlayColor: const WidgetStatePropertyAll(Colors.transparent),
+              labelTextStyle: WidgetStateProperty.resolveWith((states) {
+                final selected = states.contains(WidgetState.selected);
+                return theme.textTheme.labelMedium?.copyWith(
+                  color: selected ? AppColors.primary : inactive,
+                  fontWeight: selected ? FontWeight.w800 : FontWeight.w600,
+                  height: 1.15,
+                  fontSize: 11,
+                  letterSpacing: 0.1,
+                );
+              }),
+              iconTheme: WidgetStateProperty.resolveWith((states) {
+                final selected = states.contains(WidgetState.selected);
+                return IconThemeData(
+                  size: selected ? 26 : 24,
+                  color: selected ? AppColors.primary : inactive,
+                  opacity: 1,
+                );
+              }),
+            ),
+            child: NavigationBar(
+              selectedIndex: index,
+              backgroundColor: Colors.transparent,
+              labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+              onDestinationSelected: (i) {
+                navigationShell.goBranch(
+                  i,
+                  initialLocation: i == navigationShell.currentIndex,
+                );
+              },
+              destinations: [
+                NavigationDestination(
+                  icon: Icon(Icons.home_rounded, color: inactive, size: 24),
+                  selectedIcon: const Icon(
+                    Icons.home_rounded,
+                    color: AppColors.primary,
+                    size: 26,
+                  ),
+                  label: loc.v2NavHome,
+                  tooltip: loc.v2NavHome,
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.fitness_center_rounded,
+                      color: inactive, size: 24),
+                  selectedIcon: const Icon(
+                    Icons.fitness_center_rounded,
+                    color: AppColors.primary,
+                    size: 26,
+                  ),
+                  label: loc.v2NavExercises,
+                  tooltip: loc.v2NavExercises,
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.bar_chart_rounded,
+                      color: inactive, size: 24),
+                  selectedIcon: const Icon(
+                    Icons.bar_chart_rounded,
+                    color: AppColors.primary,
+                    size: 26,
+                  ),
+                  label: loc.v2NavProgress,
+                  tooltip: loc.v2NavProgress,
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.workspace_premium_rounded,
+                      color: inactive, size: 24),
+                  selectedIcon: const Icon(
+                    Icons.workspace_premium_rounded,
+                    color: AppColors.primary,
+                    size: 26,
+                  ),
+                  label: loc.v2NavPro,
+                  tooltip: loc.v2NavPro,
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.person_rounded, color: inactive, size: 24),
+                  selectedIcon: const Icon(
+                    Icons.person_rounded,
+                    color: AppColors.primary,
+                    size: 26,
+                  ),
+                  label: loc.v2NavProfile,
+                  tooltip: loc.v2NavProfile,
+                ),
+              ],
+            ),
           ),
         ),
       ),
-    ),
     );
   }
 }

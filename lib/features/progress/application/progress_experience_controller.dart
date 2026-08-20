@@ -90,6 +90,7 @@ class ProgressExperienceController extends ChangeNotifier {
         timezoneOffset: _offset,
       );
       final review = await _reviews.findByPeriod(period.periodId);
+      final latestCompleted = await _reviews.latestCompleted();
       var artifactSummary = review?.summary;
       if (artifactSummary == null &&
           review != null &&
@@ -108,6 +109,7 @@ class ProgressExperienceController extends ChangeNotifier {
         reviewForPeriod: review,
         artifactSummary: artifactSummary,
         schemasSupported: true,
+        latestCompletedReview: latestCompleted,
       );
 
       phase = viewModel.hasHistory

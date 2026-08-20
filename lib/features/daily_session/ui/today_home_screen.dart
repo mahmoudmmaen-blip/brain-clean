@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/application/app_preferences_provider.dart';
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
+import '../../../core/presentation/glow_progress.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_design_constants.dart';
 import '../../../core/theme/v2_shell_visual.dart';
@@ -12,26 +14,25 @@ import '../../recovery_plan/domain/today_act_presentation.dart';
 import '../../v2_onboarding/domain/v2_setup_recovery.dart';
 import '../application/daily_session_controller.dart';
 import '../data/daily_session_controller_provider.dart';
+import '../data/home_dashboard_provider.dart';
 import '../domain/daily_session.dart';
 import '../domain/daily_session_status.dart';
+import '../domain/daily_session_step_state.dart';
+import '../domain/home_dashboard_metrics.dart';
+import 'home_dashboard_sections.dart';
 
 /// Clearance below last CTA so Safa cannot sit against the shell [NavigationBar].
 const double _kTodayContentBottomClearance = AppDesignConstants.v2PadBottom;
 
-/// Today loaded density — hierarchy locked; spacing aligned to V2 rhythm.
 const double _kTodayPadH = AppDesignConstants.v2PadH;
 const double _kTodayPadTop = AppDesignConstants.v2PadTop;
 const double _kTodayGapActTime = AppDesignConstants.v2GapTight;
 const double _kTodayGapTimeStatus = AppDesignConstants.v2GapControl;
 const double _kTodayGapStatusCta = AppDesignConstants.v2GapSection;
-const double _kTodayGapCtaSupport = AppDesignConstants.v2GapMajor;
-const double _kTodayGapSupportTitleBody = AppDesignConstants.v2GapInline;
-const double _kTodayGapSupportSections = AppDesignConstants.v2GapControl + 4;
-const double _kTodayGapAfterSupport = AppDesignConstants.v2GapSection;
 const double _kTodayGapCtaToSecondary = AppDesignConstants.v2GapMajor;
 const double _kTodayGapSecondaryCluster = AppDesignConstants.v2GapInline;
 
-/// HOM-01 — calm Today home (one action, not a warehouse).
+/// HOM-01 — redesigned Home: greeting, recovery, date, streak, pomodoro, program.
 class TodayHomeScreen extends ConsumerStatefulWidget {
   const TodayHomeScreen({super.key});
 
@@ -40,11 +41,30 @@ class TodayHomeScreen extends ConsumerStatefulWidget {
 }
 
 class _TodayHomeScreenState extends ConsumerState<TodayHomeScreen> {
+  late DateTime _selectedDay;
+
   @override
   void initState() {
     super.initState();
+    final now = DateTime.now();
+    _selectedDay = DateTime(now.year, now.month, now.day);
     Future.microtask(
-        () => ref.read(dailySessionControllerProvider).loadToday());
+      () => ref.read(dailySessionControllerProvider).loadToday(),
+    );
+  }
+
+  void _shiftDay(int delta) {
+    setState(() {
+      _selectedDay = _selectedDay.add(Duration(days: delta));
+    });
+  }
+
+  void _returnToToday() {
+    final now = DateTime.now();
+    setState(() {
+      _selectedDay = DateTime(now.year, now.month, now.day);
+    });
+    context.go(AppRoutes.v2Home);
   }
 
   @override
@@ -52,17 +72,20 @@ class _TodayHomeScreenState extends ConsumerState<TodayHomeScreen> {
     final loc = AppLocalizations.of(context)!;
     final isAr = Localizations.localeOf(context).languageCode == 'ar';
     final controller = ref.watch(dailySessionControllerProvider);
+    final prefs = ref.watch(appPreferencesProvider);
+    final dashboard = ref.watch(homeDashboardProvider).valueOrNull ??
+        HomeDashboardMetrics.empty;
+    final userName = homeDisplayName(prefs, loc.v2ProfileDefaultIdentity);
+
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         toolbarHeight: 0,
-        backgroundColor: AppColors.background,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
         scrolledUnderElevation: 0,
         surfaceTintColor: Colors.transparent,
       ),
-      // AppBar owns top inset; shell NavigationBar owns bottom. Extra SafeArea
-      // here shrank the body (~20px) and caused BOTTOM OVERFLOWED on short heights.
       body: TodayHomeBody(
         loc: loc,
         languageCode: isAr ? 'ar' : 'en',
@@ -71,6 +94,12 @@ class _TodayHomeScreenState extends ConsumerState<TodayHomeScreen> {
         plan: controller.plan,
         session: controller.session,
         hasProfilePack: controller.hasProfilePack,
+        dashboard: dashboard,
+        userDisplayName: userName,
+        selectedDay: _selectedDay,
+        onPreviousDay: () => _shiftDay(-1),
+        onNextDay: () => _shiftDay(1),
+        onReturnToToday: _returnToToday,
         onRetry: controller.loadToday,
         onBuildPlan: () => context.go(AppRoutes.v2PlanBuilding),
         onStartBrainCheck: () => context.go(
@@ -80,6 +109,16 @@ class _TodayHomeScreenState extends ConsumerState<TodayHomeScreen> {
         onViewPlan: () {
           final id = controller.plan?.id;
           if (id == null) return;
+          context.go('${AppRoutes.v2PlanReveal}?plan=$id');
+        },
+        onOpenProgress: () => context.go(AppRoutes.v2Progress),
+        onOpenSuggestedExercise: () => context.push(AppRoutes.cognitiveHub),
+        onOpenProgramPath: () {
+          final id = controller.plan?.id;
+          if (id == null) {
+            context.go(AppRoutes.v2Progress);
+            return;
+          }
           context.go('${AppRoutes.v2PlanReveal}?plan=$id');
         },
         onOpenSafa: () => context.go(
@@ -127,8 +166,17 @@ class TodayHomeBody extends StatelessWidget {
     required this.onBuildPlan,
     required this.onStartBrainCheck,
     this.hasProfilePack = false,
+    this.dashboard = HomeDashboardMetrics.empty,
+    this.userDisplayName = '',
+    this.selectedDay,
+    this.onPreviousDay,
+    this.onNextDay,
+    this.onReturnToToday,
     required this.onPrimary,
     required this.onViewPlan,
+    this.onOpenProgress,
+    this.onOpenSuggestedExercise,
+    this.onOpenProgramPath,
     required this.onOpenSafa,
   });
 
@@ -142,22 +190,30 @@ class TodayHomeBody extends StatelessWidget {
   final VoidCallback onBuildPlan;
   final VoidCallback onStartBrainCheck;
   final bool hasProfilePack;
+  final HomeDashboardMetrics dashboard;
+  final String userDisplayName;
+  final DateTime? selectedDay;
+  final VoidCallback? onPreviousDay;
+  final VoidCallback? onNextDay;
+  final VoidCallback? onReturnToToday;
   final VoidCallback onPrimary;
   final VoidCallback onViewPlan;
+  final VoidCallback? onOpenProgress;
+  final VoidCallback? onOpenSuggestedExercise;
+  final VoidCallback? onOpenProgramPath;
   final VoidCallback onOpenSafa;
+
+  DateTime get _day {
+    final now = DateTime.now();
+    final raw = selectedDay ?? now;
+    return DateTime(raw.year, raw.month, raw.day);
+  }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final actStyle = V2ShellVisual.heroTitle(theme);
-    final emptyTitleStyle = actStyle;
-    final supportHeadingStyle = V2ShellVisual.sectionLabel(theme);
     final bodyStyle = V2ShellVisual.bodyMuted(theme);
-    final supportBodyStyle = bodyStyle;
-    final pathStyle = theme.textTheme.bodyMedium?.copyWith(
-      color: AppColors.textSecondary,
-      height: 1.45,
-    );
     final timeStyle = theme.textTheme.bodyMedium?.copyWith(
       color: AppColors.textSecondary,
       height: 1.4,
@@ -173,138 +229,31 @@ class TodayHomeBody extends StatelessWidget {
         child: Semantics(
           liveRegion: true,
           label: loc.v2TodayHomeLoading,
-          child: Text(
-            loc.v2TodayHomeLoading,
-            style: bodyStyle,
-          ),
+          child: Text(loc.v2TodayHomeLoading, style: bodyStyle),
         ),
       );
     }
 
-    if (errorKey != null || plan == null) {
-      final message = switch (errorKey) {
-        'missing_plan' => loc.recoveryPlanMissing,
-        'unsupported_plan_version' => loc.recoveryPlanUnsupportedVersion,
-        'missing_today_act' => loc.v2TodayPreviewMissingAct,
-        'persistence_failed' => loc.v2TodayReadyPersistFailed,
-        _ => loc.recoveryPlanGenerationError,
-      };
-      final isEmptyPlan = errorKey == 'missing_plan';
-      final rebuild = errorKey == 'missing_plan' ||
-          errorKey == 'unsupported_plan_version' ||
-          errorKey == 'missing_today_act';
-      final startCheck = isEmptyPlan &&
-          V2SetupRecovery.resolve(
-                hasProfilePack: hasProfilePack,
-                hasValidPlan: false,
-              ) ==
-              V2SetupRecoveryAction.startBrainCheck;
-      final support =
-          isEmptyPlan && startCheck ? loc.recoveryPlanMissingProfile : null;
-
-      return KeyedSubtree(
-        key: const Key('v2_today_empty_state'),
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            const topPad = 24.0;
-            final minBodyHeight =
-                (constraints.maxHeight - topPad - _kTodayContentBottomClearance)
-                    .clamp(0.0, double.infinity);
-            return SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(
-                _kTodayPadH,
-                topPad,
-                _kTodayPadH,
-                _kTodayContentBottomClearance,
-              ),
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: minBodyHeight),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Icon(
-                      Icons.calendar_today_outlined,
-                      size: 40,
-                      color: AppColors.primary.withValues(alpha: 0.9),
-                    ),
-                    const SizedBox(height: 24),
-                    Semantics(
-                      header: true,
-                      liveRegion: true,
-                      child: Text(
-                        message,
-                        textAlign: TextAlign.center,
-                        style: emptyTitleStyle,
-                      ),
-                    ),
-                    if (support != null) ...[
-                      const SizedBox(height: 12),
-                      Text(
-                        support,
-                        textAlign: TextAlign.center,
-                        style: bodyStyle,
-                      ),
-                    ],
-                    const SizedBox(height: 32),
-                    SizedBox(
-                      width: double.infinity,
-                      height: AppDesignConstants.minTouchTarget,
-                      child: FilledButton(
-                        key: const Key('v2_today_setup_cta'),
-                        onPressed: startCheck
-                            ? onStartBrainCheck
-                            : rebuild
-                                ? onBuildPlan
-                                : onRetry,
-                        style: FilledButton.styleFrom(
-                          backgroundColor: AppColors.primary,
-                          foregroundColor: AppColors.textPrimary,
-                          minimumSize: const Size(
-                            AppDesignConstants.minTouchTarget,
-                            AppDesignConstants.minTouchTarget,
-                          ),
-                        ),
-                        child: Text(
-                          startCheck
-                              ? loc.v2BrainCheckEntryStart
-                              : rebuild
-                                  ? loc.recoveryPlanBuildCta
-                                  : loc.recoveryPlanRetry,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
-      );
-    }
-
-    final p = plan!;
-    final today = p.dayTemplate.todayPreview;
-    final title = resolveTodayActTitle(p, languageCode) ??
-        loc.v2TodayPreviewFallbackTitle;
-    final because = today.because.forLocale(languageCode);
-    final timeLabel = loc.recoveryPlanTimeRange(
-      '${today.estimatedMinutesMin}',
-      '${today.estimatedMinutesMax}',
+    final hasPlan = plan != null && errorKey == null;
+    final brainCheckDone =
+        dashboard.brainCheckCompleted || hasProfilePack;
+    final badgeMetrics = HomeDashboardMetrics(
+      focusPercent: dashboard.focusPercent,
+      focusImprovementPercent: dashboard.focusImprovementPercent,
+      streakDays: dashboard.streakDays,
+      exercisesToday: dashboard.exercisesToday,
+      programDay: dashboard.programDay,
+      programTotalDays: dashboard.programTotalDays,
+      brainCheckCompleted: brainCheckDone,
+      brainCheckScore: dashboard.brainCheckScore ??
+          (brainCheckDone ? dashboard.recoveryPercent : null),
     );
-    final minLabels = resolveTodayMinimumPathLabels(p, languageCode);
-    // Avoid repeating the hero Act as a peer minimum-path card.
-    final extraMinLabels = minLabels
-        .where((label) => !_samePathLabel(label, title))
-        .toList(growable: false);
-    final statusLabel = _statusLabel(loc, session);
-    final ctaLabel = _ctaLabel(loc, session);
-    final showSupportingDetail = _showSupportingDetail(session);
-    final resolvedPrimary = _isResolvedPrimary(session);
-    final quietHintStyle = theme.textTheme.bodySmall?.copyWith(
-      color: AppColors.textSecondary,
-      height: 1.45,
-    );
+    final needsBrainCheck = !brainCheckDone &&
+        V2SetupRecovery.resolve(
+              hasProfilePack: hasProfilePack,
+              hasValidPlan: hasPlan,
+            ) ==
+            V2SetupRecoveryAction.startBrainCheck;
 
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(
@@ -316,133 +265,70 @@ class TodayHomeBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          V2PageHeader(
-            title: loc.v2TodayHomeTitle,
-            subtitle: loc.v2TodayHomeOrientationBody,
+          HomeGreetingHeader(
+            loc: loc,
+            userName: userDisplayName.isEmpty
+                ? loc.v2ProfileDefaultIdentity
+                : userDisplayName,
+          ),
+          const SizedBox(height: AppDesignConstants.v2GapControl),
+          HomeDateNavigator(
+            loc: loc,
+            selectedDay: _day,
+            onPrevious: onPreviousDay ?? () {},
+            onNext: onNextDay ?? () {},
+            onReturnToToday: onReturnToToday ?? () {},
           ),
           const SizedBox(height: AppDesignConstants.v2GapSection),
-          V2HeroCard(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Semantics(
-                  header: true,
-                  label: '${loc.v2TodayPreviewActHeading}: $title',
-                  child: Text(
-                    title,
-                    key: const Key('v2_today_act_title'),
-                    style: actStyle,
-                  ),
-                ),
-                const SizedBox(height: _kTodayGapActTime),
-                Semantics(
-                  label: timeLabel,
-                  child: Text(
-                    timeLabel,
-                    key: const Key('v2_today_time'),
-                    style: timeStyle,
-                  ),
-                ),
-                const SizedBox(height: _kTodayGapTimeStatus),
-                Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: KeyedSubtree(
-                    key: const Key('v2_today_status_chip'),
-                    child: V2QuietChip(
-                      label: statusLabel,
-                      semanticLabel:
-                          '${loc.v2TodayHomeStatusHeading}: $statusLabel',
-                    ),
-                  ),
-                ),
-                const SizedBox(height: _kTodayGapStatusCta),
-                SizedBox(
-                  height: AppDesignConstants.minTouchTarget,
-                  child: resolvedPrimary
-                      ? OutlinedButton(
-                          key: const Key('v2_today_primary_cta'),
-                          onPressed: onPrimary,
-                          style: V2ShellVisual.secondaryOutlined().copyWith(
-                            foregroundColor:
-                                WidgetStateProperty.all(AppColors.textPrimary),
-                          ),
-                          child: Text(ctaLabel),
-                        )
-                      : FilledButton(
-                          key: const Key('v2_today_primary_cta'),
-                          onPressed: onPrimary,
-                          style: V2ShellVisual.primaryFilled(),
-                          child: Text(ctaLabel),
-                        ),
-                ),
-              ],
+          KeyedSubtree(
+            key: const Key('home_focus_hero'),
+            child: HomeFocusHeroCard(
+              loc: loc,
+              metrics: dashboard,
+              onTap: onOpenProgress ?? () {},
             ),
           ),
-          if (showSupportingDetail) ...[
-            const SizedBox(height: _kTodayGapCtaSupport),
-            V2InfoCard(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Semantics(
-                    header: true,
-                    child: Text(
-                      loc.v2TodayPreviewBecauseHeading,
-                      style: supportHeadingStyle,
-                    ),
-                  ),
-                  const SizedBox(height: _kTodayGapSupportTitleBody),
-                  Semantics(
-                    label: '${loc.v2TodayPreviewBecauseHeading}: $because',
-                    child: Text(because, style: supportBodyStyle),
-                  ),
-                  if (extraMinLabels.isNotEmpty) ...[
-                    const SizedBox(height: _kTodayGapSupportSections),
-                    Semantics(
-                      header: true,
-                      child: Text(
-                        loc.recoveryPlanMinimumPath,
-                        style: supportHeadingStyle,
-                      ),
-                    ),
-                    const SizedBox(height: _kTodayGapSupportTitleBody),
-                    ...extraMinLabels.asMap().entries.map(
-                          (entry) => Padding(
-                            key: Key('v2_today_path_row_${entry.key}'),
-                            padding: const EdgeInsets.only(bottom: 6),
-                            child: Text(
-                              '· ${entry.value}',
-                              style: pathStyle,
-                              softWrap: true,
-                            ),
-                          ),
-                        ),
-                  ],
-                  const SizedBox(height: _kTodayGapSupportSections),
-                  Text(
-                    loc.v2TodayHomeStandardPathHint,
-                    key: const Key('v2_today_standard_hint'),
-                    style: quietHintStyle,
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: _kTodayGapAfterSupport),
-          ] else
-            const SizedBox(height: _kTodayGapCtaToSecondary),
-          V2SectionLabel(loc.recoveryPlanTitle),
+          const SizedBox(height: AppDesignConstants.v2GapControl),
+          HomeStreakCard(loc: loc, streakDays: dashboard.streakDays),
+          const SizedBox(height: AppDesignConstants.v2GapControl),
+          HomePomodoroCard(loc: loc),
+          const SizedBox(height: AppDesignConstants.v2GapControl),
+          HomeBrainCheckBadge(
+            loc: loc,
+            metrics: badgeMetrics,
+            onStart: onStartBrainCheck,
+            onRetake: onStartBrainCheck,
+          ),
+          const SizedBox(height: AppDesignConstants.v2GapSection),
+          V2SectionLabel(loc.homeTodaySessionHeading),
           const SizedBox(height: AppDesignConstants.v2GapSectionLabel),
-          SizedBox(
-            height: AppDesignConstants.minTouchTarget,
-            child: OutlinedButton(
-              onPressed: onViewPlan,
-              style: V2ShellVisual.secondaryOutlined().copyWith(
-                textStyle: WidgetStateProperty.all(secondaryActionStyle),
-              ),
-              child: Text(loc.v2TodayHomeViewPlan),
+          if (hasPlan)
+            _buildProgramHero(
+              context: context,
+              theme: theme,
+              actStyle: actStyle,
+              timeStyle: timeStyle,
+            )
+          else
+            _buildEmptyProgramCard(
+              context: context,
+              needsBrainCheck: needsBrainCheck,
+              bodyStyle: bodyStyle,
             ),
-          ),
-          const SizedBox(height: _kTodayGapSecondaryCluster),
+          const SizedBox(height: _kTodayGapCtaToSecondary),
+          if (hasPlan) ...[
+            SizedBox(
+              height: AppDesignConstants.minTouchTarget,
+              child: OutlinedButton(
+                onPressed: onViewPlan,
+                style: V2ShellVisual.secondaryOutlined().copyWith(
+                  textStyle: WidgetStateProperty.all(secondaryActionStyle),
+                ),
+                child: Text(loc.v2TodayHomeViewPlan),
+              ),
+            ),
+            const SizedBox(height: _kTodayGapSecondaryCluster),
+          ],
           SizedBox(
             height: AppDesignConstants.minTouchTarget,
             child: TextButton(
@@ -459,29 +345,97 @@ class TodayHomeBody extends StatelessWidget {
     );
   }
 
-  /// Ready / not-started surfaces may show path education; active or done days do not.
-  static bool _showSupportingDetail(DailySession? session) {
-    if (session == null) return true;
-    return switch (session.status) {
-      DailySessionStatus.notStarted => true,
-      DailySessionStatus.prepared => true,
-      DailySessionStatus.invalid => true,
-      DailySessionStatus.inProgress => false,
-      DailySessionStatus.reflecting => false,
-      DailySessionStatus.completed => false,
-      DailySessionStatus.partial => false,
-    };
+  Widget _buildEmptyProgramCard({
+    required BuildContext context,
+    required bool needsBrainCheck,
+    required TextStyle? bodyStyle,
+  }) {
+    final theme = Theme.of(context);
+    final rebuild = errorKey == 'missing_plan' ||
+        errorKey == 'unsupported_plan_version' ||
+        errorKey == 'missing_today_act';
+    final support = needsBrainCheck
+        ? loc.recoveryPlanMissingProfile
+        : loc.homeDailyProgramEmptyBody;
+    final ctaLabel = needsBrainCheck
+        ? loc.v2BrainCheckEntryStart
+        : rebuild
+            ? loc.recoveryPlanBuildCta
+            : loc.homeDailyProgramEmptyCta;
+
+    return KeyedSubtree(
+      key: const Key('v2_today_empty_state'),
+      child: V2InfoCard(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              needsBrainCheck
+                  ? loc.recoveryPlanMissing
+                  : loc.homeDailyProgramEmptyTitle,
+              style: V2ShellVisual.heroTitle(theme),
+            ),
+            const SizedBox(height: 8),
+            Text(support, style: bodyStyle),
+            if (!needsBrainCheck) ...[
+              const SizedBox(height: 16),
+              SizedBox(
+                height: AppDesignConstants.minTouchTarget,
+                child: FilledButton(
+                  key: const Key('v2_today_setup_cta'),
+                  onPressed: rebuild ? onBuildPlan : onRetry,
+                  style: V2ShellVisual.primaryFilled(),
+                  child: Text(ctaLabel),
+                ),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
   }
 
-  /// Completed / partial primary actions stay available but visually quieter.
+  Widget _buildProgramHero({
+    required BuildContext context,
+    required ThemeData theme,
+    required TextStyle? actStyle,
+    required TextStyle? timeStyle,
+  }) {
+    final p = plan!;
+    final today = p.dayTemplate.todayPreview;
+    final title = resolveTodayActTitle(p, languageCode) ??
+        loc.v2TodayPreviewFallbackTitle;
+    final timeLabel = loc.recoveryPlanTimeRange(
+      '${today.estimatedMinutesMin}',
+      '${today.estimatedMinutesMax}',
+    );
+    final statusLabel = _statusLabel(loc, session);
+    final ctaLabel = _ctaLabel(loc, session);
+    final resolvedPrimary = _isResolvedPrimary(session);
+
+    return V2HeroCard(
+      child: _buildHeroContent(
+        context: context,
+        loc: loc,
+        theme: theme,
+        title: title,
+        timeLabel: timeLabel,
+        statusLabel: statusLabel,
+        ctaLabel: ctaLabel,
+        resolvedPrimary: resolvedPrimary,
+        session: session,
+        actStyle: actStyle,
+        timeStyle: timeStyle,
+        onPrimary: onPrimary,
+      ),
+    );
+  }
+
   static bool _isResolvedPrimary(DailySession? session) {
     if (session == null) return false;
     return session.status == DailySessionStatus.completed ||
         session.status == DailySessionStatus.partial;
   }
-
-  static bool _samePathLabel(String a, String b) =>
-      a.trim().toLowerCase() == b.trim().toLowerCase();
 
   String _statusLabel(AppLocalizations loc, DailySession? session) {
     if (session == null) return loc.v2TodayHomeStatusReady;
@@ -504,5 +458,190 @@ class TodayHomeBody extends StatelessWidget {
       DailySessionStatus.partial => loc.v2TodayHomeCtaViewCompleted,
       _ => loc.v2TodayHomeCtaStart,
     };
+  }
+
+  Widget _buildHeroContent({
+    required BuildContext context,
+    required AppLocalizations loc,
+    required ThemeData theme,
+    required String title,
+    required String timeLabel,
+    required String statusLabel,
+    required String ctaLabel,
+    required bool resolvedPrimary,
+    required DailySession? session,
+    required TextStyle? actStyle,
+    required TextStyle? timeStyle,
+    required VoidCallback onPrimary,
+  }) {
+    final ring = _sessionRing(context, session);
+    final heroColumn = Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Semantics(
+          header: true,
+          label: '${loc.v2TodayPreviewActHeading}: $title',
+          child: Text(
+            title,
+            key: const Key('v2_today_act_title'),
+            style: actStyle,
+          ),
+        ),
+        const SizedBox(height: _kTodayGapActTime),
+        Semantics(
+          label: timeLabel,
+          child: Text(
+            timeLabel,
+            key: const Key('v2_today_time'),
+            style: timeStyle,
+          ),
+        ),
+        const SizedBox(height: _kTodayGapTimeStatus),
+        Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: KeyedSubtree(
+            key: const Key('v2_today_status_chip'),
+            child: _TodayStatusChip(
+              label: statusLabel,
+              accent: _statusUsesMintAccent(session),
+              semanticLabel: '${loc.v2TodayHomeStatusHeading}: $statusLabel',
+            ),
+          ),
+        ),
+        const SizedBox(height: _kTodayGapStatusCta),
+        SizedBox(
+          height: AppDesignConstants.minTouchTarget,
+          child: resolvedPrimary
+              ? OutlinedButton(
+                  key: const Key('v2_today_primary_cta'),
+                  onPressed: onPrimary,
+                  style: V2ShellVisual.secondaryOutlined(),
+                  child: Text(ctaLabel),
+                )
+              : FilledButton(
+                  key: const Key('v2_today_primary_cta'),
+                  onPressed: onPrimary,
+                  style: V2ShellVisual.primaryFilled(),
+                  child: Text(ctaLabel),
+                ),
+        ),
+      ],
+    );
+
+    if (ring == null) return heroColumn;
+
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(child: heroColumn),
+        const SizedBox(width: AppDesignConstants.v2GapSection),
+        ring,
+      ],
+    );
+  }
+
+  static bool _statusUsesMintAccent(DailySession? session) {
+    if (session == null) return false;
+    return session.status == DailySessionStatus.inProgress ||
+        session.status == DailySessionStatus.reflecting;
+  }
+
+  static _SessionRingData? _sessionRingData(DailySession? session) {
+    if (session == null || session.steps.isEmpty) return null;
+    final total = session.steps.length;
+
+    final completed = session.steps
+        .where((s) => s.phase == DailySessionStepPhase.completed)
+        .length;
+
+    return switch (session.status) {
+      DailySessionStatus.inProgress => _SessionRingData(
+          progress: ((completed + 0.35) / total).clamp(0.08, 0.92),
+          label: '${session.currentStepIndex + 1}/$total',
+        ),
+      DailySessionStatus.reflecting => _SessionRingData(
+          progress: (completed / total).clamp(0.85, 0.98),
+          label: '$completed/$total',
+        ),
+      DailySessionStatus.completed => _SessionRingData(
+          progress: 1.0,
+          label: '100%',
+        ),
+      DailySessionStatus.partial => _SessionRingData(
+          progress: (completed / total).clamp(0.2, 0.95),
+          label: '$completed/$total',
+        ),
+      _ => null,
+    };
+  }
+
+  Widget? _sessionRing(BuildContext context, DailySession? session) {
+    final data = _sessionRingData(session);
+    if (data == null) return null;
+
+    return Semantics(
+      label: data.label,
+      child: GlowProgressRing(
+        key: const Key('v2_today_session_ring'),
+        progress: data.progress,
+        size: 104,
+        strokeWidth: 10,
+        child: Text(
+          data.label,
+          textAlign: TextAlign.center,
+          style: V2ShellVisual.heroMetricValue(Theme.of(context))?.copyWith(
+            fontSize: 26,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _SessionRingData {
+  const _SessionRingData({required this.progress, required this.label});
+
+  final double progress;
+  final String label;
+}
+
+/// Status chip — mint border when session is active.
+class _TodayStatusChip extends StatelessWidget {
+  const _TodayStatusChip({
+    required this.label,
+    required this.accent,
+    this.semanticLabel,
+  });
+
+  final String label;
+  final bool accent;
+  final String? semanticLabel;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Semantics(
+      label: semanticLabel ?? label,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: accent ? AppColors.primaryDim : AppColors.card,
+          borderRadius: BorderRadius.circular(AppDesignConstants.radiusChip),
+          border: Border.all(
+            color: accent ? AppColors.primary : AppColors.border,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+          child: Text(
+            label,
+            style: theme.textTheme.labelLarge?.copyWith(
+              color: accent ? AppColors.primary : AppColors.textPrimary,
+              fontWeight: FontWeight.w600,
+              height: 1.2,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

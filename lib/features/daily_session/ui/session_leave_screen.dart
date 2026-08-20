@@ -28,7 +28,7 @@ class SessionLeaveScreen extends ConsumerWidget {
         : loc.recoveryPlanStandardPath;
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24),

@@ -42,10 +42,10 @@ class _SessionPrepareScreenState extends ConsumerState<SessionPrepareScreen> {
     final languageCode = isAr ? 'ar' : 'en';
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text(loc.v2SessionPrepareTitle),
-        backgroundColor: AppColors.background,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         leading: IconButton(
           icon: const Icon(Icons.close),
           tooltip: loc.v2SessionClose,

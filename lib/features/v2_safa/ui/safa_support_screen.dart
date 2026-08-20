@@ -105,9 +105,9 @@ class _SafaSupportScreenState extends ConsumerState<SafaSupportScreen> {
     final session = _controller.session;
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: Semantics(
           header: true,
           child: Text(loc.v2SafaTitle),

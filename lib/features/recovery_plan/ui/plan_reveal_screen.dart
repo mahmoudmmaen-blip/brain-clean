@@ -126,10 +126,10 @@ class _PlanRevealScreenState extends ConsumerState<PlanRevealScreen> {
         : PlanRevealPresentation.firstTimeReveal;
     final isShell = presentation == PlanRevealPresentation.shellOrientation;
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         toolbarHeight: 0,
-        backgroundColor: AppColors.background,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
         scrolledUnderElevation: 0,
         surfaceTintColor: Colors.transparent,

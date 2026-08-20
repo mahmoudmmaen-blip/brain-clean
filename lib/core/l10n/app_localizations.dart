@@ -3701,13 +3701,13 @@ abstract class AppLocalizations {
   /// No description provided for @v2TodayHomeOrientationBody.
   ///
   /// In en, this message translates to:
-  /// **'One clear action from your Recovery Plan. Nothing extra.'**
+  /// **'One clear action from your daily program. Nothing extra.'**
   String get v2TodayHomeOrientationBody;
 
   /// No description provided for @v2TodayHomeStandardPathHint.
   ///
   /// In en, this message translates to:
-  /// **'The standard path adds approved optional depth when you want it.'**
+  /// **'Stay with today\'s practice — small steps rebuild focus.'**
   String get v2TodayHomeStandardPathHint;
 
   /// No description provided for @v2TodayHomeStatusHeading.
@@ -3743,19 +3743,19 @@ abstract class AppLocalizations {
   /// No description provided for @v2TodayHomeStatusPartial.
   ///
   /// In en, this message translates to:
-  /// **'Attempt saved — no penalty'**
+  /// **'Progress saved — keep going tomorrow'**
   String get v2TodayHomeStatusPartial;
 
   /// No description provided for @v2TodayHomeCtaStart.
   ///
   /// In en, this message translates to:
-  /// **'Start today’s session'**
+  /// **'Start today\'s program'**
   String get v2TodayHomeCtaStart;
 
   /// No description provided for @v2TodayHomeCtaContinue.
   ///
   /// In en, this message translates to:
-  /// **'Continue session'**
+  /// **'Continue program'**
   String get v2TodayHomeCtaContinue;
 
   /// No description provided for @v2TodayHomeCtaViewCompleted.
@@ -3767,7 +3767,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2TodayHomeViewPlan.
   ///
   /// In en, this message translates to:
-  /// **'View Recovery Plan'**
+  /// **'View daily program'**
   String get v2TodayHomeViewPlan;
 
   /// No description provided for @homeGreetingMorning.
@@ -3791,25 +3791,25 @@ abstract class AppLocalizations {
   /// No description provided for @homeGreetingName.
   ///
   /// In en, this message translates to:
-  /// **'Hello, {name} 👋'**
+  /// **'Hello, {name}'**
   String homeGreetingName(String name);
 
   /// No description provided for @homeFocusLevelTag.
   ///
   /// In en, this message translates to:
-  /// **'Current focus level'**
+  /// **'Recovery'**
   String get homeFocusLevelTag;
 
   /// No description provided for @homeFocusImprovement.
   ///
   /// In en, this message translates to:
-  /// **'Up {percent}% from first assessment'**
+  /// **'Up {percent}% from your first check'**
   String homeFocusImprovement(int percent);
 
   /// No description provided for @homeFocusImprovementPending.
   ///
   /// In en, this message translates to:
-  /// **'Complete a Brain Check to track improvement'**
+  /// **'Complete a Brain Check to track recovery'**
   String get homeFocusImprovementPending;
 
   /// No description provided for @homeMetricStreakLabel.
@@ -3833,7 +3833,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeProgramPathTitle.
   ///
   /// In en, this message translates to:
-  /// **'Current path'**
+  /// **'Your daily program'**
   String get homeProgramPathTitle;
 
   /// No description provided for @homeProgramPathDay.
@@ -3845,8 +3845,110 @@ abstract class AppLocalizations {
   /// No description provided for @homeTodaySessionHeading.
   ///
   /// In en, this message translates to:
-  /// **'Today\'s session'**
+  /// **'Your daily program'**
   String get homeTodaySessionHeading;
+
+  /// No description provided for @homeDateTodayLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get homeDateTodayLabel;
+
+  /// No description provided for @homeDatePrevDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous day'**
+  String get homeDatePrevDay;
+
+  /// No description provided for @homeDateNextDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Next day'**
+  String get homeDateNextDay;
+
+  /// No description provided for @homeReturnToToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to today'**
+  String get homeReturnToToday;
+
+  /// No description provided for @homePomodoroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus timer'**
+  String get homePomodoroTitle;
+
+  /// No description provided for @homePomodoroStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get homePomodoroStart;
+
+  /// No description provided for @homePomodoroPause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get homePomodoroPause;
+
+  /// No description provided for @homePomodoroMinutesShort.
+  ///
+  /// In en, this message translates to:
+  /// **'25 min'**
+  String get homePomodoroMinutesShort;
+
+  /// No description provided for @homePomodoroMinutesLong.
+  ///
+  /// In en, this message translates to:
+  /// **'50 min'**
+  String get homePomodoroMinutesLong;
+
+  /// No description provided for @homeBrainCheckBadgeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete your brain profile — start the check'**
+  String get homeBrainCheckBadgeTitle;
+
+  /// No description provided for @homeBrainCheckBadgeCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Brain Check'**
+  String get homeBrainCheckBadgeCta;
+
+  /// No description provided for @homeBrainCheckScoreTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your brain check'**
+  String get homeBrainCheckScoreTitle;
+
+  /// No description provided for @homeBrainCheckScoreValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Score {score}'**
+  String homeBrainCheckScoreValue(int score);
+
+  /// No description provided for @homeBrainCheckRedo.
+  ///
+  /// In en, this message translates to:
+  /// **'Retake'**
+  String get homeBrainCheckRedo;
+
+  /// No description provided for @homeDailyProgramEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Build your daily program'**
+  String get homeDailyProgramEmptyTitle;
+
+  /// No description provided for @homeDailyProgramEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A short daily practice to cut screen time and rebuild focus — one clear step at a time.'**
+  String get homeDailyProgramEmptyBody;
+
+  /// No description provided for @homeDailyProgramEmptyCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Set up program'**
+  String get homeDailyProgramEmptyCta;
 
   /// No description provided for @v2SessionPrepareTitle.
   ///
@@ -5234,6 +5336,12 @@ abstract class AppLocalizations {
   /// **'This week is still in progress. Review opens after the week ends.'**
   String get v2ProgressWrCurrentWeek;
 
+  /// No description provided for @v2ProgressWrAvailableInDays.
+  String v2ProgressWrAvailableInDays(int days);
+
+  /// No description provided for @v2ProgressWeeklyChartHeading.
+  String get v2ProgressWeeklyChartHeading;
+
   /// No description provided for @v2ProgressWrAvailable.
   ///
   /// In en, this message translates to:
@@ -5907,6 +6015,12 @@ abstract class AppLocalizations {
   /// **'Memory'**
   String get v2ExercisesFilterMemory;
 
+  /// No description provided for @v2ExercisesFilterSpeed.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed'**
+  String get v2ExercisesFilterSpeed;
+
   /// No description provided for @v2ExercisesFilterReading.
   ///
   /// In en, this message translates to:
@@ -5918,6 +6032,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Mental fitness'**
   String get v2ExercisesFilterMentalFitness;
+
+  /// No description provided for @v2ExercisesDifficultyEasy.
+  ///
+  /// In en, this message translates to:
+  /// **'Easy'**
+  String get v2ExercisesDifficultyEasy;
+
+  /// No description provided for @v2ExercisesDifficultyMedium.
+  ///
+  /// In en, this message translates to:
+  /// **'Medium'**
+  String get v2ExercisesDifficultyMedium;
+
+  /// No description provided for @v2ExercisesDifficultyHard.
+  ///
+  /// In en, this message translates to:
+  /// **'Hard'**
+  String get v2ExercisesDifficultyHard;
+
+  /// No description provided for @v2ExercisesMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} min'**
+  String v2ExercisesMinutes(int count);
 
   /// No description provided for @v2ExercisesSectionFree.
   ///
@@ -7005,6 +7143,24 @@ abstract class AppLocalizations {
   /// **'Complete Brain Check to build this'**
   String get v2ProfileBrainProfileMissing;
 
+  /// No description provided for @v2ProfileBaselineTestTitle.
+  String get v2ProfileBaselineTestTitle;
+
+  /// No description provided for @v2ProfileBaselineTestSubtitle.
+  String get v2ProfileBaselineTestSubtitle;
+
+  /// No description provided for @v2ProfileWeeklyTestTitle.
+  String get v2ProfileWeeklyTestTitle;
+
+  /// No description provided for @v2ProfileWeeklyTestSubtitle.
+  String get v2ProfileWeeklyTestSubtitle;
+
+  /// No description provided for @v2ProfileWeeklyTestLocked.
+  String v2ProfileWeeklyTestLocked(int days);
+
+  /// No description provided for @v2ProfileWeeklyTestReady.
+  String get v2ProfileWeeklyTestReady;
+
   /// No description provided for @v2ProfileSectionPreferences.
   ///
   /// In en, this message translates to:
@@ -7179,6 +7335,12 @@ abstract class AppLocalizations {
   /// **'Light'**
   String get colorThemeMorningLight;
 
+  /// No description provided for @colorThemeAmoled.
+  ///
+  /// In en, this message translates to:
+  /// **'AMOLED'**
+  String get colorThemeAmoled;
+
   /// No description provided for @settingsThemeDarkSubtitle.
   ///
   /// In en, this message translates to:
@@ -7190,6 +7352,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Morning Light bright canvas'**
   String get settingsThemeLightSubtitle;
+
+  /// No description provided for @settingsThemeAmoledSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pure black for OLED screens'**
+  String get settingsThemeAmoledSubtitle;
 
   /// No description provided for @settingsActionFailed.
   ///

@@ -2,23 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/l10n/app_localizations.dart';
-import '../../../core/providers/locale_provider.dart';
 import '../../../core/presentation/confirm_dialog.dart';
 import '../../../core/theme/app_colors.dart';
 import '../application/streak_freeze_provider.dart';
 
 const streakFreezeButtonKey = Key('streak_freeze_button');
 
-/// Streak freeze control — one use per week.
+/// Focus Journey freeze control — one use per week.
 class StreakFreezeButton extends ConsumerWidget {
   const StreakFreezeButton({super.key});
 
   Future<void> _confirmFreeze(BuildContext context, WidgetRef ref) async {
     final loc = AppLocalizations.of(context)!;
-    final isArabic = ref.read(localeProvider).languageCode == 'ar';
     final confirmed = await showConfirmDialog(
       context,
-      title: isArabic ? 'تجميد Streak ❄️' : 'Streak Freeze ❄️',
+      title: loc.focusJourneyFreezeTitle,
       message: loc.streakFreezeConfirm,
       confirmLabel: loc.commonConfirm,
       cancelLabel: loc.commonCancel,

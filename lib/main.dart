@@ -17,10 +17,25 @@ import 'core/theme/app_color_theme_provider.dart';
 import 'core/theme/locale_theme.dart';
 import 'features/gamification/application/xp_sync_service.dart';
 
+Future<void> _loadDotEnvSafely() async {
+  try {
+    await dotenv.load(fileName: '.env', isOptional: true);
+  } catch (error) {
+    debugPrint('dotenv: .env load failed: $error');
+  }
+  if (dotenv.env.isEmpty) {
+    try {
+      await dotenv.load(fileName: '.env.example', isOptional: true);
+    } catch (error) {
+      debugPrint('dotenv: .env.example load failed: $error');
+    }
+  }
+}
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await dotenv.load(fileName: ".env");
+  await _loadDotEnvSafely();
 
   await HiveBootstrap.initialize();
   await RootDetector.checkAndFlag();
@@ -88,6 +103,7 @@ class _BrainCleanAppState extends ConsumerState<BrainCleanApp>
     final themeData = LocaleTheme.themed(locale: locale, theme: colorTheme);
 
     return MaterialApp.router(
+      key: ValueKey<String>('app-theme-${colorTheme.name}-${locale.languageCode}'),
       title: 'Brain Clean',
       debugShowCheckedModeBanner: false,
       theme: themeData,

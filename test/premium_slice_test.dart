@@ -213,9 +213,10 @@ void main() {
       expect(PremiumIdentifiers.lifetimeProductId, 'brainclean_lifetime');
     });
 
-    test('Premium is not a shell tab', () {
-      expect(V2ShellTab.values.map((e) => e.name), isNot(contains('premium')));
-      expect(V2ShellPaths.roots, isNot(contains('/v2/premium')));
+    test('Pro is a shell tab; contextual /v2/premium remains separate', () {
+      expect(V2ShellTab.values.map((e) => e.name), contains('pro'));
+      expect(V2ShellPaths.roots, contains('/v2/pro'));
+      expect(V2ShellTabX.fromLocation('/v2/premium'), isNull);
       expect(V2ShellPaths.isKnownV2Location('/v2/premium'), isTrue);
       expect(V2ShellPaths.isKnownV2Location('/v2/premium/plans'), isTrue);
     });

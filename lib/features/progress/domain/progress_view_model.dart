@@ -3,6 +3,7 @@ import '../../weekly_review/domain/weekly_review_summary.dart';
 import 'progress_experience_enums.dart';
 import 'progress_statistics.dart';
 import 'progress_timeline.dart';
+import 'progress_weekly_bar_day.dart';
 
 /// Immutable read-only Progress experience surface model (Slice 8.1).
 class ProgressViewModel {
@@ -18,6 +19,7 @@ class ProgressViewModel {
     required this.firstCompletedDayKey,
     required this.lastCompletedDayKey,
     required this.recentTimeline,
+    required this.weeklyBars,
     required this.evidenceDepth,
     required this.proofHeadline,
     required this.planId,
@@ -32,6 +34,7 @@ class ProgressViewModel {
     required this.weeklyPeriodStartDayKey,
     required this.weeklyPeriodEndDayKey,
     required this.weeklySummaryPreview,
+    required this.daysUntilWeeklyReviewUnlock,
     required this.primaryDestination,
     required this.snapshotId,
     required this.asOfDayKey,
@@ -50,6 +53,7 @@ class ProgressViewModel {
   final String? firstCompletedDayKey;
   final String? lastCompletedDayKey;
   final List<ProgressTimelineEntry> recentTimeline;
+  final List<ProgressWeeklyBarDay> weeklyBars;
   final ProgressEvidenceDepth evidenceDepth;
   final ProgressProofHeadline proofHeadline;
   final String? planId;
@@ -64,6 +68,9 @@ class ProgressViewModel {
   final String? weeklyPeriodStartDayKey;
   final String? weeklyPeriodEndDayKey;
   final WeeklyReviewSummary? weeklySummaryPreview;
+
+  /// When review is locked by the 7-day cooldown, days remaining (>0).
+  final int? daysUntilWeeklyReviewUnlock;
   final ProgressNextDestination primaryDestination;
   final String? snapshotId;
   final String? asOfDayKey;
@@ -95,6 +102,7 @@ class ProgressViewModel {
       firstCompletedDayKey: null,
       lastCompletedDayKey: null,
       recentTimeline: [],
+      weeklyBars: [],
       evidenceDepth: ProgressEvidenceDepth.empty,
       proofHeadline: ProgressProofHeadline.empty,
       planId: null,
@@ -109,6 +117,7 @@ class ProgressViewModel {
       weeklyPeriodStartDayKey: null,
       weeklyPeriodEndDayKey: null,
       weeklySummaryPreview: null,
+      daysUntilWeeklyReviewUnlock: null,
       primaryDestination: ProgressNextDestination.today,
       snapshotId: null,
       asOfDayKey: null,
@@ -121,6 +130,7 @@ class ProgressViewModel {
     required String? firstDay,
     required String? lastDay,
     required List<ProgressTimelineEntry> recentTimeline,
+    required List<ProgressWeeklyBarDay> weeklyBars,
     required String? planId,
     required String? profilePackId,
     required String? scoreModelVersion,
@@ -133,6 +143,7 @@ class ProgressViewModel {
     required String? weeklyStart,
     required String? weeklyEnd,
     required WeeklyReviewSummary? weeklyPreview,
+    required int? daysUntilWeeklyReviewUnlock,
     required ProgressNextDestination primary,
     required String? snapshotId,
     required String? asOfDayKey,
@@ -158,6 +169,7 @@ class ProgressViewModel {
       firstCompletedDayKey: firstDay,
       lastCompletedDayKey: lastDay,
       recentTimeline: List.unmodifiable(recentTimeline),
+      weeklyBars: List.unmodifiable(weeklyBars),
       evidenceDepth: evidence,
       proofHeadline: headline,
       planId: planId,
@@ -172,6 +184,7 @@ class ProgressViewModel {
       weeklyPeriodStartDayKey: weeklyStart,
       weeklyPeriodEndDayKey: weeklyEnd,
       weeklySummaryPreview: weeklyPreview,
+      daysUntilWeeklyReviewUnlock: daysUntilWeeklyReviewUnlock,
       primaryDestination: primary,
       snapshotId: snapshotId,
       asOfDayKey: asOfDayKey,

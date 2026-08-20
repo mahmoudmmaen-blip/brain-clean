@@ -360,7 +360,7 @@ void main() {
 
   group('V2 shell and V1 preservation', () {
     testWidgets(
-        'V2 enabled shows four-tab shell Today·Program·Progress·Profile',
+        'V2 enabled shows five-tab shell Home·Exercises·Progress·Pro·Profile',
         (tester) async {
       V2FeatureBoundary.enableBrainProfileRoutes = true;
       final en = AppLocalizationsEn();
@@ -373,17 +373,17 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(V2NavigationShell), findsOneWidget);
-      expect(find.text(en.v2NavToday), findsOneWidget);
-      expect(find.text(en.v2NavPlan), findsOneWidget);
+      expect(find.text(en.v2NavHome), findsOneWidget);
+      expect(find.text(en.v2NavExercises), findsOneWidget);
       expect(find.text(en.v2NavProgress), findsOneWidget);
+      expect(find.text(en.v2NavPro), findsOneWidget);
       expect(find.text(en.v2NavProfile), findsOneWidget);
-      expect(en.v2NavToday, 'Today');
-      expect(en.v2NavPlan, 'Program');
+      expect(en.v2NavHome, 'Home');
+      expect(en.v2NavExercises, 'Exercises');
       expect(en.v2NavProgress, 'Progress');
+      expect(en.v2NavPro, 'Pro');
       expect(en.v2NavProfile, 'Profile');
-      expect(find.text('Exercises'), findsNothing);
-      expect(find.text('My Journey'), findsNothing);
-      expect(V2ShellTab.values.length, 4);
+      expect(V2ShellTab.values.length, 5);
     });
 
     testWidgets('V2 disabled preserves V1 Home destination', (tester) async {
@@ -543,11 +543,11 @@ void main() {
   });
 
   group('Release candidate identity', () {
-    test('pubspec and AppConfig report 2.0.1 / build 23', () {
+    test('pubspec and AppConfig report 2.0.1 / build 24', () {
       final pubspec = File('pubspec.yaml').readAsStringSync();
       expect(
         pubspec,
-        contains(RegExp(r'^version:\s*2\.0\.1\+23\s*$', multiLine: true)),
+        contains(RegExp(r'^version:\s*2\.0\.1\+24\s*$', multiLine: true)),
       );
       expect(AppConfig.appVersion, '2.0.1');
     });

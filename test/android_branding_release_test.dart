@@ -100,15 +100,16 @@ void main() {
     });
   });
 
-  group('V2 shell IA unchanged by branding', () {
-    test('tab order remains Today / Plan / Progress / Profile', () {
+  group('V2 shell IA — Pro mock five tabs', () {
+    test('tab order Home / Exercises / Progress / Pro / Profile', () {
       expect(
         V2ShellTab.values.map((t) => t.name).toList(),
-        <String>['today', 'plan', 'progress', 'profile'],
+        <String>['today', 'exercises', 'progress', 'pro', 'profile'],
       );
       expect(V2ShellTab.today.pathPrefix, AppRoutes.v2Home);
-      expect(V2ShellTab.plan.pathPrefix, '/v2/plan');
+      expect(V2ShellTab.exercises.pathPrefix, '/v2/exercises');
       expect(V2ShellTab.progress.pathPrefix, '/v2/progress');
+      expect(V2ShellTab.pro.pathPrefix, '/v2/pro');
       expect(V2ShellTab.profile.pathPrefix, '/v2/profile');
     });
   });

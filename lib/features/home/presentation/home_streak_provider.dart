@@ -19,7 +19,7 @@ class HomeStreakSnapshot {
   final int seconds;
 }
 
-/// Cumulative retrograde (e.g. −12h distraction penalty).
+/// Cumulative retrograde (e.g. −12h Temporary Distraction penalty).
 @Riverpod(keepAlive: true)
 class HomeStreakRetrograde extends _$HomeStreakRetrograde {
   @override

@@ -69,7 +69,7 @@ class _PlanBuildingScreenState extends ConsumerState<PlanBuildingScreen> {
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: PlanBuildingBody(
           loc: loc,

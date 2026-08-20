@@ -45,7 +45,7 @@ final diagnosticLiveSessionProvider = Provider<DiagnosticSession>.internal(
 
 typedef DiagnosticLiveSessionRef = ProviderRef<DiagnosticSession>;
 String _$diagnosticControllerHash() =>
-    r'973a25f1e2902c6d2a1956e9e8142d26ee74449d';
+    r'a1a41c33a147b500071855f71a06351802331715';
 
 /// Slider metrics, live model, and session packaging — single orchestrator.
 ///

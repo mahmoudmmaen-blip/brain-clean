@@ -2,11 +2,17 @@ import 'package:flutter/material.dart';
 
 import 'app_colors.dart';
 import 'app_design_constants.dart';
+import 'app_palette.dart';
 
-/// Quiet shared presentation helpers for the V2 four-tab shell.
+/// Quiet shared presentation helpers for the V2 five-tab shell.
 ///
 /// Visual only — no routing or business logic.
+/// Colors resolve from [AppPalette] on [ThemeData] so Dark / Light / AMOLED
+/// switch immediately.
 abstract final class V2ShellVisual {
+  static AppPalette _palette([ThemeData? theme]) =>
+      theme != null ? AppColors.fromTheme(theme) : AppPalette.dark;
+
   static EdgeInsets pagePadding({
     double top = AppDesignConstants.v2PadTop,
     double bottom = AppDesignConstants.v2PadBottom,
@@ -21,33 +27,37 @@ abstract final class V2ShellVisual {
 
   /// Large confident page title — primary screen identity.
   static TextStyle? pageTitle(ThemeData theme) {
+    final p = _palette(theme);
     return theme.textTheme.headlineMedium?.copyWith(
-      color: AppColors.textPrimary,
-      fontWeight: FontWeight.w700,
+      color: p.textPrimary,
+      fontWeight: FontWeight.w800,
       fontSize: AppDesignConstants.v2PageTitleSize,
-      height: 1.22,
-      letterSpacing: -0.2,
+      height: 1.18,
+      letterSpacing: -0.4,
     );
   }
 
   static TextStyle? heroTitle(ThemeData theme) {
+    final p = _palette(theme);
     return theme.textTheme.headlineSmall?.copyWith(
-      color: AppColors.textPrimary,
+      color: p.textPrimary,
       fontWeight: FontWeight.w700,
       height: 1.28,
     );
   }
 
   static TextStyle? pageSubtitle(ThemeData theme) {
+    final p = _palette(theme);
     return theme.textTheme.bodyMedium?.copyWith(
-      color: AppColors.textSecondary,
+      color: p.textSecondary,
       height: 1.45,
     );
   }
 
   static TextStyle? sectionLabel(ThemeData theme) {
+    final p = _palette(theme);
     return theme.textTheme.labelLarge?.copyWith(
-      color: AppColors.textSecondary,
+      color: p.textSecondary,
       fontWeight: FontWeight.w600,
       letterSpacing: 0.2,
       height: 1.3,
@@ -55,43 +65,48 @@ abstract final class V2ShellVisual {
   }
 
   static TextStyle? bodyMuted(ThemeData theme) {
+    final p = _palette(theme);
     return theme.textTheme.bodyMedium?.copyWith(
-      color: AppColors.textSecondary,
+      color: p.textSecondary,
       height: 1.5,
     );
   }
 
   static TextStyle? captionMuted(ThemeData theme) {
+    final p = _palette(theme);
     return theme.textTheme.bodySmall?.copyWith(
-      color: AppColors.textSecondary,
+      color: p.textSecondary,
       height: 1.4,
     );
   }
 
   /// Eyebrow above a metric value.
   static TextStyle? metricEyebrow(ThemeData theme) {
+    final p = _palette(theme);
     return theme.textTheme.labelMedium?.copyWith(
-      color: AppColors.textSecondary,
+      color: p.textSecondary,
       fontWeight: FontWeight.w600,
-      letterSpacing: 0.15,
-      height: 1.25,
+      letterSpacing: 0.35,
+      height: 1.3,
     );
   }
 
   /// Large metric number — scan-first typography.
   static TextStyle? metricValue(ThemeData theme) {
+    final p = _palette(theme);
     return theme.textTheme.headlineSmall?.copyWith(
-      color: AppColors.textPrimary,
-      fontWeight: FontWeight.w700,
+      color: p.textPrimary,
+      fontWeight: FontWeight.w800,
       fontSize: AppDesignConstants.v2MetricValueSize,
       height: AppDesignConstants.v2MetricValueHeight,
-      letterSpacing: -0.3,
+      letterSpacing: -0.8,
     );
   }
 
   static TextStyle? metricCaption(ThemeData theme) {
+    final p = _palette(theme);
     return theme.textTheme.bodySmall?.copyWith(
-      color: AppColors.textSecondary,
+      color: p.textSecondary,
       height: 1.35,
     );
   }
@@ -99,7 +114,7 @@ abstract final class V2ShellVisual {
   static ButtonStyle primaryFilled() {
     return FilledButton.styleFrom(
       backgroundColor: AppColors.primary,
-      foregroundColor: AppColors.textPrimary,
+      foregroundColor: AppColors.onPrimary,
       minimumSize: const Size(
         AppDesignConstants.minTouchTarget,
         AppDesignConstants.minTouchTarget,
@@ -110,10 +125,11 @@ abstract final class V2ShellVisual {
     );
   }
 
-  static ButtonStyle secondaryOutlined() {
+  static ButtonStyle secondaryOutlined([ThemeData? theme]) {
+    final p = _palette(theme);
     return OutlinedButton.styleFrom(
-      foregroundColor: AppColors.textSecondary,
-      side: BorderSide(color: AppColors.border.withValues(alpha: 0.75)),
+      foregroundColor: p.textPrimary,
+      side: BorderSide(color: p.border),
       minimumSize: const Size(
         AppDesignConstants.minTouchTarget,
         AppDesignConstants.minTouchTarget,
@@ -124,9 +140,10 @@ abstract final class V2ShellVisual {
     );
   }
 
-  static ButtonStyle tertiaryText() {
+  static ButtonStyle tertiaryText([ThemeData? theme]) {
+    final p = _palette(theme);
     return TextButton.styleFrom(
-      foregroundColor: AppColors.textSecondary,
+      foregroundColor: p.textSecondary,
       minimumSize: const Size(
         AppDesignConstants.minTouchTarget,
         AppDesignConstants.minTouchTarget,
@@ -134,33 +151,97 @@ abstract final class V2ShellVisual {
     );
   }
 
-  static BoxDecoration heroCardDecoration() {
+  static BoxDecoration heroCardDecoration([ThemeData? theme]) {
+    final p = _palette(theme);
     return BoxDecoration(
-      color: AppColors.card.withValues(alpha: 0.72),
+      gradient: LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [
+          p.heroGradientTop,
+          p.heroGradientBottom,
+        ],
+      ),
       borderRadius: BorderRadius.circular(AppDesignConstants.radiusHeroCard),
-      border: Border.all(
-        color: AppColors.border.withValues(alpha: 0.42),
-      ),
+      border: Border.all(color: p.border, width: 1),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withValues(alpha: 0.28),
+          blurRadius: 24,
+          offset: const Offset(0, 10),
+        ),
+      ],
     );
   }
 
-  static BoxDecoration infoCardDecoration() {
+  /// Mint pill tag — mock `.hero-tag` / `.badge.free`.
+  static BoxDecoration mintTagDecoration([ThemeData? theme]) {
+    final p = _palette(theme);
     return BoxDecoration(
-      color: AppColors.card.withValues(alpha: 0.48),
-      borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
-      border: Border.all(
-        color: AppColors.border.withValues(alpha: 0.28),
-      ),
+      color: p.primaryDim,
+      borderRadius: BorderRadius.circular(20),
     );
   }
 
-  static BoxDecoration settingsGroupDecoration() {
+  static TextStyle? mintTagLabel(ThemeData theme) {
+    return theme.textTheme.labelMedium?.copyWith(
+      color: AppColors.primary,
+      fontWeight: FontWeight.w700,
+      fontSize: 12,
+      height: 1.2,
+    );
+  }
+
+  /// Gold Pro pill — mock `.badge.pro`.
+  static BoxDecoration goldTagDecoration() {
     return BoxDecoration(
-      color: AppColors.card.withValues(alpha: 0.55),
+      color: AppColors.goldDim,
+      borderRadius: BorderRadius.circular(20),
+    );
+  }
+
+  static TextStyle? goldTagLabel(ThemeData theme) {
+    return theme.textTheme.labelMedium?.copyWith(
+      color: AppColors.goldText,
+      fontWeight: FontWeight.w700,
+      fontSize: 10.5,
+      height: 1.2,
+    );
+  }
+
+  /// Large mint metric — mock `.hero-num`.
+  static TextStyle? heroMetricValue(ThemeData theme) {
+    return theme.textTheme.headlineLarge?.copyWith(
+      color: AppColors.primary,
+      fontWeight: FontWeight.w900,
+      fontSize: AppDesignConstants.v2MetricHeroSize,
+      height: 1.05,
+      letterSpacing: -1.2,
+    );
+  }
+
+  static BoxDecoration infoCardDecoration([ThemeData? theme]) {
+    final p = _palette(theme);
+    return BoxDecoration(
+      color: p.card,
       borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
-      border: Border.all(
-        color: AppColors.border.withValues(alpha: 0.32),
-      ),
+      border: Border.all(color: p.border, width: 1),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withValues(alpha: 0.22),
+          blurRadius: 18,
+          offset: const Offset(0, 8),
+        ),
+      ],
+    );
+  }
+
+  static BoxDecoration settingsGroupDecoration([ThemeData? theme]) {
+    final p = _palette(theme);
+    return BoxDecoration(
+      color: p.card,
+      borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
+      border: Border.all(color: p.border, width: 1),
     );
   }
 }
@@ -218,7 +299,7 @@ class V2HeroCard extends StatelessWidget {
   const V2HeroCard({
     super.key,
     required this.child,
-    this.padding = const EdgeInsets.all(18),
+    this.padding = const EdgeInsets.all(AppDesignConstants.v2HeroPad),
   });
 
   final Widget child;
@@ -227,7 +308,7 @@ class V2HeroCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
-      decoration: V2ShellVisual.heroCardDecoration(),
+      decoration: V2ShellVisual.heroCardDecoration(Theme.of(context)),
       child: Padding(padding: padding, child: child),
     );
   }
@@ -238,7 +319,7 @@ class V2InfoCard extends StatelessWidget {
   const V2InfoCard({
     super.key,
     required this.child,
-    this.padding = const EdgeInsets.all(16),
+    this.padding = const EdgeInsets.all(AppDesignConstants.v2InfoPad),
   });
 
   final Widget child;
@@ -247,7 +328,7 @@ class V2InfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
-      decoration: V2ShellVisual.infoCardDecoration(),
+      decoration: V2ShellVisual.infoCardDecoration(Theme.of(context)),
       child: Padding(padding: padding, child: child),
     );
   }
@@ -277,10 +358,14 @@ class V2MetricTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(label, style: V2ShellVisual.metricEyebrow(theme)),
-          const SizedBox(height: 4),
-          Text(value, style: V2ShellVisual.metricValue(theme)),
+          const SizedBox(height: 8),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: AlignmentDirectional.centerStart,
+            child: Text(value, style: V2ShellVisual.metricValue(theme)),
+          ),
           if (caption != null && caption!.isNotEmpty) ...[
-            const SizedBox(height: 2),
+            const SizedBox(height: 6),
             Text(caption!, style: V2ShellVisual.metricCaption(theme)),
           ],
         ],
@@ -317,9 +402,11 @@ class V2SettingsGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final p = AppColors.fromTheme(theme);
     final items = children.where((w) => w is! SizedBox).toList();
     return DecoratedBox(
-      decoration: V2ShellVisual.settingsGroupDecoration(),
+      decoration: V2ShellVisual.settingsGroupDecoration(theme),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -330,7 +417,7 @@ class V2SettingsGroup extends StatelessWidget {
                 thickness: 1,
                 indent: 16,
                 endIndent: 16,
-                color: AppColors.border.withValues(alpha: 0.35),
+                color: p.border.withValues(alpha: 0.35),
               ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4),
@@ -365,8 +452,8 @@ class V2SettingsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final titleColor =
-        destructive ? AppColors.danger : AppColors.textPrimary;
+    final p = AppColors.fromTheme(theme);
+    final titleColor = destructive ? AppColors.danger : p.textPrimary;
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -399,7 +486,7 @@ class V2SettingsRow extends StatelessWidget {
                           subtitle!,
                           softWrap: true,
                           style: theme.textTheme.bodySmall?.copyWith(
-                            color: AppColors.textSecondary,
+                            color: p.textSecondary,
                             height: 1.3,
                           ),
                         ),
@@ -418,7 +505,7 @@ class V2SettingsRow extends StatelessWidget {
                       Directionality.of(context) == TextDirection.rtl
                           ? Icons.chevron_left
                           : Icons.chevron_right,
-                      color: AppColors.textSecondary.withValues(alpha: 0.8),
+                      color: p.textSecondary.withValues(alpha: 0.8),
                     ),
                   ),
                 ],
@@ -477,23 +564,22 @@ class V2QuietChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final p = AppColors.fromTheme(theme);
     return Semantics(
       liveRegion: true,
       label: semanticLabel ?? label,
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: AppColors.card.withValues(alpha: 0.55),
+          color: p.card,
           borderRadius: BorderRadius.circular(AppDesignConstants.radiusChip),
-          border: Border.all(
-            color: AppColors.border.withValues(alpha: 0.35),
-          ),
+          border: Border.all(color: p.border),
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
           child: Text(
             label,
             style: theme.textTheme.labelLarge?.copyWith(
-              color: AppColors.textPrimary,
+              color: p.textPrimary,
               fontWeight: FontWeight.w500,
               height: 1.2,
             ),
@@ -517,13 +603,12 @@ class V2TonalSurface extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final p = AppColors.of(context);
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: AppColors.card.withValues(alpha: 0.42),
+        color: p.card,
         borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
-        border: Border.all(
-          color: AppColors.border.withValues(alpha: 0.28),
-        ),
+        border: Border.all(color: p.border),
       ),
       child: Padding(padding: padding, child: child),
     );

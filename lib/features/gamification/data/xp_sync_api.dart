@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../core/network/supabase_client.dart';
+import '../../../core/security/authenticated_session.dart';
 import '../domain/xp_ledger_entry.dart';
 import '../domain/xp_server_verdict.dart';
 
@@ -17,12 +18,14 @@ class XpSyncApi {
 
   bool get hasAuthenticatedSession {
     final client = _client;
-    return client != null && client.auth.currentSession != null;
+    return client != null &&
+        AuthenticatedSession.isUsable(client.auth.currentSession);
   }
 
   Future<XpVerifyResponse?> verifyEntries(List<XpLedgerEntry> entries) async {
     final client = _client;
-    if (client == null || client.auth.currentSession == null) return null;
+    final session = client?.auth.currentSession;
+    if (client == null || !AuthenticatedSession.isUsable(session)) return null;
     if (entries.isEmpty) {
       return const XpVerifyResponse(verdicts: [], serverTotalXp: 0);
     }

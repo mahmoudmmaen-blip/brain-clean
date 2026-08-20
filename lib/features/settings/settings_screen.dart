@@ -177,10 +177,10 @@ class SettingsScreen extends ConsumerWidget {
         stored.isEmpty ? loc.v2ProfileDefaultIdentity : stored;
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
-        foregroundColor: AppColors.textPrimary,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        foregroundColor: AppColors.of(context).textPrimary,
         elevation: 0,
         scrolledUnderElevation: 0,
         surfaceTintColor: Colors.transparent,
@@ -381,6 +381,13 @@ class SettingsHomeBody extends StatelessWidget {
                 selected: selectedTheme == AppColorTheme.light,
                 onTap: () => onSelectTheme(AppColorTheme.light),
               ),
+              _ThemeChoiceRow(
+                theme: AppColorTheme.amoled,
+                label: loc.colorThemeAmoled,
+                subtitle: loc.settingsThemeAmoledSubtitle,
+                selected: selectedTheme == AppColorTheme.amoled,
+                onTap: () => onSelectTheme(AppColorTheme.amoled),
+              ),
             ],
           ),
           const SizedBox(height: _kGapBetweenSections),
@@ -486,12 +493,16 @@ class _ThemeChoiceRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final preview = theme == AppColorTheme.dark
-        ? AppColors.background
-        : AppColors.backgroundLight;
-    final checkColor = theme == AppColorTheme.dark
-        ? AppColors.textPrimary
-        : AppColors.textPrimaryLight;
+    final preview = switch (theme) {
+      AppColorTheme.dark => AppColors.background,
+      AppColorTheme.light => AppColors.backgroundLight,
+      AppColorTheme.amoled => AppColors.backgroundAmoled,
+    };
+    final checkColor = switch (theme) {
+      AppColorTheme.light => AppColors.textPrimaryLight,
+      AppColorTheme.dark || AppColorTheme.amoled => AppColors.textPrimary,
+    };
+    final borderColor = selected ? AppColors.primary : AppColors.of(context).border;
     return V2SettingsRow(
       title: label,
       subtitle: subtitle,
@@ -509,7 +520,7 @@ class _ThemeChoiceRow extends StatelessWidget {
             color: preview,
             shape: BoxShape.circle,
             border: Border.all(
-              color: selected ? AppColors.primary : AppColors.border,
+              color: borderColor,
               width: selected ? 2.5 : 1.5,
             ),
           ),

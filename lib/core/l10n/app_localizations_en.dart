@@ -542,7 +542,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get accountabilityRoomTitle => 'Digital accountability room';
 
   @override
-  String get accountabilityPenaltyRecorded => 'Penalty recorded ✓';
+  String get accountabilityPenaltyRecorded => 'Accountability recorded ✓';
 
   @override
   String get accountabilityCatPhysical => 'Physical';
@@ -1900,7 +1900,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get recoveryPlanSkipHint =>
-      'Skipping a step never counts as a penalty.';
+      'Skipping a step never counts against you.';
 
   @override
   String get recoveryPlanOptionalTag => 'optional';
@@ -1970,7 +1970,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v2TodayPreviewCompletionMeaning =>
-      'Finishing this step later will count as your day done. Skipping stays allowed with no penalty.';
+      'Finishing this step later will count as your day done. Skipping stays allowed with no negative mark.';
 
   @override
   String get v2TodayPreviewContinueCta => 'Continue — first step ready';
@@ -2022,11 +2022,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v2TodayHomeOrientationBody =>
-      'One clear action from your Recovery Plan. Nothing extra.';
+      'One clear action from your daily program. Nothing extra.';
 
   @override
   String get v2TodayHomeStandardPathHint =>
-      'The standard path adds approved optional depth when you want it.';
+      'Stay with today\'s practice — small steps rebuild focus.';
 
   @override
   String get v2TodayHomeStatusHeading => 'Status';
@@ -2044,19 +2044,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2TodayHomeStatusDone => 'Done for today';
 
   @override
-  String get v2TodayHomeStatusPartial => 'Attempt saved — no penalty';
+  String get v2TodayHomeStatusPartial => 'Progress saved — keep going tomorrow';
 
   @override
-  String get v2TodayHomeCtaStart => 'Start today’s session';
+  String get v2TodayHomeCtaStart => 'Start today\'s program';
 
   @override
-  String get v2TodayHomeCtaContinue => 'Continue session';
+  String get v2TodayHomeCtaContinue => 'Continue program';
 
   @override
   String get v2TodayHomeCtaViewCompleted => 'View completed session';
 
   @override
-  String get v2TodayHomeViewPlan => 'View Recovery Plan';
+  String get v2TodayHomeViewPlan => 'View daily program';
 
   @override
   String get homeGreetingMorning => 'Good morning';
@@ -2069,20 +2069,20 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String homeGreetingName(String name) {
-    return 'Hello, $name 👋';
+    return 'Hello, $name';
   }
 
   @override
-  String get homeFocusLevelTag => 'Current focus level';
+  String get homeFocusLevelTag => 'Recovery';
 
   @override
   String homeFocusImprovement(int percent) {
-    return 'Up $percent% from first assessment';
+    return 'Up $percent% from your first check';
   }
 
   @override
   String get homeFocusImprovementPending =>
-      'Complete a Brain Check to track improvement';
+      'Complete a Brain Check to track recovery';
 
   @override
   String get homeMetricStreakLabel => 'Day streak';
@@ -2094,7 +2094,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeSuggestedExerciseBadge => 'Suggested';
 
   @override
-  String get homeProgramPathTitle => 'Current path';
+  String get homeProgramPathTitle => 'Your daily program';
 
   @override
   String homeProgramPathDay(int current, int total) {
@@ -2102,7 +2102,62 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get homeTodaySessionHeading => 'Today\'s session';
+  String get homeTodaySessionHeading => 'Your daily program';
+
+  @override
+  String get homeDateTodayLabel => 'Today';
+
+  @override
+  String get homeDatePrevDay => 'Previous day';
+
+  @override
+  String get homeDateNextDay => 'Next day';
+
+  @override
+  String get homeReturnToToday => 'Back to today';
+
+  @override
+  String get homePomodoroTitle => 'Focus timer';
+
+  @override
+  String get homePomodoroStart => 'Start';
+
+  @override
+  String get homePomodoroPause => 'Pause';
+
+  @override
+  String get homePomodoroMinutesShort => '25 min';
+
+  @override
+  String get homePomodoroMinutesLong => '50 min';
+
+  @override
+  String get homeBrainCheckBadgeTitle =>
+      'Complete your brain profile — start the check';
+
+  @override
+  String get homeBrainCheckBadgeCta => 'Start Brain Check';
+
+  @override
+  String get homeBrainCheckScoreTitle => 'Your brain check';
+
+  @override
+  String homeBrainCheckScoreValue(int score) {
+    return 'Score $score';
+  }
+
+  @override
+  String get homeBrainCheckRedo => 'Retake';
+
+  @override
+  String get homeDailyProgramEmptyTitle => 'Build your daily program';
+
+  @override
+  String get homeDailyProgramEmptyBody =>
+      'A short daily practice to cut screen time and rebuild focus — one clear step at a time.';
+
+  @override
+  String get homeDailyProgramEmptyCta => 'Set up program';
 
   @override
   String get v2SessionPrepareTitle => 'Prepare';
@@ -2926,6 +2981,12 @@ class AppLocalizationsEn extends AppLocalizations {
       'This week is still in progress. Review opens after the week ends.';
 
   @override
+  String v2ProgressWrAvailableInDays(int days) => 'Available in $days days';
+
+  @override
+  String get v2ProgressWeeklyChartHeading => 'Last 7 days';
+
+  @override
   String get v2ProgressWrAvailable => 'Weekly Review available';
 
   @override
@@ -3335,10 +3396,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2ExercisesFilterMemory => 'Memory';
 
   @override
+  String get v2ExercisesFilterSpeed => 'Speed';
+
+  @override
   String get v2ExercisesFilterReading => 'Reading';
 
   @override
   String get v2ExercisesFilterMentalFitness => 'Mental fitness';
+
+  @override
+  String get v2ExercisesDifficultyEasy => 'Easy';
+
+  @override
+  String get v2ExercisesDifficultyMedium => 'Medium';
+
+  @override
+  String get v2ExercisesDifficultyHard => 'Hard';
+
+  @override
+  String v2ExercisesMinutes(int count) => '$count min';
 
   @override
   String get v2ExercisesSectionFree => 'Free';
@@ -3939,6 +4015,25 @@ class AppLocalizationsEn extends AppLocalizations {
       'Complete Brain Check to build this';
 
   @override
+  String get v2ProfileBaselineTestTitle => 'Baseline Brain Check';
+
+  @override
+  String get v2ProfileBaselineTestSubtitle =>
+      'One-time assessment — you can redo anytime';
+
+  @override
+  String get v2ProfileWeeklyTestTitle => 'Weekly Brain Check';
+
+  @override
+  String get v2ProfileWeeklyTestSubtitle => 'Unlocks every 7 days';
+
+  @override
+  String v2ProfileWeeklyTestLocked(int days) => 'Available in $days days';
+
+  @override
+  String get v2ProfileWeeklyTestReady => "Ready — start this week's check";
+
+  @override
   String get v2ProfileSectionPreferences => 'Preferences';
 
   @override
@@ -4031,10 +4126,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get colorThemeMorningLight => 'Light';
 
   @override
+  String get colorThemeAmoled => 'AMOLED';
+
+  @override
   String get settingsThemeDarkSubtitle => 'Morning Light dark canvas';
 
   @override
   String get settingsThemeLightSubtitle => 'Morning Light bright canvas';
+
+  @override
+  String get settingsThemeAmoledSubtitle => 'Pure black for OLED screens';
 
   @override
   String get settingsActionFailed =>

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/l10n/app_localizations.dart';
-import '../../../../core/theme/app_theme.dart';
-import '../../../../core/theme/theme_extensions.dart';
+import '../../../../core/presentation/glow_progress.dart';
+import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_design_constants.dart';
+import '../../../../core/theme/v2_shell_visual.dart';
 
 /// Overall 30-day protocol completion summary.
 class RecoveryProgressCard extends StatelessWidget {
@@ -21,10 +23,12 @@ class RecoveryProgressCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
+    final pct = (progress.clamp(0, 1) * 100).round();
 
-    return Card(
+    return DecoratedBox(
+      decoration: V2ShellVisual.infoCardDecoration(Theme.of(context)),
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(AppDesignConstants.v2InfoPad),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -32,25 +36,22 @@ class RecoveryProgressCard extends StatelessWidget {
               loc.recoveryProgressSummary(completedDays, totalDays),
               style: theme.textTheme.titleSmall?.copyWith(
                 fontWeight: FontWeight.w700,
+                color: AppColors.textPrimary,
+                height: 1.3,
               ),
             ),
-            const SizedBox(height: 12),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(6),
-              child: LinearProgressIndicator(
-                value: progress.clamp(0, 1),
-                minHeight: 10,
-                backgroundColor: context.surfaceMuted,
-                color: AppTheme.success,
-              ),
+            const SizedBox(height: 16),
+            GlowProgressBar(
+              progress: progress.clamp(0, 1),
+              height: 10,
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 10),
             Text(
-              '${(progress * 100).round()}%',
+              '$pct%',
               textAlign: TextAlign.end,
-              style: theme.textTheme.labelMedium?.copyWith(
-                color: AppTheme.success,
-                fontWeight: FontWeight.w700,
+              style: V2ShellVisual.metricValue(theme)?.copyWith(
+                fontSize: 22,
+                color: AppColors.primary,
               ),
             ),
           ],

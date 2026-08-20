@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'app_colors.dart';
 import 'app_design_constants.dart';
 
 abstract final class AppTheme {
@@ -19,15 +20,15 @@ abstract final class AppTheme {
         surface: AppDesignConstants.lightSurface,
         border: AppDesignConstants.lightBorder,
         onSurface: AppDesignConstants.lightOnSurface,
-        primary: AppDesignConstants.brandGreen,
-        onPrimary: Colors.white,
-        primaryContainer: AppDesignConstants.brandGreenContainer,
-        onPrimaryContainer: AppDesignConstants.brandGreenDark,
-        secondary: AppDesignConstants.brandGreenLight,
-        appBarBg: AppDesignConstants.brandGreen,
-        appBarFg: Colors.white,
-        sliderActive: AppDesignConstants.brandGreen,
-        filledButton: AppDesignConstants.brandGreen,
+        primary: AppColors.primary,
+        onPrimary: AppColors.onPrimary,
+        primaryContainer: AppColors.primaryDim,
+        onPrimaryContainer: AppColors.primary,
+        secondary: AppColors.gold,
+        appBarBg: AppColors.card,
+        appBarFg: AppColors.textPrimary,
+        sliderActive: AppColors.primary,
+        filledButton: AppColors.primary,
       );
 
   static ThemeData get dark => _buildTheme(
@@ -36,15 +37,15 @@ abstract final class AppTheme {
         surface: AppDesignConstants.darkSurface,
         border: AppDesignConstants.darkBorder,
         onSurface: AppDesignConstants.darkOnSurface,
-        primary: AppDesignConstants.brandGreenLight,
-        onPrimary: AppDesignConstants.darkBackground,
-        primaryContainer: AppDesignConstants.brandGreenDark,
-        onPrimaryContainer: Colors.white,
-        secondary: AppDesignConstants.accentSuccess,
-        appBarBg: AppDesignConstants.brandGreenDark,
-        appBarFg: Colors.white,
-        sliderActive: AppDesignConstants.brandGreenLight,
-        filledButton: AppDesignConstants.brandGreen,
+        primary: AppColors.primary,
+        onPrimary: AppColors.onPrimary,
+        primaryContainer: AppColors.primaryDim,
+        onPrimaryContainer: AppColors.primary,
+        secondary: AppColors.gold,
+        appBarBg: AppColors.card,
+        appBarFg: AppColors.textPrimary,
+        sliderActive: AppColors.primary,
+        filledButton: AppColors.primary,
       );
 
   static ThemeData _buildTheme({
@@ -85,7 +86,7 @@ abstract final class AppTheme {
       colorScheme: colorScheme,
     );
 
-    final textTheme = GoogleFonts.cairoTextTheme(base.textTheme).apply(
+    final textTheme = GoogleFonts.tajawalTextTheme(base.textTheme).apply(
       bodyColor: onSurface,
       displayColor: onSurface,
     );
@@ -100,7 +101,7 @@ abstract final class AppTheme {
         shadowColor: Colors.black.withValues(alpha: isDark ? 0 : 0.12),
         centerTitle: true,
         iconTheme: IconThemeData(color: appBarFg),
-        titleTextStyle: AppDesignConstants.cairo(
+        titleTextStyle: AppDesignConstants.tajawal(
           fontSize: 18,
           fontWeight: FontWeight.w700,
           color: appBarFg,
@@ -129,7 +130,7 @@ abstract final class AppTheme {
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
           backgroundColor: filledButton,
-          foregroundColor: Colors.white,
+          foregroundColor: isDark ? AppColors.onPrimary : Colors.white,
           minimumSize: const Size.fromHeight(AppDesignConstants.minTouchTarget),
           shape: RoundedRectangleBorder(
             borderRadius:

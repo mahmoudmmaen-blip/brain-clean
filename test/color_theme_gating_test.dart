@@ -35,8 +35,7 @@ void main() {
       );
     });
 
-    test('selecting dark and light updates selectedColorThemeProvider',
-        () async {
+    test('selecting dark, light, and amoled updates providers', () async {
       final c = _container();
       await c.read(selectedColorThemeProvider.notifier).select(AppColorTheme.light);
       expect(c.read(selectedColorThemeProvider), AppColorTheme.light);
@@ -45,9 +44,15 @@ void main() {
       await c.read(selectedColorThemeProvider.notifier).select(AppColorTheme.dark);
       expect(c.read(selectedColorThemeProvider), AppColorTheme.dark);
       expect(c.read(effectiveColorThemeProvider), AppColorTheme.dark);
+
+      await c
+          .read(selectedColorThemeProvider.notifier)
+          .select(AppColorTheme.amoled);
+      expect(c.read(selectedColorThemeProvider), AppColorTheme.amoled);
+      expect(c.read(effectiveColorThemeProvider), AppColorTheme.amoled);
     });
 
-    test('both dark and light are accessible without Pro', () async {
+    test('dark, light, and amoled are accessible without Pro', () async {
       final free = _container(isPro: false);
       await free
           .read(selectedColorThemeProvider.notifier)
@@ -60,9 +65,15 @@ void main() {
           .select(AppColorTheme.dark);
       expect(free.read(selectedColorThemeProvider), AppColorTheme.dark);
       expect(free.read(effectiveColorThemeProvider), AppColorTheme.dark);
+
+      await free
+          .read(selectedColorThemeProvider.notifier)
+          .select(AppColorTheme.amoled);
+      expect(free.read(selectedColorThemeProvider), AppColorTheme.amoled);
+      expect(free.read(effectiveColorThemeProvider), AppColorTheme.amoled);
     });
 
-    test('legacy persisted names map to dark or light', () {
+    test('legacy persisted names map to dark, light, or amoled', () {
       expect(
         _container(seed: {
           HiveMetaKeys.selectedColorThemeId: 'midnight',
@@ -86,6 +97,18 @@ void main() {
           HiveMetaKeys.selectedColorThemeId: 'light',
         }).read(selectedColorThemeProvider),
         AppColorTheme.light,
+      );
+      expect(
+        _container(seed: {
+          HiveMetaKeys.selectedColorThemeId: 'black',
+        }).read(selectedColorThemeProvider),
+        AppColorTheme.amoled,
+      );
+      expect(
+        _container(seed: {
+          HiveMetaKeys.selectedColorThemeId: 'amoled',
+        }).read(selectedColorThemeProvider),
+        AppColorTheme.amoled,
       );
     });
   });

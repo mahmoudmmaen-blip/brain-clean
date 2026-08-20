@@ -1,12 +1,14 @@
 /**
- * verify-xp — server-authoritative XP validation (Phase B).
+ * verify-xp — server-authoritative XP writes.
  *
- * Security model (honest):
- * - Does NOT verify client HMAC (key cannot be shared safely).
- * - Authority = authenticated JWT + server-side rules (idempotency, caps, plausibility, clock).
- * - Client HMAC remains local tamper-evidence only.
+ * Authority = verified user JWT (signature + claims + getUser) + server rules.
+ * Client HMAC is local tamper-evidence only and is never trusted here.
  */
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import {
+  createServiceClient,
+  jsonResponse,
+  requireAuthenticatedUser,
+} from "../_shared/jwt.ts";
 import {
   BACKFILL_WINDOW_MS,
   CLOCK_FUTURE_TOLERANCE_MS,
@@ -16,12 +18,6 @@ import {
   maxPlausibleForSource,
   utcDayKey,
 } from "./xp_constants.ts";
-
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type",
-};
 
 interface ClientEntry {
   id: string;
@@ -37,70 +33,66 @@ interface Verdict {
   reason?: string;
 }
 
-function jsonResponse(body: unknown, status = 200): Response {
-  return new Response(JSON.stringify(body), {
-    status,
-    headers: { ...corsHeaders, "Content-Type": "application/json" },
-  });
-}
-
 function isValidSource(s: string): s is XpSource {
   return (XP_SOURCES as readonly string[]).includes(s);
 }
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
-    return new Response("ok", { headers: corsHeaders });
+    return new Response("ok", {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers":
+          "authorization, x-client-info, apikey, content-type",
+      },
+    });
+  }
+
+  if (req.method !== "POST") {
+    return jsonResponse({ error: "Method not allowed" }, 405);
   }
 
   try {
-    const authHeader = req.headers.get("Authorization");
-    if (!authHeader?.startsWith("Bearer ")) {
-      return jsonResponse({ error: "Missing or invalid Authorization" }, 401);
-    }
+    const caller = await requireAuthenticatedUser(req);
+    if (caller instanceof Response) return caller;
 
-    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-    const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
-    const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    const admin = createServiceClient();
+    const userId = caller.userId;
 
-    const userClient = createClient(supabaseUrl, supabaseAnonKey, {
-      global: { headers: { Authorization: authHeader } },
-    });
-    const { data: userData, error: userError } = await userClient.auth.getUser();
-    if (userError || !userData?.user) {
-      return jsonResponse({ error: "Unauthorized" }, 401);
-    }
-    const userId = userData.user.id;
-
-    const admin = createClient(supabaseUrl, serviceRoleKey);
-
-    let payload: unknown = await req.json();
+    const payload: unknown = await req.json();
     const entries: ClientEntry[] = Array.isArray(payload)
       ? payload
       : (payload as { entries?: ClientEntry[] })?.entries ?? [];
 
     if (!Array.isArray(entries) || entries.length === 0) {
-      return jsonResponse({ verdicts: [], serverTotalXp: await sumAccepted(admin, userId) });
+      return jsonResponse({
+        verdicts: [],
+        serverTotalXp: await sumAccepted(admin, userId),
+      });
+    }
+
+    if (entries.length > 50) {
+      return jsonResponse({ error: "Too many entries" }, 413);
     }
 
     const serverNow = Date.now();
     const verdicts: Verdict[] = [];
-
     for (const entry of entries) {
-      const verdict = await processEntry(admin, userId, entry, serverNow);
-      verdicts.push(verdict);
+      verdicts.push(await processEntry(admin, userId, entry, serverNow));
     }
 
-    const serverTotalXp = await sumAccepted(admin, userId);
-    return jsonResponse({ verdicts, serverTotalXp });
+    return jsonResponse({
+      verdicts,
+      serverTotalXp: await sumAccepted(admin, userId),
+    });
   } catch (e) {
-    console.error("verify-xp error:", e);
+    console.error("verify-xp error");
     return jsonResponse({ error: "Internal error" }, 500);
   }
 });
 
 async function sumAccepted(
-  admin: ReturnType<typeof createClient>,
+  admin: ReturnType<typeof createServiceClient>,
   userId: string,
 ): Promise<number> {
   const { data, error } = await admin
@@ -113,7 +105,7 @@ async function sumAccepted(
 }
 
 async function processEntry(
-  admin: ReturnType<typeof createClient>,
+  admin: ReturnType<typeof createServiceClient>,
   userId: string,
   entry: ClientEntry,
   serverNow: number,
@@ -124,11 +116,11 @@ async function processEntry(
     return { id: id ?? "unknown", status: "rejected", reason: "invalid_payload" };
   }
 
-  // Idempotency: prior verdict by primary key.
   const { data: existing } = await admin
     .from("xp_ledger")
     .select("status, reject_reason")
     .eq("id", id)
+    .eq("user_id", userId)
     .maybeSingle();
 
   if (existing) {
@@ -171,7 +163,6 @@ async function processEntry(
     return { id, status: "rejected", reason: "implausible_amount" };
   }
 
-  // ref_id uniqueness per (user, source).
   if (refId) {
     const { data: dup } = await admin
       .from("xp_ledger")
@@ -213,7 +204,7 @@ async function processEntry(
 }
 
 async function persist(
-  admin: ReturnType<typeof createClient>,
+  admin: ReturnType<typeof createServiceClient>,
   userId: string,
   entry: ClientEntry,
   status: "accepted" | "rejected",
@@ -230,11 +221,7 @@ async function persist(
     reject_reason: rejectReason,
   });
 
-  if (error) {
-    // Race on id or unique ref — treat as idempotent read-back.
-    if (error.code === "23505") {
-      return;
-    }
+  if (error && error.code !== "23505") {
     throw error;
   }
 }

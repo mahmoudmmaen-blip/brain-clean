@@ -28,12 +28,19 @@ void main() {
         body: V2ProfileHomeBody(
           loc: loc,
           displayName: 'Alex',
+          purityDays: 12,
+          notificationsEnabled: true,
           loadingSetup: false,
           hasBrainProfile: hasBrainProfile,
+          daysUntilWeeklyCheck: null,
           subscriptionSubtitle: subscription ?? 'You are on the Free core',
+          isPro: false,
           appVersion: '2.0.0-test',
           onEditDisplayName: onEdit ?? () {},
+          onNotificationsChanged: (_) {},
           onOpenBrainProfile: onOpenBrainProfile ?? () {},
+          onOpenBaselineCheck: () {},
+          onOpenWeeklyCheck: () {},
           onOpenSettings: () {},
           onOpenPremium: () {},
           onOpenSafa: () {},
@@ -127,11 +134,18 @@ void main() {
             body: V2ProfileHomeBody(
               loc: loc,
               displayName: 'Alex',
+              purityDays: 12,
+              notificationsEnabled: true,
               loadingSetup: false,
               hasBrainProfile: true,
+              daysUntilWeeklyCheck: null,
               subscriptionSubtitle: loc.v2PremiumFreeStatus,
+              isPro: false,
               appVersion: '2.0.0-test',
               onEditDisplayName: () {},
+              onNotificationsChanged: (_) {},
+              onOpenBaselineCheck: () {},
+              onOpenWeeklyCheck: () {},
               onOpenBrainProfile: () => brain = true,
               onOpenSettings: () => settings = true,
               onOpenPremium: () => premium = true,
@@ -171,7 +185,7 @@ void main() {
           profileBody(
             loc: loc,
             hasBrainProfile: false,
-            onOpenBrainProfile: () {
+                onOpenBrainProfile: () {
               opened = V2SetupRecovery.profileBrainActionLocation(
                 hasProfilePack: false,
               );
@@ -196,7 +210,7 @@ void main() {
           profileBody(
             loc: loc,
             hasBrainProfile: true,
-            onOpenBrainProfile: () {
+                onOpenBrainProfile: () {
               opened = V2SetupRecovery.profileBrainActionLocation(
                 hasProfilePack: true,
               );
@@ -221,12 +235,19 @@ void main() {
               child: V2ProfileHomeBody(
                 loc: loc,
                 displayName: loc.v2ProfileDefaultIdentity,
+                purityDays: 12,
+                notificationsEnabled: true,
                 loadingSetup: false,
                 hasBrainProfile: false,
+                daysUntilWeeklyCheck: null,
                 subscriptionSubtitle: loc.v2PremiumFreeStatus,
+                isPro: false,
                 appVersion: '1.0.0',
                 onEditDisplayName: () {},
+                onNotificationsChanged: (_) {},
                 onOpenBrainProfile: () {},
+                onOpenBaselineCheck: () {},
+                onOpenWeeklyCheck: () {},
                 onOpenSettings: () {},
                 onOpenPremium: () {},
                 onOpenSafa: () {},

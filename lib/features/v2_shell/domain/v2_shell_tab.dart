@@ -1,8 +1,9 @@
-/// Canonical V2 shell tabs (Slice 9.1A) — Build Spec NAV-SHELL four tabs only.
+/// Canonical V2 shell tabs — Pro mock five-tab navbar.
 enum V2ShellTab {
   today,
-  plan,
+  exercises,
   progress,
+  pro,
   profile,
 }
 
@@ -17,32 +18,35 @@ extension V2ShellTabX on V2ShellTab {
   /// Path prefix that owns this tab.
   String get pathPrefix => switch (this) {
         V2ShellTab.today => '/v2/home',
-        V2ShellTab.plan => '/v2/plan',
+        V2ShellTab.exercises => '/v2/exercises',
         V2ShellTab.progress => '/v2/progress',
+        V2ShellTab.pro => '/v2/pro',
         V2ShellTab.profile => '/v2/profile',
       };
 
-  /// Maps a location to a **primary tab**, or null when the route is contextual
-  /// (Brain Check, Reports, Session, Weekly Review, builders, …).
+  /// Maps a location to a **primary tab**, or null when the route is contextual.
   static V2ShellTab? fromLocation(String location) {
     final path = Uri.tryParse(location)?.path ?? location;
     if (path == '/v2/home' || path == '/v2/today') return V2ShellTab.today;
-    if (path == '/v2/plan') return V2ShellTab.plan;
+    if (path == '/v2/exercises') return V2ShellTab.exercises;
     if (path == '/v2/progress') return V2ShellTab.progress;
+    if (path == '/v2/pro') return V2ShellTab.pro;
     if (path == '/v2/profile') return V2ShellTab.profile;
     // Contextual destinations — not primary tabs.
     if (path == '/v2/check' ||
         path.startsWith('/v2/brain-check') ||
         path == '/v2/brain-profile' ||
         path.startsWith('/v2/brain-profile/') ||
+        path == '/v2/plan' ||
+        path.startsWith('/v2/plan/') ||
         path == '/v2/reports' ||
         path.startsWith('/v2/reports/') ||
         path == '/v2/safa' ||
         path.startsWith('/v2/safa/') ||
-        path.startsWith('/v2/premium')) {
+        path == '/v2/premium' ||
+        path.startsWith('/v2/premium/')) {
       return null;
     }
-    if (path.startsWith('/v2/plan/')) return null;
     return null;
   }
 }
@@ -51,23 +55,27 @@ extension V2ShellTabX on V2ShellTab {
 abstract final class V2ShellPaths {
   static const today = '/v2/home';
   static const home = today; // alias
-  static const plan = '/v2/plan';
+  static const exercises = '/v2/exercises';
   static const progress = '/v2/progress';
+  static const pro = '/v2/pro';
   static const profile = '/v2/profile';
 
   /// Contextual (not primary tabs).
+  static const plan = '/v2/plan';
   static const check = '/v2/check';
   static const reports = '/v2/reports';
+  static const premium = '/v2/premium';
 
-  /// Exactly four primary shell roots — Build Spec order.
+  /// Five primary shell roots — Pro mock order.
   static const roots = <String>[
     today,
-    plan,
+    exercises,
     progress,
+    pro,
     profile,
   ];
 
-  static const primaryTabCount = 4;
+  static const primaryTabCount = 5;
 
   /// Known `/v2/*` prefixes that are valid product surfaces (shell + flows).
   static bool isKnownV2Location(String location) {
@@ -75,11 +83,14 @@ abstract final class V2ShellPaths {
     if (!path.startsWith('/v2/')) return false;
     const known = <String>[
       today,
+      exercises,
       check,
       plan,
       progress,
+      pro,
       reports,
       profile,
+      premium,
       '/v2/today',
       '/v2/brain-profile',
       '/v2/brain-profile/ready',
@@ -92,8 +103,12 @@ abstract final class V2ShellPaths {
       '/v2/onboarding',
       '/v2/reports/artifact',
       '/v2/reports/measurements',
-      '/v2/premium',
+      '/v2/premium/plans',
+      '/v2/premium/success',
+      '/v2/premium/status',
+      '/v2/premium/restore',
       '/v2/safa',
+      '/v2/diagnostic',
     ];
     for (final prefix in known) {
       if (path == prefix || path.startsWith('$prefix/')) return true;

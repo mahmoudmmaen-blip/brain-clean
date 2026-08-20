@@ -7,7 +7,7 @@ part of 'subscription_service_provider.dart';
 // **************************************************************************
 
 String _$subscriptionServiceHash() =>
-    r'0951a0b55ec5760babdf79d5a16aa4e76c0aa98f';
+    r'1dbc4e7907afc7c9cafdc40da9c6bd851e2e3114';
 
 /// See also [subscriptionService].
 @ProviderFor(subscriptionService)
@@ -22,11 +22,12 @@ final subscriptionServiceProvider = Provider<SubscriptionService>.internal(
 );
 
 typedef SubscriptionServiceRef = ProviderRef<SubscriptionService>;
-String _$isProUserHash() => r'dff98712857d44664d1d591dfe272c9da9ff0326';
+String _$isProUserHash() => r'aa1d6ad7c6d5b3448b06b6252d1c32f4f309c62f';
 
-/// Reactive Pro entitlement, read from [subscriptionServiceProvider].
+/// Reactive Premium entitlement from the selected [SubscriptionService].
 ///
-/// Used by [navigateWithProGate] and every other Pro gate in the app.
+/// Production authority is RevenueCat / store-verified mirror — never Hive-only
+/// when the production adapters are selected.
 ///
 /// Copied from [isProUser].
 @ProviderFor(isProUser)

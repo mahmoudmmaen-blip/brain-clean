@@ -239,7 +239,7 @@
   "homeDistractionCancel": "Cancel",
   "homeOpenAccountability": "Digital accountability room",
   "accountabilityRoomTitle": "Digital accountability room",
-  "accountabilityPenaltyRecorded": "Penalty recorded ✓",
+  "accountabilityPenaltyRecorded": "Accountability recorded ✓",
   "accountabilityCatPhysical": "Physical",
   "accountabilityCatNutritional": "Nutritional",
   "accountabilityCatAltruistic": "Altruistic",
@@ -844,7 +844,7 @@
   "recoveryPlanBecauseHeading": "Why this plan today",
   "recoveryPlanTodayPreview": "Today preview",
   "recoveryPlanContinueToday": "Continue to Today",
-  "recoveryPlanSkipHint": "Skipping a step never counts as a penalty.",
+  "recoveryPlanSkipHint": "Skipping a step never counts against you.",
   "recoveryPlanOptionalTag": "optional",
   "recoveryPlanNoSteps": "No steps listed",
   "recoveryPlanStarterBadge": "Starter plan",
@@ -870,7 +870,7 @@
   "v2TodayPreviewActHeading": "First step",
   "v2TodayPreviewFallbackTitle": "Today’s practice",
   "v2TodayPreviewBecauseHeading": "Why this step today",
-  "v2TodayPreviewCompletionMeaning": "Finishing this step later will count as your day done. Skipping stays allowed with no penalty.",
+  "v2TodayPreviewCompletionMeaning": "Finishing this step later will count as your day done. Skipping stays allowed with no negative mark.",
   "v2TodayPreviewContinueCta": "Continue — first step ready",
   "v2TodayPreviewMissingAct": "Today’s step is not available yet. Rebuild your Recovery Plan.",
   "v2TodayReadyLoading": "Preparing your first step",
@@ -885,39 +885,39 @@
   "v2TodayHomeTitle": "Today",
   "v2TodayHomeLoading": "Loading Today",
   "v2TodayHomeOrientation": "Your day",
-  "v2TodayHomeOrientationBody": "One clear action from your Recovery Plan. Nothing extra.",
-  "v2TodayHomeStandardPathHint": "The standard path adds approved optional depth when you want it.",
+  "v2TodayHomeOrientationBody": "One clear action from your daily program. Nothing extra.",
+  "v2TodayHomeStandardPathHint": "Stay with today's practice — small steps rebuild focus.",
   "v2TodayHomeStatusHeading": "Status",
   "v2TodayHomeStatusReady": "Ready when you are",
   "v2TodayHomeStatusInProgress": "Session in progress",
   "v2TodayHomeStatusReflect": "Almost done — finish check-in",
   "v2TodayHomeStatusDone": "Done for today",
-  "v2TodayHomeStatusPartial": "Attempt saved — no penalty",
-  "v2TodayHomeCtaStart": "Start today’s session",
-  "v2TodayHomeCtaContinue": "Continue session",
+  "v2TodayHomeStatusPartial": "Progress saved — keep going tomorrow",
+  "v2TodayHomeCtaStart": "Start today's program",
+  "v2TodayHomeCtaContinue": "Continue program",
   "v2TodayHomeCtaViewCompleted": "View completed session",
-  "v2TodayHomeViewPlan": "View Recovery Plan",
+  "v2TodayHomeViewPlan": "View daily program",
   "homeGreetingMorning": "Good morning",
   "homeGreetingAfternoon": "Good afternoon",
   "homeGreetingEvening": "Good evening",
-  "homeGreetingName": "Hello, {name} 👋",
+  "homeGreetingName": "Hello, {name}",
   "@homeGreetingName": {
     "placeholders": {
       "name": { "type": "String" }
     }
   },
-  "homeFocusLevelTag": "Current focus level",
-  "homeFocusImprovement": "Up {percent}% from first assessment",
+  "homeFocusLevelTag": "Recovery",
+  "homeFocusImprovement": "Up {percent}% from your first check",
   "@homeFocusImprovement": {
     "placeholders": {
       "percent": { "type": "int" }
     }
   },
-  "homeFocusImprovementPending": "Complete a Brain Check to track improvement",
+  "homeFocusImprovementPending": "Complete a Brain Check to track recovery",
   "homeMetricStreakLabel": "Day streak",
   "homeMetricExercisesLabel": "Today's exercises",
   "homeSuggestedExerciseBadge": "Suggested",
-  "homeProgramPathTitle": "Current path",
+  "homeProgramPathTitle": "Your daily program",
   "homeProgramPathDay": "Day {current} of {total}",
   "@homeProgramPathDay": {
     "placeholders": {
@@ -925,7 +925,29 @@
       "total": { "type": "int" }
     }
   },
-  "homeTodaySessionHeading": "Today's session",
+  "homeTodaySessionHeading": "Your daily program",
+  "homeDateTodayLabel": "Today",
+  "homeDatePrevDay": "Previous day",
+  "homeDateNextDay": "Next day",
+  "homeReturnToToday": "Back to today",
+  "homePomodoroTitle": "Focus timer",
+  "homePomodoroStart": "Start",
+  "homePomodoroPause": "Pause",
+  "homePomodoroMinutesShort": "25 min",
+  "homePomodoroMinutesLong": "50 min",
+  "homeBrainCheckBadgeTitle": "Complete your brain profile — start the check",
+  "homeBrainCheckBadgeCta": "Start Brain Check",
+  "homeBrainCheckScoreTitle": "Your brain check",
+  "homeBrainCheckScoreValue": "Score {score}",
+  "@homeBrainCheckScoreValue": {
+    "placeholders": {
+      "score": { "type": "int" }
+    }
+  },
+  "homeBrainCheckRedo": "Retake",
+  "homeDailyProgramEmptyTitle": "Build your daily program",
+  "homeDailyProgramEmptyBody": "A short daily practice to cut screen time and rebuild focus — one clear step at a time.",
+  "homeDailyProgramEmptyCta": "Set up program",
   "v2SessionPrepareTitle": "Prepare",
   "v2SessionPreparePurpose": "A short guided practice from your plan.",
   "v2SessionPrepareIncludes": "This session includes:",
@@ -1290,6 +1312,13 @@
   "v2ProgressWeeklyReviewHeading": "Weekly Review",
   "v2ProgressWrNotEnough": "Not enough completed activity yet for a Weekly Review.",
   "v2ProgressWrCurrentWeek": "This week is still in progress. Review opens after the week ends.",
+  "v2ProgressWrAvailableInDays": "Available in {days} days",
+  "@v2ProgressWrAvailableInDays": {
+    "placeholders": {
+      "days": { "type": "int" }
+    }
+  },
+  "v2ProgressWeeklyChartHeading": "Last 7 days",
   "v2ProgressWrAvailable": "Weekly Review available",
   "v2ProgressWrDraft": "Weekly Review draft in progress",
   "v2ProgressWrCompleted": "Weekly Summary available",
@@ -1504,8 +1533,18 @@
   "v2ExercisesFilterAll": "All",
   "v2ExercisesFilterFocus": "Focus",
   "v2ExercisesFilterMemory": "Memory",
+  "v2ExercisesFilterSpeed": "Speed",
   "v2ExercisesFilterReading": "Reading",
   "v2ExercisesFilterMentalFitness": "Mental fitness",
+  "v2ExercisesDifficultyEasy": "Easy",
+  "v2ExercisesDifficultyMedium": "Medium",
+  "v2ExercisesDifficultyHard": "Hard",
+  "v2ExercisesMinutes": "{count} min",
+  "@v2ExercisesMinutes": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
   "v2ExercisesSectionFree": "Free",
   "v2ExercisesSectionPro": "Pro",
   "v2ExercisesProBadge": "Pro",
@@ -1707,6 +1746,17 @@
   "v2ProfileBrainProfileLoading": "Checking your assessment…",
   "v2ProfileBrainProfileReady": "View your latest assessment",
   "v2ProfileBrainProfileMissing": "Complete Brain Check to build this",
+  "v2ProfileBaselineTestTitle": "Baseline Brain Check",
+  "v2ProfileBaselineTestSubtitle": "One-time assessment — you can redo anytime",
+  "v2ProfileWeeklyTestTitle": "Weekly Brain Check",
+  "v2ProfileWeeklyTestSubtitle": "Unlocks every 7 days",
+  "v2ProfileWeeklyTestLocked": "Available in {days} days",
+  "@v2ProfileWeeklyTestLocked": {
+    "placeholders": {
+      "days": { "type": "int" }
+    }
+  },
+  "v2ProfileWeeklyTestReady": "Ready — start this week's check",
   "v2ProfileSectionPreferences": "Preferences",
   "v2ProfilePreferencesRow": "Preferences & settings",
   "v2ProfilePreferencesHint": "Appearance, notifications, biometric lock, and privacy & data",
@@ -1736,7 +1786,9 @@
   "settingsDeleteAccountConfirmBody": "All local data on this device will be permanently deleted. This cannot be undone.",
   "colorThemeMorningDark": "Dark",
   "colorThemeMorningLight": "Light",
+  "colorThemeAmoled": "AMOLED",
   "settingsThemeDarkSubtitle": "Morning Light dark canvas",
   "settingsThemeLightSubtitle": "Morning Light bright canvas",
+  "settingsThemeAmoledSubtitle": "Pure black for OLED screens",
   "settingsActionFailed": "Could not complete that action. Please try again."
 }

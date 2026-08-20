@@ -20,6 +20,7 @@ class PomodoroState {
     this.completedRounds = 0,
     this.totalSessionsToday = 0,
     this.isRunning = false,
+    this.focusMinutes = kPomodoroFocusMinutesShort,
   });
 
   final PomodoroPhase currentPhase;
@@ -27,6 +28,7 @@ class PomodoroState {
   final int completedRounds;
   final int totalSessionsToday;
   final bool isRunning;
+  final int focusMinutes;
 
   PomodoroState copyWith({
     PomodoroPhase? currentPhase,
@@ -34,6 +36,7 @@ class PomodoroState {
     int? completedRounds,
     int? totalSessionsToday,
     bool? isRunning,
+    int? focusMinutes,
   }) {
     return PomodoroState(
       currentPhase: currentPhase ?? this.currentPhase,
@@ -41,11 +44,15 @@ class PomodoroState {
       completedRounds: completedRounds ?? this.completedRounds,
       totalSessionsToday: totalSessionsToday ?? this.totalSessionsToday,
       isRunning: isRunning ?? this.isRunning,
+      focusMinutes: focusMinutes ?? this.focusMinutes,
     );
   }
 
   double get progress {
-    final total = pomodoroPhaseDurationSeconds(currentPhase);
+    final total = pomodoroPhaseDurationSeconds(
+      currentPhase,
+      focusMinutes: focusMinutes,
+    );
     if (total <= 0) return 0;
     return (remainingSeconds / total).clamp(0.0, 1.0);
   }
@@ -62,6 +69,26 @@ class PomodoroController extends _$PomodoroController {
     return PomodoroState(
       remainingSeconds: pomodoroPhaseDurationSeconds(PomodoroPhase.focus),
       totalSessionsToday: sessions,
+      focusMinutes: kPomodoroFocusMinutesShort,
+    );
+  }
+
+  /// Sets focus duration (25 or 50). Only applies when timer is idle.
+  void setFocusMinutes(int minutes) {
+    if (state.isRunning) return;
+    final next = minutes == kPomodoroFocusMinutesLong
+        ? kPomodoroFocusMinutesLong
+        : kPomodoroFocusMinutesShort;
+    if (state.currentPhase != PomodoroPhase.focus) {
+      state = state.copyWith(focusMinutes: next);
+      return;
+    }
+    state = state.copyWith(
+      focusMinutes: next,
+      remainingSeconds: pomodoroPhaseDurationSeconds(
+        PomodoroPhase.focus,
+        focusMinutes: next,
+      ),
     );
   }
 
@@ -99,7 +126,10 @@ class PomodoroController extends _$PomodoroController {
     if (state.isRunning) return;
     var remaining = state.remainingSeconds;
     if (remaining <= 0) {
-      remaining = pomodoroPhaseDurationSeconds(state.currentPhase);
+      remaining = pomodoroPhaseDurationSeconds(
+        state.currentPhase,
+        focusMinutes: state.focusMinutes,
+      );
     }
     state = state.copyWith(isRunning: true, remainingSeconds: remaining);
     _cancelTimer();
@@ -115,10 +145,14 @@ class PomodoroController extends _$PomodoroController {
     _cancelTimer();
     state = PomodoroState(
       currentPhase: PomodoroPhase.focus,
-      remainingSeconds: pomodoroPhaseDurationSeconds(PomodoroPhase.focus),
+      remainingSeconds: pomodoroPhaseDurationSeconds(
+        PomodoroPhase.focus,
+        focusMinutes: state.focusMinutes,
+      ),
       completedRounds: 0,
       totalSessionsToday: state.totalSessionsToday,
       isRunning: false,
+      focusMinutes: state.focusMinutes,
     );
   }
 
@@ -175,13 +209,17 @@ class PomodoroController extends _$PomodoroController {
       _notifyPhaseComplete(wasFocus: false);
     }
 
-    final nextSeconds = pomodoroPhaseDurationSeconds(advance.nextPhase);
+    final nextSeconds = pomodoroPhaseDurationSeconds(
+      advance.nextPhase,
+      focusMinutes: state.focusMinutes,
+    );
     state = PomodoroState(
       currentPhase: advance.nextPhase,
       remainingSeconds: nextSeconds,
       completedRounds: advance.completedRounds,
       totalSessionsToday: sessionsToday,
       isRunning: false,
+      focusMinutes: state.focusMinutes,
     );
   }
 

@@ -62,9 +62,9 @@ class HomeScreen extends ConsumerWidget {
     );
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: Text(loc.homeTitle),
         actions: [
           const LanguageToggleButton(),

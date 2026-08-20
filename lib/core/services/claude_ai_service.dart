@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../config/app_config.dart';
+import '../security/authenticated_session.dart';
 
 /// Categories for Safa chat failures (safe to log — no secrets / message text).
 enum SafaChatFailureKind {
@@ -103,6 +104,14 @@ class ClaudeAiService {
       return const SafaChatOutcome.failure(SafaChatFailureKind.notInitialized);
     }
 
+    if (_invoker == null && !_hasLiveJwt) {
+      _debugLog(
+        kind: SafaChatFailureKind.notInitialized,
+        timedOut: false,
+      );
+      return const SafaChatOutcome.failure(SafaChatFailureKind.notInitialized);
+    }
+
     try {
       final invoker = _invoker ?? _defaultInvoker;
       final res = await invoker(
@@ -183,6 +192,16 @@ class ClaudeAiService {
     } catch (_) {
       _debugLog(kind: SafaChatFailureKind.network, timedOut: false);
       return const SafaChatOutcome.failure(SafaChatFailureKind.network);
+    }
+  }
+
+  bool get _hasLiveJwt {
+    try {
+      return AuthenticatedSession.isUsable(
+        Supabase.instance.client.auth.currentSession,
+      );
+    } catch (_) {
+      return false;
     }
   }
 

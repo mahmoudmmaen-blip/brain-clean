@@ -1,14 +1,14 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/l10n/app_localizations.dart';
 import '../../core/providers/locale_provider.dart';
+import '../../core/theme/app_colors.dart';
 import '../diagnostic/presentation/bc_score_provider.dart';
 import '../gamification/domain/xp_source.dart';
 import 'application/games_scores_provider.dart';
 import 'domain/game_scoring.dart';
+import 'domain/stroop_session.dart';
 
 class _ColorInk {
   const _ColorInk(this.nameAr, this.nameEn, this.color);
@@ -25,75 +25,65 @@ const _inks = [
   _ColorInk('أصفر', 'Yellow', Color(0xFFEAB308)),
 ];
 
-/// Stroop-style color-word game — tap ink color, not the word.
+/// Stroop test — tap ink color, not the word. Ten rounds with score summary.
 class ColorWordGameScreen extends ConsumerStatefulWidget {
   const ColorWordGameScreen({super.key});
 
   @override
-  ConsumerState<ColorWordGameScreen> createState() => _ColorWordGameScreenState();
+  ConsumerState<ColorWordGameScreen> createState() =>
+      _ColorWordGameScreenState();
 }
 
 class _ColorWordGameScreenState extends ConsumerState<ColorWordGameScreen> {
-  static const _totalRounds = 10;
-  final _random = Random();
-
-  int _round = 0;
-  int _correct = 0;
-  int? _wordIndex;
-  int? _inkIndex;
-  bool _finished = false;
+  late StroopSession _session;
 
   @override
   void initState() {
     super.initState();
-    _nextRound();
-  }
-
-  void _nextRound() {
-    _wordIndex = _random.nextInt(_inks.length);
-    _inkIndex = _random.nextInt(_inks.length);
-    while (_inkIndex == _wordIndex) {
-      _inkIndex = _random.nextInt(_inks.length);
-    }
+    _session = StroopSession();
+    _session.startRound();
   }
 
   void _pickInk(int index) {
-    if (_finished || _inkIndex == null) return;
-    if (index == _inkIndex) _correct++;
-    if (_round >= _totalRounds - 1) {
+    if (_session.finished) return;
+    _session.answer(index);
+    if (_session.finished) {
       _finish();
-      return;
     }
-    setState(() {
-      _round++;
-      _nextRound();
-    });
+    setState(() {});
   }
 
   void _finish() {
-    final score = ((_correct / _totalRounds) * 100).round();
-    final bonus = colorWordBcsBonus(correct: _correct, totalRounds: _totalRounds);
+    final score = _session.scorePercent;
+    final bonus = colorWordBcsBonus(
+      correct: _session.correct,
+      totalRounds: _session.totalRounds,
+    );
     ref.read(bcScoreProvider.notifier).applyBonus(
           bonus,
           xpSource: XpSource.game,
           xpRefId: 'color_word:${DateTime.now().millisecondsSinceEpoch}',
         );
-    ref.read(gamesBestScoresControllerProvider.notifier).updateColorWordBest(score);
-    setState(() => _finished = true);
+    ref
+        .read(gamesBestScoresControllerProvider.notifier)
+        .updateColorWordBest(score);
   }
 
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
     final isAr = ref.watch(localeProvider).languageCode == 'ar';
-    final word = _wordIndex != null ? _inks[_wordIndex!] : _inks.first;
-    final ink = _inkIndex != null ? _inks[_inkIndex!] : _inks.first;
+    final wordIdx = _session.wordIndex ?? 0;
+    final inkIdx = _session.inkIndex ?? 0;
+    final word = _inks[wordIdx];
+    final ink = _inks[inkIdx];
     final displayWord = isAr ? word.nameAr : word.nameEn;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF0D1117),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF0D1117),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: Text(loc.gameColorWordTitle),
       ),
       body: Padding(
@@ -101,29 +91,54 @@ class _ColorWordGameScreenState extends ConsumerState<ColorWordGameScreen> {
         child: Column(
           children: [
             Text(
-              _finished
-                  ? loc.gameFinalScore(((_correct / _totalRounds) * 100).round())
-                  : loc.gameRoundLabel(_round + 1, _totalRounds),
-              style: const TextStyle(color: Color(0xFF8B949E)),
+              _session.finished
+                  ? loc.gameStroopResult(
+                      _session.correct,
+                      _session.totalRounds,
+                    )
+                  : loc.gameRoundLabel(
+                      _session.round + 1,
+                      _session.totalRounds,
+                    ),
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: AppColors.textSecondary,
+              ),
             ),
-            const SizedBox(height: 48),
-            if (!_finished)
+            if (!_session.finished) ...[
+              const SizedBox(height: 8),
               Text(
-                displayWord,
-                style: TextStyle(
-                  fontSize: 48,
-                  fontWeight: FontWeight.bold,
-                  color: ink.color,
+                loc.gameStroopStats(_session.correct, _session.incorrect),
+                style: theme.textTheme.labelLarge?.copyWith(
+                  color: AppColors.primary,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+            const SizedBox(height: 48),
+            if (!_session.finished)
+              Semantics(
+                label: loc.gameColorWordPrompt,
+                child: Text(
+                  displayWord,
+                  style: TextStyle(
+                    fontSize: 52,
+                    fontWeight: FontWeight.w800,
+                    color: ink.color,
+                    letterSpacing: 1,
+                  ),
                 ),
               ),
             const SizedBox(height: 16),
-            if (!_finished)
+            if (!_session.finished)
               Text(
                 loc.gameColorWordPrompt,
-                style: const TextStyle(color: Color(0xFF8B949E)),
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: AppColors.textSecondary,
+                ),
+                textAlign: TextAlign.center,
               ),
             const Spacer(),
-            if (!_finished)
+            if (!_session.finished)
               Wrap(
                 spacing: 12,
                 runSpacing: 12,
@@ -131,17 +146,50 @@ class _ColorWordGameScreenState extends ConsumerState<ColorWordGameScreen> {
                 children: List.generate(_inks.length, (index) {
                   final c = _inks[index];
                   final label = isAr ? c.nameAr : c.nameEn;
-                  return ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: c.color,
-                      foregroundColor: Colors.white,
-                      minimumSize: const Size(120, 48),
+                  return Semantics(
+                    button: true,
+                    label: label,
+                    child: Material(
+                      color: c.color,
+                      borderRadius: BorderRadius.circular(12),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(12),
+                        onTap: () => _pickInk(index),
+                        child: SizedBox(
+                          width: 132,
+                          height: 52,
+                          child: Center(
+                            child: Text(
+                              label,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                    onPressed: () => _pickInk(index),
-                    child: Text(label),
                   );
                 }),
+              )
+            else ...[
+              Text(
+                loc.gameFinalScore(_session.scorePercent),
+                style: theme.textTheme.headlineSmall?.copyWith(
+                  color: AppColors.primary,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
+              const SizedBox(height: 8),
+              Text(
+                loc.gameStroopStats(_session.correct, _session.incorrect),
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  color: AppColors.textSecondary,
+                ),
+              ),
+            ],
           ],
         ),
       ),

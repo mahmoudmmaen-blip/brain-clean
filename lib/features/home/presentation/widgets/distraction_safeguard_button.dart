@@ -6,7 +6,7 @@ import '../home_streak_provider.dart';
 
 const homeDistractionButtonKey = Key('home_distraction_button');
 
-/// Temporary distraction — debounced tap + confirmation bottom sheet + 12h retrograde.
+/// Temporary Distraction — debounced tap + confirmation bottom sheet + 12h retrograde.
 class DistractionSafeguardButton extends ConsumerStatefulWidget {
   const DistractionSafeguardButton({super.key});
 

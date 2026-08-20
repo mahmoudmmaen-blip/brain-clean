@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
+import '../../../core/presentation/glow_progress.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_design_constants.dart';
 import '../../../core/theme/v2_shell_visual.dart';
@@ -15,6 +16,8 @@ import '../data/progress_experience_controller_provider.dart';
 import '../domain/progress_experience_enums.dart';
 import '../domain/progress_timeline.dart';
 import '../domain/progress_view_model.dart';
+import '../domain/progress_weekly_bar_day.dart';
+import 'progress_pillar_section.dart';
 
 /// Vertical rhythm for Progress — shared V2 tokens (hierarchy unchanged).
 const double _kGapHeadlineSupport = AppDesignConstants.v2GapTight;
@@ -52,10 +55,10 @@ class _ProgressHomeScreenState extends ConsumerState<ProgressHomeScreen> {
     final c = ref.watch(progressExperienceControllerProvider);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         toolbarHeight: 0,
-        backgroundColor: AppColors.background,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
         scrolledUnderElevation: 0,
         surfaceTintColor: Colors.transparent,
@@ -92,7 +95,10 @@ class ProgressHomeBody extends StatelessWidget {
       return Center(
         child: Semantics(
           liveRegion: true,
-          child: Text(loc.v2ProgressLoading),
+          child: Text(
+            loc.v2ProgressLoading,
+            style: V2ShellVisual.bodyMuted(theme),
+          ),
         ),
       );
     }
@@ -139,65 +145,104 @@ class ProgressHomeBody extends StatelessWidget {
                           ),
                         ],
                       )
-                    : Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Semantics(
-                                  header: true,
-                                  liveRegion: true,
-                                  child: Text(
-                                    _headline(loc, vm.proofHeadline),
-                                    style: V2ShellVisual.heroTitle(theme),
-                                  ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        bottom: 10,
+                                      ),
+                                      child: DecoratedBox(
+                                        decoration:
+                                            V2ShellVisual.mintTagDecoration(Theme.of(context)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 10,
+                                            vertical: 4,
+                                          ),
+                                          child: Text(
+                                            loc.v2ProgressStatsRate,
+                                            style: V2ShellVisual.mintTagLabel(
+                                              theme,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Semantics(
+                                      header: true,
+                                      liveRegion: true,
+                                      child: Text(
+                                        _headline(loc, vm.proofHeadline),
+                                        style: V2ShellVisual.heroTitle(theme),
+                                        maxLines: 4,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                    const SizedBox(height: _kGapHeadlineSupport),
+                                    Text(
+                                      loc.v2ProgressBasedOnSessions,
+                                      style: V2ShellVisual.captionMuted(theme),
+                                    ),
+                                  ],
                                 ),
-                                const SizedBox(height: _kGapHeadlineSupport),
-                                Text(
-                                  loc.v2ProgressBasedOnSessions,
-                                  style: V2ShellVisual.captionMuted(theme),
-                                ),
-                              ],
-                            ),
+                              ),
+                              const SizedBox(
+                                width: AppDesignConstants.v2GapSection,
+                              ),
+                              _CompletionRing(
+                                percent: vm.completionRatePercent,
+                                centerLabel:
+                                    '${vm.completionRatePercent}%',
+                                centerCaption: loc.v2ProgressStatsRate,
+                              ),
+                            ],
                           ),
-                          const SizedBox(
-                            width: AppDesignConstants.v2GapSection,
-                          ),
-                          _CompletionRing(
-                            percent: vm.completionRatePercent,
-                            centerLabel: '${vm.completionRatePercent}%',
-                            centerCaption: loc.v2ProgressStatsRate,
+                          const SizedBox(height: 14),
+                          GlowProgressBar(
+                            progress: vm.completionRatePercent / 100,
+                            height: 7,
                           ),
                         ],
                       ),
               ),
               if (vm.isEmpty) ...[
                 const SizedBox(height: _kGapToMovement),
-                Text(
-                  loc.v2ProgressEmptyBody,
-                  style: V2ShellVisual.bodyMuted(theme),
+                V2InfoCard(
+                  child: Text(
+                    loc.v2ProgressEmptyBody,
+                    style: V2ShellVisual.bodyMuted(theme),
+                  ),
                 ),
               ] else ...[
                 const SizedBox(height: _kGapToMovement),
-                V2MetricRow(
-                  tiles: [
-                    V2MetricTile(
-                      label: loc.v2ProgressBetterHeading,
-                      value: vm.completedDays.toString(),
-                      caption: loc.v2ProgressCompletedDays(
-                        vm.completedDays.toString(),
+                V2InfoCard(
+                  child: V2MetricRow(
+                    tiles: [
+                      V2MetricTile(
+                        label: loc.v2ProgressBetterHeading,
+                        value: vm.completedDays.toString(),
+                        caption: loc.v2ProgressCompletedDays(
+                          vm.completedDays.toString(),
+                        ),
                       ),
-                    ),
-                    V2MetricTile(
-                      label: loc.v2ProgressStatsSessions,
-                      value: vm.totalCompletedSessions.toString(),
-                      caption: loc.v2ProgressCompletedSessions(
-                        vm.totalCompletedSessions.toString(),
+                      V2MetricTile(
+                        label: loc.v2ProgressStatsSessions,
+                        value: vm.totalCompletedSessions.toString(),
+                        caption: loc.v2ProgressCompletedSessions(
+                          vm.totalCompletedSessions.toString(),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 if (vm.pathMixHint != null) ...[
                   const SizedBox(height: _kGapMovementEvidence),
@@ -222,6 +267,8 @@ class ProgressHomeBody extends StatelessWidget {
               _PrimaryCta(vm: vm),
               if (!vm.isEmpty) ...[
                 const SizedBox(height: _kGapAfterCta),
+                _WeeklyChartCard(bars: vm.weeklyBars),
+                const SizedBox(height: AppDesignConstants.v2GapSection),
                 Divider(
                   height: 1,
                   thickness: 1,
@@ -265,6 +312,8 @@ class ProgressHomeBody extends StatelessWidget {
                 ),
               ],
               // 8 Quiet secondary exit to Reports
+              const SizedBox(height: _kGapBeforeReports),
+              const ProgressPillarSection(),
               const SizedBox(height: _kGapBeforeReports),
               SizedBox(
                 height: AppDesignConstants.minTouchTarget,
@@ -598,7 +647,7 @@ class _ReviewEntry extends StatelessWidget {
         ),
         const SizedBox(height: 6),
         Text(
-          _statusText(loc, state),
+          _statusText(loc, vm),
           style: theme.textTheme.bodyMedium?.copyWith(
             color: _actionable ? null : muted,
             height: 1.35,
@@ -614,13 +663,29 @@ class _ReviewEntry extends StatelessWidget {
             style: theme.textTheme.bodySmall?.copyWith(color: muted),
           ),
         ],
-        if (showInlineCta) ...[
+        if (vm.daysUntilWeeklyReviewUnlock != null &&
+            vm.daysUntilWeeklyReviewUnlock! > 0) ...[
           const SizedBox(height: AppDesignConstants.v2GapControl),
           SizedBox(
             width: double.infinity,
             height: AppDesignConstants.minTouchTarget,
             child: OutlinedButton(
-              style: V2ShellVisual.secondaryOutlined(),
+              style: V2ShellVisual.secondaryOutlined(theme),
+              onPressed: null,
+              child: Text(
+                loc.v2ProgressWrAvailableInDays(
+                  vm.daysUntilWeeklyReviewUnlock!,
+                ),
+              ),
+            ),
+          ),
+        ] else if (showInlineCta) ...[
+          const SizedBox(height: AppDesignConstants.v2GapControl),
+          SizedBox(
+            width: double.infinity,
+            height: AppDesignConstants.minTouchTarget,
+            child: OutlinedButton(
+              style: V2ShellVisual.secondaryOutlined(theme),
               onPressed: () => context.go(route),
               child: Text(cta),
             ),
@@ -639,9 +704,13 @@ class _ReviewEntry extends StatelessWidget {
 
   static String _statusText(
     AppLocalizations loc,
-    ProgressWeeklyReviewCardState state,
+    ProgressViewModel vm,
   ) {
-    switch (state) {
+    final days = vm.daysUntilWeeklyReviewUnlock;
+    if (days != null && days > 0) {
+      return loc.v2ProgressWrAvailableInDays(days);
+    }
+    switch (vm.weeklyReviewCardState) {
       case ProgressWeeklyReviewCardState.notEnoughActivity:
         return loc.v2ProgressWrNotEnough;
       case ProgressWeeklyReviewCardState.currentWeekInProgress:
@@ -848,7 +917,11 @@ class _Pad extends StatelessWidget {
               children: [
                 Semantics(
                   liveRegion: true,
-                  child: Text(title, textAlign: TextAlign.center),
+                  child: Text(
+                    title,
+                    textAlign: TextAlign.center,
+                    style: V2ShellVisual.heroTitle(Theme.of(context)),
+                  ),
                 ),
                 const SizedBox(height: AppDesignConstants.v2GapMajor),
                 SizedBox(
@@ -884,51 +957,124 @@ class _CompletionRing extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final clamped = percent.clamp(0, 100);
-    return SizedBox(
-      width: 96,
-      height: 96,
-      child: Stack(
-        alignment: Alignment.center,
+    return Semantics(
+      label: '$centerCaption: $centerLabel',
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          PieChart(
-            PieChartData(
-              startDegreeOffset: -90,
-              sectionsSpace: 0,
-              centerSpaceRadius: 34,
-              sections: [
-                PieChartSectionData(
-                  value: clamped.toDouble(),
-                  color: AppColors.primary,
-                  radius: 12,
-                  showTitle: false,
-                ),
-                PieChartSectionData(
-                  value: (100 - clamped).toDouble(),
-                  color: AppColors.border.withValues(alpha: 0.35),
-                  radius: 12,
-                  showTitle: false,
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            width: 64,
-            height: 64,
+          GlowProgressRing(
+            key: const Key('v2_progress_completion_ring'),
+            progress: clamped / 100,
+            size: 120,
+            strokeWidth: 11,
             child: FittedBox(
               fit: BoxFit.scaleDown,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    centerLabel,
-                    textAlign: TextAlign.center,
-                    style: V2ShellVisual.metricValue(theme),
+              child: Text(
+                centerLabel,
+                textAlign: TextAlign.center,
+                maxLines: 1,
+                style: V2ShellVisual.heroMetricValue(theme),
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          SizedBox(
+            width: 120,
+            child: Text(
+              centerCaption,
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: V2ShellVisual.metricCaption(theme)?.copyWith(
+                height: 1.25,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _WeeklyChartCard extends StatelessWidget {
+  const _WeeklyChartCard({required this.bars});
+
+  final List<ProgressWeeklyBarDay> bars;
+
+  @override
+  Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    final palette = AppColors.of(context);
+    if (bars.isEmpty) return const SizedBox.shrink();
+
+    return V2InfoCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            loc.v2ProgressWeeklyChartHeading,
+            style: V2ShellVisual.sectionLabel(theme),
+          ),
+          const SizedBox(height: 14),
+          SizedBox(
+            height: 140,
+            child: BarChart(
+              BarChartData(
+                alignment: BarChartAlignment.spaceAround,
+                maxY: 1.2,
+                minY: 0,
+                gridData: const FlGridData(show: false),
+                borderData: FlBorderData(show: false),
+                titlesData: FlTitlesData(
+                  topTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
                   ),
-                  Text(
-                    centerCaption,
-                    textAlign: TextAlign.center,
-                    style: V2ShellVisual.metricCaption(theme),
+                  rightTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
                   ),
+                  leftTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      reservedSize: 22,
+                      getTitlesWidget: (value, meta) {
+                        final i = value.toInt();
+                        if (i < 0 || i >= bars.length) {
+                          return const SizedBox.shrink();
+                        }
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 6),
+                          child: Text(
+                            bars[i].weekdayLabel,
+                            style: theme.textTheme.labelSmall?.copyWith(
+                              color: palette.textSecondary,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                barGroups: [
+                  for (var i = 0; i < bars.length; i++)
+                    BarChartGroupData(
+                      x: i,
+                      barRods: [
+                        BarChartRodData(
+                          toY: bars[i].completed ? 1 : 0.12,
+                          width: 14,
+                          borderRadius: BorderRadius.circular(6),
+                          color: bars[i].completed
+                              ? AppColors.primary
+                              : palette.ringTrack,
+                        ),
+                      ],
+                    ),
                 ],
               ),
             ),

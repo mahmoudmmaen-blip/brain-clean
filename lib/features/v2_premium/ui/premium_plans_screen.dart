@@ -12,6 +12,7 @@ import '../data/premium_controller_provider.dart';
 import '../domain/premium_offering.dart';
 import '../domain/premium_purchase_phase.dart';
 import '../domain/premium_view_state.dart';
+import 'premium_plan_cards.dart';
 import 'premium_shared_widgets.dart';
 
 /// Purchase surface (contract PRE-01 offerings / Slice 9.2B plans route).
@@ -29,6 +30,7 @@ class PremiumPlansScreen extends ConsumerStatefulWidget {
 
 class _PremiumPlansScreenState extends ConsumerState<PremiumPlansScreen> {
   late final PremiumController _controller;
+  PremiumPlanChoice _selectedPlan = PremiumPlanChoice.monthly;
 
   @override
   void initState() {
@@ -89,6 +91,17 @@ class _PremiumPlansScreenState extends ConsumerState<PremiumPlansScreen> {
         padding: const EdgeInsets.all(24),
         children: [
           Text(loc.v2PremiumFreeCoreReassurance),
+          const SizedBox(height: 16),
+          PremiumPlanCards(
+            loc: loc,
+            selectedPlan: _selectedPlan,
+            onSelectMonthly: () => setState(
+              () => _selectedPlan = PremiumPlanChoice.monthly,
+            ),
+            onSelectAnnual: () => setState(
+              () => _selectedPlan = PremiumPlanChoice.annual,
+            ),
+          ),
           const SizedBox(height: 16),
           if (state.phase == PremiumPurchasePhase.loading)
             Semantics(liveRegion: true, child: Text(loc.v2PremiumLoading))

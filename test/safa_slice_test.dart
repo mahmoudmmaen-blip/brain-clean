@@ -141,7 +141,7 @@ void main() {
     });
 
     test('Safa is not a shell tab', () {
-      expect(V2ShellTab.values.length, 4);
+      expect(V2ShellTab.values.length, 5);
       expect(
         V2ShellTabX.fromLocation('/v2/safa?origin=today'),
         isNull,
