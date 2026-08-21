@@ -12,7 +12,6 @@ import '../../../core/theme/app_colors.dart';
 import '../../focus/widgets/ambient_sound_widgets.dart';
 import '../widgets/daily_quote_card.dart';
 import '../widgets/streak_freeze_button.dart';
-import '../../accountability/accountability_box_modal.dart';
 import '../../diagnostic/presentation/bc_score_provider.dart';
 import '../../diagnostic/domain/diagnostic_session.dart';
 import '../../diagnostic/presentation/widgets/bc_score_breakdown.dart';
@@ -29,7 +28,6 @@ const homeDiagnosticTileKey = Key('home_diagnostic_tile');
 const homeCognitiveHubTileKey = Key('home_cognitive_hub_tile');
 const homeRecoveryTileKey = Key('home_recovery_tile');
 const homeDetoxTileKey = Key('home_detox_tile');
-const homeAccountabilityButtonKey = Key('home_accountability_button');
 const homeEmotionWheelKey = Key('home_emotion_wheel_entry');
 const homeSingleTaskKey = Key('home_single_task_entry');
 const homeDelayedGratificationKey = Key('home_delayed_gratification_entry');
@@ -267,34 +265,6 @@ class _HomeBody extends ConsumerWidget {
                 ),
               ),
             ],
-          ),
-        ),
-        const SizedBox(height: 20),
-        Card(
-          color: const Color(0xFF2D1216),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(14),
-            side: const BorderSide(color: AppColors.danger, width: 0.5),
-          ),
-          child: ListTile(
-            key: homeAccountabilityButtonKey,
-            leading: const Icon(Icons.gavel_outlined, color: AppColors.danger),
-            title: Text(
-              loc.homeAccountabilityBox,
-              style: const TextStyle(
-                color: AppColors.textPrimary,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            trailing: const Icon(Icons.chevron_left, color: AppColors.textSecondary),
-            onTap: () {
-              showModalBottomSheet<void>(
-                context: context,
-                isScrollControlled: true,
-                backgroundColor: Colors.transparent,
-                builder: (_) => const AccountabilityBoxModal(),
-              );
-            },
           ),
         ),
         const SizedBox(height: 20),

@@ -1030,7 +1030,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get accountabilityModalCatNutritional => 'التغذية الصحية';
 
   @override
-  String get accountabilityModalCatAltruistic => 'العمل الخيري';
+  String get accountabilityModalCatAltruistic => 'أعمال اجتماعية';
 
   @override
   String get accountabilityModalCatMental => 'التحدي الذهني';
@@ -2104,6 +2104,63 @@ class AppLocalizationsAr extends AppLocalizations {
   String get homePomodoroMinutesLong => '٥٠ دقيقة';
 
   @override
+  String get homeWeeklyTestTitle => 'الاختبار الأسبوعي';
+
+  @override
+  String get homeWeeklyTestLocked => 'يفتح كل 7 أيام';
+
+  @override
+  String homeWeeklyTestDaysLeft(int days) {
+    return 'يفتح بعد $days أيام';
+  }
+
+  @override
+  String get homeWeeklyTestReady => 'جاهز — ابدأ فحص هذا الأسبوع';
+
+  @override
+  String get homeWeeklyReportTitle => 'التقرير الأسبوعي';
+
+  @override
+  String get homeWeeklyReportLocked => 'مقفل حتى نافذة المراجعة التالية';
+
+  @override
+  String homeWeeklyReportDaysLeft(int days) {
+    return 'متاح بعد $days أيام';
+  }
+
+  @override
+  String get homeWeeklyReportReady => 'تقريرك الأسبوعي جاهز';
+
+  @override
+  String get homeBaselineTestTitle => 'فحص الأساس';
+
+  @override
+  String get homeBaselineTestPending => 'لم يُنجز بعد';
+
+  @override
+  String homeBaselineTestScore(int score) {
+    return 'درجة الأساس $score';
+  }
+
+  @override
+  String get homeSafaCardTitle => 'صفا';
+
+  @override
+  String get homeSafaCardBody => 'دعم هادئ لخطوتك اليوم';
+
+  @override
+  String get homeSafaCardCta => 'افتح صفا';
+
+  @override
+  String get homePastProgramHeading => 'برنامج هذا اليوم';
+
+  @override
+  String get homePastProgramEmpty => 'لا يوجد برنامج محفوظ لهذا اليوم بعد.';
+
+  @override
+  String get homeUpgradeToPro => 'ترقية للـ Pro';
+
+  @override
   String get homeBrainCheckBadgeTitle => 'اكتمل ملفك الذهني — ابدأ الفحص';
 
   @override
@@ -2925,7 +2982,9 @@ class AppLocalizationsAr extends AppLocalizations {
       'هذا الأسبوع ما زال جارياً. تُفتَح المراجعة بعد انتهائه.';
 
   @override
-  String v2ProgressWrAvailableInDays(int days) => 'متاح بعد $days أيام';
+  String v2ProgressWrAvailableInDays(int days) {
+    return 'متاح بعد $days أيام';
+  }
 
   @override
   String get v2ProgressWeeklyChartHeading => 'آخر 7 أيام';
@@ -3354,7 +3413,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2ExercisesDifficultyHard => 'صعب';
 
   @override
-  String v2ExercisesMinutes(int count) => '$count د';
+  String v2ExercisesMinutes(int count) {
+    return '$count د';
+  }
 
   @override
   String get v2ExercisesSectionFree => 'مجاني';
@@ -3823,14 +3884,22 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2SafaUseLocalFallback => 'استخدم الدعم دون اتصال';
 
   @override
-  String get v2SafaOffline => 'أنت دون اتصال. الدعم دون اتصال متاح.';
+  String get v2SafaOffline =>
+      'أنت دون اتصال — إليك خطوة تهدئة قصيرة يمكنك فعلها الآن.';
 
   @override
   String get v2SafaTimeout => 'انتهت مهلة الطلب. الدعم دون اتصال متاح.';
 
   @override
   String get v2SafaServiceUnavailable =>
-      'صفا غير متاحة مؤقتًا. الدعم دون اتصال متاح.';
+      'صفا غير متصلة الآن — جرّب تنفسًا بطيئًا أو بسّط خطوتك التالية.';
+
+  @override
+  String get v2SafaOfflineTipTitle => 'نصيحة دون اتصال';
+
+  @override
+  String get v2SafaOfflineTipBody =>
+      'تنفس شهيقًا لـ 4 عدّات، احبس 2، ازفر لـ 6. ثم عد إلى اليوم وأنهِ كتلة تركيز قصيرة واحدة.';
 
   @override
   String get v2SafaInvalidResponse =>
@@ -3958,7 +4027,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2ProfileWeeklyTestSubtitle => 'يُفتح كل 7 أيام';
 
   @override
-  String v2ProfileWeeklyTestLocked(int days) => 'متاح بعد $days أيام';
+  String v2ProfileWeeklyTestLocked(int days) {
+    return 'متاح بعد $days أيام';
+  }
 
   @override
   String get v2ProfileWeeklyTestReady => 'جاهز — ابدأ فحص هذا الأسبوع';
@@ -4061,6 +4132,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get colorThemeAmoledName => 'أسود';
 
   @override
+  String get colorThemePureWhiteName => 'أبيض نقي';
+
+  @override
+  String get colorThemeWarmBeigeName => 'بيج هادئ';
+
+  @override
   String get settingsThemeDarkSubtitle => 'لوحة Morning Light الداكنة';
 
   @override
@@ -4070,5 +4147,265 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settingsThemeAmoledSubtitle => 'أسود خالص لشاشات OLED';
 
   @override
+  String get settingsThemePureWhiteSubtitle => 'أبيض نقي مع لمسات خضراء';
+
+  @override
+  String get settingsThemeWarmBeigeSubtitle => 'بيج دافئ مع نص بني';
+
+  @override
+  String get dailyProgramMindfulness => 'تأمل صباحي';
+
+  @override
+  String get dailyProgramPomodoro => 'كتلة تركيز (بومودورو)';
+
+  @override
+  String get dailyProgramScreenFree => 'وقت بلا شاشة';
+
+  @override
+  String get dailyProgramReflection => 'تأمل مسائي';
+
+  @override
+  String get dailyProgramCognitive => 'تمرين معرفي';
+
+  @override
+  String get dailyProgramHeavyPomodoro => 'بومودورو تركيز عميق';
+
+  @override
+  String get dailyProgramStroop => 'تمرين ستروب للتركيز';
+
+  @override
+  String get dailyProgramNBack => 'تدريب N-Back';
+
+  @override
+  String get dailyProgramDigitSpan => 'تمرين مدى الأرقام';
+
+  @override
+  String get dailyProgramNoMultitask => 'التزام مهمة واحدة';
+
+  @override
+  String get dailyProgramDetoxBlock => 'كتلة ممتدة بلا شاشة';
+
+  @override
+  String get dailyProgramAppUsageReview => 'مراجعة استخدام التطبيقات';
+
+  @override
+  String get dailyProgramFullRecoveryBlock => 'كتلة تعافٍ كاملة';
+
+  @override
+  String get dailyProgramHourlyPlan => 'خطة ساعة بساعة';
+
+  @override
+  String get dailyProgramPersonalizedLocked => 'البرنامج اليومي المخصص';
+
+  @override
+  String dailyProgramActivityLine(String title, int minutes) {
+    return '$title — $minutes دقائق';
+  }
+
+  @override
   String get settingsActionFailed => 'تعذّر إكمال هذا الإجراء. حاول مرة أخرى.';
+
+  @override
+  String get testsCatalogTitle => 'الاختبارات';
+
+  @override
+  String get testsCatalogSubtitle =>
+      'فحوصات سريعة للاستدلال وعادات الشاشة والتركيز والذاكرة.';
+
+  @override
+  String get homeQuickTestsHeading => 'اختبارات سريعة';
+
+  @override
+  String get homeQuickTestIq => 'الذكاء';
+
+  @override
+  String get homeQuickTestDigitalBrainRot => 'تعفن رقمي';
+
+  @override
+  String get homeQuickTestFocus => 'تركيز';
+
+  @override
+  String get homeQuickTestMemory => 'ذاكرة';
+
+  @override
+  String get homeQuickTestAll => 'كل الاختبارات';
+
+  @override
+  String get v2ProfileTestsCatalogTitle => 'كتالوج الاختبارات';
+
+  @override
+  String get v2ProfileTestsCatalogSubtitle => 'ذكاء، تعفن رقمي، تركيز، وذاكرة';
+
+  @override
+  String quickTestProgress(int current, int total) {
+    return 'السؤال $current من $total';
+  }
+
+  @override
+  String get iqTestTitle => 'فحص الذكاء';
+
+  @override
+  String get iqTestSubtitle => '5 أسئلة استدلال وأنماط';
+
+  @override
+  String get iqTestContinue => 'متابعة';
+
+  @override
+  String get iqTestFinish => 'عرض النتيجة';
+
+  @override
+  String get iqTestDone => 'العودة إلى الرئيسية';
+
+  @override
+  String get iqTestResultTitle => 'نتيجة الاستدلال';
+
+  @override
+  String iqTestResultDetail(int correct, int total) {
+    return '$correct من $total صحيحة';
+  }
+
+  @override
+  String get iqTestDisclaimer =>
+      'لقطة تدريبية قصيرة — وليست اختبار ذكاء سريرياً.';
+
+  @override
+  String get iqQ1Stem => 'أي رقم يكمل النمط: 2، 4، 8، 16، ؟';
+
+  @override
+  String get iqQ1OptA => '18';
+
+  @override
+  String get iqQ1OptB => '24';
+
+  @override
+  String get iqQ1OptC => '32';
+
+  @override
+  String get iqQ1OptD => '30';
+
+  @override
+  String get iqQ2Stem => 'أوجد المختلف: دائرة، مربع، مثلث، تفاحة';
+
+  @override
+  String get iqQ2OptA => 'دائرة';
+
+  @override
+  String get iqQ2OptB => 'تفاحة';
+
+  @override
+  String get iqQ2OptC => 'مربع';
+
+  @override
+  String get iqQ2OptD => 'مثلث';
+
+  @override
+  String get iqQ3Stem =>
+      'إذا اكتسب كل شكل ضلعاً إضافياً في كل خطوة (مثلث ← مربع ← خماسي)، ما التالي؟';
+
+  @override
+  String get iqQ3OptA => 'مثلث';
+
+  @override
+  String get iqQ3OptB => 'مربع';
+
+  @override
+  String get iqQ3OptC => 'خماسي';
+
+  @override
+  String get iqQ3OptD => 'سداسي';
+
+  @override
+  String get iqQ4Stem => 'أكمل التشبيه: الكتاب للقراءة كما الشوكة لـ ؟';
+
+  @override
+  String get iqQ4OptA => 'الأكل';
+
+  @override
+  String get iqQ4OptB => 'المطبخ';
+
+  @override
+  String get iqQ4OptC => 'المعدن';
+
+  @override
+  String get iqQ4OptD => 'الطبق';
+
+  @override
+  String get iqQ5Stem =>
+      'في شبكة 3×3، الخلية الناقصة التي تجعل مجموع كل صف 15 هي؟';
+
+  @override
+  String get iqQ5OptA => '2';
+
+  @override
+  String get iqQ5OptB => '4';
+
+  @override
+  String get iqQ5OptC => '6';
+
+  @override
+  String get iqQ5OptD => '9';
+
+  @override
+  String get digitalBrainRotTestTitle => 'تعفن الدماغ الرقمي';
+
+  @override
+  String get digitalBrainRotTestSubtitle =>
+      '8 أسئلة عن الشاشات والتصفح ومدى الانتباه';
+
+  @override
+  String get digitalBrainRotContinue => 'متابعة';
+
+  @override
+  String get digitalBrainRotFinish => 'عرض درجة الصفاء';
+
+  @override
+  String get digitalBrainRotDone => 'العودة إلى الرئيسية';
+
+  @override
+  String get digitalBrainRotResultTitle => 'الصفاء الرقمي';
+
+  @override
+  String get digitalBrainRotResultClarityLabel => 'درجة الصفاء (الأعلى أصح)';
+
+  @override
+  String get digitalBrainRotResultHealthy => 'عادات شاشتك تبدو مستقرة نسبياً.';
+
+  @override
+  String get digitalBrainRotResultModerate =>
+      'هناك بعض الاحتكاك — كتل تركيز قصيرة قد تساعد.';
+
+  @override
+  String get digitalBrainRotResultHigh =>
+      'جذب الشاشة قوي الآن — احمِ نوافذ انتباهك.';
+
+  @override
+  String get digitalBrainRotDisclaimer =>
+      'تقرير ذاتي فقط — وليس تشخيصاً طبياً.';
+
+  @override
+  String get digitalBrainRotQ1Stem => 'أفتح تطبيقات التواصل بدون هدف واضح.';
+
+  @override
+  String get digitalBrainRotQ2Stem =>
+      'أصعب عليّ البقاء مع مهمة واحدة لمدة 10 دقائق.';
+
+  @override
+  String get digitalBrainRotQ3Stem => 'أتصفح بعد وقت النوم في أغلب الليالي.';
+
+  @override
+  String get digitalBrainRotQ4Stem =>
+      'الفيديوهات القصيرة تجعل القراءة الطويلة أصعب.';
+
+  @override
+  String get digitalBrainRotQ5Stem => 'أتحقق من هاتفي خلال دقائق من الاستيقاظ.';
+
+  @override
+  String get digitalBrainRotQ6Stem => 'الإشعارات تسحبني أثناء المحادثة.';
+
+  @override
+  String get digitalBrainRotQ7Stem =>
+      'أشعر بالقلق عندما أترك هاتفي في غرفة أخرى.';
+
+  @override
+  String get digitalBrainRotQ8Stem => 'أستطيع إبعاد هاتفي أثناء العمل المهم.';
 }

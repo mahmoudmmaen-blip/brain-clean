@@ -1,8 +1,13 @@
 import '../../brain_check/data/brain_check_local_repository.dart';
+import '../../brain_check/domain/brain_check_result.dart';
 import '../../brain_profile/data/brain_profile_repository.dart';
 import '../../brain_profile/domain/profile_pack.dart';
 import '../../progress/data/progress_repository.dart';
+import '../../progress/domain/progress_experience_builder.dart';
 import '../../progress/domain/progress_statistics.dart';
+import '../../quick_tests/domain/quick_test_result.dart';
+import '../../weekly_review/data/weekly_review_repository.dart';
+import '../../weekly_review/domain/weekly_review_record.dart';
 import '../data/daily_session_repository.dart';
 import '../domain/daily_session.dart';
 import '../domain/daily_session_status.dart';
@@ -21,6 +26,10 @@ class HomeDashboardMetrics {
     required this.programTotalDays,
     this.brainCheckCompleted = false,
     this.brainCheckScore,
+    this.daysUntilWeeklyTest,
+    this.daysUntilWeeklyReport,
+    this.weeklyTestUnlocked = false,
+    this.weeklyReportUnlocked = false,
   });
 
   /// Recovery percentage (0–100). Kept as [focusPercent] for call-site compat.
@@ -32,6 +41,12 @@ class HomeDashboardMetrics {
   final int programTotalDays;
   final bool brainCheckCompleted;
   final int? brainCheckScore;
+
+  /// Null when unlocked / never locked; otherwise days remaining.
+  final int? daysUntilWeeklyTest;
+  final int? daysUntilWeeklyReport;
+  final bool weeklyTestUnlocked;
+  final bool weeklyReportUnlocked;
 
   int get recoveryPercent => focusPercent.clamp(0, 100);
 
@@ -49,6 +64,10 @@ class HomeDashboardMetrics {
     programTotalDays: kHomeProgramTotalDays,
     brainCheckCompleted: false,
     brainCheckScore: null,
+    daysUntilWeeklyTest: null,
+    daysUntilWeeklyReport: null,
+    weeklyTestUnlocked: true,
+    weeklyReportUnlocked: true,
   );
 }
 
@@ -60,24 +79,49 @@ abstract final class HomeDashboardMetricsLoader {
     required DailySessionRepository sessions,
     required String todayDayKey,
     BrainCheckLocalRepository? brainCheck,
+    WeeklyReviewRepository? weeklyReviews,
+    QuickTestResult? digitalBrainRotResult,
+    DateTime? localNow,
   }) async {
     try {
+      final now = localNow ?? DateTime.now();
       final profile = await profiles.latest();
       final snapshot = await progress.latest();
       final sessionHistory = await sessions.history();
       final profileHistory = await profiles.history();
-      final checkResult = brainCheck == null ? null : await brainCheck.loadResult();
+      final checkResult =
+          brainCheck == null ? null : await brainCheck.loadResult();
+      final latestReview = weeklyReviews == null
+          ? null
+          : await _latestCompletedReview(weeklyReviews);
 
       final stats = snapshot?.statistics ?? ProgressStatistics.empty;
-      final focusPercent = _resolveFocusPercent(profile, stats);
+      final focusPercent = _resolveFocusPercent(
+        profile: profile,
+        stats: stats,
+        weeklyCheck: checkResult,
+        digitalBrainRot: digitalBrainRotResult,
+        localNow: now,
+      );
       final improvement = _resolveImprovement(profileHistory, focusPercent);
       final exercisesToday = _exercisesCompletedToday(
         sessionHistory,
         todayDayKey,
       );
-      final programDay = (stats.completedDays + 1).clamp(1, kHomeProgramTotalDays);
+      final programDay =
+          (stats.completedDays + 1).clamp(1, kHomeProgramTotalDays);
       final checkScore = checkResult?.scorePlaceholder.recoveryScore?.round() ??
           profile?.recoveryScore.value;
+
+      final daysUntilTest = _daysUntilCooldown(
+        localNow: now,
+        lastAt: checkResult?.completedAt,
+      );
+      final daysUntilReport =
+          ProgressExperienceBuilder.daysUntilWeeklyReviewUnlock(
+        localNow: now,
+        latestCompleted: latestReview,
+      );
 
       return HomeDashboardMetrics(
         focusPercent: focusPercent,
@@ -88,22 +132,86 @@ abstract final class HomeDashboardMetricsLoader {
         programTotalDays: kHomeProgramTotalDays,
         brainCheckCompleted: checkResult != null || profile != null,
         brainCheckScore: checkScore?.clamp(0, 100),
+        daysUntilWeeklyTest: daysUntilTest,
+        daysUntilWeeklyReport: daysUntilReport,
+        weeklyTestUnlocked: daysUntilTest == null,
+        weeklyReportUnlocked: daysUntilReport == null,
       );
     } catch (_) {
       return HomeDashboardMetrics.empty;
     }
   }
 
-  static int _resolveFocusPercent(
-    ProfilePack? profile,
-    ProgressStatistics stats,
-  ) {
-    final score = profile?.recoveryScore.value;
-    if (score != null) return score.clamp(0, 100);
+  static Future<WeeklyReviewRecord?> _latestCompletedReview(
+    WeeklyReviewRepository repo,
+  ) async {
+    try {
+      final all = await repo.history();
+      WeeklyReviewRecord? latest;
+      for (final r in all) {
+        if (!r.isCompleted) continue;
+        if (latest == null || r.completedAt!.isAfter(latest.completedAt!)) {
+          latest = r;
+        }
+      }
+      return latest;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  /// 7-day cooldown after last brain/weekly test.
+  static int? _daysUntilCooldown({
+    required DateTime localNow,
+    required DateTime? lastAt,
+  }) {
+    if (lastAt == null) return null;
+    final lastLocal = lastAt.toLocal();
+    final lastDay = DateTime(lastLocal.year, lastLocal.month, lastLocal.day);
+    final today = DateTime(localNow.year, localNow.month, localNow.day);
+    final elapsed = today.difference(lastDay).inDays;
+    const cooldown = ProgressExperienceBuilder.weeklyReviewCooldownDays;
+    if (elapsed >= cooldown) return null;
+    return cooldown - elapsed;
+  }
+
+  /// Recovery % blends profile score with latest weekly brain-check score.
+  ///
+  /// When a digital brain-rot clarity score exists (completed within 14 days),
+  /// it softens the weekly side (75% check / 25% clarity) so weekly testing
+  /// visibly moves Home recovery %.
+  static int _resolveFocusPercent({
+    required ProfilePack? profile,
+    required ProgressStatistics stats,
+    required BrainCheckResult? weeklyCheck,
+    QuickTestResult? digitalBrainRot,
+    DateTime? localNow,
+  }) {
+    final profileScore = profile?.recoveryScore.value;
+    var weeklyScore = weeklyCheck?.scorePlaceholder.recoveryScore?.round();
+    final dbr = _recentDigitalClarity(digitalBrainRot, localNow ?? DateTime.now());
+    if (weeklyScore != null && dbr != null) {
+      weeklyScore = ((weeklyScore * 0.75) + (dbr * 0.25)).round();
+    } else if (weeklyScore == null && dbr != null) {
+      weeklyScore = dbr;
+    }
+    if (profileScore != null && weeklyScore != null) {
+      return ((profileScore * 0.55) + (weeklyScore * 0.45)).round().clamp(0, 100);
+    }
+    if (weeklyScore != null) return weeklyScore.clamp(0, 100);
+    if (profileScore != null) return profileScore.clamp(0, 100);
     if (stats.totalSessions > 0) {
       return (stats.completionRate * 100).round().clamp(0, 100);
     }
     return 0;
+  }
+
+  static int? _recentDigitalClarity(QuickTestResult? result, DateTime localNow) {
+    if (result == null) return null;
+    final completed = result.completedAt.toLocal();
+    final age = localNow.difference(completed).inDays;
+    if (age > 14) return null;
+    return result.scorePercent.clamp(0, 100);
   }
 
   static int _resolveImprovement(

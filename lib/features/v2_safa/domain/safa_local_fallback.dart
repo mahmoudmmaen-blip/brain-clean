@@ -19,11 +19,11 @@ abstract final class SafaLocalFallback {
       sessionId: sessionId,
       responseType: type,
       shortAcknowledgement: isAr
-          ? 'حسنًا. يمكن المتابعة بخطوة هادئة دون اتصال.'
-          : 'Okay. You can continue with a calm step offline.',
+          ? 'حسنًا. إليك خطوة هادئة يمكنك فعلها الآن دون اتصال.'
+          : 'Okay. Here is a calm step you can take offline right now.',
       boundedSupportText: isAr
-          ? 'صفا غير متاحة عبر الشبكة الآن. اختر تهدئة قصيرة، أو بسّط خطوتك التالية، ثم عُد إلى اليوم أو خطتك. صفا ليست رعاية طبية ولا طوارئ.'
-          : 'Safa is unavailable over the network right now. Choose a short grounding step or simplify your next step, then return to Today or your plan. Safa is not medical or emergency care.',
+          ? 'جرّب تنفسًا بطيئًا (شهيق 4 · حبس 2 · زفير 6)، أو بسّط خطوتك التالية، ثم عُد إلى برنامجك اليومي. صفا ليست رعاية طبية ولا طوارئ.'
+          : 'Try slow breathing (in 4 · hold 2 · out 6), or simplify your next step, then return to your daily program. Safa is not medical or emergency care.',
       suggestedAction: const SafaSuggestedAction(
         labelKey: 'v2SafaSuggestedReturnToday',
       ),

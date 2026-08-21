@@ -139,4 +139,13 @@ abstract final class AppRoutes {
 
   /// Interactive diagnostic: DiagIntro → DiagQ → DiagResult.
   static const v2InteractiveDiagnostic = '/v2/diagnostic';
+
+  /// Phase 5 — Tests catalog (IQ, digital brain rot, cognitive shortcuts).
+  static const v2Tests = '/v2/tests';
+
+  /// Phase 5 — IQ matrix / pattern reasoning (5 MCQ).
+  static const v2IqTest = '/v2/tests/iq';
+
+  /// Phase 5 — Digital brain-rot screen habits (8 Likert).
+  static const v2DigitalBrainRotTest = '/v2/tests/digital-brain-rot';
 }

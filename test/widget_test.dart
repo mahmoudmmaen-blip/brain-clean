@@ -21,8 +21,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:brain_clean_mobile/features/accountability/accountability_box_modal.dart';
-import 'package:brain_clean_mobile/features/diagnostic/presentation/bc_score_provider.dart';
 import 'package:brain_clean_mobile/features/home/presentation/home_streak_provider.dart';
 
 import 'helpers/diagnostic_provider_overrides.dart';
@@ -240,15 +238,8 @@ void main() {
     expect(find.text(en.homeTitle), findsOneWidget);
   });
 
-  testWidgets('accountability modal applies −15 BCS from home', (tester) async {
-    const liveModel = DiagnosticModel(
-      brainPerformance: 70,
-      digitalDiscipline: 70,
-      healthyHabits: 70,
-      consistency: 70,
-    );
-    final committed = composeWidgetTestCommittedSession(model: liveModel);
-
+  testWidgets('home screen shows diagnostic entry without accountability room',
+      (tester) async {
     await tester.binding.setSurfaceSize(const Size(800, 1200));
     addTearDown(() => tester.binding.setSurfaceSize(null));
 
@@ -260,35 +251,15 @@ void main() {
           recoveryProtocolStorageProvider.overrideWithValue(
             RecoveryProtocolMemoryRepository(),
           ),
-          ...diagnosticWidgetTestOverrides(
-            liveModel: liveModel,
-            committedSession: committed,
-          ),
+          ...diagnosticWidgetTestOverrides(),
         ],
       ),
     );
     await tester.pumpAndSettle();
 
-    final container =
-        ProviderScope.containerOf(tester.element(find.byType(HomeScreen)));
-    final before = container.read(bcScoreSessionProvider)!.bcScore;
-
-    await tester.tap(find.byKey(homeAccountabilityButtonKey));
-    await tester.pumpAndSettle();
-
-    expect(find.byType(AccountabilityBoxModal), findsOneWidget);
-
-    await tester.tap(find.text('اللياقة البدنية'));
-    await tester.pumpAndSettle();
-
-    final firstPenalty = find.text('تمرين 30 دقيقة');
-    await tester.ensureVisible(firstPenalty);
-    await tester.tap(firstPenalty);
-    await tester.pumpAndSettle();
-
-    final after = container.read(bcScoreSessionProvider)!.bcScore;
-    expect(before - after, 15);
-    expect(find.text('تم تسجيل المساءلة ✓'), findsOneWidget);
+    expect(find.byType(HomeScreen), findsOneWidget);
+    expect(find.byKey(homeDiagnosticTileKey), findsOneWidget);
+    expect(find.textContaining('المساءلة'), findsNothing);
   });
 }
 

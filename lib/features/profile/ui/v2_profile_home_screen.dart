@@ -216,6 +216,7 @@ class _V2ProfileHomeScreenState extends ConsumerState<V2ProfileHomeScreen> {
             }
             context.go(V2SetupRecovery.weeklyBrainCheckLocation());
           },
+          onOpenTestsCatalog: () => context.push(AppRoutes.v2Tests),
           onOpenSettings: () => context.push(AppRoutes.settings),
           onOpenPremium: () => context.go(
             '${AppRoutes.v2Premium}?source=profile',
@@ -252,6 +253,7 @@ class V2ProfileHomeBody extends StatelessWidget {
     required this.onOpenBrainProfile,
     required this.onOpenBaselineCheck,
     required this.onOpenWeeklyCheck,
+    required this.onOpenTestsCatalog,
     required this.onOpenSettings,
     required this.onOpenPremium,
     required this.onOpenSafa,
@@ -274,6 +276,7 @@ class V2ProfileHomeBody extends StatelessWidget {
   final VoidCallback onOpenBrainProfile;
   final VoidCallback onOpenBaselineCheck;
   final VoidCallback onOpenWeeklyCheck;
+  final VoidCallback onOpenTestsCatalog;
   final VoidCallback onOpenSettings;
   final VoidCallback onOpenPremium;
   final VoidCallback onOpenSafa;
@@ -386,6 +389,12 @@ class V2ProfileHomeBody extends StatelessWidget {
                         daysUntilWeeklyCheck! > 0)
                     ? null
                     : onOpenWeeklyCheck,
+              ),
+              _ProfileRow(
+                key: const Key('v2_profile_tests_catalog_row'),
+                title: loc.v2ProfileTestsCatalogTitle,
+                subtitle: loc.v2ProfileTestsCatalogSubtitle,
+                onTap: onOpenTestsCatalog,
               ),
             ],
           ),

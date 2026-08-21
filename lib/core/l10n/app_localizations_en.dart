@@ -2132,6 +2132,63 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homePomodoroMinutesLong => '50 min';
 
   @override
+  String get homeWeeklyTestTitle => 'Weekly test';
+
+  @override
+  String get homeWeeklyTestLocked => 'Opens every 7 days';
+
+  @override
+  String homeWeeklyTestDaysLeft(int days) {
+    return 'Opens in $days days';
+  }
+
+  @override
+  String get homeWeeklyTestReady => 'Ready — start this week\'s check';
+
+  @override
+  String get homeWeeklyReportTitle => 'Weekly report';
+
+  @override
+  String get homeWeeklyReportLocked => 'Locked until your next review window';
+
+  @override
+  String homeWeeklyReportDaysLeft(int days) {
+    return 'Available in $days days';
+  }
+
+  @override
+  String get homeWeeklyReportReady => 'Your weekly report is ready';
+
+  @override
+  String get homeBaselineTestTitle => 'Baseline test';
+
+  @override
+  String get homeBaselineTestPending => 'Not completed yet';
+
+  @override
+  String homeBaselineTestScore(int score) {
+    return 'Baseline score $score';
+  }
+
+  @override
+  String get homeSafaCardTitle => 'Safa';
+
+  @override
+  String get homeSafaCardBody => 'Calm support for today\'s step';
+
+  @override
+  String get homeSafaCardCta => 'Open Safa';
+
+  @override
+  String get homePastProgramHeading => 'Program for this day';
+
+  @override
+  String get homePastProgramEmpty => 'No saved program for this day yet.';
+
+  @override
+  String get homeUpgradeToPro => 'Upgrade to Pro';
+
+  @override
   String get homeBrainCheckBadgeTitle =>
       'Complete your brain profile — start the check';
 
@@ -2981,7 +3038,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'This week is still in progress. Review opens after the week ends.';
 
   @override
-  String v2ProgressWrAvailableInDays(int days) => 'Available in $days days';
+  String v2ProgressWrAvailableInDays(int days) {
+    return 'Available in $days days';
+  }
 
   @override
   String get v2ProgressWeeklyChartHeading => 'Last 7 days';
@@ -3414,7 +3473,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2ExercisesDifficultyHard => 'Hard';
 
   @override
-  String v2ExercisesMinutes(int count) => '$count min';
+  String v2ExercisesMinutes(int count) {
+    return '$count min';
+  }
 
   @override
   String get v2ExercisesSectionFree => 'Free';
@@ -3888,7 +3949,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2SafaUseLocalFallback => 'Use offline support';
 
   @override
-  String get v2SafaOffline => 'You are offline. Offline support is available.';
+  String get v2SafaOffline =>
+      'You are offline — here is a short calm step you can take now.';
 
   @override
   String get v2SafaTimeout =>
@@ -3896,7 +3958,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v2SafaServiceUnavailable =>
-      'Safa is temporarily unavailable. Offline support is available.';
+      'Safa is offline right now — try slow breathing or simplify your next step.';
+
+  @override
+  String get v2SafaOfflineTipTitle => 'Offline tip';
+
+  @override
+  String get v2SafaOfflineTipBody =>
+      'Breathe in for 4 counts, hold 2, out for 6. Then return to Today and complete one small focus block.';
 
   @override
   String get v2SafaInvalidResponse =>
@@ -4028,10 +4097,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2ProfileWeeklyTestSubtitle => 'Unlocks every 7 days';
 
   @override
-  String v2ProfileWeeklyTestLocked(int days) => 'Available in $days days';
+  String v2ProfileWeeklyTestLocked(int days) {
+    return 'Available in $days days';
+  }
 
   @override
-  String get v2ProfileWeeklyTestReady => "Ready — start this week's check";
+  String get v2ProfileWeeklyTestReady => 'Ready — start this week\'s check';
 
   @override
   String get v2ProfileSectionPreferences => 'Preferences';
@@ -4132,6 +4203,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get colorThemeAmoledName => 'AMOLED';
 
   @override
+  String get colorThemePureWhiteName => 'Pure White';
+
+  @override
+  String get colorThemeWarmBeigeName => 'Warm Beige';
+
+  @override
   String get settingsThemeDarkSubtitle => 'Morning Light dark canvas';
 
   @override
@@ -4141,6 +4218,276 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsThemeAmoledSubtitle => 'Pure black for OLED screens';
 
   @override
+  String get settingsThemePureWhiteSubtitle => 'Crisp white with green accents';
+
+  @override
+  String get settingsThemeWarmBeigeSubtitle => 'Warm off-white with brown text';
+
+  @override
+  String get dailyProgramMindfulness => 'Morning mindfulness';
+
+  @override
+  String get dailyProgramPomodoro => 'Focus block (Pomodoro)';
+
+  @override
+  String get dailyProgramScreenFree => 'Screen-free time';
+
+  @override
+  String get dailyProgramReflection => 'Evening reflection';
+
+  @override
+  String get dailyProgramCognitive => 'Cognitive exercise';
+
+  @override
+  String get dailyProgramHeavyPomodoro => 'Deep focus Pomodoro';
+
+  @override
+  String get dailyProgramStroop => 'Stroop focus drill';
+
+  @override
+  String get dailyProgramNBack => 'N-Back training';
+
+  @override
+  String get dailyProgramDigitSpan => 'Digit Span practice';
+
+  @override
+  String get dailyProgramNoMultitask => 'Single-task rule check-in';
+
+  @override
+  String get dailyProgramDetoxBlock => 'Extended screen-free block';
+
+  @override
+  String get dailyProgramAppUsageReview => 'App usage review';
+
+  @override
+  String get dailyProgramFullRecoveryBlock => 'Full recovery focus block';
+
+  @override
+  String get dailyProgramHourlyPlan => 'Structured hourly plan check';
+
+  @override
+  String get dailyProgramPersonalizedLocked => 'Personalized daily program';
+
+  @override
+  String dailyProgramActivityLine(String title, int minutes) {
+    return '$title — $minutes min';
+  }
+
+  @override
   String get settingsActionFailed =>
       'Could not complete that action. Please try again.';
+
+  @override
+  String get testsCatalogTitle => 'Tests';
+
+  @override
+  String get testsCatalogSubtitle =>
+      'Quick checks for reasoning, screen habits, focus, and memory.';
+
+  @override
+  String get homeQuickTestsHeading => 'Quick tests';
+
+  @override
+  String get homeQuickTestIq => 'IQ';
+
+  @override
+  String get homeQuickTestDigitalBrainRot => 'Brain rot';
+
+  @override
+  String get homeQuickTestFocus => 'Focus';
+
+  @override
+  String get homeQuickTestMemory => 'Memory';
+
+  @override
+  String get homeQuickTestAll => 'All tests';
+
+  @override
+  String get v2ProfileTestsCatalogTitle => 'Tests catalog';
+
+  @override
+  String get v2ProfileTestsCatalogSubtitle =>
+      'IQ, digital brain rot, focus, and memory';
+
+  @override
+  String quickTestProgress(int current, int total) {
+    return 'Question $current of $total';
+  }
+
+  @override
+  String get iqTestTitle => 'IQ check';
+
+  @override
+  String get iqTestSubtitle => '5 pattern and matrix reasoning questions';
+
+  @override
+  String get iqTestContinue => 'Continue';
+
+  @override
+  String get iqTestFinish => 'See score';
+
+  @override
+  String get iqTestDone => 'Back to Home';
+
+  @override
+  String get iqTestResultTitle => 'Your reasoning score';
+
+  @override
+  String iqTestResultDetail(int correct, int total) {
+    return '$correct of $total correct';
+  }
+
+  @override
+  String get iqTestDisclaimer =>
+      'A short practice snapshot — not a clinical IQ test.';
+
+  @override
+  String get iqQ1Stem => 'Which number continues the pattern: 2, 4, 8, 16, ?';
+
+  @override
+  String get iqQ1OptA => '18';
+
+  @override
+  String get iqQ1OptB => '24';
+
+  @override
+  String get iqQ1OptC => '32';
+
+  @override
+  String get iqQ1OptD => '30';
+
+  @override
+  String get iqQ2Stem =>
+      'Find the odd one out: Circle, Square, Triangle, Apple';
+
+  @override
+  String get iqQ2OptA => 'Circle';
+
+  @override
+  String get iqQ2OptB => 'Apple';
+
+  @override
+  String get iqQ2OptC => 'Square';
+
+  @override
+  String get iqQ2OptD => 'Triangle';
+
+  @override
+  String get iqQ3Stem =>
+      'If every shape gains one side each step (triangle → square → pentagon), what is next?';
+
+  @override
+  String get iqQ3OptA => 'Triangle';
+
+  @override
+  String get iqQ3OptB => 'Square';
+
+  @override
+  String get iqQ3OptC => 'Pentagon';
+
+  @override
+  String get iqQ3OptD => 'Hexagon';
+
+  @override
+  String get iqQ4Stem =>
+      'Complete the analogy: Book is to Reading as Fork is to ?';
+
+  @override
+  String get iqQ4OptA => 'Eating';
+
+  @override
+  String get iqQ4OptB => 'Kitchen';
+
+  @override
+  String get iqQ4OptC => 'Metal';
+
+  @override
+  String get iqQ4OptD => 'Plate';
+
+  @override
+  String get iqQ5Stem =>
+      'In a 3×3 grid, the missing cell that keeps rows summing to 15 is?';
+
+  @override
+  String get iqQ5OptA => '2';
+
+  @override
+  String get iqQ5OptB => '4';
+
+  @override
+  String get iqQ5OptC => '6';
+
+  @override
+  String get iqQ5OptD => '9';
+
+  @override
+  String get digitalBrainRotTestTitle => 'Digital brain rot';
+
+  @override
+  String get digitalBrainRotTestSubtitle =>
+      '8 questions about screens, scrolling, and attention';
+
+  @override
+  String get digitalBrainRotContinue => 'Continue';
+
+  @override
+  String get digitalBrainRotFinish => 'See clarity score';
+
+  @override
+  String get digitalBrainRotDone => 'Back to Home';
+
+  @override
+  String get digitalBrainRotResultTitle => 'Digital clarity';
+
+  @override
+  String get digitalBrainRotResultClarityLabel =>
+      'Clarity score (higher is healthier)';
+
+  @override
+  String get digitalBrainRotResultHealthy =>
+      'Your screen habits look relatively steady.';
+
+  @override
+  String get digitalBrainRotResultModerate =>
+      'Some friction is showing — short focus blocks can help.';
+
+  @override
+  String get digitalBrainRotResultHigh =>
+      'Screen pull looks strong right now — protect attention windows.';
+
+  @override
+  String get digitalBrainRotDisclaimer =>
+      'Self-report only — not a medical diagnosis.';
+
+  @override
+  String get digitalBrainRotQ1Stem =>
+      'I open social apps without a clear goal.';
+
+  @override
+  String get digitalBrainRotQ2Stem =>
+      'I struggle to stay with one task for 10 minutes.';
+
+  @override
+  String get digitalBrainRotQ3Stem =>
+      'I scroll past bedtime more nights than not.';
+
+  @override
+  String get digitalBrainRotQ4Stem =>
+      'Short videos make longer reading feel harder.';
+
+  @override
+  String get digitalBrainRotQ5Stem =>
+      'I check my phone within minutes of waking up.';
+
+  @override
+  String get digitalBrainRotQ6Stem =>
+      'Notifications pull me away mid-conversation.';
+
+  @override
+  String get digitalBrainRotQ7Stem =>
+      'I feel restless when I leave my phone in another room.';
+
+  @override
+  String get digitalBrainRotQ8Stem =>
+      'I can put my phone away during important work.';
 }

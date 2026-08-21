@@ -12,7 +12,6 @@ import '../domain/recovery_protocol_constants.dart';
 import '../domain/recovery_protocol_state.dart';
 import 'recovery_load_meta_provider.dart';
 import 'recovery_protocol_controller.dart';
-import 'widgets/penalty_box_dialog.dart';
 import 'widgets/recovery_day_grid.dart';
 import 'widgets/recovery_progress_card.dart';
 import 'widgets/recovery_task_tile.dart';
@@ -445,22 +444,10 @@ class _RecoveryGridBody extends ConsumerWidget {
                 ),
                 title: Text(loc.recoveryMissedHabitsTitle),
                 subtitle: Text(
-                  loc.recoveryMissedHabitsSubtitle,
+                  loc.recoveryDayEmptyHint,
                   style: TextStyle(color: context.textMuted),
                 ),
               ),
-            ),
-            const SizedBox(height: 10),
-            FilledButton.icon(
-              onPressed: () => _openPenaltyBox(context, ref),
-              icon: const Icon(Icons.gavel_outlined),
-              style: FilledButton.styleFrom(
-                backgroundColor: theme.colorScheme.error,
-                minimumSize: const Size.fromHeight(
-                  AppDesignConstants.minTouchTarget + 4,
-                ),
-              ),
-              label: Text(loc.recoveryOpenPenaltyBox),
             ),
           ] else if (selected.completedCount == 0)
             Text(
@@ -507,16 +494,4 @@ class _RecoveryGridBody extends ConsumerWidget {
         RecoveryDailyTask.mentalSupport => loc.recoveryTaskMentalSubtitle,
       };
 
-  Future<void> _openPenaltyBox(BuildContext context, WidgetRef ref) async {
-    final confirmed = await showPenaltyBoxDialog(context);
-    if (!confirmed || !context.mounted) return;
-    await ref
-        .read(recoveryProtocolControllerProvider.notifier)
-        .applyPenaltyForSelectedDay();
-    if (!context.mounted) return;
-    showAppSnackBar(
-      context,
-      AppLocalizations.of(context)!.recoveryPenaltyApplied,
-    );
-  }
 }

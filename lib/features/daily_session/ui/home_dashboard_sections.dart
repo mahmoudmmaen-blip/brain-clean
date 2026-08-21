@@ -339,19 +339,27 @@ class HomePomodoroCard extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            loc.homePomodoroTitle,
-            style: V2ShellVisual.sectionLabel(theme),
+          Row(
+            children: [
+              Icon(Icons.timer_outlined, color: AppColors.primary),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  loc.homePomodoroTitle,
+                  style: V2ShellVisual.sectionLabel(theme),
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 16),
           Text(
             timeLabel,
             textAlign: TextAlign.center,
-            style: V2ShellVisual.heroMetricValue(theme)?.copyWith(fontSize: 40),
+            style: V2ShellVisual.heroMetricValue(theme)?.copyWith(fontSize: 44),
           ),
-          const SizedBox(height: 10),
-          GlowProgressBar(progress: pomodoro.progress, height: 6),
-          const SizedBox(height: 14),
+          const SizedBox(height: 12),
+          GlowProgressBar(progress: pomodoro.progress, height: 8),
+          const SizedBox(height: 16),
           Wrap(
             spacing: 8,
             runSpacing: 8,
@@ -372,7 +380,7 @@ class HomePomodoroCard extends ConsumerWidget {
               ),
             ],
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 14),
           SizedBox(
             width: double.infinity,
             height: AppDesignConstants.minTouchTarget,
@@ -718,6 +726,437 @@ class HomeProgramPathCard extends StatelessWidget {
                 height: 7,
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Weekly cognitive test — locked with 7-day countdown.
+class HomeWeeklyTestCard extends StatelessWidget {
+  const HomeWeeklyTestCard({
+    super.key,
+    required this.loc,
+    required this.metrics,
+    required this.onOpen,
+  });
+
+  final AppLocalizations loc;
+  final HomeDashboardMetrics metrics;
+  final VoidCallback onOpen;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final unlocked = metrics.weeklyTestUnlocked;
+    final days = metrics.daysUntilWeeklyTest;
+    final subtitle = unlocked
+        ? loc.homeWeeklyTestReady
+        : (days == null
+            ? loc.homeWeeklyTestLocked
+            : loc.homeWeeklyTestDaysLeft(days));
+
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        key: const Key('home_weekly_test_card'),
+        onTap: unlocked ? onOpen : null,
+        borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
+        child: V2InfoCard(
+          child: Row(
+            children: [
+              Icon(
+                unlocked ? Icons.quiz_outlined : Icons.lock_outline,
+                color: unlocked ? AppColors.primary : AppColors.textTertiary,
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      loc.homeWeeklyTestTitle,
+                      style: theme.textTheme.titleSmall?.copyWith(
+                        color: AppColors.textPrimary,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      subtitle,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              if (!unlocked)
+                Text('🔒', style: theme.textTheme.titleMedium),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Weekly report — locked until cooldown clears; soft unlock pulse when ready.
+class HomeWeeklyReportCard extends StatefulWidget {
+  const HomeWeeklyReportCard({
+    super.key,
+    required this.loc,
+    required this.metrics,
+    required this.onOpen,
+  });
+
+  final AppLocalizations loc;
+  final HomeDashboardMetrics metrics;
+  final VoidCallback onOpen;
+
+  @override
+  State<HomeWeeklyReportCard> createState() => _HomeWeeklyReportCardState();
+}
+
+class _HomeWeeklyReportCardState extends State<HomeWeeklyReportCard>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _unlockPulse;
+
+  @override
+  void initState() {
+    super.initState();
+    _unlockPulse = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 900),
+    );
+    if (widget.metrics.weeklyReportUnlocked) {
+      _unlockPulse.forward();
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant HomeWeeklyReportCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!oldWidget.metrics.weeklyReportUnlocked &&
+        widget.metrics.weeklyReportUnlocked) {
+      _unlockPulse.forward(from: 0);
+    }
+  }
+
+  @override
+  void dispose() {
+    _unlockPulse.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final loc = widget.loc;
+    final metrics = widget.metrics;
+    final theme = Theme.of(context);
+    final unlocked = metrics.weeklyReportUnlocked;
+    final days = metrics.daysUntilWeeklyReport;
+    final subtitle = unlocked
+        ? loc.homeWeeklyReportReady
+        : (days == null
+            ? loc.homeWeeklyReportLocked
+            : loc.homeWeeklyReportDaysLeft(days));
+
+    return ScaleTransition(
+      scale: Tween<double>(begin: 0.96, end: 1).animate(
+        CurvedAnimation(parent: _unlockPulse, curve: Curves.easeOutBack),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          key: const Key('home_weekly_report_card'),
+          onTap: unlocked ? widget.onOpen : null,
+          borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
+          child: V2InfoCard(
+            child: Row(
+              children: [
+                Icon(
+                  unlocked ? Icons.insights_outlined : Icons.lock_outline,
+                  color: unlocked ? AppColors.primary : AppColors.textTertiary,
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        loc.homeWeeklyReportTitle,
+                        style: theme.textTheme.titleSmall?.copyWith(
+                          color: AppColors.textPrimary,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        subtitle,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                if (!unlocked)
+                  Text('🔒', style: theme.textTheme.titleMedium),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Baseline brain profile — gold when incomplete, score when done.
+class HomeBaselineTestCard extends StatelessWidget {
+  const HomeBaselineTestCard({
+    super.key,
+    required this.loc,
+    required this.metrics,
+    required this.onOpen,
+  });
+
+  final AppLocalizations loc;
+  final HomeDashboardMetrics metrics;
+  final VoidCallback onOpen;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final done = metrics.brainCheckCompleted;
+    final score = metrics.brainCheckScore;
+
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        key: const Key('home_baseline_test_card'),
+        onTap: onOpen,
+        borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: done ? AppColors.card : AppColors.goldDim,
+            borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
+            border: Border.all(
+              color: done ? AppColors.border : AppColors.gold,
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.psychology_alt,
+                  color: done ? AppColors.primary : AppColors.goldText,
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        loc.homeBaselineTestTitle,
+                        style: theme.textTheme.titleSmall?.copyWith(
+                          color:
+                              done ? AppColors.textPrimary : AppColors.goldText,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        done && score != null
+                            ? loc.homeBaselineTestScore(score)
+                            : loc.homeBaselineTestPending,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color:
+                              done ? AppColors.textSecondary : AppColors.goldText,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                if (!done)
+                  Icon(Icons.workspace_premium, color: AppColors.goldText),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Prominent Safa entry — same card weight as Pomodoro.
+class HomeSafaCard extends StatelessWidget {
+  const HomeSafaCard({
+    super.key,
+    required this.loc,
+    required this.onOpen,
+  });
+
+  final AppLocalizations loc;
+  final VoidCallback onOpen;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return V2InfoCard(
+      key: const Key('home_safa_card'),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.favorite_outline, color: AppColors.primary),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  loc.homeSafaCardTitle,
+                  style: V2ShellVisual.sectionLabel(theme),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Text(
+            loc.homeSafaCardBody,
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: AppColors.textSecondary,
+              height: 1.35,
+            ),
+          ),
+          const SizedBox(height: 14),
+          SizedBox(
+            height: AppDesignConstants.minTouchTarget,
+            child: FilledButton(
+              key: const Key('v2_today_safa_entry'),
+              onPressed: onOpen,
+              style: V2ShellVisual.primaryFilled(),
+              child: Text(loc.homeSafaCardCta),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Phase 5 quick-access chips: IQ, digital brain rot, focus, memory, catalog.
+class HomeQuickTestsRow extends StatelessWidget {
+  const HomeQuickTestsRow({
+    super.key,
+    required this.loc,
+    required this.onOpenIq,
+    required this.onOpenDigitalBrainRot,
+    required this.onOpenFocus,
+    required this.onOpenMemory,
+    required this.onOpenCatalog,
+  });
+
+  final AppLocalizations loc;
+  final VoidCallback onOpenIq;
+  final VoidCallback onOpenDigitalBrainRot;
+  final VoidCallback onOpenFocus;
+  final VoidCallback onOpenMemory;
+  final VoidCallback onOpenCatalog;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Column(
+      key: const Key('home_quick_tests_row'),
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          loc.homeQuickTestsHeading,
+          style: V2ShellVisual.sectionLabel(theme),
+        ),
+        const SizedBox(height: AppDesignConstants.v2GapSectionLabel),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              _QuickTestChip(
+                label: loc.homeQuickTestIq,
+                icon: Icons.psychology_outlined,
+                onTap: onOpenIq,
+              ),
+              _QuickTestChip(
+                label: loc.homeQuickTestDigitalBrainRot,
+                icon: Icons.smartphone_outlined,
+                onTap: onOpenDigitalBrainRot,
+              ),
+              _QuickTestChip(
+                label: loc.homeQuickTestFocus,
+                icon: Icons.visibility_outlined,
+                onTap: onOpenFocus,
+              ),
+              _QuickTestChip(
+                label: loc.homeQuickTestMemory,
+                icon: Icons.memory_outlined,
+                onTap: onOpenMemory,
+              ),
+              _QuickTestChip(
+                label: loc.homeQuickTestAll,
+                icon: Icons.grid_view_outlined,
+                onTap: onOpenCatalog,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _QuickTestChip extends StatelessWidget {
+  const _QuickTestChip({
+    required this.label,
+    required this.icon,
+    required this.onTap,
+  });
+
+  final String label;
+  final IconData icon;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsetsDirectional.only(end: 8),
+      child: Material(
+        color: AppColors.card,
+        borderRadius: BorderRadius.circular(14),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(14),
+          onTap: onTap,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              minHeight: AppDesignConstants.minTouchTarget,
+              minWidth: AppDesignConstants.minTouchTarget,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(icon, size: 18, color: AppColors.primary),
+                  const SizedBox(width: 8),
+                  Text(
+                    label,
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                          color: AppColors.textPrimary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),

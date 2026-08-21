@@ -86,10 +86,44 @@ class AppPalette extends ThemeExtension<AppPalette> {
     primaryDim: AppColors.primaryDim,
   );
 
+  static const pureWhite = AppPalette(
+    background: AppColors.backgroundPureWhite,
+    navBar: AppColors.navBarPureWhite,
+    card: AppColors.cardPureWhite,
+    cardSecondary: AppColors.cardSecondaryPureWhite,
+    cardElevated: AppColors.cardElevatedPureWhite,
+    border: AppColors.borderPureWhite,
+    textPrimary: AppColors.textPrimaryPureWhite,
+    textSecondary: AppColors.textSecondaryPureWhite,
+    textTertiary: AppColors.textTertiaryPureWhite,
+    ringTrack: AppColors.ringTrackPureWhite,
+    heroGradientTop: AppColors.heroGradientTopPureWhite,
+    heroGradientBottom: AppColors.heroGradientBottomPureWhite,
+    primaryDim: AppColors.primaryDimPureWhite,
+  );
+
+  static const warmBeige = AppPalette(
+    background: AppColors.backgroundWarmBeige,
+    navBar: AppColors.navBarWarmBeige,
+    card: AppColors.cardWarmBeige,
+    cardSecondary: AppColors.cardSecondaryWarmBeige,
+    cardElevated: AppColors.cardElevatedWarmBeige,
+    border: AppColors.borderWarmBeige,
+    textPrimary: AppColors.textPrimaryWarmBeige,
+    textSecondary: AppColors.textSecondaryWarmBeige,
+    textTertiary: AppColors.textTertiaryWarmBeige,
+    ringTrack: AppColors.ringTrackWarmBeige,
+    heroGradientTop: AppColors.heroGradientTopWarmBeige,
+    heroGradientBottom: AppColors.heroGradientBottomWarmBeige,
+    primaryDim: AppColors.primaryDimWarmBeige,
+  );
+
   factory AppPalette.forTheme(AppColorTheme theme) => switch (theme) {
         AppColorTheme.dark => dark,
         AppColorTheme.light => light,
         AppColorTheme.amoled => amoled,
+        AppColorTheme.pureWhite => pureWhite,
+        AppColorTheme.warmBeige => warmBeige,
       };
 
   @override

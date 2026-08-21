@@ -320,6 +320,7 @@ void main() {
                 onOpenBrainProfile: () {},
           onOpenBaselineCheck: () {},
           onOpenWeeklyCheck: () {},
+          onOpenTestsCatalog: () {},
                 onOpenSettings: () {},
                 onOpenPremium: () {},
                 onOpenSafa: () {},

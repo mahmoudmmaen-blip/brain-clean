@@ -110,6 +110,30 @@ void main() {
         }).read(selectedColorThemeProvider),
         AppColorTheme.amoled,
       );
+      expect(
+        _container(seed: {
+          HiveMetaKeys.selectedColorThemeId: 'pureWhite',
+        }).read(selectedColorThemeProvider),
+        AppColorTheme.pureWhite,
+      );
+      expect(
+        _container(seed: {
+          HiveMetaKeys.selectedColorThemeId: 'white',
+        }).read(selectedColorThemeProvider),
+        AppColorTheme.pureWhite,
+      );
+      expect(
+        _container(seed: {
+          HiveMetaKeys.selectedColorThemeId: 'warmBeige',
+        }).read(selectedColorThemeProvider),
+        AppColorTheme.warmBeige,
+      );
+      expect(
+        _container(seed: {
+          HiveMetaKeys.selectedColorThemeId: 'beige',
+        }).read(selectedColorThemeProvider),
+        AppColorTheme.warmBeige,
+      );
     });
   });
 }

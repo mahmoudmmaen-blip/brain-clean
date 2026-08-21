@@ -45,6 +45,9 @@ import '../../features/v2_onboarding/ui/brain_check_entry_boundary_screen.dart';
 import '../../features/v2_onboarding/ui/brain_check_ready_boundary_screen.dart';
 import '../../features/v2_onboarding/ui/v2_onboarding_flow_screen.dart';
 import '../../features/interactive_diagnostic/ui/interactive_diagnostic_flow_screen.dart';
+import '../../features/quick_tests/ui/digital_brain_rot_test_screen.dart';
+import '../../features/quick_tests/ui/iq_test_screen.dart';
+import '../../features/quick_tests/ui/tests_catalog_screen.dart';
 import '../../features/v2_reports/ui/measurement_history_screen.dart';
 import '../../features/v2_reports/ui/reports_overview_screen.dart';
 import '../../features/v2_reports/ui/weekly_artifact_detail_screen.dart';
@@ -513,6 +516,23 @@ GoRouter goRouter(GoRouterRef ref) {
         path: AppRoutes.v2InteractiveDiagnostic,
         name: 'v2InteractiveDiagnostic',
         builder: (context, state) => const InteractiveDiagnosticFlowScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.v2Tests,
+        name: 'v2Tests',
+        builder: (context, state) => const TestsCatalogScreen(),
+        routes: [
+          GoRoute(
+            path: 'iq',
+            name: 'v2IqTest',
+            builder: (context, state) => const IqTestScreen(),
+          ),
+          GoRoute(
+            path: 'digital-brain-rot',
+            name: 'v2DigitalBrainRotTest',
+            builder: (context, state) => const DigitalBrainRotTestScreen(),
+          ),
+        ],
       ),
       // Contextual Reports proof surface (not a primary tab)
       GoRoute(

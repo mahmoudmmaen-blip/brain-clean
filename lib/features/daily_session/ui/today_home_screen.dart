@@ -9,6 +9,7 @@ import '../../../core/presentation/glow_progress.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_design_constants.dart';
 import '../../../core/theme/v2_shell_visual.dart';
+import '../../daily_program/ui/home_structured_daily_program_section.dart';
 import '../../recovery_plan/domain/recovery_plan.dart';
 import '../../recovery_plan/domain/today_act_presentation.dart';
 import '../../v2_onboarding/domain/v2_setup_recovery.dart';
@@ -124,6 +125,16 @@ class _TodayHomeScreenState extends ConsumerState<TodayHomeScreen> {
         onOpenSafa: () => context.go(
           '${AppRoutes.v2Safa}?origin=today&returnTo=${Uri.encodeComponent(AppRoutes.v2Home)}',
         ),
+        onOpenWeeklyTest: () => context.go(
+          V2SetupRecovery.brainCheckLocation(source: 'weekly'),
+        ),
+        onOpenWeeklyReport: () => context.go(AppRoutes.v2WeeklyReview),
+        onOpenIqTest: () => context.push(AppRoutes.v2IqTest),
+        onOpenDigitalBrainRotTest: () =>
+            context.push(AppRoutes.v2DigitalBrainRotTest),
+        onOpenFocusTest: () => context.push(AppRoutes.cognitiveVisual),
+        onOpenMemoryTest: () => context.push(AppRoutes.cognitiveMemory),
+        onOpenTestsCatalog: () => context.push(AppRoutes.v2Tests),
       ),
     );
   }
@@ -177,7 +188,14 @@ class TodayHomeBody extends StatelessWidget {
     this.onOpenProgress,
     this.onOpenSuggestedExercise,
     this.onOpenProgramPath,
+    this.onOpenWeeklyTest,
+    this.onOpenWeeklyReport,
     required this.onOpenSafa,
+    this.onOpenIqTest,
+    this.onOpenDigitalBrainRotTest,
+    this.onOpenFocusTest,
+    this.onOpenMemoryTest,
+    this.onOpenTestsCatalog,
   });
 
   final AppLocalizations loc;
@@ -201,7 +219,14 @@ class TodayHomeBody extends StatelessWidget {
   final VoidCallback? onOpenProgress;
   final VoidCallback? onOpenSuggestedExercise;
   final VoidCallback? onOpenProgramPath;
+  final VoidCallback? onOpenWeeklyTest;
+  final VoidCallback? onOpenWeeklyReport;
   final VoidCallback onOpenSafa;
+  final VoidCallback? onOpenIqTest;
+  final VoidCallback? onOpenDigitalBrainRotTest;
+  final VoidCallback? onOpenFocusTest;
+  final VoidCallback? onOpenMemoryTest;
+  final VoidCallback? onOpenTestsCatalog;
 
   DateTime get _day {
     final now = DateTime.now();
@@ -247,7 +272,17 @@ class TodayHomeBody extends StatelessWidget {
       brainCheckCompleted: brainCheckDone,
       brainCheckScore: dashboard.brainCheckScore ??
           (brainCheckDone ? dashboard.recoveryPercent : null),
+      daysUntilWeeklyTest: dashboard.daysUntilWeeklyTest,
+      daysUntilWeeklyReport: dashboard.daysUntilWeeklyReport,
+      weeklyTestUnlocked: dashboard.weeklyTestUnlocked,
+      weeklyReportUnlocked: dashboard.weeklyReportUnlocked,
     );
+    final isToday = () {
+      final now = DateTime.now();
+      return _day.year == now.year &&
+          _day.month == now.month &&
+          _day.day == now.day;
+    }();
     final needsBrainCheck = !brainCheckDone &&
         V2SetupRecovery.resolve(
               hasProfilePack: hasProfilePack,
@@ -291,32 +326,85 @@ class TodayHomeBody extends StatelessWidget {
           const SizedBox(height: AppDesignConstants.v2GapControl),
           HomeStreakCard(loc: loc, streakDays: dashboard.streakDays),
           const SizedBox(height: AppDesignConstants.v2GapControl),
-          HomePomodoroCard(loc: loc),
-          const SizedBox(height: AppDesignConstants.v2GapControl),
-          HomeBrainCheckBadge(
+          HomeBaselineTestCard(
             loc: loc,
             metrics: badgeMetrics,
-            onStart: onStartBrainCheck,
-            onRetake: onStartBrainCheck,
+            onOpen: onStartBrainCheck,
           ),
+          const SizedBox(height: AppDesignConstants.v2GapControl),
+          HomeWeeklyTestCard(
+            loc: loc,
+            metrics: badgeMetrics,
+            onOpen: onOpenWeeklyTest ?? onStartBrainCheck,
+          ),
+          const SizedBox(height: AppDesignConstants.v2GapControl),
+          HomeWeeklyReportCard(
+            loc: loc,
+            metrics: badgeMetrics,
+            onOpen: onOpenWeeklyReport ?? onOpenProgress ?? () {},
+          ),
+          const SizedBox(height: AppDesignConstants.v2GapControl),
+          HomeQuickTestsRow(
+            loc: loc,
+            onOpenIq: onOpenIqTest ?? () {},
+            onOpenDigitalBrainRot: onOpenDigitalBrainRotTest ?? () {},
+            onOpenFocus: onOpenFocusTest ?? onOpenSuggestedExercise ?? () {},
+            onOpenMemory: onOpenMemoryTest ?? () {},
+            onOpenCatalog: onOpenTestsCatalog ?? onOpenSuggestedExercise ?? () {},
+          ),
+          const SizedBox(height: AppDesignConstants.v2GapControl),
+          HomePomodoroCard(loc: loc),
+          const SizedBox(height: AppDesignConstants.v2GapControl),
+          HomeSafaCard(loc: loc, onOpen: onOpenSafa),
           const SizedBox(height: AppDesignConstants.v2GapSection),
-          V2SectionLabel(loc.homeTodaySessionHeading),
+          V2SectionLabel(
+            isToday ? loc.homeTodaySessionHeading : loc.homePastProgramHeading,
+          ),
           const SizedBox(height: AppDesignConstants.v2GapSectionLabel),
-          if (hasPlan)
+          HomeStructuredDailyProgramSection(
+            loc: loc,
+            selectedDay: _day,
+          ),
+          if (hasPlan && isToday) ...[
+            const SizedBox(height: AppDesignConstants.v2GapControl),
             _buildProgramHero(
               context: context,
               theme: theme,
               actStyle: actStyle,
               timeStyle: timeStyle,
-            )
-          else
+            ),
+          ] else if (hasPlan && !isToday) ...[
+            const SizedBox(height: AppDesignConstants.v2GapControl),
+            V2InfoCard(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    resolveTodayActTitle(plan!, languageCode) ??
+                        loc.v2TodayPreviewFallbackTitle,
+                    style: actStyle,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    loc.recoveryPlanTimeRange(
+                      '${plan!.dayTemplate.todayPreview.estimatedMinutesMin}',
+                      '${plan!.dayTemplate.todayPreview.estimatedMinutesMax}',
+                    ),
+                    style: timeStyle,
+                  ),
+                ],
+              ),
+            ),
+          ] else if (needsBrainCheck && isToday) ...[
+            const SizedBox(height: AppDesignConstants.v2GapControl),
             _buildEmptyProgramCard(
               context: context,
               needsBrainCheck: needsBrainCheck,
               bodyStyle: bodyStyle,
             ),
+          ],
           const SizedBox(height: _kTodayGapCtaToSecondary),
-          if (hasPlan) ...[
+          if (hasPlan && isToday) ...[
             SizedBox(
               height: AppDesignConstants.minTouchTarget,
               child: OutlinedButton(
@@ -329,17 +417,6 @@ class TodayHomeBody extends StatelessWidget {
             ),
             const SizedBox(height: _kTodayGapSecondaryCluster),
           ],
-          SizedBox(
-            height: AppDesignConstants.minTouchTarget,
-            child: TextButton(
-              key: const Key('v2_today_safa_entry'),
-              onPressed: onOpenSafa,
-              style: V2ShellVisual.tertiaryText().copyWith(
-                textStyle: WidgetStateProperty.all(secondaryActionStyle),
-              ),
-              child: Text(loc.v2SafaEntryToday),
-            ),
-          ),
         ],
       ),
     );

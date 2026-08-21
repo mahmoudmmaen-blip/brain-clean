@@ -388,6 +388,20 @@ class SettingsHomeBody extends StatelessWidget {
                 selected: selectedTheme == AppColorTheme.amoled,
                 onTap: () => onSelectTheme(AppColorTheme.amoled),
               ),
+              _ThemeChoiceRow(
+                theme: AppColorTheme.pureWhite,
+                label: loc.colorThemePureWhiteName,
+                subtitle: loc.settingsThemePureWhiteSubtitle,
+                selected: selectedTheme == AppColorTheme.pureWhite,
+                onTap: () => onSelectTheme(AppColorTheme.pureWhite),
+              ),
+              _ThemeChoiceRow(
+                theme: AppColorTheme.warmBeige,
+                label: loc.colorThemeWarmBeigeName,
+                subtitle: loc.settingsThemeWarmBeigeSubtitle,
+                selected: selectedTheme == AppColorTheme.warmBeige,
+                onTap: () => onSelectTheme(AppColorTheme.warmBeige),
+              ),
             ],
           ),
           const SizedBox(height: _kGapBetweenSections),
@@ -509,9 +523,21 @@ class _ThemeChoiceRow extends StatelessWidget {
           AppColors.cardAmoled,
           AppColors.borderAmoled,
         ),
+      AppColorTheme.pureWhite => (
+          AppColors.backgroundPureWhite,
+          AppColors.cardPureWhite,
+          AppColors.borderPureWhite,
+        ),
+      AppColorTheme.warmBeige => (
+          AppColors.backgroundWarmBeige,
+          AppColors.cardWarmBeige,
+          AppColors.borderWarmBeige,
+        ),
     };
     final checkColor = switch (theme) {
       AppColorTheme.light => AppColors.textPrimaryLight,
+      AppColorTheme.pureWhite => AppColors.textPrimaryPureWhite,
+      AppColorTheme.warmBeige => AppColors.textPrimaryWarmBeige,
       AppColorTheme.dark || AppColorTheme.amoled => AppColors.textPrimary,
     };
     final ringColor = selected ? AppColors.primary : border;

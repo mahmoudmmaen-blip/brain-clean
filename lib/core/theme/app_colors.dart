@@ -5,7 +5,8 @@ import 'app_palette.dart';
 /// Brain Clean Pro — semantic color tokens.
 ///
 /// Static consts remain the **dark** defaults for const/default contexts.
-/// Prefer [AppColors.of] in widgets so Dark / Light / AMOLED apply live.
+/// Prefer [AppColors.of] in widgets so Dark / Light / AMOLED / Pure White /
+/// Warm Beige apply live.
 abstract final class AppColors {
   // --- Dark (default product mock) ---
   static const background = Color(0xFF0B0F0D);
@@ -58,6 +59,36 @@ abstract final class AppColors {
   static const backgroundAmoled = Color(0xFF000000);
   static const cardAmoled = Color(0xFF0A0A0A);
   static const borderAmoled = Color(0xFF1A1A1A);
+
+  // --- Pure White (أبيض نقي) — white canvas, dark text, green accents ---
+  static const backgroundPureWhite = Color(0xFFFFFFFF);
+  static const navBarPureWhite = Color(0xFFFFFFFF);
+  static const cardPureWhite = Color(0xFFF7F9F8);
+  static const cardSecondaryPureWhite = Color(0xFFEEF3F1);
+  static const cardElevatedPureWhite = Color(0xFFFFFFFF);
+  static const borderPureWhite = Color(0xFFE2E8E5);
+  static const textPrimaryPureWhite = Color(0xFF0F172A);
+  static const textSecondaryPureWhite = Color(0xFF5B6B78);
+  static const textTertiaryPureWhite = Color(0xFF8A9AA5);
+  static const ringTrackPureWhite = Color(0xFFE8EEEA);
+  static const primaryDimPureWhite = Color(0xFFD7F3E6);
+  static const heroGradientTopPureWhite = Color(0xFFFFFFFF);
+  static const heroGradientBottomPureWhite = Color(0xFFF5F7F6);
+
+  // --- Warm Beige (بيج هادئ) — warm off-white, dark brown text, green accents ---
+  static const backgroundWarmBeige = Color(0xFFF5F0E8);
+  static const navBarWarmBeige = Color(0xFFF5F0E8);
+  static const cardWarmBeige = Color(0xFFFAF6F0);
+  static const cardSecondaryWarmBeige = Color(0xFFEDE6DA);
+  static const cardElevatedWarmBeige = Color(0xFFFFFBF5);
+  static const borderWarmBeige = Color(0xFFE0D6C8);
+  static const textPrimaryWarmBeige = Color(0xFF3D2914);
+  static const textSecondaryWarmBeige = Color(0xFF6B5344);
+  static const textTertiaryWarmBeige = Color(0xFF8F7A68);
+  static const ringTrackWarmBeige = Color(0xFFE8DFD2);
+  static const primaryDimWarmBeige = Color(0xFFD7F3E6);
+  static const heroGradientTopWarmBeige = Color(0xFFF8F3EB);
+  static const heroGradientBottomWarmBeige = Color(0xFFF5F0E8);
 
   /// Active palette from [ThemeData.extensions], falling back to dark.
   static AppPalette of(BuildContext context) {

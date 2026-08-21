@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../daily_session/data/home_dashboard_provider.dart';
 import '../application/brain_check_controller.dart';
 import '../application/brain_check_controller_provider.dart';
 import '../domain/brain_check_item_bank.dart';
@@ -94,6 +95,8 @@ class _BrainCheckFlowScreenState extends ConsumerState<BrainCheckFlowScreen> {
     if (!mounted) return;
     setState(() => _submitting = false);
     if (result.isOk) {
+      // Refresh Home recovery % (55% profile + 45% weekly check blend).
+      ref.invalidate(homeDashboardProvider);
       // CHK-04 → CHK-03 (Build Spec). Temporary complete boundary remains
       // reachable for safe recovery, but the live path builds the Profile.
       context.go(AppRoutes.v2BrainCheckBuilding);

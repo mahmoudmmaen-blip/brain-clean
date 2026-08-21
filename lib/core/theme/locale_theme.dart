@@ -11,7 +11,7 @@ class LocaleTheme {
     required AppColorTheme theme,
   }) {
     final brightness = theme.brightness;
-    final isLight = theme == AppColorTheme.light;
+    final isLight = brightness == Brightness.light;
     final palette = AppPalette.forTheme(theme);
     final primary = AppColors.primary;
     final baseTextTheme =

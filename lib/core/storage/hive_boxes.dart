@@ -34,4 +34,7 @@ abstract final class HiveBoxes {
 
   /// V2 Weekly Review drafts + artifacts + signals (local-first).
   static const weeklyReview = 'weekly_review_v1';
+
+  /// Structured daily program checkmarks (day-keyed, local-first).
+  static const structuredDailyProgram = 'structured_daily_program_v1';
 }

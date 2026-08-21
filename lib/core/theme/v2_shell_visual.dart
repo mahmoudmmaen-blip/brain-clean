@@ -7,8 +7,8 @@ import 'app_palette.dart';
 /// Quiet shared presentation helpers for the V2 five-tab shell.
 ///
 /// Visual only — no routing or business logic.
-/// Colors resolve from [AppPalette] on [ThemeData] so Dark / Light / AMOLED
-/// switch immediately.
+/// Colors resolve from [AppPalette] on [ThemeData] so theme modes
+/// (Dark / Light / AMOLED / Pure White / Warm Beige) switch immediately.
 abstract final class V2ShellVisual {
   static AppPalette _palette([ThemeData? theme]) =>
       theme != null ? AppColors.fromTheme(theme) : AppPalette.dark;

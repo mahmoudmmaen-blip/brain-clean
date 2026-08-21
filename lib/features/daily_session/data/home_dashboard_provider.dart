@@ -4,6 +4,8 @@ import '../../../core/application/app_preferences_provider.dart';
 import '../../brain_check/data/brain_check_local_repository_provider.dart';
 import '../../brain_profile/data/brain_profile_repository_provider.dart';
 import '../../progress/data/progress_repository_provider.dart';
+import '../../quick_tests/data/quick_test_results_provider.dart';
+import '../../weekly_review/data/weekly_review_repository_provider.dart';
 import '../data/daily_session_repository_provider.dart';
 import '../domain/daily_day_key.dart';
 import '../domain/home_dashboard_metrics.dart';
@@ -14,6 +16,8 @@ final homeDashboardProvider =
   final progress = ref.watch(progressRepositoryProvider);
   final profiles = ref.watch(brainProfileRepositoryProvider);
   final brainCheck = ref.watch(brainCheckLocalRepositoryProvider);
+  final weeklyReviews = ref.watch(weeklyReviewRepositoryProvider);
+  final quickTests = ref.watch(quickTestResultsProvider);
   final now = DateTime.now();
   final dayKey = DailyDayKey.fromLocal(now);
   return HomeDashboardMetricsLoader.load(
@@ -22,6 +26,9 @@ final homeDashboardProvider =
     sessions: sessions,
     todayDayKey: dayKey,
     brainCheck: brainCheck,
+    weeklyReviews: weeklyReviews,
+    digitalBrainRotResult: quickTests.digitalBrainRot,
+    localNow: now,
   );
 });
 

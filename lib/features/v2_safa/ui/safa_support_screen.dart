@@ -251,6 +251,12 @@ class _SafaBody extends StatelessWidget {
           liveRegion: true,
           child: Text(_stateMessage(loc, state)),
         ),
+        if (state == SafaSessionState.offline ||
+            state == SafaSessionState.serviceUnavailable ||
+            state == SafaSessionState.localFallback) ...[
+          const SizedBox(height: 12),
+          _offlineTipCard(context, loc),
+        ],
         const SizedBox(height: 16),
         if (state == SafaSessionState.privacyNotice) ...[
           _primaryButton(
@@ -461,6 +467,50 @@ class _SafaBody extends StatelessWidget {
           ),
         ],
       ],
+    );
+  }
+
+  Widget _offlineTipCard(BuildContext context, AppLocalizations loc) {
+    return KeyedSubtree(
+      key: const Key('v2_safa_offline_tip_card'),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: AppColors.cardSecondary,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: AppColors.primary.withValues(alpha: 0.45)),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(14),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.spa_outlined, color: AppColors.primary),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      loc.v2SafaOfflineTipTitle,
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            color: AppColors.textPrimary,
+                            fontWeight: FontWeight.w700,
+                          ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Text(
+                loc.v2SafaOfflineTipBody,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: AppColors.textSecondary,
+                      height: 1.4,
+                    ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 

@@ -1013,7 +1013,7 @@ abstract class AppLocalizations {
   /// No description provided for @accountabilityPenaltyRecorded.
   ///
   /// In en, this message translates to:
-  /// **'Penalty recorded ✓'**
+  /// **'Accountability recorded ✓'**
   String get accountabilityPenaltyRecorded;
 
   /// No description provided for @accountabilityCatPhysical.
@@ -3485,7 +3485,7 @@ abstract class AppLocalizations {
   /// No description provided for @recoveryPlanSkipHint.
   ///
   /// In en, this message translates to:
-  /// **'Skipping a step never counts as a penalty.'**
+  /// **'Skipping a step never counts against you.'**
   String get recoveryPlanSkipHint;
 
   /// No description provided for @recoveryPlanOptionalTag.
@@ -3611,7 +3611,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2TodayPreviewCompletionMeaning.
   ///
   /// In en, this message translates to:
-  /// **'Finishing this step later will count as your day done. Skipping stays allowed with no penalty.'**
+  /// **'Finishing this step later will count as your day done. Skipping stays allowed with no negative mark.'**
   String get v2TodayPreviewCompletionMeaning;
 
   /// No description provided for @v2TodayPreviewContinueCta.
@@ -3901,6 +3901,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'50 min'**
   String get homePomodoroMinutesLong;
+
+  /// No description provided for @homeWeeklyTestTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly test'**
+  String get homeWeeklyTestTitle;
+
+  /// No description provided for @homeWeeklyTestLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Opens every 7 days'**
+  String get homeWeeklyTestLocked;
+
+  /// No description provided for @homeWeeklyTestDaysLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'Opens in {days} days'**
+  String homeWeeklyTestDaysLeft(int days);
+
+  /// No description provided for @homeWeeklyTestReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready — start this week\'s check'**
+  String get homeWeeklyTestReady;
+
+  /// No description provided for @homeWeeklyReportTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly report'**
+  String get homeWeeklyReportTitle;
+
+  /// No description provided for @homeWeeklyReportLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Locked until your next review window'**
+  String get homeWeeklyReportLocked;
+
+  /// No description provided for @homeWeeklyReportDaysLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'Available in {days} days'**
+  String homeWeeklyReportDaysLeft(int days);
+
+  /// No description provided for @homeWeeklyReportReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Your weekly report is ready'**
+  String get homeWeeklyReportReady;
+
+  /// No description provided for @homeBaselineTestTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Baseline test'**
+  String get homeBaselineTestTitle;
+
+  /// No description provided for @homeBaselineTestPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Not completed yet'**
+  String get homeBaselineTestPending;
+
+  /// No description provided for @homeBaselineTestScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Baseline score {score}'**
+  String homeBaselineTestScore(int score);
+
+  /// No description provided for @homeSafaCardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Safa'**
+  String get homeSafaCardTitle;
+
+  /// No description provided for @homeSafaCardBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Calm support for today\'s step'**
+  String get homeSafaCardBody;
+
+  /// No description provided for @homeSafaCardCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Safa'**
+  String get homeSafaCardCta;
+
+  /// No description provided for @homePastProgramHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Program for this day'**
+  String get homePastProgramHeading;
+
+  /// No description provided for @homePastProgramEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No saved program for this day yet.'**
+  String get homePastProgramEmpty;
+
+  /// No description provided for @homeUpgradeToPro.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade to Pro'**
+  String get homeUpgradeToPro;
 
   /// No description provided for @homeBrainCheckBadgeTitle.
   ///
@@ -5337,9 +5439,15 @@ abstract class AppLocalizations {
   String get v2ProgressWrCurrentWeek;
 
   /// No description provided for @v2ProgressWrAvailableInDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Available in {days} days'**
   String v2ProgressWrAvailableInDays(int days);
 
   /// No description provided for @v2ProgressWeeklyChartHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Last 7 days'**
   String get v2ProgressWeeklyChartHeading;
 
   /// No description provided for @v2ProgressWrAvailable.
@@ -6924,7 +7032,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2SafaOffline.
   ///
   /// In en, this message translates to:
-  /// **'You are offline. Offline support is available.'**
+  /// **'You are offline — here is a short calm step you can take now.'**
   String get v2SafaOffline;
 
   /// No description provided for @v2SafaTimeout.
@@ -6936,8 +7044,20 @@ abstract class AppLocalizations {
   /// No description provided for @v2SafaServiceUnavailable.
   ///
   /// In en, this message translates to:
-  /// **'Safa is temporarily unavailable. Offline support is available.'**
+  /// **'Safa is offline right now — try slow breathing or simplify your next step.'**
   String get v2SafaServiceUnavailable;
+
+  /// No description provided for @v2SafaOfflineTipTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline tip'**
+  String get v2SafaOfflineTipTitle;
+
+  /// No description provided for @v2SafaOfflineTipBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Breathe in for 4 counts, hold 2, out for 6. Then return to Today and complete one small focus block.'**
+  String get v2SafaOfflineTipBody;
 
   /// No description provided for @v2SafaInvalidResponse.
   ///
@@ -7144,21 +7264,39 @@ abstract class AppLocalizations {
   String get v2ProfileBrainProfileMissing;
 
   /// No description provided for @v2ProfileBaselineTestTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Baseline Brain Check'**
   String get v2ProfileBaselineTestTitle;
 
   /// No description provided for @v2ProfileBaselineTestSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'One-time assessment — you can redo anytime'**
   String get v2ProfileBaselineTestSubtitle;
 
   /// No description provided for @v2ProfileWeeklyTestTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Brain Check'**
   String get v2ProfileWeeklyTestTitle;
 
   /// No description provided for @v2ProfileWeeklyTestSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocks every 7 days'**
   String get v2ProfileWeeklyTestSubtitle;
 
   /// No description provided for @v2ProfileWeeklyTestLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Available in {days} days'**
   String v2ProfileWeeklyTestLocked(int days);
 
   /// No description provided for @v2ProfileWeeklyTestReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready — start this week\'s check'**
   String get v2ProfileWeeklyTestReady;
 
   /// No description provided for @v2ProfileSectionPreferences.
@@ -7347,6 +7485,18 @@ abstract class AppLocalizations {
   /// **'AMOLED'**
   String get colorThemeAmoledName;
 
+  /// No description provided for @colorThemePureWhiteName.
+  ///
+  /// In en, this message translates to:
+  /// **'Pure White'**
+  String get colorThemePureWhiteName;
+
+  /// No description provided for @colorThemeWarmBeigeName.
+  ///
+  /// In en, this message translates to:
+  /// **'Warm Beige'**
+  String get colorThemeWarmBeigeName;
+
   /// No description provided for @settingsThemeDarkSubtitle.
   ///
   /// In en, this message translates to:
@@ -7365,11 +7515,497 @@ abstract class AppLocalizations {
   /// **'Pure black for OLED screens'**
   String get settingsThemeAmoledSubtitle;
 
+  /// No description provided for @settingsThemePureWhiteSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Crisp white with green accents'**
+  String get settingsThemePureWhiteSubtitle;
+
+  /// No description provided for @settingsThemeWarmBeigeSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Warm off-white with brown text'**
+  String get settingsThemeWarmBeigeSubtitle;
+
+  /// No description provided for @dailyProgramMindfulness.
+  ///
+  /// In en, this message translates to:
+  /// **'Morning mindfulness'**
+  String get dailyProgramMindfulness;
+
+  /// No description provided for @dailyProgramPomodoro.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus block (Pomodoro)'**
+  String get dailyProgramPomodoro;
+
+  /// No description provided for @dailyProgramScreenFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Screen-free time'**
+  String get dailyProgramScreenFree;
+
+  /// No description provided for @dailyProgramReflection.
+  ///
+  /// In en, this message translates to:
+  /// **'Evening reflection'**
+  String get dailyProgramReflection;
+
+  /// No description provided for @dailyProgramCognitive.
+  ///
+  /// In en, this message translates to:
+  /// **'Cognitive exercise'**
+  String get dailyProgramCognitive;
+
+  /// No description provided for @dailyProgramHeavyPomodoro.
+  ///
+  /// In en, this message translates to:
+  /// **'Deep focus Pomodoro'**
+  String get dailyProgramHeavyPomodoro;
+
+  /// No description provided for @dailyProgramStroop.
+  ///
+  /// In en, this message translates to:
+  /// **'Stroop focus drill'**
+  String get dailyProgramStroop;
+
+  /// No description provided for @dailyProgramNBack.
+  ///
+  /// In en, this message translates to:
+  /// **'N-Back training'**
+  String get dailyProgramNBack;
+
+  /// No description provided for @dailyProgramDigitSpan.
+  ///
+  /// In en, this message translates to:
+  /// **'Digit Span practice'**
+  String get dailyProgramDigitSpan;
+
+  /// No description provided for @dailyProgramNoMultitask.
+  ///
+  /// In en, this message translates to:
+  /// **'Single-task rule check-in'**
+  String get dailyProgramNoMultitask;
+
+  /// No description provided for @dailyProgramDetoxBlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Extended screen-free block'**
+  String get dailyProgramDetoxBlock;
+
+  /// No description provided for @dailyProgramAppUsageReview.
+  ///
+  /// In en, this message translates to:
+  /// **'App usage review'**
+  String get dailyProgramAppUsageReview;
+
+  /// No description provided for @dailyProgramFullRecoveryBlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Full recovery focus block'**
+  String get dailyProgramFullRecoveryBlock;
+
+  /// No description provided for @dailyProgramHourlyPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Structured hourly plan check'**
+  String get dailyProgramHourlyPlan;
+
+  /// No description provided for @dailyProgramPersonalizedLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Personalized daily program'**
+  String get dailyProgramPersonalizedLocked;
+
+  /// No description provided for @dailyProgramActivityLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{title} — {minutes} min'**
+  String dailyProgramActivityLine(String title, int minutes);
+
   /// No description provided for @settingsActionFailed.
   ///
   /// In en, this message translates to:
   /// **'Could not complete that action. Please try again.'**
   String get settingsActionFailed;
+
+  /// No description provided for @testsCatalogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tests'**
+  String get testsCatalogTitle;
+
+  /// No description provided for @testsCatalogSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick checks for reasoning, screen habits, focus, and memory.'**
+  String get testsCatalogSubtitle;
+
+  /// No description provided for @homeQuickTestsHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick tests'**
+  String get homeQuickTestsHeading;
+
+  /// No description provided for @homeQuickTestIq.
+  ///
+  /// In en, this message translates to:
+  /// **'IQ'**
+  String get homeQuickTestIq;
+
+  /// No description provided for @homeQuickTestDigitalBrainRot.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain rot'**
+  String get homeQuickTestDigitalBrainRot;
+
+  /// No description provided for @homeQuickTestFocus.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus'**
+  String get homeQuickTestFocus;
+
+  /// No description provided for @homeQuickTestMemory.
+  ///
+  /// In en, this message translates to:
+  /// **'Memory'**
+  String get homeQuickTestMemory;
+
+  /// No description provided for @homeQuickTestAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All tests'**
+  String get homeQuickTestAll;
+
+  /// No description provided for @v2ProfileTestsCatalogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tests catalog'**
+  String get v2ProfileTestsCatalogTitle;
+
+  /// No description provided for @v2ProfileTestsCatalogSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'IQ, digital brain rot, focus, and memory'**
+  String get v2ProfileTestsCatalogSubtitle;
+
+  /// No description provided for @quickTestProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Question {current} of {total}'**
+  String quickTestProgress(int current, int total);
+
+  /// No description provided for @iqTestTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'IQ check'**
+  String get iqTestTitle;
+
+  /// No description provided for @iqTestSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'5 pattern and matrix reasoning questions'**
+  String get iqTestSubtitle;
+
+  /// No description provided for @iqTestContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get iqTestContinue;
+
+  /// No description provided for @iqTestFinish.
+  ///
+  /// In en, this message translates to:
+  /// **'See score'**
+  String get iqTestFinish;
+
+  /// No description provided for @iqTestDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Home'**
+  String get iqTestDone;
+
+  /// No description provided for @iqTestResultTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your reasoning score'**
+  String get iqTestResultTitle;
+
+  /// No description provided for @iqTestResultDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'{correct} of {total} correct'**
+  String iqTestResultDetail(int correct, int total);
+
+  /// No description provided for @iqTestDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'A short practice snapshot — not a clinical IQ test.'**
+  String get iqTestDisclaimer;
+
+  /// No description provided for @iqQ1Stem.
+  ///
+  /// In en, this message translates to:
+  /// **'Which number continues the pattern: 2, 4, 8, 16, ?'**
+  String get iqQ1Stem;
+
+  /// No description provided for @iqQ1OptA.
+  ///
+  /// In en, this message translates to:
+  /// **'18'**
+  String get iqQ1OptA;
+
+  /// No description provided for @iqQ1OptB.
+  ///
+  /// In en, this message translates to:
+  /// **'24'**
+  String get iqQ1OptB;
+
+  /// No description provided for @iqQ1OptC.
+  ///
+  /// In en, this message translates to:
+  /// **'32'**
+  String get iqQ1OptC;
+
+  /// No description provided for @iqQ1OptD.
+  ///
+  /// In en, this message translates to:
+  /// **'30'**
+  String get iqQ1OptD;
+
+  /// No description provided for @iqQ2Stem.
+  ///
+  /// In en, this message translates to:
+  /// **'Find the odd one out: Circle, Square, Triangle, Apple'**
+  String get iqQ2Stem;
+
+  /// No description provided for @iqQ2OptA.
+  ///
+  /// In en, this message translates to:
+  /// **'Circle'**
+  String get iqQ2OptA;
+
+  /// No description provided for @iqQ2OptB.
+  ///
+  /// In en, this message translates to:
+  /// **'Apple'**
+  String get iqQ2OptB;
+
+  /// No description provided for @iqQ2OptC.
+  ///
+  /// In en, this message translates to:
+  /// **'Square'**
+  String get iqQ2OptC;
+
+  /// No description provided for @iqQ2OptD.
+  ///
+  /// In en, this message translates to:
+  /// **'Triangle'**
+  String get iqQ2OptD;
+
+  /// No description provided for @iqQ3Stem.
+  ///
+  /// In en, this message translates to:
+  /// **'If every shape gains one side each step (triangle → square → pentagon), what is next?'**
+  String get iqQ3Stem;
+
+  /// No description provided for @iqQ3OptA.
+  ///
+  /// In en, this message translates to:
+  /// **'Triangle'**
+  String get iqQ3OptA;
+
+  /// No description provided for @iqQ3OptB.
+  ///
+  /// In en, this message translates to:
+  /// **'Square'**
+  String get iqQ3OptB;
+
+  /// No description provided for @iqQ3OptC.
+  ///
+  /// In en, this message translates to:
+  /// **'Pentagon'**
+  String get iqQ3OptC;
+
+  /// No description provided for @iqQ3OptD.
+  ///
+  /// In en, this message translates to:
+  /// **'Hexagon'**
+  String get iqQ3OptD;
+
+  /// No description provided for @iqQ4Stem.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete the analogy: Book is to Reading as Fork is to ?'**
+  String get iqQ4Stem;
+
+  /// No description provided for @iqQ4OptA.
+  ///
+  /// In en, this message translates to:
+  /// **'Eating'**
+  String get iqQ4OptA;
+
+  /// No description provided for @iqQ4OptB.
+  ///
+  /// In en, this message translates to:
+  /// **'Kitchen'**
+  String get iqQ4OptB;
+
+  /// No description provided for @iqQ4OptC.
+  ///
+  /// In en, this message translates to:
+  /// **'Metal'**
+  String get iqQ4OptC;
+
+  /// No description provided for @iqQ4OptD.
+  ///
+  /// In en, this message translates to:
+  /// **'Plate'**
+  String get iqQ4OptD;
+
+  /// No description provided for @iqQ5Stem.
+  ///
+  /// In en, this message translates to:
+  /// **'In a 3×3 grid, the missing cell that keeps rows summing to 15 is?'**
+  String get iqQ5Stem;
+
+  /// No description provided for @iqQ5OptA.
+  ///
+  /// In en, this message translates to:
+  /// **'2'**
+  String get iqQ5OptA;
+
+  /// No description provided for @iqQ5OptB.
+  ///
+  /// In en, this message translates to:
+  /// **'4'**
+  String get iqQ5OptB;
+
+  /// No description provided for @iqQ5OptC.
+  ///
+  /// In en, this message translates to:
+  /// **'6'**
+  String get iqQ5OptC;
+
+  /// No description provided for @iqQ5OptD.
+  ///
+  /// In en, this message translates to:
+  /// **'9'**
+  String get iqQ5OptD;
+
+  /// No description provided for @digitalBrainRotTestTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Digital brain rot'**
+  String get digitalBrainRotTestTitle;
+
+  /// No description provided for @digitalBrainRotTestSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'8 questions about screens, scrolling, and attention'**
+  String get digitalBrainRotTestSubtitle;
+
+  /// No description provided for @digitalBrainRotContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get digitalBrainRotContinue;
+
+  /// No description provided for @digitalBrainRotFinish.
+  ///
+  /// In en, this message translates to:
+  /// **'See clarity score'**
+  String get digitalBrainRotFinish;
+
+  /// No description provided for @digitalBrainRotDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Home'**
+  String get digitalBrainRotDone;
+
+  /// No description provided for @digitalBrainRotResultTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Digital clarity'**
+  String get digitalBrainRotResultTitle;
+
+  /// No description provided for @digitalBrainRotResultClarityLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Clarity score (higher is healthier)'**
+  String get digitalBrainRotResultClarityLabel;
+
+  /// No description provided for @digitalBrainRotResultHealthy.
+  ///
+  /// In en, this message translates to:
+  /// **'Your screen habits look relatively steady.'**
+  String get digitalBrainRotResultHealthy;
+
+  /// No description provided for @digitalBrainRotResultModerate.
+  ///
+  /// In en, this message translates to:
+  /// **'Some friction is showing — short focus blocks can help.'**
+  String get digitalBrainRotResultModerate;
+
+  /// No description provided for @digitalBrainRotResultHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'Screen pull looks strong right now — protect attention windows.'**
+  String get digitalBrainRotResultHigh;
+
+  /// No description provided for @digitalBrainRotDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Self-report only — not a medical diagnosis.'**
+  String get digitalBrainRotDisclaimer;
+
+  /// No description provided for @digitalBrainRotQ1Stem.
+  ///
+  /// In en, this message translates to:
+  /// **'I open social apps without a clear goal.'**
+  String get digitalBrainRotQ1Stem;
+
+  /// No description provided for @digitalBrainRotQ2Stem.
+  ///
+  /// In en, this message translates to:
+  /// **'I struggle to stay with one task for 10 minutes.'**
+  String get digitalBrainRotQ2Stem;
+
+  /// No description provided for @digitalBrainRotQ3Stem.
+  ///
+  /// In en, this message translates to:
+  /// **'I scroll past bedtime more nights than not.'**
+  String get digitalBrainRotQ3Stem;
+
+  /// No description provided for @digitalBrainRotQ4Stem.
+  ///
+  /// In en, this message translates to:
+  /// **'Short videos make longer reading feel harder.'**
+  String get digitalBrainRotQ4Stem;
+
+  /// No description provided for @digitalBrainRotQ5Stem.
+  ///
+  /// In en, this message translates to:
+  /// **'I check my phone within minutes of waking up.'**
+  String get digitalBrainRotQ5Stem;
+
+  /// No description provided for @digitalBrainRotQ6Stem.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications pull me away mid-conversation.'**
+  String get digitalBrainRotQ6Stem;
+
+  /// No description provided for @digitalBrainRotQ7Stem.
+  ///
+  /// In en, this message translates to:
+  /// **'I feel restless when I leave my phone in another room.'**
+  String get digitalBrainRotQ7Stem;
+
+  /// No description provided for @digitalBrainRotQ8Stem.
+  ///
+  /// In en, this message translates to:
+  /// **'I can put my phone away during important work.'**
+  String get digitalBrainRotQ8Stem;
 }
 
 class _AppLocalizationsDelegate
