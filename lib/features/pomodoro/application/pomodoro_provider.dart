@@ -73,12 +73,10 @@ class PomodoroController extends _$PomodoroController {
     );
   }
 
-  /// Sets focus duration (25 or 50). Only applies when timer is idle.
+  /// Sets focus duration (5–120, step 5). Only applies when timer is idle.
   void setFocusMinutes(int minutes) {
     if (state.isRunning) return;
-    final next = minutes == kPomodoroFocusMinutesLong
-        ? kPomodoroFocusMinutesLong
-        : kPomodoroFocusMinutesShort;
+    final next = clampPomodoroFocusMinutes(minutes);
     if (state.currentPhase != PomodoroPhase.focus) {
       state = state.copyWith(focusMinutes: next);
       return;
@@ -90,6 +88,11 @@ class PomodoroController extends _$PomodoroController {
         focusMinutes: next,
       ),
     );
+  }
+
+  /// Adjusts focus duration by [deltaMinutes] (typically ±5).
+  void adjustFocusMinutes(int deltaMinutes) {
+    setFocusMinutes(state.focusMinutes + deltaMinutes);
   }
 
   void _cancelTimer() {

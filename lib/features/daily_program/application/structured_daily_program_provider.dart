@@ -59,8 +59,12 @@ final structuredDailyProgramForDayProvider = FutureProvider.autoDispose
       ? StructuredDailyProgramBuilder.buildPro(
           scores: scores,
           weekIndex: weekIndex,
+          dayOfYear: normalized.difference(DateTime(normalized.year)).inDays + 1,
         )
-      : StructuredDailyProgramBuilder.buildFree(weekIndex: weekIndex);
+      : StructuredDailyProgramBuilder.buildFree(
+          weekIndex: weekIndex,
+          dayOfYear: normalized.difference(DateTime(normalized.year)).inDays + 1,
+        );
 
   Map<String, bool> completions = const {};
   try {

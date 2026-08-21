@@ -2132,6 +2132,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homePomodoroMinutesLong => '50 min';
 
   @override
+  String get homePomodoroMinus5 => '−5 min';
+
+  @override
+  String get homePomodoroPlus5 => '+5 min';
+
+  @override
   String get homeWeeklyTestTitle => 'Weekly test';
 
   @override
@@ -4224,25 +4230,42 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsThemeWarmBeigeSubtitle => 'Warm off-white with brown text';
 
   @override
-  String get dailyProgramMindfulness => 'Morning mindfulness';
+  String get dailyProgramMindfulness =>
+      'Reading — 15 min (book or useful article)';
 
   @override
-  String get dailyProgramPomodoro => 'Focus block (Pomodoro)';
+  String get dailyProgramReflection =>
+      'Evening review — what did I finish? What will I improve tomorrow?';
+
+  @override
+  String get dailyProgramReading => 'Reading — 15 min (book or useful article)';
+
+  @override
+  String get dailyProgramPomodoro => 'Focus Pomodoro — 25 min, one task only';
 
   @override
   String get dailyProgramScreenFree => 'Screen-free time';
 
   @override
-  String get dailyProgramReflection => 'Evening reflection';
+  String get dailyProgramEveningReview =>
+      'Evening review — what did I finish? What will I improve tomorrow?';
 
   @override
   String get dailyProgramCognitive => 'Cognitive exercise';
 
   @override
-  String get dailyProgramHeavyPomodoro => 'Deep focus Pomodoro';
+  String get dailyProgramCognitiveNBack =>
+      'Cognitive exercise — N-Back (5 min)';
 
   @override
-  String get dailyProgramStroop => 'Stroop focus drill';
+  String get dailyProgramCognitiveStroop =>
+      'Cognitive exercise — Stroop (5 min)';
+
+  @override
+  String get dailyProgramHeavyPomodoro => 'Extra focus Pomodoro';
+
+  @override
+  String get dailyProgramStroop => 'Stroop daily drill';
 
   @override
   String get dailyProgramNBack => 'N-Back training';
@@ -4251,7 +4274,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dailyProgramDigitSpan => 'Digit Span practice';
 
   @override
-  String get dailyProgramNoMultitask => 'Single-task rule check-in';
+  String get dailyProgramNoMultitask => 'No-multitasking rule';
+
+  @override
+  String get dailyProgramSingleScreenRule => 'Single-screen-only rule';
+
+  @override
+  String get dailyProgramSearchWaitRule =>
+      'Log every search urge, then wait one hour';
 
   @override
   String get dailyProgramDetoxBlock => 'Extended screen-free block';
@@ -4263,10 +4293,59 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dailyProgramFullRecoveryBlock => 'Full recovery focus block';
 
   @override
-  String get dailyProgramHourlyPlan => 'Structured hourly plan check';
+  String get dailyProgramHourlyPlan => 'Structured hourly plan';
 
   @override
   String get dailyProgramPersonalizedLocked => 'Personalized daily program';
+
+  @override
+  String get dailyProgramHourly07 => '07:00 — Wake, hydrate, light stretch';
+
+  @override
+  String get dailyProgramHourly08 => '08:00 — Focused reading';
+
+  @override
+  String get dailyProgramHourly09 => '09:00 — Deep Pomodoro block';
+
+  @override
+  String get dailyProgramHourly10 => '10:00 — Movement / walk';
+
+  @override
+  String get dailyProgramHourly11 => '11:00 — Deep Pomodoro block';
+
+  @override
+  String get dailyProgramHourly12 => '12:00 — Meal + short rest (no feeds)';
+
+  @override
+  String get dailyProgramHourly13 => '13:00 — Deep Pomodoro block';
+
+  @override
+  String get dailyProgramHourly14 => '14:00 — Screen-free recovery block';
+
+  @override
+  String get dailyProgramHourly15 =>
+      '15:00 — Cognitive drills (N-Back + Digit Span)';
+
+  @override
+  String get dailyProgramHourly16 => '16:00 — Deep Pomodoro block';
+
+  @override
+  String get dailyProgramHourly17 => '17:00 — Outdoor / sunlight break';
+
+  @override
+  String get dailyProgramHourly18 => '18:00 — Light single-task focus';
+
+  @override
+  String get dailyProgramHourly19 => '19:00 — Digital sunset start';
+
+  @override
+  String get dailyProgramHourly20 => '20:00 — Calm reading';
+
+  @override
+  String get dailyProgramHourly21 => '21:00 — Evening written review';
+
+  @override
+  String get dailyProgramHourly22 => '22:00 — Wind-down, prepare sleep';
 
   @override
   String dailyProgramActivityLine(String title, int minutes) {

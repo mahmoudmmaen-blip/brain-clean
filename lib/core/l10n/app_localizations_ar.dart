@@ -2104,6 +2104,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get homePomodoroMinutesLong => '٥٠ دقيقة';
 
   @override
+  String get homePomodoroMinus5 => '−٥ دقائق';
+
+  @override
+  String get homePomodoroPlus5 => '+٥ دقائق';
+
+  @override
   String get homeWeeklyTestTitle => 'الاختبار الأسبوعي';
 
   @override
@@ -4153,25 +4159,39 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settingsThemeWarmBeigeSubtitle => 'بيج دافئ مع نص بني';
 
   @override
-  String get dailyProgramMindfulness => 'تأمل صباحي';
+  String get dailyProgramMindfulness => 'قراءة — ١٥ دقيقة (كتاب أو مقال مفيد)';
 
   @override
-  String get dailyProgramPomodoro => 'كتلة تركيز (بومودورو)';
+  String get dailyProgramReflection =>
+      'مراجعة مسائية — ماذا أنجزت؟ ما الذي سأحسنه غداً؟';
+
+  @override
+  String get dailyProgramReading => 'قراءة — ١٥ دقيقة (كتاب أو مقال مفيد)';
+
+  @override
+  String get dailyProgramPomodoro => 'بومودورو تركيز — ٢٥ دقيقة مهمة واحدة فقط';
 
   @override
   String get dailyProgramScreenFree => 'وقت بلا شاشة';
 
   @override
-  String get dailyProgramReflection => 'تأمل مسائي';
+  String get dailyProgramEveningReview =>
+      'مراجعة مسائية — ماذا أنجزت؟ ما الذي سأحسنه غداً؟';
 
   @override
   String get dailyProgramCognitive => 'تمرين معرفي';
 
   @override
-  String get dailyProgramHeavyPomodoro => 'بومودورو تركيز عميق';
+  String get dailyProgramCognitiveNBack => 'تمرين معرفي — N-Back (٥ دقائق)';
 
   @override
-  String get dailyProgramStroop => 'تمرين ستروب للتركيز';
+  String get dailyProgramCognitiveStroop => 'تمرين معرفي — ستروب (٥ دقائق)';
+
+  @override
+  String get dailyProgramHeavyPomodoro => 'بومودورو تركيز إضافي';
+
+  @override
+  String get dailyProgramStroop => 'تمرين ستروب يومي';
 
   @override
   String get dailyProgramNBack => 'تدريب N-Back';
@@ -4180,7 +4200,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dailyProgramDigitSpan => 'تمرين مدى الأرقام';
 
   @override
-  String get dailyProgramNoMultitask => 'التزام مهمة واحدة';
+  String get dailyProgramNoMultitask => 'قاعدة لا تعدد مهام';
+
+  @override
+  String get dailyProgramSingleScreenRule => 'قاعدة الشاشة الواحدة فقط';
+
+  @override
+  String get dailyProgramSearchWaitRule =>
+      'سجّل كل ما تريد البحث عنه ثم انتظر ساعة';
 
   @override
   String get dailyProgramDetoxBlock => 'كتلة ممتدة بلا شاشة';
@@ -4196,6 +4223,55 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get dailyProgramPersonalizedLocked => 'البرنامج اليومي المخصص';
+
+  @override
+  String get dailyProgramHourly07 => '٠٧:٠٠ — استيقاظ وترطيب وتمدد خفيف';
+
+  @override
+  String get dailyProgramHourly08 => '٠٨:٠٠ — قراءة مركّزة';
+
+  @override
+  String get dailyProgramHourly09 => '٠٩:٠٠ — كتلة بومودورو عميقة';
+
+  @override
+  String get dailyProgramHourly10 => '١٠:٠٠ — حركة / مشي';
+
+  @override
+  String get dailyProgramHourly11 => '١١:٠٠ — كتلة بومودورو عميقة';
+
+  @override
+  String get dailyProgramHourly12 => '١٢:٠٠ — وجبة وراحة قصيرة (بدون فيدز)';
+
+  @override
+  String get dailyProgramHourly13 => '١٣:٠٠ — كتلة بومودورو عميقة';
+
+  @override
+  String get dailyProgramHourly14 => '١٤:٠٠ — كتلة تعافٍ بلا شاشة';
+
+  @override
+  String get dailyProgramHourly15 =>
+      '١٥:٠٠ — تمارين معرفية (N-Back + مدى الأرقام)';
+
+  @override
+  String get dailyProgramHourly16 => '١٦:٠٠ — كتلة بومودورو عميقة';
+
+  @override
+  String get dailyProgramHourly17 => '١٧:٠٠ — استراحة خارجية / ضوء شمس';
+
+  @override
+  String get dailyProgramHourly18 => '١٨:٠٠ — تركيز خفيف بمهمة واحدة';
+
+  @override
+  String get dailyProgramHourly19 => '١٩:٠٠ — بداية غروب رقمي';
+
+  @override
+  String get dailyProgramHourly20 => '٢٠:٠٠ — قراءة هادئة';
+
+  @override
+  String get dailyProgramHourly21 => '٢١:٠٠ — مراجعة مسائية مكتوبة';
+
+  @override
+  String get dailyProgramHourly22 => '٢٢:٠٠ — تهدئة والاستعداد للنوم';
 
   @override
   String dailyProgramActivityLine(String title, int minutes) {

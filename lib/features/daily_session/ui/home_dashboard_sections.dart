@@ -365,6 +365,15 @@ class HomePomodoroCard extends ConsumerWidget {
             runSpacing: 8,
             children: [
               _DurationChip(
+                key: const Key('home_pomodoro_minus_5'),
+                label: loc.homePomodoroMinus5,
+                selected: false,
+                enabled: !pomodoro.isRunning &&
+                    pomodoro.focusMinutes > kPomodoroFocusMinutesMin,
+                onTap: () =>
+                    notifier.adjustFocusMinutes(-kPomodoroFocusMinutesStep),
+              ),
+              _DurationChip(
                 label: loc.homePomodoroMinutesShort,
                 selected: pomodoro.focusMinutes == kPomodoroFocusMinutesShort,
                 enabled: !pomodoro.isRunning,
@@ -377,6 +386,15 @@ class HomePomodoroCard extends ConsumerWidget {
                 enabled: !pomodoro.isRunning,
                 onTap: () =>
                     notifier.setFocusMinutes(kPomodoroFocusMinutesLong),
+              ),
+              _DurationChip(
+                key: const Key('home_pomodoro_plus_5'),
+                label: loc.homePomodoroPlus5,
+                selected: false,
+                enabled: !pomodoro.isRunning &&
+                    pomodoro.focusMinutes < kPomodoroFocusMinutesMax,
+                onTap: () =>
+                    notifier.adjustFocusMinutes(kPomodoroFocusMinutesStep),
               ),
             ],
           ),
@@ -415,6 +433,7 @@ class HomePomodoroCard extends ConsumerWidget {
 
 class _DurationChip extends StatelessWidget {
   const _DurationChip({
+    super.key,
     required this.label,
     required this.selected,
     required this.enabled,

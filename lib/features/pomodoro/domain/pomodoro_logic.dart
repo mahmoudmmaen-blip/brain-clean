@@ -8,6 +8,16 @@ enum PomodoroPhase {
 /// Default focus durations offered on Home (minutes).
 const int kPomodoroFocusMinutesShort = 25;
 const int kPomodoroFocusMinutesLong = 50;
+const int kPomodoroFocusMinutesMin = 5;
+const int kPomodoroFocusMinutesMax = 120;
+const int kPomodoroFocusMinutesStep = 5;
+
+/// Clamps focus length to 5–120 in 5-minute steps.
+int clampPomodoroFocusMinutes(int minutes) {
+  final stepped =
+      ((minutes / kPomodoroFocusMinutesStep).round()) * kPomodoroFocusMinutesStep;
+  return stepped.clamp(kPomodoroFocusMinutesMin, kPomodoroFocusMinutesMax);
+}
 
 /// Duration in seconds for each phase.
 ///
@@ -18,10 +28,7 @@ int pomodoroPhaseDurationSeconds(
 }) {
   switch (phase) {
     case PomodoroPhase.focus:
-      final minutes = focusMinutes == kPomodoroFocusMinutesLong
-          ? kPomodoroFocusMinutesLong
-          : kPomodoroFocusMinutesShort;
-      return minutes * 60;
+      return clampPomodoroFocusMinutes(focusMinutes) * 60;
     case PomodoroPhase.shortBreak:
       return 5 * 60;
     case PomodoroPhase.longBreak:

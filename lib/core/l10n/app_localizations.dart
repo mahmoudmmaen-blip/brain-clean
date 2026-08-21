@@ -3902,6 +3902,18 @@ abstract class AppLocalizations {
   /// **'50 min'**
   String get homePomodoroMinutesLong;
 
+  /// No description provided for @homePomodoroMinus5.
+  ///
+  /// In en, this message translates to:
+  /// **'−5 min'**
+  String get homePomodoroMinus5;
+
+  /// No description provided for @homePomodoroPlus5.
+  ///
+  /// In en, this message translates to:
+  /// **'+5 min'**
+  String get homePomodoroPlus5;
+
   /// No description provided for @homeWeeklyTestTitle.
   ///
   /// In en, this message translates to:
@@ -7530,13 +7542,25 @@ abstract class AppLocalizations {
   /// No description provided for @dailyProgramMindfulness.
   ///
   /// In en, this message translates to:
-  /// **'Morning mindfulness'**
+  /// **'Reading — 15 min (book or useful article)'**
   String get dailyProgramMindfulness;
+
+  /// No description provided for @dailyProgramReflection.
+  ///
+  /// In en, this message translates to:
+  /// **'Evening review — what did I finish? What will I improve tomorrow?'**
+  String get dailyProgramReflection;
+
+  /// No description provided for @dailyProgramReading.
+  ///
+  /// In en, this message translates to:
+  /// **'Reading — 15 min (book or useful article)'**
+  String get dailyProgramReading;
 
   /// No description provided for @dailyProgramPomodoro.
   ///
   /// In en, this message translates to:
-  /// **'Focus block (Pomodoro)'**
+  /// **'Focus Pomodoro — 25 min, one task only'**
   String get dailyProgramPomodoro;
 
   /// No description provided for @dailyProgramScreenFree.
@@ -7545,11 +7569,11 @@ abstract class AppLocalizations {
   /// **'Screen-free time'**
   String get dailyProgramScreenFree;
 
-  /// No description provided for @dailyProgramReflection.
+  /// No description provided for @dailyProgramEveningReview.
   ///
   /// In en, this message translates to:
-  /// **'Evening reflection'**
-  String get dailyProgramReflection;
+  /// **'Evening review — what did I finish? What will I improve tomorrow?'**
+  String get dailyProgramEveningReview;
 
   /// No description provided for @dailyProgramCognitive.
   ///
@@ -7557,16 +7581,28 @@ abstract class AppLocalizations {
   /// **'Cognitive exercise'**
   String get dailyProgramCognitive;
 
+  /// No description provided for @dailyProgramCognitiveNBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Cognitive exercise — N-Back (5 min)'**
+  String get dailyProgramCognitiveNBack;
+
+  /// No description provided for @dailyProgramCognitiveStroop.
+  ///
+  /// In en, this message translates to:
+  /// **'Cognitive exercise — Stroop (5 min)'**
+  String get dailyProgramCognitiveStroop;
+
   /// No description provided for @dailyProgramHeavyPomodoro.
   ///
   /// In en, this message translates to:
-  /// **'Deep focus Pomodoro'**
+  /// **'Extra focus Pomodoro'**
   String get dailyProgramHeavyPomodoro;
 
   /// No description provided for @dailyProgramStroop.
   ///
   /// In en, this message translates to:
-  /// **'Stroop focus drill'**
+  /// **'Stroop daily drill'**
   String get dailyProgramStroop;
 
   /// No description provided for @dailyProgramNBack.
@@ -7584,8 +7620,20 @@ abstract class AppLocalizations {
   /// No description provided for @dailyProgramNoMultitask.
   ///
   /// In en, this message translates to:
-  /// **'Single-task rule check-in'**
+  /// **'No-multitasking rule'**
   String get dailyProgramNoMultitask;
+
+  /// No description provided for @dailyProgramSingleScreenRule.
+  ///
+  /// In en, this message translates to:
+  /// **'Single-screen-only rule'**
+  String get dailyProgramSingleScreenRule;
+
+  /// No description provided for @dailyProgramSearchWaitRule.
+  ///
+  /// In en, this message translates to:
+  /// **'Log every search urge, then wait one hour'**
+  String get dailyProgramSearchWaitRule;
 
   /// No description provided for @dailyProgramDetoxBlock.
   ///
@@ -7608,7 +7656,7 @@ abstract class AppLocalizations {
   /// No description provided for @dailyProgramHourlyPlan.
   ///
   /// In en, this message translates to:
-  /// **'Structured hourly plan check'**
+  /// **'Structured hourly plan'**
   String get dailyProgramHourlyPlan;
 
   /// No description provided for @dailyProgramPersonalizedLocked.
@@ -7616,6 +7664,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Personalized daily program'**
   String get dailyProgramPersonalizedLocked;
+
+  /// No description provided for @dailyProgramHourly07.
+  ///
+  /// In en, this message translates to:
+  /// **'07:00 — Wake, hydrate, light stretch'**
+  String get dailyProgramHourly07;
+
+  /// No description provided for @dailyProgramHourly08.
+  ///
+  /// In en, this message translates to:
+  /// **'08:00 — Focused reading'**
+  String get dailyProgramHourly08;
+
+  /// No description provided for @dailyProgramHourly09.
+  ///
+  /// In en, this message translates to:
+  /// **'09:00 — Deep Pomodoro block'**
+  String get dailyProgramHourly09;
+
+  /// No description provided for @dailyProgramHourly10.
+  ///
+  /// In en, this message translates to:
+  /// **'10:00 — Movement / walk'**
+  String get dailyProgramHourly10;
+
+  /// No description provided for @dailyProgramHourly11.
+  ///
+  /// In en, this message translates to:
+  /// **'11:00 — Deep Pomodoro block'**
+  String get dailyProgramHourly11;
+
+  /// No description provided for @dailyProgramHourly12.
+  ///
+  /// In en, this message translates to:
+  /// **'12:00 — Meal + short rest (no feeds)'**
+  String get dailyProgramHourly12;
+
+  /// No description provided for @dailyProgramHourly13.
+  ///
+  /// In en, this message translates to:
+  /// **'13:00 — Deep Pomodoro block'**
+  String get dailyProgramHourly13;
+
+  /// No description provided for @dailyProgramHourly14.
+  ///
+  /// In en, this message translates to:
+  /// **'14:00 — Screen-free recovery block'**
+  String get dailyProgramHourly14;
+
+  /// No description provided for @dailyProgramHourly15.
+  ///
+  /// In en, this message translates to:
+  /// **'15:00 — Cognitive drills (N-Back + Digit Span)'**
+  String get dailyProgramHourly15;
+
+  /// No description provided for @dailyProgramHourly16.
+  ///
+  /// In en, this message translates to:
+  /// **'16:00 — Deep Pomodoro block'**
+  String get dailyProgramHourly16;
+
+  /// No description provided for @dailyProgramHourly17.
+  ///
+  /// In en, this message translates to:
+  /// **'17:00 — Outdoor / sunlight break'**
+  String get dailyProgramHourly17;
+
+  /// No description provided for @dailyProgramHourly18.
+  ///
+  /// In en, this message translates to:
+  /// **'18:00 — Light single-task focus'**
+  String get dailyProgramHourly18;
+
+  /// No description provided for @dailyProgramHourly19.
+  ///
+  /// In en, this message translates to:
+  /// **'19:00 — Digital sunset start'**
+  String get dailyProgramHourly19;
+
+  /// No description provided for @dailyProgramHourly20.
+  ///
+  /// In en, this message translates to:
+  /// **'20:00 — Calm reading'**
+  String get dailyProgramHourly20;
+
+  /// No description provided for @dailyProgramHourly21.
+  ///
+  /// In en, this message translates to:
+  /// **'21:00 — Evening written review'**
+  String get dailyProgramHourly21;
+
+  /// No description provided for @dailyProgramHourly22.
+  ///
+  /// In en, this message translates to:
+  /// **'22:00 — Wind-down, prepare sleep'**
+  String get dailyProgramHourly22;
 
   /// No description provided for @dailyProgramActivityLine.
   ///

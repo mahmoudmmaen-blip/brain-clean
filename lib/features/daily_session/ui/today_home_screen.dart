@@ -300,11 +300,13 @@ class TodayHomeBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          HomeGreetingHeader(
-            loc: loc,
-            userName: userDisplayName.isEmpty
-                ? loc.v2ProfileDefaultIdentity
-                : userDisplayName,
+          KeyedSubtree(
+            key: const Key('home_focus_hero'),
+            child: HomeFocusHeroCard(
+              loc: loc,
+              metrics: dashboard,
+              onTap: onOpenProgress ?? () {},
+            ),
           ),
           const SizedBox(height: AppDesignConstants.v2GapControl),
           HomeDateNavigator(
@@ -315,13 +317,11 @@ class TodayHomeBody extends StatelessWidget {
             onReturnToToday: onReturnToToday ?? () {},
           ),
           const SizedBox(height: AppDesignConstants.v2GapSection),
-          KeyedSubtree(
-            key: const Key('home_focus_hero'),
-            child: HomeFocusHeroCard(
-              loc: loc,
-              metrics: dashboard,
-              onTap: onOpenProgress ?? () {},
-            ),
+          HomeGreetingHeader(
+            loc: loc,
+            userName: userDisplayName.isEmpty
+                ? loc.v2ProfileDefaultIdentity
+                : userDisplayName,
           ),
           const SizedBox(height: AppDesignConstants.v2GapControl),
           HomeStreakCard(loc: loc, streakDays: dashboard.streakDays),
