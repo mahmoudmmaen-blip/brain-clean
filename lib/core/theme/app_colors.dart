@@ -25,6 +25,10 @@ abstract final class AppColors {
   static const goldDim = Color(0xFF3A2E15);
   static const goldText = Color(0xFFF4D08A);
 
+  /// Daily program accents (tokenized — no raw hex in widgets).
+  static const accentPurple = Color(0xFFA855F7);
+  static const accentOrange = Color(0xFFF59E0B);
+
   static const textPrimary = Color(0xFFEDEFEA);
   static const textSecondary = Color(0xFF8FA098);
   static const textTertiary = Color(0xFF526059);

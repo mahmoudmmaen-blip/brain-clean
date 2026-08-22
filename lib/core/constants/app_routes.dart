@@ -148,4 +148,43 @@ abstract final class AppRoutes {
 
   /// Phase 5 — Digital brain-rot screen habits (8 Likert).
   static const v2DigitalBrainRotTest = '/v2/tests/digital-brain-rot';
+
+  /// Phase 7 — Daily program countdown timer (reading / screen-free).
+  static const v2DailyProgramTimer = '/v2/daily-program/timer';
+
+  /// Phase 7 — Evening written review.
+  static const v2EveningReview = '/v2/daily-program/evening-review';
+
+  /// Phase 7 — Cognitive exercise gate (Stroop / N-Back).
+  static const v2DailyProgramCognitive = '/v2/daily-program/cognitive';
+
+  static String v2DailyProgramTimerWith({
+    required String activityId,
+    required int minutes,
+    required String title,
+    required String day,
+  }) =>
+      '$v2DailyProgramTimer'
+      '?activityId=${Uri.encodeComponent(activityId)}'
+      '&minutes=$minutes'
+      '&title=${Uri.encodeComponent(title)}'
+      '&day=${Uri.encodeComponent(day)}';
+
+  static String v2EveningReviewWith({
+    required String activityId,
+    required String day,
+  }) =>
+      '$v2EveningReview'
+      '?activityId=${Uri.encodeComponent(activityId)}'
+      '&day=${Uri.encodeComponent(day)}';
+
+  static String v2DailyProgramCognitiveWith({
+    required String activityId,
+    required String kind,
+    required String day,
+  }) =>
+      '$v2DailyProgramCognitive'
+      '?activityId=${Uri.encodeComponent(activityId)}'
+      '&kind=${Uri.encodeComponent(kind)}'
+      '&day=${Uri.encodeComponent(day)}';
 }

@@ -115,6 +115,7 @@ class StructuredDailyProgramController {
           DateTime(day.year, day.month, day.day),
         ),
       );
+      _ref.invalidate(homeDashboardProvider);
     } catch (_) {
       // Persistence best-effort — UI stays usable.
     }

@@ -48,6 +48,10 @@ import '../../features/interactive_diagnostic/ui/interactive_diagnostic_flow_scr
 import '../../features/quick_tests/ui/digital_brain_rot_test_screen.dart';
 import '../../features/quick_tests/ui/iq_test_screen.dart';
 import '../../features/quick_tests/ui/tests_catalog_screen.dart';
+import '../../features/daily_program/domain/daily_program_activity_kind.dart';
+import '../../features/daily_program/ui/daily_program_cognitive_gate_screen.dart';
+import '../../features/daily_program/ui/daily_program_timer_screen.dart';
+import '../../features/daily_program/ui/evening_review_screen.dart';
 import '../../features/v2_reports/ui/measurement_history_screen.dart';
 import '../../features/v2_reports/ui/reports_overview_screen.dart';
 import '../../features/v2_reports/ui/weekly_artifact_detail_screen.dart';
@@ -533,6 +537,83 @@ GoRouter goRouter(GoRouterRef ref) {
             builder: (context, state) => const DigitalBrainRotTestScreen(),
           ),
         ],
+      ),
+      GoRoute(
+        path: AppRoutes.v2DailyProgramTimer,
+        name: 'v2DailyProgramTimer',
+        builder: (context, state) {
+          final q = state.uri.queryParameters;
+          final minutes = int.tryParse(q['minutes'] ?? '') ?? 15;
+          final dayRaw = q['day'];
+          DateTime? day;
+          if (dayRaw != null && dayRaw.contains('-')) {
+            final parts = dayRaw.split('-');
+            if (parts.length == 3) {
+              day = DateTime(
+                int.tryParse(parts[0]) ?? DateTime.now().year,
+                int.tryParse(parts[1]) ?? 1,
+                int.tryParse(parts[2]) ?? 1,
+              );
+            }
+          }
+          return DailyProgramTimerScreen(
+            activityId: q['activityId'] ?? 'activity',
+            minutes: minutes,
+            title: q['title'] ?? '',
+            day: day,
+          );
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.v2EveningReview,
+        name: 'v2EveningReview',
+        builder: (context, state) {
+          final q = state.uri.queryParameters;
+          final dayRaw = q['day'];
+          DateTime? day;
+          if (dayRaw != null && dayRaw.contains('-')) {
+            final parts = dayRaw.split('-');
+            if (parts.length == 3) {
+              day = DateTime(
+                int.tryParse(parts[0]) ?? DateTime.now().year,
+                int.tryParse(parts[1]) ?? 1,
+                int.tryParse(parts[2]) ?? 1,
+              );
+            }
+          }
+          return EveningReviewScreen(
+            activityId: q['activityId'] ?? 'evening_review',
+            day: day,
+          );
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.v2DailyProgramCognitive,
+        name: 'v2DailyProgramCognitive',
+        builder: (context, state) {
+          final q = state.uri.queryParameters;
+          final kindRaw = (q['kind'] ?? 'stroop').toLowerCase();
+          final kind = kindRaw == 'nback'
+              ? DailyProgramActivityKind.cognitiveNBack
+              : DailyProgramActivityKind.cognitiveStroop;
+          final dayRaw = q['day'];
+          DateTime? day;
+          if (dayRaw != null && dayRaw.contains('-')) {
+            final parts = dayRaw.split('-');
+            if (parts.length == 3) {
+              day = DateTime(
+                int.tryParse(parts[0]) ?? DateTime.now().year,
+                int.tryParse(parts[1]) ?? 1,
+                int.tryParse(parts[2]) ?? 1,
+              );
+            }
+          }
+          return DailyProgramCognitiveGateScreen(
+            activityId: q['activityId'] ?? 'cognitive',
+            kind: kind,
+            day: day,
+          );
+        },
       ),
       // Contextual Reports proof surface (not a primary tab)
       GoRoute(

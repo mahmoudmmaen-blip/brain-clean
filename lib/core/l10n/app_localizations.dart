@@ -4016,6 +4016,54 @@ abstract class AppLocalizations {
   /// **'Upgrade to Pro'**
   String get homeUpgradeToPro;
 
+  /// No description provided for @homeRecoveryFormulaTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How recovery % is calculated'**
+  String get homeRecoveryFormulaTitle;
+
+  /// No description provided for @homeRecoveryFormulaBody.
+  ///
+  /// In en, this message translates to:
+  /// **'40% daily program completion today\n35% baseline brain check score\n25% weekly test score'**
+  String get homeRecoveryFormulaBody;
+
+  /// No description provided for @dailyProgramTimerDoneMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Well done! Your brain thanks you 🧠'**
+  String get dailyProgramTimerDoneMessage;
+
+  /// No description provided for @dailyProgramEveningReviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Evening review'**
+  String get dailyProgramEveningReviewTitle;
+
+  /// No description provided for @dailyProgramEveningReviewPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'What did you finish today? What will you improve tomorrow?'**
+  String get dailyProgramEveningReviewPrompt;
+
+  /// No description provided for @dailyProgramEveningReviewHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write a few lines…'**
+  String get dailyProgramEveningReviewHint;
+
+  /// No description provided for @dailyProgramEveningReviewSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save and complete'**
+  String get dailyProgramEveningReviewSave;
+
+  /// No description provided for @dailyProgramBenefitLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Completing your daily program improves focus, memory, digital clarity, and reasoning.'**
+  String get dailyProgramBenefitLine;
+
   /// No description provided for @homeBrainCheckBadgeTitle.
   ///
   /// In en, this message translates to:

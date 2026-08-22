@@ -82,6 +82,7 @@ abstract final class HomeDashboardMetricsLoader {
     WeeklyReviewRepository? weeklyReviews,
     QuickTestResult? digitalBrainRotResult,
     DateTime? localNow,
+    int programCompletionPercent = 0,
   }) async {
     try {
       final now = localNow ?? DateTime.now();
@@ -102,6 +103,7 @@ abstract final class HomeDashboardMetricsLoader {
         weeklyCheck: checkResult,
         digitalBrainRot: digitalBrainRotResult,
         localNow: now,
+        programCompletionPercent: programCompletionPercent,
       );
       final improvement = _resolveImprovement(profileHistory, focusPercent);
       final exercisesToday = _exercisesCompletedToday(
@@ -175,35 +177,41 @@ abstract final class HomeDashboardMetricsLoader {
     return cooldown - elapsed;
   }
 
-  /// Recovery % blends profile score with latest weekly brain-check score.
-  ///
-  /// When a digital brain-rot clarity score exists (completed within 14 days),
-  /// it softens the weekly side (75% check / 25% clarity) so weekly testing
-  /// visibly moves Home recovery %.
+  /// Recovery %:
+  /// 40% daily program completion + 35% baseline brain check + 25% weekly test.
   static int _resolveFocusPercent({
     required ProfilePack? profile,
     required ProgressStatistics stats,
     required BrainCheckResult? weeklyCheck,
     QuickTestResult? digitalBrainRot,
     DateTime? localNow,
+    int programCompletionPercent = 0,
   }) {
-    final profileScore = profile?.recoveryScore.value;
+    final baselineScore = weeklyCheck?.scorePlaceholder.recoveryScore?.round() ??
+        profile?.recoveryScore.value;
+    // Baseline = brain check / profile; weekly pulse prefers latest check age.
+    final baseline = (baselineScore ?? 0).clamp(0, 100);
+
     var weeklyScore = weeklyCheck?.scorePlaceholder.recoveryScore?.round();
-    final dbr = _recentDigitalClarity(digitalBrainRot, localNow ?? DateTime.now());
+    final dbr =
+        _recentDigitalClarity(digitalBrainRot, localNow ?? DateTime.now());
     if (weeklyScore != null && dbr != null) {
       weeklyScore = ((weeklyScore * 0.75) + (dbr * 0.25)).round();
     } else if (weeklyScore == null && dbr != null) {
       weeklyScore = dbr;
     }
-    if (profileScore != null && weeklyScore != null) {
-      return ((profileScore * 0.55) + (weeklyScore * 0.45)).round().clamp(0, 100);
+    final weekly = (weeklyScore ?? 0).clamp(0, 100);
+    final program = programCompletionPercent.clamp(0, 100);
+
+    final blended =
+        (program * 0.40) + (baseline * 0.35) + (weekly * 0.25);
+    if (program == 0 && baseline == 0 && weekly == 0) {
+      if (stats.totalSessions > 0) {
+        return (stats.completionRate * 100).round().clamp(0, 100);
+      }
+      return 0;
     }
-    if (weeklyScore != null) return weeklyScore.clamp(0, 100);
-    if (profileScore != null) return profileScore.clamp(0, 100);
-    if (stats.totalSessions > 0) {
-      return (stats.completionRate * 100).round().clamp(0, 100);
-    }
-    return 0;
+    return blended.round().clamp(0, 100);
   }
 
   static int? _recentDigitalClarity(QuickTestResult? result, DateTime localNow) {

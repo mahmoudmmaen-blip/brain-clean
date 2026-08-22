@@ -6,6 +6,10 @@ import '../../../core/constants/hive_meta_keys.dart';
 import '../../../core/data/app_meta_box_provider.dart';
 import '../../../core/providers/locale_provider.dart';
 import '../../../core/services/app_notification_service.dart';
+import '../../daily_program/application/structured_daily_program_provider.dart';
+import '../../daily_program/data/structured_daily_program_repository_provider.dart';
+import '../../daily_session/data/home_dashboard_provider.dart';
+import '../../daily_session/domain/daily_day_key.dart';
 import '../../diagnostic/presentation/bc_score_provider.dart';
 import '../../gamification/data/xp_ledger_constants.dart';
 import '../../gamification/domain/xp_source.dart';
@@ -198,6 +202,8 @@ class PomodoroController extends _$PomodoroController {
             );
       }
       _notifyPhaseComplete(wasFocus: true);
+      // ignore: discarded_futures
+      _markDailyProgramPomodoroComplete();
     } else if (completed == PomodoroPhase.longBreak) {
       final bonus = advance.longBreakBonus;
       if (bonus != null) {
@@ -238,6 +244,42 @@ class PomodoroController extends _$PomodoroController {
             ? 'خذ استراحة ☕'
             : 'Take a break ☕',
       );
+    } catch (_) {}
+  }
+
+  Future<void> _markDailyProgramPomodoroComplete() async {
+    try {
+      final now = DateTime.now();
+      final day = DateTime(now.year, now.month, now.day);
+      final dayKey = DailyDayKey.fromLocal(day);
+      final repo = ref.read(structuredDailyProgramRepositoryProvider);
+      final completions = await repo.loadCompletions(dayKey);
+      const candidates = <String>[
+        'focus_pomodoro',
+        'extra_pomodoro_1',
+        'extra_pomodoro_2',
+        'extra_pomodoro_3',
+        'heavy_pomodoro_1',
+        'heavy_pomodoro_2',
+        'heavy_pomodoro_3',
+        'heavy_pomodoro_4',
+        'heavy_pomodoro_5',
+        'h09_pomodoro_1',
+        'h11_pomodoro_2',
+        'h13_pomodoro_3',
+        'h16_pomodoro_4',
+      ];
+      for (final id in candidates) {
+        if (completions[id] == true) continue;
+        await repo.setCompleted(
+          dayKey: dayKey,
+          activityId: id,
+          completed: true,
+        );
+        break;
+      }
+      ref.invalidate(structuredDailyProgramForDayProvider(day));
+      ref.invalidate(homeDashboardProvider);
     } catch (_) {}
   }
 }

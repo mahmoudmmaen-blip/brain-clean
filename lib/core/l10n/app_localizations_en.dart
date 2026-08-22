@@ -2195,6 +2195,34 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeUpgradeToPro => 'Upgrade to Pro';
 
   @override
+  String get homeRecoveryFormulaTitle => 'How recovery % is calculated';
+
+  @override
+  String get homeRecoveryFormulaBody =>
+      '40% daily program completion today\n35% baseline brain check score\n25% weekly test score';
+
+  @override
+  String get dailyProgramTimerDoneMessage =>
+      'Well done! Your brain thanks you 🧠';
+
+  @override
+  String get dailyProgramEveningReviewTitle => 'Evening review';
+
+  @override
+  String get dailyProgramEveningReviewPrompt =>
+      'What did you finish today? What will you improve tomorrow?';
+
+  @override
+  String get dailyProgramEveningReviewHint => 'Write a few lines…';
+
+  @override
+  String get dailyProgramEveningReviewSave => 'Save and complete';
+
+  @override
+  String get dailyProgramBenefitLine =>
+      'Completing your daily program improves focus, memory, digital clarity, and reasoning.';
+
+  @override
   String get homeBrainCheckBadgeTitle =>
       'Complete your brain profile — start the check';
 

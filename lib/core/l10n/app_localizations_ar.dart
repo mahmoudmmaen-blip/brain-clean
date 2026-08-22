@@ -2167,6 +2167,33 @@ class AppLocalizationsAr extends AppLocalizations {
   String get homeUpgradeToPro => 'ترقية للـ Pro';
 
   @override
+  String get homeRecoveryFormulaTitle => 'كيف تُحسب نسبة التعافي';
+
+  @override
+  String get homeRecoveryFormulaBody =>
+      '٤٠٪ إكمال البرنامج اليومي اليوم\n٣٥٪ درجة فحص الأساس\n٢٥٪ درجة الاختبار الأسبوعي';
+
+  @override
+  String get dailyProgramTimerDoneMessage => 'أحسنت! دماغك يشكرك 🧠';
+
+  @override
+  String get dailyProgramEveningReviewTitle => 'مراجعة مسائية';
+
+  @override
+  String get dailyProgramEveningReviewPrompt =>
+      'ماذا أنجزت اليوم؟ ما الذي ستحسنه غداً؟';
+
+  @override
+  String get dailyProgramEveningReviewHint => 'اكتب بضعة أسطر…';
+
+  @override
+  String get dailyProgramEveningReviewSave => 'حفظ وإكمال';
+
+  @override
+  String get dailyProgramBenefitLine =>
+      'إكمال برنامجك اليومي يحسّن تركيزك وذاكرتك ويقلل تعفن الدماغ الرقمي';
+
+  @override
   String get homeBrainCheckBadgeTitle => 'اكتمل ملفك الذهني — ابدأ الفحص';
 
   @override

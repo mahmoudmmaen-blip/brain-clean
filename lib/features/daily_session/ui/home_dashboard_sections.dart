@@ -10,6 +10,8 @@ import '../../../core/theme/v2_shell_visual.dart';
 import '../../../core/utils/date_format_utils.dart';
 import '../../pomodoro/application/pomodoro_provider.dart';
 import '../../pomodoro/domain/pomodoro_logic.dart';
+import '../../daily_program/ui/home_structured_daily_program_section.dart'
+    show homePomodoroAnchorKey;
 import '../data/home_dashboard_provider.dart';
 import '../domain/home_dashboard_metrics.dart';
 
@@ -157,7 +159,7 @@ class HomeDateNavigator extends StatelessWidget {
   }
 }
 
-/// Recovery % hero — mint metric + progress bar (tappable).
+/// Recovery % hero — mint metric + progress bar (tappable) + formula info.
 class HomeFocusHeroCard extends StatelessWidget {
   const HomeFocusHeroCard({
     super.key,
@@ -194,7 +196,9 @@ class HomeFocusHeroCard extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 10),
                           child: DecoratedBox(
-                            decoration: V2ShellVisual.mintTagDecoration(Theme.of(context)),
+                            decoration: V2ShellVisual.mintTagDecoration(
+                              Theme.of(context),
+                            ),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 10,
@@ -207,9 +211,29 @@ class HomeFocusHeroCard extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Text(
-                          '$percent%',
-                          style: V2ShellVisual.heroMetricValue(theme),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              '$percent%',
+                              style: V2ShellVisual.heroMetricValue(theme),
+                            ),
+                            const SizedBox(width: 4),
+                            IconButton(
+                              key: const Key('home_recovery_info'),
+                              tooltip: loc.homeRecoveryFormulaTitle,
+                              onPressed: () => _showRecoveryInfo(context),
+                              icon: Icon(
+                                Icons.info_outline,
+                                color: AppColors.textSecondary,
+                                size: 22,
+                              ),
+                              constraints: const BoxConstraints(
+                                minWidth: AppDesignConstants.minTouchTarget,
+                                minHeight: AppDesignConstants.minTouchTarget,
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 2),
                         Text(
@@ -238,6 +262,25 @@ class HomeFocusHeroCard extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  void _showRecoveryInfo(BuildContext context) {
+    showDialog<void>(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          backgroundColor: AppColors.of(ctx).card,
+          title: Text(loc.homeRecoveryFormulaTitle),
+          content: Text(loc.homeRecoveryFormulaBody),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(),
+              child: Text(loc.commonOk),
+            ),
+          ],
+        );
+      },
     );
   }
 }
@@ -334,7 +377,9 @@ class HomePomodoroCard extends ConsumerWidget {
     final notifier = ref.read(pomodoroControllerProvider.notifier);
     final timeLabel = DateFormatUtils.countdown(pomodoro.remainingSeconds);
 
-    return V2InfoCard(
+    return KeyedSubtree(
+      key: homePomodoroAnchorKey,
+      child: V2InfoCard(
       key: const Key('home_pomodoro_card'),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -426,6 +471,7 @@ class HomePomodoroCard extends ConsumerWidget {
             ),
           ),
         ],
+      ),
       ),
     );
   }
