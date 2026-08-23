@@ -17,6 +17,14 @@ class V2NavigationShell extends StatelessWidget {
 
   final StatefulNavigationShell navigationShell;
 
+  static const _destinations = [
+    (Icons.home_rounded, 'home'),
+    (Icons.fitness_center_rounded, 'exercises'),
+    (Icons.bar_chart_rounded, 'progress'),
+    (Icons.workspace_premium_rounded, 'pro'),
+    (Icons.person_rounded, 'profile'),
+  ];
+
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
@@ -25,6 +33,13 @@ class V2NavigationShell extends StatelessWidget {
     final theme = Theme.of(context);
     final palette = AppColors.of(context);
     final inactive = palette.textSecondary.withValues(alpha: 0.92);
+    final labels = [
+      loc.v2NavHome,
+      loc.v2NavExercises,
+      loc.v2NavProgress,
+      loc.v2NavPro,
+      loc.v2NavProfile,
+    ];
 
     return BackButtonListener(
       onBackButtonPressed: () async {
@@ -42,100 +57,89 @@ class V2NavigationShell extends StatelessWidget {
               top: BorderSide(color: palette.border, width: 1.2),
             ),
           ),
-          child: NavigationBarTheme(
-            data: NavigationBarThemeData(
+          child: SafeArea(
+            top: false,
+            child: SizedBox(
               height: AppDesignConstants.v2NavHeight,
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              shadowColor: Colors.transparent,
-              surfaceTintColor: Colors.transparent,
-              indicatorColor: AppColors.primary.withValues(alpha: 0.14),
-              overlayColor: const WidgetStatePropertyAll(Colors.transparent),
-              labelTextStyle: WidgetStateProperty.resolveWith((states) {
-                final selected = states.contains(WidgetState.selected);
-                return theme.textTheme.labelMedium?.copyWith(
-                  color: selected ? AppColors.primary : inactive,
+              child: Row(
+                children: [
+                  for (var i = 0; i < _destinations.length; i++)
+                    _V2NavTab(
+                      icon: _destinations[i].$1,
+                      label: labels[i],
+                      selected: i == index,
+                      inactiveColor: inactive,
+                      onTap: () {
+                        navigationShell.goBranch(
+                          i,
+                          initialLocation: i == navigationShell.currentIndex,
+                        );
+                      },
+                    ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _V2NavTab extends StatelessWidget {
+  const _V2NavTab({
+    required this.icon,
+    required this.label,
+    required this.selected,
+    required this.inactiveColor,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String label;
+  final bool selected;
+  final Color inactiveColor;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final color = selected ? AppColors.primary : inactiveColor;
+
+    return Expanded(
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, size: selected ? 28 : 26, color: color),
+              const SizedBox(height: 3),
+              Text(
+                label,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: theme.textTheme.labelMedium?.copyWith(
+                  color: color,
                   fontWeight: selected ? FontWeight.w800 : FontWeight.w600,
-                  height: 1.15,
+                  height: 1.1,
                   fontSize: 11,
                   letterSpacing: 0.1,
-                );
-              }),
-              iconTheme: WidgetStateProperty.resolveWith((states) {
-                final selected = states.contains(WidgetState.selected);
-                return IconThemeData(
-                  size: selected ? 26 : 24,
-                  color: selected ? AppColors.primary : inactive,
-                  opacity: 1,
-                );
-              }),
-            ),
-            child: NavigationBar(
-              selectedIndex: index,
-              backgroundColor: Colors.transparent,
-              labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-              onDestinationSelected: (i) {
-                navigationShell.goBranch(
-                  i,
-                  initialLocation: i == navigationShell.currentIndex,
-                );
-              },
-              destinations: [
-                NavigationDestination(
-                  icon: Icon(Icons.home_rounded, color: inactive, size: 24),
-                  selectedIcon: const Icon(
-                    Icons.home_rounded,
-                    color: AppColors.primary,
-                    size: 26,
-                  ),
-                  label: loc.v2NavHome,
-                  tooltip: loc.v2NavHome,
                 ),
-                NavigationDestination(
-                  icon: Icon(Icons.fitness_center_rounded,
-                      color: inactive, size: 24),
-                  selectedIcon: const Icon(
-                    Icons.fitness_center_rounded,
-                    color: AppColors.primary,
-                    size: 26,
-                  ),
-                  label: loc.v2NavExercises,
-                  tooltip: loc.v2NavExercises,
+              ),
+              const SizedBox(height: 4),
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 220),
+                curve: Curves.easeOutCubic,
+                height: 3,
+                width: selected ? 28 : 0,
+                decoration: BoxDecoration(
+                  color: AppColors.primary,
+                  borderRadius: BorderRadius.circular(2),
                 ),
-                NavigationDestination(
-                  icon: Icon(Icons.bar_chart_rounded,
-                      color: inactive, size: 24),
-                  selectedIcon: const Icon(
-                    Icons.bar_chart_rounded,
-                    color: AppColors.primary,
-                    size: 26,
-                  ),
-                  label: loc.v2NavProgress,
-                  tooltip: loc.v2NavProgress,
-                ),
-                NavigationDestination(
-                  icon: Icon(Icons.workspace_premium_rounded,
-                      color: inactive, size: 24),
-                  selectedIcon: const Icon(
-                    Icons.workspace_premium_rounded,
-                    color: AppColors.primary,
-                    size: 26,
-                  ),
-                  label: loc.v2NavPro,
-                  tooltip: loc.v2NavPro,
-                ),
-                NavigationDestination(
-                  icon: Icon(Icons.person_rounded, color: inactive, size: 24),
-                  selectedIcon: const Icon(
-                    Icons.person_rounded,
-                    color: AppColors.primary,
-                    size: 26,
-                  ),
-                  label: loc.v2NavProfile,
-                  tooltip: loc.v2NavProfile,
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

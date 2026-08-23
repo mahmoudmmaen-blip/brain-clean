@@ -175,6 +175,7 @@ class HomeFocusHeroCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final palette = AppColors.of(context);
     final percent = metrics.recoveryPercent;
 
     return Material(
@@ -182,82 +183,100 @@ class HomeFocusHeroCard extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(AppDesignConstants.radiusHeroCard),
-        child: V2HeroCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: DecoratedBox(
-                            decoration: V2ShellVisual.mintTagDecoration(
-                              Theme.of(context),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 10,
-                                vertical: 4,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [palette.card, palette.cardElevated],
+            ),
+            borderRadius:
+                BorderRadius.circular(AppDesignConstants.radiusHeroCard),
+            border: Border.all(color: palette.border),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.22),
+                blurRadius: 18,
+                offset: const Offset(0, 8),
+              ),
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(AppDesignConstants.v2HeroPad),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: DecoratedBox(
+                              decoration: V2ShellVisual.mintTagDecoration(
+                                Theme.of(context),
                               ),
-                              child: Text(
-                                loc.homeFocusLevelTag,
-                                style: V2ShellVisual.mintTagLabel(theme),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 4,
+                                ),
+                                child: Text(
+                                  loc.homeFocusLevelTag,
+                                  style: V2ShellVisual.mintTagLabel(theme),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              '$percent%',
-                              style: V2ShellVisual.heroMetricValue(theme),
-                            ),
-                            const SizedBox(width: 4),
-                            IconButton(
-                              key: const Key('home_recovery_info'),
-                              tooltip: loc.homeRecoveryFormulaTitle,
-                              onPressed: () => _showRecoveryInfo(context),
-                              icon: Icon(
-                                Icons.info_outline,
-                                color: AppColors.of(context).textSecondary,
-                                size: 22,
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                '$percent%',
+                                style: V2ShellVisual.heroMetricValue(theme),
                               ),
-                              constraints: const BoxConstraints(
-                                minWidth: AppDesignConstants.minTouchTarget,
-                                minHeight: AppDesignConstants.minTouchTarget,
+                              const SizedBox(width: 4),
+                              IconButton(
+                                key: const Key('home_recovery_info'),
+                                tooltip: loc.homeRecoveryFormulaTitle,
+                                onPressed: () => _showRecoveryInfo(context),
+                                icon: Icon(
+                                  Icons.info_outline,
+                                  color: palette.textSecondary,
+                                  size: 22,
+                                ),
+                                constraints: const BoxConstraints(
+                                  minWidth: AppDesignConstants.minTouchTarget,
+                                  minHeight: AppDesignConstants.minTouchTarget,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 2),
-                        Text(
-                          metrics.focusImprovementPercent > 0
-                              ? loc.homeFocusImprovement(
-                                  metrics.focusImprovementPercent,
-                                )
-                              : loc.homeFocusImprovementPending,
-                          style: V2ShellVisual.captionMuted(theme),
-                        ),
-                      ],
+                            ],
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            metrics.focusImprovementPercent > 0
+                                ? loc.homeFocusImprovement(
+                                    metrics.focusImprovementPercent,
+                                  )
+                                : loc.homeFocusImprovementPending,
+                            style: V2ShellVisual.captionMuted(theme),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  Icon(Icons.chevron_right,
-                    color: AppColors.of(context).textTertiary,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 14),
-              GlowProgressBar(
-                progress: metrics.focusProgress,
-                height: 7,
-              ),
-            ],
+                    Icon(Icons.chevron_right, color: palette.textTertiary),
+                  ],
+                ),
+                const SizedBox(height: 14),
+                GlowProgressBar(
+                  progress: metrics.focusProgress,
+                  height: 7,
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -298,49 +317,57 @@ class HomeStreakCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return V2InfoCard(
+    final palette = AppColors.of(context);
+    return DecoratedBox(
       key: const Key('home_metric_streak'),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-      child: Row(
-        children: [
-          DecoratedBox(
-            decoration: BoxDecoration(
-              color: AppColors.primaryDim,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: const SizedBox(
-              width: 42,
-              height: 42,
-              child: Icon(
-                Icons.local_fire_department_rounded,
-                color: AppColors.primary,
-                size: 22,
+      decoration: BoxDecoration(
+        color: AppColors.primary.withValues(alpha: 0.15),
+        borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
+        border: Border.all(color: palette.border),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        child: Row(
+          children: [
+            DecoratedBox(
+              decoration: BoxDecoration(
+                color: AppColors.primaryDim,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const SizedBox(
+                width: 42,
+                height: 42,
+                child: Icon(
+                  Icons.local_fire_department_rounded,
+                  color: AppColors.primary,
+                  size: 22,
+                ),
               ),
             ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '$streakDays',
-                  style: theme.textTheme.headlineSmall?.copyWith(
-                    color: AppColors.of(context).textPrimary,
-                    fontWeight: FontWeight.w900,
-                    fontSize: 26,
-                    height: 1.05,
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '$streakDays',
+                    style: theme.textTheme.headlineSmall?.copyWith(
+                      color: palette.textPrimary,
+                      fontWeight: FontWeight.w900,
+                      fontSize: 26,
+                      height: 1.05,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  loc.homeMetricStreakLabel,
-                  style: V2ShellVisual.captionMuted(theme),
-                ),
-              ],
+                  const SizedBox(height: 2),
+                  Text(
+                    loc.homeMetricStreakLabel,
+                    style: V2ShellVisual.captionMuted(theme),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -812,6 +839,7 @@ class HomeWeeklyTestCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final palette = AppColors.of(context);
     final unlocked = metrics.weeklyTestUnlocked;
     final days = metrics.daysUntilWeeklyTest;
     final subtitle = unlocked
@@ -826,38 +854,50 @@ class HomeWeeklyTestCard extends StatelessWidget {
         key: const Key('home_weekly_test_card'),
         onTap: unlocked ? onOpen : null,
         borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
-        child: V2InfoCard(
-          child: Row(
-            children: [
-              Icon(
-                unlocked ? Icons.quiz_outlined : Icons.lock_outline,
-                color: unlocked ? AppColors.primary : AppColors.of(context).textTertiary,
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      loc.homeWeeklyTestTitle,
-                      style: theme.textTheme.titleSmall?.copyWith(
-                        color: AppColors.of(context).textPrimary,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      subtitle,
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: AppColors.of(context).textSecondary,
-                      ),
-                    ),
-                  ],
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: AppColors.infoDim,
+            borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
+            border: Border.all(
+              color: unlocked
+                  ? AppColors.info.withValues(alpha: 0.45)
+                  : palette.border,
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(AppDesignConstants.v2InfoPad),
+            child: Row(
+              children: [
+                Icon(
+                  unlocked ? Icons.quiz_outlined : Icons.lock_outline,
+                  color: unlocked ? AppColors.info : palette.textTertiary,
                 ),
-              ),
-              if (!unlocked)
-                Text('🔒', style: theme.textTheme.titleMedium),
-            ],
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        loc.homeWeeklyTestTitle,
+                        style: theme.textTheme.titleSmall?.copyWith(
+                          color: palette.textPrimary,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        subtitle,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: palette.textSecondary,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                if (!unlocked)
+                  Icon(Icons.lock_outline, color: palette.textTertiary),
+              ],
+            ),
           ),
         ),
       ),
@@ -918,6 +958,7 @@ class _HomeWeeklyReportCardState extends State<HomeWeeklyReportCard>
     final loc = widget.loc;
     final metrics = widget.metrics;
     final theme = Theme.of(context);
+    final palette = AppColors.of(context);
     final unlocked = metrics.weeklyReportUnlocked;
     final days = metrics.daysUntilWeeklyReport;
     final subtitle = unlocked
@@ -936,38 +977,53 @@ class _HomeWeeklyReportCardState extends State<HomeWeeklyReportCard>
           key: const Key('home_weekly_report_card'),
           onTap: unlocked ? widget.onOpen : null,
           borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
-          child: V2InfoCard(
-            child: Row(
-              children: [
-                Icon(
-                  unlocked ? Icons.insights_outlined : Icons.lock_outline,
-                  color: unlocked ? AppColors.primary : AppColors.of(context).textTertiary,
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text(
-                        loc.homeWeeklyReportTitle,
-                        style: theme.textTheme.titleSmall?.copyWith(
-                          color: AppColors.of(context).textPrimary,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        subtitle,
-                        style: theme.textTheme.bodySmall?.copyWith(
-                          color: AppColors.of(context).textSecondary,
-                        ),
-                      ),
-                    ],
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              color: AppColors.accentPurple.withValues(alpha: 0.12),
+              borderRadius:
+                  BorderRadius.circular(AppDesignConstants.radiusCard),
+              border: Border.all(
+                color: unlocked
+                    ? AppColors.accentPurple.withValues(alpha: 0.45)
+                    : palette.border,
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(AppDesignConstants.v2InfoPad),
+              child: Row(
+                children: [
+                  Icon(
+                    unlocked ? Icons.insights_outlined : Icons.lock_outline,
+                    color: unlocked
+                        ? AppColors.accentPurple
+                        : palette.textTertiary,
                   ),
-                ),
-                if (!unlocked)
-                  Text('🔒', style: theme.textTheme.titleMedium),
-              ],
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          loc.homeWeeklyReportTitle,
+                          style: theme.textTheme.titleSmall?.copyWith(
+                            color: palette.textPrimary,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          subtitle,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: palette.textSecondary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  if (!unlocked)
+                    Icon(Icons.lock_outline, color: palette.textTertiary),
+                ],
+              ),
             ),
           ),
         ),
@@ -1003,10 +1059,12 @@ class HomeBaselineTestCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
         child: DecoratedBox(
           decoration: BoxDecoration(
-            color: done ? AppColors.of(context).card : AppColors.goldDim,
+            color: done
+                ? AppColors.goldDim.withValues(alpha: 0.55)
+                : AppColors.goldDim,
             borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
             border: Border.all(
-              color: done ? AppColors.border : AppColors.gold,
+              color: done ? AppColors.gold.withValues(alpha: 0.5) : AppColors.gold,
             ),
           ),
           child: Padding(
@@ -1130,14 +1188,19 @@ class HomeQuickTestsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Column(
       key: const Key('home_quick_tests_row'),
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
           loc.homeQuickTestsHeading,
-          style: V2ShellVisual.sectionLabel(theme),
+          style: const TextStyle(
+            color: AppColors.primary,
+            fontSize: 16,
+            fontWeight: FontWeight.w800,
+            height: 1.3,
+            letterSpacing: 0.1,
+          ),
         ),
         const SizedBox(height: AppDesignConstants.v2GapSectionLabel),
         SingleChildScrollView(
@@ -1147,26 +1210,31 @@ class HomeQuickTestsRow extends StatelessWidget {
               _QuickTestChip(
                 label: loc.homeQuickTestIq,
                 icon: Icons.psychology_outlined,
+                accent: AppColors.accentPurple,
                 onTap: onOpenIq,
               ),
               _QuickTestChip(
                 label: loc.homeQuickTestDigitalBrainRot,
                 icon: Icons.smartphone_outlined,
+                accent: AppColors.danger,
                 onTap: onOpenDigitalBrainRot,
               ),
               _QuickTestChip(
                 label: loc.homeQuickTestFocus,
                 icon: Icons.visibility_outlined,
+                accent: AppColors.primary,
                 onTap: onOpenFocus,
               ),
               _QuickTestChip(
                 label: loc.homeQuickTestMemory,
                 icon: Icons.memory_outlined,
+                accent: AppColors.info,
                 onTap: onOpenMemory,
               ),
               _QuickTestChip(
                 label: loc.homeQuickTestAll,
                 icon: Icons.grid_view_outlined,
+                accent: AppColors.accentOrange,
                 onTap: onOpenCatalog,
               ),
             ],
@@ -1181,43 +1249,54 @@ class _QuickTestChip extends StatelessWidget {
   const _QuickTestChip({
     required this.label,
     required this.icon,
+    required this.accent,
     required this.onTap,
   });
 
   final String label;
   final IconData icon;
+  final Color accent;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
+    final palette = AppColors.of(context);
     return Padding(
       padding: const EdgeInsetsDirectional.only(end: 8),
       child: Material(
-        color: AppColors.of(context).card,
+        color: accent.withValues(alpha: 0.14),
         borderRadius: BorderRadius.circular(14),
         child: InkWell(
           borderRadius: BorderRadius.circular(14),
           onTap: onTap,
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(
-              minHeight: AppDesignConstants.minTouchTarget,
-              minWidth: AppDesignConstants.minTouchTarget,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: accent.withValues(alpha: 0.35)),
             ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(icon, size: 18, color: AppColors.primary),
-                  const SizedBox(width: 8),
-                  Text(
-                    label,
-                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                          color: AppColors.of(context).textPrimary,
-                          fontWeight: FontWeight.w600,
-                        ),
-                  ),
-                ],
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                minHeight: AppDesignConstants.minTouchTarget,
+                minWidth: AppDesignConstants.minTouchTarget,
+              ),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(icon, size: 18, color: accent),
+                    const SizedBox(width: 8),
+                    Text(
+                      label,
+                      style: TextStyle(
+                        color: palette.textPrimary,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

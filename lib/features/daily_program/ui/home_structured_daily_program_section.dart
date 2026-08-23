@@ -30,23 +30,26 @@ class HomeStructuredDailyProgramSection extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final async = ref.watch(structuredDailyProgramForDayProvider(selectedDay));
     final palette = AppColors.of(context);
-    final onSurface = Theme.of(context).colorScheme.onSurface;
 
     return async.when(
       loading: () => V2InfoCard(
         child: Text(
           loc.v2TodayHomeLoading,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: palette.textSecondary,
-              ),
+          style: TextStyle(
+            color: palette.textSecondary,
+            fontSize: 14,
+            height: 1.4,
+          ),
         ),
       ),
       error: (_, __) => V2InfoCard(
         child: Text(
           loc.homeDailyProgramEmptyBody,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: palette.textSecondary,
-              ),
+          style: TextStyle(
+            color: palette.textSecondary,
+            fontSize: 14,
+            height: 1.4,
+          ),
         ),
       ),
       data: (view) {
@@ -61,9 +64,11 @@ class HomeStructuredDailyProgramSection extends ConsumerWidget {
               V2InfoCard(
                 child: Text(
                   loc.homeDailyProgramEmptyBody,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: onSurface,
-                      ),
+                  style: TextStyle(
+                    color: palette.textPrimary,
+                    fontSize: 14,
+                    height: 1.4,
+                  ),
                 ),
               )
             else
@@ -90,10 +95,11 @@ class HomeStructuredDailyProgramSection extends ConsumerWidget {
             Text(
               loc.dailyProgramBenefitLine,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: palette.textSecondary,
-                    height: 1.4,
-                  ),
+              style: TextStyle(
+                color: palette.textSecondary,
+                fontSize: 12,
+                height: 1.4,
+              ),
             ),
           ],
         );
@@ -130,16 +136,17 @@ class _TestsMotivationBanner extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.star_rounded, color: AppColors.gold, size: 28),
+                      const Icon(Icons.star_rounded, color: AppColors.gold, size: 28),
                       const SizedBox(width: 10),
                       Expanded(
                         child: Text(
                           loc.dailyProgramTestsBannerTitle,
-                          style:
-                              Theme.of(context).textTheme.titleSmall?.copyWith(
-                                    color: palette.textPrimary,
-                                    fontWeight: FontWeight.w800,
-                                  ),
+                          style: TextStyle(
+                            color: palette.textPrimary,
+                            fontWeight: FontWeight.w800,
+                            fontSize: 14,
+                            height: 1.35,
+                          ),
                         ),
                       ),
                     ],
@@ -154,7 +161,13 @@ class _TestsMotivationBanner extends StatelessWidget {
                         backgroundColor: AppColors.goldDim,
                         foregroundColor: AppColors.goldText,
                       ),
-                      child: Text(loc.dailyProgramTestsBannerCta),
+                      child: Text(
+                        loc.dailyProgramTestsBannerCta,
+                        style: const TextStyle(
+                          color: AppColors.goldText,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -183,7 +196,6 @@ class _ActivityCheckCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final palette = AppColors.of(context);
-    final onSurface = Theme.of(context).colorScheme.onSurface;
     final kind = resolveDailyProgramActivityKind(
       id: activity.id,
       titleKey: activity.titleKey,
@@ -191,7 +203,6 @@ class _ActivityCheckCard extends ConsumerWidget {
     final title = resolveStructuredDailyActivityTitle(loc, activity.titleKey);
     final accent = _accentFor(kind);
     final icon = _iconFor(kind);
-    final emoji = _emojiFor(kind);
     final durationLabel = loc.dailyProgramMinutesOnly(activity.minutes);
 
     return KeyedSubtree(
@@ -211,7 +222,6 @@ class _ActivityCheckCard extends ConsumerWidget {
                     : palette.card,
                 borderRadius: BorderRadius.circular(18),
                 border: Border(
-                  // Use start-side accent via directional border.
                   left: BorderSide(color: accent, width: 4),
                   top: BorderSide(
                     color: activity.completed
@@ -236,23 +246,18 @@ class _ActivityCheckCard extends ConsumerWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // Emoji with system emoji fallback (avoids blank Tajawal glyphs).
-                    Text(
-                      emoji,
-                      style: const TextStyle(
-                        fontSize: 22,
-                        height: 1.2,
-                        fontFamilyFallback: [
-                          'Segoe UI Emoji',
-                          'Apple Color Emoji',
-                          'Noto Color Emoji',
-                          'EmojiOne Color',
-                        ],
+                    DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: accent.withValues(alpha: 0.16),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: SizedBox(
+                        width: 42,
+                        height: 42,
+                        child: Icon(icon, color: accent, size: 24),
                       ),
                     ),
-                    const SizedBox(width: 8),
-                    Icon(icon, color: accent, size: 22),
-                    const SizedBox(width: 10),
+                    const SizedBox(width: 12),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -261,30 +266,26 @@ class _ActivityCheckCard extends ConsumerWidget {
                             title,
                             maxLines: 3,
                             overflow: TextOverflow.ellipsis,
-                            style:
-                                Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                      color: onSurface,
-                                      fontWeight: FontWeight.w700,
-                                      height: 1.3,
-                                      decoration: activity.completed
-                                          ? TextDecoration.lineThrough
-                                          : TextDecoration.none,
-                                      decorationColor: palette.textSecondary,
-                                    ) ??
-                                TextStyle(
-                                  color: onSurface,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 15,
-                                ),
+                            style: TextStyle(
+                              color: palette.textPrimary,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 15,
+                              height: 1.3,
+                              decoration: activity.completed
+                                  ? TextDecoration.lineThrough
+                                  : TextDecoration.none,
+                              decorationColor: palette.textSecondary,
+                            ),
                           ),
                           const SizedBox(height: 2),
                           Text(
                             durationLabel,
-                            style:
-                                Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      color: palette.textSecondary,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                            style: TextStyle(
+                              color: palette.textSecondary,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 13,
+                              height: 1.2,
+                            ),
                           ),
                         ],
                       ),
@@ -388,7 +389,7 @@ class _ActivityCheckCard extends ConsumerWidget {
       DailyProgramActivityKind.cognitiveStroop ||
       DailyProgramActivityKind.cognitiveDigitSpan =>
         AppColors.accentPurple,
-      DailyProgramActivityKind.iqChallenge => AppColors.accentOrange,
+      DailyProgramActivityKind.iqChallenge => AppColors.accentPurple,
       DailyProgramActivityKind.eveningReview => AppColors.accentOrange,
       DailyProgramActivityKind.rule ||
       DailyProgramActivityKind.other =>
@@ -398,33 +399,17 @@ class _ActivityCheckCard extends ConsumerWidget {
 
   IconData _iconFor(DailyProgramActivityKind kind) {
     return switch (kind) {
-      DailyProgramActivityKind.reading => Icons.menu_book_outlined,
-      DailyProgramActivityKind.pomodoro => Icons.timer_outlined,
-      DailyProgramActivityKind.screenFree => Icons.phonelink_erase_outlined,
+      DailyProgramActivityKind.reading => Icons.menu_book,
+      DailyProgramActivityKind.pomodoro => Icons.timer,
+      DailyProgramActivityKind.screenFree => Icons.phone_android,
       DailyProgramActivityKind.cognitiveNBack ||
       DailyProgramActivityKind.cognitiveStroop ||
       DailyProgramActivityKind.cognitiveDigitSpan =>
-        Icons.psychology_alt_outlined,
-      DailyProgramActivityKind.iqChallenge => Icons.grid_view_outlined,
-      DailyProgramActivityKind.eveningReview => Icons.edit_note_outlined,
-      DailyProgramActivityKind.rule => Icons.rule_outlined,
+        Icons.psychology,
+      DailyProgramActivityKind.iqChallenge => Icons.psychology,
+      DailyProgramActivityKind.eveningReview => Icons.edit_note,
+      DailyProgramActivityKind.rule => Icons.rule,
       DailyProgramActivityKind.other => Icons.check_circle_outline,
-    };
-  }
-
-  String _emojiFor(DailyProgramActivityKind kind) {
-    return switch (kind) {
-      DailyProgramActivityKind.reading => '📚',
-      DailyProgramActivityKind.pomodoro => '🎯',
-      DailyProgramActivityKind.screenFree => '📵',
-      DailyProgramActivityKind.cognitiveNBack ||
-      DailyProgramActivityKind.cognitiveStroop ||
-      DailyProgramActivityKind.cognitiveDigitSpan =>
-        '🧠',
-      DailyProgramActivityKind.iqChallenge => '🧩',
-      DailyProgramActivityKind.eveningReview => '✍️',
-      DailyProgramActivityKind.rule => '📌',
-      DailyProgramActivityKind.other => '✅',
     };
   }
 }
@@ -451,14 +436,9 @@ class _CheckBadge extends StatelessWidget {
         width: 28,
         height: 28,
         child: Center(
-          child: Text(
-            completed ? '✓' : '',
-            style: TextStyle(
-              color: completed ? AppColors.primary : palette.textTertiary,
-              fontWeight: FontWeight.w800,
-              fontSize: 16,
-            ),
-          ),
+          child: completed
+              ? const Icon(Icons.check, color: AppColors.primary, size: 18)
+              : null,
         ),
       ),
     );
@@ -484,7 +464,6 @@ class _ProPersonalizedLockRow extends StatelessWidget {
           ),
           child: DecoratedBox(
             decoration: BoxDecoration(
-              // Gold border only — keep surface on theme card (dark in dark modes).
               color: palette.card,
               borderRadius: BorderRadius.circular(18),
               border: Border.all(color: AppColors.gold, width: 1.5),
@@ -493,7 +472,7 @@ class _ProPersonalizedLockRow extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
               child: Row(
                 children: [
-                  Icon(Icons.lock_outline, color: AppColors.gold, size: 22),
+                  const Icon(Icons.lock_outline, color: AppColors.gold, size: 22),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Column(
@@ -501,20 +480,22 @@ class _ProPersonalizedLockRow extends StatelessWidget {
                       children: [
                         Text(
                           loc.dailyProgramPersonalizedLocked,
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    color: palette.textPrimary,
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                          style: TextStyle(
+                            color: palette.textPrimary,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 14,
+                            height: 1.3,
+                          ),
                         ),
                         const SizedBox(height: 2),
                         Text(
                           loc.homeUpgradeToPro,
-                          style:
-                              Theme.of(context).textTheme.bodySmall?.copyWith(
-                                    color: AppColors.goldText,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                          style: const TextStyle(
+                            color: AppColors.goldText,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 12,
+                            height: 1.3,
+                          ),
                         ),
                       ],
                     ),

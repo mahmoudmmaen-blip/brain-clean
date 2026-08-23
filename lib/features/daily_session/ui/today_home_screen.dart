@@ -342,6 +342,7 @@ class TodayHomeBody extends StatelessWidget {
           const SizedBox(height: AppDesignConstants.v2GapSection),
           V2SectionLabel(
             isToday ? loc.homeTodaySessionHeading : loc.homePastProgramHeading,
+            emphasized: true,
           ),
           const SizedBox(height: AppDesignConstants.v2GapSectionLabel),
           HomeStructuredDailyProgramSection(

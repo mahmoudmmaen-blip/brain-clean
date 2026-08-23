@@ -278,17 +278,32 @@ class V2PageHeader extends StatelessWidget {
 
 /// Level-3 section title used across Profile / Progress / Program.
 class V2SectionLabel extends StatelessWidget {
-  const V2SectionLabel(this.label, {super.key});
+  const V2SectionLabel(
+    this.label, {
+    super.key,
+    this.emphasized = false,
+  });
 
   final String label;
+  /// Mint/green accent for prominent home section titles.
+  final bool emphasized;
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Semantics(
       header: true,
       child: Text(
         label,
-        style: V2ShellVisual.sectionLabel(Theme.of(context)),
+        style: emphasized
+            ? TextStyle(
+                color: AppColors.primary,
+                fontSize: 16,
+                fontWeight: FontWeight.w800,
+                height: 1.3,
+                letterSpacing: 0.1,
+              )
+            : V2ShellVisual.sectionLabel(theme),
       ),
     );
   }
