@@ -4215,6 +4215,21 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dailyProgramCognitiveStroop => 'تمرين معرفي — ستروب (٥ دقائق)';
 
   @override
+  String get dailyProgramIqChallenge => 'تحدي أنماط / منطق';
+
+  @override
+  String get dailyProgramTestsBannerTitle =>
+      'أكمل اختباراتك لتحصل على برنامج مخصص';
+
+  @override
+  String get dailyProgramTestsBannerCta => 'ابدأ الاختبارات';
+
+  @override
+  String dailyProgramMinutesOnly(int minutes) {
+    return '$minutes دقائق';
+  }
+
+  @override
   String get dailyProgramHeavyPomodoro => 'بومودورو تركيز إضافي';
 
   @override

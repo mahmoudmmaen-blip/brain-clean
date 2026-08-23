@@ -46,13 +46,14 @@ class SelectedColorThemeNotifier extends Notifier<AppColorTheme> {
   }
 
   Future<void> select(AppColorTheme theme) async {
+    // Apply in-memory first so UI updates immediately.
+    state = theme;
     try {
       final box = ref.read(appMetaBoxProvider);
       await box.put(HiveMetaKeys.selectedColorThemeId, theme.name);
     } catch (_) {
-      // Hive unavailable (e.g. widget tests) — fall back to in-memory state.
+      // Hive unavailable (e.g. widget tests) — in-memory state still applies.
     }
-    state = theme;
   }
 }
 

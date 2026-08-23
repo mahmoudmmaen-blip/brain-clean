@@ -550,31 +550,49 @@ class _ThemeChoiceRow extends StatelessWidget {
         label: label,
         selected: selected,
         button: true,
-        child: Container(
-          key: Key('color_theme_swatch_${theme.name}'),
-          width: 44,
-          height: 44,
-          decoration: BoxDecoration(
-            color: bg,
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: ringColor,
-              width: selected ? 2.5 : 1.5,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Visible bg + card preview swatch
+            Container(
+              key: Key('color_theme_preview_${theme.name}'),
+              width: 52,
+              height: 36,
+              decoration: BoxDecoration(
+                color: bg,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: ringColor,
+                  width: selected ? 2 : 1,
+                ),
+              ),
+              padding: const EdgeInsets.all(5),
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: card,
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border.all(color: border),
+                ),
+              ),
             ),
-          ),
-          child: Center(
-            child: selected
-                ? Icon(Icons.check, color: checkColor, size: 20)
-                : Container(
-                    width: 18,
-                    height: 18,
-                    decoration: BoxDecoration(
-                      color: card,
-                      shape: BoxShape.circle,
-                      border: Border.all(color: border, width: 1),
-                    ),
-                  ),
-          ),
+            const SizedBox(width: 10),
+            Container(
+              key: Key('color_theme_swatch_${theme.name}'),
+              width: 28,
+              height: 28,
+              decoration: BoxDecoration(
+                color: bg,
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: ringColor,
+                  width: selected ? 2.5 : 1.5,
+                ),
+              ),
+              child: selected
+                  ? Icon(Icons.check, color: checkColor, size: 16)
+                  : null,
+            ),
+          ],
         ),
       ),
     );

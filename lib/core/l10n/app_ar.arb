@@ -1988,6 +1988,15 @@
   "dailyProgramCognitive": "تمرين معرفي",
   "dailyProgramCognitiveNBack": "تمرين معرفي — N-Back (٥ دقائق)",
   "dailyProgramCognitiveStroop": "تمرين معرفي — ستروب (٥ دقائق)",
+  "dailyProgramIqChallenge": "تحدي أنماط / منطق",
+  "dailyProgramTestsBannerTitle": "أكمل اختباراتك لتحصل على برنامج مخصص",
+  "dailyProgramTestsBannerCta": "ابدأ الاختبارات",
+  "dailyProgramMinutesOnly": "{minutes} دقائق",
+  "@dailyProgramMinutesOnly": {
+    "placeholders": {
+      "minutes": { "type": "int" }
+    }
+  },
   "dailyProgramHeavyPomodoro": "بومودورو تركيز إضافي",
   "dailyProgramStroop": "تمرين ستروب يومي",
   "dailyProgramNBack": "تدريب N-Back",

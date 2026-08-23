@@ -46,7 +46,7 @@ class HomeGreetingHeader extends StatelessWidget {
         Text(
           _periodLabel(period),
           style: theme.textTheme.bodySmall?.copyWith(
-            color: AppColors.textSecondary,
+            color: AppColors.of(context).textSecondary,
             fontSize: 13,
           ),
         ),
@@ -56,7 +56,7 @@ class HomeGreetingHeader extends StatelessWidget {
           child: Text(
             loc.homeGreetingName(userName),
             style: theme.textTheme.headlineSmall?.copyWith(
-              color: AppColors.textPrimary,
+              color: AppColors.of(context).textPrimary,
               fontWeight: FontWeight.w700,
               fontSize: 22,
               height: 1.2,
@@ -120,7 +120,7 @@ class HomeDateNavigator extends StatelessWidget {
                 tooltip: loc.homeDatePrevDay,
                 onPressed: onPrevious,
                 icon: const Icon(Icons.chevron_left),
-                color: AppColors.textPrimary,
+                color: AppColors.of(context).textPrimary,
               ),
             ),
             Expanded(
@@ -128,7 +128,7 @@ class HomeDateNavigator extends StatelessWidget {
                 label,
                 textAlign: TextAlign.center,
                 style: theme.textTheme.titleMedium?.copyWith(
-                  color: AppColors.textPrimary,
+                  color: AppColors.of(context).textPrimary,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -142,8 +142,8 @@ class HomeDateNavigator extends StatelessWidget {
                 onPressed: _canGoForward ? onNext : null,
                 icon: const Icon(Icons.chevron_right),
                 color: _canGoForward
-                    ? AppColors.textPrimary
-                    : AppColors.textTertiary,
+                    ? AppColors.of(context).textPrimary
+                    : AppColors.of(context).textTertiary,
               ),
             ),
           ],
@@ -225,7 +225,7 @@ class HomeFocusHeroCard extends StatelessWidget {
                               onPressed: () => _showRecoveryInfo(context),
                               icon: Icon(
                                 Icons.info_outline,
-                                color: AppColors.textSecondary,
+                                color: AppColors.of(context).textSecondary,
                                 size: 22,
                               ),
                               constraints: const BoxConstraints(
@@ -247,9 +247,8 @@ class HomeFocusHeroCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const Icon(
-                    Icons.chevron_right,
-                    color: AppColors.textTertiary,
+                  Icon(Icons.chevron_right,
+                    color: AppColors.of(context).textTertiary,
                   ),
                 ],
               ),
@@ -327,7 +326,7 @@ class HomeStreakCard extends StatelessWidget {
                 Text(
                   '$streakDays',
                   style: theme.textTheme.headlineSmall?.copyWith(
-                    color: AppColors.textPrimary,
+                    color: AppColors.of(context).textPrimary,
                     fontWeight: FontWeight.w900,
                     fontSize: 26,
                     height: 1.05,
@@ -514,7 +513,7 @@ class _DurationChip extends StatelessWidget {
               style: Theme.of(context).textTheme.labelLarge?.copyWith(
                     color: selected
                         ? AppColors.primary
-                        : AppColors.textSecondary,
+                        : AppColors.of(context).textSecondary,
                     fontWeight: FontWeight.w600,
                   ),
             ),
@@ -619,7 +618,7 @@ class HomeBrainCheckBadge extends StatelessWidget {
                 Text(
                   loc.homeBrainCheckScoreValue(score),
                   style: theme.textTheme.headlineSmall?.copyWith(
-                    color: AppColors.textPrimary,
+                    color: AppColors.of(context).textPrimary,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -658,7 +657,7 @@ class HomeSuggestedExerciseCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
         child: DecoratedBox(
           decoration: BoxDecoration(
-            color: AppColors.card,
+            color: AppColors.of(context).card,
             borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
             border: Border.all(color: AppColors.border),
           ),
@@ -696,7 +695,7 @@ class HomeSuggestedExerciseCard extends StatelessWidget {
                       Text(
                         loc.v2ExercisesNBackTitle,
                         style: theme.textTheme.titleSmall?.copyWith(
-                          color: AppColors.textPrimary,
+                          color: AppColors.of(context).textPrimary,
                           fontWeight: FontWeight.w700,
                         ),
                         maxLines: 2,
@@ -729,9 +728,8 @@ class HomeSuggestedExerciseCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Icon(
-                  Icons.chevron_right,
-                  color: AppColors.textTertiary,
+                Icon(Icons.chevron_right,
+                  color: AppColors.of(context).textTertiary,
                 ),
               ],
             ),
@@ -833,7 +831,7 @@ class HomeWeeklyTestCard extends StatelessWidget {
             children: [
               Icon(
                 unlocked ? Icons.quiz_outlined : Icons.lock_outline,
-                color: unlocked ? AppColors.primary : AppColors.textTertiary,
+                color: unlocked ? AppColors.primary : AppColors.of(context).textTertiary,
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -843,7 +841,7 @@ class HomeWeeklyTestCard extends StatelessWidget {
                     Text(
                       loc.homeWeeklyTestTitle,
                       style: theme.textTheme.titleSmall?.copyWith(
-                        color: AppColors.textPrimary,
+                        color: AppColors.of(context).textPrimary,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -851,7 +849,7 @@ class HomeWeeklyTestCard extends StatelessWidget {
                     Text(
                       subtitle,
                       style: theme.textTheme.bodySmall?.copyWith(
-                        color: AppColors.textSecondary,
+                        color: AppColors.of(context).textSecondary,
                       ),
                     ),
                   ],
@@ -943,7 +941,7 @@ class _HomeWeeklyReportCardState extends State<HomeWeeklyReportCard>
               children: [
                 Icon(
                   unlocked ? Icons.insights_outlined : Icons.lock_outline,
-                  color: unlocked ? AppColors.primary : AppColors.textTertiary,
+                  color: unlocked ? AppColors.primary : AppColors.of(context).textTertiary,
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -953,7 +951,7 @@ class _HomeWeeklyReportCardState extends State<HomeWeeklyReportCard>
                       Text(
                         loc.homeWeeklyReportTitle,
                         style: theme.textTheme.titleSmall?.copyWith(
-                          color: AppColors.textPrimary,
+                          color: AppColors.of(context).textPrimary,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -961,7 +959,7 @@ class _HomeWeeklyReportCardState extends State<HomeWeeklyReportCard>
                       Text(
                         subtitle,
                         style: theme.textTheme.bodySmall?.copyWith(
-                          color: AppColors.textSecondary,
+                          color: AppColors.of(context).textSecondary,
                         ),
                       ),
                     ],
@@ -1005,7 +1003,7 @@ class HomeBaselineTestCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
         child: DecoratedBox(
           decoration: BoxDecoration(
-            color: done ? AppColors.card : AppColors.goldDim,
+            color: done ? AppColors.of(context).card : AppColors.goldDim,
             borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
             border: Border.all(
               color: done ? AppColors.border : AppColors.gold,
@@ -1028,7 +1026,7 @@ class HomeBaselineTestCard extends StatelessWidget {
                         loc.homeBaselineTestTitle,
                         style: theme.textTheme.titleSmall?.copyWith(
                           color:
-                              done ? AppColors.textPrimary : AppColors.goldText,
+                              done ? AppColors.of(context).textPrimary : AppColors.goldText,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -1039,7 +1037,7 @@ class HomeBaselineTestCard extends StatelessWidget {
                             : loc.homeBaselineTestPending,
                         style: theme.textTheme.bodySmall?.copyWith(
                           color:
-                              done ? AppColors.textSecondary : AppColors.goldText,
+                              done ? AppColors.of(context).textSecondary : AppColors.goldText,
                         ),
                       ),
                     ],
@@ -1091,7 +1089,7 @@ class HomeSafaCard extends StatelessWidget {
           Text(
             loc.homeSafaCardBody,
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: AppColors.textSecondary,
+              color: AppColors.of(context).textSecondary,
               height: 1.35,
             ),
           ),
@@ -1195,7 +1193,7 @@ class _QuickTestChip extends StatelessWidget {
     return Padding(
       padding: const EdgeInsetsDirectional.only(end: 8),
       child: Material(
-        color: AppColors.card,
+        color: AppColors.of(context).card,
         borderRadius: BorderRadius.circular(14),
         child: InkWell(
           borderRadius: BorderRadius.circular(14),
@@ -1215,7 +1213,7 @@ class _QuickTestChip extends StatelessWidget {
                   Text(
                     label,
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                          color: AppColors.textPrimary,
+                          color: AppColors.of(context).textPrimary,
                           fontWeight: FontWeight.w600,
                         ),
                   ),

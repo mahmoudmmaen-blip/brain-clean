@@ -392,7 +392,7 @@ class _QuickActionCard extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFF59E0B),
+                      color: AppColors.goldDim,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
@@ -400,7 +400,7 @@ class _QuickActionCard extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 9,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: AppColors.goldText,
                       ),
                     ),
                   ),

@@ -7641,6 +7641,30 @@ abstract class AppLocalizations {
   /// **'Cognitive exercise — Stroop (5 min)'**
   String get dailyProgramCognitiveStroop;
 
+  /// No description provided for @dailyProgramIqChallenge.
+  ///
+  /// In en, this message translates to:
+  /// **'Pattern / logic challenge'**
+  String get dailyProgramIqChallenge;
+
+  /// No description provided for @dailyProgramTestsBannerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete your tests to unlock a personalized program'**
+  String get dailyProgramTestsBannerTitle;
+
+  /// No description provided for @dailyProgramTestsBannerCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Start tests'**
+  String get dailyProgramTestsBannerCta;
+
+  /// No description provided for @dailyProgramMinutesOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min'**
+  String dailyProgramMinutesOnly(int minutes);
+
   /// No description provided for @dailyProgramHeavyPomodoro.
   ///
   /// In en, this message translates to:

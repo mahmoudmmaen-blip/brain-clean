@@ -13,6 +13,7 @@ String resolveStructuredDailyActivityTitle(
     'dailyProgramCognitive' => loc.dailyProgramCognitive,
     'dailyProgramCognitiveNBack' => loc.dailyProgramCognitiveNBack,
     'dailyProgramCognitiveStroop' => loc.dailyProgramCognitiveStroop,
+    'dailyProgramIqChallenge' => loc.dailyProgramIqChallenge,
     'dailyProgramHeavyPomodoro' => loc.dailyProgramHeavyPomodoro,
     'dailyProgramStroop' => loc.dailyProgramStroop,
     'dailyProgramNBack' => loc.dailyProgramNBack,

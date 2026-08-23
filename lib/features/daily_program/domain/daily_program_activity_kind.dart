@@ -5,6 +5,8 @@ enum DailyProgramActivityKind {
   screenFree,
   cognitiveNBack,
   cognitiveStroop,
+  cognitiveDigitSpan,
+  iqChallenge,
   eveningReview,
   rule,
   other,
@@ -28,6 +30,12 @@ DailyProgramActivityKind resolveDailyProgramActivityKind({
       titleKey == 'dailyProgramScreenFree' ||
       titleKey == 'dailyProgramDetoxBlock') {
     return DailyProgramActivityKind.screenFree;
+  }
+  if (titleKey == 'dailyProgramIqChallenge' || id.contains('iq_challenge')) {
+    return DailyProgramActivityKind.iqChallenge;
+  }
+  if (titleKey == 'dailyProgramDigitSpan' || id.contains('digit_span')) {
+    return DailyProgramActivityKind.cognitiveDigitSpan;
   }
   if (titleKey == 'dailyProgramCognitiveNBack' ||
       titleKey == 'dailyProgramNBack' ||

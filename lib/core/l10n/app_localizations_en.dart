@@ -4290,6 +4290,21 @@ class AppLocalizationsEn extends AppLocalizations {
       'Cognitive exercise — Stroop (5 min)';
 
   @override
+  String get dailyProgramIqChallenge => 'Pattern / logic challenge';
+
+  @override
+  String get dailyProgramTestsBannerTitle =>
+      'Complete your tests to unlock a personalized program';
+
+  @override
+  String get dailyProgramTestsBannerCta => 'Start tests';
+
+  @override
+  String dailyProgramMinutesOnly(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
   String get dailyProgramHeavyPomodoro => 'Extra focus Pomodoro';
 
   @override

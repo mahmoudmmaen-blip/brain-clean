@@ -103,7 +103,6 @@ class _BrainCleanAppState extends ConsumerState<BrainCleanApp>
     final themeData = LocaleTheme.themed(locale: locale, theme: colorTheme);
 
     return MaterialApp.router(
-      key: ValueKey<String>('app-theme-${colorTheme.name}-${locale.languageCode}'),
       title: 'Brain Clean',
       debugShowCheckedModeBanner: false,
       theme: themeData,
@@ -115,9 +114,13 @@ class _BrainCleanAppState extends ConsumerState<BrainCleanApp>
       localizationsDelegates: appLocalizationsDelegates,
       supportedLocales: supportedLocales,
       builder: (context, child) {
-        return Directionality(
-          textDirection: isRtl ? TextDirection.rtl : TextDirection.ltr,
-          child: child ?? const SizedBox.shrink(),
+        // Rebuild chrome when theme id changes without remounting the router tree.
+        return KeyedSubtree(
+          key: ValueKey<String>('theme-chrome-${colorTheme.name}'),
+          child: Directionality(
+            textDirection: isRtl ? TextDirection.rtl : TextDirection.ltr,
+            child: child ?? const SizedBox.shrink(),
+          ),
         );
       },
       routerConfig: router,

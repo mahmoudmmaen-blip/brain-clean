@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/l10n/app_localizations.dart';
 import '../../core/presentation/app_snack_bar.dart';
+import '../../core/theme/app_colors.dart';
 import 'application/subscription_service_provider.dart';
 import 'domain/subscription_plan.dart';
 
@@ -227,13 +228,13 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 8, vertical: 2),
                                       decoration: BoxDecoration(
-                                        color: const Color(0xFFF59E0B),
+                                        color: AppColors.goldDim,
                                         borderRadius:
                                             BorderRadius.circular(10),
                                       ),
                                       child: Text(loc.proBestValueBadge,
                                           style: const TextStyle(
-                                              color: Colors.white,
+                                              color: AppColors.goldText,
                                               fontSize: 11,
                                               fontWeight:
                                                   FontWeight.bold)),

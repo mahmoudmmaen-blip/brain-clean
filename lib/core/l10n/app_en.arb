@@ -1848,6 +1848,15 @@
   "dailyProgramCognitive": "Cognitive exercise",
   "dailyProgramCognitiveNBack": "Cognitive exercise — N-Back (5 min)",
   "dailyProgramCognitiveStroop": "Cognitive exercise — Stroop (5 min)",
+  "dailyProgramIqChallenge": "Pattern / logic challenge",
+  "dailyProgramTestsBannerTitle": "Complete your tests to unlock a personalized program",
+  "dailyProgramTestsBannerCta": "Start tests",
+  "dailyProgramMinutesOnly": "{minutes} min",
+  "@dailyProgramMinutesOnly": {
+    "placeholders": {
+      "minutes": { "type": "int" }
+    }
+  },
   "dailyProgramHeavyPomodoro": "Extra focus Pomodoro",
   "dailyProgramStroop": "Stroop daily drill",
   "dailyProgramNBack": "N-Back training",

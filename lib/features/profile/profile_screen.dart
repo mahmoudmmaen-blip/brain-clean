@@ -288,13 +288,13 @@ class _HeaderSection extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
             decoration: BoxDecoration(
-              color: const Color(0xFFF59E0B),
+              color: AppColors.goldDim,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
               proBadgeLabel,
               style: const TextStyle(
-                color: Colors.white,
+                color: AppColors.goldText,
                 fontWeight: FontWeight.bold,
                 fontSize: 12,
               ),

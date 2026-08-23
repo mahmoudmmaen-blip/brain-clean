@@ -30,6 +30,7 @@ class HomeStructuredDailyProgramSection extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final async = ref.watch(structuredDailyProgramForDayProvider(selectedDay));
     final palette = AppColors.of(context);
+    final onSurface = Theme.of(context).colorScheme.onSurface;
 
     return async.when(
       loading: () => V2InfoCard(
@@ -52,21 +53,35 @@ class HomeStructuredDailyProgramSection extends ConsumerWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            for (final activity in view.activities) ...[
-              _ActivityCheckCard(
-                loc: loc,
-                activity: activity,
-                selectedDay: selectedDay,
-                onToggle: (value) {
-                  ref.read(structuredDailyProgramControllerProvider).toggle(
-                        day: selectedDay,
-                        activityId: activity.id,
-                        completed: value,
-                      );
-                },
-              ),
-              const SizedBox(height: AppDesignConstants.v2GapInline),
+            if (view.showTestsBanner) ...[
+              _TestsMotivationBanner(loc: loc),
+              const SizedBox(height: AppDesignConstants.v2GapControl),
             ],
+            if (view.activities.isEmpty)
+              V2InfoCard(
+                child: Text(
+                  loc.homeDailyProgramEmptyBody,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: onSurface,
+                      ),
+                ),
+              )
+            else
+              for (final activity in view.activities) ...[
+                _ActivityCheckCard(
+                  loc: loc,
+                  activity: activity,
+                  selectedDay: selectedDay,
+                  onToggle: (value) {
+                    ref.read(structuredDailyProgramControllerProvider).toggle(
+                          day: selectedDay,
+                          activityId: activity.id,
+                          completed: value,
+                        );
+                  },
+                ),
+                const SizedBox(height: AppDesignConstants.v2GapInline),
+              ],
             if (view.showProLock) ...[
               const SizedBox(height: AppDesignConstants.v2GapControl),
               _ProPersonalizedLockRow(loc: loc),
@@ -87,6 +102,71 @@ class HomeStructuredDailyProgramSection extends ConsumerWidget {
   }
 }
 
+class _TestsMotivationBanner extends StatelessWidget {
+  const _TestsMotivationBanner({required this.loc});
+
+  final AppLocalizations loc;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = AppColors.of(context);
+    return KeyedSubtree(
+      key: const Key('daily_program_tests_banner'),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(18),
+          onTap: () => context.push(AppRoutes.v2Tests),
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              color: palette.card,
+              borderRadius: BorderRadius.circular(18),
+              border: Border.all(color: AppColors.gold, width: 1.5),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.star_rounded, color: AppColors.gold, size: 28),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Text(
+                          loc.dailyProgramTestsBannerTitle,
+                          style:
+                              Theme.of(context).textTheme.titleSmall?.copyWith(
+                                    color: palette.textPrimary,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  SizedBox(
+                    height: AppDesignConstants.minTouchTarget,
+                    child: FilledButton(
+                      key: const Key('daily_program_tests_banner_cta'),
+                      onPressed: () => context.push(AppRoutes.v2Tests),
+                      style: FilledButton.styleFrom(
+                        backgroundColor: AppColors.goldDim,
+                        foregroundColor: AppColors.goldText,
+                      ),
+                      child: Text(loc.dailyProgramTestsBannerCta),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class _ActivityCheckCard extends ConsumerWidget {
   const _ActivityCheckCard({
     required this.loc,
@@ -103,15 +183,16 @@ class _ActivityCheckCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final palette = AppColors.of(context);
+    final onSurface = Theme.of(context).colorScheme.onSurface;
     final kind = resolveDailyProgramActivityKind(
       id: activity.id,
       titleKey: activity.titleKey,
     );
     final title = resolveStructuredDailyActivityTitle(loc, activity.titleKey);
-    final line = loc.dailyProgramActivityLine(title, activity.minutes);
     final accent = _accentFor(kind);
     final icon = _iconFor(kind);
     final emoji = _emojiFor(kind);
+    final durationLabel = loc.dailyProgramMinutesOnly(activity.minutes);
 
     return KeyedSubtree(
       key: Key('structured_daily_activity_${activity.id}'),
@@ -121,60 +202,97 @@ class _ActivityCheckCard extends ConsumerWidget {
           borderRadius: BorderRadius.circular(18),
           onTap: () => _onOpen(context, ref, kind),
           onLongPress: () => onToggle(!activity.completed),
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              color: activity.completed
-                  ? AppColors.primary.withValues(alpha: 0.12)
-                  : palette.card,
-              borderRadius: BorderRadius.circular(18),
-              border: Border(
-                left: BorderSide(color: accent, width: 4),
-                top: BorderSide(
-                  color: activity.completed
-                      ? AppColors.primary.withValues(alpha: 0.45)
-                      : palette.border,
-                ),
-                right: BorderSide(
-                  color: activity.completed
-                      ? AppColors.primary.withValues(alpha: 0.45)
-                      : palette.border,
-                ),
-                bottom: BorderSide(
-                  color: activity.completed
-                      ? AppColors.primary.withValues(alpha: 0.45)
-                      : palette.border,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: 64),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: activity.completed
+                    ? AppColors.primary.withValues(alpha: 0.14)
+                    : palette.card,
+                borderRadius: BorderRadius.circular(18),
+                border: Border(
+                  // Use start-side accent via directional border.
+                  left: BorderSide(color: accent, width: 4),
+                  top: BorderSide(
+                    color: activity.completed
+                        ? AppColors.primary.withValues(alpha: 0.5)
+                        : palette.border,
+                  ),
+                  right: BorderSide(
+                    color: activity.completed
+                        ? AppColors.primary.withValues(alpha: 0.5)
+                        : palette.border,
+                  ),
+                  bottom: BorderSide(
+                    color: activity.completed
+                        ? AppColors.primary.withValues(alpha: 0.5)
+                        : palette.border,
+                  ),
                 ),
               ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-              child: Row(
-                children: [
-                  Text(emoji, style: const TextStyle(fontSize: 22)),
-                  const SizedBox(width: 10),
-                  Icon(icon, color: accent, size: 22),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: Semantics(
-                      checked: activity.completed,
-                      button: true,
-                      label: line,
-                      child: Text(
-                        line,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: palette.textPrimary,
-                              fontWeight: FontWeight.w600,
-                              decoration: activity.completed
-                                  ? TextDecoration.lineThrough
-                                  : TextDecoration.none,
-                              decorationColor: palette.textSecondary,
-                            ),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // Emoji with system emoji fallback (avoids blank Tajawal glyphs).
+                    Text(
+                      emoji,
+                      style: const TextStyle(
+                        fontSize: 22,
+                        height: 1.2,
+                        fontFamilyFallback: [
+                          'Segoe UI Emoji',
+                          'Apple Color Emoji',
+                          'Noto Color Emoji',
+                          'EmojiOne Color',
+                        ],
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 8),
-                  _CheckBadge(completed: activity.completed),
-                ],
+                    const SizedBox(width: 8),
+                    Icon(icon, color: accent, size: 22),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            title,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style:
+                                Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                      color: onSurface,
+                                      fontWeight: FontWeight.w700,
+                                      height: 1.3,
+                                      decoration: activity.completed
+                                          ? TextDecoration.lineThrough
+                                          : TextDecoration.none,
+                                      decorationColor: palette.textSecondary,
+                                    ) ??
+                                TextStyle(
+                                  color: onSurface,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 15,
+                                ),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            durationLabel,
+                            style:
+                                Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      color: palette.textSecondary,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    _CheckBadge(completed: activity.completed),
+                  ],
+                ),
               ),
             ),
           ),
@@ -237,6 +355,17 @@ class _ActivityCheckCard extends ConsumerWidget {
             day: dayParam,
           ),
         );
+      case DailyProgramActivityKind.cognitiveDigitSpan:
+        await context.push(AppRoutes.cognitiveMemory);
+      case DailyProgramActivityKind.iqChallenge:
+        await context.push(AppRoutes.v2IqTest);
+        if (context.mounted) {
+          await ref.read(structuredDailyProgramControllerProvider).toggle(
+                day: day,
+                activityId: activity.id,
+                completed: true,
+              );
+        }
       case DailyProgramActivityKind.eveningReview:
         await context.push(
           AppRoutes.v2EveningReviewWith(
@@ -256,8 +385,10 @@ class _ActivityCheckCard extends ConsumerWidget {
       DailyProgramActivityKind.pomodoro => AppColors.primary,
       DailyProgramActivityKind.screenFree => AppColors.info,
       DailyProgramActivityKind.cognitiveNBack ||
-      DailyProgramActivityKind.cognitiveStroop =>
+      DailyProgramActivityKind.cognitiveStroop ||
+      DailyProgramActivityKind.cognitiveDigitSpan =>
         AppColors.accentPurple,
+      DailyProgramActivityKind.iqChallenge => AppColors.accentOrange,
       DailyProgramActivityKind.eveningReview => AppColors.accentOrange,
       DailyProgramActivityKind.rule ||
       DailyProgramActivityKind.other =>
@@ -271,8 +402,10 @@ class _ActivityCheckCard extends ConsumerWidget {
       DailyProgramActivityKind.pomodoro => Icons.timer_outlined,
       DailyProgramActivityKind.screenFree => Icons.phonelink_erase_outlined,
       DailyProgramActivityKind.cognitiveNBack ||
-      DailyProgramActivityKind.cognitiveStroop =>
+      DailyProgramActivityKind.cognitiveStroop ||
+      DailyProgramActivityKind.cognitiveDigitSpan =>
         Icons.psychology_alt_outlined,
+      DailyProgramActivityKind.iqChallenge => Icons.grid_view_outlined,
       DailyProgramActivityKind.eveningReview => Icons.edit_note_outlined,
       DailyProgramActivityKind.rule => Icons.rule_outlined,
       DailyProgramActivityKind.other => Icons.check_circle_outline,
@@ -285,8 +418,10 @@ class _ActivityCheckCard extends ConsumerWidget {
       DailyProgramActivityKind.pomodoro => '🎯',
       DailyProgramActivityKind.screenFree => '📵',
       DailyProgramActivityKind.cognitiveNBack ||
-      DailyProgramActivityKind.cognitiveStroop =>
+      DailyProgramActivityKind.cognitiveStroop ||
+      DailyProgramActivityKind.cognitiveDigitSpan =>
         '🧠',
+      DailyProgramActivityKind.iqChallenge => '🧩',
       DailyProgramActivityKind.eveningReview => '✍️',
       DailyProgramActivityKind.rule => '📌',
       DailyProgramActivityKind.other => '✅',
@@ -301,14 +436,15 @@ class _CheckBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final palette = AppColors.of(context);
     return DecoratedBox(
       decoration: BoxDecoration(
         color: completed
             ? AppColors.primary.withValues(alpha: 0.2)
-            : AppColors.of(context).cardSecondary,
+            : palette.cardSecondary,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: completed ? AppColors.primary : AppColors.of(context).border,
+          color: completed ? AppColors.primary : palette.border,
         ),
       ),
       child: SizedBox(
@@ -318,10 +454,9 @@ class _CheckBadge extends StatelessWidget {
           child: Text(
             completed ? '✓' : '',
             style: TextStyle(
-              color: completed
-                  ? AppColors.primary
-                  : AppColors.of(context).textTertiary,
+              color: completed ? AppColors.primary : palette.textTertiary,
               fontWeight: FontWeight.w800,
+              fontSize: 16,
             ),
           ),
         ),
@@ -349,9 +484,10 @@ class _ProPersonalizedLockRow extends StatelessWidget {
           ),
           child: DecoratedBox(
             decoration: BoxDecoration(
-              color: AppColors.goldDim.withValues(alpha: 0.35),
+              // Gold border only — keep surface on theme card (dark in dark modes).
+              color: palette.card,
               borderRadius: BorderRadius.circular(18),
-              border: Border.all(color: AppColors.gold.withValues(alpha: 0.7)),
+              border: Border.all(color: AppColors.gold, width: 1.5),
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
