@@ -29,6 +29,7 @@ abstract final class StructuredDailyProgramScoresResolver {
       attention: attention,
       memory: memory,
       digitalAddiction: digitalAddiction,
+      iq: StructuredDailyProgramScores.neutral.iq,
     );
   }
 

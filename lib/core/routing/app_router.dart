@@ -45,6 +45,7 @@ import '../../features/v2_onboarding/ui/brain_check_entry_boundary_screen.dart';
 import '../../features/v2_onboarding/ui/brain_check_ready_boundary_screen.dart';
 import '../../features/v2_onboarding/ui/v2_onboarding_flow_screen.dart';
 import '../../features/interactive_diagnostic/ui/interactive_diagnostic_flow_screen.dart';
+import '../../features/brain_rot_index/ui/bri_test_screen.dart';
 import '../../features/quick_tests/ui/digital_brain_rot_test_screen.dart';
 import '../../features/quick_tests/ui/iq_test_screen.dart';
 import '../../features/quick_tests/ui/tests_catalog_screen.dart';
@@ -535,6 +536,11 @@ GoRouter goRouter(GoRouterRef ref) {
             path: 'digital-brain-rot',
             name: 'v2DigitalBrainRotTest',
             builder: (context, state) => const DigitalBrainRotTestScreen(),
+          ),
+          GoRoute(
+            path: 'bri',
+            name: 'v2BriTest',
+            builder: (context, state) => const BriTestScreen(),
           ),
         ],
       ),

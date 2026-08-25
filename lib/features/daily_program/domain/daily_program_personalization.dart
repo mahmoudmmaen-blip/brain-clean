@@ -1,6 +1,7 @@
 import '../../cognitive_tests/application/cognitive_test_results_provider.dart';
 import '../../quick_tests/data/quick_test_results_provider.dart';
 import 'structured_daily_activity.dart';
+import 'structured_daily_program_builder.dart';
 
 /// Whether the user has enough test signal for a personalized daily program.
 class DailyProgramTestCoverage {
@@ -32,159 +33,260 @@ class DailyProgramTestCoverage {
   bool get hasFullCoverage =>
       hasFocus && hasMemory && hasIntelligence && hasDigitalAddiction;
 
+  /// Clarity / health equivalent of digital pillar (100 − addiction).
+  int get digitalClarityScore => (100 - digitalAddictionScore).clamp(0, 100);
+
+  /// All cognitive pillars weak + digital clarity weak.
+  bool get allScoresWeak =>
+      attentionScore < 50 &&
+      memoryScore < 50 &&
+      iqScore < 50 &&
+      digitalClarityScore < 50;
+
   static DailyProgramTestCoverage fromResults({
     required CognitiveTestResultsState cognitive,
     required QuickTestResultsState quick,
+    StructuredDailyProgramScores? profileFallback,
   }) {
     final focus = cognitive.visualAttention;
     final memory = cognitive.memorySequence;
     final iq = quick.iq;
     final dbr = quick.digitalBrainRot;
+    final fallback = profileFallback ?? StructuredDailyProgramScores.neutral;
 
     // Digital brain-rot scorePercent is "clarity" (higher = healthier).
     // Convert to addiction pressure for program intensity.
     final clarity = dbr?.scorePercent;
-    final addiction = clarity == null ? 50 : (100 - clarity).clamp(0, 100);
+    final addiction = clarity == null
+        ? fallback.digitalAddiction
+        : (100 - clarity).clamp(0, 100);
 
     return DailyProgramTestCoverage(
       hasFocus: focus != null,
       hasMemory: memory != null,
       hasIntelligence: iq != null,
       hasDigitalAddiction: dbr != null,
-      attentionScore: focus?.normalizedScore.round().clamp(0, 100) ?? 50,
-      memoryScore: memory?.normalizedScore.round().clamp(0, 100) ?? 50,
-      iqScore: iq?.scorePercent.clamp(0, 100) ?? 50,
+      attentionScore:
+          focus?.normalizedScore.round().clamp(0, 100) ?? fallback.attention,
+      memoryScore:
+          memory?.normalizedScore.round().clamp(0, 100) ?? fallback.memory,
+      iqScore: iq?.scorePercent.clamp(0, 100) ?? fallback.iq,
       digitalAddictionScore: addiction,
     );
   }
 }
 
-/// Builds a personalized program when all four test pillars are present.
+/// Science-based adaptive daily program (base for all + Pro additions).
 abstract final class PersonalizedDailyProgramBuilder {
+  /// Free / default base program (5 activities). Everyone sees this.
+  static List<StructuredDailyActivity> buildBase({
+    required int weekIndex,
+    required int dayOfYear,
+  }) {
+    return StructuredDailyProgramBuilder.buildFree(
+      weekIndex: weekIndex,
+      dayOfYear: dayOfYear,
+    );
+  }
+
+  /// Pro adaptive program: base + score-driven additions / modifications.
   static List<StructuredDailyActivity> build({
     required DailyProgramTestCoverage coverage,
     required int weekIndex,
     required int dayOfYear,
   }) {
-    final safeWeek = weekIndex < 0 ? 0 : weekIndex;
-    final activities = <StructuredDailyActivity>[];
+    return buildAdaptive(
+      coverage: coverage,
+      weekIndex: weekIndex,
+      dayOfYear: dayOfYear,
+    );
+  }
 
-    // Reading 15–30 min from overall health (avg of pillars; higher = more reading).
-    final overall = ((coverage.attentionScore +
-                coverage.memoryScore +
-                coverage.iqScore +
-                (100 - coverage.digitalAddictionScore)) /
-            4)
-        .round();
-    final readingMinutes = overall >= 70
-        ? 30
-        : overall >= 45
-            ? 20
-            : 15;
-    activities.add(
+  static List<StructuredDailyActivity> buildAdaptive({
+    required DailyProgramTestCoverage coverage,
+    required int weekIndex,
+    required int dayOfYear,
+  }) {
+    if (coverage.allScoresWeak) {
+      return _fullRecoveryProtocol(dayOfYear: dayOfYear);
+    }
+
+    final safeWeek = weekIndex < 0 ? 0 : weekIndex;
+    var screenFreeMinutes = 15 + (5 * safeWeek);
+    var pomodoroMinutes = 25;
+    var pomodoroTitle = 'dailyProgramPomodoro';
+    var cognitiveMinutes = 5;
+    var readingTitle = 'dailyProgramReading';
+    final useNBack = dayOfYear.isOdd;
+
+    final extras = <StructuredDailyActivity>[];
+
+    // —— Digital addiction > 60 ——
+    if (coverage.digitalAddictionScore > 60) {
+      screenFreeMinutes = screenFreeMinutes < 45 ? 45 : screenFreeMinutes;
+      extras.add(
+        const StructuredDailyActivity(
+          id: 'morning_zero_screens',
+          titleKey: 'dailyProgramMorningZeroScreens',
+          minutes: 60,
+          isAdaptive: true,
+        ),
+      );
+      extras.add(
+        const StructuredDailyActivity(
+          id: 'grayscale_mode',
+          titleKey: 'dailyProgramGrayscaleMode',
+          minutes: 1,
+          isAdaptive: true,
+        ),
+      );
+    }
+
+    // —— Attention < 40 ——
+    if (coverage.attentionScore < 40) {
+      pomodoroMinutes = 50;
+      pomodoroTitle = 'dailyProgramPomodoro5010';
+      extras.add(
+        const StructuredDailyActivity(
+          id: 'white_noise',
+          titleKey: 'dailyProgramWhiteNoise',
+          minutes: 25,
+          isAdaptive: true,
+        ),
+      );
+      extras.add(
+        const StructuredDailyActivity(
+          id: 'single_screen_rule',
+          titleKey: 'dailyProgramSingleScreenRule',
+          minutes: 1,
+          isAdaptive: true,
+        ),
+      );
+    }
+
+    // —— Memory < 40 ——
+    if (coverage.memoryScore < 40) {
+      readingTitle = 'dailyProgramActiveRecallReading';
+      extras.add(
+        const StructuredDailyActivity(
+          id: 'nsdr_rest',
+          titleKey: 'dailyProgramNsdrRest',
+          minutes: 15,
+          isAdaptive: true,
+        ),
+      );
+      extras.add(
+        const StructuredDailyActivity(
+          id: 'digit_span',
+          titleKey: 'dailyProgramDigitSpan',
+          minutes: 5,
+          isAdaptive: true,
+        ),
+      );
+    }
+
+    // —— IQ < 50 ——
+    if (coverage.iqScore < 50) {
+      cognitiveMinutes = 10;
+      extras.add(
+        const StructuredDailyActivity(
+          id: 'physical_exercise',
+          titleKey: 'dailyProgramPhysicalExercise',
+          minutes: 25,
+          isAdaptive: true,
+        ),
+      );
+    }
+
+    final readingAdaptive = readingTitle != 'dailyProgramReading';
+    final pomodoroAdaptive = pomodoroMinutes != 25;
+    final cognitiveAdaptive = cognitiveMinutes != 5;
+    final screenAdaptive = coverage.digitalAddictionScore > 60;
+
+    final base = <StructuredDailyActivity>[
       StructuredDailyActivity(
         id: 'morning_reading',
-        titleKey: 'dailyProgramReading',
-        minutes: readingMinutes,
+        titleKey: readingTitle,
+        minutes: 15,
+        isAdaptive: readingAdaptive,
       ),
-    );
-
-    // Focus — Stroop + Pomodoro count from attention.
-    final pomodoroCount = coverage.attentionScore < 40
-        ? 4
-        : coverage.attentionScore < 60
-            ? 2
-            : 1;
-    activities.add(
-      const StructuredDailyActivity(
-        id: 'stroop_daily',
-        titleKey: 'dailyProgramStroop',
-        minutes: 5,
-      ),
-    );
-    for (var i = 0; i < pomodoroCount; i++) {
-      activities.add(
-        StructuredDailyActivity(
-          id: 'focus_pomodoro_$i',
-          titleKey: 'dailyProgramPomodoro',
-          minutes: 25,
-        ),
-      );
-    }
-
-    // Memory — N-Back + Digit Span when memory needs work or always lightly.
-    activities.add(
       StructuredDailyActivity(
-        id: 'nback_1',
-        titleKey: 'dailyProgramNBack',
-        minutes: coverage.memoryScore < 40 ? 10 : 5,
+        id: 'focus_pomodoro',
+        titleKey: pomodoroTitle,
+        minutes: pomodoroMinutes,
+        isAdaptive: pomodoroAdaptive,
       ),
-    );
-    activities.add(
-      const StructuredDailyActivity(
-        id: 'digit_span',
-        titleKey: 'dailyProgramDigitSpan',
-        minutes: 5,
-      ),
-    );
-    if (coverage.memoryScore < 40) {
-      activities.add(
-        const StructuredDailyActivity(
-          id: 'nback_2',
-          titleKey: 'dailyProgramNBack',
-          minutes: 5,
-        ),
-      );
-      activities.add(
-        const StructuredDailyActivity(
-          id: 'no_multitask',
-          titleKey: 'dailyProgramNoMultitask',
-          minutes: 1,
-        ),
-      );
-    }
-
-    // Intelligence — pattern / logic challenge.
-    activities.add(
-      StructuredDailyActivity(
-        id: 'iq_challenge',
-        titleKey: 'dailyProgramIqChallenge',
-        minutes: coverage.iqScore < 50 ? 10 : 5,
-      ),
-    );
-
-    // Digital detox — screen-free grows with addiction + week.
-    final baseScreen = 15 + (5 * safeWeek);
-    final screenFree = coverage.digitalAddictionScore > 60
-        ? baseScreen * 2
-        : coverage.digitalAddictionScore > 40
-            ? (baseScreen * 1.5).round()
-            : baseScreen;
-    activities.add(
       StructuredDailyActivity(
         id: 'screen_free',
         titleKey: 'dailyProgramScreenFree',
-        minutes: screenFree.clamp(15, 120),
+        minutes: screenFreeMinutes,
+        isAdaptive: screenAdaptive,
       ),
-    );
-    if (coverage.digitalAddictionScore > 60) {
-      activities.add(
-        const StructuredDailyActivity(
-          id: 'search_wait_rule',
-          titleKey: 'dailyProgramSearchWaitRule',
-          minutes: 1,
-        ),
-      );
-    }
-
-    activities.add(
+      StructuredDailyActivity(
+        id: 'cognitive',
+        titleKey: useNBack
+            ? 'dailyProgramCognitiveNBack'
+            : 'dailyProgramCognitiveStroop',
+        minutes: cognitiveMinutes,
+        isAdaptive: cognitiveAdaptive,
+      ),
       const StructuredDailyActivity(
         id: 'evening_review',
         titleKey: 'dailyProgramEveningReview',
         minutes: 5,
       ),
-    );
+    ];
 
-    return List<StructuredDailyActivity>.unmodifiable(activities);
+    return List<StructuredDailyActivity>.unmodifiable([
+      ...base,
+      ...extras,
+    ]);
+  }
+
+  /// Full recovery day plan when every pillar is weak.
+  static List<StructuredDailyActivity> _fullRecoveryProtocol({
+    required int dayOfYear,
+  }) {
+    final useNBack = dayOfYear.isOdd;
+    return List<StructuredDailyActivity>.unmodifiable([
+      const StructuredDailyActivity(
+        id: 'recovery_0700',
+        titleKey: 'dailyProgramRecovery0700',
+        minutes: 60,
+        isAdaptive: true,
+      ),
+      const StructuredDailyActivity(
+        id: 'recovery_0900',
+        titleKey: 'dailyProgramRecovery0900',
+        minutes: 50,
+        isAdaptive: true,
+      ),
+      const StructuredDailyActivity(
+        id: 'recovery_1200',
+        titleKey: 'dailyProgramRecovery1200',
+        minutes: 15,
+        isAdaptive: true,
+      ),
+      StructuredDailyActivity(
+        id: 'recovery_1600_reading',
+        titleKey: 'dailyProgramActiveRecallReading',
+        minutes: 15,
+        isAdaptive: true,
+      ),
+      StructuredDailyActivity(
+        id: 'recovery_1600_cognitive',
+        titleKey: useNBack
+            ? 'dailyProgramCognitiveNBack'
+            : 'dailyProgramCognitiveStroop',
+        minutes: 5,
+        isAdaptive: true,
+      ),
+      const StructuredDailyActivity(
+        id: 'recovery_2100',
+        titleKey: 'dailyProgramRecovery2100',
+        minutes: 30,
+        isAdaptive: true,
+      ),
+    ]);
   }
 }

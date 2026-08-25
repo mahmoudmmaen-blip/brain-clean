@@ -712,6 +712,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get proBestValueBadge => 'Best value';
 
   @override
+  String get proAnnualSaveHint => 'Save 32% · ~33 SAR/month';
+
+  @override
   String get proAlreadyProTitle => 'You\'re already Pro';
 
   @override
@@ -2088,6 +2091,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeMetricStreakLabel => 'Day streak';
 
   @override
+  String get homeMetricStreakStartCta => 'Start your first session';
+
+  @override
+  String homeDailyProgramProgress(int done, int total) {
+    return '$done/$total completed';
+  }
+
+  @override
   String get homeMetricExercisesLabel => 'Today\'s exercises';
 
   @override
@@ -2221,6 +2232,109 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get dailyProgramBenefitLine =>
       'Completing your daily program improves focus, memory, digital clarity, and reasoning.';
+
+  @override
+  String get adaptiveProgramBaseTitle => 'Daily recovery plan';
+
+  @override
+  String get adaptiveProgramResetTitle => 'Reset Protocol';
+
+  @override
+  String get adaptiveProgramAscensionTitle => 'Neural Ascension';
+
+  @override
+  String get adaptiveProgramBaseGoal =>
+      'Steady daily practice for focus and digital clarity.';
+
+  @override
+  String get adaptiveProgramResetGoal =>
+      'Lower BRI and rebuild screen discipline.';
+
+  @override
+  String get adaptiveProgramAscensionGoal =>
+      'Clear brain rot first, then rebuild memory, focus, and reasoning.';
+
+  @override
+  String get adaptiveProgramResetWeek1Goal =>
+      'Guided digital fasting — cut BRI ~20%.';
+
+  @override
+  String get adaptiveProgramResetWeek2Goal =>
+      'Extend focus blocks and screen-free time.';
+
+  @override
+  String get adaptiveProgramResetWeek3Goal =>
+      'Lock in habits with medium drills.';
+
+  @override
+  String get adaptiveProgramResetWeek4Goal =>
+      'Protect progress — daily challenges + weekly review.';
+
+  @override
+  String get adaptiveProgramAscensionPhase1Goal =>
+      'Purge phase — prioritize BRI reduction.';
+
+  @override
+  String get adaptiveProgramAscensionPhase2Goal =>
+      'Build phase — memory and focus capacity.';
+
+  @override
+  String get adaptiveProgramAscensionPhase3Goal =>
+      'Optimize — peak cognitive performance.';
+
+  @override
+  String get adaptiveProgramAscensionPhase4Goal =>
+      'Maintain — adaptive focus / memory / IQ / active rest.';
+
+  @override
+  String adaptiveProgramWeekLabel(int week) {
+    return 'Week $week';
+  }
+
+  @override
+  String get adaptiveProgramWeekendUnlocked =>
+      'Weekend challenge unlocked (5-day streak).';
+
+  @override
+  String get adaptiveProgramFeelingPrompt => 'How did you feel?';
+
+  @override
+  String get adaptiveProgramFeelingHard => 'Too hard';
+
+  @override
+  String get adaptiveProgramFeelingOk => 'Just right';
+
+  @override
+  String get adaptiveProgramFeelingEasy => 'Too easy';
+
+  @override
+  String get adaptiveProgramBreathing => 'Breathing reset (2–3 min)';
+
+  @override
+  String get adaptiveProgramWeekendChallenge => 'Weekend challenge';
+
+  @override
+  String get adaptiveProgramEnhancedMindTitle => 'Enhanced Mind';
+
+  @override
+  String get adaptiveProgramEnhancedMindGoal =>
+      'Maintain peak cognition with a rotating focus / memory / IQ / rest plan.';
+
+  @override
+  String get adaptiveProgramFreeResetCompleteGoal =>
+      'Free Reset complete — unlock Pro to continue.';
+
+  @override
+  String get adaptiveProgramFreeResetCompleteTitle =>
+      'Open Pro to see your full program';
+
+  @override
+  String get adaptiveProgramFreeResetCompleteBody =>
+      'You finished the 4-week Reset Protocol. Upgrade to Pro for Neural Ascension, Enhanced Mind, challenges, and reports.';
+
+  @override
+  String get adaptiveProgramUnlockFullBody =>
+      'Open Pro to see your full personal program';
 
   @override
   String get homeBrainCheckBadgeTitle =>
@@ -4266,28 +4380,28 @@ class AppLocalizationsEn extends AppLocalizations {
       'Evening review — what did I finish? What will I improve tomorrow?';
 
   @override
-  String get dailyProgramReading => 'Reading — 15 min (book or useful article)';
+  String get dailyProgramReading =>
+      'Active reading — 15 min: read a book/article, then recall 3 main points';
 
   @override
-  String get dailyProgramPomodoro => 'Focus Pomodoro — 25 min, one task only';
+  String get dailyProgramPomodoro =>
+      'Deep-work Pomodoro — 25 min: one task only, phone out of sight';
 
   @override
   String get dailyProgramScreenFree => 'Screen-free time';
 
   @override
   String get dailyProgramEveningReview =>
-      'Evening review — what did I finish? What will I improve tomorrow?';
+      'Evening review — 5 min: what did you finish? What will you improve tomorrow?';
 
   @override
   String get dailyProgramCognitive => 'Cognitive exercise';
 
   @override
-  String get dailyProgramCognitiveNBack =>
-      'Cognitive exercise — N-Back (5 min)';
+  String get dailyProgramCognitiveNBack => 'Cognitive exercise — Dual N-Back';
 
   @override
-  String get dailyProgramCognitiveStroop =>
-      'Cognitive exercise — Stroop (5 min)';
+  String get dailyProgramCognitiveStroop => 'Cognitive exercise — Stroop';
 
   @override
   String get dailyProgramIqChallenge => 'Pattern / logic challenge';
@@ -4303,6 +4417,51 @@ class AppLocalizationsEn extends AppLocalizations {
   String dailyProgramMinutesOnly(int minutes) {
     return '$minutes min';
   }
+
+  @override
+  String get dailyProgramAdaptiveBadge => 'Added from your results';
+
+  @override
+  String get dailyProgramPomodoro5010 =>
+      'Deep-work Pomodoro — 50/10 (one task only)';
+
+  @override
+  String get dailyProgramActiveRecallReading =>
+      'Reading + active recall — 15 min then write 3 points from memory';
+
+  @override
+  String get dailyProgramMorningZeroScreens =>
+      'Morning rule — zero screens for the first hour after waking';
+
+  @override
+  String get dailyProgramGrayscaleMode =>
+      'Grayscale mode — switch your screen to grayscale now';
+
+  @override
+  String get dailyProgramWhiteNoise =>
+      'White noise — play white noise / 40Hz binaural during work';
+
+  @override
+  String get dailyProgramNsdrRest =>
+      'NSDR rest — lie down 15 min after noon, no phone, no sleep';
+
+  @override
+  String get dailyProgramPhysicalExercise =>
+      'Physical exercise — 20–30 min brisk walk or workout (BDNF)';
+
+  @override
+  String get dailyProgramRecovery0700 =>
+      '7:00 AM — zero screens + sunlight + light movement';
+
+  @override
+  String get dailyProgramRecovery0900 => '9:00 AM — Pomodoro 50/10 deep work';
+
+  @override
+  String get dailyProgramRecovery1200 => '12:00 PM — NSDR rest 15 min';
+
+  @override
+  String get dailyProgramRecovery2100 =>
+      '9:00 PM — screens off + evening review';
 
   @override
   String get dailyProgramHeavyPomodoro => 'Extra focus Pomodoro';
@@ -4612,4 +4771,134 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get digitalBrainRotQ8Stem =>
       'I can put my phone away during important work.';
+
+  @override
+  String get briTestTitle => 'Brain Rot Index (BRI)';
+
+  @override
+  String get briTestSubtitle =>
+      '16 questions across 4 axes — free diagnosis, retake every 7 days';
+
+  @override
+  String get briContinueCta => 'Continue';
+
+  @override
+  String get briFinishCta => 'See BRI score';
+
+  @override
+  String get briDoneCta => 'Back to Home';
+
+  @override
+  String get briResultTitle => 'Your Brain Rot Index';
+
+  @override
+  String get briScoreLabel => 'BRI score (higher = more friction)';
+
+  @override
+  String get briAxesHeading => 'Axis breakdown';
+
+  @override
+  String get briDisclaimer => 'Self-report only — not a medical diagnosis.';
+
+  @override
+  String briProgressLabel(int current, int total) {
+    return 'Question $current of $total';
+  }
+
+  @override
+  String get briCooldownTitle => 'BRI cooldown active';
+
+  @override
+  String briCooldownBody(int days) {
+    return 'You can retake the free BRI in $days days.';
+  }
+
+  @override
+  String briLastScoreLabel(int score) {
+    return 'Last BRI: $score';
+  }
+
+  @override
+  String get briBandHealthy => 'Healthy brain (0–30)';
+
+  @override
+  String get briBandMild => 'Mild rot (31–60)';
+
+  @override
+  String get briBandModerate => 'Moderate rot (61–85)';
+
+  @override
+  String get briBandSevere => 'Severe rot (86–100)';
+
+  @override
+  String get briAxisShortForm => 'Short-form / reels addiction';
+
+  @override
+  String get briAxisAttention => 'Attention scatter';
+
+  @override
+  String get briAxisInfoFatigue => 'Information fatigue';
+
+  @override
+  String get briAxisBoredom => 'Boredom resistance';
+
+  @override
+  String get briQShortForm1 =>
+      'I open Reels / Shorts automatically without deciding to.';
+
+  @override
+  String get briQShortForm2 =>
+      'Watching a 30-minute film without picking up my phone feels hard.';
+
+  @override
+  String get briQShortForm3 =>
+      'Short videos make long reading feel boring quickly.';
+
+  @override
+  String get briQShortForm4 =>
+      'I can watch a full episode without opening social apps.';
+
+  @override
+  String get briQAttention1 =>
+      'I unlock my phone many times a day with no clear reason.';
+
+  @override
+  String get briQAttention2 => 'I forget what I just read after a few lines.';
+
+  @override
+  String get briQAttention3 => 'Notifications pull me away mid-task often.';
+
+  @override
+  String get briQAttention4 =>
+      'I can stay with one task for 15+ minutes without checking my phone.';
+
+  @override
+  String get briQInfoFatigue1 =>
+      'I feel mental pressure after scrolling feeds.';
+
+  @override
+  String get briQInfoFatigue2 =>
+      'I forget news or posts within minutes of reading them.';
+
+  @override
+  String get briQInfoFatigue3 =>
+      'I open many tabs / apps and finish almost none.';
+
+  @override
+  String get briQInfoFatigue4 =>
+      'I feel clear-headed after a screen-free hour.';
+
+  @override
+  String get briQBoredom1 => 'I feel anxious when I am without my phone.';
+
+  @override
+  String get briQBoredom2 => 'I avoid tasks that need 15+ minutes of focus.';
+
+  @override
+  String get briQBoredom3 =>
+      'Silence or waiting feels unbearable without a screen.';
+
+  @override
+  String get briQBoredom4 =>
+      'I can sit with mild boredom without reaching for my phone.';
 }

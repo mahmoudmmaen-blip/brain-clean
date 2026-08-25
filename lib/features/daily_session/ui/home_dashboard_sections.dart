@@ -318,12 +318,14 @@ class HomeStreakCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final palette = AppColors.of(context);
+    final empty = streakDays <= 0;
     return DecoratedBox(
       key: const Key('home_metric_streak'),
       decoration: BoxDecoration(
-        color: AppColors.primary.withValues(alpha: 0.15),
+        color: AppColors.primary.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
         border: Border.all(color: palette.border),
+        boxShadow: AppColors.primaryGlow,
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
@@ -346,25 +348,50 @@ class HomeStreakCard extends StatelessWidget {
             ),
             const SizedBox(width: 12),
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '$streakDays',
-                    style: theme.textTheme.headlineSmall?.copyWith(
-                      color: palette.textPrimary,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 26,
-                      height: 1.05,
+              child: empty
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          loc.homeStreakMotivation,
+                          style: theme.textTheme.titleSmall?.copyWith(
+                            color: palette.textPrimary,
+                            fontWeight: FontWeight.w800,
+                            height: 1.3,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          loc.homeMetricStreakStartCta,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: AppColors.primary,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
+                    )
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '$streakDays',
+                          style: theme.textTheme.headlineSmall?.copyWith(
+                            color: palette.textPrimary,
+                            fontWeight: FontWeight.w900,
+                            fontSize: 26,
+                            height: 1.05,
+                            fontFeatures: const [
+                              FontFeature.tabularFigures(),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          loc.homeMetricStreakLabel,
+                          style: V2ShellVisual.captionMuted(theme),
+                        ),
+                      ],
                     ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    loc.homeMetricStreakLabel,
-                    style: V2ShellVisual.captionMuted(theme),
-                  ),
-                ],
-              ),
             ),
           ],
         ),
@@ -390,7 +417,7 @@ class HomeQuickMetricsRow extends StatelessWidget {
   }
 }
 
-/// Embedded Pomodoro — start / pause / reset + 25/50 duration chips.
+/// Embedded Pomodoro — circular ring + chips + start/pause.
 class HomePomodoroCard extends ConsumerWidget {
   const HomePomodoroCard({super.key, required this.loc});
 
@@ -402,102 +429,129 @@ class HomePomodoroCard extends ConsumerWidget {
     final pomodoro = ref.watch(pomodoroControllerProvider);
     final notifier = ref.read(pomodoroControllerProvider.notifier);
     final timeLabel = DateFormatUtils.countdown(pomodoro.remainingSeconds);
+    final running = pomodoro.isRunning;
 
     return KeyedSubtree(
       key: homePomodoroAnchorKey,
       child: V2InfoCard(
-      key: const Key('home_pomodoro_card'),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            children: [
-              Icon(Icons.timer_outlined, color: AppColors.primary),
-              const SizedBox(width: 10),
-              Expanded(
+        key: const Key('home_pomodoro_card'),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                const Icon(Icons.timer_outlined, color: AppColors.primary),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    loc.homePomodoroTitle,
+                    style: V2ShellVisual.sectionLabel(theme),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Center(
+              child: GlowProgressRing(
+                progress: pomodoro.progress,
+                size: 168,
+                strokeWidth: 10,
                 child: Text(
-                  loc.homePomodoroTitle,
-                  style: V2ShellVisual.sectionLabel(theme),
+                  timeLabel,
+                  textAlign: TextAlign.center,
+                  style: V2ShellVisual.heroMetricValue(theme)?.copyWith(
+                    fontSize: 36,
+                    fontFeatures: const [FontFeature.tabularFigures()],
+                  ),
                 ),
               ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Text(
-            timeLabel,
-            textAlign: TextAlign.center,
-            style: V2ShellVisual.heroMetricValue(theme)?.copyWith(fontSize: 44),
-          ),
-          const SizedBox(height: 12),
-          GlowProgressBar(progress: pomodoro.progress, height: 8),
-          const SizedBox(height: 16),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: [
-              _DurationChip(
-                key: const Key('home_pomodoro_minus_5'),
-                label: loc.homePomodoroMinus5,
-                selected: false,
-                enabled: !pomodoro.isRunning &&
-                    pomodoro.focusMinutes > kPomodoroFocusMinutesMin,
-                onTap: () =>
-                    notifier.adjustFocusMinutes(-kPomodoroFocusMinutesStep),
-              ),
-              _DurationChip(
-                label: loc.homePomodoroMinutesShort,
-                selected: pomodoro.focusMinutes == kPomodoroFocusMinutesShort,
-                enabled: !pomodoro.isRunning,
-                onTap: () =>
-                    notifier.setFocusMinutes(kPomodoroFocusMinutesShort),
-              ),
-              _DurationChip(
-                label: loc.homePomodoroMinutesLong,
-                selected: pomodoro.focusMinutes == kPomodoroFocusMinutesLong,
-                enabled: !pomodoro.isRunning,
-                onTap: () =>
-                    notifier.setFocusMinutes(kPomodoroFocusMinutesLong),
-              ),
-              _DurationChip(
-                key: const Key('home_pomodoro_plus_5'),
-                label: loc.homePomodoroPlus5,
-                selected: false,
-                enabled: !pomodoro.isRunning &&
-                    pomodoro.focusMinutes < kPomodoroFocusMinutesMax,
-                onTap: () =>
-                    notifier.adjustFocusMinutes(kPomodoroFocusMinutesStep),
-              ),
-            ],
-          ),
-          const SizedBox(height: 14),
-          SizedBox(
-            width: double.infinity,
-            height: AppDesignConstants.minTouchTarget,
-            child: FilledButton(
-              key: const Key('home_pomodoro_primary'),
-              onPressed: pomodoro.isRunning ? notifier.pause : notifier.start,
-              style: V2ShellVisual.primaryFilled(),
-              child: Text(
-                pomodoro.isRunning
-                    ? loc.homePomodoroPause
-                    : loc.homePomodoroStart,
+            ),
+            const SizedBox(height: 20),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              alignment: WrapAlignment.center,
+              children: [
+                _DurationChip(
+                  key: const Key('home_pomodoro_minus_5'),
+                  label: loc.homePomodoroMinus5,
+                  selected: false,
+                  enabled: !running &&
+                      pomodoro.focusMinutes > kPomodoroFocusMinutesMin,
+                  onTap: () =>
+                      notifier.adjustFocusMinutes(-kPomodoroFocusMinutesStep),
+                ),
+                _DurationChip(
+                  label: loc.homePomodoroMinutesShort,
+                  selected:
+                      pomodoro.focusMinutes == kPomodoroFocusMinutesShort,
+                  enabled: !running,
+                  onTap: () =>
+                      notifier.setFocusMinutes(kPomodoroFocusMinutesShort),
+                ),
+                _DurationChip(
+                  label: loc.homePomodoroMinutesLong,
+                  selected: pomodoro.focusMinutes == kPomodoroFocusMinutesLong,
+                  enabled: !running,
+                  onTap: () =>
+                      notifier.setFocusMinutes(kPomodoroFocusMinutesLong),
+                ),
+                _DurationChip(
+                  key: const Key('home_pomodoro_plus_5'),
+                  label: loc.homePomodoroPlus5,
+                  selected: false,
+                  enabled: !running &&
+                      pomodoro.focusMinutes < kPomodoroFocusMinutesMax,
+                  onTap: () =>
+                      notifier.adjustFocusMinutes(kPomodoroFocusMinutesStep),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            SizedBox(
+              width: double.infinity,
+              height: AppDesignConstants.minTouchTarget,
+              child: FilledButton(
+                key: const Key('home_pomodoro_primary'),
+                onPressed: running ? notifier.pause : notifier.start,
+                style: running
+                    ? FilledButton.styleFrom(
+                        backgroundColor: AppColors.warning,
+                        foregroundColor: const Color(0xFF1A1400),
+                        minimumSize: const Size(
+                          AppDesignConstants.minTouchTarget,
+                          AppDesignConstants.minTouchTarget,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                            AppDesignConstants.radiusButton,
+                          ),
+                        ),
+                      )
+                    : V2ShellVisual.primaryFilled(),
+                child: Text(
+                  running ? loc.homePomodoroPause : loc.homePomodoroStart,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 16,
+                  ),
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 8),
-          SizedBox(
-            width: double.infinity,
-            height: AppDesignConstants.minTouchTarget,
-            child: OutlinedButton.icon(
-              key: const Key('home_pomodoro_reset'),
-              onPressed: notifier.reset,
-              style: V2ShellVisual.secondaryOutlined(),
-              icon: const Icon(Icons.refresh, size: 18),
-              label: Text(loc.pomodoroReset),
+            const SizedBox(height: 8),
+            SizedBox(
+              width: double.infinity,
+              height: AppDesignConstants.minTouchTarget,
+              child: OutlinedButton.icon(
+                key: const Key('home_pomodoro_reset'),
+                onPressed: notifier.reset,
+                style: V2ShellVisual.secondaryOutlined(),
+                icon: const Icon(Icons.refresh, size: 18),
+                label: Text(loc.pomodoroReset),
+              ),
             ),
-          ),
-        ],
-      ),
+          ],
+        ),
       ),
     );
   }
@@ -519,30 +573,39 @@ class _DurationChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final palette = AppColors.of(context);
     return Material(
       color: Colors.transparent,
       child: InkWell(
         onTap: enabled ? onTap : null,
         borderRadius: BorderRadius.circular(AppDesignConstants.radiusChip),
-        child: DecoratedBox(
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeOutCubic,
+          constraints: const BoxConstraints(
+            minHeight: AppDesignConstants.minTouchTarget,
+            minWidth: AppDesignConstants.minTouchTarget,
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           decoration: BoxDecoration(
-            color: selected ? AppColors.primaryDim : AppColors.cardSecondary,
+            color: selected ? AppColors.primary : Colors.transparent,
             borderRadius: BorderRadius.circular(AppDesignConstants.radiusChip),
             border: Border.all(
-              color: selected ? AppColors.primary : AppColors.border,
+              color: selected
+                  ? AppColors.primary
+                  : (enabled ? palette.border : palette.textTertiary),
+              width: selected ? 0 : 1.5,
             ),
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-            child: Text(
-              label,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    color: selected
-                        ? AppColors.primary
-                        : AppColors.of(context).textSecondary,
-                    fontWeight: FontWeight.w600,
-                  ),
+          child: Text(
+            label,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: selected
+                  ? AppColors.onPrimary
+                  : (enabled ? palette.textPrimary : palette.textTertiary),
+              fontWeight: FontWeight.w700,
+              fontSize: 14,
             ),
           ),
         ),
@@ -688,17 +751,20 @@ class HomeSuggestedExerciseCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
             border: Border.all(color: AppColors.border),
           ),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
-              border: const BorderDirectional(
-                start: BorderSide(color: AppColors.primary, width: 3),
-              ),
-            ),
+          child: Padding(
             padding: const EdgeInsets.all(17),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Container(
+                  width: 4,
+                  height: 42,
+                  margin: const EdgeInsetsDirectional.only(end: 12),
+                  decoration: BoxDecoration(
+                    color: AppColors.primary,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
                 DecoratedBox(
                   decoration: BoxDecoration(
                     color: AppColors.primaryDim,
@@ -1133,8 +1199,22 @@ class HomeSafaCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(Icons.favorite_outline, color: AppColors.primary),
-              const SizedBox(width: 10),
+              DecoratedBox(
+                decoration: BoxDecoration(
+                  color: AppColors.accentPink.withValues(alpha: 0.16),
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: const SizedBox(
+                  width: 48,
+                  height: 48,
+                  child: Icon(
+                    Icons.favorite_rounded,
+                    color: AppColors.accentPink,
+                    size: 26,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 12),
               Expanded(
                 child: Text(
                   loc.homeSafaCardTitle,
@@ -1143,12 +1223,13 @@ class HomeSafaCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 12),
           Text(
             loc.homeSafaCardBody,
             style: theme.textTheme.bodyMedium?.copyWith(
               color: AppColors.of(context).textSecondary,
-              height: 1.35,
+              height: 1.4,
+              fontSize: 16,
             ),
           ),
           const SizedBox(height: 14),

@@ -31,8 +31,8 @@ abstract final class V2ShellVisual {
     return theme.textTheme.headlineMedium?.copyWith(
       color: p.textPrimary,
       fontWeight: FontWeight.w800,
-      fontSize: AppDesignConstants.v2PageTitleSize,
-      height: 1.18,
+      fontSize: AppDesignConstants.typeH1,
+      height: 40 / 32,
       letterSpacing: -0.4,
     );
   }
@@ -42,7 +42,8 @@ abstract final class V2ShellVisual {
     return theme.textTheme.headlineSmall?.copyWith(
       color: p.textPrimary,
       fontWeight: FontWeight.w700,
-      height: 1.28,
+      fontSize: AppDesignConstants.typeH2,
+      height: 32 / 24,
     );
   }
 
@@ -50,17 +51,18 @@ abstract final class V2ShellVisual {
     final p = _palette(theme);
     return theme.textTheme.bodyMedium?.copyWith(
       color: p.textSecondary,
-      height: 1.45,
+      fontSize: AppDesignConstants.typeBody,
+      height: 24 / 16,
     );
   }
 
   static TextStyle? sectionLabel(ThemeData theme) {
-    final p = _palette(theme);
     return theme.textTheme.labelLarge?.copyWith(
-      color: p.textSecondary,
-      fontWeight: FontWeight.w600,
+      color: AppColors.primary,
+      fontWeight: FontWeight.w800,
+      fontSize: AppDesignConstants.typeCaption,
       letterSpacing: 0.2,
-      height: 1.3,
+      height: 20 / 14,
     );
   }
 
@@ -68,7 +70,8 @@ abstract final class V2ShellVisual {
     final p = _palette(theme);
     return theme.textTheme.bodyMedium?.copyWith(
       color: p.textSecondary,
-      height: 1.5,
+      fontSize: AppDesignConstants.typeBody,
+      height: 24 / 16,
     );
   }
 
@@ -76,7 +79,9 @@ abstract final class V2ShellVisual {
     final p = _palette(theme);
     return theme.textTheme.bodySmall?.copyWith(
       color: p.textSecondary,
-      height: 1.4,
+      fontSize: AppDesignConstants.typeCaption,
+      fontWeight: FontWeight.w500,
+      height: 20 / 14,
     );
   }
 
@@ -227,8 +232,9 @@ abstract final class V2ShellVisual {
       borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
       border: Border.all(color: p.border, width: 1),
       boxShadow: [
+        ...AppColors.primaryGlow,
         BoxShadow(
-          color: Colors.black.withValues(alpha: 0.22),
+          color: Colors.black.withValues(alpha: 0.28),
           blurRadius: 18,
           offset: const Offset(0, 8),
         ),

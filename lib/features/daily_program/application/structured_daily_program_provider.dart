@@ -1,16 +1,19 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../brain_profile/data/brain_profile_repository_provider.dart';
+import '../../brain_rot_index/data/bri_results_provider.dart';
 import '../../cognitive_tests/application/cognitive_test_results_provider.dart';
 import '../../daily_session/data/home_dashboard_provider.dart';
 import '../../daily_session/domain/daily_day_key.dart';
 import '../../daily_session/domain/home_dashboard_metrics.dart';
 import '../../pro/application/subscription_service_provider.dart';
 import '../../quick_tests/data/quick_test_results_provider.dart';
+import '../data/adaptive_program_state_provider.dart';
 import '../data/structured_daily_program_repository_provider.dart';
+import '../domain/adaptive_program_engine.dart';
+import '../domain/adaptive_program_protocol.dart';
 import '../domain/daily_program_personalization.dart';
 import '../domain/structured_daily_activity.dart';
-import '../domain/structured_daily_program_builder.dart';
 import '../domain/structured_daily_program_scores_resolver.dart';
 
 /// 0-based week index from program day (day 1–7 → 0, 8–14 → 1, …).
@@ -31,20 +34,23 @@ class StructuredDailyProgramView {
     required this.showProLock,
     required this.coverage,
     required this.showTestsBanner,
+    required this.plan,
   });
 
   final List<StructuredDailyActivity> activities;
 
-  /// True when the visible list came from personalized / Pro builder.
+  /// True when adaptive engine applied (Reset / Ascension).
   final bool isProPersonalized;
 
-  /// Free users see a locked personalized-path row.
+  /// Free users needing Pro for Neural Ascension.
   final bool showProLock;
 
   final DailyProgramTestCoverage coverage;
 
   /// Motivational banner when no tests completed yet.
   final bool showTestsBanner;
+
+  final AdaptiveProgramPlan plan;
 }
 
 final structuredDailyProgramForDayProvider = FutureProvider.autoDispose
@@ -53,52 +59,53 @@ final structuredDailyProgramForDayProvider = FutureProvider.autoDispose
   final isPro = ref.watch(isProUserProvider);
   final dashboard = ref.watch(homeDashboardProvider).valueOrNull ??
       HomeDashboardMetrics.empty;
-  final weekIndex = structuredDailyProgramWeekIndex(dashboard.programDay);
   final dayKey = structuredDailyProgramDayKey(normalized);
   final dayOfYear =
       normalized.difference(DateTime(normalized.year)).inDays + 1;
 
-  final coverage = DailyProgramTestCoverage.fromResults(
-    cognitive: ref.watch(cognitiveTestResultsProvider),
-    quick: ref.watch(quickTestResultsProvider),
-  );
-
-  var scores = StructuredDailyProgramScores.neutral;
+  var profileScores = StructuredDailyProgramScores.neutral;
   try {
     final profile = await ref.read(brainProfileRepositoryProvider).latest();
-    scores = StructuredDailyProgramScoresResolver.fromProfile(profile);
+    profileScores = StructuredDailyProgramScoresResolver.fromProfile(profile);
   } catch (_) {
-    scores = StructuredDailyProgramScores.neutral;
+    profileScores = StructuredDailyProgramScores.neutral;
   }
 
-  // Prefer score signal from completed tests when available.
-  scores = StructuredDailyProgramScores(
-    attention: coverage.hasFocus ? coverage.attentionScore : scores.attention,
-    memory: coverage.hasMemory ? coverage.memoryScore : scores.memory,
-    digitalAddiction: coverage.hasDigitalAddiction
-        ? coverage.digitalAddictionScore
-        : scores.digitalAddiction,
+  var coverage = DailyProgramTestCoverage.fromResults(
+    cognitive: ref.watch(cognitiveTestResultsProvider),
+    quick: ref.watch(quickTestResultsProvider),
+    profileFallback: profileScores,
   );
 
-  final List<StructuredDailyActivity> template;
-  if (coverage.hasFullCoverage) {
-    template = PersonalizedDailyProgramBuilder.build(
-      coverage: coverage,
-      weekIndex: weekIndex,
-      dayOfYear: dayOfYear,
-    );
-  } else if (isPro) {
-    template = StructuredDailyProgramBuilder.buildPro(
-      scores: scores,
-      weekIndex: weekIndex,
-      dayOfYear: dayOfYear,
-    );
-  } else {
-    template = StructuredDailyProgramBuilder.buildFree(
-      weekIndex: weekIndex,
-      dayOfYear: dayOfYear,
+  // Prefer live BRI overall as digital-addiction pressure when present.
+  final bri = ref.watch(briResultsProvider);
+  if (bri != null) {
+    coverage = DailyProgramTestCoverage(
+      hasFocus: coverage.hasFocus,
+      hasMemory: coverage.hasMemory,
+      hasIntelligence: coverage.hasIntelligence,
+      hasDigitalAddiction: true,
+      attentionScore: coverage.attentionScore,
+      memoryScore: coverage.memoryScore,
+      iqScore: coverage.iqScore,
+      digitalAddictionScore: bri.overallScore,
     );
   }
+
+  final engineState = ref.watch(adaptiveProgramStateProvider);
+  final plan = AdaptiveProgramEngine.build(
+    coverage: coverage,
+    isPro: isPro,
+    programDay: dashboard.programDay,
+    consecutiveMissedDays: engineState.consecutiveMissedDays,
+    consecutiveCompleteDays: engineState.consecutiveCompleteDays > 0
+        ? engineState.consecutiveCompleteDays
+        : dashboard.streakDays,
+    difficultyOffset: engineState.difficultyOffset,
+    dayOfWeek: normalized.weekday,
+    dayOfYear: dayOfYear,
+    storedWeekOverride: engineState.weekOverride,
+  );
 
   Map<String, bool> completions = const {};
   try {
@@ -109,16 +116,19 @@ final structuredDailyProgramForDayProvider = FutureProvider.autoDispose
     completions = const {};
   }
 
-  final activities = template
+  final activities = plan.activities
       .map((a) => a.copyWith(completed: completions[a.id] == true))
       .toList(growable: false);
 
   return StructuredDailyProgramView(
     activities: activities,
-    isProPersonalized: coverage.hasFullCoverage || isPro,
-    showProLock: !isPro && !coverage.hasFullCoverage,
+    isProPersonalized: isPro &&
+        plan.protocol != AdaptiveProgramProtocol.base &&
+        coverage.hasAnyTest,
+    showProLock: plan.showUpgradeStrip || plan.freeResetComplete,
     coverage: coverage,
     showTestsBanner: !coverage.hasAnyTest,
+    plan: plan,
   );
 });
 
@@ -153,5 +163,23 @@ class StructuredDailyProgramController {
     } catch (_) {
       // Persistence best-effort — UI stays usable.
     }
+  }
+
+  Future<void> recordFeeling({
+    required DateTime day,
+    required AdaptiveSessionFeeling feeling,
+  }) async {
+    try {
+      final dayKey = structuredDailyProgramDayKey(day);
+      await _ref.read(adaptiveProgramStateProvider.notifier).recordFeeling(
+            feeling: feeling,
+            dayKey: dayKey,
+          );
+      _ref.invalidate(
+        structuredDailyProgramForDayProvider(
+          DateTime(day.year, day.month, day.day),
+        ),
+      );
+    } catch (_) {}
   }
 }

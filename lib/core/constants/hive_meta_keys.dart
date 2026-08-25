@@ -54,4 +54,10 @@ abstract final class HiveMetaKeys {
 
   /// Phase 5 digital brain-rot screen-habits latest result JSON.
   static const digitalBrainRotResultJson = 'digitalBrainRotResultJson';
+
+  /// Advanced Diagnosis — Brain Rot Index (BRI) free questionnaire result.
+  static const briResultJson = 'briResultJson';
+
+  /// Adaptive Program Engine state (difficulty offset, streaks, feeling).
+  static const adaptiveProgramStateJson = 'adaptiveProgramStateJson';
 }

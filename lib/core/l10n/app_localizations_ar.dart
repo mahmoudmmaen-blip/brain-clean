@@ -703,6 +703,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get proBestValueBadge => 'الأفضل قيمة';
 
   @override
+  String get proAnnualSaveHint => 'وفّر ٣٢٪ · حوالي ٣٣ ر.س/شهر';
+
+  @override
   String get proAlreadyProTitle => 'أنت بالفعل مشترك في Pro';
 
   @override
@@ -2060,6 +2063,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get homeMetricStreakLabel => 'أيام متواصلة';
 
   @override
+  String get homeMetricStreakStartCta => 'ابدأ جلستك الأولى';
+
+  @override
+  String homeDailyProgramProgress(int done, int total) {
+    return '$done/$total مكتمل';
+  }
+
+  @override
   String get homeMetricExercisesLabel => 'تمارين اليوم';
 
   @override
@@ -2192,6 +2203,107 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get dailyProgramBenefitLine =>
       'إكمال برنامجك اليومي يحسّن تركيزك وذاكرتك ويقلل تعفن الدماغ الرقمي';
+
+  @override
+  String get adaptiveProgramBaseTitle => 'الخطة اليومية';
+
+  @override
+  String get adaptiveProgramResetTitle => 'بروتوكول إعادة الضبط';
+
+  @override
+  String get adaptiveProgramAscensionTitle => 'الصعود العصبي';
+
+  @override
+  String get adaptiveProgramBaseGoal =>
+      'ممارسة يومية ثابتة للتركيز والوضوح الرقمي.';
+
+  @override
+  String get adaptiveProgramResetGoal =>
+      'خفض مؤشر التعفن وإعادة انضباط الشاشة.';
+
+  @override
+  String get adaptiveProgramAscensionGoal =>
+      'تطهير التعفن أولاً ثم بناء الذاكرة والتركيز والاستدلال.';
+
+  @override
+  String get adaptiveProgramResetWeek1Goal =>
+      'صيام رقمي موجه — خفض BRI حوالي ٢٠٪.';
+
+  @override
+  String get adaptiveProgramResetWeek2Goal =>
+      'تمديد فترات التركيز ووقت بلا شاشة.';
+
+  @override
+  String get adaptiveProgramResetWeek3Goal => 'تثبيت العادات بتمارين متوسطة.';
+
+  @override
+  String get adaptiveProgramResetWeek4Goal =>
+      'الحماية — تحديات يومية وتقرير أسبوعي.';
+
+  @override
+  String get adaptiveProgramAscensionPhase1Goal =>
+      'مرحلة التطهير — أولوية خفض BRI.';
+
+  @override
+  String get adaptiveProgramAscensionPhase2Goal =>
+      'مرحلة البناء — قدرات الذاكرة والتركيز.';
+
+  @override
+  String get adaptiveProgramAscensionPhase3Goal => 'التحسين — أداء معرفي أمثل.';
+
+  @override
+  String get adaptiveProgramAscensionPhase4Goal =>
+      'الصيانة — تركيز / ذاكرة / ذكاء / راحة نشطة.';
+
+  @override
+  String adaptiveProgramWeekLabel(int week) {
+    return 'الأسبوع $week';
+  }
+
+  @override
+  String get adaptiveProgramWeekendUnlocked =>
+      'تحدي نهاية الأسبوع مفتوح (٥ أيام متتالية).';
+
+  @override
+  String get adaptiveProgramFeelingPrompt => 'كيف شعرت؟';
+
+  @override
+  String get adaptiveProgramFeelingHard => 'صعب جداً';
+
+  @override
+  String get adaptiveProgramFeelingOk => 'مناسب';
+
+  @override
+  String get adaptiveProgramFeelingEasy => 'سهل';
+
+  @override
+  String get adaptiveProgramBreathing => 'تمرين تنفس (٢–٣ دقائق)';
+
+  @override
+  String get adaptiveProgramWeekendChallenge => 'تحدي نهاية الأسبوع';
+
+  @override
+  String get adaptiveProgramEnhancedMindTitle => 'العقل المحسّن';
+
+  @override
+  String get adaptiveProgramEnhancedMindGoal =>
+      'حافظ على ذروة الأداء بدوران تركيز / ذاكرة / ذكاء / راحة.';
+
+  @override
+  String get adaptiveProgramFreeResetCompleteGoal =>
+      'اكتمل بروتوكول إعادة الضبط المجاني — افتح Pro للمتابعة.';
+
+  @override
+  String get adaptiveProgramFreeResetCompleteTitle =>
+      'افتح Pro لرؤية برنامجك الكامل';
+
+  @override
+  String get adaptiveProgramFreeResetCompleteBody =>
+      'أنهيت بروتوكول إعادة الضبط (٤ أسابيع). ترقَّ إلى Pro للصعود العصبي والعقل المحسّن والتحديات والتقارير.';
+
+  @override
+  String get adaptiveProgramUnlockFullBody =>
+      'افتح Pro لرؤية برنامجك الشخصي الكامل';
 
   @override
   String get homeBrainCheckBadgeTitle => 'اكتمل ملفك الذهني — ابدأ الفحص';
@@ -4193,33 +4305,35 @@ class AppLocalizationsAr extends AppLocalizations {
       'مراجعة مسائية — ماذا أنجزت؟ ما الذي سأحسنه غداً؟';
 
   @override
-  String get dailyProgramReading => 'قراءة — ١٥ دقيقة (كتاب أو مقال مفيد)';
+  String get dailyProgramReading =>
+      'قراءة نشطة — ١٥ دقيقة: اقرأ كتاباً أو مقالاً، ثم أغلقه واسترجع ٣ نقاط رئيسية';
 
   @override
-  String get dailyProgramPomodoro => 'بومودورو تركيز — ٢٥ دقيقة مهمة واحدة فقط';
+  String get dailyProgramPomodoro =>
+      'بومودورو عمل عميق — ٢٥ دقيقة: مهمة واحدة فقط، هاتف بعيد عن نطاق الرؤية';
 
   @override
   String get dailyProgramScreenFree => 'وقت بلا شاشة';
 
   @override
   String get dailyProgramEveningReview =>
-      'مراجعة مسائية — ماذا أنجزت؟ ما الذي سأحسنه غداً؟';
+      'مراجعة مسائية — ٥ دقائق: ماذا أنجزت؟ ما الذي ستحسنه غداً؟';
 
   @override
   String get dailyProgramCognitive => 'تمرين معرفي';
 
   @override
-  String get dailyProgramCognitiveNBack => 'تمرين معرفي — N-Back (٥ دقائق)';
+  String get dailyProgramCognitiveNBack => 'تمرين معرفي — Dual N-Back';
 
   @override
-  String get dailyProgramCognitiveStroop => 'تمرين معرفي — ستروب (٥ دقائق)';
+  String get dailyProgramCognitiveStroop => 'تمرين معرفي — ستروب';
 
   @override
   String get dailyProgramIqChallenge => 'تحدي أنماط / منطق';
 
   @override
   String get dailyProgramTestsBannerTitle =>
-      'أكمل اختباراتك لتحصل على برنامج مخصص';
+      'أكمل اختباراتك للحصول على برنامج مخصص';
 
   @override
   String get dailyProgramTestsBannerCta => 'ابدأ الاختبارات';
@@ -4228,6 +4342,52 @@ class AppLocalizationsAr extends AppLocalizations {
   String dailyProgramMinutesOnly(int minutes) {
     return '$minutes دقائق';
   }
+
+  @override
+  String get dailyProgramAdaptiveBadge => 'مضاف بناءً على نتيجتك';
+
+  @override
+  String get dailyProgramPomodoro5010 =>
+      'بومودورو عمل عميق — ٥٠/١٠ مهمة واحدة فقط';
+
+  @override
+  String get dailyProgramActiveRecallReading =>
+      'قراءة + استدعاء نشط — اقرأ ١٥ دقيقة ثم أغلق واكتب ٣ نقاط من الذاكرة';
+
+  @override
+  String get dailyProgramMorningZeroScreens =>
+      'قاعدة الصباح — صفر شاشات أول ساعة بعد الاستيقاظ';
+
+  @override
+  String get dailyProgramGrayscaleMode =>
+      'وضع الرمادي — حوّل شاشتك لـ Grayscale الآن';
+
+  @override
+  String get dailyProgramWhiteNoise =>
+      'ضوضاء بيضاء — شغّل White Noise أثناء العمل (40Hz Binaural)';
+
+  @override
+  String get dailyProgramNsdrRest =>
+      'راحة NSDR — استلقِ ١٥ دقيقة بعد الظهيرة بلا هاتف بلا نوم';
+
+  @override
+  String get dailyProgramPhysicalExercise =>
+      'تمرين جسدي — ٢٠–٣٠ دقيقة مشي سريع أو تمارين (يطلق BDNF)';
+
+  @override
+  String get dailyProgramRecovery0700 =>
+      '٧:٠٠ صباحاً — صفر شاشات + ضوء شمس + حركة خفيفة';
+
+  @override
+  String get dailyProgramRecovery0900 =>
+      '٩:٠٠ صباحاً — بومودورو ٥٠/١٠ عمل عميق';
+
+  @override
+  String get dailyProgramRecovery1200 => '١٢:٠٠ ظهراً — راحة NSDR ١٥ دقيقة';
+
+  @override
+  String get dailyProgramRecovery2100 =>
+      '٩:٠٠ مساءً — إغلاق الشاشات + مراجعة مسائية';
 
   @override
   String get dailyProgramHeavyPomodoro => 'بومودورو تركيز إضافي';
@@ -4526,4 +4686,128 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get digitalBrainRotQ8Stem => 'أستطيع إبعاد هاتفي أثناء العمل المهم.';
+
+  @override
+  String get briTestTitle => 'مؤشر تعفن الدماغ (BRI)';
+
+  @override
+  String get briTestSubtitle =>
+      '١٦ سؤالاً على ٤ محاور — تشخيص مجاني، إعادة كل ٧ أيام';
+
+  @override
+  String get briContinueCta => 'متابعة';
+
+  @override
+  String get briFinishCta => 'عرض درجة BRI';
+
+  @override
+  String get briDoneCta => 'العودة إلى الرئيسية';
+
+  @override
+  String get briResultTitle => 'مؤشر تعفن دماغك';
+
+  @override
+  String get briScoreLabel => 'درجة BRI (الأعلى = احتكاك أكبر)';
+
+  @override
+  String get briAxesHeading => 'تفصيل المحاور';
+
+  @override
+  String get briDisclaimer => 'تقرير ذاتي فقط — وليس تشخيصاً طبياً.';
+
+  @override
+  String briProgressLabel(int current, int total) {
+    return 'سؤال $current من $total';
+  }
+
+  @override
+  String get briCooldownTitle => 'فترة انتظار BRI نشطة';
+
+  @override
+  String briCooldownBody(int days) {
+    return 'يمكنك إعادة الاختبار المجاني بعد $days أيام.';
+  }
+
+  @override
+  String briLastScoreLabel(int score) {
+    return 'آخر BRI: $score';
+  }
+
+  @override
+  String get briBandHealthy => 'دماغ صحي (٠–٣٠)';
+
+  @override
+  String get briBandMild => 'تعفن بسيط (٣١–٦٠)';
+
+  @override
+  String get briBandModerate => 'تعفن متوسط (٦١–٨٥)';
+
+  @override
+  String get briBandSevere => 'تعفن شديد (٨٦–١٠٠)';
+
+  @override
+  String get briAxisShortForm => 'إدمان المحتوى السريع';
+
+  @override
+  String get briAxisAttention => 'تشتت الانتباه';
+
+  @override
+  String get briAxisInfoFatigue => 'إرهاق المعلومات';
+
+  @override
+  String get briAxisBoredom => 'مقاومة الملل';
+
+  @override
+  String get briQShortForm1 => 'أفتح الريلز/Shorts تلقائياً دون قرار واعٍ.';
+
+  @override
+  String get briQShortForm2 =>
+      'أجد صعوبة في مشاهدة فيلم ٣٠ دقيقة دون لمس الهاتف.';
+
+  @override
+  String get briQShortForm3 =>
+      'الفيديوهات القصيرة تجعل القراءة الطويلة مملة بسرعة.';
+
+  @override
+  String get briQShortForm4 =>
+      'أستطيع مشاهدة حلقة كاملة دون فتح تطبيقات التواصل.';
+
+  @override
+  String get briQAttention1 => 'أفتح هاتفي مرات كثيرة يومياً بدون سبب واضح.';
+
+  @override
+  String get briQAttention2 => 'أنسى ما كنت أقرأه بعد بضعة أسطر.';
+
+  @override
+  String get briQAttention3 => 'الإشعارات تسحبني أثناء المهام كثيراً.';
+
+  @override
+  String get briQAttention4 =>
+      'أستطيع التركيز ١٥+ دقيقة على مهمة واحدة دون فحص الهاتف.';
+
+  @override
+  String get briQInfoFatigue1 => 'أشعر بضغط عقلي بعد التصفح.';
+
+  @override
+  String get briQInfoFatigue2 =>
+      'أنسى الأخبار أو المنشورات خلال دقائق من قراءتها.';
+
+  @override
+  String get briQInfoFatigue3 =>
+      'أفتح تبويبات/تطبيقات كثيرة وأنهي القليل منها.';
+
+  @override
+  String get briQInfoFatigue4 => 'أشعر بصفاء ذهني بعد ساعة بلا شاشة.';
+
+  @override
+  String get briQBoredom1 => 'أشعر بالقلق بدون هاتف.';
+
+  @override
+  String get briQBoredom2 => 'أتجنب المهام التي تحتاج ١٥+ دقيقة تركيز.';
+
+  @override
+  String get briQBoredom3 => 'الصمت أو الانتظار يبدو غير محتمل بدون شاشة.';
+
+  @override
+  String get briQBoredom4 => 'أستطيع تحمل ملل خفيف دون مد يدي للهاتف.';
 }

@@ -186,69 +186,114 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
                       plan.period == SubscriptionPeriod.annual;
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 12),
-                    child: GestureDetector(
-                      key: Key('$proPlanTileKeyPrefix${plan.id}'),
-                      onTap: () =>
-                          setState(() => _selectedPlanId = plan.id),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 14),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF161B22),
-                          borderRadius: BorderRadius.circular(14),
-                          border: Border.all(
-                            color: selected
-                                ? const Color(0xFF1D9E75)
-                                : Colors.transparent,
-                            width: 2,
+                    child: Transform.scale(
+                      scale: isBestValue ? 1.04 : 1.0,
+                      child: GestureDetector(
+                        key: Key('$proPlanTileKeyPrefix${plan.id}'),
+                        onTap: () =>
+                            setState(() => _selectedPlanId = plan.id),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: isBestValue ? 18 : 14,
                           ),
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(
-                              selected
-                                  ? Icons.radio_button_checked
-                                  : Icons.radio_button_unchecked,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF1A1A1A),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
                               color: selected
-                                  ? const Color(0xFF1D9E75)
-                                  : const Color(0xFF8B949E),
+                                  ? AppColors.gold
+                                  : (isBestValue
+                                      ? AppColors.gold.withValues(alpha: 0.45)
+                                      : const Color(0xFF2A2A2A)),
+                              width: selected || isBestValue ? 2 : 1,
                             ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  Text(_planTitle(loc, plan.period),
-                                      style: const TextStyle(
-                                          color: Color(0xFFE6EDF3),
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16)),
-                                  if (isBestValue) ...[
-                                    const SizedBox(width: 8),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8, vertical: 2),
-                                      decoration: BoxDecoration(
-                                        color: AppColors.goldDim,
-                                        borderRadius:
-                                            BorderRadius.circular(10),
-                                      ),
-                                      child: Text(loc.proBestValueBadge,
-                                          style: const TextStyle(
-                                              color: AppColors.goldText,
-                                              fontSize: 11,
-                                              fontWeight:
-                                                  FontWeight.bold)),
+                            boxShadow: isBestValue
+                                ? [
+                                    BoxShadow(
+                                      color: AppColors.gold
+                                          .withValues(alpha: 0.18),
+                                      blurRadius: 20,
+                                      offset: const Offset(0, 6),
                                     ),
-                                  ],
-                                ],
+                                  ]
+                                : null,
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(
+                                selected
+                                    ? Icons.radio_button_checked
+                                    : Icons.radio_button_unchecked,
+                                color: selected
+                                    ? AppColors.gold
+                                    : const Color(0xFFA1A1AA),
                               ),
-                            ),
-                            Text(plan.priceString,
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          _planTitle(loc, plan.period),
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                        if (isBestValue) ...[
+                                          const SizedBox(width: 8),
+                                          Container(
+                                            padding:
+                                                const EdgeInsets.symmetric(
+                                              horizontal: 8,
+                                              vertical: 2,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: AppColors.goldDim,
+                                              borderRadius:
+                                                  BorderRadius.circular(999),
+                                            ),
+                                            child: Text(
+                                              loc.proBestValueBadge,
+                                              style: const TextStyle(
+                                                color: AppColors.goldText,
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ],
+                                    ),
+                                    if (isBestValue) ...[
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        loc.proAnnualSaveHint,
+                                        style: const TextStyle(
+                                          color: AppColors.positive,
+                                          fontWeight: FontWeight.w800,
+                                          fontSize: 13,
+                                        ),
+                                      ),
+                                    ],
+                                  ],
+                                ),
+                              ),
+                              Text(
+                                plan.priceString,
                                 style: const TextStyle(
-                                    color: Color(0xFFE6EDF3),
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16)),
-                          ],
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -257,9 +302,10 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
                 const SizedBox(height: 12),
                 DecoratedBox(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(14),
+                    borderRadius: BorderRadius.circular(12),
                     gradient: const LinearGradient(
-                        colors: [Color(0xFF1D9E75), Color(0xFF0F7A5A)]),
+                      colors: [Color(0xFFD4A853), Color(0xFFB8860B)],
+                    ),
                   ),
                   child: ElevatedButton(
                     key: proSubscribeKey,
@@ -278,13 +324,17 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
                       shadowColor: Colors.transparent,
                       minimumSize: const Size.fromHeight(56),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14)),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                     ),
-                    child: Text(loc.proSubscribeNow,
-                        style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white)),
+                    child: Text(
+                      loc.proSubscribeNow,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF1A1400),
+                      ),
+                    ),
                   ),
                 ),
               ],

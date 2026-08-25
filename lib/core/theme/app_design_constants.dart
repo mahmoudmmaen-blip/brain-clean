@@ -1,53 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-/// Central design tokens for Brain Clean — aligned with Pro HTML mock.
+import 'app_colors.dart';
+
+/// Central design tokens for Brain Clean — §6.2 (+ legacy aliases).
+///
+/// Spec name in docs: `AppDesign` → use [AppDesign] typedef below.
 abstract final class AppDesignConstants {
-  /// Signature mint — primary brand accent (#3FD08C).
-  static const Color brandGreen = Color(0xFF3FD08C);
+  /// Signature mint — primary brand accent (§6.2 primary).
+  static const Color brandGreen = Color(0xFF2DD4A8);
 
-  static const Color brandGreenLight = Color(0xFF3FD08C);
-  static const Color brandGreenDark = Color(0xFF173627);
-  static const Color brandGreenContainer = Color(0xFF173627);
+  static const Color brandGreenLight = Color(0xFF2DD4A8);
+  static const Color brandGreenDark = Color(0xFF14352C);
+  static const Color brandGreenContainer = Color(0xFF14352C);
 
-  // Dark theme surfaces — Pro mock canvas.
-  static const Color darkBackground = Color(0xFF0B0F0D);
-  static const Color darkNavBar = Color(0xFF080C0A);
-  static const Color darkSurface = Color(0xFF141B17);
-  static const Color darkSurfaceSecondary = Color(0xFF1B241F);
-  static const Color darkBorder = Color(0xFF233029);
-  static const Color darkOnSurface = Color(0xFFEDEFEA);
-  static const Color darkOnSurfaceMuted = Color(0xFF8FA098);
-  static const Color darkOnSurfaceDim = Color(0xFF526059);
+  // Dark theme surfaces (§6.2)
+  static const Color darkBackground = Color(0xFF0A0A0A);
+  static const Color darkNavBar = Color(0xFF0A0A0A);
+  static const Color darkSurface = Color(0xFF141414);
+  static const Color darkSurfaceSecondary = Color(0xFF1E1E1E);
+  static const Color darkBorder = Color(0xFF2A2A2A);
+  static const Color darkOnSurface = Color(0xFFFFFFFF);
+  static const Color darkOnSurfaceMuted = Color(0xFFB4B4B4);
+  static const Color darkOnSurfaceDim = Color(0xFF808080);
 
   // Light theme surfaces (high contrast)
-  static const Color lightBackground = Color(0xFFF8FAF9);
+  static const Color lightBackground = Color(0xFFF5F0E8);
   static const Color lightSurface = Color(0xFFFFFFFF);
   static const Color lightBorder = Color(0xFFD1E7DD);
   static const Color lightOnSurface = Color(0xFF0F172A);
 
-  static const Color accentGold = Color(0xFFE3B155);
+  static const Color accentGold = Color(0xFFD4A853);
   static const Color accentGoldDim = Color(0xFF3A2E15);
   static const Color accentGoldText = Color(0xFFF4D08A);
-  static const Color accentSuccess = Color(0xFF3FD08C);
-  static const Color accentError = Color(0xFFE2637A);
+  static const Color accentSuccess = Color(0xFF22C55E);
+  static const Color accentError = Color(0xFFEF4444);
 
-  static const double radiusCard = 18;
-  static const double radiusHeroCard = 22;
-  static const double radiusButton = 14;
-  static const double radiusChip = 12;
+  // §6.2 radii / padding
+  static const double radiusCard = 24;
+  static const double radiusHeroCard = 24;
+  static const double radiusButton = 16;
+  static const double radiusPill = 999;
+  static const double radiusChip = radiusPill;
+  static const double paddingScreen = 20;
+  static const double paddingCard = 24;
   static const double minTouchTarget = 48;
 
-  // Premium metric typography (Health/Fitness-inspired hierarchy).
+  static const BoxShadow shadowGlow = AppDesignShadow.glow;
+
+  // Premium metric typography
   static const double v2MetricValueSize = 44;
   static const double v2MetricHeroSize = 44;
   static const double v2MetricValueHeight = 1.08;
-  static const double v2PageTitleSize = 28;
-  static const double v2HeroPad = 22;
-  static const double v2InfoPad = 18;
+  static const double v2PageTitleSize = 32;
+  static const double v2HeroPad = paddingCard;
+  static const double v2InfoPad = paddingCard;
 
-  // V2 shell visual rhythm — shared across Today / Program / Progress / Profile.
-  static const double v2PadH = 24;
+  // V2 shell visual rhythm
+  static const double v2PadH = paddingScreen;
   static const double v2PadTop = 16;
   static const double v2PadBottom = 40;
   static const double v2GapInline = 6;
@@ -57,6 +67,13 @@ abstract final class AppDesignConstants {
   static const double v2GapMajor = 28;
   static const double v2GapSectionLabel = 8;
   static const double v2NavHeight = 64;
+
+  // Typography scale
+  static const double typeH1 = 32;
+  static const double typeH2 = 24;
+  static const double typeH3 = 18;
+  static const double typeBody = 16;
+  static const double typeCaption = 14;
 
   // Typography — Arabic-safe line heights prevent overlap/clipping.
   static const double arabicQuestionFontSize = 22;
@@ -96,3 +113,6 @@ abstract final class AppDesignConstants {
         letterSpacing: letterSpacing,
       );
 }
+
+/// Spec alias for [AppDesignConstants] (§6.2 `AppDesign`).
+typedef AppDesign = AppDesignConstants;

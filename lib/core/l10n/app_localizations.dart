@@ -1346,6 +1346,12 @@ abstract class AppLocalizations {
   /// **'Best value'**
   String get proBestValueBadge;
 
+  /// No description provided for @proAnnualSaveHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Save 32% · ~33 SAR/month'**
+  String get proAnnualSaveHint;
+
   /// No description provided for @proAlreadyProTitle.
   ///
   /// In en, this message translates to:
@@ -3818,6 +3824,18 @@ abstract class AppLocalizations {
   /// **'Day streak'**
   String get homeMetricStreakLabel;
 
+  /// No description provided for @homeMetricStreakStartCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Start your first session'**
+  String get homeMetricStreakStartCta;
+
+  /// No description provided for @homeDailyProgramProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'{done}/{total} completed'**
+  String homeDailyProgramProgress(int done, int total);
+
   /// No description provided for @homeMetricExercisesLabel.
   ///
   /// In en, this message translates to:
@@ -4063,6 +4081,174 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Completing your daily program improves focus, memory, digital clarity, and reasoning.'**
   String get dailyProgramBenefitLine;
+
+  /// No description provided for @adaptiveProgramBaseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily recovery plan'**
+  String get adaptiveProgramBaseTitle;
+
+  /// No description provided for @adaptiveProgramResetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Protocol'**
+  String get adaptiveProgramResetTitle;
+
+  /// No description provided for @adaptiveProgramAscensionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Neural Ascension'**
+  String get adaptiveProgramAscensionTitle;
+
+  /// No description provided for @adaptiveProgramBaseGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Steady daily practice for focus and digital clarity.'**
+  String get adaptiveProgramBaseGoal;
+
+  /// No description provided for @adaptiveProgramResetGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Lower BRI and rebuild screen discipline.'**
+  String get adaptiveProgramResetGoal;
+
+  /// No description provided for @adaptiveProgramAscensionGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear brain rot first, then rebuild memory, focus, and reasoning.'**
+  String get adaptiveProgramAscensionGoal;
+
+  /// No description provided for @adaptiveProgramResetWeek1Goal.
+  ///
+  /// In en, this message translates to:
+  /// **'Guided digital fasting — cut BRI ~20%.'**
+  String get adaptiveProgramResetWeek1Goal;
+
+  /// No description provided for @adaptiveProgramResetWeek2Goal.
+  ///
+  /// In en, this message translates to:
+  /// **'Extend focus blocks and screen-free time.'**
+  String get adaptiveProgramResetWeek2Goal;
+
+  /// No description provided for @adaptiveProgramResetWeek3Goal.
+  ///
+  /// In en, this message translates to:
+  /// **'Lock in habits with medium drills.'**
+  String get adaptiveProgramResetWeek3Goal;
+
+  /// No description provided for @adaptiveProgramResetWeek4Goal.
+  ///
+  /// In en, this message translates to:
+  /// **'Protect progress — daily challenges + weekly review.'**
+  String get adaptiveProgramResetWeek4Goal;
+
+  /// No description provided for @adaptiveProgramAscensionPhase1Goal.
+  ///
+  /// In en, this message translates to:
+  /// **'Purge phase — prioritize BRI reduction.'**
+  String get adaptiveProgramAscensionPhase1Goal;
+
+  /// No description provided for @adaptiveProgramAscensionPhase2Goal.
+  ///
+  /// In en, this message translates to:
+  /// **'Build phase — memory and focus capacity.'**
+  String get adaptiveProgramAscensionPhase2Goal;
+
+  /// No description provided for @adaptiveProgramAscensionPhase3Goal.
+  ///
+  /// In en, this message translates to:
+  /// **'Optimize — peak cognitive performance.'**
+  String get adaptiveProgramAscensionPhase3Goal;
+
+  /// No description provided for @adaptiveProgramAscensionPhase4Goal.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintain — adaptive focus / memory / IQ / active rest.'**
+  String get adaptiveProgramAscensionPhase4Goal;
+
+  /// No description provided for @adaptiveProgramWeekLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Week {week}'**
+  String adaptiveProgramWeekLabel(int week);
+
+  /// No description provided for @adaptiveProgramWeekendUnlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekend challenge unlocked (5-day streak).'**
+  String get adaptiveProgramWeekendUnlocked;
+
+  /// No description provided for @adaptiveProgramFeelingPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'How did you feel?'**
+  String get adaptiveProgramFeelingPrompt;
+
+  /// No description provided for @adaptiveProgramFeelingHard.
+  ///
+  /// In en, this message translates to:
+  /// **'Too hard'**
+  String get adaptiveProgramFeelingHard;
+
+  /// No description provided for @adaptiveProgramFeelingOk.
+  ///
+  /// In en, this message translates to:
+  /// **'Just right'**
+  String get adaptiveProgramFeelingOk;
+
+  /// No description provided for @adaptiveProgramFeelingEasy.
+  ///
+  /// In en, this message translates to:
+  /// **'Too easy'**
+  String get adaptiveProgramFeelingEasy;
+
+  /// No description provided for @adaptiveProgramBreathing.
+  ///
+  /// In en, this message translates to:
+  /// **'Breathing reset (2–3 min)'**
+  String get adaptiveProgramBreathing;
+
+  /// No description provided for @adaptiveProgramWeekendChallenge.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekend challenge'**
+  String get adaptiveProgramWeekendChallenge;
+
+  /// No description provided for @adaptiveProgramEnhancedMindTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enhanced Mind'**
+  String get adaptiveProgramEnhancedMindTitle;
+
+  /// No description provided for @adaptiveProgramEnhancedMindGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintain peak cognition with a rotating focus / memory / IQ / rest plan.'**
+  String get adaptiveProgramEnhancedMindGoal;
+
+  /// No description provided for @adaptiveProgramFreeResetCompleteGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Free Reset complete — unlock Pro to continue.'**
+  String get adaptiveProgramFreeResetCompleteGoal;
+
+  /// No description provided for @adaptiveProgramFreeResetCompleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Pro to see your full program'**
+  String get adaptiveProgramFreeResetCompleteTitle;
+
+  /// No description provided for @adaptiveProgramFreeResetCompleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You finished the 4-week Reset Protocol. Upgrade to Pro for Neural Ascension, Enhanced Mind, challenges, and reports.'**
+  String get adaptiveProgramFreeResetCompleteBody;
+
+  /// No description provided for @adaptiveProgramUnlockFullBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Pro to see your full personal program'**
+  String get adaptiveProgramUnlockFullBody;
 
   /// No description provided for @homeBrainCheckBadgeTitle.
   ///
@@ -7602,13 +7788,13 @@ abstract class AppLocalizations {
   /// No description provided for @dailyProgramReading.
   ///
   /// In en, this message translates to:
-  /// **'Reading — 15 min (book or useful article)'**
+  /// **'Active reading — 15 min: read a book/article, then recall 3 main points'**
   String get dailyProgramReading;
 
   /// No description provided for @dailyProgramPomodoro.
   ///
   /// In en, this message translates to:
-  /// **'Focus Pomodoro — 25 min, one task only'**
+  /// **'Deep-work Pomodoro — 25 min: one task only, phone out of sight'**
   String get dailyProgramPomodoro;
 
   /// No description provided for @dailyProgramScreenFree.
@@ -7620,7 +7806,7 @@ abstract class AppLocalizations {
   /// No description provided for @dailyProgramEveningReview.
   ///
   /// In en, this message translates to:
-  /// **'Evening review — what did I finish? What will I improve tomorrow?'**
+  /// **'Evening review — 5 min: what did you finish? What will you improve tomorrow?'**
   String get dailyProgramEveningReview;
 
   /// No description provided for @dailyProgramCognitive.
@@ -7632,13 +7818,13 @@ abstract class AppLocalizations {
   /// No description provided for @dailyProgramCognitiveNBack.
   ///
   /// In en, this message translates to:
-  /// **'Cognitive exercise — N-Back (5 min)'**
+  /// **'Cognitive exercise — Dual N-Back'**
   String get dailyProgramCognitiveNBack;
 
   /// No description provided for @dailyProgramCognitiveStroop.
   ///
   /// In en, this message translates to:
-  /// **'Cognitive exercise — Stroop (5 min)'**
+  /// **'Cognitive exercise — Stroop'**
   String get dailyProgramCognitiveStroop;
 
   /// No description provided for @dailyProgramIqChallenge.
@@ -7664,6 +7850,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{minutes} min'**
   String dailyProgramMinutesOnly(int minutes);
+
+  /// No description provided for @dailyProgramAdaptiveBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Added from your results'**
+  String get dailyProgramAdaptiveBadge;
+
+  /// No description provided for @dailyProgramPomodoro5010.
+  ///
+  /// In en, this message translates to:
+  /// **'Deep-work Pomodoro — 50/10 (one task only)'**
+  String get dailyProgramPomodoro5010;
+
+  /// No description provided for @dailyProgramActiveRecallReading.
+  ///
+  /// In en, this message translates to:
+  /// **'Reading + active recall — 15 min then write 3 points from memory'**
+  String get dailyProgramActiveRecallReading;
+
+  /// No description provided for @dailyProgramMorningZeroScreens.
+  ///
+  /// In en, this message translates to:
+  /// **'Morning rule — zero screens for the first hour after waking'**
+  String get dailyProgramMorningZeroScreens;
+
+  /// No description provided for @dailyProgramGrayscaleMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Grayscale mode — switch your screen to grayscale now'**
+  String get dailyProgramGrayscaleMode;
+
+  /// No description provided for @dailyProgramWhiteNoise.
+  ///
+  /// In en, this message translates to:
+  /// **'White noise — play white noise / 40Hz binaural during work'**
+  String get dailyProgramWhiteNoise;
+
+  /// No description provided for @dailyProgramNsdrRest.
+  ///
+  /// In en, this message translates to:
+  /// **'NSDR rest — lie down 15 min after noon, no phone, no sleep'**
+  String get dailyProgramNsdrRest;
+
+  /// No description provided for @dailyProgramPhysicalExercise.
+  ///
+  /// In en, this message translates to:
+  /// **'Physical exercise — 20–30 min brisk walk or workout (BDNF)'**
+  String get dailyProgramPhysicalExercise;
+
+  /// No description provided for @dailyProgramRecovery0700.
+  ///
+  /// In en, this message translates to:
+  /// **'7:00 AM — zero screens + sunlight + light movement'**
+  String get dailyProgramRecovery0700;
+
+  /// No description provided for @dailyProgramRecovery0900.
+  ///
+  /// In en, this message translates to:
+  /// **'9:00 AM — Pomodoro 50/10 deep work'**
+  String get dailyProgramRecovery0900;
+
+  /// No description provided for @dailyProgramRecovery1200.
+  ///
+  /// In en, this message translates to:
+  /// **'12:00 PM — NSDR rest 15 min'**
+  String get dailyProgramRecovery1200;
+
+  /// No description provided for @dailyProgramRecovery2100.
+  ///
+  /// In en, this message translates to:
+  /// **'9:00 PM — screens off + evening review'**
+  String get dailyProgramRecovery2100;
 
   /// No description provided for @dailyProgramHeavyPomodoro.
   ///
@@ -8222,6 +8480,228 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'I can put my phone away during important work.'**
   String get digitalBrainRotQ8Stem;
+
+  /// No description provided for @briTestTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Rot Index (BRI)'**
+  String get briTestTitle;
+
+  /// No description provided for @briTestSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'16 questions across 4 axes — free diagnosis, retake every 7 days'**
+  String get briTestSubtitle;
+
+  /// No description provided for @briContinueCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get briContinueCta;
+
+  /// No description provided for @briFinishCta.
+  ///
+  /// In en, this message translates to:
+  /// **'See BRI score'**
+  String get briFinishCta;
+
+  /// No description provided for @briDoneCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Home'**
+  String get briDoneCta;
+
+  /// No description provided for @briResultTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Brain Rot Index'**
+  String get briResultTitle;
+
+  /// No description provided for @briScoreLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'BRI score (higher = more friction)'**
+  String get briScoreLabel;
+
+  /// No description provided for @briAxesHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Axis breakdown'**
+  String get briAxesHeading;
+
+  /// No description provided for @briDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Self-report only — not a medical diagnosis.'**
+  String get briDisclaimer;
+
+  /// No description provided for @briProgressLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Question {current} of {total}'**
+  String briProgressLabel(int current, int total);
+
+  /// No description provided for @briCooldownTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'BRI cooldown active'**
+  String get briCooldownTitle;
+
+  /// No description provided for @briCooldownBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You can retake the free BRI in {days} days.'**
+  String briCooldownBody(int days);
+
+  /// No description provided for @briLastScoreLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Last BRI: {score}'**
+  String briLastScoreLabel(int score);
+
+  /// No description provided for @briBandHealthy.
+  ///
+  /// In en, this message translates to:
+  /// **'Healthy brain (0–30)'**
+  String get briBandHealthy;
+
+  /// No description provided for @briBandMild.
+  ///
+  /// In en, this message translates to:
+  /// **'Mild rot (31–60)'**
+  String get briBandMild;
+
+  /// No description provided for @briBandModerate.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderate rot (61–85)'**
+  String get briBandModerate;
+
+  /// No description provided for @briBandSevere.
+  ///
+  /// In en, this message translates to:
+  /// **'Severe rot (86–100)'**
+  String get briBandSevere;
+
+  /// No description provided for @briAxisShortForm.
+  ///
+  /// In en, this message translates to:
+  /// **'Short-form / reels addiction'**
+  String get briAxisShortForm;
+
+  /// No description provided for @briAxisAttention.
+  ///
+  /// In en, this message translates to:
+  /// **'Attention scatter'**
+  String get briAxisAttention;
+
+  /// No description provided for @briAxisInfoFatigue.
+  ///
+  /// In en, this message translates to:
+  /// **'Information fatigue'**
+  String get briAxisInfoFatigue;
+
+  /// No description provided for @briAxisBoredom.
+  ///
+  /// In en, this message translates to:
+  /// **'Boredom resistance'**
+  String get briAxisBoredom;
+
+  /// No description provided for @briQShortForm1.
+  ///
+  /// In en, this message translates to:
+  /// **'I open Reels / Shorts automatically without deciding to.'**
+  String get briQShortForm1;
+
+  /// No description provided for @briQShortForm2.
+  ///
+  /// In en, this message translates to:
+  /// **'Watching a 30-minute film without picking up my phone feels hard.'**
+  String get briQShortForm2;
+
+  /// No description provided for @briQShortForm3.
+  ///
+  /// In en, this message translates to:
+  /// **'Short videos make long reading feel boring quickly.'**
+  String get briQShortForm3;
+
+  /// No description provided for @briQShortForm4.
+  ///
+  /// In en, this message translates to:
+  /// **'I can watch a full episode without opening social apps.'**
+  String get briQShortForm4;
+
+  /// No description provided for @briQAttention1.
+  ///
+  /// In en, this message translates to:
+  /// **'I unlock my phone many times a day with no clear reason.'**
+  String get briQAttention1;
+
+  /// No description provided for @briQAttention2.
+  ///
+  /// In en, this message translates to:
+  /// **'I forget what I just read after a few lines.'**
+  String get briQAttention2;
+
+  /// No description provided for @briQAttention3.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications pull me away mid-task often.'**
+  String get briQAttention3;
+
+  /// No description provided for @briQAttention4.
+  ///
+  /// In en, this message translates to:
+  /// **'I can stay with one task for 15+ minutes without checking my phone.'**
+  String get briQAttention4;
+
+  /// No description provided for @briQInfoFatigue1.
+  ///
+  /// In en, this message translates to:
+  /// **'I feel mental pressure after scrolling feeds.'**
+  String get briQInfoFatigue1;
+
+  /// No description provided for @briQInfoFatigue2.
+  ///
+  /// In en, this message translates to:
+  /// **'I forget news or posts within minutes of reading them.'**
+  String get briQInfoFatigue2;
+
+  /// No description provided for @briQInfoFatigue3.
+  ///
+  /// In en, this message translates to:
+  /// **'I open many tabs / apps and finish almost none.'**
+  String get briQInfoFatigue3;
+
+  /// No description provided for @briQInfoFatigue4.
+  ///
+  /// In en, this message translates to:
+  /// **'I feel clear-headed after a screen-free hour.'**
+  String get briQInfoFatigue4;
+
+  /// No description provided for @briQBoredom1.
+  ///
+  /// In en, this message translates to:
+  /// **'I feel anxious when I am without my phone.'**
+  String get briQBoredom1;
+
+  /// No description provided for @briQBoredom2.
+  ///
+  /// In en, this message translates to:
+  /// **'I avoid tasks that need 15+ minutes of focus.'**
+  String get briQBoredom2;
+
+  /// No description provided for @briQBoredom3.
+  ///
+  /// In en, this message translates to:
+  /// **'Silence or waiting feels unbearable without a screen.'**
+  String get briQBoredom3;
+
+  /// No description provided for @briQBoredom4.
+  ///
+  /// In en, this message translates to:
+  /// **'I can sit with mild boredom without reaching for my phone.'**
+  String get briQBoredom4;
 }
 
 class _AppLocalizationsDelegate

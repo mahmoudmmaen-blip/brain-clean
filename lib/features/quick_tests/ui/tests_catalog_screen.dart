@@ -29,6 +29,12 @@ class TestsCatalogScreen extends StatelessWidget {
           ),
           const SizedBox(height: AppDesignConstants.v2GapSection),
           _TestTile(
+            icon: Icons.psychology_alt_outlined,
+            title: loc.briTestTitle,
+            subtitle: loc.briTestSubtitle,
+            onTap: () => context.push(AppRoutes.v2BriTest),
+          ),
+          _TestTile(
             icon: Icons.psychology_outlined,
             title: loc.iqTestTitle,
             subtitle: loc.iqTestSubtitle,

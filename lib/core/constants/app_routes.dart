@@ -149,6 +149,9 @@ abstract final class AppRoutes {
   /// Phase 5 — Digital brain-rot screen habits (8 Likert).
   static const v2DigitalBrainRotTest = '/v2/tests/digital-brain-rot';
 
+  /// Advanced Diagnosis — Brain Rot Index (16 Likert, 4 axes, free).
+  static const v2BriTest = '/v2/tests/bri';
+
   /// Phase 7 — Daily program countdown timer (reading / screen-free).
   static const v2DailyProgramTimer = '/v2/daily-program/timer';
 

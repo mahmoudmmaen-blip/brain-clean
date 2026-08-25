@@ -294,6 +294,166 @@ class _ExerciseCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final palette = AppColors.of(context);
+    final dots = switch (difficulty) {
+      ExerciseLibraryDifficulty.easy => 1,
+      ExerciseLibraryDifficulty.medium => 2,
+      ExerciseLibraryDifficulty.hard => 3,
+    };
+    final card = DecoratedBox(
+      decoration: BoxDecoration(
+        color: palette.card,
+        borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
+        border: Border.all(
+          color: locked ? AppColors.gold : palette.border,
+          width: locked ? 1.5 : 1,
+        ),
+        boxShadow: locked ? null : AppColors.primaryGlow,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(AppDesignConstants.v2InfoPad),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: locked
+                        ? palette.cardSecondary
+                        : iconBg,
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: SizedBox(
+                    width: 48,
+                    height: 48,
+                    child: Icon(
+                      icon,
+                      color: locked ? palette.textTertiary : iconColor,
+                      size: 24,
+                    ),
+                  ),
+                ),
+                if (locked)
+                  const Positioned(
+                    top: -4,
+                    left: -4,
+                    child: Icon(
+                      Icons.lock_rounded,
+                      color: AppColors.gold,
+                      size: 18,
+                    ),
+                  ),
+              ],
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          title,
+                          style: theme.textTheme.titleSmall?.copyWith(
+                            color: palette.textPrimary,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      if (showProBadge && proBadgeLabel != null) ...[
+                        const SizedBox(width: 8),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 3,
+                          ),
+                          decoration: V2ShellVisual.goldTagDecoration(),
+                          child: Text(
+                            proBadgeLabel!,
+                            style: V2ShellVisual.goldTagLabel(theme),
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    subtitle,
+                    style: V2ShellVisual.captionMuted(theme),
+                  ),
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 5,
+                        ),
+                        decoration: BoxDecoration(
+                          color: palette.cardSecondary,
+                          borderRadius: BorderRadius.circular(999),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.schedule_outlined,
+                              size: 14,
+                              color: palette.textSecondary,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              timeLabel,
+                              style: TextStyle(
+                                color: palette.textSecondary,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Semantics(
+                        label: difficultyLabel,
+                        child: Row(
+                          children: [
+                            for (var i = 0; i < 3; i++)
+                              Container(
+                                width: 7,
+                                height: 7,
+                                margin:
+                                    const EdgeInsetsDirectional.only(end: 4),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: i < dots
+                                      ? _difficultyColor(difficulty)
+                                      : palette.border,
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            if (!locked)
+              Icon(
+                Directionality.of(context) == TextDirection.rtl
+                    ? Icons.chevron_left
+                    : Icons.chevron_right,
+                color: palette.textTertiary,
+              ),
+          ],
+        ),
+      ),
+    );
+
     return Padding(
       padding: const EdgeInsets.only(bottom: AppDesignConstants.v2GapControl),
       child: Material(
@@ -301,102 +461,24 @@ class _ExerciseCard extends StatelessWidget {
         child: InkWell(
           onTap: onTap,
           borderRadius: BorderRadius.circular(AppDesignConstants.radiusCard),
-          child: Opacity(
-            opacity: locked ? 0.82 : 1,
-            child: V2InfoCard(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: iconBg,
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                    child: SizedBox(
-                      width: 48,
-                      height: 48,
-                      child: Icon(icon, color: iconColor, size: 24),
-                    ),
+          child: locked
+              ? DecoratedBox(
+                  decoration: BoxDecoration(
+                    borderRadius:
+                        BorderRadius.circular(AppDesignConstants.radiusCard),
+                    border: Border.all(color: AppColors.gold, width: 1.5),
                   ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                title,
-                                style: theme.textTheme.titleSmall?.copyWith(
-                                  color: palette.textPrimary,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            ),
-                            if (showProBadge && proBadgeLabel != null) ...[
-                              const SizedBox(width: 8),
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8,
-                                  vertical: 3,
-                                ),
-                                decoration: V2ShellVisual.goldTagDecoration(),
-                                child: Text(
-                                  proBadgeLabel!,
-                                  style: V2ShellVisual.goldTagLabel(theme),
-                                ),
-                              ),
-                            ],
-                          ],
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          subtitle,
-                          style: V2ShellVisual.captionMuted(theme),
-                        ),
-                        const SizedBox(height: 10),
-                        Wrap(
-                          spacing: 8,
-                          runSpacing: 6,
-                          children: [
-                            _MetaBadge(
-                              icon: Icons.schedule_outlined,
-                              label: timeLabel,
-                              foreground: palette.textSecondary,
-                              background: palette.cardSecondary,
-                            ),
-                            _MetaBadge(
-                              icon: Icons.signal_cellular_alt,
-                              label: difficultyLabel,
-                              foreground: _difficultyColor(difficulty),
-                              background: _difficultyBg(difficulty),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  child: ColorFiltered(
+                    colorFilter: const ColorFilter.matrix(<double>[
+                      0.2126, 0.7152, 0.0722, 0, 0,
+                      0.2126, 0.7152, 0.0722, 0, 0,
+                      0.2126, 0.7152, 0.0722, 0, 0,
+                      0, 0, 0, 1, 0,
+                    ]),
+                    child: card,
                   ),
-                  if (locked)
-                    const Padding(
-                      padding: EdgeInsets.only(left: 4, top: 2),
-                      child: Icon(
-                        Icons.lock_outline,
-                        color: AppColors.goldText,
-                        size: 20,
-                      ),
-                    )
-                  else
-                    Icon(
-                      Directionality.of(context) == TextDirection.rtl
-                          ? Icons.chevron_left
-                          : Icons.chevron_right,
-                      color: palette.textTertiary,
-                    ),
-                ],
-              ),
-            ),
-          ),
+                )
+              : card,
         ),
       ),
     );
@@ -408,54 +490,5 @@ class _ExerciseCard extends StatelessWidget {
       ExerciseLibraryDifficulty.medium => AppColors.warning,
       ExerciseLibraryDifficulty.hard => AppColors.danger,
     };
-  }
-
-  Color _difficultyBg(ExerciseLibraryDifficulty difficulty) {
-    return switch (difficulty) {
-      ExerciseLibraryDifficulty.easy => AppColors.primaryDim,
-      ExerciseLibraryDifficulty.medium => AppColors.goldDim,
-      ExerciseLibraryDifficulty.hard => AppColors.dangerDim,
-    };
-  }
-}
-
-class _MetaBadge extends StatelessWidget {
-  const _MetaBadge({
-    required this.icon,
-    required this.label,
-    required this.foreground,
-    required this.background,
-  });
-
-  final IconData icon;
-  final String label;
-  final Color foreground;
-  final Color background;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(
-        color: background,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 14, color: foreground),
-          const SizedBox(width: 4),
-          Text(
-            label,
-            style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                  color: foreground,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 11,
-                  height: 1.2,
-                ),
-          ),
-        ],
-      ),
-    );
   }
 }

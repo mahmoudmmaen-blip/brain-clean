@@ -6,6 +6,8 @@ import '../../../core/application/app_preferences_provider.dart';
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/presentation/glow_progress.dart';
+import '../../../core/theme/app_color_theme.dart';
+import '../../../core/theme/app_color_theme_provider.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_design_constants.dart';
 import '../../../core/theme/v2_shell_visual.dart';
@@ -80,6 +82,17 @@ class _TodayHomeScreenState extends ConsumerState<TodayHomeScreen> {
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      floatingActionButton: FloatingActionButton(
+        key: const Key('debug_theme_cycle_fab'),
+        tooltip: 'Cycle theme',
+        onPressed: () {
+          final current = ref.read(selectedColorThemeProvider);
+          const all = AppColorTheme.values;
+          final next = all[(all.indexOf(current) + 1) % all.length];
+          ref.read(selectedColorThemeProvider.notifier).select(next);
+        },
+        child: const Icon(Icons.palette),
+      ),
       appBar: AppBar(
         toolbarHeight: 0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -130,8 +143,7 @@ class _TodayHomeScreenState extends ConsumerState<TodayHomeScreen> {
         ),
         onOpenWeeklyReport: () => context.go(AppRoutes.v2WeeklyReview),
         onOpenIqTest: () => context.push(AppRoutes.v2IqTest),
-        onOpenDigitalBrainRotTest: () =>
-            context.push(AppRoutes.v2DigitalBrainRotTest),
+        onOpenDigitalBrainRotTest: () => context.push(AppRoutes.v2BriTest),
         onOpenFocusTest: () => context.push(AppRoutes.cognitiveVisual),
         onOpenMemoryTest: () => context.push(AppRoutes.cognitiveMemory),
         onOpenTestsCatalog: () => context.push(AppRoutes.v2Tests),

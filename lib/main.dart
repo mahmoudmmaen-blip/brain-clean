@@ -99,31 +99,32 @@ class _BrainCleanAppState extends ConsumerState<BrainCleanApp>
     final router = ref.watch(goRouterProvider);
     final locale = ref.watch(localeProvider);
     final isRtl = isRtlLocale(locale);
-    final colorTheme = ref.watch(effectiveColorThemeProvider);
-    final themeData = LocaleTheme.themed(locale: locale, theme: colorTheme);
 
-    return MaterialApp.router(
-      title: 'Brain Clean',
-      debugShowCheckedModeBanner: false,
-      theme: themeData,
-      darkTheme: themeData,
-      themeMode: colorTheme.brightness == Brightness.dark
-          ? ThemeMode.dark
-          : ThemeMode.light,
-      locale: locale,
-      localizationsDelegates: appLocalizationsDelegates,
-      supportedLocales: supportedLocales,
-      builder: (context, child) {
-        // Rebuild chrome when theme id changes without remounting the router tree.
-        return KeyedSubtree(
-          key: ValueKey<String>('theme-chrome-${colorTheme.name}'),
-          child: Directionality(
-            textDirection: isRtl ? TextDirection.rtl : TextDirection.ltr,
-            child: child ?? const SizedBox.shrink(),
-          ),
+    return Consumer(
+      builder: (context, ref, _) {
+        final colorTheme = ref.watch(selectedColorThemeProvider);
+        final themeData = LocaleTheme.themed(locale: locale, theme: colorTheme);
+        return MaterialApp.router(
+          key: ValueKey<String>('app-theme-${colorTheme.name}'),
+          title: 'Brain Clean',
+          debugShowCheckedModeBanner: false,
+          theme: themeData,
+          darkTheme: themeData,
+          themeMode: colorTheme.brightness == Brightness.dark
+              ? ThemeMode.dark
+              : ThemeMode.light,
+          locale: locale,
+          localizationsDelegates: appLocalizationsDelegates,
+          supportedLocales: supportedLocales,
+          builder: (context, child) {
+            return Directionality(
+              textDirection: isRtl ? TextDirection.rtl : TextDirection.ltr,
+              child: child ?? const SizedBox.shrink(),
+            );
+          },
+          routerConfig: router,
         );
       },
-      routerConfig: router,
     );
   }
 }

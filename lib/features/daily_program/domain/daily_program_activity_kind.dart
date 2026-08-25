@@ -9,6 +9,9 @@ enum DailyProgramActivityKind {
   iqChallenge,
   eveningReview,
   rule,
+  physical,
+  nsdr,
+  whiteNoise,
   other,
 }
 
@@ -17,18 +20,28 @@ DailyProgramActivityKind resolveDailyProgramActivityKind({
   required String id,
   required String titleKey,
 }) {
-  if (id.contains('reading') || titleKey == 'dailyProgramReading') {
+  if (id.contains('reading') ||
+      titleKey == 'dailyProgramReading' ||
+      titleKey == 'dailyProgramActiveRecallReading') {
     return DailyProgramActivityKind.reading;
   }
   if (id.contains('pomodoro') ||
       titleKey == 'dailyProgramPomodoro' ||
-      titleKey == 'dailyProgramHeavyPomodoro') {
+      titleKey == 'dailyProgramPomodoro5010' ||
+      titleKey == 'dailyProgramHeavyPomodoro' ||
+      titleKey == 'dailyProgramRecovery0900') {
     return DailyProgramActivityKind.pomodoro;
   }
   if (id.contains('screen_free') ||
       id.contains('detox') ||
+      id.contains('grayscale') ||
+      id.contains('zero_screens') ||
       titleKey == 'dailyProgramScreenFree' ||
-      titleKey == 'dailyProgramDetoxBlock') {
+      titleKey == 'dailyProgramDetoxBlock' ||
+      titleKey == 'dailyProgramMorningZeroScreens' ||
+      titleKey == 'dailyProgramGrayscaleMode' ||
+      titleKey == 'dailyProgramRecovery0700' ||
+      titleKey == 'dailyProgramRecovery2100') {
     return DailyProgramActivityKind.screenFree;
   }
   if (titleKey == 'dailyProgramIqChallenge' || id.contains('iq_challenge')) {
@@ -51,6 +64,25 @@ DailyProgramActivityKind resolveDailyProgramActivityKind({
       titleKey == 'dailyProgramEveningReview' ||
       titleKey == 'dailyProgramReflection') {
     return DailyProgramActivityKind.eveningReview;
+  }
+  if (titleKey == 'dailyProgramPhysicalExercise' ||
+      id.contains('physical')) {
+    return DailyProgramActivityKind.physical;
+  }
+  if (titleKey == 'dailyProgramNsdrRest' ||
+      id.contains('nsdr') ||
+      titleKey == 'dailyProgramRecovery1200') {
+    return DailyProgramActivityKind.nsdr;
+  }
+  if (titleKey == 'dailyProgramWhiteNoise' || id.contains('white_noise')) {
+    return DailyProgramActivityKind.whiteNoise;
+  }
+  if (titleKey == 'adaptiveProgramBreathing' || id.contains('breathing')) {
+    return DailyProgramActivityKind.nsdr;
+  }
+  if (titleKey == 'adaptiveProgramWeekendChallenge' ||
+      id.contains('weekend')) {
+    return DailyProgramActivityKind.other;
   }
   if (titleKey == 'dailyProgramNoMultitask' ||
       titleKey == 'dailyProgramSingleScreenRule' ||
