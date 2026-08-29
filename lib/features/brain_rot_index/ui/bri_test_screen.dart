@@ -15,8 +15,9 @@ import '../domain/bri_question.dart';
 import '../domain/bri_question_bank.dart';
 import '../domain/bri_result.dart';
 import '../domain/bri_scorer.dart';
+import 'bri_diagnosis_result_screen.dart';
 
-/// Free Brain Rot Index — 16 Likert items across 4 axes (7-day retake).
+/// Interactive BRI diagnosis — one question per screen, fade + auto-advance.
 class BriTestScreen extends ConsumerStatefulWidget {
   const BriTestScreen({super.key});
 
@@ -24,13 +25,38 @@ class BriTestScreen extends ConsumerStatefulWidget {
   ConsumerState<BriTestScreen> createState() => _BriTestScreenState();
 }
 
-class _BriTestScreenState extends ConsumerState<BriTestScreen> {
+class _BriTestScreenState extends ConsumerState<BriTestScreen>
+    with SingleTickerProviderStateMixin {
   var _index = 0;
   final List<int?> _answers =
       List<int?>.filled(BriQuestionBank.questionCount, null);
   BriResult? _result;
+  var _finishing = false;
+
+  late final AnimationController _animController;
+  late final Animation<double> _fadeAnimation;
 
   BriQuestion get _question => BriQuestionBank.questions[_index];
+
+  @override
+  void initState() {
+    super.initState();
+    _animController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+    _fadeAnimation = CurvedAnimation(
+      parent: _animController,
+      curve: Curves.easeInOut,
+    );
+    _animController.forward();
+  }
+
+  @override
+  void dispose() {
+    _animController.dispose();
+    super.dispose();
+  }
 
   String _stem(AppLocalizations loc, String key) {
     return switch (key) {
@@ -74,53 +100,64 @@ class _BriTestScreenState extends ConsumerState<BriTestScreen> {
 
   Color _bandColor(BriBand band) {
     return switch (band) {
-      BriBand.healthy => AppColors.positive,
+      BriBand.healthy => AppColors.success,
       BriBand.mild => AppColors.warning,
       BriBand.moderate => AppColors.accentOrange,
       BriBand.severe => AppColors.danger,
     };
   }
 
-  Future<void> _finish() async {
-    final resolved = _answers.map((a) => a!).toList(growable: false);
-    final scored = BriScorer.score(resolved);
-    await persistBriAndMirrorDigital(ref: ref, bri: scored);
-    ref.invalidate(homeDashboardProvider);
-    if (!mounted) return;
-    setState(() => _result = scored);
-  }
+  Future<void> _answerQuestion(int likertValue) async {
+    if (_finishing) return;
+    setState(() => _answers[_index] = likertValue);
 
-  void _advance() {
-    if (_answers[_index] == null) return;
     if (_index >= BriQuestionBank.questionCount - 1) {
-      _finish();
+      await _finishTest();
       return;
     }
+
+    await _animController.reverse();
+    if (!mounted) return;
     setState(() => _index += 1);
+    await _animController.forward();
+  }
+
+  Future<void> _finishTest() async {
+    if (_finishing) return;
+    _finishing = true;
+    try {
+      final resolved = _answers.map((a) => a!).toList(growable: false);
+      final scored = BriScorer.score(resolved);
+      await persistBriAndMirrorDigital(ref: ref, bri: scored);
+      ref.invalidate(homeDashboardProvider);
+      if (!mounted) return;
+      setState(() => _result = scored);
+    } catch (_) {
+      _finishing = false;
+      if (!mounted) return;
+      final loc = AppLocalizations.of(context)!;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(loc.briDisclaimer)),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
+    final palette = AppColors.of(context);
     final latest = ref.watch(briResultsProvider);
     final daysLeft = BriScorer.daysUntilRetest(latest);
     final locked = latest != null && daysLeft > 0;
 
     if (_result != null) {
-      return _ResultView(
-        loc: loc,
-        theme: theme,
-        result: _result!,
-        axisTitle: _axisTitle,
-        bandLabel: _bandLabel,
-        bandColor: _bandColor,
-      );
+      return BriDiagnosisResultScreen(result: _result!);
     }
 
     if (locked) {
       return Scaffold(
-        backgroundColor: theme.scaffoldBackgroundColor,
+        backgroundColor: palette.background,
         appBar: AppBar(
           title: Text(loc.briTestTitle),
           leading: IconButton(
@@ -138,7 +175,7 @@ class _BriTestScreenState extends ConsumerState<BriTestScreen> {
                   Text(
                     loc.briCooldownTitle,
                     style: theme.textTheme.titleMedium?.copyWith(
-                      color: AppColors.of(context).textPrimary,
+                      color: palette.textPrimary,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -178,254 +215,161 @@ class _BriTestScreenState extends ConsumerState<BriTestScreen> {
     }
 
     final likert = quickTestLikertOptions(loc);
-    final progress = (_index + 1) / BriQuestionBank.questionCount;
+    final total = BriQuestionBank.questionCount;
+    final progress = (_index + 1) / total;
 
     return Scaffold(
-      backgroundColor: theme.scaffoldBackgroundColor,
+      backgroundColor: palette.background,
       appBar: AppBar(
+        backgroundColor: palette.background,
         title: Text(loc.briTestTitle),
         leading: IconButton(
           icon: const Icon(Icons.close),
           onPressed: () => context.pop(),
         ),
       ),
-      body: ListView(
-        padding: V2ShellVisual.pagePadding(top: 8),
-        children: [
-          Text(
-            loc.briTestSubtitle,
-            style: V2ShellVisual.bodyMuted(theme),
-          ),
-          const SizedBox(height: 12),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(999),
-            child: LinearProgressIndicator(
-              value: progress,
-              minHeight: 6,
-              backgroundColor: AppColors.of(context).cardSecondary,
-              color: AppColors.primary,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            loc.briProgressLabel(_index + 1, BriQuestionBank.questionCount),
-            style: V2ShellVisual.captionMuted(theme),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            _axisTitle(loc, _question.axis),
-            style: const TextStyle(
-              color: AppColors.primary,
-              fontWeight: FontWeight.w800,
-              fontSize: 13,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            _stem(loc, _question.stemKey),
-            style: theme.textTheme.titleMedium?.copyWith(
-              color: AppColors.of(context).textPrimary,
-              fontWeight: FontWeight.w700,
-              height: 1.4,
-              fontSize: 18,
-            ),
-          ),
-          const SizedBox(height: 20),
-          QuickTestOptionList(
-            labels: likert.map((e) => e.$2).toList(growable: false),
-            selectedIndex: _answers[_index] == null
-                ? null
-                : likert.indexWhere((e) => e.$1 == _answers[_index]),
-            onSelected: (i) {
-              setState(() => _answers[_index] = likert[i].$1);
-            },
-          ),
-          const SizedBox(height: 16),
-          SizedBox(
-            height: AppDesignConstants.minTouchTarget,
-            child: FilledButton(
-              onPressed: _answers[_index] == null ? null : _advance,
-              style: V2ShellVisual.primaryFilled(),
-              child: Text(
-                _index >= BriQuestionBank.questionCount - 1
-                    ? loc.briFinishCta
-                    : loc.briContinueCta,
-              ),
-            ),
-          ),
-          const SizedBox(height: 12),
-          Text(
-            loc.briDisclaimer,
-            style: V2ShellVisual.captionMuted(theme),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _ResultView extends StatelessWidget {
-  const _ResultView({
-    required this.loc,
-    required this.theme,
-    required this.result,
-    required this.axisTitle,
-    required this.bandLabel,
-    required this.bandColor,
-  });
-
-  final AppLocalizations loc;
-  final ThemeData theme;
-  final BriResult result;
-  final String Function(AppLocalizations, BriAxis) axisTitle;
-  final String Function(AppLocalizations, BriBand) bandLabel;
-  final Color Function(BriBand) bandColor;
-
-  @override
-  Widget build(BuildContext context) {
-    final band = result.band;
-    final color = bandColor(band);
-    return Scaffold(
-      backgroundColor: theme.scaffoldBackgroundColor,
-      appBar: AppBar(
-        title: Text(loc.briTestTitle),
-        leading: IconButton(
-          icon: const Icon(Icons.close),
-          onPressed: () => context.go(AppRoutes.v2Home),
-        ),
-      ),
-      body: ListView(
-        padding: V2ShellVisual.pagePadding(top: 8),
-        children: [
-          Text(
-            loc.briResultTitle,
-            style: theme.textTheme.headlineSmall?.copyWith(
-              color: AppColors.of(context).textPrimary,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-          const SizedBox(height: AppDesignConstants.v2GapSection),
-          V2InfoCard(
-            child: Column(
-              children: [
-                Text(
-                  '${result.overallScore}',
-                  style: theme.textTheme.displaySmall?.copyWith(
-                    color: color,
-                    fontWeight: FontWeight.w900,
-                    fontFeatures: const [FontFeature.tabularFigures()],
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  loc.briScoreLabel,
-                  style: V2ShellVisual.captionMuted(theme),
-                ),
-                const SizedBox(height: 12),
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: color.withValues(alpha: 0.16),
-                    borderRadius: BorderRadius.circular(999),
-                  ),
-                  child: Text(
-                    bandLabel(loc, band),
-                    style: TextStyle(
-                      color: color,
-                      fontWeight: FontWeight.w800,
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: AppDesignConstants.v2GapSection),
-          Text(
-            loc.briAxesHeading,
-            style: V2ShellVisual.sectionLabel(theme),
-          ),
-          const SizedBox(height: 10),
-          for (final axis in BriAxis.values) ...[
-            _AxisBar(
-              label: axisTitle(loc, axis),
-              score: result.axisScores[axis] ?? 0,
-            ),
-            const SizedBox(height: 10),
-          ],
-          const SizedBox(height: 8),
-          Text(
-            loc.briDisclaimer,
-            style: V2ShellVisual.captionMuted(theme),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 16),
-          SizedBox(
-            height: AppDesignConstants.minTouchTarget,
-            child: FilledButton(
-              onPressed: () => context.go(AppRoutes.v2Home),
-              style: V2ShellVisual.primaryFilled(),
-              child: Text(loc.briDoneCta),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _AxisBar extends StatelessWidget {
-  const _AxisBar({required this.label, required this.score});
-
-  final String label;
-  final int score;
-
-  @override
-  Widget build(BuildContext context) {
-    final palette = AppColors.of(context);
-    return V2InfoCard(
-      padding: const EdgeInsets.all(14),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(AppDesignConstants.paddingScreen),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Expanded(
-                child: Text(
-                  label,
-                  style: TextStyle(
-                    color: palette.textPrimary,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 14,
-                  ),
+              ClipRRect(
+                borderRadius:
+                    BorderRadius.circular(AppDesignConstants.radiusPill),
+                child: LinearProgressIndicator(
+                  value: progress,
+                  backgroundColor: palette.cardSecondary,
+                  color: AppColors.primary,
+                  minHeight: 8,
                 ),
               ),
+              const SizedBox(height: 8),
               Text(
-                '$score',
+                loc.briProgressLabel(_index + 1, total),
+                style: TextStyle(
+                  color: palette.textSecondary,
+                  fontSize: 14,
+                ),
+              ),
+              const SizedBox(height: 28),
+              Text(
+                _axisTitle(loc, _question.axis),
                 style: const TextStyle(
                   color: AppColors.primary,
                   fontWeight: FontWeight.w800,
+                  fontSize: 13,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Expanded(
+                child: FadeTransition(
+                  opacity: _fadeAnimation,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          _stem(loc, _question.stemKey),
+                          style: TextStyle(
+                            color: palette.textPrimary,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w800,
+                            height: 1.45,
+                          ),
+                        ),
+                        const SizedBox(height: 36),
+                        for (var i = 0; i < likert.length; i++) ...[
+                          _AnswerButton(
+                            label: '${likert[i].$1} — ${likert[i].$2}',
+                            delay: i * 0.08,
+                            animation: _fadeAnimation,
+                            onTap: () => _answerQuestion(likert[i].$1),
+                          ),
+                          const SizedBox(height: 12),
+                        ],
+                        const SizedBox(height: 8),
+                        Text(
+                          loc.briDisclaimer,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: palette.textTertiary,
+                            fontSize: 12,
+                            height: 1.35,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 8),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(999),
-            child: LinearProgressIndicator(
-              value: score / 100,
-              minHeight: 6,
-              backgroundColor: palette.cardSecondary,
-              color: score <= 30
-                  ? AppColors.positive
-                  : score <= 60
-                      ? AppColors.warning
-                      : AppColors.danger,
+        ),
+      ),
+    );
+  }
+}
+
+class _AnswerButton extends StatelessWidget {
+  const _AnswerButton({
+    required this.label,
+    required this.onTap,
+    required this.animation,
+    required this.delay,
+  });
+
+  final String label;
+  final VoidCallback onTap;
+  final Animation<double> animation;
+  final double delay;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = AppColors.of(context);
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (context, child) {
+        final t = ((animation.value - delay) / (1 - delay)).clamp(0.0, 1.0);
+        return Opacity(
+          opacity: t,
+          child: Transform.translate(
+            offset: Offset(0, 16 * (1 - t)),
+            child: child,
+          ),
+        );
+      },
+      child: Material(
+        color: palette.card,
+        borderRadius: BorderRadius.circular(AppDesignConstants.radiusButton),
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(AppDesignConstants.radiusButton),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              minHeight: AppDesignConstants.minTouchTarget,
+            ),
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+              decoration: BoxDecoration(
+                borderRadius:
+                    BorderRadius.circular(AppDesignConstants.radiusButton),
+                border: Border.all(
+                  color: AppColors.primary.withValues(alpha: 0.22),
+                ),
+              ),
+              child: Text(
+                label,
+                style: TextStyle(
+                  color: palette.textPrimary,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
           ),
-        ],
+        ),
       ),
     );
   }

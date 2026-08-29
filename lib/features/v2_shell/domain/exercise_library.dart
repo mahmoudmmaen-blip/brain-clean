@@ -8,6 +8,7 @@ enum ExerciseLibraryFilter {
   memory,
   focus,
   speed,
+  intelligence,
 }
 
 enum ExerciseLibraryTier {
@@ -44,6 +45,7 @@ class ExerciseLibraryItem {
     required this.launch,
     required this.estimatedMinutes,
     required this.difficulty,
+    this.scienceBadgeKey,
   });
 
   final String id;
@@ -57,6 +59,7 @@ class ExerciseLibraryItem {
   final ExerciseLibraryLaunch launch;
   final int estimatedMinutes;
   final ExerciseLibraryDifficulty difficulty;
+  final String? scienceBadgeKey;
 
   bool matchesFilter(ExerciseLibraryFilter filter) {
     if (filter == ExerciseLibraryFilter.all) {
@@ -72,7 +75,10 @@ abstract final class ExerciseLibraryCatalog {
     ExerciseLibraryItem(
       id: 'n_back',
       tier: ExerciseLibraryTier.free,
-      categories: {ExerciseLibraryFilter.memory},
+      categories: {
+        ExerciseLibraryFilter.memory,
+        ExerciseLibraryFilter.intelligence,
+      },
       icon: Icons.hub_outlined,
       iconBg: AppColors.primaryDim,
       iconColor: AppColors.primary,
@@ -81,6 +87,7 @@ abstract final class ExerciseLibraryCatalog {
       launch: ExerciseLibraryLaunch.nBack,
       estimatedMinutes: 8,
       difficulty: ExerciseLibraryDifficulty.hard,
+      scienceBadgeKey: 'v2ExercisesScienceBadgeNBack',
     ),
     ExerciseLibraryItem(
       id: 'stroop',
@@ -148,14 +155,14 @@ abstract final class ExerciseLibraryCatalog {
       difficulty: ExerciseLibraryDifficulty.hard,
     ),
     ExerciseLibraryItem(
-      id: 'pattern_match',
+      id: 'pattern_logic',
       tier: ExerciseLibraryTier.pro,
-      categories: {ExerciseLibraryFilter.speed, ExerciseLibraryFilter.memory},
-      icon: Icons.grid_view_rounded,
+      categories: {ExerciseLibraryFilter.intelligence},
+      icon: Icons.psychology_outlined,
       iconBg: AppColors.goldDim,
       iconColor: AppColors.gold,
-      titleKey: 'v2ExercisesPatternMatchTitle',
-      subtitleKey: 'v2ExercisesPatternMatchSubtitle',
+      titleKey: 'v2ExercisesPatternLogicTitle',
+      subtitleKey: 'v2ExercisesPatternLogicSubtitle',
       launch: ExerciseLibraryLaunch.patternMatch,
       estimatedMinutes: 5,
       difficulty: ExerciseLibraryDifficulty.medium,

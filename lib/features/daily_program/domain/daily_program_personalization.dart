@@ -173,6 +173,7 @@ abstract final class PersonalizedDailyProgramBuilder {
           titleKey: 'dailyProgramNsdrRest',
           minutes: 15,
           isAdaptive: true,
+          isOptional: true,
         ),
       );
       extras.add(

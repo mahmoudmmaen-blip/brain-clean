@@ -6,6 +6,7 @@ class StructuredDailyActivity {
     required this.minutes,
     this.completed = false,
     this.isAdaptive = false,
+    this.isOptional = false,
   });
 
   final String id;
@@ -18,12 +19,16 @@ class StructuredDailyActivity {
   /// True when this item was added/modified from test-score personalization.
   final bool isAdaptive;
 
+  /// Optional add-on (e.g. NSDR rest) — not required for day completion.
+  final bool isOptional;
+
   StructuredDailyActivity copyWith({
     String? id,
     String? titleKey,
     int? minutes,
     bool? completed,
     bool? isAdaptive,
+    bool? isOptional,
   }) {
     return StructuredDailyActivity(
       id: id ?? this.id,
@@ -31,6 +36,7 @@ class StructuredDailyActivity {
       minutes: minutes ?? this.minutes,
       completed: completed ?? this.completed,
       isAdaptive: isAdaptive ?? this.isAdaptive,
+      isOptional: isOptional ?? this.isOptional,
     );
   }
 }

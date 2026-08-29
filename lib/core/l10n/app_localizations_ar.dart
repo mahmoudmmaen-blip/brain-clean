@@ -1208,6 +1208,21 @@ class AppLocalizationsAr extends AppLocalizations {
   String get gamePatternMatchDesc => 'احفظ النمط وأعد رسمه من الذاكرة';
 
   @override
+  String gamePatternLogicProgress(int current, int total) {
+    return 'سؤال $current / $total';
+  }
+
+  @override
+  String gamePatternLogicTimeLeft(int seconds) {
+    return '$seconds ث';
+  }
+
+  @override
+  String gamePatternLogicResult(int correct, int total) {
+    return '$correct من $total صحيحة';
+  }
+
+  @override
   String get gameNumberMemoryTitle => 'ذاكرة الأرقام';
 
   @override
@@ -1386,7 +1401,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get gameNBackIntroDetail =>
-      'يضيء مربع في شبكة 3×3. اضغط تطابق إذا كان في نفس موضع خطوتين سابقتين؛ وإلا اضغط التالي.';
+      'يضيء مربع في شبكة 3×3 كل ثانيتين. اضغط تطابق إذا كان في نفس موضع N خطوات سابقة؛ وإلا اضغط التالي. يبدأ N من ١ ويزداد تلقائياً مع تقدمك.';
 
   @override
   String gameNBackStats(int correct, int wrong) {
@@ -1396,6 +1411,11 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String gameNBackSessionResult(int correct, int wrong) {
     return 'انتهى — $correct صحيحة، $wrong خاطئة';
+  }
+
+  @override
+  String gameNBackSessionTimeLeft(int minutes) {
+    return 'متبقي $minutes د';
   }
 
   @override
@@ -1714,6 +1734,13 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get brainProfileMeansBody =>
       'هذه لقطة بداية مبلَّغ عنها ذاتياً. تُبرز المناطق الأقوى كما ظهرت وأولويات الدعم الحالية بناءً على إجابات فحص الدماغ.';
+
+  @override
+  String get brainCheckAnxietyWarningTitle => 'القلق المزمن يضر الهيبوكامبس';
+
+  @override
+  String get brainCheckAnxietyWarningBody =>
+      'برنامجك يشمل تقليل الكورتيزول — مراجعة مسائية، راحة NSDR، ووقت بلا شاشة.';
 
   @override
   String get brainProfileDoesNotMeanHeading => 'ماذا لا يعني هذا';
@@ -3546,6 +3573,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2ExercisesFilterReading => 'قراءة';
 
   @override
+  String get v2ExercisesFilterIntelligence => 'ذكاء';
+
+  @override
   String get v2ExercisesFilterMentalFitness => 'لياقة ذهنية';
 
   @override
@@ -3575,10 +3605,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2ExercisesEmptyFilter => 'لا توجد تمارين لهذا التصنيف بعد.';
 
   @override
-  String get v2ExercisesNBackTitle => 'N-Back';
+  String get v2ExercisesNBackTitle => 'Dual N-Back';
 
   @override
-  String get v2ExercisesNBackSubtitle => 'بروتوكول Dual N-Back للذاكرة العاملة';
+  String get v2ExercisesNBackSubtitle =>
+      'أقوى تمرين علمي لزيادة الذاكرة العاملة والذكاء السائل';
+
+  @override
+  String get v2ExercisesScienceBadgeNBack =>
+      'مثبت علمياً — يزيد الذاكرة العاملة';
 
   @override
   String get v2ExercisesStroopTitle => 'اختبار سترووب';
@@ -3616,11 +3651,11 @@ class AppLocalizationsAr extends AppLocalizations {
       'جولات حسابية قصيرة لشحذ الانتباه المستمر';
 
   @override
-  String get v2ExercisesPatternMatchTitle => 'مطابقة الأنماط المرئية';
+  String get v2ExercisesPatternLogicTitle => 'منطق الأنماط';
 
   @override
-  String get v2ExercisesPatternMatchSubtitle =>
-      'احفظ نمط الشبكة وأعد إنشاءه من الذاكرة';
+  String get v2ExercisesPatternLogicSubtitle =>
+      'سلاسل أشكال/أرقام مع عنصر ناقص — ٥ أسئلة مؤقتة لقياس الذكاء السائل';
 
   @override
   String get v2ExercisesReadingTitle => 'جلسة قراءة مركّزة (10 دقائق)';
@@ -4306,24 +4341,27 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get dailyProgramReading =>
-      'قراءة نشطة — ١٥ دقيقة: اقرأ كتاباً أو مقالاً، ثم أغلقه واسترجع ٣ نقاط رئيسية';
+      'قراءة نشطة — ١٥ دقيقة: اقرأ كتاباً أو مقالاً، ثم أغلقه واسترجع ٣ نقاط رئيسية (يبني روابط عصبية جديدة عبر المرونة العصبية)';
 
   @override
   String get dailyProgramPomodoro =>
-      'بومودورو عمل عميق — ٢٥ دقيقة: مهمة واحدة فقط، هاتف بعيد عن نطاق الرؤية';
+      'بومودورو عمل عميق — ٢٥ دقيقة: مهمة واحدة فقط، هاتف بعيد عن نطاق الرؤية (يقوي شبكة التحكم التنفيذي في الفص الجبهي)';
 
   @override
-  String get dailyProgramScreenFree => 'وقت بلا شاشة';
+  String get dailyProgramScreenFree =>
+      'وقت بلا شاشة (يعيد ضبط مستقبلات الدوبامين)';
 
   @override
   String get dailyProgramEveningReview =>
-      'مراجعة مسائية — ٥ دقائق: ماذا أنجزت؟ ما الذي ستحسنه غداً؟';
+      'مراجعة مسائية — ٥ دقائق: ماذا أنجزت؟ ما الذي ستحسنه غداً؟ (يخفض الكورتيزول ويهيئ الدماغ للنوم العميق)';
 
   @override
-  String get dailyProgramCognitive => 'تمرين معرفي';
+  String get dailyProgramCognitive =>
+      'تمرين معرفي (يوسع سعة الذاكرة العاملة — مثبت علمياً)';
 
   @override
-  String get dailyProgramCognitiveNBack => 'تمرين معرفي — Dual N-Back';
+  String get dailyProgramCognitiveNBack =>
+      'تمرين معرفي — Dual N-Back (يوسع سعة الذاكرة العاملة — مثبت علمياً)';
 
   @override
   String get dailyProgramCognitiveStroop => 'تمرين معرفي — ستروب';
@@ -4368,7 +4406,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get dailyProgramNsdrRest =>
-      'راحة NSDR — استلقِ ١٥ دقيقة بعد الظهيرة بلا هاتف بلا نوم';
+      'راحة NSDR — ١٥ دقيقة عيون مغلقة بلا هاتف بلا نوم (يحوّل الذاكرة قصيرة المدى إلى طويلة المدى)';
+
+  @override
+  String get dailyProgramNsdrTimerDescription =>
+      'استلقِ مرتاحاً وأغمض عينيك. ابقَ مستيقظاً بلا هاتف. دع جسمك يرتاح بينما يدمج دماغك ما تعلمته.';
+
+  @override
+  String get dailyProgramOptionalBadge => 'اختياري';
 
   @override
   String get dailyProgramPhysicalExercise =>
@@ -4702,6 +4747,90 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get briDoneCta => 'العودة إلى الرئيسية';
+
+  @override
+  String get briStartResetCta => 'ابدأ بروتوكول إعادة الضبط';
+
+  @override
+  String get briGenerateProgramCta => 'ولّد برنامجي الشخصي';
+
+  @override
+  String get briSevereWarningBody =>
+      'دماغك يحتاج بروتوكول إعادة ضبط عاجل. لا تقلق — ٤ أسابيع فقط وترجع أوضح.';
+
+  @override
+  String get briProBadge => 'Pro';
+
+  @override
+  String get briUnlockProProgramCta => 'افتح البرنامج الكامل مع Pro';
+
+  @override
+  String get briRecommendResetBody =>
+      'إعادة ضبط موجهة لأربعة أسابيع: بومودورو، Stroop سهل، ووقت بلا شاشة.';
+
+  @override
+  String get briRecommendAscensionBody =>
+      'الصعود العصبي يبني الذاكرة والتركيز بعد تطهير التعفن — مسار Pro.';
+
+  @override
+  String get briRecommendEnhancedBody =>
+      'العقل المحسّن يحافظ على الذروة بدوران تركيز / ذاكرة / ذكاء — Pro.';
+
+  @override
+  String get briRecommendBaseBody =>
+      'ممارسة يومية ثابتة بينما تكمل المزيد من الاختبارات لخطة أدق.';
+
+  @override
+  String get briRadarRot => 'الوضوح';
+
+  @override
+  String get briRadarMemory => 'الذاكرة';
+
+  @override
+  String get briRadarFocus => 'التركيز';
+
+  @override
+  String get briRadarIq => 'الذكاء';
+
+  @override
+  String get briRadarSleep => 'الراحة';
+
+  @override
+  String get dailyProgramBrainMapCta => 'خريطة دماغي';
+
+  @override
+  String get dailyProgramStartSessionCta => 'ابدأ الجلسة';
+
+  @override
+  String get dailyProgramTimelineHint => 'أكمل هذه الكتلة للحفاظ على سلسلتك.';
+
+  @override
+  String get dailyProgramMarkComplete => 'تعليم كمكتمل';
+
+  @override
+  String get dailyProgramMarkIncomplete => 'التراجع عن الإكمال';
+
+  @override
+  String dailyProgramDayPhaseTitle(int day, String phase) {
+    return 'يوم $day — $phase';
+  }
+
+  @override
+  String dailyProgramPhaseWeek(int week) {
+    return 'الأسبوع $week';
+  }
+
+  @override
+  String get dailyProgramPhasePurge => 'المرحلة 1: التطهير';
+
+  @override
+  String get dailyProgramPhaseBuild => 'المرحلة 2: البناء';
+
+  @override
+  String get dailyProgramPhaseOptimize => 'المرحلة 3: التحسين';
+
+  @override
+  String get dailyProgramPhaseMaintain => 'المرحلة 4: الصيانة';
 
   @override
   String get briResultTitle => 'مؤشر تعفن دماغك';

@@ -115,9 +115,7 @@ class WeeklyReportScreen extends ConsumerWidget {
             value: '$challengesCompleted',
           ),
           const SizedBox(height: 24),
-          const ShareButton(),
-          const SizedBox(height: 8),
-          const ShareCardCapture(),
+          const ShareProgressBlock(),
         ],
       ),
     );

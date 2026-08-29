@@ -152,6 +152,9 @@ abstract final class AppRoutes {
   /// Advanced Diagnosis — Brain Rot Index (16 Likert, 4 axes, free).
   static const v2BriTest = '/v2/tests/bri';
 
+  /// Adaptive daily program timeline (flight-plan UI).
+  static const v2DailyProgram = '/v2/daily-program';
+
   /// Phase 7 — Daily program countdown timer (reading / screen-free).
   static const v2DailyProgramTimer = '/v2/daily-program/timer';
 

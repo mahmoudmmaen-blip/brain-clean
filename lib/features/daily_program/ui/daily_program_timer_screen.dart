@@ -103,6 +103,7 @@ class _DailyProgramTimerScreenState
     final palette = AppColors.of(context);
     final theme = Theme.of(context);
     final label = DateFormatUtils.countdown(_remainingSeconds);
+    final isNsdr = widget.activityId.contains('nsdr');
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -126,6 +127,17 @@ class _DailyProgramTimerScreenState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              if (isNsdr) ...[
+                Text(
+                  loc.dailyProgramNsdrTimerDescription,
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: AppColors.textSecondary,
+                    height: 1.5,
+                  ),
+                ),
+                const SizedBox(height: 24),
+              ],
               const Spacer(),
               Text(
                 label,

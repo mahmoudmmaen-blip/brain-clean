@@ -491,6 +491,16 @@ abstract final class AdaptiveProgramEngine {
       );
     }
 
+    list.add(
+      const StructuredDailyActivity(
+        id: 'reset_nsdr_optional',
+        titleKey: 'dailyProgramNsdrRest',
+        minutes: 15,
+        isAdaptive: true,
+        isOptional: true,
+      ),
+    );
+
     return list;
   }
 
@@ -679,6 +689,7 @@ abstract final class AdaptiveProgramEngine {
             titleKey: 'dailyProgramNsdrRest',
             minutes: 15,
             isAdaptive: true,
+            isOptional: true,
           ),
         const StructuredDailyActivity(
           id: 'asc_evening',

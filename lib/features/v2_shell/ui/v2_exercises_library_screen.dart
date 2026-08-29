@@ -10,7 +10,7 @@ import '../../../core/theme/v2_shell_visual.dart';
 import '../../games/color_word_game.dart';
 import '../../games/n_back_game.dart';
 import '../../games/number_memory_game.dart';
-import '../../games/pattern_match_game.dart';
+import '../../games/pattern_logic_game.dart';
 import '../../pro/application/subscription_service_provider.dart';
 import '../domain/exercise_library.dart';
 
@@ -35,6 +35,7 @@ class _V2ExercisesLibraryScreenState
     final filters = [
       (ExerciseLibraryFilter.all, loc.v2ExercisesFilterAll),
       (ExerciseLibraryFilter.memory, loc.v2ExercisesFilterMemory),
+      (ExerciseLibraryFilter.intelligence, loc.v2ExercisesFilterIntelligence),
       (ExerciseLibraryFilter.focus, loc.v2ExercisesFilterFocus),
       (ExerciseLibraryFilter.speed, loc.v2ExercisesFilterSpeed),
     ];
@@ -86,6 +87,7 @@ class _V2ExercisesLibraryScreenState
                   difficulty: item.difficulty,
                   locked: false,
                   showProBadge: false,
+                  scienceBadgeLabel: _scienceBadgeFor(item, loc),
                   onTap: () => _openExercise(context, item, isPro),
                 ),
               const SizedBox(height: AppDesignConstants.v2GapSection),
@@ -106,6 +108,7 @@ class _V2ExercisesLibraryScreenState
                   locked: !isPro,
                   showProBadge: true,
                   proBadgeLabel: loc.v2ExercisesProBadge,
+                  scienceBadgeLabel: _scienceBadgeFor(item, loc),
                   onTap: () => _openExercise(context, item, isPro),
                 ),
             ],
@@ -144,7 +147,7 @@ class _V2ExercisesLibraryScreenState
       'v2ExercisesReadingComprehensionTitle' =>
         loc.v2ExercisesReadingComprehensionTitle,
       'v2ExercisesHiitTitle' => loc.v2ExercisesHiitTitle,
-      'v2ExercisesPatternMatchTitle' => loc.v2ExercisesPatternMatchTitle,
+      'v2ExercisesPatternLogicTitle' => loc.v2ExercisesPatternLogicTitle,
       _ => item.titleKey,
     };
   }
@@ -158,8 +161,15 @@ class _V2ExercisesLibraryScreenState
       'v2ExercisesReadingComprehensionSubtitle' =>
         loc.v2ExercisesReadingComprehensionSubtitle,
       'v2ExercisesHiitSubtitle' => loc.v2ExercisesHiitSubtitle,
-      'v2ExercisesPatternMatchSubtitle' => loc.v2ExercisesPatternMatchSubtitle,
+      'v2ExercisesPatternLogicSubtitle' => loc.v2ExercisesPatternLogicSubtitle,
       _ => item.subtitleKey,
+    };
+  }
+
+  String? _scienceBadgeFor(ExerciseLibraryItem item, AppLocalizations loc) {
+    return switch (item.scienceBadgeKey) {
+      'v2ExercisesScienceBadgeNBack' => loc.v2ExercisesScienceBadgeNBack,
+      _ => null,
     };
   }
 
@@ -195,7 +205,7 @@ class _V2ExercisesLibraryScreenState
       case ExerciseLibraryLaunch.patternMatch:
         Navigator.of(context).push(
           MaterialPageRoute<void>(
-            builder: (_) => const PatternMatchGameScreen(),
+            builder: (_) => const PatternLogicGameScreen(),
           ),
         );
       case ExerciseLibraryLaunch.goNoGo:
@@ -275,6 +285,7 @@ class _ExerciseCard extends StatelessWidget {
     required this.showProBadge,
     required this.onTap,
     this.proBadgeLabel,
+    this.scienceBadgeLabel,
   });
 
   final IconData icon;
@@ -288,6 +299,7 @@ class _ExerciseCard extends StatelessWidget {
   final bool locked;
   final bool showProBadge;
   final String? proBadgeLabel;
+  final String? scienceBadgeLabel;
   final VoidCallback onTap;
 
   @override
@@ -384,6 +396,27 @@ class _ExerciseCard extends StatelessWidget {
                     subtitle,
                     style: V2ShellVisual.captionMuted(theme),
                   ),
+                  if (scienceBadgeLabel != null) ...[
+                    const SizedBox(height: 8),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColors.primaryDim,
+                        borderRadius: BorderRadius.circular(999),
+                      ),
+                      child: Text(
+                        scienceBadgeLabel!,
+                        style: TextStyle(
+                          color: AppColors.primary,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ],
                   const SizedBox(height: 12),
                   Row(
                     children: [

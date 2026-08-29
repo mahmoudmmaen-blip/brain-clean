@@ -51,6 +51,7 @@ import '../../features/quick_tests/ui/iq_test_screen.dart';
 import '../../features/quick_tests/ui/tests_catalog_screen.dart';
 import '../../features/daily_program/domain/daily_program_activity_kind.dart';
 import '../../features/daily_program/ui/daily_program_cognitive_gate_screen.dart';
+import '../../features/daily_program/ui/daily_program_timeline_screen.dart';
 import '../../features/daily_program/ui/daily_program_timer_screen.dart';
 import '../../features/daily_program/ui/evening_review_screen.dart';
 import '../../features/v2_reports/ui/measurement_history_screen.dart';
@@ -543,6 +544,11 @@ GoRouter goRouter(GoRouterRef ref) {
             builder: (context, state) => const BriTestScreen(),
           ),
         ],
+      ),
+      GoRoute(
+        path: AppRoutes.v2DailyProgram,
+        name: 'v2DailyProgram',
+        builder: (context, state) => const DailyProgramTimelineScreen(),
       ),
       GoRoute(
         path: AppRoutes.v2DailyProgramTimer,

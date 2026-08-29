@@ -12,7 +12,7 @@ import 'application/games_scores_provider.dart';
 import 'domain/n_back_logic.dart';
 import 'domain/n_back_session.dart';
 
-/// Dual N-back — 3×3 grid, fixed 2-back, Match / Next responses.
+/// Dual N-back — 3×3 grid, adaptive N, Match / Next responses.
 class NBackGameScreen extends ConsumerStatefulWidget {
   const NBackGameScreen({super.key});
 
@@ -22,24 +22,29 @@ class NBackGameScreen extends ConsumerStatefulWidget {
 
 class _NBackGameScreenState extends ConsumerState<NBackGameScreen> {
   static const _gridSize = 9;
-  static const _pauseAfterResponseMs = 350;
+  static const _stimulusIntervalMs = 2000;
+  static const _pauseAfterResponseMs = 400;
+  static const _sessionMinutes = 8;
 
   final _random = Random();
   late NBackSession _session;
 
   bool _showIntro = true;
   bool _bonusApplied = false;
-  Timer? _timer;
+  Timer? _stimulusTimer;
+  Timer? _sessionTimer;
+  int _sessionSecondsLeft = _sessionMinutes * 60;
 
   @override
   void initState() {
     super.initState();
-    _session = NBackSession(nLevel: 2);
+    _session = NBackSession(nLevel: 1, stimuliPerRound: 999);
   }
 
   @override
   void dispose() {
-    _timer?.cancel();
+    _stimulusTimer?.cancel();
+    _sessionTimer?.cancel();
     super.dispose();
   }
 
@@ -47,9 +52,29 @@ class _NBackGameScreenState extends ConsumerState<NBackGameScreen> {
     setState(() {
       _showIntro = false;
       _bonusApplied = false;
-      _session = NBackSession(nLevel: 2);
+      _sessionSecondsLeft = _sessionMinutes * 60;
+      _session = NBackSession(nLevel: 1, stimuliPerRound: 999);
+    });
+    _sessionTimer?.cancel();
+    _sessionTimer = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (!mounted || _session.finished) return;
+      if (_sessionSecondsLeft <= 1) {
+        _endSession();
+        return;
+      }
+      setState(() => _sessionSecondsLeft -= 1);
     });
     _presentNextStimulus();
+  }
+
+  void _endSession() {
+    _stimulusTimer?.cancel();
+    _sessionTimer?.cancel();
+    if (!_session.finished) {
+      _session.forceFinish();
+      setState(() {});
+    }
+    _finishGame();
   }
 
   void _presentNextStimulus() {
@@ -58,17 +83,27 @@ class _NBackGameScreenState extends ConsumerState<NBackGameScreen> {
     setState(() {
       _session.presentStimulus(cell);
     });
+    _stimulusTimer?.cancel();
+    _stimulusTimer = Timer(
+      const Duration(milliseconds: _stimulusIntervalMs),
+      () {
+        if (!mounted || _session.finished) return;
+        if (_session.canRespond) {
+          _session.respondNext();
+          _afterResponse();
+        }
+      },
+    );
   }
 
   void _afterResponse() {
-    _timer?.cancel();
-    if (_session.finished) {
-      setState(() {});
-      _finishGame();
+    _stimulusTimer?.cancel();
+    if (_session.finished || _sessionSecondsLeft <= 0) {
+      _endSession();
       return;
     }
     setState(() {});
-    _timer = Timer(
+    _stimulusTimer = Timer(
       const Duration(milliseconds: _pauseAfterResponseMs),
       _presentNextStimulus,
     );
@@ -89,7 +124,8 @@ class _NBackGameScreenState extends ConsumerState<NBackGameScreen> {
   void _finishGame() {
     if (_bonusApplied) return;
     _bonusApplied = true;
-    _timer?.cancel();
+    _stimulusTimer?.cancel();
+    _sessionTimer?.cancel();
     final maxN = _session.nLevel;
     final bonus = nBackBcsBonus(maxN);
     ref.read(bcScoreProvider.notifier).applyBonus(
@@ -98,7 +134,7 @@ class _NBackGameScreenState extends ConsumerState<NBackGameScreen> {
           xpRefId: 'n_back:${DateTime.now().millisecondsSinceEpoch}',
         );
     ref.read(gamesBestScoresControllerProvider.notifier).updateNBackBest(maxN);
-    setState(() {});
+    if (mounted) setState(() {});
   }
 
   @override
@@ -111,13 +147,36 @@ class _NBackGameScreenState extends ConsumerState<NBackGameScreen> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         appBar: AppBar(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          title: Text(loc.gameNBackTitle),
+          title: Text(loc.v2ExercisesNBackTitle),
         ),
         body: Padding(
           padding: const EdgeInsets.all(24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: AppColors.primaryDim,
+                  borderRadius: BorderRadius.circular(999),
+                ),
+                child: Text(
+                  loc.v2ExercisesScienceBadgeNBack,
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.labelMedium?.copyWith(
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                loc.v2ExercisesNBackSubtitle,
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(height: 12),
               Text(
                 loc.gameNBackIntroDetail,
                 style: theme.textTheme.bodyLarge?.copyWith(
@@ -145,7 +204,7 @@ class _NBackGameScreenState extends ConsumerState<NBackGameScreen> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        title: Text(loc.gameNBackTitle),
+        title: Text(loc.v2ExercisesNBackTitle),
       ),
       body: Padding(
         padding: const EdgeInsets.all(24),
@@ -167,6 +226,14 @@ class _NBackGameScreenState extends ConsumerState<NBackGameScreen> {
               ),
               textAlign: TextAlign.center,
             ),
+            const SizedBox(height: 4),
+            if (playing)
+              Text(
+                loc.gameNBackSessionTimeLeft(_sessionSecondsLeft ~/ 60),
+                style: theme.textTheme.labelMedium?.copyWith(
+                  color: AppColors.textTertiary,
+                ),
+              ),
             const SizedBox(height: 8),
             if (playing)
               Text(
@@ -241,6 +308,11 @@ class _NBackGameScreenState extends ConsumerState<NBackGameScreen> {
                 ],
               ),
             ] else ...[
+              Text(
+                loc.gameNBackResult(_session.nLevel),
+                style: theme.textTheme.titleMedium,
+              ),
+              const SizedBox(height: 8),
               Text(
                 loc.gameNBackBonus(
                   nBackBcsBonus(_session.nLevel).toStringAsFixed(0),

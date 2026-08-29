@@ -502,6 +502,26 @@
   "gamesHubTitle": "Brain Games 🎮",
   "gamePatternMatchTitle": "Pattern Match",
   "gamePatternMatchDesc": "Memorize and recreate the grid pattern",
+  "gamePatternLogicProgress": "Question {current} / {total}",
+  "@gamePatternLogicProgress": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "gamePatternLogicTimeLeft": "{seconds}s",
+  "@gamePatternLogicTimeLeft": {
+    "placeholders": {
+      "seconds": { "type": "int" }
+    }
+  },
+  "gamePatternLogicResult": "{correct} of {total} correct",
+  "@gamePatternLogicResult": {
+    "placeholders": {
+      "correct": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
   "gameNumberMemoryTitle": "Number Memory",
   "gameNumberMemoryDesc": "Remember growing digit sequences",
   "gameColorWordTitle": "Color Word",
@@ -626,7 +646,7 @@
   },
   "gameNBackMatch": "Match!",
   "gameNBackNext": "Next",
-  "gameNBackIntroDetail": "A square lights up on the 3×3 grid. Press Match if it is in the same place as 2 steps ago; otherwise press Next.",
+  "gameNBackIntroDetail": "A cell lights up on the 3×3 grid every 2 seconds. Press Match if it is in the same place as N steps ago; otherwise press Next. N starts at 1 and increases as you improve.",
   "gameNBackStats": "{correct} correct · {wrong} wrong",
   "@gameNBackStats": {
     "placeholders": {
@@ -639,6 +659,12 @@
     "placeholders": {
       "correct": { "type": "int" },
       "wrong": { "type": "int" }
+    }
+  },
+  "gameNBackSessionTimeLeft": "{minutes} min left",
+  "@gameNBackSessionTimeLeft": {
+    "placeholders": {
+      "minutes": { "type": "int" }
     }
   },
   "gameNBackResult": "Max N reached: {n}",
@@ -785,6 +811,8 @@
   "brainProfileBandMeaning": "A calm product label for this self-report estimate — not a clinical severity.",
   "brainProfileMeansHeading": "What this means",
   "brainProfileMeansBody": "This is a self-reported starting snapshot. It highlights stronger reported areas and current support priorities based on your Brain Check answers.",
+  "brainCheckAnxietyWarningTitle": "Chronic anxiety affects the hippocampus",
+  "brainCheckAnxietyWarningBody": "Your program includes cortisol-reduction activities — evening review, NSDR rest, and screen-free time.",
   "brainProfileDoesNotMeanHeading": "What this does not mean",
   "brainProfileScoreUnavailableLabel": "Estimate unavailable",
   "brainProfileScoreUnavailableSemantics": "Recovery Score estimate is unavailable. No number is shown.",
@@ -1619,6 +1647,7 @@
   "v2ExercisesFilterMemory": "Memory",
   "v2ExercisesFilterSpeed": "Speed",
   "v2ExercisesFilterReading": "Reading",
+  "v2ExercisesFilterIntelligence": "Intelligence",
   "v2ExercisesFilterMentalFitness": "Mental fitness",
   "v2ExercisesDifficultyEasy": "Easy",
   "v2ExercisesDifficultyMedium": "Medium",
@@ -1633,8 +1662,9 @@
   "v2ExercisesSectionPro": "Pro",
   "v2ExercisesProBadge": "Pro",
   "v2ExercisesEmptyFilter": "No exercises match this filter yet.",
-  "v2ExercisesNBackTitle": "N-Back",
-  "v2ExercisesNBackSubtitle": "Dual N-Back protocol for working memory",
+  "v2ExercisesNBackTitle": "Dual N-Back",
+  "v2ExercisesNBackSubtitle": "The strongest science-backed drill for working memory and fluid intelligence",
+  "v2ExercisesScienceBadgeNBack": "Science-backed — boosts working memory",
   "v2ExercisesStroopTitle": "Stroop test",
   "v2ExercisesStroopSubtitle": "Inhibit distraction by naming ink color, not the word",
   "v2ExercisesDigitSpanTitle": "Digit span",
@@ -1645,8 +1675,8 @@
   "v2ExercisesReadingComprehensionSubtitle": "Read without distractions, then answer recall questions",
   "v2ExercisesHiitTitle": "Focus HIIT",
   "v2ExercisesHiitSubtitle": "Short math bursts to sharpen sustained attention",
-  "v2ExercisesPatternMatchTitle": "Visual pattern matching",
-  "v2ExercisesPatternMatchSubtitle": "Memorize and recreate grid patterns from memory",
+  "v2ExercisesPatternLogicTitle": "Pattern logic",
+  "v2ExercisesPatternLogicSubtitle": "Timed sequences with a missing element — measures fluid intelligence",
   "v2ExercisesReadingTitle": "Focused reading session (10 min)",
   "v2ExercisesReadingSubtitle": "Distraction-free reading to extend attention span",
   "v2ExercisesDetoxTitle": "Boredom challenge (no social media)",
@@ -1883,12 +1913,12 @@
   "settingsThemeWarmBeigeSubtitle": "Warm off-white with brown text",
   "dailyProgramMindfulness": "Reading — 15 min (book or useful article)",
   "dailyProgramReflection": "Evening review — what did I finish? What will I improve tomorrow?",
-  "dailyProgramReading": "Active reading — 15 min: read a book/article, then recall 3 main points",
-  "dailyProgramPomodoro": "Deep-work Pomodoro — 25 min: one task only, phone out of sight",
-  "dailyProgramScreenFree": "Screen-free time",
-  "dailyProgramEveningReview": "Evening review — 5 min: what did you finish? What will you improve tomorrow?",
-  "dailyProgramCognitive": "Cognitive exercise",
-  "dailyProgramCognitiveNBack": "Cognitive exercise — Dual N-Back",
+  "dailyProgramReading": "Active reading — 15 min: read a book/article, then recall 3 main points (builds new neural pathways via neuroplasticity)",
+  "dailyProgramPomodoro": "Deep-work Pomodoro — 25 min: one task only, phone out of sight (strengthens frontal executive control network)",
+  "dailyProgramScreenFree": "Screen-free time (resets dopamine receptors)",
+  "dailyProgramEveningReview": "Evening review — 5 min: what did you finish? What will you improve tomorrow? (lowers cortisol and primes deep sleep)",
+  "dailyProgramCognitive": "Cognitive exercise (expands working-memory capacity — science-backed)",
+  "dailyProgramCognitiveNBack": "Cognitive exercise — Dual N-Back (expands working-memory capacity — science-backed)",
   "dailyProgramCognitiveStroop": "Cognitive exercise — Stroop",
   "dailyProgramIqChallenge": "Pattern / logic challenge",
   "dailyProgramTestsBannerTitle": "Complete your tests to unlock a personalized program",
@@ -1905,7 +1935,9 @@
   "dailyProgramMorningZeroScreens": "Morning rule — zero screens for the first hour after waking",
   "dailyProgramGrayscaleMode": "Grayscale mode — switch your screen to grayscale now",
   "dailyProgramWhiteNoise": "White noise — play white noise / 40Hz binaural during work",
-  "dailyProgramNsdrRest": "NSDR rest — lie down 15 min after noon, no phone, no sleep",
+  "dailyProgramNsdrRest": "NSDR rest — 15 min eyes closed, no phone, no sleep (converts short-term memory to long-term)",
+  "dailyProgramNsdrTimerDescription": "Lie comfortably with eyes closed. Stay awake without your phone. Let your body rest while your brain consolidates learning.",
+  "dailyProgramOptionalBadge": "Optional",
   "dailyProgramPhysicalExercise": "Physical exercise — 20–30 min brisk walk or workout (BDNF)",
   "dailyProgramRecovery0700": "7:00 AM — zero screens + sunlight + light movement",
   "dailyProgramRecovery0900": "9:00 AM — Pomodoro 50/10 deep work",
@@ -2027,6 +2059,42 @@
   "briContinueCta": "Continue",
   "briFinishCta": "See BRI score",
   "briDoneCta": "Back to Home",
+  "briStartResetCta": "Start Reset Protocol",
+  "briGenerateProgramCta": "Generate my personal program",
+  "briSevereWarningBody": "Your brain needs an urgent Reset Protocol. Don’t worry — four weeks and you’ll feel clearer.",
+  "briProBadge": "Pro",
+  "briUnlockProProgramCta": "Unlock the full program with Pro",
+  "briRecommendResetBody": "Four-week guided digital reset: Pomodoro, easy Stroop, and screen-free blocks.",
+  "briRecommendAscensionBody": "Neural Ascension rebuilds memory and focus after clearing digital rot — Pro track.",
+  "briRecommendEnhancedBody": "Enhanced Mind keeps peak cognition with a rotating focus / memory / IQ plan — Pro.",
+  "briRecommendBaseBody": "Steady daily practice while you complete more tests for a sharper plan.",
+  "briRadarRot": "Clarity",
+  "briRadarMemory": "Memory",
+  "briRadarFocus": "Focus",
+  "briRadarIq": "Intelligence",
+  "briRadarSleep": "Rest",
+  "dailyProgramBrainMapCta": "Brain map",
+  "dailyProgramStartSessionCta": "Start session",
+  "dailyProgramTimelineHint": "Complete this block to keep your streak healthy.",
+  "dailyProgramMarkComplete": "Mark complete",
+  "dailyProgramMarkIncomplete": "Undo complete",
+  "dailyProgramDayPhaseTitle": "Day {day} — {phase}",
+  "@dailyProgramDayPhaseTitle": {
+    "placeholders": {
+      "day": { "type": "int" },
+      "phase": { "type": "String" }
+    }
+  },
+  "dailyProgramPhaseWeek": "Week {week}",
+  "@dailyProgramPhaseWeek": {
+    "placeholders": {
+      "week": { "type": "int" }
+    }
+  },
+  "dailyProgramPhasePurge": "Phase 1: Purge",
+  "dailyProgramPhaseBuild": "Phase 2: Build",
+  "dailyProgramPhaseOptimize": "Phase 3: Optimize",
+  "dailyProgramPhaseMaintain": "Phase 4: Maintain",
   "briResultTitle": "Your Brain Rot Index",
   "briScoreLabel": "BRI score (higher = more friction)",
   "briAxesHeading": "Axis breakdown",

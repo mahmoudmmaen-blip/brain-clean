@@ -2306,6 +2306,24 @@ abstract class AppLocalizations {
   /// **'Memorize and recreate the grid pattern'**
   String get gamePatternMatchDesc;
 
+  /// No description provided for @gamePatternLogicProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Question {current} / {total}'**
+  String gamePatternLogicProgress(int current, int total);
+
+  /// No description provided for @gamePatternLogicTimeLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'{seconds}s'**
+  String gamePatternLogicTimeLeft(int seconds);
+
+  /// No description provided for @gamePatternLogicResult.
+  ///
+  /// In en, this message translates to:
+  /// **'{correct} of {total} correct'**
+  String gamePatternLogicResult(int correct, int total);
+
   /// No description provided for @gameNumberMemoryTitle.
   ///
   /// In en, this message translates to:
@@ -2603,7 +2621,7 @@ abstract class AppLocalizations {
   /// No description provided for @gameNBackIntroDetail.
   ///
   /// In en, this message translates to:
-  /// **'A square lights up on the 3×3 grid. Press Match if it is in the same place as 2 steps ago; otherwise press Next.'**
+  /// **'A cell lights up on the 3×3 grid every 2 seconds. Press Match if it is in the same place as N steps ago; otherwise press Next. N starts at 1 and increases as you improve.'**
   String get gameNBackIntroDetail;
 
   /// No description provided for @gameNBackStats.
@@ -2617,6 +2635,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Done — {correct} correct, {wrong} wrong'**
   String gameNBackSessionResult(int correct, int wrong);
+
+  /// No description provided for @gameNBackSessionTimeLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min left'**
+  String gameNBackSessionTimeLeft(int minutes);
 
   /// No description provided for @gameNBackResult.
   ///
@@ -3193,6 +3217,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This is a self-reported starting snapshot. It highlights stronger reported areas and current support priorities based on your Brain Check answers.'**
   String get brainProfileMeansBody;
+
+  /// No description provided for @brainCheckAnxietyWarningTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Chronic anxiety affects the hippocampus'**
+  String get brainCheckAnxietyWarningTitle;
+
+  /// No description provided for @brainCheckAnxietyWarningBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your program includes cortisol-reduction activities — evening review, NSDR rest, and screen-free time.'**
+  String get brainCheckAnxietyWarningBody;
 
   /// No description provided for @brainProfileDoesNotMeanHeading.
   ///
@@ -6381,6 +6417,12 @@ abstract class AppLocalizations {
   /// **'Reading'**
   String get v2ExercisesFilterReading;
 
+  /// No description provided for @v2ExercisesFilterIntelligence.
+  ///
+  /// In en, this message translates to:
+  /// **'Intelligence'**
+  String get v2ExercisesFilterIntelligence;
+
   /// No description provided for @v2ExercisesFilterMentalFitness.
   ///
   /// In en, this message translates to:
@@ -6438,14 +6480,20 @@ abstract class AppLocalizations {
   /// No description provided for @v2ExercisesNBackTitle.
   ///
   /// In en, this message translates to:
-  /// **'N-Back'**
+  /// **'Dual N-Back'**
   String get v2ExercisesNBackTitle;
 
   /// No description provided for @v2ExercisesNBackSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Dual N-Back protocol for working memory'**
+  /// **'The strongest science-backed drill for working memory and fluid intelligence'**
   String get v2ExercisesNBackSubtitle;
+
+  /// No description provided for @v2ExercisesScienceBadgeNBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Science-backed — boosts working memory'**
+  String get v2ExercisesScienceBadgeNBack;
 
   /// No description provided for @v2ExercisesStroopTitle.
   ///
@@ -6507,17 +6555,17 @@ abstract class AppLocalizations {
   /// **'Short math bursts to sharpen sustained attention'**
   String get v2ExercisesHiitSubtitle;
 
-  /// No description provided for @v2ExercisesPatternMatchTitle.
+  /// No description provided for @v2ExercisesPatternLogicTitle.
   ///
   /// In en, this message translates to:
-  /// **'Visual pattern matching'**
-  String get v2ExercisesPatternMatchTitle;
+  /// **'Pattern logic'**
+  String get v2ExercisesPatternLogicTitle;
 
-  /// No description provided for @v2ExercisesPatternMatchSubtitle.
+  /// No description provided for @v2ExercisesPatternLogicSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Memorize and recreate grid patterns from memory'**
-  String get v2ExercisesPatternMatchSubtitle;
+  /// **'Timed sequences with a missing element — measures fluid intelligence'**
+  String get v2ExercisesPatternLogicSubtitle;
 
   /// No description provided for @v2ExercisesReadingTitle.
   ///
@@ -7788,37 +7836,37 @@ abstract class AppLocalizations {
   /// No description provided for @dailyProgramReading.
   ///
   /// In en, this message translates to:
-  /// **'Active reading — 15 min: read a book/article, then recall 3 main points'**
+  /// **'Active reading — 15 min: read a book/article, then recall 3 main points (builds new neural pathways via neuroplasticity)'**
   String get dailyProgramReading;
 
   /// No description provided for @dailyProgramPomodoro.
   ///
   /// In en, this message translates to:
-  /// **'Deep-work Pomodoro — 25 min: one task only, phone out of sight'**
+  /// **'Deep-work Pomodoro — 25 min: one task only, phone out of sight (strengthens frontal executive control network)'**
   String get dailyProgramPomodoro;
 
   /// No description provided for @dailyProgramScreenFree.
   ///
   /// In en, this message translates to:
-  /// **'Screen-free time'**
+  /// **'Screen-free time (resets dopamine receptors)'**
   String get dailyProgramScreenFree;
 
   /// No description provided for @dailyProgramEveningReview.
   ///
   /// In en, this message translates to:
-  /// **'Evening review — 5 min: what did you finish? What will you improve tomorrow?'**
+  /// **'Evening review — 5 min: what did you finish? What will you improve tomorrow? (lowers cortisol and primes deep sleep)'**
   String get dailyProgramEveningReview;
 
   /// No description provided for @dailyProgramCognitive.
   ///
   /// In en, this message translates to:
-  /// **'Cognitive exercise'**
+  /// **'Cognitive exercise (expands working-memory capacity — science-backed)'**
   String get dailyProgramCognitive;
 
   /// No description provided for @dailyProgramCognitiveNBack.
   ///
   /// In en, this message translates to:
-  /// **'Cognitive exercise — Dual N-Back'**
+  /// **'Cognitive exercise — Dual N-Back (expands working-memory capacity — science-backed)'**
   String get dailyProgramCognitiveNBack;
 
   /// No description provided for @dailyProgramCognitiveStroop.
@@ -7890,8 +7938,20 @@ abstract class AppLocalizations {
   /// No description provided for @dailyProgramNsdrRest.
   ///
   /// In en, this message translates to:
-  /// **'NSDR rest — lie down 15 min after noon, no phone, no sleep'**
+  /// **'NSDR rest — 15 min eyes closed, no phone, no sleep (converts short-term memory to long-term)'**
   String get dailyProgramNsdrRest;
+
+  /// No description provided for @dailyProgramNsdrTimerDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Lie comfortably with eyes closed. Stay awake without your phone. Let your body rest while your brain consolidates learning.'**
+  String get dailyProgramNsdrTimerDescription;
+
+  /// No description provided for @dailyProgramOptionalBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional'**
+  String get dailyProgramOptionalBadge;
 
   /// No description provided for @dailyProgramPhysicalExercise.
   ///
@@ -8510,6 +8570,156 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Back to Home'**
   String get briDoneCta;
+
+  /// No description provided for @briStartResetCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Reset Protocol'**
+  String get briStartResetCta;
+
+  /// No description provided for @briGenerateProgramCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate my personal program'**
+  String get briGenerateProgramCta;
+
+  /// No description provided for @briSevereWarningBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your brain needs an urgent Reset Protocol. Don’t worry — four weeks and you’ll feel clearer.'**
+  String get briSevereWarningBody;
+
+  /// No description provided for @briProBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Pro'**
+  String get briProBadge;
+
+  /// No description provided for @briUnlockProProgramCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock the full program with Pro'**
+  String get briUnlockProProgramCta;
+
+  /// No description provided for @briRecommendResetBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Four-week guided digital reset: Pomodoro, easy Stroop, and screen-free blocks.'**
+  String get briRecommendResetBody;
+
+  /// No description provided for @briRecommendAscensionBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Neural Ascension rebuilds memory and focus after clearing digital rot — Pro track.'**
+  String get briRecommendAscensionBody;
+
+  /// No description provided for @briRecommendEnhancedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Enhanced Mind keeps peak cognition with a rotating focus / memory / IQ plan — Pro.'**
+  String get briRecommendEnhancedBody;
+
+  /// No description provided for @briRecommendBaseBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Steady daily practice while you complete more tests for a sharper plan.'**
+  String get briRecommendBaseBody;
+
+  /// No description provided for @briRadarRot.
+  ///
+  /// In en, this message translates to:
+  /// **'Clarity'**
+  String get briRadarRot;
+
+  /// No description provided for @briRadarMemory.
+  ///
+  /// In en, this message translates to:
+  /// **'Memory'**
+  String get briRadarMemory;
+
+  /// No description provided for @briRadarFocus.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus'**
+  String get briRadarFocus;
+
+  /// No description provided for @briRadarIq.
+  ///
+  /// In en, this message translates to:
+  /// **'Intelligence'**
+  String get briRadarIq;
+
+  /// No description provided for @briRadarSleep.
+  ///
+  /// In en, this message translates to:
+  /// **'Rest'**
+  String get briRadarSleep;
+
+  /// No description provided for @dailyProgramBrainMapCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain map'**
+  String get dailyProgramBrainMapCta;
+
+  /// No description provided for @dailyProgramStartSessionCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Start session'**
+  String get dailyProgramStartSessionCta;
+
+  /// No description provided for @dailyProgramTimelineHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete this block to keep your streak healthy.'**
+  String get dailyProgramTimelineHint;
+
+  /// No description provided for @dailyProgramMarkComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark complete'**
+  String get dailyProgramMarkComplete;
+
+  /// No description provided for @dailyProgramMarkIncomplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Undo complete'**
+  String get dailyProgramMarkIncomplete;
+
+  /// No description provided for @dailyProgramDayPhaseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Day {day} — {phase}'**
+  String dailyProgramDayPhaseTitle(int day, String phase);
+
+  /// No description provided for @dailyProgramPhaseWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Week {week}'**
+  String dailyProgramPhaseWeek(int week);
+
+  /// No description provided for @dailyProgramPhasePurge.
+  ///
+  /// In en, this message translates to:
+  /// **'Phase 1: Purge'**
+  String get dailyProgramPhasePurge;
+
+  /// No description provided for @dailyProgramPhaseBuild.
+  ///
+  /// In en, this message translates to:
+  /// **'Phase 2: Build'**
+  String get dailyProgramPhaseBuild;
+
+  /// No description provided for @dailyProgramPhaseOptimize.
+  ///
+  /// In en, this message translates to:
+  /// **'Phase 3: Optimize'**
+  String get dailyProgramPhaseOptimize;
+
+  /// No description provided for @dailyProgramPhaseMaintain.
+  ///
+  /// In en, this message translates to:
+  /// **'Phase 4: Maintain'**
+  String get dailyProgramPhaseMaintain;
 
   /// No description provided for @briResultTitle.
   ///

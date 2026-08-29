@@ -14,27 +14,25 @@ import '../diagnostic/presentation/bc_score_provider.dart';
 import '../gamification/level_system.dart';
 import '../home/presentation/home_streak_provider.dart';
 
-final shareCardBoundaryKey = GlobalKey();
+/// Share button + off-screen capture card.
+///
+/// Owns a **local** [GlobalKey] per State instance — never a top-level key
+/// (duplicate Profile / Weekly Report mounts caused GlobalKey conflicts).
+class ShareProgressBlock extends ConsumerStatefulWidget {
+  const ShareProgressBlock({super.key, this.cardVisible = false});
 
-/// Renders a 400×300 share card and shares it as PNG.
-class ShareButton extends ConsumerWidget {
-  const ShareButton({super.key});
+  final bool cardVisible;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final loc = AppLocalizations.of(context)!;
+  ConsumerState<ShareProgressBlock> createState() => _ShareProgressBlockState();
+}
 
-    return OutlinedButton.icon(
-      key: const Key('share_progress_button'),
-      onPressed: () => _share(context, ref),
-      icon: const Icon(Icons.share),
-      label: Text(loc.shareProgressLabel),
-    );
-  }
+class _ShareProgressBlockState extends ConsumerState<ShareProgressBlock> {
+  final GlobalKey _boundaryKey = GlobalKey(debugLabel: 'share_card_boundary');
 
-  Future<void> _share(BuildContext context, WidgetRef ref) async {
+  Future<void> _share() async {
     try {
-      final boundary = shareCardBoundaryKey.currentContext?.findRenderObject()
+      final boundary = _boundaryKey.currentContext?.findRenderObject()
           as RenderRepaintBoundary?;
       if (boundary == null) return;
 
@@ -51,19 +49,13 @@ class ShareButton extends ConsumerWidget {
         text: 'Brain Clean',
       );
     } catch (_) {
-      // Share may fail in tests.
+      // Share may fail in tests / web.
     }
   }
-}
-
-/// Off-screen (or inline) share card for capture.
-class ShareCardCapture extends ConsumerWidget {
-  const ShareCardCapture({super.key, this.visible = false});
-
-  final bool visible;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     final isArabic = ref.watch(localeProvider).languageCode == 'ar';
     final bcs =
         (ref.watch(bcScoreSessionProvider)?.bcScore ?? 0).clamp(0.0, 100.0);
@@ -71,7 +63,7 @@ class ShareCardCapture extends ConsumerWidget {
     final level = BrainLevel.forScore(bcs.round());
 
     final card = RepaintBoundary(
-      key: shareCardBoundaryKey,
+      key: _boundaryKey,
       child: SizedBox(
         width: 400,
         height: 300,
@@ -140,7 +132,20 @@ class ShareCardCapture extends ConsumerWidget {
       ),
     );
 
-    if (visible) return card;
-    return Offstage(offstage: true, child: card);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        OutlinedButton.icon(
+          key: const Key('share_progress_button'),
+          onPressed: _share,
+          icon: const Icon(Icons.share),
+          label: Text(loc.shareProgressLabel),
+        ),
+        if (widget.cardVisible)
+          card
+        else
+          Offstage(offstage: true, child: card),
+      ],
+    );
   }
 }

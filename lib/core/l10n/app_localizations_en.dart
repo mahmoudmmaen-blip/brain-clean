@@ -1222,6 +1222,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get gamePatternMatchDesc => 'Memorize and recreate the grid pattern';
 
   @override
+  String gamePatternLogicProgress(int current, int total) {
+    return 'Question $current / $total';
+  }
+
+  @override
+  String gamePatternLogicTimeLeft(int seconds) {
+    return '${seconds}s';
+  }
+
+  @override
+  String gamePatternLogicResult(int correct, int total) {
+    return '$correct of $total correct';
+  }
+
+  @override
   String get gameNumberMemoryTitle => 'Number Memory';
 
   @override
@@ -1402,7 +1417,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get gameNBackIntroDetail =>
-      'A square lights up on the 3×3 grid. Press Match if it is in the same place as 2 steps ago; otherwise press Next.';
+      'A cell lights up on the 3×3 grid every 2 seconds. Press Match if it is in the same place as N steps ago; otherwise press Next. N starts at 1 and increases as you improve.';
 
   @override
   String gameNBackStats(int correct, int wrong) {
@@ -1412,6 +1427,11 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String gameNBackSessionResult(int correct, int wrong) {
     return 'Done — $correct correct, $wrong wrong';
+  }
+
+  @override
+  String gameNBackSessionTimeLeft(int minutes) {
+    return '$minutes min left';
   }
 
   @override
@@ -1736,6 +1756,14 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get brainProfileMeansBody =>
       'This is a self-reported starting snapshot. It highlights stronger reported areas and current support priorities based on your Brain Check answers.';
+
+  @override
+  String get brainCheckAnxietyWarningTitle =>
+      'Chronic anxiety affects the hippocampus';
+
+  @override
+  String get brainCheckAnxietyWarningBody =>
+      'Your program includes cortisol-reduction activities — evening review, NSDR rest, and screen-free time.';
 
   @override
   String get brainProfileDoesNotMeanHeading => 'What this does not mean';
@@ -3609,6 +3637,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2ExercisesFilterReading => 'Reading';
 
   @override
+  String get v2ExercisesFilterIntelligence => 'Intelligence';
+
+  @override
   String get v2ExercisesFilterMentalFitness => 'Mental fitness';
 
   @override
@@ -3638,11 +3669,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2ExercisesEmptyFilter => 'No exercises match this filter yet.';
 
   @override
-  String get v2ExercisesNBackTitle => 'N-Back';
+  String get v2ExercisesNBackTitle => 'Dual N-Back';
 
   @override
   String get v2ExercisesNBackSubtitle =>
-      'Dual N-Back protocol for working memory';
+      'The strongest science-backed drill for working memory and fluid intelligence';
+
+  @override
+  String get v2ExercisesScienceBadgeNBack =>
+      'Science-backed — boosts working memory';
 
   @override
   String get v2ExercisesStroopTitle => 'Stroop test';
@@ -3681,11 +3716,11 @@ class AppLocalizationsEn extends AppLocalizations {
       'Short math bursts to sharpen sustained attention';
 
   @override
-  String get v2ExercisesPatternMatchTitle => 'Visual pattern matching';
+  String get v2ExercisesPatternLogicTitle => 'Pattern logic';
 
   @override
-  String get v2ExercisesPatternMatchSubtitle =>
-      'Memorize and recreate grid patterns from memory';
+  String get v2ExercisesPatternLogicSubtitle =>
+      'Timed sequences with a missing element — measures fluid intelligence';
 
   @override
   String get v2ExercisesReadingTitle => 'Focused reading session (10 min)';
@@ -4381,24 +4416,27 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dailyProgramReading =>
-      'Active reading — 15 min: read a book/article, then recall 3 main points';
+      'Active reading — 15 min: read a book/article, then recall 3 main points (builds new neural pathways via neuroplasticity)';
 
   @override
   String get dailyProgramPomodoro =>
-      'Deep-work Pomodoro — 25 min: one task only, phone out of sight';
+      'Deep-work Pomodoro — 25 min: one task only, phone out of sight (strengthens frontal executive control network)';
 
   @override
-  String get dailyProgramScreenFree => 'Screen-free time';
+  String get dailyProgramScreenFree =>
+      'Screen-free time (resets dopamine receptors)';
 
   @override
   String get dailyProgramEveningReview =>
-      'Evening review — 5 min: what did you finish? What will you improve tomorrow?';
+      'Evening review — 5 min: what did you finish? What will you improve tomorrow? (lowers cortisol and primes deep sleep)';
 
   @override
-  String get dailyProgramCognitive => 'Cognitive exercise';
+  String get dailyProgramCognitive =>
+      'Cognitive exercise (expands working-memory capacity — science-backed)';
 
   @override
-  String get dailyProgramCognitiveNBack => 'Cognitive exercise — Dual N-Back';
+  String get dailyProgramCognitiveNBack =>
+      'Cognitive exercise — Dual N-Back (expands working-memory capacity — science-backed)';
 
   @override
   String get dailyProgramCognitiveStroop => 'Cognitive exercise — Stroop';
@@ -4443,7 +4481,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dailyProgramNsdrRest =>
-      'NSDR rest — lie down 15 min after noon, no phone, no sleep';
+      'NSDR rest — 15 min eyes closed, no phone, no sleep (converts short-term memory to long-term)';
+
+  @override
+  String get dailyProgramNsdrTimerDescription =>
+      'Lie comfortably with eyes closed. Stay awake without your phone. Let your body rest while your brain consolidates learning.';
+
+  @override
+  String get dailyProgramOptionalBadge => 'Optional';
 
   @override
   String get dailyProgramPhysicalExercise =>
@@ -4787,6 +4832,91 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get briDoneCta => 'Back to Home';
+
+  @override
+  String get briStartResetCta => 'Start Reset Protocol';
+
+  @override
+  String get briGenerateProgramCta => 'Generate my personal program';
+
+  @override
+  String get briSevereWarningBody =>
+      'Your brain needs an urgent Reset Protocol. Don’t worry — four weeks and you’ll feel clearer.';
+
+  @override
+  String get briProBadge => 'Pro';
+
+  @override
+  String get briUnlockProProgramCta => 'Unlock the full program with Pro';
+
+  @override
+  String get briRecommendResetBody =>
+      'Four-week guided digital reset: Pomodoro, easy Stroop, and screen-free blocks.';
+
+  @override
+  String get briRecommendAscensionBody =>
+      'Neural Ascension rebuilds memory and focus after clearing digital rot — Pro track.';
+
+  @override
+  String get briRecommendEnhancedBody =>
+      'Enhanced Mind keeps peak cognition with a rotating focus / memory / IQ plan — Pro.';
+
+  @override
+  String get briRecommendBaseBody =>
+      'Steady daily practice while you complete more tests for a sharper plan.';
+
+  @override
+  String get briRadarRot => 'Clarity';
+
+  @override
+  String get briRadarMemory => 'Memory';
+
+  @override
+  String get briRadarFocus => 'Focus';
+
+  @override
+  String get briRadarIq => 'Intelligence';
+
+  @override
+  String get briRadarSleep => 'Rest';
+
+  @override
+  String get dailyProgramBrainMapCta => 'Brain map';
+
+  @override
+  String get dailyProgramStartSessionCta => 'Start session';
+
+  @override
+  String get dailyProgramTimelineHint =>
+      'Complete this block to keep your streak healthy.';
+
+  @override
+  String get dailyProgramMarkComplete => 'Mark complete';
+
+  @override
+  String get dailyProgramMarkIncomplete => 'Undo complete';
+
+  @override
+  String dailyProgramDayPhaseTitle(int day, String phase) {
+    return 'Day $day — $phase';
+  }
+
+  @override
+  String dailyProgramPhaseWeek(int week) {
+    return 'Week $week';
+  }
+
+  @override
+  String get dailyProgramPhasePurge => 'Phase 1: Purge';
+
+  @override
+  String get dailyProgramPhaseBuild => 'Phase 2: Build';
+
+  @override
+  String get dailyProgramPhaseOptimize => 'Phase 3: Optimize';
+
+  @override
+  String get dailyProgramPhaseMaintain => 'Phase 4: Maintain';
 
   @override
   String get briResultTitle => 'Your Brain Rot Index';

@@ -7,6 +7,7 @@ import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../v2_onboarding/data/v2_onboarding_repository_provider.dart';
 import '../data/brain_profile_repository_provider.dart';
+import '../domain/brain_check_anxiety_indicator.dart';
 import '../domain/brain_profile_domain_result.dart';
 import '../domain/measurement_confidence.dart';
 import '../domain/profile_domain_catalog.dart';
@@ -277,6 +278,52 @@ class BrainProfileRevealBody extends StatelessWidget {
           Text(explanation.whatItIs(languageCode)),
           const SizedBox(height: 8),
           Text(explanation.whatItIsNot(languageCode)),
+          if (brainCheckShowsAnxietyWarning(pack!)) ...[
+            const SizedBox(height: 20),
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: AppColors.warning.withValues(alpha: 0.12),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: AppColors.warning.withValues(alpha: 0.35),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.psychology_alt_outlined,
+                        color: AppColors.warning,
+                        size: 22,
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          loc.brainCheckAnxietyWarningTitle,
+                          style:
+                              Theme.of(context).textTheme.titleSmall?.copyWith(
+                                    color: AppColors.warning,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    loc.brainCheckAnxietyWarningBody,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: AppColors.textSecondary,
+                          height: 1.45,
+                        ),
+                  ),
+                ],
+              ),
+            ),
+          ],
           const SizedBox(height: 24),
           Semantics(
             header: true,

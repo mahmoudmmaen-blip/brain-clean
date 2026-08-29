@@ -116,8 +116,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           const SizedBox(height: 20),
           const LevelProgressWidget(),
           const SizedBox(height: 16),
-          const ShareButton(),
-          const ShareCardCapture(),
+          const ShareProgressBlock(),
           const SizedBox(height: 24),
           Text(
             loc.profileRecentEmotions,

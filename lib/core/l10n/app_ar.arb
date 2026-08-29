@@ -604,6 +604,26 @@
   "gamesHubTitle": "ألعاب الذاكرة 🎮",
   "gamePatternMatchTitle": "مطابقة الأنماط",
   "gamePatternMatchDesc": "احفظ النمط وأعد رسمه من الذاكرة",
+  "gamePatternLogicProgress": "سؤال {current} / {total}",
+  "@gamePatternLogicProgress": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "gamePatternLogicTimeLeft": "{seconds} ث",
+  "@gamePatternLogicTimeLeft": {
+    "placeholders": {
+      "seconds": { "type": "int" }
+    }
+  },
+  "gamePatternLogicResult": "{correct} من {total} صحيحة",
+  "@gamePatternLogicResult": {
+    "placeholders": {
+      "correct": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
   "gameNumberMemoryTitle": "ذاكرة الأرقام",
   "gameNumberMemoryDesc": "تذكر تسلسل أرقام متزايد",
   "gameColorWordTitle": "كلمة اللون",
@@ -754,7 +774,7 @@
   },
   "gameNBackMatch": "تطابق!",
   "gameNBackNext": "التالي",
-  "gameNBackIntroDetail": "يضيء مربع في شبكة 3×3. اضغط تطابق إذا كان في نفس موضع خطوتين سابقتين؛ وإلا اضغط التالي.",
+  "gameNBackIntroDetail": "يضيء مربع في شبكة 3×3 كل ثانيتين. اضغط تطابق إذا كان في نفس موضع N خطوات سابقة؛ وإلا اضغط التالي. يبدأ N من ١ ويزداد تلقائياً مع تقدمك.",
   "gameNBackStats": "{correct} صحيحة · {wrong} خاطئة",
   "@gameNBackStats": {
     "placeholders": {
@@ -767,6 +787,12 @@
     "placeholders": {
       "correct": { "type": "int" },
       "wrong": { "type": "int" }
+    }
+  },
+  "gameNBackSessionTimeLeft": "متبقي {minutes} د",
+  "@gameNBackSessionTimeLeft": {
+    "placeholders": {
+      "minutes": { "type": "int" }
     }
   },
   "gameNBackResult": "أعلى N: {n}",
@@ -925,6 +951,8 @@
   "brainProfileBandMeaning": "تسمية هادئة لتقدير التقرير الذاتي — وليست شدة سريرية.",
   "brainProfileMeansHeading": "ماذا يعني هذا",
   "brainProfileMeansBody": "هذه لقطة بداية مبلَّغ عنها ذاتياً. تُبرز المناطق الأقوى كما ظهرت وأولويات الدعم الحالية بناءً على إجابات فحص الدماغ.",
+  "brainCheckAnxietyWarningTitle": "القلق المزمن يضر الهيبوكامبس",
+  "brainCheckAnxietyWarningBody": "برنامجك يشمل تقليل الكورتيزول — مراجعة مسائية، راحة NSDR، ووقت بلا شاشة.",
   "brainProfileDoesNotMeanHeading": "ماذا لا يعني هذا",
   "brainProfileScoreUnavailableLabel": "التقدير غير متاح",
   "brainProfileScoreUnavailableSemantics": "تقدير درجة التعافي غير متاح. لا يُعرض رقم.",
@@ -1759,6 +1787,7 @@
   "v2ExercisesFilterMemory": "ذاكرة",
   "v2ExercisesFilterSpeed": "سرعة",
   "v2ExercisesFilterReading": "قراءة",
+  "v2ExercisesFilterIntelligence": "ذكاء",
   "v2ExercisesFilterMentalFitness": "لياقة ذهنية",
   "v2ExercisesDifficultyEasy": "سهل",
   "v2ExercisesDifficultyMedium": "متوسط",
@@ -1773,8 +1802,9 @@
   "v2ExercisesSectionPro": "Pro",
   "v2ExercisesProBadge": "Pro",
   "v2ExercisesEmptyFilter": "لا توجد تمارين لهذا التصنيف بعد.",
-  "v2ExercisesNBackTitle": "N-Back",
-  "v2ExercisesNBackSubtitle": "بروتوكول Dual N-Back للذاكرة العاملة",
+  "v2ExercisesNBackTitle": "Dual N-Back",
+  "v2ExercisesNBackSubtitle": "أقوى تمرين علمي لزيادة الذاكرة العاملة والذكاء السائل",
+  "v2ExercisesScienceBadgeNBack": "مثبت علمياً — يزيد الذاكرة العاملة",
   "v2ExercisesStroopTitle": "اختبار سترووب",
   "v2ExercisesStroopSubtitle": "تثبيط التشتت عبر تسمية لون الحبر لا الكلمة",
   "v2ExercisesDigitSpanTitle": "مدى الأرقام",
@@ -1785,8 +1815,8 @@
   "v2ExercisesReadingComprehensionSubtitle": "اقرأ بلا مشتتات ثم أجب عن أسئلة الاستيعاب",
   "v2ExercisesHiitTitle": "تمارين رياضية سريعة للتركيز",
   "v2ExercisesHiitSubtitle": "جولات حسابية قصيرة لشحذ الانتباه المستمر",
-  "v2ExercisesPatternMatchTitle": "مطابقة الأنماط المرئية",
-  "v2ExercisesPatternMatchSubtitle": "احفظ نمط الشبكة وأعد إنشاءه من الذاكرة",
+  "v2ExercisesPatternLogicTitle": "منطق الأنماط",
+  "v2ExercisesPatternLogicSubtitle": "سلاسل أشكال/أرقام مع عنصر ناقص — ٥ أسئلة مؤقتة لقياس الذكاء السائل",
   "v2ExercisesReadingTitle": "جلسة قراءة مركّزة (10 دقائق)",
   "v2ExercisesReadingSubtitle": "قراءة خالية من المشتتات لزيادة مدى الانتباه",
   "v2ExercisesDetoxTitle": "تحدي الملل (بدون سوشيال ميديا)",
@@ -2022,13 +2052,13 @@
   "settingsThemePureWhiteSubtitle": "أبيض نقي مع لمسات خضراء",
   "settingsThemeWarmBeigeSubtitle": "بيج دافئ مع نص بني",
   "dailyProgramMindfulness": "قراءة — ١٥ دقيقة (كتاب أو مقال مفيد)",
-  "dailyProgramReading": "قراءة نشطة — ١٥ دقيقة: اقرأ كتاباً أو مقالاً، ثم أغلقه واسترجع ٣ نقاط رئيسية",
-  "dailyProgramPomodoro": "بومودورو عمل عميق — ٢٥ دقيقة: مهمة واحدة فقط، هاتف بعيد عن نطاق الرؤية",
-  "dailyProgramScreenFree": "وقت بلا شاشة",
+  "dailyProgramReading": "قراءة نشطة — ١٥ دقيقة: اقرأ كتاباً أو مقالاً، ثم أغلقه واسترجع ٣ نقاط رئيسية (يبني روابط عصبية جديدة عبر المرونة العصبية)",
+  "dailyProgramPomodoro": "بومودورو عمل عميق — ٢٥ دقيقة: مهمة واحدة فقط، هاتف بعيد عن نطاق الرؤية (يقوي شبكة التحكم التنفيذي في الفص الجبهي)",
+  "dailyProgramScreenFree": "وقت بلا شاشة (يعيد ضبط مستقبلات الدوبامين)",
   "dailyProgramReflection": "مراجعة مسائية — ماذا أنجزت؟ ما الذي سأحسنه غداً؟",
-  "dailyProgramEveningReview": "مراجعة مسائية — ٥ دقائق: ماذا أنجزت؟ ما الذي ستحسنه غداً؟",
-  "dailyProgramCognitive": "تمرين معرفي",
-  "dailyProgramCognitiveNBack": "تمرين معرفي — Dual N-Back",
+  "dailyProgramEveningReview": "مراجعة مسائية — ٥ دقائق: ماذا أنجزت؟ ما الذي ستحسنه غداً؟ (يخفض الكورتيزول ويهيئ الدماغ للنوم العميق)",
+  "dailyProgramCognitive": "تمرين معرفي (يوسع سعة الذاكرة العاملة — مثبت علمياً)",
+  "dailyProgramCognitiveNBack": "تمرين معرفي — Dual N-Back (يوسع سعة الذاكرة العاملة — مثبت علمياً)",
   "dailyProgramCognitiveStroop": "تمرين معرفي — ستروب",
   "dailyProgramIqChallenge": "تحدي أنماط / منطق",
   "dailyProgramTestsBannerTitle": "أكمل اختباراتك للحصول على برنامج مخصص",
@@ -2045,7 +2075,9 @@
   "dailyProgramMorningZeroScreens": "قاعدة الصباح — صفر شاشات أول ساعة بعد الاستيقاظ",
   "dailyProgramGrayscaleMode": "وضع الرمادي — حوّل شاشتك لـ Grayscale الآن",
   "dailyProgramWhiteNoise": "ضوضاء بيضاء — شغّل White Noise أثناء العمل (40Hz Binaural)",
-  "dailyProgramNsdrRest": "راحة NSDR — استلقِ ١٥ دقيقة بعد الظهيرة بلا هاتف بلا نوم",
+  "dailyProgramNsdrRest": "راحة NSDR — ١٥ دقيقة عيون مغلقة بلا هاتف بلا نوم (يحوّل الذاكرة قصيرة المدى إلى طويلة المدى)",
+  "dailyProgramNsdrTimerDescription": "استلقِ مرتاحاً وأغمض عينيك. ابقَ مستيقظاً بلا هاتف. دع جسمك يرتاح بينما يدمج دماغك ما تعلمته.",
+  "dailyProgramOptionalBadge": "اختياري",
   "dailyProgramPhysicalExercise": "تمرين جسدي — ٢٠–٣٠ دقيقة مشي سريع أو تمارين (يطلق BDNF)",
   "dailyProgramRecovery0700": "٧:٠٠ صباحاً — صفر شاشات + ضوء شمس + حركة خفيفة",
   "dailyProgramRecovery0900": "٩:٠٠ صباحاً — بومودورو ٥٠/١٠ عمل عميق",
@@ -2167,6 +2199,42 @@
   "briContinueCta": "متابعة",
   "briFinishCta": "عرض درجة BRI",
   "briDoneCta": "العودة إلى الرئيسية",
+  "briStartResetCta": "ابدأ بروتوكول إعادة الضبط",
+  "briGenerateProgramCta": "ولّد برنامجي الشخصي",
+  "briSevereWarningBody": "دماغك يحتاج بروتوكول إعادة ضبط عاجل. لا تقلق — ٤ أسابيع فقط وترجع أوضح.",
+  "briProBadge": "Pro",
+  "briUnlockProProgramCta": "افتح البرنامج الكامل مع Pro",
+  "briRecommendResetBody": "إعادة ضبط موجهة لأربعة أسابيع: بومودورو، Stroop سهل، ووقت بلا شاشة.",
+  "briRecommendAscensionBody": "الصعود العصبي يبني الذاكرة والتركيز بعد تطهير التعفن — مسار Pro.",
+  "briRecommendEnhancedBody": "العقل المحسّن يحافظ على الذروة بدوران تركيز / ذاكرة / ذكاء — Pro.",
+  "briRecommendBaseBody": "ممارسة يومية ثابتة بينما تكمل المزيد من الاختبارات لخطة أدق.",
+  "briRadarRot": "الوضوح",
+  "briRadarMemory": "الذاكرة",
+  "briRadarFocus": "التركيز",
+  "briRadarIq": "الذكاء",
+  "briRadarSleep": "الراحة",
+  "dailyProgramBrainMapCta": "خريطة دماغي",
+  "dailyProgramStartSessionCta": "ابدأ الجلسة",
+  "dailyProgramTimelineHint": "أكمل هذه الكتلة للحفاظ على سلسلتك.",
+  "dailyProgramMarkComplete": "تعليم كمكتمل",
+  "dailyProgramMarkIncomplete": "التراجع عن الإكمال",
+  "dailyProgramDayPhaseTitle": "يوم {day} — {phase}",
+  "@dailyProgramDayPhaseTitle": {
+    "placeholders": {
+      "day": { "type": "int" },
+      "phase": { "type": "String" }
+    }
+  },
+  "dailyProgramPhaseWeek": "الأسبوع {week}",
+  "@dailyProgramPhaseWeek": {
+    "placeholders": {
+      "week": { "type": "int" }
+    }
+  },
+  "dailyProgramPhasePurge": "المرحلة 1: التطهير",
+  "dailyProgramPhaseBuild": "المرحلة 2: البناء",
+  "dailyProgramPhaseOptimize": "المرحلة 3: التحسين",
+  "dailyProgramPhaseMaintain": "المرحلة 4: الصيانة",
   "briResultTitle": "مؤشر تعفن دماغك",
   "briScoreLabel": "درجة BRI (الأعلى = احتكاك أكبر)",
   "briAxesHeading": "تفصيل المحاور",
