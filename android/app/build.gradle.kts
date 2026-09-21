@@ -47,6 +47,19 @@ android {
         versionCode = flutter.versionCode
         versionName = flutter.versionName
         multiDexEnabled = true
+        // Google Play 16 KB page-size requirement (Android 15+ / 64-bit).
+        externalNativeBuild {
+            cmake {
+                arguments += "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON"
+            }
+        }
+    }
+
+    packaging {
+        jniLibs {
+            // Keep native libs uncompressed so zip-align can honor 16 KB ELF LOAD alignment.
+            useLegacyPackaging = false
+        }
     }
 
     signingConfigs {
@@ -86,6 +99,19 @@ android {
 
 flutter {
     source = "../.."
+}
+
+// flutter_jailbreak_detection pulls com.github.scottyab:rootbeer:0.1.0
+// (libtoolChecker.so at 4 KB ELF alignment). Force the 16 KB–safe artifact.
+configurations.all {
+    resolutionStrategy.eachDependency {
+        if (requested.group == "com.github.scottyab" && requested.name == "rootbeer") {
+            useTarget("com.scottyab:rootbeer-lib:0.1.1")
+            because(
+                "Replace 4KB-aligned RootBeer with 16KB-safe com.scottyab:rootbeer-lib:0.1.1",
+            )
+        }
+    }
 }
 
 dependencies {
