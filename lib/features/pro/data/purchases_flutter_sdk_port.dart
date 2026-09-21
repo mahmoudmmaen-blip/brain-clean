@@ -103,7 +103,7 @@ class PurchasesFlutterSdkPort implements PurchasesSdkPort {
     }
     try {
       final result = await Purchases.purchasePackage(resolved);
-      return _snapshot(result);
+      return _snapshot(result.customerInfo);
     } on PlatformException catch (e) {
       throw StorePurchaseException(_mapPlatform(e), code: e.code);
     } catch (_) {

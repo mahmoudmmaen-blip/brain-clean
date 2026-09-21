@@ -41,7 +41,8 @@ android {
     defaultConfig {
         // Aligned with existing Google Play package name.
         applicationId = "com.brainclean.mobile"
-        minSdk = flutter.minSdkVersion
+        // RevenueCat 10.x / Play Billing Library 8.3.0 requires API 23+.
+        minSdk = maxOf(flutter.minSdkVersion, 23)
         targetSdk = 36
         versionCode = flutter.versionCode
         versionName = flutter.versionName
