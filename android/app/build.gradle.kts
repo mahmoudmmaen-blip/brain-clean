@@ -103,6 +103,7 @@ flutter {
 
 // flutter_jailbreak_detection pulls com.github.scottyab:rootbeer:0.1.0
 // (libtoolChecker.so at 4 KB ELF alignment). Force the 16 KB–safe artifact.
+// Also pin Play Billing Library to 8.0.0+ for Google Play policy compliance.
 configurations.all {
     resolutionStrategy.eachDependency {
         if (requested.group == "com.github.scottyab" && requested.name == "rootbeer") {
@@ -110,6 +111,14 @@ configurations.all {
             because(
                 "Replace 4KB-aligned RootBeer with 16KB-safe com.scottyab:rootbeer-lib:0.1.1",
             )
+        }
+        if (requested.group == "com.android.billingclient") {
+            val ver = requested.version.orEmpty()
+            val major = ver.substringBefore('.').toIntOrNull() ?: 0
+            if (major < 8) {
+                useVersion("8.0.0")
+                because("Google Play requires Billing Library 8.0.0+")
+            }
         }
     }
 }
