@@ -274,16 +274,18 @@ void main() {
   });
 
   group('HOM-01 UI', () {
-    testWidgets('action-first: Act + time + status + Start CTA before support',
+    /// Dashboard redesign: focus hero + date + greeting + tools + program.
+    /// Legacy Act/status/primary-CTA chrome was removed from TodayHomeBody.
+    testWidgets('dashboard: hero, date, pomodoro, Safa before program',
         (tester) async {
       final plan = RecoveryPlanEngineV1.generate(_pack());
       final loc = await AppLocalizations.delegate.load(const Locale('en'));
-      await tester.binding.setSurfaceSize(const Size(320, 480));
+      await tester.binding.setSurfaceSize(const Size(320, 640));
       addTearDown(() => tester.binding.setSurfaceSize(null));
       await tester.pumpWidget(
         MediaQuery(
           data: const MediaQueryData(
-            size: Size(320, 480),
+            size: Size(320, 640),
             textScaler: TextScaler.linear(2.0),
           ),
           child: wrap(
@@ -304,48 +306,33 @@ void main() {
           ),
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
 
-      // Generic orientation no longer dominates loaded Today.
       expect(find.text(loc.v2TodayHomeOrientation), findsNothing);
-      expect(find.byKey(const Key('v2_today_act_title')), findsOneWidget);
-      expect(find.byKey(const Key('v2_today_time')), findsOneWidget);
-      expect(find.byKey(const Key('v2_today_status_chip')), findsOneWidget);
-      expect(find.text(loc.v2TodayHomeStatusReady), findsOneWidget);
-      expect(
-        find.byKey(const Key('v2_today_primary_cta')),
-        findsOneWidget,
-      );
-      expect(
-        find.widgetWithText(FilledButton, loc.v2TodayHomeCtaStart),
-        findsOneWidget,
-      );
-      expect(find.text(loc.v2TodayHomeViewPlan), findsOneWidget);
+      expect(find.byKey(const Key('home_focus_hero')), findsOneWidget);
+      expect(find.byKey(const Key('home_date_prev')), findsOneWidget);
+      expect(find.byKey(const Key('home_pomodoro_card')), findsOneWidget);
       expect(find.byKey(const Key('v2_today_safa_entry')), findsOneWidget);
-      // Confusing optional-path framing removed from Home redesign.
+      expect(find.byKey(const Key('home_quick_tests_row')), findsOneWidget);
       expect(find.text(loc.recoveryPlanStandardPath), findsNothing);
       expect(find.byKey(const Key('v2_today_standard_hint')), findsNothing);
       expect(find.textContaining('Games'), findsNothing);
       expect(find.textContaining('XP'), findsNothing);
-      expect(find.byType(SingleChildScrollView), findsOneWidget);
-      expect(find.byKey(const Key('home_pomodoro_card')), findsOneWidget);
-      expect(find.byKey(const Key('home_date_prev')), findsOneWidget);
+      expect(find.byType(SingleChildScrollView), findsWidgets);
 
-      final actY =
-          tester.getTopLeft(find.byKey(const Key('v2_today_act_title'))).dy;
-      final ctaY =
-          tester.getTopLeft(find.byKey(const Key('v2_today_primary_cta'))).dy;
-      final viewPlanY =
-          tester.getTopLeft(find.text(loc.v2TodayHomeViewPlan)).dy;
+      final heroY =
+          tester.getTopLeft(find.byKey(const Key('home_focus_hero'))).dy;
+      final pomodoroY =
+          tester.getTopLeft(find.byKey(const Key('home_pomodoro_card'))).dy;
       final safaY =
           tester.getTopLeft(find.byKey(const Key('v2_today_safa_entry'))).dy;
-      expect(actY, lessThan(ctaY));
-      expect(ctaY, lessThan(viewPlanY));
-      expect(viewPlanY, lessThan(safaY));
+      expect(heroY, lessThan(pomodoroY));
+      expect(pomodoroY, lessThan(safaY));
       expect(tester.takeException(), isNull);
     });
 
-    testWidgets('in-progress: Continue CTA; no optional-path clutter',
+    testWidgets('session status no longer surfaces Act CTA chrome',
         (tester) async {
       final plan = RecoveryPlanEngineV1.generate(_pack());
       final loc = await AppLocalizations.delegate.load(const Locale('en'));
@@ -371,19 +358,17 @@ void main() {
           ),
         ),
       );
-      await tester.pumpAndSettle();
-      expect(find.text(loc.v2TodayHomeStatusInProgress), findsOneWidget);
-      expect(
-        find.widgetWithText(FilledButton, loc.v2TodayHomeCtaContinue),
-        findsOneWidget,
-      );
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+      // Session progress moved to structured daily program / session routes.
+      expect(find.text(loc.v2TodayHomeStatusInProgress), findsNothing);
+      expect(find.byKey(const Key('v2_today_primary_cta')), findsNothing);
       expect(find.byKey(const Key('v2_today_standard_hint')), findsNothing);
-      expect(find.text(loc.v2TodayPreviewBecauseHeading), findsNothing);
+      expect(find.byKey(const Key('home_focus_hero')), findsOneWidget);
       expect(find.byKey(const Key('v2_today_safa_entry')), findsOneWidget);
-      expect(find.text(loc.v2TodayHomeViewPlan), findsOneWidget);
     });
 
-    testWidgets('completed: View completed CTA; path education hidden',
+    testWidgets('completed session does not restore legacy View-completed CTA',
         (tester) async {
       final plan = RecoveryPlanEngineV1.generate(_pack());
       final loc = await AppLocalizations.delegate.load(const Locale('en'));
@@ -409,16 +394,11 @@ void main() {
           ),
         ),
       );
-      await tester.pumpAndSettle();
-      expect(find.text(loc.v2TodayHomeStatusDone), findsOneWidget);
-      expect(find.byKey(const Key('v2_today_primary_cta')), findsOneWidget);
-      expect(find.text(loc.v2TodayHomeCtaViewCompleted), findsOneWidget);
-      // Resolved day: primary stays available as quieter outlined action.
-      expect(
-        find.widgetWithText(OutlinedButton, loc.v2TodayHomeCtaViewCompleted),
-        findsOneWidget,
-      );
-      expect(find.byKey(const Key('v2_today_standard_hint')), findsNothing);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(find.text(loc.v2TodayHomeCtaViewCompleted), findsNothing);
+      expect(find.byKey(const Key('v2_today_primary_cta')), findsNothing);
+      expect(find.byKey(const Key('home_focus_hero')), findsOneWidget);
       expect(find.byKey(const Key('v2_today_safa_entry')), findsOneWidget);
     });
 
@@ -445,14 +425,15 @@ void main() {
           locale: const Locale('ar'),
         ),
       );
+      await tester.pump();
       expect(find.text(loc.homeGreetingName('فيصل')), findsOneWidget);
       expect(find.byKey(const Key('home_focus_hero')), findsOneWidget);
-      expect(find.byKey(const Key('v2_today_act_title')), findsOneWidget);
-      final ctx = tester.element(find.byKey(const Key('v2_today_act_title')));
+      final ctx = tester.element(find.byKey(const Key('home_focus_hero')));
       expect(Directionality.of(ctx), TextDirection.rtl);
     });
 
-    testWidgets('missing plan error', (tester) async {
+    testWidgets('missing plan still shows baseline Brain Check CTA',
+        (tester) async {
       final loc = await AppLocalizations.delegate.load(const Locale('en'));
       await tester.pumpWidget(
         wrap(
@@ -472,10 +453,11 @@ void main() {
           ),
         ),
       );
-      expect(find.byKey(const Key('v2_today_empty_state')), findsOneWidget);
-      expect(find.text(loc.recoveryPlanMissing), findsOneWidget);
-      expect(find.text(loc.recoveryPlanMissingProfile), findsOneWidget);
-      expect(find.byKey(const Key('home_brain_check_cta')), findsOneWidget);
+      await tester.pump();
+      // Empty-state card removed; dashboard always shows baseline CTA.
+      expect(find.byKey(const Key('v2_today_empty_state')), findsNothing);
+      expect(find.byKey(const Key('home_focus_hero')), findsOneWidget);
+      expect(find.byKey(const Key('home_baseline_test_card')), findsOneWidget);
       expect(
         find.widgetWithText(FilledButton, loc.recoveryPlanBuildCta),
         findsNothing,
@@ -508,17 +490,18 @@ void main() {
         ),
       );
       await tester.pump();
-      await tester.ensureVisible(find.byKey(const Key('home_brain_check_cta')));
-      await tester.tap(find.byKey(const Key('home_brain_check_cta')));
+      await tester
+          .ensureVisible(find.byKey(const Key('home_baseline_test_card')));
+      await tester.tap(find.byKey(const Key('home_baseline_test_card')));
       await tester.pump();
       expect(destination, '/v2/check?mode=lite&source=today');
       expect(destination, startsWith(AppRoutes.v2Check));
     });
 
-    testWidgets('ProfilePack without plan offers Build Recovery Plan',
+    testWidgets('ProfilePack without plan surfaces Brain Check (no Build Plan CTA)',
         (tester) async {
       final loc = await AppLocalizations.delegate.load(const Locale('en'));
-      var built = false;
+      var brainCheck = false;
       await tester.pumpWidget(
         wrap(
           TodayHomeBody(
@@ -530,8 +513,8 @@ void main() {
             session: null,
             hasProfilePack: true,
             onRetry: () {},
-            onBuildPlan: () => built = true,
-            onStartBrainCheck: () {},
+            onBuildPlan: () {},
+            onStartBrainCheck: () => brainCheck = true,
             onPrimary: () {},
             onViewPlan: () {},
             onOpenSafa: () {},
@@ -539,22 +522,20 @@ void main() {
         ),
       );
       await tester.pump();
+      // Build-plan empty state removed; baseline badge remains the entry.
       expect(
         find.widgetWithText(FilledButton, loc.recoveryPlanBuildCta),
-        findsOneWidget,
-      );
-      expect(
-        find.widgetWithText(FilledButton, loc.v2BrainCheckEntryStart),
         findsNothing,
       );
-      expect(find.text(loc.recoveryPlanMissingProfile), findsNothing);
-      await tester.ensureVisible(find.byKey(const Key('v2_today_setup_cta')));
-      await tester.tap(find.byKey(const Key('v2_today_setup_cta')));
+      expect(find.byKey(const Key('v2_today_setup_cta')), findsNothing);
+      await tester
+          .ensureVisible(find.byKey(const Key('home_baseline_test_card')));
+      await tester.tap(find.byKey(const Key('home_baseline_test_card')));
       await tester.pump();
-      expect(built, isTrue);
+      expect(brainCheck, isTrue);
     });
 
-    testWidgets('empty state scrolls without overflow on short height',
+    testWidgets('dashboard scrolls without overflow on short height',
         (tester) async {
       final loc = await AppLocalizations.delegate.load(const Locale('en'));
       await tester.binding.setSurfaceSize(const Size(320, 480));
@@ -584,13 +565,14 @@ void main() {
           ),
         ),
       );
-      await tester.pumpAndSettle();
-      expect(find.byType(SingleChildScrollView), findsOneWidget);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(find.byType(SingleChildScrollView), findsWidgets);
       expect(tester.takeException(), isNull);
-      expect(find.byKey(const Key('home_brain_check_cta')), findsOneWidget);
+      expect(find.byKey(const Key('home_baseline_test_card')), findsOneWidget);
     });
 
-    testWidgets('loaded Today clears Act + CTA + Safa at narrow / phone widths',
+    testWidgets('loaded Today clears hero + Safa at narrow / phone widths',
         (tester) async {
       final plan = RecoveryPlanEngineV1.generate(_pack());
       final loc = await AppLocalizations.delegate.load(const Locale('en'));
@@ -625,10 +607,10 @@ void main() {
             ),
           ),
         );
-        await tester.pumpAndSettle();
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 50));
         expect(tester.takeException(), isNull);
-        expect(find.byKey(const Key('v2_today_act_title')), findsOneWidget);
-        expect(find.byKey(const Key('v2_today_primary_cta')), findsOneWidget);
+        expect(find.byKey(const Key('home_focus_hero')), findsOneWidget);
         await tester
             .ensureVisible(find.byKey(const Key('v2_today_safa_entry')));
         expect(find.byKey(const Key('v2_today_safa_entry')), findsOneWidget);

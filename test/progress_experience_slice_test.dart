@@ -31,6 +31,7 @@ import 'package:brain_clean_mobile/features/weekly_review/domain/weekly_review_s
 import 'package:brain_clean_mobile/features/weekly_review/domain/weekly_review_summary_engine.dart';
 import 'package:brain_clean_mobile/features/weekly_review/domain/weekly_review_version.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
@@ -501,13 +502,13 @@ void main() {
         MaterialApp(
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
-          home: MediaQuery(
+          home: ProviderScope(child: MediaQuery(
             data: const MediaQueryData(
               size: Size(320, 520),
               textScaler: TextScaler.linear(2),
             ),
             child: ProgressHomeBody(controller: c, onRetry: () {}),
-          ),
+          )),
         ),
       );
       await tester.pump();
@@ -565,10 +566,10 @@ void main() {
         MaterialApp(
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
-          home: MediaQuery(
+          home: ProviderScope(child: MediaQuery(
             data: const MediaQueryData(size: Size(411, 820)),
             child: ProgressHomeBody(controller: c, onRetry: () {}),
-          ),
+          )),
         ),
       );
       await tester.pump();
@@ -648,10 +649,10 @@ void main() {
         MaterialApp(
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
-          home: MediaQuery(
+          home: ProviderScope(child: MediaQuery(
             data: const MediaQueryData(size: Size(411, 820)),
             child: ProgressHomeBody(controller: c, onRetry: () {}),
-          ),
+          )),
         ),
       );
       await tester.pump();
@@ -710,13 +711,13 @@ void main() {
         MaterialApp(
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
-          home: MediaQuery(
+          home: ProviderScope(child: MediaQuery(
             data: const MediaQueryData(
               size: Size(320, 780),
               textScaler: TextScaler.linear(1.3),
             ),
             child: ProgressHomeBody(controller: c, onRetry: () {}),
-          ),
+          )),
         ),
       );
       await tester.pump();
@@ -777,10 +778,10 @@ void main() {
           locale: const Locale('ar'),
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
-          home: MediaQuery(
+          home: ProviderScope(child: MediaQuery(
             data: const MediaQueryData(size: Size(320, 640)),
             child: ProgressHomeBody(controller: c, onRetry: () {}),
-          ),
+          )),
         ),
       );
       await tester.pump();

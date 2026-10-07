@@ -26,7 +26,8 @@ void main() {
 
   testWidgets('shows free and pro sections with filter pills at 320px RTL',
       (tester) async {
-    await tester.binding.setSurfaceSize(const Size(320, 800));
+    // Tall surface so ListView builds Pro cards (lazy; 800px only mounts Free).
+    await tester.binding.setSurfaceSize(const Size(320, 2400));
     addTearDown(() => tester.binding.setSurfaceSize(null));
 
     await tester.pumpWidget(
@@ -35,15 +36,15 @@ void main() {
         child: V2ExercisesLibraryScreen(),
       )),
     );
-    await tester.pump();
+    await tester.pumpAndSettle();
 
     expect(find.text('مكتبة التمارين'), findsOneWidget);
     expect(find.text('مجاني'), findsOneWidget);
     expect(find.text('Pro'), findsWidgets);
-    expect(find.text('N-Back'), findsOneWidget);
+    expect(find.text('Dual N-Back'), findsOneWidget);
     expect(find.text('اختبار سترووب'), findsOneWidget);
     expect(find.text('مدى الأرقام'), findsOneWidget);
-    expect(find.byIcon(Icons.lock_outline), findsWidgets);
+    expect(find.byIcon(Icons.lock_rounded), findsWidgets);
 
     expect(tester.takeException(), isNull);
   });
@@ -58,7 +59,7 @@ void main() {
     await tester.tap(find.text('Memory'));
     await tester.pump();
 
-    expect(find.text('N-Back'), findsOneWidget);
+    expect(find.text('Dual N-Back'), findsOneWidget);
     expect(find.text('Stroop test'), findsNothing);
     expect(find.text('Digit span'), findsOneWidget);
   });

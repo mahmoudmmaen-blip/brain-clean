@@ -2,6 +2,7 @@ import 'package:brain_clean_mobile/core/l10n/app_localizations.dart';
 import 'package:brain_clean_mobile/core/l10n/app_localizations_ar.dart';
 import 'package:brain_clean_mobile/core/l10n/app_localizations_en.dart';
 import 'package:brain_clean_mobile/core/theme/app_design_constants.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:brain_clean_mobile/features/brain_check/domain/brain_check_item_bank.dart';
 import 'package:brain_clean_mobile/features/brain_check/domain/brain_check_mode.dart';
 import 'package:brain_clean_mobile/features/brain_profile/domain/brain_profile_domain_result.dart';
@@ -147,12 +148,13 @@ void main() {
         );
         await pumpBounded(tester);
         expectNoOverflow(tester);
-        expect(find.byKey(const Key('v2_today_primary_cta')), findsOneWidget);
+        expect(find.byKey(const Key('home_focus_hero')), findsOneWidget);
+        expect(find.byKey(const Key('home_pomodoro_card')), findsOneWidget);
         expect(
-          tester.getSize(find.byKey(const Key('v2_today_primary_cta'))).height,
+          tester.getSize(find.byKey(const Key('home_pomodoro_primary'))).height,
           greaterThanOrEqualTo(AppDesignConstants.minTouchTarget),
         );
-        expect(find.byType(SingleChildScrollView), findsOneWidget);
+        expect(find.byType(SingleChildScrollView), findsWidgets);
         expect(find.byKey(const Key('v2_today_safa_entry')), findsOneWidget);
       }
       addTearDown(() => tester.binding.setSurfaceSize(null));
@@ -189,9 +191,9 @@ void main() {
       );
       await pumpBounded(tester);
       expectNoOverflow(tester);
-      expect(find.byType(SingleChildScrollView), findsOneWidget);
+      expect(find.byType(SingleChildScrollView), findsWidgets);
       await tester.drag(
-        find.byType(SingleChildScrollView),
+        find.byType(SingleChildScrollView).first,
         const Offset(0, -200),
       );
       await pumpBounded(tester);
@@ -281,12 +283,14 @@ void main() {
       await tester.binding.setSurfaceSize(const Size(320, 640));
       addTearDown(() => tester.binding.setSurfaceSize(null));
       await tester.pumpWidget(
-        MaterialApp(
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          home: MediaQuery(
-            data: const MediaQueryData(size: Size(320, 640)),
-            child: ProgressHomeBody(controller: c, onRetry: () {}),
+        ProviderScope(
+          child: MaterialApp(
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            home: MediaQuery(
+              data: const MediaQueryData(size: Size(320, 640)),
+              child: ProgressHomeBody(controller: c, onRetry: () {}),
+            ),
           ),
         ),
       );

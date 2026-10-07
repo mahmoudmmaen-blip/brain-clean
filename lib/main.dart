@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -15,6 +16,7 @@ import 'core/storage/hive_bootstrap.dart';
 import 'core/theme/app_color_theme.dart';
 import 'core/theme/app_color_theme_provider.dart';
 import 'core/theme/locale_theme.dart';
+import 'core/theme/system_ui.dart';
 import 'features/gamification/application/xp_sync_service.dart';
 
 Future<void> _loadDotEnvSafely() async {
@@ -34,6 +36,7 @@ Future<void> _loadDotEnvSafely() async {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemUi.enableEdgeToEdge();
 
   await _loadDotEnvSafely();
 
@@ -104,25 +107,29 @@ class _BrainCleanAppState extends ConsumerState<BrainCleanApp>
       builder: (context, ref, _) {
         final colorTheme = ref.watch(selectedColorThemeProvider);
         final themeData = LocaleTheme.themed(locale: locale, theme: colorTheme);
-        return MaterialApp.router(
-          key: ValueKey<String>('app-theme-${colorTheme.name}'),
-          title: 'Brain Clean',
-          debugShowCheckedModeBanner: false,
-          theme: themeData,
-          darkTheme: themeData,
-          themeMode: colorTheme.brightness == Brightness.dark
-              ? ThemeMode.dark
-              : ThemeMode.light,
-          locale: locale,
-          localizationsDelegates: appLocalizationsDelegates,
-          supportedLocales: supportedLocales,
-          builder: (context, child) {
-            return Directionality(
-              textDirection: isRtl ? TextDirection.rtl : TextDirection.ltr,
-              child: child ?? const SizedBox.shrink(),
-            );
-          },
-          routerConfig: router,
+        final overlay = SystemUi.overlayStyle(colorTheme.brightness);
+        return AnnotatedRegion<SystemUiOverlayStyle>(
+          value: overlay,
+          child: MaterialApp.router(
+            key: ValueKey<String>('app-theme-${colorTheme.name}'),
+            title: 'Brain Clean',
+            debugShowCheckedModeBanner: false,
+            theme: themeData,
+            darkTheme: themeData,
+            themeMode: colorTheme.brightness == Brightness.dark
+                ? ThemeMode.dark
+                : ThemeMode.light,
+            locale: locale,
+            localizationsDelegates: appLocalizationsDelegates,
+            supportedLocales: supportedLocales,
+            builder: (context, child) {
+              return Directionality(
+                textDirection: isRtl ? TextDirection.rtl : TextDirection.ltr,
+                child: child ?? const SizedBox.shrink(),
+              );
+            },
+            routerConfig: router,
+          ),
         );
       },
     );

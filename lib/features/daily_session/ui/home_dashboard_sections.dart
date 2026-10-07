@@ -234,11 +234,14 @@ class HomeFocusHeroCard extends StatelessWidget {
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(
-                                '$percent%',
-                                style: V2ShellVisual.heroMetricValue(theme),
+                              Flexible(
+                                child: Text(
+                                  '$percent%',
+                                  style: V2ShellVisual.heroMetricValue(theme),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
-                              const SizedBox(width: 4),
                               IconButton(
                                 key: const Key('home_recovery_info'),
                                 tooltip: loc.homeRecoveryFormulaTitle,
@@ -252,6 +255,7 @@ class HomeFocusHeroCard extends StatelessWidget {
                                   minWidth: AppDesignConstants.minTouchTarget,
                                   minHeight: AppDesignConstants.minTouchTarget,
                                 ),
+                                visualDensity: VisualDensity.compact,
                               ),
                             ],
                           ),

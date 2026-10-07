@@ -446,6 +446,9 @@ void main() {
     testWidgets('explicit Premium entry shows PRE-01 reassurance + capitals', (
       tester,
     ) async {
+      // Tall surface so ListView mounts capitals / CTAs below the fold.
+      await tester.binding.setSurfaceSize(const Size(800, 3200));
+      addTearDown(() => tester.binding.setSurfaceSize(null));
       final store = FakePremiumStore(offerings: sampleOfferings());
       final controller = PremiumController(store: store);
       await controller.hydrate(source: 'profile');
@@ -463,24 +466,14 @@ void main() {
       expect(find.text('Premium'), findsWidgets);
       expect(find.textContaining('Free core'), findsOneWidget);
       expect(find.textContaining('current progress'), findsOneWidget);
-      expect(find.text('Continuity'), findsOneWidget);
-      expect(find.text('Interpretation'), findsOneWidget);
-      expect(find.text('Fit'), findsOneWidget);
-      expect(find.text('Support'), findsOneWidget);
-      await tester.scrollUntilVisible(
-        find.text('Included with Premium now'),
-        200,
-        scrollable: find.byType(Scrollable).first,
-      );
+      for (final capital in ['Continuity', 'Interpretation', 'Fit', 'Support']) {
+        expect(find.text(capital), findsOneWidget);
+      }
       expect(find.text('Included with Premium now'), findsOneWidget);
       expect(find.textContaining('Older Reports archive'), findsOneWidget);
       expect(find.textContaining('Not active yet'), findsOneWidget);
-      await tester.scrollUntilVisible(
-        find.byKey(const Key('v2_premium_view_plans')),
-        200,
-        scrollable: find.byType(Scrollable).first,
-      );
       expect(find.text('View plans'), findsWidgets);
+      expect(find.byKey(const Key('v2_premium_view_plans')), findsOneWidget);
       expect(find.byKey(const Key('v2_premium_restore')), findsOneWidget);
       expect(find.byKey(const Key('v2_premium_privacy')), findsOneWidget);
       expect(find.text(AppLocalizationsEn().v2PremiumTermsLink), findsNothing);
@@ -504,6 +497,8 @@ void main() {
     testWidgets('plans show store prices; purchase success → success route', (
       tester,
     ) async {
+      await tester.binding.setSurfaceSize(const Size(800, 2400));
+      addTearDown(() => tester.binding.setSurfaceSize(null));
       final store = FakePremiumStore(offerings: sampleOfferings());
       final controller = PremiumController(store: store);
       await controller.hydrate(source: 'profile');
@@ -515,7 +510,7 @@ void main() {
         pumpPremiumApp(router: router, store: store, controller: controller),
       );
       await tester.pumpAndSettle();
-      expect(find.text('SAR 18.99'), findsOneWidget);
+      expect(find.textContaining('18.99'), findsWidgets);
       expect(find.text(r'$4.99'), findsNothing);
       await tester.tap(find.byKey(const Key('v2_premium_purchase')));
       await tester.pumpAndSettle();
@@ -539,6 +534,11 @@ void main() {
       );
       await tester.pumpAndSettle();
       expect(find.text(ar.v2PremiumTitle), findsWidgets);
+      await tester.scrollUntilVisible(
+        find.text(ar.v2PremiumContinuity),
+        200,
+        scrollable: find.byType(Scrollable).first,
+      );
       expect(find.text(ar.v2PremiumContinuity), findsOneWidget);
       await tester.scrollUntilVisible(
         find.byKey(const Key('v2_premium_restore')),

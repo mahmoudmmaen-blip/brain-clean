@@ -629,11 +629,15 @@ void main() {
       expect(rules, contains('-keepattributes Signature'));
       expect(rules, contains('com.google.gson.reflect.TypeToken'));
       expect(rules, contains('com.dexterous.flutterlocalnotifications'));
+      expect(rules, contains('com.revenuecat.purchases'));
+      expect(rules, contains('fluttersecurestorage'));
+      expect(rules, contains('localauth'));
     });
 
     test('release buildType enables minify with proguard-rules', () {
       final gradle = File('android/app/build.gradle.kts').readAsStringSync();
       expect(gradle, contains('isMinifyEnabled = true'));
+      expect(gradle, contains('isShrinkResources = true'));
       expect(gradle, contains('proguard-rules.pro'));
     });
   });

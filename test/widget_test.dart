@@ -251,11 +251,13 @@ void main() {
           recoveryProtocolStorageProvider.overrideWithValue(
             RecoveryProtocolMemoryRepository(),
           ),
+          homeStreakTickerProvider.overrideWith((ref) => Stream<int>.value(0)),
           ...diagnosticWidgetTestOverrides(),
         ],
       ),
     );
-    await tester.pumpAndSettle();
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 100));
 
     expect(find.byType(HomeScreen), findsOneWidget);
     expect(find.byKey(homeDiagnosticTileKey), findsOneWidget);

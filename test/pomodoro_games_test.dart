@@ -1,4 +1,6 @@
 import 'package:brain_clean_mobile/core/data/app_meta_box_provider.dart';
+import 'package:brain_clean_mobile/features/daily_program/data/structured_daily_program_repository.dart';
+import 'package:brain_clean_mobile/features/daily_program/data/structured_daily_program_repository_provider.dart';
 import 'package:brain_clean_mobile/features/diagnostic/domain/diagnostic_model.dart';
 import 'package:brain_clean_mobile/features/diagnostic/presentation/bc_score_provider.dart';
 import 'package:brain_clean_mobile/features/focus/application/single_task_provider.dart';
@@ -11,6 +13,25 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'helpers/diagnostic_provider_overrides.dart';
 import 'helpers/hive_test_fixtures.dart';
+
+class _MemoryDailyProgramRepo implements StructuredDailyProgramRepository {
+  final Map<String, Map<String, bool>> _store = {};
+
+  @override
+  Future<Map<String, bool>> loadCompletions(String dayKey) async =>
+      Map<String, bool>.unmodifiable(_store[dayKey] ?? const {});
+
+  @override
+  Future<void> setCompleted({
+    required String dayKey,
+    required String activityId,
+    required bool completed,
+  }) async {
+    final day = Map<String, bool>.from(_store[dayKey] ?? const {});
+    day[activityId] = completed;
+    _store[dayKey] = day;
+  }
+}
 
 void main() {
   group('Pomodoro phase transitions', () {
@@ -47,6 +68,8 @@ void main() {
         overrides: [
           ...diagnosticWidgetTestOverrides(committedSession: committed),
           appMetaBoxProvider.overrideWithValue(InMemoryHiveBox()),
+          structuredDailyProgramRepositoryProvider
+              .overrideWithValue(_MemoryDailyProgramRepo()),
         ],
       );
       addTearDown(container.dispose);

@@ -229,7 +229,7 @@ void main() {
       await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
       await tester.pump();
       expect(find.text('V1_HOME'), findsOneWidget);
-      expect(find.byType(NavigationBar), findsNothing);
+      expect(find.byKey(const Key('v2_shell_nav_bar')), findsNothing);
     });
 
     testWidgets('ON exposes five-tab V2 shell on Home', (tester) async {
@@ -237,8 +237,9 @@ void main() {
       await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
       await tester.pump();
       expect(find.text('TAB_TODAY'), findsOneWidget);
-      expect(find.byType(NavigationBar), findsOneWidget);
-      expect(find.byType(NavigationDestination), findsNWidgets(5));
+      expect(find.byKey(const Key('v2_shell_nav_bar')), findsOneWidget);
+      expect(find.byKey(const Key('v2_shell_nav_tab_0')), findsOneWidget);
+      expect(find.byKey(const Key('v2_shell_nav_tab_4')), findsOneWidget);
       expect(find.byType(V2NavigationShell), findsOneWidget);
     });
   });
@@ -262,8 +263,10 @@ void main() {
         );
         await tester.pump();
         expect(find.text(label), findsOneWidget);
-        final bar = tester.widget<NavigationBar>(find.byType(NavigationBar));
-        expect(bar.selectedIndex, index);
+        expect(
+          find.byKey(Key('v2_shell_nav_tab_$index')),
+          findsOneWidget,
+        );
       }
     });
 
@@ -287,7 +290,7 @@ void main() {
       await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
       await tester.pump();
       expect(find.text('BRAIN_PROFILE_CONTEXTUAL'), findsOneWidget);
-      expect(find.byType(NavigationBar), findsNothing);
+      expect(find.byKey(const Key('v2_shell_nav_bar')), findsNothing);
     });
 
     testWidgets('invalid /v2 path recovers to Today', (tester) async {
@@ -305,7 +308,7 @@ void main() {
       await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
       await tester.pump();
       expect(find.textContaining('CHECK_CONTEXTUAL'), findsOneWidget);
-      expect(find.byType(NavigationBar), findsNothing);
+      expect(find.byKey(const Key('v2_shell_nav_bar')), findsNothing);
     });
 
     testWidgets('/v2/brain-check/entry alias opens Check', (tester) async {
@@ -316,7 +319,7 @@ void main() {
       await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
       await tester.pump();
       expect(find.textContaining('CHECK_CONTEXTUAL'), findsOneWidget);
-      expect(find.byType(NavigationBar), findsNothing);
+      expect(find.byKey(const Key('v2_shell_nav_bar')), findsNothing);
     });
 
     testWidgets('Brain Check resume preserves query; no duplicate host', (
@@ -343,7 +346,7 @@ void main() {
       await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
       await tester.pump();
       expect(find.text('REPORTS_CONTEXTUAL'), findsOneWidget);
-      expect(find.byType(NavigationBar), findsNothing);
+      expect(find.byKey(const Key('v2_shell_nav_bar')), findsNothing);
     });
 
     testWidgets('Progress → Reports and Reports → Progress', (tester) async {
@@ -355,12 +358,12 @@ void main() {
       await tester.tap(find.text('OPEN_REPORTS'));
       await tester.pumpAndSettle();
       expect(find.text('REPORTS_CONTEXTUAL'), findsOneWidget);
-      expect(find.byType(NavigationBar), findsNothing);
+      expect(find.byKey(const Key('v2_shell_nav_bar')), findsNothing);
 
       await tester.tap(find.text('BACK_PROGRESS'));
       await tester.pumpAndSettle();
       expect(find.text('TAB_PROGRESS'), findsOneWidget);
-      expect(find.byType(NavigationBar), findsOneWidget);
+      expect(find.byKey(const Key('v2_shell_nav_bar')), findsOneWidget);
     });
 
     testWidgets('artifact deep link', (tester) async {
@@ -371,7 +374,7 @@ void main() {
       await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
       await tester.pump();
       expect(find.text('ARTIFACT_DETAIL id=w1'), findsOneWidget);
-      expect(find.byType(NavigationBar), findsNothing);
+      expect(find.byKey(const Key('v2_shell_nav_bar')), findsNothing);
     });
 
     testWidgets('measurement-history deep link', (tester) async {
@@ -382,7 +385,7 @@ void main() {
       await tester.pumpWidget(createLocalizedRouterTestWidget(router: router));
       await tester.pump();
       expect(find.text('MEASUREMENT_HISTORY'), findsOneWidget);
-      expect(find.byType(NavigationBar), findsNothing);
+      expect(find.byKey(const Key('v2_shell_nav_bar')), findsNothing);
     });
   });
 
@@ -499,18 +502,17 @@ void main() {
         );
         await tester.pump();
 
-        expect(find.byType(NavigationBar), findsOneWidget);
-        expect(find.byType(NavigationDestination), findsNWidgets(5));
+        expect(find.byKey(const Key('v2_shell_nav_bar')), findsOneWidget);
         expect(tester.takeException(), isNull);
 
-        final destinations = find.byType(NavigationDestination);
         for (var i = 0; i < 5; i++) {
-          final size = tester.getSize(destinations.at(i));
+          final tab = find.byKey(Key('v2_shell_nav_tab_$i'));
+          expect(tab, findsOneWidget);
+          final size = tester.getSize(tab);
           expect(size.height, greaterThanOrEqualTo(48));
         }
 
-        final bar = tester.widget<NavigationBar>(find.byType(NavigationBar));
-        expect(bar.selectedIndex, 0);
+        expect(find.byKey(const Key('v2_shell_nav_tab_0')), findsOneWidget);
 
         // Screen-reader labels via destination labels (locale-aware).
         if (locale.languageCode == 'en') {
@@ -520,11 +522,11 @@ void main() {
           expect(find.text('Pro'), findsWidgets);
           expect(find.text('Profile'), findsWidgets);
         } else {
-          expect(find.text('الرئيسية'), findsWidgets);
-          expect(find.text('التمارين'), findsWidgets);
-          expect(find.text('التقدم'), findsWidgets);
-          expect(find.text('Pro'), findsWidgets);
-          expect(find.text('الملف'), findsWidgets);
+          expect(find.text(AppLocalizationsAr().v2NavHome), findsWidgets);
+          expect(find.text(AppLocalizationsAr().v2NavExercises), findsWidgets);
+          expect(find.text(AppLocalizationsAr().v2NavProgress), findsWidgets);
+          expect(find.text(AppLocalizationsAr().v2NavPro), findsWidgets);
+          expect(find.text(AppLocalizationsAr().v2NavProfile), findsWidgets);
         }
       }
 

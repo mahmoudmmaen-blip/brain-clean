@@ -13,6 +13,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:brain_clean_mobile/features/recovery/data/recovery_protocol_hive_repository.dart';
 import 'package:brain_clean_mobile/features/recovery/data/recovery_protocol_storage_provider.dart';
 import 'package:brain_clean_mobile/features/home/presentation/home_streak_provider.dart';
+import 'package:brain_clean_mobile/features/v2_premium/ui/premium_overview_screen.dart';
 import 'helpers/diagnostic_provider_overrides.dart';
 import 'helpers/hive_test_fixtures.dart';
 
@@ -115,10 +116,16 @@ void main() {
 
     await tester.tap(find.byKey(homeEmotionWheelKey));
     await tester.pump();
-    await tester.pump(const Duration(milliseconds: 300));
+    await tester.pump(const Duration(milliseconds: 500));
 
-    expect(find.byKey(const Key('v2_premium_restore')), findsOneWidget);
+    expect(find.byType(PremiumOverviewScreen), findsOneWidget);
     expect(find.text('بريميوم'), findsWidgets);
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('v2_premium_restore')),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
+    expect(find.byKey(const Key('v2_premium_restore')), findsOneWidget);
   });
 }
 

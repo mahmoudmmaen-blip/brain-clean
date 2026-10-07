@@ -51,6 +51,7 @@ class V2NavigationShell extends StatelessWidget {
         backgroundColor: theme.scaffoldBackgroundColor,
         body: navigationShell,
         bottomNavigationBar: DecoratedBox(
+          key: const Key('v2_shell_nav_bar'),
           decoration: BoxDecoration(
             color: palette.navBar,
             border: Border(
@@ -65,6 +66,7 @@ class V2NavigationShell extends StatelessWidget {
                 children: [
                   for (var i = 0; i < _destinations.length; i++)
                     _V2NavTab(
+                      key: Key('v2_shell_nav_tab_$i'),
                       icon: _destinations[i].$1,
                       label: labels[i],
                       selected: i == index,
@@ -88,6 +90,7 @@ class V2NavigationShell extends StatelessWidget {
 
 class _V2NavTab extends StatelessWidget {
   const _V2NavTab({
+    super.key,
     required this.icon,
     required this.label,
     required this.selected,

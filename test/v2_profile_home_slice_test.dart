@@ -161,9 +161,13 @@ void main() {
       await tester.pump();
       expect(find.byKey(const Key('v2_profile_settings_row')), findsOneWidget);
       expect(find.byKey(const Key('v2_profile_privacy_row')), findsNothing);
+      await tester
+          .ensureVisible(find.byKey(const Key('v2_profile_settings_row')));
       await tester.tap(find.byKey(const Key('v2_profile_settings_row')));
       await tester.pump();
       expect(settings, isTrue);
+      await tester
+          .ensureVisible(find.byKey(const Key('v2_profile_brain_profile_row')));
       await tester.tap(find.byKey(const Key('v2_profile_brain_profile_row')));
       await tester.pump();
       expect(brain, isTrue);
