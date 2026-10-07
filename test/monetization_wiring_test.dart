@@ -438,16 +438,18 @@ void main() {
       final ar = AppLocalizationsAr();
       expect(en.v2PremiumIncludesNowHeading, contains('Included'));
       expect(en.v2PremiumIncludeArchive, contains('archive'));
-      expect(en.v2PremiumIncludeThemes, contains('themes'));
       expect(en.v2PremiumIncludeTools, contains('emotion'));
       expect(en.v2PremiumIncludeChart, contains('chart'));
-      expect(en.v2PremiumInterpretationBody, contains('Not active yet'));
+      expect(en.v2PremiumFeatureExtraExercises.toLowerCase(), contains('exercise'));
+      expect(en.v2PremiumOrientation.toLowerCase(), contains('unlock'));
       expect(en.v2PremiumBenefitsBody.toLowerCase(),
           isNot(contains('full potential')));
       expect(en.v2PremiumBenefitsBody.toLowerCase(),
           isNot(contains('cloud sync')));
+      expect(en.v2PremiumFeatureNoAds.toLowerCase(), contains('no ads'));
       expect(ar.v2PremiumIncludesNowHeading, isNotEmpty);
       expect(ar.v2PremiumIncludeArchive, isNotEmpty);
+      expect(ar.v2PremiumOrientation, contains('افتح البرنامج الكامل'));
       expect(AppRoutes.v2PremiumWithSource('settings'),
           contains('source=settings'));
       expect(AppRoutes.proPaywall, '/pro-paywall');

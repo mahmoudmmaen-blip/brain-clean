@@ -56,15 +56,13 @@ class PremiumPlanCards extends StatelessWidget {
     );
   }
 
+  /// Only benefits that are actually Pro-gated in this build.
   static List<String> _features(AppLocalizations loc) => [
-        loc.v2PremiumFeatureNoAds,
-        loc.v2PremiumFeatureBiometric,
-        loc.v2PremiumFeatureCloudSync,
-        loc.v2PremiumFeatureStealth,
-        loc.v2PremiumFeatureFullStats,
-        loc.v2PremiumFeatureWeeklyArchive,
         loc.v2PremiumIncludeChart,
-        loc.v2PremiumIncludeThemes,
+        loc.v2PremiumFeatureWeeklyArchive,
+        loc.v2PremiumIncludeTools,
+        loc.v2PremiumFeatureExtraExercises,
+        loc.v2PremiumFeaturePersonalizedPlan,
       ];
 }
 

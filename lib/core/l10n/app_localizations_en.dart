@@ -645,7 +645,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingPage2Body =>
-      'Real science-based formulas to measure brain health';
+      'Simple daily tracking to notice focus and habits';
 
   @override
   String get onboardingPage3Title => 'Start your journey now';
@@ -658,13 +658,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboardingStartQuiz => 'Start assessment';
 
   @override
-  String get proPaywallTitle => 'Brain Clean Pro';
+  String get proPaywallTitle => 'Unlock the full program';
 
   @override
-  String get proPaywallSubtitle => 'Unlock your mind\'s full potential';
+  String get proPaywallSubtitle =>
+      'More tools when you are ready — your free path stays.';
 
   @override
-  String get proFeatureAdvancedBcs => 'Advanced Brain Clarity Score engine';
+  String get proFeatureAdvancedBcs => 'Personalized daily program';
 
   @override
   String get proFeatureSevenDayChart => '7-day progress chart';
@@ -673,7 +674,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get proFeatureEmotionWheel => 'Emotion wheel & recovery impact';
 
   @override
-  String get proFeatureFocusChallenges => 'Advanced focus challenges';
+  String get proFeatureFocusChallenges => 'Silence challenge';
 
   @override
   String get proFeatureCloudSync => 'Secure cloud sync';
@@ -1409,12 +1410,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get gameNBackTitle => 'N-Back 🧠';
 
   @override
-  String get gameNBackDesc =>
-      'Strongest science-backed working memory training';
+  String get gameNBackDesc => 'A challenging working-memory exercise';
 
   @override
   String get gameNBackIntro =>
-      'This is scientifically the strongest game for working memory';
+      'A challenging working-memory exercise — take it at your pace';
 
   @override
   String gameNBackLevel(int n, int current, int total) {
@@ -2454,7 +2454,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get v2SessionMarkDone => 'Mark step done';
+  String get v2SessionMarkDone => 'Done ✓';
 
   @override
   String get v2SessionSkipOptional => 'Skip optional step';
@@ -2529,7 +2529,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v2SessionLeaveBody =>
-      'Quiet competence is enough. Leave the app when you are ready.';
+      'Nice work! A small step today = a stronger habit tomorrow.';
 
   @override
   String get v2SessionLeaveNext =>
@@ -3305,7 +3305,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2ProgressChartToday => 'Today';
 
   @override
-  String get v2ProgressWeeklyRediagnosis => 'Weekly Brain Check';
+  String get v2ProgressWeeklyRediagnosis => 'Re-check Brain Check';
 
   @override
   String get v2ProgressPatternDetails => 'Pattern details';
@@ -3649,7 +3649,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2ExercisesFilterReading => 'Reading';
 
   @override
-  String get v2ExercisesFilterIntelligence => 'Intelligence';
+  String get v2ExercisesFilterIntelligence => 'Thinking';
 
   @override
   String get v2ExercisesFilterMentalFitness => 'Mental fitness';
@@ -3685,11 +3685,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v2ExercisesNBackSubtitle =>
-      'The strongest science-backed drill for working memory and fluid intelligence';
+      'A challenging and fun working-memory exercise';
 
   @override
-  String get v2ExercisesScienceBadgeNBack =>
-      'Science-backed — boosts working memory';
+  String get v2ExercisesScienceBadgeNBack => 'Working-memory practice';
 
   @override
   String get v2ExercisesStroopTitle => 'Stroop test';
@@ -3732,7 +3731,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v2ExercisesPatternLogicSubtitle =>
-      'Timed sequences with a missing element — measures fluid intelligence';
+      'Timed sequences with a missing element — five quick pattern questions';
 
   @override
   String get v2ExercisesReadingTitle => 'Focused reading session (10 min)';
@@ -3746,7 +3745,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v2ExercisesDetoxSubtitle =>
-      'Reset dopamine and restore mental patience';
+      'A short break from social feeds to rebuild patience';
 
   @override
   String get v2ExercisesAccountabilityTitle => 'Daily accountability box';
@@ -3852,8 +3851,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2PremiumTitle => 'Premium';
 
   @override
-  String get v2PremiumOrientation =>
-      'Premium deepens continuity after you have already made progress — it does not unlock recovery.';
+  String get v2PremiumOrientation => 'Unlock the full program';
 
   @override
   String get v2PremiumFreeCoreReassurance =>
@@ -3871,28 +3869,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v2PremiumContinuityBody =>
-      'Deeper WeeklyArtifact archive and long-horizon evidence history.';
+      'Deeper weekly report archive over time.';
 
   @override
   String get v2PremiumInterpretation => 'Interpretation';
 
   @override
   String get v2PremiumInterpretationBody =>
-      'Planned deterministic context layers only — never medical AI claims. Not active yet.';
+      'Clear, honest summaries — never medical claims. Some layers are not active yet.';
 
   @override
   String get v2PremiumFit => 'Fit';
 
   @override
   String get v2PremiumFitBody =>
-      'Future approved adaptation depth without silent Plan changes.';
+      'A program that can adapt gently without surprising you.';
 
   @override
   String get v2PremiumSupport => 'Support';
 
   @override
   String get v2PremiumSupportBody =>
-      'Future continuity support under a separate contract — never Premium-only crisis care.';
+      'Optional support later — urgent care is never locked behind Pro.';
 
   @override
   String get v2PremiumIncludesNowHeading => 'Included with Premium now';
@@ -3906,14 +3904,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v2PremiumIncludeTools =>
-      'Selected tools: emotion wheel, silence, crossword, games, and cognitive test';
+      'Extra tools: emotion wheel, silence challenge, crossword, games hub';
 
   @override
   String get v2PremiumIncludeChart => 'Seven-day progress chart';
 
   @override
   String get v2PremiumBenefitsBody =>
-      'Latest and previous Weekly proof stay Free. Premium deepens continuity — it does not unlock recovery.';
+      'Your free daily path stays. Pro adds archive, chart, and extra tools.';
 
   @override
   String get v2PremiumPlanMonthlyTitle => 'Premium monthly';
@@ -3937,25 +3935,38 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2PremiumPlanAnnualBadge => 'Save 32%';
 
   @override
-  String get v2PremiumFeaturesHeading => 'Everything in Pro';
+  String get v2PremiumFeaturesHeading => 'What you get with Pro';
 
   @override
-  String get v2PremiumFeatureNoAds => 'Remove all ads';
+  String get v2PremiumFeatureNoAds => '(This app has no ads)';
 
   @override
-  String get v2PremiumFeatureBiometric => 'Biometric app lock';
+  String get v2PremiumFeatureBiometric => '(App lock is free for everyone)';
 
   @override
-  String get v2PremiumFeatureCloudSync => 'Cloud sync across devices';
+  String get v2PremiumFeatureCloudSync =>
+      '(Cloud sync is not available in this build)';
 
   @override
-  String get v2PremiumFeatureStealth => 'Stealth mode icon';
+  String get v2PremiumFeatureStealth => '(Not available in this build)';
 
   @override
-  String get v2PremiumFeatureFullStats => 'Full statistics and detailed charts';
+  String get v2PremiumFeatureFullStats => 'Seven-day progress chart';
 
   @override
   String get v2PremiumFeatureWeeklyArchive => 'Deep weekly report archive';
+
+  @override
+  String get v2PremiumFeatureExtraExercises =>
+      'Extra focus and memory exercises';
+
+  @override
+  String get v2PremiumFeaturePersonalizedPlan => 'Personalized daily program';
+
+  @override
+  String v2ProgressBrainCheckDoneBody(String score) {
+    return 'Brain Check complete (score $score). You can re-check weekly when you like.';
+  }
 
   @override
   String get v2PremiumViewPlans => 'View plans';
@@ -4248,7 +4259,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2ProfileSectionRecovery => 'Recovery setup';
 
   @override
-  String get v2ProfilePurityHeading => 'Purity journey';
+  String get v2ProfilePurityHeading => 'Your 30-day path';
 
   @override
   String v2ProfilePurityDay(int days) {
@@ -4256,8 +4267,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get v2ProfilePuritySubtitle =>
-      'Days on your recovery path since you started';
+  String get v2ProfilePuritySubtitle => 'Same day count as Home';
 
   @override
   String get v2ProfileNotificationsRow => 'Daily reminders';
@@ -4444,11 +4454,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dailyProgramCognitive =>
-      'Cognitive exercise (expands working-memory capacity — science-backed)';
+      'Cognitive exercise — working-memory practice';
 
   @override
   String get dailyProgramCognitiveNBack =>
-      'Cognitive exercise — Dual N-Back (expands working-memory capacity — science-backed)';
+      'Cognitive exercise — Dual N-Back (working-memory practice)';
 
   @override
   String get dailyProgramCognitiveStroop => 'Cognitive exercise — Stroop';

@@ -25,7 +25,7 @@ class _PatternQuestion {
   final int correctIndex;
 }
 
-/// Pattern logic — timed fluid-intelligence sequences (5 questions).
+/// Pattern logic — timed pattern sequences (5 questions).
 class PatternLogicGameScreen extends ConsumerStatefulWidget {
   const PatternLogicGameScreen({super.key});
 

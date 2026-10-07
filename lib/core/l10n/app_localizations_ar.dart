@@ -649,13 +649,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get onboardingStartQuiz => 'ابدأ التقييم';
 
   @override
-  String get proPaywallTitle => 'Brain Clean Pro';
+  String get proPaywallTitle => 'افتح البرنامج الكامل';
 
   @override
-  String get proPaywallSubtitle => 'افتح كامل قدرات عقلك';
+  String get proPaywallSubtitle =>
+      'مزيد من الأدوات عندما تكون مستعداً — ومسارك المجاني يبقى.';
 
   @override
-  String get proFeatureAdvancedBcs => 'محرك Brain Clarity Score المتقدم';
+  String get proFeatureAdvancedBcs => 'برنامج يومي مخصص';
 
   @override
   String get proFeatureSevenDayChart => 'مخطط التقدم 7 أيام';
@@ -664,7 +665,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get proFeatureEmotionWheel => 'دائرة الأحاسيس والتأثير على التعافي';
 
   @override
-  String get proFeatureFocusChallenges => 'تحديات التركيز المتقدمة';
+  String get proFeatureFocusChallenges => 'تحدي الصمت';
 
   @override
   String get proFeatureCloudSync => 'مزامنة سحابية آمنة';
@@ -1393,11 +1394,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get gameNBackTitle => 'N-Back 🧠';
 
   @override
-  String get gameNBackDesc => 'الأقوى علمياً لتحسين الذاكرة العاملة';
+  String get gameNBackDesc => 'تمرين ذاكرة عاملة صعب وممتع';
 
   @override
-  String get gameNBackIntro =>
-      'هذه اللعبة تُعدّ الأقوى علمياً لتحسين الذاكرة العاملة';
+  String get gameNBackIntro => 'تمرين ذاكرة عاملة صعب وممتع — خذه على مهلك';
 
   @override
   String gameNBackLevel(int n, int current, int total) {
@@ -2419,7 +2419,7 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get v2SessionMarkDone => 'تعليم الخطوة منتهية';
+  String get v2SessionMarkDone => 'تم ✓';
 
   @override
   String get v2SessionSkipOptional => 'تخطّ الخطوة الاختيارية';
@@ -2493,8 +2493,7 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get v2SessionLeaveBody =>
-      'الكفاءة الهادئة كافية. غادر التطبيق عندما تكون جاهزاً.';
+  String get v2SessionLeaveBody => 'أحسنت! خطوة صغيرة اليوم = عادة قوية غداً.';
 
   @override
   String get v2SessionLeaveNext => 'غداً سيعرض اليوم خطوة واضحة واحدة من جديد.';
@@ -2506,8 +2505,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2ProgressEmptyTitle => 'لا تقدّم بعد';
 
   @override
-  String get v2ProgressEmptyBody =>
-      'كمّل خطوة اليوم عشان يبدأ سجل صادق على جهازك.';
+  String get v2ProgressEmptyBody => 'أكمل خطوة اليوم ليبدأ سجل صادق على جهازك.';
 
   @override
   String get v2ProgressLoading => 'جارٍ تحميل التقدّم';
@@ -3219,7 +3217,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v2ProgressPillarsEmpty =>
-      'كمّل فحص الدماغ عشان تتابع التركيز والعادات مع الوقت.';
+      'عندما تكون مستعداً، فحص دماغ هادئ يساعدك على ملاحظة التركيز والعادات مع الوقت.';
 
   @override
   String get v2ProgressPillarsFirstDiagnostic => 'ابدأ فحص الدماغ';
@@ -3244,7 +3242,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2ProgressChartToday => 'اليوم';
 
   @override
-  String get v2ProgressWeeklyRediagnosis => 'فحص الدماغ الأسبوعي';
+  String get v2ProgressWeeklyRediagnosis => 'أعد فحص الدماغ';
 
   @override
   String get v2ProgressPatternDetails => 'تفاصيل النمط';
@@ -3585,7 +3583,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2ExercisesFilterReading => 'قراءة';
 
   @override
-  String get v2ExercisesFilterIntelligence => 'ذكاء';
+  String get v2ExercisesFilterIntelligence => 'تفكير';
 
   @override
   String get v2ExercisesFilterMentalFitness => 'لياقة ذهنية';
@@ -3620,12 +3618,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2ExercisesNBackTitle => 'Dual N-Back';
 
   @override
-  String get v2ExercisesNBackSubtitle =>
-      'أقوى تمرين علمي لزيادة الذاكرة العاملة والذكاء السائل';
+  String get v2ExercisesNBackSubtitle => 'تمرين ذاكرة عاملة صعب وممتع';
 
   @override
-  String get v2ExercisesScienceBadgeNBack =>
-      'مثبت علمياً — يزيد الذاكرة العاملة';
+  String get v2ExercisesScienceBadgeNBack => 'تمرين للذاكرة العاملة';
 
   @override
   String get v2ExercisesStroopTitle => 'اختبار سترووب';
@@ -3667,7 +3663,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v2ExercisesPatternLogicSubtitle =>
-      'سلاسل أشكال/أرقام مع عنصر ناقص — ٥ أسئلة مؤقتة لقياس الذكاء السائل';
+      'سلاسل أشكال/أرقام مع عنصر ناقص — خمسة أسئلة سريعة عن الأنماط';
 
   @override
   String get v2ExercisesReadingTitle => 'جلسة قراءة مركّزة (10 دقائق)';
@@ -3681,7 +3677,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v2ExercisesDetoxSubtitle =>
-      'إعادة ضبط الدوبامين واستعادة الصبر العقلي';
+      'استراحة قصيرة من السوشيال ميديا لاستعادة الصبر';
 
   @override
   String get v2ExercisesAccountabilityTitle => 'صندوق المساءلة اليومية';
@@ -3787,8 +3783,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2PremiumTitle => 'بريميوم';
 
   @override
-  String get v2PremiumOrientation =>
-      'بريميوم يعمّق الاستمرارية بعد أن تحقق تقدماً ملموساً — ولا يفتح باب التعافي.';
+  String get v2PremiumOrientation => 'افتح البرنامج الكامل';
 
   @override
   String get v2PremiumFreeCoreReassurance =>
@@ -3805,28 +3800,27 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v2PremiumContinuityBody =>
-      'أرشيف أعمق لتقارير الأسبوع والأدلة على المدى الطويل.';
+      'أرشيف أعمق لتقاريرك الأسبوعية مع الوقت.';
 
   @override
   String get v2PremiumInterpretation => 'التفسير';
 
   @override
   String get v2PremiumInterpretationBody =>
-      'طبقات سياق حتمية مخطّط لها فقط — دون ادعاءات طبية بالذكاء الاصطناعي. غير مفعّلة بعد.';
+      'ملخصات واضحة وصادقة — بلا ادعاءات طبية. بعض الطبقات غير مفعّلة بعد.';
 
   @override
   String get v2PremiumFit => 'الملاءمة';
 
   @override
-  String get v2PremiumFitBody =>
-      'عمق تكيّف معتمد مستقبلاً دون تغيير صامت للخطة.';
+  String get v2PremiumFitBody => 'برنامج يمكن أن يتكيّف بلطف دون مفاجآت.';
 
   @override
   String get v2PremiumSupport => 'الدعم';
 
   @override
   String get v2PremiumSupportBody =>
-      'دعم استمرارية مستقبلي بموجب عقد منفصل — دون حصر الاستجابة العاجلة في بريميوم.';
+      'دعم اختياري لاحقاً — والرعاية العاجلة لا تُقفل خلف Pro.';
 
   @override
   String get v2PremiumIncludesNowHeading => 'مشمول في بريميوم الآن';
@@ -3840,14 +3834,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v2PremiumIncludeTools =>
-      'أدوات مختارة: دائرة الأحاسيس، الصمت، الكلمات المتقاطعة، الألعاب، والاختبار المعرفي';
+      'أدوات إضافية: دائرة الأحاسيس، تحدي الصمت، الكلمات المتقاطعة، مركز الألعاب';
 
   @override
   String get v2PremiumIncludeChart => 'مخطط التقدّم لسبعة أيام';
 
   @override
   String get v2PremiumBenefitsBody =>
-      'أحدث إثبات أسبوعي والإثبات السابق يبقيان مجانيين. بريميوم يعمّق الاستمرارية — ولا يفتح باب التعافي.';
+      'مسارك اليومي المجاني يبقى. Pro يضيف الأرشيف والمخطط وأدواتاً إضافية.';
 
   @override
   String get v2PremiumPlanMonthlyTitle => 'الباقة الشهرية المميزة';
@@ -3871,25 +3865,37 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2PremiumPlanAnnualBadge => 'وفّر 32%';
 
   @override
-  String get v2PremiumFeaturesHeading => 'كل مزايا Pro';
+  String get v2PremiumFeaturesHeading => 'ماذا تحصل مع Pro';
 
   @override
-  String get v2PremiumFeatureNoAds => 'إزالة كل الإعلانات';
+  String get v2PremiumFeatureNoAds => '(لا توجد إعلانات في التطبيق)';
 
   @override
-  String get v2PremiumFeatureBiometric => 'قفل بيومتري للتطبيق';
+  String get v2PremiumFeatureBiometric => '(قفل التطبيق مجاني للجميع)';
 
   @override
-  String get v2PremiumFeatureCloudSync => 'مزامنة سحابية بين الأجهزة';
+  String get v2PremiumFeatureCloudSync =>
+      '(المزامنة السحابية غير متاحة في هذا الإصدار)';
 
   @override
-  String get v2PremiumFeatureStealth => 'أيقونة تمويه (Stealth)';
+  String get v2PremiumFeatureStealth => '(غير متاح في هذا الإصدار)';
 
   @override
-  String get v2PremiumFeatureFullStats => 'إحصائيات كاملة ورسوم تفصيلية';
+  String get v2PremiumFeatureFullStats => 'مخطط التقدّم لسبعة أيام';
 
   @override
   String get v2PremiumFeatureWeeklyArchive => 'أرشيف تقارير أسبوعية عميق';
+
+  @override
+  String get v2PremiumFeatureExtraExercises => 'تمارين تركيز وذاكرة إضافية';
+
+  @override
+  String get v2PremiumFeaturePersonalizedPlan => 'برنامج يومي مخصص';
+
+  @override
+  String v2ProgressBrainCheckDoneBody(String score) {
+    return 'فحص الدماغ مكتمل (النتيجة $score). يمكنك إعادة الفحص أسبوعياً متى شئت.';
+  }
 
   @override
   String get v2PremiumViewPlans => 'عرض الخطط';
@@ -4177,7 +4183,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2ProfileSectionRecovery => 'إعداد التعافي';
 
   @override
-  String get v2ProfilePurityHeading => 'رحلة النقاء';
+  String get v2ProfilePurityHeading => 'مسارك لـ ٣٠ يوماً';
 
   @override
   String v2ProfilePurityDay(int days) {
@@ -4185,7 +4191,7 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get v2ProfilePuritySubtitle => 'أيام على مسار تعافيك منذ البداية';
+  String get v2ProfilePuritySubtitle => 'نفس عدّاد اليوم في الرئيسية';
 
   @override
   String get v2ProfileNotificationsRow => 'التنبيهات اليومية';
@@ -4368,12 +4374,11 @@ class AppLocalizationsAr extends AppLocalizations {
       'مراجعة مسائية — ٥ دقائق: ماذا أنجزت؟ ما الذي ستحسنه غداً؟ (يخفض الكورتيزول ويهيئ الدماغ للنوم العميق)';
 
   @override
-  String get dailyProgramCognitive =>
-      'تمرين معرفي (يوسع سعة الذاكرة العاملة — مثبت علمياً)';
+  String get dailyProgramCognitive => 'تمرين معرفي — تدريب للذاكرة العاملة';
 
   @override
   String get dailyProgramCognitiveNBack =>
-      'تمرين معرفي — Dual N-Back (يوسع سعة الذاكرة العاملة — مثبت علمياً)';
+      'تمرين معرفي — Dual N-Back (تدريب للذاكرة العاملة)';
 
   @override
   String get dailyProgramCognitiveStroop => 'تمرين معرفي — ستروب';
@@ -4989,29 +4994,29 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get homeBrainCheckOfferBody =>
-      'فحص ذاتي هادئ متى ما كنت مستعداً. مو شرط عشان تكمل.';
+      'فحص ذاتي هادئ متى ما كنت مستعداً. ليس شرطاً للمتابعة.';
 
   @override
   String get v2TodayHomeMissingPlan =>
-      'خطتك مو جاهزة بعد. اضغط بالأسفل عشان تبني اليوم ١.';
+      'خطتك غير جاهزة بعد. اضغط بالأسفل لبناء اليوم ١.';
 
   @override
   String get v2OnboardingWelcomePromise =>
-      'ثلاث دقايق هادئة يومياً عشان تحس بصفاء أكثر — بدون ذنب وبدون ادعاءات طبية.';
+      'ثلاث دقائق هادئة يومياً لتشعر بصفاء أكثر — بلا ذنب وبلا ادعاءات طبية.';
 
   @override
   String get v2OnboardingWelcomeStart => 'ابدأ';
 
   @override
   String get v2OnboardingWelcomeDisclaimer =>
-      'دعم للعناية الذاتية فقط — مو تشخيص طبي.';
+      'دعم للعناية الذاتية فقط — ليس تشخيصاً طبياً.';
 
   @override
   String get v2OnboardingQuickSetupTitle => 'أسئلة سريعة';
 
   @override
   String get v2OnboardingQuickSetupBody =>
-      'جاوب مرة واحدة عشان نجهز لك خطة ٣٠ يوم بلطف.';
+      'أجب مرة واحدة لنجهّز لك خطة ٣٠ يوماً بلطف.';
 
   @override
   String get v2OnboardingQuickSetupContinue => 'شوف خطتي';
@@ -5020,13 +5025,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2OnboardingQScreenHours => 'تقريباً كم ساعة يومياً على الشاشات؟';
 
   @override
-  String get v2OnboardingQMainGoal => 'وش تبي أكثر الحين؟';
+  String get v2OnboardingQMainGoal => 'ما الذي تريده أكثر الآن؟';
 
   @override
   String get v2OnboardingQHardestTime => 'متى أصعب تترك الموبايل؟';
 
   @override
-  String get v2OnboardingQFirstName => 'وش نناديك؟ (اختياري)';
+  String get v2OnboardingQFirstName => 'بماذا نناديك؟ (اختياري)';
 
   @override
   String get v2OnboardingQFirstNameHint => 'الاسم الأول';
@@ -5099,7 +5104,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v2ProgressEmptyFriendly =>
-      'ما في شي هنا بعد — وهذا طبيعي. خذ خطوة اليوم وبيطلع رسمك.';
+      'لا يوجد شيء هنا بعد — وهذا طبيعي. خذ خطوة اليوم وسيظهر رسمك.';
 
   @override
   String get v2ProgressEmptyStartToday => 'ابدأ خطوة اليوم';

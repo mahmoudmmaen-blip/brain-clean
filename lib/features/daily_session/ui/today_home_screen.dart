@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/application/app_preferences_provider.dart';
 import '../../../core/constants/app_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
+import '../../../core/presentation/glow_progress.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_design_constants.dart';
 import '../../../core/theme/v2_shell_visual.dart';
@@ -264,12 +265,13 @@ class TodayHomeBody extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: LinearProgressIndicator(
-              key: const Key('home_program_progress'),
-              value: dashboard.programProgress.clamp(0.0, 1.0),
-              minHeight: 8,
+          KeyedSubtree(
+            key: const Key('home_program_progress'),
+            child: GlowProgressBar(
+              progress: dashboard.programProgress,
+              height: 8,
+              color: AppColors.gold,
+              trackColor: AppColors.of(context).border,
             ),
           ),
           const SizedBox(height: AppDesignConstants.v2GapSection),

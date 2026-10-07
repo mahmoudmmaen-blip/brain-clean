@@ -35,7 +35,7 @@ class _V2ExercisesLibraryScreenState
     final filters = [
       (ExerciseLibraryFilter.all, loc.v2ExercisesFilterAll),
       (ExerciseLibraryFilter.memory, loc.v2ExercisesFilterMemory),
-      (ExerciseLibraryFilter.intelligence, loc.v2ExercisesFilterIntelligence),
+      (ExerciseLibraryFilter.thinking, loc.v2ExercisesFilterIntelligence),
       (ExerciseLibraryFilter.focus, loc.v2ExercisesFilterFocus),
       (ExerciseLibraryFilter.speed, loc.v2ExercisesFilterSpeed),
     ];

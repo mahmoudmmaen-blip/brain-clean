@@ -8,10 +8,11 @@ import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_design_constants.dart';
 import '../../../core/theme/v2_shell_visual.dart';
+import '../../brain_check/data/brain_check_completion_provider.dart';
 import '../data/pillar_metrics_repository_provider.dart';
 import '../domain/pillar_metric_snapshot.dart';
 
-/// Pillar charts + day-one comparison + weekly re-diagnosis entry.
+/// Pillar charts + day-one comparison + weekly Brain Check entry.
 class ProgressPillarSection extends ConsumerWidget {
   const ProgressPillarSection({super.key});
 
@@ -35,6 +36,11 @@ class ProgressPillarSection extends ConsumerWidget {
     final loc = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final async = ref.watch(pillarProgressComparisonProvider);
+    final checkDone = ref.watch(brainCheckIsCompletedProvider);
+    final checkScore = ref.watch(brainCheckCompletionProvider).maybeWhen(
+          data: (r) => r?.scorePlaceholder.recoveryScore?.round(),
+          orElse: () => null,
+        );
 
     return async.when(
       loading: () => const SizedBox.shrink(),
@@ -51,16 +57,22 @@ class ProgressPillarSection extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      loc.v2ProgressPillarsEmpty,
+                      checkDone
+                          ? loc.v2ProgressBrainCheckDoneBody(
+                              '${checkScore ?? '—'}',
+                            )
+                          : loc.v2ProgressPillarsEmpty,
                       style: V2ShellVisual.bodyMuted(theme),
                     ),
-                    const SizedBox(height: 12),
-                    FilledButton(
-                      onPressed: () => context.push(
-                        '${AppRoutes.v2BrainCheckEntry}?mode=lite&source=progress',
+                    if (!checkDone) ...[
+                      const SizedBox(height: 12),
+                      FilledButton(
+                        onPressed: () => context.push(
+                          '${AppRoutes.v2BrainCheckEntry}?mode=lite&source=progress',
+                        ),
+                        child: Text(loc.v2ProgressPillarsFirstDiagnostic),
                       ),
-                      child: Text(loc.v2ProgressPillarsFirstDiagnostic),
-                    ),
+                    ],
                   ],
                 ),
               )
@@ -111,16 +123,19 @@ class ProgressPillarSection extends ConsumerWidget {
                   ),
                 ),
             ],
-            const SizedBox(height: AppDesignConstants.v2GapTight),
-            SizedBox(
-              height: AppDesignConstants.minTouchTarget,
-              child: OutlinedButton(
-                style: V2ShellVisual.secondaryOutlined(),
-                onPressed: () =>
-                    context.push(AppRoutes.v2InteractiveDiagnostic),
-                child: Text(loc.v2ProgressWeeklyRediagnosis),
+            if (checkDone) ...[
+              const SizedBox(height: AppDesignConstants.v2GapTight),
+              SizedBox(
+                height: AppDesignConstants.minTouchTarget,
+                child: OutlinedButton(
+                  style: V2ShellVisual.secondaryOutlined(),
+                  onPressed: () => context.push(
+                    '${AppRoutes.v2BrainCheckEntry}?mode=lite&source=progress_recheck',
+                  ),
+                  child: Text(loc.v2ProgressWeeklyRediagnosis),
+                ),
               ),
-            ),
+            ],
           ],
         );
       },

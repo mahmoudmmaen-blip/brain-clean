@@ -52,8 +52,12 @@ class HomeDashboardMetrics {
 
   double get focusProgress => recoveryPercent / 100;
 
-  double get programProgress =>
-      programDay.clamp(0, programTotalDays) / programTotalDays;
+  /// Day 1 of 30 ≈ 3%; never use recovery score for this bar.
+  double get programProgress {
+    final total = programTotalDays < 1 ? 1 : programTotalDays;
+    final day = programDay.clamp(0, total);
+    return (day / total).clamp(0.0, 1.0);
+  }
 
   static const empty = HomeDashboardMetrics(
     focusPercent: 0,

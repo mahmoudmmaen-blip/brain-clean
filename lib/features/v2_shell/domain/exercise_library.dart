@@ -8,7 +8,7 @@ enum ExerciseLibraryFilter {
   memory,
   focus,
   speed,
-  intelligence,
+  thinking,
 }
 
 enum ExerciseLibraryTier {
@@ -77,7 +77,7 @@ abstract final class ExerciseLibraryCatalog {
       tier: ExerciseLibraryTier.free,
       categories: {
         ExerciseLibraryFilter.memory,
-        ExerciseLibraryFilter.intelligence,
+        ExerciseLibraryFilter.thinking,
       },
       icon: Icons.hub_outlined,
       iconBg: AppColors.primaryDim,
@@ -87,7 +87,6 @@ abstract final class ExerciseLibraryCatalog {
       launch: ExerciseLibraryLaunch.nBack,
       estimatedMinutes: 8,
       difficulty: ExerciseLibraryDifficulty.hard,
-      scienceBadgeKey: 'v2ExercisesScienceBadgeNBack',
     ),
     ExerciseLibraryItem(
       id: 'stroop',
@@ -157,7 +156,7 @@ abstract final class ExerciseLibraryCatalog {
     ExerciseLibraryItem(
       id: 'pattern_logic',
       tier: ExerciseLibraryTier.pro,
-      categories: {ExerciseLibraryFilter.intelligence},
+      categories: {ExerciseLibraryFilter.thinking},
       icon: Icons.psychology_outlined,
       iconBg: AppColors.goldDim,
       iconColor: AppColors.gold,

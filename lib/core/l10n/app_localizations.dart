@@ -1217,7 +1217,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingPage2Body.
   ///
   /// In en, this message translates to:
-  /// **'Real science-based formulas to measure brain health'**
+  /// **'Simple daily tracking to notice focus and habits'**
   String get onboardingPage2Body;
 
   /// No description provided for @onboardingPage3Title.
@@ -1241,19 +1241,19 @@ abstract class AppLocalizations {
   /// No description provided for @proPaywallTitle.
   ///
   /// In en, this message translates to:
-  /// **'Brain Clean Pro'**
+  /// **'Unlock the full program'**
   String get proPaywallTitle;
 
   /// No description provided for @proPaywallSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Unlock your mind\'s full potential'**
+  /// **'More tools when you are ready — your free path stays.'**
   String get proPaywallSubtitle;
 
   /// No description provided for @proFeatureAdvancedBcs.
   ///
   /// In en, this message translates to:
-  /// **'Advanced Brain Clarity Score engine'**
+  /// **'Personalized daily program'**
   String get proFeatureAdvancedBcs;
 
   /// No description provided for @proFeatureSevenDayChart.
@@ -1271,7 +1271,7 @@ abstract class AppLocalizations {
   /// No description provided for @proFeatureFocusChallenges.
   ///
   /// In en, this message translates to:
-  /// **'Advanced focus challenges'**
+  /// **'Silence challenge'**
   String get proFeatureFocusChallenges;
 
   /// No description provided for @proFeatureCloudSync.
@@ -2615,13 +2615,13 @@ abstract class AppLocalizations {
   /// No description provided for @gameNBackDesc.
   ///
   /// In en, this message translates to:
-  /// **'Strongest science-backed working memory training'**
+  /// **'A challenging working-memory exercise'**
   String get gameNBackDesc;
 
   /// No description provided for @gameNBackIntro.
   ///
   /// In en, this message translates to:
-  /// **'This is scientifically the strongest game for working memory'**
+  /// **'A challenging working-memory exercise — take it at your pace'**
   String get gameNBackIntro;
 
   /// No description provided for @gameNBackLevel.
@@ -4445,7 +4445,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2SessionMarkDone.
   ///
   /// In en, this message translates to:
-  /// **'Mark step done'**
+  /// **'Done ✓'**
   String get v2SessionMarkDone;
 
   /// No description provided for @v2SessionSkipOptional.
@@ -4589,7 +4589,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2SessionLeaveBody.
   ///
   /// In en, this message translates to:
-  /// **'Quiet competence is enough. Leave the app when you are ready.'**
+  /// **'Nice work! A small step today = a stronger habit tomorrow.'**
   String get v2SessionLeaveBody;
 
   /// No description provided for @v2SessionLeaveNext.
@@ -5885,7 +5885,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2ProgressWeeklyRediagnosis.
   ///
   /// In en, this message translates to:
-  /// **'Weekly Brain Check'**
+  /// **'Re-check Brain Check'**
   String get v2ProgressWeeklyRediagnosis;
 
   /// No description provided for @v2ProgressPatternDetails.
@@ -6444,7 +6444,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2ExercisesFilterIntelligence.
   ///
   /// In en, this message translates to:
-  /// **'Intelligence'**
+  /// **'Thinking'**
   String get v2ExercisesFilterIntelligence;
 
   /// No description provided for @v2ExercisesFilterMentalFitness.
@@ -6510,13 +6510,13 @@ abstract class AppLocalizations {
   /// No description provided for @v2ExercisesNBackSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'The strongest science-backed drill for working memory and fluid intelligence'**
+  /// **'A challenging and fun working-memory exercise'**
   String get v2ExercisesNBackSubtitle;
 
   /// No description provided for @v2ExercisesScienceBadgeNBack.
   ///
   /// In en, this message translates to:
-  /// **'Science-backed — boosts working memory'**
+  /// **'Working-memory practice'**
   String get v2ExercisesScienceBadgeNBack;
 
   /// No description provided for @v2ExercisesStroopTitle.
@@ -6588,7 +6588,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2ExercisesPatternLogicSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Timed sequences with a missing element — measures fluid intelligence'**
+  /// **'Timed sequences with a missing element — five quick pattern questions'**
   String get v2ExercisesPatternLogicSubtitle;
 
   /// No description provided for @v2ExercisesReadingTitle.
@@ -6612,7 +6612,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2ExercisesDetoxSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Reset dopamine and restore mental patience'**
+  /// **'A short break from social feeds to rebuild patience'**
   String get v2ExercisesDetoxSubtitle;
 
   /// No description provided for @v2ExercisesAccountabilityTitle.
@@ -6810,7 +6810,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2PremiumOrientation.
   ///
   /// In en, this message translates to:
-  /// **'Premium deepens continuity after you have already made progress — it does not unlock recovery.'**
+  /// **'Unlock the full program'**
   String get v2PremiumOrientation;
 
   /// No description provided for @v2PremiumFreeCoreReassurance.
@@ -6840,7 +6840,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2PremiumContinuityBody.
   ///
   /// In en, this message translates to:
-  /// **'Deeper WeeklyArtifact archive and long-horizon evidence history.'**
+  /// **'Deeper weekly report archive over time.'**
   String get v2PremiumContinuityBody;
 
   /// No description provided for @v2PremiumInterpretation.
@@ -6852,7 +6852,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2PremiumInterpretationBody.
   ///
   /// In en, this message translates to:
-  /// **'Planned deterministic context layers only — never medical AI claims. Not active yet.'**
+  /// **'Clear, honest summaries — never medical claims. Some layers are not active yet.'**
   String get v2PremiumInterpretationBody;
 
   /// No description provided for @v2PremiumFit.
@@ -6864,7 +6864,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2PremiumFitBody.
   ///
   /// In en, this message translates to:
-  /// **'Future approved adaptation depth without silent Plan changes.'**
+  /// **'A program that can adapt gently without surprising you.'**
   String get v2PremiumFitBody;
 
   /// No description provided for @v2PremiumSupport.
@@ -6876,7 +6876,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2PremiumSupportBody.
   ///
   /// In en, this message translates to:
-  /// **'Future continuity support under a separate contract — never Premium-only crisis care.'**
+  /// **'Optional support later — urgent care is never locked behind Pro.'**
   String get v2PremiumSupportBody;
 
   /// No description provided for @v2PremiumIncludesNowHeading.
@@ -6900,7 +6900,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2PremiumIncludeTools.
   ///
   /// In en, this message translates to:
-  /// **'Selected tools: emotion wheel, silence, crossword, games, and cognitive test'**
+  /// **'Extra tools: emotion wheel, silence challenge, crossword, games hub'**
   String get v2PremiumIncludeTools;
 
   /// No description provided for @v2PremiumIncludeChart.
@@ -6912,7 +6912,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2PremiumBenefitsBody.
   ///
   /// In en, this message translates to:
-  /// **'Latest and previous Weekly proof stay Free. Premium deepens continuity — it does not unlock recovery.'**
+  /// **'Your free daily path stays. Pro adds archive, chart, and extra tools.'**
   String get v2PremiumBenefitsBody;
 
   /// No description provided for @v2PremiumPlanMonthlyTitle.
@@ -6960,37 +6960,37 @@ abstract class AppLocalizations {
   /// No description provided for @v2PremiumFeaturesHeading.
   ///
   /// In en, this message translates to:
-  /// **'Everything in Pro'**
+  /// **'What you get with Pro'**
   String get v2PremiumFeaturesHeading;
 
   /// No description provided for @v2PremiumFeatureNoAds.
   ///
   /// In en, this message translates to:
-  /// **'Remove all ads'**
+  /// **'(This app has no ads)'**
   String get v2PremiumFeatureNoAds;
 
   /// No description provided for @v2PremiumFeatureBiometric.
   ///
   /// In en, this message translates to:
-  /// **'Biometric app lock'**
+  /// **'(App lock is free for everyone)'**
   String get v2PremiumFeatureBiometric;
 
   /// No description provided for @v2PremiumFeatureCloudSync.
   ///
   /// In en, this message translates to:
-  /// **'Cloud sync across devices'**
+  /// **'(Cloud sync is not available in this build)'**
   String get v2PremiumFeatureCloudSync;
 
   /// No description provided for @v2PremiumFeatureStealth.
   ///
   /// In en, this message translates to:
-  /// **'Stealth mode icon'**
+  /// **'(Not available in this build)'**
   String get v2PremiumFeatureStealth;
 
   /// No description provided for @v2PremiumFeatureFullStats.
   ///
   /// In en, this message translates to:
-  /// **'Full statistics and detailed charts'**
+  /// **'Seven-day progress chart'**
   String get v2PremiumFeatureFullStats;
 
   /// No description provided for @v2PremiumFeatureWeeklyArchive.
@@ -6998,6 +6998,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Deep weekly report archive'**
   String get v2PremiumFeatureWeeklyArchive;
+
+  /// No description provided for @v2PremiumFeatureExtraExercises.
+  ///
+  /// In en, this message translates to:
+  /// **'Extra focus and memory exercises'**
+  String get v2PremiumFeatureExtraExercises;
+
+  /// No description provided for @v2PremiumFeaturePersonalizedPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Personalized daily program'**
+  String get v2PremiumFeaturePersonalizedPlan;
+
+  /// No description provided for @v2ProgressBrainCheckDoneBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Check complete (score {score}). You can re-check weekly when you like.'**
+  String v2ProgressBrainCheckDoneBody(String score);
 
   /// No description provided for @v2PremiumViewPlans.
   ///
@@ -7530,7 +7548,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2ProfilePurityHeading.
   ///
   /// In en, this message translates to:
-  /// **'Purity journey'**
+  /// **'Your 30-day path'**
   String get v2ProfilePurityHeading;
 
   /// No description provided for @v2ProfilePurityDay.
@@ -7542,7 +7560,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2ProfilePuritySubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Days on your recovery path since you started'**
+  /// **'Same day count as Home'**
   String get v2ProfilePuritySubtitle;
 
   /// No description provided for @v2ProfileNotificationsRow.
@@ -7884,13 +7902,13 @@ abstract class AppLocalizations {
   /// No description provided for @dailyProgramCognitive.
   ///
   /// In en, this message translates to:
-  /// **'Cognitive exercise (expands working-memory capacity — science-backed)'**
+  /// **'Cognitive exercise — working-memory practice'**
   String get dailyProgramCognitive;
 
   /// No description provided for @dailyProgramCognitiveNBack.
   ///
   /// In en, this message translates to:
-  /// **'Cognitive exercise — Dual N-Back (expands working-memory capacity — science-backed)'**
+  /// **'Cognitive exercise — Dual N-Back (working-memory practice)'**
   String get dailyProgramCognitiveNBack;
 
   /// No description provided for @dailyProgramCognitiveStroop.

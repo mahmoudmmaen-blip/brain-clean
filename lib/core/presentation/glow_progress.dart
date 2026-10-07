@@ -155,11 +155,9 @@ class GlowProgressBar extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final maxW = constraints.maxWidth;
-        final fillW = maxW * clamped;
-        final minCap = height;
-        final shown = fillW <= 0
-            ? 0.0
-            : fillW.clamp(minCap, maxW);
+        // Exact fraction — do not inflate tiny values to [height] px
+        // (that made Day 1 look nearly full on some layouts).
+        final shown = maxW * clamped;
 
         return SizedBox(
           height: height + 8,

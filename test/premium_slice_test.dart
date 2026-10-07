@@ -464,14 +464,13 @@ void main() {
       );
       await tester.pumpAndSettle();
       expect(find.text('Premium'), findsWidgets);
+      expect(find.textContaining('Unlock the full program'), findsOneWidget);
       expect(find.textContaining('Free core'), findsOneWidget);
       expect(find.textContaining('current progress'), findsOneWidget);
-      for (final capital in ['Continuity', 'Interpretation', 'Fit', 'Support']) {
-        expect(find.text(capital), findsOneWidget);
-      }
       expect(find.text('Included with Premium now'), findsOneWidget);
       expect(find.textContaining('Older Reports archive'), findsOneWidget);
-      expect(find.textContaining('Not active yet'), findsOneWidget);
+      expect(find.textContaining('Seven-day progress chart'), findsWidgets);
+      expect(find.textContaining('Extra focus and memory'), findsWidgets);
       expect(find.text('View plans'), findsWidgets);
       expect(find.byKey(const Key('v2_premium_view_plans')), findsOneWidget);
       expect(find.byKey(const Key('v2_premium_restore')), findsOneWidget);
@@ -480,10 +479,12 @@ void main() {
       expect(find.textContaining('Unlock recovery'), findsNothing);
       expect(find.textContaining('Don’t lose'), findsNothing);
       expect(find.textContaining('full potential'), findsNothing);
-      expect(find.textContaining('cloud sync'), findsNothing);
+      expect(find.textContaining('Remove all ads'), findsNothing);
+      expect(find.textContaining('Cloud sync'), findsNothing);
       expect(find.textContaining('Brain Clean Pro'), findsNothing);
       expect(find.textContaining('free trial'), findsNothing);
       expect(find.textContaining('Free trial'), findsNothing);
+      expect(find.text('Continuity'), findsNothing);
     });
 
     testWidgets('flag OFF preserves V1 for /v2/premium', (tester) async {
@@ -534,12 +535,13 @@ void main() {
       );
       await tester.pumpAndSettle();
       expect(find.text(ar.v2PremiumTitle), findsWidgets);
+      expect(find.text(ar.v2PremiumOrientation), findsOneWidget);
       await tester.scrollUntilVisible(
-        find.text(ar.v2PremiumContinuity),
+        find.textContaining(ar.v2PremiumIncludeChart),
         200,
         scrollable: find.byType(Scrollable).first,
       );
-      expect(find.text(ar.v2PremiumContinuity), findsOneWidget);
+      expect(find.textContaining(ar.v2PremiumIncludeChart), findsWidgets);
       await tester.scrollUntilVisible(
         find.byKey(const Key('v2_premium_restore')),
         200,

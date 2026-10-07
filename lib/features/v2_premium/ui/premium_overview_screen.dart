@@ -109,34 +109,16 @@ class _PremiumOverviewScreenState extends ConsumerState<PremiumOverviewScreen> {
       Semantics(
         header: true,
         child: Text(
-          loc.v2PremiumFourCapitalsHeading,
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
-      ),
-      const SizedBox(height: 12),
-      _Capital(
-        title: loc.v2PremiumContinuity,
-        body: loc.v2PremiumContinuityBody,
-      ),
-      _Capital(
-        title: loc.v2PremiumInterpretation,
-        body: loc.v2PremiumInterpretationBody,
-      ),
-      _Capital(title: loc.v2PremiumFit, body: loc.v2PremiumFitBody),
-      _Capital(title: loc.v2PremiumSupport, body: loc.v2PremiumSupportBody),
-      const SizedBox(height: 16),
-      Semantics(
-        header: true,
-        child: Text(
           loc.v2PremiumIncludesNowHeading,
           style: Theme.of(context).textTheme.titleMedium,
         ),
       ),
       const SizedBox(height: 8),
-      _IncludeBullet(loc.v2PremiumIncludeArchive),
-      _IncludeBullet(loc.v2PremiumIncludeThemes),
-      _IncludeBullet(loc.v2PremiumIncludeTools),
       _IncludeBullet(loc.v2PremiumIncludeChart),
+      _IncludeBullet(loc.v2PremiumIncludeArchive),
+      _IncludeBullet(loc.v2PremiumIncludeTools),
+      _IncludeBullet(loc.v2PremiumFeatureExtraExercises),
+      _IncludeBullet(loc.v2PremiumFeaturePersonalizedPlan),
       const SizedBox(height: 12),
       Text(loc.v2PremiumBenefitsBody),
       const SizedBox(height: 24),
@@ -267,27 +249,6 @@ class _PremiumOverviewScreenState extends ConsumerState<PremiumOverviewScreen> {
       child: ListView(
         padding: const EdgeInsets.all(24),
         children: children,
-      ),
-    );
-  }
-}
-
-class _Capital extends StatelessWidget {
-  const _Capital({required this.title, required this.body});
-  final String title;
-  final String body;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(title, style: Theme.of(context).textTheme.titleSmall),
-          const SizedBox(height: 4),
-          Text(body),
-        ],
       ),
     );
   }

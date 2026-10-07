@@ -75,13 +75,14 @@ class _ProPaywallScreenState extends ConsumerState<ProPaywallScreen> {
           .id;
     }
 
+    // Only list Pro-gated benefits that work in this build.
     final features = [
-      loc.proFeatureColorThemes,
-      loc.proFeatureAdvancedBcs,
       loc.proFeatureSevenDayChart,
+      loc.v2PremiumFeatureWeeklyArchive,
       loc.proFeatureEmotionWheel,
       loc.proFeatureFocusChallenges,
-      loc.proFeatureCloudSync,
+      loc.v2PremiumFeatureExtraExercises,
+      loc.v2PremiumFeaturePersonalizedPlan,
     ];
 
     return Scaffold(

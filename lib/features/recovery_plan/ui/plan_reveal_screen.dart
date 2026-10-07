@@ -849,10 +849,6 @@ List<Widget> _pathSteps(
               step.minimumPathForLocale(languageCode),
               style: Theme.of(context).textTheme.bodySmall,
             ),
-            Text(
-              step.accessibilityAltForLocale(languageCode),
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
           ],
         ),
       ),

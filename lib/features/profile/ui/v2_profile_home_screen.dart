@@ -13,7 +13,8 @@ import '../../../core/theme/app_design_constants.dart';
 import '../../../core/theme/v2_shell_visual.dart';
 import '../../brain_check/data/brain_check_local_repository_provider.dart';
 import '../../brain_profile/data/brain_profile_repository_provider.dart';
-import '../../home/presentation/home_streak_provider.dart';
+import '../../daily_session/data/home_dashboard_provider.dart';
+import '../../daily_session/domain/home_dashboard_metrics.dart';
 import '../../pro/application/subscription_service_provider.dart';
 import '../../v2_onboarding/domain/v2_setup_recovery.dart';
 import '../../../core/services/smart_notification_service.dart';
@@ -153,7 +154,10 @@ class _V2ProfileHomeScreenState extends ConsumerState<V2ProfileHomeScreen> {
     final loc = AppLocalizations.of(context)!;
     final prefs = ref.watch(appPreferencesProvider);
     final isPro = ref.watch(isProUserProvider);
-    final streak = ref.watch(homeStreakSnapshotProvider);
+    final programDay = ref.watch(homeDashboardProvider).maybeWhen(
+          data: (m) => m.programDay,
+          orElse: () => 1,
+        );
     final stored = prefs.profileDisplayName.trim();
     final displayName = stored.isEmpty ? loc.v2ProfileDefaultIdentity : stored;
 
@@ -173,7 +177,8 @@ class _V2ProfileHomeScreenState extends ConsumerState<V2ProfileHomeScreen> {
         child: V2ProfileHomeBody(
           loc: loc,
           displayName: displayName,
-          purityDays: streak.days,
+          // Same SSOT as Home "Day X of 30" — not streak days.
+          purityDays: programDay.clamp(1, kHomeProgramTotalDays),
           notificationsEnabled: prefs.emotionNotificationsEnabled,
           loadingSetup: _loadingSetup,
           hasBrainProfile: _hasBrainProfile,
@@ -338,7 +343,10 @@ class V2ProfileHomeBody extends StatelessWidget {
                       ),
                       const SizedBox(height: 6),
                       Text(
-                        loc.v2ProfilePurityDay(purityDays),
+                        loc.homeProgramDayLabel(
+                          '$purityDays',
+                          '$kHomeProgramTotalDays',
+                        ),
                         style: V2ShellVisual.heroMetricValue(theme),
                       ),
                       const SizedBox(height: 4),

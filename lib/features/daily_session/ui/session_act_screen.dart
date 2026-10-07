@@ -142,7 +142,9 @@ class _SessionActScreenState extends ConsumerState<SessionActScreen>
                     Semantics(
                       header: true,
                       child: Text(
-                        step.nameForLocale(languageCode),
+                        step.optional
+                            ? '${step.nameForLocale(languageCode)} (${loc.v2SessionOptionalLabel})'
+                            : step.nameForLocale(languageCode),
                         style: Theme.of(context).textTheme.headlineSmall,
                       ),
                     ),
@@ -161,21 +163,13 @@ class _SessionActScreenState extends ConsumerState<SessionActScreen>
                         '${step.durationMinutesMax}',
                       ),
                     ),
-                    const SizedBox(height: 12),
-                    // Accessibility alt stays semantic-only — never visible copy.
+                    const SizedBox(height: 16),
+                    // Accessibility alternatives are semantic-only — never shown.
                     Semantics(
                       label: step.accessibilityAltForLocale(languageCode),
                       excludeSemantics: true,
                       child: const SizedBox.shrink(),
                     ),
-                    const SizedBox(height: 8),
-                    Text(
-                      step.optional
-                          ? loc.v2SessionOptionalLabel
-                          : loc.v2SessionRequiredLabel,
-                      style: Theme.of(context).textTheme.labelLarge,
-                    ),
-                    const SizedBox(height: 16),
                     if (_timerRunning || _secondsLeft > 0)
                       Semantics(
                         liveRegion: true,
