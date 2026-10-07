@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 import 'app_colors.dart';
+import 'app_fonts.dart';
 
 /// Central design tokens for Brain Clean — §6.2 (+ legacy aliases).
 ///
@@ -88,7 +87,8 @@ abstract final class AppDesignConstants {
     double height = arabicBodyLineHeight,
     double letterSpacing = 0,
   }) {
-    return GoogleFonts.tajawal(
+    return TextStyle(
+      fontFamily: AppFonts.tajawal,
       fontSize: fontSize,
       fontWeight: fontWeight,
       color: color,

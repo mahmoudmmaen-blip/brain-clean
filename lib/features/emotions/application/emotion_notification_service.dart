@@ -5,10 +5,11 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/app_routes.dart';
 import '../../../core/routing/app_navigator_key.dart';
+import '../../../core/utils/date_format_utils.dart';
 
-const emotionRecoveryDeclinePayload = 'emotion_recovery_decline';
+const emotionBreathingSupportPayload = 'emotion_breathing_support';
 
-/// Shows local notifications when emotion logging reduces recovery score.
+/// Local notifications after emotion logging (supportive, no score penalty).
 class EmotionNotificationService {
   EmotionNotificationService({
     FlutterLocalNotificationsPlugin? plugin,
@@ -32,31 +33,40 @@ class EmotionNotificationService {
   }
 
   void _onNotificationTap(NotificationResponse response) {
-    if (response.payload != emotionRecoveryDeclinePayload) return;
+    if (response.payload != emotionBreathingSupportPayload) return;
     final context = _navigatorKey?.currentContext;
-    if (context != null && context.mounted) {
-      context.push(AppRoutes.emotionWheel);
-    }
+    if (context == null || !context.mounted) return;
+    final day = DateFormatUtils.dayKey(DateTime.now());
+    context.push(
+      '${AppRoutes.v2DailyProgramTimer}'
+      '?activityId=emotion_breathing_60'
+      '&minutes=1'
+      '&title=${Uri.encodeComponent('')}'
+      '&day=$day',
+    );
   }
 
-  Future<void> showRecoveryDecline({
-    required int newBcsRounded,
+  Future<void> showBreathingSupport({
+    required String channelName,
+    required String channelDescription,
+    required String title,
+    required String body,
   }) async {
     await initialize();
-    const androidDetails = AndroidNotificationDetails(
-      'emotion_recovery',
-      'تنبيهات التعافي',
-      channelDescription: 'تنبيهات تأثير المشاعر على نسبة التعافي',
-      importance: Importance.high,
-      priority: Priority.high,
+    final androidDetails = AndroidNotificationDetails(
+      'emotion_support',
+      channelName,
+      channelDescription: channelDescription,
+      importance: Importance.defaultImportance,
+      priority: Priority.defaultPriority,
     );
     const iosDetails = DarwinNotificationDetails();
     await _plugin.show(
       1,
-      'تنبيه: تراجع نسبة التعافي',
-      'مشاعرك السلبية أثّرت على نسبة تعافيك. تعافيك الحالي: $newBcsRounded%',
-      const NotificationDetails(android: androidDetails, iOS: iosDetails),
-      payload: emotionRecoveryDeclinePayload,
+      title,
+      body,
+      NotificationDetails(android: androidDetails, iOS: iosDetails),
+      payload: emotionBreathingSupportPayload,
     );
   }
 }

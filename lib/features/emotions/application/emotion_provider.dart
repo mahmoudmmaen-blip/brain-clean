@@ -1,6 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../diagnostic/presentation/bc_score_provider.dart';
+import '../../gamification/application/verified_xp_provider.dart';
+import '../../gamification/domain/xp_source.dart';
 import '../data/emotion_log_repository.dart';
 import '../domain/emotion_log_entry.dart';
 import '../domain/emotion_model.dart';
@@ -9,6 +10,9 @@ import '../../../core/services/cloud_sync_service.dart';
 import '../../../core/application/app_preferences_provider.dart';
 
 part 'emotion_provider.g.dart';
+
+/// XP credited when the user logs any emotion (self-awareness).
+const emotionLogSelfAwarenessXp = 5;
 
 /// Mood gate selection before category chips.
 enum EmotionMoodGate { negative, neutral, positive }
@@ -83,15 +87,13 @@ class EmotionNotifier extends _$EmotionNotifier {
     );
   }
 
-  Future<void> confirmImpact() async {
+  Future<void> confirmImpact({
+    void Function()? onLogged,
+  }) async {
     final emotion = state.selectedEmotion;
-    final impact = state.pendingImpact;
     if (emotion == null) return;
 
-    final sessionBefore = ref.read(bcScoreSessionProvider);
-    final previousBcs = sessionBefore?.bcScoreRounded ?? 0;
-
-    ref.read(bcScoreProvider.notifier).applyEmotionImpact(impact);
+    const impact = 0.0;
 
     try {
       final timestamp = DateTime.now();
@@ -107,22 +109,16 @@ class EmotionNotifier extends _$EmotionNotifier {
               timestamp: timestamp,
             ),
           );
+      ref.read(verifiedTotalXpProvider.notifier).award(
+            source: XpSource.other,
+            amount: emotionLogSelfAwarenessXp,
+            refId: 'emotion_${timestamp.millisecondsSinceEpoch}',
+          );
     } catch (_) {
-      // Logging is best-effort; BCS update remains authoritative.
+      // Logging is best-effort.
     }
 
-    final sessionAfter = ref.read(bcScoreSessionProvider);
-    final newBcs = sessionAfter?.bcScoreRounded ?? previousBcs;
-    if (sessionAfter != null && newBcs < previousBcs) {
-      final notificationsOn =
-          ref.read(appPreferencesProvider).emotionNotificationsEnabled;
-      if (notificationsOn) {
-        await ref
-            .read(emotionNotificationServiceProvider)
-            .showRecoveryDecline(newBcsRounded: newBcs);
-      }
-    }
-
+    onLogged?.call();
     state = EmotionState.initial;
   }
 

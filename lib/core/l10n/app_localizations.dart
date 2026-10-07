@@ -1532,23 +1532,47 @@ abstract class AppLocalizations {
   /// **'Emotion wheel'**
   String get emotionWheelTitle;
 
-  /// No description provided for @emotionImpactDialogTitle.
+  /// No description provided for @emotionLogConfirmTitle.
   ///
   /// In en, this message translates to:
-  /// **'Impact on your recovery'**
-  String get emotionImpactDialogTitle;
+  /// **'Log this feeling?'**
+  String get emotionLogConfirmTitle;
 
-  /// No description provided for @emotionImpactNegative.
+  /// No description provided for @emotionLogConfirmBody.
   ///
   /// In en, this message translates to:
-  /// **'Feeling {emotion} will reduce your recovery by {pct}%.\nLog it?'**
-  String emotionImpactNegative(String emotion, String pct);
+  /// **'Noting \"{emotion}\" builds self-awareness. Your recovery score won\'t change.'**
+  String emotionLogConfirmBody(String emotion);
 
-  /// No description provided for @emotionImpactPositive.
+  /// No description provided for @emotionSupportChannelName.
   ///
   /// In en, this message translates to:
-  /// **'Feeling {emotion} will improve your recovery by {pct}%.\nLog it?'**
-  String emotionImpactPositive(String emotion, String pct);
+  /// **'Emotion support'**
+  String get emotionSupportChannelName;
+
+  /// No description provided for @emotionSupportChannelDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Supportive tips after you log a feeling'**
+  String get emotionSupportChannelDescription;
+
+  /// No description provided for @emotionBreathingNotificationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You logged a feeling'**
+  String get emotionBreathingNotificationTitle;
+
+  /// No description provided for @emotionBreathingNotificationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'That takes courage. Try a 60-second breathing exercise — tap to start.'**
+  String get emotionBreathingNotificationBody;
+
+  /// No description provided for @emotionBreathingExerciseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'60-second breathing'**
+  String get emotionBreathingExerciseTitle;
 
   /// No description provided for @emotionIgnore.
   ///
@@ -4199,7 +4223,7 @@ abstract class AppLocalizations {
   /// No description provided for @adaptiveProgramAscensionPhase4Goal.
   ///
   /// In en, this message translates to:
-  /// **'Maintain — adaptive focus / memory / IQ / active rest.'**
+  /// **'Maintain — adaptive focus / memory / reasoning / active rest.'**
   String get adaptiveProgramAscensionPhase4Goal;
 
   /// No description provided for @adaptiveProgramWeekLabel.
@@ -4259,7 +4283,7 @@ abstract class AppLocalizations {
   /// No description provided for @adaptiveProgramEnhancedMindGoal.
   ///
   /// In en, this message translates to:
-  /// **'Maintain peak cognition with a rotating focus / memory / IQ / rest plan.'**
+  /// **'Maintain peak cognition with a rotating focus / memory / reasoning / rest plan.'**
   String get adaptiveProgramEnhancedMindGoal;
 
   /// No description provided for @adaptiveProgramFreeResetCompleteGoal.
@@ -8184,7 +8208,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeQuickTestIq.
   ///
   /// In en, this message translates to:
-  /// **'IQ'**
+  /// **'Reasoning check'**
   String get homeQuickTestIq;
 
   /// No description provided for @homeQuickTestDigitalBrainRot.
@@ -8220,7 +8244,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2ProfileTestsCatalogSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'IQ, digital brain rot, focus, and memory'**
+  /// **'Reasoning check, digital brain rot, focus, and memory'**
   String get v2ProfileTestsCatalogSubtitle;
 
   /// No description provided for @quickTestProgress.
@@ -8232,7 +8256,7 @@ abstract class AppLocalizations {
   /// No description provided for @iqTestTitle.
   ///
   /// In en, this message translates to:
-  /// **'IQ check'**
+  /// **'Reasoning check'**
   String get iqTestTitle;
 
   /// No description provided for @iqTestSubtitle.
@@ -8274,7 +8298,7 @@ abstract class AppLocalizations {
   /// No description provided for @iqTestDisclaimer.
   ///
   /// In en, this message translates to:
-  /// **'A short practice snapshot — not a clinical IQ test.'**
+  /// **'This is a short practice exercise, not a measure of intelligence.'**
   String get iqTestDisclaimer;
 
   /// No description provided for @iqQ1Stem.
@@ -8616,7 +8640,7 @@ abstract class AppLocalizations {
   /// No description provided for @briRecommendEnhancedBody.
   ///
   /// In en, this message translates to:
-  /// **'Enhanced Mind keeps peak cognition with a rotating focus / memory / IQ plan — Pro.'**
+  /// **'Enhanced Mind keeps peak cognition with a rotating focus / memory / reasoning plan — Pro.'**
   String get briRecommendEnhancedBody;
 
   /// No description provided for @briRecommendBaseBody.
@@ -8646,7 +8670,7 @@ abstract class AppLocalizations {
   /// No description provided for @briRadarIq.
   ///
   /// In en, this message translates to:
-  /// **'Intelligence'**
+  /// **'Reasoning'**
   String get briRadarIq;
 
   /// No description provided for @briRadarSleep.

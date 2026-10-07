@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 import 'app_colors.dart';
 import 'app_design_constants.dart';
+import 'app_fonts.dart';
 
 abstract final class AppTheme {
   static const Color gold = AppDesignConstants.accentGold;
@@ -86,7 +85,7 @@ abstract final class AppTheme {
       colorScheme: colorScheme,
     );
 
-    final textTheme = GoogleFonts.tajawalTextTheme(base.textTheme).apply(
+    final textTheme = AppFonts.tajawalTextTheme(base.textTheme).apply(
       bodyColor: onSurface,
       displayColor: onSurface,
     );

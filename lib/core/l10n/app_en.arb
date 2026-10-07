@@ -326,21 +326,18 @@
   "settingsPrivacyPolicy": "Privacy policy",
   "settingsContactUs": "Contact us",
   "emotionWheelTitle": "Emotion wheel",
-  "emotionImpactDialogTitle": "Impact on your recovery",
-  "emotionImpactNegative": "Feeling {emotion} will reduce your recovery by {pct}%.\nLog it?",
-  "@emotionImpactNegative": {
+  "emotionLogConfirmTitle": "Log this feeling?",
+  "emotionLogConfirmBody": "Noting \"{emotion}\" builds self-awareness. Your recovery score won't change.",
+  "@emotionLogConfirmBody": {
     "placeholders": {
-      "emotion": { "type": "String" },
-      "pct": { "type": "String" }
+      "emotion": { "type": "String" }
     }
   },
-  "emotionImpactPositive": "Feeling {emotion} will improve your recovery by {pct}%.\nLog it?",
-  "@emotionImpactPositive": {
-    "placeholders": {
-      "emotion": { "type": "String" },
-      "pct": { "type": "String" }
-    }
-  },
+  "emotionSupportChannelName": "Emotion support",
+  "emotionSupportChannelDescription": "Supportive tips after you log a feeling",
+  "emotionBreathingNotificationTitle": "You logged a feeling",
+  "emotionBreathingNotificationBody": "That takes courage. Try a 60-second breathing exercise — tap to start.",
+  "emotionBreathingExerciseTitle": "60-second breathing",
   "emotionIgnore": "No, ignore",
   "emotionConfirmLog": "Yes, log it",
   "emotionGateNegative": "I feel something negative",
@@ -1027,7 +1024,7 @@
   "adaptiveProgramAscensionPhase1Goal": "Purge phase — prioritize BRI reduction.",
   "adaptiveProgramAscensionPhase2Goal": "Build phase — memory and focus capacity.",
   "adaptiveProgramAscensionPhase3Goal": "Optimize — peak cognitive performance.",
-  "adaptiveProgramAscensionPhase4Goal": "Maintain — adaptive focus / memory / IQ / active rest.",
+  "adaptiveProgramAscensionPhase4Goal": "Maintain — adaptive focus / memory / reasoning / active rest.",
   "adaptiveProgramWeekLabel": "Week {week}",
   "@adaptiveProgramWeekLabel": {
     "placeholders": {
@@ -1042,7 +1039,7 @@
   "adaptiveProgramBreathing": "Breathing reset (2–3 min)",
   "adaptiveProgramWeekendChallenge": "Weekend challenge",
   "adaptiveProgramEnhancedMindTitle": "Enhanced Mind",
-  "adaptiveProgramEnhancedMindGoal": "Maintain peak cognition with a rotating focus / memory / IQ / rest plan.",
+  "adaptiveProgramEnhancedMindGoal": "Maintain peak cognition with a rotating focus / memory / reasoning / rest plan.",
   "adaptiveProgramFreeResetCompleteGoal": "Free Reset complete — unlock Pro to continue.",
   "adaptiveProgramFreeResetCompleteTitle": "Open Pro to see your full program",
   "adaptiveProgramFreeResetCompleteBody": "You finished the 4-week Reset Protocol. Upgrade to Pro for Neural Ascension, Enhanced Mind, challenges, and reports.",
@@ -1982,13 +1979,13 @@
   "testsCatalogTitle": "Tests",
   "testsCatalogSubtitle": "Quick checks for reasoning, screen habits, focus, and memory.",
   "homeQuickTestsHeading": "Quick tests",
-  "homeQuickTestIq": "IQ",
+  "homeQuickTestIq": "Reasoning check",
   "homeQuickTestDigitalBrainRot": "Brain rot",
   "homeQuickTestFocus": "Focus",
   "homeQuickTestMemory": "Memory",
   "homeQuickTestAll": "All tests",
   "v2ProfileTestsCatalogTitle": "Tests catalog",
-  "v2ProfileTestsCatalogSubtitle": "IQ, digital brain rot, focus, and memory",
+  "v2ProfileTestsCatalogSubtitle": "Reasoning check, digital brain rot, focus, and memory",
   "quickTestProgress": "Question {current} of {total}",
   "@quickTestProgress": {
     "placeholders": {
@@ -1996,7 +1993,7 @@
       "total": { "type": "int" }
     }
   },
-  "iqTestTitle": "IQ check",
+  "iqTestTitle": "Reasoning check",
   "iqTestSubtitle": "5 pattern and matrix reasoning questions",
   "iqTestContinue": "Continue",
   "iqTestFinish": "See score",
@@ -2009,7 +2006,7 @@
       "total": { "type": "int" }
     }
   },
-  "iqTestDisclaimer": "A short practice snapshot — not a clinical IQ test.",
+  "iqTestDisclaimer": "This is a short practice exercise, not a measure of intelligence.",
   "iqQ1Stem": "Which number continues the pattern: 2, 4, 8, 16, ?",
   "iqQ1OptA": "18",
   "iqQ1OptB": "24",
@@ -2066,12 +2063,12 @@
   "briUnlockProProgramCta": "Unlock the full program with Pro",
   "briRecommendResetBody": "Four-week guided digital reset: Pomodoro, easy Stroop, and screen-free blocks.",
   "briRecommendAscensionBody": "Neural Ascension rebuilds memory and focus after clearing digital rot — Pro track.",
-  "briRecommendEnhancedBody": "Enhanced Mind keeps peak cognition with a rotating focus / memory / IQ plan — Pro.",
+  "briRecommendEnhancedBody": "Enhanced Mind keeps peak cognition with a rotating focus / memory / reasoning plan — Pro.",
   "briRecommendBaseBody": "Steady daily practice while you complete more tests for a sharper plan.",
   "briRadarRot": "Clarity",
   "briRadarMemory": "Memory",
   "briRadarFocus": "Focus",
-  "briRadarIq": "Intelligence",
+  "briRadarIq": "Reasoning",
   "briRadarSleep": "Rest",
   "dailyProgramBrainMapCta": "Brain map",
   "dailyProgramStartSessionCta": "Start session",

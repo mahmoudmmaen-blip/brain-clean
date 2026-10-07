@@ -797,17 +797,28 @@ class AppLocalizationsAr extends AppLocalizations {
   String get emotionWheelTitle => 'عجلة المشاعر';
 
   @override
-  String get emotionImpactDialogTitle => 'تأثير هذا الشعور على تعافيك';
+  String get emotionLogConfirmTitle => 'تسجيل هذا الشعور؟';
 
   @override
-  String emotionImpactNegative(String emotion, String pct) {
-    return 'الشعور بـ $emotion سيقلل نسبة تعافيك بمقدار $pct%\nهل تريد تسجيله؟';
+  String emotionLogConfirmBody(String emotion) {
+    return 'ملاحظة \"$emotion\" تعزّز وعيك بذاتك. لن تتغير نسبة تعافيك.';
   }
 
   @override
-  String emotionImpactPositive(String emotion, String pct) {
-    return 'الشعور بـ $emotion سيحسّن نسبة تعافيك بمقدار $pct%\nهل تريد تسجيله؟';
-  }
+  String get emotionSupportChannelName => 'دعم المشاعر';
+
+  @override
+  String get emotionSupportChannelDescription => 'رسائل داعمة بعد تسجيل شعور';
+
+  @override
+  String get emotionBreathingNotificationTitle => 'سجّلت شعوراً';
+
+  @override
+  String get emotionBreathingNotificationBody =>
+      'هذا يحتاج شجاعة. جرّب تمرين تنفس لمدة 60 ثانية — اضغط للبدء.';
+
+  @override
+  String get emotionBreathingExerciseTitle => 'تنفس لمدة 60 ثانية';
 
   @override
   String get emotionIgnore => 'لا، تجاهل';
@@ -2280,7 +2291,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get adaptiveProgramAscensionPhase4Goal =>
-      'الصيانة — تركيز / ذاكرة / ذكاء / راحة نشطة.';
+      'الصيانة — تركيز / ذاكرة / تفكير منطقي / راحة نشطة.';
 
   @override
   String adaptiveProgramWeekLabel(int week) {
@@ -2314,7 +2325,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get adaptiveProgramEnhancedMindGoal =>
-      'حافظ على ذروة الأداء بدوران تركيز / ذاكرة / ذكاء / راحة.';
+      'حافظ على ذروة الأداء بدوران تركيز / ذاكرة / تفكير منطقي / راحة.';
 
   @override
   String get adaptiveProgramFreeResetCompleteGoal =>
@@ -4539,7 +4550,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get homeQuickTestsHeading => 'اختبارات سريعة';
 
   @override
-  String get homeQuickTestIq => 'الذكاء';
+  String get homeQuickTestIq => 'اختبار التفكير المنطقي';
 
   @override
   String get homeQuickTestDigitalBrainRot => 'تعفن رقمي';
@@ -4557,7 +4568,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2ProfileTestsCatalogTitle => 'كتالوج الاختبارات';
 
   @override
-  String get v2ProfileTestsCatalogSubtitle => 'ذكاء، تعفن رقمي، تركيز، وذاكرة';
+  String get v2ProfileTestsCatalogSubtitle =>
+      'اختبار التفكير المنطقي، تعفن رقمي، تركيز، وذاكرة';
 
   @override
   String quickTestProgress(int current, int total) {
@@ -4565,7 +4577,7 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get iqTestTitle => 'فحص الذكاء';
+  String get iqTestTitle => 'اختبار التفكير المنطقي';
 
   @override
   String get iqTestSubtitle => '5 أسئلة استدلال وأنماط';
@@ -4588,8 +4600,7 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get iqTestDisclaimer =>
-      'لقطة تدريبية قصيرة — وليست اختبار ذكاء سريرياً.';
+  String get iqTestDisclaimer => 'تمرين تدريبي قصير، وليس قياساً للذكاء.';
 
   @override
   String get iqQ1Stem => 'أي رقم يكمل النمط: 2، 4، 8، 16، ؟';
@@ -4774,7 +4785,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get briRecommendEnhancedBody =>
-      'العقل المحسّن يحافظ على الذروة بدوران تركيز / ذاكرة / ذكاء — Pro.';
+      'العقل المحسّن يحافظ على الذروة بدوران تركيز / ذاكرة / تفكير منطقي — Pro.';
 
   @override
   String get briRecommendBaseBody =>
@@ -4790,7 +4801,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get briRadarFocus => 'التركيز';
 
   @override
-  String get briRadarIq => 'الذكاء';
+  String get briRadarIq => 'التفكير المنطقي';
 
   @override
   String get briRadarSleep => 'الراحة';

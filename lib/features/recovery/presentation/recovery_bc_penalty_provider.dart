@@ -8,7 +8,8 @@ import 'recovery_protocol_controller.dart';
 
 part 'recovery_bc_penalty_provider.g.dart';
 
-/// Total BC_score deducted from recovery penalty box entries (−15 each).
+/// Total BC_score deducted from recovery-grid accountability penalties (−15 each).
+/// Emotion logging does not use this path.
 @Riverpod(keepAlive: true)
 double recoveryBcPenaltyTotal(RecoveryBcPenaltyTotalRef ref) {
   final recovery = ref.watch(recoveryProtocolControllerProvider);

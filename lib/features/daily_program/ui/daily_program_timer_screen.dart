@@ -104,11 +104,14 @@ class _DailyProgramTimerScreenState
     final theme = Theme.of(context);
     final label = DateFormatUtils.countdown(_remainingSeconds);
     final isNsdr = widget.activityId.contains('nsdr');
+    final displayTitle = widget.title.trim().isEmpty
+        ? loc.emotionBreathingExerciseTitle
+        : widget.title;
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(displayTitle),
         leading: IconButton(
           key: const Key('daily_program_timer_back'),
           icon: const Icon(Icons.arrow_back),

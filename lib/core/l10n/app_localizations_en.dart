@@ -808,17 +808,29 @@ class AppLocalizationsEn extends AppLocalizations {
   String get emotionWheelTitle => 'Emotion wheel';
 
   @override
-  String get emotionImpactDialogTitle => 'Impact on your recovery';
+  String get emotionLogConfirmTitle => 'Log this feeling?';
 
   @override
-  String emotionImpactNegative(String emotion, String pct) {
-    return 'Feeling $emotion will reduce your recovery by $pct%.\nLog it?';
+  String emotionLogConfirmBody(String emotion) {
+    return 'Noting \"$emotion\" builds self-awareness. Your recovery score won\'t change.';
   }
 
   @override
-  String emotionImpactPositive(String emotion, String pct) {
-    return 'Feeling $emotion will improve your recovery by $pct%.\nLog it?';
-  }
+  String get emotionSupportChannelName => 'Emotion support';
+
+  @override
+  String get emotionSupportChannelDescription =>
+      'Supportive tips after you log a feeling';
+
+  @override
+  String get emotionBreathingNotificationTitle => 'You logged a feeling';
+
+  @override
+  String get emotionBreathingNotificationBody =>
+      'That takes courage. Try a 60-second breathing exercise — tap to start.';
+
+  @override
+  String get emotionBreathingExerciseTitle => '60-second breathing';
 
   @override
   String get emotionIgnore => 'No, ignore';
@@ -2312,7 +2324,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get adaptiveProgramAscensionPhase4Goal =>
-      'Maintain — adaptive focus / memory / IQ / active rest.';
+      'Maintain — adaptive focus / memory / reasoning / active rest.';
 
   @override
   String adaptiveProgramWeekLabel(int week) {
@@ -2346,7 +2358,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get adaptiveProgramEnhancedMindGoal =>
-      'Maintain peak cognition with a rotating focus / memory / IQ / rest plan.';
+      'Maintain peak cognition with a rotating focus / memory / reasoning / rest plan.';
 
   @override
   String get adaptiveProgramFreeResetCompleteGoal =>
@@ -4614,7 +4626,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeQuickTestsHeading => 'Quick tests';
 
   @override
-  String get homeQuickTestIq => 'IQ';
+  String get homeQuickTestIq => 'Reasoning check';
 
   @override
   String get homeQuickTestDigitalBrainRot => 'Brain rot';
@@ -4633,7 +4645,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v2ProfileTestsCatalogSubtitle =>
-      'IQ, digital brain rot, focus, and memory';
+      'Reasoning check, digital brain rot, focus, and memory';
 
   @override
   String quickTestProgress(int current, int total) {
@@ -4641,7 +4653,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get iqTestTitle => 'IQ check';
+  String get iqTestTitle => 'Reasoning check';
 
   @override
   String get iqTestSubtitle => '5 pattern and matrix reasoning questions';
@@ -4665,7 +4677,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get iqTestDisclaimer =>
-      'A short practice snapshot — not a clinical IQ test.';
+      'This is a short practice exercise, not a measure of intelligence.';
 
   @override
   String get iqQ1Stem => 'Which number continues the pattern: 2, 4, 8, 16, ?';
@@ -4859,7 +4871,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get briRecommendEnhancedBody =>
-      'Enhanced Mind keeps peak cognition with a rotating focus / memory / IQ plan — Pro.';
+      'Enhanced Mind keeps peak cognition with a rotating focus / memory / reasoning plan — Pro.';
 
   @override
   String get briRecommendBaseBody =>
@@ -4875,7 +4887,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get briRadarFocus => 'Focus';
 
   @override
-  String get briRadarIq => 'Intelligence';
+  String get briRadarIq => 'Reasoning';
 
   @override
   String get briRadarSleep => 'Rest';

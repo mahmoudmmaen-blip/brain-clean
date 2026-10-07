@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 import 'app_color_theme.dart';
+import 'app_fonts.dart';
 import 'app_colors.dart';
 import 'app_palette.dart';
 
@@ -43,9 +42,7 @@ class LocaleTheme {
             onBackground: palette.textPrimary,
           );
 
-    final typedText = locale.languageCode == 'ar'
-        ? GoogleFonts.tajawalTextTheme(baseTextTheme)
-        : GoogleFonts.interTextTheme(baseTextTheme);
+    final typedText = AppFonts.forLocale(baseTextTheme, locale);
 
     return ThemeData(
       useMaterial3: true,

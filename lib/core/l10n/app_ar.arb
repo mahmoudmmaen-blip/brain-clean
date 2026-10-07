@@ -396,29 +396,20 @@
   "settingsPrivacyPolicy": "سياسة الخصوصية",
   "settingsContactUs": "تواصل معنا",
   "emotionWheelTitle": "عجلة المشاعر",
-  "emotionImpactDialogTitle": "تأثير هذا الشعور على تعافيك",
-  "emotionImpactNegative": "الشعور بـ {emotion} سيقلل نسبة تعافيك بمقدار {pct}%\nهل تريد تسجيله؟",
-  "@emotionImpactNegative": {
+  "emotionLogConfirmTitle": "تسجيل هذا الشعور؟",
+  "emotionLogConfirmBody": "ملاحظة \"{emotion}\" تعزّز وعيك بذاتك. لن تتغير نسبة تعافيك.",
+  "@emotionLogConfirmBody": {
     "placeholders": {
       "emotion": {
-        "type": "String"
-      },
-      "pct": {
         "type": "String"
       }
     }
   },
-  "emotionImpactPositive": "الشعور بـ {emotion} سيحسّن نسبة تعافيك بمقدار {pct}%\nهل تريد تسجيله؟",
-  "@emotionImpactPositive": {
-    "placeholders": {
-      "emotion": {
-        "type": "String"
-      },
-      "pct": {
-        "type": "String"
-      }
-    }
-  },
+  "emotionSupportChannelName": "دعم المشاعر",
+  "emotionSupportChannelDescription": "رسائل داعمة بعد تسجيل شعور",
+  "emotionBreathingNotificationTitle": "سجّلت شعوراً",
+  "emotionBreathingNotificationBody": "هذا يحتاج شجاعة. جرّب تمرين تنفس لمدة 60 ثانية — اضغط للبدء.",
+  "emotionBreathingExerciseTitle": "تنفس لمدة 60 ثانية",
   "emotionIgnore": "لا، تجاهل",
   "emotionConfirmLog": "نعم، سجّل",
   "emotionGateNegative": "أشعر بشيء سلبي",
@@ -1167,7 +1158,7 @@
   "adaptiveProgramAscensionPhase1Goal": "مرحلة التطهير — أولوية خفض BRI.",
   "adaptiveProgramAscensionPhase2Goal": "مرحلة البناء — قدرات الذاكرة والتركيز.",
   "adaptiveProgramAscensionPhase3Goal": "التحسين — أداء معرفي أمثل.",
-  "adaptiveProgramAscensionPhase4Goal": "الصيانة — تركيز / ذاكرة / ذكاء / راحة نشطة.",
+  "adaptiveProgramAscensionPhase4Goal": "الصيانة — تركيز / ذاكرة / تفكير منطقي / راحة نشطة.",
   "adaptiveProgramWeekLabel": "الأسبوع {week}",
   "@adaptiveProgramWeekLabel": {
     "placeholders": {
@@ -1182,7 +1173,7 @@
   "adaptiveProgramBreathing": "تمرين تنفس (٢–٣ دقائق)",
   "adaptiveProgramWeekendChallenge": "تحدي نهاية الأسبوع",
   "adaptiveProgramEnhancedMindTitle": "العقل المحسّن",
-  "adaptiveProgramEnhancedMindGoal": "حافظ على ذروة الأداء بدوران تركيز / ذاكرة / ذكاء / راحة.",
+  "adaptiveProgramEnhancedMindGoal": "حافظ على ذروة الأداء بدوران تركيز / ذاكرة / تفكير منطقي / راحة.",
   "adaptiveProgramFreeResetCompleteGoal": "اكتمل بروتوكول إعادة الضبط المجاني — افتح Pro للمتابعة.",
   "adaptiveProgramFreeResetCompleteTitle": "افتح Pro لرؤية برنامجك الكامل",
   "adaptiveProgramFreeResetCompleteBody": "أنهيت بروتوكول إعادة الضبط (٤ أسابيع). ترقَّ إلى Pro للصعود العصبي والعقل المحسّن والتحديات والتقارير.",
@@ -2122,13 +2113,13 @@
   "testsCatalogTitle": "الاختبارات",
   "testsCatalogSubtitle": "فحوصات سريعة للاستدلال وعادات الشاشة والتركيز والذاكرة.",
   "homeQuickTestsHeading": "اختبارات سريعة",
-  "homeQuickTestIq": "الذكاء",
+  "homeQuickTestIq": "اختبار التفكير المنطقي",
   "homeQuickTestDigitalBrainRot": "تعفن رقمي",
   "homeQuickTestFocus": "تركيز",
   "homeQuickTestMemory": "ذاكرة",
   "homeQuickTestAll": "كل الاختبارات",
   "v2ProfileTestsCatalogTitle": "كتالوج الاختبارات",
-  "v2ProfileTestsCatalogSubtitle": "ذكاء، تعفن رقمي، تركيز، وذاكرة",
+  "v2ProfileTestsCatalogSubtitle": "اختبار التفكير المنطقي، تعفن رقمي، تركيز، وذاكرة",
   "quickTestProgress": "السؤال {current} من {total}",
   "@quickTestProgress": {
     "placeholders": {
@@ -2136,7 +2127,7 @@
       "total": { "type": "int" }
     }
   },
-  "iqTestTitle": "فحص الذكاء",
+  "iqTestTitle": "اختبار التفكير المنطقي",
   "iqTestSubtitle": "5 أسئلة استدلال وأنماط",
   "iqTestContinue": "متابعة",
   "iqTestFinish": "عرض النتيجة",
@@ -2149,7 +2140,7 @@
       "total": { "type": "int" }
     }
   },
-  "iqTestDisclaimer": "لقطة تدريبية قصيرة — وليست اختبار ذكاء سريرياً.",
+  "iqTestDisclaimer": "تمرين تدريبي قصير، وليس قياساً للذكاء.",
   "iqQ1Stem": "أي رقم يكمل النمط: 2، 4، 8، 16، ؟",
   "iqQ1OptA": "18",
   "iqQ1OptB": "24",
@@ -2206,12 +2197,12 @@
   "briUnlockProProgramCta": "افتح البرنامج الكامل مع Pro",
   "briRecommendResetBody": "إعادة ضبط موجهة لأربعة أسابيع: بومودورو، Stroop سهل، ووقت بلا شاشة.",
   "briRecommendAscensionBody": "الصعود العصبي يبني الذاكرة والتركيز بعد تطهير التعفن — مسار Pro.",
-  "briRecommendEnhancedBody": "العقل المحسّن يحافظ على الذروة بدوران تركيز / ذاكرة / ذكاء — Pro.",
+  "briRecommendEnhancedBody": "العقل المحسّن يحافظ على الذروة بدوران تركيز / ذاكرة / تفكير منطقي — Pro.",
   "briRecommendBaseBody": "ممارسة يومية ثابتة بينما تكمل المزيد من الاختبارات لخطة أدق.",
   "briRadarRot": "الوضوح",
   "briRadarMemory": "الذاكرة",
   "briRadarFocus": "التركيز",
-  "briRadarIq": "الذكاء",
+  "briRadarIq": "التفكير المنطقي",
   "briRadarSleep": "الراحة",
   "dailyProgramBrainMapCta": "خريطة دماغي",
   "dailyProgramStartSessionCta": "ابدأ الجلسة",

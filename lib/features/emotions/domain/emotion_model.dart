@@ -26,21 +26,9 @@ class EmotionModel {
   final int intensity;
   final double recoveryImpact;
 
-  static double recoveryImpactFor(EmotionCategory category, int intensity) {
-    if (category == EmotionCategory.surprise ||
-        category == EmotionCategory.calm) {
-      return 0;
-    }
-    if (category == EmotionCategory.love || category == EmotionCategory.joy) {
-      if (intensity == 1) return 0.05;
-      if (intensity == 3) return 0.10;
-      return 0.075;
-    }
-    // sadness, fear, anger, disgust
-    if (intensity == 1) return -0.08;
-    if (intensity == 3) return -0.15;
-    return -0.11;
-  }
+  /// Legacy field kept for log schema; emotions no longer change recovery score.
+  static double recoveryImpactFor(EmotionCategory category, int intensity) =>
+      0;
 
   static EmotionModel _e(
     EmotionCategory category,

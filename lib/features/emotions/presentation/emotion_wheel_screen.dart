@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/application/app_preferences_provider.dart';
 import '../../../core/bootstrap/app_hydration_provider.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/presentation/async_state_views.dart';
 import '../../../core/theme/app_colors.dart';
+import '../application/emotion_notification_service.dart';
 import '../application/emotion_provider.dart';
 import '../domain/emotion_model.dart';
 
@@ -103,18 +105,14 @@ class EmotionWheelScreen extends ConsumerWidget {
     AppLocalizations loc,
   ) async {
     final emotion = state.selectedEmotion!;
-    final impact = state.pendingImpact;
-    final pct = (impact.abs() * 100).toStringAsFixed(0);
-    final body = impact < 0
-        ? loc.emotionImpactNegative(emotion.label, pct)
-        : loc.emotionImpactPositive(emotion.label, pct);
+    final body = loc.emotionLogConfirmBody(emotion.label);
 
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: _card,
         title: Text(
-          loc.emotionImpactDialogTitle,
+          loc.emotionLogConfirmTitle,
           style: const TextStyle(color: Color(0xFFE6EDF3)),
         ),
         content: Text(
@@ -132,9 +130,7 @@ class EmotionWheelScreen extends ConsumerWidget {
           ElevatedButton(
             onPressed: () => Navigator.of(ctx).pop(true),
             style: ElevatedButton.styleFrom(
-              backgroundColor: impact < 0
-                  ? const Color(0xFFEF4444)
-                  : const Color(0xFF1D9E75),
+              backgroundColor: const Color(0xFF1D9E75),
             ),
             child: Text(loc.emotionConfirmLog),
           ),
@@ -143,7 +139,22 @@ class EmotionWheelScreen extends ConsumerWidget {
     );
 
     if (confirmed == true) {
-      await ref.read(emotionNotifierProvider.notifier).confirmImpact();
+      await ref.read(emotionNotifierProvider.notifier).confirmImpact(
+            onLogged: () async {
+              final notificationsOn = ref
+                  .read(appPreferencesProvider)
+                  .emotionNotificationsEnabled;
+              if (!notificationsOn) return;
+              await ref
+                  .read(emotionNotificationServiceProvider)
+                  .showBreathingSupport(
+                    channelName: loc.emotionSupportChannelName,
+                    channelDescription: loc.emotionSupportChannelDescription,
+                    title: loc.emotionBreathingNotificationTitle,
+                    body: loc.emotionBreathingNotificationBody,
+                  );
+            },
+          );
     } else {
       ref.read(emotionNotifierProvider.notifier).rejectImpact();
     }
