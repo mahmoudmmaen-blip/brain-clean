@@ -3521,13 +3521,13 @@ abstract class AppLocalizations {
   /// No description provided for @recoveryPlanMinimumPath.
   ///
   /// In en, this message translates to:
-  /// **'Minimum path'**
+  /// **'Quick version (2 min)'**
   String get recoveryPlanMinimumPath;
 
   /// No description provided for @recoveryPlanStandardPath.
   ///
   /// In en, this message translates to:
-  /// **'Standard path'**
+  /// **'Full version'**
   String get recoveryPlanStandardPath;
 
   /// No description provided for @recoveryPlanBecauseHeading.
@@ -3857,7 +3857,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeGreetingName.
   ///
   /// In en, this message translates to:
-  /// **'Hello, {name}'**
+  /// **'Hey, {name} 👋'**
   String homeGreetingName(String name);
 
   /// No description provided for @homeFocusLevelTag.
@@ -3875,7 +3875,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeFocusImprovementPending.
   ///
   /// In en, this message translates to:
-  /// **'Complete a Brain Check to track recovery'**
+  /// **'Finish Brain Check when you\'re ready to track recovery'**
   String get homeFocusImprovementPending;
 
   /// No description provided for @homeMetricStreakLabel.
@@ -4043,13 +4043,13 @@ abstract class AppLocalizations {
   /// No description provided for @homeBaselineTestTitle.
   ///
   /// In en, this message translates to:
-  /// **'Baseline test'**
+  /// **'Brain Check'**
   String get homeBaselineTestTitle;
 
   /// No description provided for @homeBaselineTestPending.
   ///
   /// In en, this message translates to:
-  /// **'Not completed yet'**
+  /// **'Brain Check not done yet'**
   String get homeBaselineTestPending;
 
   /// No description provided for @homeBaselineTestScore.
@@ -4379,13 +4379,13 @@ abstract class AppLocalizations {
   /// No description provided for @v2SessionPathHeading.
   ///
   /// In en, this message translates to:
-  /// **'Choose your path'**
+  /// **'Choose your version'**
   String get v2SessionPathHeading;
 
   /// No description provided for @v2SessionPathNoShame.
   ///
   /// In en, this message translates to:
-  /// **'Minimum is complete and useful. Standard adds optional depth.'**
+  /// **'The quick version still counts. The full version adds a little more depth.'**
   String get v2SessionPathNoShame;
 
   /// No description provided for @v2SessionA11yHint.
@@ -4613,7 +4613,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2ProgressEmptyBody.
   ///
   /// In en, this message translates to:
-  /// **'Complete a Today session to start building an honest local record. Nothing is invented when history is empty.'**
+  /// **'Complete today\'s step to start an honest local record.'**
   String get v2ProgressEmptyBody;
 
   /// No description provided for @v2ProgressLoading.
@@ -4637,13 +4637,13 @@ abstract class AppLocalizations {
   /// No description provided for @v2ProgressStatsMinimum.
   ///
   /// In en, this message translates to:
-  /// **'Minimum path sessions'**
+  /// **'Quick-version sessions'**
   String get v2ProgressStatsMinimum;
 
   /// No description provided for @v2ProgressStatsStandard.
   ///
   /// In en, this message translates to:
-  /// **'Standard path sessions'**
+  /// **'Full-version sessions'**
   String get v2ProgressStatsStandard;
 
   /// No description provided for @v2ProgressStatsRate.
@@ -5627,13 +5627,13 @@ abstract class AppLocalizations {
   /// No description provided for @v2ProgressTimelineMinimum.
   ///
   /// In en, this message translates to:
-  /// **'Minimum path'**
+  /// **'Quick version'**
   String get v2ProgressTimelineMinimum;
 
   /// No description provided for @v2ProgressTimelineStandard.
   ///
   /// In en, this message translates to:
-  /// **'Standard path'**
+  /// **'Full version'**
   String get v2ProgressTimelineStandard;
 
   /// No description provided for @v2ProgressTimelineBothPaths.
@@ -5843,13 +5843,13 @@ abstract class AppLocalizations {
   /// No description provided for @v2ProgressPillarsEmpty.
   ///
   /// In en, this message translates to:
-  /// **'Complete a quick diagnostic to track focus, memory, screen habits, and sleep over time.'**
+  /// **'Complete a Brain Check to track focus and habits over time.'**
   String get v2ProgressPillarsEmpty;
 
   /// No description provided for @v2ProgressPillarsFirstDiagnostic.
   ///
   /// In en, this message translates to:
-  /// **'Start first diagnostic'**
+  /// **'Start Brain Check'**
   String get v2ProgressPillarsFirstDiagnostic;
 
   /// No description provided for @v2ProgressLiveVsDayOne.
@@ -5885,7 +5885,7 @@ abstract class AppLocalizations {
   /// No description provided for @v2ProgressWeeklyRediagnosis.
   ///
   /// In en, this message translates to:
-  /// **'Re-run weekly diagnostic'**
+  /// **'Weekly Brain Check'**
   String get v2ProgressWeeklyRediagnosis;
 
   /// No description provided for @v2ProgressPatternDetails.
@@ -8936,6 +8936,282 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'I can sit with mild boredom without reaching for my phone.'**
   String get briQBoredom4;
+
+  /// No description provided for @homeGreetingAnonymous.
+  ///
+  /// In en, this message translates to:
+  /// **'Hey 👋'**
+  String get homeGreetingAnonymous;
+
+  /// No description provided for @homeProgramDayLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Day {day} of {total}'**
+  String homeProgramDayLabel(String day, String total);
+
+  /// No description provided for @homeStreakDaysCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} day streak'**
+  String homeStreakDaysCount(String count);
+
+  /// No description provided for @homeTodayStepHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s step'**
+  String get homeTodayStepHeading;
+
+  /// No description provided for @homeTodayStepStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get homeTodayStepStart;
+
+  /// No description provided for @homeSosUrgeCta.
+  ///
+  /// In en, this message translates to:
+  /// **'I feel like opening my phone'**
+  String get homeSosUrgeCta;
+
+  /// No description provided for @homeLessonHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s lesson'**
+  String get homeLessonHeading;
+
+  /// No description provided for @homeLessonPlaceholderBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A short tip will live here soon — for now, just take today\'s step.'**
+  String get homeLessonPlaceholderBody;
+
+  /// No description provided for @homeRecoveryScoreLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery score'**
+  String get homeRecoveryScoreLabel;
+
+  /// No description provided for @homeBrainCheckOfferTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional: Brain Check'**
+  String get homeBrainCheckOfferTitle;
+
+  /// No description provided for @homeBrainCheckOfferBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A calm self-check when you\'re ready. Not required to keep going.'**
+  String get homeBrainCheckOfferBody;
+
+  /// No description provided for @v2TodayHomeMissingPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Your plan isn\'t ready yet. Tap below to build Day 1.'**
+  String get v2TodayHomeMissingPlan;
+
+  /// No description provided for @v2OnboardingWelcomePromise.
+  ///
+  /// In en, this message translates to:
+  /// **'Three calm minutes a day to feel clearer — no guilt, no medical claims.'**
+  String get v2OnboardingWelcomePromise;
+
+  /// No description provided for @v2OnboardingWelcomeStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get v2OnboardingWelcomeStart;
+
+  /// No description provided for @v2OnboardingWelcomeDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Self-care support only — not a medical diagnosis.'**
+  String get v2OnboardingWelcomeDisclaimer;
+
+  /// No description provided for @v2OnboardingQuickSetupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A few quick questions'**
+  String get v2OnboardingQuickSetupTitle;
+
+  /// No description provided for @v2OnboardingQuickSetupBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer once so we can shape a gentle 30-day plan.'**
+  String get v2OnboardingQuickSetupBody;
+
+  /// No description provided for @v2OnboardingQuickSetupContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'See my plan'**
+  String get v2OnboardingQuickSetupContinue;
+
+  /// No description provided for @v2OnboardingQScreenHours.
+  ///
+  /// In en, this message translates to:
+  /// **'About how many hours a day are you on screens?'**
+  String get v2OnboardingQScreenHours;
+
+  /// No description provided for @v2OnboardingQMainGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'What do you want most right now?'**
+  String get v2OnboardingQMainGoal;
+
+  /// No description provided for @v2OnboardingQHardestTime.
+  ///
+  /// In en, this message translates to:
+  /// **'When is it hardest to put the phone down?'**
+  String get v2OnboardingQHardestTime;
+
+  /// No description provided for @v2OnboardingQFirstName.
+  ///
+  /// In en, this message translates to:
+  /// **'What should we call you? (optional)'**
+  String get v2OnboardingQFirstName;
+
+  /// No description provided for @v2OnboardingQFirstNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'First name'**
+  String get v2OnboardingQFirstNameHint;
+
+  /// No description provided for @v2OnboardingQReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'When should we nudge you?'**
+  String get v2OnboardingQReminder;
+
+  /// No description provided for @v2OnboardingHoursUnder2.
+  ///
+  /// In en, this message translates to:
+  /// **'Under 2h'**
+  String get v2OnboardingHoursUnder2;
+
+  /// No description provided for @v2OnboardingHours2to4.
+  ///
+  /// In en, this message translates to:
+  /// **'2–4h'**
+  String get v2OnboardingHours2to4;
+
+  /// No description provided for @v2OnboardingHours4to6.
+  ///
+  /// In en, this message translates to:
+  /// **'4–6h'**
+  String get v2OnboardingHours4to6;
+
+  /// No description provided for @v2OnboardingHoursOver6.
+  ///
+  /// In en, this message translates to:
+  /// **'6h+'**
+  String get v2OnboardingHoursOver6;
+
+  /// No description provided for @v2OnboardingGoalFocus.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus'**
+  String get v2OnboardingGoalFocus;
+
+  /// No description provided for @v2OnboardingGoalSleep.
+  ///
+  /// In en, this message translates to:
+  /// **'Better sleep'**
+  String get v2OnboardingGoalSleep;
+
+  /// No description provided for @v2OnboardingGoalLessScrolling.
+  ///
+  /// In en, this message translates to:
+  /// **'Less scrolling'**
+  String get v2OnboardingGoalLessScrolling;
+
+  /// No description provided for @v2OnboardingGoalCalm.
+  ///
+  /// In en, this message translates to:
+  /// **'Feel calmer'**
+  String get v2OnboardingGoalCalm;
+
+  /// No description provided for @v2OnboardingPlanReadyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your 30-day plan is ready'**
+  String get v2OnboardingPlanReadyTitle;
+
+  /// No description provided for @v2OnboardingPlanReadyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'One small step each day. You can skip anytime — no punishment.'**
+  String get v2OnboardingPlanReadyBody;
+
+  /// No description provided for @v2OnboardingPlanReadyCardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Day 1 · ~3 minutes'**
+  String get v2OnboardingPlanReadyCardTitle;
+
+  /// No description provided for @v2OnboardingPlanReadyCardBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A calm starter practice to begin rebuilding focus.'**
+  String get v2OnboardingPlanReadyCardBody;
+
+  /// No description provided for @v2OnboardingStartDay1.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Day 1 (3 min)'**
+  String get v2OnboardingStartDay1;
+
+  /// No description provided for @v2ExercisesTestsSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Tests'**
+  String get v2ExercisesTestsSection;
+
+  /// No description provided for @v2ExercisesTestsBrainCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Check'**
+  String get v2ExercisesTestsBrainCheck;
+
+  /// No description provided for @v2ExercisesTestsBrainCheckSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Baseline or weekly re-check — same calm self-report'**
+  String get v2ExercisesTestsBrainCheckSubtitle;
+
+  /// No description provided for @v2ExercisesTestsReasoning.
+  ///
+  /// In en, this message translates to:
+  /// **'Reasoning check'**
+  String get v2ExercisesTestsReasoning;
+
+  /// No description provided for @v2ExercisesTestsReasoningSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A short puzzle pulse'**
+  String get v2ExercisesTestsReasoningSubtitle;
+
+  /// No description provided for @v2ExercisesTestsBri.
+  ///
+  /// In en, this message translates to:
+  /// **'Digital brain rot (BRI)'**
+  String get v2ExercisesTestsBri;
+
+  /// No description provided for @v2ExercisesTestsBriSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Self-report on scrolling habits'**
+  String get v2ExercisesTestsBriSubtitle;
+
+  /// No description provided for @v2ProgressEmptyFriendly.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing here yet — that\'s okay. Take today\'s step and your chart will grow.'**
+  String get v2ProgressEmptyFriendly;
+
+  /// No description provided for @v2ProgressEmptyStartToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Start today\'s step'**
+  String get v2ProgressEmptyStartToday;
 }
 
 class _AppLocalizationsDelegate

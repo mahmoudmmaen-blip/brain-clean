@@ -148,14 +148,14 @@ void main() {
         );
         await pumpBounded(tester);
         expectNoOverflow(tester);
-        expect(find.byKey(const Key('home_focus_hero')), findsOneWidget);
-        expect(find.byKey(const Key('home_pomodoro_card')), findsOneWidget);
+        expect(find.byKey(const Key('home_today_hero')), findsOneWidget);
+        expect(find.byKey(const Key('home_today_start')), findsOneWidget);
         expect(
-          tester.getSize(find.byKey(const Key('home_pomodoro_primary'))).height,
+          tester.getSize(find.byKey(const Key('home_today_start'))).height,
           greaterThanOrEqualTo(AppDesignConstants.minTouchTarget),
         );
         expect(find.byType(SingleChildScrollView), findsWidgets);
-        expect(find.byKey(const Key('v2_today_safa_entry')), findsOneWidget);
+        expect(find.byKey(const Key('home_sos_button')), findsOneWidget);
       }
       addTearDown(() => tester.binding.setSurfaceSize(null));
     });
@@ -197,7 +197,7 @@ void main() {
         const Offset(0, -200),
       );
       await pumpBounded(tester);
-      expect(find.byKey(const Key('v2_today_safa_entry')), findsOneWidget);
+      expect(find.byKey(const Key('home_sos_button')), findsOneWidget);
       expectNoOverflow(tester);
     });
 

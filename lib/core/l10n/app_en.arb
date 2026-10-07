@@ -865,8 +865,8 @@
     }
   },
   "recoveryPlanIntensityLabel": "Intensity",
-  "recoveryPlanMinimumPath": "Minimum path",
-  "recoveryPlanStandardPath": "Standard path",
+  "recoveryPlanMinimumPath": "Quick version (2 min)",
+  "recoveryPlanStandardPath": "Full version",
   "recoveryPlanBecauseHeading": "Why this plan today",
   "recoveryPlanTodayPreview": "Today preview",
   "recoveryPlanContinueToday": "Continue to Today",
@@ -926,7 +926,7 @@
   "homeGreetingMorning": "Good morning",
   "homeGreetingAfternoon": "Good afternoon",
   "homeGreetingEvening": "Good evening",
-  "homeGreetingName": "Hello, {name}",
+  "homeGreetingName": "Hey, {name} 👋",
   "@homeGreetingName": {
     "placeholders": {
       "name": { "type": "String" }
@@ -939,7 +939,7 @@
       "percent": { "type": "int" }
     }
   },
-  "homeFocusImprovementPending": "Complete a Brain Check to track recovery",
+  "homeFocusImprovementPending": "Finish Brain Check when you're ready to track recovery",
   "homeMetricStreakLabel": "Day streak",
   "homeMetricStreakStartCta": "Start your first session",
   "homeDailyProgramProgress": "{done}/{total} completed",
@@ -989,8 +989,8 @@
     }
   },
   "homeWeeklyReportReady": "Your weekly report is ready",
-  "homeBaselineTestTitle": "Baseline test",
-  "homeBaselineTestPending": "Not completed yet",
+  "homeBaselineTestTitle": "Brain Check",
+  "homeBaselineTestPending": "Brain Check not done yet",
   "homeBaselineTestScore": "Baseline score {score}",
   "@homeBaselineTestScore": {
     "placeholders": {
@@ -1060,8 +1060,8 @@
   "v2SessionPrepareTitle": "Prepare",
   "v2SessionPreparePurpose": "A short guided practice from your plan.",
   "v2SessionPrepareIncludes": "This session includes:",
-  "v2SessionPathHeading": "Choose your path",
-  "v2SessionPathNoShame": "Minimum is complete and useful. Standard adds optional depth.",
+  "v2SessionPathHeading": "Choose your version",
+  "v2SessionPathNoShame": "The quick version still counts. The full version adds a little more depth.",
   "v2SessionA11yHint": "Each step offers an accessibility alternative.",
   "v2SessionStartCta": "Start",
   "v2SessionClose": "Close",
@@ -1115,12 +1115,12 @@
   "v2SessionLeaveNext": "Tomorrow, Today will offer one clear next step again.",
   "v2SessionLeaveCta": "Back to Today",
   "v2ProgressEmptyTitle": "No progress yet",
-  "v2ProgressEmptyBody": "Complete a Today session to start building an honest local record. Nothing is invented when history is empty.",
+  "v2ProgressEmptyBody": "Complete today's step to start an honest local record.",
   "v2ProgressLoading": "Loading progress",
   "v2ProgressPersistFailed": "Could not save progress right now. Try again.",
   "v2ProgressStatsSessions": "Sessions completed",
-  "v2ProgressStatsMinimum": "Minimum path sessions",
-  "v2ProgressStatsStandard": "Standard path sessions",
+  "v2ProgressStatsMinimum": "Quick-version sessions",
+  "v2ProgressStatsStandard": "Full-version sessions",
   "v2ProgressStatsRate": "Completed-day rate",
   "v2ProgressStatsCurrentStreak": "Current completed-day run",
   "v2ProgressStatsLongestStreak": "Longest completed-day run",
@@ -1385,8 +1385,8 @@
     }
   },
   "v2ProgressRecentActivity": "Recent activity",
-  "v2ProgressTimelineMinimum": "Minimum path",
-  "v2ProgressTimelineStandard": "Standard path",
+  "v2ProgressTimelineMinimum": "Quick version",
+  "v2ProgressTimelineStandard": "Full version",
   "v2ProgressTimelineBothPaths": "Minimum and standard",
   "v2ProgressTimelineEntry": "{day} · {path}",
   "@v2ProgressTimelineEntry": {
@@ -1442,8 +1442,8 @@
   "v2ProgressCtaContinueToday": "Back to Today",
   "v2ProgressReportsEntry": "Open Reports",
   "v2ProgressPillarsHeading": "Cognitive pillars",
-  "v2ProgressPillarsEmpty": "Complete a quick diagnostic to track focus, memory, screen habits, and sleep over time.",
-  "v2ProgressPillarsFirstDiagnostic": "Start first diagnostic",
+  "v2ProgressPillarsEmpty": "Complete a Brain Check to track focus and habits over time.",
+  "v2ProgressPillarsFirstDiagnostic": "Start Brain Check",
   "v2ProgressLiveVsDayOne": "Live vs day one",
   "v2ProgressOverallDelta": "Average change: {delta}",
   "@v2ProgressOverallDelta": {
@@ -1455,7 +1455,7 @@
   },
   "v2ProgressChartDayOne": "Day 1",
   "v2ProgressChartToday": "Today",
-  "v2ProgressWeeklyRediagnosis": "Re-run weekly diagnostic",
+  "v2ProgressWeeklyRediagnosis": "Weekly Brain Check",
   "v2ProgressPatternDetails": "Pattern details",
   "v2ReportsTitle": "Reports",
   "v2ReportsEvidenceOverview": "Evidence overview",
@@ -2139,5 +2139,63 @@
   "briQBoredom1": "I feel anxious when I am without my phone.",
   "briQBoredom2": "I avoid tasks that need 15+ minutes of focus.",
   "briQBoredom3": "Silence or waiting feels unbearable without a screen.",
-  "briQBoredom4": "I can sit with mild boredom without reaching for my phone."
+  "briQBoredom4": "I can sit with mild boredom without reaching for my phone.",
+
+  "homeGreetingAnonymous": "Hey 👋",
+  "homeProgramDayLabel": "Day {day} of {total}",
+  "@homeProgramDayLabel": {
+    "placeholders": {
+      "day": { "type": "String" },
+      "total": { "type": "String" }
+    }
+  },
+  "homeStreakDaysCount": "{count} day streak",
+  "@homeStreakDaysCount": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "homeTodayStepHeading": "Today's step",
+  "homeTodayStepStart": "Start",
+  "homeSosUrgeCta": "I feel like opening my phone",
+  "homeLessonHeading": "Today's lesson",
+  "homeLessonPlaceholderBody": "A short tip will live here soon — for now, just take today's step.",
+  "homeRecoveryScoreLabel": "Recovery score",
+  "homeBrainCheckOfferTitle": "Optional: Brain Check",
+  "homeBrainCheckOfferBody": "A calm self-check when you're ready. Not required to keep going.",
+  "v2TodayHomeMissingPlan": "Your plan isn't ready yet. Tap below to build Day 1.",
+  "v2OnboardingWelcomePromise": "Three calm minutes a day to feel clearer — no guilt, no medical claims.",
+  "v2OnboardingWelcomeStart": "Start",
+  "v2OnboardingWelcomeDisclaimer": "Self-care support only — not a medical diagnosis.",
+  "v2OnboardingQuickSetupTitle": "A few quick questions",
+  "v2OnboardingQuickSetupBody": "Answer once so we can shape a gentle 30-day plan.",
+  "v2OnboardingQuickSetupContinue": "See my plan",
+  "v2OnboardingQScreenHours": "About how many hours a day are you on screens?",
+  "v2OnboardingQMainGoal": "What do you want most right now?",
+  "v2OnboardingQHardestTime": "When is it hardest to put the phone down?",
+  "v2OnboardingQFirstName": "What should we call you? (optional)",
+  "v2OnboardingQFirstNameHint": "First name",
+  "v2OnboardingQReminder": "When should we nudge you?",
+  "v2OnboardingHoursUnder2": "Under 2h",
+  "v2OnboardingHours2to4": "2–4h",
+  "v2OnboardingHours4to6": "4–6h",
+  "v2OnboardingHoursOver6": "6h+",
+  "v2OnboardingGoalFocus": "Focus",
+  "v2OnboardingGoalSleep": "Better sleep",
+  "v2OnboardingGoalLessScrolling": "Less scrolling",
+  "v2OnboardingGoalCalm": "Feel calmer",
+  "v2OnboardingPlanReadyTitle": "Your 30-day plan is ready",
+  "v2OnboardingPlanReadyBody": "One small step each day. You can skip anytime — no punishment.",
+  "v2OnboardingPlanReadyCardTitle": "Day 1 · ~3 minutes",
+  "v2OnboardingPlanReadyCardBody": "A calm starter practice to begin rebuilding focus.",
+  "v2OnboardingStartDay1": "Start Day 1 (3 min)",
+  "v2ExercisesTestsSection": "Tests",
+  "v2ExercisesTestsBrainCheck": "Brain Check",
+  "v2ExercisesTestsBrainCheckSubtitle": "Baseline or weekly re-check — same calm self-report",
+  "v2ExercisesTestsReasoning": "Reasoning check",
+  "v2ExercisesTestsReasoningSubtitle": "A short puzzle pulse",
+  "v2ExercisesTestsBri": "Digital brain rot (BRI)",
+  "v2ExercisesTestsBriSubtitle": "Self-report on scrolling habits",
+  "v2ProgressEmptyFriendly": "Nothing here yet — that's okay. Take today's step and your chart will grow.",
+  "v2ProgressEmptyStartToday": "Start today's step"
 }

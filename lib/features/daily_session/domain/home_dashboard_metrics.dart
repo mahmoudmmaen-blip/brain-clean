@@ -67,7 +67,8 @@ class HomeDashboardMetrics {
     daysUntilWeeklyTest: null,
     daysUntilWeeklyReport: null,
     weeklyTestUnlocked: true,
-    weeklyReportUnlocked: true,
+    // Never show "weekly report ready" with zero activity.
+    weeklyReportUnlocked: false,
   );
 }
 
@@ -124,6 +125,10 @@ abstract final class HomeDashboardMetricsLoader {
         localNow: now,
         latestCompleted: latestReview,
       );
+      // Only treat Brain Check as done when a completed result exists.
+      final checkDone = checkResult != null;
+      // Show weekly report only when a real completed review exists.
+      final hasWeeklyReport = latestReview != null;
 
       return HomeDashboardMetrics(
         focusPercent: focusPercent,
@@ -132,12 +137,12 @@ abstract final class HomeDashboardMetricsLoader {
         exercisesToday: exercisesToday,
         programDay: programDay,
         programTotalDays: kHomeProgramTotalDays,
-        brainCheckCompleted: checkResult != null || profile != null,
+        brainCheckCompleted: checkDone,
         brainCheckScore: checkScore?.clamp(0, 100),
         daysUntilWeeklyTest: daysUntilTest,
         daysUntilWeeklyReport: daysUntilReport,
-        weeklyTestUnlocked: daysUntilTest == null,
-        weeklyReportUnlocked: daysUntilReport == null,
+        weeklyTestUnlocked: checkDone && daysUntilTest == null,
+        weeklyReportUnlocked: hasWeeklyReport,
       );
     } catch (_) {
       return HomeDashboardMetrics.empty;

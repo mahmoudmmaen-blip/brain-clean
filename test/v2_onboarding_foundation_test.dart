@@ -109,11 +109,11 @@ void main() {
       await c1.hydrate();
       await c1.advanceFromWelcome();
       await c1.advanceFromExpectations();
-      expect(c1.state.currentStep, V2OnboardingStep.consent);
+      expect(c1.state.currentStep, V2OnboardingStep.quickSetup);
 
       final c2 = V2OnboardingController(repository: repo);
       await c2.hydrate();
-      expect(c2.state.currentStep, V2OnboardingStep.consent);
+      expect(c2.state.currentStep, V2OnboardingStep.quickSetup);
       expect(c2.state.status, V2OnboardingStatus.inProgress);
       await box.close();
     });
@@ -170,7 +170,7 @@ void main() {
       await c.hydrate(languageCode: 'en');
       await c.advanceFromWelcome();
       await c.setLanguageCode('ar');
-      expect(c.state.currentStep, V2OnboardingStep.expectations);
+      expect(c.state.currentStep, V2OnboardingStep.quickSetup);
       expect(c.state.languageCode, 'ar');
       await box.close();
     });
@@ -190,7 +190,7 @@ void main() {
         analyticsOptIn: false,
       );
       expect(await c.advanceFromConsent(), isTrue);
-      expect(c.state.currentStep, V2OnboardingStep.privacy);
+      expect(c.state.currentStep, V2OnboardingStep.quickSetup);
       await box.close();
     });
 
@@ -202,18 +202,18 @@ void main() {
       await c.hydrate();
       await c.setRitual(null, skip: true);
       expect(c.state.ritualWindow, isNull);
-      expect(c.state.currentStep, V2OnboardingStep.checkIntro);
+      expect(c.state.currentStep, V2OnboardingStep.planReady);
       await box.close();
     });
 
-    test('order of steps is ONB-01…06 plus ONB-07…09 milestones', () {
+    test('order of steps is short ONB-01…03 path', () {
       expect(
-        V2OnboardingStepX.preCheckOrdered.map((s) => s.screenId).toList(),
-        ['ONB-01', 'ONB-02', 'ONB-03', 'ONB-04', 'ONB-05', 'ONB-06'],
+        V2OnboardingStepX.shortPathOrdered.map((s) => s.screenId).toList(),
+        ['ONB-01', 'ONB-02', 'ONB-03'],
       );
-      expect(V2OnboardingStep.profileReveal.screenId, 'ONB-07');
-      expect(V2OnboardingStep.planReveal.screenId, 'ONB-08');
-      expect(V2OnboardingStep.todayPreview.screenId, 'ONB-09');
+      expect(V2OnboardingStep.welcome.screenId, 'ONB-01');
+      expect(V2OnboardingStep.quickSetup.screenId, 'ONB-02');
+      expect(V2OnboardingStep.planReady.screenId, 'ONB-03');
     });
 
     test('no remote persistence identifiers', () {
@@ -260,7 +260,7 @@ void main() {
         wrap(OnbWelcomeView(loc: loc, onContinue: () {})),
       );
       expect(find.text(loc.v2OnboardingWelcomeTitle), findsOneWidget);
-      expect(find.widgetWithText(FilledButton, loc.v2OnboardingContinue),
+      expect(find.widgetWithText(FilledButton, loc.v2OnboardingWelcomeStart),
           findsOneWidget);
     });
 
@@ -277,14 +277,28 @@ void main() {
       expect(Directionality.of(context), TextDirection.rtl);
     });
 
-    testWidgets('expectations shows exactly 3 items', (tester) async {
+    testWidgets('quick setup shows the five question prompts', (tester) async {
       final loc = await loadLoc('en');
       await tester.pumpWidget(
-        wrap(OnbExpectationsView(loc: loc, onContinue: () {})),
+        wrap(
+          OnbQuickSetupView(
+            loc: loc,
+            onContinue: ({
+              required screenHours,
+              required mainGoal,
+              required hardestTime,
+              reminderTime,
+              firstName,
+            }) async {},
+          ),
+        ),
       );
-      expect(find.textContaining('1.'), findsOneWidget);
-      expect(find.textContaining('2.'), findsOneWidget);
-      expect(find.textContaining('3.'), findsOneWidget);
+      expect(find.text(loc.v2OnboardingQuickSetupTitle), findsOneWidget);
+      expect(find.text(loc.v2OnboardingQScreenHours), findsOneWidget);
+      expect(find.text(loc.v2OnboardingQMainGoal), findsOneWidget);
+      expect(find.text(loc.v2OnboardingQHardestTime), findsOneWidget);
+      expect(find.text(loc.v2OnboardingQFirstName), findsOneWidget);
+      expect(find.text(loc.v2OnboardingQReminder), findsOneWidget);
     });
 
     testWidgets('CHK-01 entry start / resume / completed states', (tester) async {

@@ -1,3 +1,4 @@
+import 'v2_onboarding_answers.dart';
 import 'v2_onboarding_progress.dart';
 import 'v2_onboarding_status.dart';
 import 'v2_onboarding_step.dart';
@@ -17,6 +18,10 @@ class V2OnboardingState {
     this.consentAnalyticsOptIn = false,
     this.privacyAcknowledged = false,
     this.ritualWindow,
+    this.screenHours,
+    this.mainGoal,
+    this.hardestTime,
+    this.firstName,
     this.brainCheckReady = false,
     this.profileRevealed = false,
     this.profileSessionId,
@@ -37,6 +42,10 @@ class V2OnboardingState {
   final bool consentAnalyticsOptIn;
   final bool privacyAcknowledged;
   final V2RitualWindow? ritualWindow;
+  final V2ScreenHoursBand? screenHours;
+  final V2OnboardingGoal? mainGoal;
+  final V2RitualWindow? hardestTime;
+  final String? firstName;
   final bool brainCheckReady;
 
   /// ONB-07 milestone reached (Profile reveal shown for a session).
@@ -54,9 +63,12 @@ class V2OnboardingState {
   final DateTime? journeyCompletedAt;
 
   V2OnboardingProgress get progress => V2OnboardingProgress(
-        currentStepIndex: currentStep.orderIndex,
-        totalSteps: V2OnboardingStepX.preCheckOrdered.length,
+        currentStepIndex: currentStep.normalizedForShell.orderIndex,
+        totalSteps: V2OnboardingStepX.shortPathOrdered.length,
       );
+
+  bool get canSubmitQuickSetup =>
+      screenHours != null && mainGoal != null && hardestTime != null;
 
   bool get canSubmitConsent => consentNonMedical && consentTerms;
 
@@ -93,6 +105,14 @@ class V2OnboardingState {
     bool? privacyAcknowledged,
     V2RitualWindow? ritualWindow,
     bool clearRitual = false,
+    V2ScreenHoursBand? screenHours,
+    bool clearScreenHours = false,
+    V2OnboardingGoal? mainGoal,
+    bool clearMainGoal = false,
+    V2RitualWindow? hardestTime,
+    bool clearHardestTime = false,
+    String? firstName,
+    bool clearFirstName = false,
     bool? brainCheckReady,
     bool? profileRevealed,
     String? profileSessionId,
@@ -118,6 +138,12 @@ class V2OnboardingState {
           consentAnalyticsOptIn ?? this.consentAnalyticsOptIn,
       privacyAcknowledged: privacyAcknowledged ?? this.privacyAcknowledged,
       ritualWindow: clearRitual ? null : (ritualWindow ?? this.ritualWindow),
+      screenHours:
+          clearScreenHours ? null : (screenHours ?? this.screenHours),
+      mainGoal: clearMainGoal ? null : (mainGoal ?? this.mainGoal),
+      hardestTime:
+          clearHardestTime ? null : (hardestTime ?? this.hardestTime),
+      firstName: clearFirstName ? null : (firstName ?? this.firstName),
       brainCheckReady: brainCheckReady ?? this.brainCheckReady,
       profileRevealed: profileRevealed ?? this.profileRevealed,
       profileSessionId: clearProfileSession
@@ -144,6 +170,11 @@ class V2OnboardingState {
         'consentAnalyticsOptIn': consentAnalyticsOptIn,
         'privacyAcknowledged': privacyAcknowledged,
         if (ritualWindow != null) 'ritualWindow': ritualWindow!.wireName,
+        if (screenHours != null) 'screenHours': screenHours!.wireName,
+        if (mainGoal != null) 'mainGoal': mainGoal!.wireName,
+        if (hardestTime != null) 'hardestTime': hardestTime!.wireName,
+        if (firstName != null && firstName!.trim().isNotEmpty)
+          'firstName': firstName!.trim(),
         'brainCheckReady': brainCheckReady,
         'profileRevealed': profileRevealed,
         if (profileSessionId != null) 'profileSessionId': profileSessionId,
@@ -176,6 +207,10 @@ class V2OnboardingState {
       consentAnalyticsOptIn: json['consentAnalyticsOptIn'] as bool? ?? false,
       privacyAcknowledged: json['privacyAcknowledged'] as bool? ?? false,
       ritualWindow: ritual,
+      screenHours: V2ScreenHoursBandX.fromWire(json['screenHours'] as String?),
+      mainGoal: V2OnboardingGoalX.fromWire(json['mainGoal'] as String?),
+      hardestTime: V2RitualWindowX.fromWire(json['hardestTime'] as String?),
+      firstName: (json['firstName'] as String?)?.trim(),
       brainCheckReady: json['brainCheckReady'] as bool? ?? false,
       profileRevealed: json['profileRevealed'] as bool? ?? false,
       profileSessionId: json['profileSessionId'] as String?,

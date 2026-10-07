@@ -85,8 +85,10 @@ HomeGreetingPeriod homeGreetingPeriodFor(DateTime local) {
   return HomeGreetingPeriod.evening;
 }
 
-/// Resolves display name from preferences with localized fallback.
-String homeDisplayName(AppPreferencesState prefs, String fallbackLabel) {
-  final stored = prefs.profileDisplayName.trim();
-  return stored.isEmpty ? fallbackLabel : stored;
+/// Resolves the user's first name for Home greeting.
+///
+/// Returns empty when unset — UI should show the nameless greeting, never a
+/// placeholder label like the profile default identity.
+String homeDisplayName(AppPreferencesState prefs, [String unusedFallback = '']) {
+  return prefs.profileDisplayName.trim();
 }

@@ -426,12 +426,6 @@ class _ShellPlanOrientation extends StatelessWidget {
                 value: timeLabel,
                 semanticLabel: timeLabel,
               ),
-              V2MetricTile(
-                label: loc.recoveryPlanIntensityLabel,
-                value: intensityLabel,
-                semanticLabel:
-                    '${loc.recoveryPlanIntensityLabel}: $intensityLabel',
-              ),
             ],
           ),
           const SizedBox(height: _kShellGapSection),
@@ -489,7 +483,7 @@ class _ShellPlanOrientation extends StatelessWidget {
           ),
           _PlanDetailExpansion(
             title: loc.recoveryPlanAboutDetails,
-            subtitle: '${loc.recoveryPlanConfidenceHeading}: $confidenceLabel',
+            subtitle: loc.v2OnboardingWelcomeDisclaimer,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -665,14 +659,9 @@ class _FirstTimePlanReveal extends StatelessWidget {
             ),
           ],
           const SizedBox(height: _kShellGapSection),
-          V2SectionLabel(loc.recoveryPlanConfidenceHeading),
-          const SizedBox(height: _kShellGapLabelBody),
-          Semantics(
-            label: '${loc.recoveryPlanConfidenceHeading}: $confidenceLabel',
-            child: Text(
-              confidenceLabel,
-              style: V2ShellVisual.bodyMuted(theme),
-            ),
+          Text(
+            loc.v2OnboardingWelcomeDisclaimer,
+            style: V2ShellVisual.captionMuted(theme),
           ),
           const SizedBox(height: _kShellGapSection),
           V2MetricRow(
@@ -681,12 +670,6 @@ class _FirstTimePlanReveal extends StatelessWidget {
                 label: loc.recoveryPlanTimeHeading,
                 value: timeLabel,
                 semanticLabel: timeLabel,
-              ),
-              V2MetricTile(
-                label: loc.recoveryPlanIntensityLabel,
-                value: intensityLabel,
-                semanticLabel:
-                    '${loc.recoveryPlanIntensityLabel}: $intensityLabel',
               ),
             ],
           ),

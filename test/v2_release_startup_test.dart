@@ -222,13 +222,14 @@ void main() {
       expect(src, isNot(contains('AppRoutes.home')));
     });
 
-    test('V2 onboarding Start Brain Check still hands off to /v2/check', () {
+    test('V2 short onboarding starts Day 1 via session prepare', () {
       final src =
           File('lib/features/v2_onboarding/ui/v2_onboarding_flow_screen.dart')
               .readAsStringSync();
-      expect(src, contains('AppRoutes.v2BrainCheckEntry'));
-      expect(src, contains('mode=lite'));
-      expect(src, contains('source=onboarding'));
+      expect(src, contains('generateStarterForOnboarding'));
+      expect(src, contains('AppRoutes.v2SessionPrepare'));
+      expect(src, contains('completeOnboarding()'));
+      expect(src, contains('markJourneyCompleted'));
       expect(src, contains('StartupDestination.resolve()'));
       expect(src, isNot(contains('AppRoutes.home')));
     });
@@ -543,13 +544,13 @@ void main() {
   });
 
   group('Release candidate identity', () {
-    test('pubspec and AppConfig report 2.0.4 / build 34', () {
+    test('pubspec and AppConfig report 2.0.5 / build 35', () {
       final pubspec = File('pubspec.yaml').readAsStringSync();
       expect(
         pubspec,
-        contains(RegExp(r'^version:\s*2\.0\.4\+34\s*$', multiLine: true)),
+        contains(RegExp(r'^version:\s*2\.0\.5\+35\s*$', multiLine: true)),
       );
-      expect(AppConfig.appVersion, '2.0.4');
+      expect(AppConfig.appVersion, '2.0.5');
     });
 
     test('Android applicationId matches Google Play package', () {

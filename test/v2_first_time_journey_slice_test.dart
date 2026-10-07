@@ -221,13 +221,13 @@ void main() {
       await c.markReadyForBrainCheck();
       await c.markProfileRevealed(sessionId: 'sess_ft');
       await c.markPlanRevealed(planId: 'plan_1');
-      expect(c.state.currentStep, V2OnboardingStep.planReveal);
+      expect(c.state.currentStep, V2OnboardingStep.planReady);
       expect(c.state.planRevealed, isTrue);
       expect(c.state.planId, 'plan_1');
       expect(c.state.status, isNot(V2OnboardingStatus.completed));
       await c.markPlanRevealed(planId: 'plan_1');
       expect(c.state.planId, 'plan_1');
-      expect(V2OnboardingStep.planReveal.screenId, 'ONB-08');
+      expect(V2OnboardingStep.planReady.screenId, 'ONB-03');
     });
 
     test('today preview milestone persists', () async {
@@ -237,22 +237,17 @@ void main() {
       await c.markProfileRevealed(sessionId: 'sess_ft');
       await c.markPlanRevealed(planId: 'plan_1');
       await c.markTodayPreviewed(planId: 'plan_1');
-      expect(c.state.currentStep, V2OnboardingStep.todayPreview);
+      expect(c.state.currentStep, V2OnboardingStep.planReady);
       expect(c.state.todayPreviewed, isTrue);
       expect(c.state.status, isNot(V2OnboardingStatus.completed));
-      expect(V2OnboardingStep.todayPreview.screenId, 'ONB-09');
+      expect(V2OnboardingStep.planReady.screenId, 'ONB-03');
     });
 
-    test('journey completion requires plan reveal; is idempotent', () async {
+    test('journey completion with plan id is idempotent', () async {
       final c = V2OnboardingController(repository: _MemoryOnboardingRepo());
       await c.hydrate();
       await c.markReadyForBrainCheck();
-      await c.markJourneyCompleted(planId: 'plan_premature');
-      expect(c.state.status, isNot(V2OnboardingStatus.completed));
-
-      await c.markProfileRevealed(sessionId: 'sess_ft');
-      await c.markPlanRevealed(planId: 'plan_1');
-      await c.markTodayPreviewed(planId: 'plan_1');
+      // Short onboarding: plan id alone completes the journey.
       await c.markJourneyCompleted(planId: 'plan_1');
       final first = c.state.journeyCompletedAt;
       expect(c.state.isJourneyComplete, isTrue);
@@ -373,7 +368,7 @@ void main() {
         profileRevealed: true,
         planRevealed: true,
         planId: 'plan_1',
-        currentStep: V2OnboardingStep.planReveal,
+        currentStep: V2OnboardingStep.planReady,
       );
       final d = V2FirstTimeJourneyResolver.resolve(
         V2FirstTimeJourneySnapshot(
@@ -396,7 +391,7 @@ void main() {
         todayPreviewed: true,
         planId: 'plan_1',
         journeyCompletedAt: DateTime.utc(2026, 8, 2),
-        currentStep: V2OnboardingStep.todayPreview,
+        currentStep: V2OnboardingStep.planReady,
       );
       final d = V2FirstTimeJourneyResolver.resolve(
         V2FirstTimeJourneySnapshot(
@@ -455,7 +450,7 @@ void main() {
       expect(find.text(loc.recoveryPlanFitsProfile), findsOneWidget);
       expect(find.text(loc.recoveryPlanPrioritiesHeading), findsOneWidget);
       expect(find.text(loc.recoveryPlanStrongerHeading), findsOneWidget);
-      expect(find.text(loc.recoveryPlanConfidenceHeading), findsOneWidget);
+      expect(find.text(loc.v2OnboardingWelcomeDisclaimer), findsOneWidget);
       expect(find.text(loc.recoveryPlanTimeHeading), findsOneWidget);
       expect(find.text(loc.recoveryPlanMinimumPath), findsOneWidget);
       expect(find.text(loc.recoveryPlanStandardPath), findsOneWidget);

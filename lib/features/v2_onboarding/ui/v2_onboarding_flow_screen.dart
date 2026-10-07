@@ -8,6 +8,9 @@ import '../../../core/l10n/app_localizations.dart';
 import '../../../core/providers/locale_provider.dart';
 import '../../../core/routing/startup_destination.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../daily_session/data/daily_session_controller_provider.dart';
+import '../../recovery_plan/data/recovery_plan_repository_provider.dart'
+    show recoveryPlanGeneratorProvider;
 import '../application/v2_onboarding_controller.dart';
 import '../data/v2_onboarding_repository_provider.dart';
 import '../domain/v2_onboarding_progress.dart';
@@ -15,7 +18,7 @@ import '../domain/v2_onboarding_status.dart';
 import '../domain/v2_onboarding_step.dart';
 import 'v2_onboarding_step_views.dart';
 
-/// Host for ONB-01…ONB-06 — resumable single-flow shell.
+/// Short onboarding host — 3 screens, then Day 1 exercise.
 class V2OnboardingFlowScreen extends ConsumerStatefulWidget {
   const V2OnboardingFlowScreen({super.key});
 
@@ -26,15 +29,70 @@ class V2OnboardingFlowScreen extends ConsumerStatefulWidget {
 
 class _V2OnboardingFlowScreenState
     extends ConsumerState<V2OnboardingFlowScreen> {
+  var _startingDay1 = false;
+
   @override
   void initState() {
     super.initState();
     Future.microtask(() async {
       final locale = ref.read(localeProvider);
-      await ref
-          .read(v2OnboardingControllerProvider)
-          .hydrate(languageCode: locale.languageCode);
+      final controller = ref.read(v2OnboardingControllerProvider);
+      await controller.hydrate(languageCode: locale.languageCode);
+
+      // If a plan already exists, never show onboarding again.
+      final plan =
+          await ref.read(recoveryPlanGeneratorProvider).active();
+      if (plan != null) {
+        await controller.markJourneyCompleted(planId: plan.id);
+        await ref.read(appPreferencesProvider.notifier).completeOnboarding();
+        if (!mounted) return;
+        context.go(StartupDestination.resolve());
+        return;
+      }
+      if (controller.state.isJourneyComplete) {
+        await ref.read(appPreferencesProvider.notifier).completeOnboarding();
+        if (!mounted) return;
+        context.go(StartupDestination.resolve());
+      }
     });
+  }
+
+  Future<void> _startDay1() async {
+    if (_startingDay1) return;
+    setState(() => _startingDay1 = true);
+    try {
+      final controller = ref.read(v2OnboardingControllerProvider);
+      final name = controller.state.firstName?.trim();
+      if (name != null && name.isNotEmpty) {
+        await ref
+            .read(appPreferencesProvider.notifier)
+            .setProfileDisplayName(name);
+      }
+
+      final generator = ref.read(recoveryPlanGeneratorProvider);
+      final plan = await generator.generateStarterForOnboarding();
+      await controller.markPlanRevealed(planId: plan.id);
+      await controller.markJourneyCompleted(planId: plan.id);
+      await ref.read(appPreferencesProvider.notifier).completeOnboarding();
+
+      final sessionController = ref.read(dailySessionControllerProvider);
+      await sessionController.loadToday();
+      final session = await sessionController.ensureSession();
+      if (!mounted) return;
+      if (session != null) {
+        context.go('${AppRoutes.v2SessionPrepare}?session=${session.id}');
+      } else {
+        context.go(StartupDestination.resolve());
+      }
+    } catch (e) {
+      debugPrint('V2OnboardingFlowScreen: start Day 1 failed: $e');
+      if (mounted) {
+        setState(() => _startingDay1 = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(AppLocalizations.of(context)!.v2TodayReadyPersistFailed)),
+        );
+      }
+    }
   }
 
   @override
@@ -66,35 +124,13 @@ class _V2OnboardingFlowScreenState
                     loc: loc,
                     controller: controller,
                     languageCode: locale.languageCode,
+                    startingDay1: _startingDay1,
                     onToggleLanguage: () async {
                       await toggleLocale(ref);
                       final code = ref.read(localeProvider).languageCode;
                       await controller.setLanguageCode(code);
                     },
-                    onRitualComplete: (window, {required skip}) async {
-                      await controller.setRitual(window, skip: skip);
-                      await ref
-                          .read(appPreferencesProvider.notifier)
-                          .completeOnboarding();
-                    },
-                    onStartCheck: () async {
-                      await controller.markReadyForBrainCheck();
-                      await ref
-                          .read(appPreferencesProvider.notifier)
-                          .completeOnboarding();
-                      if (!context.mounted) return;
-                      context.go(
-                        '${AppRoutes.v2BrainCheckEntry}?mode=lite&source=onboarding',
-                      );
-                    },
-                    onSkipCheck: () async {
-                      await controller.markReadyForBrainCheck();
-                      await ref
-                          .read(appPreferencesProvider.notifier)
-                          .completeOnboarding();
-                      if (!context.mounted) return;
-                      context.go(StartupDestination.resolve());
-                    },
+                    onStartDay1: _startDay1,
                   ),
       ),
     );
@@ -108,24 +144,29 @@ class V2OnboardingFlowBody extends StatelessWidget {
     required this.controller,
     required this.languageCode,
     required this.onToggleLanguage,
-    required this.onRitualComplete,
-    required this.onStartCheck,
-    required this.onSkipCheck,
+    this.onStartDay1,
+    this.startingDay1 = false,
+    // Legacy callbacks kept for older widget tests.
+    this.onRitualComplete,
+    this.onStartCheck,
+    this.onSkipCheck,
   });
 
   final AppLocalizations loc;
   final V2OnboardingController controller;
   final String languageCode;
   final VoidCallback onToggleLanguage;
-  final Future<void> Function(V2RitualWindow? window, {required bool skip})
+  final VoidCallback? onStartDay1;
+  final bool startingDay1;
+  final Future<void> Function(V2RitualWindow? window, {required bool skip})?
       onRitualComplete;
-  final VoidCallback onStartCheck;
-  final VoidCallback onSkipCheck;
+  final VoidCallback? onStartCheck;
+  final VoidCallback? onSkipCheck;
 
   @override
   Widget build(BuildContext context) {
     final state = controller.state;
-    final step = state.currentStep;
+    final step = state.currentStep.normalizedForShell;
     final progress = state.progress;
 
     return Column(
@@ -141,7 +182,7 @@ class V2OnboardingFlowBody extends StatelessWidget {
                   width: 48,
                   child: IconButton(
                     tooltip: loc.v2OnboardingBack,
-                    onPressed: controller.goBack,
+                    onPressed: startingDay1 ? null : controller.goBack,
                     icon: const Icon(Icons.arrow_back),
                   ),
                 )
@@ -192,62 +233,43 @@ class V2OnboardingFlowBody extends StatelessWidget {
   }
 
   Widget _stepView(V2OnboardingStep step) {
-    switch (step) {
+    switch (step.normalizedForShell) {
       case V2OnboardingStep.welcome:
         return OnbWelcomeView(
           loc: loc,
           onContinue: controller.advanceFromWelcome,
         );
-      case V2OnboardingStep.expectations:
-        return OnbExpectationsView(
+      case V2OnboardingStep.quickSetup:
+        return OnbQuickSetupView(
           loc: loc,
-          onContinue: controller.advanceFromExpectations,
-        );
-      case V2OnboardingStep.consent:
-        return OnbConsentView(
-          loc: loc,
-          nonMedical: controller.state.consentNonMedical,
-          terms: controller.state.consentTerms,
-          analytics: controller.state.consentAnalyticsOptIn,
-          onChanged: ({
-            required bool nonMedical,
-            required bool terms,
-            required bool analytics,
-          }) {
-            controller.setConsent(
-              nonMedical: nonMedical,
-              terms: terms,
-              analyticsOptIn: analytics,
+          initialScreenHours: controller.state.screenHours,
+          initialGoal: controller.state.mainGoal,
+          initialHardest: controller.state.hardestTime,
+          initialReminder: controller.state.ritualWindow,
+          initialFirstName: controller.state.firstName,
+          onContinue: ({
+            required screenHours,
+            required mainGoal,
+            required hardestTime,
+            reminderTime,
+            firstName,
+          }) async {
+            await controller.saveQuickSetup(
+              screenHours: screenHours,
+              mainGoal: mainGoal,
+              hardestTime: hardestTime,
+              reminderTime: reminderTime,
+              firstName: firstName,
             );
+            await controller.advanceFromQuickSetup();
           },
-          onContinue: () => controller.advanceFromConsent(),
         );
-      case V2OnboardingStep.privacy:
-        return OnbPrivacyView(
+      case V2OnboardingStep.planReady:
+      default:
+        return OnbPlanReadyView(
           loc: loc,
-          onContinue: controller.acknowledgePrivacy,
-        );
-      case V2OnboardingStep.ritual:
-        return OnbRitualView(
-          loc: loc,
-          selected: controller.state.ritualWindow,
-          onContinue: (window) => onRitualComplete(window, skip: false),
-          onSkip: () => onRitualComplete(null, skip: true),
-        );
-      case V2OnboardingStep.checkIntro:
-        return OnbCheckIntroView(
-          loc: loc,
-          onStart: onStartCheck,
-          onSkip: onSkipCheck,
-        );
-      case V2OnboardingStep.profileReveal:
-      case V2OnboardingStep.planReveal:
-      case V2OnboardingStep.todayPreview:
-        // ONB-07…09 are hosted by Profile / Plan / Today-preview routes.
-        return OnbCheckIntroView(
-          loc: loc,
-          onStart: onStartCheck,
-          onSkip: onSkipCheck,
+          busy: startingDay1,
+          onStartDay1: onStartDay1 ?? onStartCheck ?? () {},
         );
     }
   }
@@ -269,22 +291,19 @@ class _CorruptBody extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(24),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Semantics(
-            header: true,
-            liveRegion: true,
-            child: Text(
-              loc.v2OnboardingCorruptTitle,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
+          Text(
+            loc.v2OnboardingCorruptTitle,
+            style: Theme.of(context).textTheme.headlineSmall,
           ),
           const SizedBox(height: 12),
-          Text(loc.v2OnboardingCorruptBody, textAlign: TextAlign.center),
-          const SizedBox(height: 24),
+          Text(
+            loc.v2OnboardingCorruptBody,
+            style: TextStyle(color: AppColors.textSecondary),
+          ),
+          const Spacer(),
           SizedBox(
-            width: double.infinity,
             height: 48,
             child: FilledButton(
               onPressed: onRestart,
@@ -293,9 +312,8 @@ class _CorruptBody extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           SizedBox(
-            width: double.infinity,
             height: 48,
-            child: OutlinedButton(
+            child: TextButton(
               onPressed: onHome,
               child: Text(loc.v2OnboardingGoHome),
             ),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/app_colors.dart';
+import '../domain/v2_onboarding_answers.dart';
 import '../domain/v2_onboarding_progress.dart';
 
 class _OnbScaffold extends StatelessWidget {
@@ -95,7 +97,7 @@ class _OnbScaffold extends StatelessWidget {
   }
 }
 
-/// ONB-01 Welcome
+/// Screen 1 — Welcome
 class OnbWelcomeView extends StatelessWidget {
   const OnbWelcomeView({
     super.key,
@@ -110,66 +112,288 @@ class OnbWelcomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return _OnbScaffold(
       title: loc.v2OnboardingWelcomeTitle,
-      body: loc.v2OnboardingWelcomeBody,
-      ctaLabel: loc.v2OnboardingContinue,
+      body: loc.v2OnboardingWelcomePromise,
+      footnote: loc.v2OnboardingWelcomeDisclaimer,
+      ctaLabel: loc.v2OnboardingWelcomeStart,
       onCta: onContinue,
     );
   }
 }
 
-/// ONB-02 Expectations — exactly 3 items.
+/// Screen 2 — five quick questions on one scrollable page.
+class OnbQuickSetupView extends StatefulWidget {
+  const OnbQuickSetupView({
+    super.key,
+    required this.loc,
+    required this.onContinue,
+    this.initialScreenHours,
+    this.initialGoal,
+    this.initialHardest,
+    this.initialReminder,
+    this.initialFirstName,
+  });
+
+  final AppLocalizations loc;
+  final Future<void> Function({
+    required V2ScreenHoursBand screenHours,
+    required V2OnboardingGoal mainGoal,
+    required V2RitualWindow hardestTime,
+    V2RitualWindow? reminderTime,
+    String? firstName,
+  }) onContinue;
+  final V2ScreenHoursBand? initialScreenHours;
+  final V2OnboardingGoal? initialGoal;
+  final V2RitualWindow? initialHardest;
+  final V2RitualWindow? initialReminder;
+  final String? initialFirstName;
+
+  @override
+  State<OnbQuickSetupView> createState() => _OnbQuickSetupViewState();
+}
+
+class _OnbQuickSetupViewState extends State<OnbQuickSetupView> {
+  late V2ScreenHoursBand? _hours = widget.initialScreenHours;
+  late V2OnboardingGoal? _goal = widget.initialGoal;
+  late V2RitualWindow? _hardest = widget.initialHardest;
+  late V2RitualWindow? _reminder = widget.initialReminder;
+  late final TextEditingController _nameCtrl;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameCtrl = TextEditingController(text: widget.initialFirstName ?? '');
+  }
+
+  @override
+  void dispose() {
+    _nameCtrl.dispose();
+    super.dispose();
+  }
+
+  bool get _ready => _hours != null && _goal != null && _hardest != null;
+
+  @override
+  Widget build(BuildContext context) {
+    final loc = widget.loc;
+    return SingleChildScrollView(
+      padding: const EdgeInsets.fromLTRB(24, 8, 24, 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Semantics(
+            header: true,
+            child: Text(
+              loc.v2OnboardingQuickSetupTitle,
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            loc.v2OnboardingQuickSetupBody,
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: AppColors.textSecondary,
+                ),
+          ),
+          const SizedBox(height: 20),
+          Text(loc.v2OnboardingQScreenHours,
+              style: Theme.of(context).textTheme.titleSmall),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              for (final band in V2ScreenHoursBand.values)
+                ChoiceChip(
+                  label: Text(_hoursLabel(loc, band)),
+                  selected: _hours == band,
+                  onSelected: (_) => setState(() => _hours = band),
+                ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          Text(loc.v2OnboardingQMainGoal,
+              style: Theme.of(context).textTheme.titleSmall),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              for (final goal in V2OnboardingGoal.values)
+                ChoiceChip(
+                  label: Text(_goalLabel(loc, goal)),
+                  selected: _goal == goal,
+                  onSelected: (_) => setState(() => _goal = goal),
+                ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          Text(loc.v2OnboardingQHardestTime,
+              style: Theme.of(context).textTheme.titleSmall),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              for (final w in V2RitualWindow.values)
+                ChoiceChip(
+                  label: Text(_windowLabel(loc, w)),
+                  selected: _hardest == w,
+                  onSelected: (_) => setState(() => _hardest = w),
+                ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          Text(loc.v2OnboardingQFirstName,
+              style: Theme.of(context).textTheme.titleSmall),
+          const SizedBox(height: 8),
+          TextField(
+            controller: _nameCtrl,
+            textInputAction: TextInputAction.done,
+            textCapitalization: TextCapitalization.words,
+            inputFormatters: [
+              LengthLimitingTextInputFormatter(24),
+            ],
+            decoration: InputDecoration(
+              hintText: loc.v2OnboardingQFirstNameHint,
+              border: const OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 20),
+          Text(loc.v2OnboardingQReminder,
+              style: Theme.of(context).textTheme.titleSmall),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              for (final w in V2RitualWindow.values)
+                ChoiceChip(
+                  label: Text(_windowLabel(loc, w)),
+                  selected: _reminder == w,
+                  onSelected: (_) => setState(() => _reminder = w),
+                ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Text(
+            loc.v2OnboardingWelcomeDisclaimer,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: AppColors.textSecondary,
+                ),
+          ),
+          const SizedBox(height: 28),
+          SizedBox(
+            height: 48,
+            child: FilledButton(
+              onPressed: !_ready
+                  ? null
+                  : () => widget.onContinue(
+                        screenHours: _hours!,
+                        mainGoal: _goal!,
+                        hardestTime: _hardest!,
+                        reminderTime: _reminder,
+                        firstName: _nameCtrl.text.trim(),
+                      ),
+              child: Text(loc.v2OnboardingQuickSetupContinue),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _hoursLabel(AppLocalizations loc, V2ScreenHoursBand band) {
+    return switch (band) {
+      V2ScreenHoursBand.under2 => loc.v2OnboardingHoursUnder2,
+      V2ScreenHoursBand.from2to4 => loc.v2OnboardingHours2to4,
+      V2ScreenHoursBand.from4to6 => loc.v2OnboardingHours4to6,
+      V2ScreenHoursBand.over6 => loc.v2OnboardingHoursOver6,
+    };
+  }
+
+  String _goalLabel(AppLocalizations loc, V2OnboardingGoal goal) {
+    return switch (goal) {
+      V2OnboardingGoal.focus => loc.v2OnboardingGoalFocus,
+      V2OnboardingGoal.sleep => loc.v2OnboardingGoalSleep,
+      V2OnboardingGoal.lessScrolling => loc.v2OnboardingGoalLessScrolling,
+      V2OnboardingGoal.calm => loc.v2OnboardingGoalCalm,
+    };
+  }
+
+  String _windowLabel(AppLocalizations loc, V2RitualWindow w) {
+    return switch (w) {
+      V2RitualWindow.morning => loc.v2OnboardingRitualMorning,
+      V2RitualWindow.afternoon => loc.v2OnboardingRitualAfternoon,
+      V2RitualWindow.evening => loc.v2OnboardingRitualEvening,
+    };
+  }
+}
+
+/// Screen 3 — plan ready + Start Day 1.
+class OnbPlanReadyView extends StatelessWidget {
+  const OnbPlanReadyView({
+    super.key,
+    required this.loc,
+    required this.onStartDay1,
+    this.busy = false,
+  });
+
+  final AppLocalizations loc;
+  final VoidCallback onStartDay1;
+  final bool busy;
+
+  @override
+  Widget build(BuildContext context) {
+    return _OnbScaffold(
+      title: loc.v2OnboardingPlanReadyTitle,
+      body: loc.v2OnboardingPlanReadyBody,
+      footnote: loc.v2OnboardingWelcomeDisclaimer,
+      extra: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                loc.v2OnboardingPlanReadyCardTitle,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+              ),
+              const SizedBox(height: 8),
+              Text(loc.v2OnboardingPlanReadyCardBody),
+            ],
+          ),
+        ),
+      ),
+      ctaLabel: busy
+          ? loc.v2OnboardingLoading
+          : loc.v2OnboardingStartDay1,
+      ctaEnabled: !busy,
+      onCta: onStartDay1,
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Legacy view stubs kept so older tests/imports still compile.
+// ---------------------------------------------------------------------------
+
 class OnbExpectationsView extends StatelessWidget {
   const OnbExpectationsView({
     super.key,
     required this.loc,
     required this.onContinue,
   });
-
   final AppLocalizations loc;
   final VoidCallback onContinue;
-
   @override
-  Widget build(BuildContext context) {
-    final items = [
-      loc.v2OnboardingExpectation1,
-      loc.v2OnboardingExpectation2,
-      loc.v2OnboardingExpectation3,
-    ];
-    return _OnbScaffold(
-      title: loc.v2OnboardingExpectationsTitle,
-      body: loc.v2OnboardingExpectationsBody,
-      footnote: loc.v2OnboardingExpectationsFootnote,
-      ctaLabel: loc.v2OnboardingContinue,
-      onCta: onContinue,
-      extra: Semantics(
-        container: true,
-        label: loc.v2OnboardingExpectationsTitle,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            for (var i = 0; i < items.length; i++)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 12),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '${i + 1}.',
-                      style: const TextStyle(color: AppColors.primary),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(child: Text(items[i])),
-                  ],
-                ),
-              ),
-          ],
-        ),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => OnbWelcomeView(
+        loc: loc,
+        onContinue: onContinue,
+      );
 }
 
-/// ONB-03 Consent
 class OnbConsentView extends StatelessWidget {
   const OnbConsentView({
     super.key,
@@ -180,198 +404,52 @@ class OnbConsentView extends StatelessWidget {
     required this.onChanged,
     required this.onContinue,
   });
-
   final AppLocalizations loc;
   final bool nonMedical;
   final bool terms;
   final bool analytics;
-  final void Function({
-    required bool nonMedical,
-    required bool terms,
-    required bool analytics,
-  }) onChanged;
-  final Future<bool> Function() onContinue;
-
+  final void Function({bool? nonMedical, bool? terms, bool? analytics})
+      onChanged;
+  final VoidCallback onContinue;
   @override
-  Widget build(BuildContext context) {
-    final canContinue = nonMedical && terms;
-    return _OnbScaffold(
-      title: loc.v2OnboardingConsentTitle,
-      body: loc.v2OnboardingConsentBody,
-      footnote: canContinue ? null : loc.v2OnboardingConsentHint,
-      ctaLabel: loc.v2OnboardingContinue,
-      ctaEnabled: canContinue,
-      onCta: () {
-        onContinue();
-      },
-      extra: Column(
-        children: [
-          CheckboxListTile(
-            contentPadding: EdgeInsets.zero,
-            value: nonMedical,
-            onChanged: (v) => onChanged(
-              nonMedical: v ?? false,
-              terms: terms,
-              analytics: analytics,
-            ),
-            title: Text(loc.v2OnboardingConsentNonMedical),
-            controlAffinity: ListTileControlAffinity.leading,
-          ),
-          CheckboxListTile(
-            contentPadding: EdgeInsets.zero,
-            value: terms,
-            onChanged: (v) => onChanged(
-              nonMedical: nonMedical,
-              terms: v ?? false,
-              analytics: analytics,
-            ),
-            title: Text(loc.v2OnboardingConsentTerms),
-            controlAffinity: ListTileControlAffinity.leading,
-          ),
-          CheckboxListTile(
-            contentPadding: EdgeInsets.zero,
-            value: analytics,
-            onChanged: (v) => onChanged(
-              nonMedical: nonMedical,
-              terms: terms,
-              analytics: v ?? false,
-            ),
-            title: Text(loc.v2OnboardingConsentAnalytics),
-            controlAffinity: ListTileControlAffinity.leading,
-          ),
-        ],
-      ),
-    );
-  }
+  Widget build(BuildContext context) => OnbWelcomeView(
+        loc: loc,
+        onContinue: onContinue,
+      );
 }
 
-/// ONB-04 Privacy
 class OnbPrivacyView extends StatelessWidget {
   const OnbPrivacyView({
     super.key,
     required this.loc,
     required this.onContinue,
   });
-
   final AppLocalizations loc;
   final VoidCallback onContinue;
-
   @override
-  Widget build(BuildContext context) {
-    return _OnbScaffold(
-      title: loc.v2OnboardingPrivacyTitle,
-      body: loc.v2OnboardingPrivacyBody,
-      footnote: loc.v2OnboardingPrivacyFootnote,
-      ctaLabel: loc.v2OnboardingContinue,
-      onCta: onContinue,
-      secondaryLabel: loc.v2OnboardingPrivacyPolicyLink,
-      onSecondary: () {
-        showModalBottomSheet<void>(
-          context: context,
-          builder: (ctx) {
-            return SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(24),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Semantics(
-                      header: true,
-                      child: Text(
-                        loc.settingsPrivacyPolicy,
-                        style: Theme.of(ctx).textTheme.titleLarge,
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    Text(loc.v2OnboardingPrivacyCachedSummary),
-                    const SizedBox(height: 24),
-                    SizedBox(
-                      height: 48,
-                      child: FilledButton(
-                        onPressed: () => Navigator.of(ctx).pop(),
-                        child: Text(loc.v2OnboardingContinue),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        );
-      },
-    );
-  }
+  Widget build(BuildContext context) => OnbWelcomeView(
+        loc: loc,
+        onContinue: onContinue,
+      );
 }
 
-/// ONB-05 Ritual window
-class OnbRitualView extends StatefulWidget {
+class OnbRitualView extends StatelessWidget {
   const OnbRitualView({
     super.key,
     required this.loc,
-    required this.selected,
     required this.onContinue,
     required this.onSkip,
   });
-
   final AppLocalizations loc;
-  final V2RitualWindow? selected;
-  final void Function(V2RitualWindow window) onContinue;
+  final void Function(V2RitualWindow?) onContinue;
   final VoidCallback onSkip;
-
   @override
-  State<OnbRitualView> createState() => _OnbRitualViewState();
+  Widget build(BuildContext context) => OnbWelcomeView(
+        loc: loc,
+        onContinue: onSkip,
+      );
 }
 
-class _OnbRitualViewState extends State<OnbRitualView> {
-  late V2RitualWindow _selected;
-
-  @override
-  void initState() {
-    super.initState();
-    _selected = widget.selected ?? V2RitualWindow.morning;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final loc = widget.loc;
-    final options = <(V2RitualWindow, String)>[
-      (V2RitualWindow.morning, loc.v2OnboardingRitualMorning),
-      (V2RitualWindow.afternoon, loc.v2OnboardingRitualAfternoon),
-      (V2RitualWindow.evening, loc.v2OnboardingRitualEvening),
-    ];
-
-    return _OnbScaffold(
-      title: loc.v2OnboardingRitualTitle,
-      body: loc.v2OnboardingRitualBody,
-      ctaLabel: loc.v2OnboardingContinue,
-      onCta: () => widget.onContinue(_selected),
-      secondaryLabel: loc.v2OnboardingRitualDecideLater,
-      onSecondary: widget.onSkip,
-      extra: Semantics(
-        container: true,
-        label: loc.v2OnboardingRitualTitle,
-        child: Column(
-          children: [
-            for (final (window, label) in options)
-              RadioListTile<V2RitualWindow>(
-                contentPadding: EdgeInsets.zero,
-                value: window,
-                groupValue: _selected,
-                onChanged: (v) {
-                  if (v == null) return;
-                  setState(() => _selected = v);
-                },
-                title: Text(label),
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// ONB-06 Brain Check intro
 class OnbCheckIntroView extends StatelessWidget {
   const OnbCheckIntroView({
     super.key,
@@ -379,21 +457,12 @@ class OnbCheckIntroView extends StatelessWidget {
     required this.onStart,
     required this.onSkip,
   });
-
   final AppLocalizations loc;
   final VoidCallback onStart;
   final VoidCallback onSkip;
-
   @override
-  Widget build(BuildContext context) {
-    return _OnbScaffold(
-      title: loc.v2OnboardingCheckIntroTitle,
-      body: loc.v2OnboardingCheckIntroBody,
-      footnote: loc.v2OnboardingCheckIntroMeta,
-      ctaLabel: loc.v2OnboardingStartBrainCheck,
-      onCta: onStart,
-      secondaryLabel: loc.v2OnboardingSkipBrainCheck,
-      onSecondary: onSkip,
-    );
-  }
+  Widget build(BuildContext context) => OnbPlanReadyView(
+        loc: loc,
+        onStartDay1: onStart,
+      );
 }

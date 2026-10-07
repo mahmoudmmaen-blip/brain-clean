@@ -1901,10 +1901,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get recoveryPlanIntensityLabel => 'الشدة';
 
   @override
-  String get recoveryPlanMinimumPath => 'المسار الأدنى';
+  String get recoveryPlanMinimumPath => 'النسخة السريعة (دقيقتان)';
 
   @override
-  String get recoveryPlanStandardPath => 'المسار القياسي';
+  String get recoveryPlanStandardPath => 'النسخة الكاملة';
 
   @override
   String get recoveryPlanBecauseHeading => 'لماذا هذه الخطة اليوم';
@@ -2083,7 +2083,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String homeGreetingName(String name) {
-    return 'أهلاً، $name';
+    return 'أهلاً، $name 👋';
   }
 
   @override
@@ -2095,7 +2095,8 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get homeFocusImprovementPending => 'أكمل فحص الدماغ لتتبّع التعافي';
+  String get homeFocusImprovementPending =>
+      'كمّل فحص الدماغ متى ما كنت مستعد تتابع التعافي';
 
   @override
   String get homeMetricStreakLabel => 'أيام متواصلة';
@@ -2187,10 +2188,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get homeWeeklyReportReady => 'تقريرك الأسبوعي جاهز';
 
   @override
-  String get homeBaselineTestTitle => 'فحص الأساس';
+  String get homeBaselineTestTitle => 'فحص الدماغ';
 
   @override
-  String get homeBaselineTestPending => 'لم يُنجز بعد';
+  String get homeBaselineTestPending => 'فحص الدماغ بعد ما اكتمل';
 
   @override
   String homeBaselineTestScore(int score) {
@@ -2380,11 +2381,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2SessionPrepareIncludes => 'تتضمن هذه الجلسة:';
 
   @override
-  String get v2SessionPathHeading => 'اختر مسارك';
+  String get v2SessionPathHeading => 'اختر نسختك';
 
   @override
   String get v2SessionPathNoShame =>
-      'المسار الأدنى مكتمل ومفيد. القياسي يضيف عمقاً اختيارياً.';
+      'النسخة السريعة تحسب. الكاملة تضيف عمق بسيط.';
 
   @override
   String get v2SessionA11yHint => 'لكل خطوة بديل وصولية.';
@@ -2506,7 +2507,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v2ProgressEmptyBody =>
-      'أكمل جلسة اليوم لتبدأ سجلاً محلياً صادقاً. لا يُختلق شيء عندما يكون السجل فارغاً.';
+      'كمّل خطوة اليوم عشان يبدأ سجل صادق على جهازك.';
 
   @override
   String get v2ProgressLoading => 'جارٍ تحميل التقدّم';
@@ -2519,10 +2520,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2ProgressStatsSessions => 'الجلسات المكتملة';
 
   @override
-  String get v2ProgressStatsMinimum => 'جلسات المسار الأدنى';
+  String get v2ProgressStatsMinimum => 'جلسات النسخة السريعة';
 
   @override
-  String get v2ProgressStatsStandard => 'جلسات المسار القياسي';
+  String get v2ProgressStatsStandard => 'جلسات النسخة الكاملة';
 
   @override
   String get v2ProgressStatsRate => 'معدل الأيام المكتملة';
@@ -3091,10 +3092,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2ProgressRecentActivity => 'النشاط الأخير';
 
   @override
-  String get v2ProgressTimelineMinimum => 'المسار الأدنى';
+  String get v2ProgressTimelineMinimum => 'النسخة السريعة';
 
   @override
-  String get v2ProgressTimelineStandard => 'المسار القياسي';
+  String get v2ProgressTimelineStandard => 'النسخة الكاملة';
 
   @override
   String get v2ProgressTimelineBothPaths => 'الأدنى والقياسي';
@@ -3218,10 +3219,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v2ProgressPillarsEmpty =>
-      'أكمل تشخيصاً سريعاً لتتبع التركيز والذاكرة وعادات الشاشة والنوم مع الوقت.';
+      'كمّل فحص الدماغ عشان تتابع التركيز والعادات مع الوقت.';
 
   @override
-  String get v2ProgressPillarsFirstDiagnostic => 'ابدأ أول تشخيص';
+  String get v2ProgressPillarsFirstDiagnostic => 'ابدأ فحص الدماغ';
 
   @override
   String get v2ProgressLiveVsDayOne => 'الأداء الحي مقابل اليوم الأول';
@@ -3243,7 +3244,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2ProgressChartToday => 'اليوم';
 
   @override
-  String get v2ProgressWeeklyRediagnosis => 'إعادة التشخيص الأسبوعي';
+  String get v2ProgressWeeklyRediagnosis => 'فحص الدماغ الأسبوعي';
 
   @override
   String get v2ProgressPatternDetails => 'تفاصيل النمط';
@@ -4950,4 +4951,156 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get briQBoredom4 => 'أستطيع تحمل ملل خفيف دون مد يدي للهاتف.';
+
+  @override
+  String get homeGreetingAnonymous => 'أهلاً 👋';
+
+  @override
+  String homeProgramDayLabel(String day, String total) {
+    return 'اليوم $day من $total';
+  }
+
+  @override
+  String homeStreakDaysCount(String count) {
+    return 'سلسلة $count يوم';
+  }
+
+  @override
+  String get homeTodayStepHeading => 'خطوة اليوم';
+
+  @override
+  String get homeTodayStepStart => 'ابدأ';
+
+  @override
+  String get homeSosUrgeCta => 'عندي رغبة أفتح الموبايل';
+
+  @override
+  String get homeLessonHeading => 'درس اليوم';
+
+  @override
+  String get homeLessonPlaceholderBody =>
+      'نصيحة قصيرة ستظهر هنا قريباً — الآن فقط خذ خطوة اليوم.';
+
+  @override
+  String get homeRecoveryScoreLabel => 'درجة التعافي';
+
+  @override
+  String get homeBrainCheckOfferTitle => 'اختياري: فحص الدماغ';
+
+  @override
+  String get homeBrainCheckOfferBody =>
+      'فحص ذاتي هادئ متى ما كنت مستعداً. مو شرط عشان تكمل.';
+
+  @override
+  String get v2TodayHomeMissingPlan =>
+      'خطتك مو جاهزة بعد. اضغط بالأسفل عشان تبني اليوم ١.';
+
+  @override
+  String get v2OnboardingWelcomePromise =>
+      'ثلاث دقايق هادئة يومياً عشان تحس بصفاء أكثر — بدون ذنب وبدون ادعاءات طبية.';
+
+  @override
+  String get v2OnboardingWelcomeStart => 'ابدأ';
+
+  @override
+  String get v2OnboardingWelcomeDisclaimer =>
+      'دعم للعناية الذاتية فقط — مو تشخيص طبي.';
+
+  @override
+  String get v2OnboardingQuickSetupTitle => 'أسئلة سريعة';
+
+  @override
+  String get v2OnboardingQuickSetupBody =>
+      'جاوب مرة واحدة عشان نجهز لك خطة ٣٠ يوم بلطف.';
+
+  @override
+  String get v2OnboardingQuickSetupContinue => 'شوف خطتي';
+
+  @override
+  String get v2OnboardingQScreenHours => 'تقريباً كم ساعة يومياً على الشاشات؟';
+
+  @override
+  String get v2OnboardingQMainGoal => 'وش تبي أكثر الحين؟';
+
+  @override
+  String get v2OnboardingQHardestTime => 'متى أصعب تترك الموبايل؟';
+
+  @override
+  String get v2OnboardingQFirstName => 'وش نناديك؟ (اختياري)';
+
+  @override
+  String get v2OnboardingQFirstNameHint => 'الاسم الأول';
+
+  @override
+  String get v2OnboardingQReminder => 'متى نذكّرك؟';
+
+  @override
+  String get v2OnboardingHoursUnder2 => 'أقل من ٢س';
+
+  @override
+  String get v2OnboardingHours2to4 => '٢–٤س';
+
+  @override
+  String get v2OnboardingHours4to6 => '٤–٦س';
+
+  @override
+  String get v2OnboardingHoursOver6 => '٦س+';
+
+  @override
+  String get v2OnboardingGoalFocus => 'تركيز';
+
+  @override
+  String get v2OnboardingGoalSleep => 'نوم أفضل';
+
+  @override
+  String get v2OnboardingGoalLessScrolling => 'أقل سكرول';
+
+  @override
+  String get v2OnboardingGoalCalm => 'هدوء أكثر';
+
+  @override
+  String get v2OnboardingPlanReadyTitle => 'خطتك لـ ٣٠ يوم جاهزة';
+
+  @override
+  String get v2OnboardingPlanReadyBody =>
+      'خطوة صغيرة كل يوم. تقدر تتخطى متى ما تبي — بدون عقاب.';
+
+  @override
+  String get v2OnboardingPlanReadyCardTitle => 'اليوم ١ · حوالي ٣ دقايق';
+
+  @override
+  String get v2OnboardingPlanReadyCardBody =>
+      'تمرين هادئ للبداية وإعادة بناء التركيز.';
+
+  @override
+  String get v2OnboardingStartDay1 => 'ابدأ اليوم ١ (٣ دقايق)';
+
+  @override
+  String get v2ExercisesTestsSection => 'اختبارات';
+
+  @override
+  String get v2ExercisesTestsBrainCheck => 'فحص الدماغ';
+
+  @override
+  String get v2ExercisesTestsBrainCheckSubtitle =>
+      'أول مرة = خط أساس، وبعدها إعادة أسبوعية لنفس الفحص';
+
+  @override
+  String get v2ExercisesTestsReasoning => 'فحص التفكير';
+
+  @override
+  String get v2ExercisesTestsReasoningSubtitle => 'نبضة ألغاز قصيرة';
+
+  @override
+  String get v2ExercisesTestsBri => 'تعفن الدماغ الرقمي (BRI)';
+
+  @override
+  String get v2ExercisesTestsBriSubtitle => 'تقرير ذاتي عن عادات السكرول';
+
+  @override
+  String get v2ProgressEmptyFriendly =>
+      'ما في شي هنا بعد — وهذا طبيعي. خذ خطوة اليوم وبيطلع رسمك.';
+
+  @override
+  String get v2ProgressEmptyStartToday => 'ابدأ خطوة اليوم';
 }

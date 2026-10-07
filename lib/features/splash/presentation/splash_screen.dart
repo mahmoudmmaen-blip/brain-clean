@@ -11,6 +11,8 @@ import '../../../core/constants/app_routes.dart';
 import '../../../core/routing/startup_destination.dart';
 import '../../../core/security/security_status_provider.dart';
 import '../../../core/l10n/app_localizations.dart';
+import '../../recovery_plan/data/recovery_plan_repository_provider.dart'
+    show recoveryPlanGeneratorProvider;
 
 /// Cold-start gate: hydrates Hive + Riverpod, then home or **live session** resume.
 class SplashScreen extends ConsumerStatefulWidget {
@@ -90,7 +92,17 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
       }
     }
 
-    final hasSeen = ref.read(hasSeenOnboardingProvider);
+    var hasSeen = ref.read(hasSeenOnboardingProvider);
+    // Plan exists ⇒ onboarding is done (fixes resume back to Step 6).
+    if (!hasSeen) {
+      try {
+        final plan = await ref.read(recoveryPlanGeneratorProvider).active();
+        if (plan != null) {
+          await ref.read(appPreferencesProvider.notifier).completeOnboarding();
+          hasSeen = true;
+        }
+      } catch (_) {}
+    }
     if (kDebugMode) {
       debugPrint(
         '[SplashColdStart] hasSeenOnboarding=$hasSeen '

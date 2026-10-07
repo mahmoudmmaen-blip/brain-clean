@@ -162,12 +162,11 @@ class _SessionActScreenState extends ConsumerState<SessionActScreen>
                       ),
                     ),
                     const SizedBox(height: 12),
+                    // Accessibility alt stays semantic-only — never visible copy.
                     Semantics(
                       label: step.accessibilityAltForLocale(languageCode),
-                      child: Text(
-                        step.accessibilityAltForLocale(languageCode),
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
+                      excludeSemantics: true,
+                      child: const SizedBox.shrink(),
                     ),
                     const SizedBox(height: 8),
                     Text(

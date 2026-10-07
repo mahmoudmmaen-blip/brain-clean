@@ -132,9 +132,11 @@ abstract final class V2FirstTimeJourneyResolver {
       );
     }
 
+    // Short path: stay in onboarding until planReady completes.
+    final shellStep = onb.currentStep.normalizedForShell;
     if (onb.status == V2OnboardingStatus.notStarted ||
         (onb.status == V2OnboardingStatus.inProgress &&
-            onb.currentStep.isPreCheckStep)) {
+            shellStep != V2OnboardingStep.planReady)) {
       return const V2FirstTimeRouteDecision(
         destination: V2FirstTimeDestination.onboarding,
         reason: 'onboarding_in_progress',

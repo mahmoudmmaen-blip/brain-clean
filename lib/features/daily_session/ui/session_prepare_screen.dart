@@ -137,11 +137,6 @@ class _SessionPrepareScreenState extends ConsumerState<SessionPrepareScreen> {
                         child: Text(step.nameForLocale(languageCode)),
                       );
                     }),
-                    const SizedBox(height: 8),
-                    Text(
-                      loc.v2SessionA11yHint,
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
                     const SizedBox(height: 32),
                     SizedBox(
                       height: 48,

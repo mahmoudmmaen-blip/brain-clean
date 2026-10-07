@@ -359,21 +359,10 @@ class BrainProfileRevealBody extends StatelessWidget {
                 : explanation.scorePending(languageCode),
           ),
           const SizedBox(height: 24),
-          Semantics(
-            header: true,
-            child: Text(
-              loc.brainProfileConfidenceHeading,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
+          Text(
+            loc.v2OnboardingWelcomeDisclaimer,
+            style: Theme.of(context).textTheme.bodySmall,
           ),
-          const SizedBox(height: 8),
-          Semantics(
-            label: '${loc.brainProfileConfidenceHeading}: $confidenceLabel. '
-                '${explanation.confidence(languageCode)}',
-            child: Text(confidenceLabel),
-          ),
-          const SizedBox(height: 8),
-          Text(explanation.confidence(languageCode)),
           const SizedBox(height: 24),
           Semantics(
             header: true,

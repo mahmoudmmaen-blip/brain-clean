@@ -347,8 +347,8 @@ void main() {
       final ar = await AppLocalizations.delegate.load(const Locale('ar'));
       expect(en.v2ProgressEmptyTitle, isNotEmpty);
       expect(ar.v2ProgressEmptyTitle, isNotEmpty);
-      expect(en.v2ProgressEmptyBody.toLowerCase(), contains('nothing is invented'));
-      expect(ar.v2ProgressEmptyBody, contains('لا يُختلق'));
+      expect(en.v2ProgressEmptyBody.toLowerCase(), contains("today's step"));
+      expect(ar.v2ProgressEmptyBody, contains('خطوة اليوم'));
       final enApp = AppLocalizationsEn();
       final arApp = AppLocalizationsAr();
       final blob =

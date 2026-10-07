@@ -207,7 +207,7 @@ void main() {
       await tester.pump();
       expect(find.text('${pack.recoveryScore.value}'), findsOneWidget);
       expect(find.text(pack.recoveryScore.band.labelEn), findsOneWidget);
-      expect(find.text(loc.brainProfileConfidenceModerate), findsOneWidget);
+      expect(find.text(loc.v2OnboardingWelcomeDisclaimer), findsOneWidget);
       expect(find.text(loc.brainProfileContinue), findsOneWidget);
       expect(find.textContaining('EVIDENCE'), findsNothing);
       expect(find.textContaining('brain damage'), findsNothing);
@@ -361,7 +361,7 @@ void main() {
       await controller.hydrate();
       await controller.markReadyForBrainCheck();
       await controller.markProfileRevealed(sessionId: 'sess-a');
-      expect(controller.state.currentStep, V2OnboardingStep.profileReveal);
+      expect(controller.state.currentStep, V2OnboardingStep.planReady);
       expect(controller.state.profileRevealed, isTrue);
       expect(controller.state.profileSessionId, 'sess-a');
       expect(controller.state.status, V2OnboardingStatus.readyForBrainCheck);
@@ -369,7 +369,7 @@ void main() {
 
       await controller.markProfileRevealed(sessionId: 'sess-a');
       expect(controller.state.profileSessionId, 'sess-a');
-      expect(V2OnboardingStep.profileReveal.screenId, 'ONB-07');
+      expect(V2OnboardingStep.planReady.screenId, 'ONB-03');
     });
   });
 

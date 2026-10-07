@@ -999,8 +999,8 @@
     }
   },
   "recoveryPlanIntensityLabel": "الشدة",
-  "recoveryPlanMinimumPath": "المسار الأدنى",
-  "recoveryPlanStandardPath": "المسار القياسي",
+  "recoveryPlanMinimumPath": "النسخة السريعة (دقيقتان)",
+  "recoveryPlanStandardPath": "النسخة الكاملة",
   "recoveryPlanBecauseHeading": "لماذا هذه الخطة اليوم",
   "recoveryPlanTodayPreview": "معاينة اليوم",
   "recoveryPlanContinueToday": "المتابعة إلى اليوم",
@@ -1060,7 +1060,7 @@
   "homeGreetingMorning": "صباح الخير",
   "homeGreetingAfternoon": "مساء الخير",
   "homeGreetingEvening": "مساء الخير",
-  "homeGreetingName": "أهلاً، {name}",
+  "homeGreetingName": "أهلاً، {name} 👋",
   "@homeGreetingName": {
     "placeholders": {
       "name": { "type": "String" }
@@ -1073,7 +1073,7 @@
       "percent": { "type": "int" }
     }
   },
-  "homeFocusImprovementPending": "أكمل فحص الدماغ لتتبّع التعافي",
+  "homeFocusImprovementPending": "كمّل فحص الدماغ متى ما كنت مستعد تتابع التعافي",
   "homeMetricStreakLabel": "أيام متواصلة",
   "homeMetricStreakStartCta": "ابدأ جلستك الأولى",
   "homeDailyProgramProgress": "{done}/{total} مكتمل",
@@ -1123,8 +1123,8 @@
     }
   },
   "homeWeeklyReportReady": "تقريرك الأسبوعي جاهز",
-  "homeBaselineTestTitle": "فحص الأساس",
-  "homeBaselineTestPending": "لم يُنجز بعد",
+  "homeBaselineTestTitle": "فحص الدماغ",
+  "homeBaselineTestPending": "فحص الدماغ بعد ما اكتمل",
   "homeBaselineTestScore": "درجة الأساس {score}",
   "@homeBaselineTestScore": {
     "placeholders": {
@@ -1194,8 +1194,8 @@
   "v2SessionPrepareTitle": "تهيئة",
   "v2SessionPreparePurpose": "ممارسة موجهة قصيرة من خطتك.",
   "v2SessionPrepareIncludes": "تتضمن هذه الجلسة:",
-  "v2SessionPathHeading": "اختر مسارك",
-  "v2SessionPathNoShame": "المسار الأدنى مكتمل ومفيد. القياسي يضيف عمقاً اختيارياً.",
+  "v2SessionPathHeading": "اختر نسختك",
+  "v2SessionPathNoShame": "النسخة السريعة تحسب. الكاملة تضيف عمق بسيط.",
   "v2SessionA11yHint": "لكل خطوة بديل وصولية.",
   "v2SessionStartCta": "ابدأ",
   "v2SessionClose": "إغلاق",
@@ -1249,12 +1249,12 @@
   "v2SessionLeaveNext": "غداً سيعرض اليوم خطوة واضحة واحدة من جديد.",
   "v2SessionLeaveCta": "العودة إلى اليوم",
   "v2ProgressEmptyTitle": "لا تقدّم بعد",
-  "v2ProgressEmptyBody": "أكمل جلسة اليوم لتبدأ سجلاً محلياً صادقاً. لا يُختلق شيء عندما يكون السجل فارغاً.",
+  "v2ProgressEmptyBody": "كمّل خطوة اليوم عشان يبدأ سجل صادق على جهازك.",
   "v2ProgressLoading": "جارٍ تحميل التقدّم",
   "v2ProgressPersistFailed": "تعذّر حفظ التقدّم الآن. حاول مرة أخرى.",
   "v2ProgressStatsSessions": "الجلسات المكتملة",
-  "v2ProgressStatsMinimum": "جلسات المسار الأدنى",
-  "v2ProgressStatsStandard": "جلسات المسار القياسي",
+  "v2ProgressStatsMinimum": "جلسات النسخة السريعة",
+  "v2ProgressStatsStandard": "جلسات النسخة الكاملة",
   "v2ProgressStatsRate": "معدل الأيام المكتملة",
   "v2ProgressStatsCurrentStreak": "تتابع الأيام المكتملة الحالي",
   "v2ProgressStatsLongestStreak": "أطول تتابع أيام مكتملة",
@@ -1519,8 +1519,8 @@
     }
   },
   "v2ProgressRecentActivity": "النشاط الأخير",
-  "v2ProgressTimelineMinimum": "المسار الأدنى",
-  "v2ProgressTimelineStandard": "المسار القياسي",
+  "v2ProgressTimelineMinimum": "النسخة السريعة",
+  "v2ProgressTimelineStandard": "النسخة الكاملة",
   "v2ProgressTimelineBothPaths": "الأدنى والقياسي",
   "v2ProgressTimelineEntry": "{day} · {path}",
   "@v2ProgressTimelineEntry": {
@@ -1576,8 +1576,8 @@
   "v2ProgressCtaContinueToday": "العودة إلى اليوم",
   "v2ProgressReportsEntry": "فتح التقارير",
   "v2ProgressPillarsHeading": "محاور الدماغ",
-  "v2ProgressPillarsEmpty": "أكمل تشخيصاً سريعاً لتتبع التركيز والذاكرة وعادات الشاشة والنوم مع الوقت.",
-  "v2ProgressPillarsFirstDiagnostic": "ابدأ أول تشخيص",
+  "v2ProgressPillarsEmpty": "كمّل فحص الدماغ عشان تتابع التركيز والعادات مع الوقت.",
+  "v2ProgressPillarsFirstDiagnostic": "ابدأ فحص الدماغ",
   "v2ProgressLiveVsDayOne": "الأداء الحي مقابل اليوم الأول",
   "v2ProgressOverallDelta": "متوسط التغيّر: {delta}",
   "@v2ProgressOverallDelta": {
@@ -1589,7 +1589,7 @@
   },
   "v2ProgressChartDayOne": "اليوم 1",
   "v2ProgressChartToday": "اليوم",
-  "v2ProgressWeeklyRediagnosis": "إعادة التشخيص الأسبوعي",
+  "v2ProgressWeeklyRediagnosis": "فحص الدماغ الأسبوعي",
   "v2ProgressPatternDetails": "تفاصيل النمط",
   "v2ReportsTitle": "التقارير",
   "v2ReportsEvidenceOverview": "نظرة عامة على الأدلة",
@@ -2273,5 +2273,63 @@
   "briQBoredom1": "أشعر بالقلق بدون هاتف.",
   "briQBoredom2": "أتجنب المهام التي تحتاج ١٥+ دقيقة تركيز.",
   "briQBoredom3": "الصمت أو الانتظار يبدو غير محتمل بدون شاشة.",
-  "briQBoredom4": "أستطيع تحمل ملل خفيف دون مد يدي للهاتف."
+  "briQBoredom4": "أستطيع تحمل ملل خفيف دون مد يدي للهاتف.",
+
+  "homeGreetingAnonymous": "أهلاً 👋",
+  "homeProgramDayLabel": "اليوم {day} من {total}",
+  "@homeProgramDayLabel": {
+    "placeholders": {
+      "day": { "type": "String" },
+      "total": { "type": "String" }
+    }
+  },
+  "homeStreakDaysCount": "سلسلة {count} يوم",
+  "@homeStreakDaysCount": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "homeTodayStepHeading": "خطوة اليوم",
+  "homeTodayStepStart": "ابدأ",
+  "homeSosUrgeCta": "عندي رغبة أفتح الموبايل",
+  "homeLessonHeading": "درس اليوم",
+  "homeLessonPlaceholderBody": "نصيحة قصيرة ستظهر هنا قريباً — الآن فقط خذ خطوة اليوم.",
+  "homeRecoveryScoreLabel": "درجة التعافي",
+  "homeBrainCheckOfferTitle": "اختياري: فحص الدماغ",
+  "homeBrainCheckOfferBody": "فحص ذاتي هادئ متى ما كنت مستعداً. مو شرط عشان تكمل.",
+  "v2TodayHomeMissingPlan": "خطتك مو جاهزة بعد. اضغط بالأسفل عشان تبني اليوم ١.",
+  "v2OnboardingWelcomePromise": "ثلاث دقايق هادئة يومياً عشان تحس بصفاء أكثر — بدون ذنب وبدون ادعاءات طبية.",
+  "v2OnboardingWelcomeStart": "ابدأ",
+  "v2OnboardingWelcomeDisclaimer": "دعم للعناية الذاتية فقط — مو تشخيص طبي.",
+  "v2OnboardingQuickSetupTitle": "أسئلة سريعة",
+  "v2OnboardingQuickSetupBody": "جاوب مرة واحدة عشان نجهز لك خطة ٣٠ يوم بلطف.",
+  "v2OnboardingQuickSetupContinue": "شوف خطتي",
+  "v2OnboardingQScreenHours": "تقريباً كم ساعة يومياً على الشاشات؟",
+  "v2OnboardingQMainGoal": "وش تبي أكثر الحين؟",
+  "v2OnboardingQHardestTime": "متى أصعب تترك الموبايل؟",
+  "v2OnboardingQFirstName": "وش نناديك؟ (اختياري)",
+  "v2OnboardingQFirstNameHint": "الاسم الأول",
+  "v2OnboardingQReminder": "متى نذكّرك؟",
+  "v2OnboardingHoursUnder2": "أقل من ٢س",
+  "v2OnboardingHours2to4": "٢–٤س",
+  "v2OnboardingHours4to6": "٤–٦س",
+  "v2OnboardingHoursOver6": "٦س+",
+  "v2OnboardingGoalFocus": "تركيز",
+  "v2OnboardingGoalSleep": "نوم أفضل",
+  "v2OnboardingGoalLessScrolling": "أقل سكرول",
+  "v2OnboardingGoalCalm": "هدوء أكثر",
+  "v2OnboardingPlanReadyTitle": "خطتك لـ ٣٠ يوم جاهزة",
+  "v2OnboardingPlanReadyBody": "خطوة صغيرة كل يوم. تقدر تتخطى متى ما تبي — بدون عقاب.",
+  "v2OnboardingPlanReadyCardTitle": "اليوم ١ · حوالي ٣ دقايق",
+  "v2OnboardingPlanReadyCardBody": "تمرين هادئ للبداية وإعادة بناء التركيز.",
+  "v2OnboardingStartDay1": "ابدأ اليوم ١ (٣ دقايق)",
+  "v2ExercisesTestsSection": "اختبارات",
+  "v2ExercisesTestsBrainCheck": "فحص الدماغ",
+  "v2ExercisesTestsBrainCheckSubtitle": "أول مرة = خط أساس، وبعدها إعادة أسبوعية لنفس الفحص",
+  "v2ExercisesTestsReasoning": "فحص التفكير",
+  "v2ExercisesTestsReasoningSubtitle": "نبضة ألغاز قصيرة",
+  "v2ExercisesTestsBri": "تعفن الدماغ الرقمي (BRI)",
+  "v2ExercisesTestsBriSubtitle": "تقرير ذاتي عن عادات السكرول",
+  "v2ProgressEmptyFriendly": "ما في شي هنا بعد — وهذا طبيعي. خذ خطوة اليوم وبيطلع رسمك.",
+  "v2ProgressEmptyStartToday": "ابدأ خطوة اليوم"
 }

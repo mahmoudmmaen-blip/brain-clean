@@ -217,9 +217,23 @@ class ProgressHomeBody extends StatelessWidget {
               if (vm.isEmpty) ...[
                 const SizedBox(height: _kGapToMovement),
                 V2InfoCard(
-                  child: Text(
-                    loc.v2ProgressEmptyBody,
-                    style: V2ShellVisual.bodyMuted(theme),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        loc.v2ProgressEmptyFriendly,
+                        style: V2ShellVisual.bodyMuted(theme),
+                      ),
+                      const SizedBox(height: 16),
+                      SizedBox(
+                        height: 48,
+                        child: FilledButton(
+                          key: const Key('progress_empty_start_today'),
+                          onPressed: () => context.go(AppRoutes.v2Home),
+                          child: Text(loc.v2ProgressEmptyStartToday),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ] else ...[
@@ -262,10 +276,10 @@ class ProgressHomeBody extends StatelessWidget {
                   style: V2ShellVisual.captionMuted(theme),
                 ),
               ],
-              // 4 Contextual next action — early, before history density
-              const SizedBox(height: _kGapBeforeCta),
-              _PrimaryCta(vm: vm),
+              // One CTA only when empty (above). Otherwise show contextual action.
               if (!vm.isEmpty) ...[
+                const SizedBox(height: _kGapBeforeCta),
+                _PrimaryCta(vm: vm),
                 const SizedBox(height: _kGapAfterCta),
                 _WeeklyChartCard(bars: vm.weeklyBars),
                 const SizedBox(height: AppDesignConstants.v2GapSection),

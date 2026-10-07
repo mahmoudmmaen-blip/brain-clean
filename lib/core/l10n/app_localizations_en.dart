@@ -1927,10 +1927,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get recoveryPlanIntensityLabel => 'Intensity';
 
   @override
-  String get recoveryPlanMinimumPath => 'Minimum path';
+  String get recoveryPlanMinimumPath => 'Quick version (2 min)';
 
   @override
-  String get recoveryPlanStandardPath => 'Standard path';
+  String get recoveryPlanStandardPath => 'Full version';
 
   @override
   String get recoveryPlanBecauseHeading => 'Why this plan today';
@@ -2112,7 +2112,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String homeGreetingName(String name) {
-    return 'Hello, $name';
+    return 'Hey, $name 👋';
   }
 
   @override
@@ -2125,7 +2125,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeFocusImprovementPending =>
-      'Complete a Brain Check to track recovery';
+      'Finish Brain Check when you\'re ready to track recovery';
 
   @override
   String get homeMetricStreakLabel => 'Day streak';
@@ -2217,10 +2217,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeWeeklyReportReady => 'Your weekly report is ready';
 
   @override
-  String get homeBaselineTestTitle => 'Baseline test';
+  String get homeBaselineTestTitle => 'Brain Check';
 
   @override
-  String get homeBaselineTestPending => 'Not completed yet';
+  String get homeBaselineTestPending => 'Brain Check not done yet';
 
   @override
   String homeBaselineTestScore(int score) {
@@ -2415,11 +2415,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2SessionPrepareIncludes => 'This session includes:';
 
   @override
-  String get v2SessionPathHeading => 'Choose your path';
+  String get v2SessionPathHeading => 'Choose your version';
 
   @override
   String get v2SessionPathNoShame =>
-      'Minimum is complete and useful. Standard adds optional depth.';
+      'The quick version still counts. The full version adds a little more depth.';
 
   @override
   String get v2SessionA11yHint =>
@@ -2543,7 +2543,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v2ProgressEmptyBody =>
-      'Complete a Today session to start building an honest local record. Nothing is invented when history is empty.';
+      'Complete today\'s step to start an honest local record.';
 
   @override
   String get v2ProgressLoading => 'Loading progress';
@@ -2556,10 +2556,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2ProgressStatsSessions => 'Sessions completed';
 
   @override
-  String get v2ProgressStatsMinimum => 'Minimum path sessions';
+  String get v2ProgressStatsMinimum => 'Quick-version sessions';
 
   @override
-  String get v2ProgressStatsStandard => 'Standard path sessions';
+  String get v2ProgressStatsStandard => 'Full-version sessions';
 
   @override
   String get v2ProgressStatsRate => 'Completed-day rate';
@@ -3152,10 +3152,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2ProgressRecentActivity => 'Recent activity';
 
   @override
-  String get v2ProgressTimelineMinimum => 'Minimum path';
+  String get v2ProgressTimelineMinimum => 'Quick version';
 
   @override
-  String get v2ProgressTimelineStandard => 'Standard path';
+  String get v2ProgressTimelineStandard => 'Full version';
 
   @override
   String get v2ProgressTimelineBothPaths => 'Minimum and standard';
@@ -3280,10 +3280,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v2ProgressPillarsEmpty =>
-      'Complete a quick diagnostic to track focus, memory, screen habits, and sleep over time.';
+      'Complete a Brain Check to track focus and habits over time.';
 
   @override
-  String get v2ProgressPillarsFirstDiagnostic => 'Start first diagnostic';
+  String get v2ProgressPillarsFirstDiagnostic => 'Start Brain Check';
 
   @override
   String get v2ProgressLiveVsDayOne => 'Live vs day one';
@@ -3305,7 +3305,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2ProgressChartToday => 'Today';
 
   @override
-  String get v2ProgressWeeklyRediagnosis => 'Re-run weekly diagnostic';
+  String get v2ProgressWeeklyRediagnosis => 'Weekly Brain Check';
 
   @override
   String get v2ProgressPatternDetails => 'Pattern details';
@@ -5043,4 +5043,158 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get briQBoredom4 =>
       'I can sit with mild boredom without reaching for my phone.';
+
+  @override
+  String get homeGreetingAnonymous => 'Hey 👋';
+
+  @override
+  String homeProgramDayLabel(String day, String total) {
+    return 'Day $day of $total';
+  }
+
+  @override
+  String homeStreakDaysCount(String count) {
+    return '$count day streak';
+  }
+
+  @override
+  String get homeTodayStepHeading => 'Today\'s step';
+
+  @override
+  String get homeTodayStepStart => 'Start';
+
+  @override
+  String get homeSosUrgeCta => 'I feel like opening my phone';
+
+  @override
+  String get homeLessonHeading => 'Today\'s lesson';
+
+  @override
+  String get homeLessonPlaceholderBody =>
+      'A short tip will live here soon — for now, just take today\'s step.';
+
+  @override
+  String get homeRecoveryScoreLabel => 'Recovery score';
+
+  @override
+  String get homeBrainCheckOfferTitle => 'Optional: Brain Check';
+
+  @override
+  String get homeBrainCheckOfferBody =>
+      'A calm self-check when you\'re ready. Not required to keep going.';
+
+  @override
+  String get v2TodayHomeMissingPlan =>
+      'Your plan isn\'t ready yet. Tap below to build Day 1.';
+
+  @override
+  String get v2OnboardingWelcomePromise =>
+      'Three calm minutes a day to feel clearer — no guilt, no medical claims.';
+
+  @override
+  String get v2OnboardingWelcomeStart => 'Start';
+
+  @override
+  String get v2OnboardingWelcomeDisclaimer =>
+      'Self-care support only — not a medical diagnosis.';
+
+  @override
+  String get v2OnboardingQuickSetupTitle => 'A few quick questions';
+
+  @override
+  String get v2OnboardingQuickSetupBody =>
+      'Answer once so we can shape a gentle 30-day plan.';
+
+  @override
+  String get v2OnboardingQuickSetupContinue => 'See my plan';
+
+  @override
+  String get v2OnboardingQScreenHours =>
+      'About how many hours a day are you on screens?';
+
+  @override
+  String get v2OnboardingQMainGoal => 'What do you want most right now?';
+
+  @override
+  String get v2OnboardingQHardestTime =>
+      'When is it hardest to put the phone down?';
+
+  @override
+  String get v2OnboardingQFirstName => 'What should we call you? (optional)';
+
+  @override
+  String get v2OnboardingQFirstNameHint => 'First name';
+
+  @override
+  String get v2OnboardingQReminder => 'When should we nudge you?';
+
+  @override
+  String get v2OnboardingHoursUnder2 => 'Under 2h';
+
+  @override
+  String get v2OnboardingHours2to4 => '2–4h';
+
+  @override
+  String get v2OnboardingHours4to6 => '4–6h';
+
+  @override
+  String get v2OnboardingHoursOver6 => '6h+';
+
+  @override
+  String get v2OnboardingGoalFocus => 'Focus';
+
+  @override
+  String get v2OnboardingGoalSleep => 'Better sleep';
+
+  @override
+  String get v2OnboardingGoalLessScrolling => 'Less scrolling';
+
+  @override
+  String get v2OnboardingGoalCalm => 'Feel calmer';
+
+  @override
+  String get v2OnboardingPlanReadyTitle => 'Your 30-day plan is ready';
+
+  @override
+  String get v2OnboardingPlanReadyBody =>
+      'One small step each day. You can skip anytime — no punishment.';
+
+  @override
+  String get v2OnboardingPlanReadyCardTitle => 'Day 1 · ~3 minutes';
+
+  @override
+  String get v2OnboardingPlanReadyCardBody =>
+      'A calm starter practice to begin rebuilding focus.';
+
+  @override
+  String get v2OnboardingStartDay1 => 'Start Day 1 (3 min)';
+
+  @override
+  String get v2ExercisesTestsSection => 'Tests';
+
+  @override
+  String get v2ExercisesTestsBrainCheck => 'Brain Check';
+
+  @override
+  String get v2ExercisesTestsBrainCheckSubtitle =>
+      'Baseline or weekly re-check — same calm self-report';
+
+  @override
+  String get v2ExercisesTestsReasoning => 'Reasoning check';
+
+  @override
+  String get v2ExercisesTestsReasoningSubtitle => 'A short puzzle pulse';
+
+  @override
+  String get v2ExercisesTestsBri => 'Digital brain rot (BRI)';
+
+  @override
+  String get v2ExercisesTestsBriSubtitle => 'Self-report on scrolling habits';
+
+  @override
+  String get v2ProgressEmptyFriendly =>
+      'Nothing here yet — that\'s okay. Take today\'s step and your chart will grow.';
+
+  @override
+  String get v2ProgressEmptyStartToday => 'Start today\'s step';
 }

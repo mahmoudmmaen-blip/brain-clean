@@ -1,12 +1,13 @@
 import 'package:flutter/foundation.dart';
 
 import '../data/v2_onboarding_repository.dart';
+import '../domain/v2_onboarding_answers.dart';
 import '../domain/v2_onboarding_progress.dart';
 import '../domain/v2_onboarding_state.dart';
 import '../domain/v2_onboarding_status.dart';
 import '../domain/v2_onboarding_step.dart';
 
-/// Orchestrates ONB-01…ONB-07 persistence and resume.
+/// Orchestrates short onboarding (welcome → quick setup → plan ready).
 class V2OnboardingController extends ChangeNotifier {
   V2OnboardingController({
     required V2OnboardingRepository repository,
@@ -37,6 +38,14 @@ class V2OnboardingController extends ChangeNotifier {
           languageCode != null) {
         loaded = loaded.copyWith(languageCode: languageCode);
       }
+      // Migrate legacy in-progress steps onto the short shell.
+      if (!loaded.isJourneyComplete) {
+        final shell = loaded.currentStep.normalizedForShell;
+        if (shell != loaded.currentStep) {
+          loaded = loaded.copyWith(currentStep: shell, updatedAt: _now);
+          loaded = await _repository.save(loaded);
+        }
+      }
       _state = loaded;
       _hydrated = true;
       _errorKey = null;
@@ -65,11 +74,42 @@ class V2OnboardingController extends ChangeNotifier {
   }
 
   Future<void> advanceFromWelcome() async {
-    await _goTo(V2OnboardingStep.expectations);
+    await _goTo(V2OnboardingStep.quickSetup);
   }
 
+  /// Legacy alias — old tests call expectations after welcome.
   Future<void> advanceFromExpectations() async {
-    await _goTo(V2OnboardingStep.consent);
+    await _goTo(V2OnboardingStep.quickSetup);
+  }
+
+  Future<void> saveQuickSetup({
+    required V2ScreenHoursBand screenHours,
+    required V2OnboardingGoal mainGoal,
+    required V2RitualWindow hardestTime,
+    V2RitualWindow? reminderTime,
+    String? firstName,
+  }) async {
+    await _persist(
+      _state.copyWith(
+        screenHours: screenHours,
+        mainGoal: mainGoal,
+        hardestTime: hardestTime,
+        ritualWindow: reminderTime ?? hardestTime,
+        firstName: firstName?.trim().isEmpty == true ? null : firstName?.trim(),
+        clearFirstName: firstName == null || firstName.trim().isEmpty,
+        consentNonMedical: true,
+        consentTerms: true,
+        privacyAcknowledged: true,
+        status: V2OnboardingStatus.inProgress,
+        updatedAt: _now,
+      ),
+    );
+  }
+
+  Future<bool> advanceFromQuickSetup() async {
+    if (!_state.canSubmitQuickSetup) return false;
+    await _goTo(V2OnboardingStep.planReady);
+    return true;
   }
 
   Future<void> setConsent({
@@ -90,7 +130,7 @@ class V2OnboardingController extends ChangeNotifier {
 
   Future<bool> advanceFromConsent() async {
     if (!_state.canSubmitConsent) return false;
-    await _goTo(V2OnboardingStep.privacy);
+    await _goTo(V2OnboardingStep.quickSetup);
     return true;
   }
 
@@ -102,7 +142,7 @@ class V2OnboardingController extends ChangeNotifier {
         updatedAt: _now,
       ),
     );
-    await _goTo(V2OnboardingStep.ritual);
+    await _goTo(V2OnboardingStep.quickSetup);
   }
 
   Future<void> setRitual(V2RitualWindow? window, {required bool skip}) async {
@@ -114,46 +154,28 @@ class V2OnboardingController extends ChangeNotifier {
         updatedAt: _now,
       ),
     );
-    await _goTo(V2OnboardingStep.checkIntro);
+    await _goTo(V2OnboardingStep.planReady);
   }
 
-  /// Terminal Slice 5.1 handoff — idempotent.
   Future<void> markReadyForBrainCheck() async {
     if (_state.status == V2OnboardingStatus.completed) {
-      return;
-    }
-    if (_state.status == V2OnboardingStatus.readyForBrainCheck) {
-      await _persist(
-        _state.copyWith(
-          brainCheckReady: true,
-          updatedAt: _now,
-        ),
-      );
       return;
     }
     await _persist(
       _state.copyWith(
         status: V2OnboardingStatus.readyForBrainCheck,
         brainCheckReady: true,
-        currentStep: V2OnboardingStep.checkIntro,
+        currentStep: V2OnboardingStep.planReady,
         updatedAt: _now,
       ),
     );
   }
 
-  /// ONB-07 Profile reveal milestone — does not complete the full FTE journey.
   Future<void> markProfileRevealed({required String sessionId}) async {
-    if (_state.profileRevealed &&
-        _state.profileSessionId == sessionId &&
-        (_state.currentStep == V2OnboardingStep.profileReveal ||
-            _state.planRevealed ||
-            _state.isJourneyComplete)) {
-      return;
-    }
     if (_state.isJourneyComplete) return;
     await _persist(
       _state.copyWith(
-        currentStep: V2OnboardingStep.profileReveal,
+        currentStep: V2OnboardingStep.planReady,
         profileRevealed: true,
         profileSessionId: sessionId,
         status: V2OnboardingStatus.readyForBrainCheck,
@@ -163,18 +185,11 @@ class V2OnboardingController extends ChangeNotifier {
     );
   }
 
-  /// ONB-08 Plan reveal milestone.
   Future<void> markPlanRevealed({required String planId}) async {
     if (_state.isJourneyComplete) return;
-    if (_state.planRevealed &&
-        _state.planId == planId &&
-        (_state.currentStep == V2OnboardingStep.planReveal ||
-            _state.todayPreviewed)) {
-      return;
-    }
     await _persist(
       _state.copyWith(
-        currentStep: V2OnboardingStep.planReveal,
+        currentStep: V2OnboardingStep.planReady,
         planRevealed: true,
         planId: planId,
         profileRevealed: true,
@@ -185,17 +200,11 @@ class V2OnboardingController extends ChangeNotifier {
     );
   }
 
-  /// ONB-09 Today preview milestone (not the session player).
   Future<void> markTodayPreviewed({required String planId}) async {
     if (_state.isJourneyComplete) return;
-    if (_state.todayPreviewed &&
-        _state.planId == planId &&
-        _state.currentStep == V2OnboardingStep.todayPreview) {
-      return;
-    }
     await _persist(
       _state.copyWith(
-        currentStep: V2OnboardingStep.todayPreview,
+        currentStep: V2OnboardingStep.planReady,
         todayPreviewed: true,
         planRevealed: true,
         planId: planId,
@@ -207,21 +216,16 @@ class V2OnboardingController extends ChangeNotifier {
     );
   }
 
-  /// ONB-10 — first-time journey complete (Today-ready handoff available).
-  ///
-  /// Requires a revealed plan. Idempotent. Does not delete history.
-  /// Does not migrate V1 onboarding or replace production startup.
+  /// First-time journey complete once a plan exists. Idempotent.
   Future<void> markJourneyCompleted({required String planId}) async {
-    if (planId.isEmpty || !_state.planRevealed) {
-      return;
-    }
+    if (planId.isEmpty) return;
     if (_state.isJourneyComplete && _state.planId == planId) {
       return;
     }
     await _persist(
       _state.copyWith(
         status: V2OnboardingStatus.completed,
-        currentStep: V2OnboardingStep.todayPreview,
+        currentStep: V2OnboardingStep.planReady,
         brainCheckReady: true,
         profileRevealed: true,
         planRevealed: true,
@@ -234,7 +238,7 @@ class V2OnboardingController extends ChangeNotifier {
   }
 
   Future<void> goBack() async {
-    final prev = _state.currentStep.previous;
+    final prev = _state.currentStep.normalizedForShell.previous;
     if (prev == null) return;
     await _persist(
       _state.copyWith(

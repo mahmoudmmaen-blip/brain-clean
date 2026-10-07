@@ -663,10 +663,12 @@ void main() {
           find.textContaining('Not enough completed activity'), findsOneWidget);
       expect(find.textContaining('Period '), findsNothing);
       expect(find.text('Start Weekly Review'), findsNothing);
-      // One primary decision only.
+      // One primary decision only (empty Progress → start today's step).
       expect(find.byType(FilledButton), findsOneWidget);
       expect(
-          find.text(AppLocalizationsEn().v2ProgressCtaToday), findsOneWidget);
+        find.byKey(const Key('progress_empty_start_today')),
+        findsOneWidget,
+      );
     });
 
     testWidgets(

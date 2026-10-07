@@ -40,6 +40,10 @@ class HomeGreetingHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final period = homeGreetingPeriodFor(now ?? DateTime.now());
+    final name = userName.trim();
+    final greeting = name.isEmpty
+        ? loc.homeGreetingAnonymous
+        : loc.homeGreetingName(name);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -54,7 +58,7 @@ class HomeGreetingHeader extends StatelessWidget {
         Semantics(
           header: true,
           child: Text(
-            loc.homeGreetingName(userName),
+            greeting,
             style: theme.textTheme.headlineSmall?.copyWith(
               color: AppColors.of(context).textPrimary,
               fontWeight: FontWeight.w700,

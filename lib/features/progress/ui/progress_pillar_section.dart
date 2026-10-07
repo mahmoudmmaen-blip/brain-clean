@@ -56,8 +56,9 @@ class ProgressPillarSection extends ConsumerWidget {
                     ),
                     const SizedBox(height: 12),
                     FilledButton(
-                      onPressed: () =>
-                          context.push(AppRoutes.v2InteractiveDiagnostic),
+                      onPressed: () => context.push(
+                        '${AppRoutes.v2BrainCheckEntry}?mode=lite&source=progress',
+                      ),
                       child: Text(loc.v2ProgressPillarsFirstDiagnostic),
                     ),
                   ],
