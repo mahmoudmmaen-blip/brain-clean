@@ -544,13 +544,13 @@ void main() {
   });
 
   group('Release candidate identity', () {
-    test('pubspec and AppConfig report 2.0.5 / build 35', () {
+    test('pubspec and AppConfig report 2.0.6 / build 36', () {
       final pubspec = File('pubspec.yaml').readAsStringSync();
       expect(
         pubspec,
-        contains(RegExp(r'^version:\s*2\.0\.5\+35\s*$', multiLine: true)),
+        contains(RegExp(r'^version:\s*2\.0\.6\+36\s*$', multiLine: true)),
       );
-      expect(AppConfig.appVersion, '2.0.5');
+      expect(AppConfig.appVersion, '2.0.6');
     });
 
     test('Android applicationId matches Google Play package', () {

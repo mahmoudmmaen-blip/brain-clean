@@ -13,7 +13,7 @@ abstract final class AppConfig {
   /// MUST be bumped together with `pubspec.yaml` `version:` (name before `+`).
   /// Example: pubspec `2.0.1+21` → `appVersion = '2.0.1'`.
   /// Do not add `package_info` — keep this constant as the single UI source.
-  static const String appVersion = '2.0.5';
+  static const String appVersion = '2.0.6';
 
   static String get supabaseUrl => _resolve(
         defineValue: const String.fromEnvironment('SUPABASE_URL'),
