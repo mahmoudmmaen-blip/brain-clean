@@ -70,14 +70,14 @@ class WeeklyReviewController extends ChangeNotifier {
   String? validationError;
 
   Duration get _offset {
-    if (_timeZoneOffset != null) return _timeZoneOffset!;
+    if (_timeZoneOffset != null) return _timeZoneOffset;
     return _clock().timeZoneOffset;
   }
 
   DateTime get _nowLocal {
     final now = _clock();
     if (_timeZoneOffset != null) {
-      return now.toUtc().add(_timeZoneOffset!);
+      return now.toUtc().add(_timeZoneOffset);
     }
     return now.toLocal();
   }

@@ -47,7 +47,7 @@ class DailySessionController extends ChangeNotifier {
   DateTime get _nowLocal {
     final now = _clock();
     if (_timeZoneOffset != null) {
-      return now.toUtc().add(_timeZoneOffset!);
+      return now.toUtc().add(_timeZoneOffset);
     }
     return now.toLocal();
   }

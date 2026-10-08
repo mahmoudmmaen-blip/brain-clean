@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "name": { "ar": "فحص الصفاء", "en": "Clarity Check" },
+  "intro": {
+    "ar": "8 أسئلة سريعة عن آخر 7 أيام. لا توجد إجابات صحيحة أو خاطئة، أجب بصدق. هذا ليس تشخيصًا طبيًا.",
+    "en": "8 quick questions about the last 7 days. There are no right or wrong answers; just be honest. This isn't a medical assessment."
+  },
+  "screenTimeQuestion": {
+    "id": "q_hours",
+    "text": { "ar": "تقريبًا، كم ساعة تقضي على الموبايل يوميًا؟", "en": "Roughly how many hours a day do you spend on your phone?" },
+    "options": [
+      { "value": 1.5, "label": { "ar": "أقل من ساعتين", "en": "Under 2 hours" } },
+      { "value": 3, "label": { "ar": "2 إلى 4 ساعات", "en": "2 to 4 hours" } },
+      { "value": 5, "label": { "ar": "4 إلى 6 ساعات", "en": "4 to 6 hours" } },
+      { "value": 7, "label": { "ar": "6 إلى 8 ساعات", "en": "6 to 8 hours" } },
+      { "value": 9, "label": { "ar": "أكثر من 8 ساعات", "en": "More than 8 hours" } }
+    ],
+    "scored": false
+  },
+  "scale": [
+    { "value": 0, "label": { "ar": "أبدًا", "en": "Never" } },
+    { "value": 1, "label": { "ar": "نادرًا", "en": "Rarely" } },
+    { "value": 2, "label": { "ar": "أحيانًا", "en": "Sometimes" } },
+    { "value": 3, "label": { "ar": "غالبًا", "en": "Often" } },
+    { "value": 4, "label": { "ar": "دائمًا", "en": "Always" } }
+  ],
+  "questions": [
+    { "id": "q1", "area": "control", "reverse": true,
+      "text": { "ar": "فتحت الموبايل دون أن أقصد أو دون سبب واضح.", "en": "I opened my phone without meaning to or without a clear reason." } },
+    { "id": "q2", "area": "focus", "reverse": false,
+      "text": { "ar": "استطعت التركيز على مهمة واحدة 20 دقيقة دون تشتت.", "en": "I could focus on one task for 20 minutes without getting distracted." } },
+    { "id": "q3", "area": "control", "reverse": true,
+      "text": { "ar": "قضيت على الموبايل وقتًا أطول مما خططت.", "en": "I spent longer on my phone than I planned." } },
+    { "id": "q4", "area": "control", "reverse": true,
+      "text": { "ar": "شعرت بالقلق أو الانزعاج حين لم يكن الموبايل معي.", "en": "I felt anxious or uneasy when my phone wasn't with me." } },
+    { "id": "q5", "area": "sleep", "reverse": true,
+      "text": { "ar": "استخدمت الموبايل في السرير قبل النوم.", "en": "I used my phone in bed before sleep." } },
+    { "id": "q6", "area": "sleep", "reverse": false,
+      "text": { "ar": "استيقظت وأنا أشعر بالراحة.", "en": "I woke up feeling rested." } },
+    { "id": "q7", "area": "calm", "reverse": false,
+      "text": { "ar": "شعرت بالهدوء وصفاء الذهن خلال يومي.", "en": "I felt calm and clear-headed during my day." } },
+    { "id": "q8", "area": "focus", "reverse": false,
+      "text": { "ar": "أنجزت ما كنت أنوي إنجازه في يومي.", "en": "I got done what I intended to do in my day." } }
+  ],
+  "scoring": {
+    "formula": "itemScore = reverse ? (4 - value) : value; clarity = round(sum(itemScore) / 32 * 100)",
+    "areas": {
+      "focus": { "ar": "التركيز", "en": "Focus" },
+      "control": { "ar": "التحكم في الموبايل", "en": "Phone control" },
+      "sleep": { "ar": "النوم", "en": "Sleep" },
+      "calm": { "ar": "الهدوء", "en": "Calm" }
+    },
+    "areaFormula": "areaScore = round(sum(itemScore in area) / (4 * itemsInArea) * 100)",
+    "bands": [
+      { "min": 0, "max": 39, "label": { "ar": "بداية الطريق", "en": "Starting out" },
+        "text": { "ar": "الموبايل يأخذ جزءًا كبيرًا من انتباهك الآن. هذا بالضبط ما صُمم البرنامج له.", "en": "Your phone takes a big share of your attention right now. That's exactly what this program is for." } },
+      { "min": 40, "max": 59, "label": { "ar": "في الطريق", "en": "On the way" },
+        "text": { "ar": "لديك أساس جيد، وهناك مساحة واضحة للتحسن.", "en": "You have a good base, with clear room to improve." } },
+      { "min": 60, "max": 79, "label": { "ar": "تقدّم واضح", "en": "Clear progress" },
+        "text": { "ar": "أنت تتحكم في وقتك أغلب الأيام. استمر.", "en": "You're in control of your time most days. Keep going." } },
+      { "min": 80, "max": 100, "label": { "ar": "صفاء", "en": "Clarity" },
+        "text": { "ar": "علاقتك بالموبايل صحية. حافظ على قواعدك.", "en": "Your relationship with your phone is healthy. Keep your rules." } }
+    ]
+  },
+  "schedule": [1, 7, 14, 21, 30],
+  "afterProgram": "every 30 days (optional reminder)"
+}

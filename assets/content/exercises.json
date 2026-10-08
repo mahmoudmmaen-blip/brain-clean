@@ -1,0 +1,1057 @@
+{
+  "version": 1,
+  "categories": {
+    "awareness": { "ar": "الوعي", "en": "Awareness" },
+    "environment": { "ar": "البيئة", "en": "Environment" },
+    "urges": { "ar": "الرغبة والملل", "en": "Urges & boredom" },
+    "calm": { "ar": "الهدوء والنوم", "en": "Calm & sleep" },
+    "focus": { "ar": "التركيز", "en": "Focus" },
+    "life": { "ar": "حياة حقيقية", "en": "Real life" },
+    "mindset": { "ar": "العقلية", "en": "Mindset" }
+  },
+  "exercises": [
+    {
+      "id": "ex_screen_audit",
+      "category": "awareness",
+      "minutes": 4,
+      "tier": "free",
+      "mode": "steps",
+      "title": { "ar": "جرد الشاشة", "en": "Screen audit" },
+      "why": {
+        "ar": "لا يمكنك تغيير ما لا تراه. معظم الناس يقدّرون وقت الموبايل بأقل من نصف الحقيقة، والرقم الحقيقي هو نقطة البداية.",
+        "en": "You can't change what you don't see. Most people guess their phone time at less than half of the real number. The real number is your starting point."
+      },
+      "steps": {
+        "ar": [
+          "افتح إعدادات الموبايل ثم «الرفاهية الرقمية» أو «مدة استخدام الجهاز».",
+          "اكتب متوسط وقت الشاشة اليومي لآخر أسبوع.",
+          "اكتب أكثر 3 تطبيقات تستهلك وقتك وكم دقيقة لكل واحد.",
+          "اكتب عدد مرات فتح الموبايل في اليوم إن كان ظاهرًا.",
+          "لا تحكم على نفسك. هذه مجرد صورة للحاضر."
+        ],
+        "en": [
+          "Open your phone settings, then Digital Wellbeing or Screen Time.",
+          "Write down your average daily screen time for the last week.",
+          "Write your top 3 apps and the minutes for each.",
+          "Write how many times a day you unlock your phone, if shown.",
+          "Don't judge yourself. This is just a picture of today."
+        ]
+      },
+      "easy": {
+        "ar": "اكتب فقط أكثر تطبيق واحد يستهلك وقتك.",
+        "en": "Just write down the one app that takes most of your time."
+      },
+      "input": "screen_audit"
+    },
+    {
+      "id": "ex_pause_breath",
+      "category": "awareness",
+      "minutes": 2,
+      "tier": "free",
+      "mode": "guided",
+      "title": { "ar": "توقّف 3 أنفاس", "en": "Three-breath pause" },
+      "why": {
+        "ar": "أغلب مرات فتح الموبايل تحدث تلقائيًا في أقل من ثانية. ثلاثة أنفاس قبل الفتح تحوّل الحركة التلقائية إلى قرار.",
+        "en": "Most phone checks happen on autopilot in under a second. Three breaths before unlocking turn a reflex into a choice."
+      },
+      "steps": {
+        "ar": [
+          "أمسك الموبايل ولا تفتحه.",
+          "خذ نفسًا بطيئًا من الأنف، ثم أخرجه ببطء من الفم.",
+          "كرّر ذلك ثلاث مرات.",
+          "اسأل نفسك: «ماذا أريد الآن بالضبط؟»",
+          "إن كان لديك سبب واضح افتحه. إن لم يكن، ضعه جانبًا."
+        ],
+        "en": [
+          "Hold your phone without unlocking it.",
+          "Breathe in slowly through your nose, out slowly through your mouth.",
+          "Repeat three times.",
+          "Ask yourself: \"What exactly do I want right now?\"",
+          "If you have a clear reason, open it. If not, put it down."
+        ]
+      },
+      "easy": {
+        "ar": "نفس واحد بطيء قبل فتح الموبايل يكفي اليوم.",
+        "en": "One slow breath before unlocking is enough today."
+      },
+      "guided_seconds": 60
+    },
+    {
+      "id": "ex_trigger_log",
+      "category": "awareness",
+      "minutes": 3,
+      "tier": "free",
+      "mode": "steps",
+      "title": { "ar": "اكتشف محفّزاتك", "en": "Find your triggers" },
+      "why": {
+        "ar": "خلف كل مرة تفتح فيها الموبايل بدون سبب يوجد شعور: ملل، قلق، تعب، وحدة. معرفة الشعور هي نصف الحل.",
+        "en": "Behind every mindless phone check there's a feeling: boredom, worry, tiredness, loneliness. Naming it is half the solution."
+      },
+      "steps": {
+        "ar": [
+          "تذكّر آخر 3 مرات فتحت فيها الموبايل بدون هدف.",
+          "لكل مرة، اختر الشعور الذي كان قبلها: ملل، قلق، تعب، وحدة، هروب من مهمة.",
+          "لاحظ أي شعور تكرّر أكثر.",
+          "هذا هو محفّزك الأول. سنتعامل معه في الأيام القادمة."
+        ],
+        "en": [
+          "Think of the last 3 times you opened your phone with no purpose.",
+          "For each one, pick the feeling just before it: bored, anxious, tired, lonely, avoiding a task.",
+          "Notice which feeling shows up most.",
+          "That's your main trigger. We'll work with it in the coming days."
+        ]
+      },
+      "easy": {
+        "ar": "اختر شعورًا واحدًا يدفعك للموبايل أكثر من غيره.",
+        "en": "Pick the one feeling that pushes you to your phone the most."
+      },
+      "input": "trigger_pick"
+    },
+    {
+      "id": "ex_urge_surf",
+      "category": "urges",
+      "minutes": 3,
+      "tier": "free",
+      "mode": "guided",
+      "title": { "ar": "ركوب موجة الرغبة", "en": "Urge surfing" },
+      "why": {
+        "ar": "الرغبة تشبه الموجة: ترتفع، تصل للقمة، ثم تهبط وحدها خلال دقائق. حين تراقبها بدل أن تطيعها، تضعف مع الوقت.",
+        "en": "An urge is like a wave: it rises, peaks, and falls on its own within minutes. When you watch it instead of obeying it, it gets weaker over time."
+      },
+      "steps": {
+        "ar": [
+          "اجلس بشكل مريح وضع الموبايل بعيدًا عن يدك.",
+          "لاحظ أين تشعر بالرغبة في جسمك: اليد، الصدر، الرأس.",
+          "قيّم قوتها من 1 إلى 10.",
+          "تنفّس ببطء وراقبها دون أن تفعل شيئًا، كأنك تراقب موجة.",
+          "بعد دقيقتين قيّمها مرة أخرى. غالبًا ستكون أضعف."
+        ],
+        "en": [
+          "Sit comfortably and put your phone out of reach.",
+          "Notice where you feel the urge in your body: hands, chest, head.",
+          "Rate how strong it is from 1 to 10.",
+          "Breathe slowly and just watch it, like watching a wave.",
+          "After two minutes, rate it again. It will usually be weaker."
+        ]
+      },
+      "easy": {
+        "ar": "عُدّ من 60 إلى 1 ببطء قبل أن تفتح الموبايل.",
+        "en": "Count slowly from 60 down to 1 before opening your phone."
+      },
+      "guided_seconds": 120,
+      "input": "urge_rating_before_after"
+    },
+    {
+      "id": "ex_attention_anchor",
+      "category": "focus",
+      "minutes": 5,
+      "tier": "free",
+      "mode": "guided",
+      "title": { "ar": "مرساة الانتباه", "en": "Attention anchor" },
+      "why": {
+        "ar": "التركيز مهارة تتدرّب. كل مرة يشرد فيها ذهنك وتعيده بلطف، فأنت تقوم بتمرين واحد لعضلة الانتباه.",
+        "en": "Focus is a trainable skill. Every time your mind wanders and you gently bring it back, that's one rep for your attention muscle."
+      },
+      "steps": {
+        "ar": [
+          "اجلس واغمض عينيك أو انظر إلى نقطة ثابتة.",
+          "ركّز على إحساس الهواء عند دخوله وخروجه من الأنف.",
+          "حين يشرد ذهنك، وسيشرد، قل في نفسك «فكرة» وعُد للتنفس.",
+          "لا تغضب من الشرود. العودة هي التمرين نفسه.",
+          "استمر حتى ينتهي المؤقت."
+        ],
+        "en": [
+          "Sit and close your eyes, or look at one fixed point.",
+          "Focus on the feeling of air moving in and out of your nose.",
+          "When your mind wanders, and it will, say \"thought\" to yourself and come back.",
+          "Don't be annoyed by wandering. Coming back is the exercise.",
+          "Keep going until the timer ends."
+        ]
+      },
+      "easy": {
+        "ar": "دقيقة واحدة فقط مع 10 أنفاس معدودة.",
+        "en": "Just one minute, counting 10 breaths."
+      },
+      "guided_seconds": 300
+    },
+    {
+      "id": "ex_digital_sunset",
+      "category": "calm",
+      "minutes": 3,
+      "tier": "free",
+      "mode": "steps",
+      "title": { "ar": "الغروب الرقمي", "en": "Digital sunset" },
+      "why": {
+        "ar": "المحتوى المثير قبل النوم يبقي الدماغ في حالة تنبّه ويؤخر النوم. ساعة هادئة قبل النوم من أقوى العادات لتحسين جودته.",
+        "en": "Stimulating content before bed keeps your brain alert and delays sleep. A calm hour before bed is one of the strongest habits for better sleep."
+      },
+      "steps": {
+        "ar": [
+          "حدّد موعد نومك المعتاد.",
+          "اختر وقت «الغروب الرقمي» قبله بـ 30 إلى 60 دقيقة.",
+          "فعّل وضع «عدم الإزعاج» أو «وقت النوم» في الموبايل على هذا الوقت.",
+          "اختر نشاطًا بديلًا: قراءة، ترتيب الغرفة، حديث مع العائلة، تمدد.",
+          "اضبط تذكيرًا في التطبيق ليذكّرك الليلة."
+        ],
+        "en": [
+          "Decide your usual bedtime.",
+          "Pick a \"digital sunset\" 30 to 60 minutes before it.",
+          "Turn on Do Not Disturb or Bedtime mode for that time.",
+          "Choose a replacement activity: reading, tidying up, family time, stretching.",
+          "Set an in-app reminder for tonight."
+        ]
+      },
+      "easy": {
+        "ar": "15 دقيقة فقط بلا شاشة قبل النوم.",
+        "en": "Just 15 screen-free minutes before bed."
+      },
+      "input": "time_pick"
+    },
+    {
+      "id": "ex_values",
+      "category": "mindset",
+      "minutes": 4,
+      "tier": "free",
+      "mode": "steps",
+      "title": { "ar": "لماذا أفعل هذا؟", "en": "Why am I doing this?" },
+      "why": {
+        "ar": "الإرادة تنفد، لكن السبب الواضح يبقى. حين تعرف ماذا ستكسب بوقتك، يصبح ترك الموبايل اختيارًا لا حرمانًا.",
+        "en": "Willpower runs out, but a clear reason stays. When you know what you'll gain with your time, putting the phone down feels like a choice, not a loss."
+      },
+      "steps": {
+        "ar": [
+          "تخيّل نفسك بعد 3 أشهر وأنت تستخدم الموبايل بوعي.",
+          "اكتب 3 أشياء ستفعلها بالوقت الذي استعدته.",
+          "اكتب شخصًا واحدًا تريد أن تكون حاضرًا معه أكثر.",
+          "اكتب جملة واحدة تلخّص سببك. مثال: «أريد عقلًا هادئًا وأيامًا أنجز فيها ما يهمني».",
+          "سنعرض لك هذه الجملة في الأيام الصعبة."
+        ],
+        "en": [
+          "Imagine yourself 3 months from now, using your phone on purpose.",
+          "Write 3 things you'll do with the time you get back.",
+          "Write one person you want to be more present with.",
+          "Write one sentence that sums up your reason, e.g. \"I want a calm mind and days where I do what matters.\"",
+          "We'll show you this sentence on hard days."
+        ]
+      },
+      "easy": {
+        "ar": "اكتب سببًا واحدًا فقط.",
+        "en": "Write just one reason."
+      },
+      "input": "why_statement"
+    },
+    {
+      "id": "ex_home_screen",
+      "category": "environment",
+      "minutes": 5,
+      "tier": "pro",
+      "mode": "steps",
+      "title": { "ar": "شاشة رئيسية نظيفة", "en": "A clean home screen" },
+      "why": {
+        "ar": "رؤية أيقونة التطبيق تكفي لإثارة الرغبة في فتحه. حين تخفي التطبيقات المشتّتة، تقل مرات الفتح التلقائي.",
+        "en": "Just seeing an app icon can trigger the urge to open it. Hiding distracting apps cuts down automatic opens."
+      },
+      "steps": {
+        "ar": [
+          "انقل كل تطبيقات التواصل والفيديو والألعاب إلى مجلد واحد.",
+          "ضع المجلد في آخر صفحة، وليس في الشاشة الرئيسية.",
+          "اترك في الشاشة الرئيسية الأدوات المفيدة فقط: الاتصال، الخرائط، الملاحظات، التقويم.",
+          "اختر خلفية هادئة بلا تفاصيل كثيرة.",
+          "إن أردت تطبيقًا مشتّتًا، افتحه بالبحث بكتابة اسمه."
+        ],
+        "en": [
+          "Move all social, video and game apps into one folder.",
+          "Put that folder on the last page, not the home screen.",
+          "Keep only useful tools on the home screen: phone, maps, notes, calendar.",
+          "Pick a calm, simple wallpaper.",
+          "When you want a distracting app, open it by typing its name in search."
+        ]
+      },
+      "easy": {
+        "ar": "انقل تطبيقًا واحدًا فقط، الأكثر استهلاكًا لوقتك، بعيدًا عن الشاشة الرئيسية.",
+        "en": "Move just one app, your biggest time sink, off the home screen."
+      }
+    },
+    {
+      "id": "ex_notif_audit",
+      "category": "environment",
+      "minutes": 6,
+      "tier": "pro",
+      "mode": "steps",
+      "title": { "ar": "تنظيف الإشعارات", "en": "Notification cleanup" },
+      "why": {
+        "ar": "كل إشعار يقاطع انتباهك، ويحتاج الدماغ وقتًا للعودة لما كان يفعله. أغلب الإشعارات مصممة لإعادتك للتطبيق، لا لمساعدتك.",
+        "en": "Every notification breaks your attention, and your brain needs time to get back on track. Most notifications exist to pull you back into an app, not to help you."
+      },
+      "steps": {
+        "ar": [
+          "افتح إعدادات الإشعارات في الموبايل.",
+          "أبقِ فقط إشعارات البشر: المكالمات والرسائل من الأشخاص.",
+          "أوقف إشعارات التواصل الاجتماعي والألعاب والتسوق والأخبار.",
+          "في المجموعات الكبيرة، فعّل «كتم».",
+          "أوقف شارات الأرقام الحمراء على الأيقونات."
+        ],
+        "en": [
+          "Open your phone's notification settings.",
+          "Keep only notifications from people: calls and personal messages.",
+          "Turn off notifications for social media, games, shopping and news.",
+          "Mute large group chats.",
+          "Turn off the red number badges on app icons."
+        ]
+      },
+      "easy": {
+        "ar": "أوقف إشعارات 3 تطبيقات فقط.",
+        "en": "Turn off notifications for just 3 apps."
+      }
+    },
+    {
+      "id": "ex_friction",
+      "category": "environment",
+      "minutes": 4,
+      "tier": "pro",
+      "mode": "steps",
+      "title": { "ar": "اجعل الوصول أصعب", "en": "Add friction" },
+      "why": {
+        "ar": "نفعل غالبًا ما هو أسهل. خطوة إضافية واحدة قبل فتح التطبيق المشتّت تكفي لتقليل استخدامه بشكل ملحوظ.",
+        "en": "We usually do whatever is easiest. One extra step before opening a distracting app is often enough to use it noticeably less."
+      },
+      "steps": {
+        "ar": [
+          "اختر التطبيق الأكثر استهلاكًا لوقتك.",
+          "سجّل الخروج منه، حتى تحتاج لكتابة كلمة المرور في كل مرة.",
+          "أو احذفه من الموبايل واستخدمه من المتصفح فقط.",
+          "أو ضع له حدًا يوميًا من إعدادات «الرفاهية الرقمية».",
+          "اختر طريقة واحدة وطبّقها الآن."
+        ],
+        "en": [
+          "Pick the app that takes most of your time.",
+          "Log out of it, so you have to type your password each time.",
+          "Or delete it and only use it in the browser.",
+          "Or set a daily limit for it in Digital Wellbeing.",
+          "Pick one method and do it now."
+        ]
+      },
+      "easy": {
+        "ar": "ضع حدًا يوميًا لتطبيق واحد فقط.",
+        "en": "Just set a daily limit for one app."
+      }
+    },
+    {
+      "id": "ex_grayscale",
+      "category": "environment",
+      "minutes": 3,
+      "tier": "pro",
+      "mode": "steps",
+      "title": { "ar": "وضع الأبيض والأسود", "en": "Grayscale mode" },
+      "why": {
+        "ar": "الألوان الزاهية تجعل الشاشة أكثر جاذبية. حين تصبح الشاشة رمادية، يصبح الموبايل أقل إثارة وأسهل في الترك.",
+        "en": "Bright colors make the screen more attractive. A gray screen makes the phone less exciting and easier to put down."
+      },
+      "steps": {
+        "ar": [
+          "افتح إعدادات «الرفاهية الرقمية» ثم «وضع وقت النوم» أو «تدرّج الرمادي».",
+          "أو من «إمكانية الوصول» ثم «تصحيح الألوان» واختر «تدرّج الرمادي».",
+          "فعّله الآن لبقية اليوم.",
+          "لاحظ في المساء: هل قلّت رغبتك في التصفح؟"
+        ],
+        "en": [
+          "Open Digital Wellbeing, then Bedtime mode or Grayscale.",
+          "Or go to Accessibility, Color correction, and choose Grayscale.",
+          "Turn it on now for the rest of the day.",
+          "Notice tonight: did you feel less pull to scroll?"
+        ]
+      },
+      "easy": {
+        "ar": "فعّله ساعة واحدة فقط في المساء.",
+        "en": "Turn it on for just one hour in the evening."
+      }
+    },
+    {
+      "id": "ex_phone_bedroom",
+      "category": "calm",
+      "minutes": 3,
+      "tier": "pro",
+      "mode": "steps",
+      "title": { "ar": "الموبايل خارج غرفة النوم", "en": "Phone out of the bedroom" },
+      "why": {
+        "ar": "وجود الموبايل بجانب السرير يعني تصفحًا قبل النوم وأول شيء عند الاستيقاظ. إبعاده من أكثر التغييرات تأثيرًا على النوم والصباح.",
+        "en": "A phone by the bed means scrolling before sleep and first thing in the morning. Moving it out is one of the highest-impact changes for sleep and mornings."
+      },
+      "steps": {
+        "ar": [
+          "اختر مكانًا للشحن خارج غرفة النوم، أو على الأقل بعيدًا عن يدك.",
+          "إن كنت تستخدمه كمنبه، استخدم منبهًا عاديًا أو ضعه في الجهة الأخرى من الغرفة.",
+          "ضع بجانب السرير كتابًا أو دفترًا بدلًا منه.",
+          "الليلة: اترك الموبايل في مكان الشحن قبل دخولك للنوم."
+        ],
+        "en": [
+          "Choose a charging spot outside the bedroom, or at least out of reach.",
+          "If it's your alarm, use a basic alarm clock or put the phone across the room.",
+          "Put a book or notebook by your bed instead.",
+          "Tonight: leave your phone at the charging spot before you go to bed."
+        ]
+      },
+      "easy": {
+        "ar": "ضع الموبايل بعيدًا عن يدك وأنت في السرير، ولو على الأرض.",
+        "en": "Keep the phone out of arm's reach in bed, even just on the floor."
+      }
+    },
+    {
+      "id": "ex_batch_check",
+      "category": "environment",
+      "minutes": 3,
+      "tier": "pro",
+      "mode": "steps",
+      "title": { "ar": "أوقات ثابتة للرسائل", "en": "Batch your messages" },
+      "why": {
+        "ar": "فحص الرسائل كل بضع دقائق يقسم يومك إلى قطع صغيرة. تجميعها في أوقات ثابتة يعطيك فترات طويلة من التركيز.",
+        "en": "Checking messages every few minutes chops your day into tiny pieces. Batching them gives you long stretches of focus."
+      },
+      "steps": {
+        "ar": [
+          "اختر 3 أوقات في اليوم للرسائل والتواصل، مثل 12 ظهرًا و5 عصرًا و9 مساءً.",
+          "خارج هذه الأوقات، لا تفتح تطبيقات المحادثة إلا لمكالمة مهمة.",
+          "أخبر المقربين: «للأمور العاجلة اتصل بي».",
+          "اضبط هذه الأوقات كتذكير في التطبيق."
+        ],
+        "en": [
+          "Pick 3 times a day for messages, like 12pm, 5pm and 9pm.",
+          "Outside those times, don't open chat apps except for an important call.",
+          "Tell people close to you: \"For urgent things, call me.\"",
+          "Set those times as reminders in the app."
+        ]
+      },
+      "easy": {
+        "ar": "ساعة واحدة فقط اليوم بلا فحص للرسائل.",
+        "en": "Just one hour today without checking messages."
+      }
+    },
+    {
+      "id": "ex_phone_parking",
+      "category": "environment",
+      "minutes": 2,
+      "tier": "pro",
+      "mode": "steps",
+      "title": { "ar": "موقف الموبايل", "en": "Phone parking spot" },
+      "why": {
+        "ar": "حين يكون الموبايل في جيبك أو بجانب يدك، يسحب جزءًا من انتباهك حتى وأنت لا تستخدمه. مكان ثابت في البيت يحرّر عقلك.",
+        "en": "When your phone is in your pocket or by your hand, it pulls at your attention even when you're not using it. A fixed spot at home frees your mind."
+      },
+      "steps": {
+        "ar": [
+          "اختر مكانًا ثابتًا في البيت، مثل رف عند المدخل أو مكتب في غرفة أخرى.",
+          "حين تكون في البيت، يبقى الموبايل في مكانه.",
+          "اذهب إليه حين تحتاجه، ثم أعده.",
+          "جرّب ذلك ساعتين اليوم."
+        ],
+        "en": [
+          "Choose a fixed spot at home, like a shelf by the door or a desk in another room.",
+          "When you're at home, the phone stays there.",
+          "Walk to it when you need it, then leave it there.",
+          "Try this for two hours today."
+        ]
+      },
+      "easy": {
+        "ar": "30 دقيقة فقط والموبايل في غرفة أخرى.",
+        "en": "Just 30 minutes with the phone in another room."
+      }
+    },
+    {
+      "id": "ex_boredom_10",
+      "category": "urges",
+      "minutes": 10,
+      "tier": "pro",
+      "mode": "timer",
+      "title": { "ar": "10 دقائق ملل", "en": "Ten minutes of boredom" },
+      "why": {
+        "ar": "الموبايل جعلنا نهرب من كل لحظة فراغ. الملل ليس عدوًا، بل المساحة التي تولد فيها الأفكار والهدوء. حين تتحمّله، تقل حاجتك للهروب.",
+        "en": "The phone taught us to escape every empty moment. Boredom isn't the enemy; it's the space where ideas and calm show up. The more you can sit with it, the less you need to escape."
+      },
+      "steps": {
+        "ar": [
+          "ضع الموبايل بعيدًا بعد تشغيل المؤقت.",
+          "اجلس بجانب نافذة أو في مكان هادئ.",
+          "لا قراءة، لا موسيقى، لا شاشة. فقط أنت وأفكارك.",
+          "إن شعرت بالضيق، لاحظه ولا تقاومه.",
+          "بعد انتهاء الوقت، اكتب فكرة واحدة خطرت لك."
+        ],
+        "en": [
+          "Put the phone away after starting the timer.",
+          "Sit by a window or somewhere quiet.",
+          "No reading, no music, no screens. Just you and your thoughts.",
+          "If you feel restless, notice it and don't fight it.",
+          "When time is up, write down one thought that came to you."
+        ]
+      },
+      "easy": {
+        "ar": "3 دقائق فقط.",
+        "en": "Just 3 minutes."
+      },
+      "timer_minutes": 10
+    },
+    {
+      "id": "ex_replacement_list",
+      "category": "urges",
+      "minutes": 5,
+      "tier": "pro",
+      "mode": "steps",
+      "title": { "ar": "قائمة البدائل", "en": "Your replacement list" },
+      "why": {
+        "ar": "ترك عادة بدون بديل يترك فراغًا يعود الموبايل ليملأه. قائمة جاهزة تجعل الاختيار الجيد سهلًا في لحظة الرغبة.",
+        "en": "Dropping a habit with no replacement leaves a gap the phone fills again. A ready list makes the good choice easy in the moment."
+      },
+      "steps": {
+        "ar": [
+          "اكتب 3 أشياء تأخذ 5 دقائق: شرب ماء، تمدد، ترتيب المكتب.",
+          "اكتب 3 أشياء تأخذ 15 دقيقة: مشي قصير، قراءة، مكالمة صديق.",
+          "اكتب 3 أشياء تأخذ ساعة: رياضة، هواية، مشروع شخصي.",
+          "سنعرض لك هذه القائمة في زر «عندي رغبة أفتح الموبايل»."
+        ],
+        "en": [
+          "Write 3 things that take 5 minutes: drink water, stretch, tidy your desk.",
+          "Write 3 things that take 15 minutes: short walk, reading, calling a friend.",
+          "Write 3 things that take an hour: exercise, a hobby, a personal project.",
+          "We'll show this list when you tap \"I want to open my phone\"."
+        ]
+      },
+      "easy": {
+        "ar": "اكتب بديلًا واحدًا لكل مدة.",
+        "en": "Write one option for each length."
+      },
+      "input": "replacement_list"
+    },
+    {
+      "id": "ex_if_then",
+      "category": "urges",
+      "minutes": 4,
+      "tier": "pro",
+      "mode": "steps",
+      "title": { "ar": "خطة «إذا... فإن»", "en": "If-then plan" },
+      "why": {
+        "ar": "الخطط المحددة مسبقًا من أقوى الأساليب المدروسة لتغيير العادات. حين تقرر الآن ماذا ستفعل في الموقف، لا تحتاج للإرادة لاحقًا.",
+        "en": "Pre-decided plans are one of the best-studied ways to change habits. When you decide now what you'll do in a situation, you don't need willpower later."
+      },
+      "steps": {
+        "ar": [
+          "اختر أصعب موقف لك مع الموبايل، مثل: بعد الغداء، في السرير، عند الملل.",
+          "اكتب: «إذا [الموقف]، فإنني سـ [فعل بديل محدد]».",
+          "مثال: «إذا جلست على السرير ليلًا، فإنني سأقرأ صفحتين بدل الموبايل».",
+          "اكتب خطتين على الأقل.",
+          "اقرأهما بصوت منخفض مرتين."
+        ],
+        "en": [
+          "Pick your hardest phone moment, e.g. after lunch, in bed, when bored.",
+          "Write: \"If [situation], then I will [specific alternative].\"",
+          "Example: \"If I get into bed at night, then I will read two pages instead of my phone.\"",
+          "Write at least two plans.",
+          "Read them quietly to yourself twice."
+        ]
+      },
+      "easy": {
+        "ar": "خطة واحدة فقط.",
+        "en": "Just one plan."
+      },
+      "input": "if_then"
+    },
+    {
+      "id": "ex_double_sigh",
+      "category": "calm",
+      "minutes": 2,
+      "tier": "free",
+      "mode": "guided",
+      "title": { "ar": "التنهيدة المزدوجة", "en": "The double sigh" },
+      "why": {
+        "ar": "شهيقان متتاليان ثم زفير طويل من أسرع الطرق المعروفة لتهدئة الجسم وقت التوتر، ولا يحتاج أكثر من دقيقة.",
+        "en": "Two inhales followed by one long exhale is one of the quickest known ways to calm your body under stress, and it takes about a minute."
+      },
+      "steps": {
+        "ar": [
+          "خذ شهيقًا عميقًا من الأنف.",
+          "دون أن تُخرج الهواء، خذ شهيقًا قصيرًا ثانيًا لتملأ الرئتين.",
+          "أخرج الهواء ببطء شديد من الفم حتى النهاية.",
+          "كرّر من 3 إلى 5 مرات.",
+          "لاحظ كيف يهدأ جسمك."
+        ],
+        "en": [
+          "Take a deep breath in through your nose.",
+          "Without breathing out, take a second short sip of air to fill your lungs.",
+          "Breathe out very slowly through your mouth, all the way.",
+          "Repeat 3 to 5 times.",
+          "Notice your body settle."
+        ]
+      },
+      "easy": {
+        "ar": "مرة واحدة فقط.",
+        "en": "Just once."
+      },
+      "guided_seconds": 60
+    },
+    {
+      "id": "ex_slow_breathing",
+      "category": "calm",
+      "minutes": 4,
+      "tier": "pro",
+      "mode": "guided",
+      "title": { "ar": "تنفّس 4-6", "en": "4-6 breathing" },
+      "why": {
+        "ar": "حين يكون الزفير أطول من الشهيق، يرسل الجسم إشارة هدوء للدماغ. تمرين مناسب قبل النوم أو قبل مهمة صعبة.",
+        "en": "When your exhale is longer than your inhale, your body signals calm to your brain. Good before sleep or before a hard task."
+      },
+      "steps": {
+        "ar": [
+          "شهيق من الأنف وعُدّ حتى 4.",
+          "زفير من الفم وعُدّ حتى 6.",
+          "اتبع الدائرة على الشاشة.",
+          "استمر حتى ينتهي المؤقت."
+        ],
+        "en": [
+          "Breathe in through your nose for a count of 4.",
+          "Breathe out through your mouth for a count of 6.",
+          "Follow the circle on screen.",
+          "Keep going until the timer ends."
+        ]
+      },
+      "easy": {
+        "ar": "دقيقة واحدة.",
+        "en": "One minute."
+      },
+      "guided_seconds": 240,
+      "breathing_pattern": [4, 0, 6, 0]
+    },
+    {
+      "id": "ex_morning_no_phone",
+      "category": "calm",
+      "minutes": 3,
+      "tier": "pro",
+      "mode": "steps",
+      "title": { "ar": "صباح بلا موبايل", "en": "A phone-free morning" },
+      "why": {
+        "ar": "حين تبدأ يومك بالإشعارات والأخبار، يبدأ عقلك في وضع الاستجابة لما يطلبه الآخرون. أول 30 دقيقة لك أنت.",
+        "en": "When you start the day with notifications and news, your mind starts in reaction mode. Your first 30 minutes are yours."
+      },
+      "steps": {
+        "ar": [
+          "حدد ماذا ستفعل أول 30 دقيقة بعد الاستيقاظ: ماء، صلاة أو تأمل، فطور، تمدد.",
+          "اكتب هذه الخطوات.",
+          "اجعل الموبايل في وضع الطيران أو بعيدًا حتى تنتهي.",
+          "غدًا صباحًا: طبّق الخطة."
+        ],
+        "en": [
+          "Decide what your first 30 minutes after waking will be: water, prayer or quiet time, breakfast, stretching.",
+          "Write those steps down.",
+          "Keep the phone in airplane mode or out of reach until you finish.",
+          "Tomorrow morning: follow the plan."
+        ]
+      },
+      "easy": {
+        "ar": "أول 10 دقائق فقط بلا موبايل.",
+        "en": "Just the first 10 minutes without your phone."
+      }
+    },
+    {
+      "id": "ex_walk_no_phone",
+      "category": "life",
+      "minutes": 15,
+      "tier": "pro",
+      "mode": "timer",
+      "title": { "ar": "مشي بلا موبايل", "en": "A walk without your phone" },
+      "why": {
+        "ar": "المشي يحسّن المزاج ويصفّي الذهن، والمشي بدون شاشة يعيد لك الإحساس بما حولك. كثير من الأفكار الجيدة تأتي أثناء المشي.",
+        "en": "Walking lifts your mood and clears your head, and walking without a screen reconnects you with what's around you. Many good ideas show up on walks."
+      },
+      "steps": {
+        "ar": [
+          "شغّل المؤقت ثم اترك الموبايل في البيت، أو في جيبك على الصامت دون استخدام.",
+          "امشِ 15 دقيقة بخطوات مريحة.",
+          "لاحظ 5 أشياء تراها و3 أصوات تسمعها.",
+          "عند عودتك، سجّل كيف تشعر."
+        ],
+        "en": [
+          "Start the timer, then leave your phone at home, or silent in your pocket and untouched.",
+          "Walk for 15 minutes at a comfortable pace.",
+          "Notice 5 things you see and 3 sounds you hear.",
+          "When you're back, note how you feel."
+        ]
+      },
+      "easy": {
+        "ar": "5 دقائق فقط، ولو داخل البيت.",
+        "en": "Just 5 minutes, even indoors."
+      },
+      "timer_minutes": 15
+    },
+    {
+      "id": "ex_meal_no_phone",
+      "category": "life",
+      "minutes": 2,
+      "tier": "pro",
+      "mode": "steps",
+      "title": { "ar": "وجبة بلا شاشة", "en": "A screen-free meal" },
+      "why": {
+        "ar": "الأكل أمام الشاشة يجعلك لا تتذوق طعامك ولا تنتبه لمن معك. وجبة واحدة بلا شاشة تمرين بسيط على الحضور.",
+        "en": "Eating in front of a screen means you barely taste your food or notice who's with you. One screen-free meal is a simple presence practice."
+      },
+      "steps": {
+        "ar": [
+          "اختر وجبة واحدة اليوم.",
+          "ضع الموبايل في غرفة أخرى أو مقلوبًا وبعيدًا.",
+          "كُل ببطء ولاحظ الطعم.",
+          "إن كان معك أحد، تحدّث معه."
+        ],
+        "en": [
+          "Pick one meal today.",
+          "Put your phone in another room, or face down and out of reach.",
+          "Eat slowly and notice the taste.",
+          "If you're with someone, talk with them."
+        ]
+      },
+      "easy": {
+        "ar": "أول 5 دقائق من الوجبة بلا موبايل.",
+        "en": "The first 5 minutes of the meal without your phone."
+      }
+    },
+    {
+      "id": "ex_call_friend",
+      "category": "life",
+      "minutes": 10,
+      "tier": "pro",
+      "mode": "steps",
+      "title": { "ar": "تواصل حقيقي", "en": "Real connection" },
+      "why": {
+        "ar": "كثير من التصفح هو بحث عن تواصل. مكالمة صوتية أو لقاء حقيقي يعطيان ما لا يعطيه التمرير بين المنشورات.",
+        "en": "A lot of scrolling is really a search for connection. A real call or meet-up gives what scrolling through posts can't."
+      },
+      "steps": {
+        "ar": [
+          "اختر شخصًا لم تتحدث معه منذ فترة.",
+          "اتصل به صوتيًا، لا رسالة نصية.",
+          "اسأله عن أحواله واستمع أكثر مما تتكلم.",
+          "أو رتّب لقاءً قريبًا."
+        ],
+        "en": [
+          "Pick someone you haven't talked to in a while.",
+          "Call them, don't text.",
+          "Ask how they are and listen more than you talk.",
+          "Or set up a time to meet soon."
+        ]
+      },
+      "easy": {
+        "ar": "رسالة صوتية واحدة لشخص تحبه.",
+        "en": "One voice message to someone you care about."
+      }
+    },
+    {
+      "id": "ex_single_task",
+      "category": "focus",
+      "minutes": 25,
+      "tier": "free",
+      "mode": "focus_timer",
+      "title": { "ar": "مهمة واحدة 25 دقيقة", "en": "One task, 25 minutes" },
+      "why": {
+        "ar": "التنقل بين المهام يجعل كل مهمة أبطأ وأكثر إرهاقًا. 25 دقيقة على شيء واحد فقط تعيد تدريب دماغك على العمق.",
+        "en": "Switching between tasks makes each one slower and more tiring. 25 minutes on just one thing retrains your brain for depth."
+      },
+      "steps": {
+        "ar": [
+          "اكتب المهمة الواحدة التي ستعمل عليها.",
+          "ضع الموبايل مقلوبًا وبعيدًا، وفعّل عدم الإزعاج.",
+          "اختر صوتًا هادئًا إن أردت: مطر أو ضوضاء بيضاء.",
+          "اعمل حتى ينتهي المؤقت. إن خطرت لك فكرة أخرى، دوّنها وعُد.",
+          "بعد الانتهاء: استراحة 5 دقائق بعيدًا عن الشاشة."
+        ],
+        "en": [
+          "Write down the one task you'll work on.",
+          "Put your phone face down and away, and turn on Do Not Disturb.",
+          "Pick a calm sound if you like: rain or white noise.",
+          "Work until the timer ends. If another thought pops up, jot it down and return.",
+          "When done: a 5-minute break away from screens."
+        ]
+      },
+      "easy": {
+        "ar": "10 دقائق فقط على مهمة واحدة.",
+        "en": "Just 10 minutes on one task."
+      },
+      "timer_minutes": 25
+    },
+    {
+      "id": "ex_deep_work_50",
+      "category": "focus",
+      "minutes": 50,
+      "tier": "pro",
+      "mode": "focus_timer",
+      "title": { "ar": "تركيز عميق 50 دقيقة", "en": "Deep focus, 50 minutes" },
+      "why": {
+        "ar": "أهم إنجازاتك تحتاج فترات طويلة من التركيز المتواصل. بعد أسابيع من التدريب، أصبح دماغك جاهزًا لجلسة أطول.",
+        "en": "Your most important work needs long stretches of unbroken focus. After weeks of training, your brain is ready for a longer session."
+      },
+      "steps": {
+        "ar": [
+          "اختر أهم مهمة اليوم.",
+          "جهّز كل ما تحتاجه قبل البدء: ماء، أوراق، ملفات.",
+          "الموبايل في غرفة أخرى.",
+          "اعمل 50 دقيقة دون انقطاع.",
+          "استراحة 10 دقائق: حركة وماء، بلا شاشة."
+        ],
+        "en": [
+          "Pick your most important task today.",
+          "Get everything ready first: water, paper, files.",
+          "Phone in another room.",
+          "Work for 50 minutes without breaks.",
+          "10-minute break: move and drink water, no screens."
+        ]
+      },
+      "easy": {
+        "ar": "جلستان من 20 دقيقة بينهما استراحة.",
+        "en": "Two 20-minute sessions with a break between."
+      },
+      "timer_minutes": 50
+    },
+    {
+      "id": "ex_read_20",
+      "category": "focus",
+      "minutes": 20,
+      "tier": "pro",
+      "mode": "timer",
+      "title": { "ar": "قراءة 20 دقيقة", "en": "Read for 20 minutes" },
+      "why": {
+        "ar": "المحتوى القصير يعوّد الدماغ على الانتقال كل بضع ثوانٍ. القراءة المتواصلة تعيد بناء القدرة على متابعة فكرة طويلة.",
+        "en": "Short content trains your brain to jump every few seconds. Sustained reading rebuilds your ability to follow a long idea."
+      },
+      "steps": {
+        "ar": [
+          "اختر كتابًا ورقيًا أو مقالًا طويلًا، بدون روابط ولا إشعارات.",
+          "شغّل المؤقت وضع الموبايل بعيدًا إن كنت تقرأ من ورق.",
+          "اقرأ حتى ينتهي الوقت.",
+          "اكتب جملة واحدة عمّا قرأت."
+        ],
+        "en": [
+          "Pick a paper book or a long article, with no links or notifications.",
+          "Start the timer and put your phone away if reading on paper.",
+          "Read until time is up.",
+          "Write one sentence about what you read."
+        ]
+      },
+      "easy": {
+        "ar": "5 صفحات فقط.",
+        "en": "Just 5 pages."
+      },
+      "timer_minutes": 20
+    },
+    {
+      "id": "ex_20_20_20",
+      "category": "focus",
+      "minutes": 1,
+      "tier": "free",
+      "mode": "guided",
+      "title": { "ar": "قاعدة 20-20-20", "en": "The 20-20-20 rule" },
+      "why": {
+        "ar": "النظر الطويل للشاشة يُتعب العين. كل 20 دقيقة، انظر 20 ثانية إلى شيء يبعد نحو 6 أمتار. استراحة صغيرة لعينيك وذهنك.",
+        "en": "Long screen time strains your eyes. Every 20 minutes, look at something about 6 meters away for 20 seconds. A small break for your eyes and mind."
+      },
+      "steps": {
+        "ar": [
+          "انظر الآن من النافذة أو لأبعد نقطة في الغرفة.",
+          "ابقَ ناظرًا إليها 20 ثانية.",
+          "أغمض عينيك وافتحهما ببطء مرتين.",
+          "فعّل تذكير 20-20-20 من الأدوات إن أردت."
+        ],
+        "en": [
+          "Look out the window or at the farthest point in the room.",
+          "Keep looking for 20 seconds.",
+          "Close and slowly open your eyes twice.",
+          "Turn on the 20-20-20 reminder in Tools if you like."
+        ]
+      },
+      "easy": {
+        "ar": "مرة واحدة الآن.",
+        "en": "Once, right now."
+      },
+      "guided_seconds": 20
+    },
+    {
+      "id": "ex_relapse_plan",
+      "category": "mindset",
+      "minutes": 4,
+      "tier": "pro",
+      "mode": "steps",
+      "title": { "ar": "خطة اليوم الصعب", "en": "Bad-day plan" },
+      "why": {
+        "ar": "كل من يغيّر عادة يمر بأيام يعود فيها للقديم. الفرق بين من ينجح ومن يستسلم ليس عدم السقوط، بل سرعة العودة.",
+        "en": "Everyone who changes a habit has days where they slip back. The difference between those who succeed and those who quit isn't never slipping; it's how fast they come back."
+      },
+      "steps": {
+        "ar": [
+          "اكتب جملة تقولها لنفسك بعد يوم سيء، مثل: «يوم واحد لا يمحو تقدمي».",
+          "اكتب أصغر خطوة تعيدك للبرنامج: النسخة السريعة من تمرين اليوم.",
+          "اكتب ما قد يسبب اليوم الصعب عادة: سهر، ضغط، ملل في الإجازة.",
+          "اكتب ماذا ستفعل في المرة القادمة قبل أن يحدث."
+        ],
+        "en": [
+          "Write a line to tell yourself after a bad day, e.g. \"One day doesn't erase my progress.\"",
+          "Write the smallest step that brings you back: the quick version of today's exercise.",
+          "Write what usually causes a hard day: late nights, stress, a boring weekend.",
+          "Write what you'll do next time, before it happens."
+        ]
+      },
+      "easy": {
+        "ar": "اكتب الجملة الأولى فقط.",
+        "en": "Write just the first line."
+      },
+      "input": "relapse_plan"
+    },
+    {
+      "id": "ex_identity",
+      "category": "mindset",
+      "minutes": 3,
+      "tier": "pro",
+      "mode": "steps",
+      "title": { "ar": "من أنا الآن؟", "en": "Who am I now?" },
+      "why": {
+        "ar": "العادات تثبت حين تصبح جزءًا من هويتك. «أنا أحاول ترك الموبايل» تختلف عن «أنا شخص يتحكم في وقته».",
+        "en": "Habits stick when they become part of who you are. \"I'm trying to use my phone less\" is different from \"I'm someone who owns my time.\""
+      },
+      "steps": {
+        "ar": [
+          "اكتب 3 أشياء فعلتها هذا الشهر وتفخر بها.",
+          "أكمل الجملة: «أنا شخص...».",
+          "مثال: «أنا شخص يختار متى يستخدم الموبايل، ويعطي وقته لما يهمه».",
+          "اقرأها كل صباح هذا الأسبوع."
+        ],
+        "en": [
+          "Write 3 things you did this month that you're proud of.",
+          "Finish the sentence: \"I am someone who...\"",
+          "Example: \"I am someone who chooses when to use my phone and gives time to what matters.\"",
+          "Read it every morning this week."
+        ]
+      },
+      "easy": {
+        "ar": "أكمل الجملة فقط.",
+        "en": "Just finish the sentence."
+      },
+      "input": "identity_statement"
+    },
+    {
+      "id": "ex_social_free",
+      "category": "life",
+      "minutes": 3,
+      "tier": "pro",
+      "mode": "steps",
+      "title": { "ar": "يوم بلا سوشيال", "en": "A social-media-free day" },
+      "why": {
+        "ar": "يوم كامل بعيدًا عن وسائل التواصل يريك كم وقتًا وهدوءًا كانت تأخذ. الهدف ليس الحرمان، بل التجربة.",
+        "en": "A full day away from social media shows you how much time and calm it was taking. The goal isn't deprivation; it's an experiment."
+      },
+      "steps": {
+        "ar": [
+          "قرّر: من الآن حتى الغد في نفس الوقت، لا وسائل تواصل.",
+          "سجّل الخروج من التطبيقات أو أخفها.",
+          "خطط لما ستفعله بالوقت: من قائمة البدائل.",
+          "في المساء، اكتب: كيف كان شعورك؟"
+        ],
+        "en": [
+          "Decide: from now until the same time tomorrow, no social media.",
+          "Log out of the apps or hide them.",
+          "Plan what you'll do with the time, from your replacement list.",
+          "Tonight, write: how did it feel?"
+        ]
+      },
+      "easy": {
+        "ar": "نصف يوم فقط، من الصباح حتى العصر.",
+        "en": "Just half a day, from morning to afternoon."
+      }
+    },
+    {
+      "id": "ex_maintenance_plan",
+      "category": "mindset",
+      "minutes": 5,
+      "tier": "pro",
+      "mode": "steps",
+      "title": { "ar": "قواعدك للاستمرار", "en": "Your rules to keep going" },
+      "why": {
+        "ar": "البرنامج ينتهي، لكن العادات الجيدة تحتاج قواعد بسيطة تحميها. 3 قواعد واضحة أفضل من 10 قواعد تنساها.",
+        "en": "The program ends, but good habits need simple rules to protect them. Three clear rules beat ten you'll forget."
+      },
+      "steps": {
+        "ar": [
+          "راجع التغييرات التي جربتها هذا الشهر.",
+          "اختر أفضل 3 نجحت معك، مثل: الموبايل خارج غرفة النوم، لا إشعارات سوشيال، مهمة واحدة كل صباح.",
+          "اكتبها كقواعد قصيرة.",
+          "اختر موعد مراجعة شهرية، وسنذكّرك به."
+        ],
+        "en": [
+          "Look back at the changes you tried this month.",
+          "Pick the 3 that worked best, e.g. phone out of the bedroom, no social notifications, one focused task every morning.",
+          "Write them as short rules.",
+          "Choose a monthly check-in date and we'll remind you."
+        ]
+      },
+      "easy": {
+        "ar": "قاعدة واحدة فقط.",
+        "en": "Just one rule."
+      },
+      "input": "maintenance_rules"
+    },
+    {
+      "id": "ex_future_letter",
+      "category": "mindset",
+      "minutes": 5,
+      "tier": "free",
+      "mode": "steps",
+      "title": { "ar": "رسالة لنفسك", "en": "A letter to yourself" },
+      "why": {
+        "ar": "حين تكتب لنفسك في المستقبل، تتذكر لماذا بدأت. سنحفظ رسالتك ونعرضها عليك في يوم 30.",
+        "en": "Writing to your future self reminds you why you started. We'll save your letter and show it to you on Day 30."
+      },
+      "steps": {
+        "ar": [
+          "اكتب لنفسك بعد 30 يومًا.",
+          "ماذا تتمنى أن يكون قد تغيّر؟",
+          "ماذا تقول لنفسك إن كانت الأيام صعبة؟",
+          "اكتب بصدق، لن يقرأها أحد غيرك."
+        ],
+        "en": [
+          "Write to yourself 30 days from now.",
+          "What do you hope will have changed?",
+          "What would you say to yourself if the days were hard?",
+          "Write honestly. No one else will read it."
+        ]
+      },
+      "easy": {
+        "ar": "3 جمل فقط.",
+        "en": "Just 3 sentences."
+      },
+      "input": "future_letter"
+    },
+    {
+      "id": "ex_week_review",
+      "category": "mindset",
+      "minutes": 4,
+      "tier": "free",
+      "mode": "steps",
+      "title": { "ar": "مراجعة الأسبوع", "en": "Weekly review" },
+      "why": {
+        "ar": "التوقف للنظر إلى الوراء يحوّل التجربة إلى تعلّم. ماذا نجح؟ ماذا لم ينجح؟ ماذا ستجرب الأسبوع القادم؟",
+        "en": "Pausing to look back turns experience into learning. What worked? What didn't? What will you try next week?"
+      },
+      "steps": {
+        "ar": [
+          "أعد فحص الصفاء (8 أسئلة سريعة) لترى تقدمك.",
+          "اكتب شيئًا واحدًا نجح هذا الأسبوع.",
+          "اكتب شيئًا واحدًا كان صعبًا.",
+          "اكتب شيئًا واحدًا ستجربه الأسبوع القادم."
+        ],
+        "en": [
+          "Retake the Clarity Check (8 quick questions) to see your progress.",
+          "Write one thing that worked this week.",
+          "Write one thing that was hard.",
+          "Write one thing you'll try next week."
+        ]
+      },
+      "easy": {
+        "ar": "أعد الفحص فقط.",
+        "en": "Just retake the check."
+      },
+      "input": "week_review",
+      "triggers_clarity_check": true
+    }
+  ]
+}

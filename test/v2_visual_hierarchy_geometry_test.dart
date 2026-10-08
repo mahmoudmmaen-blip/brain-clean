@@ -31,7 +31,6 @@ import 'package:brain_clean_mobile/features/weekly_review/domain/weekly_review_r
 import 'package:brain_clean_mobile/features/weekly_review/domain/weekly_review_signal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// Visual-hierarchy geometry gates for V2 primary tabs.

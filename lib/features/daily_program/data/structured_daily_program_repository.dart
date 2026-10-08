@@ -23,7 +23,7 @@ class StructuredDailyProgramLocalRepository
   final Box<dynamic>? _boxOverride;
 
   Future<Box<dynamic>> _openBox() async {
-    if (_boxOverride != null) return _boxOverride!;
+    if (_boxOverride != null) return _boxOverride;
     try {
       await HiveBootstrap.warmUpPersistentBoxes();
       return Hive.box<dynamic>(HiveBoxes.structuredDailyProgram);

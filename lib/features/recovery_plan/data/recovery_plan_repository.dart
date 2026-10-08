@@ -32,7 +32,7 @@ class RecoveryPlanLocalRepository implements RecoveryPlanRepository {
   final Box<dynamic>? _boxOverride;
 
   Future<Box<dynamic>> _openBox() async {
-    if (_boxOverride != null) return _boxOverride!;
+    if (_boxOverride != null) return _boxOverride;
     await HiveBootstrap.warmUpPersistentBoxes();
     return Hive.box<dynamic>(HiveBoxes.recoveryPlan);
   }

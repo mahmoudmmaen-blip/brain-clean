@@ -86,7 +86,7 @@ class _DiagResultRingPainter extends CustomPainter {
       ..shader = SweepGradient(
         startAngle: -math.pi / 2,
         endAngle: 3 * math.pi / 2,
-        colors: [AppColors.primary, const Color(0xFF5BE0A8)],
+        colors: const [AppColors.primary, Color(0xFF5BE0A8)],
       ).createShader(Rect.fromCircle(center: center, radius: radius))
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth

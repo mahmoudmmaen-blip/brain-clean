@@ -1,0 +1,1118 @@
+{
+  "version": 1,
+  "name": {
+    "ar": "برنامج الصفاء: 30 يومًا",
+    "en": "The Clarity Program: 30 days"
+  },
+  "dailyMinutes": {
+    "ar": "10 إلى 15 دقيقة يوميًا",
+    "en": "10 to 15 minutes a day"
+  },
+  "freeDays": 7,
+  "weeks": [
+    {
+      "week": 1,
+      "title": {
+        "ar": "الوعي",
+        "en": "Awareness"
+      },
+      "goal": {
+        "ar": "اعرف عاداتك ومحفّزاتك دون أن تحكم على نفسك.",
+        "en": "Understand your habits and triggers without judging yourself."
+      }
+    },
+    {
+      "week": 2,
+      "title": {
+        "ar": "البيئة",
+        "en": "Environment"
+      },
+      "goal": {
+        "ar": "أعد تصميم موبايلك ومكانك ليصبح الاختيار الجيد هو الأسهل.",
+        "en": "Redesign your phone and space so the good choice is the easy one."
+      }
+    },
+    {
+      "week": 3,
+      "title": {
+        "ar": "البدائل",
+        "en": "Replace"
+      },
+      "goal": {
+        "ar": "املأ الوقت المستعاد بأشياء حقيقية وتعامل مع الملل والتوتر.",
+        "en": "Fill the time you win back with real things, and handle boredom and stress."
+      }
+    },
+    {
+      "week": 4,
+      "title": {
+        "ar": "التثبيت",
+        "en": "Lock in"
+      },
+      "goal": {
+        "ar": "حوّل التغييرات إلى عادات وهوية تبقى بعد البرنامج.",
+        "en": "Turn changes into habits and an identity that lasts beyond the program."
+      }
+    }
+  ],
+  "days": [
+    {
+      "day": 1,
+      "week": 1,
+      "lesson": {
+        "title": {
+          "ar": "لماذا يصعب ترك الموبايل؟",
+          "en": "Why is it so hard to put the phone down?"
+        },
+        "body": {
+          "ar": [
+            "إن كنت تجد صعوبة في ترك الموبايل، فالمشكلة ليست ضعفًا فيك. التطبيقات التي تستخدمها صُممت بعناية لتبقيك أطول وقت ممكن، وفريق كامل يعمل على ذلك كل يوم.",
+            "السر في «المكافأة غير المتوقعة»: لا تعرف ماذا ستجد حين تسحب الشاشة للأسفل. قد يكون منشورًا مضحكًا، أو رسالة، أو لا شيء. هذا الغموض يجعل الدماغ يعود مرة بعد مرة، تمامًا مثل آلات الحظ.",
+            "الخبر الجيد: ما تعلّمه الدماغ يمكن أن يتعلّم غيره. خلال 30 يومًا ستفهم عاداتك، وتغيّر بيئتك، وتبني بدائل حقيقية، خطوة صغيرة كل يوم."
+          ],
+          "en": [
+            "If you find it hard to put your phone down, it's not a personal weakness. The apps you use were carefully designed to keep you on them as long as possible, and whole teams work on that every day.",
+            "The secret is the \"unpredictable reward\": you never know what you'll find when you pull to refresh. Maybe something funny, a message, or nothing at all. That uncertainty keeps your brain coming back, just like a slot machine.",
+            "The good news: what your brain learned, it can unlearn. Over 30 days you'll understand your habits, change your environment and build real alternatives, one small step a day."
+          ]
+        },
+        "key": {
+          "ar": "المشكلة في التصميم، لا فيك. والحل في خطوات صغيرة.",
+          "en": "The problem is the design, not you. The fix is small steps."
+        }
+      },
+      "practiceId": "ex_screen_audit",
+      "challenge": {
+        "ar": "لاحظ كل مرة تفتح فيها الموبايل اليوم بدون سبب واضح. لا تغيّر شيئًا، فقط لاحظ.",
+        "en": "Notice every time you open your phone today without a clear reason. Don't change anything, just notice."
+      },
+      "reflection": {
+        "ar": "هل تفاجأت من رقم وقت الشاشة؟",
+        "en": "Were you surprised by your screen time number?"
+      }
+    },
+    {
+      "day": 2,
+      "week": 1,
+      "lesson": {
+        "title": {
+          "ar": "ما الذي يدفعك للموبايل؟",
+          "en": "What pushes you to your phone?"
+        },
+        "body": {
+          "ar": [
+            "كل عادة لها ثلاثة أجزاء: محفّز، ثم فعل، ثم مكافأة. المحفّز قد يكون مكانًا (السرير)، أو وقتًا (بعد الغداء)، أو شعورًا (ملل، قلق، تعب).",
+            "أغلب مرات فتح الموبايل بدون هدف تبدأ بشعور غير مريح نريد الهروب منه. الموبايل يعطينا راحة سريعة، لكنها قصيرة، فنعود إليه مرة أخرى.",
+            "اليوم لن نحارب العادة. سنكتشف المحفّز. حين تعرف ما الذي يدفعك، يصبح بإمكانك أن تختار ردًا مختلفًا."
+          ],
+          "en": [
+            "Every habit has three parts: a trigger, an action, and a reward. The trigger can be a place (your bed), a time (after lunch) or a feeling (bored, anxious, tired).",
+            "Most mindless phone checks start with an uncomfortable feeling we want to escape. The phone gives quick relief, but it doesn't last, so we go back again.",
+            "Today we won't fight the habit. We'll find the trigger. Once you know what pushes you, you can choose a different response."
+          ]
+        },
+        "key": {
+          "ar": "خلف كل فتح للموبايل شعور. اعرفه أولًا.",
+          "en": "Behind every phone check is a feeling. Name it first."
+        }
+      },
+      "practiceId": "ex_trigger_log",
+      "challenge": {
+        "ar": "حين تمسك الموبايل بدون هدف اليوم، اسأل نفسك: «ماذا أشعر الآن؟» ثلاث مرات على الأقل.",
+        "en": "When you grab your phone with no purpose today, ask yourself \"What am I feeling right now?\" at least three times."
+      },
+      "reflection": {
+        "ar": "ما الشعور الذي تكرّر أكثر اليوم؟",
+        "en": "Which feeling showed up most today?"
+      }
+    },
+    {
+      "day": 3,
+      "week": 1,
+      "lesson": {
+        "title": {
+          "ar": "الرغبة موجة، وستمر",
+          "en": "An urge is a wave, and it passes"
+        },
+        "body": {
+          "ar": [
+            "الرغبة في فتح الموبايل تبدو أحيانًا أقوى منا، وكأنها لن تهدأ حتى نطيعها. لكن الحقيقة أن الرغبة ترتفع، تصل للقمة، ثم تهبط وحدها خلال دقائق.",
+            "كل مرة تطيع فيها الرغبة فورًا، تتعلّم أنها تنجح، فتعود أقوى. وكل مرة تراقبها حتى تهدأ، تتعلّم أنها مجرد إحساس عابر، فتضعف مع الوقت.",
+            "التمرين اليوم اسمه «ركوب الموجة»: لا تقاوم الرغبة ولا تطيعها. فقط راقبها بفضول وتنفّس حتى تمر."
+          ],
+          "en": [
+            "The urge to open your phone can feel stronger than you, like it won't settle until you give in. But urges rise, peak, and fall on their own within minutes.",
+            "Every time you obey an urge right away, it learns that it works and comes back stronger. Every time you watch it until it fades, it learns it's just a passing feeling, and it weakens over time.",
+            "Today's exercise is called urge surfing: don't fight the urge and don't obey it. Just watch it with curiosity and breathe until it passes."
+          ]
+        },
+        "key": {
+          "ar": "لا تقاوم الرغبة ولا تطعها. راقبها حتى تمر.",
+          "en": "Don't fight the urge, don't obey it. Watch it pass."
+        }
+      },
+      "practiceId": "ex_urge_surf",
+      "challenge": {
+        "ar": "اركب موجة رغبة واحدة على الأقل اليوم حتى النهاية. استخدم زر «عندي رغبة أفتح الموبايل».",
+        "en": "Ride out at least one urge today, all the way. Use the \"I want to open my phone\" button."
+      },
+      "reflection": {
+        "ar": "هل هدأت الرغبة حين راقبتها؟",
+        "en": "Did the urge fade when you watched it?"
+      }
+    },
+    {
+      "day": 4,
+      "week": 1,
+      "lesson": {
+        "title": {
+          "ar": "من التلقائي إلى الاختيار",
+          "en": "From autopilot to choice"
+        },
+        "body": {
+          "ar": [
+            "جرّب أن تتذكر: كم مرة وجدت نفسك تتصفح دون أن تتذكر متى فتحت الموبايل؟ هذا هو «الوضع التلقائي»، حين تتحرك اليد قبل أن يقرر العقل.",
+            "لا نحتاج أن نمنع أنفسنا من الموبايل. نحتاج فقط أن نضع لحظة قصيرة بين الرغبة والفعل. في هذه اللحظة يعود القرار لك.",
+            "ثلاثة أنفاس قبل فتح الموبايل تكفي لتحويل الحركة التلقائية إلى سؤال: «هل أريد هذا فعلًا الآن؟» أحيانًا ستكون الإجابة نعم، وهذا جيد."
+          ],
+          "en": [
+            "Think about it: how often have you found yourself scrolling without remembering when you picked up the phone? That's autopilot, when your hand moves before your mind decides.",
+            "We don't need to ban the phone. We just need a short moment between the urge and the action. In that moment, the choice comes back to you.",
+            "Three breaths before unlocking are enough to turn a reflex into a question: \"Do I actually want this right now?\" Sometimes the answer will be yes, and that's fine."
+          ]
+        },
+        "key": {
+          "ar": "لحظة قصيرة بين الرغبة والفعل تعيد لك القرار.",
+          "en": "A short pause between urge and action gives you back the choice."
+        }
+      },
+      "practiceId": "ex_pause_breath",
+      "challenge": {
+        "ar": "قبل فتح أي تطبيق تواصل اليوم، خذ 3 أنفاس واسأل: «ماذا أريد بالضبط؟»",
+        "en": "Before opening any social app today, take 3 breaths and ask: \"What exactly do I want?\""
+      },
+      "reflection": {
+        "ar": "كم مرة اخترت ألا تفتح الموبايل بعد التوقف؟",
+        "en": "How many times did you choose not to open your phone after pausing?"
+      }
+    },
+    {
+      "day": 5,
+      "week": 1,
+      "lesson": {
+        "title": {
+          "ar": "التركيز عضلة تتدرّب",
+          "en": "Focus is a muscle you can train"
+        },
+        "body": {
+          "ar": [
+            "إن كنت تشعر أنك لم تعد تستطيع التركيز على شيء أكثر من دقائق، فأنت لست وحدك. حين يتعوّد الدماغ على تغيير المحتوى كل بضع ثوانٍ، يصبح البقاء مع شيء واحد مزعجًا.",
+            "لكن الانتباه مثل العضلة: يضعف حين لا نستخدمه، ويقوى حين ندرّبه. كل مرة يشرد فيها ذهنك وتعيده بلطف، فأنت تقوم بتمرين واحد.",
+            "اليوم ستدرّب انتباهك 5 دقائق فقط. لا تقلق إن شرد ذهنك مئة مرة. العودة هي التمرين، وليس عدم الشرود."
+          ],
+          "en": [
+            "If you feel you can't focus on anything for more than a few minutes anymore, you're not alone. When the brain gets used to new content every few seconds, staying with one thing feels uncomfortable.",
+            "But attention is like a muscle: it weakens when unused and strengthens when trained. Every time your mind wanders and you gently bring it back, that's one rep.",
+            "Today you'll train your attention for just 5 minutes. Don't worry if your mind wanders a hundred times. Coming back is the exercise, not never wandering."
+          ]
+        },
+        "key": {
+          "ar": "كل عودة من الشرود تمرين يقوّي انتباهك.",
+          "en": "Every return from wandering is a rep that builds focus."
+        }
+      },
+      "practiceId": "ex_attention_anchor",
+      "challenge": {
+        "ar": "اعمل على مهمة واحدة 10 دقائق متواصلة دون أن تلمس الموبايل.",
+        "en": "Work on one task for 10 straight minutes without touching your phone."
+      },
+      "reflection": {
+        "ar": "كم مرة شرد ذهنك؟ وهل استطعت العودة؟",
+        "en": "How often did your mind wander? Could you bring it back?"
+      }
+    },
+    {
+      "day": 6,
+      "week": 1,
+      "lesson": {
+        "title": {
+          "ar": "النوم والشاشة",
+          "en": "Sleep and screens"
+        },
+        "body": {
+          "ar": [
+            "التصفح في السرير يبدو كأنه استرخاء، لكنه عكس ذلك. المحتوى المثير يُبقي الدماغ متنبّهًا، و«حلقة واحدة أخيرة» تصبح ساعة كاملة من النوم المفقود.",
+            "قلة النوم تجعل اليوم التالي أصعب: تركيز أقل، صبر أقل، ورغبة أكبر في المحتوى السريع. وهكذا تبدأ دائرة يصعب الخروج منها.",
+            "الحل البسيط اسمه «الغروب الرقمي»: وقت ثابت قبل النوم تتوقف فيه الشاشات. حتى 30 دقيقة تُحدث فرقًا تشعر به خلال أيام."
+          ],
+          "en": [
+            "Scrolling in bed feels relaxing, but it's the opposite. Stimulating content keeps your brain alert, and \"one more video\" turns into an hour of lost sleep.",
+            "Less sleep makes the next day harder: less focus, less patience, and more craving for quick content. That starts a loop that's hard to escape.",
+            "The simple fix is a \"digital sunset\": a fixed time before bed when screens stop. Even 30 minutes makes a difference you'll feel within days."
+          ]
+        },
+        "key": {
+          "ar": "نوم أفضل يعني رغبة أقل في الموبايل غدًا.",
+          "en": "Better sleep means fewer cravings tomorrow."
+        }
+      },
+      "practiceId": "ex_digital_sunset",
+      "challenge": {
+        "ar": "الليلة: لا شاشة آخر 30 دقيقة قبل النوم.",
+        "en": "Tonight: no screens for the last 30 minutes before bed."
+      },
+      "reflection": {
+        "ar": "هل استطعت تطبيق الغروب الرقمي الليلة؟",
+        "en": "Did you manage your digital sunset tonight?"
+      }
+    },
+    {
+      "day": 7,
+      "week": 1,
+      "clarityCheck": true,
+      "lesson": {
+        "title": {
+          "ar": "أسبوع كامل، وسبب واضح",
+          "en": "One week in, and a clear reason"
+        },
+        "body": {
+          "ar": [
+            "أكملت أسبوعًا كاملًا من الوعي. أصبحت تعرف وقت شاشتك الحقيقي، ومحفّزاتك، وكيف تمر الرغبة. هذا وحده إنجاز لا يصل إليه أغلب الناس.",
+            "الأسبوع القادم سنبدأ تغيير البيئة نفسها. لكن قبل ذلك نحتاج شيئًا أهم من أي تمرين: سببك. لماذا تريد هذا التغيير؟",
+            "الإرادة تنفد في الأيام الصعبة، لكن السبب الواضح يبقى. اليوم ستكتب سببك، وسنذكّرك به كلما احتجت إليه."
+          ],
+          "en": [
+            "You've finished a full week of awareness. You know your real screen time, your triggers, and how urges pass. That alone is more than most people ever do.",
+            "Next week we start changing your environment itself. But first we need something more important than any exercise: your reason. Why do you want this change?",
+            "Willpower runs out on hard days, but a clear reason stays. Today you'll write yours, and we'll remind you of it whenever you need it."
+          ]
+        },
+        "key": {
+          "ar": "سببك الواضح أقوى من إرادتك.",
+          "en": "A clear reason is stronger than willpower."
+        }
+      },
+      "practiceId": "ex_values",
+      "bonusId": "ex_future_letter",
+      "challenge": {
+        "ar": "أعد «فحص الصفاء» لترى أين أنت بعد أسبوع، واكتب رسالة لنفسك نعرضها عليك يوم 30.",
+        "en": "Retake the Clarity Check to see where you are after one week, and write a letter we'll show you on Day 30."
+      },
+      "reflection": {
+        "ar": "ما أهم شيء تعلمته عن نفسك هذا الأسبوع؟",
+        "en": "What's the most important thing you learned about yourself this week?"
+      }
+    },
+    {
+      "day": 8,
+      "week": 2,
+      "lesson": {
+        "title": {
+          "ar": "البيئة أقوى من الإرادة",
+          "en": "Environment beats willpower"
+        },
+        "body": {
+          "ar": [
+            "الأشخاص الذين يبدون «منضبطين» غالبًا لا يملكون إرادة أقوى منك. هم فقط صمّموا بيئتهم بحيث يكون الاختيار الجيد هو الأسهل.",
+            "موبايلك اليوم مصمم ضدك: التطبيقات المشتّتة في الواجهة، والإشعارات تناديك، والأيقونات الملونة تجذب عينك. لا عجب أن الإرادة وحدها لا تكفي.",
+            "هذا الأسبوع سنعيد تصميم الموبايل والمكان من حولك. نبدأ اليوم بالشاشة الرئيسية، وهي أول ما تراه أكثر من 50 مرة في اليوم."
+          ],
+          "en": [
+            "People who seem \"disciplined\" usually don't have more willpower than you. They've just designed their environment so the good choice is the easy one.",
+            "Your phone today is designed against you: distracting apps up front, notifications calling, colorful icons pulling your eye. No wonder willpower alone isn't enough.",
+            "This week we'll redesign your phone and your space. We start today with your home screen, the first thing you see more than 50 times a day."
+          ]
+        },
+        "key": {
+          "ar": "اجعل الاختيار الجيد هو الأسهل.",
+          "en": "Make the good choice the easy choice."
+        }
+      },
+      "practiceId": "ex_home_screen",
+      "challenge": {
+        "ar": "حافظ على الشاشة الرئيسية الجديدة طوال اليوم، ولاحظ كم مرة بحثت عن تطبيق مشتّت.",
+        "en": "Keep your new home screen all day and notice how often you went looking for a distracting app."
+      },
+      "reflection": {
+        "ar": "هل قلّ فتحك للتطبيقات المشتتة بعد إخفائها؟",
+        "en": "Did you open distracting apps less once they were hidden?"
+      }
+    },
+    {
+      "day": 9,
+      "week": 2,
+      "lesson": {
+        "title": {
+          "ar": "من يتحكم في وقتك؟",
+          "en": "Who controls your time?"
+        },
+        "body": {
+          "ar": [
+            "كل إشعار هو شخص أو شركة يطلب انتباهك الآن. أغلبها ليست مهمة، لكنها تقاطعك في منتصف ما تفعل.",
+            "المشكلة ليست الثواني التي تقضيها في الإشعار، بل الوقت الذي يحتاجه دماغك ليعود لما كان يفعله. عشرات المقاطعات في اليوم تعني يومًا كاملًا بلا تركيز حقيقي.",
+            "القاعدة اليوم بسيطة: الإشعارات للبشر فقط. المكالمات والرسائل من الأشخاص تبقى، وكل شيء آخر يتوقف."
+          ],
+          "en": [
+            "Every notification is a person or a company asking for your attention right now. Most aren't important, but they interrupt whatever you're doing.",
+            "The problem isn't the seconds spent on the notification; it's the time your brain needs to get back to what it was doing. Dozens of interruptions a day mean a whole day without real focus.",
+            "Today's rule is simple: notifications are for people only. Calls and messages from real people stay; everything else goes."
+          ]
+        },
+        "key": {
+          "ar": "الإشعارات للبشر فقط.",
+          "en": "Notifications are for people only."
+        }
+      },
+      "practiceId": "ex_notif_audit",
+      "challenge": {
+        "ar": "لا تعِد تفعيل أي إشعار أوقفته اليوم، حتى لو شعرت أنك ستفوّت شيئًا.",
+        "en": "Don't turn back on any notification you switched off today, even if you feel you'll miss something."
+      },
+      "reflection": {
+        "ar": "هل فاتك شيء مهم فعلًا بعد إيقاف الإشعارات؟",
+        "en": "Did you actually miss anything important after turning notifications off?"
+      }
+    },
+    {
+      "day": 10,
+      "week": 2,
+      "lesson": {
+        "title": {
+          "ar": "اجعل السيء صعبًا",
+          "en": "Make the bad habit harder"
+        },
+        "body": {
+          "ar": [
+            "نحن نفعل غالبًا ما هو أسهل، لا ما نريده أكثر. لو كان التطبيق يحتاج 20 ثانية لفتحه بدل ثانية واحدة، لاستخدمناه أقل بكثير.",
+            "هذا ما يسمى «الاحتكاك»: خطوة إضافية بسيطة بينك وبين العادة السيئة. ليست منعًا، فما زال بإمكانك الوصول، لكنها تعطيك فرصة لتسأل: هل أريد هذا فعلًا؟",
+            "اليوم ستضيف احتكاكًا لأكثر تطبيق يسرق وقتك: تسجيل خروج، أو حذف واستخدام المتصفح، أو حد يومي."
+          ],
+          "en": [
+            "We usually do what's easiest, not what we want most. If an app took 20 seconds to open instead of one, we'd use it far less.",
+            "That's called friction: one small extra step between you and the bad habit. It's not a ban, since you can still get there, but it gives you a chance to ask: do I really want this?",
+            "Today you'll add friction to the app that steals the most time: log out, delete it and use the browser, or set a daily limit."
+          ]
+        },
+        "key": {
+          "ar": "خطوة إضافية واحدة تكفي لتقليل العادة.",
+          "en": "One extra step is often enough to break the habit."
+        }
+      },
+      "practiceId": "ex_friction",
+      "challenge": {
+        "ar": "حين تصطدم بالاحتكاك اليوم، توقف لحظة قبل أن تتجاوزه.",
+        "en": "When you hit the friction today, pause for a moment before getting past it."
+      },
+      "reflection": {
+        "ar": "كم مرة جعلك الاحتكاك تتراجع عن فتح التطبيق؟",
+        "en": "How many times did the friction make you change your mind?"
+      }
+    },
+    {
+      "day": 11,
+      "week": 2,
+      "lesson": {
+        "title": {
+          "ar": "عالم بلا ألوان",
+          "en": "A world without color"
+        },
+        "body": {
+          "ar": [
+            "الألوان الزاهية والشارات الحمراء ليست صدفة. صممت لتلفت عينك وتثير فضولك، والدماغ ينجذب بشكل طبيعي للألوان القوية.",
+            "حين تحوّل الشاشة إلى الأبيض والأسود، تصبح الصور والفيديوهات أقل إثارة، ويصبح الموبايل أداة أكثر منه تسلية. كثير من الناس يلاحظون أن رغبتهم في التصفح تقل بوضوح.",
+            "ما زال بإمكانك فعل كل شيء: الاتصال، والرسائل، والخرائط. فقط بدون السحر الملون الذي يبقيك أطول."
+          ],
+          "en": [
+            "Bright colors and red badges aren't an accident. They're designed to catch your eye and spark curiosity, and the brain is naturally drawn to strong color.",
+            "When you switch your screen to grayscale, photos and videos become less exciting, and the phone becomes more tool than toy. Many people notice their urge to scroll drops clearly.",
+            "You can still do everything: calls, messages, maps. Just without the colorful magic that keeps you there longer."
+          ]
+        },
+        "key": {
+          "ar": "أقل إثارة يعني أسهل في الترك.",
+          "en": "Less exciting means easier to put down."
+        }
+      },
+      "practiceId": "ex_grayscale",
+      "challenge": {
+        "ar": "أبقِ وضع الأبيض والأسود حتى تنام الليلة.",
+        "en": "Keep grayscale on until you go to bed tonight."
+      },
+      "reflection": {
+        "ar": "هل شعرت بفرق في رغبتك في التصفح؟",
+        "en": "Did you notice a difference in your urge to scroll?"
+      }
+    },
+    {
+      "day": 12,
+      "week": 2,
+      "lesson": {
+        "title": {
+          "ar": "غرفة النوم منطقة آمنة",
+          "en": "Your bedroom is a safe zone"
+        },
+        "body": {
+          "ar": [
+            "أكثر وقتين يأخذهما الموبايل منا: آخر شيء قبل النوم، وأول شيء بعد الاستيقاظ. والسبب واحد: الموبايل بجانب السرير.",
+            "حين يكون الموبايل في متناول يدك، تصبح كل لحظة استيقاظ أو أرق دعوة لفتحه. وحين يكون بعيدًا، يصبح النوم أسهل والصباح أهدأ.",
+            "هذا التغيير يبدو صعبًا في البداية، لكنه من أكثر التغييرات تأثيرًا. كثيرون يقولون بعد أسبوع: «لم أكن أعرف كم كنت متعبًا»."
+          ],
+          "en": [
+            "The two biggest slots the phone takes: the last thing before sleep and the first thing after waking. Same reason for both: the phone is next to your bed.",
+            "When it's within reach, every wake-up or restless moment becomes an invitation to open it. When it's away, sleep comes easier and mornings are calmer.",
+            "This change feels hard at first, but it's one of the most powerful. Many people say after a week: \"I didn't know how tired I was.\""
+          ]
+        },
+        "key": {
+          "ar": "الموبايل بعيد عن السرير = نوم أفضل وصباح أهدأ.",
+          "en": "Phone away from bed = better sleep, calmer mornings."
+        }
+      },
+      "practiceId": "ex_phone_bedroom",
+      "challenge": {
+        "ar": "الليلة: نم والموبايل خارج الغرفة أو بعيدًا عن يدك.",
+        "en": "Tonight: sleep with your phone outside the room or out of reach."
+      },
+      "reflection": {
+        "ar": "كيف كان نومك وصباحك بدون الموبايل بجانبك؟",
+        "en": "How was your sleep and morning without the phone beside you?"
+      }
+    },
+    {
+      "day": 13,
+      "week": 2,
+      "lesson": {
+        "title": {
+          "ar": "الرسائل في أوقاتها",
+          "en": "Messages at set times"
+        },
+        "body": {
+          "ar": [
+            "فحص الرسائل كل بضع دقائق يبدو بسيطًا، لكنه يقسم يومك إلى قطع صغيرة لا تتسع لأي تركيز حقيقي.",
+            "أغلب الرسائل يمكنها الانتظار ساعة أو ساعتين دون أي مشكلة. وحين تجيب عليها مجمّعة، تنجزها أسرع وبتركيز أكبر.",
+            "اليوم ستختار 3 أوقات ثابتة للرسائل. وإن احتاجك أحد في أمر عاجل، فالمكالمة موجودة دائمًا."
+          ],
+          "en": [
+            "Checking messages every few minutes seems harmless, but it chops your day into pieces too small for any real focus.",
+            "Most messages can wait an hour or two with no problem. When you answer them in a batch, you get through them faster and with more focus.",
+            "Today you'll pick 3 fixed times for messages. If someone needs you urgently, they can always call."
+          ]
+        },
+        "key": {
+          "ar": "3 أوقات للرسائل تعطيك ساعات من التركيز.",
+          "en": "Three message windows give you hours of focus."
+        }
+      },
+      "practiceId": "ex_batch_check",
+      "bonusId": "ex_phone_parking",
+      "challenge": {
+        "ar": "افحص الرسائل في الأوقات الثلاثة فقط اليوم.",
+        "en": "Check messages only in your three windows today."
+      },
+      "reflection": {
+        "ar": "هل حدث شيء سيء لأنك لم ترد فورًا؟",
+        "en": "Did anything bad happen because you didn't reply right away?"
+      }
+    },
+    {
+      "day": 14,
+      "week": 2,
+      "clarityCheck": true,
+      "lesson": {
+        "title": {
+          "ar": "نصف الطريق",
+          "en": "Halfway there"
+        },
+        "body": {
+          "ar": [
+            "أسبوعان كاملان. غيّرت شاشتك الرئيسية، وأوقفت الإشعارات المزعجة، وأضفت احتكاكًا، وأبعدت الموبايل عن نومك. هذه ليست تغييرات صغيرة.",
+            "قد لا تكون طبقت كل شيء، وهذا طبيعي تمامًا. التغيير الحقيقي لا يحدث دفعة واحدة، بل من التغييرات التي تبقى معك.",
+            "اليوم ستعيد فحص الصفاء، وتختار أفضل تغييرين نجحا معك لتحافظ عليهما. الأسبوع القادم سنملأ الوقت الذي استعدته بأشياء حقيقية."
+          ],
+          "en": [
+            "Two full weeks. You changed your home screen, cut noisy notifications, added friction and moved the phone away from your sleep. Those aren't small changes.",
+            "You might not have done all of them, and that's completely normal. Real change doesn't happen all at once; it's built from the changes that stick.",
+            "Today you'll retake the Clarity Check and pick the two changes that worked best to keep. Next week we'll fill the time you've won back with real things."
+          ]
+        },
+        "key": {
+          "ar": "احتفظ بما نجح، واترك ما لم ينجح دون لوم.",
+          "en": "Keep what worked, drop what didn't, no guilt."
+        }
+      },
+      "practiceId": "ex_week_review",
+      "challenge": {
+        "ar": "اختر أفضل تغييرين من هذا الأسبوع والتزم بهما.",
+        "en": "Pick the two best changes from this week and commit to them."
+      },
+      "reflection": {
+        "ar": "ما التغيير الذي فاجأك بتأثيره؟",
+        "en": "Which change surprised you with its impact?"
+      }
+    },
+    {
+      "day": 15,
+      "week": 3,
+      "lesson": {
+        "title": {
+          "ar": "الملل ليس عدوك",
+          "en": "Boredom isn't your enemy"
+        },
+        "body": {
+          "ar": [
+            "متى كانت آخر مرة شعرت فيها بالملل ولم تفتح الموبايل؟ أصبحنا نهرب من كل لحظة فارغة: في الطابور، في المصعد، قبل النوم.",
+            "لكن الملل له فائدة: هو المساحة التي يرتاح فيها الدماغ، وترتب فيها الأفكار، وتولد فيها الأفكار الجديدة. حين نملأ كل فراغ بالشاشة، نفقد هذه المساحة.",
+            "هذا الأسبوع سنتعلم كيف نتعامل مع الفراغ بدل الهروب منه. نبدأ اليوم بعشر دقائق من الملل المقصود. قد تكون غريبة في البداية، وهذا هو المطلوب."
+          ],
+          "en": [
+            "When was the last time you felt bored and didn't open your phone? We now escape every empty moment: in line, in the elevator, before sleep.",
+            "But boredom has a purpose: it's the space where the brain rests, sorts thoughts and comes up with new ideas. When we fill every gap with a screen, we lose that space.",
+            "This week we'll learn to sit with empty time instead of running from it. We start with ten minutes of deliberate boredom. It may feel strange at first, and that's the point."
+          ]
+        },
+        "key": {
+          "ar": "الفراغ مساحة للراحة والأفكار، لا مشكلة تحتاج حلًا.",
+          "en": "Empty time is room for rest and ideas, not a problem to fix."
+        }
+      },
+      "practiceId": "ex_boredom_10",
+      "challenge": {
+        "ar": "في أول لحظة انتظار اليوم، لا تفتح الموبايل. فقط انظر حولك.",
+        "en": "The first time you're waiting today, don't open your phone. Just look around."
+      },
+      "reflection": {
+        "ar": "ماذا خطر في بالك خلال دقائق الملل؟",
+        "en": "What came to mind during your boredom minutes?"
+      }
+    },
+    {
+      "day": 16,
+      "week": 3,
+      "lesson": {
+        "title": {
+          "ar": "ماذا تفعل بدلًا منه؟",
+          "en": "What will you do instead?"
+        },
+        "body": {
+          "ar": [
+            "حين تترك عادة دون بديل، يبقى مكانها فارغًا، والفراغ يعود الموبايل ليملأه. لهذا يفشل كثيرون حين يعتمدون على «لن أفعل» فقط.",
+            "السر أن يكون البديل جاهزًا قبل لحظة الرغبة. حين تشعر بالملل، لا وقت للتفكير في خيارات. تحتاج شيئًا واضحًا وسهلًا تفعله فورًا.",
+            "اليوم ستكتب قائمتك الشخصية: بدائل لخمس دقائق، وربع ساعة، وساعة. وسنعرضها لك كلما ضغطت زر «عندي رغبة أفتح الموبايل»."
+          ],
+          "en": [
+            "When you drop a habit with no replacement, it leaves a gap, and the phone rushes back to fill it. That's why \"I just won't\" rarely works.",
+            "The trick is to have the alternative ready before the urge hits. When you're bored, there's no time to think through options. You need something clear and easy to do right away.",
+            "Today you'll write your personal list: alternatives for five minutes, fifteen minutes and an hour. We'll show it to you whenever you tap \"I want to open my phone\"."
+          ]
+        },
+        "key": {
+          "ar": "لا تترك فراغًا. جهّز البديل مسبقًا.",
+          "en": "Don't leave a gap. Have the alternative ready."
+        }
+      },
+      "practiceId": "ex_replacement_list",
+      "challenge": {
+        "ar": "استخدم بديلًا واحدًا من قائمتك اليوم بدل الموبايل.",
+        "en": "Use one alternative from your list instead of your phone today."
+      },
+      "reflection": {
+        "ar": "أي بديل جربته؟ وكيف كان؟",
+        "en": "Which alternative did you try, and how was it?"
+      }
+    },
+    {
+      "day": 17,
+      "week": 3,
+      "lesson": {
+        "title": {
+          "ar": "قرّر الآن، لا في اللحظة",
+          "en": "Decide now, not in the moment"
+        },
+        "body": {
+          "ar": [
+            "في لحظة الرغبة، يكون الدماغ في أضعف حالاته لاتخاذ القرار. لهذا نقول «دقيقة واحدة فقط» ثم نجد أن ساعة مرت.",
+            "الحل أن تتخذ القرار مسبقًا وأنت هادئ. خطة «إذا... فإن» تربط موقفًا محددًا بفعل محدد، وقد أظهرت دراسات كثيرة أنها ترفع فرص الالتزام بوضوح.",
+            "مثال: «إذا انتهيت من الغداء، فإنني سأمشي 5 دقائق قبل أن ألمس الموبايل». كلما كانت الخطة أوضح، كانت أسهل في التنفيذ."
+          ],
+          "en": [
+            "In the moment of craving, your brain is at its weakest for making decisions. That's why \"just one minute\" turns into an hour.",
+            "The fix is to decide in advance, while you're calm. An if-then plan links a specific situation to a specific action, and many studies show it clearly improves follow-through.",
+            "Example: \"If I finish lunch, then I'll walk for 5 minutes before touching my phone.\" The clearer the plan, the easier it is to follow."
+          ]
+        },
+        "key": {
+          "ar": "القرار المسبق لا يحتاج إرادة لاحقًا.",
+          "en": "A decision made in advance needs no willpower later."
+        }
+      },
+      "practiceId": "ex_if_then",
+      "challenge": {
+        "ar": "طبّق خطة «إذا... فإن» واحدة على الأقل اليوم.",
+        "en": "Use at least one of your if-then plans today."
+      },
+      "reflection": {
+        "ar": "هل نجحت خطتك حين جاء الموقف؟",
+        "en": "Did your plan work when the moment came?"
+      }
+    },
+    {
+      "day": 18,
+      "week": 3,
+      "lesson": {
+        "title": {
+          "ar": "حين يكون الموبايل مهربًا من الضغط",
+          "en": "When the phone is an escape from stress"
+        },
+        "body": {
+          "ar": [
+            "كثيرًا ما نفتح الموبايل حين نشعر بالتوتر أو القلق: قبل امتحان، أو بعد نقاش صعب، أو أمام مهمة ثقيلة. التصفح يعطينا هروبًا مؤقتًا، لكنه لا يحل شيئًا.",
+            "بل أحيانًا يزيد الأمر سوءًا: المهمة ما زالت تنتظر، والوقت ضاع، والقلق أكبر. وهكذا يرتبط التوتر بالموبايل أكثر فأكثر.",
+            "اليوم ستتعلم أداة أسرع وأفضل: التنفس البطيء. حين يكون الزفير أطول من الشهيق، يهدأ الجسم خلال دقائق، دون أن تحتاج لأي شاشة."
+          ],
+          "en": [
+            "We often reach for the phone when stressed or anxious: before an exam, after a hard conversation, facing a heavy task. Scrolling gives a quick escape, but it solves nothing.",
+            "Sometimes it makes things worse: the task is still waiting, time is gone, and the worry is bigger. And so stress gets tied to the phone more and more.",
+            "Today you'll learn a faster, better tool: slow breathing. When your exhale is longer than your inhale, your body calms within minutes, no screen needed."
+          ]
+        },
+        "key": {
+          "ar": "التنفس يهدّئك أسرع من أي تصفح.",
+          "en": "Breathing calms you faster than any scroll."
+        }
+      },
+      "practiceId": "ex_slow_breathing",
+      "challenge": {
+        "ar": "في أول لحظة توتر اليوم، جرب «التنهيدة المزدوجة» قبل أن تلمس الموبايل.",
+        "en": "The first stressful moment today, try the double sigh before touching your phone."
+      },
+      "reflection": {
+        "ar": "كيف تغيّر شعورك بعد التنفس؟",
+        "en": "How did you feel after the breathing?"
+      }
+    },
+    {
+      "day": 19,
+      "week": 3,
+      "lesson": {
+        "title": {
+          "ar": "الصباح يحدد يومك",
+          "en": "Your morning shapes your day"
+        },
+        "body": {
+          "ar": [
+            "حين تفتح الموبايل أول ما تستيقظ، تبدأ يومك بما يريده الآخرون: رسائل، أخبار، منشورات. قبل أن تفكر فيما تريده أنت، يكون عقلك مشغولًا بكل شيء.",
+            "هذا يجعل اليوم كله في وضع «رد الفعل»: تستجيب لما يأتيك بدل أن تختار ما تفعله. وغالبًا تصعب العودة للتركيز بعد ذلك.",
+            "أول 30 دقيقة من يومك لك أنت: ماء، صلاة أو هدوء، فطور، تخطيط بسيط. بعدها افتح الموبايل كما تشاء."
+          ],
+          "en": [
+            "When you open your phone the moment you wake up, you start the day with what others want: messages, news, posts. Before you think about what you want, your mind is already busy with everything.",
+            "That puts the whole day in reaction mode: responding to what comes in instead of choosing what you do. And it's often hard to get back to focus after that.",
+            "Your first 30 minutes belong to you: water, prayer or quiet, breakfast, a simple plan. After that, open your phone as you like."
+          ]
+        },
+        "key": {
+          "ar": "أول 30 دقيقة لك، لا للموبايل.",
+          "en": "Your first 30 minutes are yours, not your phone's."
+        }
+      },
+      "practiceId": "ex_morning_no_phone",
+      "challenge": {
+        "ar": "غدًا صباحًا: أول 30 دقيقة بلا موبايل.",
+        "en": "Tomorrow morning: no phone for the first 30 minutes."
+      },
+      "reflection": {
+        "ar": "ماذا ستفعل في أول نصف ساعة غدًا؟",
+        "en": "What will you do in your first half hour tomorrow?"
+      }
+    },
+    {
+      "day": 20,
+      "week": 3,
+      "lesson": {
+        "title": {
+          "ar": "الحركة تعيد ضبط الدماغ",
+          "en": "Movement resets your brain"
+        },
+        "body": {
+          "ar": [
+            "ساعات الجلوس أمام الشاشة تُتعب الجسم والعقل معًا. والمفارقة أننا حين نتعب، نلجأ لمزيد من الشاشة.",
+            "المشي، حتى لو كان قصيرًا، يحسّن المزاج ويقلل التوتر ويصفّي الذهن. وحين يكون بدون موبايل، يصبح فرصة لترى العالم من حولك بدل شاشة صغيرة.",
+            "اليوم: 15 دقيقة مشي بلا موبايل. لا هدف رياضي، فقط أنت والطريق. كثيرون يجدون أن أفضل أفكارهم تأتي في هذه الدقائق."
+          ],
+          "en": [
+            "Hours of sitting in front of screens tire both body and mind. And ironically, when we're tired, we reach for more screen.",
+            "Walking, even briefly, lifts your mood, lowers stress and clears your head. Without a phone, it becomes a chance to see the world around you instead of a tiny screen.",
+            "Today: a 15-minute walk without your phone. No fitness goal, just you and the road. Many people find their best ideas show up in these minutes."
+          ]
+        },
+        "key": {
+          "ar": "حين تتعب من الشاشة، تحرّك بدل أن تتصفح.",
+          "en": "When screens tire you, move instead of scrolling."
+        }
+      },
+      "practiceId": "ex_walk_no_phone",
+      "challenge": {
+        "ar": "امشِ 15 دقيقة بدون موبايل اليوم.",
+        "en": "Walk for 15 minutes without your phone today."
+      },
+      "reflection": {
+        "ar": "ماذا لاحظت خلال المشي لم تكن تلاحظه من قبل؟",
+        "en": "What did you notice on your walk that you usually miss?"
+      }
+    },
+    {
+      "day": 21,
+      "week": 3,
+      "clarityCheck": true,
+      "lesson": {
+        "title": {
+          "ar": "ما تبحث عنه في الموبايل",
+          "en": "What you're really looking for"
+        },
+        "body": {
+          "ar": [
+            "ثلاثة أسابيع. فهمت عاداتك، وغيّرت بيئتك، وتعلمت التعامل مع الملل والتوتر. حان وقت سؤال أعمق: ماذا نبحث عنه حين نتصفح؟",
+            "كثير من التصفح هو بحث عن تواصل: أن نعرف أخبار الناس، وأن نشعر أننا لسنا وحدنا. لكن التمرير بين المنشورات يعطينا شعورًا بالتواصل دون أن يعطينا التواصل نفسه.",
+            "مكالمة صوتية واحدة مع صديق، أو جلسة حقيقية مع العائلة، تعطي ما لا تعطيه ساعات من المحتوى. اليوم تواصل مع إنسان حقيقي."
+          ],
+          "en": [
+            "Three weeks. You understand your habits, changed your environment, and learned to handle boredom and stress. Time for a deeper question: what are we looking for when we scroll?",
+            "A lot of scrolling is a search for connection: knowing what people are up to, feeling less alone. But scrolling through posts gives the feeling of connection without the real thing.",
+            "One phone call with a friend, or real time with family, gives what hours of content can't. Today, connect with a real person."
+          ]
+        },
+        "key": {
+          "ar": "الناس الحقيقيون أهم من المحتوى عنهم.",
+          "en": "Real people matter more than content about them."
+        }
+      },
+      "practiceId": "ex_call_friend",
+      "challenge": {
+        "ar": "أعد فحص الصفاء، ثم اتصل أو قابل شخصًا تهتم به.",
+        "en": "Retake the Clarity Check, then call or meet someone you care about."
+      },
+      "reflection": {
+        "ar": "كيف شعرت بعد التواصل الحقيقي؟",
+        "en": "How did you feel after the real connection?"
+      }
+    },
+    {
+      "day": 22,
+      "week": 4,
+      "lesson": {
+        "title": {
+          "ar": "العمل العميق",
+          "en": "Deep work"
+        },
+        "body": {
+          "ar": [
+            "الأسبوع الأخير هدفه التثبيت: أن تتحول التغييرات إلى عادات تبقى. ونبدأه بأقوى مهارة في هذا العصر: القدرة على التركيز العميق.",
+            "أغلب الناس اليوم يعملون في «تركيز سطحي»: إيميل، رسالة، مهمة، إشعار، مهمة أخرى. والنتيجة يوم مزدحم وإنجاز قليل.",
+            "جلسة واحدة من 25 دقيقة على مهمة واحدة، والموبايل بعيد، قد تنجز فيها أكثر مما تنجزه في ساعتين من التنقل. جرّب اليوم."
+          ],
+          "en": [
+            "The final week is about locking in: turning changes into habits that last. We start with the most valuable skill of our time: deep focus.",
+            "Most people now work in shallow focus: email, message, task, notification, another task. The result is a busy day with little done.",
+            "One 25-minute session on a single task, phone away, can get more done than two hours of switching. Try it today."
+          ]
+        },
+        "key": {
+          "ar": "مهمة واحدة بتركيز كامل أفضل من عشر مهام مشتتة.",
+          "en": "One task with full focus beats ten scattered ones."
+        }
+      },
+      "practiceId": "ex_single_task",
+      "challenge": {
+        "ar": "أنجز جلسة تركيز واحدة على الأقل اليوم من الأدوات.",
+        "en": "Finish at least one focus session from Tools today."
+      },
+      "reflection": {
+        "ar": "ماذا أنجزت في جلسة التركيز؟",
+        "en": "What did you get done in your focus session?"
+      }
+    },
+    {
+      "day": 23,
+      "week": 4,
+      "lesson": {
+        "title": {
+          "ar": "القراءة تعيد بناء الانتباه",
+          "en": "Reading rebuilds attention"
+        },
+        "body": {
+          "ar": [
+            "المحتوى القصير يعوّد الدماغ على الانتقال كل بضع ثوانٍ، فتصبح قراءة صفحة كاملة أمرًا مرهقًا. هذا ليس عيبًا فيك، بل تدريب طويل في الاتجاه الخاطئ.",
+            "القراءة المتواصلة هي التدريب المعاكس: تتابع فكرة واحدة لدقائق طويلة، وتتخيل، وتفكر. ومع الوقت تعود القدرة التي ظننت أنك فقدتها.",
+            "اليوم: 20 دقيقة قراءة. كتاب ورقي إن أمكن، أو مقال طويل بلا روابط. إن كانت صعبة في البداية، ابدأ بخمس صفحات."
+          ],
+          "en": [
+            "Short content trains your brain to jump every few seconds, so reading a full page starts to feel exhausting. That's not a flaw in you; it's long training in the wrong direction.",
+            "Sustained reading is the opposite training: you follow one idea for many minutes, imagine and think. Over time, the ability you thought you'd lost comes back.",
+            "Today: 20 minutes of reading. A paper book if possible, or a long article with no links. If it's hard at first, start with five pages."
+          ]
+        },
+        "key": {
+          "ar": "كل صفحة تقرؤها تعيد لك جزءًا من انتباهك.",
+          "en": "Every page you read wins back some of your attention."
+        }
+      },
+      "practiceId": "ex_read_20",
+      "challenge": {
+        "ar": "اقرأ 20 دقيقة اليوم بدل 20 دقيقة تصفح.",
+        "en": "Read for 20 minutes today instead of 20 minutes of scrolling."
+      },
+      "reflection": {
+        "ar": "هل أصبحت القراءة أسهل مما توقعت؟",
+        "en": "Was reading easier than you expected?"
+      }
+    },
+    {
+      "day": 24,
+      "week": 4,
+      "lesson": {
+        "title": {
+          "ar": "حاضر بالكامل",
+          "en": "Fully present"
+        },
+        "body": {
+          "ar": [
+            "حتى حين لا تستخدم الموبايل، وجوده على الطاولة أمامك يأخذ جزءًا من انتباهك. جزء من عقلك يبقى منتظرًا: هل وصلت رسالة؟",
+            "لهذا يشعر الناس بفرق كبير حين يكون الموبايل في غرفة أخرى، لا مقلوبًا على الطاولة فقط. المسافة تحرر العقل.",
+            "اليوم ستختار مكانًا ثابتًا للموبايل في البيت. وفي إحدى وجباتك، كن حاضرًا بالكامل: طعم الأكل، والحديث، والناس من حولك."
+          ],
+          "en": [
+            "Even when you're not using it, a phone on the table in front of you takes some of your attention. Part of your mind keeps waiting: did a message come in?",
+            "That's why people feel a big difference when the phone is in another room, not just face down on the table. Distance frees the mind.",
+            "Today you'll choose a fixed spot for your phone at home. And at one meal, be fully present: the taste of the food, the conversation, the people around you."
+          ]
+        },
+        "key": {
+          "ar": "المسافة من الموبايل تحرر عقلك.",
+          "en": "Distance from the phone frees your mind."
+        }
+      },
+      "practiceId": "ex_phone_parking",
+      "bonusId": "ex_meal_no_phone",
+      "challenge": {
+        "ar": "وجبة واحدة اليوم بلا موبايل على الطاولة.",
+        "en": "One meal today with no phone on the table."
+      },
+      "reflection": {
+        "ar": "كيف كانت الوجبة بدون الموبايل؟",
+        "en": "How was that meal without your phone?"
+      }
+    },
+    {
+      "day": 25,
+      "week": 4,
+      "lesson": {
+        "title": {
+          "ar": "اليوم السيء ليس نهاية الطريق",
+          "en": "A bad day isn't the end"
+        },
+        "body": {
+          "ar": [
+            "ستأتي أيام تعود فيها للتصفح ساعات، وتشعر أنك خسرت كل شيء. هذا يحدث لكل من يغيّر عادة، وهو جزء طبيعي من الطريق.",
+            "الخطر الحقيقي ليس اليوم السيء، بل التفكير بعده: «فشلت، لا فائدة». هذا التفكير هو ما يحوّل يومًا واحدًا إلى أسبوع.",
+            "الأشخاص الذين ينجحون ليسوا من لا يسقطون أبدًا، بل من يعودون بسرعة. اليوم ستكتب خطتك ليوم السقوط، قبل أن يأتي."
+          ],
+          "en": [
+            "There will be days when you scroll for hours and feel like you've lost everything. This happens to everyone who changes a habit; it's a normal part of the road.",
+            "The real danger isn't the bad day; it's the thinking after it: \"I failed, what's the point.\" That thought is what turns one day into a week.",
+            "People who succeed aren't those who never slip; they're the ones who come back quickly. Today you'll write your plan for a bad day, before it comes."
+          ]
+        },
+        "key": {
+          "ar": "يوم سيء واحد لا يمحو تقدمك. المهم أن تعود غدًا.",
+          "en": "One bad day doesn't erase your progress. Just come back tomorrow."
+        }
+      },
+      "practiceId": "ex_relapse_plan",
+      "challenge": {
+        "ar": "احفظ جملتك ليوم السقوط، واقرأها مرة اليوم.",
+        "en": "Save your bad-day line and read it once today."
+      },
+      "reflection": {
+        "ar": "ما الذي يسبب لك الأيام الصعبة عادة؟",
+        "en": "What usually causes your hard days?"
+      }
+    },
+    {
+      "day": 26,
+      "week": 4,
+      "lesson": {
+        "title": {
+          "ar": "من أنت الآن؟",
+          "en": "Who are you now?"
+        },
+        "body": {
+          "ar": [
+            "هناك فرق كبير بين «أنا أحاول أن أقلل الموبايل» و«أنا شخص يتحكم في وقته». الجملة الأولى صراع مستمر، والثانية هوية.",
+            "العادات تثبت حين تصبح جزءًا ممن أنت. وكل يوم أكملته في هذا البرنامج دليل صغير على هويتك الجديدة.",
+            "اليوم انظر إلى ما فعلته هذا الشهر، واكتب من أنت الآن. ليس من تتمنى أن تكون، بل من أثبتّ أنك هو."
+          ],
+          "en": [
+            "There's a big difference between \"I'm trying to use my phone less\" and \"I'm someone who owns my time.\" The first is a constant struggle; the second is an identity.",
+            "Habits stick when they become part of who you are. Every day you've completed in this program is small proof of your new identity.",
+            "Today, look at what you've done this month and write who you are now. Not who you wish to be, but who you've shown yourself to be."
+          ]
+        },
+        "key": {
+          "ar": "كل يوم أكملته دليل على من أنت.",
+          "en": "Every day you've completed is proof of who you are."
+        }
+      },
+      "practiceId": "ex_identity",
+      "challenge": {
+        "ar": "اقرأ جملة هويتك صباح الغد قبل أن تفتح الموبايل.",
+        "en": "Read your identity sentence tomorrow morning before you open your phone."
+      },
+      "reflection": {
+        "ar": "ما أكثر شيء تفخر به هذا الشهر؟",
+        "en": "What are you most proud of this month?"
+      }
+    },
+    {
+      "day": 27,
+      "week": 4,
+      "lesson": {
+        "title": {
+          "ar": "تركيز أعمق",
+          "en": "Going deeper"
+        },
+        "body": {
+          "ar": [
+            "قبل أسابيع، كانت 10 دقائق على مهمة واحدة صعبة. اليوم أنت جاهز لخطوة أكبر: 50 دقيقة من التركيز العميق.",
+            "هذه الجلسات الطويلة هي التي تصنع الفرق الحقيقي في دراستك أو عملك أو مشروعك. فيها تُكتب الأفكار المهمة، وتُحل المشكلات الصعبة.",
+            "جهّز كل شيء قبل البدء، وضع الموبايل في غرفة أخرى، واختر أهم مهمة لديك. إن كانت 50 دقيقة كثيرة، قسّمها لجلستين."
+          ],
+          "en": [
+            "A few weeks ago, 10 minutes on one task was hard. Today you're ready for a bigger step: 50 minutes of deep focus.",
+            "These long sessions are what make the real difference in your studies, work or projects. That's where important ideas get written and hard problems get solved.",
+            "Prepare everything first, put your phone in another room, and pick your most important task. If 50 minutes is too much, split it into two sessions."
+          ]
+        },
+        "key": {
+          "ar": "الإنجازات الكبيرة تُصنع في جلسات التركيز الطويلة.",
+          "en": "Big results are built in long focus sessions."
+        }
+      },
+      "practiceId": "ex_deep_work_50",
+      "challenge": {
+        "ar": "أكمل جلسة تركيز عميق واحدة اليوم.",
+        "en": "Complete one deep focus session today."
+      },
+      "reflection": {
+        "ar": "كيف كان شعورك بعد 50 دقيقة من التركيز؟",
+        "en": "How did you feel after 50 minutes of focus?"
+      }
+    },
+    {
+      "day": 28,
+      "week": 4,
+      "lesson": {
+        "title": {
+          "ar": "تجربة يوم كامل",
+          "en": "A full-day experiment"
+        },
+        "body": {
+          "ar": [
+            "حان وقت التجربة الكبيرة: يوم كامل بلا وسائل تواصل اجتماعي. ليس عقابًا ولا حرمانًا، بل تجربة لترى بنفسك.",
+            "كثيرون يتوقعون أن يكون اليوم صعبًا ومملًا، ثم يتفاجؤون بأنه كان أهدأ وأطول وأكثر إنجازًا. والأهم: أنهم لم يفوّتوا شيئًا مهمًا.",
+            "خطط ليومك مسبقًا من قائمة البدائل، واستخدم خطط «إذا... فإن» للحظات الصعبة. وإن كان يوم كامل كثيرًا، فنصف يوم إنجاز رائع أيضًا."
+          ],
+          "en": [
+            "Time for the big experiment: a full day without social media. Not a punishment, not deprivation, just an experiment to see for yourself.",
+            "Many people expect the day to be hard and boring, then are surprised it felt calmer, longer and more productive. Most importantly, they didn't miss anything that mattered.",
+            "Plan your day in advance from your replacement list, and use your if-then plans for hard moments. If a full day is too much, half a day is a great result too."
+          ]
+        },
+        "key": {
+          "ar": "جرّب بنفسك: كيف يبدو يومك بدونها؟",
+          "en": "See for yourself: what does your day look like without it?"
+        }
+      },
+      "practiceId": "ex_social_free",
+      "challenge": {
+        "ar": "يوم كامل (أو نصف يوم) بلا وسائل تواصل اجتماعي.",
+        "en": "A full day (or half a day) without social media."
+      },
+      "reflection": {
+        "ar": "ماذا اكتشفت خلال يومك بدون سوشيال؟",
+        "en": "What did you discover during your day without social media?"
+      }
+    },
+    {
+      "day": 29,
+      "week": 4,
+      "lesson": {
+        "title": {
+          "ar": "قواعدك للمستقبل",
+          "en": "Your rules for what's next"
+        },
+        "body": {
+          "ar": [
+            "غدًا ينتهي البرنامج، لكن هدفه لم يكن 30 يومًا فقط، بل حياة كاملة تستخدم فيها الموبايل باختيارك.",
+            "أفضل طريقة للحفاظ على ما بنيته: قواعد قليلة وواضحة. ليس عشر قواعد تنساها بعد أسبوع، بل ثلاث تعرف أنها تعمل معك.",
+            "اليوم راجع كل ما جربته هذا الشهر، واختر أفضل ثلاثة تغييرات واجعلها قواعدك. وسنذكّرك بها مرة كل شهر."
+          ],
+          "en": [
+            "The program ends tomorrow, but its goal was never just 30 days. It's a life where you use your phone by choice.",
+            "The best way to keep what you've built: a few clear rules. Not ten rules you'll forget in a week, but three you know work for you.",
+            "Today, look back at everything you tried this month, pick the three best changes, and make them your rules. We'll remind you of them once a month."
+          ]
+        },
+        "key": {
+          "ar": "3 قواعد واضحة تحمي كل ما بنيته.",
+          "en": "Three clear rules protect everything you built."
+        }
+      },
+      "practiceId": "ex_maintenance_plan",
+      "challenge": {
+        "ar": "اكتب قواعدك الثلاث وضعها في مكان تراه يوميًا.",
+        "en": "Write your three rules and put them somewhere you'll see daily."
+      },
+      "reflection": {
+        "ar": "ما القاعدة التي ستكون الأصعب عليك؟",
+        "en": "Which rule will be hardest for you?"
+      }
+    },
+    {
+      "day": 30,
+      "week": 4,
+      "clarityCheck": true,
+      "graduation": true,
+      "lesson": {
+        "title": {
+          "ar": "30 يومًا. أنت فعلتها.",
+          "en": "30 days. You did it."
+        },
+        "body": {
+          "ar": [
+            "قبل 30 يومًا بدأت بسؤال بسيط: كم من وقتي يأخذه الموبايل؟ اليوم تعرف عاداتك، وغيّرت بيئتك، ولديك بدائل وخطط وقواعد.",
+            "قد لا يكون كل يوم مثاليًا، وهذا لم يكن الهدف أبدًا. الهدف أن تصبح أنت من يقرر، وأن تعرف كيف تعود حين تبتعد.",
+            "اليوم ستعيد فحص الصفاء للمرة الأخيرة في البرنامج، وترى الفرق بين يومك الأول واليوم، وتقرأ الرسالة التي كتبتها لنفسك في يوم 7."
+          ],
+          "en": [
+            "Thirty days ago you started with a simple question: how much of my time does my phone take? Today you know your habits, you've changed your environment, and you have alternatives, plans and rules.",
+            "Not every day was perfect, and that was never the goal. The goal was for you to be the one deciding, and to know how to come back when you drift.",
+            "Today you'll retake the Clarity Check one last time in this program, see the difference between Day 1 and today, and read the letter you wrote yourself on Day 7."
+          ]
+        },
+        "key": {
+          "ar": "أنت الآن من يقرر.",
+          "en": "You're the one deciding now."
+        }
+      },
+      "practiceId": "ex_week_review",
+      "challenge": {
+        "ar": "شارك بطاقة إنجازك مع شخص يهمك، إن أردت.",
+        "en": "Share your achievement card with someone who matters to you, if you like."
+      },
+      "reflection": {
+        "ar": "ما أكبر فرق تشعر به اليوم مقارنة بيومك الأول؟",
+        "en": "What's the biggest difference you feel today compared to Day 1?"
+      }
+    }
+  ]
+}

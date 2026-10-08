@@ -210,7 +210,7 @@ class ClaudeAiService {
 
   bool get _isSupabaseInitialized {
     if (_supabaseInitializedOverride != null) {
-      return _supabaseInitializedOverride!;
+      return _supabaseInitializedOverride;
     }
     try {
       return Supabase.instance.isInitialized;

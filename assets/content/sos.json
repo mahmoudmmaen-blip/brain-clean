@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "title": { "ar": "عندي رغبة أفتح الموبايل", "en": "I want to open my phone" },
+  "subtitle": { "ar": "اختر ما تشعر به الآن. دقيقة واحدة تكفي.", "en": "Pick what you're feeling right now. One minute is enough." },
+  "tier": "free",
+  "note": "SOS is ALWAYS free, for every user, forever. Never put a paywall in front of it.",
+  "flows": [
+    {
+      "id": "sos_urge",
+      "icon": "phone",
+      "label": { "ar": "رغبة قوية في التصفح", "en": "A strong urge to scroll" },
+      "steps": [
+        { "type": "text", "seconds": 6,
+          "text": { "ar": "لا بأس. الرغبة إحساس عابر، وستمر خلال دقائق.", "en": "It's okay. An urge is a passing feeling, and it will pass in minutes." } },
+        { "type": "rate", "key": "before",
+          "text": { "ar": "ما قوة الرغبة الآن من 1 إلى 10؟", "en": "How strong is the urge right now, from 1 to 10?" } },
+        { "type": "breath", "seconds": 60, "pattern": [4, 0, 6, 0],
+          "text": { "ar": "تنفّس مع الدائرة. لاحظ الرغبة دون أن تطيعها.", "en": "Breathe with the circle. Notice the urge without obeying it." } },
+        { "type": "rate", "key": "after",
+          "text": { "ar": "وماذا عن قوتها الآن؟", "en": "And how strong is it now?" } },
+        { "type": "show_why", "text": { "ar": "تذكّر لماذا بدأت:", "en": "Remember why you started:" } },
+        { "type": "suggest_replacement", "duration": "5",
+          "text": { "ar": "جرّب هذا بدلًا من الموبايل:", "en": "Try this instead of your phone:" } }
+      ]
+    },
+    {
+      "id": "sos_bored",
+      "icon": "hourglass",
+      "label": { "ar": "أشعر بالملل", "en": "I'm bored" },
+      "steps": [
+        { "type": "text", "seconds": 6,
+          "text": { "ar": "الملل ليس مشكلة. هو مساحة لعقلك ليرتاح.", "en": "Boredom isn't a problem. It's space for your mind to rest." } },
+        { "type": "text", "seconds": 20,
+          "text": { "ar": "انظر حولك وسمِّ 3 أشياء تراها، و2 تسمعها، و1 تشعر به.", "en": "Look around and name 3 things you see, 2 you hear, and 1 you feel." } },
+        { "type": "suggest_replacement", "duration": "15",
+          "text": { "ar": "اختر شيئًا من قائمتك:", "en": "Pick something from your list:" } }
+      ]
+    },
+    {
+      "id": "sos_stress",
+      "icon": "wave",
+      "label": { "ar": "أشعر بالتوتر أو القلق", "en": "I feel stressed or anxious" },
+      "steps": [
+        { "type": "text", "seconds": 6,
+          "text": { "ar": "التصفح سيعطيك هروبًا مؤقتًا. لنهدّئ جسمك أولًا.", "en": "Scrolling gives a short escape. Let's calm your body first." } },
+        { "type": "breath", "seconds": 45, "pattern": "double_sigh",
+          "text": { "ar": "شهيق عميق، ثم شهيق قصير ثانٍ، ثم زفير طويل وبطيء.", "en": "Deep breath in, a second short sip in, then a long, slow breath out." } },
+        { "type": "text", "seconds": 15,
+          "text": { "ar": "ما أصغر خطوة يمكنك فعلها الآن في الأمر الذي يقلقك؟", "en": "What's the smallest step you could take right now on what's worrying you?" } }
+      ],
+      "safety": {
+        "ar": "إن كنت تمر بضيق شديد أو تفكر في إيذاء نفسك، تواصل الآن مع شخص تثق به أو مع خدمات الطوارئ في بلدك.",
+        "en": "If you're in serious distress or thinking about hurting yourself, reach out now to someone you trust or to emergency services in your country."
+      }
+    },
+    {
+      "id": "sos_sleep",
+      "icon": "moon",
+      "label": { "ar": "لا أستطيع النوم", "en": "I can't sleep" },
+      "steps": [
+        { "type": "text", "seconds": 6,
+          "text": { "ar": "الشاشة الآن ستجعل النوم أصعب. ضع الموبايل بعيدًا بعد هذا التمرين.", "en": "A screen now will make sleep harder. Put the phone away after this exercise." } },
+        { "type": "breath", "seconds": 90, "pattern": [4, 0, 6, 0], "dim_screen": true,
+          "text": { "ar": "تنفّس ببطء. الشهيق 4، والزفير 6.", "en": "Breathe slowly. In for 4, out for 6." } },
+        { "type": "text", "seconds": 10,
+          "text": { "ar": "الآن ضع الموبايل خارج يدك، وأغمض عينيك. تصبح على خير.", "en": "Now put the phone out of reach and close your eyes. Good night." } }
+      ]
+    }
+  ],
+  "default_replacements": {
+    "5": { "ar": ["اشرب كوب ماء", "تمدد دقيقتين", "رتّب مكتبك", "افتح النافذة وتنفس"], "en": ["Drink a glass of water", "Stretch for two minutes", "Tidy your desk", "Open a window and breathe"] },
+    "15": { "ar": ["مشي قصير", "اقرأ بضع صفحات", "اتصل بصديق", "حضّر مشروبًا وأنت حاضر"], "en": ["A short walk", "Read a few pages", "Call a friend", "Make a drink, mindfully"] },
+    "60": { "ar": ["رياضة", "هواية تحبها", "عمل على مشروع شخصي", "وقت مع العائلة"], "en": ["Exercise", "A hobby you enjoy", "Work on a personal project", "Time with family"] }
+  }
+}
