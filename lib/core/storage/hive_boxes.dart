@@ -37,4 +37,7 @@ abstract final class HiveBoxes {
 
   /// Structured daily program checkmarks (day-keyed, local-first).
   static const structuredDailyProgram = 'structured_daily_program_v1';
+
+  /// V3 program state (encrypted, local-first).
+  static const v3State = 'v3_state';
 }
