@@ -5295,4 +5295,211 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v3TodayPlaceholder => 'Full screen coming next';
+
+  @override
+  String get v3GreetingHello => 'Hello 👋';
+
+  @override
+  String v3GreetingNamed(String daypart, String name) {
+    return '$daypart, $name';
+  }
+
+  @override
+  String get v3DaypartMorning => 'Good morning';
+
+  @override
+  String get v3DaypartAfternoon => 'Good afternoon';
+
+  @override
+  String get v3DaypartEvening => 'Good evening';
+
+  @override
+  String v3DayOf(int current, int total) {
+    return 'Day $current of $total';
+  }
+
+  @override
+  String v3WeekLabel(int week, String title) {
+    return 'Week $week · $title';
+  }
+
+  @override
+  String v3AboutMinutes(int minutes) {
+    return '~$minutes minutes';
+  }
+
+  @override
+  String v3HeroStart(int day) {
+    return 'Start day $day';
+  }
+
+  @override
+  String get v3HeroContinue => 'Continue';
+
+  @override
+  String v3HeroDone(int day) {
+    return 'You finished day $day ✓ — next day opens tomorrow';
+  }
+
+  @override
+  String get v3HeroReview => 'Review today\'s lesson';
+
+  @override
+  String get v3HeroUnlockPro => 'Unlock the rest of the program';
+
+  @override
+  String get v3TodayChallenge => 'Today\'s challenge';
+
+  @override
+  String get v3SosButton => 'I feel like opening my phone';
+
+  @override
+  String get v3EveningCard => 'Evening check-in';
+
+  @override
+  String v3NextClarityCheck(int day) {
+    return 'Next Clarity Check: day $day';
+  }
+
+  @override
+  String get v3EveningMood => 'How was your day with the phone?';
+
+  @override
+  String get v3EveningChallengeQ => 'Did you complete today\'s challenge?';
+
+  @override
+  String get v3EveningYes => 'Yes';
+
+  @override
+  String get v3EveningPartly => 'Partly';
+
+  @override
+  String get v3EveningNo => 'No';
+
+  @override
+  String get v3EveningNoteHint => 'Optional note';
+
+  @override
+  String get v3EveningSave => 'Save';
+
+  @override
+  String get v3LessonNext => 'Got it, next';
+
+  @override
+  String get v3Skip => 'Skip';
+
+  @override
+  String get v3EasyToggle => 'Easy version';
+
+  @override
+  String get v3PracticeDone => 'I finished the exercise';
+
+  @override
+  String get v3PracticeStart => 'Start';
+
+  @override
+  String get v3PracticePause => 'Pause';
+
+  @override
+  String get v3PracticeStop => 'Stop';
+
+  @override
+  String get v3BonusExercise => 'Bonus exercise (optional)';
+
+  @override
+  String get v3ChallengeAccept => 'I\'ll do it today';
+
+  @override
+  String v3SessionComplete(int day) {
+    return 'Well done! You completed day $day';
+  }
+
+  @override
+  String get v3BackToToday => 'Back to Today';
+
+  @override
+  String get v3SessionMissingDay => 'Day not found';
+
+  @override
+  String get v3SessionMissingExercise => 'Exercise not found';
+
+  @override
+  String get v3InputSave => 'Save';
+
+  @override
+  String get v3InputHours => 'Hours on phone';
+
+  @override
+  String v3InputApp(int n) {
+    return 'App $n';
+  }
+
+  @override
+  String get v3InputPickups => 'Pickups';
+
+  @override
+  String get v3InputUrgeBefore => 'Urge before';
+
+  @override
+  String get v3InputUrgeAfter => 'Urge after';
+
+  @override
+  String get v3InputPickTime => 'Pick a time';
+
+  @override
+  String get v3InputText => 'Your answer';
+
+  @override
+  String get v3InputReplacements5 => '5-minute replacements';
+
+  @override
+  String get v3InputReplacements15 => '15-minute replacements';
+
+  @override
+  String get v3InputReplacements60 => '60-minute replacements';
+
+  @override
+  String get v3InputIf => 'If…';
+
+  @override
+  String get v3InputThen => 'Then…';
+
+  @override
+  String v3InputRule(int n) {
+    return 'Rule $n';
+  }
+
+  @override
+  String v3InputWeekNote(int n) {
+    return 'Note $n';
+  }
+
+  @override
+  String get v3InputUnsupported => 'Unsupported input';
+
+  @override
+  String get v3PaywallTitle => 'Unlock the full program';
+
+  @override
+  String get v3PaywallSubDay7 =>
+      'You finished week one. 23 days of real change await you.';
+
+  @override
+  String get v3PaywallSubGeneric => 'Continue days 8–30 with the full program.';
+
+  @override
+  String get v3PaywallBenefit1 =>
+      'Days 8 to 30 complete: environment, replacements, and lock-in';
+
+  @override
+  String get v3PaywallBenefit2 => 'All exercises in Tools (33 exercises)';
+
+  @override
+  String get v3PaywallBenefit3 => '50-minute focus sessions and 4-6 breathing';
+
+  @override
+  String get v3PaywallBenefit4 => 'Clarity Check and progress through day 30';
+
+  @override
+  String get v3PaywallFooter => 'Cancel anytime from Google Play';
 }

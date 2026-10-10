@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/routing/app_navigator_key.dart';
 import '../../core/security/biometric_lock_screen.dart';
+import '../../core/security/security_status_provider.dart';
 import '../../features/splash/presentation/splash_screen.dart';
 import '../application/clarity_check_session_provider.dart';
 import '../application/v3_onboarding_gate_provider.dart';
@@ -12,9 +13,12 @@ import '../ui/onboarding/clarity_check_screen.dart';
 import '../ui/onboarding/result_plan_screen.dart';
 import '../ui/onboarding/setup_screen.dart';
 import '../ui/onboarding/welcome_screen.dart';
+import '../ui/paywall/v3_paywall_screen.dart';
+import '../ui/placeholders/v3_simple_placeholder.dart';
+import '../ui/session/session_player_screen.dart';
 import '../ui/shell/v3_main_shell.dart';
 import '../ui/shell/v3_tab_placeholder.dart';
-import '../../core/security/security_status_provider.dart';
+import '../ui/today/today_screen.dart';
 import 'v3_routes.dart';
 import 'v3_startup.dart';
 
@@ -92,7 +96,14 @@ final v3GoRouterProvider = Provider<GoRouter>((ref) {
           final mode = modeRaw == 'recheck'
               ? ClarityCheckMode.recheck
               : ClarityCheckMode.baseline;
-          return V3ClarityCheckScreen(mode: mode);
+          final returnTo = state.uri.queryParameters['returnTo'];
+          final dayRaw = state.uri.queryParameters['day'];
+          final day = dayRaw == null ? null : int.tryParse(dayRaw);
+          return V3ClarityCheckScreen(
+            mode: mode,
+            returnTo: returnTo,
+            programDay: day,
+          );
         },
       ),
       GoRoute(
@@ -106,12 +117,29 @@ final v3GoRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: V3Routes.session,
         builder: (context, state) {
-          final day = state.pathParameters['n'] ?? '1';
-          return V3TabPlaceholder(
-            tabKey: Key('v3_session_day_$day'),
-            title: 'Session $day',
-          );
+          final day = int.tryParse(state.pathParameters['n'] ?? '1') ?? 1;
+          return V3SessionPlayerScreen(day: day);
         },
+      ),
+      GoRoute(
+        path: V3Routes.paywall,
+        builder: (context, state) => V3PaywallScreen(
+          source: state.uri.queryParameters['source'],
+        ),
+      ),
+      GoRoute(
+        path: V3Routes.sos,
+        builder: (context, state) => const V3SimplePlaceholder(
+          title: 'SOS',
+          routeKey: Key('v3_sos'),
+        ),
+      ),
+      GoRoute(
+        path: V3Routes.graduation,
+        builder: (context, state) => const V3SimplePlaceholder(
+          title: 'Graduation',
+          routeKey: Key('v3_graduation'),
+        ),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
@@ -122,10 +150,7 @@ final v3GoRouterProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: V3Routes.today,
-                builder: (context, state) => const V3TabPlaceholder(
-                  tabKey: V3ShellKeys.todayTab,
-                  title: 'Today',
-                ),
+                builder: (context, state) => const V3TodayScreen(),
               ),
             ],
           ),
@@ -166,9 +191,9 @@ final v3GoRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: V3Routes.settings,
-        builder: (context, state) => const V3TabPlaceholder(
-          tabKey: Key('v3_settings'),
+        builder: (context, state) => const V3SimplePlaceholder(
           title: 'Settings',
+          routeKey: Key('v3_settings'),
         ),
       ),
     ],

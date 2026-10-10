@@ -5196,4 +5196,211 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v3TodayPlaceholder => 'الشاشة الكاملة قريبًا';
+
+  @override
+  String get v3GreetingHello => 'أهلًا 👋';
+
+  @override
+  String v3GreetingNamed(String daypart, String name) {
+    return '$daypart، $name';
+  }
+
+  @override
+  String get v3DaypartMorning => 'صباح الخير';
+
+  @override
+  String get v3DaypartAfternoon => 'مساء الخير';
+
+  @override
+  String get v3DaypartEvening => 'مساء الخير';
+
+  @override
+  String v3DayOf(int current, int total) {
+    return 'اليوم $current من $total';
+  }
+
+  @override
+  String v3WeekLabel(int week, String title) {
+    return 'الأسبوع $week · $title';
+  }
+
+  @override
+  String v3AboutMinutes(int minutes) {
+    return '~$minutes دقائق';
+  }
+
+  @override
+  String v3HeroStart(int day) {
+    return 'ابدأ يوم $day';
+  }
+
+  @override
+  String get v3HeroContinue => 'أكمل';
+
+  @override
+  String v3HeroDone(int day) {
+    return 'أنجزت يوم $day ✓ — اليوم التالي يفتح غدًا';
+  }
+
+  @override
+  String get v3HeroReview => 'راجع درس اليوم';
+
+  @override
+  String get v3HeroUnlockPro => 'افتح بقية البرنامج';
+
+  @override
+  String get v3TodayChallenge => 'تحدي اليوم';
+
+  @override
+  String get v3SosButton => 'عندي رغبة أفتح الموبايل';
+
+  @override
+  String get v3EveningCard => 'تسجيل المساء';
+
+  @override
+  String v3NextClarityCheck(int day) {
+    return 'فحص الصفاء القادم: يوم $day';
+  }
+
+  @override
+  String get v3EveningMood => 'كيف كان يومك مع الموبايل؟';
+
+  @override
+  String get v3EveningChallengeQ => 'هل أنجزت تحدي اليوم؟';
+
+  @override
+  String get v3EveningYes => 'نعم';
+
+  @override
+  String get v3EveningPartly => 'جزئيًا';
+
+  @override
+  String get v3EveningNo => 'لا';
+
+  @override
+  String get v3EveningNoteHint => 'ملاحظة اختيارية';
+
+  @override
+  String get v3EveningSave => 'حفظ';
+
+  @override
+  String get v3LessonNext => 'فهمت، التالي';
+
+  @override
+  String get v3Skip => 'تخطَّ';
+
+  @override
+  String get v3EasyToggle => 'النسخة السهلة';
+
+  @override
+  String get v3PracticeDone => 'أنجزت التمرين';
+
+  @override
+  String get v3PracticeStart => 'ابدأ';
+
+  @override
+  String get v3PracticePause => 'إيقاف مؤقت';
+
+  @override
+  String get v3PracticeStop => 'إيقاف';
+
+  @override
+  String get v3BonusExercise => 'تمرين إضافي (اختياري)';
+
+  @override
+  String get v3ChallengeAccept => 'سأفعلها اليوم';
+
+  @override
+  String v3SessionComplete(int day) {
+    return 'أحسنت! أكملت يوم $day';
+  }
+
+  @override
+  String get v3BackToToday => 'العودة لليوم';
+
+  @override
+  String get v3SessionMissingDay => 'اليوم غير موجود';
+
+  @override
+  String get v3SessionMissingExercise => 'التمرين غير موجود';
+
+  @override
+  String get v3InputSave => 'حفظ';
+
+  @override
+  String get v3InputHours => 'ساعات الموبايل';
+
+  @override
+  String v3InputApp(int n) {
+    return 'تطبيق $n';
+  }
+
+  @override
+  String get v3InputPickups => 'مرات الالتقاط';
+
+  @override
+  String get v3InputUrgeBefore => 'الرغبة قبل';
+
+  @override
+  String get v3InputUrgeAfter => 'الرغبة بعد';
+
+  @override
+  String get v3InputPickTime => 'اختر وقتًا';
+
+  @override
+  String get v3InputText => 'إجابتك';
+
+  @override
+  String get v3InputReplacements5 => 'بدائل لـ 5 دقائق';
+
+  @override
+  String get v3InputReplacements15 => 'بدائل لـ 15 دقيقة';
+
+  @override
+  String get v3InputReplacements60 => 'بدائل لـ 60 دقيقة';
+
+  @override
+  String get v3InputIf => 'إذا…';
+
+  @override
+  String get v3InputThen => 'فـ…';
+
+  @override
+  String v3InputRule(int n) {
+    return 'قاعدة $n';
+  }
+
+  @override
+  String v3InputWeekNote(int n) {
+    return 'ملاحظة $n';
+  }
+
+  @override
+  String get v3InputUnsupported => 'إدخال غير مدعوم';
+
+  @override
+  String get v3PaywallTitle => 'افتح البرنامج الكامل';
+
+  @override
+  String get v3PaywallSubDay7 =>
+      'أكملت الأسبوع الأول. 23 يومًا من التغيير الحقيقي تنتظرك.';
+
+  @override
+  String get v3PaywallSubGeneric => 'أكمل الأيام 8 إلى 30 مع البرنامج الكامل.';
+
+  @override
+  String get v3PaywallBenefit1 =>
+      'أيام 8 إلى 30 كاملة: البيئة، البدائل، والتثبيت';
+
+  @override
+  String get v3PaywallBenefit2 => 'كل التمارين في الأدوات (33 تمرينًا)';
+
+  @override
+  String get v3PaywallBenefit3 => 'جلسات تركيز 50 دقيقة وتنفّس 4-6';
+
+  @override
+  String get v3PaywallBenefit4 => 'فحص الصفاء ومتابعة تقدّمك حتى يوم 30';
+
+  @override
+  String get v3PaywallFooter => 'إلغاء في أي وقت من Google Play';
 }

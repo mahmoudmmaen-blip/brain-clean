@@ -2244,5 +2244,124 @@
   "v3TabProgram": "Program",
   "v3TabTools": "Tools",
   "v3TabProgress": "Progress",
-  "v3TodayPlaceholder": "Full screen coming next"
+  "v3TodayPlaceholder": "Full screen coming next",
+  "v3GreetingHello": "Hello 👋",
+  "v3GreetingNamed": "{daypart}, {name}",
+  "@v3GreetingNamed": {
+    "placeholders": {
+      "daypart": { "type": "String" },
+      "name": { "type": "String" }
+    }
+  },
+  "v3DaypartMorning": "Good morning",
+  "v3DaypartAfternoon": "Good afternoon",
+  "v3DaypartEvening": "Good evening",
+  "v3DayOf": "Day {current} of {total}",
+  "@v3DayOf": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "v3WeekLabel": "Week {week} · {title}",
+  "@v3WeekLabel": {
+    "placeholders": {
+      "week": { "type": "int" },
+      "title": { "type": "String" }
+    }
+  },
+  "v3AboutMinutes": "~{minutes} minutes",
+  "@v3AboutMinutes": {
+    "placeholders": {
+      "minutes": { "type": "int" }
+    }
+  },
+  "v3HeroStart": "Start day {day}",
+  "@v3HeroStart": {
+    "placeholders": {
+      "day": { "type": "int" }
+    }
+  },
+  "v3HeroContinue": "Continue",
+  "v3HeroDone": "You finished day {day} ✓ — next day opens tomorrow",
+  "@v3HeroDone": {
+    "placeholders": {
+      "day": { "type": "int" }
+    }
+  },
+  "v3HeroReview": "Review today's lesson",
+  "v3HeroUnlockPro": "Unlock the rest of the program",
+  "v3TodayChallenge": "Today's challenge",
+  "v3SosButton": "I feel like opening my phone",
+  "v3EveningCard": "Evening check-in",
+  "v3NextClarityCheck": "Next Clarity Check: day {day}",
+  "@v3NextClarityCheck": {
+    "placeholders": {
+      "day": { "type": "int" }
+    }
+  },
+  "v3EveningMood": "How was your day with the phone?",
+  "v3EveningChallengeQ": "Did you complete today's challenge?",
+  "v3EveningYes": "Yes",
+  "v3EveningPartly": "Partly",
+  "v3EveningNo": "No",
+  "v3EveningNoteHint": "Optional note",
+  "v3EveningSave": "Save",
+  "v3LessonNext": "Got it, next",
+  "v3Skip": "Skip",
+  "v3EasyToggle": "Easy version",
+  "v3PracticeDone": "I finished the exercise",
+  "v3PracticeStart": "Start",
+  "v3PracticePause": "Pause",
+  "v3PracticeStop": "Stop",
+  "v3BonusExercise": "Bonus exercise (optional)",
+  "v3ChallengeAccept": "I'll do it today",
+  "v3SessionComplete": "Well done! You completed day {day}",
+  "@v3SessionComplete": {
+    "placeholders": {
+      "day": { "type": "int" }
+    }
+  },
+  "v3BackToToday": "Back to Today",
+  "v3SessionMissingDay": "Day not found",
+  "v3SessionMissingExercise": "Exercise not found",
+  "v3InputSave": "Save",
+  "v3InputHours": "Hours on phone",
+  "v3InputApp": "App {n}",
+  "@v3InputApp": {
+    "placeholders": {
+      "n": { "type": "int" }
+    }
+  },
+  "v3InputPickups": "Pickups",
+  "v3InputUrgeBefore": "Urge before",
+  "v3InputUrgeAfter": "Urge after",
+  "v3InputPickTime": "Pick a time",
+  "v3InputText": "Your answer",
+  "v3InputReplacements5": "5-minute replacements",
+  "v3InputReplacements15": "15-minute replacements",
+  "v3InputReplacements60": "60-minute replacements",
+  "v3InputIf": "If…",
+  "v3InputThen": "Then…",
+  "v3InputRule": "Rule {n}",
+  "@v3InputRule": {
+    "placeholders": {
+      "n": { "type": "int" }
+    }
+  },
+  "v3InputWeekNote": "Note {n}",
+  "@v3InputWeekNote": {
+    "placeholders": {
+      "n": { "type": "int" }
+    }
+  },
+  "v3InputUnsupported": "Unsupported input",
+  "v3PaywallTitle": "Unlock the full program",
+  "v3PaywallSubDay7": "You finished week one. 23 days of real change await you.",
+  "v3PaywallSubGeneric": "Continue days 8–30 with the full program.",
+  "v3PaywallBenefit1": "Days 8 to 30 complete: environment, replacements, and lock-in",
+  "v3PaywallBenefit2": "All exercises in Tools (33 exercises)",
+  "v3PaywallBenefit3": "50-minute focus sessions and 4-6 breathing",
+  "v3PaywallBenefit4": "Clarity Check and progress through day 30",
+  "v3PaywallFooter": "Cancel anytime from Google Play"
 }

@@ -9,7 +9,6 @@ import 'package:brain_clean_mobile/v3/data/user_profile.dart';
 import 'package:brain_clean_mobile/v3/data/v3_state_repository.dart';
 import 'dart:io';
 import 'package:brain_clean_mobile/v3/ui/onboarding/onboarding_keys.dart';
-import 'package:brain_clean_mobile/v3/ui/shell/v3_tab_placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -132,9 +131,9 @@ void main() {
     );
 
     await pumpApp(tester);
-    await waitForFinder(tester, find.byKey(V3ShellKeys.todayTab));
+    await waitForFinder(tester, find.byKey(const Key('v3_today_screen')));
 
-    expect(find.byKey(V3ShellKeys.todayTab), findsOneWidget);
+    expect(find.byKey(const Key('v3_today_screen')), findsOneWidget);
     expect(find.byKey(V3OnboardingKeys.welcomeStart), findsNothing);
   });
 }

@@ -9398,6 +9398,372 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Full screen coming next'**
   String get v3TodayPlaceholder;
+
+  /// No description provided for @v3GreetingHello.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello 👋'**
+  String get v3GreetingHello;
+
+  /// No description provided for @v3GreetingNamed.
+  ///
+  /// In en, this message translates to:
+  /// **'{daypart}, {name}'**
+  String v3GreetingNamed(String daypart, String name);
+
+  /// No description provided for @v3DaypartMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'Good morning'**
+  String get v3DaypartMorning;
+
+  /// No description provided for @v3DaypartAfternoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Good afternoon'**
+  String get v3DaypartAfternoon;
+
+  /// No description provided for @v3DaypartEvening.
+  ///
+  /// In en, this message translates to:
+  /// **'Good evening'**
+  String get v3DaypartEvening;
+
+  /// No description provided for @v3DayOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Day {current} of {total}'**
+  String v3DayOf(int current, int total);
+
+  /// No description provided for @v3WeekLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Week {week} · {title}'**
+  String v3WeekLabel(int week, String title);
+
+  /// No description provided for @v3AboutMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'~{minutes} minutes'**
+  String v3AboutMinutes(int minutes);
+
+  /// No description provided for @v3HeroStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start day {day}'**
+  String v3HeroStart(int day);
+
+  /// No description provided for @v3HeroContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get v3HeroContinue;
+
+  /// No description provided for @v3HeroDone.
+  ///
+  /// In en, this message translates to:
+  /// **'You finished day {day} ✓ — next day opens tomorrow'**
+  String v3HeroDone(int day);
+
+  /// No description provided for @v3HeroReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Review today\'s lesson'**
+  String get v3HeroReview;
+
+  /// No description provided for @v3HeroUnlockPro.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock the rest of the program'**
+  String get v3HeroUnlockPro;
+
+  /// No description provided for @v3TodayChallenge.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s challenge'**
+  String get v3TodayChallenge;
+
+  /// No description provided for @v3SosButton.
+  ///
+  /// In en, this message translates to:
+  /// **'I feel like opening my phone'**
+  String get v3SosButton;
+
+  /// No description provided for @v3EveningCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Evening check-in'**
+  String get v3EveningCard;
+
+  /// No description provided for @v3NextClarityCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Next Clarity Check: day {day}'**
+  String v3NextClarityCheck(int day);
+
+  /// No description provided for @v3EveningMood.
+  ///
+  /// In en, this message translates to:
+  /// **'How was your day with the phone?'**
+  String get v3EveningMood;
+
+  /// No description provided for @v3EveningChallengeQ.
+  ///
+  /// In en, this message translates to:
+  /// **'Did you complete today\'s challenge?'**
+  String get v3EveningChallengeQ;
+
+  /// No description provided for @v3EveningYes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get v3EveningYes;
+
+  /// No description provided for @v3EveningPartly.
+  ///
+  /// In en, this message translates to:
+  /// **'Partly'**
+  String get v3EveningPartly;
+
+  /// No description provided for @v3EveningNo.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get v3EveningNo;
+
+  /// No description provided for @v3EveningNoteHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional note'**
+  String get v3EveningNoteHint;
+
+  /// No description provided for @v3EveningSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get v3EveningSave;
+
+  /// No description provided for @v3LessonNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Got it, next'**
+  String get v3LessonNext;
+
+  /// No description provided for @v3Skip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get v3Skip;
+
+  /// No description provided for @v3EasyToggle.
+  ///
+  /// In en, this message translates to:
+  /// **'Easy version'**
+  String get v3EasyToggle;
+
+  /// No description provided for @v3PracticeDone.
+  ///
+  /// In en, this message translates to:
+  /// **'I finished the exercise'**
+  String get v3PracticeDone;
+
+  /// No description provided for @v3PracticeStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get v3PracticeStart;
+
+  /// No description provided for @v3PracticePause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get v3PracticePause;
+
+  /// No description provided for @v3PracticeStop.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
+  String get v3PracticeStop;
+
+  /// No description provided for @v3BonusExercise.
+  ///
+  /// In en, this message translates to:
+  /// **'Bonus exercise (optional)'**
+  String get v3BonusExercise;
+
+  /// No description provided for @v3ChallengeAccept.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'ll do it today'**
+  String get v3ChallengeAccept;
+
+  /// No description provided for @v3SessionComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Well done! You completed day {day}'**
+  String v3SessionComplete(int day);
+
+  /// No description provided for @v3BackToToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Today'**
+  String get v3BackToToday;
+
+  /// No description provided for @v3SessionMissingDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Day not found'**
+  String get v3SessionMissingDay;
+
+  /// No description provided for @v3SessionMissingExercise.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercise not found'**
+  String get v3SessionMissingExercise;
+
+  /// No description provided for @v3InputSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get v3InputSave;
+
+  /// No description provided for @v3InputHours.
+  ///
+  /// In en, this message translates to:
+  /// **'Hours on phone'**
+  String get v3InputHours;
+
+  /// No description provided for @v3InputApp.
+  ///
+  /// In en, this message translates to:
+  /// **'App {n}'**
+  String v3InputApp(int n);
+
+  /// No description provided for @v3InputPickups.
+  ///
+  /// In en, this message translates to:
+  /// **'Pickups'**
+  String get v3InputPickups;
+
+  /// No description provided for @v3InputUrgeBefore.
+  ///
+  /// In en, this message translates to:
+  /// **'Urge before'**
+  String get v3InputUrgeBefore;
+
+  /// No description provided for @v3InputUrgeAfter.
+  ///
+  /// In en, this message translates to:
+  /// **'Urge after'**
+  String get v3InputUrgeAfter;
+
+  /// No description provided for @v3InputPickTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a time'**
+  String get v3InputPickTime;
+
+  /// No description provided for @v3InputText.
+  ///
+  /// In en, this message translates to:
+  /// **'Your answer'**
+  String get v3InputText;
+
+  /// No description provided for @v3InputReplacements5.
+  ///
+  /// In en, this message translates to:
+  /// **'5-minute replacements'**
+  String get v3InputReplacements5;
+
+  /// No description provided for @v3InputReplacements15.
+  ///
+  /// In en, this message translates to:
+  /// **'15-minute replacements'**
+  String get v3InputReplacements15;
+
+  /// No description provided for @v3InputReplacements60.
+  ///
+  /// In en, this message translates to:
+  /// **'60-minute replacements'**
+  String get v3InputReplacements60;
+
+  /// No description provided for @v3InputIf.
+  ///
+  /// In en, this message translates to:
+  /// **'If…'**
+  String get v3InputIf;
+
+  /// No description provided for @v3InputThen.
+  ///
+  /// In en, this message translates to:
+  /// **'Then…'**
+  String get v3InputThen;
+
+  /// No description provided for @v3InputRule.
+  ///
+  /// In en, this message translates to:
+  /// **'Rule {n}'**
+  String v3InputRule(int n);
+
+  /// No description provided for @v3InputWeekNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Note {n}'**
+  String v3InputWeekNote(int n);
+
+  /// No description provided for @v3InputUnsupported.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsupported input'**
+  String get v3InputUnsupported;
+
+  /// No description provided for @v3PaywallTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock the full program'**
+  String get v3PaywallTitle;
+
+  /// No description provided for @v3PaywallSubDay7.
+  ///
+  /// In en, this message translates to:
+  /// **'You finished week one. 23 days of real change await you.'**
+  String get v3PaywallSubDay7;
+
+  /// No description provided for @v3PaywallSubGeneric.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue days 8–30 with the full program.'**
+  String get v3PaywallSubGeneric;
+
+  /// No description provided for @v3PaywallBenefit1.
+  ///
+  /// In en, this message translates to:
+  /// **'Days 8 to 30 complete: environment, replacements, and lock-in'**
+  String get v3PaywallBenefit1;
+
+  /// No description provided for @v3PaywallBenefit2.
+  ///
+  /// In en, this message translates to:
+  /// **'All exercises in Tools (33 exercises)'**
+  String get v3PaywallBenefit2;
+
+  /// No description provided for @v3PaywallBenefit3.
+  ///
+  /// In en, this message translates to:
+  /// **'50-minute focus sessions and 4-6 breathing'**
+  String get v3PaywallBenefit3;
+
+  /// No description provided for @v3PaywallBenefit4.
+  ///
+  /// In en, this message translates to:
+  /// **'Clarity Check and progress through day 30'**
+  String get v3PaywallBenefit4;
+
+  /// No description provided for @v3PaywallFooter.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel anytime from Google Play'**
+  String get v3PaywallFooter;
 }
 
 class _AppLocalizationsDelegate

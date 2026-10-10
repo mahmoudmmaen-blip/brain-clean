@@ -16,6 +16,7 @@ class V3AppState {
     this.sosLogs = const [],
     this.focusLogs = const [],
     this.userInputs = const UserInputs(),
+    this.day7PaywallShown = false,
   });
 
   final UserProfile? profile;
@@ -25,6 +26,7 @@ class V3AppState {
   final List<SosLog> sosLogs;
   final List<FocusLog> focusLogs;
   final UserInputs userInputs;
+  final bool day7PaywallShown;
 
   V3AppState copyWith({
     UserProfile? profile,
@@ -34,6 +36,7 @@ class V3AppState {
     List<SosLog>? sosLogs,
     List<FocusLog>? focusLogs,
     UserInputs? userInputs,
+    bool? day7PaywallShown,
   }) {
     return V3AppState(
       profile: profile ?? this.profile,
@@ -43,6 +46,7 @@ class V3AppState {
       sosLogs: sosLogs ?? this.sosLogs,
       focusLogs: focusLogs ?? this.focusLogs,
       userInputs: userInputs ?? this.userInputs,
+      day7PaywallShown: day7PaywallShown ?? this.day7PaywallShown,
     );
   }
 

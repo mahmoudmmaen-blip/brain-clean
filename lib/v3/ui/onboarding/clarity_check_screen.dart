@@ -18,9 +18,17 @@ import 'onboarding_keys.dart';
 import 'widgets/clarity_progress_dots.dart';
 
 class V3ClarityCheckScreen extends ConsumerStatefulWidget {
-  const V3ClarityCheckScreen({super.key, required this.mode});
+  const V3ClarityCheckScreen({
+    super.key,
+    required this.mode,
+    this.returnTo,
+    this.programDay,
+  });
 
   final ClarityCheckMode mode;
+  /// When set (e.g. `session`), pops back after recheck instead of going to Today.
+  final String? returnTo;
+  final int? programDay;
 
   @override
   ConsumerState<V3ClarityCheckScreen> createState() =>
@@ -68,9 +76,10 @@ class _V3ClarityCheckScreenState extends ConsumerState<V3ClarityCheckScreen> {
 
     final progress =
         ref.read(v3AppStateProvider).valueOrNull?.dayProgress ?? const [];
-    final programDay = widget.mode == ClarityCheckMode.baseline
-        ? 1
-        : ProgramEngine.currentDay(progress);
+    final programDay = widget.programDay ??
+        (widget.mode == ClarityCheckMode.baseline
+            ? 1
+            : ProgramEngine.currentDay(progress));
 
     final result = ClarityScoring.toResult(
       outcome: outcome,
@@ -142,7 +151,19 @@ class _V3ClarityCheckScreenState extends ConsumerState<V3ClarityCheckScreen> {
                       ),
                     const Spacer(),
                     FilledButton(
-                      onPressed: () => context.go(V3Routes.today),
+                      onPressed: () {
+                        if (widget.returnTo == 'session') {
+                          if (context.canPop()) {
+                            context.pop();
+                          } else {
+                            context.go(
+                              V3Routes.sessionPath(widget.programDay ?? 1),
+                            );
+                          }
+                        } else {
+                          context.go(V3Routes.today);
+                        }
+                      },
                       child: Text(loc.v3CheckDone),
                     ),
                   ],

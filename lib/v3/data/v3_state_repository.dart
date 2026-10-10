@@ -22,6 +22,7 @@ abstract class V3StateRepository {
   Future<void> appendSosLog(SosLog log);
   Future<void> appendFocusLog(FocusLog log);
   Future<void> saveUserInputs(UserInputs inputs);
+  Future<void> setDay7PaywallShown(bool shown);
   Future<void> clearDayProgressOnly();
   Future<void> clearAll();
 }
@@ -96,6 +97,7 @@ class V3StateLocalRepository implements V3StateRepository {
         sosLogs: sosLogs,
         focusLogs: focusLogs,
         userInputs: userInputs,
+        day7PaywallShown: box.get(V3StorageKeys.day7PaywallShown) == true,
       );
     } catch (e, st) {
       debugPrint('V3StateLocalRepository.load failed: $e\n$st');
@@ -208,6 +210,13 @@ class V3StateLocalRepository implements V3StateRepository {
     final box = await _openBox();
     await _ensureSchema(box);
     await box.put(V3StorageKeys.userInputs, inputs.toJson());
+  }
+
+  @override
+  Future<void> setDay7PaywallShown(bool shown) async {
+    final box = await _openBox();
+    await _ensureSchema(box);
+    await box.put(V3StorageKeys.day7PaywallShown, shown);
   }
 
   @override

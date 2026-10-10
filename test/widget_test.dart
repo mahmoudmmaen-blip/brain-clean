@@ -17,10 +17,12 @@ import 'package:brain_clean_mobile/core/providers/locale_provider.dart';
 import 'package:brain_clean_mobile/features/home/presentation/home_screen.dart';
 import 'package:brain_clean_mobile/features/splash/presentation/splash_screen.dart';
 import 'package:brain_clean_mobile/main.dart';
+import 'dart:io';
+
 import 'package:brain_clean_mobile/v3/application/v3_state_providers.dart';
+import 'package:brain_clean_mobile/v3/content/content.dart';
 import 'package:brain_clean_mobile/v3/data/user_profile.dart';
 import 'package:brain_clean_mobile/v3/data/v3_state_repository.dart';
-import 'package:brain_clean_mobile/v3/ui/shell/v3_tab_placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -34,13 +36,22 @@ import 'helpers/test_l10n.dart';
 
 void main() {
   final en = testL10n;
+  late ContentBundle v3Bundle;
+
+  setUpAll(() async {
+    v3Bundle = await ContentRepository(
+      assetLoader: (p) => File(p).readAsString(),
+    ).load();
+  });
 
   setUp(() {
     SplashScreen.minSplashDuration = Duration.zero;
+    SplashScreen.enableTypewriterAnimation = false;
   });
 
   tearDown(() {
     SplashScreen.minSplashDuration = const Duration(seconds: 2);
+    SplashScreen.enableTypewriterAnimation = true;
   });
 
   group('Diagnostic UI', () {
@@ -234,15 +245,19 @@ void main() {
           biometricSessionProvider.overrideWith(() => _UnlockedBiometricSession()),
           localeProvider.overrideWith((ref) => const Locale('en')),
           v3StateRepositoryProvider.overrideWithValue(repo),
+          v3ContentProvider.overrideWith((ref) async => v3Bundle),
         ],
         child: const BrainCleanApp(),
       ),
     );
-    await tester.pump();
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 300));
+    for (var i = 0; i < 40; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+      if (find.byKey(const Key('v3_today_screen')).evaluate().isNotEmpty) {
+        break;
+      }
+    }
 
-    expect(find.byKey(V3ShellKeys.todayTab), findsOneWidget);
+    expect(find.byKey(const Key('v3_today_screen')), findsOneWidget);
   });
 
   testWidgets('home screen shows diagnostic entry without accountability room',
