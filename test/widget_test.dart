@@ -17,6 +17,10 @@ import 'package:brain_clean_mobile/core/providers/locale_provider.dart';
 import 'package:brain_clean_mobile/features/home/presentation/home_screen.dart';
 import 'package:brain_clean_mobile/features/splash/presentation/splash_screen.dart';
 import 'package:brain_clean_mobile/main.dart';
+import 'package:brain_clean_mobile/v3/application/v3_state_providers.dart';
+import 'package:brain_clean_mobile/v3/data/user_profile.dart';
+import 'package:brain_clean_mobile/v3/data/v3_state_repository.dart';
+import 'package:brain_clean_mobile/v3/ui/shell/v3_tab_placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -24,6 +28,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:brain_clean_mobile/features/home/presentation/home_streak_provider.dart';
 
 import 'helpers/diagnostic_provider_overrides.dart';
+import 'helpers/hive_test_fixtures.dart';
 import 'helpers/localized_test_app.dart';
 import 'helpers/test_l10n.dart';
 
@@ -206,26 +211,29 @@ void main() {
   });
 
   testWidgets('BrainCleanApp hydrates then routes to home', (tester) async {
+    final v3Box = InMemoryHiveBox();
+    final repo = V3StateLocalRepository(box: v3Box);
+    await repo.saveProfile(
+      UserProfile(
+        goal: 'focus',
+        reminderTime: '20:00',
+        eveningCheckIn: true,
+        onboardingDone: true,
+        createdAt: DateTime(2026, 1, 1),
+        locale: 'en',
+      ),
+    );
+
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
           appHydrationProvider.overrideWith(_InstantHydration.new),
-          appPreferencesProvider.overrideWith(
-            () => _WidgetTestAppPreferences(),
-          ),
           biometricLockSettingsProvider.overrideWith(
             () => _WidgetTestBiometricLockSettings(),
           ),
           biometricSessionProvider.overrideWith(() => _UnlockedBiometricSession()),
           localeProvider.overrideWith((ref) => const Locale('en')),
-          homeStreakTickerProvider.overrideWith((ref) => Stream<int>.value(0)),
-          recoveryProtocolStorageProvider.overrideWithValue(
-            RecoveryProtocolMemoryRepository(),
-          ),
-          recoveryProtocolControllerProvider.overrideWith(
-            () => _WidgetTestRecoveryProtocolController(),
-          ),
-          ...diagnosticWidgetTestOverrides(),
+          v3StateRepositoryProvider.overrideWithValue(repo),
         ],
         child: const BrainCleanApp(),
       ),
@@ -234,8 +242,7 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
 
-    expect(find.byType(HomeScreen), findsOneWidget);
-    expect(find.text(en.homeTitle), findsOneWidget);
+    expect(find.byKey(V3ShellKeys.todayTab), findsOneWidget);
   });
 
   testWidgets('home screen shows diagnostic entry without accountability room',

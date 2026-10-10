@@ -2206,5 +2206,43 @@
   "v2ExercisesTestsBri": "Digital brain rot (BRI)",
   "v2ExercisesTestsBriSubtitle": "Self-report on scrolling habits",
   "v2ProgressEmptyFriendly": "Nothing here yet — that's okay. Take today's step and your chart will grow.",
-  "v2ProgressEmptyStartToday": "Start today's step"
+  "v2ProgressEmptyStartToday": "Start today's step",
+  "v3WelcomeTitle": "Take back your time and focus",
+  "v3WelcomeSubtitle": "A 30-day program, 10 minutes a day",
+  "v3WelcomeLine1": "Understand your habits",
+  "v3WelcomeLine2": "Change your environment",
+  "v3WelcomeLine3": "Build real alternatives",
+  "v3WelcomeStart": "Start",
+  "v3LanguageSwitch": "Switch to {lang}",
+  "@v3LanguageSwitch": {
+    "placeholders": {
+      "lang": { "type": "String" }
+    }
+  },
+  "v3NotMedical": "Not medical treatment",
+  "v3CheckContinue": "Continue",
+  "v3CheckDone": "Back to Today",
+  "v3SetupTitle": "Set up your program",
+  "v3SetupNameHint": "First name (optional)",
+  "v3SetupGoalTitle": "Main goal",
+  "v3GoalFocus": "Better focus",
+  "v3GoalSleep": "Better sleep",
+  "v3GoalBrowse": "Less scrolling",
+  "v3GoalCalm": "More calm",
+  "v3SetupReminder": "Daily reminder",
+  "v3SetupSubmit": "Prepare my program",
+  "v3ClarityScoreLabel": "Clarity Score",
+  "v3RecheckComparison": "Compared to last time: {delta} points",
+  "@v3RecheckComparison": {
+    "placeholders": {
+      "delta": { "type": "int" }
+    }
+  },
+  "v3ResultProgramCard": "Your program: 30 days · 4 phases",
+  "v3ResultStartDay1": "Start Day 1 (5 min)",
+  "v3TabToday": "Today",
+  "v3TabProgram": "Program",
+  "v3TabTools": "Tools",
+  "v3TabProgress": "Progress",
+  "v3TodayPlaceholder": "Full screen coming next"
 }

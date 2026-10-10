@@ -9230,6 +9230,174 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Start today\'s step'**
   String get v2ProgressEmptyStartToday;
+
+  /// No description provided for @v3WelcomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Take back your time and focus'**
+  String get v3WelcomeTitle;
+
+  /// No description provided for @v3WelcomeSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A 30-day program, 10 minutes a day'**
+  String get v3WelcomeSubtitle;
+
+  /// No description provided for @v3WelcomeLine1.
+  ///
+  /// In en, this message translates to:
+  /// **'Understand your habits'**
+  String get v3WelcomeLine1;
+
+  /// No description provided for @v3WelcomeLine2.
+  ///
+  /// In en, this message translates to:
+  /// **'Change your environment'**
+  String get v3WelcomeLine2;
+
+  /// No description provided for @v3WelcomeLine3.
+  ///
+  /// In en, this message translates to:
+  /// **'Build real alternatives'**
+  String get v3WelcomeLine3;
+
+  /// No description provided for @v3WelcomeStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get v3WelcomeStart;
+
+  /// No description provided for @v3LanguageSwitch.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch to {lang}'**
+  String v3LanguageSwitch(String lang);
+
+  /// No description provided for @v3NotMedical.
+  ///
+  /// In en, this message translates to:
+  /// **'Not medical treatment'**
+  String get v3NotMedical;
+
+  /// No description provided for @v3CheckContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get v3CheckContinue;
+
+  /// No description provided for @v3CheckDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Today'**
+  String get v3CheckDone;
+
+  /// No description provided for @v3SetupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Set up your program'**
+  String get v3SetupTitle;
+
+  /// No description provided for @v3SetupNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'First name (optional)'**
+  String get v3SetupNameHint;
+
+  /// No description provided for @v3SetupGoalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Main goal'**
+  String get v3SetupGoalTitle;
+
+  /// No description provided for @v3GoalFocus.
+  ///
+  /// In en, this message translates to:
+  /// **'Better focus'**
+  String get v3GoalFocus;
+
+  /// No description provided for @v3GoalSleep.
+  ///
+  /// In en, this message translates to:
+  /// **'Better sleep'**
+  String get v3GoalSleep;
+
+  /// No description provided for @v3GoalBrowse.
+  ///
+  /// In en, this message translates to:
+  /// **'Less scrolling'**
+  String get v3GoalBrowse;
+
+  /// No description provided for @v3GoalCalm.
+  ///
+  /// In en, this message translates to:
+  /// **'More calm'**
+  String get v3GoalCalm;
+
+  /// No description provided for @v3SetupReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily reminder'**
+  String get v3SetupReminder;
+
+  /// No description provided for @v3SetupSubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Prepare my program'**
+  String get v3SetupSubmit;
+
+  /// No description provided for @v3ClarityScoreLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Clarity Score'**
+  String get v3ClarityScoreLabel;
+
+  /// No description provided for @v3RecheckComparison.
+  ///
+  /// In en, this message translates to:
+  /// **'Compared to last time: {delta} points'**
+  String v3RecheckComparison(int delta);
+
+  /// No description provided for @v3ResultProgramCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Your program: 30 days · 4 phases'**
+  String get v3ResultProgramCard;
+
+  /// No description provided for @v3ResultStartDay1.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Day 1 (5 min)'**
+  String get v3ResultStartDay1;
+
+  /// No description provided for @v3TabToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get v3TabToday;
+
+  /// No description provided for @v3TabProgram.
+  ///
+  /// In en, this message translates to:
+  /// **'Program'**
+  String get v3TabProgram;
+
+  /// No description provided for @v3TabTools.
+  ///
+  /// In en, this message translates to:
+  /// **'Tools'**
+  String get v3TabTools;
+
+  /// No description provided for @v3TabProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress'**
+  String get v3TabProgress;
+
+  /// No description provided for @v3TodayPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Full screen coming next'**
+  String get v3TodayPlaceholder;
 }
 
 class _AppLocalizationsDelegate

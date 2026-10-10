@@ -6,7 +6,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'core/l10n/app_localization_config.dart';
 import 'core/network/supabase_client.dart';
 import 'core/providers/locale_provider.dart';
-import 'core/routing/app_router.dart';
+import 'v3/routing/v3_router.dart';
 import 'core/services/midnight_reset_service.dart';
 import 'core/services/smart_notification_service.dart';
 import 'core/services/weekly_report_service.dart';
@@ -99,7 +99,7 @@ class _BrainCleanAppState extends ConsumerState<BrainCleanApp>
 
   @override
   Widget build(BuildContext context) {
-    final router = ref.watch(goRouterProvider);
+    final router = ref.watch(v3GoRouterProvider);
     final locale = ref.watch(localeProvider);
     final isRtl = isRtlLocale(locale);
 

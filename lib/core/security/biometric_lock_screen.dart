@@ -3,7 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../l10n/app_localizations.dart';
-import '../routing/startup_destination.dart';
+import '../../v3/application/v3_onboarding_gate_provider.dart';
+import '../../v3/routing/v3_startup.dart';
 import '../theme/app_design_constants.dart';
 import 'security_status_provider.dart';
 
@@ -59,7 +60,13 @@ class BiometricLockScreen extends ConsumerWidget {
                         .read(biometricAuthControllerProvider.notifier)
                         .authenticate();
                     if (ok && context.mounted) {
-                      context.go(StartupDestination.resolve());
+                      final onboardingDone =
+                          ref.read(v3OnboardingGateProvider) ?? false;
+                      context.go(
+                        V3Startup.afterBiometricUnlock(
+                          onboardingDone: onboardingDone,
+                        ),
+                      );
                     }
                   },
                   icon: const Icon(Icons.lock_open_rounded),

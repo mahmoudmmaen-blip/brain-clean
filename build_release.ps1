@@ -28,9 +28,8 @@ if ([string]::IsNullOrWhiteSpace($key) -or $key -match 'your_revenuecat|placehol
     exit 1
 }
 
-Write-Host "Building release AAB (V2_ENABLED=true, REVENUECAT_ANDROID_API_KEY set)..."
+Write-Host "Building release AAB (V3, REVENUECAT_ANDROID_API_KEY set)..."
 flutter build appbundle --release `
-    --dart-define=V2_ENABLED=true `
     --dart-define=REVENUECAT_ANDROID_API_KEY=$key
 
 if ($LASTEXITCODE -ne 0) {

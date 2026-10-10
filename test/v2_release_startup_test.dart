@@ -165,60 +165,32 @@ void main() {
     });
   });
 
-  group('Splash and biometric use StartupDestination', () {
-    test('splash first-run uses StartupDestination.onboarding', () {
+  group('Splash and biometric use V3 startup', () {
+    test('splash routes via V3Startup after onboarding gate', () {
       final src = File('lib/features/splash/presentation/splash_screen.dart')
           .readAsStringSync();
-      expect(src, contains('StartupDestination.onboarding()'));
-      expect(src, isNot(contains('context.go(AppRoutes.onboarding)')));
+      expect(src, contains('V3Startup.afterSplash'));
+      expect(src, contains('v3OnboardingGateProvider'));
+      expect(src, isNot(contains('StartupDestination.resolve()')));
+      expect(src, isNot(contains('StartupDestination.onboarding()')));
     });
 
-    test('splash ordinary completion uses StartupDestination.resolve', () {
-      final src = File('lib/features/splash/presentation/splash_screen.dart')
-          .readAsStringSync();
-      expect(src, contains('startup_destination.dart'));
-      expect(src, contains('StartupDestination.resolve()'));
-      expect(src, contains('AppRoutes.diagnostic'));
-      expect(
-        src,
-        isNot(
-          contains(
-            'resumeLiveSession ? AppRoutes.diagnostic : AppRoutes.home',
-          ),
-        ),
-      );
+    test('main.dart wires V3 GoRouter only', () {
+      final src = File('lib/main.dart').readAsStringSync();
+      expect(src, contains('v3GoRouterProvider'));
+      expect(src, isNot(contains('goRouterProvider')));
     });
 
-    test('biometric unlock uses StartupDestination.resolve', () {
-      final src = File('lib/core/routing/app_router.dart').readAsStringSync();
-      expect(src, contains('startup_destination.dart'));
-      expect(src, contains('StartupDestination.resolve()'));
-      expect(src, contains('StartupDestination.onboarding()'));
-      expect(src, contains('redirectIfOnboardingIncomplete'));
-      expect(
-        src,
-        isNot(
-          contains(
-            'if (!prefs.hasSeenOnboarding && location != AppRoutes.onboarding) {\n'
-            '        return AppRoutes.onboarding;',
-          ),
-        ),
-      );
-      expect(
-        src,
-        isNot(
-          contains(
-            'if (biometricUnlocked && location == AppRoutes.biometricLock) {\n'
-            '        return AppRoutes.home;',
-          ),
-        ),
-      );
+    test('V3 router redirect sends incomplete onboarding to welcome', () {
+      final src = File('lib/v3/routing/v3_router.dart').readAsStringSync();
+      expect(src, contains('V3Routes.welcome'));
+      expect(src, contains('v3OnboardingGateProvider'));
     });
 
-    test('biometric lock button uses StartupDestination not V1 /home', () {
+    test('biometric lock button uses V3Startup not V1 /home', () {
       final src = File('lib/core/security/biometric_lock_screen.dart')
           .readAsStringSync();
-      expect(src, contains('StartupDestination.resolve()'));
+      expect(src, contains('V3Startup.afterBiometricUnlock'));
       expect(src, isNot(contains('AppRoutes.home')));
     });
 
@@ -544,13 +516,13 @@ void main() {
   });
 
   group('Release candidate identity', () {
-    test('pubspec and AppConfig report 2.0.6 / build 36', () {
+    test('pubspec and AppConfig report 3.0.0 / build 37', () {
       final pubspec = File('pubspec.yaml').readAsStringSync();
       expect(
         pubspec,
-        contains(RegExp(r'^version:\s*2\.0\.6\+36\s*$', multiLine: true)),
+        contains(RegExp(r'^version:\s*3\.0\.0\+37\s*$', multiLine: true)),
       );
-      expect(AppConfig.appVersion, '2.0.6');
+      expect(AppConfig.appVersion, '3.0.0');
     });
 
     test('Android applicationId matches Google Play package', () {

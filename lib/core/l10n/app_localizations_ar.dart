@@ -5108,4 +5108,92 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v2ProgressEmptyStartToday => 'ابدأ خطوة اليوم';
+
+  @override
+  String get v3WelcomeTitle => 'استعد وقتك وتركيزك';
+
+  @override
+  String get v3WelcomeSubtitle => 'برنامج 30 يومًا، 10 دقائق يوميًا';
+
+  @override
+  String get v3WelcomeLine1 => 'افهم عاداتك';
+
+  @override
+  String get v3WelcomeLine2 => 'غيّر بيئتك';
+
+  @override
+  String get v3WelcomeLine3 => 'ابنِ بدائل حقيقية';
+
+  @override
+  String get v3WelcomeStart => 'ابدأ';
+
+  @override
+  String v3LanguageSwitch(String lang) {
+    return 'التبديل إلى $lang';
+  }
+
+  @override
+  String get v3NotMedical => 'ليس علاجًا طبيًا';
+
+  @override
+  String get v3CheckContinue => 'متابعة';
+
+  @override
+  String get v3CheckDone => 'العودة لليوم';
+
+  @override
+  String get v3SetupTitle => 'جهّز برنامجك';
+
+  @override
+  String get v3SetupNameHint => 'الاسم (اختياري)';
+
+  @override
+  String get v3SetupGoalTitle => 'هدفك الرئيسي';
+
+  @override
+  String get v3GoalFocus => 'تركيز أفضل';
+
+  @override
+  String get v3GoalSleep => 'نوم أفضل';
+
+  @override
+  String get v3GoalBrowse => 'تصفح أقل';
+
+  @override
+  String get v3GoalCalm => 'هدوء أكثر';
+
+  @override
+  String get v3SetupReminder => 'تذكير يومي';
+
+  @override
+  String get v3SetupSubmit => 'جهّز برنامجي';
+
+  @override
+  String get v3ClarityScoreLabel => 'مؤشر الصفاء';
+
+  @override
+  String v3RecheckComparison(int delta) {
+    return 'مقارنةً بآخر مرة: $delta نقطة';
+  }
+
+  @override
+  String get v3ResultProgramCard => 'برنامجك: 30 يومًا · 4 مراحل';
+
+  @override
+  String get v3ResultStartDay1 => 'ابدأ اليوم الأول (5 دقائق)';
+
+  @override
+  String get v3TabToday => 'اليوم';
+
+  @override
+  String get v3TabProgram => 'البرنامج';
+
+  @override
+  String get v3TabTools => 'الأدوات';
+
+  @override
+  String get v3TabProgress => 'التقدم';
+
+  @override
+  String get v3TodayPlaceholder => 'الشاشة الكاملة قريبًا';
 }

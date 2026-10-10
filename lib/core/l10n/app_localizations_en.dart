@@ -5207,4 +5207,92 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v2ProgressEmptyStartToday => 'Start today\'s step';
+
+  @override
+  String get v3WelcomeTitle => 'Take back your time and focus';
+
+  @override
+  String get v3WelcomeSubtitle => 'A 30-day program, 10 minutes a day';
+
+  @override
+  String get v3WelcomeLine1 => 'Understand your habits';
+
+  @override
+  String get v3WelcomeLine2 => 'Change your environment';
+
+  @override
+  String get v3WelcomeLine3 => 'Build real alternatives';
+
+  @override
+  String get v3WelcomeStart => 'Start';
+
+  @override
+  String v3LanguageSwitch(String lang) {
+    return 'Switch to $lang';
+  }
+
+  @override
+  String get v3NotMedical => 'Not medical treatment';
+
+  @override
+  String get v3CheckContinue => 'Continue';
+
+  @override
+  String get v3CheckDone => 'Back to Today';
+
+  @override
+  String get v3SetupTitle => 'Set up your program';
+
+  @override
+  String get v3SetupNameHint => 'First name (optional)';
+
+  @override
+  String get v3SetupGoalTitle => 'Main goal';
+
+  @override
+  String get v3GoalFocus => 'Better focus';
+
+  @override
+  String get v3GoalSleep => 'Better sleep';
+
+  @override
+  String get v3GoalBrowse => 'Less scrolling';
+
+  @override
+  String get v3GoalCalm => 'More calm';
+
+  @override
+  String get v3SetupReminder => 'Daily reminder';
+
+  @override
+  String get v3SetupSubmit => 'Prepare my program';
+
+  @override
+  String get v3ClarityScoreLabel => 'Clarity Score';
+
+  @override
+  String v3RecheckComparison(int delta) {
+    return 'Compared to last time: $delta points';
+  }
+
+  @override
+  String get v3ResultProgramCard => 'Your program: 30 days · 4 phases';
+
+  @override
+  String get v3ResultStartDay1 => 'Start Day 1 (5 min)';
+
+  @override
+  String get v3TabToday => 'Today';
+
+  @override
+  String get v3TabProgram => 'Program';
+
+  @override
+  String get v3TabTools => 'Tools';
+
+  @override
+  String get v3TabProgress => 'Progress';
+
+  @override
+  String get v3TodayPlaceholder => 'Full screen coming next';
 }

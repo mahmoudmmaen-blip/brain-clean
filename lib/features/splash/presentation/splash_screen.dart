@@ -6,13 +6,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/bootstrap/app_hydration_provider.dart';
-import '../../../core/application/app_preferences_provider.dart';
 import '../../../core/constants/app_routes.dart';
-import '../../../core/routing/startup_destination.dart';
+import '../../../v3/application/v3_onboarding_gate_provider.dart';
+import '../../../v3/routing/v3_startup.dart';
 import '../../../core/security/security_status_provider.dart';
 import '../../../core/l10n/app_localizations.dart';
-import '../../recovery_plan/data/recovery_plan_repository_provider.dart'
-    show recoveryPlanGeneratorProvider;
 
 /// Cold-start gate: hydrates Hive + Riverpod, then home or **live session** resume.
 class SplashScreen extends ConsumerStatefulWidget {
@@ -21,6 +19,10 @@ class SplashScreen extends ConsumerStatefulWidget {
   /// Overridable in widget tests to skip the cold-start delay.
   @visibleForTesting
   static Duration minSplashDuration = const Duration(seconds: 2);
+
+  /// When false, skips the typewriter timer (avoids pumpAndSettle hangs in tests).
+  @visibleForTesting
+  static bool enableTypewriterAnimation = true;
 
   @override
   ConsumerState<SplashScreen> createState() => _SplashScreenState();
@@ -46,6 +48,13 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   void _startTypewriter() {
     final loc = AppLocalizations.of(context)!;
     final full = loc.splashTitle;
+    if (!SplashScreen.enableTypewriterAnimation) {
+      setState(() {
+        _typedTitle = full;
+        _showSubtitle = true;
+      });
+      return;
+    }
     _typewriterTimer = Timer.periodic(_typewriterDelay, (timer) {
       if (!mounted) {
         timer.cancel();
@@ -92,33 +101,15 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
       }
     }
 
-    var hasSeen = ref.read(hasSeenOnboardingProvider);
-    // Plan exists ⇒ onboarding is done (fixes resume back to Step 6).
-    if (!hasSeen) {
-      try {
-        final plan = await ref.read(recoveryPlanGeneratorProvider).active();
-        if (plan != null) {
-          await ref.read(appPreferencesProvider.notifier).completeOnboarding();
-          hasSeen = true;
-        }
-      } catch (_) {}
-    }
+    await ref.read(v3OnboardingGateProvider.notifier).hydrate();
+    final onboardingDone = ref.read(v3OnboardingGateProvider) ?? false;
+    final destination = V3Startup.afterSplash(onboardingDone: onboardingDone);
     if (kDebugMode) {
       debugPrint(
-        '[SplashColdStart] hasSeenOnboarding=$hasSeen '
-        'destination=${hasSeen ? StartupDestination.resolve() : StartupDestination.onboarding()}',
+        '[SplashColdStart] v3OnboardingDone=$onboardingDone destination=$destination',
       );
     }
-    if (!hasSeen) {
-      context.go(StartupDestination.onboarding());
-      return;
-    }
-
-    final resumeLiveSession =
-        snapshot.hasDraftProgress && !snapshot.hasCommittedSession;
-    context.go(
-      resumeLiveSession ? AppRoutes.diagnostic : StartupDestination.resolve(),
-    );
+    context.go(destination);
   }
 
   @override
