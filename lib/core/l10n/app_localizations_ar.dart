@@ -704,7 +704,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get proBestValueBadge => 'الأفضل قيمة';
 
   @override
-  String get proAnnualSaveHint => 'وفّر ٣٢٪ · حوالي ٣٣ ر.س/شهر';
+  String get proAnnualSaveHint => 'وفّر 32٪ · حوالي 33 ر.س/شهر';
 
   @override
   String get proAlreadyProTitle => 'أنت بالفعل مشترك في Pro';
@@ -1412,7 +1412,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get gameNBackIntroDetail =>
-      'يضيء مربع في شبكة 3×3 كل ثانيتين. اضغط تطابق إذا كان في نفس موضع N خطوات سابقة؛ وإلا اضغط التالي. يبدأ N من ١ ويزداد تلقائياً مع تقدمك.';
+      'يضيء مربع في شبكة 3×3 كل ثانيتين. اضغط تطابق إذا كان في نفس موضع N خطوات سابقة؛ وإلا اضغط التالي. يبدأ N من 1 ويزداد تلقائياً مع تقدمك.';
 
   @override
   String gameNBackStats(int correct, int wrong) {
@@ -1796,7 +1796,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get brainProfileDomainNonMedical =>
-      'ليس تشخيصاً طبياً. وليس كشفاً عن تلف دماغي. وليس درجة ذكاء.';
+      'ليس تشخيصاً طبياً. وليس تقييماً سريرياً.';
 
   @override
   String get brainProfileDomainPlanPreviewHint =>
@@ -2148,16 +2148,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get homePomodoroPause => 'إيقاف مؤقت';
 
   @override
-  String get homePomodoroMinutesShort => '٢٥ دقيقة';
+  String get homePomodoroMinutesShort => '25 دقيقة';
 
   @override
-  String get homePomodoroMinutesLong => '٥٠ دقيقة';
+  String get homePomodoroMinutesLong => '50 دقيقة';
 
   @override
-  String get homePomodoroMinus5 => '−٥ دقائق';
+  String get homePomodoroMinus5 => '−5 دقائق';
 
   @override
-  String get homePomodoroPlus5 => '+٥ دقائق';
+  String get homePomodoroPlus5 => '+5 دقائق';
 
   @override
   String get homeWeeklyTestTitle => 'الاختبار الأسبوعي';
@@ -2221,7 +2221,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get homeRecoveryFormulaBody =>
-      '٤٠٪ إكمال البرنامج اليومي اليوم\n٣٥٪ درجة فحص الأساس\n٢٥٪ درجة الاختبار الأسبوعي';
+      '40٪ إكمال البرنامج اليومي اليوم\n35٪ درجة فحص الأساس\n25٪ درجة الاختبار الأسبوعي';
 
   @override
   String get dailyProgramTimerDoneMessage => 'أحسنت! دماغك يشكرك 🧠';
@@ -2266,7 +2266,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get adaptiveProgramResetWeek1Goal =>
-      'صيام رقمي موجه — خفض BRI حوالي ٢٠٪.';
+      'صيام رقمي موجه — خفض BRI حوالي 20٪.';
 
   @override
   String get adaptiveProgramResetWeek2Goal =>
@@ -2301,7 +2301,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get adaptiveProgramWeekendUnlocked =>
-      'تحدي نهاية الأسبوع مفتوح (٥ أيام متتالية).';
+      'تحدي نهاية الأسبوع مفتوح (5 أيام متتالية).';
 
   @override
   String get adaptiveProgramFeelingPrompt => 'كيف شعرت؟';
@@ -2316,7 +2316,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get adaptiveProgramFeelingEasy => 'سهل';
 
   @override
-  String get adaptiveProgramBreathing => 'تمرين تنفس (٢–٣ دقائق)';
+  String get adaptiveProgramBreathing => 'تمرين تنفس (2–3 دقائق)';
 
   @override
   String get adaptiveProgramWeekendChallenge => 'تحدي نهاية الأسبوع';
@@ -2338,7 +2338,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get adaptiveProgramFreeResetCompleteBody =>
-      'أنهيت بروتوكول إعادة الضبط (٤ أسابيع). ترقَّ إلى Pro للصعود العصبي والعقل المحسّن والتحديات والتقارير.';
+      'أنهيت بروتوكول إعادة الضبط (4 أسابيع). ترقَّ إلى Pro للصعود العصبي والعقل المحسّن والتحديات والتقارير.';
 
   @override
   String get adaptiveProgramUnlockFullBody =>
@@ -2660,7 +2660,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v2OnboardingCheckIntroBody =>
-      'فحص الدماغ تقرير ذاتي قصير. ليس تشخيصاً طبياً، ولا كشفاً عن تلف دماغي، ولا اختبار ذكاء. تبقى إجاباتك على هذا الجهاز وتساعد في بناء خطة عملية.';
+      'فحص الدماغ تقرير ذاتي قصير. ليس تشخيصاً طبياً، ولا تقييماً سريرياً. تبقى إجاباتك على هذا الجهاز وتساعد في بناء خطة عملية.';
 
   @override
   String get v2OnboardingCheckIntroMeta =>
@@ -4183,7 +4183,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2ProfileSectionRecovery => 'إعداد التعافي';
 
   @override
-  String get v2ProfilePurityHeading => 'مسارك لـ ٣٠ يوماً';
+  String get v2ProfilePurityHeading => 'مسارك لـ 30 يوماً';
 
   @override
   String v2ProfilePurityDay(int days) {
@@ -4351,7 +4351,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settingsThemeWarmBeigeSubtitle => 'بيج دافئ مع نص بني';
 
   @override
-  String get dailyProgramMindfulness => 'قراءة — ١٥ دقيقة (كتاب أو مقال مفيد)';
+  String get dailyProgramMindfulness => 'قراءة — 15 دقيقة (كتاب أو مقال مفيد)';
 
   @override
   String get dailyProgramReflection =>
@@ -4359,11 +4359,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get dailyProgramReading =>
-      'قراءة نشطة — ١٥ دقيقة: اقرأ كتاباً أو مقالاً، ثم أغلقه واسترجع ٣ نقاط رئيسية (يبني روابط عصبية جديدة عبر المرونة العصبية)';
+      'قراءة نشطة — 15 دقيقة: اقرأ كتاباً أو مقالاً، ثم أغلقه واسترجع 3 نقاط رئيسية (يبني روابط عصبية جديدة عبر المرونة العصبية)';
 
   @override
   String get dailyProgramPomodoro =>
-      'بومودورو عمل عميق — ٢٥ دقيقة: مهمة واحدة فقط، هاتف بعيد عن نطاق الرؤية (يقوي شبكة التحكم التنفيذي في الفص الجبهي)';
+      'بومودورو عمل عميق — 25 دقيقة: مهمة واحدة فقط، هاتف بعيد عن نطاق الرؤية (يقوي شبكة التحكم التنفيذي في الفص الجبهي)';
 
   @override
   String get dailyProgramScreenFree =>
@@ -4371,7 +4371,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get dailyProgramEveningReview =>
-      'مراجعة مسائية — ٥ دقائق: ماذا أنجزت؟ ما الذي ستحسنه غداً؟ (يخفض الكورتيزول ويهيئ الدماغ للنوم العميق)';
+      'مراجعة مسائية — 5 دقائق: ماذا أنجزت؟ ما الذي ستحسنه غداً؟ (يخفض الكورتيزول ويهيئ الدماغ للنوم العميق)';
 
   @override
   String get dailyProgramCognitive => 'تمرين معرفي — تدريب للذاكرة العاملة';
@@ -4403,11 +4403,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get dailyProgramPomodoro5010 =>
-      'بومودورو عمل عميق — ٥٠/١٠ مهمة واحدة فقط';
+      'بومودورو عمل عميق — 50/10 مهمة واحدة فقط';
 
   @override
   String get dailyProgramActiveRecallReading =>
-      'قراءة + استدعاء نشط — اقرأ ١٥ دقيقة ثم أغلق واكتب ٣ نقاط من الذاكرة';
+      'قراءة + استدعاء نشط — اقرأ 15 دقيقة ثم أغلق واكتب 3 نقاط من الذاكرة';
 
   @override
   String get dailyProgramMorningZeroScreens =>
@@ -4423,7 +4423,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get dailyProgramNsdrRest =>
-      'راحة NSDR — ١٥ دقيقة عيون مغلقة بلا هاتف بلا نوم (يحوّل الذاكرة قصيرة المدى إلى طويلة المدى)';
+      'راحة NSDR — 15 دقيقة عيون مغلقة بلا هاتف بلا نوم (يحوّل الذاكرة قصيرة المدى إلى طويلة المدى)';
 
   @override
   String get dailyProgramNsdrTimerDescription =>
@@ -4434,22 +4434,22 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get dailyProgramPhysicalExercise =>
-      'تمرين جسدي — ٢٠–٣٠ دقيقة مشي سريع أو تمارين (يطلق BDNF)';
+      'تمرين جسدي — 20–30 دقيقة مشي سريع أو تمارين (يطلق BDNF)';
 
   @override
   String get dailyProgramRecovery0700 =>
-      '٧:٠٠ صباحاً — صفر شاشات + ضوء شمس + حركة خفيفة';
+      '7:00 صباحاً — صفر شاشات + ضوء شمس + حركة خفيفة';
 
   @override
   String get dailyProgramRecovery0900 =>
-      '٩:٠٠ صباحاً — بومودورو ٥٠/١٠ عمل عميق';
+      '9:00 صباحاً — بومودورو 50/10 عمل عميق';
 
   @override
-  String get dailyProgramRecovery1200 => '١٢:٠٠ ظهراً — راحة NSDR ١٥ دقيقة';
+  String get dailyProgramRecovery1200 => '12:00 ظهراً — راحة NSDR 15 دقيقة';
 
   @override
   String get dailyProgramRecovery2100 =>
-      '٩:٠٠ مساءً — إغلاق الشاشات + مراجعة مسائية';
+      '9:00 مساءً — إغلاق الشاشات + مراجعة مسائية';
 
   @override
   String get dailyProgramHeavyPomodoro => 'بومودورو تركيز إضافي';
@@ -4489,53 +4489,53 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dailyProgramPersonalizedLocked => 'البرنامج اليومي المخصص';
 
   @override
-  String get dailyProgramHourly07 => '٠٧:٠٠ — استيقاظ وترطيب وتمدد خفيف';
+  String get dailyProgramHourly07 => '07:00 — استيقاظ وترطيب وتمدد خفيف';
 
   @override
-  String get dailyProgramHourly08 => '٠٨:٠٠ — قراءة مركّزة';
+  String get dailyProgramHourly08 => '08:00 — قراءة مركّزة';
 
   @override
-  String get dailyProgramHourly09 => '٠٩:٠٠ — كتلة بومودورو عميقة';
+  String get dailyProgramHourly09 => '09:00 — كتلة بومودورو عميقة';
 
   @override
-  String get dailyProgramHourly10 => '١٠:٠٠ — حركة / مشي';
+  String get dailyProgramHourly10 => '10:00 — حركة / مشي';
 
   @override
-  String get dailyProgramHourly11 => '١١:٠٠ — كتلة بومودورو عميقة';
+  String get dailyProgramHourly11 => '11:00 — كتلة بومودورو عميقة';
 
   @override
-  String get dailyProgramHourly12 => '١٢:٠٠ — وجبة وراحة قصيرة (بدون فيدز)';
+  String get dailyProgramHourly12 => '12:00 — وجبة وراحة قصيرة (بدون فيدز)';
 
   @override
-  String get dailyProgramHourly13 => '١٣:٠٠ — كتلة بومودورو عميقة';
+  String get dailyProgramHourly13 => '13:00 — كتلة بومودورو عميقة';
 
   @override
-  String get dailyProgramHourly14 => '١٤:٠٠ — كتلة تعافٍ بلا شاشة';
+  String get dailyProgramHourly14 => '14:00 — كتلة تعافٍ بلا شاشة';
 
   @override
   String get dailyProgramHourly15 =>
-      '١٥:٠٠ — تمارين معرفية (N-Back + مدى الأرقام)';
+      '15:00 — تمارين معرفية (N-Back + مدى الأرقام)';
 
   @override
-  String get dailyProgramHourly16 => '١٦:٠٠ — كتلة بومودورو عميقة';
+  String get dailyProgramHourly16 => '16:00 — كتلة بومودورو عميقة';
 
   @override
-  String get dailyProgramHourly17 => '١٧:٠٠ — استراحة خارجية / ضوء شمس';
+  String get dailyProgramHourly17 => '17:00 — استراحة خارجية / ضوء شمس';
 
   @override
-  String get dailyProgramHourly18 => '١٨:٠٠ — تركيز خفيف بمهمة واحدة';
+  String get dailyProgramHourly18 => '18:00 — تركيز خفيف بمهمة واحدة';
 
   @override
-  String get dailyProgramHourly19 => '١٩:٠٠ — بداية غروب رقمي';
+  String get dailyProgramHourly19 => '19:00 — بداية غروب رقمي';
 
   @override
-  String get dailyProgramHourly20 => '٢٠:٠٠ — قراءة هادئة';
+  String get dailyProgramHourly20 => '20:00 — قراءة هادئة';
 
   @override
-  String get dailyProgramHourly21 => '٢١:٠٠ — مراجعة مسائية مكتوبة';
+  String get dailyProgramHourly21 => '21:00 — مراجعة مسائية مكتوبة';
 
   @override
-  String get dailyProgramHourly22 => '٢٢:٠٠ — تهدئة والاستعداد للنوم';
+  String get dailyProgramHourly22 => '22:00 — تهدئة والاستعداد للنوم';
 
   @override
   String dailyProgramActivityLine(String title, int minutes) {
@@ -4754,7 +4754,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get briTestSubtitle =>
-      '١٦ سؤالاً على ٤ محاور — تشخيص مجاني، إعادة كل ٧ أيام';
+      '16 سؤالاً على 4 محاور — تشخيص مجاني، إعادة كل 7 أيام';
 
   @override
   String get briContinueCta => 'متابعة';
@@ -4773,7 +4773,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get briSevereWarningBody =>
-      'دماغك يحتاج بروتوكول إعادة ضبط عاجل. لا تقلق — ٤ أسابيع فقط وترجع أوضح.';
+      'دماغك يحتاج بروتوكول إعادة ضبط عاجل. لا تقلق — 4 أسابيع فقط وترجع أوضح.';
 
   @override
   String get briProBadge => 'Pro';
@@ -4880,16 +4880,16 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get briBandHealthy => 'دماغ صحي (٠–٣٠)';
+  String get briBandHealthy => 'دماغ صحي (0–30)';
 
   @override
-  String get briBandMild => 'تعفن بسيط (٣١–٦٠)';
+  String get briBandMild => 'تعفن بسيط (31–60)';
 
   @override
-  String get briBandModerate => 'تعفن متوسط (٦١–٨٥)';
+  String get briBandModerate => 'تعفن متوسط (61–85)';
 
   @override
-  String get briBandSevere => 'تعفن شديد (٨٦–١٠٠)';
+  String get briBandSevere => 'تعفن شديد (86–100)';
 
   @override
   String get briAxisShortForm => 'إدمان المحتوى السريع';
@@ -4908,7 +4908,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get briQShortForm2 =>
-      'أجد صعوبة في مشاهدة فيلم ٣٠ دقيقة دون لمس الهاتف.';
+      'أجد صعوبة في مشاهدة فيلم 30 دقيقة دون لمس الهاتف.';
 
   @override
   String get briQShortForm3 =>
@@ -4929,7 +4929,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get briQAttention4 =>
-      'أستطيع التركيز ١٥+ دقيقة على مهمة واحدة دون فحص الهاتف.';
+      'أستطيع التركيز 15+ دقيقة على مهمة واحدة دون فحص الهاتف.';
 
   @override
   String get briQInfoFatigue1 => 'أشعر بضغط عقلي بعد التصفح.';
@@ -4949,7 +4949,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get briQBoredom1 => 'أشعر بالقلق بدون هاتف.';
 
   @override
-  String get briQBoredom2 => 'أتجنب المهام التي تحتاج ١٥+ دقيقة تركيز.';
+  String get briQBoredom2 => 'أتجنب المهام التي تحتاج 15+ دقيقة تركيز.';
 
   @override
   String get briQBoredom3 => 'الصمت أو الانتظار يبدو غير محتمل بدون شاشة.';
@@ -4998,7 +4998,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v2TodayHomeMissingPlan =>
-      'خطتك غير جاهزة بعد. اضغط بالأسفل لبناء اليوم ١.';
+      'خطتك غير جاهزة بعد. اضغط بالأسفل لبناء اليوم 1.';
 
   @override
   String get v2OnboardingWelcomePromise =>
@@ -5016,7 +5016,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v2OnboardingQuickSetupBody =>
-      'أجب مرة واحدة لنجهّز لك خطة ٣٠ يوماً بلطف.';
+      'أجب مرة واحدة لنجهّز لك خطة 30 يوماً بلطف.';
 
   @override
   String get v2OnboardingQuickSetupContinue => 'شوف خطتي';
@@ -5040,16 +5040,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2OnboardingQReminder => 'متى نذكّرك؟';
 
   @override
-  String get v2OnboardingHoursUnder2 => 'أقل من ٢س';
+  String get v2OnboardingHoursUnder2 => 'أقل من 2س';
 
   @override
-  String get v2OnboardingHours2to4 => '٢–٤س';
+  String get v2OnboardingHours2to4 => '2–4س';
 
   @override
-  String get v2OnboardingHours4to6 => '٤–٦س';
+  String get v2OnboardingHours4to6 => '4–6س';
 
   @override
-  String get v2OnboardingHoursOver6 => '٦س+';
+  String get v2OnboardingHoursOver6 => '6س+';
 
   @override
   String get v2OnboardingGoalFocus => 'تركيز';
@@ -5064,21 +5064,21 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v2OnboardingGoalCalm => 'هدوء أكثر';
 
   @override
-  String get v2OnboardingPlanReadyTitle => 'خطتك لـ ٣٠ يوم جاهزة';
+  String get v2OnboardingPlanReadyTitle => 'خطتك لـ 30 يوم جاهزة';
 
   @override
   String get v2OnboardingPlanReadyBody =>
       'خطوة صغيرة كل يوم. تقدر تتخطى متى ما تبي — بدون عقاب.';
 
   @override
-  String get v2OnboardingPlanReadyCardTitle => 'اليوم ١ · حوالي ٣ دقايق';
+  String get v2OnboardingPlanReadyCardTitle => 'اليوم 1 · حوالي 3 دقايق';
 
   @override
   String get v2OnboardingPlanReadyCardBody =>
       'تمرين هادئ للبداية وإعادة بناء التركيز.';
 
   @override
-  String get v2OnboardingStartDay1 => 'ابدأ اليوم ١ (٣ دقايق)';
+  String get v2OnboardingStartDay1 => 'ابدأ اليوم 1 (3 دقايق)';
 
   @override
   String get v2ExercisesTestsSection => 'اختبارات';

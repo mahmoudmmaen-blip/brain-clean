@@ -5,14 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/bootstrap/app_hydration_provider.dart';
-import '../../../core/constants/app_routes.dart';
-import '../../../v3/application/v3_onboarding_gate_provider.dart';
-import '../../../v3/routing/v3_startup.dart';
-import '../../../core/security/security_status_provider.dart';
 import '../../../core/l10n/app_localizations.dart';
+import '../../../core/security/security_status_provider.dart';
+import '../../../v3/application/v3_onboarding_gate_provider.dart';
+import '../../../v3/routing/v3_routes.dart';
+import '../../../v3/routing/v3_startup.dart';
 
-/// Cold-start gate: hydrates Hive + Riverpod, then home or **live session** resume.
+/// Cold-start gate: then welcome or Today (V3).
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
@@ -33,6 +32,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
   String _typedTitle = '';
   bool _showSubtitle = false;
+  bool _routing = true;
   Timer? _typewriterTimer;
   int _charIndex = 0;
 
@@ -73,15 +73,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
   Future<void> _hydrateAndRoute() async {
     final started = DateTime.now();
-    var snapshot = const AppHydrationSnapshot(
-      hasCommittedSession: false,
-      hasDraftProgress: false,
-    );
-    try {
-      snapshot = await ref.read(appHydrationProvider.future);
-    } catch (_) {
-      // Local Hive remains authoritative; route using defaults below.
-    }
 
     final elapsed = DateTime.now().difference(started);
     if (elapsed < SplashScreen.minSplashDuration) {
@@ -96,7 +87,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
           .read(biometricAuthControllerProvider.notifier)
           .authenticate();
       if (!ok) {
-        if (mounted) context.go(AppRoutes.biometricLock);
+        if (mounted) context.go(V3Routes.biometricLock);
         return;
       }
     }
@@ -109,7 +100,10 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
         '[SplashColdStart] v3OnboardingDone=$onboardingDone destination=$destination',
       );
     }
-    context.go(destination);
+    if (mounted) {
+      setState(() => _routing = false);
+      context.go(destination);
+    }
   }
 
   @override
@@ -121,7 +115,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
-    final hydration = ref.watch(appHydrationProvider);
 
     return Scaffold(
       backgroundColor: const Color(0xFF0D1117),
@@ -160,18 +153,11 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    if (hydration.hasError)
-                      Text(
-                        loc.splashHydrationRetry,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(color: Color(0xFF8B949E)),
-                      ),
                   ],
                 ),
               ),
             ),
-            if (hydration.isLoading)
+            if (_routing)
               const Padding(
                 padding: EdgeInsets.fromLTRB(32, 0, 32, 32),
                 child: LinearProgressIndicator(

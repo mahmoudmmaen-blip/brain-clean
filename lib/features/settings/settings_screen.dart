@@ -4,21 +4,19 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/application/app_preferences_provider.dart';
 import '../../core/config/app_config.dart';
-import '../../core/constants/app_routes.dart';
 import '../../core/l10n/app_localizations.dart';
 import '../../core/presentation/app_snack_bar.dart';
 import '../../core/presentation/confirm_dialog.dart';
 import '../../core/providers/locale_provider.dart';
 import '../../core/security/security_status_provider.dart';
 import '../../core/services/external_link_service.dart';
-import '../../core/services/smart_notification_service.dart';
-import '../../core/services/weekly_report_service.dart';
 import '../../core/storage/hive_bootstrap.dart';
 import '../../core/theme/app_color_theme.dart';
 import '../../core/theme/app_color_theme_provider.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_design_constants.dart';
 import '../../core/theme/v2_shell_visual.dart';
+import '../../v3/routing/v3_routes.dart';
 import '../pro/application/subscription_service_provider.dart';
 
 const settingsProTileKey = Key('settings_pro_tile');
@@ -113,8 +111,6 @@ class SettingsScreen extends ConsumerWidget {
     try {
       ref.read(localeProvider.notifier).state = next;
       await persistLocale(ref, next);
-      ref.read(smartNotificationServiceProvider).rescheduleAll();
-      ref.read(weeklyReportServiceProvider).schedule();
     } catch (_) {
       // Locale still updates in memory; persistence is best-effort.
     }
@@ -140,7 +136,7 @@ class SettingsScreen extends ConsumerWidget {
       showAppSnackBar(context, loc.settingsActionFailed);
       return;
     }
-    if (context.mounted) context.go(AppRoutes.splash);
+    if (context.mounted) context.go(V3Routes.splash);
   }
 
   Future<void> _deleteAccount(BuildContext context, WidgetRef ref) async {
@@ -162,7 +158,7 @@ class SettingsScreen extends ConsumerWidget {
       showAppSnackBar(context, loc.settingsActionFailed);
       return;
     }
-    if (context.mounted) context.go(AppRoutes.splash);
+    if (context.mounted) context.go(V3Routes.splash);
   }
 
   @override
@@ -192,15 +188,12 @@ class SettingsScreen extends ConsumerWidget {
           isPro: isPro,
           locale: locale,
           selectedTheme: selectedTheme,
-          emotionNotificationsEnabled: prefs.emotionNotificationsEnabled,
           dailyFocusReminderEnabled: prefs.dailyFocusReminderEnabled,
           biometricLockEnabled: ref.watch(biometricLockSettingsProvider),
           appVersion: AppConfig.appVersion,
           onEditDisplayName: () => _editDisplayName(context, ref),
           onOpenPremium: () => context.push(
-            isPro
-                ? AppRoutes.v2PremiumStatusWithSource('settings')
-                : AppRoutes.v2PremiumWithSource('settings'),
+            '${V3Routes.paywall}?source=settings',
           ),
           onSelectLanguage: (next) => _selectLanguage(ref, next),
           onSelectTheme: (theme) async {
@@ -210,24 +203,11 @@ class SettingsScreen extends ConsumerWidget {
                   .select(theme);
             } catch (_) {}
           },
-          onEmotionNotificationsChanged: (v) async {
-            try {
-              await ref
-                  .read(appPreferencesProvider.notifier)
-                  .setEmotionNotifications(v);
-              await ref
-                  .read(smartNotificationServiceProvider)
-                  .rescheduleAll();
-            } catch (_) {}
-          },
           onDailyFocusReminderChanged: (v) async {
             try {
               await ref
                   .read(appPreferencesProvider.notifier)
                   .setDailyFocusReminder(v);
-              await ref
-                  .read(smartNotificationServiceProvider)
-                  .rescheduleAll();
             } catch (_) {}
           },
           onBiometricLockChanged: (enabled) async {
@@ -268,7 +248,6 @@ class SettingsHomeBody extends StatelessWidget {
     required this.isPro,
     required this.locale,
     required this.selectedTheme,
-    required this.emotionNotificationsEnabled,
     required this.dailyFocusReminderEnabled,
     required this.biometricLockEnabled,
     required this.appVersion,
@@ -276,7 +255,6 @@ class SettingsHomeBody extends StatelessWidget {
     required this.onOpenPremium,
     required this.onSelectLanguage,
     required this.onSelectTheme,
-    required this.onEmotionNotificationsChanged,
     required this.onDailyFocusReminderChanged,
     required this.onBiometricLockChanged,
     required this.onLogout,
@@ -290,7 +268,6 @@ class SettingsHomeBody extends StatelessWidget {
   final bool isPro;
   final Locale locale;
   final AppColorTheme selectedTheme;
-  final bool emotionNotificationsEnabled;
   final bool dailyFocusReminderEnabled;
   final bool biometricLockEnabled;
   final String appVersion;
@@ -298,7 +275,6 @@ class SettingsHomeBody extends StatelessWidget {
   final VoidCallback onOpenPremium;
   final ValueChanged<Locale> onSelectLanguage;
   final ValueChanged<AppColorTheme> onSelectTheme;
-  final ValueChanged<bool> onEmotionNotificationsChanged;
   final ValueChanged<bool> onDailyFocusReminderChanged;
   final ValueChanged<bool> onBiometricLockChanged;
   final VoidCallback onLogout;
@@ -350,11 +326,6 @@ class SettingsHomeBody extends StatelessWidget {
           const SizedBox(height: _kGapSectionToRow),
           V2SettingsGroup(
             children: [
-              V2SettingsSwitchRow(
-                title: loc.settingsEmotionNotifications,
-                value: emotionNotificationsEnabled,
-                onChanged: onEmotionNotificationsChanged,
-              ),
               V2SettingsSwitchRow(
                 title: loc.settingsDailyFocusReminder,
                 value: dailyFocusReminderEnabled,

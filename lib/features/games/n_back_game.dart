@@ -6,8 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/l10n/app_localizations.dart';
 import '../../core/theme/app_colors.dart';
-import '../diagnostic/presentation/bc_score_provider.dart';
-import '../gamification/domain/xp_source.dart';
 import 'application/games_scores_provider.dart';
 import 'domain/n_back_logic.dart';
 import 'domain/n_back_session.dart';
@@ -127,12 +125,6 @@ class _NBackGameScreenState extends ConsumerState<NBackGameScreen> {
     _stimulusTimer?.cancel();
     _sessionTimer?.cancel();
     final maxN = _session.nLevel;
-    final bonus = nBackBcsBonus(maxN);
-    ref.read(bcScoreProvider.notifier).applyBonus(
-          bonus,
-          xpSource: XpSource.game,
-          xpRefId: 'n_back:${DateTime.now().millisecondsSinceEpoch}',
-        );
     ref.read(gamesBestScoresControllerProvider.notifier).updateNBackBest(maxN);
     if (mounted) setState(() {});
   }

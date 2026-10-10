@@ -6,8 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/l10n/app_localizations.dart';
 import '../../core/providers/locale_provider.dart';
-import '../diagnostic/presentation/bc_score_provider.dart';
-import '../gamification/domain/xp_source.dart';
 import 'application/games_scores_provider.dart';
 import 'domain/speed_sort_logic.dart';
 
@@ -113,12 +111,6 @@ class _SpeedSortGameScreenState extends ConsumerState<SpeedSortGameScreen> {
     _gameTimer?.cancel();
     _spawnTimer?.cancel();
     _fallTimer?.cancel();
-    final bonus = speedSortBcsBonus(_correct);
-    ref.read(bcScoreProvider.notifier).applyBonus(
-          bonus,
-          xpSource: XpSource.game,
-          xpRefId: 'speed_sort:${DateTime.now().millisecondsSinceEpoch}',
-        );
     ref
         .read(gamesBestScoresControllerProvider.notifier)
         .updateSpeedSortBest(_correct);

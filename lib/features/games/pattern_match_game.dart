@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/l10n/app_localizations.dart';
-import '../diagnostic/presentation/bc_score_provider.dart';
-import '../gamification/domain/xp_source.dart';
 import 'application/games_scores_provider.dart';
 import 'domain/game_scoring.dart';
 
@@ -87,12 +85,6 @@ class _PatternMatchGameScreenState
       correctCells: _totalCorrect,
       totalCells: _totalCells,
     ).round();
-    final bonus = patternMatchBcsBonus(score.toDouble());
-    ref.read(bcScoreProvider.notifier).applyBonus(
-          bonus,
-          xpSource: XpSource.game,
-          xpRefId: 'pattern_match:${DateTime.now().millisecondsSinceEpoch}',
-        );
     ref.read(gamesBestScoresControllerProvider.notifier).updatePatternBest(score);
     setState(() => _finished = true);
   }

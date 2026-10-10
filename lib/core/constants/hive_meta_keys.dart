@@ -49,7 +49,7 @@ abstract final class HiveMetaKeys {
   static const cognitiveMemoryResultJson = 'cognitiveMemoryResultJson';
   static const selectedColorThemeId = 'selectedColorThemeId';
 
-  /// Phase 5 IQ matrix test latest result JSON ([QuickTestResult]).
+  /// Legacy quick-test result key (unused in V3).
   static const iqTestResultJson = 'iqTestResultJson';
 
   /// Phase 5 digital brain-rot screen-habits latest result JSON.

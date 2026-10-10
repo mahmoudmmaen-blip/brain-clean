@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/constants/app_routes.dart';
+import '../../../v3/routing/v3_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../data/premium_controller_provider.dart';
 import 'premium_shared_widgets.dart';
@@ -19,17 +19,17 @@ class PremiumSuccessScreen extends ConsumerWidget {
   void _return(BuildContext context) {
     final s = source;
     if (s == 'reports' || s == 'reports_archive') {
-      context.go(AppRoutes.v2Reports);
+      context.go(V3Routes.progress);
       return;
     }
     if (s == 'profile') {
-      context.go(AppRoutes.v2Profile);
+      context.go(V3Routes.settings);
       return;
     }
     if (context.canPop()) {
       context.pop();
     } else {
-      context.go(AppRoutes.v2Home);
+      context.go(V3Routes.today);
     }
   }
 
@@ -68,7 +68,7 @@ class PremiumSuccessScreen extends ConsumerWidget {
             ),
             PremiumSecondaryButton(
               label: loc.v2PremiumManage,
-              onPressed: () => context.go(AppRoutes.v2PremiumStatus),
+              onPressed: () => context.go(V3Routes.paywall),
             ),
           ],
         ),

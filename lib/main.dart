@@ -6,10 +6,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'core/l10n/app_localization_config.dart';
 import 'core/network/supabase_client.dart';
 import 'core/providers/locale_provider.dart';
-import 'v3/routing/v3_router.dart';
-import 'core/services/midnight_reset_service.dart';
-import 'core/services/smart_notification_service.dart';
-import 'core/services/weekly_report_service.dart';
 import 'core/security/root_detector.dart';
 import 'core/security/security_status_provider.dart';
 import 'core/storage/hive_bootstrap.dart';
@@ -17,7 +13,7 @@ import 'core/theme/app_color_theme.dart';
 import 'core/theme/app_color_theme_provider.dart';
 import 'core/theme/locale_theme.dart';
 import 'core/theme/system_ui.dart';
-import 'features/gamification/application/xp_sync_service.dart';
+import 'v3/routing/v3_router.dart';
 
 Future<void> _loadDotEnvSafely() async {
   try {
@@ -57,28 +53,17 @@ class BrainCleanApp extends ConsumerStatefulWidget {
 
 class _BrainCleanAppState extends ConsumerState<BrainCleanApp>
     with WidgetsBindingObserver {
-  MidnightResetService? _midnightReset;
-
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await ref.read(biometricLockSettingsProvider.notifier).hydrate();
-      _midnightReset = MidnightResetService(read: ref.read);
-      WidgetsBinding.instance.addObserver(_midnightReset!);
-      _midnightReset!.triggerResetIfNeeded();
-      ref.read(weeklyReportServiceProvider).schedule();
-      ref.read(smartNotificationServiceProvider).rescheduleAll();
-      ref.read(xpSyncServiceProvider.notifier).syncIfPossible();
     });
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      ref.read(xpSyncServiceProvider.notifier).syncIfPossible();
-    }
     if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.inactive) {
       final enabled = ref.read(biometricLockSettingsProvider);
@@ -91,9 +76,6 @@ class _BrainCleanAppState extends ConsumerState<BrainCleanApp>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    if (_midnightReset != null) {
-      WidgetsBinding.instance.removeObserver(_midnightReset!);
-    }
     super.dispose();
   }
 

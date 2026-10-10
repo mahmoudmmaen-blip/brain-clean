@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/constants/app_routes.dart';
+import '../../../v3/routing/v3_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/services/external_link_service.dart';
 import '../../../core/theme/app_colors.dart';
@@ -67,13 +67,13 @@ class _PremiumPlansScreenState extends ConsumerState<PremiumPlansScreen> {
   void _returnSource() {
     final source = widget.source;
     if (source == 'reports' || source == 'reports_archive') {
-      context.go(AppRoutes.v2Reports);
+      context.go(V3Routes.progress);
       return;
     }
     if (context.canPop()) {
       context.pop();
     } else {
-      context.go(AppRoutes.v2Premium);
+      context.go(V3Routes.paywall);
     }
   }
 
@@ -113,7 +113,7 @@ class _PremiumPlansScreenState extends ConsumerState<PremiumPlansScreen> {
             const SizedBox(height: 16),
             PremiumPrimaryButton(
               label: loc.v2PremiumManage,
-              onPressed: () => context.go(AppRoutes.v2PremiumStatus),
+              onPressed: () => context.go(V3Routes.paywall),
             ),
           ] else if (state.phase == PremiumPurchasePhase.noOffering) ...[
             Semantics(
@@ -151,7 +151,7 @@ class _PremiumPlansScreenState extends ConsumerState<PremiumPlansScreen> {
                       if (next.phase == PremiumPurchasePhase.purchased ||
                           next.phase == PremiumPurchasePhase.alreadyEntitled) {
                         context.go(
-                          '${AppRoutes.v2PremiumSuccess}?source=${Uri.encodeComponent(widget.source ?? 'plans')}',
+                          '${V3Routes.today}?source=${Uri.encodeComponent(widget.source ?? 'plans')}',
                         );
                       }
                     },
@@ -172,7 +172,7 @@ class _PremiumPlansScreenState extends ConsumerState<PremiumPlansScreen> {
                     await _controller.restore();
                     if (!context.mounted) return;
                     if (_controller.state.isEntitled) {
-                      context.go(AppRoutes.v2PremiumSuccess);
+                      context.go(V3Routes.today);
                     }
                   },
           ),

@@ -3,8 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constants/hive_meta_keys.dart';
 import '../data/app_meta_box_provider.dart';
-import '../services/smart_notification_service.dart';
-import '../services/weekly_report_service.dart';
 
 /// Loads persisted locale from Hive or defaults to Arabic.
 Locale readPersistedLocale(T Function<T>(ProviderListenable<T> provider) read) {
@@ -43,10 +41,6 @@ Future<void> toggleLocale(WidgetRef ref) async {
       : const Locale('ar');
   ref.read(localeProvider.notifier).state = next;
   await persistLocale(ref, next);
-  try {
-    ref.read(smartNotificationServiceProvider).rescheduleAll();
-    ref.read(weeklyReportServiceProvider).schedule();
-  } catch (_) {}
 }
 
 String localeFlagEmoji(Locale locale) =>

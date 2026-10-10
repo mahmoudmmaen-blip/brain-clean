@@ -5,27 +5,26 @@ import 'package:hive_flutter/hive_flutter.dart';
 import '../constants/hive_meta_keys.dart';
 import '../security/secure_key_store.dart';
 import 'hive_boxes.dart';
-import '../../features/gamification/data/adapters/xp_ledger_entry_adapter.dart';
-import '../../features/gamification/data/xp_ledger_repository.dart';
-import '../../features/gamification/data/xp_ledger_migration.dart';
-import '../../features/dashboard/data/daily_snapshots_repository.dart';
-import '../../features/dashboard/domain/daily_snapshot.dart';
-import '../../features/recovery/data/adapters/recovery_day_record_adapter.dart';
-import '../../features/recovery/data/adapters/recovery_protocol_state_adapter.dart';
 
 /// Hive cold-start bootstrap for Brain Clean local-first persistence.
 ///
-/// All durable boxes are opened with [SecureKeyStore.cipher] (AES-256).
+/// Durable boxes are opened with [SecureKeyStore.cipher] (AES-256).
 /// Legacy unencrypted boxes are migrated once ([HiveMetaKeys.boxesEncryptedV1]).
 abstract final class HiveBootstrap {
   static bool _initialized = false;
 
+  /// Boxes opened at cold start (V3 + meta).
   static const List<String> _durableBoxes = [
+    HiveBoxes.appMeta,
+    HiveBoxes.v3State,
+  ];
+
+  /// Legacy V1/V2 box names kept only so migration can detect + delete them.
+  static const List<String> legacyBoxNames = [
     HiveBoxes.recoveryProtocol,
     HiveBoxes.diagnosticPersistence,
     HiveBoxes.emotionLog,
     HiveBoxes.dailySnapshots,
-    HiveBoxes.appMeta,
     HiveBoxes.journeyData,
     HiveBoxes.journalSpaces,
     HiveBoxes.goldenMemories,
@@ -38,17 +37,12 @@ abstract final class HiveBootstrap {
     HiveBoxes.progress,
     HiveBoxes.weeklyReview,
     HiveBoxes.structuredDailyProgram,
-    HiveBoxes.v3State,
   ];
 
   static Future<void> initialize() async {
     if (_initialized) return;
     await Hive.initFlutter();
     await SecureKeyStore.getOrCreateHiveKey();
-    _registerRecoveryAdapters();
-    _registerDashboardAdapters();
-    _registerGamificationAdapters();
-    _registerProModulesAdapters();
     _initialized = true;
   }
 
@@ -66,31 +60,36 @@ abstract final class HiveBootstrap {
     }
   }
 
+  /// True when any pre-V3 Hive box still exists on disk.
+  static Future<bool> hasLegacyBoxes() async {
+    for (final name in legacyBoxNames) {
+      if (await Hive.boxExists(name)) return true;
+    }
+    return false;
+  }
+
+  /// Deletes legacy V1/V2 boxes after the one-time migration screen.
+  static Future<void> deleteLegacyBoxes() async {
+    for (final name in legacyBoxNames) {
+      try {
+        if (Hive.isBoxOpen(name)) {
+          await Hive.box<dynamic>(name).close();
+        }
+        if (await Hive.boxExists(name)) {
+          await Hive.deleteBoxFromDisk(name);
+        }
+      } catch (error, stackTrace) {
+        debugPrint('HiveBootstrap: failed to delete legacy $name: $error');
+        debugPrint('$stackTrace');
+      }
+    }
+  }
+
   /// Opens all durable boxes before UI hydration (cold-start safety).
   static Future<void> warmUpPersistentBoxes() async {
     await initialize();
     await _migrateUnencryptedBoxesIfNeeded();
     await Future.wait(_durableBoxes.map(_openEncryptedBox));
-    await _migrateXpLedgerIfNeeded();
-  }
-
-  static Future<void> _migrateXpLedgerIfNeeded() async {
-    try {
-      final meta = Hive.box<dynamic>(HiveBoxes.appMeta);
-      final ledgerBox = Hive.box<dynamic>(HiveBoxes.xpLedger);
-      final snapshotsBox = Hive.box<dynamic>(HiveBoxes.dailySnapshots);
-      await XpLedgerMigration.migrateIfNeeded(
-        metaBox: meta,
-        ledger: XpLedgerRepository(
-          ledgerBox: ledgerBox,
-          metaBox: meta,
-        ),
-        snapshots: DailySnapshotsRepository(snapshotsBox),
-      );
-    } catch (error, stackTrace) {
-      debugPrint('HiveBootstrap: XP ledger migration skipped: $error');
-      debugPrint('$stackTrace');
-    }
   }
 
   static Future<Box<dynamic>> _openEncryptedBox(String name) async {
@@ -160,7 +159,6 @@ abstract final class HiveBootstrap {
     final inProgressKey = 'hive_migration_v1_in_progress_$name';
     final backupPathKey = 'hive_migration_v1_backup_path_$name';
 
-    // If a previous run crashed after making a backup, restore it first.
     final existingBackupPath = await SecureKeyStore.read(backupPathKey);
     if (!await Hive.boxExists(name) &&
         existingBackupPath != null &&
@@ -202,7 +200,6 @@ abstract final class HiveBootstrap {
       return;
     }
 
-    // Mark migration started before touching disk.
     await SecureKeyStore.write(inProgressKey, 'true');
 
     final backupPath = (boxPath == null || boxPath.isEmpty)
@@ -238,11 +235,9 @@ abstract final class HiveBootstrap {
       debugPrint('HiveBootstrap: encrypted rewrite failed for $name: $error');
       debugPrint('$stackTrace');
 
-      // Best-effort restore to plaintext so we don't strand user data.
       if (backupPath != null && boxPath != null) {
         await _restoreBackupIfPresent(backupPath, restoreTo: boxPath);
       }
-      // Do not crash startup — leave box plaintext; next run can retry.
       return;
     }
   }
@@ -294,39 +289,6 @@ abstract final class HiveBootstrap {
     } catch (_) {
       // ignore
     }
-  }
-
-  static void _registerDashboardAdapters() {
-    if (!Hive.isAdapterRegistered(DailySnapshotAdapter().typeId)) {
-      Hive.registerAdapter(DailySnapshotAdapter());
-    }
-  }
-
-  static void _registerRecoveryAdapters() {
-    if (!Hive.isAdapterRegistered(RecoveryDayRecordAdapter().typeId)) {
-      Hive.registerAdapter(RecoveryDayRecordAdapter());
-    }
-    if (!Hive.isAdapterRegistered(RecoveryProtocolStateAdapter().typeId)) {
-      Hive.registerAdapter(RecoveryProtocolStateAdapter());
-    }
-  }
-
-  static void _registerGamificationAdapters() {
-    if (!Hive.isAdapterRegistered(XpLedgerEntryAdapter().typeId)) {
-      Hive.registerAdapter(XpLedgerEntryAdapter());
-    }
-  }
-
-  static void _registerProModulesAdapters() {
-    // Pro module adapters register here when models land.
-  }
-
-  @visibleForTesting
-  static void registerRecoveryAdaptersForTests() {
-    _registerRecoveryAdapters();
-    _registerDashboardAdapters();
-    _registerGamificationAdapters();
-    _registerProModulesAdapters();
   }
 
   @visibleForTesting

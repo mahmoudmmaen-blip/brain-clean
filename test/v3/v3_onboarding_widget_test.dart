@@ -1,4 +1,5 @@
-import 'package:brain_clean_mobile/core/bootstrap/app_hydration_provider.dart';
+import 'dart:io';
+
 import 'package:brain_clean_mobile/core/providers/locale_provider.dart';
 import 'package:brain_clean_mobile/core/security/security_status_provider.dart';
 import 'package:brain_clean_mobile/features/splash/presentation/splash_screen.dart';
@@ -7,7 +8,6 @@ import 'package:brain_clean_mobile/v3/application/v3_state_providers.dart';
 import 'package:brain_clean_mobile/v3/content/content.dart';
 import 'package:brain_clean_mobile/v3/data/user_profile.dart';
 import 'package:brain_clean_mobile/v3/data/v3_state_repository.dart';
-import 'dart:io';
 import 'package:brain_clean_mobile/v3/ui/onboarding/onboarding_keys.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -38,7 +38,6 @@ void main() {
   });
 
   List<Override> baseOverrides() => [
-        appHydrationProvider.overrideWith(_InstantHydration.new),
         biometricLockSettingsProvider.overrideWith(
           () => _WidgetTestBiometricLockSettings(),
         ),
@@ -136,16 +135,6 @@ void main() {
     expect(find.byKey(const Key('v3_today_screen')), findsOneWidget);
     expect(find.byKey(V3OnboardingKeys.welcomeStart), findsNothing);
   });
-}
-
-class _InstantHydration extends AppHydration {
-  @override
-  Future<AppHydrationSnapshot> build() async {
-    return const AppHydrationSnapshot(
-      hasCommittedSession: false,
-      hasDraftProgress: false,
-    );
-  }
 }
 
 class _WidgetTestBiometricLockSettings extends BiometricLockSettings {

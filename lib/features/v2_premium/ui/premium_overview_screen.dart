@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/constants/app_routes.dart';
+import '../../../v3/routing/v3_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/services/external_link_service.dart';
 import '../../../core/theme/app_colors.dart';
@@ -66,13 +66,13 @@ class _PremiumOverviewScreenState extends ConsumerState<PremiumOverviewScreen> {
     if (widget.embeddedInShell) return;
     final source = widget.source;
     if (source == 'reports' || source == 'reports_archive') {
-      context.go(AppRoutes.v2Reports);
+      context.go(V3Routes.progress);
       return;
     }
     if (context.canPop()) {
       context.pop();
     } else {
-      context.go(AppRoutes.v2Profile);
+      context.go(V3Routes.settings);
     }
   }
 
@@ -139,7 +139,7 @@ class _PremiumOverviewScreenState extends ConsumerState<PremiumOverviewScreen> {
         PremiumPrimaryButton(
           label: loc.v2PremiumManage,
           onPressed: () => context.go(
-            '${AppRoutes.v2PremiumStatus}?source=${Uri.encodeComponent(widget.source ?? 'profile')}',
+            '${V3Routes.paywall}?source=${Uri.encodeComponent(widget.source ?? 'profile')}',
           ),
         ),
       ] else ...[
@@ -151,7 +151,7 @@ class _PremiumOverviewScreenState extends ConsumerState<PremiumOverviewScreen> {
                   state.phase == PremiumPurchasePhase.offlineUnknown
               ? null
               : () => context.go(
-                    '${AppRoutes.v2PremiumPlans}?source=${Uri.encodeComponent(widget.source ?? 'profile')}',
+                    '${V3Routes.paywall}?source=${Uri.encodeComponent(widget.source ?? 'profile')}',
                   ),
         ),
         if (state.phase == PremiumPurchasePhase.noOffering ||
@@ -171,7 +171,7 @@ class _PremiumOverviewScreenState extends ConsumerState<PremiumOverviewScreen> {
                 if (!context.mounted) return;
                 if (_controller.state.isEntitled) {
                   context.go(
-                    '${AppRoutes.v2PremiumSuccess}?source=${Uri.encodeComponent(widget.source ?? 'restore')}',
+                    '${V3Routes.today}?source=${Uri.encodeComponent(widget.source ?? 'restore')}',
                   );
                 }
               },
@@ -184,7 +184,7 @@ class _PremiumOverviewScreenState extends ConsumerState<PremiumOverviewScreen> {
       PremiumSecondaryButton(
         label: loc.v2PremiumManage,
         onPressed: () => context.go(
-          '${AppRoutes.v2PremiumStatus}?source=${Uri.encodeComponent(widget.source ?? 'profile')}',
+          '${V3Routes.paywall}?source=${Uri.encodeComponent(widget.source ?? 'profile')}',
         ),
       ),
       const SizedBox(height: 16),

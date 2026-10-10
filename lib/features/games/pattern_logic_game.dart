@@ -6,8 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/l10n/app_localizations.dart';
 import '../../core/theme/app_colors.dart';
-import '../diagnostic/presentation/bc_score_provider.dart';
-import '../gamification/domain/xp_source.dart';
 import 'application/games_scores_provider.dart';
 import 'domain/game_scoring.dart';
 
@@ -140,12 +138,6 @@ class _PatternLogicGameScreenState
   void _finishGame() {
     _timer?.cancel();
     final score = ((_correctCount / _totalQuestions) * 100).round();
-    final bonus = patternMatchBcsBonus(score.toDouble());
-    ref.read(bcScoreProvider.notifier).applyBonus(
-          bonus,
-          xpSource: XpSource.game,
-          xpRefId: 'pattern_logic:${DateTime.now().millisecondsSinceEpoch}',
-        );
     ref.read(gamesBestScoresControllerProvider.notifier).updatePatternBest(score);
     setState(() => _finished = true);
   }

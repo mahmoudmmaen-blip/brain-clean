@@ -2,10 +2,11 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../constants/app_routes.dart';
+import '../../v3/routing/v3_routes.dart';
 import '../routing/app_navigator_key.dart';
 
-const weeklyReportPayload = 'weekly_report';
+const dailyReminderPayload = 'daily_reminder';
+const eveningCheckInPayload = 'evening_check_in';
 
 /// Shared local notifications plugin bootstrap.
 class AppNotificationService {
@@ -34,11 +35,12 @@ class AppNotificationService {
   }
 
   void _handlePayload(String? payload) {
-    if (payload == weeklyReportPayload) {
-      final context = appNavigatorKey.currentContext;
-      if (context != null && context.mounted) {
-        context.push(AppRoutes.weeklyReport);
-      }
+    final context = appNavigatorKey.currentContext;
+    if (context == null || !context.mounted) return;
+    if (payload == dailyReminderPayload) {
+      context.go(V3Routes.today);
+    } else if (payload == eveningCheckInPayload) {
+      context.go(V3Routes.today);
     }
   }
 

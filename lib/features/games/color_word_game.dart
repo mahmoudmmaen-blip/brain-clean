@@ -4,8 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/l10n/app_localizations.dart';
 import '../../core/providers/locale_provider.dart';
 import '../../core/theme/app_colors.dart';
-import '../diagnostic/presentation/bc_score_provider.dart';
-import '../gamification/domain/xp_source.dart';
 import 'application/games_scores_provider.dart';
 import 'domain/game_scoring.dart';
 import 'domain/stroop_session.dart';
@@ -55,15 +53,6 @@ class _ColorWordGameScreenState extends ConsumerState<ColorWordGameScreen> {
 
   void _finish() {
     final score = _session.scorePercent;
-    final bonus = colorWordBcsBonus(
-      correct: _session.correct,
-      totalRounds: _session.totalRounds,
-    );
-    ref.read(bcScoreProvider.notifier).applyBonus(
-          bonus,
-          xpSource: XpSource.game,
-          xpRefId: 'color_word:${DateTime.now().millisecondsSinceEpoch}',
-        );
     ref
         .read(gamesBestScoresControllerProvider.notifier)
         .updateColorWordBest(score);

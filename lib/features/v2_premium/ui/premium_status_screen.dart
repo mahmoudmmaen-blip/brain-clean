@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/constants/app_routes.dart';
+import '../../../v3/routing/v3_routes.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../pro/application/subscription_service_provider.dart';
 import '../application/premium_controller.dart';
@@ -74,7 +74,7 @@ class _PremiumStatusScreenState extends ConsumerState<PremiumStatusScreen> {
         if (context.canPop()) {
           context.pop();
         } else {
-          context.go(AppRoutes.v2Profile);
+          context.go(V3Routes.settings);
         }
       },
       statusAnnouncement: '$entitlementLabel. $status',
@@ -109,7 +109,7 @@ class _PremiumStatusScreenState extends ConsumerState<PremiumStatusScreen> {
             PremiumSecondaryButton(
               label: loc.v2PremiumViewPlans,
               onPressed: () => context.go(
-                '${AppRoutes.v2PremiumPlans}?source=${Uri.encodeComponent(widget.source ?? 'manage')}',
+                '${V3Routes.paywall}?source=${Uri.encodeComponent(widget.source ?? 'manage')}',
               ),
             )
           else
@@ -118,16 +118,16 @@ class _PremiumStatusScreenState extends ConsumerState<PremiumStatusScreen> {
               onPressed: () {
                 final s = widget.source;
                 if (s == 'reports' || s == 'reports_archive') {
-                  context.go(AppRoutes.v2Reports);
+                  context.go(V3Routes.progress);
                 } else {
-                  context.go(AppRoutes.v2Profile);
+                  context.go(V3Routes.settings);
                 }
               },
             ),
           const SizedBox(height: 8),
           PremiumSecondaryButton(
             label: loc.v2PremiumTitle,
-            onPressed: () => context.go(AppRoutes.v2Premium),
+            onPressed: () => context.go(V3Routes.paywall),
           ),
         ],
       ),

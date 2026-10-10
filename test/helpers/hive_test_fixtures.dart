@@ -2,9 +2,6 @@ import 'dart:io';
 
 import 'package:brain_clean_mobile/core/storage/hive_bootstrap.dart';
 import 'package:brain_clean_mobile/core/storage/hive_boxes.dart';
-import 'package:brain_clean_mobile/features/diagnostic/data/diagnostic_local_repository.dart';
-import 'package:brain_clean_mobile/features/diagnostic/data/diagnostic_local_repository_provider.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 
 /// In-memory Hive box — isolates widget tests from path_provider / device I/O.
@@ -40,15 +37,12 @@ Future<HiveTestContext> openHiveTestContext() async {
   HiveBootstrap.resetForTesting();
   final tempDir = await Directory.systemTemp.createTemp('bc_hive_test_');
   Hive.init(tempDir.path);
-  HiveBootstrap.registerRecoveryAdaptersForTests();
-  final diagnosticBox =
-      await Hive.openBox<dynamic>(HiveBoxes.diagnosticPersistence);
-  final recoveryBox =
-      await Hive.openBox<dynamic>(HiveBoxes.recoveryProtocol);
+  final v3Box = await Hive.openBox<dynamic>(HiveBoxes.v3State);
+  final metaBox = await Hive.openBox<dynamic>(HiveBoxes.appMeta);
   return HiveTestContext(
     tempDir: tempDir,
-    diagnosticBox: diagnosticBox,
-    recoveryBox: recoveryBox,
+    v3Box: v3Box,
+    metaBox: metaBox,
   );
 }
 
@@ -56,19 +50,13 @@ Future<HiveTestContext> openHiveTestContext() async {
 class HiveTestContext {
   HiveTestContext({
     required this.tempDir,
-    required this.diagnosticBox,
-    required this.recoveryBox,
+    required this.v3Box,
+    required this.metaBox,
   });
 
   final Directory tempDir;
-  final Box<dynamic> diagnosticBox;
-  final Box<dynamic> recoveryBox;
-
-  DiagnosticLocalRepository get diagnosticRepository =>
-      DiagnosticLocalRepository(box: diagnosticBox);
-
-  Override get diagnosticRepositoryOverride =>
-      diagnosticLocalRepositoryProvider.overrideWithValue(diagnosticRepository);
+  final Box<dynamic> v3Box;
+  final Box<dynamic> metaBox;
 
   Future<void> dispose() async {
     await Hive.close();
