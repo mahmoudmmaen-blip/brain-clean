@@ -74,6 +74,14 @@ class ReplacementLists {
       minutes60: listFor('60'),
     );
   }
+
+  List<String> forDuration(String duration) {
+    return switch (duration) {
+      '15' => minutes15,
+      '60' => minutes60,
+      _ => minutes5,
+    };
+  }
 }
 
 class UserInputs {

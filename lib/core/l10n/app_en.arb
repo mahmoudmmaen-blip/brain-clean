@@ -630,9 +630,9 @@
   "crosswordTabAcross": "Across ↔",
   "crosswordTabDown": "Down ↕",
   "crosswordEnterLetter": "Enter letter",
-  "gameNBackTitle": "N-Back 🧠",
-  "gameNBackDesc": "A challenging working-memory exercise",
-  "gameNBackIntro": "A challenging working-memory exercise — take it at your pace",
+  "gameNBackTitle": "Position memory",
+  "gameNBackDesc": "Short, enjoyable mental exercise",
+  "gameNBackIntro": "Short mental exercise — take your time",
   "gameNBackLevel": "N={n} — {current}/{total}",
   "@gameNBackLevel": {
     "placeholders": {
@@ -2363,5 +2363,50 @@
   "v3PaywallBenefit2": "All exercises in Tools (33 exercises)",
   "v3PaywallBenefit3": "50-minute focus sessions and 4-6 breathing",
   "v3PaywallBenefit4": "Clarity Check and progress through day 30",
-  "v3PaywallFooter": "Cancel anytime from Google Play"
+  "v3PaywallFooter": "Cancel anytime from Google Play",
+  "v3SosTitle": "I want to open my phone",
+  "v3SosSubtitle": "Pick what you're feeling right now. One minute is enough.",
+  "v3SosWavePassed": "Well done. The wave passed.",
+  "v3SosRatedFromTo": "From {before} to {after}",
+  "@v3SosRatedFromTo": {
+    "placeholders": {
+      "before": { "type": "int" },
+      "after": { "type": "int" }
+    }
+  },
+  "v3SosBack": "Back",
+  "v3SosStartFocus": "Start a focus session",
+  "v3SosDefaultWhy": "Because my time and focus matter more than scrolling.",
+  "v3SosRateContinue": "Continue",
+  "v3SosTapSkip": "Tap to continue",
+  "v3ToolsFocusTitle": "Focus timer",
+  "v3ToolsFocusHint": "Silence notifications if you can.",
+  "v3ToolsFocusMin": "{minutes} min",
+  "@v3ToolsFocusMin": {
+    "placeholders": {
+      "minutes": { "type": "int" }
+    }
+  },
+  "v3ToolsBreathingTitle": "Breathing",
+  "v3ToolsDoubleSigh": "Double sigh",
+  "v3ToolsBreath46": "4–6 breathing",
+  "v3ToolsProBadge": "Pro",
+  "v3ToolsFreeBadge": "Free",
+  "v3ToolsExercisesTitle": "Exercise library",
+  "v3ToolsGamesTitle": "Brain games",
+  "v3ToolsGamesSubtitle": "Short, enjoyable mental exercises",
+  "v3ToolsAllCategories": "All",
+  "v3ToolsTwentyTitle": "20-20-20 reminder",
+  "v3ToolsTwentyBody": "Every 20 minutes: look 20 feet away for 20 seconds",
+  "v3ToolsTwentyHours": "Active hours",
+  "v3ToolsExerciseDone": "Done",
+  "v3ToolsFocusComplete": "Session logged",
+  "v3GameNBackTitle": "Position memory",
+  "v3GameNBackDesc": "Short, enjoyable mental exercise",
+  "v3GameNumberMemoryTitle": "Number sequence",
+  "v3GameNumberMemoryDesc": "Short, enjoyable mental exercise",
+  "v3GameColorWordTitle": "Color and word",
+  "v3GameColorWordDesc": "Short, enjoyable mental exercise",
+  "v3GamePatternLogicTitle": "Pattern logic",
+  "v3GamePatternLogicDesc": "Short, enjoyable mental exercise"
 }

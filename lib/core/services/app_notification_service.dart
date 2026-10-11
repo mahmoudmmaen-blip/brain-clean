@@ -1,7 +1,10 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:timezone/data/latest_all.dart' as tzdata;
+import 'package:timezone/timezone.dart' as tz;
 
+import '../../v3/application/twenty_twenty_service.dart';
 import '../../v3/routing/v3_routes.dart';
 import '../routing/app_navigator_key.dart';
 
@@ -15,6 +18,7 @@ class AppNotificationService {
 
   final FlutterLocalNotificationsPlugin _plugin;
   bool _initialized = false;
+  bool _tzReady = false;
 
   FlutterLocalNotificationsPlugin get plugin => _plugin;
 
@@ -22,6 +26,10 @@ class AppNotificationService {
     void Function(String? payload)? onPayload,
   }) async {
     if (_initialized) return;
+    if (!_tzReady) {
+      tzdata.initializeTimeZones();
+      _tzReady = true;
+    }
     const android = AndroidInitializationSettings('@mipmap/ic_launcher');
     const ios = DarwinInitializationSettings();
     await _plugin.initialize(
@@ -37,9 +45,9 @@ class AppNotificationService {
   void _handlePayload(String? payload) {
     final context = appNavigatorKey.currentContext;
     if (context == null || !context.mounted) return;
-    if (payload == dailyReminderPayload) {
-      context.go(V3Routes.today);
-    } else if (payload == eveningCheckInPayload) {
+    if (payload == dailyReminderPayload ||
+        payload == eveningCheckInPayload ||
+        payload == twentyTwentyPayload) {
       context.go(V3Routes.today);
     }
   }
@@ -66,6 +74,44 @@ class AppNotificationService {
       const NotificationDetails(android: android, iOS: ios),
       payload: payload,
     );
+  }
+
+  Future<void> scheduleZoned({
+    required int id,
+    required tz.TZDateTime when,
+    required String title,
+    required String body,
+    String? payload,
+    DateTimeComponents? matchDateTimeComponents,
+  }) async {
+    await initialize();
+    const android = AndroidNotificationDetails(
+      'brain_clean_twenty',
+      '20-20-20',
+      channelDescription: 'Eye rest reminders',
+      importance: Importance.defaultImportance,
+      priority: Priority.defaultPriority,
+    );
+    const ios = DarwinNotificationDetails();
+    await _plugin.zonedSchedule(
+      id,
+      title,
+      body,
+      when,
+      const NotificationDetails(android: android, iOS: ios),
+      androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+      matchDateTimeComponents: matchDateTimeComponents,
+      payload: payload,
+    );
+  }
+
+  Future<void> cancelIds(List<int> ids) async {
+    await initialize();
+    for (final id in ids) {
+      await _plugin.cancel(id);
+    }
   }
 }
 

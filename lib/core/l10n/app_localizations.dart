@@ -2609,19 +2609,19 @@ abstract class AppLocalizations {
   /// No description provided for @gameNBackTitle.
   ///
   /// In en, this message translates to:
-  /// **'N-Back 🧠'**
+  /// **'Position memory'**
   String get gameNBackTitle;
 
   /// No description provided for @gameNBackDesc.
   ///
   /// In en, this message translates to:
-  /// **'A challenging working-memory exercise'**
+  /// **'Short, enjoyable mental exercise'**
   String get gameNBackDesc;
 
   /// No description provided for @gameNBackIntro.
   ///
   /// In en, this message translates to:
-  /// **'A challenging working-memory exercise — take it at your pace'**
+  /// **'Short mental exercise — take your time'**
   String get gameNBackIntro;
 
   /// No description provided for @gameNBackLevel.
@@ -9764,6 +9764,210 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cancel anytime from Google Play'**
   String get v3PaywallFooter;
+
+  /// No description provided for @v3SosTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'I want to open my phone'**
+  String get v3SosTitle;
+
+  /// No description provided for @v3SosSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick what you\'re feeling right now. One minute is enough.'**
+  String get v3SosSubtitle;
+
+  /// No description provided for @v3SosWavePassed.
+  ///
+  /// In en, this message translates to:
+  /// **'Well done. The wave passed.'**
+  String get v3SosWavePassed;
+
+  /// No description provided for @v3SosRatedFromTo.
+  ///
+  /// In en, this message translates to:
+  /// **'From {before} to {after}'**
+  String v3SosRatedFromTo(int before, int after);
+
+  /// No description provided for @v3SosBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get v3SosBack;
+
+  /// No description provided for @v3SosStartFocus.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a focus session'**
+  String get v3SosStartFocus;
+
+  /// No description provided for @v3SosDefaultWhy.
+  ///
+  /// In en, this message translates to:
+  /// **'Because my time and focus matter more than scrolling.'**
+  String get v3SosDefaultWhy;
+
+  /// No description provided for @v3SosRateContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get v3SosRateContinue;
+
+  /// No description provided for @v3SosTapSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to continue'**
+  String get v3SosTapSkip;
+
+  /// No description provided for @v3ToolsFocusTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus timer'**
+  String get v3ToolsFocusTitle;
+
+  /// No description provided for @v3ToolsFocusHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Silence notifications if you can.'**
+  String get v3ToolsFocusHint;
+
+  /// No description provided for @v3ToolsFocusMin.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min'**
+  String v3ToolsFocusMin(int minutes);
+
+  /// No description provided for @v3ToolsBreathingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Breathing'**
+  String get v3ToolsBreathingTitle;
+
+  /// No description provided for @v3ToolsDoubleSigh.
+  ///
+  /// In en, this message translates to:
+  /// **'Double sigh'**
+  String get v3ToolsDoubleSigh;
+
+  /// No description provided for @v3ToolsBreath46.
+  ///
+  /// In en, this message translates to:
+  /// **'4–6 breathing'**
+  String get v3ToolsBreath46;
+
+  /// No description provided for @v3ToolsProBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Pro'**
+  String get v3ToolsProBadge;
+
+  /// No description provided for @v3ToolsFreeBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Free'**
+  String get v3ToolsFreeBadge;
+
+  /// No description provided for @v3ToolsExercisesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercise library'**
+  String get v3ToolsExercisesTitle;
+
+  /// No description provided for @v3ToolsGamesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain games'**
+  String get v3ToolsGamesTitle;
+
+  /// No description provided for @v3ToolsGamesSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Short, enjoyable mental exercises'**
+  String get v3ToolsGamesSubtitle;
+
+  /// No description provided for @v3ToolsAllCategories.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get v3ToolsAllCategories;
+
+  /// No description provided for @v3ToolsTwentyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'20-20-20 reminder'**
+  String get v3ToolsTwentyTitle;
+
+  /// No description provided for @v3ToolsTwentyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Every 20 minutes: look 20 feet away for 20 seconds'**
+  String get v3ToolsTwentyBody;
+
+  /// No description provided for @v3ToolsTwentyHours.
+  ///
+  /// In en, this message translates to:
+  /// **'Active hours'**
+  String get v3ToolsTwentyHours;
+
+  /// No description provided for @v3ToolsExerciseDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get v3ToolsExerciseDone;
+
+  /// No description provided for @v3ToolsFocusComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Session logged'**
+  String get v3ToolsFocusComplete;
+
+  /// No description provided for @v3GameNBackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Position memory'**
+  String get v3GameNBackTitle;
+
+  /// No description provided for @v3GameNBackDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Short, enjoyable mental exercise'**
+  String get v3GameNBackDesc;
+
+  /// No description provided for @v3GameNumberMemoryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Number sequence'**
+  String get v3GameNumberMemoryTitle;
+
+  /// No description provided for @v3GameNumberMemoryDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Short, enjoyable mental exercise'**
+  String get v3GameNumberMemoryDesc;
+
+  /// No description provided for @v3GameColorWordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Color and word'**
+  String get v3GameColorWordTitle;
+
+  /// No description provided for @v3GameColorWordDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Short, enjoyable mental exercise'**
+  String get v3GameColorWordDesc;
+
+  /// No description provided for @v3GamePatternLogicTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pattern logic'**
+  String get v3GamePatternLogicTitle;
+
+  /// No description provided for @v3GamePatternLogicDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Short, enjoyable mental exercise'**
+  String get v3GamePatternLogicDesc;
 }
 
 class _AppLocalizationsDelegate

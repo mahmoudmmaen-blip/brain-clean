@@ -1391,13 +1391,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get crosswordEnterLetter => 'أدخل الحرف';
 
   @override
-  String get gameNBackTitle => 'N-Back 🧠';
+  String get gameNBackTitle => 'ذاكرة المواضع';
 
   @override
-  String get gameNBackDesc => 'تمرين ذاكرة عاملة صعب وممتع';
+  String get gameNBackDesc => 'تمرين ذهني قصير وممتع';
 
   @override
-  String get gameNBackIntro => 'تمرين ذاكرة عاملة صعب وممتع — خذه على مهلك';
+  String get gameNBackIntro => 'تمرين ذهني قصير وممتع — خذه على مهلك';
 
   @override
   String gameNBackLevel(int n, int current, int total) {
@@ -5403,4 +5403,111 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v3PaywallFooter => 'إلغاء في أي وقت من Google Play';
+
+  @override
+  String get v3SosTitle => 'عندي رغبة أفتح الموبايل';
+
+  @override
+  String get v3SosSubtitle => 'اختر ما تشعر به الآن. دقيقة واحدة تكفي.';
+
+  @override
+  String get v3SosWavePassed => 'أحسنت. مرّت الموجة.';
+
+  @override
+  String v3SosRatedFromTo(int before, int after) {
+    return 'من $before إلى $after';
+  }
+
+  @override
+  String get v3SosBack => 'العودة';
+
+  @override
+  String get v3SosStartFocus => 'ابدأ تمرين تركيز';
+
+  @override
+  String get v3SosDefaultWhy => 'لأن وقتي وتركيزي أهم من التصفح.';
+
+  @override
+  String get v3SosRateContinue => 'التالي';
+
+  @override
+  String get v3SosTapSkip => 'اضغط للمتابعة';
+
+  @override
+  String get v3ToolsFocusTitle => 'مؤقّت التركيز';
+
+  @override
+  String get v3ToolsFocusHint => 'إن أمكن، أوقف الإشعارات أثناء الجلسة.';
+
+  @override
+  String v3ToolsFocusMin(int minutes) {
+    return '$minutes د';
+  }
+
+  @override
+  String get v3ToolsBreathingTitle => 'التنفّس';
+
+  @override
+  String get v3ToolsDoubleSigh => 'التنهيدة المزدوجة';
+
+  @override
+  String get v3ToolsBreath46 => 'تنفّس 4-6';
+
+  @override
+  String get v3ToolsProBadge => 'Pro';
+
+  @override
+  String get v3ToolsFreeBadge => 'مجاني';
+
+  @override
+  String get v3ToolsExercisesTitle => 'مكتبة التمارين';
+
+  @override
+  String get v3ToolsGamesTitle => 'تمارين ذهنية';
+
+  @override
+  String get v3ToolsGamesSubtitle => 'تمارين ذهنية قصيرة وممتعة';
+
+  @override
+  String get v3ToolsAllCategories => 'الكل';
+
+  @override
+  String get v3ToolsTwentyTitle => 'تذكير 20-20-20';
+
+  @override
+  String get v3ToolsTwentyBody =>
+      'كل 20 دقيقة: انظر لبعد 20 قدمًا لمدة 20 ثانية';
+
+  @override
+  String get v3ToolsTwentyHours => 'ساعات التفعيل';
+
+  @override
+  String get v3ToolsExerciseDone => 'أنجزت';
+
+  @override
+  String get v3ToolsFocusComplete => 'تم تسجيل الجلسة';
+
+  @override
+  String get v3GameNBackTitle => 'ذاكرة المواضع';
+
+  @override
+  String get v3GameNBackDesc => 'تمرين ذهني قصير وممتع';
+
+  @override
+  String get v3GameNumberMemoryTitle => 'تسلسل الأرقام';
+
+  @override
+  String get v3GameNumberMemoryDesc => 'تمرين ذهني قصير وممتع';
+
+  @override
+  String get v3GameColorWordTitle => 'اللون والكلمة';
+
+  @override
+  String get v3GameColorWordDesc => 'تمرين ذهني قصير وممتع';
+
+  @override
+  String get v3GamePatternLogicTitle => 'منطق الأنماط';
+
+  @override
+  String get v3GamePatternLogicDesc => 'تمرين ذهني قصير وممتع';
 }

@@ -1407,14 +1407,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get crosswordEnterLetter => 'Enter letter';
 
   @override
-  String get gameNBackTitle => 'N-Back 🧠';
+  String get gameNBackTitle => 'Position memory';
 
   @override
-  String get gameNBackDesc => 'A challenging working-memory exercise';
+  String get gameNBackDesc => 'Short, enjoyable mental exercise';
 
   @override
-  String get gameNBackIntro =>
-      'A challenging working-memory exercise — take it at your pace';
+  String get gameNBackIntro => 'Short mental exercise — take your time';
 
   @override
   String gameNBackLevel(int n, int current, int total) {
@@ -5502,4 +5501,113 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v3PaywallFooter => 'Cancel anytime from Google Play';
+
+  @override
+  String get v3SosTitle => 'I want to open my phone';
+
+  @override
+  String get v3SosSubtitle =>
+      'Pick what you\'re feeling right now. One minute is enough.';
+
+  @override
+  String get v3SosWavePassed => 'Well done. The wave passed.';
+
+  @override
+  String v3SosRatedFromTo(int before, int after) {
+    return 'From $before to $after';
+  }
+
+  @override
+  String get v3SosBack => 'Back';
+
+  @override
+  String get v3SosStartFocus => 'Start a focus session';
+
+  @override
+  String get v3SosDefaultWhy =>
+      'Because my time and focus matter more than scrolling.';
+
+  @override
+  String get v3SosRateContinue => 'Continue';
+
+  @override
+  String get v3SosTapSkip => 'Tap to continue';
+
+  @override
+  String get v3ToolsFocusTitle => 'Focus timer';
+
+  @override
+  String get v3ToolsFocusHint => 'Silence notifications if you can.';
+
+  @override
+  String v3ToolsFocusMin(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get v3ToolsBreathingTitle => 'Breathing';
+
+  @override
+  String get v3ToolsDoubleSigh => 'Double sigh';
+
+  @override
+  String get v3ToolsBreath46 => '4–6 breathing';
+
+  @override
+  String get v3ToolsProBadge => 'Pro';
+
+  @override
+  String get v3ToolsFreeBadge => 'Free';
+
+  @override
+  String get v3ToolsExercisesTitle => 'Exercise library';
+
+  @override
+  String get v3ToolsGamesTitle => 'Brain games';
+
+  @override
+  String get v3ToolsGamesSubtitle => 'Short, enjoyable mental exercises';
+
+  @override
+  String get v3ToolsAllCategories => 'All';
+
+  @override
+  String get v3ToolsTwentyTitle => '20-20-20 reminder';
+
+  @override
+  String get v3ToolsTwentyBody =>
+      'Every 20 minutes: look 20 feet away for 20 seconds';
+
+  @override
+  String get v3ToolsTwentyHours => 'Active hours';
+
+  @override
+  String get v3ToolsExerciseDone => 'Done';
+
+  @override
+  String get v3ToolsFocusComplete => 'Session logged';
+
+  @override
+  String get v3GameNBackTitle => 'Position memory';
+
+  @override
+  String get v3GameNBackDesc => 'Short, enjoyable mental exercise';
+
+  @override
+  String get v3GameNumberMemoryTitle => 'Number sequence';
+
+  @override
+  String get v3GameNumberMemoryDesc => 'Short, enjoyable mental exercise';
+
+  @override
+  String get v3GameColorWordTitle => 'Color and word';
+
+  @override
+  String get v3GameColorWordDesc => 'Short, enjoyable mental exercise';
+
+  @override
+  String get v3GamePatternLogicTitle => 'Pattern logic';
+
+  @override
+  String get v3GamePatternLogicDesc => 'Short, enjoyable mental exercise';
 }

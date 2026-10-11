@@ -746,9 +746,9 @@
   "crosswordTabAcross": "أفقي ↔",
   "crosswordTabDown": "عمودي ↕",
   "crosswordEnterLetter": "أدخل الحرف",
-  "gameNBackTitle": "N-Back 🧠",
-  "gameNBackDesc": "تمرين ذاكرة عاملة صعب وممتع",
-  "gameNBackIntro": "تمرين ذاكرة عاملة صعب وممتع — خذه على مهلك",
+  "gameNBackTitle": "ذاكرة المواضع",
+  "gameNBackDesc": "تمرين ذهني قصير وممتع",
+  "gameNBackIntro": "تمرين ذهني قصير وممتع — خذه على مهلك",
   "gameNBackLevel": "N={n} — {current}/{total}",
   "@gameNBackLevel": {
     "placeholders": {
@@ -2429,5 +2429,50 @@
   "v3PaywallBenefit2": "كل التمارين في الأدوات (33 تمرينًا)",
   "v3PaywallBenefit3": "جلسات تركيز 50 دقيقة وتنفّس 4-6",
   "v3PaywallBenefit4": "فحص الصفاء ومتابعة تقدّمك حتى يوم 30",
-  "v3PaywallFooter": "إلغاء في أي وقت من Google Play"
+  "v3PaywallFooter": "إلغاء في أي وقت من Google Play",
+  "v3SosTitle": "عندي رغبة أفتح الموبايل",
+  "v3SosSubtitle": "اختر ما تشعر به الآن. دقيقة واحدة تكفي.",
+  "v3SosWavePassed": "أحسنت. مرّت الموجة.",
+  "v3SosRatedFromTo": "من {before} إلى {after}",
+  "@v3SosRatedFromTo": {
+    "placeholders": {
+      "before": { "type": "int" },
+      "after": { "type": "int" }
+    }
+  },
+  "v3SosBack": "العودة",
+  "v3SosStartFocus": "ابدأ تمرين تركيز",
+  "v3SosDefaultWhy": "لأن وقتي وتركيزي أهم من التصفح.",
+  "v3SosRateContinue": "التالي",
+  "v3SosTapSkip": "اضغط للمتابعة",
+  "v3ToolsFocusTitle": "مؤقّت التركيز",
+  "v3ToolsFocusHint": "إن أمكن، أوقف الإشعارات أثناء الجلسة.",
+  "v3ToolsFocusMin": "{minutes} د",
+  "@v3ToolsFocusMin": {
+    "placeholders": {
+      "minutes": { "type": "int" }
+    }
+  },
+  "v3ToolsBreathingTitle": "التنفّس",
+  "v3ToolsDoubleSigh": "التنهيدة المزدوجة",
+  "v3ToolsBreath46": "تنفّس 4-6",
+  "v3ToolsProBadge": "Pro",
+  "v3ToolsFreeBadge": "مجاني",
+  "v3ToolsExercisesTitle": "مكتبة التمارين",
+  "v3ToolsGamesTitle": "تمارين ذهنية",
+  "v3ToolsGamesSubtitle": "تمارين ذهنية قصيرة وممتعة",
+  "v3ToolsAllCategories": "الكل",
+  "v3ToolsTwentyTitle": "تذكير 20-20-20",
+  "v3ToolsTwentyBody": "كل 20 دقيقة: انظر لبعد 20 قدمًا لمدة 20 ثانية",
+  "v3ToolsTwentyHours": "ساعات التفعيل",
+  "v3ToolsExerciseDone": "أنجزت",
+  "v3ToolsFocusComplete": "تم تسجيل الجلسة",
+  "v3GameNBackTitle": "ذاكرة المواضع",
+  "v3GameNBackDesc": "تمرين ذهني قصير وممتع",
+  "v3GameNumberMemoryTitle": "تسلسل الأرقام",
+  "v3GameNumberMemoryDesc": "تمرين ذهني قصير وممتع",
+  "v3GameColorWordTitle": "اللون والكلمة",
+  "v3GameColorWordDesc": "تمرين ذهني قصير وممتع",
+  "v3GamePatternLogicTitle": "منطق الأنماط",
+  "v3GamePatternLogicDesc": "تمرين ذهني قصير وممتع"
 }

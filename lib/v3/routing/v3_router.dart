@@ -18,7 +18,13 @@ import '../ui/placeholders/v3_simple_placeholder.dart';
 import '../ui/session/session_player_screen.dart';
 import '../ui/shell/v3_main_shell.dart';
 import '../ui/shell/v3_tab_placeholder.dart';
+import '../ui/sos/sos_flow_screen.dart';
+import '../ui/sos/sos_hub_screen.dart';
 import '../ui/today/today_screen.dart';
+import '../ui/tools/breathing_screen.dart';
+import '../ui/tools/exercise_detail_screen.dart';
+import '../ui/tools/focus_timer_screen.dart';
+import '../ui/tools/tools_screen.dart';
 import 'v3_routes.dart';
 import 'v3_startup.dart';
 
@@ -129,10 +135,35 @@ final v3GoRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: V3Routes.sos,
-        builder: (context, state) => const V3SimplePlaceholder(
-          title: 'SOS',
-          routeKey: Key('v3_sos'),
-        ),
+        builder: (context, state) => const V3SosHubScreen(),
+        routes: [
+          GoRoute(
+            path: ':flowId',
+            builder: (context, state) {
+              final flowId = state.pathParameters['flowId'] ?? '';
+              return V3SosFlowScreen(flowId: flowId);
+            },
+          ),
+        ],
+      ),
+      GoRoute(
+        path: V3Routes.toolsFocus,
+        builder: (context, state) => const V3FocusTimerScreen(),
+      ),
+      GoRoute(
+        path: V3Routes.toolsBreathing,
+        builder: (context, state) {
+          final mode =
+              state.uri.queryParameters['mode'] ?? 'double_sigh';
+          return V3BreathingScreen(mode: mode);
+        },
+      ),
+      GoRoute(
+        path: V3Routes.toolsExercise,
+        builder: (context, state) {
+          final id = state.pathParameters['id'] ?? '';
+          return V3ExerciseDetailScreen(exerciseId: id);
+        },
       ),
       GoRoute(
         path: V3Routes.graduation,
@@ -169,10 +200,7 @@ final v3GoRouterProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: V3Routes.tools,
-                builder: (context, state) => const V3TabPlaceholder(
-                  tabKey: V3ShellKeys.toolsTab,
-                  title: 'Tools',
-                ),
+                builder: (context, state) => const V3ToolsScreen(),
               ),
             ],
           ),

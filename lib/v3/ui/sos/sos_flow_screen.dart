@@ -1,0 +1,581 @@
+import 'dart:async';
+import 'dart:math' as math;
+
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../core/l10n/app_localizations.dart';
+import '../../../core/providers/locale_provider.dart';
+import '../../../core/theme/app_design_constants.dart';
+import '../../content/content_repository.dart';
+import '../../content/sos_content.dart';
+import '../../data/sos_log.dart';
+import '../../data/user_inputs.dart';
+import '../../domain/sos_helpers.dart';
+import '../../application/v3_state_providers.dart';
+import '../../routing/v3_routes.dart';
+
+class V3SosFlowScreen extends ConsumerStatefulWidget {
+  const V3SosFlowScreen({super.key, required this.flowId});
+
+  final String flowId;
+
+  @override
+  ConsumerState<V3SosFlowScreen> createState() => _V3SosFlowScreenState();
+}
+
+class _V3SosFlowScreenState extends ConsumerState<V3SosFlowScreen>
+    with SingleTickerProviderStateMixin {
+  int _stepIndex = 0;
+  int? _before;
+  int? _after;
+  int _rateValue = 5;
+  bool _finished = false;
+  Timer? _autoAdvance;
+  late AnimationController _breath;
+
+  @override
+  void initState() {
+    super.initState();
+    _breath = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 4),
+    );
+  }
+
+  @override
+  void dispose() {
+    _autoAdvance?.cancel();
+    _breath.dispose();
+    super.dispose();
+  }
+
+  void _scheduleTextAdvance(int seconds) {
+    _autoAdvance?.cancel();
+    _autoAdvance = Timer(Duration(seconds: seconds), () {
+      if (mounted) _next();
+    });
+  }
+
+  Future<void> _finish(SosFlow flow) async {
+    _autoAdvance?.cancel();
+    _breath.stop();
+    await ref.read(v3StateRepositoryProvider).appendSosLog(
+          SosLog(
+            at: DateTime.now(),
+            flowId: flow.id,
+            before: _before,
+            after: _after,
+          ),
+        );
+    ref.invalidate(v3AppStateProvider);
+    if (mounted) setState(() => _finished = true);
+  }
+
+  void _next({SosFlow? flow}) {
+    _autoAdvance?.cancel();
+    final f = flow;
+    if (f == null) {
+      setState(() => _stepIndex++);
+      return;
+    }
+    if (_stepIndex >= f.steps.length - 1) {
+      _finish(f);
+      return;
+    }
+    setState(() => _stepIndex++);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+    final locale = ref.watch(localeProvider).languageCode;
+    final contentAsync = ref.watch(v3ContentProvider);
+    final stateAsync = ref.watch(v3AppStateProvider);
+
+    return contentAsync.when(
+      loading: () => const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      ),
+      error: (e, _) => Scaffold(body: Center(child: Text('$e'))),
+      data: (bundle) {
+        final flow = bundle.sos.byId(widget.flowId);
+        if (flow == null) {
+          return Scaffold(
+            appBar: AppBar(),
+            body: Center(child: Text(loc.v3SessionMissingExercise)),
+          );
+        }
+        final inputs = stateAsync.valueOrNull?.userInputs ?? const UserInputs();
+
+        if (_finished) {
+          return _EndScreen(
+            before: _before,
+            after: _after,
+            onBack: () => context.go(V3Routes.today),
+            onFocus: () => context.go(V3Routes.toolsFocus),
+          );
+        }
+
+        final step = flow.steps[_stepIndex];
+        return Scaffold(
+          key: Key('v3_sos_runner_${flow.id}'),
+          backgroundColor: AppDesignConstants.darkBackground,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            title: Text(flow.label.resolve(locale)),
+            leading: IconButton(
+              icon: const Icon(Icons.close),
+              onPressed: () => context.pop(),
+            ),
+          ),
+          body: Stack(
+            children: [
+              SafeArea(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.all(AppDesignConstants.paddingScreen),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: _buildStep(
+                          context,
+                          flow,
+                          step,
+                          inputs,
+                          locale,
+                          loc,
+                          bundle.sos,
+                        ),
+                      ),
+                      if (flow.safety != null)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8),
+                          child: Text(
+                            flow.safety!.resolve(locale),
+                            key: const Key('v3_sos_safety'),
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: AppDesignConstants.darkOnSurfaceDim,
+                              height: 1.35,
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+              if (step.dimScreen)
+                IgnorePointer(
+                  child: Container(
+                    key: const Key('v3_sos_dim_overlay'),
+                    color: Colors.black.withValues(alpha: 0.55),
+                  ),
+                ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildStep(
+    BuildContext context,
+    SosFlow flow,
+    SosFlowStep step,
+    UserInputs inputs,
+    String locale,
+    AppLocalizations loc,
+    SosContent sos,
+  ) {
+    switch (step.type) {
+      case 'text':
+        final secs = step.seconds ?? 6;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (_autoAdvance == null || !_autoAdvance!.isActive) {
+            _scheduleTextAdvance(secs);
+          }
+        });
+        return Column(
+          key: const Key('v3_sos_step_text'),
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Spacer(),
+            Text(
+              step.text?.resolve(locale) ?? '',
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 22, height: 1.45),
+            ),
+            const Spacer(),
+            TextButton(
+              onPressed: () => _next(flow: flow),
+              child: Text(loc.v3SosTapSkip),
+            ),
+          ],
+        );
+      case 'rate':
+        return Column(
+          key: Key('v3_sos_step_rate_${step.key ?? 'x'}'),
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Spacer(),
+            Text(
+              step.text?.resolve(locale) ?? '',
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 20, height: 1.4),
+            ),
+            const SizedBox(height: 24),
+            Text(
+              '$_rateValue',
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 48,
+                fontWeight: FontWeight.bold,
+                color: AppDesignConstants.brandGreen,
+              ),
+            ),
+            Slider(
+              key: const Key('v3_sos_rate_slider'),
+              value: _rateValue.toDouble(),
+              min: 1,
+              max: 10,
+              divisions: 9,
+              label: '$_rateValue',
+              onChanged: (v) => setState(() => _rateValue = v.round()),
+            ),
+            const Spacer(),
+            FilledButton(
+              onPressed: () {
+                if (step.key == 'before') {
+                  _before = _rateValue;
+                } else if (step.key == 'after') {
+                  _after = _rateValue;
+                }
+                _next(flow: flow);
+              },
+              style: FilledButton.styleFrom(
+                backgroundColor: AppDesignConstants.brandGreen,
+                minimumSize: const Size.fromHeight(52),
+              ),
+              child: Text(loc.v3SosRateContinue),
+            ),
+          ],
+        );
+      case 'breath':
+        return _BreathStep(
+          key: const Key('v3_sos_step_breath'),
+          step: step,
+          locale: locale,
+          breath: _breath,
+          onDone: () => _next(flow: flow),
+        );
+      case 'show_why':
+        final why = resolveSosWhy(
+          inputs: inputs,
+          defaultWhy: loc.v3SosDefaultWhy,
+        );
+        return Column(
+          key: const Key('v3_sos_step_why'),
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Spacer(),
+            Text(
+              step.text?.resolve(locale) ?? '',
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: AppDesignConstants.darkOnSurfaceMuted,
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              why,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 22, height: 1.4),
+            ),
+            const Spacer(),
+            FilledButton(
+              onPressed: () => _next(flow: flow),
+              style: FilledButton.styleFrom(
+                backgroundColor: AppDesignConstants.brandGreen,
+                minimumSize: const Size.fromHeight(52),
+              ),
+              child: Text(loc.v3SosRateContinue),
+            ),
+          ],
+        );
+      case 'suggest_replacement':
+        final duration = step.duration ?? '5';
+        final items = resolveSosReplacements(
+          sos: sos,
+          inputs: inputs,
+          duration: duration,
+          languageCode: locale,
+        );
+        return Column(
+          key: const Key('v3_sos_step_replacement'),
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              step.text?.resolve(locale) ?? '',
+              style: const TextStyle(fontSize: 18, height: 1.4),
+            ),
+            const SizedBox(height: 16),
+            for (final item in items)
+              Card(
+                child: ListTile(
+                  title: Text(item),
+                  leading: const Icon(Icons.check_circle_outline),
+                ),
+              ),
+            const Spacer(),
+            FilledButton(
+              onPressed: () => _next(flow: flow),
+              style: FilledButton.styleFrom(
+                backgroundColor: AppDesignConstants.brandGreen,
+                minimumSize: const Size.fromHeight(52),
+              ),
+              child: Text(loc.v3SosRateContinue),
+            ),
+          ],
+        );
+      default:
+        return Center(
+          child: FilledButton(
+            onPressed: () => _next(flow: flow),
+            child: Text(loc.v3SosRateContinue),
+          ),
+        );
+    }
+  }
+}
+
+class _BreathStep extends StatefulWidget {
+  const _BreathStep({
+    super.key,
+    required this.step,
+    required this.locale,
+    required this.breath,
+    required this.onDone,
+  });
+
+  final SosFlowStep step;
+  final String locale;
+  final AnimationController breath;
+  final VoidCallback onDone;
+
+  @override
+  State<_BreathStep> createState() => _BreathStepState();
+}
+
+class _BreathStepState extends State<_BreathStep> {
+  Timer? _timer;
+  int _remaining = 0;
+  bool _started = false;
+  String _phase = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _remaining = widget.step.seconds ?? 60;
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  void _start() {
+    if (_started) return;
+    setState(() => _started = true);
+    widget.breath.repeat(reverse: true);
+    _runPhases();
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (_remaining <= 1) {
+        _timer?.cancel();
+        widget.breath.stop();
+        widget.onDone();
+        return;
+      }
+      setState(() => _remaining--);
+    });
+  }
+
+  Future<void> _runPhases() async {
+    final cycle = widget.step.patternCycle ?? const [4, 0, 6, 0];
+    while (mounted && _started && _remaining > 0) {
+      if (widget.step.isDoubleSigh) {
+        setState(() => _phase = 'in');
+        await Future<void>.delayed(const Duration(seconds: 3));
+        if (!mounted || !_started) return;
+        setState(() => _phase = 'sip');
+        await Future<void>.delayed(const Duration(seconds: 1));
+        if (!mounted || !_started) return;
+        setState(() => _phase = 'out');
+        await Future<void>.delayed(const Duration(seconds: 6));
+      } else {
+        final labels = ['in', 'hold', 'out', 'hold'];
+        for (var i = 0; i < cycle.length; i++) {
+          final secs = cycle[i];
+          if (secs <= 0) continue;
+          if (!mounted || !_started) return;
+          setState(() => _phase = labels[i % labels.length]);
+          await Future<void>.delayed(Duration(seconds: secs));
+        }
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+    return Column(
+      children: [
+        const Spacer(),
+        AnimatedBuilder(
+          animation: widget.breath,
+          builder: (context, _) {
+            final scale = 0.7 + (widget.breath.value * 0.45);
+            return Transform.scale(
+              scale: _started ? scale : 1,
+              child: Container(
+                width: 160,
+                height: 160,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color:
+                      AppDesignConstants.brandGreen.withValues(alpha: 0.25),
+                  border: Border.all(
+                    color: AppDesignConstants.brandGreen,
+                    width: 3,
+                  ),
+                ),
+                alignment: Alignment.center,
+                child: Text(
+                  _phase.isEmpty ? '·' : _phase,
+                  style: const TextStyle(fontSize: 18),
+                ),
+              ),
+            );
+          },
+        ),
+        const SizedBox(height: 20),
+        Text(
+          widget.step.text?.resolve(widget.locale) ?? '',
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 17, height: 1.4),
+        ),
+        const SizedBox(height: 16),
+        Text(
+          '$_remaining',
+          style: const TextStyle(
+            fontSize: 36,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const Spacer(),
+        if (!_started)
+          FilledButton(
+            onPressed: _start,
+            style: FilledButton.styleFrom(
+              backgroundColor: AppDesignConstants.brandGreen,
+              minimumSize: const Size.fromHeight(52),
+            ),
+            child: Text(loc.v3PracticeStart),
+          )
+        else
+          TextButton(
+            onPressed: () {
+              _timer?.cancel();
+              widget.breath.stop();
+              widget.onDone();
+            },
+            child: Text(loc.v3Skip),
+          ),
+      ],
+    );
+  }
+}
+
+class _EndScreen extends StatelessWidget {
+  const _EndScreen({
+    required this.before,
+    required this.after,
+    required this.onBack,
+    required this.onFocus,
+  });
+
+  final int? before;
+  final int? after;
+  final VoidCallback onBack;
+  final VoidCallback onFocus;
+
+  @override
+  Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+    return Scaffold(
+      key: const Key('v3_sos_end'),
+      backgroundColor: AppDesignConstants.darkBackground,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(AppDesignConstants.paddingScreen),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Spacer(),
+              const Icon(
+                Icons.check_circle,
+                size: 72,
+                color: AppDesignConstants.brandGreen,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                loc.v3SosWavePassed,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              if (before != null && after != null) ...[
+                const SizedBox(height: 12),
+                Text(
+                  loc.v3SosRatedFromTo(before!, after!),
+                  key: const Key('v3_sos_rated_delta'),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    color: AppDesignConstants.darkOnSurfaceMuted,
+                  ),
+                ),
+              ],
+              const Spacer(),
+              FilledButton(
+                onPressed: onBack,
+                style: FilledButton.styleFrom(
+                  backgroundColor: AppDesignConstants.brandGreen,
+                  minimumSize: const Size.fromHeight(52),
+                ),
+                child: Text(loc.v3SosBack),
+              ),
+              const SizedBox(height: 8),
+              OutlinedButton(
+                onPressed: onFocus,
+                style: OutlinedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(52),
+                ),
+                child: Text(loc.v3SosStartFocus),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Test helper for breath circle scale.
+double sosBreathScale(double t) =>
+    0.7 + 0.3 * (0.5 + 0.5 * math.sin(t * math.pi));

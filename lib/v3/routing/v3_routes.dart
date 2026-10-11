@@ -16,7 +16,13 @@ abstract final class V3Routes {
   static const tools = '/tools';
   static const toolsExercise = '/tools/exercise/:id';
   static const toolsFocus = '/tools/focus';
+  static const toolsBreathing = '/tools/breathing';
   static const toolsGames = '/tools/games/:id';
+
+  static String toolsExercisePath(String id) => '/tools/exercise/$id';
+  static String toolsBreathingPath(String mode) =>
+      '$toolsBreathing?mode=${Uri.encodeComponent(mode)}';
+  static String sosFlowPath(String flowId) => '/sos/$flowId';
 
   static const sos = '/sos';
   static const sosFlow = '/sos/:flowId';

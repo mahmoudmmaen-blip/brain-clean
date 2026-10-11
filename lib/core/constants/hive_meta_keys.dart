@@ -60,4 +60,9 @@ abstract final class HiveMetaKeys {
 
   /// Adaptive Program Engine state (difficulty offset, streaks, feeling).
   static const adaptiveProgramStateJson = 'adaptiveProgramStateJson';
+
+  /// V3 Tools — 20-20-20 eye reminder.
+  static const twentyTwentyEnabled = 'twentyTwentyEnabled';
+  static const twentyTwentyStartHour = 'twentyTwentyStartHour';
+  static const twentyTwentyEndHour = 'twentyTwentyEndHour';
 }
