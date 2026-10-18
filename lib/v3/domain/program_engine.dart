@@ -87,6 +87,34 @@ abstract final class ProgramEngine {
     required List<DayProgress> progress,
     required DateTime now,
   }) {
+    final completionDays = _completionCalendarDays(progress);
+    if (completionDays.isEmpty) return 0;
+    return _streakEndingOn(
+      completionDays: completionDays,
+      end: startOfLocalDay(now),
+    );
+  }
+
+  /// Longest streak found across the user's completion history.
+  static int bestStreak({
+    required List<DayProgress> progress,
+  }) {
+    final completionDays = _completionCalendarDays(progress);
+    if (completionDays.isEmpty) return 0;
+
+    final sorted = completionDays.toList()..sort();
+    var best = 0;
+    for (final day in sorted) {
+      final streak = _streakEndingOn(
+        completionDays: completionDays,
+        end: day,
+      );
+      if (streak > best) best = streak;
+    }
+    return best;
+  }
+
+  static Set<DateTime> _completionCalendarDays(List<DayProgress> progress) {
     final completionDays = <DateTime>{};
     for (final p in progress) {
       if (!isDayCompleted(p)) continue;
@@ -94,12 +122,18 @@ abstract final class ProgramEngine {
       if (at == null) continue;
       completionDays.add(startOfLocalDay(at));
     }
-    if (completionDays.isEmpty) return 0;
+    return completionDays;
+  }
 
-    var cursor = startOfLocalDay(now);
+  static int _streakEndingOn({
+    required Set<DateTime> completionDays,
+    required DateTime end,
+  }) {
+    var cursor = startOfLocalDay(end);
     if (!completionDays.contains(cursor)) {
       cursor = cursor.subtract(const Duration(days: 1));
     }
+    if (!completionDays.contains(cursor)) return 0;
 
     var streak = 0;
     var restDaysUsedInWindow = 0;

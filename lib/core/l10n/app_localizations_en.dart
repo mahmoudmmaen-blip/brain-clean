@@ -5739,4 +5739,67 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v3GamePatternLogicDesc => 'Short, enjoyable mental exercise';
+
+  @override
+  String v3ProgramOpensAfter(int day) {
+    return 'Opens after completing day $day';
+  }
+
+  @override
+  String v3ProgramDayReviewTitle(int day) {
+    return 'Day $day';
+  }
+
+  @override
+  String get v3ProgramReviewYourInputs => 'Your answers';
+
+  @override
+  String get v3ProgressEmptyTitle =>
+      'Complete your first day to start your journey';
+
+  @override
+  String get v3ProgressEmptyCta => 'Go to Today';
+
+  @override
+  String v3ProgressClarityFromTo(int from, int to) {
+    return 'From $from to $to since day one';
+  }
+
+  @override
+  String get v3ProgressPhoneHoursTitle => 'Phone hours (self-reported)';
+
+  @override
+  String v3ProgressPhoneHoursFromTo(String from, String to) {
+    return 'From $from to $to';
+  }
+
+  @override
+  String get v3ProgressCalendarTitle => '30-day calendar';
+
+  @override
+  String get v3ProgressStatsTitle => 'Stats';
+
+  @override
+  String get v3ProgressStatDays => 'Training days';
+
+  @override
+  String get v3ProgressStatStreak => 'Current streak';
+
+  @override
+  String get v3ProgressStatBestStreak => 'Best streak';
+
+  @override
+  String get v3ProgressStatChallenges => 'Challenges done';
+
+  @override
+  String get v3ProgressStatFocus => 'Focus minutes';
+
+  @override
+  String get v3ProgressStatUrges => 'Urges you beat';
+
+  @override
+  String get v3ProgressMoodTitle => 'Evening mood (last 14 days)';
+
+  @override
+  String get v3ProgressMoodEmpty => 'No evening check-ins yet';
 }

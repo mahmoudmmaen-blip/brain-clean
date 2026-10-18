@@ -2573,5 +2573,45 @@
   "v3GameColorWordTitle": "اللون والكلمة",
   "v3GameColorWordDesc": "تمرين ذهني قصير وممتع",
   "v3GamePatternLogicTitle": "منطق الأنماط",
-  "v3GamePatternLogicDesc": "تمرين ذهني قصير وممتع"
+  "v3GamePatternLogicDesc": "تمرين ذهني قصير وممتع",
+  "v3ProgramOpensAfter": "يفتح بعد إكمال يوم {day}",
+  "@v3ProgramOpensAfter": {
+    "placeholders": {
+      "day": {"type": "int"}
+    }
+  },
+  "v3ProgramDayReviewTitle": "يوم {day}",
+  "@v3ProgramDayReviewTitle": {
+    "placeholders": {
+      "day": {"type": "int"}
+    }
+  },
+  "v3ProgramReviewYourInputs": "إجاباتك",
+  "v3ProgressEmptyTitle": "أكمل يومك الأول لتبدأ رحلتك",
+  "v3ProgressEmptyCta": "إلى اليوم",
+  "v3ProgressClarityFromTo": "من {from} إلى {to} منذ اليوم الأول",
+  "@v3ProgressClarityFromTo": {
+    "placeholders": {
+      "from": {"type": "int"},
+      "to": {"type": "int"}
+    }
+  },
+  "v3ProgressPhoneHoursTitle": "ساعات الموبايل (تقدير ذاتي)",
+  "v3ProgressPhoneHoursFromTo": "من {from} إلى {to}",
+  "@v3ProgressPhoneHoursFromTo": {
+    "placeholders": {
+      "from": {"type": "String"},
+      "to": {"type": "String"}
+    }
+  },
+  "v3ProgressCalendarTitle": "تقويم 30 يومًا",
+  "v3ProgressStatsTitle": "الإحصاءات",
+  "v3ProgressStatDays": "أيام التدريب",
+  "v3ProgressStatStreak": "السلسلة الحالية",
+  "v3ProgressStatBestStreak": "أفضل سلسلة",
+  "v3ProgressStatChallenges": "تحديات أنجزتها",
+  "v3ProgressStatFocus": "دقائق التركيز",
+  "v3ProgressStatUrges": "رغبات تجاوزتها",
+  "v3ProgressMoodTitle": "مزاج المساء (آخر 14 يومًا)",
+  "v3ProgressMoodEmpty": "لا توجد مراجعات مسائية بعد"
 }

@@ -5639,4 +5639,66 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v3GamePatternLogicDesc => 'تمرين ذهني قصير وممتع';
+
+  @override
+  String v3ProgramOpensAfter(int day) {
+    return 'يفتح بعد إكمال يوم $day';
+  }
+
+  @override
+  String v3ProgramDayReviewTitle(int day) {
+    return 'يوم $day';
+  }
+
+  @override
+  String get v3ProgramReviewYourInputs => 'إجاباتك';
+
+  @override
+  String get v3ProgressEmptyTitle => 'أكمل يومك الأول لتبدأ رحلتك';
+
+  @override
+  String get v3ProgressEmptyCta => 'إلى اليوم';
+
+  @override
+  String v3ProgressClarityFromTo(int from, int to) {
+    return 'من $from إلى $to منذ اليوم الأول';
+  }
+
+  @override
+  String get v3ProgressPhoneHoursTitle => 'ساعات الموبايل (تقدير ذاتي)';
+
+  @override
+  String v3ProgressPhoneHoursFromTo(String from, String to) {
+    return 'من $from إلى $to';
+  }
+
+  @override
+  String get v3ProgressCalendarTitle => 'تقويم 30 يومًا';
+
+  @override
+  String get v3ProgressStatsTitle => 'الإحصاءات';
+
+  @override
+  String get v3ProgressStatDays => 'أيام التدريب';
+
+  @override
+  String get v3ProgressStatStreak => 'السلسلة الحالية';
+
+  @override
+  String get v3ProgressStatBestStreak => 'أفضل سلسلة';
+
+  @override
+  String get v3ProgressStatChallenges => 'تحديات أنجزتها';
+
+  @override
+  String get v3ProgressStatFocus => 'دقائق التركيز';
+
+  @override
+  String get v3ProgressStatUrges => 'رغبات تجاوزتها';
+
+  @override
+  String get v3ProgressMoodTitle => 'مزاج المساء (آخر 14 يومًا)';
+
+  @override
+  String get v3ProgressMoodEmpty => 'لا توجد مراجعات مسائية بعد';
 }

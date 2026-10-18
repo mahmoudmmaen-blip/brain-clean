@@ -2508,5 +2508,45 @@
   "v3GameColorWordTitle": "Color and word",
   "v3GameColorWordDesc": "Short, enjoyable mental exercise",
   "v3GamePatternLogicTitle": "Pattern logic",
-  "v3GamePatternLogicDesc": "Short, enjoyable mental exercise"
+  "v3GamePatternLogicDesc": "Short, enjoyable mental exercise",
+  "v3ProgramOpensAfter": "Opens after completing day {day}",
+  "@v3ProgramOpensAfter": {
+    "placeholders": {
+      "day": {"type": "int"}
+    }
+  },
+  "v3ProgramDayReviewTitle": "Day {day}",
+  "@v3ProgramDayReviewTitle": {
+    "placeholders": {
+      "day": {"type": "int"}
+    }
+  },
+  "v3ProgramReviewYourInputs": "Your answers",
+  "v3ProgressEmptyTitle": "Complete your first day to start your journey",
+  "v3ProgressEmptyCta": "Go to Today",
+  "v3ProgressClarityFromTo": "From {from} to {to} since day one",
+  "@v3ProgressClarityFromTo": {
+    "placeholders": {
+      "from": {"type": "int"},
+      "to": {"type": "int"}
+    }
+  },
+  "v3ProgressPhoneHoursTitle": "Phone hours (self-reported)",
+  "v3ProgressPhoneHoursFromTo": "From {from} to {to}",
+  "@v3ProgressPhoneHoursFromTo": {
+    "placeholders": {
+      "from": {"type": "String"},
+      "to": {"type": "String"}
+    }
+  },
+  "v3ProgressCalendarTitle": "30-day calendar",
+  "v3ProgressStatsTitle": "Stats",
+  "v3ProgressStatDays": "Training days",
+  "v3ProgressStatStreak": "Current streak",
+  "v3ProgressStatBestStreak": "Best streak",
+  "v3ProgressStatChallenges": "Challenges done",
+  "v3ProgressStatFocus": "Focus minutes",
+  "v3ProgressStatUrges": "Urges you beat",
+  "v3ProgressMoodTitle": "Evening mood (last 14 days)",
+  "v3ProgressMoodEmpty": "No evening check-ins yet"
 }

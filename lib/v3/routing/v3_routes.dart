@@ -50,5 +50,7 @@ abstract final class V3Routes {
 
   static String sessionPath(int day) => '/session/$day';
 
+  static String programDayPath(int day) => '/program/day/$day';
+
   static String checkPath({required String mode}) => '$check?mode=$mode';
 }

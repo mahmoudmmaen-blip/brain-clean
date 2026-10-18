@@ -10172,6 +10172,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Short, enjoyable mental exercise'**
   String get v3GamePatternLogicDesc;
+
+  /// No description provided for @v3ProgramOpensAfter.
+  ///
+  /// In en, this message translates to:
+  /// **'Opens after completing day {day}'**
+  String v3ProgramOpensAfter(int day);
+
+  /// No description provided for @v3ProgramDayReviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Day {day}'**
+  String v3ProgramDayReviewTitle(int day);
+
+  /// No description provided for @v3ProgramReviewYourInputs.
+  ///
+  /// In en, this message translates to:
+  /// **'Your answers'**
+  String get v3ProgramReviewYourInputs;
+
+  /// No description provided for @v3ProgressEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete your first day to start your journey'**
+  String get v3ProgressEmptyTitle;
+
+  /// No description provided for @v3ProgressEmptyCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to Today'**
+  String get v3ProgressEmptyCta;
+
+  /// No description provided for @v3ProgressClarityFromTo.
+  ///
+  /// In en, this message translates to:
+  /// **'From {from} to {to} since day one'**
+  String v3ProgressClarityFromTo(int from, int to);
+
+  /// No description provided for @v3ProgressPhoneHoursTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone hours (self-reported)'**
+  String get v3ProgressPhoneHoursTitle;
+
+  /// No description provided for @v3ProgressPhoneHoursFromTo.
+  ///
+  /// In en, this message translates to:
+  /// **'From {from} to {to}'**
+  String v3ProgressPhoneHoursFromTo(String from, String to);
+
+  /// No description provided for @v3ProgressCalendarTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'30-day calendar'**
+  String get v3ProgressCalendarTitle;
+
+  /// No description provided for @v3ProgressStatsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Stats'**
+  String get v3ProgressStatsTitle;
+
+  /// No description provided for @v3ProgressStatDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Training days'**
+  String get v3ProgressStatDays;
+
+  /// No description provided for @v3ProgressStatStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Current streak'**
+  String get v3ProgressStatStreak;
+
+  /// No description provided for @v3ProgressStatBestStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Best streak'**
+  String get v3ProgressStatBestStreak;
+
+  /// No description provided for @v3ProgressStatChallenges.
+  ///
+  /// In en, this message translates to:
+  /// **'Challenges done'**
+  String get v3ProgressStatChallenges;
+
+  /// No description provided for @v3ProgressStatFocus.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus minutes'**
+  String get v3ProgressStatFocus;
+
+  /// No description provided for @v3ProgressStatUrges.
+  ///
+  /// In en, this message translates to:
+  /// **'Urges you beat'**
+  String get v3ProgressStatUrges;
+
+  /// No description provided for @v3ProgressMoodTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Evening mood (last 14 days)'**
+  String get v3ProgressMoodTitle;
+
+  /// No description provided for @v3ProgressMoodEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No evening check-ins yet'**
+  String get v3ProgressMoodEmpty;
 }
 
 class _AppLocalizationsDelegate

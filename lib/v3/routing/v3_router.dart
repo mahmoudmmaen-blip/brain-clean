@@ -18,9 +18,11 @@ import '../ui/paywall/v3_paywall_screen.dart';
 import '../ui/placeholders/v3_simple_placeholder.dart';
 import '../ui/session/session_player_screen.dart';
 import '../ui/shell/v3_main_shell.dart';
-import '../ui/shell/v3_tab_placeholder.dart';
 import '../ui/sos/sos_flow_screen.dart';
 import '../ui/sos/sos_hub_screen.dart';
+import '../ui/program/program_day_review_screen.dart';
+import '../ui/program/program_screen.dart';
+import '../ui/progress/progress_screen.dart';
 import '../ui/today/today_screen.dart';
 import '../ui/tools/breathing_screen.dart';
 import '../ui/tools/exercise_detail_screen.dart';
@@ -194,10 +196,18 @@ final v3GoRouterProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: V3Routes.program,
-                builder: (context, state) => const V3TabPlaceholder(
-                  tabKey: V3ShellKeys.programTab,
-                  title: 'Program',
-                ),
+                builder: (context, state) => const V3ProgramScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'day/:n',
+                    parentNavigatorKey: appNavigatorKey,
+                    builder: (context, state) {
+                      final day =
+                          int.tryParse(state.pathParameters['n'] ?? '1') ?? 1;
+                      return V3ProgramDayReviewScreen(day: day);
+                    },
+                  ),
+                ],
               ),
             ],
           ),
@@ -213,10 +223,7 @@ final v3GoRouterProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: V3Routes.progress,
-                builder: (context, state) => const V3TabPlaceholder(
-                  tabKey: V3ShellKeys.progressTab,
-                  title: 'Progress',
-                ),
+                builder: (context, state) => const V3ProgressScreen(),
               ),
             ],
           ),
