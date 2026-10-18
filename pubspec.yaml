@@ -75,3 +75,4 @@ flutter:
     - assets/content/exercises.json
     - assets/content/clarity_check.json
     - assets/content/sos.json
+    - assets/content/goal_tips.json

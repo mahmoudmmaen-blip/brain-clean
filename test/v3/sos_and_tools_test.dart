@@ -216,19 +216,13 @@ void main() {
     expect(find.byType(NBackGameScreen), findsOneWidget);
   });
 
-  testWidgets('tools games section uses neutral titles', (tester) async {
+  testWidgets('tools tab has no brain games section', (tester) async {
     await tester.pumpWidget(wrap(const V3ToolsScreen()));
     await tester.pumpAndSettle();
-    final game = find.byKey(const Key('v3_tools_game_nback'));
-    await tester.scrollUntilVisible(
-      game,
-      300,
-      scrollable: find.byType(Scrollable).first,
-    );
-    await tester.pumpAndSettle();
-    expect(game, findsOneWidget);
-    expect(find.textContaining('IQ'), findsNothing);
-    expect(find.textContaining('intelligence'), findsNothing);
-    expect(find.textContaining('proven'), findsNothing);
+    expect(find.byKey(const Key('v3_tools_game_nback')), findsNothing);
+    expect(find.byKey(const Key('v3_tools_game_number')), findsNothing);
+    expect(find.byKey(const Key('v3_tools_game_color')), findsNothing);
+    expect(find.byKey(const Key('v3_tools_game_pattern')), findsNothing);
+    expect(find.text('Brain games'), findsNothing);
   });
 }

@@ -10,8 +10,8 @@ Only Claude changes WAITING → NEXT and REVIEW → DONE.
 |---|---|---|---|
 | C01 | C01_paywall.md | DONE | no |
 | C02 | C02_onboarding_trial.md | DONE | no |
-| C03 | C03_content_sos_share.md | REVIEW | no |
-| C04 | C04_today_tools.md | WAITING | no |
+| C03 | C03_content_sos_share.md | DONE | no |
+| C04 | C04_today_tools.md | REVIEW | no |
 | C05 | C05_program_progress.md | WAITING | no |
 | C06 | C06_usage_data.md | WAITING | no |
 | C07 | C07_settings_graduation_backup.md | WAITING | no |

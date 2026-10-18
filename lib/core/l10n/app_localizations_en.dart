@@ -5391,6 +5391,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v3EveningCard => 'Evening check-in';
 
   @override
+  String get v3EveningSlotLocked => 'Evening review opens after 6 PM';
+
+  @override
+  String get v3EveningSlotOpen => 'How was your day?';
+
+  @override
+  String get v3EveningSlotDone => '✓ You logged your review';
+
+  @override
   String v3NextClarityCheck(int day) {
     return 'Next Clarity Check: day $day';
   }

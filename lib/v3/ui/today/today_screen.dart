@@ -8,6 +8,7 @@ import '../../../core/theme/app_design_constants.dart';
 import '../../../features/pro/application/subscription_service_provider.dart';
 import '../../application/v3_state_providers.dart';
 import '../../content/content_repository.dart';
+import '../../content/goal_tips_content.dart';
 import '../../data/day_progress.dart';
 import '../../domain/program_engine.dart';
 import '../../routing/v3_routes.dart';
@@ -15,6 +16,8 @@ import 'evening_check_in_sheet.dart';
 import 'trial_ending_sheet.dart';
 
 enum TodayHeroState { notStarted, inProgress, done, proLocked }
+
+enum EveningSlotState { locked, open, done }
 
 class V3TodayScreen extends ConsumerWidget {
   const V3TodayScreen({super.key, this.nowOverride});
@@ -60,6 +63,8 @@ class V3TodayScreen extends ConsumerWidget {
                 : bundle.program.weeks
                     .where((w) => w.week == dayContent.week)
                     .firstOrNull;
+            final daysPracticed =
+                ProgramEngine.completedDayCount(app.dayProgress);
             final streak = ProgramEngine.currentStreak(
               progress: app.dayProgress,
               now: now,
@@ -86,146 +91,169 @@ class V3TodayScreen extends ConsumerWidget {
                   '${now.year.toString().padLeft(4, '0')}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
               return e.date == today;
             });
-            final showEvening = now.hour >= 18 &&
-                progress?.completedAt != null &&
-                !eveningDone;
+            final eveningState = eveningDone
+                ? EveningSlotState.done
+                : (now.hour >= 18
+                    ? EveningSlotState.open
+                    : EveningSlotState.locked);
             final name = app.profile?.name;
             final greeting = name == null || name.isEmpty
                 ? loc.v3GreetingHello
                 : loc.v3GreetingNamed(_daypart(loc, now), name);
+            final tipWeek = ((displayDay - 1) ~/ 7) + 1;
+            final cappedTipWeek = tipWeek > 4 ? 4 : tipWeek;
+            final showGoalTip = displayDay <= 30;
+            final profileGoal =
+                app.profile?.goal ?? GoalTipsContent.fallbackGoal;
+            final String? goalTipText = !showGoalTip
+                ? null
+                : bundle.goalTips.tip(
+                    goal: profileGoal,
+                    week: cappedTipWeek,
+                    locale: locale,
+                  );
 
             return TrialEndingHost(
               child: Scaffold(
-              key: const Key('v3_today_screen'),
-              backgroundColor: AppDesignConstants.darkBackground,
-              body: SafeArea(
-                child: ListView(
-                  padding: const EdgeInsets.all(AppDesignConstants.paddingScreen),
-                  children: [
-                    Row(
-                      children: [
-                        IconButton(
-                          key: const Key('v3_today_settings'),
-                          onPressed: () => context.push(V3Routes.settings),
-                          icon: const Icon(Icons.settings_outlined),
+                key: const Key('v3_today_screen'),
+                backgroundColor: AppDesignConstants.darkBackground,
+                body: SafeArea(
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: ListView(
+                          padding: const EdgeInsets.all(
+                            AppDesignConstants.paddingScreen,
+                          ),
+                          children: [
+                            Row(
+                              children: [
+                                IconButton(
+                                  key: const Key('v3_today_settings'),
+                                  onPressed: () =>
+                                      context.push(V3Routes.settings),
+                                  icon: const Icon(Icons.settings_outlined),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    greeting,
+                                    textAlign: TextAlign.end,
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 12),
+                            _DaysPracticedHero(
+                              daysPracticed: daysPracticed,
+                              displayDay: displayDay,
+                              streak: streak,
+                            ),
+                            const SizedBox(height: 20),
+                            if (dayContent != null)
+                              _HeroCard(
+                                day: displayDay,
+                                weekLabel: week == null
+                                    ? ''
+                                    : loc.v3WeekLabel(
+                                        week.week,
+                                        week.title.resolve(locale),
+                                      ),
+                                lessonTitle:
+                                    dayContent.lesson.title.resolve(locale),
+                                minutes: loc.v3AboutMinutes(10),
+                                state: hero,
+                                onPrimary: () {
+                                  if (hero == TodayHeroState.proLocked) {
+                                    context.push(
+                                      '${V3Routes.paywall}?source=locked_day',
+                                    );
+                                  } else {
+                                    context.push(
+                                      V3Routes.sessionPath(displayDay),
+                                    );
+                                  }
+                                },
+                                onReview: () => context.push(
+                                  V3Routes.sessionPath(displayDay),
+                                ),
+                              ),
+                            const SizedBox(height: 16),
+                            _EveningSlot(
+                              state: eveningState,
+                              onOpen: eveningState == EveningSlotState.open
+                                  ? () => showEveningCheckInSheet(
+                                        context,
+                                        reflection: dayContent?.reflection
+                                                .resolve(locale) ??
+                                            '',
+                                      )
+                                  : null,
+                            ),
+                            const SizedBox(height: 16),
+                            if (dayContent != null)
+                              _ChallengeCard(
+                                text: dayContent.challenge.resolve(locale),
+                                checked: progress?.challengeDone == true,
+                                onChanged: (v) async {
+                                  final base = progress ??
+                                      DayProgress(
+                                        day: displayDay,
+                                        lessonDone: false,
+                                        practiceDone: false,
+                                        usedEasy: false,
+                                        challengeAccepted: false,
+                                      );
+                                  await ref
+                                      .read(v3StateRepositoryProvider)
+                                      .saveDayProgress(
+                                        base.copyWith(challengeDone: v),
+                                      );
+                                  ref.invalidate(v3AppStateProvider);
+                                },
+                              ),
+                            if (goalTipText != null) ...[
+                              const SizedBox(height: 16),
+                              _GoalTipCard(
+                                goal: profileGoal,
+                                tip: goalTipText,
+                              ),
+                            ],
+                            const SizedBox(height: 16),
+                            _ClarityCard(
+                              score: latestScore,
+                              nextDay: nextCheck,
+                            ),
+                            const SizedBox(height: 8),
+                          ],
                         ),
-                        Expanded(
-                          child: Text(
-                            greeting,
-                            textAlign: TextAlign.end,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(
+                          AppDesignConstants.paddingScreen,
+                          8,
+                          AppDesignConstants.paddingScreen,
+                          12,
+                        ),
+                        child: OutlinedButton(
+                          key: const Key('v3_today_sos'),
+                          onPressed: () => context.push(V3Routes.sos),
+                          style: OutlinedButton.styleFrom(
+                            minimumSize: const Size.fromHeight(52),
+                            side: const BorderSide(
+                              color: AppDesignConstants.brandGreen,
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Row(
-                      children: [
-                        const Icon(Icons.local_fire_department_rounded,
-                            color: Colors.orangeAccent),
-                        const SizedBox(width: 4),
-                        Text(
-                          '$streak',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                        const Spacer(),
-                        Text(loc.v3DayOf(displayDay, 30)),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: LinearProgressIndicator(
-                        value: displayDay / 30,
-                        minHeight: 6,
-                        backgroundColor: AppDesignConstants.darkBorder,
-                        color: AppDesignConstants.brandGreen,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    if (dayContent != null)
-                      _HeroCard(
-                        day: displayDay,
-                        weekLabel: week == null
-                            ? ''
-                            : loc.v3WeekLabel(
-                                week.week,
-                                week.title.resolve(locale),
-                              ),
-                        lessonTitle: dayContent.lesson.title.resolve(locale),
-                        minutes: loc.v3AboutMinutes(10),
-                        state: hero,
-                        onPrimary: () {
-                          if (hero == TodayHeroState.proLocked) {
-                            context.push(
-                              '${V3Routes.paywall}?source=locked_day',
-                            );
-                          } else {
-                            context.push(V3Routes.sessionPath(displayDay));
-                          }
-                        },
-                        onReview: () =>
-                            context.push(V3Routes.sessionPath(displayDay)),
-                      ),
-                    const SizedBox(height: 16),
-                    if (dayContent != null)
-                      _ChallengeCard(
-                        text: dayContent.challenge.resolve(locale),
-                        checked: progress?.challengeDone == true,
-                        onChanged: (v) async {
-                          final base = progress ??
-                              DayProgress(
-                                day: displayDay,
-                                lessonDone: false,
-                                practiceDone: false,
-                                usedEasy: false,
-                                challengeAccepted: false,
-                              );
-                          await ref
-                              .read(v3StateRepositoryProvider)
-                              .saveDayProgress(
-                                base.copyWith(challengeDone: v),
-                              );
-                          ref.invalidate(v3AppStateProvider);
-                        },
-                      ),
-                    const SizedBox(height: 16),
-                    OutlinedButton(
-                      key: const Key('v3_today_sos'),
-                      onPressed: () => context.push(V3Routes.sos),
-                      style: OutlinedButton.styleFrom(
-                        minimumSize: const Size.fromHeight(52),
-                        side: const BorderSide(
-                          color: AppDesignConstants.brandGreen,
-                        ),
-                      ),
-                      child: Text(loc.v3SosButton),
-                    ),
-                    if (showEvening) ...[
-                      const SizedBox(height: 16),
-                      _EveningCard(
-                        onTap: () => showEveningCheckInSheet(
-                          context,
-                          reflection: dayContent?.reflection.resolve(locale) ??
-                              '',
+                          child: Text(loc.v3SosButton),
                         ),
                       ),
                     ],
-                    const SizedBox(height: 16),
-                    _ClarityCard(
-                      score: latestScore,
-                      nextDay: nextCheck,
-                    ),
-                  ],
+                  ),
                 ),
               ),
-            ),
             );
           },
         );
@@ -254,6 +282,75 @@ class V3TodayScreen extends ConsumerWidget {
     if (now.hour < 12) return loc.v3DaypartMorning;
     if (now.hour < 18) return loc.v3DaypartAfternoon;
     return loc.v3DaypartEvening;
+  }
+}
+
+class _DaysPracticedHero extends StatelessWidget {
+  const _DaysPracticedHero({
+    required this.daysPracticed,
+    required this.displayDay,
+    required this.streak,
+  });
+
+  final int daysPracticed;
+  final int displayDay;
+  final int streak;
+
+  @override
+  Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+    return Column(
+      key: const Key('v3_today_days_practiced'),
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                loc.v3PaywallChipDays(daysPracticed),
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+            const Icon(
+              Icons.local_fire_department_rounded,
+              color: Colors.orangeAccent,
+              size: 18,
+            ),
+            const SizedBox(width: 2),
+            Text(
+              '$streak',
+              key: const Key('v3_today_streak'),
+              style: const TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 13,
+                color: AppDesignConstants.darkOnSurfaceMuted,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Text(
+          loc.v3DayOf(displayDay, 30),
+          style: const TextStyle(
+            fontSize: 13,
+            color: AppDesignConstants.darkOnSurfaceMuted,
+          ),
+        ),
+        const SizedBox(height: 6),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: LinearProgressIndicator(
+            value: displayDay / 30,
+            minHeight: 6,
+            backgroundColor: AppDesignConstants.darkBorder,
+            color: AppDesignConstants.brandGreen,
+          ),
+        ),
+      ],
+    );
   }
 }
 
@@ -323,6 +420,7 @@ class _HeroCard extends StatelessWidget {
               style: const TextStyle(fontWeight: FontWeight.w600),
             ),
             TextButton(
+              key: const Key('v3_today_hero_review'),
               onPressed: onReview,
               child: Text(loc.v3HeroReview),
             ),
@@ -382,28 +480,88 @@ class _ChallengeCard extends StatelessWidget {
   }
 }
 
-class _EveningCard extends StatelessWidget {
-  const _EveningCard({required this.onTap});
+class _EveningSlot extends StatelessWidget {
+  const _EveningSlot({required this.state, this.onOpen});
 
-  final VoidCallback onTap;
+  final EveningSlotState state;
+  final VoidCallback? onOpen;
 
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final label = switch (state) {
+      EveningSlotState.locked => loc.v3EveningSlotLocked,
+      EveningSlotState.open => loc.v3EveningSlotOpen,
+      EveningSlotState.done => loc.v3EveningSlotDone,
+    };
+    final key = Key('v3_today_evening_${state.name}');
     return Material(
       color: AppDesignConstants.darkSurface,
       borderRadius: BorderRadius.circular(20),
       child: InkWell(
-        key: const Key('v3_today_evening'),
+        key: key,
         borderRadius: BorderRadius.circular(20),
-        onTap: onTap,
+        onTap: state == EveningSlotState.open ? onOpen : null,
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Text(
-            loc.v3EveningCard,
-            style: const TextStyle(fontWeight: FontWeight.w600),
+            label,
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              color: state == EveningSlotState.locked
+                  ? AppDesignConstants.darkOnSurfaceMuted
+                  : null,
+            ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _GoalTipCard extends StatelessWidget {
+  const _GoalTipCard({required this.goal, required this.tip});
+
+  final String goal;
+  final String tip;
+
+  static IconData iconFor(String goal) {
+    switch (GoalTipsContent.mapProfileGoal(goal)) {
+      case 'focus':
+        return Icons.center_focus_strong_outlined;
+      case 'sleep':
+        return Icons.bedtime_outlined;
+      case 'calm':
+        return Icons.spa_outlined;
+      case 'less_scroll':
+      default:
+        return Icons.smartphone_outlined;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      key: const Key('v3_today_goal_tip'),
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: AppDesignConstants.darkSurface,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(iconFor(goal), color: AppDesignConstants.brandGreen),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              tip,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(height: 1.35),
+            ),
+          ),
+        ],
       ),
     );
   }

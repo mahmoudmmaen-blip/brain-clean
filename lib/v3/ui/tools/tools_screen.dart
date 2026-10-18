@@ -5,10 +5,6 @@ import 'package:go_router/go_router.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/providers/locale_provider.dart';
 import '../../../core/theme/app_design_constants.dart';
-import '../../../features/games/color_word_game.dart';
-import '../../../features/games/n_back_game.dart';
-import '../../../features/games/number_memory_game.dart';
-import '../../../features/games/pattern_logic_game.dart';
 import '../../../features/pro/application/subscription_service_provider.dart';
 import '../../content/content_repository.dart';
 import '../../content/exercises_content.dart';
@@ -138,39 +134,6 @@ class _V3ToolsScreenState extends ConsumerState<V3ToolsScreen> {
                     loc: loc,
                   ),
                 const SizedBox(height: 20),
-                _SectionTitle(loc.v3ToolsGamesTitle),
-                Text(
-                  loc.v3ToolsGamesSubtitle,
-                  style: const TextStyle(
-                    color: AppDesignConstants.darkOnSurfaceMuted,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                _GameTile(
-                  keyName: 'v3_tools_game_nback',
-                  title: loc.v3GameNBackTitle,
-                  subtitle: loc.v3GameNBackDesc,
-                  onTap: () => _openGame(const NBackGameScreen()),
-                ),
-                _GameTile(
-                  keyName: 'v3_tools_game_number',
-                  title: loc.v3GameNumberMemoryTitle,
-                  subtitle: loc.v3GameNumberMemoryDesc,
-                  onTap: () => _openGame(const NumberMemoryGameScreen()),
-                ),
-                _GameTile(
-                  keyName: 'v3_tools_game_color',
-                  title: loc.v3GameColorWordTitle,
-                  subtitle: loc.v3GameColorWordDesc,
-                  onTap: () => _openGame(const ColorWordGameScreen()),
-                ),
-                _GameTile(
-                  keyName: 'v3_tools_game_pattern',
-                  title: loc.v3GamePatternLogicTitle,
-                  subtitle: loc.v3GamePatternLogicDesc,
-                  onTap: () => _openGame(const PatternLogicGameScreen()),
-                ),
-                const SizedBox(height: 20),
                 _SectionTitle(loc.v3ToolsTwentyTitle),
                 const SizedBox(height: 8),
                 const TwentyTwentyTile(),
@@ -180,12 +143,6 @@ class _V3ToolsScreenState extends ConsumerState<V3ToolsScreen> {
           );
         },
       ),
-    );
-  }
-
-  void _openGame(Widget game) {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(builder: (_) => game),
     );
   }
 }
@@ -269,34 +226,6 @@ class _ExerciseTile extends StatelessWidget {
           }
           context.push(V3Routes.toolsExercisePath(exercise.id));
         },
-      ),
-    );
-  }
-}
-
-class _GameTile extends StatelessWidget {
-  const _GameTile({
-    required this.keyName,
-    required this.title,
-    required this.subtitle,
-    required this.onTap,
-  });
-
-  final String keyName;
-  final String title;
-  final String subtitle;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      key: Key(keyName),
-      child: ListTile(
-        leading: const Icon(Icons.extension_outlined),
-        title: Text(title),
-        subtitle: Text(subtitle),
-        trailing: const Icon(Icons.chevron_right),
-        onTap: onTap,
       ),
     );
   }

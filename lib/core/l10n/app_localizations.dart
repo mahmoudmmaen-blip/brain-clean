@@ -9549,6 +9549,24 @@ abstract class AppLocalizations {
   /// **'Evening check-in'**
   String get v3EveningCard;
 
+  /// No description provided for @v3EveningSlotLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Evening review opens after 6 PM'**
+  String get v3EveningSlotLocked;
+
+  /// No description provided for @v3EveningSlotOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'How was your day?'**
+  String get v3EveningSlotOpen;
+
+  /// No description provided for @v3EveningSlotDone.
+  ///
+  /// In en, this message translates to:
+  /// **'✓ You logged your review'**
+  String get v3EveningSlotDone;
+
   /// No description provided for @v3NextClarityCheck.
   ///
   /// In en, this message translates to:

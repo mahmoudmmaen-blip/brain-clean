@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "note": "One short tip per week for each goal. Shown on Today under the day card. Map goal ids to the existing UserProfile.goal values.",
+  "goals": {
+    "focus": {
+      "1": { "ar": "لاحظ متى يقطع الموبايل تركيزك. الملاحظة وحدها تبدأ التغيير.", "en": "Notice when your phone breaks your focus. Noticing alone starts the change." },
+      "2": { "ar": "ضع الموبايل في غرفة أخرى أثناء العمل. البعد يحمي التركيز.", "en": "Keep your phone in another room while you work. Distance protects focus." },
+      "3": { "ar": "حين تشعر بالتشتت، جرّب 10 دقائق تركيز بدلًا من فتح الموبايل.", "en": "When you feel distracted, try 10 minutes of focus instead of opening your phone." },
+      "4": { "ar": "اختر وقتًا ثابتًا للعمل العميق كل يوم، واحمِه كموعد مهم.", "en": "Pick a fixed time for deep work each day, and guard it like an important meeting." }
+    },
+    "sleep": {
+      "1": { "ar": "لاحظ آخر مرة تنظر فيها إلى الشاشة قبل النوم.", "en": "Notice the last time you look at a screen before sleep." },
+      "2": { "ar": "اشحن الموبايل خارج غرفة النوم. هذه أقوى خطوة لنوم أفضل.", "en": "Charge your phone outside the bedroom. It's the strongest step for better sleep." },
+      "3": { "ar": "استبدل التصفح قبل النوم بكتاب أو تنفس هادئ لمدة 5 دقائق.", "en": "Swap pre-sleep scrolling for a book or 5 minutes of calm breathing." },
+      "4": { "ar": "ثبّت موعدًا لإطفاء الشاشات كل ليلة، حتى في العطلة.", "en": "Set a screens-off time every night, even on weekends." }
+    },
+    "less_scroll": {
+      "1": { "ar": "عدّ كم مرة تفتح الموبايل دون سبب. لا تحكم، فقط لاحظ.", "en": "Count how often you open your phone for no reason. Don't judge, just notice." },
+      "2": { "ar": "انقل التطبيقات المشتتة من الشاشة الرئيسية. كل خطوة إضافية تقلل الفتح.", "en": "Move distracting apps off your home screen. Each extra step means fewer opens." },
+      "3": { "ar": "حين تأتي الرغبة، استخدم زر الطوارئ. الرغبة تمر خلال دقائق.", "en": "When the urge comes, use the SOS button. Urges pass in minutes." },
+      "4": { "ar": "اكتب قاعدتك الأهم وضعها في مكان تراه كل يوم.", "en": "Write your most important rule and put it where you see it every day." }
+    },
+    "calm": {
+      "1": { "ar": "لاحظ كيف تشعر بعد التصفح: أهدأ أم أكثر توترًا؟", "en": "Notice how you feel after scrolling: calmer or more tense?" },
+      "2": { "ar": "أوقف الإشعارات غير المهمة. كل تنبيه يسحب انتباهك.", "en": "Turn off non-essential notifications. Every alert pulls at your attention." },
+      "3": { "ar": "عند التوتر، دقيقة تنفس تفيدك أكثر من 10 دقائق تصفح.", "en": "When stressed, one minute of breathing helps more than 10 minutes of scrolling." },
+      "4": { "ar": "احجز وقتًا يوميًا بلا شاشات، ولو 20 دقيقة.", "en": "Book screen-free time every day, even just 20 minutes." }
+    }
+  }
+}

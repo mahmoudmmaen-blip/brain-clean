@@ -5293,6 +5293,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v3EveningCard => 'تسجيل المساء';
 
   @override
+  String get v3EveningSlotLocked => 'مراجعة المساء تفتح بعد 6 مساءً';
+
+  @override
+  String get v3EveningSlotOpen => 'كيف كان يومك؟';
+
+  @override
+  String get v3EveningSlotDone => '✓ سجّلت مراجعتك';
+
+  @override
   String v3NextClarityCheck(int day) {
     return 'فحص الصفاء القادم: يوم $day';
   }

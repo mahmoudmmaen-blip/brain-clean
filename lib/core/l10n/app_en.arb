@@ -2326,6 +2326,9 @@
   "v3TodayChallenge": "Today's challenge",
   "v3SosButton": "I feel like opening my phone",
   "v3EveningCard": "Evening check-in",
+  "v3EveningSlotLocked": "Evening review opens after 6 PM",
+  "v3EveningSlotOpen": "How was your day?",
+  "v3EveningSlotDone": "✓ You logged your review",
   "v3NextClarityCheck": "Next Clarity Check: day {day}",
   "@v3NextClarityCheck": {
     "placeholders": {
