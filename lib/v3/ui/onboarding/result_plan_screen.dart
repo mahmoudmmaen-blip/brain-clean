@@ -5,10 +5,15 @@ import 'package:go_router/go_router.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/providers/locale_provider.dart';
 import '../../../core/theme/app_design_constants.dart';
+import '../../../features/pro/application/subscription_service_provider.dart';
+import '../../../features/v2_premium/data/premium_controller_provider.dart';
+import '../../../features/v2_premium/domain/premium_offering.dart';
 import '../../application/v3_onboarding_gate_provider.dart';
 import '../../application/v3_state_providers.dart';
 import '../../content/content_repository.dart';
 import '../../domain/clarity_scoring.dart';
+import '../../domain/screen_time_reframe.dart';
+import '../../domain/trial_offer_gate.dart';
 import '../../routing/v3_routes.dart';
 import 'onboarding_keys.dart';
 
@@ -22,6 +27,7 @@ class V3ResultPlanScreen extends ConsumerStatefulWidget {
 
 class _V3ResultPlanScreenState extends ConsumerState<V3ResultPlanScreen> {
   bool _markedOnboarding = false;
+  bool _continuing = false;
 
   @override
   void initState() {
@@ -39,6 +45,48 @@ class _V3ResultPlanScreenState extends ConsumerState<V3ResultPlanScreen> {
       await repo.saveProfile(profile.copyWith(onboardingDone: true));
     }
     ref.read(v3OnboardingGateProvider.notifier).markOnboardingComplete();
+  }
+
+  Future<void> _continueToDay1() async {
+    if (_continuing) return;
+    setState(() => _continuing = true);
+    try {
+      final repo = ref.read(v3StateRepositoryProvider);
+      final app = await repo.load();
+      if (app.trialOfferShown) {
+        if (mounted) context.go(V3Routes.sessionPath(1));
+        return;
+      }
+
+      final isPro = ref.read(isProUserProvider);
+      final store = ref.read(premiumStorePortProvider);
+      var offerings = const <PremiumOffering>[];
+      if (store.isStoreConfigured && !isPro) {
+        try {
+          offerings = await store.loadOfferings();
+        } catch (_) {
+          offerings = const [];
+        }
+      }
+
+      final showOffer = TrialOfferGate.shouldShow(
+        alreadyShown: false,
+        isPro: isPro,
+        storeConfigured: store.isStoreConfigured,
+        yearlyTrialConfirmed: TrialOfferGate.yearlyHasConfirmedTrial(offerings),
+      );
+
+      if (!showOffer) {
+        await repo.setTrialOfferShown(true);
+        ref.invalidate(v3AppStateProvider);
+        if (mounted) context.go(V3Routes.sessionPath(1));
+        return;
+      }
+
+      if (mounted) context.go(V3Routes.offer);
+    } finally {
+      if (mounted) setState(() => _continuing = false);
+    }
   }
 
   @override
@@ -59,6 +107,8 @@ class _V3ResultPlanScreenState extends ConsumerState<V3ResultPlanScreen> {
         final latest = clarityResults.isEmpty ? null : clarityResults.last;
         final score = latest?.score ?? 0;
         final areas = latest?.areas;
+        final hours = latest?.hoursEstimate ?? 3;
+        final yearlyDays = ScreenTimeReframe.yearlyFullDays(hours);
         final band = ClarityScoring.bandForScore(bundle.clarityCheck, score);
 
         return Scaffold(
@@ -98,6 +148,26 @@ class _V3ResultPlanScreenState extends ConsumerState<V3ResultPlanScreen> {
                       fontSize: 16,
                       height: 1.4,
                       color: AppDesignConstants.darkOnSurfaceMuted,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Container(
+                    key: V3OnboardingKeys.resultReframe,
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: AppDesignConstants.darkSurface,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Text(
+                      loc.v3ResultReframe(
+                        _formatHours(hours),
+                        yearlyDays,
+                      ),
+                      style: const TextStyle(
+                        fontSize: 15,
+                        height: 1.4,
+                        color: AppDesignConstants.darkOnSurface,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 24),
@@ -159,12 +229,18 @@ class _V3ResultPlanScreenState extends ConsumerState<V3ResultPlanScreen> {
                   const SizedBox(height: 28),
                   FilledButton(
                     key: V3OnboardingKeys.resultStartDay1,
-                    onPressed: () => context.go(V3Routes.sessionPath(1)),
+                    onPressed: _continuing ? null : _continueToDay1,
                     style: FilledButton.styleFrom(
                       backgroundColor: AppDesignConstants.brandGreen,
                       minimumSize: const Size.fromHeight(52),
                     ),
-                    child: Text(loc.v3ResultStartDay1),
+                    child: _continuing
+                        ? const SizedBox(
+                            width: 22,
+                            height: 22,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : Text(loc.v3ResultStartDay1),
                   ),
                 ],
               ),
@@ -173,6 +249,11 @@ class _V3ResultPlanScreenState extends ConsumerState<V3ResultPlanScreen> {
         );
       },
     );
+  }
+
+  String _formatHours(double hours) {
+    if (hours == hours.roundToDouble()) return '${hours.round()}';
+    return hours.toStringAsFixed(1);
   }
 }
 

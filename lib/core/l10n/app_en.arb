@@ -2240,6 +2240,38 @@
   },
   "v3ResultProgramCard": "Your program: 30 days · 4 phases",
   "v3ResultStartDay1": "Start Day 1 (5 min)",
+  "v3ResultReframe": "About {hours} h a day = about {days} full days a year",
+  "@v3ResultReframe": {
+    "placeholders": {
+      "hours": { "type": "String" },
+      "days": { "type": "int" }
+    }
+  },
+  "v3TrialOfferTitle": "Start strong from day one",
+  "v3TrialOfferBody": "Try the full program free for {days} days, then {price} per year",
+  "@v3TrialOfferBody": {
+    "placeholders": {
+      "days": { "type": "int" },
+      "price": { "type": "String" }
+    }
+  },
+  "v3TrialOfferStartCta": "Start {days} days free",
+  "@v3TrialOfferStartCta": {
+    "placeholders": {
+      "days": { "type": "int" }
+    }
+  },
+  "v3TrialOfferContinueFree": "Continue with the free version",
+  "v3TrialEndingTitle": "Your trial ends in two days",
+  "v3TrialEndingCharge": "You will be charged {price} on {date}",
+  "@v3TrialEndingCharge": {
+    "placeholders": {
+      "price": { "type": "String" },
+      "date": { "type": "String" }
+    }
+  },
+  "v3TrialEndingContinue": "Continue",
+  "v3TrialEndingManage": "Manage subscription",
   "v3TabToday": "Today",
   "v3TabProgram": "Program",
   "v3TabTools": "Tools",

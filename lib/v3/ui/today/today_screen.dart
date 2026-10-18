@@ -12,6 +12,7 @@ import '../../data/day_progress.dart';
 import '../../domain/program_engine.dart';
 import '../../routing/v3_routes.dart';
 import 'evening_check_in_sheet.dart';
+import 'trial_ending_sheet.dart';
 
 enum TodayHeroState { notStarted, inProgress, done, proLocked }
 
@@ -93,7 +94,8 @@ class V3TodayScreen extends ConsumerWidget {
                 ? loc.v3GreetingHello
                 : loc.v3GreetingNamed(_daypart(loc, now), name);
 
-            return Scaffold(
+            return TrialEndingHost(
+              child: Scaffold(
               key: const Key('v3_today_screen'),
               backgroundColor: AppDesignConstants.darkBackground,
               body: SafeArea(
@@ -223,6 +225,7 @@ class V3TodayScreen extends ConsumerWidget {
                   ],
                 ),
               ),
+            ),
             );
           },
         );

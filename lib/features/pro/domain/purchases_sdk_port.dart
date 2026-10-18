@@ -35,10 +35,18 @@ class StoreCustomerSnapshot {
   const StoreCustomerSnapshot({
     required this.entitled,
     this.activeEntitlementIds = const [],
+    this.isTrialPeriod = false,
+    this.expirationDate,
   });
 
   final bool entitled;
   final List<String> activeEntitlementIds;
+
+  /// True when the primary entitlement is currently in a free trial period.
+  final bool isTrialPeriod;
+
+  /// Entitlement expiration (trial end when [isTrialPeriod] is true).
+  final DateTime? expirationDate;
 }
 
 /// Facade over purchases_flutter for production and deterministic tests.

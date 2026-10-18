@@ -5183,6 +5183,41 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v3ResultStartDay1 => 'ابدأ اليوم الأول (5 دقائق)';
 
   @override
+  String v3ResultReframe(String hours, int days) {
+    return 'تقضي حوالي $hours ساعات يوميًا = نحو $days يومًا كاملًا في السنة';
+  }
+
+  @override
+  String get v3TrialOfferTitle => 'ابدأ قويًا من اليوم الأول';
+
+  @override
+  String v3TrialOfferBody(int days, String price) {
+    return 'جرّب البرنامج كاملًا $days يومًا مجانًا، ثم $price سنويًا';
+  }
+
+  @override
+  String v3TrialOfferStartCta(int days) {
+    return 'ابدأ $days يومًا مجانًا';
+  }
+
+  @override
+  String get v3TrialOfferContinueFree => 'أتابع بالنسخة المجانية';
+
+  @override
+  String get v3TrialEndingTitle => 'تجربتك تنتهي بعد يومين';
+
+  @override
+  String v3TrialEndingCharge(String price, String date) {
+    return 'سيُخصم $price في تاريخ $date';
+  }
+
+  @override
+  String get v3TrialEndingContinue => 'متابعة';
+
+  @override
+  String get v3TrialEndingManage => 'إدارة الاشتراك';
+
+  @override
   String get v3TabToday => 'اليوم';
 
   @override

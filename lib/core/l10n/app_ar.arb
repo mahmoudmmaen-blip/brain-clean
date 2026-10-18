@@ -2364,6 +2364,38 @@
   "v3RecheckComparison": "مقارنةً بآخر مرة: {delta} نقطة",
   "v3ResultProgramCard": "برنامجك: 30 يومًا · 4 مراحل",
   "v3ResultStartDay1": "ابدأ اليوم الأول (5 دقائق)",
+  "v3ResultReframe": "تقضي حوالي {hours} ساعات يوميًا = نحو {days} يومًا كاملًا في السنة",
+  "@v3ResultReframe": {
+    "placeholders": {
+      "hours": { "type": "String" },
+      "days": { "type": "int" }
+    }
+  },
+  "v3TrialOfferTitle": "ابدأ قويًا من اليوم الأول",
+  "v3TrialOfferBody": "جرّب البرنامج كاملًا {days} يومًا مجانًا، ثم {price} سنويًا",
+  "@v3TrialOfferBody": {
+    "placeholders": {
+      "days": { "type": "int" },
+      "price": { "type": "String" }
+    }
+  },
+  "v3TrialOfferStartCta": "ابدأ {days} يومًا مجانًا",
+  "@v3TrialOfferStartCta": {
+    "placeholders": {
+      "days": { "type": "int" }
+    }
+  },
+  "v3TrialOfferContinueFree": "أتابع بالنسخة المجانية",
+  "v3TrialEndingTitle": "تجربتك تنتهي بعد يومين",
+  "v3TrialEndingCharge": "سيُخصم {price} في تاريخ {date}",
+  "@v3TrialEndingCharge": {
+    "placeholders": {
+      "price": { "type": "String" },
+      "date": { "type": "String" }
+    }
+  },
+  "v3TrialEndingContinue": "متابعة",
+  "v3TrialEndingManage": "إدارة الاشتراك",
   "v3TabToday": "اليوم",
   "v3TabProgram": "البرنامج",
   "v3TabTools": "الأدوات",

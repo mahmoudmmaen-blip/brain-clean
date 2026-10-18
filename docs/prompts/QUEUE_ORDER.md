@@ -8,8 +8,8 @@ Only Claude changes WAITING → NEXT and REVIEW → DONE.
 
 | # | File | Status | Build |
 |---|---|---|---|
-| C01 | C01_paywall.md | REVIEW | no |
-| C02 | C02_onboarding_trial.md | WAITING | no |
+| C01 | C01_paywall.md | DONE | no |
+| C02 | C02_onboarding_trial.md | REVIEW | no |
 | C03 | C03_content_sos_share.md | WAITING | no |
 | C04 | C04_today_tools.md | WAITING | no |
 | C05 | C05_program_progress.md | WAITING | no |

@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
+import '../../v2_premium/domain/premium_identifiers.dart';
 import '../domain/purchases_sdk_port.dart';
 import '../domain/subscription_plan.dart';
 import '../domain/trial_period.dart';
@@ -149,9 +150,19 @@ class PurchasesFlutterSdkPort implements PurchasesSdkPort {
 
   StoreCustomerSnapshot _snapshot(CustomerInfo info) {
     final ids = info.entitlements.active.keys.toList(growable: false);
+    final primary = info.entitlements.active[PremiumIdentifiers.entitlementId] ??
+        info.entitlements.active[StoreEntitlementEvaluator.additivePro];
+    final isTrial = primary?.periodType == PeriodType.trial;
+    DateTime? expiration;
+    final rawExp = primary?.expirationDate;
+    if (rawExp != null && rawExp.isNotEmpty) {
+      expiration = DateTime.tryParse(rawExp);
+    }
     return StoreCustomerSnapshot(
       entitled: StoreEntitlementEvaluator.isEntitled(ids),
       activeEntitlementIds: ids,
+      isTrialPeriod: isTrial,
+      expirationDate: expiration,
     );
   }
 

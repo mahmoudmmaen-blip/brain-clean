@@ -23,6 +23,8 @@ abstract class V3StateRepository {
   Future<void> appendFocusLog(FocusLog log);
   Future<void> saveUserInputs(UserInputs inputs);
   Future<void> setDay7PaywallShown(bool shown);
+  Future<void> setTrialOfferShown(bool shown);
+  Future<void> setTrialEndingNoticeKey(String key);
   Future<void> clearDayProgressOnly();
   Future<void> clearAll();
 }
@@ -89,6 +91,7 @@ class V3StateLocalRepository implements V3StateRepository {
           ? UserInputs.fromJson(Map<String, dynamic>.from(rawInputs))
           : const UserInputs();
 
+      final noticeKey = box.get(V3StorageKeys.trialEndingNoticeKey);
       return V3AppState(
         profile: profile,
         dayProgress: dayProgress,
@@ -98,6 +101,8 @@ class V3StateLocalRepository implements V3StateRepository {
         focusLogs: focusLogs,
         userInputs: userInputs,
         day7PaywallShown: box.get(V3StorageKeys.day7PaywallShown) == true,
+        trialOfferShown: box.get(V3StorageKeys.trialOfferShown) == true,
+        trialEndingNoticeKey: noticeKey is String ? noticeKey : null,
       );
     } catch (e, st) {
       debugPrint('V3StateLocalRepository.load failed: $e\n$st');
@@ -217,6 +222,20 @@ class V3StateLocalRepository implements V3StateRepository {
     final box = await _openBox();
     await _ensureSchema(box);
     await box.put(V3StorageKeys.day7PaywallShown, shown);
+  }
+
+  @override
+  Future<void> setTrialOfferShown(bool shown) async {
+    final box = await _openBox();
+    await _ensureSchema(box);
+    await box.put(V3StorageKeys.trialOfferShown, shown);
+  }
+
+  @override
+  Future<void> setTrialEndingNoticeKey(String key) async {
+    final box = await _openBox();
+    await _ensureSchema(box);
+    await box.put(V3StorageKeys.trialEndingNoticeKey, key);
   }
 
   @override

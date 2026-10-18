@@ -18,15 +18,8 @@ class V3SetupScreen extends ConsumerStatefulWidget {
 }
 
 class _V3SetupScreenState extends ConsumerState<V3SetupScreen> {
-  final _nameController = TextEditingController();
   String _goal = 'focus';
   TimeOfDay _reminder = const TimeOfDay(hour: 20, minute: 0);
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    super.dispose();
-  }
 
   Future<void> _pickTime() async {
     final picked = await showTimePicker(
@@ -39,9 +32,7 @@ class _V3SetupScreenState extends ConsumerState<V3SetupScreen> {
   Future<void> _submit() async {
     final locale = ref.read(localeProvider).languageCode;
     final profile = UserProfile(
-      name: _nameController.text.trim().isEmpty
-          ? null
-          : _nameController.text.trim(),
+      name: null,
       goal: _goal,
       reminderTime:
           '${_reminder.hour.toString().padLeft(2, '0')}:${_reminder.minute.toString().padLeft(2, '0')}',
@@ -58,6 +49,7 @@ class _V3SetupScreenState extends ConsumerState<V3SetupScreen> {
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     return Scaffold(
+      key: V3OnboardingKeys.setupScreen,
       backgroundColor: AppDesignConstants.darkBackground,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -69,19 +61,6 @@ class _V3SetupScreenState extends ConsumerState<V3SetupScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              TextField(
-                controller: _nameController,
-                decoration: InputDecoration(
-                  labelText: loc.v3SetupNameHint,
-                  filled: true,
-                  fillColor: AppDesignConstants.darkSurface,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 24),
               Text(
                 loc.v3SetupGoalTitle,
                 style: const TextStyle(

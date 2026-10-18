@@ -7,6 +7,7 @@ abstract final class V3Routes {
   static const check = '/check';
   static const setup = '/setup';
   static const result = '/result';
+  static const offer = '/offer';
 
   static const today = '/today';
   static const program = '/program';
@@ -38,6 +39,7 @@ abstract final class V3Routes {
     check,
     setup,
     result,
+    offer,
   };
 
   static bool isOnboardingPath(String path) {

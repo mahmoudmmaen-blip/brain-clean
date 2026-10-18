@@ -9369,6 +9369,60 @@ abstract class AppLocalizations {
   /// **'Start Day 1 (5 min)'**
   String get v3ResultStartDay1;
 
+  /// No description provided for @v3ResultReframe.
+  ///
+  /// In en, this message translates to:
+  /// **'About {hours} h a day = about {days} full days a year'**
+  String v3ResultReframe(String hours, int days);
+
+  /// No description provided for @v3TrialOfferTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Start strong from day one'**
+  String get v3TrialOfferTitle;
+
+  /// No description provided for @v3TrialOfferBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Try the full program free for {days} days, then {price} per year'**
+  String v3TrialOfferBody(int days, String price);
+
+  /// No description provided for @v3TrialOfferStartCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Start {days} days free'**
+  String v3TrialOfferStartCta(int days);
+
+  /// No description provided for @v3TrialOfferContinueFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with the free version'**
+  String get v3TrialOfferContinueFree;
+
+  /// No description provided for @v3TrialEndingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your trial ends in two days'**
+  String get v3TrialEndingTitle;
+
+  /// No description provided for @v3TrialEndingCharge.
+  ///
+  /// In en, this message translates to:
+  /// **'You will be charged {price} on {date}'**
+  String v3TrialEndingCharge(String price, String date);
+
+  /// No description provided for @v3TrialEndingContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get v3TrialEndingContinue;
+
+  /// No description provided for @v3TrialEndingManage.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage subscription'**
+  String get v3TrialEndingManage;
+
   /// No description provided for @v3TabToday.
   ///
   /// In en, this message translates to:

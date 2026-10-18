@@ -13,6 +13,7 @@ import '../ui/onboarding/clarity_check_screen.dart';
 import '../ui/onboarding/result_plan_screen.dart';
 import '../ui/onboarding/setup_screen.dart';
 import '../ui/onboarding/welcome_screen.dart';
+import '../ui/paywall/trial_offer_screen.dart';
 import '../ui/paywall/v3_paywall_screen.dart';
 import '../ui/placeholders/v3_simple_placeholder.dart';
 import '../ui/session/session_player_screen.dart';
@@ -119,6 +120,10 @@ final v3GoRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: V3Routes.result,
         builder: (context, state) => const V3ResultPlanScreen(),
+      ),
+      GoRoute(
+        path: V3Routes.offer,
+        builder: (context, state) => const V3TrialOfferScreen(),
       ),
       GoRoute(
         path: V3Routes.session,

@@ -1,3 +1,4 @@
+import 'purchases_sdk_port.dart';
 import 'subscription_adapter_kind.dart';
 import 'subscription_outcomes.dart';
 import 'subscription_plan.dart';
@@ -27,6 +28,9 @@ abstract interface class SubscriptionService {
   Future<SubscriptionPurchaseResult> purchasePlan(String planId);
 
   Future<SubscriptionRestoreResult> restoreEntitlements();
+
+  /// Primary entitlement trial window from CustomerInfo, if known.
+  Future<StoreCustomerSnapshot?> loadCustomerSnapshot();
 
   /// Legacy V1 helper — true only when entitled after purchase.
   Future<bool> purchase(String planId);

@@ -9,4 +9,6 @@ abstract final class V3StorageKeys {
   static const focusLogs = 'focus_logs';
   static const userInputs = 'user_inputs';
   static const day7PaywallShown = 'day7_paywall_shown';
+  static const trialOfferShown = 'trial_offer_shown';
+  static const trialEndingNoticeKey = 'trial_ending_notice_key';
 }

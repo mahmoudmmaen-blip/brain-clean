@@ -1,3 +1,4 @@
+import '../domain/purchases_sdk_port.dart';
 import '../domain/subscription_adapter_kind.dart';
 import '../domain/subscription_outcomes.dart';
 import '../domain/subscription_plan.dart';
@@ -39,6 +40,9 @@ class StoreUnavailableSubscriptionService implements SubscriptionService {
   @override
   Future<SubscriptionRestoreResult> restoreEntitlements() async =>
       SubscriptionRestoreResult.failed;
+
+  @override
+  Future<StoreCustomerSnapshot?> loadCustomerSnapshot() async => null;
 
   @override
   Future<bool> purchase(String planId) async => false;

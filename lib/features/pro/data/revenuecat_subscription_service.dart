@@ -169,6 +169,19 @@ class RevenueCatSubscriptionService implements SubscriptionService {
   }
 
   @override
+  Future<StoreCustomerSnapshot?> loadCustomerSnapshot() async {
+    await ensureInitialized();
+    if (!_initSucceeded) return null;
+    try {
+      final snap = await _sdk.getCustomerInfo();
+      await _applySnapshot(snap);
+      return snap;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  @override
   Future<bool> purchase(String planId) async {
     final r = await purchasePlan(planId);
     return r == SubscriptionPurchaseResult.success ||

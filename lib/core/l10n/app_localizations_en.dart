@@ -5281,6 +5281,41 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v3ResultStartDay1 => 'Start Day 1 (5 min)';
 
   @override
+  String v3ResultReframe(String hours, int days) {
+    return 'About $hours h a day = about $days full days a year';
+  }
+
+  @override
+  String get v3TrialOfferTitle => 'Start strong from day one';
+
+  @override
+  String v3TrialOfferBody(int days, String price) {
+    return 'Try the full program free for $days days, then $price per year';
+  }
+
+  @override
+  String v3TrialOfferStartCta(int days) {
+    return 'Start $days days free';
+  }
+
+  @override
+  String get v3TrialOfferContinueFree => 'Continue with the free version';
+
+  @override
+  String get v3TrialEndingTitle => 'Your trial ends in two days';
+
+  @override
+  String v3TrialEndingCharge(String price, String date) {
+    return 'You will be charged $price on $date';
+  }
+
+  @override
+  String get v3TrialEndingContinue => 'Continue';
+
+  @override
+  String get v3TrialEndingManage => 'Manage subscription';
+
+  @override
   String get v3TabToday => 'Today';
 
   @override

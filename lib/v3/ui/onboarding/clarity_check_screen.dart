@@ -47,14 +47,21 @@ class _V3ClarityCheckScreenState extends ConsumerState<V3ClarityCheckScreen> {
       final previous = state.clarityResults.isEmpty
           ? null
           : state.clarityResults.last.score;
+      final bundle = await ref.read(v3ContentProvider.future);
       ref.read(clarityCheckSessionProvider.notifier).reset(
             mode: widget.mode,
             previousScore: previous,
+            questions: bundle.clarityCheck.questions,
+            checkDate: DateTime.now(),
           );
     });
   }
 
   int get _questionCount {
+    final session = ref.read(clarityCheckSessionProvider);
+    if (session.orderedQuestions.isNotEmpty) {
+      return session.orderedQuestions.length;
+    }
     final content = ref.read(v3ContentProvider).valueOrNull;
     return content?.clarityCheck.questions.length ?? 8;
   }
@@ -174,7 +181,10 @@ class _V3ClarityCheckScreenState extends ConsumerState<V3ClarityCheckScreen> {
         }
 
         final clarity = bundle.clarityCheck;
-        final totalSteps = 1 + 1 + clarity.questions.length;
+        final questions = session.orderedQuestions.isNotEmpty
+            ? session.orderedQuestions
+            : clarity.questions;
+        final totalSteps = 1 + 1 + questions.length;
         final step = session.step.clamp(0, totalSteps - 1);
 
         return Scaffold(
@@ -205,6 +215,7 @@ class _V3ClarityCheckScreenState extends ConsumerState<V3ClarityCheckScreen> {
                 loc: loc,
                 locale: locale,
                 clarity: clarity,
+                questions: questions,
                 step: step,
                 session: session,
               ),
@@ -220,6 +231,7 @@ class _V3ClarityCheckScreenState extends ConsumerState<V3ClarityCheckScreen> {
     required AppLocalizations loc,
     required String locale,
     required ClarityCheckContent clarity,
+    required List<ClarityQuestion> questions,
     required int step,
     required ClarityCheckSessionState session,
   }) {
@@ -235,6 +247,7 @@ class _V3ClarityCheckScreenState extends ConsumerState<V3ClarityCheckScreen> {
     if (step == 1) {
       final q = clarity.screenTimeQuestion;
       return _OptionsStep(
+        key: V3OnboardingKeys.checkScreenTime,
         title: q.text.resolve(locale),
         options: q.options
             .map(
@@ -252,9 +265,9 @@ class _V3ClarityCheckScreenState extends ConsumerState<V3ClarityCheckScreen> {
     }
 
     final qIndex = step - 2;
-    final question = clarity.questions[qIndex];
+    final question = questions[qIndex];
     final scale = clarity.scale;
-    final isLast = qIndex == clarity.questions.length - 1;
+    final isLast = qIndex == questions.length - 1;
 
     return _OptionsStep(
       title: question.text.resolve(locale),
@@ -324,7 +337,7 @@ class _Option {
 }
 
 class _OptionsStep extends StatelessWidget {
-  const _OptionsStep({required this.title, required this.options});
+  const _OptionsStep({super.key, required this.title, required this.options});
 
   final String title;
   final List<_Option> options;

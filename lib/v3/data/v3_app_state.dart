@@ -17,6 +17,8 @@ class V3AppState {
     this.focusLogs = const [],
     this.userInputs = const UserInputs(),
     this.day7PaywallShown = false,
+    this.trialOfferShown = false,
+    this.trialEndingNoticeKey,
   });
 
   final UserProfile? profile;
@@ -28,6 +30,12 @@ class V3AppState {
   final UserInputs userInputs;
   final bool day7PaywallShown;
 
+  /// One-time onboarding trial offer was shown or skipped for this install.
+  final bool trialOfferShown;
+
+  /// Expiration key for which the trial-ending sheet was already shown.
+  final String? trialEndingNoticeKey;
+
   V3AppState copyWith({
     UserProfile? profile,
     List<DayProgress>? dayProgress,
@@ -37,6 +45,9 @@ class V3AppState {
     List<FocusLog>? focusLogs,
     UserInputs? userInputs,
     bool? day7PaywallShown,
+    bool? trialOfferShown,
+    String? trialEndingNoticeKey,
+    bool clearTrialEndingNoticeKey = false,
   }) {
     return V3AppState(
       profile: profile ?? this.profile,
@@ -47,6 +58,10 @@ class V3AppState {
       focusLogs: focusLogs ?? this.focusLogs,
       userInputs: userInputs ?? this.userInputs,
       day7PaywallShown: day7PaywallShown ?? this.day7PaywallShown,
+      trialOfferShown: trialOfferShown ?? this.trialOfferShown,
+      trialEndingNoticeKey: clearTrialEndingNoticeKey
+          ? null
+          : (trialEndingNoticeKey ?? this.trialEndingNoticeKey),
     );
   }
 
