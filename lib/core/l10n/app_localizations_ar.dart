@@ -5382,8 +5382,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v3PaywallTitle => 'افتح البرنامج الكامل';
 
   @override
+  String get v3PaywallPersonalTitle => 'أسبوع كامل من التدريب';
+
+  @override
   String get v3PaywallSubDay7 =>
-      'أكملت الأسبوع الأول. 23 يومًا من التغيير الحقيقي تنتظرك.';
+      'الأسبوع الأول كان للوعي. الأسابيع الثلاثة القادمة للتغيير الفعلي.';
 
   @override
   String get v3PaywallSubGeneric => 'أكمل الأيام 8 إلى 30 مع البرنامج الكامل.';
@@ -5393,16 +5396,85 @@ class AppLocalizationsAr extends AppLocalizations {
       'أيام 8 إلى 30 كاملة: البيئة، البدائل، والتثبيت';
 
   @override
-  String get v3PaywallBenefit2 => 'كل التمارين في الأدوات (33 تمرينًا)';
+  String get v3PaywallBenefit2 => 'جلسات تركيز 50 دقيقة وتنفّس 4-6';
 
   @override
-  String get v3PaywallBenefit3 => 'جلسات تركيز 50 دقيقة وتنفّس 4-6';
+  String get v3PaywallBenefit3 =>
+      'فحص الصفاء في الأيام 14 و21 و30 ومقارنة تقدّمك';
 
   @override
-  String get v3PaywallBenefit4 => 'فحص الصفاء ومتابعة تقدّمك حتى يوم 30';
+  String v3PaywallChipDays(int count) {
+    return '$count أيام تدريب';
+  }
 
   @override
-  String get v3PaywallFooter => 'إلغاء في أي وقت من Google Play';
+  String v3PaywallChipUrges(int count) {
+    return '$count رغبات تجاوزتها';
+  }
+
+  @override
+  String v3PaywallChipHours(String from, String to) {
+    return 'ساعات الموبايل: من $from إلى $to';
+  }
+
+  @override
+  String v3PaywallClarityFromTo(int from, int to) {
+    return 'فحص الصفاء: من $from إلى $to';
+  }
+
+  @override
+  String get v3PaywallPlanYearly => 'سنوي';
+
+  @override
+  String get v3PaywallPlanMonthly => 'شهري';
+
+  @override
+  String get v3PaywallPlanLifetime => 'مدى الحياة';
+
+  @override
+  String v3PaywallTrialBadge(int days) {
+    return '$days يومًا مجانًا';
+  }
+
+  @override
+  String v3PaywallApproxMonthly(String amount) {
+    return '≈ $amount شهريًا';
+  }
+
+  @override
+  String v3PaywallStartTrialCta(int days) {
+    return 'ابدأ $days يومًا مجانًا';
+  }
+
+  @override
+  String get v3PaywallTrialDisclaimer =>
+      'لن يُخصم أي مبلغ قبل نهاية التجربة · إلغاء في أي وقت من Google Play';
+
+  @override
+  String get v3PaywallSubscribeCta => 'اشترك';
+
+  @override
+  String get v3PaywallRestore => 'استعادة المشتريات';
+
+  @override
+  String get v3PaywallAlreadyPro => 'أنت مشترك ✓';
+
+  @override
+  String get v3PaywallManageSubscription => 'إدارة الاشتراك';
+
+  @override
+  String get v3PaywallPricesFailed => 'تعذّر تحميل الأسعار الآن';
+
+  @override
+  String get v3PaywallTryAgain => 'حاول مرة أخرى';
+
+  @override
+  String v3PaywallSavePercent(int percent) {
+    return 'وفّر $percent%';
+  }
+
+  @override
+  String get v3PaywallClose => 'إغلاق';
 
   @override
   String get v3SosTitle => 'عندي رغبة أفتح الموبايل';

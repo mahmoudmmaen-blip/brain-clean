@@ -5480,8 +5480,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v3PaywallTitle => 'Unlock the full program';
 
   @override
+  String get v3PaywallPersonalTitle => 'A full week of training';
+
+  @override
   String get v3PaywallSubDay7 =>
-      'You finished week one. 23 days of real change await you.';
+      'Week one was for awareness. The next three weeks are for real change.';
 
   @override
   String get v3PaywallSubGeneric => 'Continue days 8–30 with the full program.';
@@ -5491,16 +5494,85 @@ class AppLocalizationsEn extends AppLocalizations {
       'Days 8 to 30 complete: environment, replacements, and lock-in';
 
   @override
-  String get v3PaywallBenefit2 => 'All exercises in Tools (33 exercises)';
+  String get v3PaywallBenefit2 => '50-minute focus sessions and 4-6 breathing';
 
   @override
-  String get v3PaywallBenefit3 => '50-minute focus sessions and 4-6 breathing';
+  String get v3PaywallBenefit3 =>
+      'Clarity Check on days 14, 21, and 30, plus progress comparison';
 
   @override
-  String get v3PaywallBenefit4 => 'Clarity Check and progress through day 30';
+  String v3PaywallChipDays(int count) {
+    return '$count training days';
+  }
 
   @override
-  String get v3PaywallFooter => 'Cancel anytime from Google Play';
+  String v3PaywallChipUrges(int count) {
+    return '$count urges you beat';
+  }
+
+  @override
+  String v3PaywallChipHours(String from, String to) {
+    return 'Phone hours: from $from to $to';
+  }
+
+  @override
+  String v3PaywallClarityFromTo(int from, int to) {
+    return 'Clarity Check: from $from to $to';
+  }
+
+  @override
+  String get v3PaywallPlanYearly => 'Yearly';
+
+  @override
+  String get v3PaywallPlanMonthly => 'Monthly';
+
+  @override
+  String get v3PaywallPlanLifetime => 'Lifetime';
+
+  @override
+  String v3PaywallTrialBadge(int days) {
+    return '$days days free';
+  }
+
+  @override
+  String v3PaywallApproxMonthly(String amount) {
+    return '≈ $amount / month';
+  }
+
+  @override
+  String v3PaywallStartTrialCta(int days) {
+    return 'Start $days days free';
+  }
+
+  @override
+  String get v3PaywallTrialDisclaimer =>
+      'You won\'t be charged before the trial ends · Cancel anytime from Google Play';
+
+  @override
+  String get v3PaywallSubscribeCta => 'Subscribe';
+
+  @override
+  String get v3PaywallRestore => 'Restore purchases';
+
+  @override
+  String get v3PaywallAlreadyPro => 'You\'re subscribed ✓';
+
+  @override
+  String get v3PaywallManageSubscription => 'Manage subscription';
+
+  @override
+  String get v3PaywallPricesFailed => 'Couldn\'t load prices right now';
+
+  @override
+  String get v3PaywallTryAgain => 'Try again';
+
+  @override
+  String v3PaywallSavePercent(int percent) {
+    return 'Save $percent%';
+  }
+
+  @override
+  String get v3PaywallClose => 'Close';
 
   @override
   String get v3SosTitle => 'I want to open my phone';

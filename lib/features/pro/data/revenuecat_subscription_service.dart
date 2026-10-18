@@ -98,6 +98,9 @@ class RevenueCatSubscriptionService implements SubscriptionService {
               title: p.title,
               priceString: p.priceString,
               period: p.period,
+              trialConfirmed: p.trialConfirmed,
+              trialDays: p.trialDays,
+              trialLabel: p.trialLabel,
             ),
           )
           .toList(growable: false);

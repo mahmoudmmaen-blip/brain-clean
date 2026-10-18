@@ -4,6 +4,7 @@ import 'package:purchases_flutter/purchases_flutter.dart';
 
 import '../domain/purchases_sdk_port.dart';
 import '../domain/subscription_plan.dart';
+import '../domain/trial_period.dart';
 
 /// Production adapter over [Purchases] (never logs API keys).
 class PurchasesFlutterSdkPort implements PurchasesSdkPort {
@@ -68,15 +69,15 @@ class PurchasesFlutterSdkPort implements PurchasesSdkPort {
         _packagesByProductId[productId.split(':').first] = package;
         _packagesByProductId[productId] = package;
 
-        final trial = _trialLabel(product);
+        final trialDays = _freeTrialDays(product);
         out.add(
           StorePackageRef(
             productId: productId.split(':').first,
             title: product.title.isNotEmpty ? product.title : productId,
             priceString: product.priceString,
             period: period,
-            trialConfirmed: trial != null,
-            trialLabel: trial,
+            trialConfirmed: trialDays != null,
+            trialDays: trialDays,
             nativeHandle: package,
           ),
         );
@@ -154,13 +155,12 @@ class PurchasesFlutterSdkPort implements PurchasesSdkPort {
     );
   }
 
-  String? _trialLabel(StoreProduct product) {
-    final intro = product.introductoryPrice;
-    if (intro == null) return null;
-    // Only confirm when store exposes intro/trial pricing.
-    final cycles = intro.cycles;
-    if (cycles <= 0) return null;
-    return intro.priceString;
+  /// Google Play free trial on the product's default subscription option.
+  int? _freeTrialDays(StoreProduct product) {
+    final billing = product.defaultOption?.freePhase?.billingPeriod;
+    if (billing == null) return null;
+    return TrialPeriod.daysFromIso8601(billing.iso8601) ??
+        TrialPeriod.daysFromUnitValue(billing.unit.name, billing.value);
   }
 
   StorePurchaseFailureKind _mapPlatform(PlatformException e) {

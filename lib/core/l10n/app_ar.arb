@@ -2423,13 +2423,73 @@
   "v3InputWeekNote": "ملاحظة {n}",
   "v3InputUnsupported": "إدخال غير مدعوم",
   "v3PaywallTitle": "افتح البرنامج الكامل",
-  "v3PaywallSubDay7": "أكملت الأسبوع الأول. 23 يومًا من التغيير الحقيقي تنتظرك.",
+  "v3PaywallPersonalTitle": "أسبوع كامل من التدريب",
+  "v3PaywallSubDay7": "الأسبوع الأول كان للوعي. الأسابيع الثلاثة القادمة للتغيير الفعلي.",
   "v3PaywallSubGeneric": "أكمل الأيام 8 إلى 30 مع البرنامج الكامل.",
   "v3PaywallBenefit1": "أيام 8 إلى 30 كاملة: البيئة، البدائل، والتثبيت",
-  "v3PaywallBenefit2": "كل التمارين في الأدوات (33 تمرينًا)",
-  "v3PaywallBenefit3": "جلسات تركيز 50 دقيقة وتنفّس 4-6",
-  "v3PaywallBenefit4": "فحص الصفاء ومتابعة تقدّمك حتى يوم 30",
-  "v3PaywallFooter": "إلغاء في أي وقت من Google Play",
+  "v3PaywallBenefit2": "جلسات تركيز 50 دقيقة وتنفّس 4-6",
+  "v3PaywallBenefit3": "فحص الصفاء في الأيام 14 و21 و30 ومقارنة تقدّمك",
+  "v3PaywallChipDays": "{count} أيام تدريب",
+  "@v3PaywallChipDays": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "v3PaywallChipUrges": "{count} رغبات تجاوزتها",
+  "@v3PaywallChipUrges": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "v3PaywallChipHours": "ساعات الموبايل: من {from} إلى {to}",
+  "@v3PaywallChipHours": {
+    "placeholders": {
+      "from": { "type": "String" },
+      "to": { "type": "String" }
+    }
+  },
+  "v3PaywallClarityFromTo": "فحص الصفاء: من {from} إلى {to}",
+  "@v3PaywallClarityFromTo": {
+    "placeholders": {
+      "from": { "type": "int" },
+      "to": { "type": "int" }
+    }
+  },
+  "v3PaywallPlanYearly": "سنوي",
+  "v3PaywallPlanMonthly": "شهري",
+  "v3PaywallPlanLifetime": "مدى الحياة",
+  "v3PaywallTrialBadge": "{days} يومًا مجانًا",
+  "@v3PaywallTrialBadge": {
+    "placeholders": {
+      "days": { "type": "int" }
+    }
+  },
+  "v3PaywallApproxMonthly": "≈ {amount} شهريًا",
+  "@v3PaywallApproxMonthly": {
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+  "v3PaywallStartTrialCta": "ابدأ {days} يومًا مجانًا",
+  "@v3PaywallStartTrialCta": {
+    "placeholders": {
+      "days": { "type": "int" }
+    }
+  },
+  "v3PaywallTrialDisclaimer": "لن يُخصم أي مبلغ قبل نهاية التجربة · إلغاء في أي وقت من Google Play",
+  "v3PaywallSubscribeCta": "اشترك",
+  "v3PaywallRestore": "استعادة المشتريات",
+  "v3PaywallAlreadyPro": "أنت مشترك ✓",
+  "v3PaywallManageSubscription": "إدارة الاشتراك",
+  "v3PaywallPricesFailed": "تعذّر تحميل الأسعار الآن",
+  "v3PaywallTryAgain": "حاول مرة أخرى",
+  "v3PaywallSavePercent": "وفّر {percent}%",
+  "@v3PaywallSavePercent": {
+    "placeholders": {
+      "percent": { "type": "int" }
+    }
+  },
+  "v3PaywallClose": "إغلاق",
   "v3SosTitle": "عندي رغبة أفتح الموبايل",
   "v3SosSubtitle": "اختر ما تشعر به الآن. دقيقة واحدة تكفي.",
   "v3SosWavePassed": "أحسنت. مرّت الموجة.",

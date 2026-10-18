@@ -9723,10 +9723,16 @@ abstract class AppLocalizations {
   /// **'Unlock the full program'**
   String get v3PaywallTitle;
 
+  /// No description provided for @v3PaywallPersonalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A full week of training'**
+  String get v3PaywallPersonalTitle;
+
   /// No description provided for @v3PaywallSubDay7.
   ///
   /// In en, this message translates to:
-  /// **'You finished week one. 23 days of real change await you.'**
+  /// **'Week one was for awareness. The next three weeks are for real change.'**
   String get v3PaywallSubDay7;
 
   /// No description provided for @v3PaywallSubGeneric.
@@ -9744,26 +9750,128 @@ abstract class AppLocalizations {
   /// No description provided for @v3PaywallBenefit2.
   ///
   /// In en, this message translates to:
-  /// **'All exercises in Tools (33 exercises)'**
+  /// **'50-minute focus sessions and 4-6 breathing'**
   String get v3PaywallBenefit2;
 
   /// No description provided for @v3PaywallBenefit3.
   ///
   /// In en, this message translates to:
-  /// **'50-minute focus sessions and 4-6 breathing'**
+  /// **'Clarity Check on days 14, 21, and 30, plus progress comparison'**
   String get v3PaywallBenefit3;
 
-  /// No description provided for @v3PaywallBenefit4.
+  /// No description provided for @v3PaywallChipDays.
   ///
   /// In en, this message translates to:
-  /// **'Clarity Check and progress through day 30'**
-  String get v3PaywallBenefit4;
+  /// **'{count} training days'**
+  String v3PaywallChipDays(int count);
 
-  /// No description provided for @v3PaywallFooter.
+  /// No description provided for @v3PaywallChipUrges.
   ///
   /// In en, this message translates to:
-  /// **'Cancel anytime from Google Play'**
-  String get v3PaywallFooter;
+  /// **'{count} urges you beat'**
+  String v3PaywallChipUrges(int count);
+
+  /// No description provided for @v3PaywallChipHours.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone hours: from {from} to {to}'**
+  String v3PaywallChipHours(String from, String to);
+
+  /// No description provided for @v3PaywallClarityFromTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Clarity Check: from {from} to {to}'**
+  String v3PaywallClarityFromTo(int from, int to);
+
+  /// No description provided for @v3PaywallPlanYearly.
+  ///
+  /// In en, this message translates to:
+  /// **'Yearly'**
+  String get v3PaywallPlanYearly;
+
+  /// No description provided for @v3PaywallPlanMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get v3PaywallPlanMonthly;
+
+  /// No description provided for @v3PaywallPlanLifetime.
+  ///
+  /// In en, this message translates to:
+  /// **'Lifetime'**
+  String get v3PaywallPlanLifetime;
+
+  /// No description provided for @v3PaywallTrialBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'{days} days free'**
+  String v3PaywallTrialBadge(int days);
+
+  /// No description provided for @v3PaywallApproxMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'≈ {amount} / month'**
+  String v3PaywallApproxMonthly(String amount);
+
+  /// No description provided for @v3PaywallStartTrialCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Start {days} days free'**
+  String v3PaywallStartTrialCta(int days);
+
+  /// No description provided for @v3PaywallTrialDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'You won\'t be charged before the trial ends · Cancel anytime from Google Play'**
+  String get v3PaywallTrialDisclaimer;
+
+  /// No description provided for @v3PaywallSubscribeCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribe'**
+  String get v3PaywallSubscribeCta;
+
+  /// No description provided for @v3PaywallRestore.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore purchases'**
+  String get v3PaywallRestore;
+
+  /// No description provided for @v3PaywallAlreadyPro.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re subscribed ✓'**
+  String get v3PaywallAlreadyPro;
+
+  /// No description provided for @v3PaywallManageSubscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage subscription'**
+  String get v3PaywallManageSubscription;
+
+  /// No description provided for @v3PaywallPricesFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load prices right now'**
+  String get v3PaywallPricesFailed;
+
+  /// No description provided for @v3PaywallTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get v3PaywallTryAgain;
+
+  /// No description provided for @v3PaywallSavePercent.
+  ///
+  /// In en, this message translates to:
+  /// **'Save {percent}%'**
+  String v3PaywallSavePercent(int percent);
+
+  /// No description provided for @v3PaywallClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get v3PaywallClose;
 
   /// No description provided for @v3SosTitle.
   ///

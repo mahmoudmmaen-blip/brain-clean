@@ -12,6 +12,7 @@ class StorePackageRef {
     required this.priceString,
     required this.period,
     this.trialConfirmed = false,
+    this.trialDays,
     this.trialLabel,
     this.nativeHandle,
   });
@@ -21,6 +22,7 @@ class StorePackageRef {
   final String priceString;
   final SubscriptionPeriod period;
   final bool trialConfirmed;
+  final int? trialDays;
   final String? trialLabel;
 
   /// SDK-specific package object (Package). Null in fakes / tests.

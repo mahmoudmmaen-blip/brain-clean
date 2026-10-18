@@ -6,8 +6,8 @@ import '../domain/premium_store_port.dart';
 
 /// Adapts [SubscriptionService] for V2 Premium (Production Monetization Contract).
 ///
-/// Trial/intro fields stay unconfirmed here until a deliberate store passthrough
-/// lands. Never invent trial duration or eligibility in this adapter.
+/// Trial fields pass through from [SubscriptionPlan] only when the store
+/// confirmed a free phase — never invented here.
 class SubscriptionPremiumStorePort implements PremiumStorePort {
   SubscriptionPremiumStorePort({
     required SubscriptionService service,
@@ -51,7 +51,9 @@ class SubscriptionPremiumStorePort implements PremiumStorePort {
               title: _periodTitle?.call(p.period) ?? p.title,
               priceString: p.priceString,
               period: p.period,
-              trialConfirmed: false,
+              trialConfirmed: p.trialConfirmed,
+              trialDays: p.trialDays,
+              trialLabel: p.trialLabel,
               introPricingConfirmed: false,
             ),
           )

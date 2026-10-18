@@ -10,6 +10,7 @@ class PremiumOffering {
     required this.priceString,
     required this.period,
     this.trialConfirmed = false,
+    this.trialDays,
     this.trialLabel,
     this.introPricingConfirmed = false,
     this.introPriceLabel,
@@ -22,6 +23,9 @@ class PremiumOffering {
 
   /// Trial copy may be shown only when [trialConfirmed] is true.
   final bool trialConfirmed;
+
+  /// Free-trial length in days from the store (null when unknown / none).
+  final int? trialDays;
   final String? trialLabel;
 
   /// Intro pricing only when store confirms.

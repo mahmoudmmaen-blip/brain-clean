@@ -2357,13 +2357,74 @@
   },
   "v3InputUnsupported": "Unsupported input",
   "v3PaywallTitle": "Unlock the full program",
-  "v3PaywallSubDay7": "You finished week one. 23 days of real change await you.",
+  "v3PaywallPersonalTitle": "A full week of training",
+  "v3PaywallSubDay7": "Week one was for awareness. The next three weeks are for real change.",
   "v3PaywallSubGeneric": "Continue days 8–30 with the full program.",
   "v3PaywallBenefit1": "Days 8 to 30 complete: environment, replacements, and lock-in",
-  "v3PaywallBenefit2": "All exercises in Tools (33 exercises)",
-  "v3PaywallBenefit3": "50-minute focus sessions and 4-6 breathing",
-  "v3PaywallBenefit4": "Clarity Check and progress through day 30",
-  "v3PaywallFooter": "Cancel anytime from Google Play",
+  "v3PaywallBenefit2": "50-minute focus sessions and 4-6 breathing",
+  "v3PaywallBenefit3": "Clarity Check on days 14, 21, and 30, plus progress comparison",
+  "v3PaywallChipDays": "{count} training days",
+  "@v3PaywallChipDays": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "v3PaywallChipUrges": "{count} urges you beat",
+  "@v3PaywallChipUrges": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "v3PaywallChipHours": "Phone hours: from {from} to {to}",
+  "@v3PaywallChipHours": {
+    "placeholders": {
+      "from": { "type": "String" },
+      "to": { "type": "String" }
+    }
+  },
+  "v3PaywallClarityFromTo": "Clarity Check: from {from} to {to}",
+  "@v3PaywallClarityFromTo": {
+    "placeholders": {
+      "from": { "type": "int" },
+      "to": { "type": "int" }
+    }
+  },
+  "v3PaywallPlanYearly": "Yearly",
+  "v3PaywallPlanMonthly": "Monthly",
+  "v3PaywallPlanLifetime": "Lifetime",
+  "v3PaywallTrialBadge": "{days} days free",
+  "@v3PaywallTrialBadge": {
+    "placeholders": {
+      "days": { "type": "int" }
+    }
+  },
+  "v3PaywallApproxMonthly": "≈ {amount} / month",
+  "@v3PaywallApproxMonthly": {
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+  "v3PaywallStartTrialCta": "Start {days} days free",
+  "@v3PaywallStartTrialCta": {
+    "placeholders": {
+      "days": { "type": "int" }
+    }
+  },
+  "v3PaywallTrialDisclaimer": "You won't be charged before the trial ends · Cancel anytime from Google Play",
+  "v3PaywallSubscribeCta": "Subscribe",
+  "v3PaywallRestore": "Restore purchases",
+  "v3PaywallAlreadyPro": "You're subscribed ✓",
+  "v3PaywallManageSubscription": "Manage subscription",
+  "v3PaywallPricesFailed": "Couldn't load prices right now",
+  "v3PaywallTryAgain": "Try again",
+  "v3PaywallSavePercent": "Save {percent}%",
+  "@v3PaywallSavePercent": {
+    "placeholders": {
+      "percent": { "type": "int" }
+    }
+  },
+  "v3PaywallClose": "Close",
+
   "v3SosTitle": "I want to open my phone",
   "v3SosSubtitle": "Pick what you're feeling right now. One minute is enough.",
   "v3SosWavePassed": "Well done. The wave passed.",
