@@ -5541,6 +5541,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String get v3SosTapSkip => 'اضغط للمتابعة';
 
   @override
+  String get v3SosOrTryThis => 'أو جرّب هذا';
+
+  @override
+  String get v3SosBoredGroundingFallback =>
+      'انظر حولك وسمِّ 3 أشياء تراها، و2 تسمعها، و1 تشعر به.';
+
+  @override
+  String get v3Share => 'شارك';
+
+  @override
+  String get v3ShareAchievement => 'شارك إنجازك';
+
+  @override
   String get v3ToolsFocusTitle => 'مؤقّت التركيز';
 
   @override

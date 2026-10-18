@@ -8,13 +8,18 @@ import 'package:go_router/go_router.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/providers/locale_provider.dart';
 import '../../../core/theme/app_design_constants.dart';
+import '../../application/in_app_review_service.dart';
+import '../../application/sos_now_provider.dart';
+import '../../application/v3_state_providers.dart';
 import '../../content/content_repository.dart';
 import '../../content/sos_content.dart';
 import '../../data/sos_log.dart';
 import '../../data/user_inputs.dart';
+import '../../domain/in_app_review_gate.dart';
 import '../../domain/sos_helpers.dart';
-import '../../application/v3_state_providers.dart';
+import '../../domain/sos_night.dart';
 import '../../routing/v3_routes.dart';
+import '../share/share_card.dart';
 
 class V3SosFlowScreen extends ConsumerStatefulWidget {
   const V3SosFlowScreen({super.key, required this.flowId});
@@ -32,8 +37,10 @@ class _V3SosFlowScreenState extends ConsumerState<V3SosFlowScreen>
   int? _after;
   int _rateValue = 5;
   bool _finished = false;
+  bool _showingOptionalGrounding = false;
   Timer? _autoAdvance;
   late AnimationController _breath;
+  final GlobalKey _shareBoundaryKey = GlobalKey();
 
   @override
   void initState() {
@@ -71,6 +78,18 @@ class _V3SosFlowScreenState extends ConsumerState<V3SosFlowScreen>
         );
     ref.invalidate(v3AppStateProvider);
     if (mounted) setState(() => _finished = true);
+
+    // Review only on end screen, never mid-flow.
+    final win = InAppReviewGate.isSosWin(before: _before, after: _after);
+    if (win) {
+      await maybeRequestInAppReview(
+        repo: ref.read(v3StateRepositoryProvider),
+        review: ref.read(inAppReviewServiceProvider),
+        triggerMet: true,
+        now: ref.read(sosNowProvider),
+      );
+      ref.invalidate(v3AppStateProvider);
+    }
   }
 
   void _next({SosFlow? flow}) {
@@ -93,6 +112,10 @@ class _V3SosFlowScreenState extends ConsumerState<V3SosFlowScreen>
     final locale = ref.watch(localeProvider).languageCode;
     final contentAsync = ref.watch(v3ContentProvider);
     final stateAsync = ref.watch(v3AppStateProvider);
+    final now = ref.watch(sosNowProvider);
+    final night = isSosNightWindow(now);
+    final bg =
+        night ? const Color(0xFF050508) : AppDesignConstants.darkBackground;
 
     return contentAsync.when(
       loading: () => const Scaffold(
@@ -113,15 +136,79 @@ class _V3SosFlowScreenState extends ConsumerState<V3SosFlowScreen>
           return _EndScreen(
             before: _before,
             after: _after,
+            locale: locale,
+            night: night,
+            shareBoundaryKey: _shareBoundaryKey,
             onBack: () => context.go(V3Routes.today),
             onFocus: () => context.go(V3Routes.toolsFocus),
           );
         }
 
+        if (_showingOptionalGrounding) {
+          SosFlowStep? grounding;
+          for (final s in flow.steps) {
+            if (s.type == 'text') {
+              grounding = s;
+              break;
+            }
+          }
+          return Scaffold(
+            key: Key('v3_sos_runner_${flow.id}'),
+            backgroundColor: bg,
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              title: Text(flow.label.resolve(locale)),
+              leading: IconButton(
+                icon: const Icon(Icons.close),
+                onPressed: () => context.pop(),
+              ),
+            ),
+            body: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(AppDesignConstants.paddingScreen),
+                child: Column(
+                  key: const Key('v3_sos_step_text'),
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Spacer(),
+                    Text(
+                      grounding?.text?.resolve(locale) ??
+                          loc.v3SosBoredGroundingFallback,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 22,
+                        height: 1.45,
+                        color: night
+                            ? AppDesignConstants.darkOnSurfaceMuted
+                            : null,
+                      ),
+                    ),
+                    const Spacer(),
+                    FilledButton(
+                      onPressed: () => _finish(flow),
+                      style: FilledButton.styleFrom(
+                        backgroundColor: AppDesignConstants.brandGreen,
+                        minimumSize: const Size.fromHeight(52),
+                      ),
+                      child: Text(loc.v3SosRateContinue),
+                    ),
+                    TextButton(
+                      onPressed: () =>
+                          setState(() => _showingOptionalGrounding = false),
+                      child: Text(loc.v3SosBack),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
+
         final step = flow.steps[_stepIndex];
+        final stepDim = step.dimScreen || night;
         return Scaffold(
           key: Key('v3_sos_runner_${flow.id}'),
-          backgroundColor: AppDesignConstants.darkBackground,
+          backgroundColor: bg,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             title: Text(flow.label.resolve(locale)),
@@ -147,6 +234,7 @@ class _V3SosFlowScreenState extends ConsumerState<V3SosFlowScreen>
                           locale,
                           loc,
                           bundle.sos,
+                          night: night,
                         ),
                       ),
                       if (flow.safety != null)
@@ -156,9 +244,11 @@ class _V3SosFlowScreenState extends ConsumerState<V3SosFlowScreen>
                             flow.safety!.resolve(locale),
                             key: const Key('v3_sos_safety'),
                             textAlign: TextAlign.center,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 12,
-                              color: AppDesignConstants.darkOnSurfaceDim,
+                              color: night
+                                  ? const Color(0xFF555555)
+                                  : AppDesignConstants.darkOnSurfaceDim,
                               height: 1.35,
                             ),
                           ),
@@ -167,11 +257,11 @@ class _V3SosFlowScreenState extends ConsumerState<V3SosFlowScreen>
                   ),
                 ),
               ),
-              if (step.dimScreen)
+              if (stepDim)
                 IgnorePointer(
                   child: Container(
                     key: const Key('v3_sos_dim_overlay'),
-                    color: Colors.black.withValues(alpha: 0.55),
+                    color: Colors.black.withValues(alpha: night ? 0.35 : 0.55),
                   ),
                 ),
             ],
@@ -188,8 +278,9 @@ class _V3SosFlowScreenState extends ConsumerState<V3SosFlowScreen>
     UserInputs inputs,
     String locale,
     AppLocalizations loc,
-    SosContent sos,
-  ) {
+    SosContent sos, {
+    required bool night,
+  }) {
     switch (step.type) {
       case 'text':
         final secs = step.seconds ?? 6;
@@ -206,7 +297,11 @@ class _V3SosFlowScreenState extends ConsumerState<V3SosFlowScreen>
             Text(
               step.text?.resolve(locale) ?? '',
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 22, height: 1.45),
+              style: TextStyle(
+                fontSize: 22,
+                height: 1.45,
+                color: night ? AppDesignConstants.darkOnSurfaceMuted : null,
+              ),
             ),
             const Spacer(),
             TextButton(
@@ -216,6 +311,47 @@ class _V3SosFlowScreenState extends ConsumerState<V3SosFlowScreen>
           ],
         );
       case 'rate':
+        final isAfter = step.key == 'after';
+        if (isAfter) {
+          return Column(
+            key: Key('v3_sos_step_rate_${step.key ?? 'x'}'),
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Spacer(),
+              Text(
+                step.text?.resolve(locale) ?? '',
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 20, height: 1.4),
+              ),
+              const SizedBox(height: 24),
+              Wrap(
+                key: const Key('v3_sos_rate_taps'),
+                alignment: WrapAlignment.center,
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  for (var n = 1; n <= 10; n++)
+                    SizedBox(
+                      width: 48,
+                      height: 48,
+                      child: FilledButton.tonal(
+                        key: Key('v3_sos_rate_tap_$n'),
+                        onPressed: () {
+                          _after = n;
+                          _next(flow: flow);
+                        },
+                        style: FilledButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                        ),
+                        child: Text('$n'),
+                      ),
+                    ),
+                ],
+              ),
+              const Spacer(),
+            ],
+          );
+        }
         return Column(
           key: Key('v3_sos_step_rate_${step.key ?? 'x'}'),
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -248,11 +384,7 @@ class _V3SosFlowScreenState extends ConsumerState<V3SosFlowScreen>
             const Spacer(),
             FilledButton(
               onPressed: () {
-                if (step.key == 'before') {
-                  _before = _rateValue;
-                } else if (step.key == 'after') {
-                  _after = _rateValue;
-                }
+                _before = _rateValue;
                 _next(flow: flow);
               },
               style: FilledButton.styleFrom(
@@ -313,6 +445,7 @@ class _V3SosFlowScreenState extends ConsumerState<V3SosFlowScreen>
           duration: duration,
           languageCode: locale,
         );
+        final bored = flow.id == 'sos_bored';
         return Column(
           key: const Key('v3_sos_step_replacement'),
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -322,22 +455,39 @@ class _V3SosFlowScreenState extends ConsumerState<V3SosFlowScreen>
               style: const TextStyle(fontSize: 18, height: 1.4),
             ),
             const SizedBox(height: 16),
-            for (final item in items)
-              Card(
-                child: ListTile(
-                  title: Text(item),
-                  leading: const Icon(Icons.check_circle_outline),
-                ),
+            Expanded(
+              child: ListView(
+                children: [
+                  for (final item in items)
+                    Card(
+                      child: ListTile(
+                        key: Key('v3_sos_replacement_${item.hashCode}'),
+                        title: Text(item),
+                        leading: const Icon(Icons.check_circle_outline),
+                        onTap: bored
+                            ? () => _finish(flow)
+                            : null,
+                      ),
+                    ),
+                ],
               ),
-            const Spacer(),
-            FilledButton(
-              onPressed: () => _next(flow: flow),
-              style: FilledButton.styleFrom(
-                backgroundColor: AppDesignConstants.brandGreen,
-                minimumSize: const Size.fromHeight(52),
-              ),
-              child: Text(loc.v3SosRateContinue),
             ),
+            if (bored)
+              TextButton(
+                key: const Key('v3_sos_bored_optional_grounding'),
+                onPressed: () =>
+                    setState(() => _showingOptionalGrounding = true),
+                child: Text(loc.v3SosOrTryThis),
+              )
+            else
+              FilledButton(
+                onPressed: () => _next(flow: flow),
+                style: FilledButton.styleFrom(
+                  backgroundColor: AppDesignConstants.brandGreen,
+                  minimumSize: const Size.fromHeight(52),
+                ),
+                child: Text(loc.v3SosRateContinue),
+              ),
           ],
         );
       default:
@@ -503,21 +653,30 @@ class _EndScreen extends StatelessWidget {
   const _EndScreen({
     required this.before,
     required this.after,
+    required this.locale,
+    required this.night,
+    required this.shareBoundaryKey,
     required this.onBack,
     required this.onFocus,
   });
 
   final int? before;
   final int? after;
+  final String locale;
+  final bool night;
+  final GlobalKey shareBoundaryKey;
   final VoidCallback onBack;
   final VoidCallback onFocus;
 
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final hasRatings = before != null && after != null;
+    final bg =
+        night ? const Color(0xFF050508) : AppDesignConstants.darkBackground;
     return Scaffold(
       key: const Key('v3_sos_end'),
-      backgroundColor: AppDesignConstants.darkBackground,
+      backgroundColor: bg,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(AppDesignConstants.paddingScreen),
@@ -539,19 +698,46 @@ class _EndScreen extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              if (before != null && after != null) ...[
-                const SizedBox(height: 12),
+              if (hasRatings) ...[
+                const SizedBox(height: 16),
                 Text(
                   loc.v3SosRatedFromTo(before!, after!),
                   key: const Key('v3_sos_rated_delta'),
                   textAlign: TextAlign.center,
                   style: const TextStyle(
-                    fontSize: 18,
-                    color: AppDesignConstants.darkOnSurfaceMuted,
+                    fontSize: 36,
+                    fontWeight: FontWeight.bold,
+                    color: AppDesignConstants.brandGreen,
+                  ),
+                ),
+                // Keep in tree (not Offstage) so RepaintBoundary can rasterize.
+                Transform.translate(
+                  offset: const Offset(-5000, -5000),
+                  child: ShareCard(
+                    variant: ShareCardVariant.sosWin(
+                      before: before!,
+                      after: after!,
+                    ),
+                    locale: locale,
+                    boundaryKey: shareBoundaryKey,
                   ),
                 ),
               ],
               const Spacer(),
+              if (hasRatings) ...[
+                OutlinedButton(
+                  key: const Key('v3_sos_share'),
+                  onPressed: () => shareShareCardPng(
+                    boundaryKey: shareBoundaryKey,
+                    shareText: loc.v3SosRatedFromTo(before!, after!),
+                  ),
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(52),
+                  ),
+                  child: Text(loc.v3Share),
+                ),
+                const SizedBox(height: 8),
+              ],
               FilledButton(
                 onPressed: onBack,
                 style: FilledButton.styleFrom(

@@ -11,4 +11,6 @@ abstract final class V3StorageKeys {
   static const day7PaywallShown = 'day7_paywall_shown';
   static const trialOfferShown = 'trial_offer_shown';
   static const trialEndingNoticeKey = 'trial_ending_notice_key';
+  static const inAppReviewRequested = 'in_app_review_requested';
+  static const lastPaywallShownDate = 'last_paywall_shown_date';
 }

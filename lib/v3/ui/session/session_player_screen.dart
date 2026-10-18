@@ -7,12 +7,16 @@ import '../../../core/l10n/app_localizations.dart';
 import '../../../core/providers/locale_provider.dart';
 import '../../../core/theme/app_design_constants.dart';
 import '../../../features/pro/application/subscription_service_provider.dart';
+import '../../application/in_app_review_service.dart';
 import '../../application/session_controller.dart';
+import '../../application/sos_now_provider.dart';
 import '../../application/v3_state_providers.dart';
 import '../../content/content_repository.dart';
 import '../../content/exercises_content.dart';
 import '../../content/program_content.dart';
+import '../../domain/in_app_review_gate.dart';
 import '../../routing/v3_routes.dart';
+import '../share/share_card.dart';
 import 'input_forms.dart';
 import 'practice_controls.dart';
 
@@ -68,13 +72,25 @@ class _V3SessionPlayerScreenState extends ConsumerState<V3SessionPlayerScreen> {
       if (!mounted) return;
     }
 
-    final ok = await ctrl.finishDay(now: DateTime.now());
+    final now = DateTime.now();
+    final ok = await ctrl.finishDay(now: now);
     if (!ok) {
       // Still show completion UI; day may be incomplete if practice skipped.
       ctrl.showCompletion();
     }
     HapticFeedback.lightImpact();
     setState(() {});
+
+    // In-app review after Day 3 completion (end screen only).
+    if (widget.day == 3 && ok) {
+      await maybeRequestInAppReview(
+        repo: ref.read(v3StateRepositoryProvider),
+        review: ref.read(inAppReviewServiceProvider),
+        triggerMet: true,
+        now: ref.read(sosNowProvider),
+      );
+      ref.invalidate(v3AppStateProvider);
+    }
 
     if (dayContent.graduation) {
       if (mounted) context.go(V3Routes.graduation);
@@ -85,7 +101,9 @@ class _V3SessionPlayerScreenState extends ConsumerState<V3SessionPlayerScreen> {
     if (widget.day == 7 && !isPro) {
       final app = await ref.read(v3StateRepositoryProvider).load();
       if (!app.day7PaywallShown) {
-        await ref.read(v3StateRepositoryProvider).setDay7PaywallShown(true);
+        final repo = ref.read(v3StateRepositoryProvider);
+        await repo.setDay7PaywallShown(true);
+        await repo.setLastPaywallShownDate(InAppReviewGate.dateKey(now));
         if (mounted) {
           context.go('${V3Routes.paywall}?source=day7');
         }
@@ -177,6 +195,7 @@ class _V3SessionPlayerScreenState extends ConsumerState<V3SessionPlayerScreen> {
                 SessionStep.completion => _CompletionStep(
                     day: widget.day,
                     keyIdea: dayContent.lesson.key.resolve(locale),
+                    locale: locale,
                     onBack: () => context.go(V3Routes.today),
                   ),
               },
@@ -426,27 +445,32 @@ class _ChallengeStep extends StatelessWidget {
   }
 }
 
-class _CompletionStep extends StatefulWidget {
+class _CompletionStep extends ConsumerStatefulWidget {
   const _CompletionStep({
     required this.day,
     required this.keyIdea,
+    required this.locale,
     required this.onBack,
   });
 
   final int day;
   final String keyIdea;
+  final String locale;
   final VoidCallback onBack;
 
   @override
-  State<_CompletionStep> createState() => _CompletionStepState();
+  ConsumerState<_CompletionStep> createState() => _CompletionStepState();
 }
 
-class _CompletionStepState extends State<_CompletionStep>
+class _CompletionStepState extends ConsumerState<_CompletionStep>
     with SingleTickerProviderStateMixin {
   late final AnimationController _ctrl = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 600),
   )..forward();
+  final GlobalKey _shareKey = GlobalKey();
+
+  static const _shareMilestoneDays = {7, 14, 30};
 
   @override
   void dispose() {
@@ -457,6 +481,15 @@ class _CompletionStepState extends State<_CompletionStep>
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final showShare = _shareMilestoneDays.contains(widget.day);
+    final clarity = ref.watch(v3AppStateProvider).valueOrNull?.clarityResults;
+    int? clarityFrom;
+    int? clarityTo;
+    if (clarity != null && clarity.length >= 2) {
+      clarityFrom = clarity.first.score;
+      clarityTo = clarity.last.score;
+    }
+
     return Column(
       children: [
         const Spacer(),
@@ -483,7 +516,31 @@ class _CompletionStepState extends State<_CompletionStep>
             height: 1.4,
           ),
         ),
+        if (showShare)
+          Transform.translate(
+            offset: const Offset(-5000, -5000),
+            child: ShareCard(
+              variant: ShareCardVariant.dayMilestone(
+                days: widget.day,
+                clarityFrom: clarityFrom,
+                clarityTo: clarityTo,
+              ),
+              locale: widget.locale,
+              boundaryKey: _shareKey,
+            ),
+          ),
         const Spacer(),
+        if (showShare) ...[
+          OutlinedButton(
+            key: const Key('v3_share_achievement'),
+            onPressed: () => shareShareCardPng(boundaryKey: _shareKey),
+            style: OutlinedButton.styleFrom(
+              minimumSize: const Size.fromHeight(52),
+            ),
+            child: Text(loc.v3ShareAchievement),
+          ),
+          const SizedBox(height: 8),
+        ],
         FilledButton(
           onPressed: widget.onBack,
           style: FilledButton.styleFrom(

@@ -28,12 +28,10 @@
       "icon": "hourglass",
       "label": { "ar": "أشعر بالملل", "en": "I'm bored" },
       "steps": [
-        { "type": "text", "seconds": 6,
-          "text": { "ar": "الملل ليس مشكلة. هو مساحة لعقلك ليرتاح.", "en": "Boredom isn't a problem. It's space for your mind to rest." } },
+        { "type": "suggest_replacement", "duration": "5",
+          "text": { "ar": "اختر شيئًا من قائمتك:", "en": "Pick something from your list:" } },
         { "type": "text", "seconds": 20,
-          "text": { "ar": "انظر حولك وسمِّ 3 أشياء تراها، و2 تسمعها، و1 تشعر به.", "en": "Look around and name 3 things you see, 2 you hear, and 1 you feel." } },
-        { "type": "suggest_replacement", "duration": "15",
-          "text": { "ar": "اختر شيئًا من قائمتك:", "en": "Pick something from your list:" } }
+          "text": { "ar": "انظر حولك وسمِّ 3 أشياء تراها، و2 تسمعها، و1 تشعر به.", "en": "Look around and name 3 things you see, 2 you hear, and 1 you feel." } }
       ]
     },
     {

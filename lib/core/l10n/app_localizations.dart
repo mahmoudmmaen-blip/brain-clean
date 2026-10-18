@@ -9981,6 +9981,30 @@ abstract class AppLocalizations {
   /// **'Tap to continue'**
   String get v3SosTapSkip;
 
+  /// No description provided for @v3SosOrTryThis.
+  ///
+  /// In en, this message translates to:
+  /// **'Or try this'**
+  String get v3SosOrTryThis;
+
+  /// No description provided for @v3SosBoredGroundingFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'Look around and name 3 things you see, 2 you hear, and 1 you feel.'**
+  String get v3SosBoredGroundingFallback;
+
+  /// No description provided for @v3Share.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get v3Share;
+
+  /// No description provided for @v3ShareAchievement.
+  ///
+  /// In en, this message translates to:
+  /// **'Share your win'**
+  String get v3ShareAchievement;
+
   /// No description provided for @v3ToolsFocusTitle.
   ///
   /// In en, this message translates to:

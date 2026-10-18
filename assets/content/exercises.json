@@ -1,13 +1,34 @@
 {
   "version": 1,
   "categories": {
-    "awareness": { "ar": "الوعي", "en": "Awareness" },
-    "environment": { "ar": "البيئة", "en": "Environment" },
-    "urges": { "ar": "الرغبة والملل", "en": "Urges & boredom" },
-    "calm": { "ar": "الهدوء والنوم", "en": "Calm & sleep" },
-    "focus": { "ar": "التركيز", "en": "Focus" },
-    "life": { "ar": "حياة حقيقية", "en": "Real life" },
-    "mindset": { "ar": "العقلية", "en": "Mindset" }
+    "awareness": {
+      "ar": "الوعي",
+      "en": "Awareness"
+    },
+    "environment": {
+      "ar": "البيئة",
+      "en": "Environment"
+    },
+    "urges": {
+      "ar": "الرغبة والملل",
+      "en": "Urges & boredom"
+    },
+    "calm": {
+      "ar": "الهدوء والنوم",
+      "en": "Calm & sleep"
+    },
+    "focus": {
+      "ar": "التركيز",
+      "en": "Focus"
+    },
+    "life": {
+      "ar": "حياة حقيقية",
+      "en": "Real life"
+    },
+    "mindset": {
+      "ar": "العقلية",
+      "en": "Mindset"
+    }
   },
   "exercises": [
     {
@@ -16,7 +37,10 @@
       "minutes": 4,
       "tier": "free",
       "mode": "steps",
-      "title": { "ar": "جرد الشاشة", "en": "Screen audit" },
+      "title": {
+        "ar": "جرد الشاشة",
+        "en": "Screen audit"
+      },
       "why": {
         "ar": "لا يمكنك تغيير ما لا تراه. معظم الناس يقدّرون وقت الموبايل بأقل من نصف الحقيقة، والرقم الحقيقي هو نقطة البداية.",
         "en": "You can't change what you don't see. Most people guess their phone time at less than half of the real number. The real number is your starting point."
@@ -49,7 +73,10 @@
       "minutes": 2,
       "tier": "free",
       "mode": "guided",
-      "title": { "ar": "توقّف 3 أنفاس", "en": "Three-breath pause" },
+      "title": {
+        "ar": "توقّف 3 أنفاس",
+        "en": "Three-breath pause"
+      },
       "why": {
         "ar": "أغلب مرات فتح الموبايل تحدث تلقائيًا في أقل من ثانية. ثلاثة أنفاس قبل الفتح تحوّل الحركة التلقائية إلى قرار.",
         "en": "Most phone checks happen on autopilot in under a second. Three breaths before unlocking turn a reflex into a choice."
@@ -82,7 +109,10 @@
       "minutes": 3,
       "tier": "free",
       "mode": "steps",
-      "title": { "ar": "اكتشف محفّزاتك", "en": "Find your triggers" },
+      "title": {
+        "ar": "اكتشف محفّزاتك",
+        "en": "Find your triggers"
+      },
       "why": {
         "ar": "خلف كل مرة تفتح فيها الموبايل بدون سبب يوجد شعور: ملل، قلق، تعب، وحدة. معرفة الشعور هي نصف الحل.",
         "en": "Behind every mindless phone check there's a feeling: boredom, worry, tiredness, loneliness. Naming it is half the solution."
@@ -113,7 +143,10 @@
       "minutes": 3,
       "tier": "free",
       "mode": "guided",
-      "title": { "ar": "ركوب موجة الرغبة", "en": "Urge surfing" },
+      "title": {
+        "ar": "ركوب موجة الرغبة",
+        "en": "Urge surfing"
+      },
       "why": {
         "ar": "الرغبة تشبه الموجة: ترتفع، تصل للقمة، ثم تهبط وحدها خلال دقائق. حين تراقبها بدل أن تطيعها، تضعف مع الوقت.",
         "en": "An urge is like a wave: it rises, peaks, and falls on its own within minutes. When you watch it instead of obeying it, it gets weaker over time."
@@ -147,7 +180,10 @@
       "minutes": 5,
       "tier": "free",
       "mode": "guided",
-      "title": { "ar": "مرساة الانتباه", "en": "Attention anchor" },
+      "title": {
+        "ar": "مرساة الانتباه",
+        "en": "Attention anchor"
+      },
       "why": {
         "ar": "التركيز مهارة تتدرّب. كل مرة يشرد فيها ذهنك وتعيده بلطف، فأنت تقوم بتمرين واحد لعضلة الانتباه.",
         "en": "Focus is a trainable skill. Every time your mind wanders and you gently bring it back, that's one rep for your attention muscle."
@@ -180,7 +216,10 @@
       "minutes": 3,
       "tier": "free",
       "mode": "steps",
-      "title": { "ar": "الغروب الرقمي", "en": "Digital sunset" },
+      "title": {
+        "ar": "الغروب الرقمي",
+        "en": "Digital sunset"
+      },
       "why": {
         "ar": "المحتوى المثير قبل النوم يبقي الدماغ في حالة تنبّه ويؤخر النوم. ساعة هادئة قبل النوم من أقوى العادات لتحسين جودته.",
         "en": "Stimulating content before bed keeps your brain alert and delays sleep. A calm hour before bed is one of the strongest habits for better sleep."
@@ -213,7 +252,10 @@
       "minutes": 4,
       "tier": "free",
       "mode": "steps",
-      "title": { "ar": "لماذا أفعل هذا؟", "en": "Why am I doing this?" },
+      "title": {
+        "ar": "لماذا أفعل هذا؟",
+        "en": "Why am I doing this?"
+      },
       "why": {
         "ar": "الإرادة تنفد، لكن السبب الواضح يبقى. حين تعرف ماذا ستكسب بوقتك، يصبح ترك الموبايل اختيارًا لا حرمانًا.",
         "en": "Willpower runs out, but a clear reason stays. When you know what you'll gain with your time, putting the phone down feels like a choice, not a loss."
@@ -244,9 +286,12 @@
       "id": "ex_home_screen",
       "category": "environment",
       "minutes": 5,
-      "tier": "pro",
+      "tier": "free",
       "mode": "steps",
-      "title": { "ar": "شاشة رئيسية نظيفة", "en": "A clean home screen" },
+      "title": {
+        "ar": "شاشة رئيسية نظيفة",
+        "en": "A clean home screen"
+      },
       "why": {
         "ar": "رؤية أيقونة التطبيق تكفي لإثارة الرغبة في فتحه. حين تخفي التطبيقات المشتّتة، تقل مرات الفتح التلقائي.",
         "en": "Just seeing an app icon can trigger the urge to open it. Hiding distracting apps cuts down automatic opens."
@@ -276,9 +321,12 @@
       "id": "ex_notif_audit",
       "category": "environment",
       "minutes": 6,
-      "tier": "pro",
+      "tier": "free",
       "mode": "steps",
-      "title": { "ar": "تنظيف الإشعارات", "en": "Notification cleanup" },
+      "title": {
+        "ar": "تنظيف الإشعارات",
+        "en": "Notification cleanup"
+      },
       "why": {
         "ar": "كل إشعار يقاطع انتباهك، ويحتاج الدماغ وقتًا للعودة لما كان يفعله. أغلب الإشعارات مصممة لإعادتك للتطبيق، لا لمساعدتك.",
         "en": "Every notification breaks your attention, and your brain needs time to get back on track. Most notifications exist to pull you back into an app, not to help you."
@@ -310,7 +358,10 @@
       "minutes": 4,
       "tier": "pro",
       "mode": "steps",
-      "title": { "ar": "اجعل الوصول أصعب", "en": "Add friction" },
+      "title": {
+        "ar": "اجعل الوصول أصعب",
+        "en": "Add friction"
+      },
       "why": {
         "ar": "نفعل غالبًا ما هو أسهل. خطوة إضافية واحدة قبل فتح التطبيق المشتّت تكفي لتقليل استخدامه بشكل ملحوظ.",
         "en": "We usually do whatever is easiest. One extra step before opening a distracting app is often enough to use it noticeably less."
@@ -342,7 +393,10 @@
       "minutes": 3,
       "tier": "pro",
       "mode": "steps",
-      "title": { "ar": "وضع الأبيض والأسود", "en": "Grayscale mode" },
+      "title": {
+        "ar": "وضع الأبيض والأسود",
+        "en": "Grayscale mode"
+      },
       "why": {
         "ar": "الألوان الزاهية تجعل الشاشة أكثر جاذبية. حين تصبح الشاشة رمادية، يصبح الموبايل أقل إثارة وأسهل في الترك.",
         "en": "Bright colors make the screen more attractive. A gray screen makes the phone less exciting and easier to put down."
@@ -372,7 +426,10 @@
       "minutes": 3,
       "tier": "pro",
       "mode": "steps",
-      "title": { "ar": "الموبايل خارج غرفة النوم", "en": "Phone out of the bedroom" },
+      "title": {
+        "ar": "الموبايل خارج غرفة النوم",
+        "en": "Phone out of the bedroom"
+      },
       "why": {
         "ar": "وجود الموبايل بجانب السرير يعني تصفحًا قبل النوم وأول شيء عند الاستيقاظ. إبعاده من أكثر التغييرات تأثيرًا على النوم والصباح.",
         "en": "A phone by the bed means scrolling before sleep and first thing in the morning. Moving it out is one of the highest-impact changes for sleep and mornings."
@@ -402,7 +459,10 @@
       "minutes": 3,
       "tier": "pro",
       "mode": "steps",
-      "title": { "ar": "أوقات ثابتة للرسائل", "en": "Batch your messages" },
+      "title": {
+        "ar": "أوقات ثابتة للرسائل",
+        "en": "Batch your messages"
+      },
       "why": {
         "ar": "فحص الرسائل كل بضع دقائق يقسم يومك إلى قطع صغيرة. تجميعها في أوقات ثابتة يعطيك فترات طويلة من التركيز.",
         "en": "Checking messages every few minutes chops your day into tiny pieces. Batching them gives you long stretches of focus."
@@ -432,7 +492,10 @@
       "minutes": 2,
       "tier": "pro",
       "mode": "steps",
-      "title": { "ar": "موقف الموبايل", "en": "Phone parking spot" },
+      "title": {
+        "ar": "موقف الموبايل",
+        "en": "Phone parking spot"
+      },
       "why": {
         "ar": "حين يكون الموبايل في جيبك أو بجانب يدك، يسحب جزءًا من انتباهك حتى وأنت لا تستخدمه. مكان ثابت في البيت يحرّر عقلك.",
         "en": "When your phone is in your pocket or by your hand, it pulls at your attention even when you're not using it. A fixed spot at home frees your mind."
@@ -462,7 +525,10 @@
       "minutes": 10,
       "tier": "pro",
       "mode": "timer",
-      "title": { "ar": "10 دقائق ملل", "en": "Ten minutes of boredom" },
+      "title": {
+        "ar": "10 دقائق ملل",
+        "en": "Ten minutes of boredom"
+      },
       "why": {
         "ar": "الموبايل جعلنا نهرب من كل لحظة فراغ. الملل ليس عدوًا، بل المساحة التي تولد فيها الأفكار والهدوء. حين تتحمّله، تقل حاجتك للهروب.",
         "en": "The phone taught us to escape every empty moment. Boredom isn't the enemy; it's the space where ideas and calm show up. The more you can sit with it, the less you need to escape."
@@ -495,7 +561,10 @@
       "minutes": 5,
       "tier": "pro",
       "mode": "steps",
-      "title": { "ar": "قائمة البدائل", "en": "Your replacement list" },
+      "title": {
+        "ar": "قائمة البدائل",
+        "en": "Your replacement list"
+      },
       "why": {
         "ar": "ترك عادة بدون بديل يترك فراغًا يعود الموبايل ليملأه. قائمة جاهزة تجعل الاختيار الجيد سهلًا في لحظة الرغبة.",
         "en": "Dropping a habit with no replacement leaves a gap the phone fills again. A ready list makes the good choice easy in the moment."
@@ -526,7 +595,10 @@
       "minutes": 4,
       "tier": "pro",
       "mode": "steps",
-      "title": { "ar": "خطة «إذا... فإن»", "en": "If-then plan" },
+      "title": {
+        "ar": "خطة «إذا... فإن»",
+        "en": "If-then plan"
+      },
       "why": {
         "ar": "الخطط المحددة مسبقًا من أقوى الأساليب المدروسة لتغيير العادات. حين تقرر الآن ماذا ستفعل في الموقف، لا تحتاج للإرادة لاحقًا.",
         "en": "Pre-decided plans are one of the best-studied ways to change habits. When you decide now what you'll do in a situation, you don't need willpower later."
@@ -559,7 +631,10 @@
       "minutes": 2,
       "tier": "free",
       "mode": "guided",
-      "title": { "ar": "التنهيدة المزدوجة", "en": "The double sigh" },
+      "title": {
+        "ar": "التنهيدة المزدوجة",
+        "en": "The double sigh"
+      },
       "why": {
         "ar": "شهيقان متتاليان ثم زفير طويل من أسرع الطرق المعروفة لتهدئة الجسم وقت التوتر، ولا يحتاج أكثر من دقيقة.",
         "en": "Two inhales followed by one long exhale is one of the quickest known ways to calm your body under stress, and it takes about a minute."
@@ -592,7 +667,10 @@
       "minutes": 4,
       "tier": "pro",
       "mode": "guided",
-      "title": { "ar": "تنفّس 4-6", "en": "4-6 breathing" },
+      "title": {
+        "ar": "تنفّس 4-6",
+        "en": "4-6 breathing"
+      },
       "why": {
         "ar": "حين يكون الزفير أطول من الشهيق، يرسل الجسم إشارة هدوء للدماغ. تمرين مناسب قبل النوم أو قبل مهمة صعبة.",
         "en": "When your exhale is longer than your inhale, your body signals calm to your brain. Good before sleep or before a hard task."
@@ -616,7 +694,12 @@
         "en": "One minute."
       },
       "guided_seconds": 240,
-      "breathing_pattern": [4, 0, 6, 0]
+      "breathing_pattern": [
+        4,
+        0,
+        6,
+        0
+      ]
     },
     {
       "id": "ex_morning_no_phone",
@@ -624,7 +707,10 @@
       "minutes": 3,
       "tier": "pro",
       "mode": "steps",
-      "title": { "ar": "صباح بلا موبايل", "en": "A phone-free morning" },
+      "title": {
+        "ar": "صباح بلا موبايل",
+        "en": "A phone-free morning"
+      },
       "why": {
         "ar": "حين تبدأ يومك بالإشعارات والأخبار، يبدأ عقلك في وضع الاستجابة لما يطلبه الآخرون. أول 30 دقيقة لك أنت.",
         "en": "When you start the day with notifications and news, your mind starts in reaction mode. Your first 30 minutes are yours."
@@ -654,7 +740,10 @@
       "minutes": 15,
       "tier": "pro",
       "mode": "timer",
-      "title": { "ar": "مشي بلا موبايل", "en": "A walk without your phone" },
+      "title": {
+        "ar": "مشي بلا موبايل",
+        "en": "A walk without your phone"
+      },
       "why": {
         "ar": "المشي يحسّن المزاج ويصفّي الذهن، والمشي بدون شاشة يعيد لك الإحساس بما حولك. كثير من الأفكار الجيدة تأتي أثناء المشي.",
         "en": "Walking lifts your mood and clears your head, and walking without a screen reconnects you with what's around you. Many good ideas show up on walks."
@@ -685,7 +774,10 @@
       "minutes": 2,
       "tier": "pro",
       "mode": "steps",
-      "title": { "ar": "وجبة بلا شاشة", "en": "A screen-free meal" },
+      "title": {
+        "ar": "وجبة بلا شاشة",
+        "en": "A screen-free meal"
+      },
       "why": {
         "ar": "الأكل أمام الشاشة يجعلك لا تتذوق طعامك ولا تنتبه لمن معك. وجبة واحدة بلا شاشة تمرين بسيط على الحضور.",
         "en": "Eating in front of a screen means you barely taste your food or notice who's with you. One screen-free meal is a simple presence practice."
@@ -715,7 +807,10 @@
       "minutes": 10,
       "tier": "pro",
       "mode": "steps",
-      "title": { "ar": "تواصل حقيقي", "en": "Real connection" },
+      "title": {
+        "ar": "تواصل حقيقي",
+        "en": "Real connection"
+      },
       "why": {
         "ar": "كثير من التصفح هو بحث عن تواصل. مكالمة صوتية أو لقاء حقيقي يعطيان ما لا يعطيه التمرير بين المنشورات.",
         "en": "A lot of scrolling is really a search for connection. A real call or meet-up gives what scrolling through posts can't."
@@ -745,7 +840,10 @@
       "minutes": 25,
       "tier": "free",
       "mode": "focus_timer",
-      "title": { "ar": "مهمة واحدة 25 دقيقة", "en": "One task, 25 minutes" },
+      "title": {
+        "ar": "مهمة واحدة 25 دقيقة",
+        "en": "One task, 25 minutes"
+      },
       "why": {
         "ar": "التنقل بين المهام يجعل كل مهمة أبطأ وأكثر إرهاقًا. 25 دقيقة على شيء واحد فقط تعيد تدريب دماغك على العمق.",
         "en": "Switching between tasks makes each one slower and more tiring. 25 minutes on just one thing retrains your brain for depth."
@@ -778,7 +876,10 @@
       "minutes": 50,
       "tier": "pro",
       "mode": "focus_timer",
-      "title": { "ar": "تركيز عميق 50 دقيقة", "en": "Deep focus, 50 minutes" },
+      "title": {
+        "ar": "تركيز عميق 50 دقيقة",
+        "en": "Deep focus, 50 minutes"
+      },
       "why": {
         "ar": "أهم إنجازاتك تحتاج فترات طويلة من التركيز المتواصل. بعد أسابيع من التدريب، أصبح دماغك جاهزًا لجلسة أطول.",
         "en": "Your most important work needs long stretches of unbroken focus. After weeks of training, your brain is ready for a longer session."
@@ -811,7 +912,10 @@
       "minutes": 20,
       "tier": "pro",
       "mode": "timer",
-      "title": { "ar": "قراءة 20 دقيقة", "en": "Read for 20 minutes" },
+      "title": {
+        "ar": "قراءة 20 دقيقة",
+        "en": "Read for 20 minutes"
+      },
       "why": {
         "ar": "المحتوى القصير يعوّد الدماغ على الانتقال كل بضع ثوانٍ. القراءة المتواصلة تعيد بناء القدرة على متابعة فكرة طويلة.",
         "en": "Short content trains your brain to jump every few seconds. Sustained reading rebuilds your ability to follow a long idea."
@@ -842,7 +946,10 @@
       "minutes": 1,
       "tier": "free",
       "mode": "guided",
-      "title": { "ar": "قاعدة 20-20-20", "en": "The 20-20-20 rule" },
+      "title": {
+        "ar": "قاعدة 20-20-20",
+        "en": "The 20-20-20 rule"
+      },
       "why": {
         "ar": "النظر الطويل للشاشة يُتعب العين. كل 20 دقيقة، انظر 20 ثانية إلى شيء يبعد نحو 6 أمتار. استراحة صغيرة لعينيك وذهنك.",
         "en": "Long screen time strains your eyes. Every 20 minutes, look at something about 6 meters away for 20 seconds. A small break for your eyes and mind."
@@ -873,7 +980,10 @@
       "minutes": 4,
       "tier": "pro",
       "mode": "steps",
-      "title": { "ar": "خطة اليوم الصعب", "en": "Bad-day plan" },
+      "title": {
+        "ar": "خطة اليوم الصعب",
+        "en": "Bad-day plan"
+      },
       "why": {
         "ar": "كل من يغيّر عادة يمر بأيام يعود فيها للقديم. الفرق بين من ينجح ومن يستسلم ليس عدم السقوط، بل سرعة العودة.",
         "en": "Everyone who changes a habit has days where they slip back. The difference between those who succeed and those who quit isn't never slipping; it's how fast they come back."
@@ -904,7 +1014,10 @@
       "minutes": 3,
       "tier": "pro",
       "mode": "steps",
-      "title": { "ar": "من أنا الآن؟", "en": "Who am I now?" },
+      "title": {
+        "ar": "من أنا الآن؟",
+        "en": "Who am I now?"
+      },
       "why": {
         "ar": "العادات تثبت حين تصبح جزءًا من هويتك. «أنا أحاول ترك الموبايل» تختلف عن «أنا شخص يتحكم في وقته».",
         "en": "Habits stick when they become part of who you are. \"I'm trying to use my phone less\" is different from \"I'm someone who owns my time.\""
@@ -935,7 +1048,10 @@
       "minutes": 3,
       "tier": "pro",
       "mode": "steps",
-      "title": { "ar": "يوم بلا سوشيال", "en": "A social-media-free day" },
+      "title": {
+        "ar": "يوم بلا سوشيال",
+        "en": "A social-media-free day"
+      },
       "why": {
         "ar": "يوم كامل بعيدًا عن وسائل التواصل يريك كم وقتًا وهدوءًا كانت تأخذ. الهدف ليس الحرمان، بل التجربة.",
         "en": "A full day away from social media shows you how much time and calm it was taking. The goal isn't deprivation; it's an experiment."
@@ -965,7 +1081,10 @@
       "minutes": 5,
       "tier": "pro",
       "mode": "steps",
-      "title": { "ar": "قواعدك للاستمرار", "en": "Your rules to keep going" },
+      "title": {
+        "ar": "قواعدك للاستمرار",
+        "en": "Your rules to keep going"
+      },
       "why": {
         "ar": "البرنامج ينتهي، لكن العادات الجيدة تحتاج قواعد بسيطة تحميها. 3 قواعد واضحة أفضل من 10 قواعد تنساها.",
         "en": "The program ends, but good habits need simple rules to protect them. Three clear rules beat ten you'll forget."
@@ -996,7 +1115,10 @@
       "minutes": 5,
       "tier": "free",
       "mode": "steps",
-      "title": { "ar": "رسالة لنفسك", "en": "A letter to yourself" },
+      "title": {
+        "ar": "رسالة لنفسك",
+        "en": "A letter to yourself"
+      },
       "why": {
         "ar": "حين تكتب لنفسك في المستقبل، تتذكر لماذا بدأت. سنحفظ رسالتك ونعرضها عليك في يوم 30.",
         "en": "Writing to your future self reminds you why you started. We'll save your letter and show it to you on Day 30."
@@ -1027,7 +1149,10 @@
       "minutes": 4,
       "tier": "free",
       "mode": "steps",
-      "title": { "ar": "مراجعة الأسبوع", "en": "Weekly review" },
+      "title": {
+        "ar": "مراجعة الأسبوع",
+        "en": "Weekly review"
+      },
       "why": {
         "ar": "التوقف للنظر إلى الوراء يحوّل التجربة إلى تعلّم. ماذا نجح؟ ماذا لم ينجح؟ ماذا ستجرب الأسبوع القادم؟",
         "en": "Pausing to look back turns experience into learning. What worked? What didn't? What will you try next week?"

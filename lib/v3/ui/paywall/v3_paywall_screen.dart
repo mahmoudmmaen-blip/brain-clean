@@ -16,6 +16,7 @@ import '../../../features/v2_premium/domain/premium_offering.dart';
 import '../../../features/v2_premium/domain/premium_purchase_phase.dart';
 import '../../../features/v2_premium/domain/premium_view_state.dart';
 import '../../application/v3_state_providers.dart';
+import '../../domain/in_app_review_gate.dart';
 import '../../routing/v3_routes.dart';
 import 'paywall_personal_stats.dart';
 import 'paywall_price_math.dart';
@@ -49,7 +50,12 @@ class _V3PaywallScreenState extends ConsumerState<V3PaywallScreen> {
     super.initState();
     _controller = ref.read(premiumControllerProvider);
     _controller.addListener(_onChanged);
-    Future.microtask(() => _controller.hydrate(source: widget.source));
+    Future.microtask(() async {
+      await _controller.hydrate(source: widget.source);
+      await ref.read(v3StateRepositoryProvider).setLastPaywallShownDate(
+            InAppReviewGate.dateKey(DateTime.now()),
+          );
+    });
     _closeTimer = Timer(const Duration(seconds: 2), () {
       if (mounted) setState(() => _closeVisible = true);
     });

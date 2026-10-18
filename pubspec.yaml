@@ -28,6 +28,7 @@ dependencies:
   audioplayers: ^6.1.0
   wakelock_plus: ^1.2.8
   share_plus: ^10.0.0
+  in_app_review: ^2.0.10
   timezone: ^0.9.4
   flutter_dotenv: ^5.1.0
   flutter_secure_storage: ^9.2.4

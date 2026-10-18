@@ -150,24 +150,30 @@ void main() {
   testWidgets('SOS show_why and suggest_replacement steps render',
       (tester) async {
     await tester.pumpWidget(
-      wrap(const V3SosFlowScreen(flowId: 'sos_bored'), isPro: false),
+      wrap(const V3SosFlowScreen(flowId: 'sos_urge'), isPro: false),
     );
     await tester.pump();
-    // first text
+    // text → before rate → skip breath via skip? urge has breath after rate
     await tester.tap(find.textContaining('Tap to continue'));
     await tester.pump();
-    // second text
-    await tester.tap(find.textContaining('Tap to continue'));
-    await tester.pump();
+    expect(find.byKey(const Key('v3_sos_step_rate_before')), findsOneWidget);
+  });
+
+  testWidgets('SOS bored starts with replacement deck', (tester) async {
+    await tester.pumpWidget(
+      wrap(const V3SosFlowScreen(flowId: 'sos_bored'), isPro: false),
+    );
+    await tester.pumpAndSettle();
     expect(find.byKey(const Key('v3_sos_step_replacement')), findsOneWidget);
     final defaults = resolveSosReplacements(
       sos: bundle.sos,
       inputs: const UserInputs(),
-      duration: '15',
+      duration: '5',
       languageCode: 'en',
     );
     expect(defaults, isNotEmpty);
     expect(find.text(defaults.first), findsOneWidget);
+    expect(find.byKey(const Key('v3_sos_bored_optional_grounding')), findsOneWidget);
   });
 
   test('focus log is appended to repository', () async {

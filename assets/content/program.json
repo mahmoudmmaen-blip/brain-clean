@@ -166,34 +166,34 @@
       "week": 1,
       "lesson": {
         "title": {
-          "ar": "من التلقائي إلى الاختيار",
-          "en": "From autopilot to choice"
+          "ar": "من يتحكم في وقتك؟",
+          "en": "Who controls your time?"
         },
         "body": {
           "ar": [
-            "جرّب أن تتذكر: كم مرة وجدت نفسك تتصفح دون أن تتذكر متى فتحت الموبايل؟ هذا هو «الوضع التلقائي»، حين تتحرك اليد قبل أن يقرر العقل.",
-            "لا نحتاج أن نمنع أنفسنا من الموبايل. نحتاج فقط أن نضع لحظة قصيرة بين الرغبة والفعل. في هذه اللحظة يعود القرار لك.",
-            "ثلاثة أنفاس قبل فتح الموبايل تكفي لتحويل الحركة التلقائية إلى سؤال: «هل أريد هذا فعلًا الآن؟» أحيانًا ستكون الإجابة نعم، وهذا جيد."
+            "كل إشعار هو شخص أو شركة يطلب انتباهك الآن. أغلبها ليست مهمة، لكنها تقاطعك في منتصف ما تفعل.",
+            "المشكلة ليست الثواني التي تقضيها في الإشعار، بل الوقت الذي يحتاجه دماغك ليعود لما كان يفعله. عشرات المقاطعات في اليوم تعني يومًا كاملًا بلا تركيز حقيقي.",
+            "القاعدة اليوم بسيطة: الإشعارات للبشر فقط. المكالمات والرسائل من الأشخاص تبقى، وكل شيء آخر يتوقف."
           ],
           "en": [
-            "Think about it: how often have you found yourself scrolling without remembering when you picked up the phone? That's autopilot, when your hand moves before your mind decides.",
-            "We don't need to ban the phone. We just need a short moment between the urge and the action. In that moment, the choice comes back to you.",
-            "Three breaths before unlocking are enough to turn a reflex into a question: \"Do I actually want this right now?\" Sometimes the answer will be yes, and that's fine."
+            "Every notification is a person or a company asking for your attention right now. Most aren't important, but they interrupt whatever you're doing.",
+            "The problem isn't the seconds spent on the notification; it's the time your brain needs to get back to what it was doing. Dozens of interruptions a day mean a whole day without real focus.",
+            "Today's rule is simple: notifications are for people only. Calls and messages from real people stay; everything else goes."
           ]
         },
         "key": {
-          "ar": "لحظة قصيرة بين الرغبة والفعل تعيد لك القرار.",
-          "en": "A short pause between urge and action gives you back the choice."
+          "ar": "الإشعارات للبشر فقط.",
+          "en": "Notifications are for people only."
         }
       },
-      "practiceId": "ex_pause_breath",
+      "practiceId": "ex_notif_audit",
       "challenge": {
-        "ar": "قبل فتح أي تطبيق تواصل اليوم، خذ 3 أنفاس واسأل: «ماذا أريد بالضبط؟»",
-        "en": "Before opening any social app today, take 3 breaths and ask: \"What exactly do I want?\""
+        "ar": "لا تعِد تفعيل أي إشعار أوقفته اليوم، حتى لو شعرت أنك ستفوّت شيئًا.",
+        "en": "Don't turn back on any notification you switched off today, even if you feel you'll miss something."
       },
       "reflection": {
-        "ar": "كم مرة اخترت ألا تفتح الموبايل بعد التوقف؟",
-        "en": "How many times did you choose not to open your phone after pausing?"
+        "ar": "هل فاتك شيء مهم فعلًا بعد إيقاف الإشعارات؟",
+        "en": "Did you actually miss anything important after turning notifications off?"
       }
     },
     {
@@ -201,34 +201,34 @@
       "week": 1,
       "lesson": {
         "title": {
-          "ar": "التركيز عضلة تتدرّب",
-          "en": "Focus is a muscle you can train"
+          "ar": "البيئة أقوى من الإرادة",
+          "en": "Environment beats willpower"
         },
         "body": {
           "ar": [
-            "إن كنت تشعر أنك لم تعد تستطيع التركيز على شيء أكثر من دقائق، فأنت لست وحدك. حين يتعوّد الدماغ على تغيير المحتوى كل بضع ثوانٍ، يصبح البقاء مع شيء واحد مزعجًا.",
-            "لكن الانتباه مثل العضلة: يضعف حين لا نستخدمه، ويقوى حين ندرّبه. كل مرة يشرد فيها ذهنك وتعيده بلطف، فأنت تقوم بتمرين واحد.",
-            "اليوم ستدرّب انتباهك 5 دقائق فقط. لا تقلق إن شرد ذهنك مئة مرة. العودة هي التمرين، وليس عدم الشرود."
+            "الأشخاص الذين يبدون «منضبطين» غالبًا لا يملكون إرادة أقوى منك. هم فقط صمّموا بيئتهم بحيث يكون الاختيار الجيد هو الأسهل.",
+            "موبايلك اليوم مصمم ضدك: التطبيقات المشتّتة في الواجهة، والإشعارات تناديك، والأيقونات الملونة تجذب عينك. لا عجب أن الإرادة وحدها لا تكفي.",
+            "اليوم نبدأ بتغيير بسيط في بيئتك: الشاشة الرئيسية، وهي أول ما تراه أكثر من 50 مرة في اليوم."
           ],
           "en": [
-            "If you feel you can't focus on anything for more than a few minutes anymore, you're not alone. When the brain gets used to new content every few seconds, staying with one thing feels uncomfortable.",
-            "But attention is like a muscle: it weakens when unused and strengthens when trained. Every time your mind wanders and you gently bring it back, that's one rep.",
-            "Today you'll train your attention for just 5 minutes. Don't worry if your mind wanders a hundred times. Coming back is the exercise, not never wandering."
+            "People who seem \"disciplined\" usually don't have more willpower than you. They've just designed their environment so the good choice is the easy one.",
+            "Your phone today is designed against you: distracting apps up front, notifications calling, colorful icons pulling your eye. No wonder willpower alone isn't enough.",
+            "Today we start with a small environment change: your home screen, the first thing you see more than 50 times a day."
           ]
         },
         "key": {
-          "ar": "كل عودة من الشرود تمرين يقوّي انتباهك.",
-          "en": "Every return from wandering is a rep that builds focus."
+          "ar": "اجعل الاختيار الجيد هو الأسهل.",
+          "en": "Make the good choice the easy choice."
         }
       },
-      "practiceId": "ex_attention_anchor",
+      "practiceId": "ex_home_screen",
       "challenge": {
-        "ar": "اعمل على مهمة واحدة 10 دقائق متواصلة دون أن تلمس الموبايل.",
-        "en": "Work on one task for 10 straight minutes without touching your phone."
+        "ar": "حافظ على الشاشة الرئيسية الجديدة طوال اليوم، ولاحظ كم مرة بحثت عن تطبيق مشتّت.",
+        "en": "Keep your new home screen all day and notice how often you went looking for a distracting app."
       },
       "reflection": {
-        "ar": "كم مرة شرد ذهنك؟ وهل استطعت العودة؟",
-        "en": "How often did your mind wander? Could you bring it back?"
+        "ar": "هل قلّ فتحك للتطبيقات المشتتة بعد إخفائها؟",
+        "en": "Did you open distracting apps less once they were hidden?"
       }
     },
     {
@@ -308,34 +308,34 @@
       "week": 2,
       "lesson": {
         "title": {
-          "ar": "البيئة أقوى من الإرادة",
-          "en": "Environment beats willpower"
+          "ar": "التركيز عضلة تتدرّب",
+          "en": "Focus is a muscle you can train"
         },
         "body": {
           "ar": [
-            "الأشخاص الذين يبدون «منضبطين» غالبًا لا يملكون إرادة أقوى منك. هم فقط صمّموا بيئتهم بحيث يكون الاختيار الجيد هو الأسهل.",
-            "موبايلك اليوم مصمم ضدك: التطبيقات المشتّتة في الواجهة، والإشعارات تناديك، والأيقونات الملونة تجذب عينك. لا عجب أن الإرادة وحدها لا تكفي.",
-            "هذا الأسبوع سنعيد تصميم الموبايل والمكان من حولك. نبدأ اليوم بالشاشة الرئيسية، وهي أول ما تراه أكثر من 50 مرة في اليوم."
+            "إن كنت تشعر أنك لم تعد تستطيع التركيز على شيء أكثر من دقائق، فأنت لست وحدك. حين يتعوّد الدماغ على تغيير المحتوى كل بضع ثوانٍ، يصبح البقاء مع شيء واحد مزعجًا.",
+            "لكن الانتباه مثل العضلة: يضعف حين لا نستخدمه، ويقوى حين ندرّبه. كل مرة يشرد فيها ذهنك وتعيده بلطف، فأنت تقوم بتمرين واحد.",
+            "اليوم ستدرّب انتباهك 5 دقائق فقط. لا تقلق إن شرد ذهنك مئة مرة. العودة هي التمرين، وليس عدم الشرود."
           ],
           "en": [
-            "People who seem \"disciplined\" usually don't have more willpower than you. They've just designed their environment so the good choice is the easy one.",
-            "Your phone today is designed against you: distracting apps up front, notifications calling, colorful icons pulling your eye. No wonder willpower alone isn't enough.",
-            "This week we'll redesign your phone and your space. We start today with your home screen, the first thing you see more than 50 times a day."
+            "If you feel you can't focus on anything for more than a few minutes anymore, you're not alone. When the brain gets used to new content every few seconds, staying with one thing feels uncomfortable.",
+            "But attention is like a muscle: it weakens when unused and strengthens when trained. Every time your mind wanders and you gently bring it back, that's one rep.",
+            "Today you'll train your attention for just 5 minutes. Don't worry if your mind wanders a hundred times. Coming back is the exercise, not never wandering."
           ]
         },
         "key": {
-          "ar": "اجعل الاختيار الجيد هو الأسهل.",
-          "en": "Make the good choice the easy choice."
+          "ar": "كل عودة من الشرود تمرين يقوّي انتباهك.",
+          "en": "Every return from wandering is a rep that builds focus."
         }
       },
-      "practiceId": "ex_home_screen",
+      "practiceId": "ex_attention_anchor",
       "challenge": {
-        "ar": "حافظ على الشاشة الرئيسية الجديدة طوال اليوم، ولاحظ كم مرة بحثت عن تطبيق مشتّت.",
-        "en": "Keep your new home screen all day and notice how often you went looking for a distracting app."
+        "ar": "اعمل على مهمة واحدة 10 دقائق متواصلة دون أن تلمس الموبايل.",
+        "en": "Work on one task for 10 straight minutes without touching your phone."
       },
       "reflection": {
-        "ar": "هل قلّ فتحك للتطبيقات المشتتة بعد إخفائها؟",
-        "en": "Did you open distracting apps less once they were hidden?"
+        "ar": "كم مرة شرد ذهنك؟ وهل استطعت العودة؟",
+        "en": "How often did your mind wander? Could you bring it back?"
       }
     },
     {
@@ -343,34 +343,34 @@
       "week": 2,
       "lesson": {
         "title": {
-          "ar": "من يتحكم في وقتك؟",
-          "en": "Who controls your time?"
+          "ar": "من التلقائي إلى الاختيار",
+          "en": "From autopilot to choice"
         },
         "body": {
           "ar": [
-            "كل إشعار هو شخص أو شركة يطلب انتباهك الآن. أغلبها ليست مهمة، لكنها تقاطعك في منتصف ما تفعل.",
-            "المشكلة ليست الثواني التي تقضيها في الإشعار، بل الوقت الذي يحتاجه دماغك ليعود لما كان يفعله. عشرات المقاطعات في اليوم تعني يومًا كاملًا بلا تركيز حقيقي.",
-            "القاعدة اليوم بسيطة: الإشعارات للبشر فقط. المكالمات والرسائل من الأشخاص تبقى، وكل شيء آخر يتوقف."
+            "جرّب أن تتذكر: كم مرة وجدت نفسك تتصفح دون أن تتذكر متى فتحت الموبايل؟ هذا هو «الوضع التلقائي»، حين تتحرك اليد قبل أن يقرر العقل.",
+            "لا نحتاج أن نمنع أنفسنا من الموبايل. نحتاج فقط أن نضع لحظة قصيرة بين الرغبة والفعل. في هذه اللحظة يعود القرار لك.",
+            "ثلاثة أنفاس قبل فتح الموبايل تكفي لتحويل الحركة التلقائية إلى سؤال: «هل أريد هذا فعلًا الآن؟» أحيانًا ستكون الإجابة نعم، وهذا جيد."
           ],
           "en": [
-            "Every notification is a person or a company asking for your attention right now. Most aren't important, but they interrupt whatever you're doing.",
-            "The problem isn't the seconds spent on the notification; it's the time your brain needs to get back to what it was doing. Dozens of interruptions a day mean a whole day without real focus.",
-            "Today's rule is simple: notifications are for people only. Calls and messages from real people stay; everything else goes."
+            "Think about it: how often have you found yourself scrolling without remembering when you picked up the phone? That's autopilot, when your hand moves before your mind decides.",
+            "We don't need to ban the phone. We just need a short moment between the urge and the action. In that moment, the choice comes back to you.",
+            "Three breaths before unlocking are enough to turn a reflex into a question: \"Do I actually want this right now?\" Sometimes the answer will be yes, and that's fine."
           ]
         },
         "key": {
-          "ar": "الإشعارات للبشر فقط.",
-          "en": "Notifications are for people only."
+          "ar": "لحظة قصيرة بين الرغبة والفعل تعيد لك القرار.",
+          "en": "A short pause between urge and action gives you back the choice."
         }
       },
-      "practiceId": "ex_notif_audit",
+      "practiceId": "ex_pause_breath",
       "challenge": {
-        "ar": "لا تعِد تفعيل أي إشعار أوقفته اليوم، حتى لو شعرت أنك ستفوّت شيئًا.",
-        "en": "Don't turn back on any notification you switched off today, even if you feel you'll miss something."
+        "ar": "قبل فتح أي تطبيق تواصل اليوم، خذ 3 أنفاس واسأل: «ماذا أريد بالضبط؟»",
+        "en": "Before opening any social app today, take 3 breaths and ask: \"What exactly do I want?\""
       },
       "reflection": {
-        "ar": "هل فاتك شيء مهم فعلًا بعد إيقاف الإشعارات؟",
-        "en": "Did you actually miss anything important after turning notifications off?"
+        "ar": "كم مرة اخترت ألا تفتح الموبايل بعد التوقف؟",
+        "en": "How many times did you choose not to open your phone after pausing?"
       }
     },
     {

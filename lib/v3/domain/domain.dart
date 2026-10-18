@@ -1,6 +1,9 @@
 export 'clarity_question_order.dart';
 export 'clarity_scoring.dart';
+export 'in_app_review_gate.dart';
 export 'program_engine.dart';
 export 'screen_time_reframe.dart';
+export 'sos_helpers.dart';
+export 'sos_night.dart';
 export 'trial_offer_gate.dart';
 export 'trial_status.dart';

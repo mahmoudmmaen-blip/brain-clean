@@ -19,6 +19,8 @@ class V3AppState {
     this.day7PaywallShown = false,
     this.trialOfferShown = false,
     this.trialEndingNoticeKey,
+    this.inAppReviewRequested = false,
+    this.lastPaywallShownDate,
   });
 
   final UserProfile? profile;
@@ -36,6 +38,12 @@ class V3AppState {
   /// Expiration key for which the trial-ending sheet was already shown.
   final String? trialEndingNoticeKey;
 
+  /// Play In-App Review was already requested once for this install.
+  final bool inAppReviewRequested;
+
+  /// Local `yyyy-MM-dd` when a paywall was last shown (skip review that day).
+  final String? lastPaywallShownDate;
+
   V3AppState copyWith({
     UserProfile? profile,
     List<DayProgress>? dayProgress,
@@ -48,6 +56,8 @@ class V3AppState {
     bool? trialOfferShown,
     String? trialEndingNoticeKey,
     bool clearTrialEndingNoticeKey = false,
+    bool? inAppReviewRequested,
+    String? lastPaywallShownDate,
   }) {
     return V3AppState(
       profile: profile ?? this.profile,
@@ -62,6 +72,10 @@ class V3AppState {
       trialEndingNoticeKey: clearTrialEndingNoticeKey
           ? null
           : (trialEndingNoticeKey ?? this.trialEndingNoticeKey),
+      inAppReviewRequested:
+          inAppReviewRequested ?? this.inAppReviewRequested,
+      lastPaywallShownDate:
+          lastPaywallShownDate ?? this.lastPaywallShownDate,
     );
   }
 

@@ -5641,6 +5641,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v3SosTapSkip => 'Tap to continue';
 
   @override
+  String get v3SosOrTryThis => 'Or try this';
+
+  @override
+  String get v3SosBoredGroundingFallback =>
+      'Look around and name 3 things you see, 2 you hear, and 1 you feel.';
+
+  @override
+  String get v3Share => 'Share';
+
+  @override
+  String get v3ShareAchievement => 'Share your win';
+
+  @override
   String get v3ToolsFocusTitle => 'Focus timer';
 
   @override

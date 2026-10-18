@@ -25,6 +25,8 @@ abstract class V3StateRepository {
   Future<void> setDay7PaywallShown(bool shown);
   Future<void> setTrialOfferShown(bool shown);
   Future<void> setTrialEndingNoticeKey(String key);
+  Future<void> setInAppReviewRequested(bool requested);
+  Future<void> setLastPaywallShownDate(String dateKey);
   Future<void> clearDayProgressOnly();
   Future<void> clearAll();
 }
@@ -92,6 +94,7 @@ class V3StateLocalRepository implements V3StateRepository {
           : const UserInputs();
 
       final noticeKey = box.get(V3StorageKeys.trialEndingNoticeKey);
+      final paywallDate = box.get(V3StorageKeys.lastPaywallShownDate);
       return V3AppState(
         profile: profile,
         dayProgress: dayProgress,
@@ -103,6 +106,9 @@ class V3StateLocalRepository implements V3StateRepository {
         day7PaywallShown: box.get(V3StorageKeys.day7PaywallShown) == true,
         trialOfferShown: box.get(V3StorageKeys.trialOfferShown) == true,
         trialEndingNoticeKey: noticeKey is String ? noticeKey : null,
+        inAppReviewRequested:
+            box.get(V3StorageKeys.inAppReviewRequested) == true,
+        lastPaywallShownDate: paywallDate is String ? paywallDate : null,
       );
     } catch (e, st) {
       debugPrint('V3StateLocalRepository.load failed: $e\n$st');
@@ -236,6 +242,20 @@ class V3StateLocalRepository implements V3StateRepository {
     final box = await _openBox();
     await _ensureSchema(box);
     await box.put(V3StorageKeys.trialEndingNoticeKey, key);
+  }
+
+  @override
+  Future<void> setInAppReviewRequested(bool requested) async {
+    final box = await _openBox();
+    await _ensureSchema(box);
+    await box.put(V3StorageKeys.inAppReviewRequested, requested);
+  }
+
+  @override
+  Future<void> setLastPaywallShownDate(String dateKey) async {
+    final box = await _openBox();
+    await _ensureSchema(box);
+    await box.put(V3StorageKeys.lastPaywallShownDate, dateKey);
   }
 
   @override
