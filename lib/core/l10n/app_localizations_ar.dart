@@ -5701,4 +5701,39 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v3ProgressMoodEmpty => 'لا توجد مراجعات مسائية بعد';
+
+  @override
+  String get v3UsageAskBody =>
+      'لنعرض لك ساعات استخدامك الحقيقية بدلًا من التقدير، نحتاج إذن «الوصول إلى بيانات الاستخدام» من إعدادات الموبايل.';
+
+  @override
+  String get v3UsageAskPrivacy =>
+      'بياناتك تبقى على جهازك فقط، ولا تُرسَل إلى أي مكان.';
+
+  @override
+  String get v3UsageAskOpenSettings => 'فتح الإعدادات';
+
+  @override
+  String get v3UsageAskLater => 'لاحقًا';
+
+  @override
+  String get v3UsageSummaryTitle => 'ساعات الموبايل (مقيسة)';
+
+  @override
+  String get v3UsageApproximate => 'تقريبي';
+
+  @override
+  String v3UsageYesterday(String hours) {
+    return 'أمس: $hours س';
+  }
+
+  @override
+  String v3UsageAvg7(String hours) {
+    return 'متوسط 7 أيام: $hours س';
+  }
+
+  @override
+  String v3UsageFromTo(String from, String to) {
+    return 'من $from إلى $to';
+  }
 }

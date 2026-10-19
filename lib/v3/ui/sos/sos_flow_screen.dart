@@ -18,7 +18,9 @@ import '../../data/user_inputs.dart';
 import '../../domain/in_app_review_gate.dart';
 import '../../domain/sos_helpers.dart';
 import '../../domain/sos_night.dart';
+import '../../domain/usage_math.dart';
 import '../../routing/v3_routes.dart';
+import '../progress/usage_access_sheet.dart';
 import '../share/share_card.dart';
 
 class V3SosFlowScreen extends ConsumerStatefulWidget {
@@ -89,6 +91,13 @@ class _V3SosFlowScreenState extends ConsumerState<V3SosFlowScreen>
         now: ref.read(sosNowProvider),
       );
       ref.invalidate(v3AppStateProvider);
+      if (mounted) {
+        await maybeShowUsageAccessSheet(
+          context,
+          ref,
+          trigger: UsageAskTrigger.sosWin,
+        );
+      }
     }
   }
 

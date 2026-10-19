@@ -8,6 +8,8 @@ import 'day_progress.dart';
 import 'evening_check_in.dart';
 import 'focus_log.dart';
 import 'sos_log.dart';
+import 'usage_ask_flags.dart';
+import 'usage_day_total.dart';
 import 'user_inputs.dart';
 import 'user_profile.dart';
 import 'v3_app_state.dart';
@@ -27,6 +29,10 @@ abstract class V3StateRepository {
   Future<void> setTrialEndingNoticeKey(String key);
   Future<void> setInAppReviewRequested(bool requested);
   Future<void> setLastPaywallShownDate(String dateKey);
+  Future<UsageAskFlags> loadUsageAskFlags();
+  Future<void> saveUsageAskFlags(UsageAskFlags flags);
+  Future<List<UsageDayTotal>> loadUsageCache();
+  Future<void> saveUsageCache(List<UsageDayTotal> days);
   Future<void> clearDayProgressOnly();
   Future<void> clearAll();
 }
@@ -256,6 +262,51 @@ class V3StateLocalRepository implements V3StateRepository {
     final box = await _openBox();
     await _ensureSchema(box);
     await box.put(V3StorageKeys.lastPaywallShownDate, dateKey);
+  }
+
+  @override
+  Future<UsageAskFlags> loadUsageAskFlags() async {
+    final box = await _openBox();
+    await _ensureSchema(box);
+    final count = box.get(V3StorageKeys.usageAskCount, defaultValue: 0);
+    final declined =
+        box.get(V3StorageKeys.usageAsk1Declined, defaultValue: false) == true;
+    return UsageAskFlags(
+      askCount: count is int ? count : 0,
+      ask1Declined: declined,
+    );
+  }
+
+  @override
+  Future<void> saveUsageAskFlags(UsageAskFlags flags) async {
+    final box = await _openBox();
+    await _ensureSchema(box);
+    await box.put(V3StorageKeys.usageAskCount, flags.askCount);
+    await box.put(V3StorageKeys.usageAsk1Declined, flags.ask1Declined);
+  }
+
+  @override
+  Future<List<UsageDayTotal>> loadUsageCache() async {
+    final box = await _openBox();
+    await _ensureSchema(box);
+    final raw = box.get(V3StorageKeys.usageDailyCache);
+    if (raw is! List) return const [];
+    return raw
+        .whereType<Map>()
+        .map(
+          (e) => UsageDayTotal.fromJson(Map<String, dynamic>.from(e)),
+        )
+        .toList(growable: false);
+  }
+
+  @override
+  Future<void> saveUsageCache(List<UsageDayTotal> days) async {
+    final box = await _openBox();
+    await _ensureSchema(box);
+    await box.put(
+      V3StorageKeys.usageDailyCache,
+      days.map((e) => e.toJson()).toList(growable: false),
+    );
   }
 
   @override

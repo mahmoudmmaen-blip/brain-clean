@@ -32,5 +32,24 @@ class MainActivity : FlutterActivity() {
                 else -> result.notImplemented()
             }
         }
+
+        MethodChannel(
+            flutterEngine.dartExecutor.binaryMessenger,
+            UsageStatsHelper.CHANNEL_NAME,
+        ).setMethodCallHandler { call, result ->
+            when (call.method) {
+                "hasAccess" -> result.success(UsageStatsHelper.hasAccess(this))
+                "openSettings" -> result.success(UsageStatsHelper.openSettings(this))
+                "dailyTotals" -> {
+                    val days = call.argument<Int>("days") ?: 30
+                    try {
+                        result.success(UsageStatsHelper.dailyTotals(this, days))
+                    } catch (e: Exception) {
+                        result.error("usage_failed", e.message, null)
+                    }
+                }
+                else -> result.notImplemented()
+            }
+        }
     }
 }

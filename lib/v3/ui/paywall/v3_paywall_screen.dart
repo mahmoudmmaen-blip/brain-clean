@@ -15,6 +15,7 @@ import '../../../features/v2_premium/data/premium_controller_provider.dart';
 import '../../../features/v2_premium/domain/premium_offering.dart';
 import '../../../features/v2_premium/domain/premium_purchase_phase.dart';
 import '../../../features/v2_premium/domain/premium_view_state.dart';
+import '../../application/usage_providers.dart';
 import '../../application/v3_state_providers.dart';
 import '../../domain/in_app_review_gate.dart';
 import '../../routing/v3_routes.dart';
@@ -114,10 +115,14 @@ class _V3PaywallScreenState extends ConsumerState<V3PaywallScreen> {
     final async = ref.watch(v3AppStateProvider);
     final app = async.asData?.value;
     if (app == null) return null;
+    final usage = ref.watch(usageSnapshotProvider).asData?.value;
+    final fromTo = usage?.hasAccess == true ? usage!.firstVsLast7() : null;
     return PaywallPersonalStats.fromLocalData(
       dayProgress: app.dayProgress,
       sosLogs: app.sosLogs,
       clarityResults: app.clarityResults,
+      usageHoursFrom: fromTo?.from,
+      usageHoursTo: fromTo?.to,
     );
   }
 

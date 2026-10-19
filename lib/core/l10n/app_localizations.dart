@@ -10280,6 +10280,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No evening check-ins yet'**
   String get v3ProgressMoodEmpty;
+
+  /// No description provided for @v3UsageAskBody.
+  ///
+  /// In en, this message translates to:
+  /// **'To show your real phone hours instead of an estimate, we need \"Usage access\" permission from your phone settings.'**
+  String get v3UsageAskBody;
+
+  /// No description provided for @v3UsageAskPrivacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Your data stays on this device only and is never sent anywhere.'**
+  String get v3UsageAskPrivacy;
+
+  /// No description provided for @v3UsageAskOpenSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Open settings'**
+  String get v3UsageAskOpenSettings;
+
+  /// No description provided for @v3UsageAskLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Later'**
+  String get v3UsageAskLater;
+
+  /// No description provided for @v3UsageSummaryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone hours (measured)'**
+  String get v3UsageSummaryTitle;
+
+  /// No description provided for @v3UsageApproximate.
+  ///
+  /// In en, this message translates to:
+  /// **'Approximate'**
+  String get v3UsageApproximate;
+
+  /// No description provided for @v3UsageYesterday.
+  ///
+  /// In en, this message translates to:
+  /// **'Yesterday: {hours} h'**
+  String v3UsageYesterday(String hours);
+
+  /// No description provided for @v3UsageAvg7.
+  ///
+  /// In en, this message translates to:
+  /// **'7-day average: {hours} h'**
+  String v3UsageAvg7(String hours);
+
+  /// No description provided for @v3UsageFromTo.
+  ///
+  /// In en, this message translates to:
+  /// **'From {from} to {to}'**
+  String v3UsageFromTo(String from, String to);
 }
 
 class _AppLocalizationsDelegate

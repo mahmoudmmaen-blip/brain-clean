@@ -13,4 +13,7 @@ abstract final class V3StorageKeys {
   static const trialEndingNoticeKey = 'trial_ending_notice_key';
   static const inAppReviewRequested = 'in_app_review_requested';
   static const lastPaywallShownDate = 'last_paywall_shown_date';
+  static const usageAskCount = 'usage_ask_count';
+  static const usageAsk1Declined = 'usage_ask_1_declined';
+  static const usageDailyCache = 'usage_daily_cache';
 }

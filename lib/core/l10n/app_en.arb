@@ -2548,5 +2548,26 @@
   "v3ProgressStatFocus": "Focus minutes",
   "v3ProgressStatUrges": "Urges you beat",
   "v3ProgressMoodTitle": "Evening mood (last 14 days)",
-  "v3ProgressMoodEmpty": "No evening check-ins yet"
+  "v3ProgressMoodEmpty": "No evening check-ins yet",
+  "v3UsageAskBody": "To show your real phone hours instead of an estimate, we need \"Usage access\" permission from your phone settings.",
+  "v3UsageAskPrivacy": "Your data stays on this device only and is never sent anywhere.",
+  "v3UsageAskOpenSettings": "Open settings",
+  "v3UsageAskLater": "Later",
+  "v3UsageSummaryTitle": "Phone hours (measured)",
+  "v3UsageApproximate": "Approximate",
+  "v3UsageYesterday": "Yesterday: {hours} h",
+  "@v3UsageYesterday": {
+    "placeholders": { "hours": { "type": "String" } }
+  },
+  "v3UsageAvg7": "7-day average: {hours} h",
+  "@v3UsageAvg7": {
+    "placeholders": { "hours": { "type": "String" } }
+  },
+  "v3UsageFromTo": "From {from} to {to}",
+  "@v3UsageFromTo": {
+    "placeholders": {
+      "from": { "type": "String" },
+      "to": { "type": "String" }
+    }
+  }
 }

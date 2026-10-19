@@ -2613,5 +2613,26 @@
   "v3ProgressStatFocus": "دقائق التركيز",
   "v3ProgressStatUrges": "رغبات تجاوزتها",
   "v3ProgressMoodTitle": "مزاج المساء (آخر 14 يومًا)",
-  "v3ProgressMoodEmpty": "لا توجد مراجعات مسائية بعد"
+  "v3ProgressMoodEmpty": "لا توجد مراجعات مسائية بعد",
+  "v3UsageAskBody": "لنعرض لك ساعات استخدامك الحقيقية بدلًا من التقدير، نحتاج إذن «الوصول إلى بيانات الاستخدام» من إعدادات الموبايل.",
+  "v3UsageAskPrivacy": "بياناتك تبقى على جهازك فقط، ولا تُرسَل إلى أي مكان.",
+  "v3UsageAskOpenSettings": "فتح الإعدادات",
+  "v3UsageAskLater": "لاحقًا",
+  "v3UsageSummaryTitle": "ساعات الموبايل (مقيسة)",
+  "v3UsageApproximate": "تقريبي",
+  "v3UsageYesterday": "أمس: {hours} س",
+  "@v3UsageYesterday": {
+    "placeholders": { "hours": { "type": "String" } }
+  },
+  "v3UsageAvg7": "متوسط 7 أيام: {hours} س",
+  "@v3UsageAvg7": {
+    "placeholders": { "hours": { "type": "String" } }
+  },
+  "v3UsageFromTo": "من {from} إلى {to}",
+  "@v3UsageFromTo": {
+    "placeholders": {
+      "from": { "type": "String" },
+      "to": { "type": "String" }
+    }
+  }
 }

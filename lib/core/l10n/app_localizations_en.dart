@@ -5802,4 +5802,39 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v3ProgressMoodEmpty => 'No evening check-ins yet';
+
+  @override
+  String get v3UsageAskBody =>
+      'To show your real phone hours instead of an estimate, we need \"Usage access\" permission from your phone settings.';
+
+  @override
+  String get v3UsageAskPrivacy =>
+      'Your data stays on this device only and is never sent anywhere.';
+
+  @override
+  String get v3UsageAskOpenSettings => 'Open settings';
+
+  @override
+  String get v3UsageAskLater => 'Later';
+
+  @override
+  String get v3UsageSummaryTitle => 'Phone hours (measured)';
+
+  @override
+  String get v3UsageApproximate => 'Approximate';
+
+  @override
+  String v3UsageYesterday(String hours) {
+    return 'Yesterday: $hours h';
+  }
+
+  @override
+  String v3UsageAvg7(String hours) {
+    return '7-day average: $hours h';
+  }
+
+  @override
+  String v3UsageFromTo(String from, String to) {
+    return 'From $from to $to';
+  }
 }

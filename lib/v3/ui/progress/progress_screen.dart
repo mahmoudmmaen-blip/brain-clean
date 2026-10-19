@@ -13,22 +13,31 @@ import '../../data/evening_check_in.dart';
 import '../../domain/program_engine.dart';
 import '../../domain/progress_calendar.dart';
 import '../../domain/progress_stats.dart';
+import '../../domain/usage_math.dart';
 import '../../routing/v3_routes.dart';
 import '../shell/v3_tab_placeholder.dart';
+import 'usage_access_sheet.dart';
 import 'usage_summary_card.dart';
 
-class V3ProgressScreen extends ConsumerWidget {
+class V3ProgressScreen extends ConsumerStatefulWidget {
   const V3ProgressScreen({super.key, this.nowOverride});
 
   final DateTime? nowOverride;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<V3ProgressScreen> createState() => _V3ProgressScreenState();
+}
+
+class _V3ProgressScreenState extends ConsumerState<V3ProgressScreen> {
+  bool _askedThisVisit = false;
+
+  @override
+  Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final locale = ref.watch(localeProvider).languageCode;
     final isArabic = locale.toLowerCase().startsWith('ar');
     final appAsync = ref.watch(v3AppStateProvider);
-    final now = nowOverride ?? DateTime.now();
+    final now = widget.nowOverride ?? DateTime.now();
     final rtl = Directionality.of(context) == TextDirection.rtl;
 
     return Scaffold(
@@ -93,6 +102,18 @@ class V3ProgressScreen extends ConsumerWidget {
             now: now,
           );
 
+          if (!_askedThisVisit) {
+            _askedThisVisit = true;
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (!mounted) return;
+              maybeShowUsageAccessSheet(
+                context,
+                ref,
+                trigger: UsageAskTrigger.progressOpen,
+              );
+            });
+          }
+
           return SafeArea(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(AppDesignConstants.paddingScreen),
@@ -118,7 +139,7 @@ class V3ProgressScreen extends ConsumerWidget {
                     _PhoneHoursCard(stats: stats, loc: loc),
                     const SizedBox(height: 16),
                   ],
-                  const UsageSummaryCard(),
+                  UsageSummaryCard(nowOverride: widget.nowOverride),
                   const SizedBox(height: 24),
                   _CalendarSection(
                     progress: app.dayProgress,

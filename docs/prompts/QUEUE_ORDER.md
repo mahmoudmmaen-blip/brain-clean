@@ -12,8 +12,8 @@ Only Claude changes WAITING → NEXT and REVIEW → DONE.
 | C02 | C02_onboarding_trial.md | DONE | no |
 | C03 | C03_content_sos_share.md | DONE | no |
 | C04 | C04_today_tools.md | DONE | no |
-| C05 | C05_program_progress.md | REVIEW | no |
-| C06 | C06_usage_data.md | WAITING | no |
+| C05 | C05_program_progress.md | DONE | no |
+| C06 | C06_usage_data.md | REVIEW | no |
 | C07 | C07_settings_graduation_backup.md | WAITING | no |
 | C08 | C08_notifications_polish.md | WAITING | no |
 | C09 | C09_release.md | WAITING | yes (ask first) |
