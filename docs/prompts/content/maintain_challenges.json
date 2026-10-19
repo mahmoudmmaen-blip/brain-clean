@@ -1,0 +1,186 @@
+{
+  "version": 1,
+  "note": "Maintain mode (V3.1). One challenge per week, rotating. After the first full cycle of 12, serve the 'hard' variant.",
+  "challenges": [
+    {
+      "id": "morning_no_phone",
+      "title": {
+        "ar": "صباح بلا شاشة",
+        "en": "Phone-free mornings"
+      },
+      "base": {
+        "ar": "لا موبايل في أول 30 دقيقة بعد الاستيقاظ، 5 أيام هذا الأسبوع.",
+        "en": "No phone for the first 30 minutes after waking, 5 days this week."
+      },
+      "hard": {
+        "ar": "7 أيام بدلًا من 5، وأول 45 دقيقة.",
+        "en": "7 days instead of 5, and the first 45 minutes."
+      }
+    },
+    {
+      "id": "evening_gray",
+      "title": {
+        "ar": "شاشة رمادية في المساء",
+        "en": "Grayscale evenings"
+      },
+      "base": {
+        "ar": "فعّل الوضع الرمادي كل يوم بعد الساعة 21:00.",
+        "en": "Turn on grayscale every day after 21:00."
+      },
+      "hard": {
+        "ar": "فعّله من الساعة 19:00.",
+        "en": "Turn it on from 19:00."
+      }
+    },
+    {
+      "id": "trigger_app_off",
+      "title": {
+        "ar": "أبعِد تطبيقًا عن الشاشة الرئيسية",
+        "en": "Move one app off your home screen"
+      },
+      "base": {
+        "ar": "انقل أكثر تطبيق يشتتك إلى مجلد بعيد عن الشاشة الرئيسية.",
+        "en": "Move your most distracting app into a folder off the home screen."
+      },
+      "hard": {
+        "ar": "سجّل الخروج منه طوال الأسبوع.",
+        "en": "Stay logged out of it all week."
+      }
+    },
+    {
+      "id": "meals_no_phone",
+      "title": {
+        "ar": "وجبات بلا موبايل",
+        "en": "Phone-free meals"
+      },
+      "base": {
+        "ar": "كل وجبة هذا الأسبوع والموبايل في غرفة أخرى.",
+        "en": "Every meal this week with the phone in another room."
+      },
+      "hard": {
+        "ar": "وأيضًا 15 دقيقة بعد كل وجبة.",
+        "en": "Plus 15 minutes after each meal."
+      }
+    },
+    {
+      "id": "call_not_scroll",
+      "title": {
+        "ar": "مكالمة بدل التصفح",
+        "en": "A call instead of scrolling"
+      },
+      "base": {
+        "ar": "استبدل 3 جلسات تصفح مسائية بمكالمة مع شخص من عائلتك أو صديق.",
+        "en": "Replace 3 evening scroll sessions with a call to family or a friend."
+      },
+      "hard": {
+        "ar": "5 مكالمات، وواحدة منها لقاء وجهًا لوجه.",
+        "en": "5 calls, one of them a face-to-face meeting."
+      }
+    },
+    {
+      "id": "phone_sleeps_out",
+      "title": {
+        "ar": "الموبايل ينام خارج الغرفة",
+        "en": "The phone sleeps outside"
+      },
+      "base": {
+        "ar": "اشحن الموبايل خارج غرفة النوم 4 ليالٍ هذا الأسبوع.",
+        "en": "Charge your phone outside the bedroom 4 nights this week."
+      },
+      "hard": {
+        "ar": "كل ليالي الأسبوع.",
+        "en": "Every night this week."
+      }
+    },
+    {
+      "id": "daily_focus",
+      "title": {
+        "ar": "جلسة تركيز يومية",
+        "en": "A daily focus session"
+      },
+      "base": {
+        "ar": "جلسة تركيز 20 دقيقة يوميًا، 5 أيام.",
+        "en": "One 20-minute focus session a day, 5 days."
+      },
+      "hard": {
+        "ar": "جلسة 50 دقيقة يوميًا، 5 أيام.",
+        "en": "One 50-minute session a day, 5 days."
+      }
+    },
+    {
+      "id": "people_only",
+      "title": {
+        "ar": "تنبيهات من البشر فقط",
+        "en": "Notifications from people only"
+      },
+      "base": {
+        "ar": "راجع الإشعارات واترك فقط رسائل الأشخاص الحقيقيين.",
+        "en": "Review notifications and keep only messages from real people."
+      },
+      "hard": {
+        "ar": "أوقف أيضًا إشعارات المجموعات.",
+        "en": "Also mute group chats."
+      }
+    },
+    {
+      "id": "evening_walk",
+      "title": {
+        "ar": "مشي بعد العشاء",
+        "en": "An after-dinner walk"
+      },
+      "base": {
+        "ar": "مشي 15 دقيقة بعد العشاء، 4 أيام، والموبايل في جيبك صامت.",
+        "en": "A 15-minute walk after dinner, 4 days, phone silent in your pocket."
+      },
+      "hard": {
+        "ar": "30 دقيقة، والموبايل في البيت.",
+        "en": "30 minutes, phone left at home."
+      }
+    },
+    {
+      "id": "planned_scroll",
+      "title": {
+        "ar": "تصفح مقصود",
+        "en": "Planned scrolling"
+      },
+      "base": {
+        "ar": "التصفح فقط في نافذة واحدة مخططة مدتها 15 دقيقة يوميًا.",
+        "en": "Scroll only inside one planned 15-minute window a day."
+      },
+      "hard": {
+        "ar": "10 دقائق فقط، وفي وقت ثابت.",
+        "en": "10 minutes only, at a fixed time."
+      }
+    },
+    {
+      "id": "half_day_offline",
+      "title": {
+        "ar": "نصف يوم بلا اتصال",
+        "en": "Half a day offline"
+      },
+      "base": {
+        "ar": "نصف يوم كامل بلا إنترنت في عطلة نهاية الأسبوع.",
+        "en": "Half a day fully offline at the weekend."
+      },
+      "hard": {
+        "ar": "يوم كامل.",
+        "en": "A full day."
+      }
+    },
+    {
+      "id": "trigger_review",
+      "title": {
+        "ar": "مراجعة المحفزات",
+        "en": "Review your triggers"
+      },
+      "base": {
+        "ar": "اكتب أهم 3 مواقف تدفعك للموبايل، وخطوة مضادة لكل موقف.",
+        "en": "Write your top 3 phone triggers and one counter-move for each."
+      },
+      "hard": {
+        "ar": "طبّق الخطوات المضادة 5 أيام وسجّل ما حدث.",
+        "en": "Use the counter-moves for 5 days and note what happened."
+      }
+    }
+  ]
+}

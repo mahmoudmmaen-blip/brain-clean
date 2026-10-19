@@ -1,0 +1,45 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(**)",
+      "Write(lib/**)",
+      "Write(test/**)",
+      "Write(assets/**)",
+      "Write(docs/**)",
+      "Write(android/app/src/**)",
+      "Write(pubspec.yaml)",
+      "Write(pubspec.lock)",
+      "Write(l10n.yaml)",
+      "Shell(flutter)",
+      "Shell(dart)",
+      "Shell(git)"
+    ],
+    "deny": [
+      "Shell(git push)",
+      "Shell(git reset)",
+      "Shell(git rebase)",
+      "Shell(git clean)",
+      "Shell(git checkout)",
+      "Shell(git restore)",
+      "Shell(git stash)",
+      "Shell(git branch)",
+      "Shell(git remote)",
+      "Shell(rm)",
+      "Shell(del)",
+      "Shell(rmdir)",
+      "Shell(Remove-Item)",
+      "Shell(curl)",
+      "Shell(Invoke-WebRequest)",
+      "Shell(powershell)",
+      "Shell(pwsh)",
+      "Read(.env)",
+      "Read(**/key.properties)",
+      "Read(**/*.jks)",
+      "Read(**/*.keystore)",
+      "Write(.env)",
+      "Write(build_release.ps1)",
+      "Write(android/app/build.gradle.kts)",
+      "Write(android/key.properties)"
+    ]
+  }
+}

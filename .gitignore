@@ -53,3 +53,9 @@ brain_clean_mobile/brain-clean-v2/
 
 # Local share archive (never track).
 brain-clean-v2-share.zip
+
+# Task runner state (task queue, logs). Task files live in docs/prompts.
+.runner/running/
+.runner/done/
+.runner/inbox/
+.runner/STOP
