@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/l10n/app_localizations.dart';
+import '../../../core/presentation/confirm_dialog.dart';
 import '../../../core/providers/locale_provider.dart';
 import '../../../core/theme/app_design_constants.dart';
 import '../../../features/pro/application/subscription_service_provider.dart';
@@ -11,6 +12,7 @@ import '../../content/content_repository.dart';
 import '../../content/goal_tips_content.dart';
 import '../../data/day_progress.dart';
 import '../../domain/program_engine.dart';
+import '../../domain/western_digits.dart';
 import '../../routing/v3_routes.dart';
 import 'evening_check_in_sheet.dart';
 import 'trial_ending_sheet.dart';
@@ -65,6 +67,8 @@ class V3TodayScreen extends ConsumerWidget {
                     .firstOrNull;
             final daysPracticed =
                 ProgramEngine.completedDayCount(app.dayProgress);
+            final programFinished =
+                ProgramEngine.isProgramFinished(app.dayProgress);
             final streak = ProgramEngine.currentStreak(
               progress: app.dayProgress,
               now: now,
@@ -73,6 +77,103 @@ class V3TodayScreen extends ConsumerWidget {
               day: displayDay,
               isPro: isPro,
             );
+            if (programFinished) {
+              return TrialEndingHost(
+                child: Scaffold(
+                  key: const Key('v3_today_screen'),
+                  backgroundColor: AppDesignConstants.darkBackground,
+                  body: SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.all(
+                        AppDesignConstants.paddingScreen,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Row(
+                            children: [
+                              IconButton(
+                                key: const Key('v3_today_settings'),
+                                tooltip: loc.v3SettingsTooltip,
+                                onPressed: () =>
+                                    context.push(V3Routes.settings),
+                                icon: const Icon(Icons.settings_outlined),
+                              ),
+                              const Spacer(),
+                            ],
+                          ),
+                          const Spacer(),
+                          Text(
+                            loc.v3AfterProgramTitle,
+                            key: const Key('v3_today_after_program'),
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            loc.v3GraduationDays(daysPracticed),
+                            textAlign: TextAlign.center,
+                          ),
+                          const Spacer(),
+                          FilledButton(
+                            key: const Key('v3_today_after_tools'),
+                            onPressed: () => context.go(V3Routes.tools),
+                            style: FilledButton.styleFrom(
+                              backgroundColor: AppDesignConstants.brandGreen,
+                              minimumSize: const Size(48, 48),
+                            ),
+                            child: Text(loc.v3AfterProgramTools),
+                          ),
+                          const SizedBox(height: 8),
+                          OutlinedButton(
+                            key: const Key('v3_today_after_clarity'),
+                            onPressed: () => context.push(
+                              V3Routes.checkPath(mode: 'recheck'),
+                            ),
+                            style: OutlinedButton.styleFrom(
+                              minimumSize: const Size(48, 48),
+                            ),
+                            child: Text(loc.v3AfterProgramClarity),
+                          ),
+                          const SizedBox(height: 8),
+                          TextButton(
+                            key: const Key('v3_today_after_restart'),
+                            onPressed: () async {
+                              final ok = await showConfirmDialog(
+                                context,
+                                title: loc.v3AfterProgramRestartConfirmTitle,
+                                message: loc.v3AfterProgramRestartConfirmBody,
+                                confirmLabel: loc.commonConfirm,
+                                cancelLabel: loc.commonCancel,
+                                destructive: true,
+                              );
+                              if (!ok) return;
+                              await ref
+                                  .read(v3StateRepositoryProvider)
+                                  .clearDayProgressOnly();
+                              ref.invalidate(v3AppStateProvider);
+                            },
+                            child: Text(loc.v3AfterProgramRestart),
+                          ),
+                          const SizedBox(height: 12),
+                          OutlinedButton(
+                            key: const Key('v3_today_sos'),
+                            onPressed: () => context.push(V3Routes.sos),
+                            style: OutlinedButton.styleFrom(
+                              minimumSize: const Size.fromHeight(52),
+                            ),
+                            child: Text(loc.v3SosButton),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            }
             final hero = _heroState(
               progress: progress,
               proLocked: proLocked,
@@ -130,6 +231,7 @@ class V3TodayScreen extends ConsumerWidget {
                               children: [
                                 IconButton(
                                   key: const Key('v3_today_settings'),
+                                  tooltip: loc.v3SettingsTooltip,
                                   onPressed: () =>
                                       context.push(V3Routes.settings),
                                   icon: const Icon(Icons.settings_outlined),
@@ -321,7 +423,7 @@ class _DaysPracticedHero extends StatelessWidget {
             ),
             const SizedBox(width: 2),
             Text(
-              '$streak',
+              WesternDigits.formatInt(streak),
               key: const Key('v3_today_streak'),
               style: const TextStyle(
                 fontWeight: FontWeight.w600,

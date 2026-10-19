@@ -7,9 +7,11 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/security/security_status_provider.dart';
+import '../../../v3/application/notification_scheduler.dart';
 import '../../../v3/application/v3_onboarding_gate_provider.dart';
 import '../../../v3/routing/v3_routes.dart';
 import '../../../v3/routing/v3_startup.dart';
+import '../../../v3/ui/migration/migration_screen.dart';
 
 /// Cold-start gate: then welcome or Today (V3).
 class SplashScreen extends ConsumerStatefulWidget {
@@ -94,15 +96,29 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
     await ref.read(v3OnboardingGateProvider.notifier).hydrate();
     final onboardingDone = ref.read(v3OnboardingGateProvider) ?? false;
-    final destination = V3Startup.afterSplash(onboardingDone: onboardingDone);
+    final showMigration = await shouldShowV3Migration();
+    final destination = V3Startup.afterSplash(
+      onboardingDone: onboardingDone,
+      showMigration: showMigration,
+    );
     if (kDebugMode) {
       debugPrint(
-        '[SplashColdStart] v3OnboardingDone=$onboardingDone destination=$destination',
+        '[SplashColdStart] v3OnboardingDone=$onboardingDone '
+        'migration=$showMigration destination=$destination',
       );
     }
     if (mounted) {
       setState(() => _routing = false);
       context.go(destination);
+      if (onboardingDone && !showMigration) {
+        final loc = AppLocalizations.of(context);
+        if (loc != null) {
+          // Fire-and-forget reschedule (max 2/day).
+          unawaited(
+            ref.read(v3NotificationSchedulerProvider).reschedule(loc: loc),
+          );
+        }
+      }
     }
   }
 

@@ -18,6 +18,7 @@ import '../../../core/theme/app_design_constants.dart';
 import '../../../features/pro/application/subscription_service_provider.dart';
 import '../../../features/v2_premium/data/premium_controller_provider.dart';
 import '../../../features/v2_premium/domain/premium_purchase_phase.dart';
+import '../../application/notification_scheduler.dart';
 import '../../application/usage_providers.dart';
 import '../../application/v3_backup_service.dart';
 import '../../application/v3_onboarding_gate_provider.dart';
@@ -95,9 +96,12 @@ class V3SettingsScreen extends ConsumerWidget {
           profile.copyWith(reminderTime: hhmm),
         );
     ref.invalidate(v3AppStateProvider);
+    if (context.mounted) {
+      await rescheduleV3Notifications(ref, AppLocalizations.of(context)!);
+    }
   }
 
-  Future<void> _setEvening(WidgetRef ref, bool value) async {
+  Future<void> _setEvening(BuildContext context, WidgetRef ref, bool value) async {
     final app = await ref.read(v3StateRepositoryProvider).load();
     final profile = app.profile;
     if (profile == null) return;
@@ -105,6 +109,9 @@ class V3SettingsScreen extends ConsumerWidget {
           profile.copyWith(eveningCheckIn: value),
         );
     ref.invalidate(v3AppStateProvider);
+    if (context.mounted) {
+      await rescheduleV3Notifications(ref, AppLocalizations.of(context)!);
+    }
   }
 
   Future<void> _setLanguage(WidgetRef ref, Locale next) async {
@@ -267,7 +274,7 @@ class V3SettingsScreen extends ConsumerWidget {
                 key: const Key('v3_settings_evening'),
                 title: Text(loc.v3SettingsEveningCheckIn),
                 value: evening,
-                onChanged: (v) => _setEvening(ref, v),
+                onChanged: (v) => _setEvening(context, ref, v),
               ),
               const Divider(),
               ListTile(

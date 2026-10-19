@@ -2641,5 +2641,27 @@
   "v3GraduationWriteRules": "Write your rules",
   "v3GraduationShare": "Share",
   "v3GraduationWhatsNext": "What's next?",
-  "v3GraduationLetterHeading": "Your letter"
+  "v3GraduationLetterHeading": "Your letter",
+  "v3NotifDailyTitle": "Brain Clean",
+  "v3NotifDailyBody": "Day {day} is ready — only 5 minutes",
+  "@v3NotifDailyBody": {
+    "placeholders": { "day": { "type": "int" } }
+  },
+  "v3NotifEveningTitle": "Brain Clean",
+  "v3NotifEveningBody": "How was your day with the phone?",
+  "v3NotifClarityTitle": "Brain Clean",
+  "v3NotifClarityBody": "Clarity Check today — see your progress",
+  "v3MigrationTitle": "Brain Clean is simpler and stronger. A new program is waiting for you",
+  "v3MigrationContinue": "Continue",
+  "v3AfterProgramTitle": "You finished the program",
+  "v3AfterProgramTools": "Open Tools",
+  "v3AfterProgramClarity": "Monthly Clarity Check",
+  "v3AfterProgramRestart": "Restart the program",
+  "v3AfterProgramRestartConfirmTitle": "Restart the program?",
+  "v3AfterProgramRestartConfirmBody": "Day progress resets. Your history and Clarity Checks stay.",
+  "v3SettingsTooltip": "Settings",
+  "v3BackTooltip": "Back",
+  "v3CloseTooltip": "Close",
+  "v3EmptyGenericTitle": "Nothing here yet",
+  "v3EmptyGenericCta": "Go to Today"
 }

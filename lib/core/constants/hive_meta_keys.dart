@@ -65,4 +65,7 @@ abstract final class HiveMetaKeys {
   static const twentyTwentyEnabled = 'twentyTwentyEnabled';
   static const twentyTwentyStartHour = 'twentyTwentyStartHour';
   static const twentyTwentyEndHour = 'twentyTwentyEndHour';
+
+  /// One-time pre-V3 → V3 migration screen was shown and legacy boxes deleted.
+  static const v3MigrationCompleted = 'v3MigrationCompleted';
 }

@@ -10658,6 +10658,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your letter'**
   String get v3GraduationLetterHeading;
+
+  /// No description provided for @v3NotifDailyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Clean'**
+  String get v3NotifDailyTitle;
+
+  /// No description provided for @v3NotifDailyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Day {day} is ready — only 5 minutes'**
+  String v3NotifDailyBody(int day);
+
+  /// No description provided for @v3NotifEveningTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Clean'**
+  String get v3NotifEveningTitle;
+
+  /// No description provided for @v3NotifEveningBody.
+  ///
+  /// In en, this message translates to:
+  /// **'How was your day with the phone?'**
+  String get v3NotifEveningBody;
+
+  /// No description provided for @v3NotifClarityTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Clean'**
+  String get v3NotifClarityTitle;
+
+  /// No description provided for @v3NotifClarityBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Clarity Check today — see your progress'**
+  String get v3NotifClarityBody;
+
+  /// No description provided for @v3MigrationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brain Clean is simpler and stronger. A new program is waiting for you'**
+  String get v3MigrationTitle;
+
+  /// No description provided for @v3MigrationContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get v3MigrationContinue;
+
+  /// No description provided for @v3AfterProgramTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You finished the program'**
+  String get v3AfterProgramTitle;
+
+  /// No description provided for @v3AfterProgramTools.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Tools'**
+  String get v3AfterProgramTools;
+
+  /// No description provided for @v3AfterProgramClarity.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly Clarity Check'**
+  String get v3AfterProgramClarity;
+
+  /// No description provided for @v3AfterProgramRestart.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart the program'**
+  String get v3AfterProgramRestart;
+
+  /// No description provided for @v3AfterProgramRestartConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart the program?'**
+  String get v3AfterProgramRestartConfirmTitle;
+
+  /// No description provided for @v3AfterProgramRestartConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Day progress resets. Your history and Clarity Checks stay.'**
+  String get v3AfterProgramRestartConfirmBody;
+
+  /// No description provided for @v3SettingsTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get v3SettingsTooltip;
+
+  /// No description provided for @v3BackTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get v3BackTooltip;
+
+  /// No description provided for @v3CloseTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get v3CloseTooltip;
+
+  /// No description provided for @v3EmptyGenericTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing here yet'**
+  String get v3EmptyGenericTitle;
+
+  /// No description provided for @v3EmptyGenericCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to Today'**
+  String get v3EmptyGenericCta;
 }
 
 class _AppLocalizationsDelegate

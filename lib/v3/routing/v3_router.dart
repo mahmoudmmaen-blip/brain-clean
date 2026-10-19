@@ -17,6 +17,7 @@ import '../ui/paywall/trial_offer_screen.dart';
 import '../ui/paywall/v3_paywall_screen.dart';
 import '../ui/graduation/graduation_screen.dart';
 import '../ui/letter/letter_screen.dart';
+import '../ui/migration/migration_screen.dart';
 import '../ui/session/session_player_screen.dart';
 import '../ui/settings/settings_screen.dart';
 import '../ui/shell/v3_main_shell.dart';
@@ -95,6 +96,10 @@ final v3GoRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: V3Routes.biometricLock,
         builder: (context, state) => const BiometricLockScreen(),
+      ),
+      GoRoute(
+        path: V3Routes.migration,
+        builder: (context, state) => const V3MigrationScreen(),
       ),
       GoRoute(
         path: V3Routes.welcome,

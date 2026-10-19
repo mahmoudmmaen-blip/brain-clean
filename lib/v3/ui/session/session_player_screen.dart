@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -8,6 +7,7 @@ import '../../../core/providers/locale_provider.dart';
 import '../../../core/theme/app_design_constants.dart';
 import '../../../features/pro/application/subscription_service_provider.dart';
 import '../../application/in_app_review_service.dart';
+import '../../application/notification_scheduler.dart';
 import '../../application/session_controller.dart';
 import '../../application/sos_now_provider.dart';
 import '../../application/v3_state_providers.dart';
@@ -16,6 +16,7 @@ import '../../content/exercises_content.dart';
 import '../../content/program_content.dart';
 import '../../domain/in_app_review_gate.dart';
 import '../../routing/v3_routes.dart';
+import '../common/v3_motion.dart';
 import '../share/share_card.dart';
 import 'input_forms.dart';
 import 'practice_controls.dart';
@@ -78,7 +79,11 @@ class _V3SessionPlayerScreenState extends ConsumerState<V3SessionPlayerScreen> {
       // Still show completion UI; day may be incomplete if practice skipped.
       ctrl.showCompletion();
     }
-    HapticFeedback.lightImpact();
+    await V3Motion.mediumComplete(mounted ? context : null);
+    if (mounted) {
+      final loc = AppLocalizations.of(context)!;
+      await rescheduleV3Notifications(ref, loc);
+    }
     setState(() {});
 
     // In-app review after Day 3 completion (end screen only).
@@ -141,6 +146,7 @@ class _V3SessionPlayerScreenState extends ConsumerState<V3SessionPlayerScreen> {
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             leading: IconButton(
+              tooltip: loc.v3CloseTooltip,
               icon: const Icon(Icons.close),
               onPressed: () => context.go(V3Routes.today),
             ),

@@ -4,11 +4,21 @@ import 'v3_routes.dart';
 abstract final class V3Startup {
   V3Startup._();
 
-  static String afterSplash({required bool onboardingDone}) {
+  static String afterSplash({
+    required bool onboardingDone,
+    bool showMigration = false,
+  }) {
+    if (showMigration) return V3Routes.migration;
     return onboardingDone ? V3Routes.today : V3Routes.welcome;
   }
 
-  static String afterBiometricUnlock({required bool onboardingDone}) {
-    return afterSplash(onboardingDone: onboardingDone);
+  static String afterBiometricUnlock({
+    required bool onboardingDone,
+    bool showMigration = false,
+  }) {
+    return afterSplash(
+      onboardingDone: onboardingDone,
+      showMigration: showMigration,
+    );
   }
 }

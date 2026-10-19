@@ -12,7 +12,7 @@ import '../../content/program_content.dart';
 import '../../data/day_progress.dart';
 import '../../domain/program_day_tile.dart';
 import '../../routing/v3_routes.dart';
-import '../shell/v3_tab_placeholder.dart';
+import '../shell/v3_shell_keys.dart';
 
 class V3ProgramScreen extends ConsumerWidget {
   const V3ProgramScreen({super.key, this.nowOverride});

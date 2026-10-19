@@ -14,7 +14,7 @@ import 'package:brain_clean_mobile/v3/data/user_inputs.dart';
 import 'package:brain_clean_mobile/v3/data/v3_state_repository.dart';
 import 'package:brain_clean_mobile/v3/domain/program_engine.dart';
 import 'package:brain_clean_mobile/v3/domain/sos_helpers.dart';
-import 'package:brain_clean_mobile/v3/ui/shell/v3_tab_placeholder.dart';
+import 'package:brain_clean_mobile/v3/ui/shell/v3_shell_keys.dart';
 import 'package:brain_clean_mobile/v3/ui/sos/sos_flow_screen.dart';
 import 'package:brain_clean_mobile/v3/ui/sos/sos_hub_screen.dart';
 import 'package:brain_clean_mobile/v3/ui/tools/tools_screen.dart';

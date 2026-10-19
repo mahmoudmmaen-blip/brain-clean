@@ -193,7 +193,8 @@ class _V3ClarityCheckScreenState extends ConsumerState<V3ClarityCheckScreen> {
             backgroundColor: Colors.transparent,
             leading: step > 0
                 ? IconButton(
-                    icon: const Icon(Icons.arrow_back_rounded),
+                    tooltip: loc.v3BackTooltip,
+                    icon: Icon(Icons.adaptive.arrow_back),
                     onPressed: () {
                       ref
                           .read(clarityCheckSessionProvider.notifier)

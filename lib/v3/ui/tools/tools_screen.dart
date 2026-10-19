@@ -9,7 +9,7 @@ import '../../../features/pro/application/subscription_service_provider.dart';
 import '../../content/content_repository.dart';
 import '../../content/exercises_content.dart';
 import '../../routing/v3_routes.dart';
-import '../shell/v3_tab_placeholder.dart';
+import '../shell/v3_shell_keys.dart';
 import 'twenty_twenty_tile.dart';
 
 class V3ToolsScreen extends ConsumerStatefulWidget {

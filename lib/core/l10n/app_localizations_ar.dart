@@ -5907,4 +5907,65 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get v3GraduationLetterHeading => 'رسالتك';
+
+  @override
+  String get v3NotifDailyTitle => 'Brain Clean';
+
+  @override
+  String v3NotifDailyBody(int day) {
+    return 'يومك $day جاهز — 5 دقائق فقط';
+  }
+
+  @override
+  String get v3NotifEveningTitle => 'Brain Clean';
+
+  @override
+  String get v3NotifEveningBody => 'كيف كان يومك مع الموبايل؟';
+
+  @override
+  String get v3NotifClarityTitle => 'Brain Clean';
+
+  @override
+  String get v3NotifClarityBody => 'اليوم فحص الصفاء — شاهد تقدّمك';
+
+  @override
+  String get v3MigrationTitle =>
+      'Brain Clean أصبح أبسط وأقوى. برنامج جديد بانتظارك';
+
+  @override
+  String get v3MigrationContinue => 'متابعة';
+
+  @override
+  String get v3AfterProgramTitle => 'أكملت البرنامج';
+
+  @override
+  String get v3AfterProgramTools => 'افتح الأدوات';
+
+  @override
+  String get v3AfterProgramClarity => 'فحص الصفاء الشهري';
+
+  @override
+  String get v3AfterProgramRestart => 'أعد البرنامج';
+
+  @override
+  String get v3AfterProgramRestartConfirmTitle => 'إعادة البرنامج؟';
+
+  @override
+  String get v3AfterProgramRestartConfirmBody =>
+      'يُعاد ضبط تقدّم الأيام فقط. سجلك وفحوصات الصفاء تبقى.';
+
+  @override
+  String get v3SettingsTooltip => 'الإعدادات';
+
+  @override
+  String get v3BackTooltip => 'رجوع';
+
+  @override
+  String get v3CloseTooltip => 'إغلاق';
+
+  @override
+  String get v3EmptyGenericTitle => 'لا يوجد شيء هنا بعد';
+
+  @override
+  String get v3EmptyGenericCta => 'العودة لليوم';
 }

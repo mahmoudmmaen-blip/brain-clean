@@ -6010,4 +6010,65 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get v3GraduationLetterHeading => 'Your letter';
+
+  @override
+  String get v3NotifDailyTitle => 'Brain Clean';
+
+  @override
+  String v3NotifDailyBody(int day) {
+    return 'Day $day is ready — only 5 minutes';
+  }
+
+  @override
+  String get v3NotifEveningTitle => 'Brain Clean';
+
+  @override
+  String get v3NotifEveningBody => 'How was your day with the phone?';
+
+  @override
+  String get v3NotifClarityTitle => 'Brain Clean';
+
+  @override
+  String get v3NotifClarityBody => 'Clarity Check today — see your progress';
+
+  @override
+  String get v3MigrationTitle =>
+      'Brain Clean is simpler and stronger. A new program is waiting for you';
+
+  @override
+  String get v3MigrationContinue => 'Continue';
+
+  @override
+  String get v3AfterProgramTitle => 'You finished the program';
+
+  @override
+  String get v3AfterProgramTools => 'Open Tools';
+
+  @override
+  String get v3AfterProgramClarity => 'Monthly Clarity Check';
+
+  @override
+  String get v3AfterProgramRestart => 'Restart the program';
+
+  @override
+  String get v3AfterProgramRestartConfirmTitle => 'Restart the program?';
+
+  @override
+  String get v3AfterProgramRestartConfirmBody =>
+      'Day progress resets. Your history and Clarity Checks stay.';
+
+  @override
+  String get v3SettingsTooltip => 'Settings';
+
+  @override
+  String get v3BackTooltip => 'Back';
+
+  @override
+  String get v3CloseTooltip => 'Close';
+
+  @override
+  String get v3EmptyGenericTitle => 'Nothing here yet';
+
+  @override
+  String get v3EmptyGenericCta => 'Go to Today';
 }

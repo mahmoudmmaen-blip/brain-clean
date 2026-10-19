@@ -47,7 +47,8 @@ class AppNotificationService {
     if (context == null || !context.mounted) return;
     if (payload == dailyReminderPayload ||
         payload == eveningCheckInPayload ||
-        payload == twentyTwentyPayload) {
+        payload == twentyTwentyPayload ||
+        payload == 'clarity_recheck') {
       context.go(V3Routes.today);
     }
   }
@@ -86,9 +87,9 @@ class AppNotificationService {
   }) async {
     await initialize();
     const android = AndroidNotificationDetails(
-      'brain_clean_twenty',
-      '20-20-20',
-      channelDescription: 'Eye rest reminders',
+      'brain_clean_reminders',
+      'Reminders',
+      channelDescription: 'Daily, evening, and clarity reminders',
       importance: Importance.defaultImportance,
       priority: Priority.defaultPriority,
     );

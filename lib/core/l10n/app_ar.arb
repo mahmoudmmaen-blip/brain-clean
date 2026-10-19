@@ -2706,5 +2706,27 @@
   "v3GraduationWriteRules": "اكتب قواعدك",
   "v3GraduationShare": "مشاركة",
   "v3GraduationWhatsNext": "ماذا بعد؟",
-  "v3GraduationLetterHeading": "رسالتك"
+  "v3GraduationLetterHeading": "رسالتك",
+  "v3NotifDailyTitle": "Brain Clean",
+  "v3NotifDailyBody": "يومك {day} جاهز — 5 دقائق فقط",
+  "@v3NotifDailyBody": {
+    "placeholders": { "day": { "type": "int" } }
+  },
+  "v3NotifEveningTitle": "Brain Clean",
+  "v3NotifEveningBody": "كيف كان يومك مع الموبايل؟",
+  "v3NotifClarityTitle": "Brain Clean",
+  "v3NotifClarityBody": "اليوم فحص الصفاء — شاهد تقدّمك",
+  "v3MigrationTitle": "Brain Clean أصبح أبسط وأقوى. برنامج جديد بانتظارك",
+  "v3MigrationContinue": "متابعة",
+  "v3AfterProgramTitle": "أكملت البرنامج",
+  "v3AfterProgramTools": "افتح الأدوات",
+  "v3AfterProgramClarity": "فحص الصفاء الشهري",
+  "v3AfterProgramRestart": "أعد البرنامج",
+  "v3AfterProgramRestartConfirmTitle": "إعادة البرنامج؟",
+  "v3AfterProgramRestartConfirmBody": "يُعاد ضبط تقدّم الأيام فقط. سجلك وفحوصات الصفاء تبقى.",
+  "v3SettingsTooltip": "الإعدادات",
+  "v3BackTooltip": "رجوع",
+  "v3CloseTooltip": "إغلاق",
+  "v3EmptyGenericTitle": "لا يوجد شيء هنا بعد",
+  "v3EmptyGenericCta": "العودة لليوم"
 }

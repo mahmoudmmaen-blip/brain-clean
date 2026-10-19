@@ -15,7 +15,7 @@ import '../../domain/progress_calendar.dart';
 import '../../domain/progress_stats.dart';
 import '../../domain/usage_math.dart';
 import '../../routing/v3_routes.dart';
-import '../shell/v3_tab_placeholder.dart';
+import '../shell/v3_shell_keys.dart';
 import 'usage_access_sheet.dart';
 import 'usage_summary_card.dart';
 

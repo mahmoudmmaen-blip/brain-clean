@@ -33,6 +33,7 @@ abstract final class V3Routes {
   static const paywall = '/paywall';
   static const letter = '/letter';
   static const graduation = '/graduation';
+  static const migration = '/migration';
 
   static const onboardingPaths = {
     welcome,
@@ -40,6 +41,7 @@ abstract final class V3Routes {
     setup,
     result,
     offer,
+    migration,
   };
 
   static bool isOnboardingPath(String path) {
