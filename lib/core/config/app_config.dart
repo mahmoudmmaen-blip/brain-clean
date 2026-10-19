@@ -15,16 +15,6 @@ abstract final class AppConfig {
   /// Do not add `package_info` — keep this constant as the single UI source.
   static const String appVersion = '3.0.0';
 
-  static String get supabaseUrl => _resolve(
-        defineValue: const String.fromEnvironment('SUPABASE_URL'),
-        envKey: 'SUPABASE_URL',
-      );
-
-  static String get supabaseAnonKey => _resolve(
-        defineValue: const String.fromEnvironment('SUPABASE_ANON_KEY'),
-        envKey: 'SUPABASE_ANON_KEY',
-      );
-
   /// Transitional single-slot key (current platform only when Android/iOS unset).
   static String get revenueCatApiKey => _resolve(
         defineValue: const String.fromEnvironment('REVENUECAT_API_KEY'),
@@ -42,15 +32,6 @@ abstract final class AppConfig {
         defineValue: const String.fromEnvironment('REVENUECAT_IOS_API_KEY'),
         envKey: 'REVENUECAT_IOS_API_KEY',
       );
-
-  static String get xpHmacSecret => _resolve(
-        defineValue: const String.fromEnvironment('XP_HMAC_SECRET'),
-        envKey: 'XP_HMAC_SECRET',
-      );
-
-  /// True when both Supabase URL and anon key are non-empty and not placeholders.
-  static bool get hasValidSupabaseConfig =>
-      supabaseUrl.isNotEmpty && supabaseAnonKey.isNotEmpty;
 
   /// True when a usable RevenueCat public SDK key is present for this build.
   ///
@@ -71,10 +52,7 @@ abstract final class AppConfig {
     return revenueCatApiKey;
   }
 
-  /// Set after anonymous Supabase sign-in (XP sync / Edge Functions).
-  static String? supabaseUserId;
-
-  /// Returns [defineValue] when set; otherwise dotenv; placeholders â†’ `''`.
+  /// Returns [defineValue] when set; otherwise dotenv; placeholders → `''`.
   static String _resolve({
     required String defineValue,
     required String envKey,
@@ -95,7 +73,7 @@ abstract final class AppConfig {
 
   /// Detects documentation / example placeholder credentials.
   ///
-  /// Does not log or return the original secret â€” callers only see a bool.
+  /// Does not log or return the original secret — callers only see a bool.
   static bool isPlaceholderConfigValue(String value) {
     final v = value.trim().toLowerCase();
     if (v.isEmpty) return false;

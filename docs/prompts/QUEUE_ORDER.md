@@ -15,7 +15,8 @@ Only Claude changes WAITING â†’ NEXT and REVIEW â†’ DONE.
 | C05 | C05_program_progress.md | DONE | no |
 | C06 | C06_usage_data.md | DONE | no |
 | C07 | C07_settings_graduation_backup.md | DONE | no |
-| C08 | C08_notifications_polish.md | REVIEW | no |
+| C08 | C08_notifications_polish.md | DONE | no |
+| C09A | C09A_cleanup.md | REVIEW | no |
 | C09 | C09_release.md | WAITING | yes (ask first) |
 | C10 | C10_maintain_mode_V3_1.md | WAITING (after launch) | yes (ask first) |
 

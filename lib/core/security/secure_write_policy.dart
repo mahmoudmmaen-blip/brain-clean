@@ -1,8 +1,7 @@
 /// Remote-write policy for product modules.
 ///
-/// Local-first Hive modules never talk to Supabase. Cloud modules must go
-/// through a live JWT ([AuthenticatedSession]) plus an Edge Function that
-/// re-verifies the token.
+/// V3 is offline-first: Hive modules persist on-device only. Legacy cloud
+/// module names are retained here as documentation of what must stay local.
 abstract final class SecureWritePolicy {
   SecureWritePolicy._();
 
@@ -28,23 +27,8 @@ abstract final class SecureWritePolicy {
     'journal',
     'notifications',
     'biometric_lock',
+    'v3_state',
   ];
 
-  /// Modules that may write remotely — JWT + Edge Function required.
-  static const jwtGatedModules = <String, String>{
-    'gamification': 'verify-xp',
-    'v2_safa': 'safa-chat',
-    'user_progress': 'write-user-state',
-    'focus_journey': 'write-user-state',
-    'diagnostic': 'write-user-state',
-    'detox': 'write-user-state',
-    'dashboard': 'write-user-state',
-    'emotions': 'write-user-state',
-    'cloud_sync': 'write-user-state',
-    'recovery_protocol': 'write-user-state',
-  };
-
   static bool isLocalOnly(String module) => localOnlyModules.contains(module);
-
-  static String? requiredFunction(String module) => jwtGatedModules[module];
 }

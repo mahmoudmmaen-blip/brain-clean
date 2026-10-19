@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'core/l10n/app_localization_config.dart';
-import 'core/network/supabase_client.dart';
 import 'core/providers/locale_provider.dart';
 import 'core/security/root_detector.dart';
 import 'core/security/security_status_provider.dart';
@@ -39,7 +38,6 @@ Future<void> main() async {
   await HiveBootstrap.initialize();
   await RootDetector.checkAndFlag();
   await HiveBootstrap.warmUpPersistentBoxes();
-  await SupabaseConfig.initialize();
 
   runApp(const ProviderScope(child: BrainCleanApp()));
 }
