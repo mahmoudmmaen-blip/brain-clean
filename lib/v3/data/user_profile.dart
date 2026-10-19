@@ -21,6 +21,7 @@ class UserProfile {
 
   UserProfile copyWith({
     String? name,
+    bool clearName = false,
     String? goal,
     String? reminderTime,
     bool? eveningCheckIn,
@@ -29,7 +30,7 @@ class UserProfile {
     String? locale,
   }) {
     return UserProfile(
-      name: name ?? this.name,
+      name: clearName ? null : (name ?? this.name),
       goal: goal ?? this.goal,
       reminderTime: reminderTime ?? this.reminderTime,
       eveningCheckIn: eveningCheckIn ?? this.eveningCheckIn,

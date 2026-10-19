@@ -20,6 +20,13 @@ class InMemoryHiveBox implements Box<dynamic> {
   Future<void> delete(key) async => _store.remove(key.toString());
 
   @override
+  Future<int> clear() async {
+    final n = _store.length;
+    _store.clear();
+    return n;
+  }
+
+  @override
   Iterable get keys => _store.keys;
 
   @override
@@ -27,6 +34,12 @@ class InMemoryHiveBox implements Box<dynamic> {
 
   @override
   int get length => _store.length;
+
+  @override
+  bool get isEmpty => _store.isEmpty;
+
+  @override
+  bool get isNotEmpty => _store.isNotEmpty;
 
   @override
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);

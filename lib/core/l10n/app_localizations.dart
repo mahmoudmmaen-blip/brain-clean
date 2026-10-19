@@ -10334,6 +10334,330 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'From {from} to {to}'**
   String v3UsageFromTo(String from, String to);
+
+  /// No description provided for @v3SettingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get v3SettingsTitle;
+
+  /// No description provided for @v3SettingsName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get v3SettingsName;
+
+  /// No description provided for @v3SettingsNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional'**
+  String get v3SettingsNameHint;
+
+  /// No description provided for @v3SettingsNameEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your name'**
+  String get v3SettingsNameEditTitle;
+
+  /// No description provided for @v3SettingsReminderTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder time'**
+  String get v3SettingsReminderTime;
+
+  /// No description provided for @v3SettingsEveningCheckIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Evening check-in'**
+  String get v3SettingsEveningCheckIn;
+
+  /// No description provided for @v3SettingsLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get v3SettingsLanguage;
+
+  /// No description provided for @v3SettingsTheme.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get v3SettingsTheme;
+
+  /// No description provided for @v3SettingsThemeDark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get v3SettingsThemeDark;
+
+  /// No description provided for @v3SettingsThemeLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get v3SettingsThemeLight;
+
+  /// No description provided for @v3SettingsBiometric.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric app lock'**
+  String get v3SettingsBiometric;
+
+  /// No description provided for @v3SettingsUsageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Real usage data'**
+  String get v3SettingsUsageTitle;
+
+  /// No description provided for @v3SettingsUsageOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Enabled'**
+  String get v3SettingsUsageOn;
+
+  /// No description provided for @v3SettingsUsageOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enabled'**
+  String get v3SettingsUsageOff;
+
+  /// No description provided for @v3SettingsUsageEnable.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable'**
+  String get v3SettingsUsageEnable;
+
+  /// No description provided for @v3SettingsPremiumSubscribed.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribed ✓'**
+  String get v3SettingsPremiumSubscribed;
+
+  /// No description provided for @v3SettingsPremiumSubscribe.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribe'**
+  String get v3SettingsPremiumSubscribe;
+
+  /// No description provided for @v3SettingsManageSubscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage subscription'**
+  String get v3SettingsManageSubscription;
+
+  /// No description provided for @v3SettingsRestorePurchases.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore purchases'**
+  String get v3SettingsRestorePurchases;
+
+  /// No description provided for @v3SettingsBackup.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup'**
+  String get v3SettingsBackup;
+
+  /// No description provided for @v3SettingsBackupExport.
+  ///
+  /// In en, this message translates to:
+  /// **'Export'**
+  String get v3SettingsBackupExport;
+
+  /// No description provided for @v3SettingsBackupImport.
+  ///
+  /// In en, this message translates to:
+  /// **'Import'**
+  String get v3SettingsBackupImport;
+
+  /// No description provided for @v3SettingsLetter.
+  ///
+  /// In en, this message translates to:
+  /// **'My letter'**
+  String get v3SettingsLetter;
+
+  /// No description provided for @v3SettingsReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset all data'**
+  String get v3SettingsReset;
+
+  /// No description provided for @v3SettingsResetConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset all data?'**
+  String get v3SettingsResetConfirmTitle;
+
+  /// No description provided for @v3SettingsResetConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'All program data on this device will be deleted. Your subscription is not affected.'**
+  String get v3SettingsResetConfirmBody;
+
+  /// No description provided for @v3SettingsVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'Version {version}'**
+  String v3SettingsVersion(String version);
+
+  /// No description provided for @v3SettingsRestoreOk.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchases restored'**
+  String get v3SettingsRestoreOk;
+
+  /// No description provided for @v3SettingsRestoreNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing to restore'**
+  String get v3SettingsRestoreNone;
+
+  /// No description provided for @v3SettingsRestoreFail.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not restore purchases'**
+  String get v3SettingsRestoreFail;
+
+  /// No description provided for @v3BackupPassphraseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup passphrase'**
+  String get v3BackupPassphraseTitle;
+
+  /// No description provided for @v3BackupPassphraseHint.
+  ///
+  /// In en, this message translates to:
+  /// **'At least 6 characters'**
+  String get v3BackupPassphraseHint;
+
+  /// No description provided for @v3BackupPassphraseConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm passphrase'**
+  String get v3BackupPassphraseConfirm;
+
+  /// No description provided for @v3BackupPassphraseMismatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passphrases do not match'**
+  String get v3BackupPassphraseMismatch;
+
+  /// No description provided for @v3BackupPassphraseTooShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Use at least 6 characters'**
+  String get v3BackupPassphraseTooShort;
+
+  /// No description provided for @v3BackupExportDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup ready to share'**
+  String get v3BackupExportDone;
+
+  /// No description provided for @v3BackupImportTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Import backup'**
+  String get v3BackupImportTitle;
+
+  /// No description provided for @v3BackupImportConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace current data?'**
+  String get v3BackupImportConfirmTitle;
+
+  /// No description provided for @v3BackupImportConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This will replace your current data.'**
+  String get v3BackupImportConfirmBody;
+
+  /// No description provided for @v3BackupWrongPassphrase.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong passphrase. Nothing was changed.'**
+  String get v3BackupWrongPassphrase;
+
+  /// No description provided for @v3BackupImportFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not import this backup.'**
+  String get v3BackupImportFailed;
+
+  /// No description provided for @v3BackupImportDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup restored'**
+  String get v3BackupImportDone;
+
+  /// No description provided for @v3LetterTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My letter'**
+  String get v3LetterTitle;
+
+  /// No description provided for @v3LetterEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No letter saved yet.'**
+  String get v3LetterEmpty;
+
+  /// No description provided for @v3LetterNamePrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'What should we call you?'**
+  String get v3LetterNamePrompt;
+
+  /// No description provided for @v3LetterNameSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save name'**
+  String get v3LetterNameSave;
+
+  /// No description provided for @v3GraduationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You finished the program'**
+  String get v3GraduationTitle;
+
+  /// No description provided for @v3GraduationClarity.
+  ///
+  /// In en, this message translates to:
+  /// **'Clarity: from {from} to {to}'**
+  String v3GraduationClarity(int from, int to);
+
+  /// No description provided for @v3GraduationHours.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone hours: from {from} to {to}'**
+  String v3GraduationHours(String from, String to);
+
+  /// No description provided for @v3GraduationDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} training days'**
+  String v3GraduationDays(int count);
+
+  /// No description provided for @v3GraduationWriteRules.
+  ///
+  /// In en, this message translates to:
+  /// **'Write your rules'**
+  String get v3GraduationWriteRules;
+
+  /// No description provided for @v3GraduationShare.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get v3GraduationShare;
+
+  /// No description provided for @v3GraduationWhatsNext.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s next?'**
+  String get v3GraduationWhatsNext;
+
+  /// No description provided for @v3GraduationLetterHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Your letter'**
+  String get v3GraduationLetterHeading;
 }
 
 class _AppLocalizationsDelegate

@@ -5837,4 +5837,177 @@ class AppLocalizationsEn extends AppLocalizations {
   String v3UsageFromTo(String from, String to) {
     return 'From $from to $to';
   }
+
+  @override
+  String get v3SettingsTitle => 'Settings';
+
+  @override
+  String get v3SettingsName => 'Name';
+
+  @override
+  String get v3SettingsNameHint => 'Optional';
+
+  @override
+  String get v3SettingsNameEditTitle => 'Your name';
+
+  @override
+  String get v3SettingsReminderTime => 'Reminder time';
+
+  @override
+  String get v3SettingsEveningCheckIn => 'Evening check-in';
+
+  @override
+  String get v3SettingsLanguage => 'Language';
+
+  @override
+  String get v3SettingsTheme => 'Theme';
+
+  @override
+  String get v3SettingsThemeDark => 'Dark';
+
+  @override
+  String get v3SettingsThemeLight => 'Light';
+
+  @override
+  String get v3SettingsBiometric => 'Biometric app lock';
+
+  @override
+  String get v3SettingsUsageTitle => 'Real usage data';
+
+  @override
+  String get v3SettingsUsageOn => 'Enabled';
+
+  @override
+  String get v3SettingsUsageOff => 'Not enabled';
+
+  @override
+  String get v3SettingsUsageEnable => 'Enable';
+
+  @override
+  String get v3SettingsPremiumSubscribed => 'Subscribed ✓';
+
+  @override
+  String get v3SettingsPremiumSubscribe => 'Subscribe';
+
+  @override
+  String get v3SettingsManageSubscription => 'Manage subscription';
+
+  @override
+  String get v3SettingsRestorePurchases => 'Restore purchases';
+
+  @override
+  String get v3SettingsBackup => 'Backup';
+
+  @override
+  String get v3SettingsBackupExport => 'Export';
+
+  @override
+  String get v3SettingsBackupImport => 'Import';
+
+  @override
+  String get v3SettingsLetter => 'My letter';
+
+  @override
+  String get v3SettingsReset => 'Reset all data';
+
+  @override
+  String get v3SettingsResetConfirmTitle => 'Reset all data?';
+
+  @override
+  String get v3SettingsResetConfirmBody =>
+      'All program data on this device will be deleted. Your subscription is not affected.';
+
+  @override
+  String v3SettingsVersion(String version) {
+    return 'Version $version';
+  }
+
+  @override
+  String get v3SettingsRestoreOk => 'Purchases restored';
+
+  @override
+  String get v3SettingsRestoreNone => 'Nothing to restore';
+
+  @override
+  String get v3SettingsRestoreFail => 'Could not restore purchases';
+
+  @override
+  String get v3BackupPassphraseTitle => 'Backup passphrase';
+
+  @override
+  String get v3BackupPassphraseHint => 'At least 6 characters';
+
+  @override
+  String get v3BackupPassphraseConfirm => 'Confirm passphrase';
+
+  @override
+  String get v3BackupPassphraseMismatch => 'Passphrases do not match';
+
+  @override
+  String get v3BackupPassphraseTooShort => 'Use at least 6 characters';
+
+  @override
+  String get v3BackupExportDone => 'Backup ready to share';
+
+  @override
+  String get v3BackupImportTitle => 'Import backup';
+
+  @override
+  String get v3BackupImportConfirmTitle => 'Replace current data?';
+
+  @override
+  String get v3BackupImportConfirmBody =>
+      'This will replace your current data.';
+
+  @override
+  String get v3BackupWrongPassphrase =>
+      'Wrong passphrase. Nothing was changed.';
+
+  @override
+  String get v3BackupImportFailed => 'Could not import this backup.';
+
+  @override
+  String get v3BackupImportDone => 'Backup restored';
+
+  @override
+  String get v3LetterTitle => 'My letter';
+
+  @override
+  String get v3LetterEmpty => 'No letter saved yet.';
+
+  @override
+  String get v3LetterNamePrompt => 'What should we call you?';
+
+  @override
+  String get v3LetterNameSave => 'Save name';
+
+  @override
+  String get v3GraduationTitle => 'You finished the program';
+
+  @override
+  String v3GraduationClarity(int from, int to) {
+    return 'Clarity: from $from to $to';
+  }
+
+  @override
+  String v3GraduationHours(String from, String to) {
+    return 'Phone hours: from $from to $to';
+  }
+
+  @override
+  String v3GraduationDays(int count) {
+    return '$count training days';
+  }
+
+  @override
+  String get v3GraduationWriteRules => 'Write your rules';
+
+  @override
+  String get v3GraduationShare => 'Share';
+
+  @override
+  String get v3GraduationWhatsNext => 'What\'s next?';
+
+  @override
+  String get v3GraduationLetterHeading => 'Your letter';
 }

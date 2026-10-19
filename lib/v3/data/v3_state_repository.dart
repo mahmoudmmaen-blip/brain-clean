@@ -13,6 +13,7 @@ import 'usage_day_total.dart';
 import 'user_inputs.dart';
 import 'user_profile.dart';
 import 'v3_app_state.dart';
+import 'v3_backup_codec.dart';
 import 'v3_storage_keys.dart';
 
 abstract class V3StateRepository {
@@ -35,6 +36,12 @@ abstract class V3StateRepository {
   Future<void> saveUsageCache(List<UsageDayTotal> days);
   Future<void> clearDayProgressOnly();
   Future<void> clearAll();
+
+  /// Raw key→value dump of the v3 box (for encrypted backup).
+  Future<Map<String, dynamic>> dumpBox();
+
+  /// Replace the entire v3 box contents (after backup import).
+  Future<void> replaceAll(Map<String, dynamic> data);
 }
 
 class V3StateLocalRepository implements V3StateRepository {
@@ -319,6 +326,27 @@ class V3StateLocalRepository implements V3StateRepository {
   Future<void> clearAll() async {
     final box = await _openBox();
     await box.clear();
+    await _ensureSchema(box);
+  }
+
+  @override
+  Future<Map<String, dynamic>> dumpBox() async {
+    final box = await _openBox();
+    await _ensureSchema(box);
+    final entries = <dynamic, dynamic>{};
+    for (final key in box.keys) {
+      entries[key] = box.get(key);
+    }
+    return V3BackupCodec.dumpBox(entries);
+  }
+
+  @override
+  Future<void> replaceAll(Map<String, dynamic> data) async {
+    final box = await _openBox();
+    await box.clear();
+    for (final entry in data.entries) {
+      await box.put(entry.key, entry.value);
+    }
     await _ensureSchema(box);
   }
 }

@@ -21,6 +21,10 @@ class V3OnboardingGate extends Notifier<bool?> {
     state = true;
   }
 
+  void markOnboardingIncomplete() {
+    state = false;
+  }
+
   @visibleForTesting
   void setForTesting(bool value) {
     state = value;

@@ -2569,5 +2569,77 @@
       "from": { "type": "String" },
       "to": { "type": "String" }
     }
-  }
+  },
+  "v3SettingsTitle": "Settings",
+  "v3SettingsName": "Name",
+  "v3SettingsNameHint": "Optional",
+  "v3SettingsNameEditTitle": "Your name",
+  "v3SettingsReminderTime": "Reminder time",
+  "v3SettingsEveningCheckIn": "Evening check-in",
+  "v3SettingsLanguage": "Language",
+  "v3SettingsTheme": "Theme",
+  "v3SettingsThemeDark": "Dark",
+  "v3SettingsThemeLight": "Light",
+  "v3SettingsBiometric": "Biometric app lock",
+  "v3SettingsUsageTitle": "Real usage data",
+  "v3SettingsUsageOn": "Enabled",
+  "v3SettingsUsageOff": "Not enabled",
+  "v3SettingsUsageEnable": "Enable",
+  "v3SettingsPremiumSubscribed": "Subscribed ✓",
+  "v3SettingsPremiumSubscribe": "Subscribe",
+  "v3SettingsManageSubscription": "Manage subscription",
+  "v3SettingsRestorePurchases": "Restore purchases",
+  "v3SettingsBackup": "Backup",
+  "v3SettingsBackupExport": "Export",
+  "v3SettingsBackupImport": "Import",
+  "v3SettingsLetter": "My letter",
+  "v3SettingsReset": "Reset all data",
+  "v3SettingsResetConfirmTitle": "Reset all data?",
+  "v3SettingsResetConfirmBody": "All program data on this device will be deleted. Your subscription is not affected.",
+  "v3SettingsVersion": "Version {version}",
+  "@v3SettingsVersion": {
+    "placeholders": { "version": { "type": "String" } }
+  },
+  "v3SettingsRestoreOk": "Purchases restored",
+  "v3SettingsRestoreNone": "Nothing to restore",
+  "v3SettingsRestoreFail": "Could not restore purchases",
+  "v3BackupPassphraseTitle": "Backup passphrase",
+  "v3BackupPassphraseHint": "At least 6 characters",
+  "v3BackupPassphraseConfirm": "Confirm passphrase",
+  "v3BackupPassphraseMismatch": "Passphrases do not match",
+  "v3BackupPassphraseTooShort": "Use at least 6 characters",
+  "v3BackupExportDone": "Backup ready to share",
+  "v3BackupImportTitle": "Import backup",
+  "v3BackupImportConfirmTitle": "Replace current data?",
+  "v3BackupImportConfirmBody": "This will replace your current data.",
+  "v3BackupWrongPassphrase": "Wrong passphrase. Nothing was changed.",
+  "v3BackupImportFailed": "Could not import this backup.",
+  "v3BackupImportDone": "Backup restored",
+  "v3LetterTitle": "My letter",
+  "v3LetterEmpty": "No letter saved yet.",
+  "v3LetterNamePrompt": "What should we call you?",
+  "v3LetterNameSave": "Save name",
+  "v3GraduationTitle": "You finished the program",
+  "v3GraduationClarity": "Clarity: from {from} to {to}",
+  "@v3GraduationClarity": {
+    "placeholders": {
+      "from": { "type": "int" },
+      "to": { "type": "int" }
+    }
+  },
+  "v3GraduationHours": "Phone hours: from {from} to {to}",
+  "@v3GraduationHours": {
+    "placeholders": {
+      "from": { "type": "String" },
+      "to": { "type": "String" }
+    }
+  },
+  "v3GraduationDays": "{count} training days",
+  "@v3GraduationDays": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "v3GraduationWriteRules": "Write your rules",
+  "v3GraduationShare": "Share",
+  "v3GraduationWhatsNext": "What's next?",
+  "v3GraduationLetterHeading": "Your letter"
 }

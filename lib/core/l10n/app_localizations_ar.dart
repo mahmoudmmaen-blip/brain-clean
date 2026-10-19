@@ -5736,4 +5736,175 @@ class AppLocalizationsAr extends AppLocalizations {
   String v3UsageFromTo(String from, String to) {
     return 'من $from إلى $to';
   }
+
+  @override
+  String get v3SettingsTitle => 'الإعدادات';
+
+  @override
+  String get v3SettingsName => 'الاسم';
+
+  @override
+  String get v3SettingsNameHint => 'اختياري';
+
+  @override
+  String get v3SettingsNameEditTitle => 'اسمك';
+
+  @override
+  String get v3SettingsReminderTime => 'وقت التذكير';
+
+  @override
+  String get v3SettingsEveningCheckIn => 'مراجعة المساء';
+
+  @override
+  String get v3SettingsLanguage => 'اللغة';
+
+  @override
+  String get v3SettingsTheme => 'المظهر';
+
+  @override
+  String get v3SettingsThemeDark => 'داكن';
+
+  @override
+  String get v3SettingsThemeLight => 'فاتح';
+
+  @override
+  String get v3SettingsBiometric => 'قفل التطبيق بالبصمة';
+
+  @override
+  String get v3SettingsUsageTitle => 'بيانات الاستخدام الحقيقية';
+
+  @override
+  String get v3SettingsUsageOn => 'مفعّل';
+
+  @override
+  String get v3SettingsUsageOff => 'غير مفعّل';
+
+  @override
+  String get v3SettingsUsageEnable => 'تفعيل';
+
+  @override
+  String get v3SettingsPremiumSubscribed => 'مشترك ✓';
+
+  @override
+  String get v3SettingsPremiumSubscribe => 'اشترك';
+
+  @override
+  String get v3SettingsManageSubscription => 'إدارة الاشتراك';
+
+  @override
+  String get v3SettingsRestorePurchases => 'استعادة المشتريات';
+
+  @override
+  String get v3SettingsBackup => 'نسخة احتياطية';
+
+  @override
+  String get v3SettingsBackupExport => 'تصدير';
+
+  @override
+  String get v3SettingsBackupImport => 'استيراد';
+
+  @override
+  String get v3SettingsLetter => 'رسالتي';
+
+  @override
+  String get v3SettingsReset => 'إعادة ضبط كل البيانات';
+
+  @override
+  String get v3SettingsResetConfirmTitle => 'إعادة ضبط كل البيانات؟';
+
+  @override
+  String get v3SettingsResetConfirmBody =>
+      'ستُحذف كل بيانات البرنامج على هذا الجهاز. اشتراكك لا يتأثر.';
+
+  @override
+  String v3SettingsVersion(String version) {
+    return 'الإصدار $version';
+  }
+
+  @override
+  String get v3SettingsRestoreOk => 'تمت استعادة المشتريات';
+
+  @override
+  String get v3SettingsRestoreNone => 'لا توجد مشتريات للاستعادة';
+
+  @override
+  String get v3SettingsRestoreFail => 'تعذرت استعادة المشتريات';
+
+  @override
+  String get v3BackupPassphraseTitle => 'عبارة مرور النسخة';
+
+  @override
+  String get v3BackupPassphraseHint => '6 أحرف على الأقل';
+
+  @override
+  String get v3BackupPassphraseConfirm => 'تأكيد عبارة المرور';
+
+  @override
+  String get v3BackupPassphraseMismatch => 'عبارتا المرور غير متطابقتين';
+
+  @override
+  String get v3BackupPassphraseTooShort => 'استخدم 6 أحرف على الأقل';
+
+  @override
+  String get v3BackupExportDone => 'النسخة جاهزة للمشاركة';
+
+  @override
+  String get v3BackupImportTitle => 'استيراد نسخة احتياطية';
+
+  @override
+  String get v3BackupImportConfirmTitle => 'استبدال البيانات الحالية؟';
+
+  @override
+  String get v3BackupImportConfirmBody => 'سيستبدل هذا بياناتك الحالية.';
+
+  @override
+  String get v3BackupWrongPassphrase => 'عبارة المرور خاطئة. لم يتغير شيء.';
+
+  @override
+  String get v3BackupImportFailed => 'تعذر استيراد هذه النسخة.';
+
+  @override
+  String get v3BackupImportDone => 'تمت استعادة النسخة';
+
+  @override
+  String get v3LetterTitle => 'رسالتي';
+
+  @override
+  String get v3LetterEmpty => 'لا توجد رسالة محفوظة بعد.';
+
+  @override
+  String get v3LetterNamePrompt => 'بماذا نناديك؟';
+
+  @override
+  String get v3LetterNameSave => 'حفظ الاسم';
+
+  @override
+  String get v3GraduationTitle => 'أنهيت البرنامج';
+
+  @override
+  String v3GraduationClarity(int from, int to) {
+    return 'الصفاء: من $from إلى $to';
+  }
+
+  @override
+  String v3GraduationHours(String from, String to) {
+    return 'ساعات الموبايل: من $from إلى $to';
+  }
+
+  @override
+  String v3GraduationDays(int count) {
+    return '$count يوم تدريب';
+  }
+
+  @override
+  String get v3GraduationWriteRules => 'اكتب قواعدك';
+
+  @override
+  String get v3GraduationShare => 'مشاركة';
+
+  @override
+  String get v3GraduationWhatsNext => 'ماذا بعد؟';
+
+  @override
+  String get v3GraduationLetterHeading => 'رسالتك';
 }

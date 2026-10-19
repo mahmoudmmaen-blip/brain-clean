@@ -2634,5 +2634,77 @@
       "from": { "type": "String" },
       "to": { "type": "String" }
     }
-  }
+  },
+  "v3SettingsTitle": "الإعدادات",
+  "v3SettingsName": "الاسم",
+  "v3SettingsNameHint": "اختياري",
+  "v3SettingsNameEditTitle": "اسمك",
+  "v3SettingsReminderTime": "وقت التذكير",
+  "v3SettingsEveningCheckIn": "مراجعة المساء",
+  "v3SettingsLanguage": "اللغة",
+  "v3SettingsTheme": "المظهر",
+  "v3SettingsThemeDark": "داكن",
+  "v3SettingsThemeLight": "فاتح",
+  "v3SettingsBiometric": "قفل التطبيق بالبصمة",
+  "v3SettingsUsageTitle": "بيانات الاستخدام الحقيقية",
+  "v3SettingsUsageOn": "مفعّل",
+  "v3SettingsUsageOff": "غير مفعّل",
+  "v3SettingsUsageEnable": "تفعيل",
+  "v3SettingsPremiumSubscribed": "مشترك ✓",
+  "v3SettingsPremiumSubscribe": "اشترك",
+  "v3SettingsManageSubscription": "إدارة الاشتراك",
+  "v3SettingsRestorePurchases": "استعادة المشتريات",
+  "v3SettingsBackup": "نسخة احتياطية",
+  "v3SettingsBackupExport": "تصدير",
+  "v3SettingsBackupImport": "استيراد",
+  "v3SettingsLetter": "رسالتي",
+  "v3SettingsReset": "إعادة ضبط كل البيانات",
+  "v3SettingsResetConfirmTitle": "إعادة ضبط كل البيانات؟",
+  "v3SettingsResetConfirmBody": "ستُحذف كل بيانات البرنامج على هذا الجهاز. اشتراكك لا يتأثر.",
+  "v3SettingsVersion": "الإصدار {version}",
+  "@v3SettingsVersion": {
+    "placeholders": { "version": { "type": "String" } }
+  },
+  "v3SettingsRestoreOk": "تمت استعادة المشتريات",
+  "v3SettingsRestoreNone": "لا توجد مشتريات للاستعادة",
+  "v3SettingsRestoreFail": "تعذرت استعادة المشتريات",
+  "v3BackupPassphraseTitle": "عبارة مرور النسخة",
+  "v3BackupPassphraseHint": "6 أحرف على الأقل",
+  "v3BackupPassphraseConfirm": "تأكيد عبارة المرور",
+  "v3BackupPassphraseMismatch": "عبارتا المرور غير متطابقتين",
+  "v3BackupPassphraseTooShort": "استخدم 6 أحرف على الأقل",
+  "v3BackupExportDone": "النسخة جاهزة للمشاركة",
+  "v3BackupImportTitle": "استيراد نسخة احتياطية",
+  "v3BackupImportConfirmTitle": "استبدال البيانات الحالية؟",
+  "v3BackupImportConfirmBody": "سيستبدل هذا بياناتك الحالية.",
+  "v3BackupWrongPassphrase": "عبارة المرور خاطئة. لم يتغير شيء.",
+  "v3BackupImportFailed": "تعذر استيراد هذه النسخة.",
+  "v3BackupImportDone": "تمت استعادة النسخة",
+  "v3LetterTitle": "رسالتي",
+  "v3LetterEmpty": "لا توجد رسالة محفوظة بعد.",
+  "v3LetterNamePrompt": "بماذا نناديك؟",
+  "v3LetterNameSave": "حفظ الاسم",
+  "v3GraduationTitle": "أنهيت البرنامج",
+  "v3GraduationClarity": "الصفاء: من {from} إلى {to}",
+  "@v3GraduationClarity": {
+    "placeholders": {
+      "from": { "type": "int" },
+      "to": { "type": "int" }
+    }
+  },
+  "v3GraduationHours": "ساعات الموبايل: من {from} إلى {to}",
+  "@v3GraduationHours": {
+    "placeholders": {
+      "from": { "type": "String" },
+      "to": { "type": "String" }
+    }
+  },
+  "v3GraduationDays": "{count} يوم تدريب",
+  "@v3GraduationDays": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "v3GraduationWriteRules": "اكتب قواعدك",
+  "v3GraduationShare": "مشاركة",
+  "v3GraduationWhatsNext": "ماذا بعد؟",
+  "v3GraduationLetterHeading": "رسالتك"
 }

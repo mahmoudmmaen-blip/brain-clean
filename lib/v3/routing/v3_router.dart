@@ -15,8 +15,10 @@ import '../ui/onboarding/setup_screen.dart';
 import '../ui/onboarding/welcome_screen.dart';
 import '../ui/paywall/trial_offer_screen.dart';
 import '../ui/paywall/v3_paywall_screen.dart';
-import '../ui/placeholders/v3_simple_placeholder.dart';
+import '../ui/graduation/graduation_screen.dart';
+import '../ui/letter/letter_screen.dart';
 import '../ui/session/session_player_screen.dart';
+import '../ui/settings/settings_screen.dart';
 import '../ui/shell/v3_main_shell.dart';
 import '../ui/sos/sos_flow_screen.dart';
 import '../ui/sos/sos_hub_screen.dart';
@@ -174,10 +176,11 @@ final v3GoRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: V3Routes.graduation,
-        builder: (context, state) => const V3SimplePlaceholder(
-          title: 'Graduation',
-          routeKey: Key('v3_graduation'),
-        ),
+        builder: (context, state) => const V3GraduationScreen(),
+      ),
+      GoRoute(
+        path: V3Routes.letter,
+        builder: (context, state) => const V3LetterScreen(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
@@ -231,10 +234,7 @@ final v3GoRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: V3Routes.settings,
-        builder: (context, state) => const V3SimplePlaceholder(
-          title: 'Settings',
-          routeKey: Key('v3_settings'),
-        ),
+        builder: (context, state) => const V3SettingsScreen(),
       ),
     ],
   );
